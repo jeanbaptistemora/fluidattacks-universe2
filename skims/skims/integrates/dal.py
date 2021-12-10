@@ -24,6 +24,7 @@ from typing import (
     Optional,
     Tuple,
     TypeVar,
+    Union,
 )
 from utils.function import (
     rate_limited,
@@ -913,7 +914,7 @@ async def do_add_execution(
     job_id: str,
     start_date: str,
     end_date: str,
-    findings_executed: Tuple[Dict[str, Dict[str, int]], ...],
+    findings_executed: Tuple[Dict[str, Union[int, str]], ...],
 ) -> bool:
     result = await _execute(
         query="""
@@ -923,7 +924,7 @@ async def do_add_execution(
                 $job_id: ID!
                 $start_date: DateTime!
                 $end_date: DateTime !
-                $findings_executed: [String]!
+                $findings_executed: [MachineFindingResultInput]
             ) {
                 addMachineExecution(
                     rootNickname: $root,
