@@ -1,0 +1,11 @@
+"Historic state type definition"
+type HistoricState {
+  "The email of the analyst who modified the finding state at this point"
+  analyst: String
+  "Date of treatment modification"
+  date: String
+  "Source of the treatment change"
+  source: String
+  "Finding state at this point in time"
+  state: String
+}
