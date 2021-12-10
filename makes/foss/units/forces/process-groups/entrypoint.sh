@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  aws_login_prod forces \
+  aws_login_prod_new forces \
     && sops_export_vars "forces/secrets-prod.yaml" \
       groups_to_check \
     && jq -c '.[]' -r <<< "${groups_to_check}" | while read -r group; do

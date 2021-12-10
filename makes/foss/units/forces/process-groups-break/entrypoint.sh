@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  aws_login_prod forces \
+  aws_login_prod_new forces \
     && sops_export_vars "forces/secrets-prod.yaml" \
       group_break \
     && group_name=$(jq -r '.name' <<< "${group_break}") \
