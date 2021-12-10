@@ -1,9 +1,17 @@
+"Machine finding result definition"
+type MachineFindingResult {
+  "Finding code of the execution"
+  finding: String!
+  "Vulnerabilities found for finding"
+  open: Int!
+}
+
 """MachineJob type definition"""
 type MachineExecution {
   "Unix timestamp of the job creation"
   createdAt: DateTime!
   "Findings executed in the job"
-  findingsExecuted: [String]
+  findingsExecuted: [MachineFindingResult]
   "Identifier of the Machine job"
   jobId: String!
   "Job name"

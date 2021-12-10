@@ -110,6 +110,7 @@ async def execute_skims(token: Optional[str]) -> bool:
                     "open": await get_ephemeral_store().length(),
                 }
                 for finding in core_model.FindingEnum
+                if finding in CTX.config.checks
             ]
             await do_add_skims_execution(
                 root=CTX.config.namespace,
