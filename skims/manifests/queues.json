@@ -11,7 +11,7 @@
       "F207"
     ]
   },
-  "skims_aws": {
+  "skims_cloud": {
     "availability": "ALWAYS",
     "findings": [
       "F024",

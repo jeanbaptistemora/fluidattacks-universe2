@@ -55,8 +55,8 @@ class ExecutionQueue(Enum):
     apk = ExecutionQueueConfig(
         availability=AvailabilityEnum.ALWAYS, name="apk"
     )
-    aws = ExecutionQueueConfig(
-        availability=AvailabilityEnum.ALWAYS, name="aws"
+    cloud = ExecutionQueueConfig(
+        availability=AvailabilityEnum.ALWAYS, name="cloud"
     )
     control = ExecutionQueueConfig(
         availability=AvailabilityEnum.ALWAYS, name="control"
@@ -391,7 +391,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F024",
         cwe=16,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[255, 266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -411,7 +411,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F031",
         cwe=250,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[186],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -711,7 +711,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F070",
         cwe=266,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -751,7 +751,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F073",
         cwe=478,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[161],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -811,7 +811,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F080",
         cwe=311,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[185],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -971,7 +971,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F099",
         cwe=311,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[134, 135, 185, 227, 229, 264, 300],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1051,7 +1051,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F109",
         cwe=681,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1291,7 +1291,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F177",
         cwe=16,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1311,7 +1311,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F200",
         cwe=778,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[75, 320],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1431,7 +1431,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F247",
         cwe=311,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[134, 135, 185, 229, 264, 300],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1451,7 +1451,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F250",
         cwe=313,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1471,7 +1471,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F256",
         cwe=693,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1491,7 +1491,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F258",
         cwe=463,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1511,7 +1511,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F259",
         cwe=463,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1531,7 +1531,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F281",
         cwe=311,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[181],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1571,7 +1571,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F325",
         cwe=250,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[95, 96, 186],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1591,7 +1591,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F333",
         cwe=16,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1611,7 +1611,7 @@ class FindingEnum(Enum):
         auto_approve=True,
         code="F335",
         cwe=922,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1671,7 +1671,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F372",
         cwe=650,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[181],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1731,7 +1731,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F396",
         cwe=255,
-        execution_queue=ExecutionQueue.aws,
+        execution_queue=ExecutionQueue.cloud,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
