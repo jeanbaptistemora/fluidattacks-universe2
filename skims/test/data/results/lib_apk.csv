@@ -5429,7 +5429,7 @@ F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),provid
   1656 |   <activity android:excludefromrecents=""true"" android:label=""@android:0104051C"" android:name=""android.accounts.ChooseAcc
        | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
        ^ Col 0
-",analyze_bytecodes._exported_cp
+",__init__._apk_exported_cp
 F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),provider/com.example.android.tvleanback/android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.example.android.tvleanback/android:exported enabled,"
   51 |   <activity android:configchanges=""0x00002D80"" android:launchmode=""2"" android:name=""com.example.android.tvleanback.ui.Pl
      | aybackActivity"" android:resizeableactivity=""true"">
@@ -5453,7 +5453,7 @@ F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),provid
   66 |     </action>
   67 |    </intent-filter>
      ^ Col 0
-",analyze_bytecodes._exported_cp
+",__init__._apk_exported_cp
 F207,inputs,examples/android/Invalid/Invalid.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -12181,7 +12181,7 @@ F058,inputs,examples/tests/com.android.example.text.styling.apk (namespace),appl
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.example.android.wearable.wear.weardrawers"" xmln
      | s:android=""http://schemas.android.com/apk/res/android"">
@@ -12205,7 +12205,7 @@ F058,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (na
   18 |     </category>
   19 |    </intent-filter>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/TC/bin/TC-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""org.t0t0.androguard.TC"" xmlns:android=""http://schem
      | as.android.com/apk/res/android"">
@@ -12221,7 +12221,7 @@ F058,inputs,examples/android/TC/bin/TC-debug.apk (namespace),application.android
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/TCDiff/bin/TCDiff-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""org.t0t0.androguard.TCDiff"" xmlns:android=""http://s
      | chemas.android.com/apk/res/android"">
@@ -12237,7 +12237,7 @@ F058,inputs,examples/android/TCDiff/bin/TCDiff-debug.apk (namespace),application
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/Invalid/Invalid.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""re.androguard.android.invalid"" xmlns:android=""http:
      | //schemas.android.com/apk/res/android"">
@@ -12255,7 +12255,7 @@ F058,inputs,examples/android/Invalid/Invalid.apk (namespace),application.android
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
      | roid.com/apk/res/android"">
@@ -12273,7 +12273,7 @@ F058,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),ap
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
      | roid.com/apk/res/android"">
@@ -12291,7 +12291,7 @@ F058,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/signing/TestActivity_signed_both.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
      | roid.com/apk/res/android"">
@@ -12309,7 +12309,7 @@ F058,inputs,examples/signing/TestActivity_signed_both.apk (namespace),applicatio
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/signing/apksig/debuggable-boolean.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""10"" android:versionname=""1.0"" package=""android.appsecurity.cts.tinyapp"" platformbuildvers
      | ioncode=""23"" platformbuildversionname=""6.0-2166767"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -12327,7 +12327,7 @@ F058,inputs,examples/signing/apksig/debuggable-boolean.apk (namespace),applicati
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/android/abcore/app-prod-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    2 |  <uses-sdk android:minsdkversion=""21"" android:targetsdkversion=""27"">
    3 |  </uses-sdk>
@@ -12351,7 +12351,7 @@ F058,inputs,examples/android/abcore/app-prod-debug.apk (namespace),application.a
   20 |   </activity>
   21 |   <service android:exported=""false"" android:name=""com.greenaddress.abcore.DownloadInstallCoreIntentService"">
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/tests/duplicate.permisssions_9999999.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
   11 |  </uses-permission>
   12 |  <uses-permission android:name=""android.permission.INTERNET"">
@@ -12375,7 +12375,7 @@ F058,inputs,examples/tests/duplicate.permisssions_9999999.apk (namespace),applic
   29 |     <action android:name=""android.intent.action.SEND"">
   30 |     </action>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F058,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
   14 |  <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED"">
   15 |  </uses-permission>
@@ -12399,7 +12399,7 @@ F058,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),applic
   31 |    </intent-filter>
   32 |   </activity>
      ^ Col 0
-",analyze_bytecodes._debugging_enabled
+",__init__._apk_debugging_enabled
 F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.test.intent_filter"" platformbuildversioncode=""1"" platformbuildversionname=""1.000000"" xmlns:android
@@ -12423,7 +12423,7 @@ F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.an
   15 |    </intent-filter>
   16 |   </receiver>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
      | tp://schemas.android.com/apk/res/android"">
@@ -12444,7 +12444,7 @@ F055,inputs,examples/tests/com.android.example.text.styling.apk (namespace),appl
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.example.android.wearable.wear.weardrawers"" xmln
      | s:android=""http://schemas.android.com/apk/res/android"">
@@ -12468,7 +12468,7 @@ F055,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (na
   18 |     </category>
   19 |    </intent-filter>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/hello-world.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""de.rhab.helloworld"" platformbuildversioncode=""25"" p
      | latformbuildversionname=""7.1.1"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -12487,7 +12487,7 @@ F055,inputs,examples/tests/hello-world.apk (namespace),application.android:allow
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/urzip-#U03c0#U00c7#U00c7#U03c0#U00c7#U00c7#U73b0#U4ee3#U6c49#U8bed#U901a#U7528#U5b57-#U0431#U044a#U043b#U0433#U0430#U0440#U0441#U043a#U0438-#U0639#U0631#U0628#U064a1234.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""100"" android:versionname=""0.1"" package=""info.guardianproject.urzip"" platformbuildversionc
      | ode=""18"" platformbuildversionname=""4.3.1-1425645"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -12511,7 +12511,7 @@ F055,inputs,examples/tests/urzip-#U03c0#U00c7#U00c7#U03c0#U00c7#U00c7#U73b0#U4ee
   19 |     <category android:name=""android.intent.category.DEFAULT"">
   20 |     </category>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/duplicate.permisssions_9999999.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
   11 |  </uses-permission>
   12 |  <uses-permission android:name=""android.permission.INTERNET"">
@@ -12535,7 +12535,7 @@ F055,inputs,examples/tests/duplicate.permisssions_9999999.apk (namespace),applic
   29 |     <action android:name=""android.intent.action.SEND"">
   30 |     </action>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/a2dp.Vol_137.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
   30 |  <uses-permission android:name=""android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"">
   31 |  </uses-permission>
@@ -12559,7 +12559,7 @@ F055,inputs,examples/tests/a2dp.Vol_137.apk (namespace),application.android:allo
   47 |    </intent-filter>
   48 |   </activity>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/partialsignature.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
   30 |  <uses-permission android:name=""android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"">
   31 |  </uses-permission>
@@ -12583,7 +12583,7 @@ F055,inputs,examples/tests/partialsignature.apk (namespace),application.android:
   47 |    </intent-filter>
   48 |   </activity>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12609,7 +12609,7 @@ F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.an
    19 |   <activity android:label=""@7F090003"" android:launchmode=""1"" android:name="".activity.PlayerActivity"">
    20 |    <intent-filter>
       ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/targetSandboxVersion-2.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12630,7 +12630,7 @@ F055,inputs,examples/signing/apksig/targetSandboxVersion-2.apk (namespace),"appl
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/unsigned-targetSandboxVersion-2.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12651,7 +12651,7 @@ F055,inputs,examples/signing/apksig/unsigned-targetSandboxVersion-2.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-targetSandboxVersion-2.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12672,7 +12672,7 @@ F055,inputs,examples/signing/apksig/v1-only-targetSandboxVersion-2.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-targetSandboxVersion-2.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12693,7 +12693,7 @@ F055,inputs,examples/signing/apksig/v2-only-targetSandboxVersion-2.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-targetSandboxVersion-3.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12714,7 +12714,7 @@ F055,inputs,examples/signing/apksig/v2-only-targetSandboxVersion-3.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/axml/AndroidManifest_ShortName.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12740,7 +12740,7 @@ F055,inputs,examples/axml/AndroidManifest_ShortName.apk (namespace),"application
   18 |    <meta-data android:name=""android.service.wallpaper"" android:resource=""@7F040000"">
   19 |    </meta-data>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/android/TC/bin/TC-debug.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12758,7 +12758,7 @@ F055,inputs,examples/android/TC/bin/TC-debug.apk (namespace),"application.androi
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/android/TCDiff/bin/TCDiff-debug.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12776,7 +12776,7 @@ F055,inputs,examples/android/TCDiff/bin/TCDiff-debug.apk (namespace),"applicatio
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/dalvik/test/bin/Test-debug-unaligned.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12794,7 +12794,7 @@ F055,inputs,examples/dalvik/test/bin/Test-debug-unaligned.apk (namespace),"appli
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/dalvik/test/bin/Test-debug.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12812,7 +12812,7 @@ F055,inputs,examples/dalvik/test/bin/Test-debug.apk (namespace),"application.and
   11 |  </application>
   12 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/android/Invalid/Invalid.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12832,7 +12832,7 @@ F055,inputs,examples/android/Invalid/Invalid.apk (namespace),"application.androi
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha1-wrong-in-manifest.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12852,7 +12852,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha1-wro
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha1-wrong-in-sf.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12872,7 +12872,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha1-wro
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha256-wrong-in-manifest.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12892,7 +12892,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha256-w
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha256-wrong-in-sf.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12912,7 +12912,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf-with-sha256-w
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12932,7 +12932,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sf.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sha1-sf.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12952,7 +12952,7 @@ F055,inputs,examples/signing/apksig/v1-sha1-sha256-manifest-and-sha1-sf.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-missing-content-type.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12972,7 +12972,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-missing-content-ty
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-missing-digest.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -12992,7 +12992,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-missing-digest.apk
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-multiple-good-digests.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13012,7 +13012,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-multiple-good-dige
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-good-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13032,7 +13032,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-good-s
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-missing-content-type-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13052,7 +13052,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-missin
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-missing-digest-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13072,7 +13072,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-missin
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-multiple-good-digests-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13092,7 +13092,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-multip
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-content-type-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13112,7 +13112,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-digest-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13132,7 +13132,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-order-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13152,7 +13152,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-signature-signerInfo2-good.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13172,7 +13172,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-signerInfo1-wrong-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-content-type.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13192,7 +13192,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-content-type
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-digest.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13212,7 +13212,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-digest.apk (
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-order.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13232,7 +13232,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-order.apk (n
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-signature.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13252,7 +13252,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs-wrong-signature.ap
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13272,7 +13272,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-signed-attrs.apk (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-in.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13292,7 +13292,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-in.apk (namespace),"applicati
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13312,7 +13312,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-out.apk (namespace),"applicat
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v1-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13332,7 +13332,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v1-out.apk (namespace),"appli
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v1v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13352,7 +13352,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v1v2-out.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v1v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13372,7 +13372,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v1v2v3-lineage-out.apk (names
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v1v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13392,7 +13392,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v1v2v3-out.apk (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13412,7 +13412,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v2-out.apk (namespace),"appli
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13432,7 +13432,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v2v3-lineage-out.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13452,7 +13452,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v2v3-out.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13472,7 +13472,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v3-lineage-out.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-aligned-v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13492,7 +13492,7 @@ F055,inputs,examples/signing/apksig/golden-aligned-v3-out.apk (namespace),"appli
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-in.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13512,7 +13512,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-in.apk (namespace),"ap
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13532,7 +13532,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-out.apk (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13552,7 +13552,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1-out.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13572,7 +13572,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2-out.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13592,7 +13592,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2v3-lineage-out.apk
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13612,7 +13612,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v1v2v3-out.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13632,7 +13632,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2-out.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13652,7 +13652,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2v3-lineage-out.apk (
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13672,7 +13672,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v2v3-out.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13692,7 +13692,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v3-lineage-out.apk (na
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-legacy-aligned-v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13712,7 +13712,7 @@ F055,inputs,examples/signing/apksig/golden-legacy-aligned-v3-out.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-1-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13732,7 +13732,7 @@ F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-1-out.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-18-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13752,7 +13752,7 @@ F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-18-out.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-24-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13772,7 +13772,7 @@ F055,inputs,examples/signing/apksig/golden-rsa-minSdkVersion-24-out.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-rsa-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13792,7 +13792,7 @@ F055,inputs,examples/signing/apksig/golden-rsa-out.apk (namespace),"application.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-in.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13812,7 +13812,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-in.apk (namespace),"applica
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13832,7 +13832,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-out.apk (namespace),"applic
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v1-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13852,7 +13852,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v1-out.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v1v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13872,7 +13872,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v1v2-out.apk (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v1v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13892,7 +13892,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v1v2v3-lineage-out.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v1v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13912,7 +13912,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v1v2v3-out.apk (namespace),
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v2-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13932,7 +13932,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v2-out.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v2v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13952,7 +13952,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v2v3-lineage-out.apk (names
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v2v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13972,7 +13972,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v2v3-out.apk (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v3-lineage-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -13992,7 +13992,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v3-lineage-out.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/golden-unaligned-v3-out.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14012,7 +14012,7 @@ F055,inputs,examples/signing/apksig/golden-unaligned-v3-out.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/mismatched-compression-method.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14032,7 +14032,7 @@ F055,inputs,examples/signing/apksig/mismatched-compression-method.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/original.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14052,7 +14052,7 @@ F055,inputs,examples/signing/apksig/original.apk (namespace),"application.androi
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/two-signers-second-signer-v2-broken.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14072,7 +14072,7 @@ F055,inputs,examples/signing/apksig/two-signers-second-signer-v2-broken.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/two-signers.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14092,7 +14092,7 @@ F055,inputs,examples/signing/apksig/two-signers.apk (namespace),"application.and
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-max-sized-eocd-comment.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14112,7 +14112,7 @@ F055,inputs,examples/signing/apksig/v1-only-max-sized-eocd-comment.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-pkcs7-cert-bag-first-cert-not-used.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14132,7 +14132,7 @@ F055,inputs,examples/signing/apksig/v1-only-pkcs7-cert-bag-first-cert-not-used.a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-two-signers.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14152,7 +14152,7 @@ F055,inputs,examples/signing/apksig/v1-only-two-signers.apk (namespace),"applica
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-cr-in-entry-name.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14172,7 +14172,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-cr-in-entry-name.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14192,7 +14192,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-1024
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14212,7 +14212,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-2048
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14232,7 +14232,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.1-3072
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14252,7 +14252,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-1024
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14272,7 +14272,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-2048
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14292,7 +14292,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha1-1.2.840.10040.4.3-3072
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14312,7 +14312,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-10
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14332,7 +14332,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-20
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14352,7 +14352,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-1.2.840.10040.4.1-30
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14372,7 +14372,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14392,7 +14392,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14412,7 +14412,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha224-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14432,7 +14432,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-10
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14452,7 +14452,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-20
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14472,7 +14472,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-1.2.840.10040.4.1-30
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3.2-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14492,7 +14492,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3.2-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14512,7 +14512,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3.2-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14532,7 +14532,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha256-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3.3-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14552,7 +14552,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3.3-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14572,7 +14572,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3.3-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14592,7 +14592,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha384-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3.4-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14612,7 +14612,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3.4-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14632,7 +14632,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3.4-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14652,7 +14652,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-dsa-sha512-2.16.840.1.101.3.4.3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14672,7 +14672,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p2
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14692,7 +14692,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14712,7 +14712,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.2.1-p5
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14732,7 +14732,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p2
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14752,7 +14752,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p3
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14772,7 +14772,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha1-1.2.840.10045.4.1-p5
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14792,7 +14792,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14812,7 +14812,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14832,7 +14832,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14852,7 +14852,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14872,7 +14872,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14892,7 +14892,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha224-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14912,7 +14912,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14932,7 +14932,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14952,7 +14952,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.2-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14972,7 +14972,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.2-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -14992,7 +14992,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.2-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15012,7 +15012,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha256-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15032,7 +15032,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15052,7 +15052,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15072,7 +15072,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.3-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15092,7 +15092,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.3-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15112,7 +15112,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.3-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15132,7 +15132,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha384-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15152,7 +15152,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15172,7 +15172,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15192,7 +15192,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.2.1-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.4-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15212,7 +15212,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.4-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15232,7 +15232,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.4-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15252,7 +15252,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-ecdsa-sha512-1.2.840.10045.4.3.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-lf-in-entry-name.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15272,7 +15272,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-lf-in-entry-name.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-nul-in-entry-name.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15292,7 +15292,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-nul-in-entry-name.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024-cert-not-der.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15312,7 +15312,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024-cert-not-der.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024-cert-not-der2.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15332,7 +15332,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024-cert-not-der2.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15352,7 +15352,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-1024.apk (namespace),"appli
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15372,7 +15372,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15392,7 +15392,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15412,7 +15412,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15432,7 +15432,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15452,7 +15452,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15472,7 +15472,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15492,7 +15492,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15512,7 +15512,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15532,7 +15532,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15552,7 +15552,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15572,7 +15572,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.1.4-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15592,7 +15592,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-md5-1.2.840.113549.1.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15612,7 +15612,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15632,7 +15632,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15652,7 +15652,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15672,7 +15672,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15692,7 +15692,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15712,7 +15712,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15732,7 +15732,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15752,7 +15752,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15772,7 +15772,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15792,7 +15792,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15812,7 +15812,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1.1.5-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15832,7 +15832,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha1-1.2.840.113549.1
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15852,7 +15852,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15872,7 +15872,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15892,7 +15892,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15912,7 +15912,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15932,7 +15932,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15952,7 +15952,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15972,7 +15972,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -15992,7 +15992,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16012,7 +16012,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16032,7 +16032,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16052,7 +16052,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549.1.1.14-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16072,7 +16072,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha224-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16092,7 +16092,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16112,7 +16112,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16132,7 +16132,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16152,7 +16152,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16172,7 +16172,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16192,7 +16192,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16212,7 +16212,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16232,7 +16232,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16252,7 +16252,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16272,7 +16272,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16292,7 +16292,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549.1.1.11-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16312,7 +16312,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha256-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16332,7 +16332,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16352,7 +16352,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16372,7 +16372,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16392,7 +16392,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16412,7 +16412,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16432,7 +16432,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16452,7 +16452,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16472,7 +16472,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16492,7 +16492,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16512,7 +16512,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16532,7 +16532,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549.1.1.12-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16552,7 +16552,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha384-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16572,7 +16572,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16592,7 +16592,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16612,7 +16612,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16632,7 +16632,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16652,7 +16652,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.1-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16672,7 +16672,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16692,7 +16692,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16712,7 +16712,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16732,7 +16732,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16752,7 +16752,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16772,7 +16772,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549.1.1.13-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16792,7 +16792,7 @@ F055,inputs,examples/signing/apksig/v1-only-with-rsa-pkcs1-sha512-1.2.840.113549
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1-with-apk-sig-block-but-without-apk-sig-scheme-v2-block.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16812,7 +16812,7 @@ F055,inputs,examples/signing/apksig/v1-with-apk-sig-block-but-without-apk-sig-sc
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers-invalid-lineage-attr.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16832,7 +16832,7 @@ F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers-inval
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers-no-sig-block.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16852,7 +16852,7 @@ F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers-no-si
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16872,7 +16872,7 @@ F055,inputs,examples/signing/apksig/v1v2v3-with-rsa-2048-lineage-3-signers.apk (
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-apk-sig-block-size-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16892,7 +16892,7 @@ F055,inputs,examples/signing/apksig/v2-only-apk-sig-block-size-mismatch.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-cert-and-public-key-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16912,7 +16912,7 @@ F055,inputs,examples/signing/apksig/v2-only-cert-and-public-key-mismatch.apk (na
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-max-sized-eocd-comment.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16932,7 +16932,7 @@ F055,inputs,examples/signing/apksig/v2-only-max-sized-eocd-comment.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-missing-classes.dex.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16952,7 +16952,7 @@ F055,inputs,examples/signing/apksig/v2-only-missing-classes.dex.apk (namespace),
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-no-certs-in-sig.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16972,7 +16972,7 @@ F055,inputs,examples/signing/apksig/v2-only-no-certs-in-sig.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-signatures-and-digests-block-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -16992,7 +16992,7 @@ F055,inputs,examples/signing/apksig/v2-only-signatures-and-digests-block-mismatc
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-two-signers-second-signer-no-sig.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17012,7 +17012,7 @@ F055,inputs,examples/signing/apksig/v2-only-two-signers-second-signer-no-sig.apk
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-two-signers-second-signer-no-supported-sig.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17032,7 +17032,7 @@ F055,inputs,examples/signing/apksig/v2-only-two-signers-second-signer-no-support
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-two-signers.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17052,7 +17052,7 @@ F055,inputs,examples/signing/apksig/v2-only-two-signers.apk (namespace),"applica
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-unknown-additional-attr.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17072,7 +17072,7 @@ F055,inputs,examples/signing/apksig/v2-only-unknown-additional-attr.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-unknown-pair-in-apk-sig-block.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17092,7 +17092,7 @@ F055,inputs,examples/signing/apksig/v2-only-unknown-pair-in-apk-sig-block.apk (n
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-1024-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17112,7 +17112,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-1024-sig-does-not-ve
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17132,7 +17132,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-1024.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17152,7 +17152,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-2048.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17172,7 +17172,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-dsa-sha256-3072.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256-digest-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17192,7 +17192,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256-digest-mismat
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17212,7 +17212,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256-sig-does-not-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17232,7 +17232,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p256.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17252,7 +17252,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p384.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17272,7 +17272,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha256-p521.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17292,7 +17292,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p256.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17312,7 +17312,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p384.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17332,7 +17332,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ecdsa-sha512-p521.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-ignorable-unsupported-sig-algs.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17352,7 +17352,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-ignorable-unsupported-sig-algs.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-1024-cert-not-der.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17372,7 +17372,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-1024-cert-not-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17392,7 +17392,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-1024.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17412,7 +17412,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-16384.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-2048-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17432,7 +17432,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-2048-sig-does-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17452,7 +17452,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-2048.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17472,7 +17472,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-3072.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17492,7 +17492,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-4096.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17512,7 +17512,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha256-8192.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17532,7 +17532,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-1024.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17552,7 +17552,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-16384.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17572,7 +17572,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-2048.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17592,7 +17592,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-3072.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-4096-digest-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17612,7 +17612,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-4096-digest-mi
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17632,7 +17632,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-4096.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17652,7 +17652,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pkcs1-sha512-8192.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17672,7 +17672,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-1024.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17692,7 +17692,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-16384.apk (names
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-2048-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17712,7 +17712,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-2048-sig-does-no
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17732,7 +17732,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-2048.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17752,7 +17752,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-3072.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17772,7 +17772,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-4096.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17792,7 +17792,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha256-8192.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17812,7 +17812,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-16384.apk (names
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17832,7 +17832,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-2048.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17852,7 +17852,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-3072.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17872,7 +17872,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-4096.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17892,7 +17892,7 @@ F055,inputs,examples/signing/apksig/v2-only-with-rsa-pss-sha512-8192.apk (namesp
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-only-wrong-apk-sig-block-magic.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17912,7 +17912,7 @@ F055,inputs,examples/signing/apksig/v2-only-wrong-apk-sig-block-magic.apk (names
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-stripped-with-ignorable-signing-schemes.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17932,7 +17932,7 @@ F055,inputs,examples/signing/apksig/v2-stripped-with-ignorable-signing-schemes.a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2-stripped.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17952,7 +17952,7 @@ F055,inputs,examples/signing/apksig/v2-stripped.apk (namespace),"application.and
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2v3-signed-v3-block-stripped.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17972,7 +17972,7 @@ F055,inputs,examples/signing/apksig/v2v3-signed-v3-block-stripped.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v2v3-unknown-additional-attr.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -17992,7 +17992,7 @@ F055,inputs,examples/signing/apksig/v2v3-unknown-additional-attr.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-cert-and-public-key-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18012,7 +18012,7 @@ F055,inputs,examples/signing/apksig/v3-only-cert-and-public-key-mismatch.apk (na
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-no-certs-in-sig.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18032,7 +18032,7 @@ F055,inputs,examples/signing/apksig/v3-only-no-certs-in-sig.apk (namespace),"app
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-no-supported-sig-algs.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18052,7 +18052,7 @@ F055,inputs,examples/signing/apksig/v3-only-no-supported-sig-algs.apk (namespace
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-signatures-and-digests-block-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18072,7 +18072,7 @@ F055,inputs,examples/signing/apksig/v3-only-signatures-and-digests-block-mismatc
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-unknown-additional-attr.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18092,7 +18092,7 @@ F055,inputs,examples/signing/apksig/v3-only-unknown-additional-attr.apk (namespa
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-unknown-pair-in-apk-sig-block.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18112,7 +18112,7 @@ F055,inputs,examples/signing/apksig/v3-only-unknown-pair-in-apk-sig-block.apk (n
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18132,7 +18132,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-1024.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-2048-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18152,7 +18152,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-2048-sig-does-not-ve
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18172,7 +18172,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-2048.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-3072-digest-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18192,7 +18192,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-3072-digest-mismatch
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18212,7 +18212,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-dsa-sha256-3072.apk (namespace)
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18232,7 +18232,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p256.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18252,7 +18252,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p384.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18272,7 +18272,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha256-p521.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p256.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18292,7 +18292,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p256.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p384-wrong-apk-sig-block-magic.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18312,7 +18312,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p384-wrong-apk-sig
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18332,7 +18332,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p384.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p521-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18352,7 +18352,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p521-sig-does-not-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p521.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18372,7 +18372,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ecdsa-sha512-p521.apk (namespac
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-ignorable-unsupported-sig-algs.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18392,7 +18392,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-ignorable-unsupported-sig-algs.
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18412,7 +18412,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-1024.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18432,7 +18432,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-16384.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18452,7 +18452,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-2048.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-3072-sig-does-not-verify.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18472,7 +18472,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-3072-sig-does-
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18492,7 +18492,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-3072.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18512,7 +18512,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-4096.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18532,7 +18532,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha256-8192.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-1024.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18552,7 +18552,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-1024.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-16384.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18572,7 +18572,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-16384.apk (nam
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-2048.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18592,7 +18592,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-2048.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-3072.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18612,7 +18612,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-3072.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-4096-apk-sig-block-size-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18632,7 +18632,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-4096-apk-sig-b
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-4096.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18652,7 +18652,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-4096.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-8192-digest-mismatch.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18672,7 +18672,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-8192-digest-mi
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-8192.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18692,7 +18692,7 @@ F055,inputs,examples/signing/apksig/v3-only-with-rsa-pkcs1-sha512-8192.apk (name
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/v3-stripped.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18712,7 +18712,7 @@ F055,inputs,examples/signing/apksig/v3-stripped.apk (namespace),"application.and
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/weird-compression-method.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18732,7 +18732,7 @@ F055,inputs,examples/signing/apksig/weird-compression-method.apk (namespace),"ap
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/debuggable-resource.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18752,7 +18752,7 @@ F055,inputs,examples/signing/apksig/debuggable-resource.apk (namespace),"applica
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/signing/apksig/debuggable-boolean.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18772,7 +18772,7 @@ F055,inputs,examples/signing/apksig/debuggable-boolean.apk (namespace),"applicat
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/com.politedroid_4.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18798,7 +18798,7 @@ F055,inputs,examples/tests/com.politedroid_4.apk (namespace),"application.androi
   19 |     <action android:name=""android.intent.action.BOOT_COMPLETED"">
   20 |     </action>
      ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -18824,4 +18824,4 @@ F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"appli
   1629 |     </action>
   1630 |     <category android:name=""android.intent.category.DEFAULT"">
        ^ Col 0
-",analyze_bytecodes._backups_enabled
+",__init__._apk_backups_enabled

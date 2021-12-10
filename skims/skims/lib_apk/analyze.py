@@ -17,12 +17,12 @@ import contextlib
 from lib_apk import (
     analyze_bytecodes,
 )
-from lib_apk.types import (
-    APKContext,
-)
 import lxml.etree  # nosec
 from model import (
     core_model,
+)
+from parse_android_manifest.types import (
+    APKContext,
 )
 from state.ephemeral import (
     EphemeralStore,
