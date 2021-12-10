@@ -431,6 +431,14 @@
       "title": "134. Insecure or unset HTTP headers - CORS"
     }
   },
+  "F157": {
+    "EN": {
+      "title": "157. Unrestricted access between network segments"
+    },
+    "ES": {
+      "title": "157. Unrestricted access between network segments"
+    }
+  },
   "F160": {
     "EN": {
       "title": "160. Excessive privileges - Temporary Files"

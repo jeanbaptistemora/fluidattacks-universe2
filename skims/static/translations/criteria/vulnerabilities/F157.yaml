@@ -1,0 +1,31 @@
+F157.title:
+  en: >
+    Unrestricted access between network segments
+  es: >
+    Unrestricted access between network segments
+F157.description:
+  en: >
+    The network does not currently limit access between network segments, so
+    an employee can access database servers from the Internet.
+  es: >
+    La red no limita actualmente el acceso entre segmentos de red, por lo cual
+    un empleado desde internet puede acceder a servidores de bases de datos.
+F157.impact:
+  en: >
+    Internet user with credentials.
+  es: >
+    Usuario de Internet con credenciales.
+F157.recommendation:
+  en: >
+    Segment the corporate network using the principle of least privilege
+    necessary to limit access to the database.
+  es: >
+    Segmentar la red corporativa utilizando el principio de mínimo privilegio
+    necesario para limitar los accesos a la base de datos.
+F157.threat:
+  en: >
+    An attacker who obtains the database credentials can access the database
+    from anywhere and get, delete and/or modify data.
+  es: >
+    Un atacante que obtenga las credenciales de la base de datos puede acceder
+    desde cualquier lugar a la misma y obtener, eliminar y/o modificar datos.
