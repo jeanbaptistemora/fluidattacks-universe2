@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 07:51 AM",
+    "DateLastModified": "Dec 10, 2021, 08:12 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -11369,17 +11369,110 @@
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
               },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
+              "sk": {
+                "S": "VERIFICATION#2020-02-18T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-18T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "VERIFIED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-18T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-18T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "VERIFIED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              },
+              "sk": {
+                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
               }
             }
           ],
           "NonKeyAttributes": [
             "status",
-            "modified_date",
-            "modified_by",
-            "comment_id"
+            "modified_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -13356,6 +13449,76 @@
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747#VERIFICATION"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "status": {
+                "S": "VERIFIED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7#VERIFICATION"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4#VERIFICATION"
+              },
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "status": {
+                "S": "VERIFIED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#VERIFICATION"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#VERIFICATION"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2020-02-19T15:41:04+00:00"
               }
             }
           ],
