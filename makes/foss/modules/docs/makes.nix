@@ -10,9 +10,10 @@
     };
   };
   secretsForAwsFromEnv = {
-    docsProd = {
-      accessKeyId = "DOCS_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "DOCS_PROD_AWS_SECRET_ACCESS_KEY";
+    prodDocs = {
+      accessKeyId = "PROD_DOCS_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "PROD_DOCS_AWS_SECRET_ACCESS_KEY";
+      sessionToken = "AWS_SESSION_TOKEN";
     };
   };
 }

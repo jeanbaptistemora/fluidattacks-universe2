@@ -6,7 +6,7 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/docsProd"
+          outputs."/secretsForAwsFromEnv/prodDocs"
           outputs."/secretsForEnvFromSops/docsInfraProd"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
