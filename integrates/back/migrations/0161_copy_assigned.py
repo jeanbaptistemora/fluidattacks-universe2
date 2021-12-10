@@ -50,6 +50,8 @@ async def copy_assigned(*, vulnerability: Dict[str, Any]) -> None:
         historic_treatment
     )
     should_update: bool = False
+    if historic_treatment is None:
+        return
     for treatment in new_historic_treatment:
         assigned = treatment.get("treatment_manager", "")
         if assigned:

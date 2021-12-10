@@ -47,6 +47,9 @@ async def delete_treatment_manager(*, vulnerability: Dict[str, Any]) -> None:
     historic_treatment: List[Dict[str, str]] = vulnerability[
         "historic_treatment"
     ]
+    if historic_treatment is None:
+        return
+
     new_historic_treatment: List[Dict[str, str]] = copy.deepcopy(
         historic_treatment
     )
@@ -99,7 +102,7 @@ async def main() -> None:
             for vulnerability in valid_vulnerabilities
             if "historic_treatment" in vulnerability
         ),
-        workers=8,
+        workers=16,
     )
 
 
