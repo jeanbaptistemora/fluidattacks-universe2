@@ -72,7 +72,7 @@ def compare_historic_treatments(
             new_state["treatment"].replace(" ", "_").upper()
         )
         or last_state.justification != new_state["justification"]
-        or last_state.manager != new_state.get("treatment_manager")
+        or last_state.manager != new_state.get("assigned")
     )
     date_changed = (
         "acceptance_date" in new_state

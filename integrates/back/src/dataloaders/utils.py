@@ -73,7 +73,7 @@ def format_vulnerability_treatment(
             else None
         ),
         justification=get_optional("justification", treatment),
-        manager=get_optional("treatment_manager", treatment),
+        manager=get_optional("assigned", treatment),
     )
 
 

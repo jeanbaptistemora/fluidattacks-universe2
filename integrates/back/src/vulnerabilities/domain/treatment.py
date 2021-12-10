@@ -193,7 +193,7 @@ async def add_vulnerability_treatment(
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED
         else None,
         justification=updated_values.get("justification"),
-        manager=updated_values.get("treatment_manager") or user_email,
+        manager=updated_values.get("assigned") or user_email,
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         status=new_status,
@@ -395,8 +395,8 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     group_name: str,
 ) -> bool:
-    if "treatment_manager" not in updated_values:
-        updated_values["treatment_manager"] = user_email
+    if "assigned" not in updated_values:
+        updated_values["assigned"] = user_email
 
     vulnerabilities: Tuple[
         Vulnerability, ...
@@ -415,10 +415,10 @@ async def update_vulnerabilities_treatment(
             f" {today.split()[1]}"
         )
 
-    if "treatment_manager" in updated_values:
+    if "assigned" in updated_values:
         role: str = await authz.get_group_level_role(user_email, group_name)
-        updated_values["treatment_manager"] = await get_valid_assigned(
-            assigned=updated_values["treatment_manager"],
+        updated_values["assigned"] = await get_valid_assigned(
+            assigned=updated_values["assigned"],
             is_customer_admin=role
             in {"customeradmin", "system_owner", "group_manager"},
             user_email=user_email,
