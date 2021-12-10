@@ -35,6 +35,7 @@
     makesProd = {
       accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
       secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+      sessionToken = "AWS_SESSION_TOKEN";
     };
   };
 }
