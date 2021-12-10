@@ -450,6 +450,13 @@ async def subscribe_user_to_entity_report(
             user_email=user_email,
         )
         if success:
+            await _send_user_to_entity_report(
+                event_frequency=event_frequency,
+                report_entity=report_entity,
+                report_subject=report_subject,
+                user_email=user_email,
+                digest_stats=tuple(),
+            )
             LOGGER_CONSOLE.info(
                 "User subscribed correctly",
                 extra={
