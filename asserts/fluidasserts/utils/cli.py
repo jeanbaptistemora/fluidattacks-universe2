@@ -1020,7 +1020,6 @@ def exec_cloudformation_package(
         ("rds", "RDS (Relational Database Service)"): [
             "rds.has_not_termination_protection",
             "rds.is_not_inside_a_db_subnet_group",
-            "rds.is_publicly_accessible",
         ],
         ("secretsmanager", "Secrets Manager"): [
             "secretsmanager.insecure_generate_secret_string",
