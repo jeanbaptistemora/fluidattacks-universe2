@@ -28,7 +28,6 @@ from db_model import (
     TABLE,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
@@ -37,11 +36,12 @@ from typing import (
 )
 
 
-async def _get_finding(*, vulnerability_id: str) -> str:
+async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"id": vulnerability_id},
     )
+
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(
@@ -51,55 +51,11 @@ async def _get_finding(*, vulnerability_id: str) -> str:
         facets=(TABLE.facets["vulnerability_metadata"],),
         table=TABLE,
     )
-    if not response.items:
-        raise VulnNotFound()
-    inverted_index = TABLE.indexes["inverted_index"]
-    inverted_key_structure = inverted_index.primary_key
-    metadata = historics.get_metadata(
-        item_id=primary_key.partition_key,
-        key_structure=inverted_key_structure,
-        raw_items=response.items,
-    )
-
-    return metadata[inverted_key_structure.partition_key].split("#")[1]
-
-
-async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
-    finding_id = await _get_finding(vulnerability_id=vulnerability_id)
-
-    primary_key = keys.build_key(
-        facet=TABLE.facets["vulnerability_metadata"],
-        values={"finding_id": finding_id, "id": vulnerability_id},
-    )
-
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
-        facets=(
-            TABLE.facets["vulnerability_metadata"],
-            TABLE.facets["vulnerability_state"],
-            TABLE.facets["vulnerability_treatment"],
-            TABLE.facets["vulnerability_verification"],
-            TABLE.facets["vulnerability_zero_risk"],
-        ),
-        index=index,
-        table=TABLE,
-    )
 
     if not response.items:
         raise VulnNotFound()
 
-    return format_vulnerability(
-        item_id=primary_key.partition_key,
-        key_structure=key_structure,
-        raw_items=response.items,
-    )
+    return format_vulnerability(response.items[0])
 
 
 async def _get_historic_state(

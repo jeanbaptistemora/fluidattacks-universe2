@@ -13,103 +13,44 @@ from .types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-from db_model import (
-    TABLE,
-)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from dynamodb import (
-    historics,
-)
 from dynamodb.types import (
     Item,
-    PrimaryKey,
-)
-from typing import (
-    Optional,
-    Tuple,
 )
 
 
-def format_vulnerability(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> Vulnerability:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
+def format_vulnerability(item: Item) -> Vulnerability:
+    state = format_state(item["state"])
+    treatment = format_treatment(item["treatment"])
+    verification = (
+        format_verification(item["verification"])
+        if "verification" in item
+        else None
     )
-    inverted_index = TABLE.indexes["inverted_index"]
-    inverted_key_structure = inverted_index.primary_key
-    metadata["finding_id"] = metadata[
-        inverted_key_structure.partition_key
-    ].split("#")[1]
-    metadata["id"] = metadata[inverted_key_structure.sort_key].split("#")[1]
-
-    state: VulnerabilityState = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="STATE",
-            raw_items=raw_items,
-        )
+    zero_risk = (
+        format_zero_risk(item["zero_risk"]) if "zero_risk" in item else None
     )
-
-    treatment: VulnerabilityTreatment = format_treatment(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="TREATMENT",
-            raw_items=raw_items,
-        )
-    )
-
-    try:
-        verification: Optional[
-            VulnerabilityVerification
-        ] = format_verification(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="VERIFICATION",
-                raw_items=raw_items,
-            )
-        )
-    except StopIteration:
-        verification = None
-
-    try:
-        zero_risk: Optional[VulnerabilityZeroRisk] = format_zero_risk(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="ZERORISK",
-                raw_items=raw_items,
-            )
-        )
-    except StopIteration:
-        zero_risk = None
 
     return Vulnerability(
-        bug_tracking_system_url=metadata.get("bug_tracking_system_url", None),
-        commit=metadata.get("commit", None),
-        custom_severity=metadata.get("custom_severity", None),
-        finding_id=metadata["finding_id"],
-        hash=metadata.get("hash", None),
-        repo=metadata.get("repo", None),
-        skims_method=metadata.get("skims_method", None),
-        specific=metadata["specific"],
+        bug_tracking_system_url=item.get("bug_tracking_system_url", None),
+        commit=item.get("commit", None),
+        custom_severity=item.get("custom_severity", None),
+        finding_id=item["finding_id"],
+        hash=item.get("hash", None),
+        repo=item.get("repo", None),
+        skims_method=item.get("skims_method", None),
+        specific=item["specific"],
         state=state,
-        stream=metadata.get("stream", None),
-        tags=metadata.get("tags", None),
+        stream=item.get("stream", None),
+        tags=item.get("tags", None),
         treatment=treatment,
-        type=VulnerabilityType[metadata["type"]],
-        id=metadata["id"],
+        type=VulnerabilityType[item["type"]],
+        id=item["id"],
         verification=verification,
-        where=metadata["where"],
+        where=item["where"],
         zero_risk=zero_risk,
     )
 
