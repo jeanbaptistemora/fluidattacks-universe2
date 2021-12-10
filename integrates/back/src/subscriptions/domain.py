@@ -630,6 +630,72 @@ async def trigger_user_to_entity_report() -> None:
     )
 
 
+async def _validate_subscription(
+    subscription: Dict[Any, Any],
+) -> bool:
+    # A user may be subscribed but now he does not have access to the
+    #   group or organization, so let's handle this case
+    if await can_subscribe_user_to_entity_report(
+        report_entity=subscription["sk"]["entity"],
+        report_subject=subscription["sk"]["subject"],
+        user_email=subscription["pk"]["email"],
+    ):
+        return True
+    # Unsubscribe this user, he won't even notice as he no longer
+    #   has access to the requested resource
+    await unsubscribe_user_to_entity_report(
+        report_entity=subscription["sk"]["entity"],
+        report_subject=subscription["sk"]["subject"],
+        user_email=subscription["pk"]["email"],
+    )
+    return False
+
+
+async def _process_subscription_analytics(
+    subscription: Dict[Any, Any],
+) -> None:
+    if not _validate_subscription(subscription):
+        LOGGER_CONSOLE.warning(
+            "- user without access, unsubscribed",
+            extra={"extra": {"subscription": subscription}},
+        )
+        return
+    try:
+        await _send_analytics_report(
+            event_frequency=_period_to_frequency(
+                period=subscription["period"]
+            ),
+            report_entity=subscription["sk"]["entity"],
+            report_subject=subscription["sk"]["subject"],
+            user_email=subscription["pk"]["email"],
+        )
+    except UnableToSendMail as ex:
+        LOGGER_ERRORS.exception(
+            ex, extra={"extra": {"subscription": subscription}}
+        )
+
+
+async def trigger_subscriptions_analytics_daily() -> None:
+    """Schedule cron: Monday to Friday @ 10:00 UTC (5:00 GMT-5)."""
+    subscriptions = [
+        subscription
+        for subscription in await get_subscriptions_to_entity_report(
+            audience="user",
+        )
+        if str(subscription["sk"]["entity"]).lower() != "comments"
+        and str(subscription["sk"]["entity"]).lower() != "digest"
+        and _period_to_frequency(period=subscription["period"]) == "DAILY"
+    ]
+    LOGGER_CONSOLE.info(
+        "- subscriptions loaded",
+        extra={"extra": {"length": len(subscriptions), "period": "DAILY"}},
+    )
+    await collect(
+        _process_subscription_analytics(subscription)
+        for subscription in subscriptions
+    )
+
+
 async def is_user_subscribed_to_comments(
     *,
     user_email: str,
