@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 08:12 AM",
+    "DateLastModified": "Dec 10, 2021, 09:28 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -11524,6 +11524,166 @@
               "comment_id": {
                 "S": "1558048728000"
               }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "ZERORISK#2020-09-09T21:01:26+00:00"
+              },
+              "status": {
+                "S": "CONFIRMED"
+              },
+              "modified_date": {
+                "S": "2020-09-09T21:01:26+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "sk": {
+                "S": "ZERORISK#2020-09-09T21:01:26+00:00"
+              },
+              "status": {
+                "S": "CONFIRMED"
+              },
+              "modified_date": {
+                "S": "2020-09-09T21:01:26+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              },
+              "sk": {
+                "S": "ZERORISK#2018-09-28T15:32:58+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
             }
           ],
           "NonKeyAttributes": [
@@ -13555,6 +13715,126 @@
               },
               "comment_id": {
                 "S": "1558048728000"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "status": {
+                "S": "CONFIRMED"
+              },
+              "modified_date": {
+                "S": "2020-09-09T21:01:26+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "status": {
+                "S": "CONFIRMED"
+              },
+              "modified_date": {
+                "S": "2020-09-09T21:01:26+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f#ZERORISK"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2018-09-28T15:32:58+00:00"
+              },
+              "modified_by": {
+                "S": "test@gmail.com"
+              },
+              "comment_id": {
+                "S": "123456"
               }
             }
           ],
