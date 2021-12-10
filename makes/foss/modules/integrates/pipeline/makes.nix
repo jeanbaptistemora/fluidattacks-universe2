@@ -524,6 +524,18 @@ in
           };
         }
         {
+          args = [ "prod" ];
+          output = "/integrates/subscriptions/analytics-daily";
+          gitlabExtra = schedulerTemplate // {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined "integrates_subscriptions_analytics_daily_prod_schedule")
+              (gitlabCi.rules.always)
+            ];
+            tags = [ "autoscaling-large" ];
+          };
+        }
+        {
           output = "/integrates/web/e2e";
           gitlabExtra = gitlabPostDeployDev // {
             needs = [

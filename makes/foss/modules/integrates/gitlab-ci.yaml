@@ -2886,6 +2886,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics-daily__prod:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_subscriptions_analytics_daily_prod_schedule == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/subscriptions/analytics-daily 'prod'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/user-to-entity__dev:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
