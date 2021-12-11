@@ -44,7 +44,7 @@ _FINDING_F157 = core_model.FindingEnum.F157
 _FINDING_F016_CWE = _FINDING_F157.value.cwe
 
 
-def tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
+def tfm_azure_unrestricted_access_network_segments_iterate(
     buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
 ) -> Iterator[Union[Any, Node]]:
     for bucket in buckets_iterator:
@@ -61,7 +61,7 @@ def tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
             yield bucket
 
 
-def _tfm_azure_serves_content_over_insecure_protocols(
+def _tfm_azure_unrestricted_access_network_segments(
     content: str,
     path: str,
     model: Any,
@@ -69,12 +69,10 @@ def _tfm_azure_serves_content_over_insecure_protocols(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F016_CWE},
-        description_key=(
-            "src.lib_path.f016.serves_content_over_insecure_protocols"
-        ),
+        description_key=("F157.description"),
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
-            tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
+            tfm_azure_unrestricted_access_network_segments_iterate(
                 buckets_iterator=iter_azurerm_data_factory(model=model)
             )
         ),
@@ -85,13 +83,13 @@ def _tfm_azure_serves_content_over_insecure_protocols(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def tfm_azure_serves_content_over_insecure_protocols(
+async def tfm_azure_unrestricted_access_network_segments(
     content: str,
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _tfm_azure_serves_content_over_insecure_protocols,
+        _tfm_azure_unrestricted_access_network_segments,
         content=content,
         path=path,
         model=model,
@@ -110,7 +108,7 @@ async def analyze(
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
-            tfm_azure_serves_content_over_insecure_protocols(
+            tfm_azure_unrestricted_access_network_segments(
                 content=content,
                 path=path,
                 model=model,
