@@ -3,8 +3,8 @@
 This migration aims to delete treatment_manager after a related
 migration that copy that data to assigned be executed.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-12-12 at 11:05:38 UTC
+Finalization Time:  2021-12-12 at 12:52:06 UTC
 """
 
 from aioextensions import (
@@ -40,7 +40,7 @@ from vulnerabilities.dal import (
     update,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def delete_treatment_manager(*, vulnerability: Dict[str, Any]) -> None:
