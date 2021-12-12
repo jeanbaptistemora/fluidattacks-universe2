@@ -362,7 +362,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        manager=generic_data["global_vars"]["hacker_email"],
+                        assigned=generic_data["global_vars"]["hacker_email"],
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
@@ -387,7 +387,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        manager=generic_data["global_vars"]["hacker_email"],
+                        assigned=generic_data["global_vars"]["hacker_email"],
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],

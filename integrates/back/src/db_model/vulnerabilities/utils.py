@@ -76,7 +76,7 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         if item.get("acceptance_status", None)
         else None,
         justification=item.get("justification", None),
-        manager=item.get("manager", None),
+        assigned=item.get("manager", None),
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
         status=VulnerabilityTreatmentStatus[item["status"]],

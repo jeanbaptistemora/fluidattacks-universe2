@@ -31,7 +31,7 @@ class VulnerabilityTreatment(NamedTuple):
     acceptance_status: Optional[VulnerabilityAcceptanceStatus] = None
     accepted_until: Optional[str] = None
     justification: Optional[str] = None
-    manager: Optional[str] = None
+    assigned: Optional[str] = None
     modified_by: Optional[str] = None
 
 

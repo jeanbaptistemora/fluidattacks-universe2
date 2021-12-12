@@ -193,7 +193,7 @@ async def add_vulnerability_treatment(
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED
         else None,
         justification=updated_values.get("justification"),
-        manager=updated_values.get("assigned") or user_email,
+        assigned=updated_values.get("assigned") or user_email,
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         status=new_status,
@@ -237,10 +237,10 @@ async def _handle_vulnerability_acceptance(
         and new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.APPROVED
         and vulnerability.treatment
-        and vulnerability.treatment.manager
+        and vulnerability.treatment.assigned
     ):
         treatments_to_add = (
-            new_treatment._replace(manager=vulnerability.treatment.manager),
+            new_treatment._replace(assigned=vulnerability.treatment.assigned),
         )
     elif (
         new_treatment.acceptance_status

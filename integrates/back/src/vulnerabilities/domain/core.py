@@ -499,7 +499,7 @@ async def mask_vulnerability(
     ] = await historic_treatment_loader.load(vulnerability_id)
     masked_treatment = tuple(
         treatment._replace(
-            manager="Masked" if treatment.manager else None,
+            assigned="Masked" if treatment.assigned else None,
             justification="Masked" if treatment.justification else None,
         )
         for treatment in historic_treatment

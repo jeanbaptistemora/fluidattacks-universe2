@@ -534,7 +534,7 @@ def get_treatment_from_org_finding_policy(
         VulnerabilityTreatment(
             acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
             justification="From organization findings policy",
-            manager=user_email,
+            assigned=user_email,
             modified_by=user_email,
             modified_date=modified_date,
             status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
@@ -542,7 +542,7 @@ def get_treatment_from_org_finding_policy(
         VulnerabilityTreatment(
             acceptance_status=VulnerabilityAcceptanceStatus.APPROVED,
             justification="From organization findings policy",
-            manager=user_email,
+            assigned=user_email,
             modified_by=user_email,
             modified_date=modified_date,
             status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
@@ -721,7 +721,7 @@ def _get_vuln_treatment_actions(
                 datetime_utils.get_date_from_iso_str(treatment.modified_date)
             ),
             justification=treatment.justification,
-            manager=treatment.manager,
+            manager=treatment.assigned,
             times=1,
         )
         for treatment in historic_treatment
@@ -880,9 +880,9 @@ def format_vulnerability_treatment_item(
         item["user"] = treatment.modified_by
     if treatment.acceptance_status:
         item["acceptance_status"] = treatment.acceptance_status.value
-    if treatment.manager:
-        item["assigned"] = treatment.manager
-        item["treatment_manager"] = treatment.manager
+    if treatment.assigned:
+        item["assigned"] = treatment.assigned
+        item["treatment_manager"] = treatment.assigned
     return item
 
 
