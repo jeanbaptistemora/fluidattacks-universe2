@@ -176,7 +176,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
 exports.onCreateNode = async ({ node, actions, getNode, loadNodeContent }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `Asciidoc` || node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
     createNodeField({
       name: `slug`,
