@@ -6994,6 +6994,198 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,46,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  36 |       DBClusterParameterGroupName:
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DBSubnetGroupName:
+  39 |         Ref: DBSubnetGroup
+  40 |       DeletionProtection: False
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+> 46 |       StorageEncrypted: False
+  47 |     Type: ""AWS::RDS::DBCluster""
+  48 |   RDSDBInstance2:
+  49 |     Properties:
+  50 |       AvailabilityZone:
+  51 |         Fn::GetAtt:
+  52 |           - Subnet1
+  53 |           - AvailabilityZone
+  54 |       DBClusterIdentifier:
+  55 |         Ref: RDSCluster
+  56 |       DBInstanceClass: db.r3.xlarge
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  54 |       DBClusterIdentifier:
+  55 |         Ref: RDSCluster
+  56 |       DBInstanceClass: db.r3.xlarge
+  57 |       DBParameterGroupName:
+  58 |         Ref: RDSDBParameterGroup
+  59 |       DBSubnetGroupName:
+  60 |         Ref: DBSubnetGroup
+  61 |       DeletionProtection: False
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: False
+> 64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+  67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,67,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  57 |       DBParameterGroupName:
+  58 |         Ref: RDSDBParameterGroup
+  59 |       DBSubnetGroupName:
+  60 |         Ref: DBSubnetGroup
+  61 |       DeletionProtection: False
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: False
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+> 67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,79,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+  78 |   RDSDBInstance3:
+> 79 |     Properties:
+  80 |       AvailabilityZone:
+  81 |         Fn::GetAtt:
+  82 |           - Subnet1
+  83 |           - AvailabilityZone
+  84 |       DBClusterIdentifier:
+  85 |         Ref: RDSCluster
+  86 |       DBInstanceClass: db.r3.xlarge
+  87 |       DBParameterGroupName:
+  88 |         Ref: RDSDBParameterGroup
+  89 |       DBSubnetGroupName:
+     ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   54 |           ""Ref"": ""DBSubnetGroup""
+   55 |         },
+   56 |         ""DeletionProtection"": false,
+   57 |         ""Engine"": ""aurora"",
+   58 |         ""MasterUserPassword"": {
+   59 |           ""Ref"": ""password""
+   60 |         },
+   61 |         ""MasterUsername"": {
+   62 |           ""Ref"": ""username""
+   63 |         },
+>  64 |         ""StorageEncrypted"": false
+   65 |       },
+   66 |       ""Type"": ""AWS::RDS::DBCluster""
+   67 |     },
+   68 |     ""RDSDBInstance2"": {
+   69 |       ""Properties"": {
+   70 |         ""AvailabilityZone"": {
+   71 |           ""Fn::GetAtt"": [
+   72 |             ""Subnet1"",
+   73 |             ""AvailabilityZone""
+   74 |           ]
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,89,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   79 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   80 |         ""DBParameterGroupName"": {
+   81 |           ""Ref"": ""RDSDBParameterGroup""
+   82 |         },
+   83 |         ""DBSubnetGroupName"": {
+   84 |           ""Ref"": ""DBSubnetGroup""
+   85 |         },
+   86 |         ""DeletionProtection"": false,
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": false,
+>  89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+   94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,94,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   84 |           ""Ref"": ""DBSubnetGroup""
+   85 |         },
+   86 |         ""DeletionProtection"": false,
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": false,
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+>  94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+  100 |         },
+  101 |         ""Engine"": ""aurora"",
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,112,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+  105 |         ""MasterUsername"": {
+  106 |           ""Ref"": ""username""
+  107 |         }
+  108 |       },
+  109 |       ""Type"": ""AWS::RDS::DBCluster""
+  110 |     },
+  111 |     ""RDSDBInstance3"": {
+> 112 |       ""Properties"": {
+  113 |         ""AvailabilityZone"": {
+  114 |           ""Fn::GetAtt"": [
+  115 |             ""Subnet1"",
+  116 |             ""AvailabilityZone""
+  117 |           ]
+  118 |         },
+  119 |         ""DBClusterIdentifier"": {
+  120 |           ""Ref"": ""RDSCluster""
+  121 |         },
+  122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f246._cfn_rds_has_unencrypted_storage
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,16,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    6 |       Name: MyTargets
    7 |       Port: 443
@@ -8747,6 +8939,54 @@ F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   135 | }
       ^ Col 0
 ",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,31,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  21 |           - AvailabilityZone
+  22 |       DBClusterIdentifier:
+  23 |         Ref: RDSCluster
+  24 |       DBInstanceClass: db.r3.xlarge
+  25 |       DBParameterGroupName:
+  26 |         Ref: RDSDBParameterGroup
+  27 |       DBSubnetGroupName:
+  28 |         Ref: DBSubnetGroup
+  29 |       DeletionProtection: True
+  30 |       Engine: aurora
+> 31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+  35 |     Properties:
+  36 |       DBClusterParameterGroupName:
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DBSubnetGroupName:
+  39 |         Ref: DBSubnetGroup
+  40 |       DeletionProtection: False
+  41 |       Engine: aurora
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,43,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   33 |         },
+   34 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   35 |         ""DBParameterGroupName"": {
+   36 |           ""Ref"": ""RDSDBParameterGroup""
+   37 |         },
+   38 |         ""DBSubnetGroupName"": {
+   39 |           ""Ref"": ""DBSubnetGroup""
+   40 |         },
+   41 |         ""DeletionProtection"": true,
+   42 |         ""Engine"": ""aurora"",
+>  43 |         ""PubliclyAccessible"": ""true"",
+   44 |         ""StorageEncrypted"": true
+   45 |       },
+   46 |       ""Type"": ""AWS::RDS::DBInstance""
+   47 |     },
+   48 |     ""RDSCluster2"": {
+   49 |       ""Properties"": {
+   50 |         ""DBClusterParameterGroupName"": {
+   51 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   52 |         },
+   53 |         ""DBSubnetGroupName"": {
+      ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
@@ -9764,6 +10004,1062 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    80 |      ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 3
 ",f256._cfn_rds_has_not_automated_backups
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+   1 | Resources:
+   2 |   RDSCluster1:
+>  3 |     Properties:
+   4 |       DBClusterParameterGroupName:
+   5 |         Ref: RDSDBClusterParameterGroup
+   6 |       DBSubnetGroupName:
+   7 |         Ref: DBSubnetGroup
+   8 |       Engine: aurora
+   9 |       MasterUserPassword:
+  10 |         Ref: password
+  11 |       MasterUsername:
+  12 |         Ref: username
+  13 |       StorageEncrypted: True
+  14 |     Type: ""AWS::RDS::DBCluster""
+  15 |   RDSDBInstance1:
+  16 |     Properties:
+  17 |       AvailabilityZone:
+  18 |         Fn::GetAtt:
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,16,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+   6 |       DBSubnetGroupName:
+   7 |         Ref: DBSubnetGroup
+   8 |       Engine: aurora
+   9 |       MasterUserPassword:
+  10 |         Ref: password
+  11 |       MasterUsername:
+  12 |         Ref: username
+  13 |       StorageEncrypted: True
+  14 |     Type: ""AWS::RDS::DBCluster""
+  15 |   RDSDBInstance1:
+> 16 |     Properties:
+  17 |       AvailabilityZone:
+  18 |         Fn::GetAtt:
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+  22 |         Ref: RDSCluster
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,33,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+  27 |         Ref: DBSubnetGroup
+  28 |       Engine: aurora
+  29 |       PubliclyAccessible: ""true""
+  30 |       StorageEncrypted: True
+  31 |     Type: ""AWS::RDS::DBInstance""
+  32 |   RDSCluster2:
+> 33 |     Properties:
+  34 |       DBClusterParameterGroupName:
+  35 |         Ref: RDSDBClusterParameterGroup
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+  40 |         Ref: password
+  41 |       MasterUsername:
+  42 |         Ref: username
+  43 |       StorageEncrypted: False
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,46,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+  40 |         Ref: password
+  41 |       MasterUsername:
+  42 |         Ref: username
+  43 |       StorageEncrypted: False
+  44 |     Type: ""AWS::RDS::DBCluster""
+  45 |   RDSDBInstance2:
+> 46 |     Properties:
+  47 |       AvailabilityZone:
+  48 |         Fn::GetAtt:
+  49 |           - Subnet1
+  50 |           - AvailabilityZone
+  51 |       DBClusterIdentifier:
+  52 |         Ref: RDSCluster
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,63,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+  57 |         Ref: DBSubnetGroup
+  58 |       Engine: aurora
+  59 |       PubliclyAccessible: False
+  60 |       StorageEncrypted: False
+  61 |     Type: ""AWS::RDS::DBInstance""
+  62 |   RDSCluster3:
+> 63 |     Properties:
+  64 |       DBClusterParameterGroupName:
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,75,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+  74 |   RDSDBInstance3:
+> 75 |     Properties:
+  76 |       AvailabilityZone:
+  77 |         Fn::GetAtt:
+  78 |           - Subnet1
+  79 |           - AvailabilityZone
+  80 |       DBClusterIdentifier:
+  81 |         Ref: RDSCluster
+  82 |       DBInstanceClass: db.r3.xlarge
+  83 |       DBParameterGroupName:
+  84 |         Ref: RDSDBParameterGroup
+  85 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+    1 | {
+    2 |   ""Resources"": {
+    3 |     ""RDSCluster1"": {
+>   4 |       ""Properties"": {
+    5 |         ""DBClusterParameterGroupName"": {
+    6 |           ""Ref"": ""RDSDBClusterParameterGroup""
+    7 |         },
+    8 |         ""DBSubnetGroupName"": {
+    9 |           ""Ref"": ""DBSubnetGroup""
+   10 |         },
+   11 |         ""Engine"": ""aurora"",
+   12 |         ""MasterUserPassword"": {
+   13 |           ""Ref"": ""password""
+   14 |         },
+   15 |         ""MasterUsername"": {
+   16 |           ""Ref"": ""username""
+   17 |         },
+   18 |         ""StorageEncrypted"": true
+   19 |       },
+   20 |       ""Type"": ""AWS::RDS::DBCluster""
+   21 |     },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,23,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   13 |           ""Ref"": ""password""
+   14 |         },
+   15 |         ""MasterUsername"": {
+   16 |           ""Ref"": ""username""
+   17 |         },
+   18 |         ""StorageEncrypted"": true
+   19 |       },
+   20 |       ""Type"": ""AWS::RDS::DBCluster""
+   21 |     },
+   22 |     ""RDSDBInstance1"": {
+>  23 |       ""Properties"": {
+   24 |         ""AvailabilityZone"": {
+   25 |           ""Fn::GetAtt"": [
+   26 |             ""Subnet1"",
+   27 |             ""AvailabilityZone""
+   28 |           ]
+   29 |         },
+   30 |         ""DBClusterIdentifier"": {
+   31 |           ""Ref"": ""RDSCluster""
+   32 |         },
+   33 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,47,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   37 |         ""DBSubnetGroupName"": {
+   38 |           ""Ref"": ""DBSubnetGroup""
+   39 |         },
+   40 |         ""Engine"": ""aurora"",
+   41 |         ""PubliclyAccessible"": ""true"",
+   42 |         ""StorageEncrypted"": true
+   43 |       },
+   44 |       ""Type"": ""AWS::RDS::DBInstance""
+   45 |     },
+   46 |     ""RDSCluster2"": {
+>  47 |       ""Properties"": {
+   48 |         ""DBClusterParameterGroupName"": {
+   49 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   50 |         },
+   51 |         ""DBSubnetGroupName"": {
+   52 |           ""Ref"": ""DBSubnetGroup""
+   53 |         },
+   54 |         ""Engine"": ""aurora"",
+   55 |         ""MasterUserPassword"": {
+   56 |           ""Ref"": ""password""
+   57 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,66,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   56 |           ""Ref"": ""password""
+   57 |         },
+   58 |         ""MasterUsername"": {
+   59 |           ""Ref"": ""username""
+   60 |         },
+   61 |         ""StorageEncrypted"": false
+   62 |       },
+   63 |       ""Type"": ""AWS::RDS::DBCluster""
+   64 |     },
+   65 |     ""RDSDBInstance2"": {
+>  66 |       ""Properties"": {
+   67 |         ""AvailabilityZone"": {
+   68 |           ""Fn::GetAtt"": [
+   69 |             ""Subnet1"",
+   70 |             ""AvailabilityZone""
+   71 |           ]
+   72 |         },
+   73 |         ""DBClusterIdentifier"": {
+   74 |           ""Ref"": ""RDSCluster""
+   75 |         },
+   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,90,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": false,
+   85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+>  90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+   96 |         },
+   97 |         ""Engine"": ""aurora"",
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,108,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+  101 |         ""MasterUsername"": {
+  102 |           ""Ref"": ""username""
+  103 |         }
+  104 |       },
+  105 |       ""Type"": ""AWS::RDS::DBCluster""
+  106 |     },
+  107 |     ""RDSDBInstance3"": {
+> 108 |       ""Properties"": {
+  109 |         ""AvailabilityZone"": {
+  110 |           ""Fn::GetAtt"": [
+  111 |             ""Subnet1"",
+  112 |             ""AvailabilityZone""
+  113 |           ]
+  114 |         },
+  115 |         ""DBClusterIdentifier"": {
+  116 |           ""Ref"": ""RDSCluster""
+  117 |         },
+  118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+   1 | Resources:
+   2 |   RDSCluster1:
+>  3 |     Properties:
+   4 |       DBClusterParameterGroupName:
+   5 |         Ref: RDSDBClusterParameterGroup
+   6 |       DBSubnetGroupName:
+   7 |         Ref: DBSubnetGroup
+   8 |       Engine: aurora
+   9 |       MasterUserPassword:
+  10 |         Ref: password
+  11 |       MasterUsername:
+  12 |         Ref: username
+  13 |       StorageEncrypted: True
+  14 |     Type: ""AWS::RDS::DBCluster""
+  15 |   RDSDBInstance1:
+  16 |     Properties:
+  17 |       AvailabilityZone:
+  18 |         Fn::GetAtt:
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,16,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+   6 |       DBSubnetGroupName:
+   7 |         Ref: DBSubnetGroup
+   8 |       Engine: aurora
+   9 |       MasterUserPassword:
+  10 |         Ref: password
+  11 |       MasterUsername:
+  12 |         Ref: username
+  13 |       StorageEncrypted: True
+  14 |     Type: ""AWS::RDS::DBCluster""
+  15 |   RDSDBInstance1:
+> 16 |     Properties:
+  17 |       AvailabilityZone:
+  18 |         Fn::GetAtt:
+  19 |           - Subnet1
+  20 |           - AvailabilityZone
+  21 |       DBClusterIdentifier:
+  22 |         Ref: RDSCluster
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,33,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  23 |       DBInstanceClass: db.r3.xlarge
+  24 |       DBParameterGroupName:
+  25 |         Ref: RDSDBParameterGroup
+  26 |       DBSubnetGroupName:
+  27 |         Ref: DBSubnetGroup
+  28 |       Engine: aurora
+  29 |       PubliclyAccessible: ""true""
+  30 |       StorageEncrypted: True
+  31 |     Type: ""AWS::RDS::DBInstance""
+  32 |   RDSCluster2:
+> 33 |     Properties:
+  34 |       DBClusterParameterGroupName:
+  35 |         Ref: RDSDBClusterParameterGroup
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+  40 |         Ref: password
+  41 |       MasterUsername:
+  42 |         Ref: username
+  43 |       StorageEncrypted: False
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,46,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  36 |       DBSubnetGroupName:
+  37 |         Ref: DBSubnetGroup
+  38 |       Engine: aurora
+  39 |       MasterUserPassword:
+  40 |         Ref: password
+  41 |       MasterUsername:
+  42 |         Ref: username
+  43 |       StorageEncrypted: False
+  44 |     Type: ""AWS::RDS::DBCluster""
+  45 |   RDSDBInstance2:
+> 46 |     Properties:
+  47 |       AvailabilityZone:
+  48 |         Fn::GetAtt:
+  49 |           - Subnet1
+  50 |           - AvailabilityZone
+  51 |       DBClusterIdentifier:
+  52 |         Ref: RDSCluster
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,63,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  53 |       DBInstanceClass: db.r3.xlarge
+  54 |       DBParameterGroupName:
+  55 |         Ref: RDSDBParameterGroup
+  56 |       DBSubnetGroupName:
+  57 |         Ref: DBSubnetGroup
+  58 |       Engine: aurora
+  59 |       PubliclyAccessible: ""true""
+  60 |       StorageEncrypted: False
+  61 |     Type: ""AWS::RDS::DBInstance""
+  62 |   RDSCluster3:
+> 63 |     Properties:
+  64 |       DBClusterParameterGroupName:
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,75,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  65 |         Ref: RDSDBClusterParameterGroup
+  66 |       DBSubnetGroupName:
+  67 |         Ref: DBSubnetGroup
+  68 |       Engine: aurora
+  69 |       MasterUserPassword:
+  70 |         Ref: password
+  71 |       MasterUsername:
+  72 |         Ref: username
+  73 |     Type: ""AWS::RDS::DBCluster""
+  74 |   RDSDBInstance3:
+> 75 |     Properties:
+  76 |       AvailabilityZone:
+  77 |         Fn::GetAtt:
+  78 |           - Subnet1
+  79 |           - AvailabilityZone
+  80 |       DBClusterIdentifier:
+  81 |         Ref: RDSCluster
+  82 |       DBInstanceClass: db.r3.xlarge
+  83 |       DBParameterGroupName:
+  84 |         Ref: RDSDBParameterGroup
+  85 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+    1 | {
+    2 |   ""Resources"": {
+    3 |     ""RDSCluster1"": {
+>   4 |       ""Properties"": {
+    5 |         ""DBClusterParameterGroupName"": {
+    6 |           ""Ref"": ""RDSDBClusterParameterGroup""
+    7 |         },
+    8 |         ""DBSubnetGroupName"": {
+    9 |           ""Ref"": ""DBSubnetGroup""
+   10 |         },
+   11 |         ""Engine"": ""aurora"",
+   12 |         ""MasterUserPassword"": {
+   13 |           ""Ref"": ""password""
+   14 |         },
+   15 |         ""MasterUsername"": {
+   16 |           ""Ref"": ""username""
+   17 |         },
+   18 |         ""StorageEncrypted"": true
+   19 |       },
+   20 |       ""Type"": ""AWS::RDS::DBCluster""
+   21 |     },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,23,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   13 |           ""Ref"": ""password""
+   14 |         },
+   15 |         ""MasterUsername"": {
+   16 |           ""Ref"": ""username""
+   17 |         },
+   18 |         ""StorageEncrypted"": true
+   19 |       },
+   20 |       ""Type"": ""AWS::RDS::DBCluster""
+   21 |     },
+   22 |     ""RDSDBInstance1"": {
+>  23 |       ""Properties"": {
+   24 |         ""AvailabilityZone"": {
+   25 |           ""Fn::GetAtt"": [
+   26 |             ""Subnet1"",
+   27 |             ""AvailabilityZone""
+   28 |           ]
+   29 |         },
+   30 |         ""DBClusterIdentifier"": {
+   31 |           ""Ref"": ""RDSCluster""
+   32 |         },
+   33 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,47,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   37 |         ""DBSubnetGroupName"": {
+   38 |           ""Ref"": ""DBSubnetGroup""
+   39 |         },
+   40 |         ""Engine"": ""aurora"",
+   41 |         ""PubliclyAccessible"": ""true"",
+   42 |         ""StorageEncrypted"": true
+   43 |       },
+   44 |       ""Type"": ""AWS::RDS::DBInstance""
+   45 |     },
+   46 |     ""RDSCluster2"": {
+>  47 |       ""Properties"": {
+   48 |         ""DBClusterParameterGroupName"": {
+   49 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   50 |         },
+   51 |         ""DBSubnetGroupName"": {
+   52 |           ""Ref"": ""DBSubnetGroup""
+   53 |         },
+   54 |         ""Engine"": ""aurora"",
+   55 |         ""MasterUserPassword"": {
+   56 |           ""Ref"": ""password""
+   57 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,66,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   56 |           ""Ref"": ""password""
+   57 |         },
+   58 |         ""MasterUsername"": {
+   59 |           ""Ref"": ""username""
+   60 |         },
+   61 |         ""StorageEncrypted"": false
+   62 |       },
+   63 |       ""Type"": ""AWS::RDS::DBCluster""
+   64 |     },
+   65 |     ""RDSDBInstance2"": {
+>  66 |       ""Properties"": {
+   67 |         ""AvailabilityZone"": {
+   68 |           ""Fn::GetAtt"": [
+   69 |             ""Subnet1"",
+   70 |             ""AvailabilityZone""
+   71 |           ]
+   72 |         },
+   73 |         ""DBClusterIdentifier"": {
+   74 |           ""Ref"": ""RDSCluster""
+   75 |         },
+   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,90,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": ""true"",
+   85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+>  90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+   96 |         },
+   97 |         ""Engine"": ""aurora"",
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,108,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+  101 |         ""MasterUsername"": {
+  102 |           ""Ref"": ""username""
+  103 |         }
+  104 |       },
+  105 |       ""Type"": ""AWS::RDS::DBCluster""
+  106 |     },
+  107 |     ""RDSDBInstance3"": {
+> 108 |       ""Properties"": {
+  109 |         ""AvailabilityZone"": {
+  110 |           ""Fn::GetAtt"": [
+  111 |             ""Subnet1"",
+  112 |             ""AvailabilityZone""
+  113 |           ]
+  114 |         },
+  115 |         ""DBClusterIdentifier"": {
+  116 |           ""Ref"": ""RDSCluster""
+  117 |         },
+  118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+   1 | Resources:
+   2 |   RDSCluster1:
+>  3 |     Properties:
+   4 |       BackupRetentionPeriod: 2
+   5 |       DBClusterParameterGroupName:
+   6 |         Ref: RDSDBClusterParameterGroup
+   7 |       DBSubnetGroupName:
+   8 |         Ref: DBSubnetGroup
+   9 |       Engine: aurora
+  10 |       MasterUserPassword:
+  11 |         Ref: password
+  12 |       MasterUsername:
+  13 |         Ref: username
+  14 |       StorageEncrypted: True
+  15 |     Type: ""AWS::RDS::DBCluster""
+  16 |   RDSDBInstance1:
+  17 |     Properties:
+  18 |       BackupRetentionPeriod: 2
+  19 |       AvailabilityZone:
+  20 |         Fn::GetAtt:
+  21 |           - Subnet1
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,17,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+   7 |       DBSubnetGroupName:
+   8 |         Ref: DBSubnetGroup
+   9 |       Engine: aurora
+  10 |       MasterUserPassword:
+  11 |         Ref: password
+  12 |       MasterUsername:
+  13 |         Ref: username
+  14 |       StorageEncrypted: True
+  15 |     Type: ""AWS::RDS::DBCluster""
+  16 |   RDSDBInstance1:
+> 17 |     Properties:
+  18 |       BackupRetentionPeriod: 2
+  19 |       AvailabilityZone:
+  20 |         Fn::GetAtt:
+  21 |           - Subnet1
+  22 |           - AvailabilityZone
+  23 |       DBClusterIdentifier:
+  24 |         Ref: RDSCluster
+  25 |       DBInstanceClass: db.r3.xlarge
+  26 |       DBParameterGroupName:
+  27 |         Ref: RDSDBParameterGroup
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,35,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  25 |       DBInstanceClass: db.r3.xlarge
+  26 |       DBParameterGroupName:
+  27 |         Ref: RDSDBParameterGroup
+  28 |       DBSubnetGroupName:
+  29 |         Ref: DBSubnetGroup
+  30 |       Engine: aurora
+  31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+> 35 |     Properties:
+  36 |       BackupRetentionPeriod: 0
+  37 |       DBClusterParameterGroupName:
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DBSubnetGroupName:
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,49,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  39 |       DBSubnetGroupName:
+  40 |         Ref: DBSubnetGroup
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+  46 |       StorageEncrypted: False
+  47 |     Type: ""AWS::RDS::DBCluster""
+  48 |   RDSDBInstance2:
+> 49 |     Properties:
+  50 |       BackupRetentionPeriod: 0
+  51 |       AvailabilityZone:
+  52 |         Fn::GetAtt:
+  53 |           - Subnet1
+  54 |           - AvailabilityZone
+  55 |       DBClusterIdentifier:
+  56 |         Ref: RDSCluster
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,67,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  57 |       DBInstanceClass: db.r3.xlarge
+  58 |       DBParameterGroupName:
+  59 |         Ref: RDSDBParameterGroup
+  60 |       DBSubnetGroupName:
+  61 |         Ref: DBSubnetGroup
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: ""true""
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+> 67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,79,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+  78 |   RDSDBInstance3:
+> 79 |     Properties:
+  80 |       AvailabilityZone:
+  81 |         Fn::GetAtt:
+  82 |           - Subnet1
+  83 |           - AvailabilityZone
+  84 |       DBClusterIdentifier:
+  85 |         Ref: RDSCluster
+  86 |       DBInstanceClass: db.r3.xlarge
+  87 |       DBParameterGroupName:
+  88 |         Ref: RDSDBParameterGroup
+  89 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+    1 | {
+    2 |   ""Resources"": {
+    3 |     ""RDSCluster1"": {
+>   4 |       ""Properties"": {
+    5 |         ""BackupRetentionPeriod"": 2,
+    6 |         ""DBClusterParameterGroupName"": {
+    7 |           ""Ref"": ""RDSDBClusterParameterGroup""
+    8 |         },
+    9 |         ""DBSubnetGroupName"": {
+   10 |           ""Ref"": ""DBSubnetGroup""
+   11 |         },
+   12 |         ""Engine"": ""aurora"",
+   13 |         ""MasterUserPassword"": {
+   14 |           ""Ref"": ""password""
+   15 |         },
+   16 |         ""MasterUsername"": {
+   17 |           ""Ref"": ""username""
+   18 |         },
+   19 |         ""StorageEncrypted"": true
+   20 |       },
+   21 |       ""Type"": ""AWS::RDS::DBCluster""
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,24,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   14 |           ""Ref"": ""password""
+   15 |         },
+   16 |         ""MasterUsername"": {
+   17 |           ""Ref"": ""username""
+   18 |         },
+   19 |         ""StorageEncrypted"": true
+   20 |       },
+   21 |       ""Type"": ""AWS::RDS::DBCluster""
+   22 |     },
+   23 |     ""RDSDBInstance1"": {
+>  24 |       ""Properties"": {
+   25 |         ""BackupRetentionPeriod"": 2,
+   26 |         ""AvailabilityZone"": {
+   27 |           ""Fn::GetAtt"": [
+   28 |             ""Subnet1"",
+   29 |             ""AvailabilityZone""
+   30 |           ]
+   31 |         },
+   32 |         ""DBClusterIdentifier"": {
+   33 |           ""Ref"": ""RDSCluster""
+   34 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,49,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   39 |         ""DBSubnetGroupName"": {
+   40 |           ""Ref"": ""DBSubnetGroup""
+   41 |         },
+   42 |         ""Engine"": ""aurora"",
+   43 |         ""PubliclyAccessible"": ""true"",
+   44 |         ""StorageEncrypted"": true
+   45 |       },
+   46 |       ""Type"": ""AWS::RDS::DBInstance""
+   47 |     },
+   48 |     ""RDSCluster2"": {
+>  49 |       ""Properties"": {
+   50 |         ""BackupRetentionPeriod"": 0,
+   51 |         ""DBClusterParameterGroupName"": {
+   52 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   53 |         },
+   54 |         ""DBSubnetGroupName"": {
+   55 |           ""Ref"": ""DBSubnetGroup""
+   56 |         },
+   57 |         ""Engine"": ""aurora"",
+   58 |         ""MasterUserPassword"": {
+   59 |           ""Ref"": ""password""
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,69,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   59 |           ""Ref"": ""password""
+   60 |         },
+   61 |         ""MasterUsername"": {
+   62 |           ""Ref"": ""username""
+   63 |         },
+   64 |         ""StorageEncrypted"": false
+   65 |       },
+   66 |       ""Type"": ""AWS::RDS::DBCluster""
+   67 |     },
+   68 |     ""RDSDBInstance2"": {
+>  69 |       ""Properties"": {
+   70 |         ""BackupRetentionPeriod"": 0,
+   71 |         ""AvailabilityZone"": {
+   72 |           ""Fn::GetAtt"": [
+   73 |             ""Subnet1"",
+   74 |             ""AvailabilityZone""
+   75 |           ]
+   76 |         },
+   77 |         ""DBClusterIdentifier"": {
+   78 |           ""Ref"": ""RDSCluster""
+   79 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   84 |         ""DBSubnetGroupName"": {
+   85 |           ""Ref"": ""DBSubnetGroup""
+   86 |         },
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": ""true"",
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+>  94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+  100 |         },
+  101 |         ""Engine"": ""aurora"",
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+  105 |         ""MasterUsername"": {
+  106 |           ""Ref"": ""username""
+  107 |         }
+  108 |       },
+  109 |       ""Type"": ""AWS::RDS::DBCluster""
+  110 |     },
+  111 |     ""RDSDBInstance3"": {
+> 112 |       ""Properties"": {
+  113 |         ""AvailabilityZone"": {
+  114 |           ""Fn::GetAtt"": [
+  115 |             ""Subnet1"",
+  116 |             ""AvailabilityZone""
+  117 |           ]
+  118 |         },
+  119 |         ""DBClusterIdentifier"": {
+  120 |           ""Ref"": ""RDSCluster""
+  121 |         },
+  122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,40,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  30 |       Engine: aurora
+  31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+  35 |     Properties:
+  36 |       DBClusterParameterGroupName:
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DBSubnetGroupName:
+  39 |         Ref: DBSubnetGroup
+> 40 |       DeletionProtection: False
+  41 |       Engine: aurora
+  42 |       MasterUserPassword:
+  43 |         Ref: password
+  44 |       MasterUsername:
+  45 |         Ref: username
+  46 |       StorageEncrypted: False
+  47 |     Type: ""AWS::RDS::DBCluster""
+  48 |   RDSDBInstance2:
+  49 |     Properties:
+  50 |       AvailabilityZone:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,61,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  51 |         Fn::GetAtt:
+  52 |           - Subnet1
+  53 |           - AvailabilityZone
+  54 |       DBClusterIdentifier:
+  55 |         Ref: RDSCluster
+  56 |       DBInstanceClass: db.r3.xlarge
+  57 |       DBParameterGroupName:
+  58 |         Ref: RDSDBParameterGroup
+  59 |       DBSubnetGroupName:
+  60 |         Ref: DBSubnetGroup
+> 61 |       DeletionProtection: False
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: False
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+  67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,67,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  57 |       DBParameterGroupName:
+  58 |         Ref: RDSDBParameterGroup
+  59 |       DBSubnetGroupName:
+  60 |         Ref: DBSubnetGroup
+  61 |       DeletionProtection: False
+  62 |       Engine: aurora
+  63 |       PubliclyAccessible: False
+  64 |       StorageEncrypted: False
+  65 |     Type: ""AWS::RDS::DBInstance""
+  66 |   RDSCluster3:
+> 67 |     Properties:
+  68 |       DBClusterParameterGroupName:
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,79,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+  69 |         Ref: RDSDBClusterParameterGroup
+  70 |       DBSubnetGroupName:
+  71 |         Ref: DBSubnetGroup
+  72 |       Engine: aurora
+  73 |       MasterUserPassword:
+  74 |         Ref: password
+  75 |       MasterUsername:
+  76 |         Ref: username
+  77 |     Type: ""AWS::RDS::DBCluster""
+  78 |   RDSDBInstance3:
+> 79 |     Properties:
+  80 |       AvailabilityZone:
+  81 |         Fn::GetAtt:
+  82 |           - Subnet1
+  83 |           - AvailabilityZone
+  84 |       DBClusterIdentifier:
+  85 |         Ref: RDSCluster
+  86 |       DBInstanceClass: db.r3.xlarge
+  87 |       DBParameterGroupName:
+  88 |         Ref: RDSDBParameterGroup
+  89 |       DBSubnetGroupName:
+     ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,56,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   46 |       ""Type"": ""AWS::RDS::DBInstance""
+   47 |     },
+   48 |     ""RDSCluster2"": {
+   49 |       ""Properties"": {
+   50 |         ""DBClusterParameterGroupName"": {
+   51 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   52 |         },
+   53 |         ""DBSubnetGroupName"": {
+   54 |           ""Ref"": ""DBSubnetGroup""
+   55 |         },
+>  56 |         ""DeletionProtection"": false,
+   57 |         ""Engine"": ""aurora"",
+   58 |         ""MasterUserPassword"": {
+   59 |           ""Ref"": ""password""
+   60 |         },
+   61 |         ""MasterUsername"": {
+   62 |           ""Ref"": ""username""
+   63 |         },
+   64 |         ""StorageEncrypted"": false
+   65 |       },
+   66 |       ""Type"": ""AWS::RDS::DBCluster""
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,86,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   76 |         ""DBClusterIdentifier"": {
+   77 |           ""Ref"": ""RDSCluster""
+   78 |         },
+   79 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   80 |         ""DBParameterGroupName"": {
+   81 |           ""Ref"": ""RDSDBParameterGroup""
+   82 |         },
+   83 |         ""DBSubnetGroupName"": {
+   84 |           ""Ref"": ""DBSubnetGroup""
+   85 |         },
+>  86 |         ""DeletionProtection"": false,
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": false,
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+   94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+   84 |           ""Ref"": ""DBSubnetGroup""
+   85 |         },
+   86 |         ""DeletionProtection"": false,
+   87 |         ""Engine"": ""aurora"",
+   88 |         ""PubliclyAccessible"": false,
+   89 |         ""StorageEncrypted"": false
+   90 |       },
+   91 |       ""Type"": ""AWS::RDS::DBInstance""
+   92 |     },
+   93 |     ""RDSCluster3"": {
+>  94 |       ""Properties"": {
+   95 |         ""DBClusterParameterGroupName"": {
+   96 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   97 |         },
+   98 |         ""DBSubnetGroupName"": {
+   99 |           ""Ref"": ""DBSubnetGroup""
+  100 |         },
+  101 |         ""Engine"": ""aurora"",
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
+F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+  102 |         ""MasterUserPassword"": {
+  103 |           ""Ref"": ""password""
+  104 |         },
+  105 |         ""MasterUsername"": {
+  106 |           ""Ref"": ""username""
+  107 |         }
+  108 |       },
+  109 |       ""Type"": ""AWS::RDS::DBCluster""
+  110 |     },
+  111 |     ""RDSDBInstance3"": {
+> 112 |       ""Properties"": {
+  113 |         ""AvailabilityZone"": {
+  114 |           ""Fn::GetAtt"": [
+  115 |             ""Subnet1"",
+  116 |             ""AvailabilityZone""
+  117 |           ]
+  118 |         },
+  119 |         ""DBClusterIdentifier"": {
+  120 |           ""Ref"": ""RDSCluster""
+  121 |         },
+  122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",f256._cfn_rds_has_not_termination_protection
 F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,693,skims,256. Lack of protection against deletion - RDS,"Lack of protection against deletion - RDS
  in namespace/skims/test/data/lib_path/f109/subnet_test.tf","
    2 |   publicly_accessible  = false
