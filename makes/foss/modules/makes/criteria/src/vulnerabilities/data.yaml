@@ -6013,7 +6013,7 @@
     recommendation: >
       Encrypt each object with a unique key.
       As an additional safeguard, it encrypts
-      the key itself with a root key that it
+      the key itself with a root key that
       regularly rotates.
       Amazon S3 server-side encryption uses one
       of the strongest block ciphers available,
@@ -6044,7 +6044,7 @@
     recommendation: >
       Cifrar cada objeto con una clave única.
       Como salvaguarda adicional, cifra la propia
-      clave con una clave raíz que rota regularmente.
+      clave con una clave raíz que regularmente rota.
       El cifrado del lado del servidor de Amazon S3
       utiliza uno de los cifrados en bloque más
       potentes disponibles, el Advanced Encryption
