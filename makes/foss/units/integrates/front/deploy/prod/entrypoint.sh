@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  deploy prod production master
+  deploy prod_new production master
 }
 
 main "${@}"
