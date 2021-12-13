@@ -20,6 +20,9 @@ from db_model.toe_lines.types import (
 from newutils import (
     datetime as datetime_utils,
 )
+from newutils.validations import (
+    validate_field_length,
+)
 from typing import (
     Optional,
 )
@@ -109,6 +112,12 @@ async def update(
         and not (1 <= attributes.attacked_lines <= current_value.loc)
     ):
         raise InvalidToeLinesAttackedLines()
+
+    if (
+        attributes.is_moving_toe_lines is False
+        and attributes.comments is not None
+    ):
+        validate_field_length(attributes.comments, 200)
 
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
     last_modified_date = (

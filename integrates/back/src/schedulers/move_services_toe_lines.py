@@ -46,7 +46,6 @@ from toe.lines import (
     domain as toe_lines_domain,
 )
 from toe.lines.types import (
-    ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
 from typing import (
@@ -62,9 +61,6 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 bugsnag_utils.start_scheduler_session()
 
-toe_lines_add = retry_on_exceptions(
-    exceptions=(UnavailabilityError,), sleep_seconds=5
-)(toe_lines_domain.add)
 toe_lines_remove = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.remove)
@@ -254,39 +250,6 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 ),
                 _get_seen_at(repo_services_toe_lines[filename], toe_lines),
             )
-        )
-    )
-    await collect(
-        tuple(
-            toe_lines_add(
-                group_name,
-                root_id,
-                filename,
-                ToeLinesAttributesToAdd(
-                    attacked_at=datetime.fromisoformat(
-                        services_toe_lines.tested_date
-                    )
-                    if services_toe_lines.tested_date
-                    else None,
-                    attacked_by="",
-                    attacked_lines=services_toe_lines.tested_lines,
-                    comments=services_toe_lines.comments,
-                    commit_author="",
-                    loc=services_toe_lines.loc,
-                    modified_commit=services_toe_lines.modified_commit,
-                    modified_date=datetime.fromisoformat(
-                        services_toe_lines.modified_date
-                    ),
-                    be_present=False,
-                    seen_at=datetime.fromisoformat(
-                        services_toe_lines.tested_date
-                    )
-                    if services_toe_lines.tested_date
-                    else None,
-                ),
-            )
-            for filename, services_toe_lines in repo_services_toe_lines.items()
-            if filename not in repo_toe_lines
         )
     )
     non_present_toe_lines = await loaders.root_toe_lines.load_nodes(
