@@ -8651,6 +8651,54 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    51 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,31,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+  21 |           - AvailabilityZone
+  22 |       DBClusterIdentifier:
+  23 |         Ref: RDSCluster
+  24 |       DBInstanceClass: db.r3.xlarge
+  25 |       DBParameterGroupName:
+  26 |         Ref: RDSDBParameterGroup
+  27 |       DBSubnetGroupName:
+  28 |         Ref: DBSubnetGroup
+  29 |       DeletionProtection: True
+  30 |       Engine: aurora
+> 31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+  35 |     Properties:
+  36 |       DBClusterParameterGroupName:
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DeletionProtection: True
+  39 |       Engine: aurora
+  40 |       MasterUserPassword:
+  41 |         Ref: password
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,43,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
+  33 |         },
+  34 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+  35 |         ""DBParameterGroupName"": {
+  36 |           ""Ref"": ""RDSDBParameterGroup""
+  37 |         },
+  38 |         ""DBSubnetGroupName"": {
+  39 |           ""Ref"": ""DBSubnetGroup""
+  40 |         },
+  41 |         ""DeletionProtection"": true,
+  42 |         ""Engine"": ""aurora"",
+> 43 |         ""PubliclyAccessible"": ""true"",
+  44 |         ""StorageEncrypted"": true
+  45 |       },
+  46 |       ""Type"": ""AWS::RDS::DBInstance""
+  47 |     },
+  48 |     ""RDSCluster2"": {
+  49 |       ""Properties"": {
+  50 |         ""DBClusterParameterGroupName"": {
+  51 |           ""Ref"": ""RDSDBClusterParameterGroup""
+  52 |         },
+  53 |         ""DeletionProtection"": true,
+     ^ Col 0
+",f073._cfn_rds_is_publicly_accessible
 F073,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,29,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   19 |           - Subnet1
   20 |           - AvailabilityZone
@@ -9688,6 +9736,102 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use
   72 | }
      ^ Col 0
 ",f372._tfm_serves_content_over_http
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,35,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+  25 |       DBParameterGroupName:
+  26 |         Ref: RDSDBParameterGroup
+  27 |       DBSubnetGroupName:
+  28 |         Ref: DBSubnetGroup
+  29 |       DeletionProtection: True
+  30 |       Engine: aurora
+  31 |       PubliclyAccessible: ""true""
+  32 |       StorageEncrypted: True
+  33 |     Type: ""AWS::RDS::DBInstance""
+  34 |   RDSCluster2:
+> 35 |     Properties:
+  36 |       DBClusterParameterGroupName:
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DeletionProtection: True
+  39 |       Engine: aurora
+  40 |       MasterUserPassword:
+  41 |         Ref: password
+  42 |       MasterUsername:
+  43 |         Ref: username
+  44 |       StorageEncrypted: True
+  45 |     Type: ""AWS::RDS::DBCluster""
+     ^ Col 0
+",f109._cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,47,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+  37 |         Ref: RDSDBClusterParameterGroup
+  38 |       DeletionProtection: True
+  39 |       Engine: aurora
+  40 |       MasterUserPassword:
+  41 |         Ref: password
+  42 |       MasterUsername:
+  43 |         Ref: username
+  44 |       StorageEncrypted: True
+  45 |     Type: ""AWS::RDS::DBCluster""
+  46 |   RDSDBInstance2:
+> 47 |     Properties:
+  48 |       AvailabilityZone:
+  49 |         Fn::GetAtt:
+  50 |           - Subnet1
+  51 |           - AvailabilityZone
+  52 |       DBClusterIdentifier:
+  53 |         Ref: RDSCluster
+  54 |       DBInstanceClass: db.r3.xlarge
+  55 |       DBParameterGroupName:
+  56 |         Ref: RDSDBParameterGroup
+  57 |       DeletionProtection: True
+     ^ Col 0
+",f109._cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,49,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
+  39 |           ""Ref"": ""DBSubnetGroup""
+  40 |         },
+  41 |         ""DeletionProtection"": true,
+  42 |         ""Engine"": ""aurora"",
+  43 |         ""PubliclyAccessible"": ""true"",
+  44 |         ""StorageEncrypted"": true
+  45 |       },
+  46 |       ""Type"": ""AWS::RDS::DBInstance""
+  47 |     },
+  48 |     ""RDSCluster2"": {
+> 49 |       ""Properties"": {
+  50 |         ""DBClusterParameterGroupName"": {
+  51 |           ""Ref"": ""RDSDBClusterParameterGroup""
+  52 |         },
+  53 |         ""DeletionProtection"": true,
+  54 |         ""Engine"": ""aurora"",
+  55 |         ""MasterUserPassword"": {
+  56 |           ""Ref"": ""password""
+  57 |         },
+  58 |         ""MasterUsername"": {
+  59 |           ""Ref"": ""username""
+     ^ Col 0
+",f109._cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,66,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
+  56 |           ""Ref"": ""password""
+  57 |         },
+  58 |         ""MasterUsername"": {
+  59 |           ""Ref"": ""username""
+  60 |         },
+  61 |         ""StorageEncrypted"": true
+  62 |       },
+  63 |       ""Type"": ""AWS::RDS::DBCluster""
+  64 |     },
+  65 |     ""RDSDBInstance2"": {
+> 66 |       ""Properties"": {
+  67 |         ""AvailabilityZone"": {
+  68 |           ""Fn::GetAtt"": [
+  69 |             ""Subnet1"",
+  70 |             ""AvailabilityZone""
+  71 |           ]
+  72 |         },
+  73 |         ""DBClusterIdentifier"": {
+  74 |           ""Ref"": ""RDSCluster""
+  75 |         },
+  76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+     ^ Col 0
+",f109._cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Unrestricted access between network segments - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = true
