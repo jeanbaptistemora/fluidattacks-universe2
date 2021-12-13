@@ -4,6 +4,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     binary_expression as c_sharp_binary_expression,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
     class_declaration as c_sharp_class_declaration,
+    comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     element_access_expression as c_sharp_element_access_expression,
     expression_statement as c_sharp_expression_statement,
@@ -70,6 +71,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "class_declaration",
         },
         syntax_reader=c_sharp_class_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "comment",
+        },
+        syntax_reader=c_sharp_comment.reader,
     ),
     Dispatcher(
         applicable_types={
