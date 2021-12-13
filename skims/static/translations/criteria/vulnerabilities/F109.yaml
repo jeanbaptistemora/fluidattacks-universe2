@@ -1,3 +1,6 @@
+src.lib_path.f109.rds_is_not_inside_a_db_subnet_group:
+  en: DBInstance or DBCluster are not inside a DBSubnetGroup
+  es: DBInstance o DBCluster no está adentro de un DBSubnetGroup
 F109.title:
   en: Unrestricted access between network segments - RDS
   es: Unrestricted access between network segments - RDS

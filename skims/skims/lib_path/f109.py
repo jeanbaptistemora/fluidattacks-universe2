@@ -1,9 +1,13 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSRdsCluster,
+)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
+    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -12,6 +16,9 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
+)
+from parse_cfn.structure import (
+    iter_rds_clusters_and_instances,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -72,6 +79,19 @@ def tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
             yield bucket
 
 
+def _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
+    file_ext: str,
+    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
+) -> Iterator[Union[AWSRdsCluster, Node]]:
+    for rds_res in rds_iterator:
+        if "DBSubnetGroupName" not in rds_res.raw:
+            yield AWSRdsCluster(
+                column=rds_res.start_column,
+                data=rds_res.data,
+                line=get_line_by_extension(rds_res.start_line, file_ext),
+            )
+
+
 def _tfm_db_cluster_inside_subnet(
     content: str,
     path: str,
@@ -110,6 +130,31 @@ def _tfm_rds_instance_inside_subnet(
     )
 
 
+def _cfn_rds_is_not_inside_a_db_subnet_group(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F109_CWE},
+        description_key=(
+            "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
+        ),
+        finding=_FINDING_F109,
+        iterator=get_cloud_iterator(
+            _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
+                file_ext=file_ext,
+                rds_iterator=iter_rds_clusters_and_instances(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -139,6 +184,24 @@ async def tfm_rds_instance_inside_subnet(
         content=content,
         path=path,
         model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_rds_is_not_inside_a_db_subnet_group(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_rds_is_not_inside_a_db_subnet_group,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
     )
 
 
