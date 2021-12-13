@@ -53,6 +53,7 @@ function usePreviousProps(value: boolean): boolean {
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
+  clearFiltersButton,
   customFilters,
   customSearch,
   extraButtons,
@@ -259,6 +260,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     <React.StrictMode>
       <DataTableNext
         bordered={true}
+        clearFiltersButton={clearFiltersButton}
         customFilters={customFilters}
         customSearch={customSearch}
         dataset={formatVulnerabilities(vulnerabilities)}

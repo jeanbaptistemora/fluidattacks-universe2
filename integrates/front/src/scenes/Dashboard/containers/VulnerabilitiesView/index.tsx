@@ -277,6 +277,27 @@ export const VulnsView: React.FC = (): JSX.Element => {
     "verification"
   );
 
+  function clearFilters(): void {
+    setFilterGroupFindingsCurrentStatus(
+      (value): Record<string, string> => ({
+        ...value,
+        currentStatus: "",
+      })
+    );
+    setFilterVulnerabilitiesTable(
+      (): IFilterSet => ({
+        currentStatus: "",
+        reportDateRange: { max: "", min: "" },
+        status: "open",
+        tag: "",
+        treatment: "",
+        treatmentCurrentStatus: "",
+        verification: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
     filterSearchTextVulnerabilities,
     filterTreatmentCurrentStatusVulnerabilities,
@@ -421,6 +442,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             <div>
               <VulnComponent
                 canDisplayHacker={canRetrieveHacker}
+                clearFiltersButton={clearFilters}
                 customFilters={{
                   customFiltersProps,
                   isCustomFilterEnabled,
