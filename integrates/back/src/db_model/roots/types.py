@@ -110,6 +110,7 @@ class RootState(NamedTuple):
 
 class MachineFindingResult(NamedTuple):
     open: int
+    modified: int
     finding: str
 
 

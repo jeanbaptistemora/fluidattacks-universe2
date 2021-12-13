@@ -330,7 +330,11 @@ async def _get_machine_executions(
             name=item["name"],
             queue=item["queue"],
             findings_executed=[
-                MachineFindingResult(finding=x["finding"], open=x["open"])
+                MachineFindingResult(
+                    finding=x["finding"],
+                    open=x["open"],
+                    modified=x.get("modified", 0),
+                )
                 for x in item["findings_executed"]
             ],
         )

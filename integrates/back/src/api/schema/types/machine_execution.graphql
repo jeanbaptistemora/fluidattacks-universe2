@@ -2,6 +2,8 @@
 type MachineFindingResult {
   "Finding code of the execution"
   finding: String!
+  "Existing vulnerabilities that were modified"
+  modified: Int!
   "Vulnerabilities found for finding"
   open: Int!
 }

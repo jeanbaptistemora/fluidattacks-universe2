@@ -26,6 +26,8 @@ input ExploitResultInput {
 input MachineFindingResultInput {
   "Finding code of the execution"
   finding: String!
+  "Existing vulnerabilities that were modified"
+  modified: Int!
   "Vulnerabilities found for finding"
   open: Int!
 }
