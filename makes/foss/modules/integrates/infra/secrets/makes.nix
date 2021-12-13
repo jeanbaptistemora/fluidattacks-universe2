@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       integratesSecrets = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+        setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
         src = "/makes/foss/modules/integrates/infra/secrets/infra";
         version = "1.0";
       };

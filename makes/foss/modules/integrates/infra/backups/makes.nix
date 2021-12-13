@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       integratesBackups = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+        setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
         src = "/makes/foss/modules/integrates/infra/backups/infra";
         version = "1.0";
       };

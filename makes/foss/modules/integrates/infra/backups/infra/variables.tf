@@ -21,7 +21,6 @@ variable "dynamodb-tables" {
   default = [
     "fi_async_processing",
     "fi_authz",
-    "FI_comments",
     "fi_events",
     "FI_findings",
     "fi_portfolios",

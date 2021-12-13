@@ -25,6 +25,7 @@ module "external" {
     "dev",
     "integrates-prod",
     "makes_prod",
+    "prod_integrates",
   ]
   aws_iam_policies = {
     "dynamodb-admin"         = ["aws", "AmazonDynamoDBFullAccess"]
@@ -34,5 +35,6 @@ module "external" {
   aws_iam_users = [
     "dev",
     "integrates-prod",
+    "prod_integrates",
   ]
 }

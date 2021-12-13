@@ -6,7 +6,7 @@
     modules = {
       integratesFront = {
         setup = [
-          outputs."/secretsForAwsFromEnv/integratesProd"
+          outputs."/secretsForAwsFromEnv/prodIntegrates"
           outputs."/secretsForEnvFromSops/integratesFrontProd"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];

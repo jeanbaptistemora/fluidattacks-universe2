@@ -13,7 +13,7 @@
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = 1800 * vcpus;
       queue = "dedicated_later";
-      setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+      setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
       vcpus = 4;
     };
     integratesSubscriptionsDailyDigest = rec {
@@ -26,7 +26,7 @@
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = 1800 * vcpus;
       queue = "dedicated_soon";
-      setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+      setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
       vcpus = 4;
     };
   };

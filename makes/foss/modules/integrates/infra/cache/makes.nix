@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       integratesCache = {
-        setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
+        setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
         src = "/makes/foss/modules/integrates/infra/cache/infra";
         version = "1.0";
       };
