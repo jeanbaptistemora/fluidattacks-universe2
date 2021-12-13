@@ -138,6 +138,39 @@ async def _get_historic_zero_risk(
     return tuple(map(format_zero_risk, response.items))
 
 
+async def _get_vulnerabilities(
+    *, finding_id: str
+) -> Tuple[Vulnerability, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_metadata"],
+        values={"finding_id": finding_id},
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["vulnerability_metadata"],),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_vulnerability(item) for item in response.items)
+
+
+class FindingVulnsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, ids: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await collect(_get_vulnerabilities(finding_id=id) for id in ids)
+
+
 class VulnNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
