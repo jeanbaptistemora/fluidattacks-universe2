@@ -10,9 +10,14 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
+import { getToeLinesIndex, onSelectSeveralToeLinesHelper } from "./utils";
+
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IHeaderConfig,
+  ISelectRowProps,
+} from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
@@ -28,6 +33,9 @@ import { translate } from "utils/translations/translate";
 
 const GroupToeLinesView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateAttackedLines: boolean = permissions.can(
+    "api_mutations_update_toe_lines_attacked_lines_mutate"
+  );
   const canGetAttackedAt: boolean = permissions.can(
     "api_resolvers_toe_lines_attacked_at_resolve"
   );
@@ -104,6 +112,9 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     false
   );
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
+    IToeLinesData[]
+  >([]);
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -377,6 +388,37 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     order: "asc",
   });
 
+  function onSelectSeveralToeLinesDatas(
+    isSelect: boolean,
+    toeLinesDatasSelected: IToeLinesData[]
+  ): string[] {
+    return onSelectSeveralToeLinesHelper(
+      isSelect,
+      toeLinesDatasSelected,
+      selectedToeLinesDatas,
+      setSelectedToeLinesDatas
+    );
+  }
+
+  function onSelectOneToeLinesData(
+    toeLinesdata: IToeLinesData,
+    isSelect: boolean
+  ): boolean {
+    onSelectSeveralToeLinesDatas(isSelect, [toeLinesdata]);
+
+    return true;
+  }
+
+  const selectionMode: ISelectRowProps = {
+    clickToSelect: false,
+    hideSelectColumn: false,
+    mode: "checkbox",
+    nonSelectable: [],
+    onSelect: onSelectOneToeLinesData,
+    onSelectAll: onSelectSeveralToeLinesDatas,
+    selected: getToeLinesIndex(selectedToeLinesDatas, toeLines),
+  };
+
   return (
     <React.StrictMode>
       <DataTableNext
@@ -399,6 +441,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={false}
+        selectionMode={canUpdateAttackedLines ? selectionMode : undefined}
       />
     </React.StrictMode>
   );
