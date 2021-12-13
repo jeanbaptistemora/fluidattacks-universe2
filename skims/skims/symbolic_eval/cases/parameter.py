@@ -2,7 +2,10 @@ from model.core_model import (
     FindingEnum,
 )
 from symbolic_eval.f008.cases.parameter import (
-    evaluate as evaluate_parameter,
+    evaluate as evaluate_parameter_f008,
+)
+from symbolic_eval.f100.cases.parameter import (
+    evaluate as evaluate_parameter_f100,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -13,7 +16,8 @@ from typing import (
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
-    FindingEnum.F008: evaluate_parameter,
+    FindingEnum.F008: evaluate_parameter_f008,
+    FindingEnum.F100: evaluate_parameter_f100,
 }
 
 
