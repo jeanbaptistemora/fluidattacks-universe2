@@ -512,7 +512,7 @@ async def _process_subscription(
         )
 
 
-async def trigger_user_to_entity_report() -> None:
+async def trigger_subscriptions_daily_digest() -> None:
     """Process daily digest. Fixed period by scheduler."""
     # Daily:   Tuesday to Saturday @ 9:00 UTC (4:00 GMT-5)
     subscriptions = [

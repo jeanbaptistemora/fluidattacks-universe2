@@ -7,7 +7,7 @@ makeScript {
   replace = {
     __argIntegratesBackEnv__ = outputs."/integrates/back/env";
   };
-  name = "integrates-subscriptions-user-to-entity";
+  name = "integrates-subscriptions-daily-digest";
   searchPaths = {
     bin = [
       inputs.nixpkgs.python39

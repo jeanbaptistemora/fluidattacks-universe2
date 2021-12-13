@@ -16,7 +16,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/computeOnAwsBatch/integratesSubscriptionsUserToEntity__prod:
+/computeOnAwsBatch/integratesSubscriptionsDailyDigest__prod:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
@@ -24,12 +24,11 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule
-        == null
+    - if: $integrates_subscriptions_daily_digest_on_aws_prod_schedule == null
       when: never
     - when: always
   script:
-    - m . /computeOnAwsBatch/integratesSubscriptionsUserToEntity 'prod'
+    - m . /computeOnAwsBatch/integratesSubscriptionsDailyDigest 'prod'
   stage: scheduler
   tags:
     - autoscaling
@@ -3072,7 +3071,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/subscriptions/user-to-entity__dev:
+/integrates/subscriptions/daily-digest__dev:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: true
   needs: []
@@ -3088,7 +3087,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/subscriptions/user-to-entity 'dev'
+    - m . /integrates/subscriptions/daily-digest 'dev'
   stage: subscriptions
   tags:
     - autoscaling

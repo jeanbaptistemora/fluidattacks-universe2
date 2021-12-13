@@ -124,14 +124,14 @@ in
         ++ [
         {
           args = [ "prod" ];
-          output = "/computeOnAwsBatch/integratesSubscriptionsUserToEntity";
+          output = "/computeOnAwsBatch/integratesSubscriptionsDailyDigest";
           gitlabExtra = {
             interruptible = false;
             retry = 2;
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined
-                "integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule")
+                "integrates_subscriptions_daily_digest_on_aws_prod_schedule")
               (gitlabCi.rules.always)
             ];
             stage = "scheduler";
@@ -552,7 +552,7 @@ in
         }
         {
           args = [ "dev" ];
-          output = "/integrates/subscriptions/user-to-entity";
+          output = "/integrates/subscriptions/daily-digest";
           gitlabExtra = {
             retry = 2;
             rules = gitlabOnlyDev;

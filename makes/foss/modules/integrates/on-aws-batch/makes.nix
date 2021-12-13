@@ -16,11 +16,11 @@
       setup = [ outputs."/secretsForAwsFromEnv/integratesProd" ];
       vcpus = 4;
     };
-    integratesSubscriptionsUserToEntity = rec {
+    integratesSubscriptionsDailyDigest = rec {
       allowDuplicates = false;
       attempts = 2;
       attemptDurationSeconds = 3600;
-      command = [ "m" "f" "/integrates/subscriptions/user-to-entity" ];
+      command = [ "m" "f" "/integrates/subscriptions/daily-digest" ];
       definition = "makes";
       includePositionalArgsInName = true;
       environment = [ "PRODUCT_API_TOKEN" ];
