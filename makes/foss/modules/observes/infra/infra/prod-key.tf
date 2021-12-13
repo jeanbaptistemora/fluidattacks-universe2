@@ -52,7 +52,8 @@ data "aws_iam_policy_document" "key-prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/observes-prod",
+        module.external.aws_iam_roles["observes_prod"].arn,
+        module.external.aws_iam_users["observes-prod"].arn,
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod"
       ]
     }
