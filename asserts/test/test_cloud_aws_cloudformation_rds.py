@@ -24,15 +24,6 @@ def test_is_not_inside_a_db_subnet_group():
     assert rds.is_not_inside_a_db_subnet_group(NOT_EXISTS).is_unknown()
 
 
-def test_has_not_termination_protection():
-    """test rds.has_not_termination_protection."""
-    result = rds.has_not_termination_protection(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert rds.has_not_termination_protection(SAFE).is_closed()
-    assert rds.has_not_termination_protection(NOT_EXISTS).is_unknown()
-
-
 def test_not_uses_iam_authentication():
     """test rds.not_uses_iam_authentication."""
     result = rds.not_uses_iam_authentication(VULN)
