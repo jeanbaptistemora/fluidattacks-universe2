@@ -97,17 +97,25 @@ async def execute_skims(token: Optional[str]) -> bool:
         msg = "Results will be synced to group: %s"
         await log("info", msg, CTX.config.group)
 
-        success = await persist(
+        result_persist = await persist(
             group=CTX.config.group,
             stores=stores,
             token=token,
         )
+        success = all(result_persist.values())
+
         end_date = datetime.utcnow()
         if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
             executed = [
                 {
                     "finding": finding.name,
                     "open": await get_ephemeral_store().length(),
+                    "modified": (
+                        result_persist[finding].diff_result.length()
+                        if finding in result_persist
+                        and result_persist[finding].diff_result
+                        else 0
+                    ),
                 }
                 for finding in core_model.FindingEnum
                 if finding in CTX.config.checks

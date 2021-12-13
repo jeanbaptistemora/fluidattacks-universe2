@@ -31,6 +31,7 @@ from state.ephemeral import (
 import sys
 from typing import (
     Dict,
+    Optional,
     Tuple,
 )
 from utils.ctx import (
@@ -215,7 +216,7 @@ async def persist_finding(
     finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
-) -> bool:
+) -> core_model.PersistResult:
     """Persist a finding to Integrates
 
     :param finding: The finding to persist
@@ -230,6 +231,7 @@ async def persist_finding(
     success: bool = False
     store_length: int = await store.length()
     has_results: bool = store_length > 0
+    diff_store: Optional[EphemeralStore] = None
 
     await log("info", "persisting: %s, %s vulns", finding.name, store_length)
 
@@ -246,7 +248,7 @@ async def persist_finding(
     if finding_id:
         await log("info", "finding for: %s = %s", finding.name, finding_id)
 
-        diff_store: EphemeralStore = await diff_results(
+        diff_store = await diff_results(
             integrates_store=await get_finding_vulnerabilities(
                 finding=finding,
                 finding_id=finding_id,
@@ -300,7 +302,21 @@ async def persist_finding(
         await get_group_open_severity(group),
     )
 
-    return success
+    return core_model.PersistResult(success=success, diff_result=diff_store)
+
+
+async def _persist_finding(
+    *,
+    finding: core_model.FindingEnum,
+    group: str,
+    store: EphemeralStore,
+) -> Tuple[core_model.FindingEnum, core_model.PersistResult]:
+    result = await persist_finding(
+        finding=finding,
+        group=group,
+        store=store,
+    )
+    return (finding, result)
 
 
 async def persist(
@@ -308,7 +324,7 @@ async def persist(
     group: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     token: str,
-) -> bool:
+) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
     """Persist all findings with the data extracted from the store.
 
     :param group: The group whose state is to be synced
@@ -324,22 +340,18 @@ async def persist(
 
     await verify_permissions(group=group)
 
-    success: bool = all(
-        await collect(
-            tuple(
-                persist_finding(
-                    finding=finding,
-                    group=group,
-                    store=stores[finding],
-                )
-                for finding in core_model.FindingEnum
-                if finding in CTX.config.checks
-                and not stores[finding].has_errors
+    result = await collect(
+        tuple(
+            _persist_finding(
+                finding=finding,
+                group=group,
+                store=stores[finding],
             )
+            for finding in core_model.FindingEnum
+            if finding in CTX.config.checks and not stores[finding].has_errors
         )
     )
-
-    return success
+    return dict(result)
 
 
 async def verify_permissions(*, group: str) -> bool:

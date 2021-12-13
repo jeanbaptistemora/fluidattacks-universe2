@@ -15,6 +15,7 @@ from model import (
     time_model,
 )
 from typing import (
+    Any,
     Dict,
     List,
     NamedTuple,
@@ -2008,3 +2009,11 @@ class Vulnerability(NamedTuple):
 
 
 Vulnerabilities = Tuple[Vulnerability, ...]
+
+
+class PersistResult(NamedTuple):
+    success: bool
+    diff_result: Optional[Any] = None
+
+    def __bool__(self) -> bool:
+        return self.success
