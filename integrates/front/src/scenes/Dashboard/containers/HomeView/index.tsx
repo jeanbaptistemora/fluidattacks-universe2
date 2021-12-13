@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type */
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
@@ -7,6 +6,7 @@ import React, { useCallback, useEffect } from "react";
 import { Redirect, Switch, useHistory } from "react-router-dom";
 
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
+import type { IUserOrgs } from "scenes/Dashboard/components/Navbar/Breadcrumb/types";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -26,7 +26,7 @@ const HomeView: React.FC = (): JSX.Element => {
     push(savedUrl);
   }, [push, savedUrl]);
   // GraphQL Operations
-  const { data } = useQuery(GET_USER_ORGANIZATIONS, {
+  const { data } = useQuery<IUserOrgs>(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));

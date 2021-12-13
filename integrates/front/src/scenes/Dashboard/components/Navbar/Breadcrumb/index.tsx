@@ -10,6 +10,7 @@ import { AddOrganizationModal } from "./AddOrganizationModal";
 import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, NavSplitButtonContainer } from "./styles";
+import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
 import { MenuItem } from "components/DropdownButton";
@@ -30,17 +31,6 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     localStorage
   );
 
-  interface IFindingTitle {
-    finding: {
-      title: string;
-    };
-  }
-  interface IUserOrgs {
-    me: {
-      organizations: { name: string }[];
-      userEmail: string;
-    };
-  }
   const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
   const openOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(true);
