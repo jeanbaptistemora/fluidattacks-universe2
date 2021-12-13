@@ -231,6 +231,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         or include_closed_vuln
     ):
         await vulns_dal.update_state(
+            current_value=vulnerability.state,
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
             state=VulnerabilityState(
@@ -759,6 +760,7 @@ async def update_metadata_and_state(
         or vulnerability.state.status != new_state.status
     ):
         await vulns_dal.update_state(
+            current_value=vulnerability.state,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             state=new_state,
@@ -870,6 +872,7 @@ async def close_by_exclusion(
         VulnerabilityStateStatus.DELETED,
     }:
         await vulns_dal.update_state(
+            current_value=vulnerability.state,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             state=VulnerabilityState(

@@ -96,7 +96,7 @@ async def update_state(
 
 async def update_treatment(
     *,
-    current_value: VulnerabilityTreatment,
+    current_value: Optional[VulnerabilityTreatment],
     finding_id: str,
     treatment: VulnerabilityTreatment,
     vulnerability_id: str,
@@ -110,12 +110,17 @@ async def update_treatment(
             values={"finding_id": finding_id, "id": vulnerability_id},
         )
         vulnerability_item = {"treatment": treatment_item}
+        base_condition = Attr("state.status").ne(
+            VulnerabilityStateStatus.DELETED.value
+        )
         await operations.update_item(
             condition_expression=(
-                Attr("state.status").ne(VulnerabilityStateStatus.DELETED.value)
+                base_condition
                 & Attr("treatment.modified_date").eq(
                     current_value.modified_date
                 )
+                if current_value
+                else base_condition
             ),
             item=vulnerability_item,
             key=vulnerability_key,
@@ -126,7 +131,10 @@ async def update_treatment(
 
     treatment_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_treatment"],
-        values={"id": vulnerability_id, "iso8601utc": treatment.modified_date},
+        values={
+            "id": vulnerability_id,
+            "iso8601utc": treatment.modified_date,
+        },
     )
     historic_treatment_item = {
         key_structure.partition_key: treatment_key.partition_key,

@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    schedule,
+)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -8,6 +11,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
+    FI_ENVIRONMENT,
 )
 from custom_exceptions import (
     UnavailabilityError,
@@ -16,6 +20,7 @@ from custom_exceptions import (
 from custom_types import (
     Finding as FindingType,
 )
+import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityMetadataToUpdate,
@@ -248,10 +253,19 @@ async def update_metadata(
             vuln_id=vulnerability_id,
             data=item,
         )
+    if FI_ENVIRONMENT == "development":
+        schedule(
+            vulns_model.update_metadata(
+                finding_id=finding_id,
+                metadata=metadata,
+                vulnerability_id=vulnerability_id,
+            )
+        )
 
 
 async def update_state(
     *,
+    current_value: VulnerabilityState,
     finding_id: str,
     vulnerability_id: str,
     state: VulnerabilityState,
@@ -262,6 +276,15 @@ async def update_state(
         vulnerability_id=vulnerability_id,
         elements={"historic_state": (item,)},
     )
+    if FI_ENVIRONMENT == "development":
+        schedule(
+            vulns_model.update_state(
+                current_value=current_value,
+                finding_id=finding_id,
+                state=state,
+                vulnerability_id=vulnerability_id,
+            )
+        )
 
 
 async def update_historic_state(
@@ -301,6 +324,15 @@ async def update_treatment(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data={"historic_treatment": [item]},
+        )
+    if FI_ENVIRONMENT == "development":
+        schedule(
+            vulns_model.update_treatment(
+                current_value=current_value,
+                finding_id=finding_id,
+                treatment=treatment,
+                vulnerability_id=vulnerability_id,
+            )
         )
 
 
@@ -342,6 +374,15 @@ async def update_verification(
             vuln_id=vulnerability_id,
             data={"historic_verification": [item]},
         )
+    if FI_ENVIRONMENT == "development":
+        schedule(
+            vulns_model.update_verification(
+                current_value=current_value,
+                finding_id=finding_id,
+                verification=verification,
+                vulnerability_id=vulnerability_id,
+            )
+        )
 
 
 async def update_historic_verification(
@@ -381,6 +422,15 @@ async def update_zero_risk(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data={"historic_zero_risk": [item]},
+        )
+    if FI_ENVIRONMENT == "development":
+        schedule(
+            vulns_model.update_zero_risk(
+                current_value=current_value,
+                finding_id=finding_id,
+                vulnerability_id=vulnerability_id,
+                zero_risk=zero_risk,
+            )
         )
 
 
