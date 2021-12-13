@@ -1927,7 +1927,7 @@ OKTA_DATA_RAW:
             - ENC[AES256_GCM,data:g1JtyGj57kKB43R+pDf63Dp59z3PEdvZ,iv:bq4OIDFelLwhqsjjGE9tKir4mfLNbZsGt84FCWiD8+g=,tag:owgNbAcSEHM6P1paXs5EJA==,type:str]
             - ENC[AES256_GCM,data:p2Acxh4fTo6uq0YFG0RVATd95AlWDXR2,iv:beCIZUEIP952A+Y79bmWj10jFNCctwF++x1ATuzJSSI=,tag:IehhXKJ4YRKF7V0MPc4JgA==,type:str]
             - ENC[AES256_GCM,data:yUYw1EWlejIse3AOiwNHe93LBujeqLbdaiM=,iv:GzCQ15Z7yrbHbyLM/Z+8ilqfhp8YU/v3evRMrkcwWEg=,tag:A+KKbFcWs14zjWpNvbqkUQ==,type:str]
-            - ENC[AES256_GCM,data:v1tli96U3DyR5XvABEe0y9wmUDnPWmey4UET5AJj,iv:VhM2A/UXB/vifJh2DRMwH3kfTSwDe7h0+Udzfw+kMQk=,tag:KtEtpi0i1I5cpdgr/q+nXw==,type:str]
+            - ENC[AES256_GCM,data:2/b50FHiKfwmOdeXhv/dGYg8lyksRJk7u1oHTdc1,iv:JlSNnyVembli440W9etz9Fi4+WL/GuUDg232WA6q7vM=,tag:tahnKVYD+lytZHUbow9vEA==,type:str]
             - ENC[AES256_GCM,data:YsDnl0DYTfRAHwI89URw0r0DQbgGh4xQydsTkg==,iv:TjwYrB34l8hzPMdZWSyQ9P6l76c+bxbwN/7IZwJLgsc=,tag:ODuhTblu4wa1f6j7xucfOg==,type:str]
             - ENC[AES256_GCM,data:s0Ar9NSs2NTqw1j0Y+XS2iXaRa+PXREzGw==,iv:5KCRc+DrW2EmsRkZ1RhcK9rLVaSngigTd3xwaCNyf6o=,tag:235v9Rm5cuaTNS9wiNWH6Q==,type:str]
             - ENC[AES256_GCM,data:x+sIQbM+evxnBuxXr1ykn5QPNQSNeOB02w==,iv:uPN9vak8EJ8wa/06oDl/DxUa9bGe7/uk2ifqV5nxo7o=,tag:FKc22kHDHvBV2lyzPtvJGQ==,type:str]
@@ -3209,8 +3209,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-12-13T20:40:48Z"
-    mac: ENC[AES256_GCM,data:tG6KP7c1EVNmSkIEW9Mxys3N7IZnHBt0UEf7Dr0GuEtDyFSenFTp3HXwG1KhZSm9l5X5xxn+FJH22PZgcBsqh5LIQ8jpNUqwyoD5jP6pXqCcDbmhu2HpweBbP7KH75UUF9OK7GnsGJveaCTX1QRqVI8kwwhWSlJblK4SBqJJXGI=,iv:ia/wumuqNA28Vhz8hb3OsHNzmOieBd6rVBjXNIKNEJA=,tag:VvcUgHXAUY4TnKIUNXl1XQ==,type:str]
+    lastmodified: "2021-12-13T21:01:46Z"
+    mac: ENC[AES256_GCM,data:GN2y+QhVPnl8p0A6G8ghY0P5/TZb6SKjHnhJkkZAZT9caTNx6ZdWs1JHEsimNaNukZIvc34Xd18QTc0YtM5PP7MdeSiAT0p7pT1CgMOKIRGe53fQYymWiHKQWC1qFTLijbrsTSJ+jxUhRktGrUNafDhef5arkpy3+pt/RlqmH+0=,iv:7ebLvFlKBySW3tw5s8dV99i8ODKAV/bx3Rw9KQ31M4o=,tag:PKVU4vQMhQLsCGliCCOsew==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
