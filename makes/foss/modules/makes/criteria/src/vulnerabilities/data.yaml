@@ -6008,7 +6008,8 @@
       is encrypted with 256-bit
       Advanced Encryption Standard (AES-256).
     impact: >
-      Attacker access to sensitive server data.
+      Compromise sensitive data stored in
+      the bucket in plaintext.
     recommendation: >
       Encrypt each object with a unique key.
       As an additional safeguard, it encrypts
@@ -6019,7 +6020,8 @@
       256-bit Advanced Encryption Standard
       (AES-256), to encrypt the data.
     threat: >
-      Data interception over the network.
+      Authenticated  attacker from Internet
+      with access to the bucket.
   es:
     title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
@@ -6037,8 +6039,8 @@
       con 256-bit Advanced Encryption Standard
       (AES-256).
     impact: >
-      Acceso de atacantes a datos
-      sensibles del servidor.
+      Comprometer datos sensibles del bucket
+      almacenados en texto plano.
     recommendation: >
       Cifrar cada objeto con una clave única.
       Como salvaguarda adicional, cifra la propia
@@ -6049,7 +6051,8 @@
       Standard (AES-256) de 256 bits, para cifrar
       los datos.
     threat: >
-      Interceptación de datos en la red.
+      Atacante autenticado desde Internet
+      con acceso al bucket.
   category: Collect Information
   score:
     base:
