@@ -185,7 +185,9 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_lines=ToeLinesLoader(),
-        vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
+        vulnerability_typed=VulnerabilityTypedLoader(
+            VulnNewLoader(), vulnerability_loader
+        ),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
             vulnerability_loader
         ),

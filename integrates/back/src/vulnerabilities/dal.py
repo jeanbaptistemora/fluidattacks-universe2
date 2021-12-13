@@ -161,7 +161,7 @@ async def sign_url(vuln_file_name: str) -> str:
     return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
 
 
-async def update(
+async def _update(
     finding_id: str, vuln_id: str, data: Dict[str, FindingType]
 ) -> bool:
     set_expression = ""
@@ -200,7 +200,7 @@ async def update(
         raise UnavailabilityError() from ex
 
 
-async def append(
+async def _append(
     *,
     finding_id: str,
     vulnerability_id: str,
@@ -243,7 +243,7 @@ async def update_metadata(
 ) -> None:
     item = format_vulnerability_metadata_item(metadata)
     if item:
-        await update(
+        await _update(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data=item,
@@ -257,7 +257,7 @@ async def update_state(
     state: VulnerabilityState,
 ) -> None:
     item = format_vulnerability_state_item(state)
-    await append(
+    await _append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_state": (item,)},
@@ -270,7 +270,7 @@ async def update_historic_state(
     vulnerability_id: str,
     historic_state: Tuple[VulnerabilityState, ...],
 ) -> None:
-    await update(
+    await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
         data={
@@ -291,13 +291,13 @@ async def update_treatment(
 ) -> None:
     item = format_vulnerability_treatment_item(treatment)
     if current_value:
-        await append(
+        await _append(
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
             elements={"historic_treatment": (item,)},
         )
     else:
-        await update(
+        await _update(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data={"historic_treatment": [item]},
@@ -310,7 +310,7 @@ async def update_historic_treatment(
     vulnerability_id: str,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
 ) -> None:
-    await update(
+    await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
         data={
@@ -331,13 +331,13 @@ async def update_verification(
 ) -> None:
     item = format_vulnerability_verification_item(verification)
     if current_value:
-        await append(
+        await _append(
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
             elements={"historic_verification": (item,)},
         )
     else:
-        await update(
+        await _update(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data={"historic_verification": [item]},
@@ -350,7 +350,7 @@ async def update_historic_verification(
     vulnerability_id: str,
     historic_verification: Tuple[VulnerabilityVerification, ...],
 ) -> None:
-    await update(
+    await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
         data={
@@ -371,13 +371,13 @@ async def update_zero_risk(
 ) -> None:
     item = format_vulnerability_zero_risk_item(zero_risk)
     if current_value:
-        await append(
+        await _append(
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
             elements={"historic_zero_risk": (item,)},
         )
     else:
-        await update(
+        await _update(
             finding_id=finding_id,
             vuln_id=vulnerability_id,
             data={"historic_zero_risk": [item]},
@@ -390,7 +390,7 @@ async def update_historic_zero_risk(
     vulnerability_id: str,
     historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
 ) -> None:
-    await update(
+    await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
         data={

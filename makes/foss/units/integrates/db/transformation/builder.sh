@@ -33,7 +33,6 @@ function main {
     finding_submission
     finding_unreliable_indicators
     finding_verification
-    vulnerability_metadata
     vulnerability_historic_state
     vulnerability_historic_treatment
     vulnerability_historic_verification
