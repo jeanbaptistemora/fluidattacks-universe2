@@ -41,18 +41,18 @@ function main {
   export CI_COMMIT_REF_NAME='master'
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
-  export B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID
-  export B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY
+  export B64_PROD_INTEGRATES_AWS_ACCESS_KEY_ID
+  export B64_PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY
   export B64_PRODUCT_API_TOKEN
   export REPLICAS
   export UUID
 
-  aws_login_prod integrates \
+  aws_login_prod_new integrates \
     && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
-    && B64_INTEGRATES_PROD_AWS_ACCESS_KEY_ID="$(b64 "${INTEGRATES_PROD_AWS_ACCESS_KEY_ID}")" \
-    && B64_INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY="$(b64 "${INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY}")" \
+    && B64_PROD_INTEGRATES_AWS_ACCESS_KEY_ID="$(b64 "${PROD_INTEGRATES_AWS_ACCESS_KEY_ID}")" \
+    && B64_PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY="$(b64 "${PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY}")" \
     && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \

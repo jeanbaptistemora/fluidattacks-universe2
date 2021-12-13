@@ -15,7 +15,7 @@ function main {
   )
 
   echo '[INFO] Logging in to AWS...' \
-    && aws_login_prod integrates \
+    && aws_login_prod_new integrates \
     && sops_export_vars __argSecretsProd__ "${secrets[@]}" \
     && EXPO_APPLE_PASSWORD="${APPLE_PASSWORD}" \
     && EXPO_IOS_DIST_P12_PASSWORD="${APPLE_DIST_CERT_PASSWORD}" \

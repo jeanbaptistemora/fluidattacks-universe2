@@ -50,7 +50,7 @@ function main {
     && case "${1}" in
       prod)
         env='production' \
-          && aws_login_prod integrates \
+          && aws_login_prod_new integrates \
           && sops_export_vars __argSecretsProd__ "${secrets[@]}"
         ;;
       dev)

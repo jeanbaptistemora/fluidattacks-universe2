@@ -11,7 +11,7 @@ function main {
 
   if has_any_file_changed "${files[@]}"; then
     echo '[INFO] Logging in to AWS...' \
-      && aws_login_prod integrates \
+      && aws_login_prod_new integrates \
       && sops_export_vars __argSecretsProd__ "${secrets[@]}" \
       && pushd integrates/mobile \
       && echo "${PLAYSTORE_CREDENTIALS}" > playstore-credentials.json \
