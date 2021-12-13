@@ -51,6 +51,7 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "Import",
+            "Return",
         },
         cfg_builder=end_node.build,
     ),
