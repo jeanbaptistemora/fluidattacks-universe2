@@ -11,4 +11,26 @@ const getToeLinesIds: (toeLines: IToeLinesData[]) => string[] = (
     getToeLinesId(toeLinesData)
   );
 
-export { getToeLinesIds };
+const getToeLinesIndex: (
+  selectedToeLinesDatas: IToeLinesData[],
+  allToeLinesDatas: IToeLinesData[]
+) => number[] = (
+  selectedToeLinesDatas: IToeLinesData[],
+  allToeLinesDatas: IToeLinesData[]
+): number[] => {
+  const selectToeLinesIds: string[] = getToeLinesIds(selectedToeLinesDatas);
+
+  return allToeLinesDatas.reduce(
+    (
+      selectedToeLinesIndex: number[],
+      currentToeLinesData: IToeLinesData,
+      currentToeLinesDataIndex: number
+    ): number[] =>
+      selectToeLinesIds.includes(getToeLinesId(currentToeLinesData))
+        ? [...selectedToeLinesIndex, currentToeLinesDataIndex]
+        : selectedToeLinesIndex,
+    []
+  );
+};
+
+export { getToeLinesIndex };
