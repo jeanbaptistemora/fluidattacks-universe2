@@ -800,7 +800,7 @@ export const enTranslations: ResourceKey = {
     fileUpdated: "File updated ;)",
     groupInfoUpdated: "Group information updated successfully",
     invalid: "is invalid",
-    invalidAssigned: "Please select an assigned user",
+    invalidAssigned: "Please select a valid assigned user",
     invalidCannotModifyNicknameWhenClosing:
       "Invalid, you cannot change the nickname while closing",
     invalidDate:

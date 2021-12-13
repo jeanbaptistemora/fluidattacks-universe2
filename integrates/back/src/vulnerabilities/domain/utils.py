@@ -103,7 +103,7 @@ async def get_valid_assigned(
     if not is_customer_admin:
         assigned = user_email
     enforcer = await authz.get_group_level_enforcer(assigned)
-    if not enforcer(group_name, "valid_treatment_manager"):
+    if not enforcer(group_name, "valid_assigned"):
         raise InvalidAssigned()
     return assigned
 
