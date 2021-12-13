@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 10, 2021, 01:56 PM",
+    "DateLastModified": "Dec 13, 2021, 06:16 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -223,7 +223,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "manager",
+          "AttributeName": "assigned",
           "AttributeType": "S"
         },
         {
@@ -8324,7 +8324,7 @@
                   "accepted_until": {
                     "S": "2021-04-08T00:59:06+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratescustomer@gmail.com"
                   },
                   "justification": {
@@ -8376,7 +8376,7 @@
                   "modified_by": {
                     "S": "integratesmanager@gmail.com"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -8585,7 +8585,7 @@
                   "modified_by": {
                     "S": "integratesmanager@gmail.com"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratescustomer@gmail.com"
                   },
                   "justification": {
@@ -8640,7 +8640,7 @@
                   "modified_by": {
                     "S": "integratesmanager@gmail.com"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -10121,7 +10121,7 @@
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -10225,7 +10225,7 @@
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -10398,7 +10398,7 @@
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -10479,7 +10479,7 @@
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
                   "justification": {
@@ -10550,7 +10550,7 @@
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
-                  "manager": {
+                  "assigned": {
                     "S": "integratescustomer@gmail.com"
                   },
                   "justification": {
@@ -11943,7 +11943,7 @@
               "accepted_until": {
                 "S": "2021-04-08T00:59:06+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratescustomer@gmail.com"
               },
               "justification": {
@@ -11983,7 +11983,7 @@
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12009,7 +12009,7 @@
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12086,7 +12086,7 @@
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratescustomer@gmail.com"
               },
               "justification": {
@@ -12126,7 +12126,7 @@
               "modified_by": {
                 "S": "integratesmanager@gmail.com"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12679,7 +12679,7 @@
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12722,7 +12722,7 @@
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12782,7 +12782,7 @@
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12808,7 +12808,7 @@
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratesuser@gmail.com"
               },
               "justification": {
@@ -12834,7 +12834,7 @@
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
-              "manager": {
+              "assigned": {
                 "S": "integratescustomer@gmail.com"
               },
               "justification": {
@@ -12881,7 +12881,7 @@
             "modified_date",
             "modified_by",
             "accepted_until",
-            "manager",
+            "assigned",
             "justification",
             "acceptance_status"
           ],
