@@ -33,4 +33,37 @@ const getToeLinesIndex: (
   );
 };
 
-export { getToeLinesIndex };
+const onSelectSeveralToeLinesHelper = (
+  isSelect: boolean,
+  toeLinesDatasSelected: IToeLinesData[],
+  selectedToeLinesDatas: IToeLinesData[],
+  setSelectedToeLines: (value: React.SetStateAction<IToeLinesData[]>) => void
+): string[] => {
+  if (isSelect) {
+    const toeLinesToSet: IToeLinesData[] = Array.from(
+      new Set([...selectedToeLinesDatas, ...toeLinesDatasSelected])
+    );
+    setSelectedToeLines(toeLinesToSet);
+
+    return toeLinesToSet.map((toeLinesData: IToeLinesData): string =>
+      getToeLinesId(toeLinesData)
+    );
+  }
+  const toeLinesIds: string[] = getToeLinesIds(toeLinesDatasSelected);
+  setSelectedToeLines(
+    Array.from(
+      new Set(
+        selectedToeLinesDatas.filter(
+          (selectedToeLinesData: IToeLinesData): boolean =>
+            !toeLinesIds.includes(getToeLinesId(selectedToeLinesData))
+        )
+      )
+    )
+  );
+
+  return selectedToeLinesDatas.map((toeLinesData: IToeLinesData): string =>
+    getToeLinesId(toeLinesData)
+  );
+};
+
+export { getToeLinesIndex, onSelectSeveralToeLinesHelper };
