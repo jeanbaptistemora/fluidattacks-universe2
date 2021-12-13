@@ -162,7 +162,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def _process_digest_reattacks_requested(
-    reattacks_requested: int, groups_stats: Tuple[MailContentType]
+    reattacks_requested: int, groups_stats: Tuple[MailContentType, ...]
 ) -> MailContentType:
     """Process digest reattacks requested sub-section"""
     requested: MailContentType = {
@@ -220,7 +220,7 @@ def _process_digest_reattacks_executed(
     reattacks_executed: int,
     reattacks_executed_total: int,
     effective_reattacks_total: int,
-    groups_stats: Tuple[MailContentType],
+    groups_stats: Tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest reattacks executed sub-section"""
     executed: MailContentType = {
@@ -277,7 +277,7 @@ def _process_digest_reattacks_executed(
 
 
 def _process_digest_reattacks_pending(
-    groups_stats: Tuple[MailContentType],
+    groups_stats: Tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest pending reattacks sub-section"""
     pending: MailContentType = {
@@ -300,7 +300,7 @@ def _process_digest_reattacks_pending(
 
 
 def _process_digest_reattacks(
-    groups_stats: Tuple[MailContentType],
+    groups_stats: Tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest reattacks section"""
     reattacks_count: Counter = Counter()
@@ -334,7 +334,7 @@ def _process_digest_reattacks(
 
 
 def _process_digest_treatments(
-    groups_stats: Tuple[MailContentType],
+    groups_stats: Tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest treatments section"""
     treatments_count: Counter = Counter()
@@ -1556,13 +1556,12 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
 
 
 def process_user_digest_stats(
-    group_stats_all: Tuple[MailContentType],
+    group_stats_all: Tuple[MailContentType, ...],
 ) -> MailContentType:
     """Consolidate several groups stats with precalculated data"""
     # Filter out those groups with no vulns
-    groups_stats: Tuple[MailContentType] = cast(
-        Tuple[MailContentType],
-        tuple(group for group in group_stats_all if group["vulns_len"] > 0),
+    groups_stats: Tuple[MailContentType, ...] = tuple(
+        group for group in group_stats_all if group["vulns_len"] > 0
     )
 
     if len(groups_stats) == 0:

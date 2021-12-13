@@ -39,7 +39,9 @@ from group_access.domain import (
 from groups import (
     domain as groups_domain,
 )
-import itertools
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
 from mailer import (
@@ -74,8 +76,8 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Tuple,
-    Union,
 )
 from urllib.parse import (
     quote_plus,
@@ -266,7 +268,7 @@ async def _send_analytics_report(
 async def _send_digest_report(
     *,
     user_email: str,
-    digest_stats: Union[Tuple[MailContent], Tuple],
+    digest_stats: Optional[Tuple[MailContent, ...]] = None,
     loaders: Dataloaders = None,
 ) -> None:
     groups = await groups_domain.get_groups_by_user(
@@ -280,7 +282,6 @@ async def _send_digest_report(
             if group not in FI_TEST_PROJECTS.split(",")
         ]
 
-    mail_contents: Union[Tuple[MailContent], Tuple]
     if digest_stats:
         mail_contents = tuple(
             group_stats
@@ -300,11 +301,9 @@ async def _send_digest_report(
             "- digest email NOT sent to user",
             extra={"extra": dict(user_email=user_email)},
         )
-
         return
 
     user_stats = groups_domain.process_user_digest_stats(mail_contents)
-
     if user_stats["groups_len"] == 0:
         LOGGER_CONSOLE.warning(
             "- NO available info to user",
@@ -321,7 +320,7 @@ async def _send_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    digest_stats: Union[Tuple[MailContent], Tuple],
+    digest_stats: Optional[Tuple[MailContent, ...]] = None,
     loaders: Dataloaders = None,
 ) -> None:
     if report_entity.lower() == "digest":
@@ -432,7 +431,6 @@ async def subscribe_user_to_entity_report(
                 report_entity=report_entity,
                 report_subject=report_subject,
                 user_email=user_email,
-                digest_stats=tuple(),
             )
             LOGGER_CONSOLE.info(
                 "User subscribed correctly",
@@ -464,7 +462,7 @@ async def unsubscribe_user_to_entity_report(
 async def _get_digest_stats(
     loaders: Dataloaders,
     subscriptions: List[Dict[Any, Any]],
-) -> Union[Tuple[MailContent], Tuple]:
+) -> Tuple[MailContent, ...]:
     """Process the digest stats for each group with a subscriber"""
     digest_suscribers = [
         subscription["pk"]["email"]
@@ -479,7 +477,7 @@ async def _get_digest_stats(
         ],
         workers=1024,
     )
-    digest_groups = set(itertools.chain.from_iterable(digest_groups))
+    digest_groups = set(chain.from_iterable(digest_groups))
 
     if FI_ENVIRONMENT == "production":
         digest_groups = {
@@ -504,7 +502,7 @@ async def _get_digest_stats(
 async def _process_subscription(
     *,
     bot_time: datetime,
-    digest_stats: Union[Tuple[MailContent], Tuple],
+    digest_stats: Optional[Tuple[MailContent, ...]],
     loaders: Dataloaders,
     subscription: Dict[Any, Any],
 ) -> None:
@@ -584,7 +582,7 @@ async def trigger_user_to_entity_report() -> None:
     )
 
     # Prepare digest stats for any group with a subscriber
-    digest_stats: Union[Tuple[MailContent], Tuple] = tuple()
+    digest_stats: Optional[Tuple[MailContent, ...]] = None
     loaders: Dataloaders = get_new_context()
     if _should_process_event(
         bot_time=bot_time,
