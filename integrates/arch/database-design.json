@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 13, 2021, 06:16 AM",
+    "DateLastModified": "Dec 13, 2021, 11:07 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -10692,7 +10692,9 @@
             "state",
             "treatment",
             "verification",
-            "zero_risk"
+            "zero_risk",
+            "pk_2",
+            "sk_2"
           ],
           "DataAccess": {
             "MySql": {}

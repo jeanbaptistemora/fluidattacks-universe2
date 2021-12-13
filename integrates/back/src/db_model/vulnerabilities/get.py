@@ -27,6 +27,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.vulnerabilities.constants import (
+    ROOT_INDEX_METADATA,
+)
 from dynamodb import (
     keys,
     operations,
@@ -138,7 +141,7 @@ async def _get_historic_zero_risk(
     return tuple(map(format_zero_risk, response.items))
 
 
-async def _get_vulnerabilities(
+async def _get_finding_vulnerabilities(
     *, finding_id: str
 ) -> Tuple[Vulnerability, ...]:
     primary_key = keys.build_key(
@@ -163,12 +166,47 @@ async def _get_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
+async def _get_root_vulnerabilities(
+    *, root_id: str
+) -> Tuple[Vulnerability, ...]:
+    primary_key = keys.build_key(
+        facet=ROOT_INDEX_METADATA,
+        values={"root_id": root_id},
+    )
+
+    index = TABLE.indexes["gsi_2"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(ROOT_INDEX_METADATA,),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_vulnerability(item) for item in response.items)
+
+
+class RootVulnsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, ids: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await collect(
+            _get_root_vulnerabilities(root_id=id) for id in ids
+        )
+
+
 class FindingVulnsNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
-        return await collect(_get_vulnerabilities(finding_id=id) for id in ids)
+        return await collect(
+            _get_finding_vulnerabilities(finding_id=id) for id in ids
+        )
 
 
 class VulnNewLoader(DataLoader):
