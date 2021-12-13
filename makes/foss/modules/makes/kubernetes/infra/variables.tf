@@ -52,6 +52,11 @@ variable "map_roles" {
       username = "makes_prod"
       groups   = ["system:masters"]
     },
+    {
+      rolearn  = "arn:aws:iam::205810638802:role/prod_integrates"
+      username = "prod_integrates"
+      groups   = ["system:masters"]
+    },
   ]
 }
 variable "map_users" {
@@ -66,6 +71,11 @@ variable "map_users" {
     {
       userarn  = "arn:aws:iam::205810638802:user/dev"
       username = "dev"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::205810638802:user/prod_integrates"
+      username = "prod_integrates"
       groups   = ["system:masters"]
     },
     {
