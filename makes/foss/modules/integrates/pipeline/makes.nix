@@ -134,7 +134,7 @@ in
                 "integrates_subscriptions_trigger_user_to_entity_report_on_aws_prod_schedule")
               (gitlabCi.rules.always)
             ];
-            stage = "subscriptions";
+            stage = "scheduler";
             tags = [ "autoscaling" ];
           };
         }
@@ -520,6 +520,23 @@ in
               (gitlabCi.rules.always)
             ];
             tags = [ "autoscaling-large" ];
+          };
+        })
+        [
+          "daily"
+          "hourly"
+          "monthly"
+          "weekly"
+        ])
+        ++ (builtins.map
+        (frequency: {
+          args = [ "dev" frequency ];
+          output = "/integrates/subscriptions/analytics";
+          gitlabExtra = {
+            retry = 2;
+            rules = gitlabOnlyDev;
+            stage = "subscriptions";
+            tags = [ "autoscaling" ];
           };
         })
         [

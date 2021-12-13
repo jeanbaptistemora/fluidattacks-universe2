@@ -30,7 +30,7 @@
     - when: always
   script:
     - m . /computeOnAwsBatch/integratesSubscriptionsUserToEntity 'prod'
-  stage: subscriptions
+  stage: scheduler
   tags:
     - autoscaling
   variables:
@@ -2903,6 +2903,98 @@
   script:
     - m . /integrates/secrets/lint
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__dev__daily:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  retry: 2
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/subscriptions/analytics 'dev' 'daily'
+  stage: subscriptions
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__dev__hourly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  retry: 2
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/subscriptions/analytics 'dev' 'hourly'
+  stage: subscriptions
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__dev__monthly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  retry: 2
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/subscriptions/analytics 'dev' 'monthly'
+  stage: subscriptions
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/subscriptions/analytics__dev__weekly:
+  image: ghcr.io/fluidattacks/makes:21.12
+  interruptible: true
+  needs: []
+  retry: 2
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/subscriptions/analytics 'dev' 'weekly'
+  stage: subscriptions
   tags:
     - autoscaling
   variables:
