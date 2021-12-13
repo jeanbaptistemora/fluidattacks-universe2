@@ -62,9 +62,6 @@
                   "date": {
                     "S": "2020-11-07 19:59:06"
                   },
-                  "treatment_manager": {
-                    "S": "integratescustomer@gmail.com"
-                  },
                   "treatment": {
                     "S": "ACCEPTED"
                   },
@@ -142,9 +139,6 @@
                   "date": {
                     "S": "2019-04-07 19:59:06"
                   },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
-                  },
                   "treatment": {
                     "S": "ACCEPTED_UNDEFINED"
                   },
@@ -166,9 +160,6 @@
                 "M": {
                   "date": {
                     "S": "2020-10-07 19:59:06"
-                  },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
                   },
                   "treatment": {
                     "S": "ACCEPTED_UNDEFINED"
@@ -447,9 +438,6 @@
                   "justification": {
                     "S": "test justification"
                   },
-                  "treatment_manager": {
-                    "S": "integratescustomer@gmail.com"
-                  },
                   "assigned": {
                     "S": "integratescustomer@gmail.com"
                   },
@@ -520,9 +508,6 @@
                 "M": {
                   "date": {
                     "S": "2020-11-23 12:46:10"
-                  },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
                   },
                   "treatment": {
                     "S": "IN PROGRESS"

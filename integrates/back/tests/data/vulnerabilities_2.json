@@ -855,9 +855,6 @@
                   "date": {
                     "S": "2019-09-13 08:45:48"
                   },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
-                  },
                   "treatment": {
                     "S": "ACCEPTED"
                   },
@@ -998,9 +995,6 @@
                 "M": {
                   "date": {
                     "S": "2019-01-15 10:43:39"
-                  },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
                   },
                   "treatment": {
                     "S": "ACCEPTED"
@@ -1232,9 +1226,6 @@
                   "date": {
                     "S": "2020-10-13 12:46:10"
                   },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
-                  },
                   "treatment": {
                     "S": "ACCEPTED"
                   },
@@ -1348,9 +1339,6 @@
                   "date": {
                     "S": "2020-10-13 12:46:10"
                   },
-                  "treatment_manager": {
-                    "S": "integratesuser@gmail.com"
-                  },
                   "treatment": {
                     "S": "ACCEPTED"
                   },
@@ -1451,9 +1439,6 @@
                 "M": {
                   "date": {
                     "S": "2020-10-13 12:46:10"
-                  },
-                  "treatment_manager": {
-                    "S": "integratescustomer@gmail.com"
                   },
                   "treatment": {
                     "S": "ACCEPTED"
