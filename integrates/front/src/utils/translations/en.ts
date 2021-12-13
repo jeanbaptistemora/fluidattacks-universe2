@@ -751,6 +751,15 @@ export const enTranslations: ResourceKey = {
         commitAuthor: "Commit author",
         coverage: "Coverage",
         daysToAttack: "Days to attack",
+        editModal: {
+          fields: {
+            attackedAt: "Attacked at",
+            attackedLines: "Attacked lines",
+            attackedLinesComment: "LOC is set by default",
+            comments: "What comments do you have?",
+          },
+          title: "Edit attacked lines",
+        },
         filename: "Filename",
         firstAttackAt: "First attack at",
         loc: "LOC",
