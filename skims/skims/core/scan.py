@@ -111,7 +111,7 @@ async def execute_skims(token: Optional[str]) -> bool:
                     "finding": finding.name,
                     "open": await get_ephemeral_store().length(),
                     "modified": (
-                        result_persist[finding].diff_result.length()
+                        await result_persist[finding].diff_result.length()
                         if finding in result_persist
                         and result_persist[finding].diff_result
                         else 0
