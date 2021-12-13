@@ -14,7 +14,6 @@ from custom_exceptions import (
     VulnNotFound,
 )
 from custom_types import (
-    DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
 from db_model.vulnerabilities.types import (
@@ -62,36 +61,6 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_vulnerabilities"
 
 
-async def create(data: Dict[str, FindingType]) -> bool:
-    """Add vulnerabilities."""
-    resp = False
-    try:
-        item = {
-            "finding_id": str(data.get("finding_id")),
-            "UUID": str(data.get("UUID")),
-            "vuln_type": data.get("vuln_type"),
-            "where": data.get("where"),
-            "source": str(data.get("source", "asm")),
-            "specific": str(data.get("specific")),
-            "historic_treatment": data.get("historic_treatment"),
-            "historic_state": data.get("historic_state"),
-        }
-        if "stream" in data:
-            item["stream"] = data["stream"]
-        if "commit_hash" in data:
-            item["commit_hash"] = data["commit_hash"]
-        if "historic_verification" in data:
-            item["historic_verification"] = data["historic_verification"]
-        if data.get("repo_nickname"):
-            item["repo_nickname"] = data["repo_nickname"]
-        if data.get("tag"):
-            item["tag"] = data["tag"]
-        resp = await dynamodb_ops.put_item(TABLE_NAME, item)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-    return resp
-
-
 async def create_new(
     vulnerability: Vulnerability,
     historic_state: Optional[Tuple[VulnerabilityState, ...]] = None,
@@ -127,19 +96,6 @@ async def create_new(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
-
-
-async def delete(uuid: str, finding_id: str) -> bool:
-    """Delete a vulnerability of a finding."""
-    resp = False
-    try:
-        delete_attrs = DynamoDeleteType(
-            Key={"UUID": uuid, "finding_id": finding_id}
-        )
-        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-    return resp
 
 
 async def get_by_finding(
