@@ -18,6 +18,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     prefix_expression as c_sharp_prefix_expression,
+    return_statement as c_sharp_return_statement,
     throw_statement as c_sharp_throw_statement,
     using_directive as c_sharp_using_directive,
     variable_declaration as c_sharp_variable_declaration,
@@ -179,6 +180,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "prefix_unary_expression",
         },
         syntax_reader=c_sharp_prefix_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "return_statement",
+        },
+        syntax_reader=c_sharp_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
