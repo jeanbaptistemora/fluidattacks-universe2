@@ -180,12 +180,27 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     }
 
     if (type === "date")
-      return <SelectDate onChange={handleChangeInput} value={defaultValue} />;
+      return (
+        <SelectDate
+          onChange={handleChangeInput}
+          style={
+            defaultValue === ""
+              ? {}
+              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
+          }
+          value={defaultValue}
+        />
+      );
     if (type === "select")
       return (
         <Select
           id={`select.${tooltipId}`}
           onChange={handleChangeSelect}
+          style={
+            defaultValue === ""
+              ? {}
+              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
+          }
           value={defaultValue === "" ? "__placeholder__" : defaultValue}
         >
           {defaultValue === "" ? (
@@ -210,6 +225,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           min={0}
           onChange={handleChangeInput}
           placeholder={t(`${placeholder}`)}
+          style={
+            defaultValue === ""
+              ? {}
+              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
+          }
           type={"number"}
           value={defaultValue}
         />
@@ -219,7 +239,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         <RangeContainer>
           <InputDateRange
             onChange={handleChangeMin}
-            style={{ maxWidth: "11rem" }}
+            style={
+              rangeProps?.defaultValue.min === ""
+                ? { maxWidth: "11rem" }
+                : {
+                    boxShadow: "0 3px 5px #2e2e38",
+                    color: "#2e2e38",
+                    maxWidth: "11rem",
+                  }
+            }
             type={"date"}
             value={rangeProps?.defaultValue.min}
           />
@@ -232,7 +260,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </div>
           <InputDateRange
             onChange={handleChangeMax}
-            style={{ maxWidth: "11rem" }}
+            style={
+              rangeProps?.defaultValue.max === ""
+                ? { maxWidth: "11rem" }
+                : {
+                    boxShadow: "0 3px 5px #2e2e38",
+                    color: "#2e2e38",
+                    maxWidth: "11rem",
+                  }
+            }
             type={"date"}
             value={rangeProps?.defaultValue.max}
           />
@@ -245,6 +281,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             onChange={handleChangeMin}
             placeholder={"Min"}
             step={rangeProps?.step}
+            style={
+              rangeProps?.defaultValue.min === ""
+                ? {}
+                : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
+            }
             type={"number"}
             value={rangeProps?.defaultValue.min}
           />
@@ -259,6 +300,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             onChange={handleChangeMax}
             placeholder={"Max"}
             step={rangeProps?.step}
+            style={
+              rangeProps?.defaultValue.max === ""
+                ? {}
+                : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
+            }
             type={"number"}
             value={rangeProps?.defaultValue.max}
           />
@@ -357,6 +403,14 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                         <SearchText
                           onChange={onUpdateCustomSearch}
                           placeholder={t("dataTableNext.search")}
+                          style={
+                            customSearchDefault === ""
+                              ? {}
+                              : {
+                                  boxShadow: "0 3px 5px #2e2e38",
+                                  color: "#2e2e38",
+                                }
+                          }
                           value={customSearchDefault ?? ""}
                         />
                       </SearchContainer>

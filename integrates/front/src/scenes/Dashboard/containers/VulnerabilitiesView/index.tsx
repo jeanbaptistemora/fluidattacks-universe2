@@ -281,7 +281,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setFilterGroupFindingsCurrentStatus(
       (value): Record<string, string> => ({
         ...value,
-        currentStatus: "",
+        currentStatus: "open",
       })
     );
     setFilterVulnerabilitiesTable(
