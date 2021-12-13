@@ -7,7 +7,7 @@
     modules = {
       makesDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesDnsProd"
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];

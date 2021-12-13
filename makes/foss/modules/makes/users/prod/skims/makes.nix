@@ -7,7 +7,7 @@
     modules = {
       makesUsersProdSkims = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/skims/infra";
@@ -30,7 +30,7 @@
     modules = {
       makesUsersProdSkimsKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.skims_prod_key-1" ];
@@ -40,7 +40,7 @@
       };
       makesUsersProdSkimsKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.skims_prod_key-2" ];

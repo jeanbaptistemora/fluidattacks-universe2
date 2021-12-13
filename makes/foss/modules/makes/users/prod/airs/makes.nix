@@ -7,7 +7,7 @@
     modules = {
       makesUsersProdAirs = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
@@ -31,7 +31,7 @@
     modules = {
       makesUsersProdAirsKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
@@ -42,7 +42,7 @@
       };
       makesUsersProdAirsKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];

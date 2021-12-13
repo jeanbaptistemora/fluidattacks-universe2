@@ -7,7 +7,7 @@
     modules = {
       makesVpc = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesVpcProd"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];

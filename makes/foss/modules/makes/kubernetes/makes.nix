@@ -15,7 +15,7 @@ in
       makesKubernetes = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesKubernetesProd"
           outputs."/secretsForKubernetesConfigFromAws/makesKubernetes"
           outputs."/secretsForTerraformFromEnv/makesKubernetes"

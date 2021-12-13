@@ -7,7 +7,7 @@
     modules = {
       makesUsersProdMelts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/melts/infra";
@@ -30,7 +30,7 @@
     modules = {
       makesUsersProdMeltsKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.melts-prod-key-1" ];
@@ -40,7 +40,7 @@
       };
       makesUsersProdMeltsKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.melts-prod-key-2" ];

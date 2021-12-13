@@ -7,7 +7,7 @@
     modules = {
       makesUsersProdSorts = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/sorts/infra";
@@ -31,7 +31,7 @@
     modules = {
       makesUsersProdSortsKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.sorts_prod_key-1" ];
@@ -41,7 +41,7 @@
       };
       makesUsersProdSortsKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.sorts_prod_key-2" ];

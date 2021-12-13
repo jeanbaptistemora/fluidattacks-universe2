@@ -21,7 +21,7 @@ in
       makesCi = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesCiProd"
           outputs."/secretsForTerraformFromEnv/makesCi"
           outputs."/envVarsForTerraform/makesCi"

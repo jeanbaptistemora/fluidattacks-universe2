@@ -37,5 +37,10 @@
       secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
       sessionToken = "AWS_SESSION_TOKEN";
     };
+    prodMakes = {
+      accessKeyId = "PROD_MAKES_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "PROD_MAKES_AWS_SECRET_ACCESS_KEY";
+      sessionToken = "AWS_SESSION_TOKEN";
+    };
   };
 }

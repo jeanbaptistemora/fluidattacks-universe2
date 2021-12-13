@@ -8,7 +8,7 @@
       makesFoss = {
         setup = [
           outputs."/secretsForTerraformFromEnv/makesFoss"
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";

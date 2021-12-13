@@ -7,7 +7,7 @@
     modules = {
       makesUsersProdObserves = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/observes/infra";
@@ -30,7 +30,7 @@
     modules = {
       makesUsersProdObservesKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.prod-key-1" ];
@@ -40,7 +40,7 @@
       };
       makesUsersProdObservesKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [ "aws_iam_access_key.prod-key-2" ];

@@ -8,7 +8,7 @@
       makesOkta = {
         setup = [
           outputs."/makes/okta/parse"
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];

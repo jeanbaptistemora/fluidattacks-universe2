@@ -7,7 +7,7 @@
     modules = {
       makesStatus = {
         setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesStatusProd"
           outputs."/secretsForTerraformFromEnv/makesStatus"
         ];

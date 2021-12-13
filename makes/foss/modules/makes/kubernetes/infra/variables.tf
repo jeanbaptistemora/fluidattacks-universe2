@@ -43,8 +43,8 @@ variable "map_roles" {
       groups   = ["system:masters"]
     },
     {
-      rolearn  = "arn:aws:iam::205810638802:role/makes_prod"
-      username = "makes_prod"
+      rolearn  = "arn:aws:iam::205810638802:role/prod_makes"
+      username = "prod_makes"
       groups   = ["system:masters"]
     },
     {
