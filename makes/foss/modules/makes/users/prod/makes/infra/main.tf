@@ -19,5 +19,25 @@ terraform {
     encrypt        = true
     dynamodb_table = "terraform_state_lock"
   }
+}
 
+module "aws" {
+  source = "../../../modules/aws"
+
+  area   = "cost"
+  name   = "prod_makes"
+  policy = jsonencode(local.aws)
+  type   = "product"
+}
+
+provider "gitlab" {
+  token = var.gitlab_token
+}
+
+module "publish_credentials" {
+  source    = "../../../modules/publish_credentials"
+  key_1     = module.aws.keys.1
+  key_2     = module.aws.keys.2
+  prefix    = "PROD_MAKES"
+  protected = true
 }
