@@ -4,11 +4,11 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from dataloaders.utils import (
-    format_vulnerability,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from newutils.vulnerabilities import (
+    format_vulnerability,
 )
 from typing import (
     Any,

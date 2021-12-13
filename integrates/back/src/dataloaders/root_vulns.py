@@ -7,9 +7,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from dataloaders.utils import (
-    format_vulnerability,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -18,6 +15,9 @@ from db_model.vulnerabilities.types import (
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
+)
+from newutils.vulnerabilities import (
+    format_vulnerability,
 )
 from typing import (
     List,
