@@ -355,6 +355,19 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     "gitRepo"
   );
 
+  function clearFilters(): void {
+    setFilterGroupForcesTable(
+      (): IFilterSet => ({
+        dateRange: { max: "", min: "" },
+        repository: "",
+        status: "",
+        strictness: "",
+        type: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultExecutions: IExecution[] = _.intersection(
     filterSearchTextExecutions,
     filterDateRangeExecutions,
@@ -429,6 +442,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       <p>{translate.t("group.forces.tableAdvice")}</p>
       <DataTableNext
         bordered={true}
+        clearFiltersButton={clearFilters}
         customFilters={{
           customFiltersProps,
           isCustomFilterEnabled,

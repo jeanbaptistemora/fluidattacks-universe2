@@ -197,6 +197,17 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     "repository"
   );
 
+  function clearFilters(): void {
+    setFilterAuthorsTable(
+      (): IFilterSet => ({
+        author: "",
+        groupsContributed: "",
+        repository: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultDataset: IBillAuthor[] = _.intersection(
     filterSearchtextDataset,
     filterAuthorDataset,
@@ -259,6 +270,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       </Row>
       <DataTableNext
         bordered={true}
+        clearFiltersButton={clearFilters}
         customFilters={{
           customFiltersProps,
           isCustomFilterEnabled,

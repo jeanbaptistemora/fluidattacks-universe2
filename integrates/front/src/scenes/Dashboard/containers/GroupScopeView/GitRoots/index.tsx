@@ -311,6 +311,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       })
     );
   }
+
+  function clearFilters(): void {
+    setFilterGroupScopeTable(
+      (): IFilterSet => ({
+        branch: "",
+        nickname: "",
+        state: "",
+        status: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const filterStatusRoots: IGitRootAttr[] = filterSelectStatus(
     roots,
     filterGroupScopeTable.status
@@ -395,6 +408,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             <Container>
               <DataTableNext
                 bordered={true}
+                clearFiltersButton={clearFilters}
                 columnToggle={true}
                 customFilters={{
                   customFiltersProps,

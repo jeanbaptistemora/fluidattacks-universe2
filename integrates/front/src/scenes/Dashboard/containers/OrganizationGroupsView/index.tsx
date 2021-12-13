@@ -282,6 +282,19 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     "squad"
   );
 
+  function clearFilters(): void {
+    setFilterOrganizationGroupsTable(
+      (): IFilterSet => ({
+        groupName: "",
+        machine: "",
+        service: "",
+        squad: "",
+        subscription: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultDataset: IGroupData[] = _.intersection(
     filterSearchTextDataset,
     filterGroupNameDataset,
@@ -361,6 +374,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               <Row>
                 <DataTableNext
                   bordered={true}
+                  clearFiltersButton={clearFilters}
                   customFilters={{
                     customFiltersProps,
                     isCustomFilterEnabled,

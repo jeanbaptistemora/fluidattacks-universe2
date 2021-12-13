@@ -354,6 +354,16 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     "invitationState"
   );
 
+  function clearFilters(): void {
+    setFilterGroupStakeholdersTable(
+      (): IFilterSet => ({
+        invitation: "",
+        role: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultStakeHolders: IStakeholderDataSet[] = _.intersection(
     filterSearchtextStakeHolders,
     filterRoleStakeHolders,
@@ -405,6 +415,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               <Col100>
                 <DataTableNext
                   bordered={true}
+                  clearFiltersButton={clearFilters}
                   customFilters={{
                     customFiltersProps: customFilters,
                     isCustomFilterEnabled,

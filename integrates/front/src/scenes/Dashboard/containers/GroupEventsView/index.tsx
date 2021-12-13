@@ -520,6 +520,22 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "affectedComponents"
   );
 
+  function clearFilters(): void {
+    setFilterGroupEventsTable(
+      (): IFilterSet => ({
+        accessibility: "",
+        actAfterBlock: "",
+        actBefBlock: "",
+        afectComps: "",
+        closingDateRange: { max: "", min: "" },
+        dateRange: { max: "", min: "" },
+        status: "",
+        type: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultDataset: IEventConfig[] = _.intersection(
     filterSearchtextResult,
     filterStatusResult,
@@ -631,6 +647,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       >
         <DataTableNext
           bordered={true}
+          clearFiltersButton={clearFilters}
           columnToggle={true}
           customFilters={{
             customFiltersProps,
