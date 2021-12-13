@@ -21,10 +21,8 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     principals {
       type = "AWS"
       identifiers = [
-        module.external.aws_iam_roles["integrates-prod"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_roles["prod_integrates"].arn,
-        module.external.aws_iam_users["integrates-prod"].arn,
         module.external.aws_iam_users["prod_integrates"].arn,
       ]
     }
@@ -55,10 +53,8 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     principals {
       type = "AWS"
       identifiers = [
-        module.external.aws_iam_roles["integrates-prod"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_roles["prod_integrates"].arn,
-        module.external.aws_iam_users["integrates-prod"].arn,
         module.external.aws_iam_users["prod_integrates"].arn,
       ]
     }
@@ -80,10 +76,8 @@ data "aws_iam_policy_document" "integrates-prod-key" {
     principals {
       type = "AWS"
       identifiers = [
-        module.external.aws_iam_roles["integrates-prod"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
         module.external.aws_iam_roles["prod_integrates"].arn,
-        module.external.aws_iam_users["integrates-prod"].arn,
         module.external.aws_iam_users["prod_integrates"].arn,
       ]
     }
