@@ -428,7 +428,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && !oneRowMessage && (
-        <div className={"dib fw4 mb0"}>
+        <div className={"fw4 mb0 nt1"}>
           {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
             "dataTableNext.filterRes2"
           )} ${resultSize.total}`}
