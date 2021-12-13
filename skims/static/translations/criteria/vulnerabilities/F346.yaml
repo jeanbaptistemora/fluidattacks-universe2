@@ -1,0 +1,41 @@
+src.lib_path.f346.dangerous_permission:
+  en: >
+    Dangerous permissions give your app additional access to restricted data
+    and they allow your app to perform restricted actions
+    that more substantially affect the system and other apps.
+  es: >
+    Los permisos peligrosos le dan a su aplicación acceso adicional
+    a datos restringidos y le permiten realizar acciones restringidas
+    que afectan de manera más sustancial al sistema y otras aplicaciones.
+F346.description:
+  en: >
+    The application, a user or a role have more privileges than they require.
+    This can be leveraged by an attacker to execute normally restricted actions
+    on a system.
+  es: >
+    La aplicación, un usuario o un rol tienen más privilegios/permisos que los
+    que requieren. Esto puede ser aprovechado por un atacante para ejecutar
+    acciones sobre un sistema que normalmente estarían restringidas.
+F346.impact:
+  en: >
+    Execute actions that should be restricted to other groups or roles.
+  es: >
+    Ejecutar acciones que deberían estar restringidas a otros grupos o roles.
+F346.recommendation:
+  en: >
+    Request permissions as late
+    into the flow of your app's use cases as possible.
+  es: >
+    Solicite permisos lo más tarde posible
+    en el flujo de casos de uso de su aplicación.
+F346.threat:
+  en: >
+    The app has access to restricted data,
+    such as system state and a user's contact information
+    and to restricted actions,
+    such as connecting to a paired device and recording audio.
+  es: >
+    La aplicación tiene acceso a datos restringidos,
+    como el estado del sistema y la información de contacto de un usuario
+    y a acciones restringidas,
+    como conectarse a un dispositivo emparejado y grabar audio.
