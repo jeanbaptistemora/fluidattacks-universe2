@@ -271,8 +271,11 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
 
   # Batch access
   statement {
-    effect    = "Allow"
-    actions   = ["batch:ListJobs"]
+    effect = "Allow"
+    actions = [
+      "batch:Describe*",
+      "batch:List*",
+    ]
     resources = ["*"]
   }
   statement {

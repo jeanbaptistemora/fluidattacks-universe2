@@ -70,9 +70,12 @@ locals {
         ]
       },
       {
-        Sid      = "batchRead"
-        Effect   = "Allow"
-        Action   = ["batch:DescribeJobs"]
+        Sid    = "batchRead"
+        Effect = "Allow"
+        Action = [
+          "batch:Describe*",
+          "batch:List*",
+        ]
         Resource = ["*"]
       },
       {
@@ -117,6 +120,31 @@ locals {
           "kms:TagResource",
           "kms:UntagResource",
           "kms:UpdateAlias",
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "ec2Read"
+        Effect = "Allow"
+        Action = [
+          "ec2:Describe*",
+          "ec2:Get*",
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "ec2Write"
+        Effect = "Allow"
+        Action = [
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+          "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
         ]
         Resource = ["*"]
       },
