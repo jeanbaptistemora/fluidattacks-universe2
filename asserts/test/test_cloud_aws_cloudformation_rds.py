@@ -22,12 +22,3 @@ def test_is_not_inside_a_db_subnet_group():
     assert result.get_vulns_number() == 2 * 3
     assert rds.is_not_inside_a_db_subnet_group(SAFE).is_closed()
     assert rds.is_not_inside_a_db_subnet_group(NOT_EXISTS).is_unknown()
-
-
-def test_not_uses_iam_authentication():
-    """test rds.not_uses_iam_authentication."""
-    result = rds.not_uses_iam_authentication(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 3
-    assert rds.not_uses_iam_authentication(SAFE).is_closed()
-    assert rds.not_uses_iam_authentication(NOT_EXISTS).is_unknown()
