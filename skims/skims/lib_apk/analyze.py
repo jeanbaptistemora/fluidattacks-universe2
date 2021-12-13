@@ -78,6 +78,44 @@ async def analyze_one(
                     await stores[vulnerability.finding].store(vulnerability)
 
 
+async def get_apk_context(path: str) -> APKContext:
+    apk_obj: Optional[APK] = None
+    apk_manifest: Optional[BeautifulSoup] = None
+    analysis: Optional[Analysis] = None
+    with contextlib.suppress(zipfile.BadZipFile):
+        apk_obj = APK(path)
+
+        with contextlib.suppress(KeyError):
+            apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
+            apk_manifest = BeautifulSoup(
+                BeautifulSoup(
+                    lxml.etree.tostring(apk_manifest_data),
+                    features="html.parser",
+                ).prettify(),
+                features="html.parser",
+            )
+
+        dalviks = []
+        analysis = Analysis()
+        for dex in apk_obj.get_all_dex():
+            dalvik = DalvikVMFormat(
+                dex,
+                using_api=apk_obj.get_target_sdk_version(),
+            )
+            analysis.add(dalvik)
+            dalviks.append(dalvik)
+            dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
+
+        analysis.create_xref()
+
+    return APKContext(
+        analysis=analysis,
+        apk_manifest=apk_manifest,
+        apk_obj=apk_obj,
+        path=path,
+    )
+
+
 async def get_apk_contexts() -> Set[APKContext]:
     apk_contexts: Set[APKContext] = set()
 
@@ -88,43 +126,7 @@ async def get_apk_contexts() -> Set[APKContext]:
 
     for path in unique_paths | unique_nu_paths | unique_nv_paths:
 
-        apk_obj: Optional[APK] = None
-        apk_manifest: Optional[BeautifulSoup] = None
-        analysis: Optional[Analysis] = None
-        with contextlib.suppress(zipfile.BadZipFile):
-            apk_obj = APK(path)
-
-            with contextlib.suppress(KeyError):
-                apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
-                apk_manifest = BeautifulSoup(
-                    BeautifulSoup(
-                        lxml.etree.tostring(apk_manifest_data),
-                        features="html.parser",
-                    ).prettify(),
-                    features="html.parser",
-                )
-
-            dalviks = []
-            analysis = Analysis()
-            for dex in apk_obj.get_all_dex():
-                dalvik = DalvikVMFormat(
-                    dex,
-                    using_api=apk_obj.get_target_sdk_version(),
-                )
-                analysis.add(dalvik)
-                dalviks.append(dalvik)
-                dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
-
-            analysis.create_xref()
-
-        apk_contexts.add(
-            APKContext(
-                analysis=analysis,
-                apk_manifest=apk_manifest,
-                apk_obj=apk_obj,
-                path=path,
-            )
-        )
+        apk_contexts.add(await get_apk_context(path))
 
     return apk_contexts
 
