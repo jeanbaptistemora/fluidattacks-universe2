@@ -57,6 +57,7 @@ interface ICustomFiltersProps {
 interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
+  clearFiltersButton?: (() => void) | undefined;
   columnToggle?: boolean;
   csvFilename?: string;
   customSearch?: ICustomSearchProps;

@@ -5,6 +5,7 @@
   down props
   */
 import {
+  faEraser,
   faMinus,
   faSearchMinus,
   faSearchPlus,
@@ -70,6 +71,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const {
     bordered,
+    clearFiltersButton,
     customFilters,
     customSearch,
     defaultSorted,
@@ -117,6 +119,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   function handleNoData(): string {
     return t("dataTableNext.noDataIndication");
+  }
+  function handleClearFiltersButton(): void {
+    if (!_.isUndefined(clearFiltersButton)) {
+      clearFiltersButton();
+    }
   }
 
   const enablePagination = dataset.length > pageSize;
@@ -173,15 +180,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     }
 
     if (type === "date")
-      return (
-        <SelectDate defaultValue={defaultValue} onChange={handleChangeInput} />
-      );
+      return <SelectDate onChange={handleChangeInput} value={defaultValue} />;
     if (type === "select")
       return (
         <Select
-          defaultValue={defaultValue === "" ? "__placeholder__" : defaultValue}
           id={`select.${tooltipId}`}
           onChange={handleChangeSelect}
+          value={defaultValue === "" ? "__placeholder__" : defaultValue}
         >
           {defaultValue === "" ? (
             <option disabled={true} hidden={true} value={"__placeholder__"}>
@@ -202,11 +207,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     if (type === "number")
       return (
         <InputNumber
-          defaultValue={defaultValue}
           min={0}
           onChange={handleChangeInput}
           placeholder={t(`${placeholder}`)}
           type={"number"}
+          value={defaultValue}
         />
       );
     if (type === "dateRange")
@@ -216,6 +221,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             onChange={handleChangeMin}
             style={{ maxWidth: "11rem" }}
             type={"date"}
+            value={rangeProps?.defaultValue.min}
           />
           <div>
             <FontAwesomeIcon
@@ -228,6 +234,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             onChange={handleChangeMax}
             style={{ maxWidth: "11rem" }}
             type={"date"}
+            value={rangeProps?.defaultValue.max}
           />
         </RangeContainer>
       );
@@ -235,11 +242,11 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       return (
         <RangeContainer>
           <InputRange
-            defaultValue={rangeProps?.defaultValue.min}
             onChange={handleChangeMin}
             placeholder={"Min"}
             step={rangeProps?.step}
             type={"number"}
+            value={rangeProps?.defaultValue.min}
           />
           <div>
             <FontAwesomeIcon
@@ -249,20 +256,20 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             />
           </div>
           <InputRange
-            defaultValue={rangeProps?.defaultValue.max}
             onChange={handleChangeMax}
             placeholder={"Max"}
             step={rangeProps?.step}
             type={"number"}
+            value={rangeProps?.defaultValue.max}
           />
         </RangeContainer>
       );
 
     return (
       <InputText
-        defaultValue={defaultValue}
         onChange={handleChangeInput}
         placeholder={t(`${placeholder}`)}
+        value={defaultValue}
       />
     );
   };
@@ -348,9 +355,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     <ButtonGroup>
                       <SearchContainer>
                         <SearchText
-                          defaultValue={customSearchDefault ?? ""}
                           onChange={onUpdateCustomSearch}
                           placeholder={t("dataTableNext.search")}
+                          value={customSearchDefault ?? ""}
                         />
                       </SearchContainer>
                     </ButtonGroup>
@@ -397,6 +404,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </SelectContainer>
                 );
               })}
+              <ButtonGroup>
+                <TooltipWrapper
+                  id={"filterTooltip"}
+                  message={t("dataTableNext.tooltip")}
+                >
+                  <Button onClick={handleClearFiltersButton}>
+                    <FontAwesomeIcon icon={faEraser} />
+                    &nbsp;
+                    {t("dataTableNext.clearFilters")}
+                  </Button>
+                </TooltipWrapper>
+              </ButtonGroup>
             </Filters>
           )}
         </div>

@@ -237,6 +237,7 @@ export const enTranslations: ResourceKey = {
   },
   dataTableNext: {
     allOptions: "--All options--",
+    clearFilters: "Clear Filters",
     filterRes1: "Filtered",
     filterRes2: "of",
     filters: "Filters",

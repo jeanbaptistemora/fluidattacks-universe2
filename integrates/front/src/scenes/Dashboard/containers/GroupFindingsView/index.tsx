@@ -482,6 +482,27 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "releaseDate"
   );
 
+  function clearFilters(): void {
+    setFilterGroupFindingsCurrentStatus(
+      (): Record<string, string> => ({
+        currentStatus: "open",
+      })
+    );
+    setFilterGroupFindingsTable(
+      (): IFilterSet => ({
+        age: "",
+        currentTreatment: "",
+        lastReport: "",
+        reattack: "",
+        releaseDate: { max: "", min: "" },
+        severity: { max: "", min: "" },
+        type: "",
+        where: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
   const resultFindings: IFindingAttr[] = _.intersection(
     filterSearchtextFindings,
     filterCurrentStatusFindings,
@@ -679,6 +700,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       >
         <DataTableNext
           bordered={true}
+          clearFiltersButton={clearFilters}
           columnToggle={true}
           csvFilename={`${groupName}-findings-${currentDate}.csv`}
           customFilters={{
