@@ -13,6 +13,7 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
+    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -26,12 +27,6 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from datetime import (
-    datetime,
-)
-from decimal import (
-    Decimal,
 )
 from group_access.domain import (
     get_users_to_notify,
@@ -374,36 +369,6 @@ async def _should_not_send_report(
     return False
 
 
-def _should_process_event(
-    *,
-    bot_time: datetime,
-    event_frequency: str,
-    report_entity: str,
-) -> bool:
-    """Given a job that runs every hour, should it process a periodic event?.
-
-    Such a bot should not run less or more often than the minimum event
-    frequency to trigger.
-    """
-    bot_time = bot_time.replace(minute=0)
-    bot_time_hour: int = bot_time.hour
-    bot_time_weekday: int = bot_time.weekday()
-    event_frequency = event_frequency.lower()
-
-    success: bool = (
-        # Tuesday to Saturday @ 9 GMT
-        report_entity.lower() == "digest"
-        and bot_time_hour == 9
-        and 1 <= bot_time_weekday <= 5
-    ) or (
-        # @ any hour
-        event_frequency
-        == "hourly"
-    )
-
-    return success
-
-
 async def subscribe_user_to_entity_report(
     *,
     event_frequency: str,
@@ -463,7 +428,7 @@ async def _get_digest_stats(
     loaders: Dataloaders,
     subscriptions: List[Dict[Any, Any]],
 ) -> Tuple[MailContent, ...]:
-    """Process the digest stats for each group with a subscriber"""
+    """Process the digest stats for each group with a subscriber."""
     digest_suscribers = [
         subscription["pk"]["email"]
         for subscription in subscriptions
@@ -499,112 +464,6 @@ async def _get_digest_stats(
     )
 
 
-async def _process_subscription(
-    *,
-    bot_time: datetime,
-    digest_stats: Optional[Tuple[MailContent, ...]],
-    loaders: Dataloaders,
-    subscription: Dict[Any, Any],
-) -> None:
-    event_period: Decimal = subscription["period"]
-    event_frequency: str = _period_to_frequency(period=event_period)
-    user_email: str = subscription["pk"]["email"]
-    report_entity: str = subscription["sk"]["entity"]
-    report_subject: str = subscription["sk"]["subject"]
-
-    # A user may be subscribed but now he does not have access to the
-    #   group or organization, so let's handle this case
-    if await can_subscribe_user_to_entity_report(
-        report_entity=report_entity,
-        report_subject=report_subject,
-        user_email=user_email,
-    ):
-        # The processor is expected to run every hour
-        if _should_process_event(
-            bot_time=bot_time,
-            event_frequency=event_frequency,
-            report_entity=report_entity,
-        ):
-            LOGGER_CONSOLE.info(
-                "- subscription to be processed",
-                extra={"extra": {"subscription": subscription}},
-            )
-            try:
-                await _send_user_to_entity_report(
-                    event_frequency=event_frequency,
-                    report_entity=report_entity,
-                    report_subject=report_subject,
-                    user_email=user_email,
-                    digest_stats=digest_stats,
-                    loaders=loaders,
-                )
-            except UnableToSendMail as ex:
-                LOGGER_ERRORS.exception(
-                    ex, extra={"extra": {"subscription": subscription}}
-                )
-    else:
-        LOGGER_CONSOLE.warning(
-            "- can not be subscribed, unsubscribing",
-            extra={"extra": {"subscription": subscription}},
-        )
-        # Unsubscribe this user, he won't even notice as he no longer
-        #   has access to the requested resource
-        await unsubscribe_user_to_entity_report(
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
-        )
-
-
-async def trigger_user_to_entity_report() -> None:
-    bot_time: datetime = datetime.utcnow()
-
-    LOGGER_CONSOLE.info(
-        f"UTC datetime: {datetime_utils.get_as_str(bot_time)}", **NOEXTRA
-    )
-
-    subscriptions = [
-        subscription
-        for subscription in await get_subscriptions_to_entity_report(
-            audience="user",
-        )
-        if subscription["sk"]["entity"] != "comments"
-    ]
-
-    LOGGER_CONSOLE.info(
-        "- subscriptions loaded",
-        extra={
-            "extra": {
-                "length": len(subscriptions),
-                "sample": subscriptions[:1],
-            }
-        },
-    )
-
-    # Prepare digest stats for any group with a subscriber
-    digest_stats: Optional[Tuple[MailContent, ...]] = None
-    loaders: Dataloaders = get_new_context()
-    if _should_process_event(
-        bot_time=bot_time,
-        event_frequency="DAILY",
-        report_entity="DIGEST",
-    ):
-        digest_stats = await _get_digest_stats(loaders, subscriptions)
-
-    await collect(
-        [
-            _process_subscription(
-                bot_time=bot_time,
-                digest_stats=digest_stats,
-                loaders=loaders,
-                subscription=subscription,
-            )
-            for subscription in subscriptions
-        ],
-        workers=16,
-    )
-
-
 async def _validate_subscription(
     subscription: Dict[Any, Any],
 ) -> bool:
@@ -626,8 +485,10 @@ async def _validate_subscription(
     return False
 
 
-async def _process_subscription_analytics(
+async def _process_subscription(
+    *,
     subscription: Dict[Any, Any],
+    digest_stats: Optional[Tuple[MailContent, ...]] = None,
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER_CONSOLE.warning(
@@ -636,18 +497,47 @@ async def _process_subscription_analytics(
         )
         return
     try:
-        await _send_analytics_report(
+        await _send_user_to_entity_report(
             event_frequency=_period_to_frequency(
                 period=subscription["period"]
             ),
             report_entity=subscription["sk"]["entity"],
             report_subject=subscription["sk"]["subject"],
             user_email=subscription["pk"]["email"],
+            digest_stats=digest_stats,
         )
     except UnableToSendMail as ex:
         LOGGER_ERRORS.exception(
             ex, extra={"extra": {"subscription": subscription}}
         )
+
+
+async def trigger_user_to_entity_report() -> None:
+    """Process daily digest. Fixed period by scheduler."""
+    # Daily:   Tuesday to Saturday @ 9:00 UTC (4:00 GMT-5)
+    subscriptions = [
+        subscription
+        for subscription in await get_subscriptions_to_entity_report(
+            audience="user",
+        )
+        if str(subscription["sk"]["entity"]).lower() == "digest"
+        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
+    ]
+    LOGGER_CONSOLE.info(
+        "- daily digest subscriptions loaded",
+        extra={"extra": {"length": len(subscriptions), "period": "DAILY"}},
+    )
+    digest_stats = await _get_digest_stats(get_new_context(), subscriptions)
+    await collect(
+        [
+            _process_subscription(
+                subscription=subscription,
+                digest_stats=digest_stats,
+            )
+            for subscription in subscriptions
+        ],
+        workers=16,
+    )
 
 
 async def trigger_subscriptions_analytics() -> None:
@@ -677,7 +567,7 @@ async def trigger_subscriptions_analytics() -> None:
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )
     await collect(
-        _process_subscription_analytics(subscription)
+        _process_subscription(subscription=subscription)
         for subscription in subscriptions
     )
 
