@@ -13,7 +13,6 @@ from context import (
     FI_ENVIRONMENT,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
-    FI_MAIL_SUBSCRIPTIONS_TEST,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -521,7 +520,6 @@ async def trigger_subscriptions_daily_digest() -> None:
             audience="user",
         )
         if str(subscription["sk"]["entity"]).lower() == "digest"
-        and FI_MAIL_SUBSCRIPTIONS_TEST == subscription["pk"]["email"]
     ]
     LOGGER_CONSOLE.info(
         "- daily digest subscriptions loaded",
