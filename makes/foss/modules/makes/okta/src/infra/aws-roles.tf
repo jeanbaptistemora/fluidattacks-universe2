@@ -93,25 +93,6 @@ resource "aws_iam_role_policy_attachment" "helpdesk-policy" {
   policy_arn = aws_iam_policy.helpdesk-policy.arn
 }
 
-# Observes
-
-resource "aws_iam_role" "observes_prod" {
-  name                 = "observes_prod"
-  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
-  max_session_duration = "32400"
-
-  tags = {
-    "Name"            = "observes_prod"
-    "management:area" = "cost"
-    "management:type" = "product"
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "observes_prod" {
-  role       = aws_iam_role.observes_prod.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/observes-prod-policy"
-}
-
 # Skims
 
 resource "aws_iam_role" "skims_prod" {

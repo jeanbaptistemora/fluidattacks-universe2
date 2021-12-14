@@ -33,7 +33,7 @@
           outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "aws_iam_access_key.prod-key-1" ];
+        resources = [ "module.aws.aws_iam_access_key._1" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/observes/infra";
         version = "1.0";
@@ -43,7 +43,7 @@
           outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = [ "aws_iam_access_key.prod-key-2" ];
+        resources = [ "module.aws.aws_iam_access_key._2" ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/observes/infra";
         version = "1.0";
