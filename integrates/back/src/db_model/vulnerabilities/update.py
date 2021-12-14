@@ -253,6 +253,52 @@ async def update_verification(
     )
 
 
+async def update_historic_verification(
+    *,
+    finding_id: str,
+    historic_verification: Tuple[VulnerabilityVerification, ...],
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {
+            "verification": json.loads(json.dumps(historic_verification[-1]))
+        }
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+    historic_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_verification"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": verification.modified_date,
+            },
+        )
+        for verification in historic_verification
+    )
+    historic_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **json.loads(json.dumps(verification)),
+        }
+        for key, verification in zip(historic_keys, historic_verification)
+    )
+    await operations.batch_write_item(items=historic_items, table=TABLE)
+
+
 async def update_zero_risk(
     *,
     current_value: Optional[VulnerabilityZeroRisk],

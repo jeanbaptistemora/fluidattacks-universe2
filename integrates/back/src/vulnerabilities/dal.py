@@ -396,6 +396,12 @@ async def update_historic_verification(
             ]
         },
     )
+    if FI_ENVIRONMENT == "development":
+        vulns_model.update_historic_verification(
+            finding_id=finding_id,
+            historic_verification=historic_verification,
+            vulnerability_id=vulnerability_id,
+        )
 
 
 async def update_zero_risk(
