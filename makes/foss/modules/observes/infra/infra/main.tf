@@ -24,7 +24,7 @@ module "external" {
   aws_iam_roles = [
     "dev",
     "observes_prod",
-    "makes_prod",
+    "prod_makes",
   ]
   aws_iam_users = [
     "dev",

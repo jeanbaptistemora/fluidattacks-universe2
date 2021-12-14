@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "key-prod" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/observes-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
       ]
     }
     actions = [
@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "key-prod" {
       identifiers = [
         module.external.aws_iam_roles["observes_prod"].arn,
         module.external.aws_iam_users["observes-prod"].arn,
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
       ]
     }
     actions = [
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "key-prod" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/observes-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
       ]
     }
     actions = [
