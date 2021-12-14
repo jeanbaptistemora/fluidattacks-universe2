@@ -1,25 +1,11 @@
-from androguard.core.analysis.analysis import (
-    Analysis,
-)
-from androguard.core.bytecodes.apk import (
-    APK,
-)
-from androguard.core.bytecodes.dvm import (
-    DalvikVMFormat,
-)
-from androguard.decompiler.decompiler import (
-    DecompilerDAD,
-)
-from bs4 import (
-    BeautifulSoup,
-)
-import contextlib
 from lib_apk import (
     analyze_bytecodes,
 )
-import lxml.etree  # nosec
 from model import (
     core_model,
+)
+from parse_android_manifest import (
+    get_apk_context,
 )
 from parse_android_manifest.types import (
     APKContext,
@@ -31,7 +17,6 @@ from typing import (
     Any,
     Callable,
     Dict,
-    Optional,
     Set,
     Tuple,
 )
@@ -47,7 +32,6 @@ from utils.function import (
 from utils.logs import (
     log,
 )
-import zipfile
 
 CHECKS: Tuple[
     Tuple[
@@ -76,44 +60,6 @@ async def analyze_one(
             if finding in CTX.config.checks:
                 for vulnerability in check(get_check_ctx(apk_ctx)):
                     await stores[vulnerability.finding].store(vulnerability)
-
-
-async def get_apk_context(path: str) -> APKContext:
-    apk_obj: Optional[APK] = None
-    apk_manifest: Optional[BeautifulSoup] = None
-    analysis: Optional[Analysis] = None
-    with contextlib.suppress(zipfile.BadZipFile):
-        apk_obj = APK(path)
-
-        with contextlib.suppress(KeyError):
-            apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
-            apk_manifest = BeautifulSoup(
-                BeautifulSoup(
-                    lxml.etree.tostring(apk_manifest_data),
-                    features="html.parser",
-                ).prettify(),
-                features="html.parser",
-            )
-
-        dalviks = []
-        analysis = Analysis()
-        for dex in apk_obj.get_all_dex():
-            dalvik = DalvikVMFormat(
-                dex,
-                using_api=apk_obj.get_target_sdk_version(),
-            )
-            analysis.add(dalvik)
-            dalviks.append(dalvik)
-            dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
-
-        analysis.create_xref()
-
-    return APKContext(
-        analysis=analysis,
-        apk_manifest=apk_manifest,
-        apk_obj=apk_obj,
-        path=path,
-    )
 
 
 async def get_apk_contexts() -> Set[APKContext]:
