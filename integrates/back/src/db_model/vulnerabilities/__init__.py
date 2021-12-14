@@ -1,6 +1,9 @@
 from .add import (
     add,
 )
+from .remove import (
+    remove,
+)
 from .update import (
     update_historic_state,
     update_historic_treatment,
@@ -14,6 +17,7 @@ from .update import (
 
 __all__ = [
     "add",
+    "remove",
     "update_historic_state",
     "update_historic_treatment",
     "update_historic_verification",

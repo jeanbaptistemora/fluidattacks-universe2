@@ -15,6 +15,9 @@ from custom_exceptions import (
     VulnNotFound,
 )
 import db_model.vulnerabilities as vulns_model
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityMetadataToUpdate,
@@ -236,6 +239,7 @@ async def update_metadata(
     finding_id: str,
     vulnerability_id: str,
     metadata: VulnerabilityMetadataToUpdate,
+    deleted: Optional[bool] = False,
 ) -> None:
     item = format_vulnerability_metadata_item(metadata)
     if item:
@@ -244,7 +248,7 @@ async def update_metadata(
             vuln_id=vulnerability_id,
             data=item,
         )
-    if FI_ENVIRONMENT == "development":
+    if FI_ENVIRONMENT == "development" and not deleted:
         vulns_model.update_metadata(
             finding_id=finding_id,
             metadata=metadata,
@@ -266,12 +270,18 @@ async def update_state(
         elements={"historic_state": (item,)},
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_state(
-            current_value=current_value,
-            finding_id=finding_id,
-            state=state,
-            vulnerability_id=vulnerability_id,
-        )
+        if state.status == VulnerabilityStateStatus.DELETED:
+            # Keep deleted items out of the new model while we define the path
+            # going forward for archived data
+            # details at https://gitlab.com/fluidattacks/product/-/issues/5690
+            vulns_model.remove(vulnerability_id=vulnerability_id)
+        else:
+            vulns_model.update_state(
+                current_value=current_value,
+                finding_id=finding_id,
+                state=state,
+                vulnerability_id=vulnerability_id,
+            )
 
 
 async def update_historic_state(
@@ -332,6 +342,7 @@ async def update_historic_treatment(
     finding_id: str,
     vulnerability_id: str,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    deleted: Optional[bool] = False,
 ) -> None:
     await _update(
         finding_id=finding_id,
@@ -343,7 +354,7 @@ async def update_historic_treatment(
             ]
         },
     )
-    if FI_ENVIRONMENT == "development":
+    if FI_ENVIRONMENT == "development" and not deleted:
         vulns_model.update_historic_treatment(
             finding_id=finding_id,
             historic_treatment=historic_treatment,

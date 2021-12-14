@@ -574,7 +574,7 @@ async def mask_finding(  # pylint: disable=too-many-locals
         vulns_domain.mask_vulnerability(
             loaders=loaders,
             finding_id=finding.id,
-            vulnerability_id=vuln.id,
+            vulnerability=vuln,
         )
         for vuln in vulns
     ]

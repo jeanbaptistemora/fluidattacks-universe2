@@ -490,13 +490,13 @@ async def mask_vulnerability(
     *,
     loaders: Any,
     finding_id: str,
-    vulnerability_id: str,
+    vulnerability: Vulnerability,
 ) -> bool:
     historic_treatment_loader = loaders.vulnerability_historic_treatment
-    historic_treatment_loader.clear(vulnerability_id)
+    historic_treatment_loader.clear(vulnerability.id)
     historic_treatment: Tuple[
         VulnerabilityTreatment, ...
-    ] = await historic_treatment_loader.load(vulnerability_id)
+    ] = await historic_treatment_loader.load(vulnerability.id)
     masked_treatment = tuple(
         treatment._replace(
             assigned="Masked" if treatment.assigned else None,
@@ -504,18 +504,21 @@ async def mask_vulnerability(
         )
         for treatment in historic_treatment
     )
+    deleted = vulnerability.state.status == VulnerabilityStateStatus.DELETED
     await vulns_dal.update_historic_treatment(
         finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
+        vulnerability_id=vulnerability.id,
         historic_treatment=masked_treatment,
+        deleted=deleted,
     )
     await vulns_dal.update_metadata(
         finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
+        vulnerability_id=vulnerability.id,
         metadata=VulnerabilityMetadataToUpdate(
             specific="Masked",
             where="Masked",
         ),
+        deleted=deleted,
     )
     return True
 

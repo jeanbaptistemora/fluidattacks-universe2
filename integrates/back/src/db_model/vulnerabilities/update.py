@@ -48,12 +48,13 @@ async def update_metadata(
         for key, value in json.loads(json.dumps(metadata)).items()
         if value is not None
     }
-    await operations.update_item(
-        condition_expression=Attr(key_structure.partition_key).exists(),
-        item=vulnerability_item,
-        key=vulnerability_key,
-        table=TABLE,
-    )
+    if vulnerability_item:
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
 
 
 async def update_state(
