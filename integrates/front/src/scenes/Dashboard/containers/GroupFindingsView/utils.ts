@@ -69,7 +69,7 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
         finding.state,
         finding.treatmentSummary
       ),
-      where: finding.vulnerabilities
+      where: (finding.vulnerabilities ?? [])
         .map((value: { where: string }): string => value.where)
         .join(", "),
     })

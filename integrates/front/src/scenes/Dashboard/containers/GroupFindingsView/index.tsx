@@ -44,6 +44,7 @@ import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_FINDINGS,
+  GET_GROUP_VULNS,
   GET_HAS_MOBILE_APP,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
@@ -286,6 +287,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   ];
 
   const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
+    fetchPolicy: "cache-first",
+    onError: handleQryErrors,
+    variables: { groupName },
+  });
+
+  const { data: vulnsData } = useQuery<IGroupFindingsAttr>(GET_GROUP_VULNS, {
+    fetchPolicy: "cache-first",
     onError: handleQryErrors,
     variables: { groupName },
   });
@@ -304,7 +312,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   });
 
   const findings: IFindingAttr[] =
-    data === undefined ? [] : formatFindings(data.group.findings);
+    data === undefined
+      ? []
+      : formatFindings(_.merge({}, data.group, vulnsData?.group).findings);
 
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,

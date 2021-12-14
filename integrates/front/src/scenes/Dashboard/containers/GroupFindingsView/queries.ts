@@ -24,7 +24,19 @@ const GET_FINDINGS: DocumentNode = gql`
           new
         }
         verified
+      }
+      name
+    }
+  }
+`;
+
+const GET_GROUP_VULNS: DocumentNode = gql`
+  query GetGroupVulns($groupName: String!) {
+    group(groupName: $groupName) {
+      findings {
+        id
         vulnerabilities {
+          id
           where
         }
       }
@@ -53,4 +65,9 @@ const GET_HAS_MOBILE_APP: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, GET_HAS_MOBILE_APP, REQUEST_GROUP_REPORT };
+export {
+  GET_FINDINGS,
+  GET_GROUP_VULNS,
+  GET_HAS_MOBILE_APP,
+  REQUEST_GROUP_REPORT,
+};
