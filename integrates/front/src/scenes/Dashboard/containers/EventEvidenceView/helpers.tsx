@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
---- Needed annotations as DB queries use "any" type
-*/
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";

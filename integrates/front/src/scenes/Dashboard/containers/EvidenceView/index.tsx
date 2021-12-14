@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access
--- annotation needed as the DB handles "any" type */
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
@@ -32,6 +30,7 @@ import {
   UPDATE_DESCRIPTION_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
+import type { IGetFindingEvidences } from "scenes/Dashboard/containers/EvidenceView/types";
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -62,16 +61,19 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   // GraphQL operations
-  const { data, networkStatus, refetch } = useQuery(GET_FINDING_EVIDENCES, {
-    notifyOnNetworkStatusChange: true,
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading finding evidences", error);
-      });
-    },
-    variables: { findingId },
-  });
+  const { data, networkStatus, refetch } = useQuery<IGetFindingEvidences>(
+    GET_FINDING_EVIDENCES,
+    {
+      notifyOnNetworkStatusChange: true,
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred loading finding evidences", error);
+        });
+      },
+      variables: { findingId },
+    }
+  );
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
@@ -203,17 +205,17 @@ const EvidenceView: React.FC = (): JSX.Element => {
                   {evidenceList.map(
                     (name: string, index: number): JSX.Element => {
                       const evidence: IEvidenceItem = evidenceImages[name];
-                      const handleRemove: () => void = (): void => {
-                        track("RemoveEvidence");
-                        setEditing(false);
-                        // eslint-disable-next-line
-                        void removeEvidence({ //NOSONAR
-                          variables: {
-                            evidenceId: name.toUpperCase(),
-                            findingId,
-                          },
-                        });
-                      };
+                      const handleRemove: () => void =
+                        async (): Promise<void> => {
+                          track("RemoveEvidence");
+                          setEditing(false);
+                          await removeEvidence({
+                            variables: {
+                              evidenceId: name.toUpperCase(),
+                              findingId,
+                            },
+                          });
+                        };
 
                       const openImage: () => void = (): void => {
                         if (!isEditing && !isRefetching) {
