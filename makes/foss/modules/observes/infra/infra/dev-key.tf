@@ -22,11 +22,9 @@ data "aws_iam_policy_document" "key-dev" {
       type = "AWS"
       identifiers = [
         module.external.aws_iam_roles["dev"].arn,
-        module.external.aws_iam_roles["observes_prod"].arn,
         module.external.aws_iam_roles["prod_makes"].arn,
         module.external.aws_iam_roles["prod_observes"].arn,
         module.external.aws_iam_users["dev"].arn,
-        module.external.aws_iam_users["observes-prod"].arn,
         module.external.aws_iam_users["prod_makes"].arn,
         module.external.aws_iam_users["prod_observes"].arn,
       ]
@@ -59,11 +57,9 @@ data "aws_iam_policy_document" "key-dev" {
       type = "AWS"
       identifiers = [
         module.external.aws_iam_roles["dev"].arn,
-        module.external.aws_iam_roles["observes_prod"].arn,
         module.external.aws_iam_roles["prod_makes"].arn,
         module.external.aws_iam_roles["prod_observes"].arn,
         module.external.aws_iam_users["dev"].arn,
-        module.external.aws_iam_users["observes-prod"].arn,
         module.external.aws_iam_users["prod_makes"].arn,
         module.external.aws_iam_users["prod_observes"].arn,
       ]
@@ -87,11 +83,9 @@ data "aws_iam_policy_document" "key-dev" {
       type = "AWS"
       identifiers = [
         module.external.aws_iam_roles["dev"].arn,
-        module.external.aws_iam_roles["observes_prod"].arn,
         module.external.aws_iam_roles["prod_makes"].arn,
         module.external.aws_iam_roles["prod_observes"].arn,
         module.external.aws_iam_users["dev"].arn,
-        module.external.aws_iam_users["observes-prod"].arn,
         module.external.aws_iam_users["prod_makes"].arn,
         module.external.aws_iam_users["prod_observes"].arn,
       ]
