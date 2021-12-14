@@ -172,6 +172,16 @@ locals {
         Resource = ["*"]
       },
       {
+        Sid    = "cloudwatchRead"
+        Effect = "Allow"
+        Action = [
+          "cloudwatch:Describe*",
+          "cloudwatch:Get*",
+          "cloudwatch:List*",
+        ]
+        Resource = ["*"]
+      },
+      {
         Sid    = "backupWrite"
         Effect = "Allow"
         Action = [

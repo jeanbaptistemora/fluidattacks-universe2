@@ -37,6 +37,7 @@ locals {
           "sqs:*",
           "ssm:*",
           "sts:*",
+          "tag:*",
         ]
         Resource = ["*"]
       },
