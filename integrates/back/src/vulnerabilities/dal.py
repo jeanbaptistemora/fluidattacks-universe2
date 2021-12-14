@@ -296,6 +296,12 @@ async def update_historic_state(
             ]
         },
     )
+    if FI_ENVIRONMENT == "development":
+        vulns_model.update_historic_state(
+            finding_id=finding_id,
+            historic_state=historic_state,
+            vulnerability_id=vulnerability_id,
+        )
 
 
 async def update_treatment(

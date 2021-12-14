@@ -99,6 +99,52 @@ async def update_state(
     )
 
 
+async def update_historic_state(
+    *,
+    finding_id: str,
+    historic_state: Tuple[VulnerabilityState, ...],
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {
+            "state": json.loads(json.dumps(historic_state[-1]))
+        }
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+    historic_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_state"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": state.modified_date,
+            },
+        )
+        for state in historic_state
+    )
+    historic_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **json.loads(json.dumps(state)),
+        }
+        for key, state in zip(historic_keys, historic_state)
+    )
+    await operations.batch_write_item(items=historic_items, table=TABLE)
+
+
 async def update_treatment(
     *,
     current_value: Optional[VulnerabilityTreatment],
