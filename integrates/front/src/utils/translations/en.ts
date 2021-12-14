@@ -551,6 +551,20 @@ export const enTranslations: ResourceKey = {
         },
       },
     },
+    machine: {
+      date: {
+        create: "Queue Date",
+        duration: "Duration",
+        start: "Start time",
+      },
+      job: {
+        id: "Batch job id",
+        name: "Job name",
+        queue: "Batch queue name",
+      },
+      root: "Root",
+      tableAdvice: "Click on an execution to see more details",
+    },
     scope: {
       common: {
         add: "Add new root",
