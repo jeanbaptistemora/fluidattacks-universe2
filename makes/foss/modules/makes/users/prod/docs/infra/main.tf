@@ -27,11 +27,14 @@ terraform {
 
 module "aws" {
   source = "../../../modules/aws"
-
-  area   = "cost"
   name   = "prod_docs"
   policy = jsonencode(local.aws)
-  type   = "product"
+
+  tags = {
+    "Name"            = "prod_docs"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
 }
 
 module "cloudflare" {

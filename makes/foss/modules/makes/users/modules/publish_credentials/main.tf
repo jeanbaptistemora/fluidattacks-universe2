@@ -6,6 +6,10 @@ terraform {
       source  = "gitlabhq/gitlab"
       version = "3.7.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.7.2"
+    }
   }
 }
 

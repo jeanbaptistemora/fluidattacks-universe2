@@ -1,12 +1,7 @@
 resource "aws_iam_policy" "main" {
   name   = var.name
   policy = var.policy
-
-  tags = {
-    "Name"            = var.name
-    "management:area" = var.area
-    "management:type" = var.type
-  }
+  tags   = var.tags
 }
 
 resource "aws_iam_user_policy_attachment" "main" {

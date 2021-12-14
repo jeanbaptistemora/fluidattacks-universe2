@@ -23,11 +23,14 @@ terraform {
 
 module "aws" {
   source = "../../../modules/aws"
-
-  area   = "cost"
   name   = "prod_makes"
   policy = jsonencode(local.aws)
-  type   = "product"
+
+  tags = {
+    "Name"            = "prod_makes"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
 }
 
 provider "gitlab" {

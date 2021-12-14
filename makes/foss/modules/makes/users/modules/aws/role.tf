@@ -2,12 +2,7 @@ resource "aws_iam_role" "main" {
   name                 = var.name
   assume_role_policy   = data.aws_iam_policy_document.okta_assume_role_policy.json
   max_session_duration = "32400"
-
-  tags = {
-    "Name"            = var.name
-    "management:area" = var.area
-    "management:type" = var.type
-  }
+  tags                 = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "main" {
