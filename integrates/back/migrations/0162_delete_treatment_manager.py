@@ -37,10 +37,10 @@ from typing import (
     Tuple,
 )
 from vulnerabilities.dal import (
-    update,
+    _update,
 )
 
-PROD: bool = True
+PROD: bool = False
 
 
 async def delete_treatment_manager(*, vulnerability: Dict[str, Any]) -> None:
@@ -64,7 +64,7 @@ async def delete_treatment_manager(*, vulnerability: Dict[str, Any]) -> None:
 
     if should_update:
         if PROD:
-            await update(
+            await _update(
                 finding_id=str(vulnerability["finding_id"]),
                 vuln_id=str(vulnerability["UUID"]),
                 data={"historic_treatment": new_historic_treatment},
