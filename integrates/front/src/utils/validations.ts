@@ -184,6 +184,13 @@ const numberBetween: (min: number, max: number) => Validator =
       ? translate.t("validations.between", { max, min })
       : undefined;
 
+const optionalNumberBetween: (min: number, max: number) => Validator =
+  (min: number, max: number): Validator =>
+  (value: number | string): string | undefined =>
+    _.isNumber(value) && (value < min || value > max)
+      ? translate.t("validations.between", { max, min })
+      : undefined;
+
 const isPositive = (value: number): string | undefined =>
   value < 1 ? translate.t("validations.positive") : undefined;
 
@@ -433,6 +440,7 @@ export {
   validTextField,
   validUrlField,
   numberBetween,
+  optionalNumberBetween,
   minLength,
   maxLength,
   sameValue,
