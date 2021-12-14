@@ -1,11 +1,14 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 
 
 def build_binary_operation_node(
-    args: SyntaxGraphArgs, operator: str, left_id: str, right_id: str
-) -> str:
+    args: SyntaxGraphArgs, operator: str, left_id: NId, right_id: NId
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         operator=operator,

@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -6,8 +9,8 @@ from syntax_graph.types import (
 def build_prefix_node(
     args: SyntaxGraphArgs,
     prefix: str,
-    expression_id: str,
-) -> str:
+    expression_id: NId,
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         prefix=prefix,

@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -7,8 +10,8 @@ from typing import (
 
 
 def build_execution_block_node(
-    args: SyntaxGraphArgs, c_ids: Iterator[str]
-) -> str:
+    args: SyntaxGraphArgs, c_ids: Iterator[NId]
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="ExecutionBlock",

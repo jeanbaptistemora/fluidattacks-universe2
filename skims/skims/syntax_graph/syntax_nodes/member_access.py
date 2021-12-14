@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -7,8 +10,8 @@ def build_member_access_node(
     args: SyntaxGraphArgs,
     member: str,
     expression: str,
-    expression_id: str,
-) -> str:
+    expression_id: NId,
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         member=member,

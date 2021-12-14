@@ -1,11 +1,14 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 
 
 def build_variable_declaration_node(
-    args: SyntaxGraphArgs, variable: str, variable_type: str, value_id: str
-) -> str:
+    args: SyntaxGraphArgs, variable: str, variable_type: str, value_id: NId
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         variable=variable,

@@ -1,11 +1,14 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 
 
 def build_element_access_node(
-    args: SyntaxGraphArgs, expression_id: str, arguments_id: str
-) -> str:
+    args: SyntaxGraphArgs, expression_id: NId, arguments_id: NId
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         expression_id=expression_id,

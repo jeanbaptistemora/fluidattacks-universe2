@@ -1,6 +1,7 @@
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
+    NId,
 )
 from typing import (
     Any,
@@ -14,13 +15,13 @@ SYNTAX_GRAPH_ARGS = Any
 
 
 class SyntaxGraphArgs(NamedTuple):
-    generic: Callable[[SYNTAX_GRAPH_ARGS], str]
+    generic: Callable[[SYNTAX_GRAPH_ARGS], NId]
     language: GraphLanguage
     ast_graph: Graph
     syntax_graph: Graph
-    n_id: str
+    n_id: NId
 
-    def fork_n_id(self, n_id: str) -> SYNTAX_GRAPH_ARGS:
+    def fork_n_id(self, n_id: NId) -> SYNTAX_GRAPH_ARGS:
         return SyntaxGraphArgs(
             generic=self.generic,
             language=self.language,
@@ -30,7 +31,7 @@ class SyntaxGraphArgs(NamedTuple):
         )
 
 
-SyntaxReader = Callable[[SyntaxGraphArgs], str]
+SyntaxReader = Callable[[SyntaxGraphArgs], NId]
 
 
 class Dispatcher(NamedTuple):

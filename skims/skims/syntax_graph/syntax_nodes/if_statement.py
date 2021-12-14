@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -8,10 +11,10 @@ from typing import (
 
 def build_if_node(
     args: SyntaxGraphArgs,
-    condition_id: str,
-    true_id: str,
-    false_id: Optional[str],
-) -> str:
+    condition_id: NId,
+    true_id: NId,
+    false_id: Optional[NId],
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         condition_id=condition_id,

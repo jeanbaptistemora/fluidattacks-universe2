@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
@@ -7,8 +10,8 @@ from typing import (
 
 
 def build_object_creation_node(
-    args: SyntaxGraphArgs, name: str, arguments_id: Optional[str]
-) -> str:
+    args: SyntaxGraphArgs, name: str, arguments_id: Optional[NId]
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         name=name,
