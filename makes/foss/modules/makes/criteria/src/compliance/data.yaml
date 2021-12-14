@@ -3035,3 +3035,33 @@
       title: Open SQL Injection
       link: https://bizec.org
   metadata: {}
+"021":
+  title: California CCPA Compliance, CPRA and Cybersecurity
+  en:
+    description: >
+      The BIZEC APP/11 standard comprises...
+  es:
+    description: __empty__
+  definitions:
+    "1798_100":
+      title: General Duties of Businesses that Collect Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_105":
+      title: Consumer's Right to Delete Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_106":
+      title: Consumer's Right to Correct Inaccurate Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_110":
+      title: Consumer's Right to Know What Personal Information is Being Collected. Right to Access Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_115":
+      title: Consumer's Right to Know What Personal Information is Sold or Shared and to Whom
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_120":
+      title: Consumer's Right to Opt Out of Sale or Sharing of Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798_121":
+      title: Consumer's Right to Limit Use and Disclosure of Sensitive Personal Information
+      link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+  metadata: {}
