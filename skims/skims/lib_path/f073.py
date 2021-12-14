@@ -97,7 +97,7 @@ def _tfm_db_cluster_publicly_accessible(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F073_CWE},
-        description_key="F073.title",
+        description_key="src.lib_path.f073.rds_is_publicly_accessible",
         finding=_FINDING_F073,
         iterator=get_cloud_iterator(
             tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
@@ -116,7 +116,7 @@ def _tfm_db_instance_publicly_accessible(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F073_CWE},
-        description_key="F073.title",
+        description_key="src.lib_path.f073.rds_is_publicly_accessible",
         finding=_FINDING_F073,
         iterator=get_cloud_iterator(
             tfm_db_instance_publicly_accessible_iterate_vulnerabilities(

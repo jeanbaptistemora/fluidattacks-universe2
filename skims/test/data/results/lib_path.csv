@@ -8554,54 +8554,6 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   58 | }
      ^ Col 0
 ",f258._cfn_elb2_has_not_deletion_protection
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,Improper authorization control for web services - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
-   1 | resource ""aws_db_instance"" ""default"" {
->  2 |   publicly_accessible  = true
-   3 |   allocated_storage    = 10
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   deletion_protection  = true
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  16 |   count               = 2
-  17 |   publicly_accessible = true
-  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier  = aws_rds_cluster.default.id
-  20 |   instance_class      = ""db.r4.large""
-  21 |   engine              = aws_rds_cluster.default.engine
-     ^ Col 0
-",f073._tfm_db_cluster_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,Improper authorization control for web services - RDS in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  16 |   count               = 2
-> 17 |   publicly_accessible = true
-  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier  = aws_rds_cluster.default.id
-  20 |   instance_class      = ""db.r4.large""
-  21 |   engine              = aws_rds_cluster.default.engine
-  22 |   engine_version      = aws_rds_cluster.default.engine_version
-  23 | }
-  24 |
-  25 | resource ""aws_rds_cluster"" ""default"" {
-  26 |   cluster_identifier  = ""aurora-cluster-demo""
-  27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
-     ^ Col 0
-",f073._tfm_db_instance_publicly_accessible
 F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,29,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   19 |           - Subnet1
   20 |           - AvailabilityZone
@@ -8650,6 +8602,54 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    51 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",f073._cfn_rds_is_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+   1 | resource ""aws_db_instance"" ""default"" {
+>  2 |   publicly_accessible  = true
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+     ^ Col 0
+",f073._tfm_db_cluster_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+> 17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+  22 |   engine_version      = aws_rds_cluster.default.engine_version
+  23 | }
+  24 |
+  25 | resource ""aws_rds_cluster"" ""default"" {
+  26 |   cluster_identifier  = ""aurora-cluster-demo""
+  27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+     ^ Col 0
+",f073._tfm_db_instance_publicly_accessible
 F073,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,31,478,skims,073. Improper authorization control for web services - RDS,RDS instance should not be publicly accessible in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
   21 |           - AvailabilityZone
   22 |       DBClusterIdentifier:
