@@ -27,6 +27,7 @@ from dynamodb.exceptions import (
 import simplejson as json  # type: ignore
 from typing import (
     Optional,
+    Tuple,
 )
 
 
@@ -150,6 +151,52 @@ async def update_treatment(
         item=historic_treatment_item,
         table=TABLE,
     )
+
+
+async def update_historic_treatment(
+    *,
+    finding_id: str,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {
+            "treatment": json.loads(json.dumps(historic_treatment[-1]))
+        }
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+    historic_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_treatment"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": treatment.modified_date,
+            },
+        )
+        for treatment in historic_treatment
+    )
+    historic_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **json.loads(json.dumps(treatment)),
+        }
+        for key, treatment in zip(historic_keys, historic_treatment)
+    )
+    await operations.batch_write_item(items=historic_items, table=TABLE)
 
 
 async def update_verification(

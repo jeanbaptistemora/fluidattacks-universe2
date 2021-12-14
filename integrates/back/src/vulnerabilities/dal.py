@@ -343,6 +343,12 @@ async def update_historic_treatment(
             ]
         },
     )
+    if FI_ENVIRONMENT == "development":
+        vulns_model.update_historic_treatment(
+            finding_id=finding_id,
+            historic_treatment=historic_treatment,
+            vulnerability_id=vulnerability_id,
+        )
 
 
 async def update_verification(
@@ -419,21 +425,3 @@ async def update_zero_risk(
             vulnerability_id=vulnerability_id,
             zero_risk=zero_risk,
         )
-
-
-async def update_historic_zero_risk(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
-) -> None:
-    await _update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_zero_risk": [
-                format_vulnerability_zero_risk_item(zero_risk)
-                for zero_risk in historic_zero_risk
-            ]
-        },
-    )
