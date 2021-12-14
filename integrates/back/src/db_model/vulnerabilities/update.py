@@ -10,6 +10,7 @@ from .types import (
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    Key,
 )
 from custom_exceptions import (
     VulnNotFound,
@@ -124,7 +125,31 @@ async def update_historic_state(
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
 
-    historic_keys = tuple(
+    historic_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_state"],
+        values={"id": vulnerability_id},
+    )
+    current_response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_state"],),
+        table=TABLE,
+    )
+    current_items = current_response.items
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_state"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": item["modified_date"],
+            },
+        )
+        for item in current_items
+    }
+
+    new_keys = {
         keys.build_key(
             facet=TABLE.facets["vulnerability_historic_state"],
             values={
@@ -133,16 +158,20 @@ async def update_historic_state(
             },
         )
         for state in historic_state
-    )
-    historic_items = tuple(
+    }
+    new_items = tuple(
         {
             key_structure.partition_key: key.partition_key,
             key_structure.sort_key: key.sort_key,
             **json.loads(json.dumps(state)),
         }
-        for key, state in zip(historic_keys, historic_state)
+        for key, state in zip(new_keys, historic_state)
     )
-    await operations.batch_write_item(items=historic_items, table=TABLE)
+    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
+        table=TABLE,
+    )
 
 
 async def update_treatment(
@@ -224,7 +253,31 @@ async def update_historic_treatment(
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
 
-    historic_keys = tuple(
+    historic_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_treatment"],
+        values={"id": vulnerability_id},
+    )
+    current_response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_treatment"],),
+        table=TABLE,
+    )
+    current_items = current_response.items
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_treatment"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": item["modified_date"],
+            },
+        )
+        for item in current_items
+    }
+
+    new_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["vulnerability_historic_treatment"],
             values={
@@ -234,15 +287,19 @@ async def update_historic_treatment(
         )
         for treatment in historic_treatment
     )
-    historic_items = tuple(
+    new_items = tuple(
         {
             key_structure.partition_key: key.partition_key,
             key_structure.sort_key: key.sort_key,
             **json.loads(json.dumps(treatment)),
         }
-        for key, treatment in zip(historic_keys, historic_treatment)
+        for key, treatment in zip(new_keys, historic_treatment)
     )
-    await operations.batch_write_item(items=historic_items, table=TABLE)
+    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
+        table=TABLE,
+    )
 
 
 async def update_verification(
@@ -324,7 +381,31 @@ async def update_historic_verification(
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
 
-    historic_keys = tuple(
+    historic_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_verification"],
+        values={"id": vulnerability_id},
+    )
+    current_response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_verification"],),
+        table=TABLE,
+    )
+    current_items = current_response.items
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_verification"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": item["modified_date"],
+            },
+        )
+        for item in current_items
+    }
+
+    new_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["vulnerability_historic_verification"],
             values={
@@ -334,15 +415,19 @@ async def update_historic_verification(
         )
         for verification in historic_verification
     )
-    historic_items = tuple(
+    new_items = tuple(
         {
             key_structure.partition_key: key.partition_key,
             key_structure.sort_key: key.sort_key,
             **json.loads(json.dumps(verification)),
         }
-        for key, verification in zip(historic_keys, historic_verification)
+        for key, verification in zip(new_keys, historic_verification)
     )
-    await operations.batch_write_item(items=historic_items, table=TABLE)
+    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
+        table=TABLE,
+    )
 
 
 async def update_zero_risk(
