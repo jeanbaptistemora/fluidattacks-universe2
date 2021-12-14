@@ -1,5 +1,6 @@
 from model.graph_model import (
     Graph,
+    NId,
 )
 from symbolic_eval.types import (
     Path,
@@ -15,12 +16,12 @@ SOLVER_ARGS = Any  # SymbolicEvalArgs
 
 
 class SolverArgs(NamedTuple):
-    generic: Callable[[SOLVER_ARGS], Optional[str]]
+    generic: Callable[[SOLVER_ARGS], Optional[NId]]
     graph: Graph
     path: Path
-    n_id: str
+    n_id: NId
 
-    def fork_n_id(self, n_id: str) -> SOLVER_ARGS:
+    def fork_n_id(self, n_id: NId) -> SOLVER_ARGS:
         return SolverArgs(
             generic=self.generic,
             graph=self.graph,
@@ -29,4 +30,4 @@ class SolverArgs(NamedTuple):
         )
 
 
-Solver = Callable[[SolverArgs], Optional[str]]
+Solver = Callable[[SolverArgs], Optional[NId]]

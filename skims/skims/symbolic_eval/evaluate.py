@@ -4,6 +4,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
+    NId,
 )
 from symbolic_eval.cases import (
     argument_list,
@@ -70,10 +71,10 @@ def evaluate(
     finding: FindingEnum,
     graph: Graph,
     path: Path,
-    n_id: str,
+    n_id: NId,
 ) -> Optional[bool]:
     try:
-        evaluation: Dict[str, bool] = {}
+        evaluation: Dict[NId, bool] = {}
 
         return generic(
             SymbolicEvalArgs(

@@ -1,5 +1,6 @@
 from model.graph_model import (
     Graph,
+    NId,
 )
 from symbolic_eval.context.search import (
     declaration_block,
@@ -39,14 +40,14 @@ def search(
             yield from searcher(SearchArgs(graph, n_id, symbol, def_only))
 
 
-def search_until_def(graph: Graph, path: Path, symbol: str) -> Iterator[str]:
+def search_until_def(graph: Graph, path: Path, symbol: str) -> Iterator[NId]:
     for is_def, ref_id in search(graph, path, symbol, def_only=False):
         yield ref_id
         if is_def:
             break
 
 
-def definition_search(graph: Graph, path: Path, symbol: str) -> Optional[str]:
+def definition_search(graph: Graph, path: Path, symbol: str) -> Optional[NId]:
     for _, ref_id in search(graph, path, symbol, def_only=True):
         return ref_id
     return None

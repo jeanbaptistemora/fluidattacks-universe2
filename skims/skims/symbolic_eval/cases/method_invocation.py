@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from model.graph_model import (
     Graph,
+    NId,
 )
 from symbolic_eval.context.method import (
     solve_invocation,
@@ -32,9 +33,9 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 
 
 def _get_invocation_eval(
-    graph: Graph, evaluation: Dict[str, bool], md_id: str, mi_id: str
-) -> Dict[str, bool]:
-    invocation_eval: Dict[str, bool] = {}
+    graph: Graph, evaluation: Dict[NId, bool], md_id: NId, mi_id: NId
+) -> Dict[NId, bool]:
+    invocation_eval: Dict[NId, bool] = {}
 
     al_id = graph.nodes[mi_id].get("arguments_id")
     pl_id = graph.nodes[md_id].get("parameters_id")

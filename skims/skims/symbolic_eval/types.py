@@ -4,6 +4,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
+    NId,
 )
 from typing import (
     Any,
@@ -13,7 +14,7 @@ from typing import (
     NamedTuple,
 )
 
-Path = List[str]
+Path = List[NId]
 
 SYMBOLIC_EVAL_ARGS = Any  # SymbolicEvalArgs
 
@@ -22,12 +23,12 @@ class SymbolicEvalArgs(NamedTuple):
     generic: Callable[[SYMBOLIC_EVAL_ARGS], bool]
     language: GraphLanguage
     finding: FindingEnum
-    evaluation: Dict[str, bool]
+    evaluation: Dict[NId, bool]
     graph: Graph
     path: Path
-    n_id: str
+    n_id: NId
 
-    def fork_n_id(self, n_id: str) -> SYMBOLIC_EVAL_ARGS:
+    def fork_n_id(self, n_id: NId) -> SYMBOLIC_EVAL_ARGS:
         return SymbolicEvalArgs(
             generic=self.generic,
             language=self.language,

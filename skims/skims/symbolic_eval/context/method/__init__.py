@@ -1,5 +1,6 @@
 from model.graph_model import (
     Graph,
+    NId,
 )
 from symbolic_eval.context.method import (
     symbol_lookup,
@@ -21,12 +22,12 @@ SOLVERS: Dict[str, Solver] = {
 }
 
 
-def generic(args: SolverArgs) -> Optional[str]:
+def generic(args: SolverArgs) -> Optional[NId]:
     node_type = args.graph.nodes[args.n_id]["label_type"]
     if solver := SOLVERS.get(node_type):
         return solver(args)
     return None
 
 
-def solve_invocation(graph: Graph, path: Path, n_id: str) -> Optional[str]:
+def solve_invocation(graph: Graph, path: Path, n_id: NId) -> Optional[NId]:
     return generic(SolverArgs(generic, graph, path, n_id))
