@@ -1,9 +1,6 @@
 from context import (
     FI_AWS_S3_REPORTS_BUCKET,
 )
-from custom_types import (
-    Finding as FindingType,
-)
 import logging
 from s3 import (
     operations as s3_ops,
@@ -13,9 +10,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    cast,
-    Dict,
-    List,
 )
 from uuid import (
     uuid4 as uuid,
@@ -44,21 +38,6 @@ async def expose_bytes_as_url(
         file_name,
     )
     return await sign_url(path=file_name, minutes=ttl)
-
-
-def ord_asc_by_criticality(
-    data: List[Dict[str, FindingType]]
-) -> List[Dict[str, FindingType]]:
-    """Sort the findings by criticality"""
-    for i in range(0, len(data) - 1):
-        for j in range(i + 1, len(data)):
-            firstc = float(cast(float, data[i]["severityCvss"]))
-            seconc = float(cast(float, data[j]["severityCvss"]))
-            if firstc < seconc:
-                aux = data[i]
-                data[i] = data[j]
-                data[j] = aux
-    return data
 
 
 # Default ttl for reports is 1 hour = 3600 seconds

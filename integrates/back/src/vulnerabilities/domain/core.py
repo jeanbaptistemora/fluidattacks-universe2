@@ -13,7 +13,6 @@ from custom_exceptions import (
     VulnNotInFinding,
 )
 from custom_types import (
-    Finding as FindingType,
     User as UserType,
 )
 from db_model.enums import (
@@ -264,8 +263,8 @@ async def get_by_finding_and_vuln_ids(
 
 async def get_by_vulnerabilities_ids(
     vulnerabilities_ids: List[str],
-) -> Tuple[Dict[str, FindingType], ...]:
-    vulnerabilities: Tuple[Dict[str, FindingType], ...] = tuple()
+) -> Tuple[Dict[str, Any], ...]:
+    vulnerabilities: Tuple[Dict[str, Any], ...] = tuple()
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(vulns_dal.TABLE_NAME)

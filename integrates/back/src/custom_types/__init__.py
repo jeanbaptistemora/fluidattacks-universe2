@@ -51,18 +51,6 @@ User = Dict[
 Dynamo = Union[str, Organization]
 Event = Dict[str, Union[str, Historic, List[Comment], None]]
 ExecutionVulnerabilities = Dict[str, Union[int, List[ExploitResult]]]
-Finding = Union[
-    Decimal,
-    float,
-    list,
-    str,
-    Dict[str, str],
-    Evidence,
-    Historic,
-    List[str],
-    None,
-]
-
 ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
 ForcesExecutions = Dict[str, Union[datetime, str, List[ForcesExecution], None]]
 Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
@@ -210,7 +198,7 @@ SimpleFindingPayload = NamedTuple(
     "SimpleFindingPayload",
     [
         ("success", bool),
-        ("finding", Dict[str, Finding]),
+        ("finding", Dict[str, Any]),
     ],
 )
 SimpleGroupPayload = NamedTuple(

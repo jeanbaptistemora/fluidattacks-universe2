@@ -1,13 +1,6 @@
-from aioextensions import (
-    collect,
-)
 import collections
 from custom_exceptions import (
     InvalidFilter,
-)
-from custom_types import (
-    Finding as FindingType,
-    Group as GroupType,
 )
 from db_model.findings.types import (
     Finding,
@@ -34,27 +27,6 @@ def camelcase_to_snakecase(str_value: str) -> str:
     """Convert a camelcase string to snakecase."""
     my_str = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", str_value)
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", my_str).lower()
-
-
-async def get_filtered_elements(
-    elements: List[FindingType], filters: Dict[str, Any]
-) -> List[GroupType]:
-    """Return filtered findings accorging to filters."""
-
-    async def satisfies_filter(element: FindingType) -> bool:
-        hits = 0
-        for attribute, value in filters.items():
-            result = element.get(camelcase_to_snakecase(attribute))
-            if str(result) == str(value):
-                hits += 1
-        return hits == len(filters)
-
-    conditions = await collect(map(satisfies_filter, elements))
-    return [
-        element
-        for element, condition in zip(elements, conditions)
-        if condition
-    ]
 
 
 async def filter_findings(

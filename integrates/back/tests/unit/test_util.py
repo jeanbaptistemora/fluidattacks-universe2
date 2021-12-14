@@ -20,7 +20,6 @@ from newutils import (
     datetime as datetime_utils,
     encodings,
     files as files_utils,
-    reports as reports_utils,
     token as token_utils,
     utils,
 )
@@ -61,29 +60,6 @@ def test_get_current_date() -> None:
     test_data = datetime_utils.get_now_as_str()[:-3]
     assert isinstance(test_data, str)
     assert test_data == date
-
-
-def test_ord_asc_by_criticality() -> None:
-    sortable_data = [
-        {"severityCvss": 40},
-        {"severityCvss": 13},
-        {"severityCvss": 20},
-        {"severityCvss": 30},
-        {"severityCvss": 12},
-        {"severityCvss": 1},
-        {"severityCvss": 54},
-    ]
-    test_data = reports_utils.ord_asc_by_criticality(sortable_data)
-    expected_output = [
-        {"severityCvss": 54},
-        {"severityCvss": 40},
-        {"severityCvss": 30},
-        {"severityCvss": 20},
-        {"severityCvss": 13},
-        {"severityCvss": 12},
-        {"severityCvss": 1},
-    ]
-    assert test_data == expected_output
 
 
 def test_assert_file_mime() -> None:

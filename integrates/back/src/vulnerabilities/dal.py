@@ -14,9 +14,6 @@ from custom_exceptions import (
     UnavailabilityError,
     VulnNotFound,
 )
-from custom_types import (
-    Finding as FindingType,
-)
 import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -49,7 +46,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
@@ -106,7 +102,7 @@ async def get_by_finding(
     where: str = "",
     specific: str = "",
     uuid: str = "",
-) -> List[Dict[str, FindingType]]:
+) -> List[Dict[str, Any]]:
     """Get a vulnerability."""
     hash_key = "finding_id"
     query_attrs = {"KeyConditionExpression": Key(hash_key).eq(finding_id)}
@@ -132,7 +128,7 @@ async def get_by_finding(
 async def get_vulnerability_by_id(
     vulnerability_uuid: str,
     table: aioboto3.session.Session.client,
-) -> List[Dict[str, FindingType]]:
+) -> List[Dict[str, Any]]:
     hash_key = "UUID"
     query_attrs = {
         "IndexName": "gsi_uuid",
@@ -149,7 +145,7 @@ async def get_vulnerability_by_id(
 
     if not vulnerabilities:
         raise VulnNotFound()
-    first_vuln = cast(Dict[str, List[Dict[str, str]]], vulnerabilities[0])
+    first_vuln = vulnerabilities[0]
     if (
         first_vuln.get("historic_state", [{}])[-1].get("state", "")
         == "DELETED"
@@ -163,9 +159,7 @@ async def sign_url(vuln_file_name: str) -> str:
     return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
 
 
-async def _update(
-    finding_id: str, vuln_id: str, data: Dict[str, FindingType]
-) -> bool:
+async def _update(finding_id: str, vuln_id: str, data: Dict[str, Any]) -> bool:
     set_expression = ""
     remove_expression = ""
     expression_names = {}
@@ -227,14 +221,14 @@ async def _append(
 
 
 async def upload_file(vuln_file: UploadFile) -> str:
-    file_path = vuln_file.filename
-    file_name = file_path.split("/")[-1]
+    file_path: str = vuln_file.filename
+    file_name: str = file_path.split("/")[-1]
     await s3_ops.upload_memory_file(
         VULNS_BUCKET,
         vuln_file,
         file_name,
     )
-    return cast(str, file_name)
+    return file_name
 
 
 async def update_metadata(
