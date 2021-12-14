@@ -49,12 +49,11 @@ are the following:
 - It supports [automatic retries](https://docs.aws.amazon.com/batch/latest/userguide/job_retries.html)
   of jobs.
 - It [integrates](https://docs.aws.amazon.com/batch/latest/userguide/batch-supported-iam-actions-resources.html)
-  with Identity and Access Management [IAM](/development/stack/aws/iam/),
+  with Identity and Access Management ([IAM](/development/stack/aws/iam/)),
   allowing us to keep
   a [least privilege](/criteria/requirements/186) approach
   regarding [authentication and authorization](https://securityboulevard.com/2020/06/authentication-vs-authorization-defined-whats-the-difference-infographic/).
-- EC2 workers running jobs can be monitored
-  using [CloudWatch](/development/stack/aws/cloudwatch/).
+- EC2 workers running jobs can be monitored using CloudWatch.
 
 ## Alternatives
 
