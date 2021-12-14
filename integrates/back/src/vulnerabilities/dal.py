@@ -1,7 +1,4 @@
 import aioboto3
-from aioextensions import (
-    schedule,
-)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -254,12 +251,10 @@ async def update_metadata(
             data=item,
         )
     if FI_ENVIRONMENT == "development":
-        schedule(
-            vulns_model.update_metadata(
-                finding_id=finding_id,
-                metadata=metadata,
-                vulnerability_id=vulnerability_id,
-            )
+        vulns_model.update_metadata(
+            finding_id=finding_id,
+            metadata=metadata,
+            vulnerability_id=vulnerability_id,
         )
 
 
@@ -277,13 +272,11 @@ async def update_state(
         elements={"historic_state": (item,)},
     )
     if FI_ENVIRONMENT == "development":
-        schedule(
-            vulns_model.update_state(
-                current_value=current_value,
-                finding_id=finding_id,
-                state=state,
-                vulnerability_id=vulnerability_id,
-            )
+        vulns_model.update_state(
+            current_value=current_value,
+            finding_id=finding_id,
+            state=state,
+            vulnerability_id=vulnerability_id,
         )
 
 
@@ -326,13 +319,11 @@ async def update_treatment(
             data={"historic_treatment": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        schedule(
-            vulns_model.update_treatment(
-                current_value=current_value,
-                finding_id=finding_id,
-                treatment=treatment,
-                vulnerability_id=vulnerability_id,
-            )
+        vulns_model.update_treatment(
+            current_value=current_value,
+            finding_id=finding_id,
+            treatment=treatment,
+            vulnerability_id=vulnerability_id,
         )
 
 
@@ -375,13 +366,11 @@ async def update_verification(
             data={"historic_verification": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        schedule(
-            vulns_model.update_verification(
-                current_value=current_value,
-                finding_id=finding_id,
-                verification=verification,
-                vulnerability_id=vulnerability_id,
-            )
+        vulns_model.update_verification(
+            current_value=current_value,
+            finding_id=finding_id,
+            verification=verification,
+            vulnerability_id=vulnerability_id,
         )
 
 
@@ -424,13 +413,11 @@ async def update_zero_risk(
             data={"historic_zero_risk": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        schedule(
-            vulns_model.update_zero_risk(
-                current_value=current_value,
-                finding_id=finding_id,
-                vulnerability_id=vulnerability_id,
-                zero_risk=zero_risk,
-            )
+        vulns_model.update_zero_risk(
+            current_value=current_value,
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+            zero_risk=zero_risk,
         )
 
 
