@@ -22,4 +22,26 @@ terraform {
   }
 }
 
-provider "aws" {}
+module "aws" {
+  source = "../../../modules/aws"
+  name   = "prod_melts"
+  policy = jsonencode(local.aws)
+
+  tags = {
+    "Name"            = "prod_melts"
+    "management:area" = "cost"
+    "management:type" = "product"
+  }
+}
+
+provider "gitlab" {
+  token = var.gitlab_token
+}
+
+module "publish_credentials" {
+  source    = "../../../modules/publish_credentials"
+  key_1     = module.aws.keys.1
+  key_2     = module.aws.keys.2
+  prefix    = "PROD_MELTS"
+  protected = true
+}
