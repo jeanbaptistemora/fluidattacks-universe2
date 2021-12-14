@@ -9,7 +9,7 @@ function migration {
 
   db=$(mktemp) \
     && creds=$(mktemp) \
-    && aws_login_prod 'observes' \
+    && aws_login_prod_new 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && code-etl migration calculate-fa-hash \

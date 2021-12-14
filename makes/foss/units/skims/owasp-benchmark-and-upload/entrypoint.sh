@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function upload {
-  aws_login_prod 'observes' \
+  aws_login_prod_new 'observes' \
     && analytics_auth_redshift_file="$(mktemp)" \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \

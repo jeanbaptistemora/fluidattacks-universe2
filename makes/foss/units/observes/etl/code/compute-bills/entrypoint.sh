@@ -7,7 +7,7 @@ function job_compute_bills {
   local bucket_day
   local folder
 
-  aws_login_prod 'observes' \
+  aws_login_prod_new 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

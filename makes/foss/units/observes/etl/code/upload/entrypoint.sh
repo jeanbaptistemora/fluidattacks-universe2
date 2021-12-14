@@ -9,7 +9,7 @@ function job_code_upload {
     && if test -z "${group}"; then
       abort '[INFO] Please set the first argument to the group name'
     fi \
-    && aws_login_prod 'observes' \
+    && aws_login_prod_new 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

@@ -9,7 +9,7 @@ function job_code_mirror {
       abort '[INFO] Please set the first argument to the group name'
     fi \
     && db_creds=$(mktemp) \
-    && aws_login_prod 'observes' \
+    && aws_login_prod_new 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \

@@ -11,7 +11,7 @@ function job_timedoctor {
   db_creds=$(mktemp) \
     && timedoctor_creds=$(mktemp) \
     && mkdir ./logs \
-    && aws_login_prod 'observes' \
+    && aws_login_prod_new 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \
       analytics_s3_cache_timedoctor \

@@ -9,7 +9,7 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && aws_login_prod 'observes' \
+    && aws_login_prod_new 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \
       delighted_api_key \

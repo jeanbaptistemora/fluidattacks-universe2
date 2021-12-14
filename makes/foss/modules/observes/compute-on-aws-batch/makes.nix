@@ -8,7 +8,7 @@ let
     environment = [ "PRODUCT_API_TOKEN" ];
     memory = 1800 * vcpus;
     queue = "observes_later";
-    setup = [ outputs."/secretsForAwsFromEnv/observesProd" ];
+    setup = [ outputs."/secretsForAwsFromEnv/prodObserves" ];
     vcpus = 1;
   };
 in
