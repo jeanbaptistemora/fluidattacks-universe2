@@ -23,7 +23,7 @@ module "external" {
 
   aws_iam_roles = [
     "dev",
-    "makes_prod",
+    "prod_makes",
     "prod_integrates",
   ]
   aws_iam_policies = {
