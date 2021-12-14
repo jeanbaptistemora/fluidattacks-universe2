@@ -311,7 +311,7 @@ async def _add_accepted_treatment(
     await collect(
         [
             vulns_dal.update_treatment(
-                current_value=vuln.treatment,
+                current_value=acceptance_submitted,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=acceptance_approved,
