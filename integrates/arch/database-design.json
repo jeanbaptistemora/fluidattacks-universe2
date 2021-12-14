@@ -8638,7 +8638,7 @@
                     "S": "2020-11-23T17:46:10+00:00"
                   },
                   "modified_by": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "integratescustomer@gmail.com"
                   },
                   "assigned": {
                     "S": "integratesuser@gmail.com"
@@ -12126,7 +12126,7 @@
                 "S": "2020-11-23T17:46:10+00:00"
               },
               "modified_by": {
-                "S": "integratesmanager@gmail.com"
+                "S": "integratescustomer@gmail.com"
               },
               "assigned": {
                 "S": "integratesuser@gmail.com"

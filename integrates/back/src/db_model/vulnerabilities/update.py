@@ -41,7 +41,11 @@ async def update_metadata(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding_id, "id": vulnerability_id},
     )
-    vulnerability_item = json.loads(json.dumps(metadata))
+    vulnerability_item = {
+        key: value
+        for key, value in json.loads(json.dumps(metadata)).items()
+        if value is not None
+    }
     await operations.update_item(
         condition_expression=Attr(key_structure.partition_key).exists(),
         item=vulnerability_item,
