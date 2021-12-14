@@ -557,6 +557,9 @@ export const enTranslations: ResourceKey = {
         duration: "Duration",
         start: "Start time",
       },
+      executionDetailsModal: {
+        title: "Execution details",
+      },
       job: {
         id: "Batch job id",
         name: "Job name",

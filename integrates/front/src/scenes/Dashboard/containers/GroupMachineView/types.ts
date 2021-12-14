@@ -39,4 +39,4 @@ interface IGetExecutions {
   };
 }
 
-export { IGetExecutions, IExecution };
+export { IGetExecutions, IExecution, IMachineExecution, IRoot };

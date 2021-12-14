@@ -9,6 +9,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
+import { GroupMachineView } from "../GroupMachineView";
 import { GroupScopeView } from "../GroupScopeView";
 import { ToeContent } from "../ToeContent";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
@@ -173,6 +174,11 @@ const GroupContent: React.FC = (): JSX.Element => {
                     component={GroupForcesView}
                     exact={true}
                     path={`${path}/devsecops`}
+                  />
+                  <Route
+                    component={GroupMachineView}
+                    exact={true}
+                    path={`${path}/machine`}
                   />
                   <Route
                     component={GroupEventsView}
