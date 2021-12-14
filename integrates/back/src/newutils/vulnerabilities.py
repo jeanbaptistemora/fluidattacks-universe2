@@ -525,6 +525,13 @@ def ungroup_specific(specific: str) -> List[str]:
 def get_treatment_from_org_finding_policy(
     *, modified_date: str, user_email: str
 ) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
+    # This 2nd date is calculated to avoid an entry overriding the other in db
+    modified_date2 = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_plus_delta(
+            datetime.fromisoformat(modified_date),
+            seconds=1,
+        )
+    )
     return (
         VulnerabilityTreatment(
             acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -539,7 +546,7 @@ def get_treatment_from_org_finding_policy(
             justification="From organization findings policy",
             assigned=user_email,
             modified_by=user_email,
-            modified_date=modified_date,
+            modified_date=modified_date2,
             status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
         ),
     )
