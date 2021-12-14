@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions */
-/* Note: ESLint annotations needed ad DB queries use "any" type */
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
@@ -8,7 +6,10 @@ import React from "react";
 import { Redirect, Switch, useLocation, useParams } from "react-router-dom";
 
 import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
-import type { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
+import type {
+  IGetEntityOrganization,
+  IOrganizationRedirectProps,
+} from "scenes/Dashboard/containers/OrganizationRedirectView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -24,7 +25,7 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   const { pathname } = useLocation();
 
   // GraphQL operations
-  const { data } = useQuery(GET_ENTITY_ORGANIZATION, {
+  const { data } = useQuery<IGetEntityOrganization>(GET_ENTITY_ORGANIZATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -52,12 +53,16 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
       {type === "groups" ? (
         <Redirect
           path={"/groups/:groupName"}
-          to={`/orgs/${data.group.organization}${pathname}`}
+          to={`/orgs/${
+            data.group === undefined ? "" : data.group.organization
+          }${pathname}`}
         />
       ) : (
         <Redirect
           path={"/portfolios/:tagName"}
-          to={`/orgs/${data.tag.organization}${pathname}`}
+          to={`/orgs/${
+            data.tag === undefined ? "" : data.tag.organization
+          }${pathname}`}
         />
       )}{" "}
     </Switch>
