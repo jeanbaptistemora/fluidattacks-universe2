@@ -24,9 +24,10 @@ template: solution
 
 ### Certified hackers
 
-Our ethical hackers have received various certifications, including
-OSCE, OSCP, OSWP, and CRTE. This red team expertise will allow you to
-remain confident that the security tests will be effective.
+Our ethical hackers have received [various certifications](../../about-us/certifications/),
+including OSEE, OSCE, CRTE, eCPTXv2 and OSCP.
+This red team expertise will allow you to remain confident
+that the security tests will be effective.
 
 </div>
 
@@ -34,11 +35,13 @@ remain confident that the security tests will be effective.
 
 ### Specialization
 
-Fluid Attacks’ Red Team members can assume a range of specific roles
-depending on their specialization: Attack, Deterministic, Critical,
-Release, Escapes, Systems, Exploit, and Reattack. This focused expertise
-across a wide variety of approaches facilitates the discovery of higher
-impact vulnerabilities.
+Fluid Attacks' Red Team members can assume a range of specific roles
+depending on their specialization:
+Attack, Deterministic, Critical,
+Release, Escapes, Systems, Exploit, and Reattack.
+This focused expertise
+across a wide variety of approaches
+facilitates the discovery of higher impact vulnerabilities.
 
 </div>
 
@@ -46,8 +49,9 @@ impact vulnerabilities.
 
 ### Zero-Day vulnerabilities
 
-Our hackers are skilled at finding zero-day vulnerabilities, which are
-the weaknesses in IT systems that others have not yet discovered and
-which do not have a defined remediation patch.
+Our hackers are skilled at finding zero-day vulnerabilities,
+which are the weaknesses in IT systems
+that others have not yet discovered
+and which do not have a defined remediation patch.
 
 </div>
