@@ -37,6 +37,9 @@ from groups import (
 from itertools import (
     chain,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import time
 from typing import (
     Dict,
@@ -55,7 +58,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 class Context(NamedTuple):
@@ -119,7 +122,7 @@ def save_migration_info(
         "vulns_to_move",
         "id_vulns",
     ]
-    csv_file = "0164.csv"
+    csv_file = "0163.csv"
     try:
         with open(csv_file, "a", encoding="utf8") as f:
             writer = csv.DictWriter(f, fieldnames=csv_columns)
@@ -146,12 +149,16 @@ async def _get_duplicated_findings(
         return True
 
     creation_dates = [
-        fin_duplicated.creation.modified_date
+        datetime_utils.get_date_from_iso_str(
+            fin_duplicated.creation.modified_date
+        )
         for fin_duplicated in duplicated_findings
         if fin_duplicated.creation is not None
     ]
-
-    if finding.creation.modified_date > min(creation_dates):
+    findind_date = datetime_utils.get_date_from_iso_str(
+        finding.creation.modified_date
+    )
+    if findind_date > min(creation_dates):
         print("\tDuplicated but not the oldest one")
         return True
 
@@ -165,8 +172,8 @@ async def _get_duplicated_findings(
     uuids = [vuln.id for vuln in vulns_load]
     print(f"\t=== We found ({len(duplicated_findings)}) duplicates")
     print(
-        f"""\n\t\tDuplicated Id: {[item.id for item in duplicated_findings]}
-        target: {finding.id}"""
+        f"\n\t\tDuplicated Id: {[item.id for item in duplicated_findings]} "
+        + f"target: {finding.id}"
     )
     print(f"\t\tVulns to move: {len(vulns_load)}")
 
@@ -181,10 +188,7 @@ async def _get_duplicated_findings(
                 for vuln in vulns_load
             )
         )
-        print(
-            f"""\t\t=== {success} creating {len(vulns_load)}
-            vulns group {finding.group_name}"""
-        )
+        print(f"\t\t=== {success} creating vulns group {finding.group_name}")
 
         await collect(
             findings_dom.remove_finding(
@@ -220,7 +224,7 @@ async def process_group(context: Dataloaders, group: str) -> bool:
 async def main() -> None:
     context: Context = Context(headers={}, loaders=get_new_context())
     groups: List[str] = sorted(await groups_domain.get_active_groups())
-    segment: List[str] = groups[:5]
+    segment: List[str] = groups[:50]
     success: bool = all(
         await collect(
             (process_group(context, group) for group in segment), workers=1
