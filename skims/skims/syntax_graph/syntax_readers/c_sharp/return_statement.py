@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.return_statment import (
     build_return_node,
 )
@@ -10,7 +13,7 @@ from utils.graph import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, "return", ";")
 
     if len(match) == 3 and match["return"] and match[";"]:

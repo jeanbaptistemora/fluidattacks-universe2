@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.parameter import (
     build_parameter_node,
 )
@@ -13,7 +16,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     childs = adj_ast(graph, args.n_id)
 

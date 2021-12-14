@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.argument_list import (
     build_argument_list_node,
 )
@@ -9,6 +12,6 @@ from utils.graph import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = match_ast_group_d(args.ast_graph, args.n_id, "argument")
     return build_argument_list_node(args, c_ids)

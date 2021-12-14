@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.method_declaration import (
     build_method_declaration_node,
 )
@@ -12,7 +15,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     method = args.ast_graph.nodes[args.n_id]
     name_id = method["label_field_name"]
     parameters_id = method["label_field_parameters"]

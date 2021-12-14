@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.import_statement import (
     build_import_statement_node,
 )
@@ -13,7 +16,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, "using", ";")
 
     if len(match) == 3 and match["using"] and match[";"]:

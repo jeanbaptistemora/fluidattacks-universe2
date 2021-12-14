@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.variable_declaration import (
     build_variable_declaration_node,
 )
@@ -13,7 +16,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     var_type_id = args.ast_graph.nodes[args.n_id]["label_field_type"]
     var_decl = match_ast_d(args.ast_graph, args.n_id, "variable_declarator")
 

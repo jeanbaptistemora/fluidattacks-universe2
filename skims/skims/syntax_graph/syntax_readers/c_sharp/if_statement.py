@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.if_statement import (
     build_if_node,
 )
@@ -6,7 +9,7 @@ from syntax_graph.types import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     condition_id = args.ast_graph.nodes[args.n_id]["label_field_condition"]
     true_id = args.ast_graph.nodes[args.n_id]["label_field_consequence"]
     false_id = args.ast_graph.nodes[args.n_id].get("label_field_alternative")

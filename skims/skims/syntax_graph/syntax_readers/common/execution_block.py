@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.execution_block import (
     build_execution_block_node,
 )
@@ -9,6 +12,6 @@ from utils.graph import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
     return build_execution_block_node(args, c_ids)

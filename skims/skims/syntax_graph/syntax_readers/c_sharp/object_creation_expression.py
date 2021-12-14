@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.syntax_nodes.object_creation import (
     build_object_creation_node,
 )
@@ -12,7 +15,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     node_attr = args.ast_graph.nodes[args.n_id]
     type_id = node_attr["label_field_type"]
     name = node_to_str(args.ast_graph, type_id)

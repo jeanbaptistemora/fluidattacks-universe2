@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_graph.types import (
     MissingCaseHandling,
     SyntaxGraphArgs,
@@ -7,7 +10,7 @@ from utils.graph import (
 )
 
 
-def reader(args: SyntaxGraphArgs) -> str:
+def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, ";")
 
     if len(match) == 2 and match[";"]:
