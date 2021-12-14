@@ -109,10 +109,11 @@ def append_root_metadata(subs: str) -> None:
 
     for root in glob.glob(f"groups/{subs}/fusion/*"):
         root_nickname: str = os.path.basename(root)
-        with open(
-            f"{root}/.git/fluidattacks_metadata", "w", encoding="utf8"
-        ) as file:
-            json.dump({"date": upload_dates[root_nickname]}, file, indent=2)
+        if _upload_date := upload_dates.get(root_nickname):
+            with open(
+                f"{root}/.git/fluidattacks_metadata", "w", encoding="utf8"
+            ) as file:
+                json.dump({"date": _upload_date}, file, indent=2)
 
 
 def s3_sync_fusion_to_s3(
