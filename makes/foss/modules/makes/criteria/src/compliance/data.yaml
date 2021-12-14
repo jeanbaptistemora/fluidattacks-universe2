@@ -2971,3 +2971,31 @@
       title: Recovery plan is executed during or after a cybersecurity incident
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
   metadata: {}
+"019":
+  title: Agile Alliance
+  en:
+    description: >
+      Manifesto for Agile Software Development
+      cover better ways of developing software
+      by doing it and helping others do it.
+      This work values individuals and interactions
+      over processes and tools, working software
+      over comprehensive documentation, customer
+      collaboration over contract negotiation and
+      responding to change over following a plan.
+  es:
+    description: __empty__
+  definitions:
+    "1":
+      title: Early and continuous delivery of valuable software
+      link: https://www.agilealliance.org/agile101/12-principles-behind-the-agile-manifesto/
+    "3":
+      title: Deliver working software frequently
+      link: https://www.agilealliance.org/agile101/12-principles-behind-the-agile-manifesto/
+    "9":
+      title: Continuous attention to technical excellence and good design
+      link: https://www.agilealliance.org/agile101/12-principles-behind-the-agile-manifesto/
+    "11":
+      title: Best architectures, requirements, and designs
+      link: https://www.agilealliance.org/agile101/12-principles-behind-the-agile-manifesto/
+  metadata: {}
