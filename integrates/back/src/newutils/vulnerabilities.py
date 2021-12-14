@@ -14,8 +14,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Action,
-    Finding as FindingType,
-    Historic as HistoricType,
 )
 from datetime import (
     date as datetype,
@@ -72,7 +70,6 @@ from settings import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     Iterable,
@@ -238,13 +235,6 @@ def filter_historic_date(
     )
 
 
-def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    vuln["current_state"] = cast(
-        List[Dict[str, str]], vuln.get("historic_state", [{}])
-    )[-1].get("state")
-    return vuln
-
-
 def format_vulnerabilities(
     vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, str]]]:
@@ -316,11 +306,6 @@ def get_closing_date(
         if min_date and min_date > closing_date:
             return None
     return closing_date
-
-
-def get_last_status(vuln: Dict[str, FindingType]) -> str:
-    historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
-    return historic_state[-1].get("state", "")
 
 
 def get_mean_remediate_vulnerabilities_cvssf(
@@ -680,11 +665,6 @@ def get_total_reattacks_stats(  # pylint: disable=too-many-locals
         else "",
         "pending_attacks": pending_attacks,
     }
-
-
-def sort_historic_by_date(historic: Any) -> HistoricType:
-    historic_sort = sorted(historic, key=lambda i: i["date"])
-    return historic_sort
 
 
 def _get_vuln_state_action(
