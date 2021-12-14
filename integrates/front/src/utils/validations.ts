@@ -322,6 +322,17 @@ const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
     : translate.t("validations.greaterDate");
 };
 
+const dateTimeBetween: (from: Moment, to: Moment) => Validator =
+  (from: Moment, to: Moment): Validator =>
+  (value?: Moment | string): string | undefined => {
+    return isMoment(value) && value.isBetween(from, to)
+      ? undefined
+      : translate.t("validations.datetimeBetween", {
+          from: from.format("MM/DD/YYYY h:mm A"),
+          to: to.format("MM/DD/YYYY h:mm A"),
+        });
+  };
+
 const isValidVulnsFile: Validator = (value: FileList): string | undefined => {
   if (_.isNil(value) || value.length === 0) {
     return translate.t("groupAlerts.noFileSelected");
@@ -458,6 +469,7 @@ export {
   validFindingTypology,
   validRecordsFile,
   dateTimeBeforeToday,
+  dateTimeBetween,
   isValidVulnsFile,
   validTag,
   validField,

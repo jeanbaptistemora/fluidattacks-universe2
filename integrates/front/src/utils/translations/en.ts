@@ -2405,6 +2405,7 @@ export const enTranslations: ResourceKey = {
     between: "This value must be between {{min}} and {{max}}",
     columns: "At least 1 column must be shown",
     datetime: "The datetime format is not valid",
+    datetimeBetween: "The datetime must be between {{from}} and {{to}}",
     draftTitle: "The title format is not valid",
     draftTypology: "The finding typology is not valid",
     duplicateDraft:
