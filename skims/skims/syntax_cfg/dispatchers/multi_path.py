@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_cfg.types import (
     SyntaxCfgArgs,
 )
@@ -6,7 +9,7 @@ from utils import (
 )
 
 
-def build(args: SyntaxCfgArgs) -> str:
+def build(args: SyntaxCfgArgs) -> NId:
     for c_id in g.adj_ast(args.graph, args.n_id):
         args.graph.add_edge(
             args.n_id,

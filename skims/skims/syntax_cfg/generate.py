@@ -1,5 +1,6 @@
 from model.graph_model import (
     Graph,
+    NId,
 )
 from syntax_cfg.dispatchers import (
     DISPATCHERS,
@@ -10,7 +11,7 @@ from syntax_cfg.types import (
 )
 
 
-def generic(args: SyntaxCfgArgs) -> str:
+def generic(args: SyntaxCfgArgs) -> NId:
     node_type = args.graph.nodes[args.n_id]["label_type"]
 
     for dispatcher in DISPATCHERS:

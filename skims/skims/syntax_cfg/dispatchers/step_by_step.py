@@ -1,3 +1,6 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_cfg.types import (
     SyntaxCfgArgs,
 )
@@ -9,7 +12,7 @@ from utils import (
 )
 
 
-def build(args: SyntaxCfgArgs) -> str:
+def build(args: SyntaxCfgArgs) -> NId:
     c_ids = g.adj_ast(args.graph, args.n_id)
 
     first_child, *_ = c_ids

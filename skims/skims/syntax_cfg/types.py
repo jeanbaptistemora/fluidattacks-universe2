@@ -1,5 +1,6 @@
 from model.graph_model import (
     Graph,
+    NId,
 )
 from typing import (
     Any,
@@ -14,12 +15,12 @@ SYNTAX_CFG_ARGS = Any
 
 
 class SyntaxCfgArgs(NamedTuple):
-    generic: Callable[[SYNTAX_CFG_ARGS], str]
+    generic: Callable[[SYNTAX_CFG_ARGS], NId]
     graph: Graph
-    n_id: str
-    nxt_id: Optional[str]
+    n_id: NId
+    nxt_id: Optional[NId]
 
-    def fork(self, n_id: str, nxt_id: Optional[str]) -> SYNTAX_CFG_ARGS:
+    def fork(self, n_id: NId, nxt_id: Optional[NId]) -> SYNTAX_CFG_ARGS:
         return SyntaxCfgArgs(
             generic=self.generic,
             graph=self.graph,
@@ -28,7 +29,7 @@ class SyntaxCfgArgs(NamedTuple):
         )
 
 
-CfgBuilder = Callable[[SyntaxCfgArgs], str]
+CfgBuilder = Callable[[SyntaxCfgArgs], NId]
 
 
 class Dispatcher(NamedTuple):

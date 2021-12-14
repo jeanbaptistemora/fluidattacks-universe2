@@ -1,9 +1,12 @@
+from model.graph_model import (
+    NId,
+)
 from syntax_cfg.types import (
     SyntaxCfgArgs,
 )
 
 
-def build(args: SyntaxCfgArgs) -> str:
+def build(args: SyntaxCfgArgs) -> NId:
     true_id = args.graph.nodes[args.n_id]["true_id"]
     args.graph.add_edge(
         args.n_id,
