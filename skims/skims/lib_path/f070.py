@@ -98,7 +98,7 @@ def _tfm_lb_target_group_insecure_port(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F070_CWE},
-        description_key="F070.title",
+        description_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
         finding=_FINDING_F070,
         iterator=get_cloud_iterator(
             tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
