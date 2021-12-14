@@ -8,6 +8,10 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   bucket = var.bucket_name
   acl    = "private"
 
+  versioning {
+    enabled = true
+  }
+
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["PUT", "POST"]
