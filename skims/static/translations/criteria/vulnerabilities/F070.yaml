@@ -6,3 +6,36 @@ F070.title:
     Insecure service configuration - ELB
   es: >
     Insecure service configuration - ELB
+F070.description:
+  en: >
+    A misconfiguration or default setting on Elastic Load Balancers that can
+    cause to unintentionally increase the attack surface of the company's
+    cloud infrastructure.
+  es: >
+    Una configuración errónea o por defecto en los Elastic Load Balancers
+    que puede hacer que aumente involuntariamente la superficie de ataque de la
+    infraestructura de la nube de la empresa.
+F070.impact:
+  en: |
+    - Result in the connection between load balancer and server being exploited.
+    - The front-end connection between the client and the load balancer is
+      vulnerable to eavesdropping and man-in-the-middle (MITM) attacks.
+  es: |
+    - Que la conexión entre el equilibrador de carga y el servidor sea explotada.
+    - La conexión frontal entre el cliente y el equilibrador de carga es
+      vulnerable a los ataques de escucha y de hombre en el medio (MITM).
+F070.recommendation:
+  en: |
+    - Application load balancers should use acceptable policies.
+    - Create a custom ELB SSL security policy that contains secure ciphers.
+    - Strongly advised that the load balancer uses a secure listener.
+  es: |
+    - Los balanceadores de carga de aplicaciones deben utilizar políticas
+      aceptables.
+    - Cree una política de seguridad SSL del ELB personalizada que contenga
+      cifrados seguros.
+    - Se recomienda encarecidamente que el equilibrador de carga utilice
+      un oyente seguro.
+F070.threat:
+  en: Unauthorized attacker from adjacent network performing a MiTM.
+  es: Atacante no autorizado de la red adyacente que realiza un MiTM.
