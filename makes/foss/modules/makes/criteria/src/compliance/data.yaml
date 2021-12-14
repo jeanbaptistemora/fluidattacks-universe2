@@ -2999,3 +2999,39 @@
       title: Best architectures, requirements, and designs
       link: https://www.agilealliance.org/agile101/12-principles-behind-the-agile-manifesto/
   metadata: {}
+"020":
+  title: BIZEC-APP
+  en:
+    description: >
+      The BIZEC APP/11 standard comprises the most
+      critical and the most common security defects
+      and technical risk in SAP ABAP applications.
+      This version corresponds to the year 2012.
+  es:
+    description: __empty__
+  definitions:
+    "APP-01":
+      title: ABAP Command Injection
+      link: https://bizec.org
+    "APP-02":
+      title: OS Command Injection
+      link: https://bizec.org
+    "APP-03":
+      title: Native SQL Injection
+      link: https://bizec.org
+    "APP-04":
+      title: Improper Authorization (Missing, Broken, Propietary, Generic)
+      link: https://bizec.org
+    "APP-05":
+      title: Directory Traversal
+      link: https://bizec.org
+    "APP-06":
+      title: Direct Database Modifications
+      link: https://bizec.org
+    "APP-07":
+      title: Cross-Client Database Access
+      link: https://bizec.org
+    "APP-08":
+      title: Open SQL Injection
+      link: https://bizec.org
+  metadata: {}
