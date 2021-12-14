@@ -41,7 +41,7 @@ from utils.function import (
 )
 
 _FINDING_F157 = core_model.FindingEnum.F157
-_FINDING_F016_CWE = _FINDING_F157.value.cwe
+_FINDING_F157_CWE = _FINDING_F157.value.cwe
 
 
 def tfm_azure_unrestricted_access_network_segments_iterate(
@@ -68,7 +68,7 @@ def _tfm_azure_unrestricted_access_network_segments(
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F016_CWE},
+        cwe={_FINDING_F157_CWE},
         description_key=("F157.description"),
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
