@@ -5,6 +5,7 @@ from syntax_graph.syntax_nodes.variable_declaration import (
     build_variable_declaration_node,
 )
 from syntax_graph.types import (
+    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
@@ -18,14 +19,23 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     var_type_id = args.ast_graph.nodes[args.n_id]["label_field_type"]
-    var_decl = match_ast_d(args.ast_graph, args.n_id, "variable_declarator")
+    var_decl_id = match_ast_d(args.ast_graph, args.n_id, "variable_declarator")
+
+    if not var_decl_id:
+        raise MissingCaseHandling(f"Bad variable declarator in {args.n_id}")
 
     equals_clause = "equals_value_clause"
-    match = match_ast(args.ast_graph, var_decl, "identifier", equals_clause)
+    match = match_ast(args.ast_graph, var_decl_id, "identifier", equals_clause)
+
+    if not match["identifier"] or not match["equals_value_clause"]:
+        raise MissingCaseHandling(f"Bad equals_value_clause in {args.n_id}")
 
     match_eq = match_ast(args.ast_graph, match["equals_value_clause"], "=")
-    value_id = match_eq["__0__"]
 
+    if len(match_eq) != 2 or not match_eq["="]:
+        raise MissingCaseHandling(f"Bad equal value in {args.n_id}")
+
+    value_id = match_eq["__0__"]
     var = node_to_str(args.ast_graph, match["identifier"])
     var_type = node_to_str(args.ast_graph, var_type_id)
 
