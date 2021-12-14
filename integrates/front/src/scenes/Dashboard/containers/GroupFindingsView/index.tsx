@@ -402,8 +402,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   }
   const filterWhereFindings: IFindingAttr[] = filterWhere(
     findings,
-    filterGroupFindingsTable.where,
-    "vulnerabilities"
+    filterGroupFindingsTable.where
   );
 
   function onAgeChange(event: React.ChangeEvent<HTMLInputElement>): void {

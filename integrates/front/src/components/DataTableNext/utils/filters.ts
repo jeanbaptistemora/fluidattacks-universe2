@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import _ from "lodash";
+
+import type { IFindingAttr } from "scenes/Dashboard/containers/GroupFindingsView/types";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function filterSelect<T extends Record<string, any>>(
   rows: T[],
@@ -122,24 +124,16 @@ function filterDateRange<T extends Record<string, any>>(
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function filterWhere<T extends Record<string, any>>(
-  rows: T[],
-  searchText: string,
-  columnKey: string
-): T[] {
-  return rows.filter((row: T): boolean => {
-    const currentRows = row[columnKey];
+function filterWhere(rows: IFindingAttr[], searchText: string): IFindingAttr[] {
+  return rows.filter((row): boolean => {
+    const currentRows = row.vulnerabilities;
 
     return _.isEmpty(searchText)
       ? true
-      : !_.isEmpty(
-          currentRows.filter((innerRow: T): boolean =>
-            _.includes(
-              (innerRow.where as string).toLocaleLowerCase(),
-              searchText.toLocaleLowerCase()
-            )
-          )
+      : (currentRows ?? []).some((innerRow): boolean =>
+          innerRow.where
+            .toLocaleLowerCase()
+            .includes(searchText.toLocaleLowerCase())
         );
   });
 }
