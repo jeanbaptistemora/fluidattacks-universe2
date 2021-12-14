@@ -769,12 +769,17 @@ export const enTranslations: ResourceKey = {
         coverage: "Coverage",
         daysToAttack: "Days to attack",
         editModal: {
+          alerts: {
+            success: "Lines has been updated",
+          },
+          close: "Close",
           fields: {
             attackedAt: "Attacked at",
             attackedLines: "Attacked lines",
             attackedLinesComment: "LOC is set by default",
             comments: "What comments do you have?",
           },
+          procced: "Proceed",
           title: "Edit attacked lines",
         },
         filename: "Filename",
