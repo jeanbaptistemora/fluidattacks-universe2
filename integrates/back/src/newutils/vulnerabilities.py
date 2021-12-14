@@ -892,7 +892,6 @@ def format_vulnerability_treatment_item(
         item["acceptance_status"] = treatment.acceptance_status.value
     if treatment.assigned:
         item["assigned"] = treatment.assigned
-        item["treatment_manager"] = treatment.assigned
     return item
 
 
