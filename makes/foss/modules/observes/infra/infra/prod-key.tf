@@ -21,8 +21,12 @@ data "aws_iam_policy_document" "key-prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/observes-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
+        module.external.aws_iam_roles["observes_prod"].arn,
+        module.external.aws_iam_roles["prod_makes"].arn,
+        module.external.aws_iam_roles["prod_observes"].arn,
+        module.external.aws_iam_users["observes-prod"].arn,
+        module.external.aws_iam_users["prod_makes"].arn,
+        module.external.aws_iam_users["prod_observes"].arn,
       ]
     }
     actions = [
@@ -53,8 +57,11 @@ data "aws_iam_policy_document" "key-prod" {
       type = "AWS"
       identifiers = [
         module.external.aws_iam_roles["observes_prod"].arn,
+        module.external.aws_iam_roles["prod_makes"].arn,
+        module.external.aws_iam_roles["prod_observes"].arn,
         module.external.aws_iam_users["observes-prod"].arn,
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
+        module.external.aws_iam_users["prod_makes"].arn,
+        module.external.aws_iam_users["prod_observes"].arn,
       ]
     }
     actions = [
@@ -75,8 +82,12 @@ data "aws_iam_policy_document" "key-prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/observes-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes"
+        module.external.aws_iam_roles["observes_prod"].arn,
+        module.external.aws_iam_roles["prod_makes"].arn,
+        module.external.aws_iam_roles["prod_observes"].arn,
+        module.external.aws_iam_users["observes-prod"].arn,
+        module.external.aws_iam_users["prod_makes"].arn,
+        module.external.aws_iam_users["prod_observes"].arn,
       ]
     }
     actions = [

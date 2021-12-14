@@ -25,9 +25,12 @@ module "external" {
     "dev",
     "observes_prod",
     "prod_makes",
+    "prod_observes",
   ]
   aws_iam_users = [
     "dev",
     "observes-prod",
+    "prod_makes",
+    "prod_observes",
   ]
 }
