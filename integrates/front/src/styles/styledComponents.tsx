@@ -466,7 +466,7 @@ const RemoveTag: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "flex justify-center mt-3-25 w-20",
+  className: "flex justify-center mt4 w-20",
 })``;
 
 const RequiredField: StyledComponent<

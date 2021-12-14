@@ -4,7 +4,7 @@ import { FieldArray } from "formik";
 import React from "react";
 
 import { Button } from "components/Button";
-import { Col80, Row } from "styles/styledComponents";
+import { Col80, RemoveTag, Row } from "styles/styledComponents";
 
 interface IArrayProps {
   allowEmpty: boolean;
@@ -44,9 +44,11 @@ const FormikArrayField: React.FC<IArrayProps> = ({
                     <Col80>{children(fieldName)}</Col80>
                     <div>
                       {index > 0 || allowEmpty ? (
-                        <Button onClick={removeItem}>
-                          <FontAwesomeIcon icon={faTrashAlt} />
-                        </Button>
+                        <RemoveTag>
+                          <Button onClick={removeItem}>
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                          </Button>
+                        </RemoveTag>
                       ) : undefined}
                     </div>
                   </Row>

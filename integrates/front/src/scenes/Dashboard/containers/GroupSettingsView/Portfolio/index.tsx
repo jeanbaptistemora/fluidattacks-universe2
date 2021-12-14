@@ -18,7 +18,8 @@ import {
   GET_TAGS,
   REMOVE_GROUP_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import type { IGetTagsQuery } from "scenes/Dashboard/containers/GroupSettingsView/types";
+import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -45,7 +46,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
 
   // GraphQL operations
-  const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
+  const { data, refetch, networkStatus } = useQuery<IGetTagsQuery>(GET_TAGS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group tags", error);
@@ -97,13 +98,12 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const handleRemoveTag: () => void = useCallback((): void => {
     void removeGroupTag({
       variables: {
-        groupName: props.groupName,
+        groupName,
         tagToRemove: currentRow.tagName,
       },
     });
     setCurrentRow({});
-    // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
-  }, [currentRow.tagName, props.groupName, removeGroupTag]);
+  }, [currentRow.tagName, groupName, removeGroupTag]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -111,7 +111,6 @@ const Portfolio: React.FC<IPortfolioProps> = (
 
   const tagsDataset: {
     tagName: string;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call -- DB queries use "any" type
   }[] = data.group.tags.map((tag: string): { tagName: string } => ({
     tagName: tag,
   }));
@@ -161,12 +160,10 @@ const Portfolio: React.FC<IPortfolioProps> = (
   return (
     <React.StrictMode>
       <Row>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col60 className={"pa0"}>
+        <div className={"ph1-5 pa0 w-60-ns"}>
           <h2>{translate.t("searchFindings.tabResources.tags.title")}</h2>
-        </Col60>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col40 className={"pa0"}>
+        </div>
+        <div className={"ph1-5 pa0 w-40-ns"}>
           <ButtonToolbar>
             <Can do={"api_mutations_add_group_tags_mutate"}>
               <TooltipWrapper
@@ -205,7 +202,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
               </TooltipWrapper>
             </Can>
           </ButtonToolbar>
-        </Col40>
+        </div>
       </Row>
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
