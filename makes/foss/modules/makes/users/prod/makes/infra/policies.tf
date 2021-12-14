@@ -10,6 +10,7 @@ locals {
           "acm:*",
           "autoscaling:*",
           "aws-portal:*",
+          "backup:*",
           "batch:*",
           "budgets:*",
           "ce:*",
