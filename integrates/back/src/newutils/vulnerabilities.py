@@ -70,6 +70,7 @@ from settings import (
 )
 from typing import (
     Any,
+    cast,
     Counter,
     Dict,
     Iterable,
@@ -84,6 +85,24 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+def adjust_historic_dates(
+    historic: Union[
+        Tuple[VulnerabilityState, ...], Tuple[VulnerabilityTreatment, ...]
+    ]
+) -> Union[Tuple[VulnerabilityState, ...], Tuple[VulnerabilityTreatment, ...]]:
+    """Ensure dates are not the same so the items are not overwritten in db."""
+    return tuple(
+        item._replace(
+            modified_date=datetime_utils.get_as_utc_iso_format(
+                datetime_utils.get_plus_delta(
+                    datetime.fromisoformat(item.modified_date), seconds=index
+                )
+            )
+        )
+        for index, item in enumerate(historic)
+    )
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -525,30 +544,28 @@ def ungroup_specific(specific: str) -> List[str]:
 def get_treatment_from_org_finding_policy(
     *, modified_date: str, user_email: str
 ) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
-    # This 2nd date is calculated to avoid an entry overriding the other in db
-    modified_date2 = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_plus_delta(
-            datetime.fromisoformat(modified_date),
-            seconds=1,
+    treatments = adjust_historic_dates(
+        (
+            VulnerabilityTreatment(
+                acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
+                justification="From organization findings policy",
+                assigned=user_email,
+                modified_by=user_email,
+                modified_date=modified_date,
+                status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+            ),
+            VulnerabilityTreatment(
+                acceptance_status=VulnerabilityAcceptanceStatus.APPROVED,
+                justification="From organization findings policy",
+                assigned=user_email,
+                modified_by=user_email,
+                modified_date=modified_date,
+                status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+            ),
         )
     )
-    return (
-        VulnerabilityTreatment(
-            acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
-            justification="From organization findings policy",
-            assigned=user_email,
-            modified_by=user_email,
-            modified_date=modified_date,
-            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-        ),
-        VulnerabilityTreatment(
-            acceptance_status=VulnerabilityAcceptanceStatus.APPROVED,
-            justification="From organization findings policy",
-            assigned=user_email,
-            modified_by=user_email,
-            modified_date=modified_date2,
-            status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-        ),
+    return cast(
+        Tuple[VulnerabilityTreatment, VulnerabilityTreatment], treatments
     )
 
 

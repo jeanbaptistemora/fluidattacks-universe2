@@ -76,6 +76,7 @@ from time import (
 )
 from typing import (
     Any,
+    cast,
     Counter,
     Dict,
     List,
@@ -692,13 +693,19 @@ async def update_historics_dates(
     vulnerability_id: str,
     modified_date: str,
 ) -> None:
-    """Set all state and treatment dates to finding's approval date"""
+    """Set all state and treatment dates to finding's approval date."""
     loaders.vulnerability_historic_state.clear(vulnerability_id)
     historic_state: Tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
-    historic_state = tuple(
-        state._replace(modified_date=modified_date) for state in historic_state
+    historic_state = cast(
+        Tuple[VulnerabilityState, VulnerabilityState],
+        vulns_utils.adjust_historic_dates(
+            tuple(
+                state._replace(modified_date=modified_date)
+                for state in historic_state
+            )
+        ),
     )
     await vulns_dal.update_historic_state(
         finding_id=finding_id,
@@ -710,9 +717,14 @@ async def update_historics_dates(
     historic_treatment: Tuple[
         VulnerabilityTreatment, ...
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
-    historic_treatment = tuple(
-        treatment._replace(modified_date=modified_date)
-        for treatment in historic_treatment
+    historic_treatment = cast(
+        Tuple[VulnerabilityTreatment, VulnerabilityTreatment],
+        vulns_utils.adjust_historic_dates(
+            tuple(
+                treatment._replace(modified_date=modified_date)
+                for treatment in historic_treatment
+            )
+        ),
     )
     await vulns_dal.update_historic_treatment(
         finding_id=finding_id,
