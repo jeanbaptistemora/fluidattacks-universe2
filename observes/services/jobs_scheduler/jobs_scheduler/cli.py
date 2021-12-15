@@ -25,13 +25,14 @@ NOW = datetime.now(tz)
 
 
 @click.command()
-def run_schedule() -> IO[None]:
+@click.option("--dry-run", is_flag=True)
+def run_schedule(dry_run: bool) -> IO[None]:
     LOG.info("Now: %s", NOW)
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
         if match.match_cron(cron, NOW):
             for job in jobs:
-                run_command(job.replace(".", "-").split())
+                run_command(job.replace(".", "-").split(), dry_run)
     return IO(None)
 
 
