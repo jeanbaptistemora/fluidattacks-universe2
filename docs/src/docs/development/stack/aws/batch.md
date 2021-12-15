@@ -84,7 +84,7 @@ We use Batch for running
   after [authenticating to AWS](/development/stack/aws#guidelines).
 - Any changes to Batch infrastructure
   must be done
-  via [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
+  via [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 - You can queue new jobs to Batch
   using the [compute-on-aws module](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/utils/compute-on-aws).
 - If a scheduled job takes longer than six hours,

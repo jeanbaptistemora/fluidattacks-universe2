@@ -136,7 +136,7 @@ You can track the progress [here](https://gitlab.com/fluidattacks/product/-/issu
   after [authenticating to AWS](/development/stack/aws#guidelines).
 - Any changes to [DynamoDB][DYNAMODB] infrastructure
   must be done
-  via [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
+  via [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 - To learn how to test and apply infrastructure
   via [Terraform](/development/stack/terraform/),
   visit the [Terraform Guidelines](/development/stack/terraform#guidelines).
