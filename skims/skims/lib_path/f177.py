@@ -79,7 +79,7 @@ def _ec2_use_default_security_group(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F177_CWE},
-        description_key="F177.title",
+        description_key="lib_path.f177.ec2_using_default_security_group",
         finding=_FINDING_F177,
         iterator=get_cloud_iterator(
             ec2_use_default_security_group_iterate_vulnerabilities(
@@ -98,7 +98,7 @@ def _aws_instance_use_default_security_group(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F177_CWE},
-        description_key="F177.title",
+        description_key="lib_path.f177.ec2_using_default_security_group",
         finding=_FINDING_F177,
         iterator=get_cloud_iterator(
             aws_instance_use_default_security_group_iterate_vulnerabilities(

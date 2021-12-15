@@ -1,3 +1,9 @@
+lib_path.f177.ec2_using_default_security_group:
+  en: >
+    EC2 Instances or Launch Templates are using the default security group
+  es: >
+    Las instancias EC2 o las plantillas de lanzamiento utilizan el grupo de
+    seguridad predeterminado
 F177.title:
   en: >
     Insecure service configuration - Security Groups
