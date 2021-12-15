@@ -17,7 +17,7 @@ const StyledButton: StyledComponent<
     className:
       "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd " +
       "color-bd color-bh hover-white fw100 ml2 montserrat orgred " +
-      `btn-pa svg-box ${className ?? ""}`,
+      `btn-pa svg-box pointer ${className ?? ""}`,
     type: type ?? "button",
   })
 )``;

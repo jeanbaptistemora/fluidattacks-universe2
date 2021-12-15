@@ -454,7 +454,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     >
                       {filterOption(filter)}
                     </TooltipWrapper>
-                    <Small>{t(placeholder)}</Small>
+                    {filter.type === "dateRange" || filter.type === "range" ? (
+                      <Small>{t(placeholder)}</Small>
+                    ) : undefined}
                   </SelectContainer>
                 );
               })}

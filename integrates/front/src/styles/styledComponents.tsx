@@ -505,7 +505,7 @@ const Small: StyledComponent<
 })``;
 
 const SelectContainer = styled.div.attrs({
-  className: "flex-auto mh1 mw6",
+  className: "flex-auto mh1 mw6 mv1",
 })``;
 
 const InputText = styled.input.attrs({
