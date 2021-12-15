@@ -1,5 +1,33 @@
+lib_path.f335.not_private_access_control:
+  en: S3 Bucket has not Private Access Control
+  es: S3 Bucket no tiene control de acceso privado
 F335.title:
   en: >
-    Insecure service configuration - S3
+    Insecure service configuration - Bucket
   es: >
-    Insecure service configuration - S3
+    Insecure service configuration - Bucket
+F335.description:
+  en: >
+    The native S3 VersioningConfiguration resource, which allows to preserve,
+    recover and restore each version of each object stored in the Buckets
+    due to causes such as malicious actions of users or application
+    failures, is not enabled.
+  es: >
+    No se encuentra habilitado el recurso VersioningConfiguration nativo de
+    S3, el cual permite conservar, recuperar y restaurar cada versión de cada
+    objeto almacenado en los Buckets por causas como acciones mal intencionadas
+    de los usuarios o fallos en la aplicación.
+F335.impact:
+  en: |
+    - Permanently delete information from S3 buckets.
+    - Avoid recovering information that was deleted by mistake or maliciously.
+  es: |
+    - Eliminar permanentemente información de los buckets de S3.
+    - Evitar recuperar información que fue eliminada por error o de
+      forma malintencionada.
+F335.recommendation:
+  en: Securely configure the Buckets by enabling the VersioningConfiguration resource.
+  es: Configurar de manera segura los Buckets habilitando el recurso VersioningConfiguration.
+F335.threat:
+  en: Internet attacker with access to S3 Buckets.
+  es: Atacante en Internet con acceso a los Buckets de S3.

@@ -101,7 +101,7 @@ def _tfm_s3_not_private_access(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F335_CWE},
-        description_key="F335.title",
+        description_key="lib_path.f335.not_private_access_control",
         finding=_FINDING_F335,
         iterator=get_cloud_iterator(
             tfm_s3_not_private_access_iterate_vulnerabilities(
@@ -120,7 +120,7 @@ def _cfn_public_buckets(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F335_CWE},
-        description_key="F335.title",
+        description_key="lib_path.f335.not_private_access_control",
         finding=_FINDING_F335,
         iterator=get_cloud_iterator(
             _public_buckets_iterate_vulnerabilities(

@@ -13277,8 +13277,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   21 | }
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml","
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
@@ -13302,8 +13301,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6
   21 |               SSEAlgorithm: aws:kms
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml","
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,"
    6 |       AccessControl: PublicReadWrite
    7 |       BucketName: SKIMS-PUBLIC-BUCKET
    8 |       BucketEncryption:
@@ -13327,8 +13325,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,1
   26 |     Properties:
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json","
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -13352,8 +13349,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   21 |     ""S3Bucket1"": {
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json","
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,"
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   15 |               }
   16 |             }
@@ -13377,8 +13373,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   34 |           ]
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf","
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
    1 | resource ""aws_s3_bucket"" ""web_site"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
 >  3 |   acl    = ""public-read""
@@ -13402,8 +13397,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,
   21 |
      ^ Col 0
 ",f335._tfm_s3_not_private_access
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml","
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
@@ -13420,8 +13414,7 @@ F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json","
+F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
    4 |       ""Type"": ""AWS::S3::Bucket"",
@@ -13445,8 +13438,7 @@ F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabl
   22 | }
      ^ Col 0
 ",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f335/test_s3.tf","
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
    1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
 >  3 |   acl    = ""public-read""
@@ -13470,8 +13462,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. I
   21 |   }
      ^ Col 0
 ",f335._tfm_s3_not_private_access
-F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - Bucket,"Insecure service configuration - S3
- in namespace/skims/test/data/lib_path/f335/test_s3.tf","
+F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,16,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read""
    4 |
