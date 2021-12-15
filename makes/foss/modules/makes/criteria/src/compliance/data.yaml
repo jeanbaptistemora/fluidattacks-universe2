@@ -3125,3 +3125,48 @@
       title: Properly seed pseudorandom number generators
       link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
   metadata: {}
+"023":
+  title: CERT-J
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "IDS00-J":
+      title: Prevent SQL injection
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS01-J":
+      title: Normalize strings before validating them
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS03-J":
+      title: Do not log unsanitized user input
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS06-J":
+      title: Exclude unsanitized user input from format strings
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS14-J":
+      title: Do not trust the contents of hidden form fields
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS16-J":
+      title: Prevent XML Injection
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "IDS17-J":
+      title: Prevent XML External Entity Attacks
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "NUM00-J":
+      title: Detect or prevent integer overflow
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "OBJ10-J":
+      title: Do not use public static nonfinal fields
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MET02-J":
+      title: Do not use deprecated or obsolete classes or methods
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MET03-J":
+      title: Methods that perform a security check must be declared private or final
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "ERR01-J":
+      title: Do not allow exceptions to expose sensitive information
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+  metadata: {}
