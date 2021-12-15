@@ -301,18 +301,58 @@ async def populate_vulnerabilities_new(data: List[Dict[str, Any]]) -> bool:
 
 
 async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
-    coroutines = [
-        dal_vulns.create_new(
-            vulnerability=vulnerability["vulnerability"],
-            historic_state=vulnerability.get("historic_state"),
-            historic_treatment=vulnerability.get("historic_treatment"),
-            historic_verification=vulnerability.get("historic_verification"),
-            historic_zero_risk=vulnerability.get("historic_zero_risk"),
-        )
-        for vulnerability in data
-    ]
+    await collect(
+        [
+            dal_vulns.add(vulnerability=vulnerability["vulnerability"])
+            for vulnerability in data
+        ]
+    )
+    await collect(
+        [
+            dal_vulns.update_historic_state(
+                finding_id=vulnerability["vulnerability"].finding_id,
+                vulnerability_id=vulnerability["vulnerability"].id,
+                historic_state=vulnerability["historic_state"],
+            )
+            for vulnerability in data
+            if "historic_state" in vulnerability
+        ]
+    )
+    await collect(
+        [
+            dal_vulns.update_historic_treatment(
+                finding_id=vulnerability["vulnerability"].finding_id,
+                vulnerability_id=vulnerability["vulnerability"].id,
+                historic_treatment=vulnerability["historic_treatment"],
+            )
+            for vulnerability in data
+            if "historic_treatment" in vulnerability
+        ]
+    )
+    await collect(
+        [
+            dal_vulns.update_historic_verification(
+                finding_id=vulnerability["vulnerability"].finding_id,
+                vulnerability_id=vulnerability["vulnerability"].id,
+                historic_verification=vulnerability["historic_verification"],
+            )
+            for vulnerability in data
+            if "historic_verification" in vulnerability
+        ]
+    )
+    await collect(
+        [
+            dal_vulns.update_historic_zero_risk(
+                finding_id=vulnerability["vulnerability"].finding_id,
+                vulnerability_id=vulnerability["vulnerability"].id,
+                historic_zero_risk=vulnerability["historic_zero_risk"],
+            )
+            for vulnerability in data
+            if "historic_zero_risk" in vulnerability
+        ]
+    )
 
-    return all(await collect(coroutines))
+    return True
 
 
 async def populate_roots(data: Tuple[RootItem, ...]) -> bool:

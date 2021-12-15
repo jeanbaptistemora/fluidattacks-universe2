@@ -37,6 +37,9 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -115,15 +118,32 @@ async def process_vuln(
     historic_treatment = await treatment_loader.load(vuln.id)
     historic_verification = await verification_loader.load(vuln.id)
     historic_zero_risk = await zero_risk_loader.load(vuln.id)
-    await vulns_dal.create_new(
+    new_id = str(uuid.uuid4())
+    await vulns_dal.add(
         vulnerability=vuln._replace(
             finding_id=target_finding_id,
-            id=str(uuid.uuid4()),
-            state=historic_state[0],
+            id=new_id,
+            state=vuln.state,
         ),
+    )
+    await vulns_dal.update_historic_state(
+        finding_id=target_finding_id,
+        vulnerability_id=new_id,
         historic_state=historic_state,
+    )
+    await vulns_dal.update_historic_treatment(
+        finding_id=target_finding_id,
+        vulnerability_id=new_id,
         historic_treatment=historic_treatment,
+    )
+    await vulns_dal.update_historic_verification(
+        finding_id=target_finding_id,
+        vulnerability_id=new_id,
         historic_verification=historic_verification,
+    )
+    await vulns_dal.update_historic_zero_risk(
+        finding_id=target_finding_id,
+        vulnerability_id=new_id,
         historic_zero_risk=historic_zero_risk,
     )
     await vulns_domain.close_by_exclusion(
@@ -208,6 +228,7 @@ async def process_finding(
             item_subject=item_subject,
         )
         for vuln in vulns
+        if vuln.state.status != VulnerabilityStateStatus.DELETED
     )
     await collect(
         (
