@@ -41,6 +41,7 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "Assignment",
             "Comment",
             "MethodInvocation",
             "ThrowStatement",
