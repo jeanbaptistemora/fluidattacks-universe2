@@ -1,4 +1,7 @@
 # pylint: skip-file
+from enum import (
+    Enum,
+)
 import logging
 from returns.io import (
     IO,
@@ -18,9 +21,9 @@ class CmdFailed(Exception):
     pass
 
 
-def run_command(cmd: List[str], dry_run: bool) -> IO[None]:
+def _run_command(cmd: List[str], dry_run: bool) -> IO[None]:
     if not dry_run:
-        LOG.info("Executing: %s", cmd)
+        LOG.info("Executing: %s", " ".join(cmd))
         proc = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
@@ -39,3 +42,7 @@ def run_command(cmd: List[str], dry_run: bool) -> IO[None]:
         return IO(None)
     LOG.info("`%s` will be executed", " ".join(cmd))
     return IO(None)
+
+
+def run_job(job: Enum, dry_run: bool) -> IO[None]:
+    return _run_command(str(job.value).replace(".", "-").split(), dry_run)
