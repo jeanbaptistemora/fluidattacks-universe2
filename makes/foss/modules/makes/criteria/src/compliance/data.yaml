@@ -3202,4 +3202,31 @@
     "SEC04-J":
       title: Protect sensitive operations with security manager checks
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "ENV02-J":
+      title: Do not trust the values of environment variables
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "ENV06-J":
+      title: Production code must not contain debugging entry points
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MSC00-J":
+      title: Use SSLSocket rather than Socket for secure data exchange
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MSC02-J":
+      title: Generate strong random numbers
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MSC04-J":
+      title: Do not leak memory
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "MSC11-J":
+      title: Do not let session information leak within a servlet
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "DRD19-J":
+      title: Properly verify server certificate on SSL/TLS
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "DRD15-J":
+      title: Consider privacy concerns when using Geolocation API
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "STR31-C":
+      title: Guarantee that storage for strings has sufficient space for character data and the null terminator
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
   metadata: {}
