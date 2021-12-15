@@ -36,6 +36,7 @@ makeTemplate {
         name = "observes-service-jobs-scheduler-env-runtime-python";
         sourcesYaml = ./pypi-sources.yaml;
       })
+      outputs."/observes/common/purity/env/runtime"
       outputs."/observes/env/utils-logger/runtime"
     ];
   };
