@@ -256,10 +256,10 @@ async def update_state(
             # details at https://gitlab.com/fluidattacks/product/-/issues/5690
             vulns_model.remove(vulnerability_id=vulnerability_id)
         else:
-            vulns_model.update_state(
-                current_value=current_value,
+            vulns_model.update_historic_entry(
+                current_entry=current_value,
+                entry=state,
                 finding_id=finding_id,
-                state=state,
                 vulnerability_id=vulnerability_id,
             )
 
@@ -281,9 +281,9 @@ async def update_historic_state(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_state(
+        vulns_model.update_historic(
             finding_id=finding_id,
-            historic_state=historic_state,
+            historic=historic_state,
             vulnerability_id=vulnerability_id,
         )
 
@@ -309,10 +309,10 @@ async def update_treatment(
             data={"historic_treatment": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_treatment(
-            current_value=current_value,
+        vulns_model.update_historic_entry(
+            current_entry=current_value,
+            entry=treatment,
             finding_id=finding_id,
-            treatment=treatment,
             vulnerability_id=vulnerability_id,
         )
 
@@ -335,9 +335,9 @@ async def update_historic_treatment(
         },
     )
     if FI_ENVIRONMENT == "development" and not deleted:
-        vulns_model.update_historic_treatment(
+        vulns_model.update_historic(
             finding_id=finding_id,
-            historic_treatment=historic_treatment,
+            historic=historic_treatment,
             vulnerability_id=vulnerability_id,
         )
 
@@ -363,10 +363,10 @@ async def update_verification(
             data={"historic_verification": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_verification(
-            current_value=current_value,
+        vulns_model.update_historic_entry(
+            current_entry=current_value,
+            entry=verification,
             finding_id=finding_id,
-            verification=verification,
             vulnerability_id=vulnerability_id,
         )
 
@@ -388,9 +388,9 @@ async def update_historic_verification(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_verification(
+        vulns_model.update_historic(
             finding_id=finding_id,
-            historic_verification=historic_verification,
+            historic=historic_verification,
             vulnerability_id=vulnerability_id,
         )
 
@@ -416,11 +416,11 @@ async def update_zero_risk(
             data={"historic_zero_risk": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_zero_risk(
-            current_value=current_value,
+        vulns_model.update_historic_entry(
+            current_entry=current_value,
+            entry=zero_risk,
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
-            zero_risk=zero_risk,
         )
 
 
@@ -441,8 +441,8 @@ async def update_historic_zero_risk(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_zero_risk(
+        vulns_model.update_historic(
             finding_id=finding_id,
-            historic_zero_risk=historic_zero_risk,
+            historic=historic_zero_risk,
             vulnerability_id=vulnerability_id,
         )

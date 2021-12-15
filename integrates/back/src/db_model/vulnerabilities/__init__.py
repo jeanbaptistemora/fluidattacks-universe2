@@ -7,15 +7,7 @@ from .remove import (
 from .update import (
     update_historic,
     update_historic_entry,
-    update_historic_state,
-    update_historic_treatment,
-    update_historic_verification,
-    update_historic_zero_risk,
     update_metadata,
-    update_state,
-    update_treatment,
-    update_verification,
-    update_zero_risk,
 )
 
 __all__ = [
@@ -23,13 +15,5 @@ __all__ = [
     "remove",
     "update_historic",
     "update_historic_entry",
-    "update_historic_state",
-    "update_historic_treatment",
-    "update_historic_verification",
-    "update_historic_zero_risk",
     "update_metadata",
-    "update_state",
-    "update_treatment",
-    "update_verification",
-    "update_zero_risk",
 ]
