@@ -261,11 +261,10 @@ async def get_apk_context(path: str) -> APKContext:
     apk_obj: Optional[APK] = None
     apk_manifest: Optional[BeautifulSoup] = None
     analysis: Optional[Analysis] = None
-    with contextlib.suppress(zipfile.BadZipFile):
-        apk_obj = APK(path)
+    if path.endswith("AndroidManifest.xml"):
+        apk_manifest_data = lxml.etree.parse(path)  # nosec
 
-        with contextlib.suppress(KeyError):
-            apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
+        if apk_manifest_data:
             apk_manifest = BeautifulSoup(
                 BeautifulSoup(
                     lxml.etree.tostring(apk_manifest_data),
@@ -273,19 +272,32 @@ async def get_apk_context(path: str) -> APKContext:
                 ).prettify(),
                 features="html.parser",
             )
+    else:
+        with contextlib.suppress(zipfile.BadZipFile):
+            apk_obj = APK(path)
 
-        dalviks = []
-        analysis = Analysis()
-        for dex in apk_obj.get_all_dex():
-            dalvik = DalvikVMFormat(
-                dex,
-                using_api=apk_obj.get_target_sdk_version(),
-            )
-            analysis.add(dalvik)
-            dalviks.append(dalvik)
-            dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
+            with contextlib.suppress(KeyError):
+                apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
+                apk_manifest = BeautifulSoup(
+                    BeautifulSoup(
+                        lxml.etree.tostring(apk_manifest_data),
+                        features="html.parser",
+                    ).prettify(),
+                    features="html.parser",
+                )
 
-        analysis.create_xref()
+            dalviks = []
+            analysis = Analysis()
+            for dex in apk_obj.get_all_dex():
+                dalvik = DalvikVMFormat(
+                    dex,
+                    using_api=apk_obj.get_target_sdk_version(),
+                )
+                analysis.add(dalvik)
+                dalviks.append(dalvik)
+                dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
+
+            analysis.create_xref()
 
     return APKContext(
         analysis=analysis,
