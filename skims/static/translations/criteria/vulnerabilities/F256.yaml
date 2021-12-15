@@ -9,3 +9,27 @@ F256.title:
     Lack of protection against deletion - RDS
   es: >
     Lack of protection against deletion - RDS
+F256.description:
+  en: >
+    The current configuration has no protection against deletion, this
+    can lead to the deletion of databases in Amazon Web Services RDS.
+  es: >
+    La configuración actual no posee protección contra borrado, esto puede
+    llevar a la eliminación de bases  de datos en Amazon Web Services RDS.
+F256.impact:
+  en: >
+    Delete a database by mistake or without having to go through additional
+    validations.
+  es: >
+    Eliminar una base de datos por error o sin tener que pasar por validaciones
+    adicionales.
+F256.recommendation:
+  en: >
+    Securely configure the Amazon Web Services service, allowing protection
+    against accidental deletion.
+  es: >
+    Configurar de manera segura el servicio de Amazon Web Services, permitiendo
+    así que exista protección en contra de borrado accidental.
+F256.threat:
+  en: Attacker with access to the AWS console.
+  es: Atacante con acceso a la consola AWS.

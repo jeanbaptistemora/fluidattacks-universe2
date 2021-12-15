@@ -152,7 +152,7 @@ def _tfm_db_no_deletion_protection(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F256_CWE},
-        description_key="F256.title",
+        description_key="src.lib_path.f256.rds_has_not_termination_protection",
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_db_no_deletion_protection_iterate_vulnerabilities(
@@ -171,7 +171,7 @@ def _tfm_rds_no_deletion_protection(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F256_CWE},
-        description_key="F256.title",
+        description_key="src.lib_path.f256.rds_has_not_termination_protection",
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_rds_no_deletion_protection_iterate_vulnerabilities(
@@ -190,7 +190,7 @@ def _tfm_db_has_not_automated_backups(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F256_CWE},
-        description_key="F256.title",
+        description_key="src.lib_path.f256.rds_has_not_automated_backups",
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_db_has_not_automated_backups_iterate_vulnerabilities(
@@ -209,7 +209,7 @@ def _tfm_rds_has_not_automated_backups(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F256_CWE},
-        description_key="F256.title",
+        description_key="src.lib_path.f256.rds_has_not_automated_backups",
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
