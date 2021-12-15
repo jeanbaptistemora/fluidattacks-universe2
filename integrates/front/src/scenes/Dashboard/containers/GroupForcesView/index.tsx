@@ -28,6 +28,7 @@ import type {
   IGetExecution,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { formatDate } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -111,25 +112,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           item[0].toUpperCase() + item.substr(1).toLowerCase()
       )
       .join(" ");
-
-  const formatDate: (date: string) => string = (date: string): string => {
-    const dateObj: Date = new Date(date);
-
-    const toStringAndPad: (input: number, positions: number) => string = (
-      input: number,
-      positions: number
-    ): string => input.toString().padStart(positions, "0");
-
-    const year: string = toStringAndPad(dateObj.getFullYear(), 4);
-    // Warning: months are 0 indexed: January is 0, December is 11
-    const month: string = toStringAndPad(dateObj.getMonth() + 1, 2);
-    // Warning: Date.getDay() returns the day of the week: Monday is 1, Friday is 5
-    const day: string = toStringAndPad(dateObj.getDate(), 2);
-    const hours: string = toStringAndPad(dateObj.getHours(), 2);
-    const minutes: string = toStringAndPad(dateObj.getMinutes(), 2);
-
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-  };
 
   const headersExecutionTable: IHeaderConfig[] = [
     {

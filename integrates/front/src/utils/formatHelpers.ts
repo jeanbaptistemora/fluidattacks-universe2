@@ -176,6 +176,44 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
   return translate.t(treatmentParameters[treatment]);
 };
 
+const formatDate: (date: string) => string = (date: string): string => {
+  const dateObj: Date = new Date(date);
+
+  const toStringAndPad: (input: number, positions: number) => string = (
+    input: number,
+    positions: number
+  ): string => input.toString().padStart(positions, "0");
+
+  const year: string = toStringAndPad(dateObj.getFullYear(), 4);
+  // Warning: months are 0 indexed: January is 0, December is 11
+  const month: string = toStringAndPad(dateObj.getMonth() + 1, 2);
+  // Warning: Date.getDay() returns the day of the week: Monday is 1, Friday is 5
+  const day: string = toStringAndPad(dateObj.getDate(), 2);
+  const hours: string = toStringAndPad(dateObj.getHours(), 2);
+  const minutes: string = toStringAndPad(dateObj.getMinutes(), 2);
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+};
+
+const formatDuration = (value: number): string => {
+  if (value < 0) {
+    return "-";
+  }
+  const secondsInMili = 1000;
+  const factor = 60;
+
+  const seconds = Math.trunc(value / secondsInMili);
+  const minutes = Math.trunc(seconds / factor);
+  const ss = seconds % factor;
+  const hh = Math.trunc(minutes / factor);
+  const mm = minutes % factor;
+  const hhStr = hh.toString().length === 1 ? `0${hh}` : hh.toString();
+  const mmStr = hh.toString().length === 1 ? `0${mm}` : mm.toString();
+  const ssStr = ss.toString().length === 1 ? `0${ss}` : ss.toString();
+
+  return `${hhStr}:${mmStr}:${ssStr}`;
+};
+
 export {
   castActionAfterBlocking,
   castActionBeforeBlocking,
@@ -183,6 +221,8 @@ export {
   castEventType,
   castEventStatus,
   formatAccessibility,
+  formatDate,
   formatDropdownField,
+  formatDuration,
   formatTreatment,
 };
