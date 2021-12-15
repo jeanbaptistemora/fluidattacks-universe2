@@ -25,6 +25,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
+    boolean_literal as common_boolean_literal,
     declaration_block as common_declaration_block,
     execution_block as common_execution_block,
     identifier as common_identifier,
@@ -61,6 +62,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "binary_expression",
         },
         syntax_reader=c_sharp_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "boolean_literal",
+        },
+        syntax_reader=common_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
