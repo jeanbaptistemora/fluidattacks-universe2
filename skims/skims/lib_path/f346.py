@@ -76,7 +76,7 @@ def _has_dangerous_permissions(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={"798"},
-        description_key="src.lib_path.f346.dangerous_permission.description",
+        description_key="src.lib_path.f346.dangerous_permission",
         finding=core_model.FindingEnum.F346,
         iterator=iterator(),
         path=path,
