@@ -10,7 +10,11 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
-import { getToeLinesIndex, onSelectSeveralToeLinesHelper } from "./utils";
+import {
+  getNonSelectable,
+  getToeLinesIndex,
+  onSelectSeveralToeLinesHelper,
+} from "./utils";
 
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
@@ -418,7 +422,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     clickToSelect: false,
     hideSelectColumn: false,
     mode: "checkbox",
-    nonSelectable: [],
+    nonSelectable: getNonSelectable(toeLines),
     onSelect: onSelectOneToeLinesData,
     onSelectAll: onSelectSeveralToeLinesDatas,
     selected: getToeLinesIndex(selectedToeLinesDatas, toeLines),

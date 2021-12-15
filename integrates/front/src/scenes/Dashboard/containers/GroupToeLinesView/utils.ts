@@ -66,4 +66,20 @@ const onSelectSeveralToeLinesHelper = (
   );
 };
 
-export { getToeLinesIndex, onSelectSeveralToeLinesHelper };
+function getNonSelectable(toeLinesDatas: IToeLinesData[]): number[] {
+  const nonSelectable: number[] = toeLinesDatas.reduce(
+    (
+      nonSelectableToeLinesDatas: number[],
+      toeLinesData: IToeLinesData,
+      currentToeLinesDataIndex: number
+    ): number[] =>
+      toeLinesData.bePresent
+        ? nonSelectableToeLinesDatas
+        : [...nonSelectableToeLinesDatas, currentToeLinesDataIndex],
+    []
+  );
+
+  return nonSelectable;
+}
+
+export { getNonSelectable, getToeLinesIndex, onSelectSeveralToeLinesHelper };
