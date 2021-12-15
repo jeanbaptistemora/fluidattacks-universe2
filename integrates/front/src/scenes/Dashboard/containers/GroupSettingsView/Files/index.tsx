@@ -22,6 +22,7 @@ import {
   REMOVE_FILE_MUTATION,
   SIGN_POST_URL_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import type { IGetFilesQuery } from "scenes/Dashboard/containers/GroupSettingsView/types";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -75,7 +76,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   }, []);
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_FILES, {
+  const { data, refetch } = useQuery<IGetFilesQuery>(GET_FILES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -117,17 +118,17 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       });
     },
   });
-  const handleRemoveFile: () => void = useCallback((): void => {
-    closeOptionsModal();
-    track("RemoveFile");
-    void removeFile({
-      variables: {
-        filesData: JSON.stringify({ fileName: currentRow.fileName }),
-        groupName: props.groupName,
-      },
-    });
-    // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
-  }, [closeOptionsModal, currentRow.fileName, props.groupName, removeFile]);
+  const handleRemoveFile: () => Promise<void> =
+    useCallback(async (): Promise<void> => {
+      closeOptionsModal();
+      track("RemoveFile");
+      await removeFile({
+        variables: {
+          filesData: JSON.stringify({ fileName: currentRow.fileName }),
+          groupName,
+        },
+      });
+    }, [closeOptionsModal, currentRow.fileName, groupName, removeFile]);
 
   const [uploadFile] = useMutation(SIGN_POST_URL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -190,8 +191,9 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call -- DB queries use "any" type
-  const filesDataset: IFile[] = JSON.parse(data.resources.files).filter(
+  const filesDataset: IFile[] = (
+    JSON.parse(data.resources.files) as IFile[]
+  ).filter(
     (file: IFile): boolean =>
       file.virusChecked === true || file.virusChecked === undefined
   );
