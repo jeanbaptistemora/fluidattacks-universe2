@@ -123,7 +123,7 @@ def _tfm_db_no_point_in_time_recovery(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F259_CWE},
-        description_key="F259.title",
+        description_key="src.lib_path.f259.has_not_point_in_time_recovery",
         finding=_FINDING_F259,
         iterator=get_cloud_iterator(
             tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(

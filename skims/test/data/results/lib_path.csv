@@ -8077,31 +8077,6 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asy
   17 | }
      ^ Col 0
 ",c_sharp.vuln_regular_expression
-F259,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,10,463,skims,259. Lack of protection against deletion - DynamoDB,"Lack of protection against deletion - DynamoDB
- in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf","
-   1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-   2 |   name           = ""GameScores""
-   3 |   billing_mode   = ""PROVISIONED""
-   4 |   read_capacity  = 20
-   5 |   write_capacity = 20
-   6 |   hash_key       = ""UserId""
-   7 |   range_key      = ""GameTitle""
-   8 |
-   9 |   point_in_time_recovery {
-> 10 |     enabled = false
-  11 |   }
-  12 |
-  13 |   attribute {
-  14 |     name = ""UserId""
-  15 |     type = ""S""
-  16 |   }
-  17 |
-  18 |   attribute {
-  19 |     name = ""GameTitle""
-  20 |     type = ""S""
-  21 |   }
-     ^ Col 0
-",f259._tfm_db_no_point_in_time_recovery
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String
@@ -8202,6 +8177,31 @@ F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_rec
   51 |         ]
      ^ Col 0
 ",f259._cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,10,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf","
+   1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+   2 |   name           = ""GameScores""
+   3 |   billing_mode   = ""PROVISIONED""
+   4 |   read_capacity  = 20
+   5 |   write_capacity = 20
+   6 |   hash_key       = ""UserId""
+   7 |   range_key      = ""GameTitle""
+   8 |
+   9 |   point_in_time_recovery {
+> 10 |     enabled = false
+  11 |   }
+  12 |
+  13 |   attribute {
+  14 |     name = ""UserId""
+  15 |     type = ""S""
+  16 |   }
+  17 |
+  18 |   attribute {
+  19 |     name = ""GameTitle""
+  20 |     type = ""S""
+  21 |   }
+     ^ Col 0
+",f259._tfm_db_no_point_in_time_recovery
 F258,lines,namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,7,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f200/cfn_elb2_has_access_logs_s3_disabled.yaml,"
    1 | Resources:
    2 |   LoadBalancer1:
