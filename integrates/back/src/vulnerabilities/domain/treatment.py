@@ -39,6 +39,7 @@ from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
+    vulnerabilities as vulns_utils,
 )
 from newutils.datetime import (
     convert_to_iso_str,
@@ -246,25 +247,18 @@ async def _handle_vulnerability_acceptance(
         new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.REJECTED
     ):
-        # Calculate a new date to avoid duplicating keys in the historic
-        second_date = datetime_utils.get_as_utc_iso_format(
-            datetime_utils.get_plus_delta(
-                datetime.fromisoformat(new_treatment.modified_date),
-                seconds=1,
-            )
-        )
         if len(historic_treatment) > 1:
             treatments_to_add = (
                 new_treatment,
                 historic_treatment[-2]._replace(
-                    modified_date=second_date,
+                    modified_date=new_treatment.modified_date,
                 ),
             )
         else:
             treatments_to_add = (
                 new_treatment,
                 VulnerabilityTreatment(
-                    modified_date=second_date,
+                    modified_date=new_treatment.modified_date,
                     status=VulnerabilityTreatmentStatus.NEW,
                     modified_by=new_treatment.modified_by,
                 ),
@@ -272,7 +266,7 @@ async def _handle_vulnerability_acceptance(
 
     if treatments_to_add:
         # Use for-await as update order is relevant for typed vuln
-        for treatment in treatments_to_add:
+        for treatment in vulns_utils.adjust_historic_dates(treatments_to_add):
             await vulns_dal.update_treatment(
                 current_value=vulnerability.treatment,
                 finding_id=finding_id,
