@@ -32,9 +32,10 @@ module "aws" {
   policy = jsonencode(local.aws)
 
   tags = {
-    "Name"            = "dev"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "dev"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 

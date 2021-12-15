@@ -39,9 +39,10 @@ resource "aws_iam_user" "okta-access-user" {
   path = "/"
 
   tags = {
-    "Name"            = "okta-access-user"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "okta-access-user"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -84,9 +85,10 @@ resource "aws_iam_saml_provider" "okta-saml-provider" {
   EOL
 
   tags = {
-    "Name"            = "okta-saml-provider"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "okta-saml-provider"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 

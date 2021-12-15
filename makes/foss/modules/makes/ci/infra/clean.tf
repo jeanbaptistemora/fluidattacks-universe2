@@ -65,9 +65,10 @@ resource "aws_iam_role" "autoscaling-clean" {
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role-policy.json
 
   tags = {
-    "Name"            = "autoscaling-clean"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "autoscaling-clean"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -89,9 +90,10 @@ resource "aws_lambda_function" "autoscaling-clean" {
   runtime = "nodejs12.x"
 
   tags = {
-    "Name"            = "autoscaling-clean"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "autoscaling-clean"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -101,9 +103,10 @@ resource "aws_cloudwatch_event_rule" "every-hour" {
   schedule_expression = "rate(1 hour)"
 
   tags = {
-    "Name"            = "every--hour"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "every--hour"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -133,8 +136,9 @@ resource "aws_cloudwatch_log_group" "autoscaling-clean" {
   name = "/aws/lambda/autoscaling-clean"
 
   tags = {
-    "Name"            = "autoscaling-clean"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "autoscaling-clean"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }

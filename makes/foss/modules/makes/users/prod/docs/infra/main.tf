@@ -31,9 +31,10 @@ module "aws" {
   policy = jsonencode(local.aws)
 
   tags = {
-    "Name"            = "prod_docs"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "prod_docs"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 

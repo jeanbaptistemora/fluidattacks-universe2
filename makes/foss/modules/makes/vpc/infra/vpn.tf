@@ -2,9 +2,10 @@ resource "aws_vpn_gateway" "medellin" {
   vpc_id = aws_vpc.fluid-vpc.id
 
   tags = {
-    "Name"            = "medellin-vpn-gateway"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "medellin-vpn-gateway"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -15,9 +16,10 @@ resource "aws_customer_gateway" "medellin" {
   device_name = "Router medellin"
 
   tags = {
-    "Name"            = "medellin-customer-gateway"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "medellin-customer-gateway"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -31,8 +33,9 @@ resource "aws_vpn_connection" "medellin" {
   remote_ipv4_network_cidr = "192.168.8.0/23"
 
   tags = {
-    "Name"            = "medellin-vpn-connection"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "medellin-vpn-connection"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }

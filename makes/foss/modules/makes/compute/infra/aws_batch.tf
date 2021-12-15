@@ -9,9 +9,10 @@ resource "aws_subnet" "default" {
   vpc_id                  = var.batch_vpc_id
 
   tags = {
-    "Name"            = "batch"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "batch"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -35,9 +36,10 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
   name = "aws_ecs_instance_role"
 
   tags = {
-    "Name"            = "aws_ecs_instance_role"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "aws_ecs_instance_role"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -70,9 +72,10 @@ resource "aws_iam_role" "aws_batch_service_role" {
   name = "aws_batch_service_role"
 
   tags = {
-    "Name"            = "aws_batch_service_role"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "aws_batch_service_role"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -102,9 +105,10 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   }
 
   tags = {
-    "Name"            = "aws_batch_compute_environment_security_group"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "aws_batch_compute_environment_security_group"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -120,16 +124,18 @@ resource "aws_launch_template" "batch_instance_regular" {
     resource_type = "volume"
 
     tags = {
-      "Name"            = "batch_instance_regular"
-      "management:area" = "cost"
-      "management:type" = "product"
+      "Name"               = "batch_instance_regular"
+      "management:area"    = "cost"
+      "management:product" = "makes"
+      "management:type"    = "product"
     }
   }
 
   tags = {
-    "Name"            = "batch_instance_regular"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "batch_instance_regular"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 
   user_data = filebase64("${path.module}/aws_batch_user_data")
@@ -144,9 +150,10 @@ locals {
       type                = "EC2"
 
       tags = {
-        "Name"            = "dedicated"
-        "management:area" = "cost"
-        "management:type" = "product"
+        "Name"               = "dedicated"
+        "management:area"    = "cost"
+        "management:product" = "makes"
+        "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
@@ -160,9 +167,10 @@ locals {
       type                = "SPOT"
 
       tags = {
-        "Name"            = "observes"
-        "management:area" = "administrative"
-        "management:type" = "other"
+        "Name"               = "observes"
+        "management:area"    = "administrative"
+        "management:product" = "observes"
+        "management:type"    = "other"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
@@ -174,9 +182,10 @@ locals {
       type                = "SPOT"
 
       tags = {
-        "Name"            = "spot"
-        "management:area" = "cost"
-        "management:type" = "product"
+        "Name"               = "spot"
+        "management:area"    = "cost"
+        "management:product" = "makes"
+        "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
@@ -189,9 +198,10 @@ locals {
       type                = "SPOT"
 
       tags = {
-        "Name"            = "skims_all"
-        "management:area" = "cost"
-        "management:type" = "product"
+        "Name"               = "skims_all"
+        "management:area"    = "cost"
+        "management:product" = "skims"
+        "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
@@ -206,9 +216,10 @@ locals {
       type                = "SPOT"
 
       tags = {
-        "Name"            = name
-        "management:area" = "cost"
-        "management:type" = "product"
+        "Name"               = name
+        "management:area"    = "cost"
+        "management:product" = "skims"
+        "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
@@ -305,9 +316,10 @@ resource "aws_batch_job_queue" "default" {
 resource "aws_batch_job_definition" "default" {
   name = "default"
   tags = {
-    "Name"            = "default"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "default"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
   type = "container"
 
@@ -348,9 +360,10 @@ resource "aws_batch_job_definition" "makes" {
   })
 
   tags = {
-    "Name"            = "makes"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "makes"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -382,9 +395,10 @@ resource "aws_batch_job_definition" "skims_process_group" {
   })
 
   tags = {
-    "Name"            = "skims_process_group"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "skims_process_group"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
   }
 }
 
@@ -392,9 +406,10 @@ resource "aws_cloudwatch_log_group" "job" {
   name = "/aws/batch/job"
 
   tags = {
-    "Name"            = "job"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "job"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -402,8 +417,9 @@ resource "aws_cloudwatch_log_group" "skims" {
   name = "skims"
 
   tags = {
-    "Name"            = "skims"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "skims"
+    "management:area"    = "cost"
+    "management:product" = "skims"
+    "management:type"    = "product"
   }
 }

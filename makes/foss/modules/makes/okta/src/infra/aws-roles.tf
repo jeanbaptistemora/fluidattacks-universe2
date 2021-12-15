@@ -27,9 +27,10 @@ resource "aws_iam_role" "finance-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
-    "Name"            = "finance"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "finance"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -77,9 +78,10 @@ resource "aws_iam_role" "helpdesk-role" {
   assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 
   tags = {
-    "Name"            = "helpdesk"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "helpdesk"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -101,9 +103,10 @@ resource "aws_iam_role" "skims_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"            = "skims_prod"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "skims_prod"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
@@ -157,9 +160,10 @@ resource "aws_iam_role" "sorts_prod" {
   max_session_duration = "32400"
 
   tags = {
-    "Name"            = "sorts_prod"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "sorts_prod"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 

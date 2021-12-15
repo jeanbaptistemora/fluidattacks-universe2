@@ -145,6 +145,7 @@ locals {
           "ec2:AuthorizeSecurityGroupIngress",
           "ec2:CreateSecurityGroup",
           "ec2:DeleteSecurityGroup",
+          "ec2:*Tags",
         ]
         Resource = ["*"]
       },

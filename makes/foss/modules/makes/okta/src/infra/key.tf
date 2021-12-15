@@ -107,9 +107,10 @@ resource "aws_kms_key" "okta" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "makes-okta"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "makes-okta"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
   }
 }
 
