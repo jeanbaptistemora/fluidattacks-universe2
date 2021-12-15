@@ -20,6 +20,16 @@ from db_model.enums import (
 from dynamodb.types import (
     Item,
 )
+from typing import (
+    Union,
+)
+
+VulnerabilityHistoricEntry = Union[
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityVerification,
+    VulnerabilityZeroRisk,
+]
 
 
 def format_vulnerability(item: Item) -> Vulnerability:
@@ -98,3 +108,15 @@ def format_zero_risk(item: Item) -> VulnerabilityZeroRisk:
         modified_date=item["modified_date"],
         status=VulnerabilityZeroRiskStatus[item["status"]],
     )
+
+
+def historic_entry_type_to_str(item: VulnerabilityHistoricEntry) -> str:
+    if isinstance(item, VulnerabilityState):
+        return "state"
+    if isinstance(item, VulnerabilityTreatment):
+        return "treatment"
+    if isinstance(item, VulnerabilityVerification):
+        return "verification"
+    if isinstance(item, VulnerabilityZeroRisk):
+        return "zero_risk"
+    return ""
