@@ -33,6 +33,9 @@ from typing import (
     Dict,
     Optional,
 )
+from utils import (
+    logs,
+)
 
 EVALUATORS: Dict[str, Evaluator] = {
     "ArgumentList": argument_list.evaluate,
@@ -82,5 +85,5 @@ def evaluate(
             )
         )
     except MissingSymbolicEval as error:
-        print(error)
+        logs.log_blocking("warning", error)
         return None

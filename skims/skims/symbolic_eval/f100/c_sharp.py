@@ -20,7 +20,4 @@ def analyze(graph: Graph) -> None:
 
     for n_id in search_method_invocation(graph, {"Create"}):
         for path in get_backward_paths(graph, n_id):
-            if evaluate(language, finding, graph, path, n_id):
-                print(path, n_id)
-
-    print("Finished")
+            evaluate(language, finding, graph, path, n_id)

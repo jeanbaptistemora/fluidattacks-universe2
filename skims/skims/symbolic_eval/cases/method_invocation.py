@@ -25,6 +25,7 @@ from typing import (
 )
 from utils import (
     graph as g,
+    logs,
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
@@ -73,7 +74,7 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
                 args.graph, args.evaluation, md_id, mi_id=args.n_id
             )
         except BadMethodInvocation as error:
-            print(error)
+            logs.log_blocking("warning", error)
             invoc_eval = {}
 
         eb_id = args.graph.nodes[md_id]["block_id"]
