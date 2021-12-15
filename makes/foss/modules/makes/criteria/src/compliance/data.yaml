@@ -3044,6 +3044,12 @@
       consumers more control over the
       personal information that businesses
       collect about them.
+      On the other side, the CPRA (California
+      Privacy Rights Act) is a data privacy law
+      that takes effect on January 1, 2023.
+      It enhances existing privacy laws in the
+      State of California – the CCPA (California
+      Consumer Privacy Act).
   es:
     description: __empty__
   definitions:
@@ -3068,4 +3074,16 @@
     "1798_121":
       title: Consumer's Right to Limit Use and Disclosure of Sensitive Personal Information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+    "1798-100":
+      title: Right to Know what Personal Information is Being Collected
+      link: https://www.itgovernanceusa.com/california-consumer-privacy
+    "1798_101":
+      title: Consumer's Right to Know What Personal Information is Sold or Shared and to Whom
+      link: https://www.itgovernanceusa.com/california-consumer-privacy
+    "1798_102":
+      title: Right to Say No to Sale of Personal Information
+      link: https://www.itgovernanceusa.com/california-consumer-privacy
+    "1798_104":
+      title: Compliance with Right to Know and Disclosure Requirements
+      link: https://www.itgovernanceusa.com/california-consumer-privacy
   metadata: {}
