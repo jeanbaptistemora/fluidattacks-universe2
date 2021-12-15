@@ -45,4 +45,4 @@ def _run_command(cmd: List[str], dry_run: bool) -> IO[None]:
 
 
 def run_job(job: Enum, dry_run: bool) -> IO[None]:
-    return _run_command(str(job.value).replace(".", "-").split(), dry_run)
+    return _run_command(job.value.replace(".", "-").split(), dry_run)
