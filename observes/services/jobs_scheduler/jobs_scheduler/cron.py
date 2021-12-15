@@ -5,30 +5,22 @@ from __future__ import (
 from datetime import (
     datetime,
 )
+from jobs_scheduler.cron_2.core import (
+    AnyTime,
+    CronItem,
+    InvalidCron,
+    work_days,
+)
 from typing import (
     NamedTuple,
-    Tuple,
-    Union,
 )
-
-
-class AnyTime(NamedTuple):
-    pass
-
-
-CronItem = Union[int, Tuple[int, ...], range, AnyTime]
-work_days = range(1, 6)  # Monday - Friday
-
-
-class InvalidCron(Exception):
-    pass
 
 
 def _valid_cron(item: CronItem, constraint: range) -> bool:
     if isinstance(item, AnyTime):
         return True
     if isinstance(item, range):
-        return item.start >= constraint.start and item.stop <= constraint.stop
+        return item == constraint
     if isinstance(item, tuple):
         return all(i in constraint for i in item)
     elem: int = item
@@ -77,3 +69,9 @@ def match_cron(cron: PartialCron, time: datetime) -> bool:
             match_cron_item(cron.week_day, _cron_weekday(time)),
         )
     )
+
+
+__all__ = [
+    "AnyTime",
+    "work_days",
+]
