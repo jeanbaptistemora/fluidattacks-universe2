@@ -3169,4 +3169,37 @@
     "ERR01-J":
       title: Do not allow exceptions to expose sensitive information
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "LCK11-J":
+      title: Avoid client-side locking when using classes that do not commit to their locking strategy
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "TSM00-J":
+      title: Do not override thread-safe methods with methods that are not thread-safe
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "TSM02-J":
+      title: Do not use background threads during class initialization
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "FIO00-J":
+      title: Do not operate on files in shared directories
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "FIO01-J":
+      title: Create files with appropriate access permissions
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "FIO03-J":
+      title: Remove temporary files before termination
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "FIO13-J":
+      title: Do not log sensitive information outside a trust boundary
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "FIO14-J":
+      title: Perform proper cleanup at program termination
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "SER02-J":
+      title: Sign then seal objects before sending them outside a trust boundary
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "SER12-J":
+      title: Prevent deserialization of untrusted data
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
+    "SEC04-J":
+      title: Protect sensitive operations with security manager checks
+      link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
   metadata: {}
