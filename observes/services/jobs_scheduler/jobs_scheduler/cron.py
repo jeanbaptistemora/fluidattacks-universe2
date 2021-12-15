@@ -9,7 +9,6 @@ from jobs_scheduler.cron_2.core import (
     AnyTime,
     CronItem,
     InvalidCron,
-    work_days,
 )
 from typing import (
     NamedTuple,
@@ -20,7 +19,7 @@ def _valid_cron(item: CronItem, constraint: range) -> bool:
     if isinstance(item, AnyTime):
         return True
     if isinstance(item, range):
-        return item == constraint
+        return item.start >= constraint.start and item.stop <= constraint.stop
     if isinstance(item, tuple):
         return all(i in constraint for i in item)
     elem: int = item
@@ -73,5 +72,4 @@ def match_cron(cron: PartialCron, time: datetime) -> bool:
 
 __all__ = [
     "AnyTime",
-    "work_days",
 ]

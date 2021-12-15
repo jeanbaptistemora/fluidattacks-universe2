@@ -17,7 +17,7 @@ def _valid_cron(item: CronItem, constraint: range) -> bool:
     if isinstance(item, AnyTime):
         return True
     if isinstance(item, range):
-        return item == constraint
+        return item.start >= constraint.start and item.stop <= constraint.stop
     if isinstance(item, tuple):
         return all(i in constraint for i in item)
     elem: int = item
@@ -42,3 +42,8 @@ def weekly(
     minute: CronItem, hour: CronItem, week_day: CronItem
 ) -> Result[Cron, InvalidCron]:
     return new(CronDraft(minute, hour, AnyTime(), AnyTime(), week_day))
+
+
+def work_days(minute: CronItem, hour: CronItem) -> Result[Cron, InvalidCron]:
+    days = range(1, 6)  # Monday - Friday
+    return new(CronDraft(minute, hour, AnyTime(), AnyTime(), days))

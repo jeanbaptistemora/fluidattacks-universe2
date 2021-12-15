@@ -12,6 +12,9 @@ from jobs_scheduler.conf import (
 from jobs_scheduler.cron import (
     match_cron,
 )
+from jobs_scheduler.cron_2 import (
+    match,
+)
 import pytz  # type: ignore
 from returns.io import (
     impure,
@@ -40,6 +43,7 @@ class CmdFailed(Exception):
 
 @impure
 def run_command(cmd: List[str]) -> None:
+    LOG.info("Executing: %s", cmd)
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
@@ -62,7 +66,6 @@ def main() -> None:
     LOG.info("Now: %s", NOW)
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
-        if match_cron(cron, NOW):
+        if match.match_cron(cron, NOW):
             for job in jobs:
-                LOG.info("Executing: %s", job)
                 run_command(job.replace(".", "-").split())

@@ -17,7 +17,6 @@ class AnyTime:
 
 
 CronItem = Union[int, Tuple[int, ...], range, AnyTime]
-work_days = range(1, 6)  # Monday - Friday
 
 
 @dataclass(frozen=True)
@@ -38,4 +37,4 @@ class _Cron(CronDraft):
 @dataclass(frozen=True)
 class Cron(_Cron):
     def __init__(self, obj: _Cron) -> None:
-        super().__init__(**obj.__dict__)
+        super().__init__(CronDraft(**obj.__dict__))
