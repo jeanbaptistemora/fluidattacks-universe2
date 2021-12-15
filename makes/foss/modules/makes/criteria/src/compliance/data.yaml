@@ -3129,7 +3129,13 @@
   title: CERT-J
   en:
     description: >
-      ...
+      The SEI CERT® Oracle® Secure Coding
+      Standard for Java™ provides rules
+      designed to eliminate insecure coding
+      practices that can lead to exploitable
+      vulnerabilities.
+      This standard covers security issues.
+      Published on 2011.
   es:
     description: __empty__
   definitions:
