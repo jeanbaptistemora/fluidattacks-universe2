@@ -337,7 +337,12 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
     _.isEmpty(toeLinesAttr.attackedAt) ||
     moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
-      ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
+      ? toeLinesAttr.bePresent
+        ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
+        : moment(toeLinesAttr.bePresentUntil).diff(
+            moment(toeLinesAttr.modifiedDate),
+            "days"
+          )
       : moment(toeLinesAttr.attackedAt).diff(
           moment(toeLinesAttr.modifiedDate),
           "days"

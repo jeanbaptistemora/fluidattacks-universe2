@@ -90,7 +90,9 @@ const HandleEditModal: React.FC<IHandleEditModalProps> = (
         handleUpdateToeLinesAttackedLines({
           variables: {
             attackedAt: values.attackedAt,
-            attackedLines: values.attackedLines,
+            attackedLines: _.isEmpty(values.attackedLines)
+              ? undefined
+              : values.attackedLines,
             comments: values.comments,
             filenames: rootSelectedToeLinesDatas.map(
               (selectedToeLinesData: IToeLinesData): string =>
