@@ -13552,8 +13552,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Se
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
 ",javascript.client_storage
-F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,"The network does not currently limit access between network segments, so an employee can access database servers from the Internet.
- in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf","
+F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
   3 |   location               = azurerm_resource_group.example.location

@@ -1,3 +1,6 @@
+lib_path.f157.etl_visible_to_the_public_network:
+  en: The ETL is visible to the public network
+  es: El ETL es visible para la red pública
 F157.title:
   en: >
     Unrestricted access between network segments

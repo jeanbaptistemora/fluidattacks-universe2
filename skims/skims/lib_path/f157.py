@@ -69,7 +69,7 @@ def _tfm_azure_unrestricted_access_network_segments(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F157_CWE},
-        description_key=("F157.description"),
+        description_key=("lib_path.f157.etl_visible_to_the_public_network"),
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
             tfm_azure_unrestricted_access_network_segments_iterate(
