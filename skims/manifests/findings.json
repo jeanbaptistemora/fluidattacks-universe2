@@ -583,6 +583,14 @@
       "title": "338. Insecure service configuration - Salt"
     }
   },
+  "F363": {
+    "EN": {
+      "title": "363. Weak credential policy - Password strength"
+    },
+    "ES": {
+      "title": "363. Weak credential policy - Password strength"
+    }
+  },
   "F366": {
     "EN": {
       "title": "366. Inappropriate coding practices - Transparency Conflict"

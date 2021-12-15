@@ -1,0 +1,34 @@
+F363.title:
+  en: >
+    Weak credential policy - Password strength
+  es: >
+    Weak credential policy - Password strength
+F363.description:
+  en: >
+    The credential policy present in the system
+    does not have the recommended parameters.
+  es: >
+    La política de credenciales presente en el
+    sistema no cuenta con los parámetros recomendados.
+F363.impact:
+  en: >
+    Allow users to assign weak passwords to
+    their accounts, which can later be easily
+    found by an attacker through brute force
+    or dictionary attacks.
+  es: >
+    Permitir que los usuarios asignen contraseñas
+    débiles a sus cuentas, las cuales posteriormente
+    pueden ser fácilmente encontradas por un atacante
+    mediante ataques de fuerza bruta o diccionario.
+F363.recommendation:
+  en: >
+    Establish a policy for credential creation
+    that involves phrases and not word-based passwords.
+  es: >
+    Establecer una política para la creación de
+    credenciales que involucre frases y no
+    contraseñas basadas en palabras.
+F363.threat:
+  en: Attacker with an account creation invitation from the Internet.
+  es: Atacante con una invitación de creación de cuenta desde Internet.
