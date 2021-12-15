@@ -160,7 +160,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
-      width: "2%",
     },
     {
       align: "center",
@@ -171,7 +170,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetBePresentUntil,
       onSort,
       visible: checkedItems.bePresentUntil,
-      width: "5%",
     },
     {
       align: "center",
@@ -179,7 +177,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.root"),
       onSort,
       visible: checkedItems.rootNickname,
-      width: "10%",
     },
     {
       align: "left",
@@ -187,7 +184,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.filename"),
       onSort,
       visible: checkedItems.filename,
-      width: "40%",
     },
     {
       align: "center",
@@ -197,7 +193,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canSeeCoverage || !canGetAttackedLines,
       onSort,
       visible: checkedItems.coverage,
-      width: "2.5%",
     },
     {
       align: "center",
@@ -205,7 +200,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.loc"),
       onSort,
       visible: checkedItems.loc,
-      width: "8%",
     },
     {
       align: "center",
@@ -214,7 +208,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetAttackedLines,
       onSort,
       visible: checkedItems.attackedLines,
-      width: "8%",
     },
     {
       align: "center",
@@ -224,7 +217,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.modifiedDate"),
       onSort,
       visible: checkedItems.modifiedDate,
-      width: "5%",
     },
     {
       align: "center",
@@ -232,7 +224,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.modifiedCommit"),
       onSort,
       visible: checkedItems.modifiedCommit,
-      width: "10%",
     },
     {
       align: "center",
@@ -240,7 +231,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.commitAuthor"),
       onSort,
       visible: checkedItems.commitAuthor,
-      width: "5%",
     },
     {
       align: "center",
@@ -249,7 +239,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canSeeDaysToAttack || !canGetAttackedAt,
       onSort,
       visible: checkedItems.daysToAttack,
-      width: "5%",
     },
     {
       align: "center",
@@ -260,7 +249,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
-      width: "5%",
     },
     {
       align: "center",
@@ -269,7 +257,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetAttackedBy,
       onSort,
       visible: checkedItems.attackedBy,
-      width: "5%",
     },
     {
       align: "center",
@@ -280,7 +267,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetFirstAttackAt,
       onSort,
       visible: checkedItems.firstAttackAt,
-      width: "5%",
     },
     {
       align: "center",
@@ -290,7 +276,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.seenAt"),
       onSort,
       visible: checkedItems.seenAt,
-      width: "5%",
     },
     {
       align: "left",
@@ -299,7 +284,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       omit: !canGetComments,
       onSort,
       visible: checkedItems.comments,
-      width: "15%",
     },
     {
       align: "center",
@@ -307,7 +291,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.lines.sortsRiskLevel"),
       onSort,
       visible: checkedItems.sortsRiskLevel,
-      width: "2.5%",
     },
   ];
 
