@@ -41,7 +41,7 @@ async def add(*, vulnerability: Vulnerability) -> None:
         key_structure.sort_key: state_key.sort_key,
         **json.loads(json.dumps(vulnerability.state)),
     }
-    items.extend(historic_state_item)
+    items.append(historic_state_item)
 
     if vulnerability.treatment:
         treatment_key = keys.build_key(

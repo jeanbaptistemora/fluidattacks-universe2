@@ -13,7 +13,6 @@ from db_model import (
     services_toe_lines as services_toe_lines_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
-    vulnerabilities,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -33,9 +32,6 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from decimal import (
     Decimal,
@@ -233,70 +229,6 @@ async def populate_findings(data: List[Dict[str, Any]]) -> bool:
             and item["historic_state"][-1].status == FindingStateStatus.DELETED
         ]
     )
-    return True
-
-
-async def _populate_vuln_historic_state(data: Dict[str, Any]) -> None:
-    if "historic_state" in data:
-        vuln: Vulnerability = data["vulnerability"]
-        for state in data["historic_state"]:
-            await vulnerabilities.update_state(
-                current_value=vuln.state,
-                finding_id=vuln.finding_id,
-                state=state,
-                vulnerability_id=vuln.id,
-            )
-
-
-async def _populate_vuln_historic_treatment(data: Dict[str, Any]) -> None:
-    if "historic_treatment" in data:
-        vuln: Vulnerability = data["vulnerability"]
-        for treatment in data["historic_treatment"]:
-            await vulnerabilities.update_treatment(
-                current_value=vuln.treatment,
-                finding_id=vuln.finding_id,
-                treatment=treatment,
-                vulnerability_id=vuln.id,
-            )
-
-
-async def _populate_vuln_historic_verification(data: Dict[str, Any]) -> None:
-    if "historic_verification" in data:
-        vuln: Vulnerability = data["vulnerability"]
-        for verification in data["historic_verification"]:
-            await vulnerabilities.update_verification(
-                current_value=vuln.verification,
-                finding_id=vuln.finding_id,
-                verification=verification,
-                vulnerability_id=vuln.id,
-            )
-
-
-async def _populate_vuln_historic_zero_risk(data: Dict[str, Any]) -> None:
-    if "historic_zero_risk" in data:
-        vuln: Vulnerability = data["vulnerability"]
-        for zero_risk in data["historic_zero_risk"]:
-            await vulnerabilities.update_zero_risk(
-                current_value=vuln.zero_risk,
-                finding_id=vuln.finding_id,
-                zero_risk=zero_risk,
-                vulnerability_id=vuln.id,
-            )
-
-
-async def populate_vulnerabilities_new(data: List[Dict[str, Any]]) -> bool:
-    await collect(
-        [
-            vulnerabilities.add(vulnerability=item["vulnerability"])
-            for item in data
-        ]
-    )
-    await collect([_populate_vuln_historic_state(item) for item in data])
-    await collect([_populate_vuln_historic_treatment(item) for item in data])
-    await collect(
-        [_populate_vuln_historic_verification(item) for item in data]
-    )
-    await collect([_populate_vuln_historic_zero_risk(item) for item in data])
     return True
 
 

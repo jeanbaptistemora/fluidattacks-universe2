@@ -72,6 +72,12 @@ async def add(vulnerability: Vulnerability) -> None:
         LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
 
+    if (
+        FI_ENVIRONMENT == "development"
+        and vulnerability.state.status != VulnerabilityStateStatus.DELETED
+    ):
+        vulns_model.add(vulnerability=vulnerability)
+
 
 async def get_by_finding(
     finding_id: str,

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 13, 2021, 11:07 AM",
+    "DateLastModified": "Dec 15, 2021, 10:33 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8552,6 +8552,9 @@
               "type": {
                 "S": "LINES"
               },
+              "commit": {
+                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+              },
               "where": {
                 "S": "test/data/lib_path/f060/csharp.cs"
               },
@@ -8592,9 +8595,6 @@
                     "S": "test justification"
                   }
                 }
-              },
-              "commit": {
-                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
               }
             },
             {
@@ -10132,55 +10132,6 @@
             },
             {
               "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
-              },
-              "sk": {
-                "S": "FIN#560175507"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "where": {
-                "S": "product/path/to/file1.ext"
-              },
-              "specific": {
-                "S": "123345"
-              },
-              "state": {
-                "M": {
-                  "status": {
-                    "S": "DELETED"
-                  },
-                  "modified_date": {
-                    "S": "2019-11-02T20:59:16+00:00"
-                  },
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "justification": {
-                    "S": "FALSE_POSITIVE"
-                  }
-                }
-              },
-              "treatment": {
-                "M": {
-                  "status": {
-                    "S": "NEW"
-                  },
-                  "modified_date": {
-                    "S": "2019-10-15T16:04:14+00:00"
-                  },
-                  "modified_by": {
-                    "S": "integratesmanager@gmail.com"
-                  }
-                }
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
               },
               "sk": {
@@ -10362,6 +10313,16 @@
               "type": {
                 "S": "LINES"
               },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test1"
+                  },
+                  {
+                    "S": "test2"
+                  }
+                ]
+              },
               "where": {
                 "S": "path/to/file4.ext"
               },
@@ -10421,16 +10382,6 @@
                     "S": "123456"
                   }
                 }
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test1"
-                  },
-                  {
-                    "S": "test2"
-                  }
-                ]
               }
             },
             {
@@ -11589,49 +11540,6 @@
             },
             {
               "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
-              },
-              "sk": {
-                "S": "STATE#2019-10-15T16:04:14+00:00"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2019-10-15T16:04:14+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
-              },
-              "sk": {
-                "S": "STATE#2019-11-02T20:59:16+00:00"
-              },
-              "status": {
-                "S": "DELETED"
-              },
-              "modified_date": {
-                "S": "2019-11-02T20:59:16+00:00"
-              },
-              "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              },
-              "justification": {
-                "S": "FALSE_POSITIVE"
-              }
-            },
-            {
-              "pk": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
               },
               "sk": {
@@ -12686,23 +12594,6 @@
               },
               "justification": {
                 "S": "accepted justification"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#6f023c26-5x10-4ded-aa27-xx563c2206ax"
-              },
-              "sk": {
-                "S": "TREATMENT#2019-10-15T16:04:14+00:00"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2019-10-15T16:04:14+00:00"
-              },
-              "modified_by": {
-                "S": "integratesmanager@gmail.com"
               }
             },
             {
