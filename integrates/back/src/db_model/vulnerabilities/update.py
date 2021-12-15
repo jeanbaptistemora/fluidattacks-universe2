@@ -483,3 +483,77 @@ async def update_zero_risk(
         item=historic_zero_risk_item,
         table=TABLE,
     )
+
+
+async def update_historic_zero_risk(
+    *,
+    finding_id: str,
+    historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {
+            "zero_risk": json.loads(json.dumps(historic_zero_risk[-1]))
+        }
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_zero_risk"],
+        values={"id": vulnerability_id},
+    )
+    current_response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_zero_risk"],),
+        table=TABLE,
+    )
+    current_items = current_response.items
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_zero_risk"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": item["modified_date"],
+            },
+        )
+        for item in current_items
+    }
+
+    new_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["vulnerability_historic_zero_risk"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": zero_risk.modified_date,
+            },
+        )
+        for zero_risk in historic_zero_risk
+    )
+    new_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **json.loads(json.dumps(zero_risk)),
+        }
+        for key, zero_risk in zip(new_keys, historic_zero_risk)
+    )
+    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
+        table=TABLE,
+    )
