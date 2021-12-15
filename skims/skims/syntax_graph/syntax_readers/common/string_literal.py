@@ -27,5 +27,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
             f"Bad string literal handling in {args.n_id}"
         )
 
-    value = n_attrs["label_text"][1:-1]  # remove " "
-    return build_string_literal_node(args, str(value))
+    return build_string_literal_node(args, value=n_attrs["label_text"])
