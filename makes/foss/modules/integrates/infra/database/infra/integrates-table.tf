@@ -43,9 +43,10 @@ resource "aws_dynamodb_table" "integrates" {
   }
 
   tags = {
-    "Name"            = "integrates"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "integrates"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -94,8 +95,9 @@ resource "aws_dynamodb_table" "integrates_vms" {
   }
 
   tags = {
-    "Name"            = "integrates_vms"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "integrates_vms"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }

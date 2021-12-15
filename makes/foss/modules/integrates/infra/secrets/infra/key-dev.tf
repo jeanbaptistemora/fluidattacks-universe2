@@ -113,9 +113,10 @@ resource "aws_kms_key" "integrates-dev-key" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "integrates-dev"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "integrates-dev"
+    "management:area"    = "innovation"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 

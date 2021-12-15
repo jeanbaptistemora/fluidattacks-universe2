@@ -29,9 +29,10 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   }
 
   tags = {
-    "Name"            = "fluidintegrates.resources"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidintegrates.resources"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -52,9 +53,10 @@ resource "aws_s3_bucket" "fi_evidences_bucket" {
   }
 
   tags = {
-    "Name"            = "fluidintegrates.evidences"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidintegrates.evidences"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -84,9 +86,10 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
   }
 
   tags = {
-    "Name"            = "fluidintegrates.reports"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidintegrates.reports"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -107,9 +110,10 @@ resource "aws_s3_bucket" "fi_build_bucket" {
   }
 
   tags = {
-    "Name"            = "fluidintegrates.build"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidintegrates.build"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
@@ -130,9 +134,10 @@ resource "aws_s3_bucket" "fi_forces_bucket" {
   }
 
   tags = {
-    "Name"            = "fluidintegrates.forces"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidintegrates.forces"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 

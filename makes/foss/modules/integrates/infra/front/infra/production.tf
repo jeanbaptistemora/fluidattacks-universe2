@@ -25,9 +25,10 @@ resource "aws_s3_bucket" "production" {
   }
 
   tags = {
-    "Name"            = "integrates.front.production.fluidattacks.com"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "integrates.front.production.fluidattacks.com"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
   }
 }
 
