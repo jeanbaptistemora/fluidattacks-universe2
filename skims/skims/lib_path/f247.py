@@ -132,7 +132,7 @@ def _tfm_fsx_unencrypted_volumes(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F247_CWE},
-        description_key="F247.title",
+        description_key="lib_path.f247.resource_not_encrypted",
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
@@ -151,7 +151,7 @@ def _tfm_ebs_unencrypted_volumes(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F247_CWE},
-        description_key="F247.title",
+        description_key="lib_path.f247.resource_not_encrypted",
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
@@ -170,7 +170,7 @@ def _tfm_ec2_unencrypted_volumes(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F247_CWE},
-        description_key="F247.title",
+        description_key="lib_path.f247.resource_not_encrypted",
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
@@ -189,7 +189,7 @@ def _tfm_ebs_unencrypted_by_default(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F247_CWE},
-        description_key="F247.title",
+        description_key="lib_path.f247.resource_not_encrypted",
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(

@@ -5858,101 +5858,6 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   32 |         ""Size"": 100,
      ^ Col 0
 ",f080._cfn_unencrypted_volumes
-F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
- in namespace/skims/test/data/lib_path/f247/test_ebs.tf","
-   1 | resource ""aws_ebs_volume"" ""example"" {
-   2 |   availability_zone = ""us-west-2a""
-   3 |   size              = 40
-   4 |   encrypted         = true
-   5 |   tags = {
-   6 |     Name = ""HelloWorld""
-   7 |   }
-   8 | }
-   9 |
-> 10 | resource ""aws_ebs_volume"" ""example"" {
-  11 |   availability_zone = ""us-west-2a""
-  12 |   size              = 40
-  13 |
-  14 |   tags = {
-  15 |     Name = ""HelloWorld""
-  16 |   }
-  17 | }
-     ^ Col 0
-",f247._tfm_ebs_unencrypted_volumes
-F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,2,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
- in namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf","
-  1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
-> 2 |   enabled = false
-  3 | }
-    ^ Col 0
-",f247._tfm_ebs_unencrypted_by_default
-F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,14,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
- in namespace/skims/test/data/lib_path/f247/test_ec2.tf","
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-> 14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
-  22 |     delete_on_termination = true
-  23 |     iops                  = 150
-  24 |     volume_size           = 50
-     ^ Col 0
-",f247._tfm_ec2_unencrypted_volumes
-F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
- in namespace/skims/test/data/lib_path/f247/test_ec2.tf","
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-> 21 |   ebs_block_device {
-  22 |     delete_on_termination = true
-  23 |     iops                  = 150
-  24 |     volume_size           = 50
-  25 |     volume_type           = ""gp2""
-  26 |   }
-  27 |
-  28 | }
-     ^ Col 0
-",f247._tfm_ec2_unencrypted_volumes
-F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,"Non-encrypted confidential information - AWS
- in namespace/skims/test/data/lib_path/f247/test_fsx.tf","
->  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
-   2 |
-   3 |   storage_capacity    = 300
-   4 |   subnet_ids          = [aws_subnet.example.id]
-   5 |   throughput_capacity = 1024
-   6 |
-   7 |   self_managed_active_directory {
-   8 |     dns_ips     = [""10.0.0.111"", ""10.0.0.222""]
-   9 |     domain_name = ""corp.example.com""
-  10 |     password    = ""avoid-plaintext-passwords""
-  11 |     username    = ""Admin""
-  12 |   }
-  13 | }
-     ^ Col 0
-",f247._tfm_fsx_unencrypted_volumes
 F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,5,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -7462,6 +7367,96 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   82 |           }
      ^ Col 0
 ",f281._cfn_elb2_uses_insecure_port
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ebs.tf,"
+   1 | resource ""aws_ebs_volume"" ""example"" {
+   2 |   availability_zone = ""us-west-2a""
+   3 |   size              = 40
+   4 |   encrypted         = true
+   5 |   tags = {
+   6 |     Name = ""HelloWorld""
+   7 |   }
+   8 | }
+   9 |
+> 10 | resource ""aws_ebs_volume"" ""example"" {
+  11 |   availability_zone = ""us-west-2a""
+  12 |   size              = 40
+  13 |
+  14 |   tags = {
+  15 |     Name = ""HelloWorld""
+  16 |   }
+  17 | }
+     ^ Col 0
+",f247._tfm_ebs_unencrypted_volumes
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,2,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,"
+  1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
+> 2 |   enabled = false
+  3 | }
+    ^ Col 0
+",f247._tfm_ebs_unencrypted_by_default
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,14,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+> 14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+     ^ Col 0
+",f247._tfm_ec2_unencrypted_volumes
+F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+> 21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+  25 |     volume_type           = ""gp2""
+  26 |   }
+  27 |
+  28 | }
+     ^ Col 0
+",f247._tfm_ec2_unencrypted_volumes
+F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_fsx.tf,"
+>  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
+   2 |
+   3 |   storage_capacity    = 300
+   4 |   subnet_ids          = [aws_subnet.example.id]
+   5 |   throughput_capacity = 1024
+   6 |
+   7 |   self_managed_active_directory {
+   8 |     dns_ips     = [""10.0.0.111"", ""10.0.0.222""]
+   9 |     domain_name = ""corp.example.com""
+  10 |     password    = ""avoid-plaintext-passwords""
+  11 |     username    = ""Admin""
+  12 |   }
+  13 | }
+     ^ Col 0
+",f247._tfm_fsx_unencrypted_volumes
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
  in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml","
   15 |         AutoImportPolicy: ""NEW""

@@ -1,5 +1,34 @@
+lib_path.f247.resource_not_encrypted:
+  en: The resource or the information on it is not encrypted
+  es: El recurso o la informacion de este no esta cifrada
 F247.title:
   en: >
     Non-encrypted confidential information - AWS
   es: >
     Non-encrypted confidential information - AWS
+F247.description:
+  en: >
+    AWS credentials are stored in plain text within the source code.
+  es: >
+    Dentro del código fuente se almacenan credenciales de AWS en texto plano.
+F247.impact:
+  en: |
+    - Expose resources, processes and sensitive information that could be
+      compromised.
+    - Copy Sensitive Information from S3 Buckets.
+    - Remove Sensitive Information from S3 Buckets.
+  es: |
+    - Exponer recursos, procesos e información sensible que podrían ser
+      comprometidos.
+    - Copiar Información sensible de los buckets de S3.
+    - Eliminar Información  Sensible de los buckets de S3.
+F247.recommendation:
+  en: >
+    Encrypt all sensitive information that is transported or stored within
+    the application according to the organization's policies.
+  es: >
+    Cifrar toda información sensible que se transporte o se guarde dentro
+    la aplicación de acuerdo a las políticas de la organización.
+F247.threat:
+  en: Attacker with access to the code from the Internet.
+  es: Atacante con acceso al código desde Internet.
