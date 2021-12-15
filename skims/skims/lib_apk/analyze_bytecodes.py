@@ -23,9 +23,6 @@ from parse_android_manifest import (
     APKCheckCtx,
     Locations,
 )
-from parse_android_manifest.types import (
-    APKContext,
-)
 import textwrap
 from typing import (
     Callable,
@@ -324,12 +321,6 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F046,
         locations=locations,
-    )
-
-
-def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
-    return APKCheckCtx(
-        apk_ctx=apk_ctx,
     )
 
 

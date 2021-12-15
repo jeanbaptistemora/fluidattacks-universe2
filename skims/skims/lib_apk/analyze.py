@@ -6,6 +6,7 @@ from model import (
 )
 from parse_android_manifest import (
     get_apk_context,
+    get_check_ctx as resolve_check_ctx,
 )
 from parse_android_manifest.types import (
     APKContext,
@@ -42,7 +43,7 @@ CHECKS: Tuple[
         ],
     ],
     ...,
-] = ((analyze_bytecodes.get_check_ctx, analyze_bytecodes.CHECKS),)
+] = ((resolve_check_ctx, analyze_bytecodes.CHECKS),)
 
 
 @shield(on_error_return=[])

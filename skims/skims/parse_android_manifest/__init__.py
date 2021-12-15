@@ -293,3 +293,9 @@ async def get_apk_context(path: str) -> APKContext:
         apk_obj=apk_obj,
         path=path,
     )
+
+
+def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
+    return APKCheckCtx(
+        apk_ctx=apk_ctx,
+    )
