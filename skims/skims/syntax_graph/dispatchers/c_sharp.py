@@ -203,6 +203,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "character_literal",
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
