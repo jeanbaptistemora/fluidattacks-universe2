@@ -5953,249 +5953,6 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. 
   13 | }
      ^ Col 0
 ",f247._tfm_fsx_unencrypted_volumes
-F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf","
->  1 | resource ""aws_db_instance"" ""default"" {
-   2 |   publicly_accessible  = true
-   3 |   allocated_storage    = 10
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   deletion_protection  = true
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  16 |   count               = 2
-  17 |   publicly_accessible = true
-  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier  = aws_rds_cluster.default.id
-  20 |   instance_class      = ""db.r4.large""
-  21 |   engine              = aws_rds_cluster.default.engine
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf","
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  16 |   count               = 2
-  17 |   publicly_accessible = true
-  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier  = aws_rds_cluster.default.id
-  20 |   instance_class      = ""db.r4.large""
-  21 |   engine              = aws_rds_cluster.default.engine
-  22 |   engine_version      = aws_rds_cluster.default.engine_version
-  23 | }
-  24 |
-> 25 | resource ""aws_rds_cluster"" ""default"" {
-  26 |   cluster_identifier  = ""aurora-cluster-demo""
-  27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
-  28 |   deletion_protection = true
-  29 |   database_name       = ""mydb""
-  30 |   master_username     = ""foo""
-  31 |   master_password     = ""barbut8chars""
-  32 | }
-     ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f109/subnet_test.tf","
->  1 | resource ""aws_db_instance"" ""default"" {
-   2 |   publicly_accessible  = false
-   3 |   allocated_storage    = 10
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   deletion_protection  = true
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  16 |   count              = 2
-  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  18 |   cluster_identifier = aws_rds_cluster.default.id
-  19 |   instance_class     = ""db.r4.large""
-  20 |   engine             = aws_rds_cluster.default.engine
-  21 |   engine_version     = aws_rds_cluster.default.engine_version
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f109/subnet_test.tf","
-   2 |   publicly_accessible  = false
-   3 |   allocated_storage    = 10
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   deletion_protection  = true
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-> 15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  16 |   count              = 2
-  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  18 |   cluster_identifier = aws_rds_cluster.default.id
-  19 |   instance_class     = ""db.r4.large""
-  20 |   engine             = aws_rds_cluster.default.engine
-  21 |   engine_version     = aws_rds_cluster.default.engine_version
-  22 | }
-     ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f246/rds_test.tf","
-   1 | resource ""aws_db_instance"" ""default"" {
-   2 |   allocated_storage       = 10
->  3 |   storage_encrypted       = false
-   4 |   engine                  = ""mysql""
-   5 |   engine_version          = ""5.7""
-   6 |   instance_class          = ""db.t3.micro""
-   7 |   name                    = ""mydb""
-   8 |   username                = ""foo""
-   9 |   deletion_protection     = true
-  10 |   password                = ""foobarbaz""
-  11 |   backup_retention_period = 2
-  12 |   parameter_group_name    = ""default.mysql5.7""
-  13 |   skip_final_snapshot     = true
-  14 | }
-  15 |
-  16 |
-  17 | resource ""aws_rds_cluster"" ""postgresql"" {
-  18 |   cluster_identifier      = ""aurora-cluster-demo""
-  19 |   engine                  = ""aurora-postgresql""
-  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
-  21 |   database_name           = ""mydb""
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f246/rds_test.tf","
-   7 |   name                    = ""mydb""
-   8 |   username                = ""foo""
-   9 |   deletion_protection     = true
-  10 |   password                = ""foobarbaz""
-  11 |   backup_retention_period = 2
-  12 |   parameter_group_name    = ""default.mysql5.7""
-  13 |   skip_final_snapshot     = true
-  14 | }
-  15 |
-  16 |
-> 17 | resource ""aws_rds_cluster"" ""postgresql"" {
-  18 |   cluster_identifier      = ""aurora-cluster-demo""
-  19 |   engine                  = ""aurora-postgresql""
-  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
-  21 |   database_name           = ""mydb""
-  22 |   master_username         = ""foo""
-  23 |   master_password         = ""bar""
-  24 |   deletion_protection     = true
-  25 |   backup_retention_period = 5
-  26 |   preferred_backup_window = ""07:00-09:00""
-  27 | }
-     ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   instance_class       = ""db.t3.micro""
-   7 |   name                 = ""mydb""
-   8 |   username             = ""foo""
-   9 |   password             = ""foobarbaz""
-  10 |   parameter_group_name = ""default.mysql5.7""
-  11 |   skip_final_snapshot  = true
-  12 | }
-  13 |
-> 14 | resource ""aws_db_instance"" ""test"" {
-  15 |   allocated_storage    = 10
-  16 |   engine               = ""mysql""
-  17 |   engine_version       = ""5.7""
-  18 |   instance_class       = ""db.t3.micro""
-  19 |   name                 = ""mydb""
-  20 |   username             = ""user""
-  21 |   password             = ""useradmin""
-  22 |   parameter_group_name = ""default.mysql5.7""
-  23 |   skip_final_snapshot  = true
-  24 | }
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f256/db_instance_test.tf","
->  1 | resource ""aws_db_instance"" ""default"" {
-   2 |   allocated_storage    = 10
-   3 |   deletion_protection  = false
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   instance_class       = ""db.t3.micro""
-   7 |   name                 = ""mydb""
-   8 |   username             = ""foo""
-   9 |   password             = ""foobarbaz""
-  10 |   parameter_group_name = ""default.mysql5.7""
-  11 |   skip_final_snapshot  = true
-  12 | }
-  13 |
-  14 | resource ""aws_db_instance"" ""test"" {
-  15 |   allocated_storage    = 10
-  16 |   engine               = ""mysql""
-  17 |   engine_version       = ""5.7""
-  18 |   instance_class       = ""db.t3.micro""
-  19 |   name                 = ""mydb""
-  20 |   username             = ""user""
-  21 |   password             = ""useradmin""
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf","
->  1 | resource ""aws_db_instance"" ""default"" {
-   2 |   allocated_storage       = 10
-   3 |   engine                  = ""mysql""
-   4 |   engine_version          = ""5.7""
-   5 |   instance_class          = ""db.t3.micro""
-   6 |   name                    = ""mydb""
-   7 |   username                = ""foo""
-   8 |   deletion_protection     = true
-   9 |   password                = ""foobarbaz""
-  10 |   backup_retention_period = 0
-  11 |   parameter_group_name    = ""default.mysql5.7""
-  12 |   skip_final_snapshot     = true
-  13 | }
-     ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf","
-> 1 | resource ""aws_rds_cluster"" ""example"" {
-  2 |   cluster_identifier   = ""example""
-  3 |   deletion_protection  = false
-  4 |   db_subnet_group_name = aws_db_subnet_group.example.name
-  5 |   engine_mode          = ""multimaster""
-  6 |   master_password      = ""barbarbarbar""
-  7 |   master_username      = ""foo""
-  8 |   skip_final_snapshot  = true
-  9 | }
-    ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,"Non-encrypted confidential information - DB
- in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf","
-> 1 | resource ""aws_rds_cluster"" ""default"" {
-  2 |   cluster_identifier      = ""aurora-cluster-demo""
-  3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
-  4 |   database_name           = ""mydb""
-  5 |   master_username         = ""foo""
-  6 |   master_password         = ""bar""
-  7 |   backup_retention_period = 0
-  8 |   preferred_backup_window = ""07:00-09:00""
-  9 | }
-    ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
 F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,5,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -6609,6 +6366,102 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   publicly_accessible  = true
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
+  22 |   engine_version      = aws_rds_cluster.default.engine_version
+  23 | }
+  24 |
+> 25 | resource ""aws_rds_cluster"" ""default"" {
+  26 |   cluster_identifier  = ""aurora-cluster-demo""
+  27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  28 |   deletion_protection = true
+  29 |   database_name       = ""mydb""
+  30 |   master_username     = ""foo""
+  31 |   master_password     = ""barbut8chars""
+  32 | }
+     ^ Col 0
+",f246._tfm_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+> 15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+  22 | }
+     ^ Col 0
+",f246._tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
@@ -6801,6 +6654,54 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+   1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+>  3 |   storage_encrypted       = false
+   4 |   engine                  = ""mysql""
+   5 |   engine_version          = ""5.7""
+   6 |   instance_class          = ""db.t3.micro""
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+  15 |
+  16 |
+  17 | resource ""aws_rds_cluster"" ""postgresql"" {
+  18 |   cluster_identifier      = ""aurora-cluster-demo""
+  19 |   engine                  = ""aurora-postgresql""
+  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  21 |   database_name           = ""mydb""
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+  15 |
+  16 |
+> 17 | resource ""aws_rds_cluster"" ""postgresql"" {
+  18 |   cluster_identifier      = ""aurora-cluster-demo""
+  19 |   engine                  = ""aurora-postgresql""
+  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  21 |   database_name           = ""mydb""
+  22 |   master_username         = ""foo""
+  23 |   master_password         = ""bar""
+  24 |   deletion_protection     = true
+  25 |   backup_retention_period = 5
+  26 |   preferred_backup_window = ""07:00-09:00""
+  27 | }
+     ^ Col 0
+",f246._tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,46,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   36 |       BackupRetentionPeriod: 0
   37 |       DBClusterParameterGroupName:
@@ -7185,6 +7086,94 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",f246._cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+> 14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+  22 |   parameter_group_name = ""default.mysql5.7""
+  23 |   skip_final_snapshot  = true
+  24 | }
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage    = 10
+   3 |   deletion_protection  = false
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   instance_class       = ""db.t3.micro""
+   7 |   name                 = ""mydb""
+   8 |   username             = ""foo""
+   9 |   password             = ""foobarbaz""
+  10 |   parameter_group_name = ""default.mysql5.7""
+  11 |   skip_final_snapshot  = true
+  12 | }
+  13 |
+  14 | resource ""aws_db_instance"" ""test"" {
+  15 |   allocated_storage    = 10
+  16 |   engine               = ""mysql""
+  17 |   engine_version       = ""5.7""
+  18 |   instance_class       = ""db.t3.micro""
+  19 |   name                 = ""mydb""
+  20 |   username             = ""user""
+  21 |   password             = ""useradmin""
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+   3 |   engine                  = ""mysql""
+   4 |   engine_version          = ""5.7""
+   5 |   instance_class          = ""db.t3.micro""
+   6 |   name                    = ""mydb""
+   7 |   username                = ""foo""
+   8 |   deletion_protection     = true
+   9 |   password                = ""foobarbaz""
+  10 |   backup_retention_period = 0
+  11 |   parameter_group_name    = ""default.mysql5.7""
+  12 |   skip_final_snapshot     = true
+  13 | }
+     ^ Col 0
+",f246._tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,"
+> 1 | resource ""aws_rds_cluster"" ""example"" {
+  2 |   cluster_identifier   = ""example""
+  3 |   deletion_protection  = false
+  4 |   db_subnet_group_name = aws_db_subnet_group.example.name
+  5 |   engine_mode          = ""multimaster""
+  6 |   master_password      = ""barbarbarbar""
+  7 |   master_username      = ""foo""
+  8 |   skip_final_snapshot  = true
+  9 | }
+    ^ Col 0
+",f246._tfm_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
+> 1 | resource ""aws_rds_cluster"" ""default"" {
+  2 |   cluster_identifier      = ""aurora-cluster-demo""
+  3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  4 |   database_name           = ""mydb""
+  5 |   master_username         = ""foo""
+  6 |   master_password         = ""bar""
+  7 |   backup_retention_period = 0
+  8 |   preferred_backup_window = ""07:00-09:00""
+  9 | }
+    ^ Col 0
+",f246._tfm_rds_has_unencrypted_storage
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,16,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    6 |       Name: MyTargets
    7 |       Port: 443

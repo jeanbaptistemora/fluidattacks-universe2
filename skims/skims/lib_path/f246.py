@@ -109,7 +109,7 @@ def _tfm_rds_has_unencrypted_storage(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F246_CWE},
-        description_key="F246.title",
+        description_key="src.lib_path.f246.rds_has_unencrypted_storage",
         finding=_FINDING_F246,
         iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
@@ -128,7 +128,7 @@ def _tfm_db_has_unencrypted_storage(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F246_CWE},
-        description_key="F246.title",
+        description_key="src.lib_path.f246.rds_has_unencrypted_storage",
         finding=_FINDING_F246,
         iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
