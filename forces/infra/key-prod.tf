@@ -125,9 +125,10 @@ resource "aws_kms_key" "key-forces-prod" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "forces-production"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "forces-production"
+    "management:area"    = "cost"
+    "management:product" = "forces"
+    "management:type"    = "product"
   }
 }
 
