@@ -153,7 +153,7 @@ def get_new_context() -> Dataloaders:
         finding_vulns_non_deleted_typed_loader
     )
     finding_vulns_zr_typed_loader = FindingVulnsOnlyZeroRiskTypedLoader(
-        finding_vulns_typed_loader
+        finding_vulns_non_deleted_typed_loader
     )
 
     return Dataloaders(
@@ -185,9 +185,7 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_lines=ToeLinesLoader(),
-        vulnerability_typed=VulnerabilityTypedLoader(
-            VulnNewLoader(), vulnerability_loader
-        ),
+        vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
             vulnerability_loader
         ),

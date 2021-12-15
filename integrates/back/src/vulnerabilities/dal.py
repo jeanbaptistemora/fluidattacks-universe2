@@ -76,7 +76,7 @@ async def add(vulnerability: Vulnerability) -> None:
         FI_ENVIRONMENT == "development"
         and vulnerability.state.status != VulnerabilityStateStatus.DELETED
     ):
-        vulns_model.add(vulnerability=vulnerability)
+        await vulns_model.add(vulnerability=vulnerability)
 
 
 async def get_by_finding(
@@ -229,7 +229,7 @@ async def update_metadata(
             data=item,
         )
     if FI_ENVIRONMENT == "development" and not deleted:
-        vulns_model.update_metadata(
+        await vulns_model.update_metadata(
             finding_id=finding_id,
             metadata=metadata,
             vulnerability_id=vulnerability_id,
@@ -254,9 +254,9 @@ async def update_state(
             # Keep deleted items out of the new model while we define the path
             # going forward for archived data
             # details at https://gitlab.com/fluidattacks/product/-/issues/5690
-            vulns_model.remove(vulnerability_id=vulnerability_id)
+            await vulns_model.remove(vulnerability_id=vulnerability_id)
         else:
-            vulns_model.update_historic_entry(
+            await vulns_model.update_historic_entry(
                 current_entry=current_value,
                 entry=state,
                 finding_id=finding_id,
@@ -281,7 +281,7 @@ async def update_historic_state(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic(
+        await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_state,
             vulnerability_id=vulnerability_id,
@@ -309,7 +309,7 @@ async def update_treatment(
             data={"historic_treatment": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_entry(
+        await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=treatment,
             finding_id=finding_id,
@@ -335,7 +335,7 @@ async def update_historic_treatment(
         },
     )
     if FI_ENVIRONMENT == "development" and not deleted:
-        vulns_model.update_historic(
+        await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_treatment,
             vulnerability_id=vulnerability_id,
@@ -363,7 +363,7 @@ async def update_verification(
             data={"historic_verification": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_entry(
+        await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=verification,
             finding_id=finding_id,
@@ -388,7 +388,7 @@ async def update_historic_verification(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic(
+        await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_verification,
             vulnerability_id=vulnerability_id,
@@ -416,7 +416,7 @@ async def update_zero_risk(
             data={"historic_zero_risk": [item]},
         )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic_entry(
+        await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=zero_risk,
             finding_id=finding_id,
@@ -441,7 +441,7 @@ async def update_historic_zero_risk(
         },
     )
     if FI_ENVIRONMENT == "development":
-        vulns_model.update_historic(
+        await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_zero_risk,
             vulnerability_id=vulnerability_id,
