@@ -103,7 +103,7 @@ async def send_mail_deactivated_root(
     await send_mails_async(
         email_to=email_to,
         context={
-            "group_name": group_name,
+            "group": group_name,
             "root_nickname": root_nickname,
             "sast_vulns": sast_vulns,
             "dast_vulns": dast_vulns,
