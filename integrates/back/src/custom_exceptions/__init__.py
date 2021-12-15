@@ -669,7 +669,7 @@ class InvalidStream(CustomBaseException):
 
     def __init__(self) -> None:
         """Constructor"""
-        msg = "Exception - Invalid Stream"
+        msg = "Exception - Invalid stream should start 'home' or 'query'"
         super(InvalidStream, self).__init__(msg)
 
 

@@ -60,8 +60,9 @@ const errorMessageHelper = (message: string): void => {
     msgError(translate.t("groupAlerts.invalidNOfVulns"));
   } else if (message === "Exception - Error Uploading File to S3") {
     msgError(translate.t("groupAlerts.errorTextsad"));
-  } else if (message === "Exception - Invalid Stream") {
-    translate.t("groupAlerts.invalidSchema");
+  } else if (
+    message === "Exception - Invalid stream should start 'home' or 'query'"
+  ) {
     msgError(
       translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream")
     );

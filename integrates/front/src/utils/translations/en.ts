@@ -2189,7 +2189,7 @@ export const enTranslations: ResourceKey = {
         uploadFile: {
           invalidRoot:
             "Active root not found for the repo. Verify the nickname in the scope tab",
-          invalidStream: "Invalid stream, it must start with 'home'",
+          invalidStream: "Invalid stream, it must start with 'home' or 'query'",
           key: "Key '{{key}}' is missing or invalid. ",
           value: "Value is invalid, pattern '{{pattern}}'. ",
         },

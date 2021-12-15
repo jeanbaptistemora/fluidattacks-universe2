@@ -62,9 +62,10 @@ def validate_commit_hash(vuln_commit: str) -> None:
 
 def validate_stream(where: str, stream: str) -> bool:
     url_parsed = urlparse(where)
-    if (
-        len(url_parsed.path) == 0 or url_parsed.path == "/"
-    ) and not stream.lower().startswith("home,"):
+    if (len(url_parsed.path) == 0 or url_parsed.path == "/") and not (
+        stream.lower().startswith("home,")
+        or stream.lower().startswith("query,")
+    ):
         raise InvalidStream()
     return True
 
