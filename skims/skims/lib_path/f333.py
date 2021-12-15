@@ -77,7 +77,7 @@ def _ec2_has_terminate_shutdown_behavior(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F333_CWE},
-        description_key="F333.title",
+        description_key="lib_path.f333.ec2_allows_shutdown_command",
         finding=_FINDING_F333,
         iterator=get_cloud_iterator(
             ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(

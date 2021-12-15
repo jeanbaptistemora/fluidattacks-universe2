@@ -324,6 +324,30 @@ F177,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,1,
   21 |   credit_specification {
      ^ Col 0
 ",f177._ec2_use_default_security_group
+F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,EC2 Launch Templates allows the shutdown command to terminate the instance in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
+  34 |   elastic_inference_accelerator {
+  35 |     type = ""eia1.medium""
+  36 |   }
+  37 |
+  38 |   iam_instance_profile {
+  39 |     name = ""test""
+  40 |   }
+  41 |
+  42 |   image_id = ""ami-test""
+  43 |
+> 44 |   instance_initiated_shutdown_behavior = ""none""
+  45 |
+  46 |   instance_market_options {
+  47 |     market_type = ""spot""
+  48 |   }
+  49 |
+  50 |   instance_type = ""t2.micro""
+  51 |
+  52 |   kernel_id = ""test""
+  53 |
+  54 |   key_name = ""test""
+     ^ Col 0
+",f333._ec2_has_terminate_shutdown_behavior
 F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -497,31 +521,6 @@ F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. 
   36 |   }
      ^ Col 0
 ",f333._ec2_has_not_termination_protection
-F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,"Insecure service configuration - EC2
- in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
-  34 |   elastic_inference_accelerator {
-  35 |     type = ""eia1.medium""
-  36 |   }
-  37 |
-  38 |   iam_instance_profile {
-  39 |     name = ""test""
-  40 |   }
-  41 |
-  42 |   image_id = ""ami-test""
-  43 |
-> 44 |   instance_initiated_shutdown_behavior = ""none""
-  45 |
-  46 |   instance_market_options {
-  47 |     market_type = ""spot""
-  48 |   }
-  49 |
-  50 |   instance_type = ""t2.micro""
-  51 |
-  52 |   kernel_id = ""test""
-  53 |
-  54 |   key_name = ""test""
-     ^ Col 0
-",f333._ec2_has_terminate_shutdown_behavior
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
    1 | Resources:
