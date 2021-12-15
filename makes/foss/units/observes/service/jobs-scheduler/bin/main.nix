@@ -4,7 +4,7 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run jobs_scheduler main "$@"
+    import_and_run jobs_scheduler.cli main "$@"
   '';
   searchPaths = {
     source = [

@@ -1317,7 +1317,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/service/jobs-scheduler/bin:
+/observes/service/jobs-scheduler/bin__run-schedule:
   image: ghcr.io/fluidattacks/makes:21.12
   interruptible: false
   needs: []
@@ -1328,7 +1328,7 @@
       when: never
     - when: always
   script:
-    - m . /observes/service/jobs-scheduler/bin
+    - m . /observes/service/jobs-scheduler/bin 'run-schedule'
   stage: analytics
   tags:
     - autoscaling

@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from jobs_scheduler.cron_2.core import (
     AnyTime,
     Cron,

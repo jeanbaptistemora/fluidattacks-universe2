@@ -260,6 +260,7 @@ in
         }
         {
           output = "/observes/service/jobs-scheduler/bin";
+          args = [ "run-schedule" ];
           gitlabExtra = gitlabScheduled;
         }
         {
@@ -271,8 +272,8 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          args = [ "FI_vulnerabilities" ];
           output = "/observes/etl/dynamo/table";
+          args = [ "FI_vulnerabilities" ];
           gitlabExtra = gitlabScheduled // {
             tags = [ "autoscaling-large" ];
           };
