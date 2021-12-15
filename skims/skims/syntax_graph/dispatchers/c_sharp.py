@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     prefix_expression as c_sharp_prefix_expression,
     return_statement as c_sharp_return_statement,
     throw_statement as c_sharp_throw_statement,
+    type_of_expression as c_sharp_type_of_expression,
     using_directive as c_sharp_using_directive,
     variable_declaration as c_sharp_variable_declaration,
 )
@@ -213,6 +214,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "throw_statement",
         },
         syntax_reader=c_sharp_throw_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_of_expression",
+        },
+        syntax_reader=c_sharp_type_of_expression.reader,
     ),
     Dispatcher(
         applicable_types={
