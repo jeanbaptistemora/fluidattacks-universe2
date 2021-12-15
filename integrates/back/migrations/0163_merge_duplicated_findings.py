@@ -6,8 +6,8 @@ https://gitlab.com/fluidattacks/product/-/issues/5696
 
 Vulns are copied to the oldest finding and the newer ones is deleted.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-12-14 at 02:14:59 UTCUTC
+Finalization Time: 2021-12-14 at 22:00:31 UTCUTC
 """
 
 from aioextensions import (
@@ -158,7 +158,7 @@ async def _get_duplicated_findings(
     findind_date = datetime_utils.get_date_from_iso_str(
         finding.creation.modified_date
     )
-    if findind_date > min(creation_dates):
+    if findind_date >= min(creation_dates):
         print("\tDuplicated but not the oldest one")
         return True
 
@@ -224,7 +224,7 @@ async def process_group(context: Dataloaders, group: str) -> bool:
 async def main() -> None:
     context: Context = Context(headers={}, loaders=get_new_context())
     groups: List[str] = sorted(await groups_domain.get_active_groups())
-    segment: List[str] = groups[:50]
+    segment: List[str] = groups[350:]
     success: bool = all(
         await collect(
             (process_group(context, group) for group in segment), workers=1
