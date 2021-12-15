@@ -3087,3 +3087,33 @@
       title: Compliance with Right to Know and Disclosure Requirements
       link: https://www.itgovernanceusa.com/california-consumer-privacy
   metadata: {}
+"022":
+  title: CERT-C
+  en:
+    description: >
+      The ...
+  es:
+    description: __empty__
+  definitions:
+    "EXP33-C":
+      title: Do not read uninitialized memory
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "INT32-C":
+      title: Ensure that operations on signed integers do not result in overflow
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "STR30-C":
+      title: Do not attempt to modify string literals
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "FIO30-C":
+      title: Exclude user input from format strings
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "FIO32-C":
+      title: Do not perform operations on devices that are only appropriate for files
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "CON38-C":
+      title: Preserve thread safety and liveness when using condition variables
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+    "MSC32-C":
+      title: Properly seed pseudorandom number generators
+      link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
+  metadata: {}
