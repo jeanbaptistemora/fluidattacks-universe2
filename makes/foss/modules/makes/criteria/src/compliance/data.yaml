@@ -3091,7 +3091,15 @@
   title: CERT-C
   en:
     description: >
-      The ...
+      The SEI CERT C Coding Standard, 2016
+      edition provides rules for secure
+      coding in the C programming language.
+      These rules and recommendations are
+      use to develop safe, reliable, and
+      secure systems, for example by eliminating
+      undefined behaviors that can lead to
+      undefined program behaviors and
+      exploitable vulnerabilities.
   es:
     description: __empty__
   definitions:
