@@ -18,6 +18,7 @@ import type {
   IExecution,
   IExploitResult,
   IFoundVulnerabilities,
+  IGetForcesExecution,
   IVulnerabilities,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { Col33, Row, TabsContainer } from "styles/styledComponents";
@@ -36,13 +37,16 @@ const Execution: React.FC<IExecution> = (
   );
   const [searchTextFilter, setSearchTextFilter] = useState("");
 
-  const { loading, data } = useQuery(GET_FORCES_EXECUTION, {
-    skip: isOld,
-    variables: {
-      executionId,
-      groupName,
-    },
-  });
+  const { loading, data } = useQuery<IGetForcesExecution>(
+    GET_FORCES_EXECUTION,
+    {
+      skip: isOld,
+      variables: {
+        executionId,
+        groupName,
+      },
+    }
+  );
 
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
@@ -63,8 +67,7 @@ const Execution: React.FC<IExecution> = (
 
   const execution: IExecution = isOld
     ? props
-    : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
-      { ...props, ...data.forcesExecution };
+    : { ...props, ...data?.forcesExecution };
 
   const onFilterStatus: (filterVal: string) => void = (
     filterVal: string
@@ -123,11 +126,15 @@ const Execution: React.FC<IExecution> = (
   };
 
   const getDatasetFromVulnerabilities: (
-    vulnerabilities: IVulnerabilities
-  ) => Dictionary[] = (vulnerabilities: IVulnerabilities): Dictionary[] => {
-    const vulns: IExploitResult[] = vulnerabilities.open.concat(
-      vulnerabilities.closed.concat(vulnerabilities.accepted)
-    );
+    vulnerabilities: IVulnerabilities | null
+  ) => Dictionary[] = (
+    vulnerabilities: IVulnerabilities | null
+  ): Dictionary[] => {
+    const vulns: IExploitResult[] = _.isNull(vulnerabilities)
+      ? []
+      : vulnerabilities.open.concat(
+          vulnerabilities.closed.concat(vulnerabilities.accepted)
+        );
 
     return vulns.map(
       (elem: IExploitResult): Dictionary => ({

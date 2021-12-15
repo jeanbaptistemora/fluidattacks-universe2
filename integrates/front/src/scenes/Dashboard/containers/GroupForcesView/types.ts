@@ -33,12 +33,20 @@ interface IExecution {
   groupName?: string;
   status: string;
   strictness: string;
-  vulnerabilities: IVulnerabilities;
+  vulnerabilities: IVulnerabilities | null;
 }
 
 interface IGetExecution {
   forcesExecutions: {
     executions: IExecution[];
+  };
+}
+
+interface IGetForcesExecution {
+  forcesExecution: {
+    groupName: string;
+    log: string;
+    vulnerabilities: IVulnerabilities | null;
   };
 }
 
@@ -48,4 +56,5 @@ export {
   IVulnerabilities,
   IExecution,
   IGetExecution,
+  IGetForcesExecution,
 };

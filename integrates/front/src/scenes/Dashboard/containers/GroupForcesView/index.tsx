@@ -226,15 +226,24 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         )
       );
       const { vulnerabilities } = execution;
-      const foundVulnerabilities: IFoundVulnerabilities = {
-        accepted: vulnerabilities.numOfAcceptedVulnerabilities,
-        closed: vulnerabilities.numOfClosedVulnerabilities,
-        open: vulnerabilities.numOfOpenVulnerabilities,
-        total:
-          vulnerabilities.numOfAcceptedVulnerabilities +
-          vulnerabilities.numOfOpenVulnerabilities +
-          vulnerabilities.numOfClosedVulnerabilities,
-      };
+      const foundVulnerabilities: IFoundVulnerabilities = _.isNull(
+        vulnerabilities
+      )
+        ? {
+            accepted: 0,
+            closed: 0,
+            open: 0,
+            total: 0,
+          }
+        : {
+            accepted: vulnerabilities.numOfAcceptedVulnerabilities,
+            closed: vulnerabilities.numOfClosedVulnerabilities,
+            open: vulnerabilities.numOfOpenVulnerabilities,
+            total:
+              vulnerabilities.numOfAcceptedVulnerabilities +
+              vulnerabilities.numOfOpenVulnerabilities +
+              vulnerabilities.numOfClosedVulnerabilities,
+          };
       const status: string = translate.t(
         foundVulnerabilities.open === 0
           ? "group.forces.status.secure"
