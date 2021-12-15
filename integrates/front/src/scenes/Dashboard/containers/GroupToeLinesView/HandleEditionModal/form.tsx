@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 import { AttackedAtField } from "./AttackedAtField ";
 import { AttackedLinesField } from "./AttackedLinesField";
 import { CommentsField } from "./CommentsField";
-import type { IFormValues, IHandleEditModalFormProps } from "./types";
+import type { IFormValues, IHandleEditionModalFormProps } from "./types";
 
 import { Button } from "components/Button";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 
-const HandleEditModalForm: React.FC<IHandleEditModalFormProps> = (
-  props: IHandleEditModalFormProps
+const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
+  props: IHandleEditionModalFormProps
 ): JSX.Element => {
   const { selectedToeLinesDatas, handleCloseModal } = props;
 
@@ -51,4 +51,4 @@ const HandleEditModalForm: React.FC<IHandleEditModalFormProps> = (
   );
 };
 
-export { HandleEditModalForm };
+export { HandleEditionModalForm };

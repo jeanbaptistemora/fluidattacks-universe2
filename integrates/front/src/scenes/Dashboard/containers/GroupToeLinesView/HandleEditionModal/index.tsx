@@ -7,11 +7,11 @@ import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { HandleEditModalForm } from "./form";
+import { HandleEditionModalForm } from "./form";
 import { UPDATE_TOE_LINES_ATTACKED_LINES } from "./queries";
 import type {
   IFormValues,
-  IHandleEditModalProps,
+  IHandleEditionModalProps,
   IUpdateToeLinesAttackedLinesResultAttr,
 } from "./types";
 
@@ -20,8 +20,8 @@ import { Modal } from "components/Modal";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const HandleEditModal: React.FC<IHandleEditModalProps> = (
-  props: IHandleEditModalProps
+const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
+  props: IHandleEditionModalProps
 ): JSX.Element => {
   const { groupName, selectedToeLinesDatas, handleCloseModal, refetchData } =
     props;
@@ -89,10 +89,10 @@ const HandleEditModal: React.FC<IHandleEditModalProps> = (
       ]): Promise<unknown> =>
         handleUpdateToeLinesAttackedLines({
           variables: {
-            attackedAt: values.attackedAt,
-            attackedLines: _.isEmpty(values.attackedLines)
-              ? undefined
-              : values.attackedLines,
+            attackedAt: values.attackedAt.format(),
+            attackedLines: _.isNumber(values.attackedLines)
+              ? values.attackedLines
+              : undefined,
             comments: values.comments,
             filenames: rootSelectedToeLinesDatas.map(
               (selectedToeLinesData: IToeLinesData): string =>
@@ -123,7 +123,7 @@ const HandleEditModal: React.FC<IHandleEditModalProps> = (
           name={"updateToeLinesAttackedLines"}
           onSubmit={handleSubmit}
         >
-          <HandleEditModalForm
+          <HandleEditionModalForm
             handleCloseModal={handleCloseModal}
             selectedToeLinesDatas={selectedToeLinesDatas}
           />
@@ -133,4 +133,4 @@ const HandleEditModal: React.FC<IHandleEditModalProps> = (
   );
 };
 
-export { HandleEditModal };
+export { HandleEditionModal };

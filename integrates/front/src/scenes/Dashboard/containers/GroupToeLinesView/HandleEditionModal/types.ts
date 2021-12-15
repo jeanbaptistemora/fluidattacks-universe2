@@ -8,7 +8,7 @@ interface IFormValues {
   comments: string;
 }
 
-interface IHandleEditModalFormProps {
+interface IHandleEditionModalFormProps {
   selectedToeLinesDatas: IToeLinesData[];
   handleCloseModal: () => void;
 }
@@ -19,7 +19,7 @@ interface IUpdateToeLinesAttackedLinesResultAttr {
   };
 }
 
-interface IHandleEditModalProps {
+interface IHandleEditionModalProps {
   groupName: string;
   selectedToeLinesDatas: IToeLinesData[];
   handleCloseModal: () => void;
@@ -28,7 +28,7 @@ interface IHandleEditModalProps {
 
 export {
   IFormValues,
-  IHandleEditModalProps,
-  IHandleEditModalFormProps,
+  IHandleEditionModalProps,
+  IHandleEditionModalFormProps,
   IUpdateToeLinesAttackedLinesResultAttr,
 };
