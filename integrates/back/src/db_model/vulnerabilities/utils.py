@@ -21,9 +21,16 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
+    Tuple,
     Union,
 )
 
+VulnerabilityHistoric = Union[
+    Tuple[VulnerabilityState, ...],
+    Tuple[VulnerabilityTreatment, ...],
+    Tuple[VulnerabilityVerification, ...],
+    Tuple[VulnerabilityZeroRisk, ...],
+]
 VulnerabilityHistoricEntry = Union[
     VulnerabilityState,
     VulnerabilityTreatment,

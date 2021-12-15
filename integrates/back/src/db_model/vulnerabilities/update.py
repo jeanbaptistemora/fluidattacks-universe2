@@ -10,6 +10,7 @@ from .types import (
 )
 from .utils import (
     historic_entry_type_to_str,
+    VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
 )
 from boto3.dynamodb.conditions import (
@@ -614,5 +615,79 @@ async def update_historic_entry(
     await operations.put_item(
         facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
         item=historic_item,
+        table=TABLE,
+    )
+
+
+async def update_historic(
+    *,
+    finding_id: str,
+    historic: VulnerabilityHistoric,
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    latest_entry = historic[-1]
+    entry_type = historic_entry_type_to_str(latest_entry)
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        vulnerability_item = {entry_type: json.loads(json.dumps(latest_entry))}
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
+        values={"id": vulnerability_id},
+    )
+    current_response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
+        ),
+        facets=(TABLE.facets[f"vulnerability_historic_{entry_type}"],),
+        table=TABLE,
+    )
+    current_items = current_response.items
+    current_keys = {
+        keys.build_key(
+            facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": item["modified_date"],
+            },
+        )
+        for item in current_items
+    }
+
+    new_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
+            values={
+                "id": vulnerability_id,
+                "iso8601utc": entry.modified_date,
+            },
+        )
+        for entry in historic
+    )
+    new_items = tuple(
+        {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+            **json.loads(json.dumps(entry)),
+        }
+        for key, entry in zip(new_keys, historic)
+    )
+    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_delete_item(
+        keys=tuple(key for key in current_keys if key not in new_keys),
         table=TABLE,
     )
