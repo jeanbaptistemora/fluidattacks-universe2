@@ -13,7 +13,6 @@ We can monitor our applications,
 react to performance changes within them,
 optimize resource utilization,
 and get a unified view of operational health.
-
 The main reasons why we chose it
 over other alternatives
 are the following:
@@ -21,15 +20,14 @@ are the following:
 - It is a core AWS service.
   Once we start creating infrastructure,
   CloudWatch begins to monitor it.
-- It seamlessly integrates with most AWS services.
+- It integrates seamlessly with most AWS services.
   Some examples are [EC2][EC2],
   [S3](/development/stack/aws/s3/),
   and
   [DynamoDB](/development/stack/aws/dynamodb/).
 - It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
   certifications from [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
-  and
-  [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+  and [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
   Many of these certifications are focused
   on granting that the entity follows best practices
   regarding secure [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing)
@@ -55,13 +53,13 @@ are the following:
 ## Alternatives
 
 - **[GCP Cloud Monitoring](https://cloud.google.com/monitoring):**
-    It did not exist
-    at the time we migrated to the cloud
-    (pending review).
+  It did not exist
+  at the time we migrated to the cloud
+  (pending review).
 - **[Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview):**
-    It did not exist
-    at the time we migrated to the cloud
-    (pending review).
+  It did not exist
+  at the time we migrated to the cloud
+  (pending review).
 
 ## Usage
 
@@ -113,7 +111,7 @@ We do not use CloudWatch for
 - [CloudWatch Application Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-application-insights.html)
   (it only supports [Java-based](https://en.wikipedia.org/wiki/Java_(programming_language))
   applications),
-  and
+  or
 - writing our [alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
   as code
   using [Terraform](/development/stack/terraform/)
