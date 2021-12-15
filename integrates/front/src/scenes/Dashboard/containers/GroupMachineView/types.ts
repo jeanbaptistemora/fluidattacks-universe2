@@ -12,7 +12,7 @@ interface IExecution {
   createdAt: string;
   startedAt: string;
   stoppedAt: string;
-  duration: string;
+  duration: number;
   findingsExecuted: IFindingExecuted[];
   name: string;
   queue: string;

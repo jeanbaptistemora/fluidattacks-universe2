@@ -19,7 +19,7 @@ import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { formatDuration } from "utils/formatHelpers";
+import { formatDate, formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -30,7 +30,7 @@ const GroupMachineView: React.FC = (): JSX.Element => {
   // States
   const defaultCurrentRow: IExecution = {
     createdAt: "",
-    duration: "",
+    duration: 0,
     findingsExecuted: [],
     jobId: "",
     name: "",
@@ -59,6 +59,7 @@ const GroupMachineView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "createdAt",
+      formatter: formatDate,
       header: translate.t("group.machine.date.create"),
     },
     {
@@ -76,12 +77,14 @@ const GroupMachineView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "startedAt",
+      formatter: formatDate,
       header: translate.t("group.machine.date.start"),
       wrapped: true,
     },
     {
       align: "center",
       dataField: "duration",
+      formatter: formatDuration,
       header: translate.t("group.machine.date.duration"),
       wrapped: true,
     },
@@ -119,11 +122,11 @@ const GroupMachineView: React.FC = (): JSX.Element => {
         (_execution: IMachineExecution): IExecution => {
           const duration =
             // @ts-expect-error operation between dates
-            new Date(_execution.startedAt) - new Date(_execution.stoppedAt);
+            new Date(_execution.stoppedAt) - new Date(_execution.startedAt);
 
           return {
             ..._execution,
-            duration: formatDuration(duration),
+            duration,
             rootId: root.id,
             rootNickname: root.nickname,
           };
