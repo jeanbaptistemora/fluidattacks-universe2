@@ -7,6 +7,9 @@ import pandas as pd
 from pandas import (
     DataFrame,
 )
+from sorts.constants import (
+    FERNET,
+)
 from sorts.features.file import (
     extract_features,
 )
@@ -63,9 +66,12 @@ def get_toes_to_update(
     toes_to_update: List[ToeLines] = []
     pred_range_lim = 3
     for predicted_file in predicted_files:
-        predicted_nickname, predicted_file_filename = predicted_file[
-            "file"
-        ].split("/", 1)
+        decryped_filepath = FERNET.decrypt(
+            predicted_file["file"].encode()
+        ).decode()
+        predicted_nickname, predicted_file_filename = decryped_filepath.split(
+            "/", 1
+        )
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
         for toe_lines in group_toe_lines:
             if (

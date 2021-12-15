@@ -1,9 +1,6 @@
 from category_encoders import (
     BinaryEncoder,
 )
-from cryptography.fernet import (
-    Fernet,
-)
 from datetime import (
     datetime,
 )
@@ -17,6 +14,9 @@ from pandas import (
     Series,
 )
 import pytz  # type: ignore
+from sorts.constants import (
+    FERNET,
+)
 from sorts.utils.logs import (
     log,
     log_exception,
@@ -219,9 +219,7 @@ def get_unique_authors(git_metrics: GitMetrics) -> List[str]:
 
 
 def encrypt_column_values(value: str) -> str:
-    fernet = Fernet(Fernet.generate_key())
-
-    return fernet.encrypt(value.encode()).decode()
+    return FERNET.encrypt(value.encode()).decode()
 
 
 def format_dataset(training_df: DataFrame) -> DataFrame:

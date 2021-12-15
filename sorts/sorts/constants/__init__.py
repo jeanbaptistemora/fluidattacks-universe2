@@ -1,4 +1,7 @@
 import bugsnag
+from cryptography.fernet import (
+    Fernet,
+)
 import logging
 from multiprocessing import (
     Manager,
@@ -37,3 +40,6 @@ LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
 LOGGER: logging.Logger = logging.getLogger("Sorts")
 LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
 LOGGER_REMOTE: logging.Logger = logging.getLogger("Sorts.stability")
+
+# Encryption
+FERNET = Fernet(Fernet.generate_key())
