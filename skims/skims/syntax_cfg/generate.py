@@ -9,6 +9,9 @@ from syntax_cfg.types import (
     MissingCfgBuilder,
     SyntaxCfgArgs,
 )
+from typing import (
+    Optional,
+)
 from utils import (
     logs,
 )
@@ -24,10 +27,10 @@ def generic(args: SyntaxCfgArgs) -> NId:
     raise MissingCfgBuilder(f"Missing cfg builder for {node_type}")
 
 
-def build_syntax_cfg(graph: Graph) -> bool:
+def add_syntax_cfg(graph: Graph) -> Optional[Graph]:
     try:
         generic(args=SyntaxCfgArgs(generic, graph, n_id="1", nxt_id=None))
-        return True
+        return graph
     except MissingCfgBuilder as error:
         logs.log_blocking("warning", error)
-        return False
+        return None

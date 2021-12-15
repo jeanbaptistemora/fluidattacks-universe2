@@ -28,6 +28,12 @@ from sast_transformations import (
     danger_nodes,
     styles,
 )
+from syntax_cfg.generate import (
+    add_syntax_cfg,
+)
+from syntax_graph.generate import (
+    build_syntax_graph,
+)
 from tree_sitter import (
     Language,
     Node,
@@ -263,12 +269,20 @@ def _parse_one_cached(
     content: bytes,
     language: GraphShardMetadataLanguage,
     _: int,
+    syntax_graph_enabled: bool = False,
 ) -> GraphShardCacheable:
     raw_tree: Tree = parse_content(content, language)
     node: Node = raw_tree.root_node
 
     counter = map(str, count(1))
     graph: Graph = _build_ast_graph(content, language, node, counter, Graph())
+
+    if syntax_graph_enabled:
+        if syntax_graph := build_syntax_graph(language, graph):
+            syntax_graph = add_syntax_cfg(syntax_graph)
+    else:
+        syntax_graph = None
+
     control_flow.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
@@ -285,6 +299,7 @@ def _parse_one_cached(
         graph=graph,
         metadata=metadata,
         syntax=syntax,
+        syntax_graph=syntax_graph,
     )
 
 
@@ -369,6 +384,7 @@ def parse_one(
         metadata=graph.metadata,
         path=path,
         syntax=graph.syntax,
+        syntax_graph=graph.syntax_graph,
     )
 
 

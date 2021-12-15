@@ -422,6 +422,7 @@ class GraphShardCacheable(NamedTuple):
     graph: Graph
     metadata: GraphShardMetadata
     syntax: GraphSyntax
+    syntax_graph: Optional[Graph]
 
 
 class GraphShard(NamedTuple):
@@ -429,6 +430,7 @@ class GraphShard(NamedTuple):
     metadata: GraphShardMetadata
     path: str
     syntax: GraphSyntax
+    syntax_graph: Optional[Graph]
 
 
 class GraphVulnerabilityParameters(NamedTuple):

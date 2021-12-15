@@ -12850,7 +12850,8 @@
             "type": "SyntaxStepMethodInvocationChain"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -16326,7 +16327,8 @@
             "var_type": "String"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     }
   ],
   "shards_by_language_class": {

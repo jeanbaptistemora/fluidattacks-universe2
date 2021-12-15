@@ -8344,7 +8344,8 @@
             "var_type": "javax.servlet.http.Cookie"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -12630,7 +12631,8 @@
             "var_type": "HttpServletResponse"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -21892,7 +21894,8 @@
             "var_type": "HttpServletResponse"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     }
   ],
   "shards_by_language_class": {

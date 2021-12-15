@@ -1559,7 +1559,8 @@
             "var_type": "java.io.FileInputStream"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -2433,7 +2434,8 @@
             "type": "SyntaxStepNoOp"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     }
   ],
   "shards_by_language_class": {

@@ -5615,7 +5615,8 @@
             "type": "SyntaxStepIf"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -20551,7 +20552,8 @@
             "type": "SyntaxStepReturn"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -29084,7 +29086,8 @@
             "type": "SyntaxStepBinaryExpression"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -31795,7 +31798,8 @@
             "var_type": "var"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     }
   ],
   "shards_by_language_class": {

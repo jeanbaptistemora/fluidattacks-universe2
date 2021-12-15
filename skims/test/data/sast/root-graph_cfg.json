@@ -25966,7 +25966,8 @@
             "type": "SyntaxStepNoOp"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -52152,7 +52153,8 @@
             "type": "SyntaxStepNoOp"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -72401,7 +72403,8 @@
             "var": "x"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     },
     {
       "graph": {
@@ -100337,7 +100340,8 @@
             "var_type": "String"
           }
         ]
-      }
+      },
+      "syntax_graph": null
     }
   ],
   "shards_by_language_class": {
