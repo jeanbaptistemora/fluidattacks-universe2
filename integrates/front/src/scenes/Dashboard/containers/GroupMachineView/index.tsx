@@ -2,9 +2,10 @@ import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { Execution } from "./execution";
 import { GET_MACHINE_EXECUTIONS } from "./queries";
 import type {
   IExecution,
@@ -13,33 +14,42 @@ import type {
   IRoot,
 } from "./types";
 
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const transformDuration = (value: number): string => {
-  if (value < 0) {
-    return "-";
-  }
-  const secondsInMili = 1000;
-  const factor = 60;
-
-  const seconds = Math.trunc(value / secondsInMili);
-  const minutes = Math.trunc(seconds / factor);
-  const ss = seconds % factor;
-  const hh = Math.trunc(minutes / factor);
-  const mm = minutes % factor;
-  const hhStr = hh.toString().length === 1 ? `0${hh}` : hh.toString();
-  const mmStr = hh.toString().length === 1 ? `0${mm}` : mm.toString();
-  const ssStr = ss.toString().length === 1 ? `0${ss}` : ss.toString();
-
-  return `${hhStr}:${mmStr}:${ssStr}`;
-};
-
 const GroupMachineView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+
+  // States
+  const defaultCurrentRow: IExecution = {
+    createdAt: "",
+    duration: "",
+    findingsExecuted: [],
+    jobId: "",
+    name: "",
+    queue: "",
+    rootId: "",
+    rootNickname: "",
+    startedAt: "",
+    stoppedAt: "",
+  };
+
+  const [currentRow, updateRow] = useState(defaultCurrentRow);
+
+  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
+    useState(false);
+
+  const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
+    setExecutionDetailsModalOpen(false);
+  }, []);
+
   const headersExecutionTable: IHeaderConfig[] = [
     {
       align: "center",
@@ -77,6 +87,14 @@ const GroupMachineView: React.FC = (): JSX.Element => {
     },
   ];
 
+  const openSeeExecutionDetailsModal: (
+    event: Record<string, unknown>,
+    row: IExecution
+  ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
+    updateRow(row);
+    setExecutionDetailsModalOpen(true);
+  };
+
   const handleQryErrors: (error: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -105,7 +123,7 @@ const GroupMachineView: React.FC = (): JSX.Element => {
 
           return {
             ..._execution,
-            duration: transformDuration(duration),
+            duration: formatDuration(duration),
             rootId: root.id,
             rootNickname: root.nickname,
           };
@@ -124,8 +142,37 @@ const GroupMachineView: React.FC = (): JSX.Element => {
         headers={headersExecutionTable}
         id={"tblMachineExecutions"}
         pageSize={100}
+        rowEvents={{ onClick: openSeeExecutionDetailsModal }}
         search={false}
       />
+      <Modal
+        headerTitle={translate.t("group.machine.executionDetailsModal.title")}
+        onEsc={closeSeeExecutionDetailsModal}
+        open={isExecutionDetailsModalOpen}
+        size={"largeModal"}
+      >
+        <Execution
+          createdAt={currentRow.createdAt}
+          duration={currentRow.duration}
+          findingsExecuted={currentRow.findingsExecuted}
+          jobId={currentRow.jobId}
+          name={currentRow.name}
+          queue={currentRow.queue}
+          rootId={currentRow.rootId}
+          rootNickname={currentRow.rootNickname}
+          startedAt={currentRow.startedAt}
+          stoppedAt={currentRow.stoppedAt}
+        />
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={closeSeeExecutionDetailsModal}>
+                {translate.t("group.forces.executionDetailsModal.close")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
+      </Modal>
     </React.StrictMode>
   );
 };

@@ -553,12 +553,18 @@ export const enTranslations: ResourceKey = {
     },
     machine: {
       date: {
-        create: "Queue Date",
+        create: "Queue date",
         duration: "Duration",
         start: "Start time",
+        stop: "Finish date",
       },
       executionDetailsModal: {
         title: "Execution details",
+      },
+      finding: {
+        finding: "Finding",
+        modified: "Modified",
+        open: "Open",
       },
       job: {
         id: "Batch job id",
@@ -566,6 +572,7 @@ export const enTranslations: ResourceKey = {
         queue: "Batch queue name",
       },
       root: "Root",
+      rootId: "Root Id",
       tableAdvice: "Click on an execution to see more details",
     },
     scope: {
