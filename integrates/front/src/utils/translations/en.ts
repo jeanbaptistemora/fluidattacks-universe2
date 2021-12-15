@@ -770,7 +770,13 @@ export const enTranslations: ResourceKey = {
         daysToAttack: "Days to attack",
         editModal: {
           alerts: {
-            success: "Lines has been updated",
+            alreadyUpdate: "Something modified the lines during the edition.",
+            invalidAttackedAt:
+              "The attacked at is not valid. There is a new datetime.",
+            invalidAttackedLines:
+              "The attacked lines are not valid. Loc has been changed.",
+            nonPresent: "The lines is not present.",
+            success: "Lines has been updated.",
           },
           close: "Close",
           fields: {

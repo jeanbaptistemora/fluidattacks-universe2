@@ -23,6 +23,7 @@ interface IHandleEditModalProps {
   groupName: string;
   selectedToeLinesDatas: IToeLinesData[];
   handleCloseModal: () => void;
+  refetchData: () => void;
 }
 
 export {

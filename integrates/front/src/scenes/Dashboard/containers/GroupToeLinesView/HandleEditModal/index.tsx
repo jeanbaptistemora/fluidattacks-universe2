@@ -1,5 +1,7 @@
+import type { ApolloError } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { Formik } from "formik";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
@@ -15,11 +17,14 @@ import type {
 
 import type { IToeLinesData } from "../types";
 import { Modal } from "components/Modal";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const HandleEditModal: React.FC<IHandleEditModalProps> = (
   props: IHandleEditModalProps
 ): JSX.Element => {
-  const { groupName, selectedToeLinesDatas, handleCloseModal } = props;
+  const { groupName, selectedToeLinesDatas, handleCloseModal, refetchData } =
+    props;
 
   const { t } = useTranslation();
 
@@ -28,7 +33,47 @@ const HandleEditModal: React.FC<IHandleEditModalProps> = (
   // GraphQL operations
   const [handleUpdateToeLinesAttackedLines] =
     useMutation<IUpdateToeLinesAttackedLinesResultAttr>(
-      UPDATE_TOE_LINES_ATTACKED_LINES
+      UPDATE_TOE_LINES_ATTACKED_LINES,
+      {
+        onCompleted: (data: IUpdateToeLinesAttackedLinesResultAttr): void => {
+          if (data.updateToeLinesAttackedLines.success) {
+            msgSuccess(
+              t("group.toe.lines.editModal.alerts.success"),
+              t("groupAlerts.updatedTitle")
+            );
+            refetchData();
+            handleCloseModal();
+          }
+        },
+        onError: (errors: ApolloError): void => {
+          errors.graphQLErrors.forEach((error: GraphQLError): void => {
+            switch (error.message) {
+              case "Exception - The toe lines is not present":
+                msgError(t("group.toe.lines.editModal.alerts.nonPresent"));
+                break;
+              case "Exception - The attack time must be between the previous attack and the current time":
+                msgError(
+                  t("group.toe.lines.editModal.alerts.invalidAttackedAt")
+                );
+                break;
+              case "Exception - The attacked lines must be between 1 and the loc (lines of code)":
+                msgError(
+                  t("group.toe.lines.editModal.alerts.invalidAttackedLines")
+                );
+                break;
+              case "Exception - The toe lines has been updated by another operation":
+                msgError(t("group.toe.lines.editModal.alerts.alreadyUpdate"));
+                break;
+              default:
+                msgError(t("groupAlerts.errorTextsad"));
+                Logger.warning(
+                  "An error occurred updating the toe lines attacked lines",
+                  error
+                );
+            }
+          });
+        },
+      }
     );
 
   function handleSubmit(values: IFormValues): void {
