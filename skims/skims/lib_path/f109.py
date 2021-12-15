@@ -104,7 +104,9 @@ def _tfm_db_cluster_inside_subnet(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F109_CWE},
-        description_key="F109.title",
+        description_key=(
+            "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
+        ),
         finding=_FINDING_F109,
         iterator=get_cloud_iterator(
             tfm_db_cluster_inside_subnet_iterate_vulnerabilities(
@@ -123,7 +125,9 @@ def _tfm_rds_instance_inside_subnet(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F109_CWE},
-        description_key="F109.title",
+        description_key=(
+            "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
+        ),
         finding=_FINDING_F109,
         iterator=get_cloud_iterator(
             tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
