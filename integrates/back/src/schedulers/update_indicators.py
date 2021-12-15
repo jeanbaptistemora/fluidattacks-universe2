@@ -82,9 +82,11 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
     accepted_vulnerabilities: int
     closed_vulnerabilities: int
     found_vulnerabilities: int
+    open_vulnerabilities: int
     accepted_cvssf: Decimal
     closed_cvssf: Decimal
     found_cvssf: Decimal
+    open_cvssf: Decimal
 
 
 class RegisterByTime(NamedTuple):
@@ -288,9 +290,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                         + result_vulns_by_week.closed_vulnerabilities
                     ),
                     "opened": Decimal(
-                        found
-                        - result_vulns_by_week.closed_vulnerabilities
-                        - result_vulns_by_week.accepted_vulnerabilities
+                        result_vulns_by_week.open_vulnerabilities
                     ),
                 }
                 all_registers_cvsff[week_dates] = {
@@ -305,11 +305,9 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                         result_vulns_by_week.accepted_cvssf
                         + result_vulns_by_week.closed_cvssf
                     ).quantize(Decimal("0.1")),
-                    "opened": (
-                        found_cvssf
-                        - result_vulns_by_week.closed_cvssf
-                        - result_vulns_by_week.accepted_cvssf
-                    ).quantize(Decimal("0.1")),
+                    "opened": result_vulns_by_week.open_cvssf.quantize(
+                        Decimal("0.1")
+                    ),
                 }
             if exposed_cvssf != (
                 result_cvssf_by_week.low
@@ -433,9 +431,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                         + result_vulns_by_month.closed_vulnerabilities
                     ),
                     "opened": Decimal(
-                        found
-                        - result_vulns_by_month.closed_vulnerabilities
-                        - result_vulns_by_month.accepted_vulnerabilities
+                        result_vulns_by_month.open_vulnerabilities
                     ),
                 }
                 all_registers_cvsff[month_dates] = {
@@ -450,11 +446,9 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
                         result_vulns_by_month.accepted_cvssf
                         + result_vulns_by_month.closed_cvssf
                     ).quantize(Decimal("0.1")),
-                    "opened": (
-                        found_cvssf
-                        - result_vulns_by_month.closed_cvssf
-                        - result_vulns_by_month.accepted_cvssf
-                    ).quantize(Decimal("0.1")),
+                    "opened": result_vulns_by_month.open_cvssf.quantize(
+                        Decimal("0.1")
+                    ),
                 }
 
             if exposed_cvssf != (
@@ -579,6 +573,54 @@ def get_accepted_vulns(
             severity,
             last_day,
             min_date,
+        )
+    return VulnerabilityStatusByTimeRange(
+        vulnerabilities=0, cvssf=Decimal("0.0")
+    )
+
+
+def get_open_vulnerabilities(
+    *,
+    historic_state: Tuple[VulnerabilityState, ...],
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    severity: Decimal,
+    last_day: str,
+    min_date: Optional[str] = None,
+) -> VulnerabilityStatusByTimeRange:
+    accepted_treatments = {
+        VulnerabilityTreatmentStatus.ACCEPTED,
+        VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+    }
+    treatments = tuple(
+        treatment
+        for treatment in historic_treatment
+        if datetime.fromisoformat(treatment.modified_date)
+        <= datetime_utils.get_from_str(last_day)
+    )
+    states = tuple(
+        state
+        for state in historic_state
+        if datetime.fromisoformat(state.modified_date)
+        <= datetime_utils.get_from_str(last_day)
+    )
+    if (
+        states
+        and datetime.fromisoformat(states[-1].modified_date)
+        <= datetime_utils.get_from_str(last_day)
+        and states[-1].status == VulnerabilityStateStatus.OPEN
+        and not (
+            min_date
+            and datetime.fromisoformat(historic_state[0].modified_date)
+            < datetime_utils.get_from_str(min_date)
+        )
+    ):
+        if treatments and treatments[-1].status in accepted_treatments:
+            return VulnerabilityStatusByTimeRange(
+                vulnerabilities=0, cvssf=Decimal("0.0")
+            )
+
+        return VulnerabilityStatusByTimeRange(
+            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
@@ -893,12 +935,41 @@ def get_status_vulns_by_time_range(
             vulnerabilities_severity,
         )
     ]
+    vulnerabilities_open: Tuple[VulnerabilityStatusByTimeRange, ...] = tuple(
+        get_open_vulnerabilities(
+            historic_state=historic_state,
+            historic_treatment=historic_treatment,
+            severity=severity,
+            last_day=last_day,
+            min_date=min_date,
+        )
+        for historic_state, historic_treatment, severity in zip(
+            vulnerabilities_historic_states,
+            vulnerabilities_historic_treatments,
+            vulnerabilities_severity,
+        )
+    )
+
     return VulnerabilitiesStatusByTimeRange(
         found_vulnerabilities=sum(
             [found.vulnerabilities for found in vulnerabilities_found]
         ),
         found_cvssf=Decimal(
             sum([found.cvssf for found in vulnerabilities_found])
+        ),
+        open_vulnerabilities=sum(
+            [
+                vulnerability_open.vulnerabilities
+                for vulnerability_open in vulnerabilities_open
+            ]
+        ),
+        open_cvssf=Decimal(
+            sum(
+                [
+                    vulnerability_open.cvssf
+                    for vulnerability_open in vulnerabilities_open
+                ]
+            )
         ),
         accepted_vulnerabilities=sum(
             [accepted.vulnerabilities for accepted in vulnerabilities_accepted]
