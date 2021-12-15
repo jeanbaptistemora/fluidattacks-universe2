@@ -7,15 +7,9 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
     mi_attrs = args.graph.nodes[args.n_id]
 
     al_id = mi_attrs["arguments_id"]
-    expr_id = mi_attrs["expression_id"]
-    ma_attrs = args.graph.nodes[expr_id]
+    al_danger = args.evaluation[al_id]
 
-    if (
-        args.graph.nodes[expr_id]["label_type"] == "MemberAccess"
-        and ma_attrs["expression"] == "WebRequest"
-        and ma_attrs["member"] == "Create"
-        and args.evaluation[al_id]
-    ):
+    if mi_attrs["expression"] == "WebRequest.Create" and al_danger:
         args.evaluation[args.n_id] = True
     else:
         args.evaluation[args.n_id] = False
