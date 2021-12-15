@@ -114,9 +114,10 @@ resource "aws_kms_key" "dev" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "docs_dev"
-    "management:area" = "innovation"
-    "management:type" = "product"
+    "Name"               = "docs_dev"
+    "management:area"    = "innovation"
+    "management:product" = "docs"
+    "management:type"    = "product"
   }
 }
 
@@ -236,9 +237,10 @@ resource "aws_kms_key" "prod" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "docs_prod"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "docs_prod"
+    "management:area"    = "cost"
+    "management:product" = "docs"
+    "management:type"    = "product"
   }
 }
 
