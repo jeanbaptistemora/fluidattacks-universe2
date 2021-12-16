@@ -122,11 +122,6 @@ class Dataloaders(NamedTuple):
         VulnerabilityHistoricVerificationLoader
     )
     vulnerability_historic_zero_risk: VulnerabilityHistoricZeroRiskLoader
-    vuln_historic_state_new: VulnHistoricStateNewLoader
-    vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
-    vuln_historic_verification_new: VulnHistoricVerificationNewLoader
-    vuln_historic_zero_risk_new: VulnHistoricZeroRiskNewLoader
-    vuln_new: VulnNewLoader
 
 
 def apply_context_attrs(
@@ -203,9 +198,4 @@ def get_new_context() -> Dataloaders:
         vulnerability_historic_zero_risk=VulnerabilityHistoricZeroRiskLoader(
             VulnHistoricZeroRiskNewLoader(), vulnerability_loader
         ),
-        vuln_historic_state_new=VulnHistoricStateNewLoader(),
-        vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),
-        vuln_historic_verification_new=VulnHistoricVerificationNewLoader(),
-        vuln_historic_zero_risk_new=VulnHistoricZeroRiskNewLoader(),
-        vuln_new=VulnNewLoader(),
     )

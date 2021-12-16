@@ -116,7 +116,11 @@ def _build_query_args(
 
 
 def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
-    return {key: value for key, value in args.items() if value is not None}
+    return {
+        key: _exclude_none(args=value) if isinstance(value, dict) else value
+        for key, value in args.items()
+        if value is not None
+    }
 
 
 @newrelic.agent.function_trace()
