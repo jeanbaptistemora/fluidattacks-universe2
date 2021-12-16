@@ -26,7 +26,7 @@ WS = r"\s*"
 # Regexes
 RE_MAVEN_A: Pattern[str] = re.compile(
     r"^.*"
-    fr"{WS}(?:compile|implementation){WS}[(]?{WS}"
+    fr"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
     fr"group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}"
     fr",{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}"
     fr"(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?"
@@ -34,7 +34,7 @@ RE_MAVEN_A: Pattern[str] = re.compile(
 )
 RE_MAVEN_B: Pattern[str] = re.compile(
     r"^.*"
-    fr"{WS}(?:compile|implementation){WS}[(]?{WS}"
+    fr"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
     fr"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
     fr".*$"
 )
