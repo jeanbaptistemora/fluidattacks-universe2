@@ -29,16 +29,3 @@ module "publish_credentials_prod" {
     gitlab = gitlab.product
   }
 }
-
-module "publish_credentials_prod_services" {
-  source     = "../../../modules/publish_credentials"
-  key_1      = aws_iam_access_key.continuous-prod-key-1
-  key_2      = aws_iam_access_key.continuous-prod-key-2
-  prefix     = "PROD"
-  project_id = "4603023"
-  protected  = true
-
-  providers = {
-    gitlab = gitlab.services
-  }
-}

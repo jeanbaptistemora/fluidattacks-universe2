@@ -33,6 +33,7 @@ locals {
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/secure-notes*",
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/continuous*",
           "arn:aws:s3:::continuous*",
+          "arn:aws:s3:::continuous*/*",
           "arn:aws:s3:::fluidattacks-terraform-states-prod/break*",
           "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous*",
           "arn:aws:s3:::fluidattacks-terraform-states-prod/services*",

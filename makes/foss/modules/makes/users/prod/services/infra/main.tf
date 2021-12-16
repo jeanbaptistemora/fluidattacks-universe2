@@ -60,7 +60,7 @@ module "publish_credentials_services" {
   source     = "../../../modules/publish_credentials"
   key_1      = module.aws.keys.1
   key_2      = module.aws.keys.2
-  prefix     = "PROD_NEW"
+  prefix     = "PROD"
   project_id = "4603023"
   protected  = true
 

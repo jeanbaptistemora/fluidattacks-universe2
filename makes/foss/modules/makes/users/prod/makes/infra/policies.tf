@@ -15,6 +15,7 @@ locals {
           "budgets:*",
           "ce:*",
           "cloudwatch:*",
+          "compute-optimizer:*",
           "cur:*",
           "dynamodb:*",
           "ec2:*",
