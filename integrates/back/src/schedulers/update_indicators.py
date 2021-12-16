@@ -952,36 +952,32 @@ def get_status_vulns_by_time_range(
 
     return VulnerabilitiesStatusByTimeRange(
         found_vulnerabilities=sum(
-            [found.vulnerabilities for found in vulnerabilities_found]
+            found.vulnerabilities for found in vulnerabilities_found
         ),
         found_cvssf=Decimal(
-            sum([found.cvssf for found in vulnerabilities_found])
+            sum(found.cvssf for found in vulnerabilities_found)
         ),
         open_vulnerabilities=sum(
-            [
-                vulnerability_open.vulnerabilities
-                for vulnerability_open in vulnerabilities_open
-            ]
+            vulnerability_open.vulnerabilities
+            for vulnerability_open in vulnerabilities_open
         ),
         open_cvssf=Decimal(
             sum(
-                [
-                    vulnerability_open.cvssf
-                    for vulnerability_open in vulnerabilities_open
-                ]
+                vulnerability_open.cvssf
+                for vulnerability_open in vulnerabilities_open
             )
         ),
         accepted_vulnerabilities=sum(
-            [accepted.vulnerabilities for accepted in vulnerabilities_accepted]
+            accepted.vulnerabilities for accepted in vulnerabilities_accepted
         ),
         accepted_cvssf=Decimal(
-            sum([accepted.cvssf for accepted in vulnerabilities_accepted])
+            sum(accepted.cvssf for accepted in vulnerabilities_accepted)
         ),
         closed_vulnerabilities=sum(
-            [closed.vulnerabilities for closed in vulnerabilities_closed]
+            closed.vulnerabilities for closed in vulnerabilities_closed
         ),
         closed_cvssf=Decimal(
-            sum([closed.cvssf for closed in vulnerabilities_closed])
+            sum(closed.cvssf for closed in vulnerabilities_closed)
         ),
     )
 
@@ -1002,10 +998,10 @@ def get_exposed_cvssf_by_time_range(
     ]
 
     return CvssfExposureByTimeRange(
-        low=Decimal(sum([cvssf.low for cvssf in exposed_cvssf])),
-        medium=Decimal(sum([cvssf.medium for cvssf in exposed_cvssf])),
-        high=Decimal(sum([cvssf.high for cvssf in exposed_cvssf])),
-        critical=Decimal(sum([cvssf.critical for cvssf in exposed_cvssf])),
+        low=Decimal(sum(cvssf.low for cvssf in exposed_cvssf)),
+        medium=Decimal(sum(cvssf.medium for cvssf in exposed_cvssf)),
+        high=Decimal(sum(cvssf.high for cvssf in exposed_cvssf)),
+        critical=Decimal(sum(cvssf.critical for cvssf in exposed_cvssf)),
     )
 
 
