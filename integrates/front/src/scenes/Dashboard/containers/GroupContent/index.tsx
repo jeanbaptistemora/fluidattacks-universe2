@@ -9,6 +9,8 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
+import { groupContext } from "./context";
+
 import { GroupMachineView } from "../GroupMachineView";
 import { GroupScopeView } from "../GroupScopeView";
 import { ToeContent } from "../ToeContent";
@@ -149,60 +151,62 @@ const GroupContent: React.FC = (): JSX.Element => {
               </StickyContainer>
 
               <div className={globalStyle.tabContent}>
-                <Switch>
-                  <Route
-                    component={GroupAuthorsView}
-                    exact={true}
-                    path={`${path}/authors`}
-                  />
-                  <Route
-                    component={ChartsForGroupView}
-                    exact={true}
-                    path={`${path}/analytics`}
-                  />
-                  <Route
-                    component={GroupFindingsView}
-                    exact={true}
-                    path={`${path}/vulns`}
-                  />
-                  <Route
-                    component={GroupDraftsView}
-                    exact={true}
-                    path={`${path}/drafts`}
-                  />
-                  <Route
-                    component={GroupForcesView}
-                    exact={true}
-                    path={`${path}/devsecops`}
-                  />
-                  <Route
-                    component={GroupMachineView}
-                    exact={true}
-                    path={`${path}/machine`}
-                  />
-                  <Route
-                    component={GroupEventsView}
-                    exact={true}
-                    path={`${path}/events`}
-                  />
-                  <Route
-                    component={GroupScopeView}
-                    exact={true}
-                    path={`${path}/scope`}
-                  />
-                  <Route
-                    component={GroupStakeholdersView}
-                    exact={true}
-                    path={`${path}/stakeholders`}
-                  />
-                  <Route
-                    component={GroupConsultingView}
-                    exact={true}
-                    path={`${path}/consulting`}
-                  />
-                  <Route component={ToeContent} path={`${path}/surface`} />
-                  <Redirect to={`${path}/vulns`} />
-                </Switch>
+                <groupContext.Provider value={{ url }}>
+                  <Switch>
+                    <Route
+                      component={GroupAuthorsView}
+                      exact={true}
+                      path={`${path}/authors`}
+                    />
+                    <Route
+                      component={ChartsForGroupView}
+                      exact={true}
+                      path={`${path}/analytics`}
+                    />
+                    <Route
+                      component={GroupFindingsView}
+                      exact={true}
+                      path={`${path}/vulns`}
+                    />
+                    <Route
+                      component={GroupDraftsView}
+                      exact={true}
+                      path={`${path}/drafts`}
+                    />
+                    <Route
+                      component={GroupForcesView}
+                      exact={true}
+                      path={`${path}/devsecops`}
+                    />
+                    <Route
+                      component={GroupMachineView}
+                      exact={true}
+                      path={`${path}/machine`}
+                    />
+                    <Route
+                      component={GroupEventsView}
+                      exact={true}
+                      path={`${path}/events`}
+                    />
+                    <Route
+                      component={GroupScopeView}
+                      exact={true}
+                      path={`${path}/scope`}
+                    />
+                    <Route
+                      component={GroupStakeholdersView}
+                      exact={true}
+                      path={`${path}/stakeholders`}
+                    />
+                    <Route
+                      component={GroupConsultingView}
+                      exact={true}
+                      path={`${path}/consulting`}
+                    />
+                    <Route component={ToeContent} path={`${path}/surface`} />
+                    <Redirect to={`${path}/vulns`} />
+                  </Switch>
+                </groupContext.Provider>
               </div>
             </React.Fragment>
           </Col100>
