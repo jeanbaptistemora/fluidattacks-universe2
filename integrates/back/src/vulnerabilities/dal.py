@@ -186,9 +186,13 @@ async def _append(
     elements: Dict[str, Tuple[Dict[str, Any], ...]],
 ) -> None:
     expression = ",".join(
-        (f"#{attr} = list_append(#{attr}, :{attr})" for attr in elements)
+        (
+            f"#{attr} = list_append(if_not_exists(#{attr}, :_empty), :{attr})"
+            for attr in elements
+        )
     )
     expression_names = {f"#{attr}": attr for attr in elements}
+    utility_values: Dict[str, list] = {":_empty": []}
     expression_values = {
         f":{attr}": list(values) for attr, values in elements.items()
     }
@@ -198,7 +202,10 @@ async def _append(
             "Key": {"finding_id": finding_id, "UUID": vulnerability_id},
             "UpdateExpression": f"SET {expression}",
             "ExpressionAttributeNames": expression_names,
-            "ExpressionAttributeValues": expression_values,
+            "ExpressionAttributeValues": {
+                **utility_values,
+                **expression_values,
+            },
         },
     )
 
@@ -296,18 +303,11 @@ async def update_treatment(
     treatment: VulnerabilityTreatment,
 ) -> None:
     item = format_vulnerability_treatment_item(treatment)
-    if current_value:
-        await _append(
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-            elements={"historic_treatment": (item,)},
-        )
-    else:
-        await _update(
-            finding_id=finding_id,
-            vuln_id=vulnerability_id,
-            data={"historic_treatment": [item]},
-        )
+    await _append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={"historic_treatment": (item,)},
+    )
     if FI_ENVIRONMENT == "development":
         await vulns_model.update_historic_entry(
             current_entry=current_value,
@@ -350,18 +350,11 @@ async def update_verification(
     verification: VulnerabilityVerification,
 ) -> None:
     item = format_vulnerability_verification_item(verification)
-    if current_value:
-        await _append(
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-            elements={"historic_verification": (item,)},
-        )
-    else:
-        await _update(
-            finding_id=finding_id,
-            vuln_id=vulnerability_id,
-            data={"historic_verification": [item]},
-        )
+    await _append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={"historic_verification": (item,)},
+    )
     if FI_ENVIRONMENT == "development":
         await vulns_model.update_historic_entry(
             current_entry=current_value,
@@ -403,18 +396,11 @@ async def update_zero_risk(
     zero_risk: VulnerabilityZeroRisk,
 ) -> None:
     item = format_vulnerability_zero_risk_item(zero_risk)
-    if current_value:
-        await _append(
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-            elements={"historic_zero_risk": (item,)},
-        )
-    else:
-        await _update(
-            finding_id=finding_id,
-            vuln_id=vulnerability_id,
-            data={"historic_zero_risk": [item]},
-        )
+    await _append(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        elements={"historic_zero_risk": (item,)},
+    )
     if FI_ENVIRONMENT == "development":
         await vulns_model.update_historic_entry(
             current_entry=current_value,
