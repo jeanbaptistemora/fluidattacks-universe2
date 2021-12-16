@@ -3,3 +3,22 @@ F338.title:
     Insecure service configuration - Salt
   es: >
     Configuración de servicio insegura - Salt
+F338.description:
+  en: >
+    Salt is generated in an insecure way, which makes the password easier to guess.
+  es: >
+    Se genera el Salt de manera insegura, lo cual hace que el password sea más
+    fácil de adivinar.
+F338.impact:
+  en: Obtain valid credentials through dictionary attacks.
+  es: Obtener credenciales válidas mediante ataques de tipo diccionario.
+F338.recommendation:
+  en: >
+    Generate the Salt with a secure hashing function.
+  es: >
+    Generar el Salt con una función segura de hashing.
+F338.threat:
+  en: >
+    Anonymous attacker from the Internet.
+  es: >
+    Atacante anónimo desde internet.
