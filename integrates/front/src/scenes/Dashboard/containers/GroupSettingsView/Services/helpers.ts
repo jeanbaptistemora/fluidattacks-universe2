@@ -1,30 +1,8 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-import type {
-  ApolloError,
-  ApolloQueryResult,
-  OperationVariables,
-} from "@apollo/client";
-
-import type { IGroupData } from "./types";
+import type { ApolloError } from "@apollo/client";
 
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-const editGroupDataHelper = (
-  asm: boolean,
-  groupName: string,
-  push: (path: string, state?: unknown) => void,
-  refetchGroupData: (
-    variables?: Partial<OperationVariables> | undefined
-  ) => Promise<ApolloQueryResult<IGroupData>>
-): void => {
-  if (asm) {
-    void refetchGroupData({ groupName });
-  } else {
-    push("/home");
-  }
-};
 
 const handleEditGroupDataError = ({ graphQLErrors }: ApolloError): void => {
   graphQLErrors.forEach((error): void => {
@@ -37,4 +15,4 @@ const handleEditGroupDataError = ({ graphQLErrors }: ApolloError): void => {
   });
 };
 
-export { editGroupDataHelper, handleEditGroupDataError };
+export { handleEditGroupDataError };
