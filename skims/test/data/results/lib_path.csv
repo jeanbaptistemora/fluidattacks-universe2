@@ -14473,6 +14473,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (color-string v1
    28 |     ""diff"": ""3.3.1"",
       ^ Col 0
 ",f011_npm_package_json._check_npm_package_json
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [SNYK-JAVA-COMH2DATABASE-1769238],18,937,skims,011. Use of software with known vulnerabilities,Use of com.h2database:h2 at version 1.4.200 with SNYK-JAVA-COMH2DATABASE-1769238 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+> 18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+  22 |   ""org.apache.nutch""         %  ""nutch""                 % ""2.0.0"",
+  23 |   ""org.apache.ode""           %   ""ode""                  % ode.version,
+  24 |   ""org.apache.openjpa""       %   ""openjpa""              % ""2.2.0""   % ""test,it""
+  25 | )
+     ^ Col 0
+",f011_maven._check_maven_sbt
 F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (connect v2.8) [CVE-2013-7370],13,937,skims,011. Use of software with known vulnerabilities,Use of connect at version 2.8 with CVE-2013-7370 in namespace/skims/test/data/lib_path/f011/yarn.lock,"
    1 | ""@apollo/react-common@3.1.4"", ""@apollo/react-common@^3.0.0"", ""@apollo/react-common@^3.1.4"":
    2 |   version ""3.1.4""
@@ -16872,7 +16896,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   31 |     <dependency>
   32 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [CVE-2020-15250],28,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with CVE-2020-15250 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   18 |   <dependencies>
   19 |     <dependency>
@@ -16896,7 +16920,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   37 |     <dependency>
   38 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [GHSA-269g-pwp5-87pp],22,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with GHSA-269g-pwp5-87pp in namespace/skims/test/data/lib_path/f011/pom.xml,"
   12 |     <mockito.version>2.0.31-beta</mockito.version>
   13 |     <slf4j.version>1.7.12</slf4j.version>
@@ -16920,7 +16944,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   31 |     <dependency>
   32 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [GHSA-269g-pwp5-87pp],28,937,skims,011. Use of software with known vulnerabilities,Use of junit:junit at version 4.12 with GHSA-269g-pwp5-87pp in namespace/skims/test/data/lib_path/f011/pom.xml,"
   18 |   <dependencies>
   19 |     <dependency>
@@ -16944,7 +16968,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (junit:junit v4.12) [
   37 |     <dependency>
   38 |       <groupId>org.springframework.security</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (just-extend v3.0.0) [CVE-2018-16489],70,937,skims,011. Use of software with known vulnerabilities,Use of just-extend at version 3.0.0 with CVE-2018-16489 in namespace/skims/test/data/lib_path/f011/package.json,"
    60 |     ""is-my-json-valid"": ""2.16.0"",
    61 |     ""is-svg"": ""3.0.0"",
@@ -18816,7 +18840,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:cam
   68 |   </dependencies>
   69 | </project>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:camel-xstream v2.6.0) [CVE-2015-5344],66,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.camel:camel-xstream at version 2.6.0 with CVE-2015-5344 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   49 |       <groupId>org.slf4j</groupId>
   50 |       <artifactId>slf4j-simple</artifactId>
@@ -18840,7 +18864,127 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.apache.camel:cam
   68 |   </dependencies>
   69 | </project>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-13925],11,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.kylin:kylin at version 2.5.0 with CVE-2020-13925 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+> 11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-13926],11,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.kylin:kylin at version 2.5.0 with CVE-2020-13926 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+> 11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-13937],11,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.kylin:kylin at version 2.5.0 with CVE-2020-13937 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+> 11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-1937],11,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.kylin:kylin at version 2.5.0 with CVE-2020-1937 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+> 11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:kylin v2.5.0) [CVE-2020-1956],11,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.kylin:kylin at version 2.5.0 with CVE-2020-1956 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+> 11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
 F011,lines,namespace/skims/test/data/lib_path/f011/build.gradle (org.apache.logging.log4j:log4j-core v2.13.2) [CVE-2021-44228],5,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.logging.log4j:log4j-core at version 2.13.2 with CVE-2021-44228 in namespace/skims/test/data/lib_path/f011/build.gradle,"
   1 | dependencies {
   2 |     compile ""io.springfox:springfox-swagger-ui:2.6.1""
@@ -18851,7 +18995,79 @@ F011,lines,namespace/skims/test/data/lib_path/f011/build.gradle (org.apache.logg
   7 |     implementation(group: 'javax.mail', name: 'mail', version: '1.4')
   8 | }
     ^ Col 0
-",f011_maven_build_gradle._check_maven_build_gradle
+",f011_maven._check_maven_gradle
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-core v2.2) [CVE-2021-44228],5,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.logging.log4j:log4j-core at version 2.2 with CVE-2021-44228 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   1 | def libraries = Seq(
+   2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
+   3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,
+   4 |   ""org.apache.logging.log4j""  %  ""log4j-api""      % ""2.2"",
+>  5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.nifi.registry:nifi-registry-web-api v0.4.1) [CVE-2020-9482],21,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.nifi.registry:nifi-registry-web-api at version 0.4.1 with CVE-2020-9482 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+> 21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+  22 |   ""org.apache.nutch""         %  ""nutch""                 % ""2.0.0"",
+  23 |   ""org.apache.ode""           %   ""ode""                  % ode.version,
+  24 |   ""org.apache.openjpa""       %   ""openjpa""              % ""2.2.0""   % ""test,it""
+  25 | )
+     ^ Col 0
+",f011_maven._check_maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.openjpa:openjpa v2.2.0) [CVE-2013-1768],24,937,skims,011. Use of software with known vulnerabilities,Use of org.apache.openjpa:openjpa at version 2.2.0 with CVE-2013-1768 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+  18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+  22 |   ""org.apache.nutch""         %  ""nutch""                 % ""2.0.0"",
+  23 |   ""org.apache.ode""           %   ""ode""                  % ode.version,
+> 24 |   ""org.apache.openjpa""       %   ""openjpa""              % ""2.2.0""   % ""test,it""
+  25 | )
+     ^ Col 0
+",f011_maven._check_maven_sbt
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2731 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18875,7 +19091,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2732],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2732 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18899,7 +19115,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2894],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2011-2894 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18923,7 +19139,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2012-5055],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2012-5055 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18947,7 +19163,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2014-0097],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2014-0097 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18971,7 +19187,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2016-5007],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2016-5007 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -18995,7 +19211,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2016-9879],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2016-9879 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19019,7 +19235,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2017-4995],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2017-4995 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19043,7 +19259,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2018-1199],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2018-1199 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19067,7 +19283,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2018-1258],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2018-1258 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19091,7 +19307,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2019-11272],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2019-11272 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19115,7 +19331,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2019-3795],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2019-3795 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19139,7 +19355,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2020-3700],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2020-3700 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19163,7 +19379,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2020-5408],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2020-5408 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19187,7 +19403,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2021-22112],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2021-22112 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19211,7 +19427,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2021-22119],39,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version  with CVE-2021-22119 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   29 |       <scope>test</scope>
   30 |     </dependency>
@@ -19235,7 +19451,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   48 |     <dependency>
   49 |       <groupId>org.slf4j</groupId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2017-4995 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19259,7 +19475,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2018-1199],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2018-1199 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19283,7 +19499,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2019-11272],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2019-11272 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19307,7 +19523,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2019-3795],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2019-3795 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19331,7 +19547,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2020-5408],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2020-5408 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19355,7 +19571,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2021-22112],34,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with CVE-2021-22112 in namespace/skims/test/data/lib_path/f011/pom.xml,"
   24 |     </dependency>
   25 |     <dependency>
@@ -19379,7 +19595,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/pom.xml (org.springframework.
   43 |       <groupId>org.mockito</groupId>
   44 |       <artifactId>mockito-core</artifactId>
      ^ Col 0
-",f011_maven_pom_xml._check_maven_pom_xml
+",f011_maven._check_maven_pom_xml
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (path-parse v1.0.6) [CVE-2021-23343],97,937,skims,011. Use of software with known vulnerabilities,Use of path-parse at version 1.0.6 with CVE-2021-23343 in namespace/skims/test/data/lib_path/f011/package.json,"
    87 |     ""node-forge"": ""0.9.0"",
    88 |     ""node-notifier"": ""5.4.2"",

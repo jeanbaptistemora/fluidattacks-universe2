@@ -4,8 +4,7 @@ from aioextensions import (
 )
 from lib_path import (
     f009,
-    f011_maven_build_gradle,
-    f011_maven_pom_xml,
+    f011_maven,
     f011_npm_package_json,
     f011_npm_package_lock_json,
     f011_npm_yarn_lock,
@@ -81,8 +80,7 @@ PROD: Dict[str, bool] = dict(include_dev=False, include_prod=True)
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
-    (core_model.FindingEnum.F011, f011_maven_build_gradle.analyze),
-    (core_model.FindingEnum.F011, f011_maven_pom_xml.analyze),
+    (core_model.FindingEnum.F011, f011_maven.analyze),
     (core_model.FindingEnum.F011, f011_npm_package_json.analyze(**PROD)),
     (core_model.FindingEnum.F011, f011_npm_package_lock_json.analyze(**PROD)),
     (core_model.FindingEnum.F011, f011_npm_yarn_lock.analyze),
