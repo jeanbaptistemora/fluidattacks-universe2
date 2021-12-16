@@ -1,3 +1,16 @@
+src.lib_path.f363.insecure_generate_secret_string:
+  en: |
+    Secret is weak configured
+    - It must contain uppercase and lowercase letters
+    - It must contain numbers and punctuation
+    - Must be more than 14 characters
+    - Must not exclude certain characters
+  es: |
+    El secreto está debilmente configurado
+    - Debe contener mayusculas y minusculas
+    - Debe contener numeros y puntuación
+    - Debe tener mas de 14 caracteres
+    - No debe excluir ciertos caracteres
 F363.title:
   en: >
     Weak credential policy - Password strength
