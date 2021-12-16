@@ -110,21 +110,24 @@ async def test_get_status_vulns_by_time_range() -> None:
         first_day=first_day,
         last_day=last_day,
     )
-    expected_output = {"found": 4, "accepted": 2, "closed": 1}
+    expected_output = {"found": 4, "accepted": 2, "closed": 1, "opened": 2}
     output = {
         "found": test_data.found_vulnerabilities,
         "accepted": test_data.accepted_vulnerabilities,
         "closed": test_data.closed_vulnerabilities,
+        "opened": test_data.open_vulnerabilities,
     }
     expected_output_cvssf = {
         "found": Decimal("51.534"),
         "accepted": Decimal("25.767"),
         "closed": Decimal("1.516"),
+        "opened": Decimal("25.122"),
     }
     output_cvssf = {
         "found": test_data.found_cvssf,
         "accepted": test_data.accepted_cvssf,
         "closed": test_data.closed_cvssf,
+        "opened": test_data.open_cvssf,
     }
     assert sorted(output.items()) == sorted(expected_output.items())
     assert sorted(output_cvssf.items()) == sorted(
