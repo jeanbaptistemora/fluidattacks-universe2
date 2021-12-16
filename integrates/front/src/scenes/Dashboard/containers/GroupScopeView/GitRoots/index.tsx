@@ -84,6 +84,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
+  const canSeeInternalToe: boolean = permissions.can("see_internal_toe");
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")
     .map((root): string => root.nickname);
@@ -465,7 +466,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         </TooltipWrapper>
                       </div>
                     </Can>
-                    {!canGetToeInputs && !canGetToeLines ? undefined : (
+                    {!canSeeInternalToe ||
+                    (!canGetToeInputs && !canGetToeLines) ? undefined : (
                       <div className={"mb3"}>
                         <TooltipWrapper
                           id={t("group.tabs.toe.tooltip")}
