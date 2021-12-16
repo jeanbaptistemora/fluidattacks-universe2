@@ -38,16 +38,16 @@ function get_skims_expected_code_date {
 }
 
 function clone_group {
-  export SERVICES_PROD_AWS_ACCESS_KEY_ID
-  export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
+  export PROD_SERVICES_AWS_ACCESS_KEY_ID
+  export PROD_SERVICES_AWS_SECRET_ACCESS_KEY
   local group="${1}"
   local namespace="${2}"
 
   echo '[INFO] Cloning repositories' \
     && CI='true' \
       CI_COMMIT_REF_NAME='master' \
-      PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
-      PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
+      PROD_AWS_ACCESS_KEY_ID="${PROD_SERVICES_AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${PROD_SERVICES_AWS_SECRET_ACCESS_KEY}" \
       melts drills --pull-repos "${group}" --name "${namespace}" \
     && echo "[INFO] Repositories cloned:" \
     && for namespace in "groups/${group}/fusion/"*; do
@@ -136,8 +136,8 @@ function main {
     && shopt -s nullglob \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
-      SERVICES_PROD_AWS_ACCESS_KEY_ID \
-      SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
+      PROD_SERVICES_AWS_ACCESS_KEY_ID \
+      PROD_SERVICES_AWS_SECRET_ACCESS_KEY \
     && config="$(mktemp)" \
     && use_git_repo_services \
     && clone_group "${group}" "${namespace}" \
