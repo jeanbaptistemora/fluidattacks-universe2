@@ -11,6 +11,7 @@ from http_headers import (
     strict_transport_security,
     upgrade_insecure_requests,
     www_authenticate,
+    x_cache,
     x_content_type_options,
 )
 from http_headers.types import (
@@ -245,7 +246,12 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if header := ctx.headers_parsed.get("DateHeader"):
+    if (
+        (header := ctx.headers_parsed.get("DateHeader"))
+        # X-Cache means content is served by a CDN, which may cache
+        # a previous server response time
+        and ctx.headers_parsed.get("XCacheHeader") is None
+    ):
         # Exception: WF(Cannot factorize function)
         if ctx.url_ctx.timestamp_ntp:  # NOSONAR
             minutes: float = (
@@ -494,6 +500,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
                 strict_transport_security.parse(line),
                 upgrade_insecure_requests.parse(line),
                 www_authenticate.parse(line),
+                x_cache.parse(line),
                 x_content_type_options.parse(line),
             ]
             if header_parsed is not None

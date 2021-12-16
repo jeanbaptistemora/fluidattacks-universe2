@@ -64,6 +64,11 @@ class XXSSProtectionHeader(NamedTuple):
     mode: str
 
 
+class XCacheHeader(NamedTuple):
+    name: str
+    value: str
+
+
 class XContentTypeOptionsHeader(NamedTuple):
     name: str
     value: str
@@ -82,6 +87,7 @@ Header = Optional[
         StrictTransportSecurityHeader,
         UpgradeInsecureRequestsHeader,
         XXSSProtectionHeader,
+        XCacheHeader,
         XContentTypeOptionsHeader,
         XFrameOptionsHeader,
     ]
