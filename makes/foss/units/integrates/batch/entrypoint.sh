@@ -13,8 +13,8 @@ function main {
       DAEMON=true integrates-cache \
         && ensure_gitlab_env_vars \
           INTEGRATES_API_TOKEN \
-          SERVICES_PROD_AWS_ACCESS_KEY_ID \
-          SERVICES_PROD_AWS_SECRET_ACCESS_KEY
+          PROD_SERVICES_AWS_ACCESS_KEY_ID \
+          PROD_SERVICES_AWS_SECRET_ACCESS_KEY
     elif test "${env}" == 'dev'; then
       DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \

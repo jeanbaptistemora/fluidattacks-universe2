@@ -357,10 +357,10 @@ async def update_toe_lines_machine_groups(
     with tempfile.TemporaryDirectory() as tmpdirname:
         os.chdir(tmpdirname)
         os.environ["PROD_AWS_ACCESS_KEY_ID"] = os.environ.get(
-            "SERVICES_PROD_AWS_ACCESS_KEY_ID", ""
+            "PROD_SERVICES_AWS_ACCESS_KEY_ID", ""
         )
         os.environ["PROD_AWS_SECRET_ACCESS_KEY"] = os.environ.get(
-            "SERVICES_PROD_AWS_SECRET_ACCESS_KEY", ""
+            "PROD_SERVICES_AWS_SECRET_ACCESS_KEY", ""
         )
         for group_name in group_names:
             _create_group_basic_structure(tmpdirname, group_name)
