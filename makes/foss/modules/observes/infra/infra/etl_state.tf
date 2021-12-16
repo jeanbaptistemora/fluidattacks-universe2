@@ -2,9 +2,10 @@ resource "aws_s3_bucket" "observes_state" {
   acl    = "private"
   bucket = "observes.state"
   tags = {
-    "Name"            = "observes.state"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "observes.state"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 
   server_side_encryption_configuration {

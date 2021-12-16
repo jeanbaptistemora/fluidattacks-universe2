@@ -110,9 +110,10 @@ resource "aws_kms_key" "key-prod" {
   enable_key_rotation     = true
 
   tags = {
-    "Name"            = "observes-production"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "observes-production"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 }
 

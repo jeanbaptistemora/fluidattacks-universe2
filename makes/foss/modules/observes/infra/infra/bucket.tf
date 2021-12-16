@@ -11,9 +11,10 @@ resource "aws_s3_bucket" "fluidanalytics" {
   }
 
   tags = {
-    "Name"            = "fluidanalytics"
-    "management:area" = "cost"
-    "management:type" = "product"
+    "Name"               = "fluidanalytics"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
   }
 
   versioning {
