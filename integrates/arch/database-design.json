@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 15, 2021, 02:44 PM",
+    "DateLastModified": "Dec 16, 2021, 05:31 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -517,6 +517,10 @@
         {
           "AttributeName": "zero_risk",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "bug_tracking_system_url",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -10528,13 +10532,14 @@
             "stream",
             "hash",
             "custom_severity",
+            "pk_2",
+            "sk_2",
             "skims_method",
             "state",
             "treatment",
             "verification",
             "zero_risk",
-            "pk_2",
-            "sk_2"
+            "bug_tracking_system_url"
           ],
           "DataAccess": {
             "MySql": {}
