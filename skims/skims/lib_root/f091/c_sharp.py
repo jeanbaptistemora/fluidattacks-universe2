@@ -122,7 +122,7 @@ def insecure_logging(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("502",),
-        desc_key="F091.title",
+        desc_key="F091.description",
         desc_params={},
         finding=core_model.FindingEnum.F091,
         graph_shard_nodes=n_ids(),

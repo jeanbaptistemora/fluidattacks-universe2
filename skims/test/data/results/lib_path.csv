@@ -9133,7 +9133,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   16 |
      ^ Col 6
 ",c_sharp.check_xml_serializer
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"Log injection
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
    5 | {
@@ -9158,7 +9158,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log
   24 |     }
      ^ Col 0
 ",c_sharp.insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log injection,"Log injection
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    5 | {
    6 |     public void LogSomething(HttpRequest id)
@@ -9183,7 +9183,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log
   25 | }
      ^ Col 0
 ",c_sharp.insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log injection,"Log injection
+F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    1 | using System;
    2 | using Microsoft.AspNetCore.Mvc;
