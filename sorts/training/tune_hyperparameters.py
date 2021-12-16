@@ -41,6 +41,7 @@ def deploy_hyperparameter_tuning_job() -> None:
         hyperparameter_ranges=MODEL_HYPERPARAMETERS[model],
         tags=[
             {"Key": "management:area", "Value": "cost"},
+            {"Key": "management:product", "Value": "sorts"},
             {"Key": "management:type", "Value": "product"},
         ],
     )

@@ -53,6 +53,7 @@ def get_estimator(
         max_wait=86400,
         tags=[
             {"Key": "management:area", "Value": "cost"},
+            {"Key": "management:product", "Value": "sorts"},
             {"Key": "management:type", "Value": "product"},
         ],
     )
