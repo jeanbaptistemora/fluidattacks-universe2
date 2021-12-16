@@ -2,6 +2,9 @@ from ariadne import (
     ScalarType,
 )
 import dateutil.parser  # type: ignore
+from newutils.datetime import (
+    get_as_utc_iso_format,
+)
 from typing import (
     Any,
 )
@@ -13,7 +16,7 @@ DATETIME_SCALAR = ScalarType("DateTime")
 def serialize_datetime(value: Any) -> Any:
     if isinstance(value, str):
         value = dateutil.parser.parse(value)
-    return value.isoformat()
+    return get_as_utc_iso_format(value)
 
 
 @DATETIME_SCALAR.value_parser

@@ -20,7 +20,7 @@ from typing import (
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-11-10T20:35:20.372236+00:00")
+@freeze_time("2021-11-10T20:35:20+00:00")
 async def test_update_toe_lines_attacked_lines_set_lines(
     populate: bool, email: str
 ) -> None:
@@ -123,7 +123,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-11-10T20:35:20.372236+00:00")
+@freeze_time("2021-11-10T20:35:20+00:00")
 async def test_update_toe_lines_attacked_lines_not_set_lines(
     populate: bool, email: str
 ) -> None:

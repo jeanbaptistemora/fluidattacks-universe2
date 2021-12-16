@@ -25,7 +25,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-import datetime
 import dateutil.parser  # type: ignore
 from groups.domain import (
     get_active_groups,
@@ -36,6 +35,9 @@ from more_itertools import (
     bucket,
     chunked,
     collapse,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -171,7 +173,7 @@ async def _machine_queue(job: PreparedJob, urgent: bool) -> None:
             group_name=job.group_name,
             root_id=job.root_id,
             finding_code=job.check,
-            queue_date=datetime.datetime.now().isoformat(),
+            queue_date=datetime_utils.get_iso_date(),
             batch_id=job_id,
         )
         info(

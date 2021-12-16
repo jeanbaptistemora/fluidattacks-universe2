@@ -23,7 +23,7 @@ from typing import (
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-11-10T20:35:20.372236+00:00")
+@freeze_time("2021-11-10T20:35:20+00:00")
 async def test_refresh_toe_lines(
     populate: bool, email: str, monkeypatch: MonkeyPatch
 ) -> None:
@@ -50,7 +50,7 @@ async def test_refresh_toe_lines(
                     "loc": 6,
                     "modifiedCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
-                    "seenAt": "2021-11-10T20:35:20.372236+00:00",
+                    "seenAt": "2021-11-10T20:35:20+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjYmFjay9tb2NrLnB5In0=",
@@ -69,7 +69,7 @@ async def test_refresh_toe_lines(
                     "loc": 2,
                     "modifiedCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
-                    "seenAt": "2021-11-10T20:35:20.372236+00:00",
+                    "seenAt": "2021-11-10T20:35:20+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjYmFjay9zcmMvbW9jay5weSJ9",
@@ -88,7 +88,7 @@ async def test_refresh_toe_lines(
                     "loc": 4,
                     "modifiedCommit": "3ca2ffbfeae4f2df16810359a9363231fabc1750",
                     "modifiedDate": "2021-11-10T16:32:24+00:00",
-                    "seenAt": "2021-11-10T20:35:20.372236+00:00",
+                    "seenAt": "2021-11-10T20:35:20+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjZnJvbnQvbW9jay5qcyJ9",
@@ -118,7 +118,7 @@ async def test_refresh_toe_lines(
                     "attackedBy": "test3@test.com",
                     "attackedLines": 120,
                     "bePresent": False,
-                    "bePresentUntil": "2021-11-10T20:35:20.372236+00:00",
+                    "bePresentUntil": "2021-11-10T20:35:20+00:00",
                     "comments": "comment 3",
                     "commitAuthor": "customer3@gmail.com",
                     "filename": "test3/test.sh",
@@ -175,7 +175,7 @@ async def test_refresh_toe_lines(
                     "attackedBy": "test2@test.com",
                     "attackedLines": 4,
                     "bePresent": False,
-                    "bePresentUntil": "2021-11-10T20:35:20.372236+00:00",
+                    "bePresentUntil": "2021-11-10T20:35:20+00:00",
                     "comments": "comment 2",
                     "commitAuthor": "customer2@gmail.com",
                     "filename": "test2/test#.config",
