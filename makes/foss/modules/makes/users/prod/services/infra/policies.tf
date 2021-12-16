@@ -48,16 +48,10 @@ locals {
         Resource = ["*"]
       },
       {
-        Sid    = "dynamoWrite"
-        Effect = "Allow"
-        Action = [
-          "dynamodb:DeleteItem",
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-        ]
-        Resource = [
-          var.terraform_state_lock_arn,
-        ]
+        Sid      = "dynamoWrite"
+        Effect   = "Allow"
+        Action   = ["dynamodb:*"]
+        Resource = ["*"]
       },
     ]
   }

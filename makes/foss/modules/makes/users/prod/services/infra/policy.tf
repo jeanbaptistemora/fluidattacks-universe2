@@ -86,19 +86,6 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "*"
     ]
   }
-
-  # DynamoDB for locking terraform state
-  statement {
-    effect = "Allow"
-    actions = [
-      "dynamodb:DeleteItem",
-      "dynamodb:GetItem",
-      "dynamodb:PutItem",
-    ]
-    resources = [
-      var.terraform_state_lock_arn,
-    ]
-  }
 }
 
 resource "aws_iam_policy" "continuous-prod-policy" {
