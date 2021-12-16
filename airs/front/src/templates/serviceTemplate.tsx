@@ -19,7 +19,7 @@ import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
+import { capitalizeObject } from "../utils/utilities";
 
 const continuousImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619722210/airs/services/service-continuous_qyvqv8.webp";
@@ -63,7 +63,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
+            crumbLabel={title}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />

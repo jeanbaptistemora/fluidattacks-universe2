@@ -5,19 +5,6 @@ interface IProps {
   crumbLabel: string;
 }
 
-const capitalizeObject = (crumbs: IProps[]): IProps[] => {
-  return crumbs.map(
-    (crumb): IProps => {
-      return {
-        crumbLabel: `${crumb.crumbLabel
-          .charAt(0)
-          .toUpperCase()}${crumb.crumbLabel.slice(1).replace("-", "")}`,
-        pathname: crumb.pathname,
-      };
-    }
-  );
-};
-
 const capitalizePlainString = (title: string): string => {
   return `${title.charAt(0).toUpperCase()}${title.slice(1).replace("-", "")}`;
 };
@@ -33,6 +20,17 @@ const capitalizeDashedString: (words: string) => string = (
   );
 
   return capitalizedName.join(" ");
+};
+
+const capitalizeObject = (crumbs: IProps[]): IProps[] => {
+  return crumbs.map(
+    (crumb): IProps => {
+      return {
+        crumbLabel: capitalizeDashedString(crumb.crumbLabel),
+        pathname: crumb.pathname,
+      };
+    }
+  );
 };
 
 const stringToUri = (word: string): string => {
