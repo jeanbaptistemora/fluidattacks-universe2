@@ -1,5 +1,39 @@
+lib_root.f211.regex_vulnerable:
+  en: >
+    Regular expressions should not be vulnerable to Denial of Service attacks
+  es: >
+    Las expresiones regulares no deben ser vulnerables a los ataques de
+    denegación de servicio
 F211.title:
   en: >
     Asymmetric denial of service - ReDoS
   es: >
     Denegación de servicio asimétrica - ReDos
+F211.description:
+  en: >
+    Within the source code there is evidence of the use of dangerous regular
+    expressions, because they make use of complex operations to find matches,
+    which can lead to an attacker sending a specific string of data that could
+    cause the server to crash when evaluating the string with the dangerous
+    regular expression.
+  es: >
+    Dentro del código fuente se evidencia el uso de expresiones regulares
+    peligrosas, porque hacen uso de operaciones complejas para encontrar
+    coincidencias, lo que puede llevar a que un atacante envíe una cadena
+    de datos específica que podría generar la caída del servidor al evaluar
+    la cadena con la expresión regular peligrosa.
+F211.impact:
+  en: Generate server crash.
+  es: Generar la caída del servidor.
+F211.recommendation:
+  en: >
+    Use optimized regular expressions to perform functions without much
+    computational overhead.
+  es: >
+    Utilizar expresiones regulares optimizadas para realizar funciones sin
+    mucho gasto computacional.
+F211.threat:
+  en: >
+    Anonymous attacker from the Internet.
+  es: >
+    Atacante anónimo desde Internet.

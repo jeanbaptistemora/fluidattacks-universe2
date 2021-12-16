@@ -84,7 +84,7 @@ def vuln_regular_expression(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("405",),
-        desc_key="F211.title",
+        desc_key="lib_root.f211.regex_vulnerable",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),

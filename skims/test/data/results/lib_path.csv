@@ -8030,7 +8030,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Ex
   16 |  */
      ^ Col 0
 ",java.file_create_temp_file
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
+F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
    2 | namespace Controllers
@@ -8051,7 +8051,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asy
   17 | }
      ^ Col 0
 ",c_sharp.vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
+F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
    2 | namespace Controllers
