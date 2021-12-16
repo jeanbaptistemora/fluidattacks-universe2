@@ -1,12 +1,27 @@
+F127.title:
+  en: Lack of data validation - Type confusion
+  es: Lack of data validation - Type confusion
 F127.description:
-  en: .
-  es: .
+  en: >
+    A field is interpreted on the server-side, although it indicates
+    that it only accepts numbers, it allows values in the form 0xff
+  es: >
+    Un campo se interpreta en el lado del servidor, aunque indica que sólo
+    acepta números, permite valores de la forma 0xff
 F127.impact:
-  en: .
-  es: .
+  en: |
+    - Get internal information about the operation of the system
+    - Inject code and get it interpreted by the server
+  es: |
+    - Obtener información interna sobre el funcionamiento del sistema.
+    - Inyectar código y conseguir que sea interpretado por el servidor.
 F127.recommendation:
-  en: .
-  es: .
+  en: >
+    Validate on the server-side the data types that are entered but prevent
+    them from being interpreted.
+  es: >
+    Validar en el lado del servidor los tipos de datos que se introducen
+    pero evitar que se interpreten.
 F127.threat:
-  en: .
-  es: .
+  en: Authorized user from intranet.
+  es: Usuario autorizado de la intranet.
