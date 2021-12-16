@@ -61,25 +61,25 @@ async def test_update_vulnerabilities_treatment(
     )
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
-    vulnerability: Dict[str, Any] = await get_vulnerability(
+    vulnerability_response: Dict[str, Any] = await get_vulnerability(
         user=email, vulnerability_id=vulnerability
     )
     assert (
-        vulnerability["data"]["vulnerability"]["historicTreatment"][-1][
-            "treatmentManager"
-        ]
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["treatmentManager"]
         == assigned
     )
     assert (
-        vulnerability["data"]["vulnerability"]["historicTreatment"][-1][
-            "assigned"
-        ]
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["assigned"]
         == assigned
     )
     assert (
-        vulnerability["data"]["vulnerability"]["historicTreatment"][-1][
-            "treatment"
-        ]
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["treatment"]
         == treatment
     )
 

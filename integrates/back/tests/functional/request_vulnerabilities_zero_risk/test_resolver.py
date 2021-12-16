@@ -38,7 +38,7 @@ async def test_request_vulnerabilities_zero_risk(
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
-    assert vuln.zero_risk == None
+    assert vuln.zero_risk is None
 
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id

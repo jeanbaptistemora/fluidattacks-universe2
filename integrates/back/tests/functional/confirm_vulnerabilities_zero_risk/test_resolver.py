@@ -66,7 +66,7 @@ async def test_confirm_vulnerabilities_zero_risk_fail(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
-    assert vuln.zero_risk == None
+    assert vuln.zero_risk is None
 
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id

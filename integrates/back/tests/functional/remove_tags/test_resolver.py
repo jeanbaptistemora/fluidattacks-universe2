@@ -68,7 +68,7 @@ async def test_remove_all_tags(populate: bool, email: str) -> None:
 
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
-    assert vuln.tags == None
+    assert vuln.tags is None
 
 
 @pytest.mark.asyncio

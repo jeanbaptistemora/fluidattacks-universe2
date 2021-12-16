@@ -77,6 +77,6 @@ async def test_request_vulnerabilities_verification(
     assert vuln_id in finding.verification.vulnerability_ids
     assert finding.verification.modified_by == email
     loaders.vulnerability_typed.clear(vuln_id)
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln = await loaders.vulnerability_typed.load(vuln_id)
     assert vuln.state.status == new_status
     assert vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED

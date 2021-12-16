@@ -33,7 +33,7 @@ async def test_refresh_toe_lines(
         user=email, group_name=group_name, monkeypatch=monkeypatch
     )
     assert result["data"]["refreshToeLines"]["success"]
-    result: Dict[str, Any] = await query_get(user=email, group_name=group_name)
+    result = await query_get(user=email, group_name=group_name)
     assert result["data"]["group"]["toeLines"] == {
         "edges": [
             {

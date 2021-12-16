@@ -22,7 +22,7 @@ async def get_result(
     filenames: List[str],
     root_id: str,
 ) -> Dict[str, Any]:
-    variables = {
+    variables: Dict[str, Any] = {
         "attackedAt": attacked_at,
         "comments": comments,
         "filenames": filenames,
