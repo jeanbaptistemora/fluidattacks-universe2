@@ -9202,6 +9202,238 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 ",c_sharp.insecure_logging
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,10,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   1 | Resources:
+   2 |   MySecret1:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+   4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret has a dynamically generated secret password.""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+> 10 |         PasswordLength: 12
+  11 |         ExcludeCharacters: '""@/\'
+  12 |         ExcludeLowercase: True
+  13 |         ExcludeNumbers: False
+  14 |         ExcludePunctuation: true
+  15 |         ExcludeUppercase: false
+  16 |         IncludeSpace: True
+  17 |         RequireEachIncludedType: False
+  18 |   MySecret2:
+  19 |     Type: 'AWS::SecretsManager::Secret'
+  20 |     Properties:
+  21 |       Name: MySecretForAppA
+     ^ Col 0
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,14,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   2 |   MySecret1:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+   4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret has a dynamically generated secret password.""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+  10 |         PasswordLength: 12
+  11 |         ExcludeCharacters: '""@/\'
+  12 |         ExcludeLowercase: True
+  13 |         ExcludeNumbers: False
+> 14 |         ExcludePunctuation: true
+  15 |         ExcludeUppercase: false
+  16 |         IncludeSpace: True
+  17 |         RequireEachIncludedType: False
+  18 |   MySecret2:
+  19 |     Type: 'AWS::SecretsManager::Secret'
+  20 |     Properties:
+  21 |       Name: MySecretForAppA
+  22 |       Description: ""This secret has a dynamically generated secret password.""
+     ^ Col 0
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,12,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   2 |   MySecret1:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+   4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret has a dynamically generated secret password.""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+  10 |         PasswordLength: 12
+  11 |         ExcludeCharacters: '""@/\'
+> 12 |         ExcludeLowercase: True
+  13 |         ExcludeNumbers: False
+  14 |         ExcludePunctuation: true
+  15 |         ExcludeUppercase: false
+  16 |         IncludeSpace: True
+  17 |         RequireEachIncludedType: False
+  18 |   MySecret2:
+  19 |     Type: 'AWS::SecretsManager::Secret'
+  20 |     Properties:
+  21 |       Name: MySecretForAppA
+  22 |       Description: ""This secret has a dynamically generated secret password.""
+     ^ Col 0
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,17,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   2 | ySecret1:
+   3 |  Type: 'AWS::SecretsManager::Secret'
+   4 |  Properties:
+   5 |    Name: MySecretForAppA
+   6 |    Description: ""This secret has a dynamically generated secret password.""
+   7 |    GenerateSecretString:
+   8 |      SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |      GenerateStringKey: ""password""
+  10 |      PasswordLength: 12
+  11 |      ExcludeCharacters: '""@/\'
+  12 |      ExcludeLowercase: True
+  13 |      ExcludeNumbers: False
+  14 |      ExcludePunctuation: true
+  15 |      ExcludeUppercase: false
+  16 |      IncludeSpace: True
+> 17 |      RequireEachIncludedType: False
+  18 | ySecret2:
+  19 |  Type: 'AWS::SecretsManager::Secret'
+  20 |  Properties:
+  21 |    Name: MySecretForAppA
+  22 |    Description: ""This secret has a dynamically generated secret password.""
+     ^ Col 3
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,11,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MySecret1"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+   5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+> 11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+  13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+     ^ Col 0
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,13,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   3 |     ""MySecret1"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+   5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+  11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+> 13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+  22 |     ""MySecret2"": {
+  23 |       ""Type"": ""AWS::SecretsManager::Secret"",
+     ^ Col 0
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,15,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   5 |     ""Properties"": {
+   6 |       ""Name"": ""MySecretForAppA"",
+   7 |       ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |       ""GenerateSecretString"": {
+   9 |         ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |         ""GenerateStringKey"": ""password"",
+  11 |         ""PasswordLength"": 12,
+  12 |         ""ExcludeCharacters"": ""\""@/\\"",
+  13 |         ""ExcludeLowercase"": true,
+  14 |         ""ExcludeNumbers"": false,
+> 15 |         ""ExcludePunctuation"": true,
+  16 |         ""ExcludeUppercase"": false,
+  17 |         ""IncludeSpace"": true,
+  18 |         ""RequireEachIncludedType"": false
+  19 |       }
+  20 |     }
+  21 |   },
+  22 |   ""MySecret2"": {
+  23 |     ""Type"": ""AWS::SecretsManager::Secret"",
+  24 |     ""Properties"": {
+  25 |       ""Name"": ""MySecretForAppA"",
+     ^ Col 2
+",f363._cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,18,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   8 |  ""GenerateSecretString"": {
+   9 |    ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |    ""GenerateStringKey"": ""password"",
+  11 |    ""PasswordLength"": 12,
+  12 |    ""ExcludeCharacters"": ""\""@/\\"",
+  13 |    ""ExcludeLowercase"": true,
+  14 |    ""ExcludeNumbers"": false,
+  15 |    ""ExcludePunctuation"": true,
+  16 |    ""ExcludeUppercase"": false,
+  17 |    ""IncludeSpace"": true,
+> 18 |    ""RequireEachIncludedType"": false
+  19 |  }
+  20 |
+  21 |
+  22 | Secret2"": {
+  23 | Type"": ""AWS::SecretsManager::Secret"",
+  24 | Properties"": {
+  25 |  ""Name"": ""MySecretForAppA"",
+  26 |  ""Description"": ""This secret has a dynamically generated secret password.""
+  27 |
+  28 |
+     ^ Col 7
+",f363._cfn_insecure_generate_secret_string
 F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | namespace Controllers
    2 | {
