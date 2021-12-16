@@ -1017,9 +1017,6 @@ def exec_cloudformation_package(
             "iam.is_role_over_privileged",
             "iam.missing_role_based_security",
         ],
-        ("secretsmanager", "Secrets Manager"): [
-            "secretsmanager.insecure_generate_secret_string",
-        ],
     }
 
     exploits = [
