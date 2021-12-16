@@ -101,13 +101,12 @@ async def check(
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
-    file_name: str,
     file_extension: str,
     finding: core_model.FindingEnum,
     path: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
-    if (file_name, file_extension) == ("build", "gradle"):
+    if file_extension == ("gradle"):
         return [
             check(
                 content=await content_generator(),
