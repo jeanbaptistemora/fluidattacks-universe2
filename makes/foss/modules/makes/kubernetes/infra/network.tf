@@ -9,6 +9,7 @@ resource "aws_subnet" "region_a" {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:area"                           = "cost"
+    "management:product"                        = "makes"
     "management:type"                           = "product"
   }
 }
@@ -24,6 +25,7 @@ resource "aws_subnet" "region_b" {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:area"                           = "cost"
+    "management:product"                        = "makes"
     "management:type"                           = "product"
   }
 }
@@ -39,6 +41,7 @@ resource "aws_subnet" "region_d" {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
     "management:area"                           = "cost"
+    "management:product"                        = "makes"
     "management:type"                           = "product"
   }
 }
