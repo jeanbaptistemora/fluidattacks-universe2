@@ -7544,81 +7544,6 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,0
   15 | }
      ^ Col 0
 ",c_sharp.verify_decoder
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
- in namespace/skims/test/data/lib_root/f017/test.cs","
-   5 |
-   6 |       var decodedtoken1 = decoder.Decode(token, secret, verify: false);
-   7 |       var json_deco = decoder.Decode(token, secret, verify: true);
-   8 |
-   9 |       var decodedtoken2 = new JwtBuilder()
-  10 |          .MustVerifySignature()
-  11 |          .WithSecret(secret)
-  12 |          .Decode(forgedtoken1);
-  13 |
-  14 |
-> 15 |       var decodedtoken2 = new JwtBuilder()
-  16 |          .WithSecret(secret)
-  17 |          .Decode(forgedtoken1);
-  18 |
-  19 |       var json = JwtBuilder.Create()
-  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
-  21 |          .WithSecret(secret)
-  22 |          .MustVerifySignature()
-  23 |          .Decode(token);
-  24 |
-  25 |       var json2 = JwtBuilder.Create()
-     ^ Col 0
-",c_sharp.jwt_signed
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
- in namespace/skims/test/data/lib_root/f017/test.cs","
-  13 |
-  14 |
-  15 |       var decodedtoken2 = new JwtBuilder()
-  16 |          .WithSecret(secret)
-  17 |          .Decode(forgedtoken1);
-  18 |
-  19 |       var json = JwtBuilder.Create()
-  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
-  21 |          .WithSecret(secret)
-  22 |          .MustVerifySignature()
-  23 |          .Decode(token);
-  24 |
-  25 |       var json2 = JwtBuilder.Create()
-  26 |          .WithAlgorithm()
-  27 |          .WithSecret(secret)
-  28 |          .Decode(token);
-  29 |
-> 30 |       var json3 = JwtBuilder.Create();
-  31 |
-  32 |    }
-  33 | }
-     ^ Col 0
-",c_sharp.jwt_signed
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
- in namespace/skims/test/data/lib_root/f017/test.cs","
-  13 |
-  14 |
-  15 |       var decodedtoken2 = new JwtBuilder()
-  16 |          .WithSecret(secret)
-  17 |          .Decode(forgedtoken1);
-  18 |
-  19 |       var json = JwtBuilder.Create()
-  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
-  21 |          .WithSecret(secret)
-  22 |          .MustVerifySignature()
-  23 |          .Decode(token);
-  24 |
-> 25 |       var json2 = JwtBuilder.Create()
-  26 |          .WithAlgorithm()
-  27 |          .WithSecret(secret)
-  28 |          .Decode(token);
-  29 |
-  30 |       var json3 = JwtBuilder.Create();
-  31 |
-  32 |    }
-  33 | }
-     ^ Col 0
-",c_sharp.jwt_signed
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
  in namespace/skims/test/data/lib_root/f017/test.cs","
    1 | using System;
@@ -7644,6 +7569,81 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sens
   21 |          .WithSecret(secret)
      ^ Col 0
 ",c_sharp.verify_decoder
+F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method that does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/test.cs","
+   5 |
+   6 |       var decodedtoken1 = decoder.Decode(token, secret, verify: false);
+   7 |       var json_deco = decoder.Decode(token, secret, verify: true);
+   8 |
+   9 |       var decodedtoken2 = new JwtBuilder()
+  10 |          .MustVerifySignature()
+  11 |          .WithSecret(secret)
+  12 |          .Decode(forgedtoken1);
+  13 |
+  14 |
+> 15 |       var decodedtoken2 = new JwtBuilder()
+  16 |          .WithSecret(secret)
+  17 |          .Decode(forgedtoken1);
+  18 |
+  19 |       var json = JwtBuilder.Create()
+  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
+  21 |          .WithSecret(secret)
+  22 |          .MustVerifySignature()
+  23 |          .Decode(token);
+  24 |
+  25 |       var json2 = JwtBuilder.Create()
+     ^ Col 0
+",c_sharp.jwt_signed
+F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method that does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/test.cs","
+  13 |
+  14 |
+  15 |       var decodedtoken2 = new JwtBuilder()
+  16 |          .WithSecret(secret)
+  17 |          .Decode(forgedtoken1);
+  18 |
+  19 |       var json = JwtBuilder.Create()
+  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
+  21 |          .WithSecret(secret)
+  22 |          .MustVerifySignature()
+  23 |          .Decode(token);
+  24 |
+  25 |       var json2 = JwtBuilder.Create()
+  26 |          .WithAlgorithm()
+  27 |          .WithSecret(secret)
+  28 |          .Decode(token);
+  29 |
+> 30 |       var json3 = JwtBuilder.Create();
+  31 |
+  32 |    }
+  33 | }
+     ^ Col 0
+",c_sharp.jwt_signed
+F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method that does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/test.cs","
+  13 |
+  14 |
+  15 |       var decodedtoken2 = new JwtBuilder()
+  16 |          .WithSecret(secret)
+  17 |          .Decode(forgedtoken1);
+  18 |
+  19 |       var json = JwtBuilder.Create()
+  20 |          .WithAlgorithm(new HMACSHA256Algorithm())
+  21 |          .WithSecret(secret)
+  22 |          .MustVerifySignature()
+  23 |          .Decode(token);
+  24 |
+> 25 |       var json2 = JwtBuilder.Create()
+  26 |          .WithAlgorithm()
+  27 |          .WithSecret(secret)
+  28 |          .Decode(token);
+  29 |
+  30 |       var json3 = JwtBuilder.Create();
+  31 |
+  32 |    }
+  33 | }
+     ^ Col 0
+",c_sharp.jwt_signed
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
    1 | bg.ws.endpoint =  http://www.test.com
    2 | bg.ws.endpoint = https://www.test.com
