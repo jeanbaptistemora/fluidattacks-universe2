@@ -54,7 +54,7 @@ class FindingVulnsNonDeletedTypedLoader(DataLoader):
             )
             return await self.new_loader.load_many(finding_ids)
 
-        findings_vulns = await self.dataloader.load_many(finding_ids)
+        findings_vulns = await self.old_loader.load_many(finding_ids)
         return tuple(
             vulns_utils.filter_non_deleted(finding_vulns)
             for finding_vulns in findings_vulns
