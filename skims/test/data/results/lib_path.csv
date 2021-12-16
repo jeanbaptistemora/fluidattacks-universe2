@@ -9017,6 +9017,44 @@ F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    53 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",f073._cfn_rds_is_publicly_accessible
+F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+   1 |  class XmlSerializerTestCase : Controller
+   2 |
+   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
+   4 |
+   5 |   //insecure
+   6 |   Tpe t = Type.GetType(typeName);
+   7 |   XmlSerializer serializer = new XmlSerializer(t);
+   8 |
+   9 |   //insecure
+> 10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 |   //secure
+  13 |   ExpectedType obj = null;
+  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+  15 |
+  16 |
+     ^ Col 6
+",c_sharp.check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+   1 |  class XmlSerializerTestCase : Controller
+   2 |
+   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
+   4 |
+   5 |   //insecure
+   6 |   Tpe t = Type.GetType(typeName);
+>  7 |   XmlSerializer serializer = new XmlSerializer(t);
+   8 |
+   9 |   //insecure
+  10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 |   //secure
+  13 |   ExpectedType obj = null;
+  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+  15 |
+  16 |
+     ^ Col 6
+",c_sharp.check_xml_serializer
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
@@ -9093,46 +9131,6 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Ins
   15 |
      ^ Col 9
 ",c_sharp.insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
- in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs","
-   1 |  class XmlSerializerTestCase : Controller
-   2 |
-   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
-   4 |
-   5 |   //insecure
-   6 |   Tpe t = Type.GetType(typeName);
-   7 |   XmlSerializer serializer = new XmlSerializer(t);
-   8 |
-   9 |   //insecure
-> 10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
-  11 |
-  12 |   //secure
-  13 |   ExpectedType obj = null;
-  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
-  15 |
-  16 |
-     ^ Col 6
-",c_sharp.check_xml_serializer
-F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,"Insecure deserialization
- in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs","
-   1 |  class XmlSerializerTestCase : Controller
-   2 |
-   3 | blic ActionResult unsecuredeserialization(HttpRequest typeName)
-   4 |
-   5 |   //insecure
-   6 |   Tpe t = Type.GetType(typeName);
->  7 |   XmlSerializer serializer = new XmlSerializer(t);
-   8 |
-   9 |   //insecure
-  10 |   XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
-  11 |
-  12 |   //secure
-  13 |   ExpectedType obj = null;
-  14 |   XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
-  15 |
-  16 |
-     ^ Col 6
-",c_sharp.check_xml_serializer
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller

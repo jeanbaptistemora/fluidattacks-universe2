@@ -1,3 +1,6 @@
+lib_root.f096.insecure_deserialization:
+  en: The way it's deserializing is insecure
+  es: La forma en la que se esta deserializando es insegura
 F096.title:
   en: >
     Insecure deserialization

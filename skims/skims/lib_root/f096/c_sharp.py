@@ -103,7 +103,7 @@ def check_xml_serializer(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("502",),
-        desc_key="F096.title",
+        desc_key="lib_root.f096.insecure_deserialization",
         desc_params={},
         finding=core_model.FindingEnum.F096,
         graph_shard_nodes=n_ids(),
