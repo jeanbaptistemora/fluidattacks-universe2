@@ -46,7 +46,7 @@ def ldap_connections_authenticated(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("90",),
-        desc_key="F320.title",
+        desc_key="lib_root.f320.authenticated_ldap_connections",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),

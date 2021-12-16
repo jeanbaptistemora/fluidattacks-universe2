@@ -1,5 +1,39 @@
+lib_root.f320.authenticated_ldap_connections:
+  en: >
+    LDAP connections should be authenticated
+  es: >
+    Las conexiones LDAP deben estar autenticadas
 F320.title:
   en: >
     Insecure service configuration - LDAP
   es: >
     Insecure service configuration - LDAP
+F320.description:
+  en: >
+    Internal service information should not be stored in the source code,
+    especially AD configurations, as it is obtained from the admon-chanel
+    configuration file.
+  es: >
+    Información de los servicios internos no deben almacenarce en el código
+    fuente especialmente configuraciones del AD, como se obtiene de el
+    archivo de configuraciones admon-chanel.
+F320.impact:
+  en: Internal attacker
+  es: Atacante interno
+F320.recommendation:
+  en: >
+    Service configurations and credentials must be in protected environments.
+  es: >
+    Las configuraciones de los servicios y credenciales de estos deben estar en
+    ambientes protegidos.
+F320.threat:
+  en: >
+    An attacker can use these insecure service configurations to gain access
+    to the AD and collect all kinds of information that will be useful in
+    later attacks, such as internal network architecture recognition
+    or employee information.
+  es: >
+    Un atacante puede usar estas configuraciones inseguras de los servicios
+    para obtener acceso al AD y asi recolectar todo tipo de infirmación
+    que le sera util en posteriores ataques, como reconocimiento de la
+    arquitectura interna de la red o información de empleados.

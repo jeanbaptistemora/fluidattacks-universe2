@@ -13150,23 +13150,6 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
    56 | /*
       ^ Col 0
 ",java.jpa_like
-F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
- in namespace/skims/test/data/lib_root/f320/test.cs","
-   1 | stem;
-   2 | pher{
-   3 |
-   4 | c void Encrypt()
-   5 |
-   6 | ectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
-   7 | ctoryEntry.AuthenticationType = AuthenticationTypes.None;
-   8 |
->  9 | oryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
-  10 | rectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
-  11 |
-  12 |
-  13 |
-     ^ Col 8
-",c_sharp.ldap_connections_authenticated
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
  in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | using System;
@@ -13241,6 +13224,23 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Inse
   15 |
      ^ Col 2
 ",c_sharp.check_hashes_salt
+F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/test.cs","
+   1 | stem;
+   2 | pher{
+   3 |
+   4 | c void Encrypt()
+   5 |
+   6 | ectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
+   7 | ctoryEntry.AuthenticationType = AuthenticationTypes.None;
+   8 |
+>  9 | oryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
+  10 | rectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
+  11 |
+  12 |
+  13 |
+     ^ Col 8
+",c_sharp.ldap_connections_authenticated
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | g System.Net;
