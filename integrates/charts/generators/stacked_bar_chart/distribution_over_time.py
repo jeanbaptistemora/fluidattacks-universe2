@@ -53,77 +53,77 @@ async def get_group_document(  # pylint: disable=too-many-locals
     group_over_time_yearly = group_data["remediated_over_time_year"]
 
     if group_over_time:
-        group_found_over_time = group_over_time[0]
+        group_opened_over_time = group_over_time[4]
         group_closed_over_time = group_over_time[1]
         group_accepted_over_time = group_over_time[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
+                    opened=opened["y"],
                     date=translate_date(accepted["x"]),
-                    total=found["y"],
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
     if group_over_time_monthly:
-        group_found_over_time = group_over_time_monthly[0]
+        group_opened_over_time = group_over_time_monthly[4]
         group_closed_over_time = group_over_time_monthly[1]
         group_accepted_over_time = group_over_time_monthly[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data_monthly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
+                    opened=opened["y"],
                     date=(
-                        translate_date_last(found["x"])
-                        if translate_date_last(found["x"]) < datetime.now()
+                        translate_date_last(closed["x"])
+                        if translate_date_last(closed["x"]) < datetime.now()
                         else datetime.combine(
                             datetime.now(),
                             datetime.min.time(),
                         )
                     ),
-                    total=found["y"],
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
     if group_over_time_yearly:
-        group_found_over_time = group_over_time_yearly[0]
+        group_opened_over_time = group_over_time_yearly[4]
         group_closed_over_time = group_over_time_yearly[1]
         group_accepted_over_time = group_over_time_yearly[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data_yearly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
+                    opened=opened["y"],
                     date=(
-                        datetime.strptime(found["x"], DATE_FMT)
-                        if datetime.strptime(found["x"], DATE_FMT)
+                        datetime.strptime(closed["x"], DATE_FMT)
+                        if datetime.strptime(closed["x"], DATE_FMT)
                         < datetime.now()
                         else datetime.combine(
                             datetime.now(),
                             datetime.min.time(),
                         )
                     ),
-                    total=found["y"],
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
