@@ -9,6 +9,7 @@ import wait from "waait";
 
 import { ToeContent } from ".";
 import { GroupToeLinesView } from "../GroupToeLinesView";
+import type { IGroupToeLinesViewProps } from "../GroupToeLinesView/types";
 import type { IContentTabProps } from "scenes/Dashboard/components/ContentTab";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -49,7 +50,8 @@ describe("ToeContent", (): void => {
     expect(toeLinesTab).toHaveLength(1);
     expect(toeInputsTab).toHaveLength(1);
 
-    const groupToeLinesView: ReactWrapper = wrapper.find(GroupToeLinesView);
+    const groupToeLinesView: ReactWrapper<IGroupToeLinesViewProps> =
+      wrapper.find(GroupToeLinesView);
 
     expect(groupToeLinesView).toHaveLength(1);
   });

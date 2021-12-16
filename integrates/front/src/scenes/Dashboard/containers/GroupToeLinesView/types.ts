@@ -55,8 +55,13 @@ interface IToeLinesData {
   sortsRiskLevel: string;
 }
 
+interface IGroupToeLinesViewProps {
+  isInternal: boolean;
+}
+
 export type {
   IGitRootAttr,
+  IGroupToeLinesViewProps,
   IToeLinesAttr,
   IToeLinesConnection,
   IToeLinesData,

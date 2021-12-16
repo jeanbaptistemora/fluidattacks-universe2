@@ -113,10 +113,9 @@ describe("GroupToeLinesView", (): void => {
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={GroupToeLinesView}
-              path={"/:groupName/surface/lines"}
-            />
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
@@ -130,7 +129,7 @@ describe("GroupToeLinesView", (): void => {
       .find(DataTableNext)
       .filter({ id: "tblToeLines" });
     const tableHeader: ReactWrapper = toeLinesTable.find("Header");
-    const simpleRows: ReactWrapper = toeLinesTable.find("SimpleRow");
+    const simpleRows: ReactWrapper = toeLinesTable.find("RowPureContent");
     const firstRow: ReactWrapper = simpleRows.at(0);
     const secondRow: ReactWrapper = simpleRows.at(1);
 

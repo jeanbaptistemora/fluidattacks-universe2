@@ -53,11 +53,9 @@ const toeContent: React.FC = (): JSX.Element => {
       </StickyContainer>
       <TabContent>
         <Switch>
-          <Route
-            component={GroupToeLinesView}
-            exact={true}
-            path={`${path}/lines`}
-          />
+          <Route exact={true} path={`${path}/lines`}>
+            <GroupToeLinesView isInternal={false} />
+          </Route>
           <Route
             component={GroupToeInputsView}
             exact={true}

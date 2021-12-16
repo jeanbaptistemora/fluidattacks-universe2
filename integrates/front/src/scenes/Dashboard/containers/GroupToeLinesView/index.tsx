@@ -25,6 +25,7 @@ import type {
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
+  IGroupToeLinesViewProps,
   IToeLinesAttr,
   IToeLinesConnection,
   IToeLinesData,
@@ -35,7 +36,11 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
-const GroupToeLinesView: React.FC = (): JSX.Element => {
+const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
+  props: IGroupToeLinesViewProps
+): JSX.Element => {
+  const { isInternal } = props;
+
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateAttackedLines: boolean = permissions.can(
     "api_mutations_update_toe_lines_attacked_lines_mutate"
@@ -167,7 +172,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.bePresentUntil"),
-      omit: !canGetBePresentUntil,
+      omit: !isInternal || !canGetBePresentUntil,
       onSort,
       visible: checkedItems.bePresentUntil,
     },
@@ -190,7 +195,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "coverage",
       formatter: formatPercentage,
       header: translate.t("group.toe.lines.coverage"),
-      omit: !canSeeCoverage || !canGetAttackedLines,
+      omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
       onSort,
       visible: checkedItems.coverage,
     },
@@ -205,7 +210,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "attackedLines",
       header: translate.t("group.toe.lines.attackedLines"),
-      omit: !canGetAttackedLines,
+      omit: !isInternal || !canGetAttackedLines,
       onSort,
       visible: checkedItems.attackedLines,
     },
@@ -236,7 +241,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "daysToAttack",
       header: translate.t("group.toe.lines.daysToAttack"),
-      omit: !canSeeDaysToAttack || !canGetAttackedAt,
+      omit: !isInternal || !canSeeDaysToAttack || !canGetAttackedAt,
       onSort,
       visible: checkedItems.daysToAttack,
     },
@@ -246,7 +251,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.attackedAt"),
-      omit: !canGetAttackedAt,
+      omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
     },
@@ -254,7 +259,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "attackedBy",
       header: translate.t("group.toe.lines.attackedBy"),
-      omit: !canGetAttackedBy,
+      omit: !isInternal || !canGetAttackedBy,
       onSort,
       visible: checkedItems.attackedBy,
     },
@@ -264,7 +269,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.firstAttackAt"),
-      omit: !canGetFirstAttackAt,
+      omit: !isInternal || !canGetFirstAttackAt,
       onSort,
       visible: checkedItems.firstAttackAt,
     },
@@ -281,7 +286,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       align: "left",
       dataField: "comments",
       header: translate.t("group.toe.lines.comments"),
-      omit: !canGetComments,
+      omit: !isInternal || !canGetComments,
       onSort,
       visible: checkedItems.comments,
     },
@@ -403,7 +408,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
 
   const selectionMode: ISelectRowProps = {
     clickToSelect: false,
-    hideSelectColumn: false,
+    hideSelectColumn: !isInternal || !canUpdateAttackedLines,
     mode: "checkbox",
     nonSelectable: getNonSelectable(toeLines),
     onSelect: onSelectOneToeLinesData,
@@ -433,7 +438,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={false}
-        selectionMode={canUpdateAttackedLines ? selectionMode : undefined}
+        selectionMode={selectionMode}
       />
     </React.StrictMode>
   );
