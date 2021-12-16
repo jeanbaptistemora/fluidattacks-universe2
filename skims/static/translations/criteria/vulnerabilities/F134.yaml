@@ -1,3 +1,6 @@
+lib_root.f134.cors_policy_allows_any_origin:
+  en: The cors policy allows any origin
+  es: La política de cors permite cualquier origen
 F134.title:
   en: >
     Insecure or unset HTTP headers - CORS

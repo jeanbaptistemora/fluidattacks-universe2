@@ -68,7 +68,7 @@ def insecure_cors(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("16",),
-        desc_key="F134.title",
+        desc_key="lib_root.f134.cors_policy_allows_any_origin",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
