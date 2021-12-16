@@ -3,3 +3,23 @@ F241.title:
     Authentication mechanism absence or evasion - AWS
   es: >
     Authentication mechanism absence or evasion - AWS
+F241.description:
+  en: >
+    The system has not been configured with one of the AWS authentication
+    mechanism available or has one that can be bypassed.
+  es: >
+    El sistema no ha sido configurado con uno de los mecanismos de autenticación
+    de AWS disponibles o tiene uno que puede ser eludido.
+F241.impact:
+  en: Access among the most critical parts of an information security program.
+  es: El acceso es una de las partes más críticas de un programa de seguridad de la información.
+F241.recommendation:
+  en: >
+    Configurar los mecanismos de autenticación del sistema operativo AWS
+    basándose y evaluando los requisitos de seguridad de la empresa.
+  es: >
+    Configurar de manera segura la instancia de EC2 deshabilitando el recurso
+    API termination.
+F241.threat:
+  en: Probability of an unauthorized attacker bypassing the authentication process.
+  es: Probabilidad de que un atacante no autorizado se salte el proceso de autenticación.
