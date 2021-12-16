@@ -45,15 +45,17 @@ const toeContent: React.FC<IToeContentProps> = (
               tooltip={translate.t("group.toe.tabs.lines.tooltip")}
             />
           </Can>
-          <Can do={"api_resolvers_group_toe_inputs_resolve"}>
-            <ContentTab
-              icon={"icon pe-7s-target"}
-              id={"toeInputsTab"}
-              link={`${url}/inputs`}
-              title={translate.t("group.toe.tabs.inputs.text")}
-              tooltip={translate.t("group.toe.tabs.inputs.tooltip")}
-            />
-          </Can>
+          {isInternal ? (
+            <Can do={"api_resolvers_group_toe_inputs_resolve"}>
+              <ContentTab
+                icon={"icon pe-7s-target"}
+                id={"toeInputsTab"}
+                link={`${url}/inputs`}
+                title={translate.t("group.toe.tabs.inputs.text")}
+                tooltip={translate.t("group.toe.tabs.inputs.tooltip")}
+              />
+            </Can>
+          ) : undefined}
         </TabsContainer>
       </StickyContainer>
       <TabContent>

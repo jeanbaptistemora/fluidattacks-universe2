@@ -5,8 +5,9 @@ import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 import { renderEnvDescription } from "./envDescription";
 import {
@@ -21,6 +22,8 @@ import { ManagementModal } from "./ManagementModal";
 import { renderRepoDescription } from "./repoDescription";
 import { Container } from "./styles";
 
+import { groupContext } from "../../GroupContent/context";
+import type { IGroupContext } from "../../GroupContent/types";
 import { DeactivationModal } from "../deactivationModal";
 import {
   ACTIVATE_ROOT,
@@ -43,6 +46,7 @@ import {
 } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -67,10 +71,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 }: IGitRootsProps): JSX.Element => {
   // Constants
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const { url: groupUrl }: IGroupContext = useContext(groupContext);
+  const { push } = useHistory();
   const { t } = useTranslation();
 
   const canUpdateRootState: boolean = permissions.can(
     "api_mutations_activate_root_mutate"
+  );
+  const canGetToeLines: boolean = permissions.can(
+    "api_resolvers_group_toe_lines_resolve"
+  );
+  const canGetToeInputs: boolean = permissions.can(
+    "api_resolvers_group_toe_inputs_resolve"
   );
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")
@@ -224,6 +236,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         [columnName]: !checkedItems[columnName],
       });
     }
+  }
+
+  function handleInternalSurfaceClick(): void {
+    push(`${groupUrl}/internal/surface`);
   }
 
   const rootsGroupedByEnvs = roots
@@ -435,19 +451,37 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 }}
                 exportCsv={true}
                 extraButtons={
-                  <Can do={"api_mutations_add_git_root_mutate"}>
-                    <div className={"mb3"}>
-                      <TooltipWrapper
-                        id={t("group.scope.common.addTooltip.id")}
-                        message={t("group.scope.common.addTooltip")}
-                      >
-                        <Button id={"git-root-add"} onClick={openAddModal}>
-                          <FontAwesomeIcon icon={faPlus} />
-                          &nbsp;{t("group.scope.common.add")}
-                        </Button>
-                      </TooltipWrapper>
-                    </div>
-                  </Can>
+                  <Row>
+                    <Can do={"api_mutations_add_git_root_mutate"}>
+                      <div className={"mb3"}>
+                        <TooltipWrapper
+                          id={t("group.scope.common.addTooltip.id")}
+                          message={t("group.scope.common.addTooltip")}
+                        >
+                          <Button id={"git-root-add"} onClick={openAddModal}>
+                            <FontAwesomeIcon icon={faPlus} />
+                            &nbsp;{t("group.scope.common.add")}
+                          </Button>
+                        </TooltipWrapper>
+                      </div>
+                    </Can>
+                    {!canGetToeInputs && !canGetToeLines ? undefined : (
+                      <div className={"mb3"}>
+                        <TooltipWrapper
+                          id={t("group.tabs.toe.tooltip")}
+                          message={t("group.tabs.toe.tooltip")}
+                        >
+                          <Button
+                            id={"git-root-internal-surface"}
+                            onClick={handleInternalSurfaceClick}
+                          >
+                            <i className={"icon pe-7s-note2"} />
+                            &nbsp;{t("group.tabs.toe.text")}
+                          </Button>
+                        </TooltipWrapper>
+                      </div>
+                    )}
+                  </Row>
                 }
                 headers={[
                   {

@@ -4,6 +4,7 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 
 import { ManagementModal } from "./ManagementModal";
@@ -27,7 +28,9 @@ describe("GitRoots", (): void => {
     const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <MockedProvider>
-        <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+        <MemoryRouter initialEntries={["/TEST"]}>
+          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+        </MemoryRouter>
       </MockedProvider>
     );
 
@@ -41,16 +44,18 @@ describe("GitRoots", (): void => {
     const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <MockedProvider>
-        <authzPermissionsContext.Provider
-          value={
-            new PureAbility([
-              { action: "api_mutations_add_git_root_mutate" },
-              { action: "api_mutations_update_git_root_mutate" },
-            ])
-          }
-        >
-          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
-        </authzPermissionsContext.Provider>
+        <MemoryRouter initialEntries={["/TEST"]}>
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                { action: "api_mutations_add_git_root_mutate" },
+                { action: "api_mutations_update_git_root_mutate" },
+              ])
+            }
+          >
+            <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+          </authzPermissionsContext.Provider>
+        </MemoryRouter>
       </MockedProvider>
     );
 

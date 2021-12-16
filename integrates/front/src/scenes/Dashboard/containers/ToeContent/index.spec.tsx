@@ -31,7 +31,9 @@ describe("ToeContent", (): void => {
       <MemoryRouter initialEntries={["/unittesting/surface"]}>
         <MockedProvider addTypename={false} mocks={[]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route component={ToeContent} path={"/:groupName/surface"} />
+            <Route path={"/:groupName/surface"}>
+              <ToeContent isInternal={true} />
+            </Route>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
