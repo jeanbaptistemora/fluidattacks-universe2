@@ -8,7 +8,9 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
-    FI_ENVIRONMENT,
+)
+from contextlib import (
+    suppress,
 )
 from custom_exceptions import (
     UnavailabilityError,
@@ -72,10 +74,7 @@ async def add(vulnerability: Vulnerability) -> None:
         LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
 
-    if (
-        FI_ENVIRONMENT == "development"
-        and vulnerability.state.status != VulnerabilityStateStatus.DELETED
-    ):
+    if vulnerability.state.status != VulnerabilityStateStatus.DELETED:
         await vulns_model.add(vulnerability=vulnerability)
 
 
@@ -235,12 +234,13 @@ async def update_metadata(
             vuln_id=vulnerability_id,
             data=item,
         )
-    if FI_ENVIRONMENT == "development" and not deleted:
-        await vulns_model.update_metadata(
-            finding_id=finding_id,
-            metadata=metadata,
-            vulnerability_id=vulnerability_id,
-        )
+    if not deleted:
+        with suppress(VulnNotFound):
+            await vulns_model.update_metadata(
+                finding_id=finding_id,
+                metadata=metadata,
+                vulnerability_id=vulnerability_id,
+            )
 
 
 async def update_state(
@@ -256,7 +256,7 @@ async def update_state(
         vulnerability_id=vulnerability_id,
         elements={"historic_state": (item,)},
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         if state.status == VulnerabilityStateStatus.DELETED:
             # Keep deleted items out of the new model while we define the path
             # going forward for archived data
@@ -287,7 +287,7 @@ async def update_historic_state(
             ]
         },
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_state,
@@ -308,7 +308,7 @@ async def update_treatment(
         vulnerability_id=vulnerability_id,
         elements={"historic_treatment": (item,)},
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=treatment,
@@ -334,12 +334,13 @@ async def update_historic_treatment(
             ]
         },
     )
-    if FI_ENVIRONMENT == "development" and not deleted:
-        await vulns_model.update_historic(
-            finding_id=finding_id,
-            historic=historic_treatment,
-            vulnerability_id=vulnerability_id,
-        )
+    if not deleted:
+        with suppress(VulnNotFound):
+            await vulns_model.update_historic(
+                finding_id=finding_id,
+                historic=historic_treatment,
+                vulnerability_id=vulnerability_id,
+            )
 
 
 async def update_verification(
@@ -355,7 +356,7 @@ async def update_verification(
         vulnerability_id=vulnerability_id,
         elements={"historic_verification": (item,)},
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=verification,
@@ -380,7 +381,7 @@ async def update_historic_verification(
             ]
         },
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_verification,
@@ -401,7 +402,7 @@ async def update_zero_risk(
         vulnerability_id=vulnerability_id,
         elements={"historic_zero_risk": (item,)},
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic_entry(
             current_entry=current_value,
             entry=zero_risk,
@@ -426,7 +427,7 @@ async def update_historic_zero_risk(
             ]
         },
     )
-    if FI_ENVIRONMENT == "development":
+    with suppress(VulnNotFound):
         await vulns_model.update_historic(
             finding_id=finding_id,
             historic=historic_zero_risk,

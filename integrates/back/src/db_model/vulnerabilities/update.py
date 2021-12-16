@@ -49,12 +49,17 @@ async def update_metadata(
         if value is not None
     }
     if vulnerability_item:
-        await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists(),
-            item=vulnerability_item,
-            key=vulnerability_key,
-            table=TABLE,
-        )
+        try:
+            await operations.update_item(
+                condition_expression=Attr(
+                    key_structure.partition_key
+                ).exists(),
+                item=vulnerability_item,
+                key=vulnerability_key,
+                table=TABLE,
+            )
+        except ConditionalCheckFailedException as ex:
+            raise VulnNotFound() from ex
 
 
 async def update_historic_entry(
