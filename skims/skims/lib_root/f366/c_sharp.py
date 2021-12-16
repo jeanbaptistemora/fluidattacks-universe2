@@ -29,7 +29,7 @@ def conflicting_annotations(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("749",),
-        desc_key="F366.title",
+        desc_key="lib_root.f366.conflicting_transparency_annotations",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),

@@ -11374,8 +11374,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. S
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
 ",f380._unpinned_docker_image
-F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,"Inappropriate coding practices - Transparency Conflict
- in namespace/skims/test/data/lib_root/f366/test.cs","
+F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
    1 | using System;
    2 | using System.Security;
    3 |

@@ -1,3 +1,6 @@
+lib_root.f366.conflicting_transparency_annotations:
+  en: Members should not have conflicting transparency annotations
+  es: Los miembros no deben tener anotaciones de transparencia contradictorias
 F366.title:
   en: >
     Inappropriate coding practices - Transparency Conflict
