@@ -11,6 +11,7 @@ import {
 
 import { groupContext } from "./context";
 
+import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupMachineView } from "../GroupMachineView";
 import { GroupScopeView } from "../GroupScopeView";
 import { ToeContent } from "../ToeContent";
@@ -204,6 +205,10 @@ const GroupContent: React.FC = (): JSX.Element => {
                       path={`${path}/consulting`}
                     />
                     <Route component={ToeContent} path={`${path}/surface`} />
+                    <Route
+                      component={GroupInternalContent}
+                      path={`${path}/internal`}
+                    />
                     <Redirect to={`${path}/vulns`} />
                   </Switch>
                 </groupContext.Provider>

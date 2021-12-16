@@ -4,6 +4,8 @@ import { useAbility } from "@casl/react";
 import React from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
+import type { IToeContentProps } from "./types";
+
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
@@ -16,7 +18,10 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
-const toeContent: React.FC = (): JSX.Element => {
+const toeContent: React.FC<IToeContentProps> = (
+  props: IToeContentProps
+): JSX.Element => {
+  const { isInternal } = props;
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -54,7 +59,7 @@ const toeContent: React.FC = (): JSX.Element => {
       <TabContent>
         <Switch>
           <Route exact={true} path={`${path}/lines`}>
-            <GroupToeLinesView isInternal={false} />
+            <GroupToeLinesView isInternal={isInternal} />
           </Route>
           <Route
             component={GroupToeInputsView}
