@@ -52,15 +52,9 @@ def format_vulnerability(item: Item) -> Vulnerability:
     )
 
     return Vulnerability(
-        bug_tracking_system_url=(
-            item["bug_tracking_system_url"]
-            if item.get("bug_tracking_system_url")
-            else None
-        ),
+        bug_tracking_system_url=item.get("bug_tracking_system_url", None),
         commit=item.get("commit", None),
-        custom_severity=(
-            item["custom_severity"] if item.get("custom_severity") else None
-        ),
+        custom_severity=item.get("custom_severity", None),
         finding_id=item["sk"].split("#")[1],
         hash=item.get("hash", None),
         repo=item.get("repo", None),
@@ -69,7 +63,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
         specific=item["specific"],
         state=state,
         stream=item.get("stream", None),
-        tags=item["tags"] if item.get("tags") else None,
+        tags=item.get("tags", None),
         treatment=treatment,
         type=VulnerabilityType[item["type"]],
         id=item["pk"].split("#")[1],

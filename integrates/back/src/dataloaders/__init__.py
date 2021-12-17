@@ -69,14 +69,6 @@ from db_model.toe_lines.get import (
     RootToeLinesLoader,
     ToeLinesLoader,
 )
-from db_model.vulnerabilities.get import (
-    FindingVulnsNewLoader,
-    VulnHistoricStateNewLoader,
-    VulnHistoricTreatmentNewLoader,
-    VulnHistoricVerificationNewLoader,
-    VulnHistoricZeroRiskNewLoader,
-    VulnNewLoader,
-)
 from starlette.requests import (
     Request,
 )
@@ -143,7 +135,7 @@ def get_new_context() -> Dataloaders:
     # Migration
     finding_vulns_typed_loader = FindingVulnsTypedLoader(vulnerability_loader)
     finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
-        FindingVulnsNewLoader(), finding_vulns_typed_loader
+        finding_vulns_typed_loader
     )
     finding_vulns_nzr_typed_loader = FindingVulnsNonZeroRiskTypedLoader(
         finding_vulns_non_deleted_typed_loader
@@ -181,21 +173,17 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_lines=ToeLinesLoader(),
-        vulnerability_typed=VulnerabilityTypedLoader(
-            VulnNewLoader(), vulnerability_loader
-        ),
+        vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(
-            VulnHistoricStateNewLoader(), vulnerability_loader
+            vulnerability_loader
         ),
         vulnerability_historic_treatment=VulnerabilityHistoricTreatmentLoader(
-            VulnHistoricTreatmentNewLoader(), vulnerability_loader
+            vulnerability_loader
         ),
         vulnerability_historic_verification=(
-            VulnerabilityHistoricVerificationLoader(
-                VulnHistoricVerificationNewLoader(), vulnerability_loader
-            )
+            VulnerabilityHistoricVerificationLoader(vulnerability_loader)
         ),
         vulnerability_historic_zero_risk=VulnerabilityHistoricZeroRiskLoader(
-            VulnHistoricZeroRiskNewLoader(), vulnerability_loader
+            vulnerability_loader
         ),
     )
