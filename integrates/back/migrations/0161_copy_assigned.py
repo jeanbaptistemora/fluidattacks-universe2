@@ -36,7 +36,7 @@ from typing import (
     Tuple,
 )
 from vulnerabilities.dal import (
-    update,
+    _update,
 )
 
 PROD: bool = True
@@ -61,7 +61,7 @@ async def copy_assigned(*, vulnerability: Dict[str, Any]) -> None:
 
     if should_update:
         if PROD:
-            await update(
+            await _update(
                 finding_id=str(vulnerability["finding_id"]),
                 vuln_id=str(vulnerability["UUID"]),
                 data={"historic_treatment": new_historic_treatment},
@@ -99,7 +99,7 @@ async def main() -> None:
             for vulnerability in valid_vulnerabilities
             if "historic_treatment" in vulnerability
         ],
-        workers=8,
+        workers=24,
     )
 
 

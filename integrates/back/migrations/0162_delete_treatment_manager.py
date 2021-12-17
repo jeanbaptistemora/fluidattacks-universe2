@@ -40,7 +40,7 @@ from vulnerabilities.dal import (
     _update,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def delete_treatment_manager(*, vulnerability: Dict[str, Any]) -> None:
@@ -102,7 +102,7 @@ async def main() -> None:
             for vulnerability in valid_vulnerabilities
             if "historic_treatment" in vulnerability
         ),
-        workers=16,
+        workers=24,
     )
 
 
