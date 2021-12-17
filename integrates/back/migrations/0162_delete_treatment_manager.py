@@ -3,8 +3,10 @@
 This migration aims to delete treatment_manager after a related
 migration that copy that data to assigned be executed.
 
-Execution Time:     2021-12-12 at 11:05:38 UTC
-Finalization Time:  2021-12-12 at 12:52:06 UTC
+First Execution Time:      2021-12-12 at 11:05:38 UTC
+First Finalization Time:   2021-12-12 at 12:52:06 UTC
+Second Execution Time:     2021-12-17 at 10:27:59 UTC
+Second Finalization Time:  2021-12-17 at 10:46:22 UTC
 """
 
 from aioextensions import (

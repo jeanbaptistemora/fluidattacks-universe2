@@ -2,8 +2,10 @@
 """
 This migration aims to copy treatment_manager to assigned.
 
-Execution Time:     2021-12-10 at 10:04:54 UTC
-Finalization Time:  2021-12-10 at 12:40:59 UTC
+First Execution Time:      2021-12-10 at 10:04:54 UTC
+First Finalization Time:   2021-12-10 at 12:40:59 UTC
+Second Execution Time:     2021-12-17 at 10:09:45 UTC
+Second Finalization Time:  2021-12-17 at 10:27:18 UTC
 """
 
 from aioextensions import (
