@@ -972,6 +972,10 @@ export const enTranslations: ResourceKey = {
         text: "Analytics",
         tooltip: "Organization status at a glance",
       },
+      billing: {
+        text: "Billing",
+        tooltip: "Billing and subcriptions for your organization",
+      },
       groups: {
         disabled: "Disabled",
         enabled: "Enabled",

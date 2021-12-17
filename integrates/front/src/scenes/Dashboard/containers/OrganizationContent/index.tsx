@@ -18,6 +18,7 @@ import {
 
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
+import { OrganizationBilling } from "scenes/Dashboard/containers/OrganizationBillingView";
 import {
   GET_ORGANIZATION_ID,
   GET_USER_PORTFOLIOS,
@@ -183,6 +184,13 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
+                <ContentTab
+                  icon={"icon pe-7s-cash"}
+                  id={"billingTab"}
+                  link={`${url}/billing`}
+                  title={translate.t("organization.tabs.billing.text")}
+                  tooltip={translate.t("organization.tabs.billing.tooltip")}
+                />
               </TabsContainer>
             </StickyContainer>
             <div className={globalStyle.tabContent}>
@@ -214,6 +222,11 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Route>
                 <Route exact={true} path={`${path}/policies`}>
                   <OrganizationPolicies
+                    organizationId={basicData.organizationId.id}
+                  />
+                </Route>
+                <Route exact={true} path={`${path}/billing`}>
+                  <OrganizationBilling
                     organizationId={basicData.organizationId.id}
                   />
                 </Route>
