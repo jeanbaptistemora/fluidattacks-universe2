@@ -1,13 +1,13 @@
 from lib_root.f052.c_sharp import (
-    aesmanaged_secure_mode as c_sharp_aesmanaged_secure_mode,
-    insecure_cipher as c_sharp_insecure_cipher,
-    insecure_hash as c_sharp_insecure_hash,
-    insecure_keys as c_sharp_insecure_keys,
-    rsa_secure_mode as c_sharp_rsa_secure_mode,
+    c_sharp_aesmanaged_secure_mode,
+    c_sharp_insecure_cipher,
+    c_sharp_insecure_hash,
+    c_sharp_insecure_keys,
+    c_sharp_rsa_secure_mode,
 )
 from lib_root.f052.go import (
-    insecure_cipher as go_insecure_cipher,
-    insecure_hash as go_insecure_hash,
+    go_insecure_cipher,
+    go_insecure_hash,
 )
 from lib_root.f052.java import (
     java_insecure_cipher,
@@ -16,14 +16,14 @@ from lib_root.f052.java import (
     java_insecure_pass,
 )
 from lib_root.f052.javascript import (
-    insecure_cipher as javascript_insecure_cipher,
-    insecure_hash as javascript_insecure_hash,
-    insecure_key as javascript_insecure_key,
+    javascript_insecure_cipher,
+    javascript_insecure_hash,
+    javascript_insecure_key,
 )
 from lib_root.f052.kotlin import (
-    insecure_cipher as kotlin_insecure_cipher,
-    insecure_hash as kotlin_insecure_hash,
-    insecure_key as kotlin_insecure_key,
+    kotlin_insecure_cipher,
+    kotlin_insecure_hash,
+    kotlin_insecure_key,
 )
 from model import (
     core_model,

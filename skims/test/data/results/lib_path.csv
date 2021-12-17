@@ -4071,7 +4071,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,15,310 + 327,skims,
   17 |  }
   18 |
      ^ Col 3
-",c_sharp.insecure_cipher
+",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | sing System.Security.Cryptography;
    2 |
@@ -4092,7 +4092,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310 + 327,skims,
   17 |    }
   18 |
      ^ Col 1
-",c_sharp.insecure_cipher
+",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | using System.Security.Cryptography;
    2 |
@@ -4113,7 +4113,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310 + 327,skims,
   17 |     }
   18 | }
      ^ Col 0
-",c_sharp.insecure_cipher
+",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,13,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/java.java,"
    3 | c static void main(String[] args) {
    4 | essageDigest md = MessageDigest.getInstance(""ShA-256"");
@@ -4568,7 +4568,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310 + 327,skims,
   23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
   24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,15,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    5 | .security.spec.ECGenParameterSpec
    6 | .security.spec.RSAKeyGenParameterSpec
@@ -4592,7 +4592,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,15,310 + 327,skims,
   24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
   25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,16,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    6 | .security.spec.RSAKeyGenParameterSpec
    7 | x.crypto.Cipher
@@ -4616,7 +4616,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,16,310 + 327,skims,
   25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
   26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,17,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    7 | x.crypto.Cipher
    8 | x.crypto.NoSuchPaddingException
@@ -4640,7 +4640,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,17,310 + 327,skims,
   26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
   27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,19,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    9 |
   10 | {
@@ -4664,7 +4664,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,19,310 + 327,skims,
   28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
   29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,20,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   10 | {
   11 | n(args: Array<String>) {
@@ -4688,7 +4688,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,20,310 + 327,skims,
   29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
   30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,21,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   11 | n(args: Array<String>) {
   12 |  {
@@ -4712,7 +4712,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,21,310 + 327,skims,
   30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
   31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
      ^ Col 11
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,22,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   12 | {
   13 | val c1 = Cipher.getInstance(""AES"")
@@ -4736,7 +4736,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,22,310 + 327,skims,
   31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
   32 |
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,23,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   13 | val c1 = Cipher.getInstance(""AES"")
   14 | val c2 = Cipher.getInstance(""DES"")
@@ -4760,7 +4760,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,23,310 + 327,skims,
   32 |
   33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,24,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   14 | val c2 = Cipher.getInstance(""DES"")
   15 | val c3 = Cipher.getInstance(""DESede"")
@@ -4784,7 +4784,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,24,310 + 327,skims,
   33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
   34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,25,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   15 | val c3 = Cipher.getInstance(""DESede"")
   16 | val c4 = Cipher.getInstance(""RSA"")
@@ -4808,7 +4808,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,25,310 + 327,skims,
   34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
   35 | val k3 = ECGenParameterSpec(""secp521r1"")
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,26,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   16 | val c4 = Cipher.getInstance(""RSA"")
   17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
@@ -4832,7 +4832,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,26,310 + 327,skims,
   35 | val k3 = ECGenParameterSpec(""secp521r1"")
   36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,27,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
   18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
@@ -4856,7 +4856,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,27,310 + 327,skims,
   36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
   37 |
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,28,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
   19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
@@ -4880,7 +4880,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,28,310 + 327,skims,
   37 |
   38 | val spec1: ConnectionSpec = (
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
   20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
@@ -4904,7 +4904,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,29,310 + 327,skims,
   38 | val spec1: ConnectionSpec = (
   39 |     ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
      ^ Col 12
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,40,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   30 |         val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
   31 |         val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
@@ -4928,7 +4928,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,40,310 + 327,skims,
   49 |         val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
   50 |         val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
      ^ Col 4
-",kotlin.insecure_cipher
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,24,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
   14 |    };
   15 |
@@ -4952,7 +4952,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,24,310 + 327,skims,05
   33 |    {
   34 |       KeySize = 128,
      ^ Col 3
-",c_sharp.aesmanaged_secure_mode
+",c_sharp.c_sharp_aesmanaged_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,32,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
   22 |   };
   23 |
@@ -4976,7 +4976,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,32,310 + 327,skims,05
   41 |   {
   42 |      KeySize = 128,
      ^ Col 4
-",c_sharp.aesmanaged_secure_mode
+",c_sharp.c_sharp_aesmanaged_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,40,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
   28 |      Mode = CipherMode.ECB,
   29 |      Padding = PaddingMode.PKCS7
@@ -5000,7 +5000,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,40,310 + 327,skims,05
   47 |
   48 |
      ^ Col 4
-",c_sharp.aesmanaged_secure_mode
+",c_sharp.c_sharp_aesmanaged_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -5024,7 +5024,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310 + 327,skims,05
 > 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
   23 | }
      ^ Col 0
-",go.insecure_cipher
+",go.go_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,12,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
    1 | using System;
    2 | class cipher{
@@ -5041,7 +5041,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,12,310 + 327,ski
   13 |  }
   14 | }
      ^ Col 0
-",c_sharp.insecure_keys
+",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,9,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
    1 | using System;
    2 | class cipher{
@@ -5058,7 +5058,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,9,310 + 327,skim
   13 |  }
   14 | }
      ^ Col 0
-",c_sharp.insecure_keys
+",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
    1 | using System;
    2 | class cipher{
@@ -5075,7 +5075,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,6,310 + 327,skim
   13 |  }
   14 | }
      ^ Col 0
-",c_sharp.insecure_keys
+",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,9,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
    1 | ystem;
    2 | wtbuild {
@@ -5090,7 +5090,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,9,310 + 327,skims
   11 |
   12 |
      ^ Col 7
-",c_sharp.insecure_keys
+",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
    1 | ystem;
    2 | wtbuild {
@@ -5105,7 +5105,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310 + 327,skims
   11 |
   12 |
      ^ Col 7
-",c_sharp.insecure_keys
+",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
    1 | using System;
    2 | class jwtbuild {
@@ -5120,7 +5120,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310 + 327,skim
   11 |    }
   12 | }
      ^ Col 0
-",c_sharp.rsa_secure_mode
+",c_sharp.c_sharp_rsa_secure_mode
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | ng System.Security.Cryptography;
    2 |
@@ -5141,7 +5141,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,
   17 |  }
   18 |
      ^ Col 3
-",c_sharp.insecure_hash
+",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | using System.Security.Cryptography;
    2 |
@@ -5162,7 +5162,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,11,310 + 327,skims,
   17 |     }
   18 | }
      ^ Col 0
-",c_sharp.insecure_hash
+",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,10,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | using System.Security.Cryptography;
    2 |
@@ -5183,7 +5183,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,10,310 + 327,skims,
   17 |     }
   18 | }
      ^ Col 0
-",c_sharp.insecure_hash
+",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,9,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | using System.Security.Cryptography;
    2 |
@@ -5204,7 +5204,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,9,310 + 327,skims,0
   17 |     }
   18 | }
      ^ Col 0
-",c_sharp.insecure_hash
+",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,10,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/java.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 | public class Main {
@@ -5348,7 +5348,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,49,310 + 327,skims,
   54 |
   55 |
      ^ Col 34
-",kotlin.insecure_hash
+",kotlin.kotlin_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -5372,7 +5372,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310 + 327,skims,05
   22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
   23 | }
      ^ Col 0
-",go.insecure_hash
+",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,16,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -5396,7 +5396,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,16,310 + 327,skims,05
   22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
   23 | }
      ^ Col 0
-",go.insecure_hash
+",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,15,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -5420,7 +5420,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,15,310 + 327,skims,05
   22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
   23 | }
      ^ Col 0
-",go.insecure_hash
+",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -5444,7 +5444,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310 + 327,skims,05
   22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
   23 | }
      ^ Col 0
-",go.insecure_hash
+",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/java.java,"
   22 |       Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
   23 |       Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
@@ -5516,7 +5516,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,34,310 + 327,skims,
   43 |  spec2: ConnectionSpec = (
   44 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
      ^ Col 15
-",kotlin.insecure_key
+",kotlin.kotlin_insecure_key
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
   26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
   27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
@@ -5540,7 +5540,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,36,310 + 327,skims,
   45 |          .tlsVersions(TlsVersion.TLS_1_2)
   46 |          .build()
      ^ Col 11
-",kotlin.insecure_key
+",kotlin.kotlin_insecure_key
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,40,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure password encoder in namespace/skims/test/data/lib_path/f052/java.java,"
   22 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
   23 | Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");

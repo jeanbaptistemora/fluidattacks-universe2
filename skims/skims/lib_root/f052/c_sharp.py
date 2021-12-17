@@ -26,7 +26,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def insecure_keys(
+def c_sharp_insecure_keys(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
 
@@ -65,7 +65,7 @@ def insecure_keys(
     )
 
 
-def rsa_secure_mode(
+def c_sharp_rsa_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     name_vars = []
@@ -126,7 +126,7 @@ def rsa_secure_mode(
     )
 
 
-def aesmanaged_secure_mode(
+def c_sharp_aesmanaged_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     unsafe_modes = {
@@ -181,7 +181,7 @@ def aesmanaged_secure_mode(
     )
 
 
-def insecure_cipher(
+def c_sharp_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {
@@ -210,7 +210,7 @@ def insecure_cipher(
     )
 
 
-def insecure_hash(
+def c_sharp_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {

@@ -1,7 +1,7 @@
 from lib_root.f052.java import (
+    java_security_yield_insecure_key,
     javax_yield_insecure_ciphers,
     jvm_yield_insecure_hash,
-    security_yield_insecure_key as java_security_yield_insecure_key,
 )
 from lib_root.utilities.kotlin import (
     yield_method_invocation,
@@ -102,7 +102,7 @@ def _yield_insecure_ciphers(
         )
 
 
-def insecure_hash(
+def kotlin_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -114,7 +114,7 @@ def insecure_hash(
     )
 
 
-def insecure_cipher(
+def kotlin_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -126,7 +126,7 @@ def insecure_cipher(
     )
 
 
-def insecure_key(
+def kotlin_insecure_key(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(

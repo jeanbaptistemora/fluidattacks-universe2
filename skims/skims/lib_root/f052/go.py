@@ -15,7 +15,7 @@ from sast.query import (
 )
 
 
-def insecure_hash(
+def go_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
 
@@ -33,7 +33,7 @@ def insecure_hash(
     )
 
 
-def insecure_cipher(
+def go_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {

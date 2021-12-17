@@ -55,7 +55,7 @@ def _yield_insecure_pass(
             yield shard, object_id
 
 
-def security_yield_insecure_key(
+def java_security_yield_insecure_key(
     shard: GraphShard, type_name: str, parameters: List[Any]
 ) -> GraphShardNodes:
     insecure_rsa_spec = complete_attrs_on_set(
@@ -141,7 +141,7 @@ def _yield_insecure_key(
             shard.graph,
             match["argument_list"],
         )[1:-1]
-        yield from security_yield_insecure_key(
+        yield from java_security_yield_insecure_key(
             shard,
             type_name,
             parameters,
