@@ -8010,7 +8010,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/test.cs,10,378,skims,160. Exc
   18 |     }
   19 | }
      ^ Col 0
-",c_sharp.file_create_temp_file
+",c_sharp.c_sharp_file_create_temp_file
 F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
    1 | import java.io.File;
    2 |
@@ -8029,7 +8029,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Ex
   15 |  *
   16 |  */
      ^ Col 0
-",java.file_create_temp_file
+",java.java_file_create_temp_file
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
