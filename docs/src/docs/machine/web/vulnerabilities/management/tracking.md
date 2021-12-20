@@ -29,4 +29,4 @@ and also the treatment
 that a set amount of vulnerabilities
 were given in a specific date,
 mentioning its justification
-and treatment manager.
+and assigned user.

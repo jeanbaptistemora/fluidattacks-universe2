@@ -33,7 +33,7 @@ are the following:
   With this treatment
   you acknowledge the existence
   of the vulnerability
-  and assign a treatment manager to it
+  and assign an user to it
   in order to ensure
   it is solved.
 - **Temporarily accepted:**
@@ -83,15 +83,11 @@ depending on which treatment is given:
   for the business.
   It can be a quantitative
   or monetary value.
-- **Treatment manager:**
+- **Assigned:**
   This will be the user of the group
   in charge of making sure
   that the vulnerability
-  receives a solution,
-  which means this information
-  is only given
-  when the treatment assigned
-  is **In progress**.
+  receives a solution.
 - **Temporarily accepted until:**
   This information is for
   when the treatment given
