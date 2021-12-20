@@ -4007,6 +4007,551 @@ F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. I
   6 | }
     ^ Col 0
 ",f070._tfm_lb_target_group_insecure_port
+F346,lines,namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml","
+   1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
+>  2 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+   3 |     <application android:label=""@7F040001"" android:icon=""@7F020002"">
+   4 |         <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   5 |             <intent-filter>
+   6 |                 <action android:name=""android.intent.action.MAIN""/>
+   7 |                 <category android:name=""android.intent.category.LAUNCHER""/>
+   8 |             </intent-filter>
+   9 |         </activity>
+  10 |     </application>
+  11 | </manifest>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f058/AndroidManifest.xml","
+   1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
+>  2 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+   3 |     <application android:label=""@7F040001"" android:icon=""@7F020002"">
+   4 |         <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   5 |             <intent-filter>
+   6 |                 <action android:name=""android.intent.action.MAIN""/>
+   7 |                 <category android:name=""android.intent.category.LAUNCHER""/>
+   8 |             </intent-filter>
+   9 |         </activity>
+  10 |     </application>
+  11 | </manifest>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f075/AndroidManifest.xml","
+   1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
+>  2 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+   3 |     <application android:label=""@7F040001"" android:icon=""@7F020002"">
+   4 |         <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   5 |             <intent-filter>
+   6 |                 <action android:name=""android.intent.action.MAIN""/>
+   7 |                 <category android:name=""android.intent.category.LAUNCHER""/>
+   8 |             </intent-filter>
+   9 |         </activity>
+  10 |     </application>
+  11 | </manifest>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,11,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+> 11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,10,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+> 10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,9,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+>  9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,8,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+>  8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,7,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+>  7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,6,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+>  6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,5,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+>  5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,4,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+>  4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,3,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+>  3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,12,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+> 12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,13,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
+   4 |     <uses-permission android:name=""android.permission.WRITE_CALL_LOG""/>
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+> 13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,15,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   5 |     <uses-permission android:name=""android.permission.CAMERA""/>
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+> 15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,16,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+   6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
+   7 |     <uses-permission android:name=""android.permission.READ_PHONE_NUMBERS""/>
+   8 |     <uses-permission android:name=""android.permission.CALL_PHONE""/>
+   9 |     <uses-permission android:name=""android.permission.ANSWER_PHONE_CALLS""/>
+  10 |     <uses-permission android:name=""android.permission.PROCESS_OUTGOING_CALLS""/>
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+> 16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,21,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+> 21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+  27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+  28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+  29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+  31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,22,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
+  13 |     <uses-permission android:name=""android.permission.GET_ACCOUNTS""/>
+  14 |     <uses-permission android:name=""android.permission.READ_PROFILE""/>
+  15 |     <uses-permission android:name=""android.permission.ACCESS_COARSE_LOCATION""/>
+  16 |     <uses-permission android:name=""android.permission.ACCESS_FINE_LOCATION""/>
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+> 22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+  27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+  28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+  29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+  31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+  32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,27,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+> 27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+  28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+  29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+  31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+  32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
+  33 |     <uses-permission android:name=""android.permission.ACCESS_NOTIFICATION_POLICY""/>
+  34 |     <uses-permission android:name=""android.permission.FOREGROUND_SERVICE""/>
+  35 |     <uses-permission android:name=""android.permission.BIND_NOTIFICATION_LISTENER_SERVICE""/>
+  36 |     <uses-permission android:name=""android.permission.DISABLE_KEYGUARD""/>
+  37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,28,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  18 |     <uses-permission android:name=""android.permission.INTERNET""/>
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+  27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+> 28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+  29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+  31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+  32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
+  33 |     <uses-permission android:name=""android.permission.ACCESS_NOTIFICATION_POLICY""/>
+  34 |     <uses-permission android:name=""android.permission.FOREGROUND_SERVICE""/>
+  35 |     <uses-permission android:name=""android.permission.BIND_NOTIFICATION_LISTENER_SERVICE""/>
+  36 |     <uses-permission android:name=""android.permission.DISABLE_KEYGUARD""/>
+  37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
+  38 |     <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,29,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
+  20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+  27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+  28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+> 29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+  31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+  32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
+  33 |     <uses-permission android:name=""android.permission.ACCESS_NOTIFICATION_POLICY""/>
+  34 |     <uses-permission android:name=""android.permission.FOREGROUND_SERVICE""/>
+  35 |     <uses-permission android:name=""android.permission.BIND_NOTIFICATION_LISTENER_SERVICE""/>
+  36 |     <uses-permission android:name=""android.permission.DISABLE_KEYGUARD""/>
+  37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
+  38 |     <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED""/>
+  39 |     <uses-permission android:name=""android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,31,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
+  22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
+  23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
+  24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
+  25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
+  26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
+  27 |     <uses-permission android:name=""android.permission.RECEIVE_SMS""/>
+  28 |     <uses-permission android:name=""android.permission.READ_SMS""/>
+  29 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
+  30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
+> 31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
+  32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
+  33 |     <uses-permission android:name=""android.permission.ACCESS_NOTIFICATION_POLICY""/>
+  34 |     <uses-permission android:name=""android.permission.FOREGROUND_SERVICE""/>
+  35 |     <uses-permission android:name=""android.permission.BIND_NOTIFICATION_LISTENER_SERVICE""/>
+  36 |     <uses-permission android:name=""android.permission.DISABLE_KEYGUARD""/>
+  37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
+  38 |     <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED""/>
+  39 |     <uses-permission android:name=""android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS""/>
+  40 |     <uses-permission android:name=""android.permission.SYSTEM_ALERT_WINDOW""/>
+  41 |     <uses-permission android:name=""android.permission.VIBRATE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
+F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
+ in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
+  48 |     <uses-feature android:name=""android.hardware.telephony"" android:required=""false""/>
+  49 |     <uses-feature android:name=""android.hardware.bluetooth"" android:required=""false""/>
+  50 |     <uses-feature android:name=""android.hardware.touchscreen"" android:required=""false""/>
+  51 |     <uses-feature android:name=""android.hardware.location"" android:required=""false""/>
+  52 |     <uses-feature android:name=""android.hardware.location.gps"" android:required=""false""/>
+  53 |     <uses-feature android:name=""android.hardware.location.network"" android:required=""false""/>
+  54 |     <uses-feature android:name=""android.hardware.screen.portrait"" android:required=""false""/>
+  55 |     <uses-feature android:name=""android.hardware.microphone"" android:required=""false""/>
+  56 |     <uses-permission android:name=""android.permission.USE_FULL_SCREEN_INTENT""/>
+  57 |     <uses-permission android:name=""android.permission.BLUETOOTH""/>
+> 58 |     <uses-permission android:name=""android.permission.RECORD_AUDIO""/>
+  59 |     <uses-permission-sdk-23 android:name=""android.permission.MANAGE_OWN_CALLS""/>
+  60 |     <uses-permission android:name=""com.sec.android.provider.badge.permission.READ""/>
+  61 |     <uses-permission android:name=""com.sec.android.provider.badge.permission.WRITE""/>
+  62 |     <uses-permission android:name=""com.htc.launcher.permission.READ_SETTINGS""/>
+  63 |     <uses-permission android:name=""com.htc.launcher.permission.UPDATE_SHORTCUT""/>
+  64 |     <uses-permission android:name=""com.sonyericsson.home.permission.BROADCAST_BADGE""/>
+  65 |     <uses-permission android:name=""com.sonymobile.home.permission.PROVIDER_INSERT_BADGE""/>
+  66 |     <uses-permission android:name=""com.anddoes.launcher.permission.UPDATE_COUNT""/>
+  67 |     <uses-permission android:name=""com.majeur.launcher.permission.UPDATE_BADGE""/>
+  68 |     <uses-permission android:name=""com.huawei.android.launcher.permission.CHANGE_BADGE""/>
+     ^ Col 0
+",f346._has_dangerous_permissions
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
