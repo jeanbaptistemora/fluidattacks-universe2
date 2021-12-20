@@ -48,7 +48,7 @@ async def add(*, vulnerability: Vulnerability) -> None:
             facet=TABLE.facets["vulnerability_historic_treatment"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.state.modified_date,
+                "iso8601utc": vulnerability.treatment.modified_date,
             },
         )
         historic_treatment_item = {
@@ -63,7 +63,7 @@ async def add(*, vulnerability: Vulnerability) -> None:
             facet=TABLE.facets["vulnerability_historic_verification"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.state.modified_date,
+                "iso8601utc": vulnerability.verification.modified_date,
             },
         )
         historic_verification_item = {
@@ -78,7 +78,7 @@ async def add(*, vulnerability: Vulnerability) -> None:
             facet=TABLE.facets["vulnerability_historic_zero_risk"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.state.modified_date,
+                "iso8601utc": vulnerability.zero_risk.modified_date,
             },
         )
         historic_zero_risk_item = {

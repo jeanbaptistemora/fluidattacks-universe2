@@ -160,7 +160,7 @@ async def update_historic(
             facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
             values={
                 "id": vulnerability_id,
-                "iso8601utc": item["modified_date"],
+                "iso8601utc": item["sk"].split("#")[1],
             },
         )
         for item in current_items
