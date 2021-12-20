@@ -205,6 +205,11 @@ def main(
     param: endpoint_url: aws endpoint to send API requests
     """
     passed: bool = True
+    permissions = utils.integrates.get_group_permissions(subs)
+    if "api_mutations_refresh_toe_lines_mutate" not in permissions:
+        LOGGER.error("Must have permission to refresh the surface lines")
+        return False
+
     if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
         if aws_login:
             generic.aws_login(aws_profile)
@@ -220,11 +225,7 @@ def main(
     ):
         update_last_sync_date("last_sync_date", subs)
     if passed:
-        permissions = utils.integrates.get_group_permissions(subs)
-        if (
-            "api_mutations_refresh_toe_lines_mutate" in permissions
-            and subs != TEST_SUBS
-        ):
+        if subs != TEST_SUBS:
             utils.integrates.refresh_toe_lines(subs)
 
     return passed
