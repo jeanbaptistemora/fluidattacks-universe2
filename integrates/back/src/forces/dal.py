@@ -156,9 +156,9 @@ async def yield_executions(
 ) -> AsyncIterator[Any]:
     """Lazy iterator over the executions of a group"""
     key_condition_expresion = Key("subscription").eq(group_name)
-    filter_expression = Attr("date").gte(
-        datetime_utils.get_as_utc_iso_format(from_date)
-    ) & Attr("date").lte(datetime_utils.get_as_utc_iso_format(to_date))
+    filter_expression = Attr("date").gte(from_date.isoformat()) & Attr(
+        "date"
+    ).lte(to_date.isoformat())
 
     async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)

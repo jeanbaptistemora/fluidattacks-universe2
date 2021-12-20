@@ -5,4 +5,4 @@ from datetime import (
 
 
 def get_date_as_utc_iso_format(date: datetime) -> str:
-    return date.astimezone(tz=timezone.utc).replace(microsecond=0).isoformat()
+    return date.astimezone(tz=timezone.utc).isoformat()

@@ -167,11 +167,11 @@ def get_as_epoch(date: datetime) -> int:
 
 
 def get_as_utc_iso_format(date: datetime) -> str:
-    return date.astimezone(tz=timezone.utc).replace(microsecond=0).isoformat()
+    return date.astimezone(tz=timezone.utc).isoformat()
 
 
 def get_iso_date() -> str:
-    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat()
+    return datetime.now(tz=timezone.utc).isoformat()
 
 
 def is_valid_format(date_str: str) -> bool:
