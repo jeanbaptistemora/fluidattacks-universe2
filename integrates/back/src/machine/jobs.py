@@ -295,7 +295,7 @@ async def queue_boto3(
     namespace: str,
 ) -> Dict[str, Any]:
     queue_name = "skims_all_soon"
-    job_name = f"process-{group}-{finding_code}-{namespace}"
+    job_name = f"skims-process-{group}-{finding_code}-{namespace}"
     resource_options = dict(
         service_name="batch",
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
