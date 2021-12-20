@@ -10,6 +10,7 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
+import { ActionButtons } from "./ActionButtons";
 import {
   getNonSelectable,
   getToeLinesIndex,
@@ -68,6 +69,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     "see_toe_lines_days_to_attack"
   );
   const { groupName } = useParams<{ groupName: string }>();
+  const [isEditing, setEditing] = useState(false);
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
   >(
@@ -132,6 +134,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
+  function toggleEdit(): void {
+    setEditing(!isEditing);
+  }
 
   const formatDate: (date: string) => string = (date: string): string => {
     if (_.isEmpty(date)) {
@@ -431,6 +436,13 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           _.get(sessionStorage, "toeLinesSort", initialSort)
         )}
         exportCsv={true}
+        extraButtonsRight={
+          <ActionButtons
+            isEditing={isEditing}
+            isInternal={isInternal}
+            onEdit={toggleEdit}
+          />
+        }
         headers={headersToeLinesTable}
         id={"tblToeLines"}
         isFilterEnabled={isFilterEnabled}
