@@ -35,7 +35,7 @@ const getBgColor: (value: string) => string = (value: string): string => {
   } else if (statusGreenColor.includes(value)) {
     return "bg-lbl-green";
   } else if (statusOrangeColor.includes(value)) {
-    return "bg-lbl-yellow";
+    return "bg-lbl-orange";
   } else if (statusRedColor.includes(value)) {
     return "bg-lbl-red";
   }

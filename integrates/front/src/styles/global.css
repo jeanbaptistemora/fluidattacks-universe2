@@ -547,6 +547,10 @@ label {
   background-color: #ffbf00;
 }
 
+:global .bg-lbl-orange {
+  background-color: #f99a30;
+}
+
 :global .bg-ns {
   background-color: #525a5c !important;
 }
