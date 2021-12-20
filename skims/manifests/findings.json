@@ -583,6 +583,14 @@
       "title": "338. Insecure service configuration - Salt"
     }
   },
+  "F346": {
+    "EN": {
+      "title": "346. Excessive privileges - Mobile App"
+    },
+    "ES": {
+      "title": "346. Excessive privileges - Mobile App"
+    }
+  },
   "F363": {
     "EN": {
       "title": "363. Weak credential policy - Password strength"
