@@ -9530,6 +9530,26 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   14 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
+F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
+",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
+","
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+>  4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+",__init__._apk_backups_enabled
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
  in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
