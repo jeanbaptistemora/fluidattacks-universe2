@@ -264,6 +264,11 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = "/observes/service/jobs-scheduler/run";
+          args = [ "run-schedule" ];
+          gitlabExtra = gitlabScheduled;
+        }
+        {
           output = "/observes/etl/code/compute-bills";
           gitlabExtra = gitlabScheduled;
         }

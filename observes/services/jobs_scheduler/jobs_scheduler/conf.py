@@ -16,6 +16,15 @@ from purity.v2.frozen import (
     FrozenDict,
     FrozenList,
 )
+from returns.result import (
+    Failure,
+    Result,
+    Success,
+)
+
+
+class InvalidJob(Exception):
+    pass
 
 
 class Jobs(Enum):
@@ -39,6 +48,13 @@ class Jobs(Enum):
     DYNAMO_INTEGRATES_MAIN = (
         os.environ["dynamoTableEtlBig"] + " integrates_vms"
     )
+
+
+def new_job(raw: str) -> Result[Jobs, InvalidJob]:
+    try:
+        return Success(Jobs[raw])
+    except KeyError:
+        return Failure(InvalidJob())
 
 
 ANY = AnyTime()

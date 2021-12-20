@@ -5,7 +5,7 @@ from datetime import (
     datetime,
 )
 from jobs_scheduler.conf import (
-    Jobs,
+    new_job,
     SCHEDULE,
 )
 from jobs_scheduler.cron_2 import (
@@ -15,8 +15,10 @@ from jobs_scheduler.run import (
     run_job as execute_job,
 )
 import logging
-import os
 import pytz  # type: ignore
+from returns.functions import (
+    raise_exception,
+)
 from returns.io import (
     IO,
 )
@@ -63,7 +65,7 @@ def run_schedule(
 @click.argument("job", type=str)
 @click.option("--dry-run", is_flag=True)
 def run_job(job: str, dry_run: bool) -> IO[None]:
-    execute_job(Jobs[job], dry_run)
+    execute_job(new_job(job).alt(raise_exception).unwrap(), dry_run)
     return IO(None)
 
 
