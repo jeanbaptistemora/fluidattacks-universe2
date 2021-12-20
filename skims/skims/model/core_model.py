@@ -1671,9 +1671,9 @@ class FindingEnum(Enum):
     F346: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F346",
-        cwe=1269,
+        cwe=272,
         execution_queue=ExecutionQueue.apk,
-        requirements=[159],
+        requirements=[186],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
             attack_vector=cvss3_model.AttackVector.network,
