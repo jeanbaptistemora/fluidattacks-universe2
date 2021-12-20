@@ -157,13 +157,12 @@ async def _jobs_by_group(
     return result
 
 
-async def _machine_queue(job: PreparedJob, urgent: bool) -> None:
+async def _machine_queue(job: PreparedJob) -> None:
     try:
         result = await machine_queue(
             finding_code=job.check,
             group_name=job.group_name,
             namespace=job.root_nick_name,
-            urgent=urgent,
         )
     except ClientError as exc:
         LOGGER_CONSOLE.exception(exc, exc_info=True)
@@ -233,7 +232,6 @@ async def main() -> None:
         all_jobs_futers = [
             _machine_queue(
                 _job,
-                urgent=False,
             )
             for _job in sorted_jobs
         ]

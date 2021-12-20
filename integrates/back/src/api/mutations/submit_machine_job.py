@@ -69,7 +69,6 @@ async def mutate(
             finding_code=finding_code,
             group=group_name,
             namespace=root_nickname,
-            urgent=True,
         )
         success = True
 

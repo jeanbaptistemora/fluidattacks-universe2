@@ -37,9 +37,8 @@ async def machine_queue(
     finding_code: str,
     group_name: str,
     namespace: str,
-    urgent: bool,
 ) -> Dict[str, Any]:
-    return await queue_boto3(group_name, finding_code, namespace, urgent)
+    return await queue_boto3(group_name, finding_code, namespace)
 
 
 def scheduler_send_mail(

@@ -293,10 +293,9 @@ async def queue_boto3(
     group: str,
     finding_code: str,
     namespace: str,
-    urgent: bool,
 ) -> Dict[str, Any]:
     try:
-        queue_name = get_queue_for_finding(finding_code, urgent=urgent)
+        queue_name = "skims_all_soon"
     except NotImplementedError:
         LOGGER.error("%s does not belong to a queue", finding_code)
         return {}
@@ -314,10 +313,10 @@ async def queue_boto3(
             containerOverrides={
                 "vcpus": 1,
                 "command": [
-                    "skims-process-group",
+                    "skims-process-group-all",
                     group,
-                    finding_code,
-                    namespace,
+                    json.dumps([finding_code]),
+                    json.dumps([namespace]),
                 ],
                 "environment": [
                     {"name": "CI", "value": "true"},

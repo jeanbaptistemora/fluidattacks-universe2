@@ -69,5 +69,4 @@ async def main() -> None:
                             finding_code=finding_code,
                             group_name=group,
                             namespace=root,
-                            urgent=True,
                         )
