@@ -1110,11 +1110,15 @@ export const enTranslations: ResourceKey = {
             "Maximum number of calendar days a finding can be temporarily accepted",
           maxNumberAcceptances:
             "Maximum number of times a finding can be temporarily accepted",
+          minBreakableSeverity:
+            "Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to" +
+            " break the build in strict mode",
         },
         policy: "Policy",
         recommended: {
           acceptanceDays: "0",
           acceptanceSeverity: "0.0    -    0.0",
+          breakableSeverity: "0.0",
           numberAcceptances: "0",
           title: "Recommended Values",
         },

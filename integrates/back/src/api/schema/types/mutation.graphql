@@ -788,6 +788,9 @@ type Mutation {
     maxNumberAcceptances: Int
     "Minimum CVSS 3.1 score in which a finding can be temporally accepted"
     minAcceptanceSeverity: Float
+    """Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to break
+     the build in strict mode"""
+    minBreakableSeverity: Float
     "Identifier of the Organization whose policies are to be updated"
     organizationId: String!
     "Name of the Organization whose policies are to be updated"

@@ -11,6 +11,7 @@ from custom_exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    InvalidSeverity,
     OrganizationNotFound,
     UserNotInOrganization,
 )
@@ -456,6 +457,7 @@ async def update_policies(
         InvalidAcceptanceSeverity,
         InvalidAcceptanceSeverityRange,
         InvalidNumberAcceptances,
+        InvalidSeverity,
     ) as exe:
         LOGGER.exception(exe, extra={"extra": locals()})
         raise GraphQLError(str(exe)) from exe
@@ -528,4 +530,11 @@ def validate_min_acceptance_severity(value: Decimal) -> bool:
     success: bool = True
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidAcceptanceSeverity()
+    return success
+
+
+def validate_min_breakable_severity(value: Decimal) -> bool:
+    success: bool = True
+    if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
+        raise InvalidSeverity([DEFAULT_MIN_SEVERITY, DEFAULT_MAX_SEVERITY])
     return success
