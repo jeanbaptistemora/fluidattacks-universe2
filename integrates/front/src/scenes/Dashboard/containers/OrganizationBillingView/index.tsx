@@ -10,6 +10,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type {
   IBillingData,
   IGetOrganizationBilling,
@@ -25,6 +26,9 @@ import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   groupName: string;
+  machine: string;
+  service: string;
+  squad: string;
   subscription: string;
 }
 const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
@@ -56,12 +60,26 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     groupData: IBillingData[]
   ): IBillingData[] =>
     groupData.map((group: IBillingData): IBillingData => {
+      const servicesParameters: Record<string, string> = {
+        false: "organization.tabs.groups.disabled",
+        true: "organization.tabs.groups.enabled",
+      };
       const name: string = group.name.toUpperCase();
+      const service: string = _.capitalize(group.service);
       const subscription: string = _.capitalize(group.subscription);
+      const machine: string = translate.t(
+        servicesParameters[group.hasMachine.toString()]
+      );
+      const squad: string = translate.t(
+        servicesParameters[group.hasSquad.toString()]
+      );
 
       return {
         ...group,
+        machine,
         name,
+        service,
+        squad,
         subscription,
       };
     });
@@ -75,6 +93,9 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       "filterOrganizationGroupset",
       {
         groupName: "",
+        machine: "",
+        service: "",
+        squad: "",
         subscription: "",
       },
       localStorage
@@ -95,6 +116,25 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       align: "center",
       dataField: "subscription",
       header: "Subscription",
+    },
+    {
+      align: "center",
+      dataField: "service",
+      header: "Service",
+    },
+    {
+      align: "left",
+      dataField: "machine",
+      formatter: pointStatusFormatter,
+      header: "Machine",
+      width: "90px",
+    },
+    {
+      align: "left",
+      dataField: "squad",
+      formatter: pointStatusFormatter,
+      header: "Squad",
+      width: "90px",
     },
   ];
 
@@ -144,10 +184,58 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     "subscription"
   );
 
+  function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        service: event.target.value,
+      })
+    );
+  }
+  const filterServiceDataset: IBillingData[] = filterText(
+    dataset,
+    filterOrganizationGroupsTable.service,
+    "service"
+  );
+
+  function onMachineChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        machine: event.target.value,
+      })
+    );
+  }
+  const filterMachineDataset: IBillingData[] = filterText(
+    dataset,
+    filterOrganizationGroupsTable.machine,
+    "machine"
+  );
+
+  function onSquadChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        squad: event.target.value,
+      })
+    );
+  }
+  const filterSquadDataset: IBillingData[] = filterText(
+    dataset,
+    filterOrganizationGroupsTable.squad,
+    "squad"
+  );
+
   function clearFilters(): void {
     setFilterOrganizationGroupsTable(
       (): IFilterSet => ({
         groupName: "",
+        machine: "",
+        service: "",
+        squad: "",
         subscription: "",
       })
     );
@@ -157,7 +245,10 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const resultDataset: IBillingData[] = _.intersection(
     filterSearchTextDataset,
     filterGroupNameDataset,
-    filterSubscriptionDataset
+    filterSubscriptionDataset,
+    filterServiceDataset,
+    filterMachineDataset,
+    filterSquadDataset
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -179,6 +270,42 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       },
       tooltipId: "organization.tabs.groups.filtersTooltips.subscription.id",
       tooltipMessage: "organization.tabs.groups.filtersTooltips.subscription",
+      type: "select",
+    },
+    {
+      defaultValue: filterOrganizationGroupsTable.service,
+      onChangeSelect: onServiceChange,
+      placeholder: "Service",
+      selectOptions: {
+        Black: "Black",
+        White: "White",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.service.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.service",
+      type: "select",
+    },
+    {
+      defaultValue: filterOrganizationGroupsTable.machine,
+      onChangeSelect: onMachineChange,
+      placeholder: "Machine",
+      selectOptions: {
+        Disabled: "Disabled",
+        Enabled: "Enabled",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.machine.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.machine",
+      type: "select",
+    },
+    {
+      defaultValue: filterOrganizationGroupsTable.squad,
+      onChangeSelect: onSquadChange,
+      placeholder: "Squad",
+      selectOptions: {
+        Disabled: "Disabled",
+        Enabled: "Enabled",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.squad.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.squad",
       type: "select",
     },
   ];
@@ -212,7 +339,7 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
                 defaultSorted={{ dataField: "name", order: "asc" }}
                 exportCsv={false}
                 headers={tableHeaders}
-                id={"tblGroups"}
+                id={"tblBilling"}
                 pageSize={10}
                 search={false}
               />
