@@ -310,6 +310,7 @@ async def queue_boto3(
                 "vcpus": 1,
                 "command": [
                     "m",
+                    "f",
                     "/skims/process-group-all",
                     group,
                     json.dumps([finding_code]),
