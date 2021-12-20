@@ -1,6 +1,3 @@
-from back.src.machine.jobs import (
-    get_finding_code_from_title,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -18,6 +15,9 @@ from db_model.vulnerabilities.types import (
 )
 from groups.domain import (
     get_active_groups,
+)
+from machine.jobs import (
+    get_finding_code_from_title,
 )
 from schedulers.common import (
     info,

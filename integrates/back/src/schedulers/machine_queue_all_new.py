@@ -2,20 +2,12 @@ import aioboto3
 from aioextensions import (
     collect,
 )
-from back.src.context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-)
-from back.src.machine.availability import (
-    is_check_available,
-)
-from back.src.machine.jobs import (
-    FINDINGS,
-    list_jobs_filter,
-    queue_all_checks_new,
-)
 from botocore.exceptions import (
     ClientError,
+)
+from context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
 )
 from contextlib import (
     suppress,
@@ -27,6 +19,14 @@ from dataloaders import (
 from groups.domain import (
     get_active_groups,
     get_attributes,
+)
+from machine.availability import (
+    is_check_available,
+)
+from machine.jobs import (
+    FINDINGS,
+    list_jobs_filter,
+    queue_all_checks_new,
 )
 from newutils.utils import (
     get_key_or_fallback,

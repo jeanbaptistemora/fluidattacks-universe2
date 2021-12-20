@@ -1,6 +1,3 @@
-from back.src.machine.jobs import (
-    get_finding_code_from_title,
-)
 from batch.dal import (
     Job,
     JobStatus,
@@ -15,6 +12,9 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import machine.jobs
+from machine.jobs import (
+    get_finding_code_from_title,
+)
 from typing import (
     Any,
     Dict,

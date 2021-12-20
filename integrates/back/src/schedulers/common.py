@@ -1,14 +1,14 @@
 from aioextensions import (
     schedule,
 )
-from back.src.machine.jobs import (
-    queue_boto3,
-)
 from custom_types import (
     MailContent as MailContentType,
 )
 import logging
 import logging.config
+from machine.jobs import (
+    queue_boto3,
+)
 from settings import (
     LOGGING,
 )

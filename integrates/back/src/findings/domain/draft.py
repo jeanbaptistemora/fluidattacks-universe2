@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from back.src.machine.availability import (
-    operation_can_be_executed,
-)
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
@@ -30,6 +27,9 @@ from findings import (
 )
 from findings.types import (
     FindingDraftToAdd,
+)
+from machine.availability import (
+    operation_can_be_executed,
 )
 from newutils import (
     datetime as datetime_utils,

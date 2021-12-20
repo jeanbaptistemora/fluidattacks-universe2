@@ -1,6 +1,3 @@
-from back.src.dynamodb import (
-    keys,
-)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -15,6 +12,7 @@ from db_model.roots.types import (
 )
 from dynamodb import (
     historics,
+    keys,
     operations,
 )
 import simplejson as json  # type: ignore

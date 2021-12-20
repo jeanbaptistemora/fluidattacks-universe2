@@ -6,9 +6,6 @@ from aioextensions import (
     schedule,
 )
 import authz
-from back.src.machine.availability import (
-    operation_can_be_executed,
-)
 from comments import (
     domain as comments_domain,
 )
@@ -70,6 +67,9 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
+from machine.availability import (
+    operation_can_be_executed,
+)
 from mailer import (
     findings as findings_mail,
 )

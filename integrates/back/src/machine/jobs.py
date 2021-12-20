@@ -1,20 +1,17 @@
 import aioboto3
 import aiohttp
 import asyncio
-from back.src.context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-    PRODUCT_API_TOKEN,
-)
-from back.src.settings.logger import (
-    LOGGING,
-)
 from batch.dal import (
     Job,
     JobStatus,
     list_queues_jobs,
 )
 import boto3
+from context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
+    PRODUCT_API_TOKEN,
+)
 from datetime import (
     datetime,
 )
@@ -24,6 +21,9 @@ import json
 import logging
 import logging.config
 import os
+from settings.logger import (
+    LOGGING,
+)
 from typing import (
     Any,
     Dict,
@@ -294,11 +294,7 @@ async def queue_boto3(
     finding_code: str,
     namespace: str,
 ) -> Dict[str, Any]:
-    try:
-        queue_name = "skims_all_soon"
-    except NotImplementedError:
-        LOGGER.error("%s does not belong to a queue", finding_code)
-        return {}
+    queue_name = "skims_all_soon"
     job_name = f"process-{group}-{finding_code}-{namespace}"
     resource_options = dict(
         service_name="batch",
@@ -309,11 +305,12 @@ async def queue_boto3(
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
-            jobDefinition="skims_process_group",
+            jobDefinition="makes",
             containerOverrides={
                 "vcpus": 1,
                 "command": [
-                    "skims-process-group-all",
+                    "m",
+                    "/skims/process-group-all",
                     group,
                     json.dumps([finding_code]),
                     json.dumps([namespace]),

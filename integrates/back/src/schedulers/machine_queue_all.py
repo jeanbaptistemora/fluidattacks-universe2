@@ -2,21 +2,12 @@ import aioboto3
 from aioextensions import (
     collect,
 )
-from back.src.context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-)
-from back.src.db_model.roots.update import (
-    update_git_root_machine_execution,
-)
-from back.src.machine.availability import (
-    is_check_available,
-)
-from back.src.machine.jobs import (
-    FINDINGS,
-)
 from botocore.exceptions import (
     ClientError,
+)
+from context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
 )
 from contextlib import (
     suppress,
@@ -26,10 +17,19 @@ from dataloaders import (
     get_new_context,
 )
 import dateutil.parser  # type: ignore
+from db_model.roots.update import (
+    update_git_root_machine_execution,
+)
 from groups.domain import (
     get_active_groups,
     get_attributes,
     LOGGER_CONSOLE,
+)
+from machine.availability import (
+    is_check_available,
+)
+from machine.jobs import (
+    FINDINGS,
 )
 from more_itertools import (
     bucket,

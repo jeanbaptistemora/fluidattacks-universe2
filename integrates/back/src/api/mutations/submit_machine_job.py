@@ -1,10 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from back.src.machine.jobs import (
-    get_finding_code_from_title,
-    queue_boto3,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -28,6 +24,10 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from machine.jobs import (
+    get_finding_code_from_title,
+    queue_boto3,
 )
 from typing import (
     Optional,

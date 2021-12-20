@@ -1,24 +1,24 @@
-from back.src.db_model.enums import (
-    Source,
-)
-from back.src.machine.jobs import (
-    get_finding_code_from_title,
-)
-from back.src.newutils.env import (
-    guess_environment,
-)
 from datetime import (
     datetime,
     timedelta,
     timezone,
+)
+from db_model.enums import (
+    Source,
 )
 from enum import (
     Enum,
 )
 import holidays
 import json
+from machine.jobs import (
+    get_finding_code_from_title,
+)
 from newutils import (
     requests as requests_utils,
+)
+from newutils.env import (
+    guess_environment,
 )
 import os
 from typing import (
