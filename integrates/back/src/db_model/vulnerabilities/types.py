@@ -14,6 +14,8 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Tuple,
+    Union,
 )
 
 
@@ -80,3 +82,18 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     tags: Optional[List[str]] = None
     type: Optional[VulnerabilityType] = None
     where: Optional[str] = None
+
+
+VulnerabilityHistoric = Union[
+    Tuple[VulnerabilityState, ...],
+    Tuple[VulnerabilityTreatment, ...],
+    Tuple[VulnerabilityVerification, ...],
+    Tuple[VulnerabilityZeroRisk, ...],
+]
+
+VulnerabilityHistoricEntry = Union[
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityVerification,
+    VulnerabilityZeroRisk,
+]

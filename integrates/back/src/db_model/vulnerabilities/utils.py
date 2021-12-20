@@ -8,6 +8,7 @@ from .enums import (
 )
 from .types import (
     Vulnerability,
+    VulnerabilityHistoricEntry,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -20,23 +21,6 @@ from db_model.enums import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Tuple,
-    Union,
-)
-
-VulnerabilityHistoric = Union[
-    Tuple[VulnerabilityState, ...],
-    Tuple[VulnerabilityTreatment, ...],
-    Tuple[VulnerabilityVerification, ...],
-    Tuple[VulnerabilityZeroRisk, ...],
-]
-VulnerabilityHistoricEntry = Union[
-    VulnerabilityState,
-    VulnerabilityTreatment,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
-]
 
 
 def format_vulnerability(item: Item) -> Vulnerability:

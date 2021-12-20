@@ -2,12 +2,12 @@ from .enums import (
     VulnerabilityStateStatus,
 )
 from .types import (
+    VulnerabilityHistoric,
+    VulnerabilityHistoricEntry,
     VulnerabilityMetadataToUpdate,
 )
 from .utils import (
     historic_entry_type_to_str,
-    VulnerabilityHistoric,
-    VulnerabilityHistoricEntry,
 )
 from boto3.dynamodb.conditions import (
     Attr,

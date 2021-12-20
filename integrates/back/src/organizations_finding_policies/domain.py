@@ -290,7 +290,7 @@ async def _add_accepted_treatment(
         != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         and vuln.state.status == VulnerabilityStateStatus.OPEN
     ]
-    (
+    (  # pylint: disable=unbalanced-tuple-unpacking
         acceptance_submitted,
         acceptance_approved,
     ) = vulns_utils.get_treatment_from_org_finding_policy(

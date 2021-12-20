@@ -39,6 +39,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityHistoric,
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
@@ -58,6 +59,8 @@ import logging
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
+    get_as_utc_iso_format,
+    get_plus_delta,
 )
 from newutils.requests import (
     map_source,
@@ -70,7 +73,6 @@ from settings import (
 )
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     Iterable,
@@ -88,21 +90,21 @@ LOGGER = logging.getLogger(__name__)
 
 
 def adjust_historic_dates(
-    historic: Union[
-        Tuple[VulnerabilityState, ...], Tuple[VulnerabilityTreatment, ...]
-    ]
-) -> Union[Tuple[VulnerabilityState, ...], Tuple[VulnerabilityTreatment, ...]]:
-    """Ensure dates are not the same so the items are not overwritten in db."""
-    return tuple(
-        item._replace(
-            modified_date=datetime_utils.get_as_utc_iso_format(
-                datetime_utils.get_plus_delta(
-                    datetime.fromisoformat(item.modified_date), seconds=index
-                )
+    historic: VulnerabilityHistoric,
+) -> VulnerabilityHistoric:
+    """Ensure dates are not the same and in ascending order."""
+    new_historic = []
+    comparison_date = ""
+    for entry in historic:
+        if entry.modified_date > comparison_date:
+            comparison_date = entry.modified_date
+        else:
+            fixed_date = get_plus_delta(
+                datetime.fromisoformat(comparison_date), seconds=1
             )
-        )
-        for index, item in enumerate(historic)
-    )
+            comparison_date = get_as_utc_iso_format(fixed_date)
+        new_historic.append(entry._replace(modified_date=comparison_date))
+    return tuple(new_historic)
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -544,7 +546,9 @@ def ungroup_specific(specific: str) -> List[str]:
 def get_treatment_from_org_finding_policy(
     *, modified_date: str, user_email: str
 ) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
-    treatments = adjust_historic_dates(
+    treatments: Tuple[
+        VulnerabilityTreatment, VulnerabilityTreatment
+    ] = adjust_historic_dates(
         (
             VulnerabilityTreatment(
                 acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -564,9 +568,7 @@ def get_treatment_from_org_finding_policy(
             ),
         )
     )
-    return cast(
-        Tuple[VulnerabilityTreatment, VulnerabilityTreatment], treatments
-    )
+    return treatments
 
 
 def get_total_treatment_date(
