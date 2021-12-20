@@ -466,11 +466,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         </TooltipWrapper>
                       </div>
                     </Can>
-                    {!canSeeInternalToe ||
-                    (!canGetToeInputs && !canGetToeLines) ? undefined : (
+                    {canSeeInternalToe &&
+                    (canGetToeInputs || canGetToeLines) ? (
                       <div className={"mb3"}>
                         <TooltipWrapper
-                          id={t("group.tabs.toe.tooltip")}
+                          id={t("group.tabs.toe.tooltip.id")}
                           message={t("group.tabs.toe.tooltip")}
                         >
                           <Button
@@ -482,7 +482,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                           </Button>
                         </TooltipWrapper>
                       </div>
-                    )}
+                    ) : undefined}
                   </Row>
                 }
                 headers={[

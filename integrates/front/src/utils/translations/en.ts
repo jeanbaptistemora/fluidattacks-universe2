@@ -766,6 +766,13 @@ export const enTranslations: ResourceKey = {
         testedDate: "Attacked at",
       },
       lines: {
+        actionButtons: {
+          editButton: {
+            success: "was successfully edited",
+            text: "Edit",
+            tooltip: "Edit attacked lines",
+          },
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         attackedLines: "Attacked lines",
