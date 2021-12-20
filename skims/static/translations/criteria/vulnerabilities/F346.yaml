@@ -7,6 +7,11 @@ src.lib_path.f346.dangerous_permission:
     Los permisos peligrosos le dan a su aplicación acceso adicional
     a datos restringidos y le permiten realizar acciones restringidas
     que afectan de manera más sustancial al sistema y otras aplicaciones.
+F346.title:
+  en: >
+    Excessive privileges - Mobile App
+  es: >
+    Privilegios excesivos: Aplicación Móvil
 F346.description:
   en: >
     The application, a user or a role have more privileges than they require.
