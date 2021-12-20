@@ -5,7 +5,7 @@ function clone_services_repository {
   export PROD_SERVICES_AWS_SECRET_ACCESS_KEY
   local group="${1}"
 
-  aws_login_prod 'services' \
+  aws_login_prod_new 'services' \
     && CI='true' \
       CI_COMMIT_REF_NAME='master' \
       PROD_AWS_ACCESS_KEY_ID="${PROD_SERVICES_AWS_ACCESS_KEY_ID}" \

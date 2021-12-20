@@ -23,7 +23,7 @@ function job_compute_bills {
       "$(date +%Y)" \
       "$(date +%m)" \
       "${INTEGRATES_API_TOKEN}" \
-    && aws_login_prod 'services' \
+    && aws_login_prod_new 'services' \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_month}" \
     && aws_s3_sync "${folder}" "${bucket_month}" \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_day}" \
