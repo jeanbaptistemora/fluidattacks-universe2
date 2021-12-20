@@ -76,10 +76,17 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                 )
               );
               break;
-            case "Exception - Severity value should be a positive floating number between 0.0 a 10.0":
+            case "Exception - Severity value must be a positive floating number between 0.0 and 10.0":
               msgError(
                 translate.t(
                   "organization.tabs.policies.errors.acceptanceSeverity"
+                )
+              );
+              break;
+            case "Exception - Severity value must be between 0.0 and 10.0":
+              msgError(
+                translate.t(
+                  "organization.tabs.policies.errors.invalidBreakableSeverity"
                 )
               );
               break;
@@ -245,6 +252,37 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </Can>
       ),
     },
+    {
+      policy: (
+        <p>
+          {translate.t(
+            "organization.tabs.policies.policies.minBreakableSeverity"
+          )}
+        </p>
+      ),
+      recommended: (
+        <p className={style.recommended}>
+          {translate.t(
+            "organization.tabs.policies.recommended.breakableSeverity"
+          )}
+        </p>
+      ),
+      value: (
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"minBreakableSeverity"}
+              type={"text"}
+            />
+          )}
+        </Can>
+      ),
+    },
   ];
 
   const handleFormSubmit = useCallback(
@@ -255,6 +293,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
           maxNumberAcceptances: parseInt(values.maxNumberAcceptances, 10),
           minAcceptanceSeverity: parseFloat(values.minAcceptanceSeverity),
+          minBreakableSeverity: parseFloat(values.minBreakableSeverity),
           organizationId,
           organizationName: organizationName.toLowerCase(),
         },
@@ -288,6 +327,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           )
             .toFixed(1)
             .toString(),
+          minBreakableSeverity: _.isNull(data.organization.minBreakableSeverity)
+            ? "0.0"
+            : parseFloat(data.organization.minBreakableSeverity)
+                .toFixed(1)
+                .toString(),
         }}
         name={"orgPolicies"}
         onSubmit={handleFormSubmit}

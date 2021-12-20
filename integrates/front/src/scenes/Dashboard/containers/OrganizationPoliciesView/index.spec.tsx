@@ -34,6 +34,8 @@ describe("Organization policies view", (): void => {
     organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
   };
 
+  const orgPolicyTableRows: number = 5;
+
   it("should return a  function", (): void => {
     expect.hasAssertions();
 
@@ -59,6 +61,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 10,
               maxNumberAcceptances: null,
               minAcceptanceSeverity: 0,
+              minBreakableSeverity: 0,
               name: "okada",
             },
           },
@@ -82,7 +85,7 @@ describe("Organization policies view", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
+        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
       });
     });
 
@@ -106,6 +109,10 @@ describe("Organization policies view", (): void => {
         .find({ name: "minAcceptanceSeverity" })
         .find("input")
         .prop("value")
+    ).toBe("0.0");
+
+    expect(
+      wrapper.find({ name: "minBreakableSeverity" }).find("input").prop("value")
     ).toBe("0.0");
   });
 
@@ -166,6 +173,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 5,
               minAcceptanceSeverity: 3,
+              minBreakableSeverity: 1,
               name: "okada",
             },
           },
@@ -179,6 +187,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 8.9,
             maxNumberAcceptances: 1,
             minAcceptanceSeverity: 0,
+            minBreakableSeverity: 4,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -206,6 +215,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 8.9,
               maxNumberAcceptances: 1,
               minAcceptanceSeverity: 0,
+              minBreakableSeverity: 4,
               name: "okada",
             },
           },
@@ -234,7 +244,7 @@ describe("Organization policies view", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
+        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
       });
     });
 
@@ -249,6 +259,9 @@ describe("Organization policies view", (): void => {
       .find("input");
     const minAcceptanceSeverity: ReactWrapper = wrapper
       .find({ name: "minAcceptanceSeverity" })
+      .find("input");
+    const minBreakableSeverity: ReactWrapper = wrapper
+      .find({ name: "minBreakableSeverity" })
       .find("input");
     const saveButton1: ReactWrapper = wrapper
       .find("button")
@@ -268,6 +281,9 @@ describe("Organization policies view", (): void => {
     });
     minAcceptanceSeverity.simulate("change", {
       target: { name: "minAcceptanceSeverity", value: "0" },
+    });
+    minBreakableSeverity.simulate("change", {
+      target: { name: "minBreakableSeverity", value: "4" },
     });
 
     await act(async (): Promise<void> => {
@@ -327,6 +343,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
+              minBreakableSeverity: 3,
               name: "okada",
             },
           },
@@ -350,7 +367,7 @@ describe("Organization policies view", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
+        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
       });
     });
 
@@ -403,6 +420,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
+              minBreakableSeverity: 3,
               name: "okada",
             },
           },
@@ -416,6 +434,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -436,6 +455,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -443,7 +463,7 @@ describe("Organization policies view", (): void => {
         result: {
           errors: [
             new GraphQLError(
-              "Exception - Severity value should be a positive floating number between 0.0 a 10.0"
+              "Exception - Severity value must be a positive floating number between 0.0 and 10.0"
             ),
           ],
         },
@@ -456,6 +476,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -476,6 +497,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -496,6 +518,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -527,7 +550,7 @@ describe("Organization policies view", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
+        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
       });
     });
 

@@ -67,6 +67,20 @@ DEFAULT_MIN_SEVERITY = Decimal("0.0")
 LOGGER = logging.getLogger(__name__)
 
 
+async def _add_updated_values(
+    loaders: Any,
+    organization_id: str,
+    values: Dict[str, Optional[Decimal]],
+    value_to_update: str,
+) -> OrganizationType:
+    new_value = values.get(value_to_update)
+    organization_data = await loaders.organization.load(organization_id)
+    old_value: Optional[Decimal] = organization_data.get(value_to_update)
+    if new_value is not None and new_value != old_value:
+        return {value_to_update: new_value}
+    return {}
+
+
 async def _add_updated_max_acceptance_days(
     loaders: Any,
     organization_id: str,
@@ -166,15 +180,20 @@ async def _get_new_policies(
     date = datetime_utils.get_now_as_str()
     policies = await collect(
         [
-            _add_updated_max_acceptance_days(loaders, organization_id, values),
             _add_updated_max_number_acceptances(
                 loaders, organization_id, values, email, date
             ),
-            _add_updated_max_acceptance_severity(
-                loaders, organization_id, values
+            _add_updated_values(
+                loaders, organization_id, values, "max_acceptance_days"
             ),
-            _add_updated_min_acceptance_severity(
-                loaders, organization_id, values
+            _add_updated_values(
+                loaders, organization_id, values, "max_acceptance_severity"
+            ),
+            _add_updated_values(
+                loaders, organization_id, values, "min_acceptance_severity"
+            ),
+            _add_updated_values(
+                loaders, organization_id, values, "min_breakable_severity"
             ),
         ]
     )
@@ -264,6 +283,9 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         "max_number_acceptations": max_number_acceptances,
         "min_acceptance_severity": organization.get(
             "min_acceptance_severity", DEFAULT_MIN_SEVERITY
+        ),
+        "min_breakable_severity": organization.get(
+            "min_breakable_severity", DEFAULT_MIN_SEVERITY
         ),
     }
 

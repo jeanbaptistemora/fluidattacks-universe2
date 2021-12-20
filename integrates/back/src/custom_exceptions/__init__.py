@@ -311,8 +311,8 @@ class InvalidAcceptanceSeverity(CustomBaseException):
             )
         else:
             msg = (
-                "Exception - Severity value should be a positive "
-                "floating number between 0.0 a 10.0"
+                "Exception - Severity value must be a positive "
+                "floating number between 0.0 and 10.0"
             )
         super(InvalidAcceptanceSeverity, self).__init__(msg)
 
