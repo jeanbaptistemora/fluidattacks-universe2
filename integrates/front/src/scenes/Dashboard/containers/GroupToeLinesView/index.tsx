@@ -11,6 +11,7 @@ import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
+import { HandleEditionModal } from "./HandleEditionModal";
 import {
   getNonSelectable,
   getToeLinesIndex,
@@ -438,6 +439,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         exportCsv={true}
         extraButtonsRight={
           <ActionButtons
+            areToeLinesDatasSelected={selectedToeLinesDatas.length > 0}
             isEditing={isEditing}
             isInternal={isInternal}
             onEdit={toggleEdit}
@@ -452,6 +454,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         search={false}
         selectionMode={selectionMode}
       />
+      {isEditing ? (
+        <HandleEditionModal
+          groupName={groupName}
+          handleCloseModal={toggleEdit}
+          refetchData={refetch}
+          selectedToeLinesDatas={selectedToeLinesDatas}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };

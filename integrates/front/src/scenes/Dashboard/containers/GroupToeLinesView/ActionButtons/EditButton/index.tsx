@@ -10,12 +10,12 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IEditButtonProps {
-  isEditing: boolean;
+  isDisabled: boolean;
   onEdit: () => void;
 }
 
 const EditButton: React.FC<IEditButtonProps> = ({
-  isEditing,
+  isDisabled,
   onEdit,
 }: IEditButtonProps): JSX.Element => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
           id={"group.toe.lines.actionButtons.editButton.tooltip.id"}
           message={t("group.toe.lines.actionButtons.editButton.tooltip")}
         >
-          <Button disabled={isEditing} id={"editToeLines"} onClick={onEdit}>
+          <Button disabled={isDisabled} id={"editToeLines"} onClick={onEdit}>
             <FontAwesomeIcon icon={faPen} />
             &nbsp;
             {t("group.toe.lines.actionButtons.editButton.text")}

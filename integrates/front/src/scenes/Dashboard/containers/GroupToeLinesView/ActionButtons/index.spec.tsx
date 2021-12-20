@@ -17,7 +17,12 @@ describe("ToelinesActionButtons", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isEditing={false} isInternal={true} onEdit={jest.fn()} />,
+      <ActionButtons
+        areToeLinesDatasSelected={true}
+        isEditing={false}
+        isInternal={true}
+        onEdit={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: new PureAbility([]) },
@@ -36,7 +41,12 @@ describe("ToelinesActionButtons", (): void => {
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isEditing={false} isInternal={false} onEdit={jest.fn()} />,
+      <ActionButtons
+        areToeLinesDatasSelected={true}
+        isEditing={false}
+        isInternal={false}
+        onEdit={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -56,7 +66,12 @@ describe("ToelinesActionButtons", (): void => {
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isEditing={false} isInternal={true} onEdit={jest.fn()} />,
+      <ActionButtons
+        areToeLinesDatasSelected={true}
+        isEditing={false}
+        isInternal={true}
+        onEdit={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
