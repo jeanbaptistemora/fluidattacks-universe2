@@ -49,7 +49,16 @@ def configure() -> None:
             log_stream_name,
             send_interval=15,
         )
+        log_stream_name_pf = (
+            f"{CTX.config.group}/{batch_job_id}/{CTX.config.namespace}"
+        )
+        watchover_handler_pf = watchtower.CloudWatchLogHandler(
+            "skims",
+            log_stream_name,
+            send_interval=15,
+        )
         _LOGGER.addHandler(watchover_handler)
+        _LOGGER.addHandler(watchover_handler_pf)
     _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
     _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
