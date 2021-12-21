@@ -428,9 +428,6 @@ async def refresh_active_root_repo_toe_lines(
             RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
         )
     }
-    present_filenames = await get_present_filenames(
-        group_path, repo, root_repo.state.nickname
-    )
     present_toe_lines_to_add = await get_present_toe_lines_to_add(
         present_filenames,
         repo,
