@@ -1,5 +1,8 @@
+from model.core_model import (
+    Vulnerabilities,
+)
 from model.graph_model import (
-    Graph,
+    GraphShard,
     GraphShardMetadataLanguage as GraphLanguage,
 )
 from symbolic_eval.f008.c_sharp import (
@@ -7,9 +10,13 @@ from symbolic_eval.f008.c_sharp import (
 )
 from symbolic_eval.types import (
     LanguageAnalyzer,
+    MissingLanguageAnalizer,
 )
 from typing import (
     Dict,
+)
+from utils import (
+    logs,
 )
 
 LANGUAGE_ANALYZERS: Dict[GraphLanguage, LanguageAnalyzer] = {
@@ -17,6 +24,17 @@ LANGUAGE_ANALYZERS: Dict[GraphLanguage, LanguageAnalyzer] = {
 }
 
 
-def analyze(language: GraphLanguage, graph: Graph) -> None:
-    if language_analyzer := LANGUAGE_ANALYZERS.get(language):
-        language_analyzer(graph)
+def get_lang_analyzer(language: GraphLanguage) -> LanguageAnalyzer:
+    if lang_analyzer := LANGUAGE_ANALYZERS.get(language):
+        return lang_analyzer
+    raise MissingLanguageAnalizer(language.name)
+
+
+def analyze(shard: GraphShard) -> Vulnerabilities:
+    try:
+        language = shard.metadata.language
+        lang_analyzer = get_lang_analyzer(language)
+        return tuple(lang_analyzer(shard))
+    except MissingLanguageAnalizer:
+        logs.log_blocking("error", "No analyzer for %s in F008", language.name)
+        return tuple()

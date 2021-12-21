@@ -1,9 +1,9 @@
 from model.core_model import (
     FindingEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
-    GraphShardMetadataLanguage as GraphLanguage,
+    GraphShard,
 )
 from symbolic_eval.f008.analyze import (
     analyze as analyze_f008,
@@ -13,12 +13,13 @@ from symbolic_eval.f100.analyze import (
 )
 from symbolic_eval.types import (
     Analyzer,
+    MissingAnalizer,
 )
 from typing import (
     Dict,
 )
 from utils import (
-    ctx,
+    logs,
 )
 
 ANALYZERS: Dict[FindingEnum, Analyzer] = {
@@ -27,7 +28,17 @@ ANALYZERS: Dict[FindingEnum, Analyzer] = {
 }
 
 
-def analyze(language: GraphLanguage, graph: Graph) -> None:
-    for finding in ctx.CTX.config.checks:
-        if analyzer := ANALYZERS.get(finding):
-            analyzer(language, graph)
+def get_analyzer(finding: FindingEnum) -> Analyzer:
+    if analyzer := ANALYZERS.get(finding):
+        return analyzer
+    raise MissingAnalizer(finding.name)
+
+
+def analyze(shard: GraphShard, finding: FindingEnum) -> Vulnerabilities:
+    try:
+        analyzer = get_analyzer(finding)
+        result = analyzer(shard)
+        return result
+    except MissingAnalizer:
+        logs.log_blocking("error", "No symbolic analyzer for %s", finding.name)
+        return tuple()

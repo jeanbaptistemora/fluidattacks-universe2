@@ -1,8 +1,11 @@
 from model.core_model import (
     FindingEnum,
+    Vulnerabilities,
+    Vulnerability,
 )
 from model.graph_model import (
     Graph,
+    GraphShard,
     GraphShardMetadataLanguage as GraphLanguage,
     NId,
 )
@@ -10,6 +13,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Iterator,
     List,
     NamedTuple,
 )
@@ -45,8 +49,8 @@ class SymbolicEvalArgs(NamedTuple):
         return SymbolicEvalArgs(**params)
 
 
-Analyzer = Callable[[GraphLanguage, Graph], None]
-LanguageAnalyzer = Callable[[Graph], None]
+Analyzer = Callable[[GraphShard], Vulnerabilities]
+LanguageAnalyzer = Callable[[GraphShard], Iterator[Vulnerability]]
 Evaluator = Callable[[SymbolicEvalArgs], bool]
 
 
@@ -55,4 +59,12 @@ class MissingSymbolicEval(Exception):
 
 
 class BadMethodInvocation(Exception):
+    pass
+
+
+class MissingAnalizer(Exception):
+    pass
+
+
+class MissingLanguageAnalizer(Exception):
     pass
