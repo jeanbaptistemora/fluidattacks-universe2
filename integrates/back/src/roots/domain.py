@@ -774,18 +774,18 @@ def _format_input_url(url: str) -> str:
     )
 
 
-def get_unreliable_root_id_by_component(
+def get_unreliable_root_by_component(
     component: str, group_roots: Tuple[RootItem, ...], group: Group
-) -> str:
+) -> Optional[RootItem]:
     if not component:
-        return ""
+        return None
 
     formatted_component = _format_input_url(component)
     has_black_service = group["service"] == "BLACK"
     has_white_service = group["service"] == "WHITE"
     return next(
         (
-            root.id
+            root
             for root in group_roots
             if (
                 has_white_service
@@ -801,7 +801,7 @@ def get_unreliable_root_id_by_component(
                 and _format_input_url(root.state.host) == formatted_component
             )
         ),
-        "",
+        None,
     )
 
 

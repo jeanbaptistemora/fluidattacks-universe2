@@ -14,6 +14,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -41,6 +44,7 @@ from typing import (
     Any,
     Callable,
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -48,7 +52,19 @@ from typing import (
 bugsnag_utils.start_scheduler_session()
 
 
-def _format_date(date_str: str) -> str:
+def _format_date(iso_date_str: str) -> Optional[datetime]:
+    try:
+        formatted_date = (
+            datetime_utils.as_zone(datetime.fromisoformat(iso_date_str))
+            if iso_date_str
+            else None
+        )
+    except ValueError:
+        formatted_date = None
+    return formatted_date
+
+
+def _format_date_str(date_str: str) -> str:
     date = datetime_utils.get_from_str(date_str, date_format="%Y-%m-%d")
     formatted_date_str = datetime_utils.get_as_utc_iso_format(date)
 
@@ -73,10 +89,10 @@ def _get_group_toe_inputs_from_cvs(
         # field_name, field_formater, field_default_value
         ("commit", str, ""),
         ("component", str, ""),
-        ("created_date", _format_date, default_date),
+        ("created_date", _format_date_str, default_date),
         ("entry_point", str, ""),
         ("seen_first_time_by", _format_email, ""),
-        ("tested_date", _format_date, default_date),
+        ("tested_date", _format_date_str, default_date),
         ("verified", str, ""),
         ("vulns", str, ""),
     ]
@@ -97,12 +113,26 @@ def _get_group_toe_inputs_from_cvs(
                 except ValueError:
                     new_toe_input[field_name] = default_value
 
-            new_toe_input[
-                "unreliable_root_id"
-            ] = roots_domain.get_unreliable_root_id_by_component(
+            unreliable_root = roots_domain.get_unreliable_root_by_component(
                 new_toe_input["component"], group_roots, group
             )
+            new_toe_input["unreliable_root_id"] = (
+                unreliable_root.id if unreliable_root is not None else ""
+            )
             new_toe_input["group_name"] = group["name"]
+            new_toe_input["attacked_at"] = _format_date(
+                new_toe_input["tested_date"]
+            )
+            new_toe_input["attacked_by"] = ""
+            new_toe_input["be_present"] = True
+            new_toe_input["be_present_until"] = None
+            new_toe_input["first_attack_at"] = _format_date(
+                new_toe_input["tested_date"]
+            )
+            new_toe_input["seen_at"] = (
+                _format_date(new_toe_input["created_date"])
+                or datetime_utils.get_utc_now()
+            )
             group_toe_inputs.add(ToeInput(**new_toe_input))
 
     return group_toe_inputs
@@ -129,7 +159,10 @@ def _get_toe_inputs_to_update(
     return {
         toe_input
         for toe_input in cvs_group_toe_inputs
-        if toe_input not in group_toe_inputs
+        if (
+            toe_input not in group_toe_inputs
+            or toe_input.seen_at > datetime_utils.get_now_minus_delta(hours=8)
+        )
         and toe_input.get_hash() in group_toe_input_hashes
     }
 

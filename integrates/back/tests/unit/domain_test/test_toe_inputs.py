@@ -1,6 +1,9 @@
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.toe_inputs.types import (
     ToeInput,
 )
@@ -19,11 +22,17 @@ pytestmark = [
 async def test_add() -> None:
     group_name = "unittesting"
     toe_input = ToeInput(
+        attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+        attacked_by="test@test.com",
+        be_present=True,
+        be_present_until=None,
         commit="g42343f",
         component="test.com/test/new.aspx",
         created_date="2000-01-01T05:00:00+00:00",
+        first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         entry_point="btnTest",
         group_name=group_name,
+        seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="new@test.com",
         tested_date="2021-02-12T00:00:00-05:00",
         verified="Yes",
@@ -56,11 +65,17 @@ async def test_delete() -> None:
 async def test_update() -> None:
     group_name = "unittesting"
     toe_input = ToeInput(
+        attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+        attacked_by="",
+        be_present=True,
+        be_present_until=None,
         commit="edited",
         component="test.com/test/test.aspx",
         created_date="2000-01-01T05:00:00+00:00",
         entry_point="btnTest",
+        first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         group_name=group_name,
+        seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
         tested_date="2021-02-12T00:00:00-05:00",
         unreliable_root_id="",

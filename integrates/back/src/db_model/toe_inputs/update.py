@@ -33,11 +33,6 @@ async def update(*, toe_input: ToeInput) -> None:
             "group_name": toe_input.group_name,
         },
     )
-    toe_input_item = {
-        key_structure.partition_key: toe_input_key.partition_key,
-        key_structure.sort_key: toe_input_key.sort_key,
-        **toe_input._asdict(),
-    }
     toe_input_item = format_toe_input_item(
         toe_input_key, key_structure, toe_input
     )

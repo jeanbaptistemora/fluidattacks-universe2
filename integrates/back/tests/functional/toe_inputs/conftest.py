@@ -1,6 +1,9 @@
 from back.tests import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -92,11 +95,21 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ),
         "toe_inputs": (
             ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=True,
+                be_present_until=None,
                 commit="hh66uu5",
                 component="test.com/api/Test",
                 created_date="2000-01-01T05:00:00+00:00",
                 entry_point="idTest",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
                 group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="",
                 tested_date="2020-01-02T00:00:00-05:00",
                 verified="Yes",
@@ -104,11 +117,21 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 vulns="FIN.S.0001.Test",
             ),
             ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-02T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=True,
+                be_present_until=None,
                 commit="e91320h",
                 component="test.com/test/test.aspx",
                 created_date="2020-03-14T00:00:00-05:00",
                 entry_point="btnTest",
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-02T05:00:00+00:00"
+                ),
                 group_name="group1",
+                seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
                 tested_date="2021-02-02T00:00:00-05:00",
                 unreliable_root_id="",
@@ -116,11 +139,23 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 vulns="",
             ),
             ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-11T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=False,
+                be_present_until=datetime.fromisoformat(
+                    "2021-03-11T05:00:00+00:00"
+                ),
                 commit="d83027t",
                 component="test.com/test2/test.aspx",
                 created_date="2020-01-11T00:00:00-05:00",
                 entry_point="-",
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-11T05:00:00+00:00"
+                ),
                 group_name="group1",
+                seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
                 tested_date="2021-02-11T00:00:00-05:00",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
