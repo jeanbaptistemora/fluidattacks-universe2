@@ -44,7 +44,7 @@ async def update_metadata(
         values={"finding_id": finding_id, "id": vulnerability_id},
     )
     vulnerability_item = {
-        key: value
+        key: None if not value else value
         for key, value in json.loads(json.dumps(metadata)).items()
         if value is not None
     }
