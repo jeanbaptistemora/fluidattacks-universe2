@@ -1,6 +1,9 @@
 from .types import (
     ToeInput,
 )
+from .utils import (
+    format_toe_input_item,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -30,11 +33,9 @@ async def add(*, toe_input: ToeInput) -> None:
             "group_name": toe_input.group_name,
         },
     )
-    toe_input_item = {
-        key_structure.partition_key: toe_input_key.partition_key,
-        key_structure.sort_key: toe_input_key.sort_key,
-        **dict(toe_input._asdict()),
-    }
+    toe_input_item = format_toe_input_item(
+        toe_input_key, key_structure, toe_input
+    )
     condition_expression = Attr(key_structure.partition_key).not_exists()
     try:
         await operations.put_item(

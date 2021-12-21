@@ -1,6 +1,9 @@
 from .types import (
     ToeInput,
 )
+from .utils import (
+    format_toe_input_item,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -35,6 +38,9 @@ async def update(*, toe_input: ToeInput) -> None:
         key_structure.sort_key: toe_input_key.sort_key,
         **toe_input._asdict(),
     }
+    toe_input_item = format_toe_input_item(
+        toe_input_key, key_structure, toe_input
+    )
     condition_expression = Attr(key_structure.partition_key).exists()
     try:
         await operations.put_item(
