@@ -6,9 +6,9 @@ description: Our team of ethical hackers and pentesters counts
 keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
   Cybersecurity, Pentesters, Whitehat Hackers
 certificationlogo: logo-ewptv1
-alt: Logo ewptv1
+alt: Logo eWPTv1
 certification: yes
-certificationid: 10
+certificationid: 12
 ---
 
 [eWPTv1](https://elearnsecurity.com/product/ewpt-certification/)

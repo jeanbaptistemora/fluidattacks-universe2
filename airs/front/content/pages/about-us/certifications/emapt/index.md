@@ -6,9 +6,9 @@ description: Our team of ethical hackers and pentesters counts
 keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
   Cybersecurity, Pentesters, Whitehat Hackers
 certificationlogo: logo-emapt
-alt: Logo emapt
+alt: Logo eMAPT
 certification: yes
-certificationid: 9
+certificationid: 11
 ---
 
 [eMAPT](https://elearnsecurity.com/product/emapt-certification/)

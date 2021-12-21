@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ecxd
 alt: Logo eCXD
 certification: yes
-certificationid: 12
+certificationid: 14
 ---
 
 [eCXD](https://elearnsecurity.com/product/ecxd-certification/)

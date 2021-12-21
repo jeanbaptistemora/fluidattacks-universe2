@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-devsecops
 alt: Logo DevSecOps
 certification: yes
-certificationid: 19
+certificationid: 21
 ---
 
 The [CDP](https://www.practical-devsecops.com/certified-devsecops-professional/)

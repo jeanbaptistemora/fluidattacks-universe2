@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ecmap
 alt: Logo eCMAP
 certification: yes
-certificationid: 15
+certificationid: 17
 ---
 
 [eCMAP](https://elearnsecurity.com/product/ecmap-certification/)

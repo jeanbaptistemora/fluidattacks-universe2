@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ecptx
 alt: Logo eCPTX
 certification: yes
-certificationid: 13
+certificationid: 15
 ---
 
 [eCPTX](https://elearnsecurity.com/product/ecptx-certification/)

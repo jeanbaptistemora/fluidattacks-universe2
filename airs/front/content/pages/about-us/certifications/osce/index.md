@@ -5,10 +5,10 @@ description: Our team of ethical hackers and pentesters counts
   with high certifications related to cybersecurity information.
 keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
   Cybersecurity, Pentesters, Whitehat Hackers
-certificationlogo: logo-osce
+certificationlogo: logo-osce-1
 alt: Logo OSCE
 certification: yes
-certificationid: 2
+certificationid: 7
 ---
 
 [OSCE](https://www.offensive-security.com/ctp-osce/)
