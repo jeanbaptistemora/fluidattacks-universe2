@@ -31,6 +31,9 @@ from db_model.vulnerabilities.types import (
 from groups import (
     domain as groups_domain,
 )
+from newutils.vulnerabilities import (
+    adjust_historic_dates,
+)
 import time
 
 PROD: bool = False
@@ -66,25 +69,25 @@ async def _process_vulnerability(
 
     await vulns_model.update_historic(
         finding_id=vuln.finding_id,
-        historic=historic_state,
+        historic=adjust_historic_dates(historic_state),
         vulnerability_id=vuln.id,
     )
     if historic_treatment:
         await vulns_model.update_historic(
             finding_id=vuln.finding_id,
-            historic=historic_treatment,
+            historic=adjust_historic_dates(historic_treatment),
             vulnerability_id=vuln.id,
         )
     if historic_verification:
         await vulns_model.update_historic(
             finding_id=vuln.finding_id,
-            historic=historic_verification,
+            historic=adjust_historic_dates(historic_verification),
             vulnerability_id=vuln.id,
         )
     if historic_zero_risk:
         await vulns_model.update_historic(
             finding_id=vuln.finding_id,
-            historic=historic_zero_risk,
+            historic=adjust_historic_dates(historic_zero_risk),
             vulnerability_id=vuln.id,
         )
 
