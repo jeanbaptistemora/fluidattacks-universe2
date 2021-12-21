@@ -25,7 +25,9 @@ from dynamodb.types import (
 
 def format_vulnerability(item: Item) -> Vulnerability:
     state = format_state(item["state"])
-    treatment = format_treatment(item["treatment"])
+    treatment = (
+        format_treatment(item["treatment"]) if "treatment" in item else None
+    )
     verification = (
         format_verification(item["verification"])
         if "verification" in item
