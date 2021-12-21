@@ -59,6 +59,8 @@ from utils.encodings import (
 )
 from utils.fs import (
     decide_language,
+    FileTooLarge,
+    sync_get_file_raw_content,
 )
 from utils.graph import (
     copy_ast,
@@ -343,15 +345,18 @@ def parse_one(
     path: str,
     version: int = 20,
 ) -> Optional[GraphShard]:
-    with open(os.path.join(CTX.config.working_dir, path), "rb") as handle:
-        content = handle.read(102400)  # 100KiB
-
     try:
+        full_path = os.path.join(CTX.config.working_dir, path)
+        content = sync_get_file_raw_content(full_path)
+
         graph = _parse_one_cached(
             content=content,
             language=language,
             _=version,
         )
+    except FileTooLarge:
+        log_blocking("warning", "File too large: %s, ignoring", path)
+        return None
     except ParsingError:
         log_blocking("warning", "Grammar error: %s, ignoring", path)
         return None

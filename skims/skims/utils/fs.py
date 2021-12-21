@@ -39,6 +39,12 @@ from utils.logs import (
     log,
 )
 
+MAX_FILE_SIZE: int = 102400  # 100KiB
+
+
+class FileTooLarge(Exception):
+    pass
+
 
 def decide_language(path: str) -> GraphShardMetadataLanguage:
     language_extensions_map: Dict[str, List[str]] = {
@@ -117,6 +123,16 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
         file_contents: bytes = await file_handle.read(size)
 
         return file_contents
+
+
+def sync_get_file_raw_content(path: str, size: int = MAX_FILE_SIZE) -> bytes:
+    if os.stat(path).st_size > MAX_FILE_SIZE:
+        raise FileTooLarge(path)
+
+    with open(path, "rb") as handle:
+        content = handle.read(size)
+
+    return content
 
 
 async def check_dependency_code(path: str) -> bool:
