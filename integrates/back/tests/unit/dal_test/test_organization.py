@@ -254,12 +254,14 @@ async def test_update() -> None:
     assert "max_acceptance_severity" not in org_details
     assert org_details["max_number_acceptations"] == 2
     assert "min_acceptance_severity" not in org_details
+    assert org_details["min_breakable_severity"] == Decimal("0.0")
 
     new_values = {
         "max_acceptance_days": None,
         "max_acceptance_severity": Decimal("8.0"),
         "max_number_acceptations": 5,
         "min_acceptance_severity": Decimal("2.5"),
+        "min_breakable_severity": Decimal("1.0"),
     }
     await orgs_dal.update(org_id, org_name, new_values)
     org_details = await orgs_dal.get_by_id(org_id)
@@ -267,6 +269,7 @@ async def test_update() -> None:
     assert org_details["max_acceptance_severity"] == Decimal("8.0")
     assert org_details["max_number_acceptations"] == 5
     assert org_details["min_acceptance_severity"] == Decimal("2.5")
+    assert org_details["min_breakable_severity"] == Decimal("1.0")
 
 
 async def test_iterate_organizations() -> None:

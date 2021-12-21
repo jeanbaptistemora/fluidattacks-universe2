@@ -8,6 +8,7 @@ from custom_exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    InvalidSeverity,
     InvalidUserProvided,
     UserNotInOrganization,
 )
@@ -333,6 +334,14 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
+    new_values = {"min_breakable_severity": "10.5"}
+    exe = InvalidSeverity([0.0, 10.0])
+    with pytest.raises(GraphQLError) as excinfo:
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, "", new_values
+        )
+    assert GraphQLError(exe.args[0]) == excinfo.value
+
 
 async def test_validate_negative_values() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
@@ -346,6 +355,9 @@ async def test_validate_negative_values() -> None:
 
     with pytest.raises(InvalidNumberAcceptances):
         orgs_domain.validate_max_number_acceptances(-1)
+
+    with pytest.raises(InvalidSeverity):
+        orgs_domain.validate_min_breakable_severity(-1)
 
 
 async def test_validate_severity_range() -> None:

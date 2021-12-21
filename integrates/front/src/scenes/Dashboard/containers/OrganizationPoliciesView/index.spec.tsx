@@ -524,6 +524,27 @@ describe("Organization policies view", (): void => {
           },
         },
         result: {
+          errors: [
+            new GraphQLError(
+              "Exception - Severity value must be between 0.0 and 10.0"
+            ),
+          ],
+        },
+      },
+      {
+        request: {
+          query: UPDATE_ORGANIZATION_POLICIES,
+          variables: {
+            maxAcceptanceDays: 1,
+            maxAcceptanceSeverity: 7.5,
+            maxNumberAcceptances: 2,
+            minAcceptanceSeverity: 3,
+            minBreakableSeverity: 3,
+            organizationId: mockProps.organizationId,
+            organizationName: "okada",
+          },
+        },
+        result: {
           errors: [new GraphQLError("Access denied")],
         },
       },
@@ -616,6 +637,22 @@ describe("Organization policies view", (): void => {
 
         expect(msgError).toHaveBeenCalledWith(
           translate.t("organization.tabs.policies.errors.maxNumberAcceptances")
+        );
+      });
+    });
+
+    form.simulate("submit");
+
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
+
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t(
+            "organization.tabs.policies.errors.invalidBreakableSeverity"
+          )
         );
       });
     });

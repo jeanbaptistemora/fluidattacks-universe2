@@ -755,6 +755,9 @@
                   },
                   "max_number_acceptations": {
                     "N": "0"
+                  },
+                  "min_breakable_severity": {
+                    "N": "0.0"
                   }
                 }
               },

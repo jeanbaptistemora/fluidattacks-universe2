@@ -32,6 +32,9 @@
           "max_number_acceptations": {
             "N": "2"
           },
+          "min_breakable_severity": {
+            "N": "0"
+          },
           "pending_deletion_date": {
             "S": "2019-11-22 15:07:57"
           }
@@ -225,6 +228,9 @@
           },
           "max_number_acceptations": {
             "N": "1"
+          },
+          "min_breakable_severity": {
+            "N": "0"
           },
           "pending_deletion_date": {
             "S": "2019-11-22 15:07:57"
