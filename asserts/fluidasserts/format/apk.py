@@ -104,39 +104,6 @@ def get_http_urls(dex):
 
 
 @api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def uses_dangerous_perms(apk_file: str) -> tuple:
-    """
-    Check if the given APK uses dangerous permissions.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK uses dangerous permissions.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    dangerous = {"dangerous"}
-
-    perms = apk_obj.get_details_permissions()
-
-    effective_dangerous: List[Tuple[str, Any]] = [
-        (x, perms[x][1]) for x in perms if perms[x][0] in dangerous
-    ]
-
-    has_effective_dangerous: bool = bool(effective_dangerous)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open=f"APK uses dangerous permissions",
-        msg_closed="APK does not use dangerous permissions",
-        open_if=has_effective_dangerous,
-        fingerprint={"Dangerous permissions": effective_dangerous},
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
 @unknown_if(AssertionError, FileNotFoundError, apk.Error, dvm.Error)
 def has_fragment_injection(apk_file: str) -> tuple:
     """
