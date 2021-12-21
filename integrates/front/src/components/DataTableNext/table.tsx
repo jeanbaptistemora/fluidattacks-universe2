@@ -38,8 +38,6 @@ import type {
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
-  ButtonToolbarLeft,
-  ButtonToolbarRight,
   ButtonToolbarRow,
   Filters,
   InputDateRange,
@@ -47,14 +45,12 @@ import {
   InputRange,
   InputText,
   RangeContainer,
-  SearchContainer,
   SearchText,
   Select,
   SelectContainer,
   SelectDate,
   Small,
   TableOptionsColBar,
-  TableOptionsColBtn,
 } from "styles/styledComponents";
 // eslint-disable-next-line complexity
 export const TableWrapper: React.FC<ITableWrapperProps> = (
@@ -331,8 +327,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           !_.isUndefined(customSearchDefault) ||
           extraButtons !== undefined ||
           extraButtonsRight !== undefined ? (
-            <TableOptionsColBtn>
-              <ButtonToolbarLeft>
+            <div
+              className={`flex flex-wrap justify-between pa0 table-btn w-100`}
+            >
+              <div>
                 {exportCsv && (
                   <ButtonGroup>
                     <ExportCSVButtonWrapper {...toolkitProps} />
@@ -399,7 +397,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   isCustomSearchEnabled &&
                   searchPosition === "left" && (
                     <ButtonGroup>
-                      <SearchContainer>
+                      <div className={"pb1 ph1-5 w-100"}>
                         <SearchText
                           onChange={onUpdateCustomSearch}
                           placeholder={t("dataTableNext.search")}
@@ -413,32 +411,38 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                           }
                           value={customSearchDefault ?? ""}
                         />
-                      </SearchContainer>
+                      </div>
                     </ButtonGroup>
                   )}
-              </ButtonToolbarLeft>
+              </div>
               {extraButtonsRight === undefined &&
               isCustomSearchEnabled === false ? undefined : (
-                <ButtonToolbarRight>
-                  <ButtonGroup>{extraButtonsRight}</ButtonGroup>
+                <div>
                   {searchPosition === "right" ? (
                     <ButtonGroup>
                       <div
-                        className={
-                          "nt1-l nt0 pl3-l pl3-m pl2 pt1 pt0-m pt0-l w-100"
-                        }
+                        className={"nt1-l nt0 pb1 pl2 pt1 pt0-m pt0-l w-100"}
                       >
                         <SearchText
                           defaultValue={customSearchDefault ?? ""}
                           onChange={onUpdateCustomSearch}
                           placeholder={t("dataTableNext.search")}
+                          style={
+                            customSearchDefault === ""
+                              ? {}
+                              : {
+                                  boxShadow: "0 3px 5px #2e2e38",
+                                  color: "#2e2e38",
+                                }
+                          }
                         />
                       </div>
                     </ButtonGroup>
                   ) : undefined}
-                </ButtonToolbarRight>
+                  <ButtonGroup>{extraButtonsRight}</ButtonGroup>
+                </div>
               )}
-            </TableOptionsColBtn>
+            </div>
           ) : undefined}
           {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
             <Filters>
