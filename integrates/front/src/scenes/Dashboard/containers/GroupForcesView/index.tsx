@@ -448,6 +448,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
         }}
         dataset={resultExecutions}
         defaultSorted={JSON.parse(

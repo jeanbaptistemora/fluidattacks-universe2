@@ -726,6 +726,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
           }}
           dataset={resultFindings}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}

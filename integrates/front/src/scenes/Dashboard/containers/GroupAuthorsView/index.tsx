@@ -285,6 +285,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
         }}
         dataset={resultDataset}
         defaultSorted={{ dataField: "actor", order: "asc" }}
