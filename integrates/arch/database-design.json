@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 21, 2021, 09:06 AM",
+    "DateLastModified": "Dec 21, 2021, 10:52 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2038,6 +2038,24 @@
               },
               "entry_point": {
                 "S": "idTest"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "be_present_until": {
+                "S": ""
+              },
+              "first_attack_at": {
+                "S": "2020-01-02T05:00:00+00:00"
+              },
+              "seen_at": {
+                "S": "2000-01-01T05:00:00+00:00"
+              },
+              "attacked_by": {
+                "S": "test@test.com"
+              },
+              "attacked_at": {
+                "S": "2020-01-02T05:00:00+00:00"
               }
             },
             {
@@ -2070,6 +2088,24 @@
               },
               "entry_point": {
                 "S": "btnTest"
+              },
+              "be_present": {
+                "BOOL": false
+              },
+              "be_present_until": {
+                "S": "2021-03-20T15:41:04+00:00"
+              },
+              "first_attack_at": {
+                "S": "2021-01-02T05:00:00+00:00"
+              },
+              "seen_at": {
+                "S": "2020-03-14T05:00:00+00:00"
+              },
+              "attacked_by": {
+                "S": "test@test.com"
+              },
+              "attacked_at": {
+                "S": "2021-02-02T05:00:00+00:00"
               }
             },
             {
@@ -2105,6 +2141,24 @@
               },
               "unreliable_root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "be_present_until": {
+                "S": ""
+              },
+              "first_attack_at": {
+                "S": "2021-02-11T05:00:00+00:00"
+              },
+              "seen_at": {
+                "S": "2020-01-11T05:00:00+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "attacked_at": {
+                "S": "2021-02-11T05:00:00+00:00"
               }
             }
           ],
@@ -2117,7 +2171,13 @@
             "verified",
             "component",
             "entry_point",
-            "unreliable_root_id"
+            "unreliable_root_id",
+            "be_present",
+            "be_present_until",
+            "first_attack_at",
+            "seen_at",
+            "attacked_by",
+            "attacked_at"
           ],
           "DataAccess": {
             "MySql": {}
