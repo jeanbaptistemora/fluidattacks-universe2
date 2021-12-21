@@ -23,7 +23,7 @@ type Organization {
   minAcceptanceSeverity: Float!
   """Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
   the build in strict mode"""
-  minBreakableSeverity: Float
+  minBreakingSeverity: Float
   "Name of the organization"
   name: String!
   "Permissions of the current user within the organization"

@@ -193,7 +193,7 @@ async def _get_new_policies(
                 loaders, organization_id, values, "min_acceptance_severity"
             ),
             _add_updated_values(
-                loaders, organization_id, values, "min_breakable_severity"
+                loaders, organization_id, values, "min_breaking_severity"
             ),
         ]
     )
@@ -284,8 +284,8 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         "min_acceptance_severity": organization.get(
             "min_acceptance_severity", DEFAULT_MIN_SEVERITY
         ),
-        "min_breakable_severity": organization.get(
-            "min_breakable_severity", DEFAULT_MIN_SEVERITY
+        "min_breaking_severity": organization.get(
+            "min_breaking_severity", DEFAULT_MIN_SEVERITY
         ),
     }
 
@@ -555,7 +555,7 @@ def validate_min_acceptance_severity(value: Decimal) -> bool:
     return success
 
 
-def validate_min_breakable_severity(value: Decimal) -> bool:
+def validate_min_breaking_severity(value: Decimal) -> bool:
     success: bool = True
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidSeverity([DEFAULT_MIN_SEVERITY, DEFAULT_MAX_SEVERITY])

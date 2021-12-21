@@ -256,7 +256,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       policy: (
         <p>
           {translate.t(
-            "organization.tabs.policies.policies.minBreakableSeverity"
+            "organization.tabs.policies.policies.minBreakingSeverity"
           )}
         </p>
       ),
@@ -276,7 +276,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             <Field
               component={FormikText}
               disabled={!canEdit}
-              name={"minBreakableSeverity"}
+              name={"minBreakingSeverity"}
               type={"text"}
             />
           )}
@@ -293,7 +293,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
           maxNumberAcceptances: parseInt(values.maxNumberAcceptances, 10),
           minAcceptanceSeverity: parseFloat(values.minAcceptanceSeverity),
-          minBreakableSeverity: parseFloat(values.minBreakableSeverity),
+          minBreakingSeverity: parseFloat(values.minBreakingSeverity),
           organizationId,
           organizationName: organizationName.toLowerCase(),
         },
@@ -327,9 +327,9 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           )
             .toFixed(1)
             .toString(),
-          minBreakableSeverity: _.isNull(data.organization.minBreakableSeverity)
+          minBreakingSeverity: _.isNull(data.organization.minBreakingSeverity)
             ? "0.0"
-            : parseFloat(data.organization.minBreakableSeverity)
+            : parseFloat(data.organization.minBreakingSeverity)
                 .toFixed(1)
                 .toString(),
         }}

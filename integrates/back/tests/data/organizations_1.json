@@ -38,7 +38,7 @@
           "min_acceptance_severity": {
             "N": "3"
           },
-          "min_breakable_severity": {
+          "min_breaking_severity": {
             "N": "0"
           }
         }
@@ -154,7 +154,7 @@
           "min_acceptance_severity": {
             "N": "1"
           },
-          "min_breakable_severity": {
+          "min_breaking_severity": {
             "N": "0"
           }
         }

@@ -9,7 +9,7 @@ interface IPoliciesFormData {
   maxAcceptanceSeverity: string;
   maxNumberAcceptances: string;
   minAcceptanceSeverity: string;
-  minBreakableSeverity: string;
+  minBreakingSeverity: string;
 }
 
 interface IOrganizationPoliciesData {
@@ -19,7 +19,7 @@ interface IOrganizationPoliciesData {
     maxAcceptanceSeverity: string;
     maxNumberAcceptances: string;
     minAcceptanceSeverity: string;
-    minBreakableSeverity: string;
+    minBreakingSeverity: string;
     name: string;
   };
 }

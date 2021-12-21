@@ -61,7 +61,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 10,
               maxNumberAcceptances: null,
               minAcceptanceSeverity: 0,
-              minBreakableSeverity: 0,
+              minBreakingSeverity: 0,
               name: "okada",
             },
           },
@@ -112,7 +112,7 @@ describe("Organization policies view", (): void => {
     ).toBe("0.0");
 
     expect(
-      wrapper.find({ name: "minBreakableSeverity" }).find("input").prop("value")
+      wrapper.find({ name: "minBreakingSeverity" }).find("input").prop("value")
     ).toBe("0.0");
   });
 
@@ -173,7 +173,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 5,
               minAcceptanceSeverity: 3,
-              minBreakableSeverity: 1,
+              minBreakingSeverity: 1,
               name: "okada",
             },
           },
@@ -187,7 +187,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 8.9,
             maxNumberAcceptances: 1,
             minAcceptanceSeverity: 0,
-            minBreakableSeverity: 4,
+            minBreakingSeverity: 4,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -215,7 +215,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 8.9,
               maxNumberAcceptances: 1,
               minAcceptanceSeverity: 0,
-              minBreakableSeverity: 4,
+              minBreakingSeverity: 4,
               name: "okada",
             },
           },
@@ -260,8 +260,8 @@ describe("Organization policies view", (): void => {
     const minAcceptanceSeverity: ReactWrapper = wrapper
       .find({ name: "minAcceptanceSeverity" })
       .find("input");
-    const minBreakableSeverity: ReactWrapper = wrapper
-      .find({ name: "minBreakableSeverity" })
+    const minBreakingSeverity: ReactWrapper = wrapper
+      .find({ name: "minBreakingSeverity" })
       .find("input");
     const saveButton1: ReactWrapper = wrapper
       .find("button")
@@ -282,8 +282,8 @@ describe("Organization policies view", (): void => {
     minAcceptanceSeverity.simulate("change", {
       target: { name: "minAcceptanceSeverity", value: "0" },
     });
-    minBreakableSeverity.simulate("change", {
-      target: { name: "minBreakableSeverity", value: "4" },
+    minBreakingSeverity.simulate("change", {
+      target: { name: "minBreakingSeverity", value: "4" },
     });
 
     await act(async (): Promise<void> => {
@@ -343,7 +343,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
-              minBreakableSeverity: 3,
+              minBreakingSeverity: 3,
               name: "okada",
             },
           },
@@ -420,7 +420,7 @@ describe("Organization policies view", (): void => {
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
               minAcceptanceSeverity: 3,
-              minBreakableSeverity: 3,
+              minBreakingSeverity: 3,
               name: "okada",
             },
           },
@@ -434,7 +434,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -455,7 +455,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -476,7 +476,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -497,7 +497,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -518,7 +518,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },
@@ -539,7 +539,7 @@ describe("Organization policies view", (): void => {
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
             minAcceptanceSeverity: 3,
-            minBreakableSeverity: 3,
+            minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
           },

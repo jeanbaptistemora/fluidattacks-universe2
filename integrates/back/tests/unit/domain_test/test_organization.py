@@ -334,7 +334,7 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = {"min_breakable_severity": "10.5"}
+    new_values = {"min_breaking_severity": "10.5"}
     exe = InvalidSeverity([0.0, 10.0])
     with pytest.raises(GraphQLError) as excinfo:
         await orgs_domain.update_policies(
@@ -357,7 +357,7 @@ async def test_validate_negative_values() -> None:
         orgs_domain.validate_max_number_acceptances(-1)
 
     with pytest.raises(InvalidSeverity):
-        orgs_domain.validate_min_breakable_severity(-1)
+        orgs_domain.validate_min_breaking_severity(-1)
 
 
 async def test_validate_severity_range() -> None:
