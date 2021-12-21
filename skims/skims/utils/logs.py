@@ -54,7 +54,7 @@ def configure() -> None:
         )
         watchover_handler_pf = watchtower.CloudWatchLogHandler(
             "skims",
-            log_stream_name,
+            log_stream_name_pf,
             send_interval=15,
         )
         _LOGGER.addHandler(watchover_handler)
