@@ -13,7 +13,7 @@ closure:
   ariadne: 0.12.0
   asgiref: 3.4.1
   async-lru: 1.0.2
-  async-timeout: 4.0.1
+  async-timeout: 4.0.2
   attrs: 21.2.0
   authlib: 0.15.4
   awscli: 1.18.32
@@ -108,6 +108,7 @@ closure:
   sniffio: 1.2.0
   social-auth-core: 3.3.3
   starlette: 0.13.8
+  stripe: 2.63.0
   tracers: 21.8.6876
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
@@ -231,12 +232,12 @@ links:
   - name: async_lru-1.0.2.tar.gz
     sha256: 1jvplhv57byilm08jsi0p91xzh2g1vq9cvwnnwqwrx8rfq19ia5s
     url: https://files.pythonhosted.org/packages/7e/c1/a3d6207deaaeb582d16dc9a0fd217f192efc9487ce59897131cf9a2bdc1c/async_lru-1.0.2.tar.gz
-  - name: async_timeout-4.0.1-py3-none-any.whl
-    sha256: 1466rqry1gk2mxh59ys6kmr57sn3a65mmw7w0pmkfczj38qhnb52
-    url: https://files.pythonhosted.org/packages/41/4a/2ca8802045b6df8dd25a0f8f7c216808e9e3bff2809efe4a36cc99d35cca/async_timeout-4.0.1-py3-none-any.whl
-  - name: async-timeout-4.0.1.tar.gz
-    sha256: 0lggdrns693r8g2pwwllngm7xj4r2cqbgvzn4a92y11r38bcnc5r
-    url: https://files.pythonhosted.org/packages/ce/cf/9452ab2a5936f96aa94e3c1cf21e8038b643cd27f33aeebc3aea5d25bcd1/async-timeout-4.0.1.tar.gz
+  - name: async_timeout-4.0.2-py3-none-any.whl
+    sha256: 0g1v719nh6l516d6f7cq3j2zbz9cwhbf99ficqyl21qdypyf98cc
+    url: https://files.pythonhosted.org/packages/d6/c1/8991e7c5385b897b8c020cdaad718c5b087a6626d1d11a23e1ea87e325a7/async_timeout-4.0.2-py3-none-any.whl
+  - name: async-timeout-4.0.2.tar.gz
+    sha256: 05bbjz16n1a7m1s3lmcwri2x5rc7hnh6f2hdr2lbflnv1mjf2qr1
+    url: https://files.pythonhosted.org/packages/54/6e/9678f7b2993537452710ffb1750c62d2c26df438aa621ad5fa9d1507a43a/async-timeout-4.0.2.tar.gz
   - name: attrs-21.2.0-py2.py3-none-any.whl
     sha256: 1cdh2v3scv9mi00195khsch3y6l8wvq0rmjsjmxdn85cv3b917hl
     url: https://files.pythonhosted.org/packages/20/a9/ba6f1cd1a1517ff022b35acd6a7e4246371dfab08b8e42b829b6d07913cc/attrs-21.2.0-py2.py3-none-any.whl
@@ -984,6 +985,12 @@ links:
   - name: starlette-0.13.8.tar.gz
     sha256: 10v1f38qnfcqbs1m1bkdhw66120p0fzp8dl8ia1asdwl2jr2kpw2
     url: https://files.pythonhosted.org/packages/86/f5/2713195e0d2f449554f3e0b749cc9d8ec5d00035279d6dfa02d4410adcbd/starlette-0.13.8.tar.gz
+  - name: stripe-2.63.0-py2.py3-none-any.whl
+    sha256: 1ixvjpimx28bpmk3fkmawccaacl48qqc8a4nqymckgpg7rz6jphp
+    url: https://files.pythonhosted.org/packages/9a/1a/20b2a376904895b4d5ef4517a6932cd7ac5b286f6a6299f6a11f23681fa8/stripe-2.63.0-py2.py3-none-any.whl
+  - name: stripe-2.63.0.tar.gz
+    sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
+    url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
   - name: tracers-21.8.6876-py3-none-any.whl
     sha256: 0q21l5rlz98fg5r3m702lh5pkwfym5c8ls4i37f14fs6kq30488n
     url: https://files.pythonhosted.org/packages/44/59/632eefa787e2bcb59bb1ea5c1229e8d64e4672ef82e230ddf3afc1701fc3/tracers-21.8.6876-py3-none-any.whl
