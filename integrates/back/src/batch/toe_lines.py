@@ -402,6 +402,26 @@ async def refresh_active_root_repo_toe_lines(
         return
 
     await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
+    try:
+        repo_branch = getattr(repo.heads, root_repo.state.branch)
+        repo_branch.checkout()
+    except AttributeError:
+        LOGGER.error(
+            "Branch not found",
+            extra={
+                "extra": {
+                    "branch": root_repo.state.branch,
+                    "group_name": group_name,
+                    "repository": root_repo.state.nickname,
+                }
+            },
+        )
+        present_filenames = set()
+    else:
+        present_filenames = await get_present_filenames(
+            group_path, repo, root_repo.state.nickname
+        )
+
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in await loaders.root_toe_lines.load_nodes(
