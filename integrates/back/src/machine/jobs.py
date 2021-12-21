@@ -1,25 +1,21 @@
 import aioboto3
-import aiohttp
-import asyncio
 from batch.dal import (
+    describe_jobs,
     Job,
     JobStatus,
-    list_queues_jobs,
+    list_jobs_by_group,
+    list_jobs_filter,
+    list_log_streams,
 )
-import boto3
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
     PRODUCT_API_TOKEN,
 )
-from datetime import (
-    datetime,
-)
-import hashlib
-import hmac
 import json
 import logging
 import logging.config
+import more_itertools
 import os
 from settings.logger import (
     LOGGING,
@@ -31,9 +27,6 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
-)
-from urllib.parse import (
-    urlparse,
 )
 
 
@@ -95,162 +88,50 @@ async def list_(
 ) -> List[Job]:
     queues: List[str] = []
     if include_non_urgent:
-        queues.append(get_queue_for_finding(finding_code, urgent=False))
+        queues.append("skims_all_later")
     if include_urgent:
-        queues.append(get_queue_for_finding(finding_code, urgent=True))
+        queues.append("skims_all_soon")
 
-    jobs = await list_queues_jobs(
-        filters=(
-            lambda job: parse_name(job.name).finding_code == finding_code,
-            lambda job: parse_name(job.name).group_name == group_name,
-        ),
-        queues=queues,
-        statuses=statuses,
-    )
+    list_jobs: Dict[str, Dict[str, Any]] = {
+        item["jobId"]: item
+        for item in more_itertools.flatten(
+            [await list_jobs_by_group(_queue, group_name) for _queue in queues]
+        )
+    }
+
+    job_items = {
+        item["jobId"]: item
+        for item in (await describe_jobs(*list_jobs.keys()))
+        if finding_code in json.loads(item["container"]["command"][-2])
+        and item["status"] in {x.name for x in statuses}
+    }
+
+    job_logs: Dict[str, Dict[str, Any]] = {
+        item["logStreamName"].split("/")[1]: item
+        for item in await list_log_streams(group_name, *job_items.keys())
+    }
+
+    jobs = [
+        Job(
+            created_at=job_items[job_id].get("createdAt"),
+            exit_code=job_items[job_id].get("container", {}).get("exitCode"),
+            exit_reason=job_items[job_id].get("container", {}).get("reason"),
+            id=job_items[job_id]["jobId"],
+            name=job_items[job_id]["jobName"],
+            root_nickname=job_logs[job_id]["logStreamName"].split("/")[-1],
+            queue=job_items[job_id]["jobQueue"],
+            started_at=job_logs[job_id].get("firstEventTimestamp", 0),
+            stopped_at=job_logs[job_id].get("lastEventTimestamp", 0),
+            status=job_items[job_id]["status"],
+        )
+        for job_id in job_logs.keys()
+    ]
 
     return sorted(
         jobs,
         key=lambda job: job.created_at or 0,
         reverse=True,
     )
-
-
-def _sign(key: bytes, msg: str) -> bytes:
-    return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
-
-
-def _get_signature_key(
-    key: str, date_stamp: str, region_name: str, service_name: str
-) -> bytes:
-    k_date = _sign(("AWS4" + key).encode("utf-8"), date_stamp)
-    k_region = _sign(k_date, region_name)
-    k_service = _sign(k_region, service_name)
-    k_signing = _sign(k_service, "aws4_request")
-    return k_signing
-
-
-async def list_jobs_filter(  # pylint: disable=too-many-locals
-    queue: str,
-    filters: Tuple[str, ...],
-    next_token: Optional[str] = None,
-) -> Dict[str, Any]:
-    service = "batch"
-    session = boto3.Session()
-    credentials = session.get_credentials()
-    client = session.client(service)
-    endpoint = f"{client.meta.endpoint_url}/v1/listjobs"
-    method = "POST"
-    host = urlparse(endpoint).hostname or ""
-    region = client.meta.region_name
-    content_type = "application/x-amz-json-1.0"
-    amz_target = "Batch_20120810.ListJobs"
-    request_parameters = {
-        "jobQueue": queue,
-        "filters": [{"name": "JOB_NAME", "values": list(filters)}],
-    }
-    if next_token:
-        request_parameters["nextToken"] = next_token
-
-    request_parameters_str = json.dumps(request_parameters)
-    access_key = credentials.access_key
-    secret_key = credentials.secret_key
-    time = datetime.utcnow()
-    amz_date = time.strftime("%Y%m%dT%H%M%SZ")
-    date_stamp = time.strftime("%Y%m%d")
-
-    canonical_uri = "/v1/listjobs"
-    canonical_querystring = ""
-    canonical_headers = (
-        "content-type:"
-        + content_type
-        + "\n"
-        + "host:"
-        + host
-        + "\n"
-        + "x-amz-date:"
-        + amz_date
-        + "\n"
-        + "x-amz-target:"
-        + amz_target
-        + "\n"
-    )
-    signed_headers = "content-type;host;x-amz-date;x-amz-target"
-    payload_hash = hashlib.sha256(
-        request_parameters_str.encode("utf-8")
-    ).hexdigest()
-
-    canonical_request = (
-        method
-        + "\n"
-        + canonical_uri
-        + "\n"
-        + canonical_querystring
-        + "\n"
-        + canonical_headers
-        + "\n"
-        + signed_headers
-        + "\n"
-        + payload_hash
-    )
-    algorithm = "AWS4-HMAC-SHA256"
-    credential_scope = (
-        date_stamp + "/" + region + "/" + service + "/" + "aws4_request"
-    )
-    string_to_sign = (
-        algorithm
-        + "\n"
-        + amz_date
-        + "\n"
-        + credential_scope
-        + "\n"
-        + hashlib.sha256(canonical_request.encode("utf-8")).hexdigest()
-    )
-    signing_key = _get_signature_key(secret_key, date_stamp, region, service)
-    signature = hmac.new(
-        signing_key, (string_to_sign).encode("utf-8"), hashlib.sha256
-    ).hexdigest()
-    authorization_header = (
-        algorithm
-        + " "
-        + "Credential="
-        + access_key
-        + "/"
-        + credential_scope
-        + ", "
-        + "SignedHeaders="
-        + signed_headers
-        + ", "
-        + "Signature="
-        + signature
-    )
-    headers = {
-        "Content-Type": content_type,
-        "X-Amz-Date": amz_date,
-        "X-Amz-Target": amz_target,
-        "Authorization": authorization_header,
-    }
-    retries = 0
-    async with aiohttp.ClientSession(headers=headers) as session:
-        retry = True
-        while retry and retries < 100:
-            retry = False
-            async with session.post(
-                endpoint, data=request_parameters_str
-            ) as response:
-                try:
-                    result = await response.json()
-                except json.decoder.JSONDecodeError:
-                    break
-                if (
-                    not response.ok
-                    and result.get("message", "") == "Too Many Requests"
-                ):
-                    retry = True
-                    retries += 1
-                    await asyncio.sleep(0.1)
-                    continue
-                return result
-    return {}
 
 
 async def _list_jobs_by_name(

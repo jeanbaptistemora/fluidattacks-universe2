@@ -41,10 +41,4 @@ async def resolve(
             statuses=list(JobStatus),
         )
 
-    return [
-        dict(
-            **job._asdict(),
-            root_nickname=machine.jobs.parse_name(job.name).root_nickname,
-        )
-        for job in jobs
-    ]
+    return jobs

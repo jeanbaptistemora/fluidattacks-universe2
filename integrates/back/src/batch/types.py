@@ -28,6 +28,7 @@ class Job(NamedTuple):
     started_at: Optional[int]
     stopped_at: Optional[int]
     status: str
+    root_nickname: Optional[str] = None
 
 
 class JobContainer(NamedTuple):
