@@ -17,6 +17,9 @@ from sast_symbolic_evaluation.evaluate import (
     PossibleSyntaxStepsForFinding,
     PossibleSyntaxStepsForUntrustedNId,
 )
+from symbolic_eval.analyze import (
+    analyze as symbolic_analyze,
+)
 from types import (
     FrameType,
 )
@@ -217,11 +220,27 @@ def query_lazy(
         )
 
 
+def analyze_lazy(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+) -> Iterator[core_model.Vulnerabilities]:
+    for shard in graph_db.shards:
+        if shard.syntax_graph:
+            yield symbolic_analyze(shard, finding)
+
+
 def query(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable(query_lazy(graph_db, finding)))
+
+
+def analyze(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+) -> core_model.Vulnerabilities:
+    return tuple(chain.from_iterable(analyze_lazy(graph_db, finding)))
 
 
 def query_f001_java_sql(
@@ -242,6 +261,10 @@ def query_f004(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 def query_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F008)
+
+
+def analyze_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return analyze(graph_db, core_model.FindingEnum.F008)
 
 
 def query_f021(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -270,6 +293,10 @@ def query_f063_tb(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 def query_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F100)
+
+
+def analyze_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return analyze(graph_db, core_model.FindingEnum.F100)
 
 
 def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
