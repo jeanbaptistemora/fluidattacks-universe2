@@ -15,6 +15,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_tags")
 async def test_remove_single_tag(populate: bool) -> None:
@@ -43,6 +44,7 @@ async def test_remove_single_tag(populate: bool) -> None:
     assert vuln.tags == ["tag1", "tag2"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_tags")
 @pytest.mark.parametrize(

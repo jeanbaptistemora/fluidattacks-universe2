@@ -1042,6 +1042,7 @@ async def test_update_root_cloning_status_nonexistent() -> None:
     assert "root not found" in result["errors"][0]["message"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_deactivate_root() -> None:
     query = """
@@ -1061,6 +1062,7 @@ async def test_deactivate_root() -> None:
     assert result["data"]["deactivateRoot"]["success"]
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 async def test_deactivate_root_nonexistent() -> None:
     query = """
       mutation {

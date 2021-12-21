@@ -7,6 +7,7 @@ from custom_exceptions import (
 import pytest
 
 
+@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("submit_organization_finding_policy")
 @pytest.mark.parametrize(
