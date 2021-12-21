@@ -24,7 +24,6 @@ from typing import (
 )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("request_vulnerabilities_verification")
 @pytest.mark.parametrize(

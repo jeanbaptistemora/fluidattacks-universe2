@@ -83,7 +83,6 @@ async def _run(
     return await process.wait()
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_handle_organization_finding_policy_acceptance() -> None:
     org_name = "okada"
@@ -205,7 +204,6 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     assert vulns[0]["tag"] == ", ".join(tags)
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
@@ -443,7 +441,6 @@ async def test_get_org_finding_policies() -> None:
     )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.changes_db
 async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"

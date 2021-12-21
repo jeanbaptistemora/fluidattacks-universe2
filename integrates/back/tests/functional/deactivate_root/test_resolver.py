@@ -4,7 +4,6 @@ from . import (
 import pytest
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("deactivate_root")
 @pytest.mark.parametrize(

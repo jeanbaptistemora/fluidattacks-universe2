@@ -56,7 +56,6 @@ async def _get_vulns(
     )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("upload_file")
 @pytest.mark.parametrize(
@@ -209,7 +208,6 @@ async def test_upload_file_access_denied_error(
     assert result["errors"][0]["message"] == "Access denied"
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("upload_file")
 @pytest.mark.parametrize(

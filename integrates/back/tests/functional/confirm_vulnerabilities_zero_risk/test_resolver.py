@@ -19,7 +19,6 @@ from typing import (
 )
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("confirm_vulnerabilities_zero_risk")
 @pytest.mark.parametrize(
@@ -51,7 +50,6 @@ async def test_confirm_vulnerabilities_zero_risk(
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.CONFIRMED
 
 
-@pytest.mark.skip(reason="Temporarily disabled due to db migration")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("confirm_vulnerabilities_zero_risk")
 @pytest.mark.parametrize(
