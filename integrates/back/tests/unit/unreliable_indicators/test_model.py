@@ -19,15 +19,13 @@ pytestmark = [
 
 
 def test_model_entity_names_integrity() -> None:
-    # pylint: disable=unnecessary-lambda
-    entity_names = list(map(lambda key: str(key), model.ENTITIES.keys()))
+    entity_names = list(model.ENTITIES.keys())
     assert entity_names == sorted(entity_names)
 
 
 def test_model_entity_attrs_integrity() -> None:
     for entity in model.ENTITIES.values():
-        # pylint: disable=unnecessary-lambda
-        entity_attrs = list(map(lambda key: str(key), entity["attrs"].keys()))
+        entity_attrs = [str(ent) for ent in entity["attrs"].keys()]
         assert entity_attrs == sorted(entity_attrs)
 
 

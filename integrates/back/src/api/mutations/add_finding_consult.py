@@ -79,20 +79,17 @@ async def send_finding_consult_mail(
     )
 
 
-async def _add_finding_consult(  # pylint: disable=too-many-locals
+async def _add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
 ) -> Tuple[bool, str]:
     param_type = parameters.get("type", "").lower()
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
-    finding_loader = info.context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding: Finding = await info.context.loaders.finding.load(finding_id)
     group_name: str = finding.group_name
-    finding_title: str = finding.title
     is_finding_released = bool(finding.approval)
     content = parameters["content"]
-    user_email = user_data["user_email"]
     comment_id = str(round(time() * 1000))
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_data = {
@@ -127,7 +124,7 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
                     user_email=user_email,
                     group_name=group_name,
                     finding_id=finding_id,
-                    finding_title=finding_title,
+                    finding_title=finding.title,
                     is_finding_released=is_finding_released,
                 )
             )

@@ -1,5 +1,3 @@
-# pylint: disable=consider-using-f-string
-
 from .typing import (
     PdfFindingInfo,
     PDFWordlistEn,
@@ -349,10 +347,10 @@ def make_vuln_table(
         if number_of_findings != 0
         else 0.0
     )
-    vuln_table[0][2] = "{0:.2f}%".format(float(vuln_table[0][2]))
-    vuln_table[1][2] = "{0:.2f}%".format(float(vuln_table[1][2]))
-    vuln_table[2][2] = "{0:.2f}%".format(float(vuln_table[2][2]))
-    vuln_table[3][2] = "{0:.2f}%".format(float(vuln_table[3][2]))
+    vuln_table[0][2] = f"{float(vuln_table[0][2]):.2f}%"
+    vuln_table[1][2] = f"{float(vuln_table[1][2]):.2f}%"
+    vuln_table[2][2] = f"{float(vuln_table[2][2]):.2f}%"
+    vuln_table[3][2] = f"{float(vuln_table[3][2]):.2f}%"
     vuln_table[4][3] = ttl_vulns
     return {"resume": vuln_table, "top": top_table}
 
