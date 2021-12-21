@@ -118,6 +118,16 @@ async def get_file_content(
         return file_contents
 
 
+def sync_get_file_content(path: str, size: int = MAX_FILE_SIZE) -> str:
+    if os.stat(path).st_size > MAX_FILE_SIZE:
+        raise FileTooLarge(path)
+
+    with open(path, mode="r", encoding="latin-1") as handle:
+        content = handle.read(size)
+
+    return content
+
+
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
     async with aiofiles.open(path, mode="rb") as file_handle:
         file_contents: bytes = await file_handle.read(size)
