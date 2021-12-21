@@ -653,6 +653,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             customFiltersProps,
             isCustomFilterEnabled,
             onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+            oneRowMessage: true,
             resultSize: {
               current: resultDataset.length,
               total: dataset.length,
@@ -662,6 +663,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
           }}
           dataset={resultDataset}
           defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}

@@ -379,6 +379,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,
             onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
           }}
           dataset={filterSearchtextResult}
           defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}

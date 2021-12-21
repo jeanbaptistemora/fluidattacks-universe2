@@ -420,6 +420,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     customFiltersProps: customFilters,
                     isCustomFilterEnabled,
                     onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                    oneRowMessage: true,
                     resultSize: {
                       current: resultStakeHolders.length,
                       total: stakeholdersList.length,
@@ -429,6 +430,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
+                    position: "right",
                   }}
                   dataset={resultStakeHolders}
                   exportCsv={true}

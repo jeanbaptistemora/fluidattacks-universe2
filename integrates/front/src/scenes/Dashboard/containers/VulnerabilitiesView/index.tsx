@@ -447,6 +447,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  oneRowMessage: true,
                   resultSize: {
                     current: resultVulnerabilities.length,
                     total: vulnerabilities.length,
@@ -456,6 +457,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
+                  position: "right",
                 }}
                 extraButtons={
                   <ActionButtons

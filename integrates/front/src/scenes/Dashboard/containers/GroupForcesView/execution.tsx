@@ -314,6 +314,7 @@ const Execution: React.FC<IExecution> = (
               customSearchDefault: searchTextFilter,
               isCustomSearchEnabled: true,
               onUpdateCustomSearch: onSearchTextChange,
+              position: "right",
             }}
             dataset={filterSearchtextResult}
             exportCsv={false}

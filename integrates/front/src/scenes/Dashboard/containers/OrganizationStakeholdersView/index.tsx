@@ -273,6 +273,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                     customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,
                     onUpdateCustomSearch: onSearchTextChange,
+                    position: "right",
                   }}
                   dataset={filterSearchtextResult}
                   exportCsv={true}
