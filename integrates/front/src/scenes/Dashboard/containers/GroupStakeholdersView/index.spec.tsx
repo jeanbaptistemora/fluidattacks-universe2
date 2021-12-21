@@ -23,11 +23,11 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual(
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../utils/notifications"
   );
-  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
