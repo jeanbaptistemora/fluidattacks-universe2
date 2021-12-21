@@ -136,3 +136,9 @@ class AWSLaunchTemplate(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSIamManagedPolicy(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

@@ -270,3 +270,14 @@ def iter_rds_clusters_and_instances(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_iam_managed_policies(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::IAM::ManagedPolicy",
+            exact=True,
+        )
+    )
