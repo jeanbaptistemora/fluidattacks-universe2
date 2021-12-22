@@ -207,28 +207,9 @@ locals {
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
   }
-  compute_environments_spot_skims = {
-    for name, _ in jsondecode(data.local_file.skims_queues.content)
-    : name => {
-      bid_percentage      = 100
-      instances           = 12
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-
-      tags = {
-        "Name"               = name
-        "management:area"    = "cost"
-        "management:product" = "skims"
-        "management:type"    = "product"
-      }
-      launch_template_id      = aws_launch_template.batch_instance_regular.id
-      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
-    }
-  }
   compute_environments = merge(
     local.compute_environments_ec2,
     local.compute_environments_spot,
-    local.compute_environments_spot_skims,
   )
 
   queues = [
