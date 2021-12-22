@@ -38,13 +38,6 @@ const ButtonToolbarLeft: StyledComponent<
   className: "fl",
 })``;
 
-const ButtonToolbarRight: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "fl fr-l fr-m",
-})``;
-
 const ButtonToolbarRow: StyledComponent<
   "div",
   Record<string, unknown>
@@ -528,10 +521,6 @@ const SearchText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
 })``;
 
-const SearchContainer = styled.div.attrs({
-  className: "ph1-5 w-100",
-})``;
-
 const SelectDate = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
   type: `date`,
@@ -618,15 +607,6 @@ const TableOptionsColBar: StyledComponent<
   className: "dib ma0 pa0 w-20",
 })``;
 
-const TableOptionsColBtn: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "dib pa0 table-btn w-100",
-})``;
-
 const TabsContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -655,7 +635,6 @@ export {
   ButtonToolbar,
   ButtonToolbarCenter,
   ButtonToolbarLeft,
-  ButtonToolbarRight,
   ButtonToolbarRow,
   CheckBox,
   CheckBoxOption,
@@ -715,7 +694,6 @@ export {
   RequiredField,
   Row,
   RowCenter,
-  SearchContainer,
   Small,
   StickyContainer,
   SearchText,
@@ -730,7 +708,6 @@ export {
   Tab,
   TabContent,
   TableOptionsColBar,
-  TableOptionsColBtn,
   TabsContainer,
   TrackingLabel,
   Well,
