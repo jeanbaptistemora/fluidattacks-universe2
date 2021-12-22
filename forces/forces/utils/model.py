@@ -24,3 +24,4 @@ class ForcesConfig(NamedTuple):
     repository_name: Optional[str] = None
     strict: Optional[bool] = False
     verbose_level: int = 3
+    breaking_severity: float = 0.0
