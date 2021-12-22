@@ -43,3 +43,21 @@ class CommitData:
     message: str
     summary: str
     deltas: Deltas
+
+
+@dataclass(frozen=True)
+class Commit:
+    commit_id: CommitDataId
+    data: CommitData
+
+
+@dataclass(frozen=True)
+class CommitStamp:
+    commit: Commit
+    seen_at: datetime
+
+
+@dataclass(frozen=True)
+class RepoRegistration:
+    commit_id: CommitDataId
+    seen_at: datetime

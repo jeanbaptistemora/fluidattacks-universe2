@@ -2,8 +2,18 @@
 
 from code_etl.objs import (
     CommitData,
+    CommitDataId,
+    CommitId,
+    CommitStamp,
     Deltas,
+    RepoRegistration,
     User,
+)
+from code_etl.utils import (
+    COMMIT_HASH_SENTINEL,
+)
+from dataclasses import (
+    dataclass,
 )
 from datetime import (
     datetime,
@@ -35,6 +45,27 @@ class RawDecodeError(Exception):
             f"TypeError when trying to build `{target}` "
             f"from raw obj `{str(raw)}`"
         )
+
+
+@dataclass(frozen=True)
+class RawRow:
+    author_name: Any
+    author_email: Any
+    authored_at: Any
+    committer_email: Any
+    committer_name: Any
+    committed_at: Any
+    message: Any
+    summary: Any
+    total_insertions: Any
+    total_deletions: Any
+    total_lines: Any
+    total_files: Any
+    namespace: Any
+    repository: Any
+    hash: Any
+    fa_hash: Any
+    seen_at: Any
 
 
 def _assert_datetime(raw: Any) -> datetime:
@@ -85,3 +116,46 @@ def decode_commit_data(
         return Failure(err)
     except TypeError as err:
         return Failure(err)
+
+
+def decode_commit_data_id(
+    raw: RawRow,
+) -> Result[CommitDataId, Union[KeyError, TypeError]]:
+    try:
+        _id = CommitDataId(
+            _assert_str(raw.namespace),
+            _assert_str(raw.repository),
+            CommitId(_assert_str(raw.hash), _assert_str(raw.fa_hash)),
+        )
+        return Success(_id)
+    except KeyError as err:
+        return Failure(err)
+    except TypeError as err:
+        return Failure(err)
+
+
+def decode_repo_registration(
+    raw: RawRow,
+) -> Result[RepoRegistration, Union[KeyError, TypeError]]:
+    try:
+        if raw.hash != COMMIT_HASH_SENTINEL:
+            return Failure(TypeError("Not a RepoRegistration object"))
+        repo = RepoRegistration(
+            CommitDataId(
+                _assert_str(raw.namespace),
+                _assert_str(raw.repository),
+                CommitId(_assert_str(raw.hash), "-" * 64),
+            ),
+            _assert_datetime(raw.seen_at),
+        )
+        return Success(repo)
+    except TypeError as err:
+        return Failure(err)
+
+
+def decode_commit_table_row(
+    raw: RawRow,
+) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
+    return decode_repo_registration(raw).lash(
+        lambda _: decode_commit_data_id(raw)
+    )
