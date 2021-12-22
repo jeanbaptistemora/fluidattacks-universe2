@@ -4048,8 +4048,14 @@ F346,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,2,272,ski
    7 |                 <category android:name=""android.intent.category.LAUNCHER""/>
    8 |             </intent-filter>
    9 |         </activity>
-  10 |     </application>
-  11 | </manifest>
+  10 |         <provider
+  11 |             android:authorities=""com.andriod.databasetest.contentprovider""
+  12 |             android:name="".db.ContentProviderDb""
+  13 |             android:exported=""true""
+  14 |             android:grantUriPermissions=""true"">
+  15 |         </provider>
+  16 |     </application>
+  17 | </manifest>
      ^ Col 0
 ",f346._has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,11,272,skims,346. Excessive privileges - Mobile App,"Dangerous permissions give your app additional access to restricted data and they allow your app to perform restricted actions that more substantially affect the system and other apps.
@@ -4552,6 +4558,48 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,sk
   68 |     <uses-permission android:name=""com.huawei.android.launcher.permission.CHANGE_BADGE""/>
      ^ Col 0
 ",f346._has_dangerous_permissions
+F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provider/com.andriod.databasetest.contentprovider/android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.andriod.databasetest.contentprovider/android:exported enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+   4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+> 13 |   <provider android:authorities=""com.andriod.databasetest.contentprovider"" android:exported=""true"" android:granturipermi
+     | ssions=""true"" android:name="".db.ContentProviderDb"">
+  14 |   </provider>
+  15 |  </application>
+  16 | </manifest>
+     ^ Col 0
+",__init__._apk_exported_cp
+F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provider/com.andriod.databasetest.contentprovider/android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.andriod.databasetest.contentprovider/android:grantUriPermissions enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+   4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+> 13 |   <provider android:authorities=""com.andriod.databasetest.contentprovider"" android:exported=""true"" android:granturipermi
+     | ssions=""true"" android:name="".db.ContentProviderDb"">
+  14 |   </provider>
+  15 |  </application>
+  16 | </manifest>
+     ^ Col 0
+",__init__._apk_exported_cp
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
@@ -10093,7 +10141,7 @@ F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"appli
   14 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
@@ -10109,11 +10157,14 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   10 |     </category>
   11 |    </intent-filter>
   12 |   </activity>
-  13 |  </application>
-  14 | </manifest>
+  13 |   <provider android:authorities=""com.andriod.databasetest.contentprovider"" android:exported=""true"" android:granturipermi
+     | ssions=""true"" android:name="".db.ContentProviderDb"">
+  14 |   </provider>
+  15 |  </application>
+  16 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
