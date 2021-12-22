@@ -28,5 +28,10 @@
         outputs."/observes/service/jobs-scheduler/env/runtime"
       ];
     };
+    observesCodeEtl = {
+      source = [
+        outputs."/observes/etl/code/env/development"
+      ];
+    };
   };
 }
