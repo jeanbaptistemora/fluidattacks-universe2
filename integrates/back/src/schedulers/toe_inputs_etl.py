@@ -67,7 +67,8 @@ def _format_date(iso_date_str: str) -> Optional[datetime]:
 def _format_date_str(date_str: str) -> str:
     date = datetime_utils.get_from_str(date_str, date_format="%Y-%m-%d")
     formatted_date_str = datetime_utils.get_as_utc_iso_format(date)
-
+    if formatted_date_str == datetime_utils.DEFAULT_ISO_STR:
+        return ""
     return formatted_date_str
 
 
@@ -84,15 +85,14 @@ def _format_email(email: str) -> str:
 def _get_group_toe_inputs_from_cvs(
     inputs_csv_path: str, group: Group, group_roots: Tuple[RootItem, ...]
 ) -> Set[ToeInput]:
-    default_date = datetime_utils.DEFAULT_ISO_STR
     inputs_csv_fields: List[Tuple[str, Callable, Any]] = [
         # field_name, field_formater, field_default_value
         ("commit", str, ""),
         ("component", str, ""),
-        ("created_date", _format_date_str, default_date),
+        ("created_date", _format_date_str, ""),
         ("entry_point", str, ""),
         ("seen_first_time_by", _format_email, ""),
-        ("tested_date", _format_date_str, default_date),
+        ("tested_date", _format_date_str, ""),
         ("verified", str, ""),
         ("vulns", str, ""),
     ]
@@ -131,6 +131,7 @@ def _get_group_toe_inputs_from_cvs(
             )
             new_toe_input["seen_at"] = (
                 _format_date(new_toe_input["created_date"])
+                or _format_date(new_toe_input["tested_date"])
                 or datetime_utils.get_utc_now()
             )
             group_toe_inputs.add(ToeInput(**new_toe_input))
@@ -159,10 +160,7 @@ def _get_toe_inputs_to_update(
     return {
         toe_input
         for toe_input in cvs_group_toe_inputs
-        if (
-            toe_input not in group_toe_inputs
-            or toe_input.seen_at > datetime_utils.get_now_minus_delta(hours=8)
-        )
+        if toe_input not in group_toe_inputs
         and toe_input.get_hash() in group_toe_input_hashes
     }
 

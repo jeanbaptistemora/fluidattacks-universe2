@@ -514,6 +514,7 @@ async def test_toe_lines_etl() -> None:
 
 
 @pytest.mark.changes_db
+@freeze_time("2019-01-01T05:00:00+00:00")
 async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
     def mocked_clone_services_repository(path: str) -> None:
         dirname = os.path.dirname(__file__)
@@ -605,13 +606,13 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             be_present_until=None,
             commit="hh66uu5",
             component="test.com/api/Test",
-            created_date="2000-01-01T05:00:00+00:00",
+            created_date="",
             entry_point="idTest",
             first_attack_at=datetime.fromisoformat(
                 "2020-01-02T05:00:00+00:00"
             ),
             group_name="unittesting",
-            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2020-01-02T05:00:00+00:00"),
             seen_first_time_by="",
             tested_date="2020-01-02T05:00:00+00:00",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -625,13 +626,13 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             be_present_until=None,
             commit="r44432f",
             component="test.com/test/test.aspx",
-            created_date="2000-01-01T05:00:00+00:00",
+            created_date="",
             entry_point="",
             first_attack_at=datetime.fromisoformat(
                 "2021-02-11T05:00:00+00:00"
             ),
             group_name="unittesting",
-            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2021-02-11T05:00:00+00:00"),
             seen_first_time_by="",
             tested_date="2021-02-11T05:00:00+00:00",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -639,7 +640,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             vulns="FIN.S.0002.Test",
         ),
         ToeInput(
-            attacked_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+            attacked_at=None,
             attacked_by="",
             be_present=True,
             be_present_until=None,
@@ -647,13 +648,11 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             component="test.com/test/test.aspx",
             created_date="2020-03-14T05:00:00+00:00",
             entry_point="btnTest",
-            first_attack_at=datetime.fromisoformat(
-                "2000-01-01T05:00:00+00:00"
-            ),
+            first_attack_at=None,
             group_name="unittesting",
             seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
             seen_first_time_by="test@test.com",
-            tested_date="2000-01-01T05:00:00+00:00",
+            tested_date="",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             verified="No",
             vulns="",
