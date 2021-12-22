@@ -1,5 +1,5 @@
 /deployContainerImage/forcesDev:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployContainerImage/forcesProd:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -41,7 +41,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -62,7 +62,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /forces/process-groups:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   only:
@@ -79,7 +79,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /forces/process-groups-break:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   only:
@@ -96,7 +96,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /forces/test:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -119,7 +119,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -141,7 +141,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forcesTests:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -163,7 +163,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -185,7 +185,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/forces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -207,7 +207,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:

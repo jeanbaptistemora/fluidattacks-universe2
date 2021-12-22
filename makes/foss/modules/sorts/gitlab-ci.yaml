@@ -1,5 +1,5 @@
 /deployTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -20,7 +20,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -42,7 +42,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -64,7 +64,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/sortsTests:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -86,7 +86,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/sortsTraining:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -108,7 +108,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -130,7 +130,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /sorts/execute:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
   needs: []
   parallel: 15
@@ -149,7 +149,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /sorts/extract-features:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
   needs: []
   parallel: 15
@@ -168,7 +168,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /sorts/merge-features:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
   needs:
     - /sorts/extract-features
@@ -188,7 +188,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /sorts/train:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
   needs: []
   rules:
@@ -206,7 +206,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /sorts/tune:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
   needs:
     - /sorts/train
@@ -225,7 +225,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -247,7 +247,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/sorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:

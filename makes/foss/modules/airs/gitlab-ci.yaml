@@ -1,5 +1,5 @@
 /airs/eph:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /airs/lint/code:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -43,7 +43,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /airs/lint/content:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -65,7 +65,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /airs/lint/styles:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -87,7 +87,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /airs/prod:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -107,7 +107,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/airsInfra:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -128,7 +128,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintMarkdown/airs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -150,7 +150,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/airsInfra:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -172,7 +172,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/airsInfra:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME

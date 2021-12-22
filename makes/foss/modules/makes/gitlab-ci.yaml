@@ -1,5 +1,5 @@
 /deployTerraform/makesCompute:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -20,7 +20,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesDns:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -41,7 +41,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesFoss:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -62,7 +62,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesKubernetes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -83,7 +83,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesOkta:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -104,7 +104,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -125,7 +125,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesStatus:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -146,7 +146,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersDev:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -167,7 +167,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdAirs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -188,7 +188,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdDocs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -209,7 +209,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdForces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -230,7 +230,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdIntegrates:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -251,7 +251,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdMakes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -272,7 +272,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdMelts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -293,7 +293,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -314,7 +314,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdServices:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -335,7 +335,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdSkims:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -356,7 +356,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesUsersProdSorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -377,7 +377,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/makesVpc:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -398,7 +398,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /docs/generate/criteria:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -420,7 +420,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesCi:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -442,7 +442,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesCompute:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -464,7 +464,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesDns:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -486,7 +486,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesFoss:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -508,7 +508,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesKubernetes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -530,7 +530,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesOkta:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -552,7 +552,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -574,7 +574,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesStatus:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -596,7 +596,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersDev:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -618,7 +618,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdAirs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -640,7 +640,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdDocs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -662,7 +662,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdForces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -684,7 +684,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdIntegrates:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -706,7 +706,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdMakes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -728,7 +728,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdMelts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -750,7 +750,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -772,7 +772,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdServices:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -794,7 +794,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdSkims:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -816,7 +816,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesUsersProdSorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -838,7 +838,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/makesVpc:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -860,7 +860,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/compliance:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -882,7 +882,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/requirements:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -904,7 +904,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/makes/criteria/vulnerabilities:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -926,7 +926,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /makes/criteria/skims-sync:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -948,7 +948,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /makes/criteria/test:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -970,7 +970,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /makes/criteria/unreferenced:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -992,7 +992,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/makes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1014,7 +1014,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersDevKey1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1032,7 +1032,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersDevKey2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1050,7 +1050,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdAirsKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1068,7 +1068,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdAirsKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1086,7 +1086,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdDocsKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1104,7 +1104,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdDocsKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1122,7 +1122,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdForcesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1140,7 +1140,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdForcesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1158,7 +1158,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdIntegratesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1176,7 +1176,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdIntegratesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1194,7 +1194,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdMakesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1212,7 +1212,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdMakesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1230,7 +1230,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdMeltsKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1248,7 +1248,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdMeltsKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1266,7 +1266,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdObservesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1284,7 +1284,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdObservesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1302,7 +1302,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdServicesKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1320,7 +1320,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdServicesKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1338,7 +1338,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdSkimsKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1356,7 +1356,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdSkimsKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1374,7 +1374,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdSortsKeys1:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1392,7 +1392,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/makesUsersProdSortsKeys2:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1410,7 +1410,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesCi:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1432,7 +1432,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesCompute:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1454,7 +1454,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesDns:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1476,7 +1476,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesFoss:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1498,7 +1498,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesKubernetes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1520,7 +1520,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesOkta:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1542,7 +1542,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1564,7 +1564,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesStatus:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1586,7 +1586,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersDev:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1608,7 +1608,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdAirs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1630,7 +1630,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdDocs:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1652,7 +1652,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdForces:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1674,7 +1674,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdIntegrates:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1696,7 +1696,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdMakes:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1718,7 +1718,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdMelts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1740,7 +1740,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdObserves:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1762,7 +1762,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdServices:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1784,7 +1784,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdSkims:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1806,7 +1806,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesUsersProdSorts:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
@@ -1828,7 +1828,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/makesVpc:
-  image: ghcr.io/fluidattacks/makes:21.12
+  image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
   rules:
