@@ -72,8 +72,8 @@ from .stakeholder import (
 from .tag import (
     TAG,
 )
-from .toe_inputs import (
-    TOEINPUTS,
+from .toe_input import (
+    TOEINPUT,
 )
 from .tracking import (
     TRACKING,
@@ -126,7 +126,7 @@ TYPES: Tuple[ObjectType, ...] = (
     STAKEHOLDER,
     SERVICESTOELINES,
     TAG,
-    TOEINPUTS,
+    TOEINPUT,
     TOELINES,
     TRACKING,
     TREATMENT,

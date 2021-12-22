@@ -31,32 +31,45 @@ describe("GroupToeInputsView", (): void => {
         data: {
           group: {
             name: "unittesting",
-            toeInputs: [
-              {
-                component: "test.com/api/Test",
-                createdDate: "2000-01-01T05:00:00+00:00",
-                entryPoint: "idTest",
-                seenFirstTimeBy: "",
-                testedDate: "2020-01-02T00:00:00-05:00",
-                unreliableRootNickname: "test_nickname",
+            toeInputs: {
+              __typename: "ToeInputsConnection",
+              edges: [
+                {
+                  node: {
+                    attackedAt: "2020-01-02T00:00:00-05:00",
+                    component: "test.com/api/Test",
+                    entryPoint: "idTest",
+                    seenAt: "2000-01-01T05:00:00+00:00",
+                    seenFirstTimeBy: "",
+                    unreliableRootNickname: "test_nickname",
+                  },
+                },
+                {
+                  node: {
+                    attackedAt: "2021-02-02T00:00:00-05:00",
+                    component: "test.com/test/test.aspx",
+                    entryPoint: "btnTest",
+                    seenAt: "2020-03-14T00:00:00-05:00",
+                    seenFirstTimeBy: "test@test.com",
+                    unreliableRootNickname: "test_nickname",
+                  },
+                },
+                {
+                  node: {
+                    attackedAt: "2021-02-11T00:00:00-05:00",
+                    component: "test.com/test2/test.aspx",
+                    entryPoint: "-",
+                    seenAt: "2020-01-11T00:00:00-05:00",
+                    seenFirstTimeBy: "test2@test.com",
+                    unreliableRootNickname: "",
+                  },
+                },
+              ],
+              pageInfo: {
+                endCursor: "bnVsbA==",
+                hasNextPage: false,
               },
-              {
-                component: "test.com/test/test.aspx",
-                createdDate: "2020-03-14T00:00:00-05:00",
-                entryPoint: "btnTest",
-                seenFirstTimeBy: "test@test.com",
-                testedDate: "2021-02-02T00:00:00-05:00",
-                unreliableRootNickname: "test_nickname",
-              },
-              {
-                component: "test.com/test2/test.aspx",
-                createdDate: "2020-01-11T00:00:00-05:00",
-                entryPoint: "-",
-                seenFirstTimeBy: "test2@test.com",
-                testedDate: "2021-02-11T00:00:00-05:00",
-                unreliableRootNickname: "",
-              },
-            ],
+            },
           },
         },
       },

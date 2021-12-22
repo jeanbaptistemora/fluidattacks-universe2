@@ -6,12 +6,25 @@ const GET_TOE_INPUTS: DocumentNode = gql`
     group(groupName: $groupName) {
       name
       toeInputs {
-        component
-        createdDate
-        entryPoint
-        seenFirstTimeBy
-        testedDate
-        unreliableRootNickname
+        edges {
+          node {
+            attackedAt
+            attackedBy
+            bePresent
+            bePresentUntil
+            component
+            entryPoint
+            firstAttackAt
+            seenAt
+            seenFirstTimeBy
+            unreliableRootNickname
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        __typename
       }
     }
   }

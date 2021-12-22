@@ -27,41 +27,56 @@ from typing import (
 async def test_get_toe_inputs(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
-    assert result["data"]["group"]["toeInputs"] == [
-        {
-            "commit": "hh66uu5",
-            "component": "test.com/api/Test",
-            "createdDate": "2000-01-01T05:00:00+00:00",
-            "entryPoint": "idTest",
-            "seenFirstTimeBy": "",
-            "testedDate": "2020-01-02T00:00:00-05:00",
-            "unreliableRootNickname": "test_nickname_1",
-            "verified": "Yes",
-            "vulns": "FIN.S.0001.Test",
-        },
-        {
-            "commit": "e91320h",
-            "component": "test.com/test/test.aspx",
-            "createdDate": "2020-03-14T00:00:00-05:00",
-            "entryPoint": "btnTest",
-            "seenFirstTimeBy": "test@test.com",
-            "testedDate": "2021-02-02T00:00:00-05:00",
-            "unreliableRootNickname": "",
-            "verified": "No",
-            "vulns": "",
-        },
-        {
-            "commit": "d83027t",
-            "component": "test.com/test2/test.aspx",
-            "createdDate": "2020-01-11T00:00:00-05:00",
-            "entryPoint": "-",
-            "seenFirstTimeBy": "test2@test.com",
-            "testedDate": "2021-02-11T00:00:00-05:00",
-            "unreliableRootNickname": "test_nickname_2",
-            "verified": "No",
-            "vulns": "FIN.S.0003.Test",
-        },
-    ]
+    assert result["data"]["group"]["toeInputs"] == {
+        "edges": [
+            {
+                "node": {
+                    "attackedAt": "2020-01-02T05:00:00+00:00",
+                    "attackedBy": "",
+                    "bePresent": True,
+                    "bePresentUntil": None,
+                    "component": "test.com/api/Test",
+                    "entryPoint": "idTest",
+                    "firstAttackAt": "2020-01-02T05:00:00+00:00",
+                    "seenAt": "2000-01-01T05:00:00+00:00",
+                    "seenFirstTimeBy": "",
+                    "unreliableRootNickname": "test_nickname_1",
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS9hcGkvVGVzdCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
+            },
+            {
+                "node": {
+                    "attackedAt": "2021-02-02T05:00:00+00:00",
+                    "attackedBy": "",
+                    "bePresent": True,
+                    "bePresentUntil": None,
+                    "component": "test.com/test/test.aspx",
+                    "entryPoint": "btnTest",
+                    "firstAttackAt": "2021-02-02T05:00:00+00:00",
+                    "seenAt": "2020-03-14T05:00:00+00:00",
+                    "seenFirstTimeBy": "test@test.com",
+                    "unreliableRootNickname": "",
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0L3Rlc3QuYXNweCNFTlRSWVBPSU5UI2J0blRlc3QifQ==",
+            },
+            {
+                "node": {
+                    "attackedAt": "2021-02-11T05:00:00+00:00",
+                    "attackedBy": "",
+                    "bePresent": False,
+                    "bePresentUntil": "2021-03-11T05:00:00+00:00",
+                    "component": "test.com/test2/test.aspx",
+                    "entryPoint": "-",
+                    "firstAttackAt": "2021-02-11T05:00:00+00:00",
+                    "seenAt": "2020-01-11T05:00:00+00:00",
+                    "seenFirstTimeBy": "test2@test.com",
+                    "unreliableRootNickname": "test_nickname_2",
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+            },
+        ],
+        "pageInfo": {"hasNextPage": False, "endCursor": "bnVsbA=="},
+    }
 
 
 @pytest.mark.asyncio

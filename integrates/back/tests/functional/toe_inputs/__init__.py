@@ -18,15 +18,25 @@ async def get_result(
     query: str = f"""{{
         group(groupName: "{group_name}"){{
             toeInputs {{
-                commit
-                component
-                createdDate
-                entryPoint
-                seenFirstTimeBy
-                testedDate
-                unreliableRootNickname
-                verified
-                vulns
+                edges {{
+                    node {{
+                       attackedAt
+                        attackedBy
+                        bePresent
+                        bePresentUntil
+                        component
+                        entryPoint
+                        firstAttackAt
+                        seenAt
+                        seenFirstTimeBy
+                        unreliableRootNickname
+                    }}
+                    cursor
+                }}
+                pageInfo {{
+                    hasNextPage
+                    endCursor
+                }}
             }}
         }}
       }}

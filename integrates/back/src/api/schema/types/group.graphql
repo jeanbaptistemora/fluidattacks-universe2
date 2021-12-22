@@ -107,7 +107,12 @@ type Group {
   "Group-wide tags"
   tags: [String!]
   "Target of Evaluation inputs information"
-  toeInputs: [ToeInputs] @deprecated(reason: """This field will change the
+  toeInputs(
+    "The cursor for the forward pagination"
+    after: String
+    "Amount of element to return"
+    first: Int
+  ): ToeInputsConnection! @deprecated(reason: """This field will change the
     returned type after 2021/12/2.""")
   "Target of Evaluation lines information which is paginated"
   toeLines(
@@ -117,7 +122,7 @@ type Group {
     bePresent: Boolean
     "Amount of element to return"
     first: Int
-  ): ToeLinesConnection
+  ): ToeLinesConnection!
   "Amount of Findings in the group"
   totalFindings: Int
   "Total amount of treatments, divided by category"

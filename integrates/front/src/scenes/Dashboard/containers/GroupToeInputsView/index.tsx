@@ -13,8 +13,9 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
-  IToeInputAttr,
   IToeInputData,
+  IToeInputEdge,
+  IToeInputsConnection,
 } from "scenes/Dashboard/containers/GroupToeInputsView/types";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -28,11 +29,11 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   >(
     "toeInputsTableSet",
     {
+      attackedAt: true,
       component: false,
-      createdDate: true,
       entryPoint: true,
+      seenAt: true,
       seenFirstTimeBy: true,
-      testedDate: true,
       unreliableRootNickname: true,
     },
     localStorage
@@ -70,6 +71,9 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   }, [isFilterEnabled, setFilterEnabled]);
 
   const formatDate: (date: string) => string = (date: string): string => {
+    if (_.isEmpty(date)) {
+      return "";
+    }
     const dateObj: Date = new Date(date);
 
     return moment(dateObj).format("YYYY-MM-DD");
@@ -108,7 +112,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "testedDate",
+      dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.inputs.testedDate"),
@@ -118,7 +122,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "createdDate",
+      dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.inputs.createdDate"),
@@ -137,7 +141,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   ];
 
   // // GraphQL operations
-  const { data } = useQuery<{ group: { toeInputs: IToeInputAttr[] } }>(
+  const { data } = useQuery<{ group: { toeInputs: IToeInputsConnection } }>(
     GET_TOE_INPUTS,
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
@@ -148,21 +152,19 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       variables: { groupName },
     }
   );
+  const toeInputsEdges: IToeInputEdge[] =
+    data === undefined ? [] : data.group.toeInputs.edges;
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-
-  const toeInputs: IToeInputData[] =
-    data === undefined
-      ? []
-      : data.group.toeInputs.map(
-          (toeInput: IToeInputAttr): IToeInputData => ({
-            ...toeInput,
-          })
-        );
+  const toeInputs: IToeInputData[] = toeInputsEdges.map(
+    ({ node }): IToeInputData => ({
+      ...node,
+    })
+  );
 
   const filterSearchtextResult: IToeInputData[] = filterSearchText(
     toeInputs,

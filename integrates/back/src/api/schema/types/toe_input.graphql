@@ -1,0 +1,42 @@
+"ToeInput type definition"
+type ToeInput {
+  "Attack moment in iso format"
+  attackedAt: DateTime
+  "Hacker email"
+  attackedBy: String!
+  "If the input is present in the root"
+  bePresent: Boolean!
+  "Date until inputs was present in ToE"
+  bePresentUntil: DateTime
+  "Application/infrastructure input URL"
+  component: String!
+  "Entry point of the test"
+  entryPoint: String!
+  "First attack moment in iso format"
+  firstAttackAt: DateTime
+  "First time the input was seen"
+  seenAt: DateTime!
+  "Hacker who found the application input"
+  seenFirstTimeBy: String!
+  """
+  Root nickname of the toe input if there is enough information to
+  determine it
+  """
+  unreliableRootNickname: String!
+}
+
+"Toe Input Edge type definition"
+type ToeInputEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: ToeInput
+}
+
+"Toe Inputs Connection type definition"
+type ToeInputsConnection {
+  "A list of Toe Inputs edges"
+  edges: [ToeInputEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+}
