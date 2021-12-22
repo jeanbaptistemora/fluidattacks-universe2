@@ -221,6 +221,15 @@ ENUMS: Tuple[EnumType, ...] = (
         "SubscriptionType", {"CONTINUOUS": "continuous", "ONESHOT": "oneshot"}
     ),
     EnumType(
+        "TierType",
+        {
+            "FREE": "free",
+            "MACHINE": "machine",
+            "ONESHOT": "oneshot",
+            "SQUAD": "squad",
+        },
+    ),
+    EnumType(
         "UpdateClientDescriptionTreatment",
         {
             "ACCEPTED": "ACCEPTED",

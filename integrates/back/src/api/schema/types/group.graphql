@@ -106,6 +106,8 @@ type Group {
   subscription: String
   "Group-wide tags"
   tags: [String!]
+  "Group tier (Free, One-Shot, Machine or Squad)"
+  tier: String
   "Target of Evaluation inputs information"
   toeInputs(
     "The cursor for the forward pagination"

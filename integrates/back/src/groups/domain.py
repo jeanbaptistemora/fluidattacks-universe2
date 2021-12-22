@@ -515,6 +515,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
     has_squad: bool = False,
     subscription: str = "continuous",
     language: str = "en",
+    tier: str = "free",
 ) -> bool:
     validate_group_name(group_name)
     validate_fields([description])
@@ -556,6 +557,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                         "has_forces": True,
                         "requester": user_email,
                         "service": service,
+                        "tier": tier,
                         "type": subscription,
                     }
                 ],
@@ -732,6 +734,7 @@ async def update_group_attrs(
     requester_email: str,
     service: str,
     subscription: str,
+    tier: str = "free",
 ) -> bool:
     success: bool = False
 
@@ -771,6 +774,7 @@ async def update_group_attrs(
                         "reason": reason,
                         "requester": requester_email,
                         "service": service,
+                        "tier": tier,
                         "type": subscription,
                     },
                 ],

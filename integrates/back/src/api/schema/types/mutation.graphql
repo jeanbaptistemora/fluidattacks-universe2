@@ -738,6 +738,8 @@ type Mutation {
     service: ServiceType
     "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType!
+    "Enables a non-free tier when a subscription is successful"
+    tier: TierType
   ): SimplePayload!
 
   "Update the information on how to access group TOE"

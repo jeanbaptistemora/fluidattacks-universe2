@@ -50,7 +50,6 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
         has_squad: bool = get_key_or_fallback(
             historic_configuration[-1], "has_squad", "has_drills", False
         )
-        subscription = historic_configuration[-1].get("type", None)
 
         historic_deletion: List[Dict[str, str]] = cast(
             List[Dict[str, str]], group.get("historic_deletion", [{}])
@@ -124,7 +123,8 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
                 "remediated_over_time_cvssf_90", []
             ),
             service=historic_configuration[-1].get("service"),
-            subscription=subscription,
+            subscription=historic_configuration[-1].get("type", None),
+            tier=historic_configuration[-1].get("tier", None),
             tags=group.get("tag", []),
             total_treatment=group.get("total_treatment", {}),
             user_deletion=(

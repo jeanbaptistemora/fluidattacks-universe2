@@ -345,10 +345,11 @@ async def test_add_group_consult_parent_non_zero() -> None:
         "has_asm",
         "has_machine",
         "expected",
+        "tier",
     ],
     [
-        ["UNITTESTING", "CONTINUOUS", "true", "true", "true", True],
-        ["ONESHOTTEST", "ONESHOT", "false", "true", "false", True],
+        ["UNITTESTING", "CONTINUOUS", "true", "true", "true", True, "MACHINE"],
+        ["ONESHOTTEST", "ONESHOT", "false", "true", "false", True, "ONESHOT"],
     ],
 )
 async def test_update_group_good(  # type: ignore
@@ -358,6 +359,7 @@ async def test_update_group_good(  # type: ignore
     has_asm,
     has_machine,
     expected,
+    tier,
 ) -> None:
     query = f"""
         mutation {{
@@ -369,6 +371,7 @@ async def test_update_group_good(  # type: ignore
                 hasAsm: {has_asm},
                 hasMachine: {has_machine},
                 reason: NONE,
+                tier: {tier},
             ) {{
                 success
             }}
@@ -392,6 +395,7 @@ async def test_update_group_good(  # type: ignore
         "has_machine",
         "reason",
         "expected",
+        "tier",
     ],
     [
         # Configuration error, Squad requires ASM
@@ -404,6 +408,7 @@ async def test_update_group_good(  # type: ignore
             "true",
             "NONE",
             "Exception - Squad is only available when ASM is too",
+            "FREE",
         ],
         # Configuration error, Squad requires Machine
         [
@@ -415,6 +420,7 @@ async def test_update_group_good(  # type: ignore
             "false",
             "NONE",
             "Exception - Squad is only available when Machine is too",
+            "FREE",
         ],
         # Input validation error, weird chars
         [
@@ -426,6 +432,7 @@ async def test_update_group_good(  # type: ignore
             "true",
             "NONE",
             "Exception - Invalid characters",
+            "FREE",
         ],
         # Input validation error, too long string
         [
@@ -437,6 +444,7 @@ async def test_update_group_good(  # type: ignore
             "true",
             "NONE",
             "Exception - Invalid field length in form",
+            "FREE",
         ],
         # Invalid reason
         [
@@ -448,6 +456,19 @@ async def test_update_group_good(  # type: ignore
             "true",
             "ASDF",
             "Expected type UpdateGroupReason, found ASDF.",
+            "FREE",
+        ],
+        # Invalid tier
+        [
+            "-",
+            "UNITTESTING",
+            "CONTINUOUS",
+            "true",
+            "true",
+            "true",
+            "NONE",
+            "Expected type TierType, found ASDF.",
+            "ASDF",
         ],
     ],
 )
@@ -460,6 +481,7 @@ async def test_update_group_bad(  # type: ignore
     has_machine,
     reason,
     expected,
+    tier,
 ) -> None:
     query = f"""
         mutation {{
@@ -471,6 +493,7 @@ async def test_update_group_bad(  # type: ignore
                 hasMachine: {has_machine},
                 reason: {reason},
                 subscription: {subscription},
+                tier: {tier},
             ) {{
                 success
             }}

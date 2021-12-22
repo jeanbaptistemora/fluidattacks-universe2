@@ -672,12 +672,49 @@ async def test_create_group_not_user_admin() -> None:
         "has_squad",
         "has_asm",
         "expected",
+        "tier",
     ],
     [
-        ["unittesting", "WHITE", "continuous", True, True, True, True],
-        ["oneshottest", "BLACK", "oneshot", False, False, True, True],
-        ["not-exists", "WHITE", "continuous", True, True, True, False],
-        ["not-exists", "WHITE", "continuous", False, False, False, False],
+        [
+            "unittesting",
+            "WHITE",
+            "continuous",
+            True,
+            True,
+            True,
+            True,
+            "SQUAD",
+        ],
+        [
+            "oneshottest",
+            "BLACK",
+            "oneshot",
+            False,
+            False,
+            True,
+            True,
+            "ONESHOT",
+        ],
+        [
+            "not-exists",
+            "WHITE",
+            "continuous",
+            True,
+            True,
+            True,
+            False,
+            "MACHINE",
+        ],
+        [
+            "not-exists",
+            "WHITE",
+            "continuous",
+            False,
+            False,
+            False,
+            False,
+            "FREE",
+        ],
     ],  # pylint: disable=too-many-arguments
 )
 async def test_update_group_attrs(
@@ -688,6 +725,7 @@ async def test_update_group_attrs(
     has_squad: bool,
     has_asm: bool,
     expected: bool,
+    tier: str,
 ) -> None:
     assert expected == await update_group_attrs(
         loaders=get_new_context(),
@@ -700,6 +738,7 @@ async def test_update_group_attrs(
         reason="",
         requester_email="test@test.test",
         service=service,
+        tier=tier,
     )
 
 

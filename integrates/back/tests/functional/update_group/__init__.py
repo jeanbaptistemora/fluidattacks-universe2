@@ -25,6 +25,7 @@ async def get_result(
                 hasAsm: false,
                 hasMachine: false,
                 reason: NONE,
+                tier: ONESHOT,
             ) {{
                 success
             }}

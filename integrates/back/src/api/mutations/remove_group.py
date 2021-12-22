@@ -62,6 +62,7 @@ async def mutate(
             requester_email=requester_email,
             service=group["service"],
             subscription=group["subscription"],
+            tier="free",
         )
         if success:
             redis_del_by_deps_soon("remove_group", group_name=group_name)

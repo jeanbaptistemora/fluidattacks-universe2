@@ -78,6 +78,7 @@ async def mutate(
                 ("WHITE" if subscription == "continuous" else "BLACK"),
             ),
             subscription=subscription,
+            tier=kwargs.get("tier", "free"),
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

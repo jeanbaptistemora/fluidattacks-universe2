@@ -424,6 +424,17 @@ enum SubscriptionType {
   "One-Shot Hacking"
   ONESHOT
 }
+"Group tier type enum definition"
+enum TierType {
+  "Free Tier"
+  FREE
+  "Continuous Machine Tier"
+  MACHINE
+  "One-Shot Tier"
+  ONESHOT
+  "Continuous Squad Tier"
+  SQUAD
+}
 
 "Update client description treatment enum definition"
 enum UpdateClientDescriptionTreatment {
