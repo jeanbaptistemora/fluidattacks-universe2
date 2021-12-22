@@ -13,7 +13,7 @@ from returns.io import (
 )
 
 
-def init_table_query(client: Client, table: TableID) -> IO[None]:
+def init_table_2_query(client: Client, table: TableID) -> IO[None]:
     query = Query(
         """
         CREATE TABLE IF NOT EXISTS {schema}.{table} (

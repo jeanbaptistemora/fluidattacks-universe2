@@ -1,15 +1,13 @@
+from code_etl.client.decoder import (
+    decode_commit_data,
+    RawDecodeError,
+)
 from code_etl.factories import (
     gen_fa_hash,
 )
 from code_etl.objs import (
-    CommitData,
     CommitDataId,
     CommitId,
-    Deltas,
-    User,
-)
-from datetime import (
-    datetime,
 )
 import logging
 from postgres_client.client import (
@@ -37,6 +35,9 @@ from purity.v1.pure_iter.factory import (
 from purity.v1.pure_iter.transform import (
     filter_maybe,
 )
+from returns.functions import (
+    raise_exception,
+)
 from returns.io import (
     IO,
 )
@@ -53,24 +54,6 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 
-class RawDecodeError(Exception):
-    def __init__(
-        self,
-        target: str,
-        raw: Any,
-    ):
-        super().__init__(
-            f"TypeError when trying to build `{target}` "
-            f"from raw obj `{str(raw)}`"
-        )
-
-
-def _assert_datetime(raw: Any) -> datetime:
-    if isinstance(raw, datetime):
-        return raw
-    raise TypeError("Not a datetime obj")
-
-
 def _assert_str(raw: Any) -> str:
     if isinstance(raw, str):
         return raw
@@ -85,20 +68,7 @@ def _assert_int(raw: Any) -> int:
 
 def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
     try:
-        data = CommitData(
-            User(_assert_str(raw[0]), _assert_str(raw[1])),
-            _assert_datetime(raw[2]),
-            User(_assert_str(raw[3]), _assert_str(raw[4])),
-            _assert_datetime(raw[5]),
-            _assert_str(raw[6]),
-            _assert_str(raw[7]),
-            Deltas(
-                _assert_int(raw[8]),
-                _assert_int(raw[9]),
-                _assert_int(raw[10]),
-                _assert_int(raw[11]),
-            ),
-        )
+        data = decode_commit_data(raw).alt(raise_exception).unwrap()
         _id = CommitDataId(
             _assert_str(raw[12]),
             _assert_str(raw[13]),
@@ -106,7 +76,9 @@ def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
         )
         return _id
     except TypeError as err:
-        raise RawDecodeError("CommitId", raw) from err
+        raise RawDecodeError("CommitDataId", raw) from err
+    except KeyError as err:
+        raise RawDecodeError("CommitDataId", raw) from err
 
 
 def _try_calc_id(raw: FrozenList[Any]) -> Maybe[CommitDataId]:
