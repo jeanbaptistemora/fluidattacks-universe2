@@ -8,6 +8,8 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
 )
 from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
     require_asm,
 )
 from graphql.type.definition import (
@@ -21,7 +23,7 @@ from typing import (
 )
 
 
-@require_asm
+@concurrent_decorators(enforce_group_level_auth_async, require_asm)
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[Vulnerability, ...]:
