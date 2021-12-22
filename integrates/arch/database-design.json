@@ -521,6 +521,18 @@
         {
           "AttributeName": "bug_tracking_system_url",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "key",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "key_username",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "roots",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -1764,6 +1776,143 @@
             "path",
             "protocol",
             "other"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_credentials_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CRED#uuid",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "CRED#0b8bf4cb-8735-4232-8199-46cd9802ad2a"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "type": {
+                "S": "SSH"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_credentials_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CRED#uuid#STATE",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "CRED#0b8bf4cb-8735-4232-8199-46cd9802ad2a#STATE"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "key": {
+                "S": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvkjKyHq9U/oQ9fccJom8zIsrAkAqBRiRJ9Z105zU0WW0zhDiH9p9JqaTHV11RyI/S2Pt/MJQaJ9LCo1GKfreTaF1Utxbm2ngQOfE+7OKQMoP/PxwTbTC15hoR6E4oSh903k3rTqdrhg9WVbPkVeO6VzWWPzfUfYhyNk1jLDfS7cZRiIDQW1lc7OXZblEkHLsORzhda2QTugZKk/YkU8s3/xwb/J62iSS9NE3tR8/fdfHfistVSOhw1bj7mHBgF6nvjICfpHVDVZl672mfmiKxGxN51hNdRkwhasagXnS6JV+WPGJ+v2hWjB8w403NF9AaYASdQTT912utYjcRbzZcxVTEpz4Hf4Aq9Zp3pPSw+c0U1GDScJI2B3rot4WzzmS2tUytx/TI7lC2XvzYtk2SUweSaAPurfnGHXiyj3siSknf3baG9ZGnlk6T8IDlWXfCIsJpcGNzp4uR/4txuE2VXSqkyKgF/iWAGq8GVHG7B7HuiUJhzSBmbZ+GLGhXuLrqrjcfOJAjcYu16FHotkyof9WUJZI/KTxx/V2GWyCzmOYp51mFtArJ3HLWTlulu4/pBuIPTzV4fS+wq8umPYr1QNc76z5KyiooxnQRiJRsjCYVMyLVImb/MV6wkpiVdlnqNnrPte7JPWiWNb/hL5bOeI5316hmpihVa1rpm/qMEQ=="
+              },
+              "key_username": {
+                "S": "jdoe@fluidattacks.com"
+              },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2021-12-22T03:45:00+00:00"
+              },
+              "name": {
+                "S": "Product New SSH Key"
+              },
+              "roots": {
+                "L": [
+                  {
+                    "S": "product"
+                  },
+                  {
+                    "S": "integrates_1"
+                  }
+                ]
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "key",
+            "key_username",
+            "modified_by",
+            "modified_date",
+            "name",
+            "roots",
+            "status"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "root_credentials_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CRED#uuid",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "CRED#0b8bf4cb-8735-4232-8199-46cd9802ad2a"
+              },
+              "sk": {
+                "S": "STATE#2020-11-19T13:37:10+00:00"
+              },
+              "key": {
+                "S": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCLgVjqiqYGq2Dz89gkap/htshNzjP69C368sU/8YL7fI2+ujrZX3XYSuaDEUppWbu33JrMJlE7gHjVxVrd0jl1pr4QWor58eQg+elK6eFfNoqo73qNbunL0bBxJ7gOjWBlb1KmPkjlMD3NUc7RzrymULk4HxICE13RtO8sPyoikWZcjptZh13YHTKdMFYbG1/fiJfYBoukrmulv6wnYL8ttTO076J6KQWwNObw2ZPy9EOR48f0lbc91j67OTi/tF7Cs+9dS4HkDliNrFuNtsSL591jqolqf4Oz0mjcvt9ImwOK3VajiCjwEh8joPePS7FilSJHQURsekxrgy8C58o2pay/EAzofaBUNsQAY19IvSpi4N/pYxAxoeK9liCwKNMuF6JNwjkMyuSQhIdjrfVq8nzfgC0Qf+IUh/3qzQ5svguMxj5+UhZ9OfBi+8EnH2Fj0ztAU+giIUkX5X6AJU29Jgc9pvp3RZXPNEEHckzdl04t6E29Wep1gPAQgRfsq/mdhqpgCNUFDzl2UTgNhOgZFhL3SC2fayEYBkVJb8LTr+hS+pll8rZ3FFprvgFlXglGcie7FBYgSVmRK2bvYH5tJZOW5wsSP136VJhEhYqR0Sh/YWE80ZqEMY9yjLq0PtlcZAg1WQVktn5mnKPz4qwOKxhN5VulTy1nDhRYP5kU4w=="
+              },
+              "key_username": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2020-11-19T13:37:10+00:00"
+              },
+              "name": {
+                "S": "Product SSH Key"
+              },
+              "roots": {
+                "L": [
+                  {
+                    "S": "product"
+                  }
+                ]
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "key",
+            "key_username",
+            "modified_by",
+            "modified_date",
+            "name",
+            "roots",
+            "status"
           ],
           "DataAccess": {
             "MySql": {}
