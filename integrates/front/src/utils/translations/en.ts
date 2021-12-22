@@ -1613,7 +1613,7 @@ export const enTranslations: ResourceKey = {
     },
     tabMachine: {
       errorNoCheck: "There is no Machine type for this finding",
-      headerDuration: "Duration (hours)",
+      headerDuration: "Duration (hh:mm:ss)",
       headerPriority: "Priority",
       headerRoot: "Root",
       headerStartedAt: "Started At",

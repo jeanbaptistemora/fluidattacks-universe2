@@ -5,7 +5,7 @@ import type { IExecution } from "./types";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Col33, Col60, Row } from "styles/styledComponents";
-import { formatDate } from "utils/formatHelpers";
+import { formatDate, formatDuration } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
 const Execution: React.FC<IExecution> = (
@@ -141,7 +141,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p>{duration}</p>
+          <p>{formatDuration(duration)}</p>
         </Col33>
       </Row>
       <DataTableNext

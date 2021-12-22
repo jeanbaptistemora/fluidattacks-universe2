@@ -21,19 +21,10 @@ import { timeFromUnix } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { ButtonToolbarCenter } from "styles/styledComponents";
+import { formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-const formatDuration = (value: number): string => {
-  if (value < 0) {
-    return "-";
-  }
-
-  const miliSecondsInAnHour: number = 3600000;
-
-  return `${(value / miliSecondsInAnHour).toFixed(2)}`;
-};
 
 const MachineView: React.FC = (): JSX.Element => {
   const { findingId, groupName } =
