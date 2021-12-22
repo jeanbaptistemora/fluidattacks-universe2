@@ -228,7 +228,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       visible: checkedItems.lastVulnerability,
     },
     {
-      align: "center",
+      align: "left",
       dataField: "title",
       header: "Type",
       onSort: onSortState,
