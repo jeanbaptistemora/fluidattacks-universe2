@@ -196,7 +196,7 @@ async def add_vulnerability_treatment(
         justification=updated_values.get("justification"),
         assigned=updated_values.get("assigned") or user_email,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_iso_date_no_fractional(),
         status=new_status,
     )
     await vulns_dal.update_treatment(
@@ -288,7 +288,7 @@ async def handle_vulnerabilities_acceptance(
 ) -> None:
     validations.validate_field_length(justification, 10000)
     validations.validate_fields([justification])
-    today = datetime_utils.get_iso_date()
+    today = datetime_utils.get_iso_date_no_fractional()
     coroutines: List[Awaitable[None]] = []
 
     all_vulns: Tuple[
