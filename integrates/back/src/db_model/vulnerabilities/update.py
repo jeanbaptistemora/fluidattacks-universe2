@@ -79,9 +79,9 @@ async def update_historic_entry(
             values={"finding_id": finding_id, "id": vulnerability_id},
         )
         vulnerability_item = {entry_type: entry_item}
-        base_condition = Attr("state.status").ne(
-            VulnerabilityStateStatus.DELETED.value
-        )
+        base_condition = Attr(key_structure.partition_key).exists() & Attr(
+            "state.status"
+        ).ne(VulnerabilityStateStatus.DELETED.value)
         await operations.update_item(
             condition_expression=(
                 base_condition
