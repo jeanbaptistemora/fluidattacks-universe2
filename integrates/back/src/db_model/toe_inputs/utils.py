@@ -1,5 +1,6 @@
 from .types import (
     ToeInput,
+    ToeInputEdge,
 )
 from datetime import (
     datetime,
@@ -9,13 +10,20 @@ from db_model import (
     utils as db_model_utils,
 )
 from dynamodb.types import (
+    Index,
     Item,
     PrimaryKey,
+    Table,
+)
+from dynamodb.utils import (
+    get_cursor,
+)
+from typing import (
+    Optional,
 )
 
 
 def format_toe_input(
-    *,
     group_name: str,
     item: Item,
 ) -> ToeInput:
@@ -44,6 +52,18 @@ def format_toe_input(
         unreliable_root_id=item.get("unreliable_root_id", ""),
         verified=item["verified"],
         vulns=item["vulns"],
+    )
+
+
+def format_toe_input_edge(
+    group_name: str,
+    index: Optional[Index],
+    item: Item,
+    table: Table,
+) -> ToeInputEdge:
+    return ToeInputEdge(
+        node=format_toe_input(group_name, item),
+        cursor=get_cursor(index, item, table),
     )
 
 

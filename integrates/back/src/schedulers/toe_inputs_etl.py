@@ -21,6 +21,7 @@ from db_model.roots.types import (
     RootItem,
 )
 from db_model.toe_inputs.types import (
+    GroupToeInputsRequest,
     ToeInput,
 )
 import glob
@@ -183,7 +184,9 @@ async def update_toe_inputs_from_csv(
         group_name
     )
     group_toe_inputs: Set[ToeInput] = set(
-        await loaders.group_toe_inputs.load(group_name)
+        await loaders.group_toe_inputs.load_nodes(
+            GroupToeInputsRequest(group_name=group_name)
+        )
     )
     group: Group = await loaders.group.load(group_name)
     group_toe_input_hashes = {

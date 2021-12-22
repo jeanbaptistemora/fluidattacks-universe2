@@ -19,6 +19,7 @@ from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
 from db_model.toe_inputs.types import (
+    GroupToeInputsRequest,
     ToeInput,
 )
 from db_model.vulnerabilities.enums import (
@@ -529,7 +530,9 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
     )
     group_name = "unittesting"
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert group_toe_inputs == (
         ToeInput(
             attacked_at=datetime.fromisoformat("2020-01-02T05:00:00+00:00"),
@@ -597,7 +600,9 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
 
     await toe_inputs_etl.main()
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert group_toe_inputs == (
         ToeInput(
             attacked_at=datetime.fromisoformat("2020-01-02T05:00:00+00:00"),

@@ -1,9 +1,13 @@
 from datetime import (
     datetime,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -27,3 +31,20 @@ class ToeInput(NamedTuple):
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.component, self.entry_point))
+
+
+class ToeInputEdge(NamedTuple):
+    node: ToeInput
+    cursor: str
+
+
+class ToeInputsConnection(NamedTuple):
+    edges: Tuple[ToeInputEdge, ...]
+    page_info: PageInfo
+
+
+class GroupToeInputsRequest(NamedTuple):
+    group_name: str
+    after: Optional[str] = None
+    first: Optional[int] = None
+    paginate: bool = False

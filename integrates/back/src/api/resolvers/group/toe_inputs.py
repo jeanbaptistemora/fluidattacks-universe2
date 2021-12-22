@@ -1,10 +1,11 @@
-from aiodataloader import (
-    DataLoader,
-)
 from custom_types import (
     Group,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.toe_inputs.types import (
+    GroupToeInputsRequest,
     ToeInput,
 )
 from decorators import (
@@ -45,8 +46,10 @@ async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[ToeInput, ...]:
     group_name: str = parent["name"]
-    group_toe_inputs_loader: DataLoader = info.context.loaders.group_toe_inputs
+    loaders: Dataloaders = info.context.loaders
     group_toe_inputs: Tuple[
         ToeInput, ...
-    ] = await group_toe_inputs_loader.load(group_name)
+    ] = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     return group_toe_inputs

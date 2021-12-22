@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from db_model.toe_inputs.types import (
+    GroupToeInputsRequest,
     ToeInput,
 )
 import pytest
@@ -41,7 +42,9 @@ async def test_add() -> None:
     )
     await toe_inputs_domain.add(toe_input)
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert toe_input in group_toe_inputs
 
 
@@ -49,7 +52,9 @@ async def test_add() -> None:
 async def test_delete() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert len(group_toe_inputs) == 4
     await toe_inputs_domain.remove(
         entry_point="btnTest",
@@ -57,7 +62,9 @@ async def test_delete() -> None:
         group_name=group_name,
     )
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert len(group_toe_inputs) == 3
 
 
@@ -84,5 +91,7 @@ async def test_update() -> None:
     )
     await toe_inputs_domain.update(toe_input)
     loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load(group_name)
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
     assert toe_input in group_toe_inputs
