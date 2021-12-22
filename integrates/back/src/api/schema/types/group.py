@@ -23,6 +23,7 @@ from api.resolvers.group import (
     total_findings_new,
     total_treatment,
     user_role,
+    vulnerabilities_assigned,
 )
 from ariadne import (
     ObjectType,
@@ -30,6 +31,7 @@ from ariadne import (
 
 GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
+GROUP.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
 GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("drafts", drafts.resolve)
