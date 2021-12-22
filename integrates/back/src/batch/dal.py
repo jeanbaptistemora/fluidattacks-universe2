@@ -266,7 +266,7 @@ async def list_jobs_by_group(queue: str, group: str) -> List[Dict[str, Any]]:
             result.extend(await _request(next_token=_next_token))
         return result
 
-    return await _request(queue)
+    return await _request()
 
 
 async def list_log_streams(
