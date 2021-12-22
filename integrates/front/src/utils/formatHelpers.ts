@@ -207,10 +207,9 @@ const formatDuration = (value: number): string => {
   const ss = seconds % factor;
   const hh = Math.trunc(minutes / factor);
   const mm = minutes % factor;
-  const hhStr = hh.toString() === "0" ? `0${hh}` : hh.toString();
-  const mmStr = mm.toString() === "0" ? `0${mm}` : mm.toString();
-  const ssStr = ss.toString() === "0" ? `0${ss}` : ss.toString();
-
+  const hhStr = hh.toString().length < 2 ? `0${hh}` : hh.toString();
+  const mmStr = mm.toString().length < 2 ? `0${mm}` : mm.toString();
+  const ssStr = ss.toString().length < 2 ? `0${ss}` : ss.toString();
   return `${hhStr}:${mmStr}:${ssStr}`;
 };
 

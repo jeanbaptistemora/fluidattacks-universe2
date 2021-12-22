@@ -128,6 +128,7 @@ async def list_jobs_filter(  # pylint: disable=too-many-locals
     queue: str,
     filters: Tuple[str, ...],
     next_token: Optional[str] = None,
+    **kwargs: Any,
 ) -> Dict[str, Any]:
     service = "batch"
     session = boto3.Session()
@@ -142,6 +143,7 @@ async def list_jobs_filter(  # pylint: disable=too-many-locals
     request_parameters = {
         "jobQueue": queue,
         "filters": [{"name": "JOB_NAME", "values": list(filters)}],
+        **kwargs,
     }
     if next_token:
         request_parameters["nextToken"] = next_token

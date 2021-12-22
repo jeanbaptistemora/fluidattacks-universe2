@@ -183,6 +183,19 @@ async def queue_boto3(
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
     async with aioboto3.client(**resource_options) as batch:
+        current_jobs = await list_jobs_filter(
+            queue=queue_name, filters=(job_name,), maxResults=1
+        )
+        if len(current_jobs["jobSummaryList"]) > 0:
+            current_job = current_jobs["jobSummaryList"][0]
+            if current_job["status"] in {
+                "SUBMITTED",
+                "PENDING",
+                "RUNNABLE",
+                "STARTING",
+                "RUNNING",
+            }:
+                return {}
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
