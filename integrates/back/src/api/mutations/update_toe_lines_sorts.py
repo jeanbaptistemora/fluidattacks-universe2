@@ -38,9 +38,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from roots import (
     domain as roots_domain,
 )
@@ -96,9 +93,6 @@ async def mutate(
                 root_id=root_id,
                 sorts_risk_level=sorts_risk_level,
             )
-        redis_del_by_deps(
-            "update_toe_lines_sorts", group=group_name, root_id=root_id
-        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Successfully updated sorts risk level "

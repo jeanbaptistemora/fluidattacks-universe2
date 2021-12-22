@@ -111,7 +111,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "max_severity",
             "max_severity_finding",
             "stakeholders",
-            "toe_inputs",
             "total_findings",
         },
         dependencies={
@@ -149,18 +148,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_stakeholder_organization_access",
             "remove_stakeholder_organization_access",
             "unsubscribe_from_group",
-        },
-    ),
-    root=dict(
-        args={
-            "group",
-            "id",
-        },
-        attrs={
-            "services_toe_lines",
-        },
-        dependencies={
-            "update_toe_lines_sorts",
         },
     ),
     session=dict(

@@ -7,14 +7,8 @@ from db_model.services_toe_lines.types import (
 from decorators import (
     enforce_group_level_auth_async,
 )
-from functools import (
-    partial,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from redis_cluster.operations import (
-    redis_get_or_set_entity_attr,
 )
 from roots.types import (
     GitRoot,
@@ -23,28 +17,9 @@ from typing import (
     Tuple,
 )
 
-# Constants
-CACHE_TTL = 60 * 30
-
 
 @enforce_group_level_auth_async
 async def resolve(
-    parent: GitRoot, info: GraphQLResolveInfo, **kwargs: None
-) -> Tuple[ServicesToeLines, ...]:
-    response: Tuple[
-        ServicesToeLines, ...
-    ] = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, info, **kwargs),
-        entity="root",
-        attr="services_toe_lines",
-        ttl=CACHE_TTL,
-        group=parent.group_name,
-        id=parent.id,
-    )
-    return response
-
-
-async def resolve_no_cache(
     parent: GitRoot, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[ServicesToeLines, ...]:
     group_name = parent.group_name
