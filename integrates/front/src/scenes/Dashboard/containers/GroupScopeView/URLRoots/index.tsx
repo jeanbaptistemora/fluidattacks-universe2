@@ -152,17 +152,16 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                   customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
+                  position: "right",
                 }}
                 dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
                   <Can do={"api_mutations_add_url_root_mutate"}>
-                    <div className={"mb3"}>
-                      <Button onClick={openAddModal}>
-                        <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;{t("group.scope.common.add")}
-                      </Button>
-                    </div>
+                    <Button onClick={openAddModal}>
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;{t("group.scope.common.add")}
+                    </Button>
                   </Can>
                 }
                 headers={[

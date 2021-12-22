@@ -431,6 +431,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  oneRowMessage: true,
                   resultSize: {
                     current: resultExecutions.length,
                     total: roots.length,
@@ -440,6 +441,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
                   onUpdateCustomSearch: onSearchTextChange,
+                  position: "right",
                 }}
                 dataset={resultExecutions}
                 expandRow={{
@@ -454,34 +456,30 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 extraButtons={
                   <Row>
                     <Can do={"api_mutations_add_git_root_mutate"}>
-                      <div className={"mb3"}>
-                        <TooltipWrapper
-                          id={t("group.scope.common.addTooltip.id")}
-                          message={t("group.scope.common.addTooltip")}
-                        >
-                          <Button id={"git-root-add"} onClick={openAddModal}>
-                            <FontAwesomeIcon icon={faPlus} />
-                            &nbsp;{t("group.scope.common.add")}
-                          </Button>
-                        </TooltipWrapper>
-                      </div>
+                      <TooltipWrapper
+                        id={t("group.scope.common.addTooltip.id")}
+                        message={t("group.scope.common.addTooltip")}
+                      >
+                        <Button id={"git-root-add"} onClick={openAddModal}>
+                          <FontAwesomeIcon icon={faPlus} />
+                          &nbsp;{t("group.scope.common.add")}
+                        </Button>
+                      </TooltipWrapper>
                     </Can>
                     {canSeeInternalToe &&
                     (canGetToeInputs || canGetToeLines) ? (
-                      <div className={"mb3"}>
-                        <TooltipWrapper
-                          id={t("group.tabs.toe.tooltip.id")}
-                          message={t("group.tabs.toe.tooltip")}
+                      <TooltipWrapper
+                        id={t("group.tabs.toe.tooltip.id")}
+                        message={t("group.tabs.toe.tooltip")}
+                      >
+                        <Button
+                          id={"git-root-internal-surface"}
+                          onClick={handleInternalSurfaceClick}
                         >
-                          <Button
-                            id={"git-root-internal-surface"}
-                            onClick={handleInternalSurfaceClick}
-                          >
-                            <i className={"icon pe-7s-note2"} />
-                            &nbsp;{t("group.tabs.toe.text")}
-                          </Button>
-                        </TooltipWrapper>
-                      </div>
+                          <i className={"icon pe-7s-note2"} />
+                          &nbsp;{t("group.tabs.toe.text")}
+                        </Button>
+                      </TooltipWrapper>
                     ) : undefined}
                   </Row>
                 }
