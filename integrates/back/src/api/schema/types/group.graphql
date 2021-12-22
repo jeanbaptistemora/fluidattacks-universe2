@@ -107,7 +107,8 @@ type Group {
   "Group-wide tags"
   tags: [String!]
   "Target of Evaluation inputs information"
-  toeInputs: [ToeInputs]
+  toeInputs: [ToeInputs] @deprecated(reason: """This field will change the
+    returned type after 2021/12/2.""")
   "Target of Evaluation lines information which is paginated"
   toeLines(
     "The cursor for the forward pagination"
