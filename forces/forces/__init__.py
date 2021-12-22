@@ -29,6 +29,9 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
+from forces.utils.severity import (
+    set_forces_exit_code,
+)
 import os
 import uuid
 
@@ -39,7 +42,7 @@ async def entrypoint(
 ) -> int:
     """Entrypoint function"""
     temp_file = LOG_FILE.get()
-    exit_code = 0
+    exit_code: int = 0
     set_api_token(token)
 
     metadata = await in_thread(
@@ -116,8 +119,7 @@ async def entrypoint(
             if output := config.output:
                 temp_file.seek(os.SEEK_SET)
                 await in_thread(output.write, temp_file.read())
-            if config.strict and report["summary"]["open"]["total"] > 0:
-                exit_code = 1
+            exit_code = await set_forces_exit_code(config, report["findings"])
             execution_id = str(uuid.uuid4()).replace("-", "")
             await upload_report(
                 group=config.group,

@@ -13,7 +13,7 @@ from typing import (
 
 
 def choose_min_breaking_severity(
-    global_brk_severity: float, local_brk_severity: Optional[float]
+    global_brk_severity: Optional[float], local_brk_severity: Optional[float]
 ) -> float:
     global_brk_severity = (
         float(global_brk_severity) if global_brk_severity is not None else 0.0
@@ -52,15 +52,14 @@ async def set_forces_exit_code(
                         ),
                     )
                     return 1
-            # Forces didn't find open vulns or none of the open vulns' severity
-            # warrant a failing exit code
-            await log(
-                "warning",
-                (
-                    "[green]No open vulnerabilities with a severity above this"
-                    " threshold found[/]"
-                ),
-            )
-            return 0
+        # Forces didn't find open vulns or none of the open vulns' severity
+        # warrant a failing exit code
+        await log(
+            "info",
+            (
+                "[green]No open vulnerabilities with a severity above this"
+                " threshold found[/]"
+            ),
+        )
     # Forces wasn't set to strict mode or there aren't any findings yet
     return 0

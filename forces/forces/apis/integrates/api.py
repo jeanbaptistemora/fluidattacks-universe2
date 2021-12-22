@@ -21,9 +21,11 @@ from typing import (
     Any,
     AsyncGenerator,
     Callable,
+    cast,
     Dict,
     List,
     Optional,
+    Tuple,
     TypeVar,
     Union,
 )
@@ -292,11 +294,14 @@ async def upload_report(
 
 
 @SHIELD
-async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
+async def get_groups_access(
+    **kwargs: Any,
+) -> List[Tuple[Dict[str, str], Optional[float]]]:
     query = """
         query ForcesGetMeGroups {
           me {
             organizations {
+              minBreakingSeverity
               groups {
                 name
                 userRole
@@ -307,7 +312,11 @@ async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
     """
     try:
         response: Dict[
-            str, Dict[str, List[Dict[str, List[Dict[str, str]]]]]
+            str,
+            Dict[
+                str,
+                List[Dict[str, Union[List[Dict[str, str]], Optional[float]]]],
+            ],
         ] = await execute(
             query,
             operation_name="ForcesGetMeGroups",
@@ -321,11 +330,13 @@ async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
             )
             return []
         raise Exception from exc
-
     return list(
-        group
+        (
+            group,
+            cast(Optional[float], organization["minBreakingSeverity"]),
+        )
         for organization in response["me"]["organizations"]
-        for group in organization["groups"]
+        for group in cast(List[Dict[str, str]], organization["groups"])
     )
 
 
@@ -353,9 +364,11 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
     return response["group"]["roots"]
 
 
-async def get_forces_user(**kwargs: Any) -> Optional[str]:
+async def get_forces_user_and_severity(
+    **kwargs: Any,
+) -> Tuple[Optional[str], Optional[float]]:
     groups = await get_groups_access(**kwargs)
-    for group in groups:
+    for group, global_brk_severity in groups:
         if group["userRole"] == "service_forces":
-            return group["name"]
-    return None
+            return (group["name"], global_brk_severity)
+    return (None, None)

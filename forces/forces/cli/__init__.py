@@ -21,6 +21,9 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
+from forces.utils.severity import (
+    choose_min_breaking_severity,
+)
 from io import (
     TextIOWrapper,
 )
@@ -42,6 +45,27 @@ def is_forces_user(email: str) -> bool:
 
 def get_group_from_email(email: str) -> str:
     return re.match(USER_PATTERN, email).group("group")  # type: ignore
+
+
+async def validate_severity(severity: Optional[float]) -> bool:
+    """Ensure that the inserted local breaking severity is valid"""
+    min_severity: float = 0.0
+    max_severity: float = 10.0
+    fail_msg: str = (
+        "Please make to sure input a number between "
+        f"{min_severity} and {max_severity} in --breakable"
+    )
+    if severity is not None:
+        try:
+            float(severity)
+        except ValueError:
+            await log("warning", fail_msg)
+            return False
+        if min_severity <= float(severity) <= max_severity:
+            return True
+        await log("warning", fail_msg)
+        return False
+    return True
 
 
 def show_banner() -> None:
@@ -80,7 +104,7 @@ def show_banner() -> None:
     "-O",
     metavar="FILE",
     type=click.File("w", encoding="utf-8"),
-    help="save output in FILE",
+    help="Save output in FILE",
     required=False,
 )
 @click.option("--strict/--lax")
@@ -91,7 +115,15 @@ def show_banner() -> None:
     "--repo-name",
     required=False,
     default=None,
-    help="name of the repository in which it is running",
+    help="Name of the repository in which it is running",
+)
+@click.option(
+    "--breaking",
+    required=False,
+    default=None,
+    help="""Minimum CVSS score of an open vulnerability to return an error in
+    strict mode. This overrides the global minimum breaking severity set in
+    ASM""",
 )  # pylint: disable=too-many-arguments
 def main(
     token: str,
@@ -102,6 +134,7 @@ def main(
     dynamic: bool,
     static: bool,
     repo_name: str,
+    breaking: float,
 ) -> None:
     """Main function"""
     kind = "all"
@@ -119,6 +152,7 @@ def main(
             repo_path=repo_path,
             kind=kind,
             repo_name=repo_name,
+            local_breaking=breaking,
         )
     )
 
@@ -134,17 +168,22 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     repo_path: str,
     kind: str,
     repo_name: str,
+    local_breaking: float,
 ) -> int:
     from forces import (
         entrypoint,
     )
     from forces.apis.integrates.api import (
-        get_forces_user,
+        get_forces_user_and_severity,
     )
 
-    group: Optional[str] = await get_forces_user(api_token=token)
+    group, global_brk_severity = await get_forces_user_and_severity(
+        api_token=token
+    )
     if not group:
         await log("warning", "Please make sure that you use a forces user")
+        return 1
+    if not await validate_severity(local_breaking):
         return 1
 
     configure_bugsnag(group=group or "")
@@ -181,6 +220,10 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
         repository_name=repo_name,
         strict=strict,
         verbose_level=verbose,
+        breaking_severity=choose_min_breaking_severity(
+            global_brk_severity=global_brk_severity,
+            local_brk_severity=local_breaking,
+        ),
     )
     return await entrypoint(
         token=token,
