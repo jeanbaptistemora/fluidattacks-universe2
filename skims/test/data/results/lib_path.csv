@@ -4026,7 +4026,7 @@ F346,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,2,272,ski
  in namespace/skims/test/data/lib_path/f058/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
 >  2 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
-   3 |     <application android:label=""@7F040001"" android:icon=""@7F020002"">
+   3 |     <application android:debuggable=""true"" android:label=""@7F040001"" android:icon=""@7F020002"">
    4 |         <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
    5 |             <intent-filter>
    6 |                 <action android:name=""android.intent.action.MAIN""/>
@@ -9558,6 +9558,24 @@ F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    53 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",f073._cfn_rds_is_publicly_accessible
+F058,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+>  4 |  <application android:debuggable=""true"" android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+",__init__._apk_debugging_enabled
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
    1 |  class XmlSerializerTestCase : Controller
    2 |
@@ -10055,14 +10073,14 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak
   16 | }
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
    2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
    3 |  </uses-permission>
->  4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+>  4 |  <application android:debuggable=""true"" android:icon=""@7F020002"" android:label=""@7F040001"">
    5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
    6 |    <intent-filter>
    7 |     <action android:name=""android.intent.action.MAIN"">
@@ -10075,7 +10093,7 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   14 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
