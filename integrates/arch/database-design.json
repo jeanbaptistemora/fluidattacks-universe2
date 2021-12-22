@@ -1785,7 +1785,7 @@
           "FacetName": "root_credentials_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#uuid",
-            "SortKeyAlias": "GROUP#group_name"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
@@ -1811,7 +1811,7 @@
           "FacetName": "root_credentials_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#uuid#STATE",
-            "SortKeyAlias": "GROUP#group_name"
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [
             {
