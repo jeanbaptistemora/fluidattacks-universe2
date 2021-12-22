@@ -518,7 +518,7 @@ const InputNumber = styled.input.attrs({
 })``;
 
 const SearchText = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
+  className: `${style["form-control"]} black-40 border-box pv2`,
 })``;
 
 const SelectDate = styled.input.attrs({

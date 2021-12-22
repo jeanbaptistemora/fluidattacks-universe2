@@ -464,18 +464,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </SelectContainer>
                 );
               })}
-              <ButtonGroup>
-                <TooltipWrapper
-                  id={"filterTooltip"}
-                  message={t("dataTableNext.tooltip")}
+              <SelectContainer />
+
+              <SelectContainer>
+                <Button
+                  className={"lh-copy fr"}
+                  onClick={handleClearFiltersButton}
                 >
-                  <Button onClick={handleClearFiltersButton}>
-                    <FontAwesomeIcon icon={faEraser} />
-                    &nbsp;
-                    {t("dataTableNext.clearFilters")}
-                  </Button>
-                </TooltipWrapper>
-              </ButtonGroup>
+                  <FontAwesomeIcon icon={faEraser} />
+                  &nbsp;
+                  {t("dataTableNext.clearFilters")}
+                </Button>
+              </SelectContainer>
             </Filters>
           )}
         </div>

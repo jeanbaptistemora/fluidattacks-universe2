@@ -101,7 +101,7 @@
   color: #777;
   background-color: #fff;
   background-image: none;
-  border: 2px solid #eaeaea !important;
+  border: 1px solid #eaeaea !important;
   border-radius: 0 !important;
   box-shadow: none;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
