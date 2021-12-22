@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from postgres_client.client import (
     Client,
 )

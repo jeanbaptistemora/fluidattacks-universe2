@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from code_etl.objs import (
     CommitData,
     Deltas,
@@ -8,6 +10,9 @@ from datetime import (
 )
 from purity.v1 import (
     FrozenList,
+)
+from returns.functions import (
+    raise_exception,
 )
 from returns.result import (
     Failure,
@@ -44,10 +49,17 @@ def _assert_str(raw: Any) -> str:
     raise TypeError("Not a str obj")
 
 
-def _assert_int(raw: Any) -> int:
+def assert_int(raw: Any) -> Result[int, TypeError]:
     if isinstance(raw, int):
-        return raw
-    raise TypeError("Not a int obj")
+        return Success(raw)
+    return Failure(TypeError("Not a int obj"))
+
+
+def assert_key(raw: FrozenList[Any], key: int) -> Result[Any, TypeError]:
+    try:
+        return Success(raw[key])
+    except KeyError as err:
+        return Failure(err)
 
 
 def decode_commit_data(
@@ -62,10 +74,10 @@ def decode_commit_data(
             _assert_str(raw[6]),
             _assert_str(raw[7]),
             Deltas(
-                _assert_int(raw[8]),
-                _assert_int(raw[9]),
-                _assert_int(raw[10]),
-                _assert_int(raw[11]),
+                assert_int(raw[8]).alt(raise_exception).unwrap(),
+                assert_int(raw[9]).alt(raise_exception).unwrap(),
+                assert_int(raw[10]).alt(raise_exception).unwrap(),
+                assert_int(raw[11]).alt(raise_exception).unwrap(),
             ),
         )
         return Success(data)

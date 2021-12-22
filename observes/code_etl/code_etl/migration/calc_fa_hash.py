@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from code_etl.client.decoder import (
     decode_commit_data,
     RawDecodeError,
@@ -6,6 +8,7 @@ from code_etl.factories import (
     gen_fa_hash,
 )
 from code_etl.objs import (
+    CommitData,
     CommitDataId,
     CommitId,
 )
@@ -66,13 +69,22 @@ def _assert_int(raw: Any) -> int:
     raise TypeError("Not a int obj")
 
 
+def calc_commit_id(
+    data: CommitData, namespace: str, repository: str, hash: str
+) -> CommitDataId:
+    return CommitDataId(
+        namespace, repository, CommitId(hash, gen_fa_hash(data))
+    )
+
+
 def _calc_id(raw: FrozenList[Any]) -> CommitDataId:
     try:
         data = decode_commit_data(raw).alt(raise_exception).unwrap()
-        _id = CommitDataId(
+        _id = calc_commit_id(
+            data,
             _assert_str(raw[12]),
             _assert_str(raw[13]),
-            CommitId(_assert_str(raw[14]), gen_fa_hash(data)),
+            _assert_str(raw[14]),
         )
         return _id
     except TypeError as err:

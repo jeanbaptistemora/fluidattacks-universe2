@@ -1,5 +1,6 @@
 """Process repositories and upload their data to Redshift."""
 
+# pylint: skip-file
 
 from aioextensions import (
     generate_in_thread,

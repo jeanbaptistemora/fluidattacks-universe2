@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from code_etl.objs import (
     User,
 )

@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 import asyncio
 import click
 from code_etl import (

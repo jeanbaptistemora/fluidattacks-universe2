@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from code_etl.mailmap import (
     Mailmap,
 )
