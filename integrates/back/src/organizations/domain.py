@@ -503,6 +503,12 @@ def validate_min_acceptance_severity(value: Decimal) -> bool:
 
 def validate_min_breaking_severity(value: Decimal) -> bool:
     success: bool = True
+    try:
+        float(value)
+    except ValueError as error:
+        raise InvalidSeverity(
+            [DEFAULT_MIN_SEVERITY, DEFAULT_MAX_SEVERITY]
+        ) from error
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidSeverity([DEFAULT_MIN_SEVERITY, DEFAULT_MAX_SEVERITY])
     return success
