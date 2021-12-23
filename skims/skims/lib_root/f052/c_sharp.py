@@ -16,9 +16,13 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from symbolic_eval.utils import (
+    filter_ast,
+)
 from typing import (
     Dict,
     Optional,
+    Set,
 )
 import utils.graph as g
 from utils.graph.text_nodes import (
@@ -26,8 +30,53 @@ from utils.graph.text_nodes import (
 )
 
 
+def _new_insecure_keys_check(
+    shard: GraphShard, ciphers: Set[str]
+) -> GraphShardNodes:
+    graph = shard.syntax_graph
+    for n_id in filter_ast(graph, "1", types={"ObjectCreation"}):
+        oc_attrs = graph.nodes[n_id]
+
+        if oc_attrs["name"] not in ciphers:
+            continue
+
+        if a_id := oc_attrs.get("arguments_id"):
+            for c_id in filter_ast(graph, a_id, types={"Literal"}):
+                a_attrs = graph.nodes[c_id]
+
+                if a_attrs["value_type"] != "number":
+                    continue
+
+                if int(a_attrs["value"]) < 2048:
+                    yield shard, n_id
+
+        elif oc_attrs["name"] == "RSACryptoServiceProvider":
+            yield shard, n_id
+
+
+def _old_insecure_keys_check(
+    shard: GraphShard, ciphers: Set[str]
+) -> GraphShardNodes:
+    for member in yield_shard_object_creation(shard, ciphers):
+        args_list = g.get_ast_childs(shard.graph, member, "argument_list")
+        keys = g.get_ast_childs(
+            shard.graph, args_list[0], "integer_literal", depth=2
+        )
+        if keys:
+            for key in keys:
+                size = int(shard.graph.nodes[key].get("label_text"))
+                if size < 2048:
+                    yield shard, member
+        else:
+            object_name = g.match_ast(shard.graph, member)["__1__"]
+            if (
+                shard.graph.nodes[object_name].get("label_text")
+                == "RSACryptoServiceProvider"
+            ):
+                yield shard, member
+
+
 def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
-    arg_list = "argument_list"
     ciphers = {
         "RSACryptoServiceProvider",
         "DSACng",
@@ -38,23 +87,10 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
-            for member in yield_shard_object_creation(shard, ciphers):
-                args_list = g.get_ast_childs(shard.graph, member, arg_list)
-                keys = g.get_ast_childs(
-                    shard.graph, args_list[0], "integer_literal", depth=2
-                )
-                if keys:
-                    for key in keys:
-                        size = int(shard.graph.nodes[key].get("label_text"))
-                        if size < 2048:
-                            yield shard, member
-                else:
-                    object_name = g.match_ast(shard.graph, member)["__1__"]
-                    if (
-                        shard.graph.nodes[object_name].get("label_text")
-                        == "RSACryptoServiceProvider"
-                    ):
-                        yield shard, member
+            if shard.syntax_graph:
+                yield from _new_insecure_keys_check(shard, ciphers)
+            else:
+                yield from _old_insecure_keys_check(shard, ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
