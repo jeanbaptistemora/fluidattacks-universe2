@@ -386,7 +386,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2321",
+                    specific="2320",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
@@ -398,9 +398,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["hacker_email"],
+                        assigned=generic_data["global_vars"]["customer_email"],
                         modified_by=generic_data["global_vars"][
-                            "hacker_email"
+                            "customer_admin_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
@@ -409,7 +409,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "vulnerability": Vulnerability(
-                    finding_id="575041531",
+                    finding_id="475041521",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6b",
                     specific="2321",
                     state=VulnerabilityState(
@@ -423,20 +423,20 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["hacker_email"],
+                        assigned=generic_data["global_vars"]["customer_email"],
                         modified_by=generic_data["global_vars"][
-                            "hacker_email"
+                            "customer_admin_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
-                    where="192.168.1.1",
+                    where="192.168.1.2",
                 ),
             },
             {
                 "vulnerability": Vulnerability(
-                    finding_id="475041531",
+                    finding_id="475041521",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2321",
+                    specific="2322",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:16+00:00",
@@ -448,13 +448,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["hacker_email"],
+                        assigned=generic_data["global_vars"][
+                            "customer_admin_email"
+                        ],
                         modified_by=generic_data["global_vars"][
-                            "hacker_email"
+                            "customer_admin_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
-                    where="192.168.1.1",
+                    where="192.168.1.3",
                 ),
             },
         ],

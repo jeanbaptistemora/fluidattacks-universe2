@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    get_vulnerabilities,
 )
 import pytest
 from typing import (
@@ -84,3 +85,41 @@ async def test_get_group(populate: bool, email: str) -> None:
         event["id"] for event in result["data"]["group"]["events"]
     ]
     assert root in [root["id"] for root in result["data"]["group"]["roots"]]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
+    ["email", "length"],
+    [
+        ["customer@gmail.com", 1],
+        ["customeradmin@gmail.com", 1],
+    ],
+)
+async def test_get_assigned(populate: bool, email: str, length: int) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_vulnerabilities(
+        user=email, group=group_name
+    )
+    assert "errors" not in result
+    assert len(result["data"]["group"]["vulnerabilitiesAssigned"]) == length
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_get_assigned_fail(populate: bool, email: str) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_vulnerabilities(
+        user=email, group=group_name
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

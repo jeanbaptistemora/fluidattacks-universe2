@@ -89,3 +89,30 @@ async def get_result(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_vulnerabilities(
+    *,
+    user: str,
+    group: str,
+) -> Dict[str, Any]:
+    query: str = """
+        query GetGroupVulnerabilies($groupName: String!) {
+            group(groupName: $groupName) {
+                name
+                vulnerabilitiesAssigned {
+                    id
+                    historicTreatment {
+                        assigned
+                    }
+                }
+                __typename
+            }
+        }
+    """
+    data: Dict[str, Any] = {"query": query, "variables": {"groupName": group}}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
