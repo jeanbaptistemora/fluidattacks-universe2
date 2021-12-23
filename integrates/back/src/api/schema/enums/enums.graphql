@@ -475,3 +475,9 @@ enum RootDeactivationReason {
   "The Root was registered by mistake"
   REGISTERED_BY_MISTAKE
 }
+
+"Types of authentication to a Git repository"
+enum CredentialType {
+  "SSH"
+  SSH
+}

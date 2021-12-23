@@ -1,5 +1,8 @@
+import asyncio
+import base64
 from custom_exceptions import (
     InvalidChar,
+    InvalidGitCredentials,
     RepeatedRootNickname,
 )
 from db_model.roots.types import (
@@ -17,6 +20,7 @@ from ipaddress import (
 )
 import os
 import re
+import tempfile
 from typing import (
     List,
     Tuple,
@@ -26,6 +30,7 @@ from urllib.parse import (
     unquote_plus,
     urlparse,
 )
+import uuid
 
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
@@ -113,3 +118,35 @@ def is_url_unique(
 def validate_nickname(nickname: str) -> None:
     if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
         raise InvalidChar()
+
+
+async def validate_git_credentials(
+    repo_url: str, credential_type: str, credentials: str
+) -> None:
+    if credential_type == "SSH":
+        with tempfile.TemporaryDirectory() as temp_dir:
+            ssh_file_name: str = f"{temp_dir}/{uuid.uuid4()}"
+            parsed_url = urlparse(repo_url)
+            url = repo_url.replace(f"{parsed_url.scheme}://", "")
+            with open(
+                os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+                "w",
+                encoding="utf-8",
+            ) as ssh_file:
+                ssh_file.write(base64.b64decode(credentials).decode())
+
+            proc = await asyncio.create_subprocess_exec(
+                "git",
+                "ls-remote",
+                "-h",
+                url,
+                stderr=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE,
+                env={
+                    **os.environ,
+                    "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
+                },
+            )
+            await proc.communicate()
+            if proc.returncode != 0:
+                raise InvalidGitCredentials()

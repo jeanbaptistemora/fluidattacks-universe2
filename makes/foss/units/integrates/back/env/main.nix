@@ -26,6 +26,8 @@ makeTemplate {
       inputs.nixpkgs.cloc
       # The binary for pypi://GitPython
       inputs.nixpkgs.git
+      # The binary for ssh
+      inputs.nixpkgs.openssh
       # The binary for the ASGI
       inputs.nixpkgs.python39Packages.gunicorn
       # The binary to zip the data report

@@ -50,6 +50,10 @@ class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
     msg: str = "Invalid, you cannot change the nickname while closing"
 
 
+class InvalidGitCredentials(_SingleMessageException):
+    msg: str = "Git repository was not accessible with given credentials"
+
+
 class InvalidNewVulnState(_SingleMessageException):
     msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
 

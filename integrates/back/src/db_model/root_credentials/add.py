@@ -37,7 +37,7 @@ async def add(*, root_credential: RootCredentialItem) -> None:
             "name": root_credential.group_name,
             "uuid": root_credential.id,
         },
-        latest_facet=TABLE.facets["root_credential_state"],
+        latest_facet=TABLE.facets["root_credentials_state"],
     )
 
     items = (initial_metadata, *historic_state)

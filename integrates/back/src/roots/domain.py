@@ -15,7 +15,16 @@ from datetime import (
     datetime,
 )
 from db_model import (
+    root_credentials as root_creds_model,
     roots as roots_model,
+)
+from db_model.enums import (
+    GitCredentialType,
+)
+from db_model.root_credentials.types import (
+    RootCredentialItem,
+    RootCredentialMetadata,
+    RootCredentialState,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -204,6 +213,28 @@ async def add_git_root(
         await get_org_roots(loaders=loaders, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
+
+    root_credential_type: Optional[str] = kwargs.get("credential_type")
+    if root_credential_type:
+        credential: str = kwargs["credential"]
+        await validations.validate_git_credentials(
+            url, root_credential_type, credential
+        )
+        root_credential = RootCredentialItem(
+            group_name=group_name,
+            id=str(uuid4()),
+            metadata=RootCredentialMetadata(
+                type=GitCredentialType(root_credential_type)
+            ),
+            state=RootCredentialState(
+                key=credential,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                name=kwargs["credential_name"],
+                roots=[nickname],
+            ),
+        )
+        await root_creds_model.add(root_credential=root_credential)
 
     root = GitRootItem(
         cloning=GitRootCloning(

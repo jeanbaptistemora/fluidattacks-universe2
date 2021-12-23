@@ -23,8 +23,8 @@ async def update_root_credential_state(
 ) -> None:
     key_structure = TABLE.primary_key
     latest_facet, historic_facet = (
-        TABLE.facets["root_credential_state"],
-        TABLE.facets["root_credential_historic_state"],
+        TABLE.facets["root_credentials_state"],
+        TABLE.facets["root_credentials_historic_state"],
     )
     latest, historic = historics.build_historic(
         attributes=json.loads(json.dumps(state)),
