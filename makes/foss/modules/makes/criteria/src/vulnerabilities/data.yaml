@@ -767,7 +767,7 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
@@ -777,7 +777,7 @@
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "X"
+      report_confidence: "C"
   requirements: ["262"]
   metadata:
     en:
