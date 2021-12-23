@@ -1100,14 +1100,16 @@
       through a channel or method
       which does not guarantee its confidentiality
       or integrity.
-    impact: Attacker authenticated in the application.
+    impact: >
+      Compromise sensitive information
+      traveling in a insecure channel
     recommendation: >
       Guarantee that credentials be sent
       through a more secure channel,
       such as session variables
       or using HTTP POST method.
     threat: >
-      Anonymous attacker from local network.
+      Anonymous attacker from adjacent network.
   es:
     title: Sensitive information sent insecurely
     description: >
@@ -1115,14 +1117,16 @@
       a través de un canal o método
       que no garantiza su confidencialidad
       o integridad.
-    impact: Atacante autenticado en la aplicación.
+    impact: >
+      Comprometer información sensible
+      que viaje por un canal inseguro
     recommendation: >
       Garantizar que las credenciales
       sean enviadas por un canal más seguro
       como variables de sesión
       o por el método HTTP POST.
     threat: >
-      Atacante anónimo desde una red local.
+      Atacante anónimo desde una red adyacente.
   category: Collect Information
   score:
     base:
