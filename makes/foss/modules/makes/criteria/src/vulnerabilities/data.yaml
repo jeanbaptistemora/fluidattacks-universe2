@@ -968,7 +968,7 @@
       like Bearer and OAuth.
     threat: >
       Unauthorized attacker from adjacent network
-      performing a MitM.
+      performing a Sniffing attack.
   es:
     title: Insecure authentication method - Basic
     description: >
@@ -980,12 +980,12 @@
       como Bearer y OAuth.
     threat: >
       Atacante sin autorización desde red adyacente
-      ejecutando un MitM.
+      ejecutando un ataque de Sniffing.
   category: Protocol Manipulation
   score:
     base:
       attack_vector: "A"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
