@@ -5,6 +5,8 @@ from code_etl.client.decoder import (
     assert_str,
     decode_commit_data_2,
     decode_repo_registration,
+)
+from code_etl.client.encoder import (
     RawRow,
 )
 from code_etl.factories import (

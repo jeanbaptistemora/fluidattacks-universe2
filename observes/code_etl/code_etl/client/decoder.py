@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from code_etl.client.encoder import (
+    RawRow,
+)
 from code_etl.objs import (
     Commit,
     CommitData,
@@ -46,27 +49,6 @@ class RawDecodeError(Exception):
             f"TypeError when trying to build `{target}` "
             f"from raw obj `{str(raw)}`"
         )
-
-
-@dataclass(frozen=True)
-class RawRow:
-    author_name: Any
-    author_email: Any
-    authored_at: Any
-    committer_email: Any
-    committer_name: Any
-    committed_at: Any
-    message: Any
-    summary: Any
-    total_insertions: Any
-    total_deletions: Any
-    total_lines: Any
-    total_files: Any
-    namespace: Any
-    repository: Any
-    hash: Any
-    fa_hash: Any
-    seen_at: Any
 
 
 def _assert_datetime(raw: Any) -> datetime:

@@ -1,8 +1,6 @@
-from code_etl.client.decoder import (
-    RawRow,
-)
 from code_etl.client.encoder import (
     CommitTableRow,
+    RawRow,
 )
 from dataclasses import (
     fields,

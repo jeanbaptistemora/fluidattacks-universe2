@@ -11,8 +11,31 @@ from datetime import (
     datetime,
 )
 from typing import (
+    Any,
     Optional,
 )
+
+
+@dataclass(frozen=True)
+class RawRow:
+    # pylint: disable=too-many-instance-attributes
+    author_name: Any
+    author_email: Any
+    authored_at: Any
+    committer_email: Any
+    committer_name: Any
+    committed_at: Any
+    message: Any
+    summary: Any
+    total_insertions: Any
+    total_deletions: Any
+    total_lines: Any
+    total_files: Any
+    namespace: Any
+    repository: Any
+    hash: Any
+    fa_hash: Any
+    seen_at: Any
 
 
 @dataclass(frozen=True)

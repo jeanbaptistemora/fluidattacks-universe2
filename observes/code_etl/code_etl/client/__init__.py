@@ -6,6 +6,8 @@ from code_etl.client import (
 from code_etl.client.decoder import (
     assert_int,
     assert_key,
+)
+from code_etl.client.encoder import (
     RawRow,
 )
 import logging
