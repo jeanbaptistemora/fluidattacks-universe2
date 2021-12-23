@@ -36,6 +36,17 @@ from utils.string import (
 )
 
 
+def get_activities_source(dvms: list) -> str:
+    """Decompile given Dalvik VM images."""
+    source = [
+        x.get_source()
+        for dvm in dvms
+        for x in dvm.get_classes()
+        if "Activity" in x.name
+    ]
+    return "".join(source)
+
+
 def _add_apk_unsigned_not_signed_location(
     ctx: APKCheckCtx,
     locations: Locations,
@@ -327,7 +338,7 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 def _add_has_fragment_injection_location(
     ctx: APKCheckCtx,
     locations: Locations,
-    source: List[str],
+    source: str,
     target_sdk_version: int,
 ) -> None:
     locations.append(
@@ -350,7 +361,7 @@ def _add_has_fragment_injection_location(
                 >>> # Get the method names from all classes in each .dex file
                 >>> sorted(set(method.name for method in dex.get_methods()))
                 # No method performs root detection
-                >>> {repr("".join(source))}
+                >>> {repr(source)}
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
@@ -365,21 +376,67 @@ def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         sdk_version = ctx.apk_ctx.apk_obj.get_target_sdk_version()
         target_sdk_version = int(sdk_version) if sdk_version else 0
 
-        source = [
-            x.get_source()
-            for dvm in ctx.apk_ctx.analysis.vms
-            for x in dvm.get_classes()
-            if "Activity" in x.name
-        ]
+        act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
 
         is_vulnerable: bool = (
-            target_sdk_version < 19 and "PreferenceActivity" in "".join(source)
+            target_sdk_version < 19 and "PreferenceActivity" in act_source
         )
 
         if is_vulnerable:
             _add_has_fragment_injection_location(
-                ctx, locations, source, target_sdk_version
+                ctx, locations, act_source, target_sdk_version
             )
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F103,
+        locations=locations,
+    )
+
+
+def _add_webview_caches_javascript_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    source: str,
+) -> None:
+    locations.append(
+        desc="webview_caches_javascript",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse APK and all Dalvik Executables (classes*.dex)
+                >>> # in the APK
+                >>> _, dex, _ = AnalyzeAPK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                >>> {repr(source)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=12, wrap=True),
+        ),
+    )
+
+
+def _webview_caches_javascript(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
+
+        is_vulnerable: bool = (
+            "setJavaScriptEnabled" in act_source
+            and "clearCache" not in act_source
+        )
+
+        if is_vulnerable:
+            _add_webview_caches_javascript_location(ctx, locations, act_source)
 
     return _create_vulns(
         ctx=ctx,
