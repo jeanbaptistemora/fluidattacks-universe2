@@ -135,7 +135,21 @@ def _get_group_toe_inputs_from_cvs(
                 or _format_date(new_toe_input["tested_date"])
                 or datetime_utils.get_utc_now()
             )
-            group_toe_inputs.add(ToeInput(**new_toe_input))
+            group_toe_inputs.add(
+                ToeInput(
+                    attacked_at=new_toe_input["attacked_at"],
+                    attacked_by=new_toe_input["attacked_by"],
+                    be_present=new_toe_input["be_present"],
+                    be_present_until=new_toe_input["be_present_until"],
+                    component=new_toe_input["component"],
+                    entry_point=new_toe_input["entry_point"],
+                    first_attack_at=new_toe_input["first_attack_at"],
+                    group_name=new_toe_input["group_name"],
+                    seen_at=new_toe_input["seen_at"],
+                    seen_first_time_by=new_toe_input["seen_first_time_by"],
+                    unreliable_root_id=new_toe_input["unreliable_root_id"],
+                )
+            )
 
     return group_toe_inputs
 

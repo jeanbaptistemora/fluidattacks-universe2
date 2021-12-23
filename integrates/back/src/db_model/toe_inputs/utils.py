@@ -36,9 +36,7 @@ def format_toe_input(
         be_present_until=datetime.fromisoformat(item["be_present_until"])
         if item.get("be_present_until")
         else None,
-        commit=item["commit"],
         component=item["component"],
-        created_date=item["created_date"],
         entry_point=item["entry_point"],
         first_attack_at=datetime.fromisoformat(item["first_attack_at"])
         if item.get("first_attack_at")
@@ -48,10 +46,7 @@ def format_toe_input(
             item.get("seen_at", datetime.now(tz=timezone.utc).isoformat()),
         ),
         seen_first_time_by=item["seen_first_time_by"],
-        tested_date=item["tested_date"],
         unreliable_root_id=item.get("unreliable_root_id", ""),
-        verified=item["verified"],
-        vulns=item["vulns"],
     )
 
 
@@ -85,9 +80,7 @@ def format_toe_input_item(
         else db_model_utils.get_date_as_utc_iso_format(
             toe_input.be_present_until
         ),
-        "commit": toe_input.commit,
         "component": toe_input.component,
-        "created_date": toe_input.created_date,
         "entry_point": toe_input.entry_point,
         "first_attack_at": ""
         if toe_input.first_attack_at is None
@@ -99,8 +92,5 @@ def format_toe_input_item(
             toe_input.seen_at
         ),
         "seen_first_time_by": toe_input.seen_first_time_by,
-        "tested_date": toe_input.tested_date,
         "unreliable_root_id": toe_input.unreliable_root_id,
-        "verified": toe_input.verified,
-        "vulns": toe_input.vulns,
     }

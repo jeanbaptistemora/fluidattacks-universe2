@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 23, 2021, 10:05 AM",
+    "DateLastModified": "Dec 23, 2021, 11:14 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2167,23 +2167,8 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
               },
-              "commit": {
-                "S": "hh66uu5"
-              },
-              "tested_date": {
-                "S": "2020-01-02T00:00:00-05:00"
-              },
-              "vulns": {
-                "S": "FIN.S.0001.Test"
-              },
-              "created_date": {
-                "S": "2000-01-01T05:00:00+00:00"
-              },
               "seen_first_time_by": {
                 "S": ""
-              },
-              "verified": {
-                "S": "Yes"
               },
               "component": {
                 "S": "test.com/api/Test"
@@ -2226,23 +2211,8 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
               },
-              "commit": {
-                "S": "e91320h"
-              },
-              "tested_date": {
-                "S": "2021-02-02T00:00:00-05:00"
-              },
-              "vulns": {
-                "S": ""
-              },
-              "created_date": {
-                "S": "2020-03-14T00:00:00-05:00"
-              },
               "seen_first_time_by": {
                 "S": "test@test.com"
-              },
-              "verified": {
-                "S": "No"
               },
               "component": {
                 "S": "test.com/test/test.aspx"
@@ -2285,23 +2255,8 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
               },
-              "commit": {
-                "S": "d83027t"
-              },
-              "tested_date": {
-                "S": "2021-02-11T00:00:00-05:00"
-              },
-              "vulns": {
-                "S": "FIN.S.0003.Test"
-              },
-              "created_date": {
-                "S": "2020-01-11T00:00:00-05:00"
-              },
               "seen_first_time_by": {
                 "S": "test2@test.com"
-              },
-              "verified": {
-                "S": "No"
               },
               "component": {
                 "S": "test.com/test2/test.aspx"
@@ -2342,14 +2297,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "commit",
-            "tested_date",
-            "vulns",
-            "created_date",
             "seen_first_time_by",
-            "verified",
             "component",
             "entry_point",
+            "group_name",
             "unreliable_root_id",
             "first_attack_at",
             "attacked_at",
@@ -2358,8 +2309,7 @@
             "attacked_by",
             "be_present_until",
             "pk_2",
-            "sk_2",
-            "group_name"
+            "sk_2"
           ],
           "DataAccess": {
             "MySql": {}
