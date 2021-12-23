@@ -65,11 +65,11 @@ async def mutate(
         return SimplePayload(success=False)
     success = False
     with suppress(ClientError):
-        await queue_boto3(
+        result = await queue_boto3(
             finding_code=finding_code,
             group=group_name,
             namespace=root_nickname,
         )
-        success = True
+        success = bool(result)
 
     return SimplePayload(success=success)
