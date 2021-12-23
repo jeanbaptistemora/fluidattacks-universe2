@@ -33,6 +33,7 @@ from .draft import (
     approve_draft,
     reject_draft,
     submit_draft,
+    validate_draft_inputs,
 )
 from .evidence import (
     download_evidence_file,
@@ -78,6 +79,7 @@ __all__ = [
     "approve_draft",
     "reject_draft",
     "submit_draft",
+    "validate_draft_inputs",
     # evidences
     "download_evidence_file",
     "get_records_from_file",

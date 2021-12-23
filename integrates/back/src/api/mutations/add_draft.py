@@ -68,6 +68,7 @@ async def mutate(
         group_name
     )
     validate_no_duplicate_drafts(title, drafts, findings)
+    findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
 
     try:
         user_info = await token_utils.get_jwt_content(info.context)

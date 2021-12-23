@@ -36,9 +36,13 @@ from newutils import (
     findings as findings_utils,
     requests as requests_utils,
 )
+from newutils.validations import (
+    validate_field_length,
+)
 from typing import (
     Any,
     Dict,
+    List,
 )
 import uuid
 from vulnerabilities import (
@@ -90,6 +94,12 @@ async def approve_draft(
         for vuln in await loaders.finding_vulns_all_typed.load(finding_id)
     )
     return approval_date
+
+
+def validate_draft_inputs(*, kwargs: List[str]) -> None:
+    for value in kwargs:
+        if isinstance(value, str):
+            validate_field_length(value, 5000)
 
 
 async def add_draft(
