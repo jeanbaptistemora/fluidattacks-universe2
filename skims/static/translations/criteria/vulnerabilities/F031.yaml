@@ -5,8 +5,8 @@ src.lib_path.f031_aws.open_passrole:
   en: iam:PassRole with wildcard resource allows an elevation of privileges
   es: iam:PassRole con recurso no especifico permite una elevación de privilegios
 src.lib_path.f031_aws.permissive_policy:
-  en: Excessive privileges
-  es: Privilegios excesivos
+  en: Excessive privileges, complete access over all resources
+  es: Privilegios excesivos, acceso completo sobre todos los recursos
 src.lib_path.f031_aws.negative_statement:
   en: Excessive privileges, avoid the use of negative statements
   es: Privilegios excesivos, evitar el uso de políticas negativas

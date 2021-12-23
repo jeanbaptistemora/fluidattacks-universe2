@@ -92,7 +92,7 @@ def policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
         if act_val.startswith("*"):
             return True
         act_val = (
-            act_val[: act.index("*")] if act_val.endswith("*") else act_val
+            act_val[: act_val.index("*")] if act_val.endswith("*") else act_val
         )
         if act_val in write_actions.get(serv, {}).get(privilege, []):
             return True
@@ -223,6 +223,13 @@ async def analyze(
         ):
             coroutines.append(
                 cfn_kms_key_has_master_keys_exposed_to_everyone(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_iam_has_wildcard_resource_on_write_action(
                     content=content,
                     path=path,
                     template=template,

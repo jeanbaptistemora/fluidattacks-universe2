@@ -1,0 +1,105 @@
+Resources:
+  CreateTestDBPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: 'rds:CreateDBInstance'
+            Condition:
+              StringEquals:
+                'rds:DatabaseEngine': mysql
+          - Effect: Allow
+            Action: 'rds:CreateGlobalCluster'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:*'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:ModifyDBCluster*'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:CreateDBSnapshot'
+            Resource: '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+      Groups:
+        - TestDBGroup
+  RootRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Deny
+                Action: '*'
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 'ec2:ModifySnapshotAttribute'
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 's3:List*'
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource:
+                - ec2:StartInstances
