@@ -27,16 +27,16 @@ def reader(args: SyntaxGraphArgs) -> NId:
     equals_clause = "equals_value_clause"
     match = match_ast(args.ast_graph, var_decl_id, "identifier", equals_clause)
 
-    if not match["identifier"] or not match["equals_value_clause"]:
-        raise MissingCaseHandling(f"Bad equals_value_clause in {args.n_id}")
-
-    match_eq = match_ast(args.ast_graph, match["equals_value_clause"], "=")
-
-    if len(match_eq) != 2 or not match_eq["="]:
-        raise MissingCaseHandling(f"Bad equal value in {args.n_id}")
-
-    value_id = match_eq["__0__"]
-    var = node_to_str(args.ast_graph, match["identifier"])
+    value_id = None
     var_type = node_to_str(args.ast_graph, var_type_id)
+    var = node_to_str(args.ast_graph, match["identifier"])
+
+    if match["equals_value_clause"]:
+        match_eq = match_ast(args.ast_graph, match["equals_value_clause"], "=")
+
+        if len(match_eq) != 2 or not match_eq["="]:
+            raise MissingCaseHandling(f"Bad equal value in {args.n_id}")
+
+        value_id = match_eq["__0__"]
 
     return build_variable_declaration_node(args, var, var_type, value_id)
