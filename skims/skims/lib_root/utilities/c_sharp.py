@@ -9,7 +9,6 @@ from model.graph_model import (
     NId,
 )
 from typing import (
-    Iterable,
     Iterator,
     Set,
     Tuple,
@@ -65,14 +64,21 @@ def yield_member_access(
     for shard in graph_db.shards_by_language(
         GraphShardMetadataLanguage.CSHARP,
     ):
-        for member in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="member_access_expression"),
-        ):
-            match = g.match_ast(shard.graph, member, "__0__")
-            if shard.graph.nodes[match["__0__"]].get("label_text") in members:
-                yield shard, member
+        for member in yield_shard_member_access(shard, members):
+            yield shard, member
+
+
+def yield_shard_member_access(
+    shard: GraphShard, members: Set[str]
+) -> Iterator[NId]:
+    for member in g.filter_nodes(
+        shard.graph,
+        nodes=shard.graph.nodes,
+        predicate=g.pred_has_labels(label_type="member_access_expression"),
+    ):
+        match = g.match_ast(shard.graph, member, "__0__")
+        if shard.graph.nodes[match["__0__"]].get("label_text") in members:
+            yield member
 
 
 def yield_object_creation(
@@ -102,17 +108,24 @@ def yield_shard_object_creation(
 
 def yield_invocation_expression(
     graph_db: graph_model.GraphDB,
-) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
+) -> Iterator[Tuple[graph_model.GraphShard, NId, str]]:
     for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
-        for invoc_id in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="invocation_expression"),
-        ):
-            method_id = shard.graph.nodes[invoc_id]["label_field_function"]
-            yield shard, invoc_id, node_to_str(shard.graph, method_id)
+        for member, method in yield_shard_invocation_expression(shard):
+            yield shard, member, method
+
+
+def yield_shard_invocation_expression(
+    shard: GraphShard,
+) -> Iterator[Tuple[NId, str]]:
+    for invoc_id in g.filter_nodes(
+        shard.graph,
+        nodes=shard.graph.nodes,
+        predicate=g.pred_has_labels(label_type="invocation_expression"),
+    ):
+        method_id = shard.graph.nodes[invoc_id]["label_field_function"]
+        yield invoc_id, node_to_str(shard.graph, method_id)
 
 
 def get_object_argument_list(
