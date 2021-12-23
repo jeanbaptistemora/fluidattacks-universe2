@@ -13,8 +13,8 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> bool:
-    val_id = args.graph.nodes[args.n_id]["value_id"]
-    args.evaluation[args.n_id] = args.generic(args.fork_n_id(val_id))
+    if val_id := args.graph.nodes[args.n_id].get("value_id"):
+        args.evaluation[args.n_id] = args.generic(args.fork_n_id(val_id))
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
         args.evaluation[args.n_id] = finding_evaluator(args)
