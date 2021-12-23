@@ -324,20 +324,11 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def get_activities_source(dvms: list) -> str:
-    """Decompile given Dalvik VM images."""
-    source = [
-        x.get_source()
-        for dvm in dvms
-        for x in dvm.get_classes()
-        if "Activity" in x.name
-    ]
-    return "".join(source)
-
-
 def _add_has_fragment_injection_location(
     ctx: APKCheckCtx,
     locations: Locations,
+    source: List[str],
+    target_sdk_version: int,
 ) -> None:
     locations.append(
         desc="has_fragment_injection",
@@ -347,18 +338,22 @@ def _add_has_fragment_injection_location(
                 $ python3.8
 
                 >>> # We'll use the version 3.3.5 of "androguard"
-                >>> from androguard.core.bytecodes.apk import APK
+                >>> from androguard.misc import AnalyzeAPK
 
-                >>> # This object represents the APK to analyze
-                >>> apk = APK({repr(ctx.apk_ctx.path)})
+                >>> # Parse APK and all Dalvik Executables (classes*.dex)
+                >>> # in the APK
+                >>> apk_obj, dex, _ = AnalyzeAPK({repr(ctx.apk_ctx.path)})
 
-                >>> # Check the META-INF/ folder and retrieve signature pairs
-                >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
-                >>> apk.get_target_sdk_version()
-                []  # Empty list means no signatures exist
+                >>> # Get the targetSdkVersion attribute
+                >>> apk_obj.get_target_sdk_version()
+                >>> {repr(target_sdk_version)}
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                >>> {repr("".join(source))}
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=12, wrap=True),
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
         ),
     )
 
@@ -370,17 +365,21 @@ def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         sdk_version = ctx.apk_ctx.apk_obj.get_target_sdk_version()
         target_sdk_version = int(sdk_version) if sdk_version else 0
 
-        if target_sdk_version == 0:
-            raise AssertionError("Could not determine target SDK version")
+        source = [
+            x.get_source()
+            for dvm in ctx.apk_ctx.analysis.vms
+            for x in dvm.get_classes()
+            if "Activity" in x.name
+        ]
 
         is_vulnerable: bool = (
-            target_sdk_version < 19
-            and "PreferenceActivity"
-            in get_activities_source(ctx.apk_ctx.analysis.vms)
+            target_sdk_version < 19 and "PreferenceActivity" in "".join(source)
         )
 
-        if not is_vulnerable:
-            _add_has_fragment_injection_location(ctx, locations)
+        if is_vulnerable:
+            _add_has_fragment_injection_location(
+                ctx, locations, source, target_sdk_version
+            )
 
     return _create_vulns(
         ctx=ctx,
