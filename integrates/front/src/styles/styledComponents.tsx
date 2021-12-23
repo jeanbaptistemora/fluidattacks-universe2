@@ -394,16 +394,6 @@ const PanelCollapseHeader: StyledComponent<
   className: "pb3 pl4 pt3 pr4 items-center tc panel-ch",
 })``;
 
-const ProgressBar: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className:
-    "br3 db f3 h-100 bg-red bg-size4 overflow-hidden pb-animation pb-bi pb-transition relative tc white",
-})`
-  width: ${(props: { theme: { width: string } }): string => props.theme.width};
-`;
-
 const GroupScopeText: StyledComponent<
   "div",
   Record<string, unknown>
@@ -684,7 +674,6 @@ export {
   PanelCollapse,
   PanelCollapseBody,
   PanelCollapseHeader,
-  ProgressBar,
   GroupScopeText,
   GroupScopeTextWide,
   QuestionButton,
