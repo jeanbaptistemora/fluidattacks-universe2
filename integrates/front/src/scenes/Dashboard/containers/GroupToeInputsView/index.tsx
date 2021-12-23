@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
@@ -141,35 +141,54 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   ];
 
   // // GraphQL operations
-  const { data } = useQuery<{ group: { toeInputs: IToeInputsConnection } }>(
-    GET_TOE_INPUTS,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          Logger.error("Couldn't load toe inputs", error);
-        });
-      },
-      variables: { groupName },
-    }
-  );
+  const { data, fetchMore, refetch } = useQuery<{
+    group: { toeInputs: IToeInputsConnection };
+  }>(GET_TOE_INPUTS, {
+    fetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load toe inputs", error);
+      });
+    },
+    variables: { first: 300, groupName },
+  });
+  const pageInfo =
+    data === undefined ? undefined : data.group.toeInputs.pageInfo;
   const toeInputsEdges: IToeInputEdge[] =
     data === undefined ? [] : data.group.toeInputs.edges;
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
   const toeInputs: IToeInputData[] = toeInputsEdges.map(
     ({ node }): IToeInputData => ({
       ...node,
     })
   );
+  useEffect((): void => {
+    if (!_.isUndefined(pageInfo)) {
+      if (pageInfo.hasNextPage) {
+        void fetchMore({
+          variables: { after: pageInfo.endCursor, first: 1200 },
+        });
+      }
+    }
+  }, [pageInfo, fetchMore]);
+  useEffect((): void => {
+    if (!_.isUndefined(data)) {
+      void refetch();
+    }
+    // It is important to run only during the first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filterSearchtextResult: IToeInputData[] = filterSearchText(
     toeInputs,
     searchTextFilter
   );
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }

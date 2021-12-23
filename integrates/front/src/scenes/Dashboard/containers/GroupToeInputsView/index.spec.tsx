@@ -25,7 +25,7 @@ describe("GroupToeInputsView", (): void => {
     const mockedToeInputs: MockedResponse = {
       request: {
         query: GET_TOE_INPUTS,
-        variables: { groupName: "unittesting" },
+        variables: { first: 300, groupName: "unittesting" },
       },
       result: {
         data: {

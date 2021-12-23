@@ -75,7 +75,10 @@ async def test_get_toe_inputs(populate: bool, email: str) -> None:
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
             },
         ],
-        "pageInfo": {"hasNextPage": False, "endCursor": "bnVsbA=="},
+        "pageInfo": {
+            "hasNextPage": False,
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+        },
     }
 
 

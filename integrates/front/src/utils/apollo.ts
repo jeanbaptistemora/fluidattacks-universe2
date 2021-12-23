@@ -315,6 +315,7 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
     typePolicies: {
       Group: {
         fields: {
+          toeInputs: relayStylePagination(),
           toeLines: relayStylePagination(),
         },
         keyFields: ["name"],

@@ -2,10 +2,15 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_TOE_INPUTS: DocumentNode = gql`
-  query GetToeInputs($groupName: String!) {
+  query GetToeInputs(
+    $after: String
+    $bePresent: Boolean
+    $groupName: String!
+    $first: Int
+  ) {
     group(groupName: $groupName) {
       name
-      toeInputs {
+      toeInputs(bePresent: $bePresent, after: $after, first: $first) {
         edges {
           node {
             attackedAt

@@ -112,10 +112,11 @@ type Group {
   toeInputs(
     "The cursor for the forward pagination"
     after: String
+    "If the input is present in the root"
+    bePresent: Boolean
     "Amount of element to return"
     first: Int
-  ): ToeInputsConnection! @deprecated(reason: """This field will change the
-    returned type after 2021/12/2.""")
+  ): ToeInputsConnection!
   "Target of Evaluation lines information which is paginated"
   toeLines(
     "The cursor for the forward pagination"
