@@ -3,6 +3,25 @@ F100.title:
     Server-side request forgery (SSRF)
   es: >
     Server-side request forgery (SSRF)
+F100.impact:
+  en: |
+    - Obtain usable credentials at the API Connect endpoint.
+    - Read, write and delete user and system data.
+    - Browse any path registered in the system, in the context of Apache Camel.
+    - Consume HTTP, FTP, or any valid Apache Camel protocol-component services.
+    - Obtain information from the network adjacent to the server, or its Public IP.
+    - Obtain a token from any user, bymodifying the clientIP field.
+    - Evade control mechanisms against automated attacks, such as CAPTCHA and OTP (dynamic key).
+    - Write files to the server, and identify its operating system.
+  es: |
+    - Obtener credenciales utilizables en el endpoint de API Connect.
+    - Leer, escribir y eliminar datos de los usuarios y del sistema.
+    - Navegar por cualquier ruta registrada en el sistema, en el contexto de Apache Camel.
+    - Consumir servicios HTTP, FTP, o de cualquier protocolo-componente Apache Camel válido.
+    - Obtener información de la red adyacente al servidor, o su IP Pública.
+    - Obtener un token de un usuario cualquiera, modificando el campo clientIP.
+    - Evadir mecanismos de control contra ataques automatizados, como el CAPTCHA y el OTP (clave dinámica).
+    - Escribir archivos en el servidor, e identificar su sistema operativo.
 F100.description:
   en: >
     It is possible to induce the application’s server into making requests
@@ -20,3 +39,6 @@ F100.recommendation:
     El sistema debe impedir que la consulta de información de parte del
     servidor sea controlada por los usuarios. Si esto es necesario, el sistema
     debe restringir los endpoints aceptados para consulta.
+F100.threat:
+  en: Unauthorized attacker from the Internet.
+  es: Atacante no autorizado desde Internet.

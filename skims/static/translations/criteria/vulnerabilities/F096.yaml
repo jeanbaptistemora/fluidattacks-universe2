@@ -12,6 +12,9 @@ F096.description:
     nor casting them to a specific type.
   es: >
     Se deserializan objetos sin validar su contenido ni forzar su tipo.
+F096.impact:
+  en: Enable to control the application execution flow.
+  es: Permitir controlar el flujo de ejecución de la aplicación.
 F096.recommendation:
   en: >
     Validate the incoming serialized objects and only deserialize then
@@ -19,3 +22,6 @@ F096.recommendation:
   es: >
     Validar los objetos serializados entrantesy solo deserializarlos si cumplen
     con las propiedades esperadas.
+F096.threat:
+  en: Authenticathed attacker from the Internet.
+  es: Atacante autenticado desde Internet.
