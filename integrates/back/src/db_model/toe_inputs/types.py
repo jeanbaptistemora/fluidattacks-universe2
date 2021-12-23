@@ -41,5 +41,6 @@ class ToeInputsConnection(NamedTuple):
 class GroupToeInputsRequest(NamedTuple):
     group_name: str
     after: Optional[str] = None
+    be_present: Optional[bool] = None
     first: Optional[int] = None
     paginate: bool = False

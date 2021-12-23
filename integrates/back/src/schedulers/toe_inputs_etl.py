@@ -168,15 +168,14 @@ def _get_toe_inputs_to_add(
 
 
 def _get_toe_inputs_to_update(
-    group_toe_inputs: Set[ToeInput],
+    _group_toe_inputs: Set[ToeInput],
     group_toe_input_hashes: Set[int],
     cvs_group_toe_inputs: Set[ToeInput],
 ) -> Set[ToeInput]:
     return {
         toe_input
         for toe_input in cvs_group_toe_inputs
-        if toe_input not in group_toe_inputs
-        and toe_input.get_hash() in group_toe_input_hashes
+        if toe_input.get_hash() in group_toe_input_hashes
     }
 
 

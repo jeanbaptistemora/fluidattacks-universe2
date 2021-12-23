@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from .types import (
     ToeInput,
 )
@@ -24,6 +27,7 @@ from dynamodb.model import (
 
 async def update(*, toe_input: ToeInput) -> None:
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_input_metadata"]
     toe_input_key = keys.build_key(
         facet=facet,
@@ -33,8 +37,17 @@ async def update(*, toe_input: ToeInput) -> None:
             "group_name": toe_input.group_name,
         },
     )
+    current_gsi_2_key = keys.build_key(
+        facet=GSI_2_FACET,
+        values={
+            "be_present": str(toe_input.be_present).lower(),
+            "component": toe_input.component,
+            "entry_point": toe_input.entry_point,
+            "group_name": toe_input.group_name,
+        },
+    )
     toe_input_item = format_toe_input_item(
-        toe_input_key, key_structure, toe_input
+        toe_input_key, key_structure, current_gsi_2_key, gsi_2_index, toe_input
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     try:

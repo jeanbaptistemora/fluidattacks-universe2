@@ -65,11 +65,15 @@ def format_toe_input_edge(
 def format_toe_input_item(
     primary_key: PrimaryKey,
     key_structure: PrimaryKey,
+    gsi_2_key: PrimaryKey,
+    gsi_2_index: Index,
     toe_input: ToeInput,
 ) -> Item:
     return {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         "attacked_at": ""
         if toe_input.attacked_at is None
         else db_model_utils.get_date_as_utc_iso_format(toe_input.attacked_at),

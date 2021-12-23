@@ -1,3 +1,6 @@
+from .constants import (
+    GSI_2_FACET,
+)
 from .types import (
     GroupToeInputsRequest,
     ToeInput,
@@ -15,9 +18,15 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from custom_exceptions import (
+    InvalidBePresentFilterCursor,
+)
 from dynamodb import (
     keys,
     operations,
+)
+from dynamodb.exceptions import (
+    ValidationException,
 )
 from dynamodb.model import (
     TABLE,
@@ -31,25 +40,43 @@ from typing import (
 async def _get_toe_inputs_by_group(
     request: GroupToeInputsRequest,
 ) -> ToeInputsConnection:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["toe_input_metadata"],
-        values={"group_name": request.group_name},
-    )
-    key_structure = TABLE.primary_key
-    inputs_key = primary_key.sort_key.split("#")[0]
-    index = None
-    response = await operations.query(
-        after=request.after,
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(inputs_key)
-        ),
-        facets=(TABLE.facets["toe_input_metadata"],),
-        index=index,
-        limit=request.first,
-        paginate=request.paginate,
-        table=TABLE,
-    )
+    if request.be_present is None:
+        facet = TABLE.facets["toe_input_metadata"]
+        primary_key = keys.build_key(
+            facet=facet,
+            values={"group_name": request.group_name},
+        )
+        index = None
+        key_structure = TABLE.primary_key
+    else:
+        facet = GSI_2_FACET
+        primary_key = keys.build_key(
+            facet=facet,
+            values={
+                "group_name": request.group_name,
+                "be_present": str(request.be_present).lower(),
+            },
+        )
+        index = TABLE.indexes["gsi_2"]
+        key_structure = index.primary_key
+
+    try:
+        response = await operations.query(
+            after=request.after,
+            condition_expression=(
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                & Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key.replace("#COMPONENT#ENTRYPOINT", "")
+                )
+            ),
+            facets=(TABLE.facets["toe_input_metadata"],),
+            index=index,
+            limit=request.first,
+            paginate=request.paginate,
+            table=TABLE,
+        )
+    except ValidationException as exc:
+        raise InvalidBePresentFilterCursor() from exc
     return ToeInputsConnection(
         edges=tuple(
             format_toe_input_edge(request.group_name, index, item, TABLE)
