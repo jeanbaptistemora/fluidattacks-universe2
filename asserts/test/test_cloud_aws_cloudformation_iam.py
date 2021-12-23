@@ -51,15 +51,6 @@ def test_missing_role_based_security():
     assert iam.missing_role_based_security(NOT_EXISTS).is_unknown()
 
 
-def test_has_wildcard_resource_on_write_action():
-    """test iam.has_wildcard_resource_on_write_action."""
-    result = iam.has_wildcard_resource_on_write_action(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert iam.has_wildcard_resource_on_write_action(NOT_EXISTS).is_unknown()
-    assert iam.has_wildcard_resource_on_write_action(SAFE).is_closed()
-
-
 def test_has_privileges_over_iam():
     """test iam.has_wildcard_resource_on_write_action."""
     result = iam.has_privileges_over_iam(VULN)

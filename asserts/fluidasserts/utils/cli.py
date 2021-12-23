@@ -1011,7 +1011,6 @@ def exec_cloudformation_package(
         ],
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
-            "iam.has_wildcard_resource_on_write_action",
             "iam.is_managed_policy_miss_configured",
             "iam.is_policy_miss_configured",
             "iam.is_role_over_privileged",

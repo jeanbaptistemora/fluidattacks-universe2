@@ -592,69 +592,6 @@ def missing_role_based_security(
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_wildcard_resource_on_write_action(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Check if write actions are allowed on all resources.
-
-    Do not allow ``"Resource": "*"`` to have write actions.
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: List[Vulnerability] = []
-    graph: DiGraph = get_graph(path, exclude)
-    templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
-    documents: List[int] = get_resources(
-        graph,
-        map(lambda x: x[0], templates),
-        {"AWS", "IAM", "ManagedPolicy", "Role"},
-        info=True,
-        num_labels=3,
-    )
-    for doc, resource, template in documents:
-        type_: str = "AWS::IAM::" + get_type(
-            graph, doc, {"ManagedPolicy", "Role"}
-        )
-        vulnerable_lines: List[str] = []
-        policy_documents: int = get_resources(
-            graph, doc, "PolicyDocument", depth=8
-        )
-        if not policy_documents:
-            continue
-        for policy in policy_documents:
-            statement = get_resources(graph, policy, "Statement")[0]
-            if main.policy_statement_privilege(
-                graph, statement, "Allow", "write"
-            ):
-                vulnerable_lines.append(graph.nodes[statement]["line"])
-
-        if vulnerable_lines:
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=template["path"],
-                    entity=f"{type_}/PolicyDocument",
-                    identifier=resource["name"],
-                    line=line,
-                    reason="allows write actions on a wildcard resource.",
-                )
-                for line in vulnerable_lines
-            )
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open="Write actions are allowed for all resources.",
-        msg_closed="Write actions are not allowed for all resources.",
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
 def has_privileges_over_iam(
     path: str, exclude: Optional[List[str]] = None
 ) -> tuple:
