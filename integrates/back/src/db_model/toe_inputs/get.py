@@ -4,9 +4,11 @@ from .constants import (
 from .types import (
     GroupToeInputsRequest,
     ToeInput,
+    ToeInputRequest,
     ToeInputsConnection,
 )
 from .utils import (
+    format_toe_input,
     format_toe_input_edge,
 )
 from aiodataloader import (
@@ -20,6 +22,7 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     InvalidBePresentFilterCursor,
+    ToeInputNotFound,
 )
 from dynamodb import (
     keys,
@@ -35,6 +38,37 @@ from typing import (
     List,
     Tuple,
 )
+
+
+async def _get_toe_input(request: ToeInputRequest) -> ToeInput:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_input_metadata"],
+        values={
+            "component": request.component,
+            "entry_point": request.entry_point,
+            "group_name": request.group_name,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).eq(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["toe_input_metadata"],),
+        table=TABLE,
+    )
+    if not response.items:
+        raise ToeInputNotFound()
+    return format_toe_input(request.group_name, response.items[0])
+
+
+class ToeInputLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: List[ToeInputRequest]
+    ) -> Tuple[ToeInput, ...]:
+        return await collect(tuple(map(_get_toe_input, requests)))
 
 
 async def _get_toe_inputs_by_group(

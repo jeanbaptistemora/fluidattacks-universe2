@@ -38,6 +38,12 @@ class ToeInputsConnection(NamedTuple):
     page_info: PageInfo
 
 
+class ToeInputRequest(NamedTuple):
+    component: str
+    entry_point: str
+    group_name: str
+
+
 class GroupToeInputsRequest(NamedTuple):
     group_name: str
     after: Optional[str] = None
