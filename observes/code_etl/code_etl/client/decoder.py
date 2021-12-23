@@ -1,6 +1,7 @@
 # pylint: skip-file
 
 from code_etl.objs import (
+    Commit,
     CommitData,
     CommitDataId,
     CommitId,
@@ -80,6 +81,18 @@ def _assert_str(raw: Any) -> str:
     raise TypeError("Not a str obj")
 
 
+def assert_datetime(raw: Any) -> Result[datetime, TypeError]:
+    if isinstance(raw, datetime):
+        return Success(raw)
+    return Failure(TypeError("Not a datetime obj"))
+
+
+def assert_str(raw: Any) -> Result[str, TypeError]:
+    if isinstance(raw, str):
+        return Success(raw)
+    raise Failure(TypeError("Not a str obj"))
+
+
 def assert_int(raw: Any) -> Result[int, TypeError]:
     if isinstance(raw, int):
         return Success(raw)
@@ -118,6 +131,49 @@ def decode_commit_data(
         return Failure(err)
 
 
+def _decode_user(name: Any, email: Any) -> Result[User, TypeError]:
+    return assert_str(name).bind(
+        lambda n: assert_str(email).map(lambda e: User(n, e))
+    )
+
+
+def decode_deltas(raw: RawRow) -> Result[Deltas, TypeError]:
+    return assert_int(raw.total_insertions).bind(
+        lambda i: assert_int(raw.total_deletions).bind(
+            lambda d: assert_int(raw.total_lines).bind(
+                lambda l: assert_int(raw.total_files).map(
+                    lambda f: Deltas(i, d, l, f)
+                )
+            )
+        )
+    )
+
+
+def decode_commit_data_2(
+    raw: RawRow,
+) -> Result[CommitData, Union[KeyError, TypeError]]:
+    author = _decode_user(raw.author_name, raw.author_email).bind(
+        lambda u: assert_datetime(raw.authored_at).map(lambda d: (u, d))
+    )
+    commiter = _decode_user(raw.committer_name, raw.committer_email).bind(
+        lambda u: assert_datetime(raw.committed_at).map(lambda d: (u, d))
+    )
+    deltas = decode_deltas(raw)
+    return author.bind(
+        lambda a: commiter.bind(
+            lambda c: deltas.bind(
+                lambda dl: assert_str(raw.message).bind(
+                    lambda msg: assert_str(raw.summary).map(
+                        lambda s: CommitData(
+                            a[0], a[1], c[0], c[1], msg, s, dl
+                        )
+                    )
+                )
+            )
+        )
+    )
+
+
 def decode_commit_data_id(
     raw: RawRow,
 ) -> Result[CommitDataId, Union[KeyError, TypeError]]:
@@ -132,6 +188,20 @@ def decode_commit_data_id(
         return Failure(err)
     except TypeError as err:
         return Failure(err)
+
+
+def decode_commit_stamp(
+    raw: RawRow,
+) -> Result[CommitStamp, Union[KeyError, TypeError]]:
+    return (
+        decode_commit_data_id(raw)
+        .bind(lambda i: decode_commit_data_2(raw).map(lambda j: Commit(i, j)))
+        .bind(
+            lambda c: assert_datetime(raw.seen_at).map(
+                lambda d: CommitStamp(c, d)
+            )
+        )
+    )
 
 
 def decode_repo_registration(
@@ -156,6 +226,6 @@ def decode_repo_registration(
 def decode_commit_table_row(
     raw: RawRow,
 ) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
-    return decode_repo_registration(raw).lash(
-        lambda _: decode_commit_data_id(raw)
+    return decode_repo_registration(raw).bind(
+        lambda _: decode_commit_stamp(raw)
     )
