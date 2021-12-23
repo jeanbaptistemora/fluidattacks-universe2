@@ -82,6 +82,10 @@ in
           gitlabExtra = gitlabDeployApp;
         }
         {
+          output = "/skims/translations-fields";
+          gitlabExtra = gitlabTest;
+        }
+        {
           output = "/deployContainerImage/skimsProcessGroup";
           gitlabExtra = gitlabDeployApp;
         }
