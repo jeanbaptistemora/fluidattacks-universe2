@@ -76,14 +76,7 @@ in
         }
         {
           output = "/deployTerraform/makesCompute";
-          gitlabExtra = gitlabDeployInfra // {
-            rules = [
-              gitlabCi.rules.schedules
-              (gitlabCi.rules.varIsDefined "integrates_scheduler_machine_queue_all")
-              (gitlabCi.rules.varIsDefined "integrates_scheduler_machine_queue_all_new")
-              gitlabCi.rules.always
-            ];
-          };
+          gitlabExtra = gitlabDeployInfra;
         }
         {
           output = "/deployTerraform/makesDns";
