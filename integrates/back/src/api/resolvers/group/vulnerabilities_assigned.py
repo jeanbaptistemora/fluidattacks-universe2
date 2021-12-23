@@ -18,6 +18,9 @@ from graphql.type.definition import (
 from newutils.token import (
     get_jwt_content,
 )
+from newutils.vulnerabilities import (
+    filter_open_vulns,
+)
 from typing import (
     Tuple,
 )
@@ -40,6 +43,6 @@ async def resolve(
 
     return tuple(
         vulnerability
-        for vulnerability in vulnerabilities
+        for vulnerability in filter_open_vulns(vulnerabilities)
         if vulnerability.treatment.assigned == user_data["user_email"]
     )
