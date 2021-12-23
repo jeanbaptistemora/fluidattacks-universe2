@@ -90,7 +90,7 @@ def assert_datetime(raw: Any) -> Result[datetime, TypeError]:
 def assert_str(raw: Any) -> Result[str, TypeError]:
     if isinstance(raw, str):
         return Success(raw)
-    raise Failure(TypeError("Not a str obj"))
+    return Failure(TypeError("Not a str obj"))
 
 
 def assert_int(raw: Any) -> Result[int, TypeError]:
@@ -99,7 +99,7 @@ def assert_int(raw: Any) -> Result[int, TypeError]:
     return Failure(TypeError("Not a int obj"))
 
 
-def assert_key(raw: FrozenList[Any], key: int) -> Result[Any, TypeError]:
+def assert_key(raw: FrozenList[Any], key: int) -> Result[Any, KeyError]:
     try:
         return Success(raw[key])
     except KeyError as err:
