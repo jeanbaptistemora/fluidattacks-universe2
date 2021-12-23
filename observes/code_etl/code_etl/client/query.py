@@ -1,6 +1,9 @@
 from code_etl.client.decoder import (
     RawRow,
 )
+from code_etl.client.encoder import (
+    CommitTableRow,
+)
 from dataclasses import (
     fields,
 )
@@ -29,6 +32,20 @@ def all_data_count(table: TableID) -> Query:
         """
         SELECT COUNT(*) FROM {schema}.{table}
         """,
+        SqlArgs(
+            identifiers={
+                "schema": table.schema.name,
+                "table": table.table_name,
+            }
+        ),
+    )
+
+
+def insert_row(table: TableID) -> Query:
+    _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
+    values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
+    return Query(
+        f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES {values}",
         SqlArgs(
             identifiers={
                 "schema": table.schema.name,
