@@ -21,9 +21,10 @@ from utils.logs import (
 def generic(args: SyntaxGraphArgs) -> str:
     node_type = args.ast_graph.nodes[args.n_id]["label_type"]
 
-    for dispatcher in DISPATCHERS_BY_LANG[args.language]:
-        if node_type in dispatcher.applicable_types:
-            return dispatcher.syntax_reader(args)
+    if lang_dispatchers := DISPATCHERS_BY_LANG.get(args.language):
+        for dispatcher in lang_dispatchers:
+            if node_type in dispatcher.applicable_types:
+                return dispatcher.syntax_reader(args)
 
     raise MissingSyntaxReader(
         f"Missing syntax reader for {node_type} in {args.language.name}"
