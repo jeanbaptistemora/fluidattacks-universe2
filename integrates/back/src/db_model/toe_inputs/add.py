@@ -24,7 +24,7 @@ from dynamodb.model import (
 
 async def add(*, toe_input: ToeInput) -> None:
     key_structure = TABLE.primary_key
-    facet = TABLE.facets["root_toe_input"]
+    facet = TABLE.facets["toe_input_metadata"]
     toe_input_key = keys.build_key(
         facet=facet,
         values={

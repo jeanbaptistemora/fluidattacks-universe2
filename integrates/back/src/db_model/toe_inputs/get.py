@@ -32,7 +32,7 @@ async def _get_toe_inputs_by_group(
     request: GroupToeInputsRequest,
 ) -> ToeInputsConnection:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_toe_input"],
+        facet=TABLE.facets["toe_input_metadata"],
         values={"group_name": request.group_name},
     )
     key_structure = TABLE.primary_key
@@ -44,7 +44,7 @@ async def _get_toe_inputs_by_group(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(inputs_key)
         ),
-        facets=(TABLE.facets["root_toe_input"],),
+        facets=(TABLE.facets["toe_input_metadata"],),
         index=index,
         limit=request.first,
         paginate=request.paginate,

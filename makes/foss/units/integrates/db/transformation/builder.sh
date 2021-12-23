@@ -17,8 +17,8 @@ function main {
     ip_root_state
     ip_root_historic_state
     machine_git_root_execution
-    root_toe_input
     root_services_toe_lines
+    toe_input_metadata
     toe_lines_metadata
     url_root_metadata
     url_root_state

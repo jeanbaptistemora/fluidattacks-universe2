@@ -13,7 +13,7 @@ async def remove(
     component: str,
     group_name: str,
 ) -> None:
-    facet = TABLE.facets["root_toe_input"]
+    facet = TABLE.facets["toe_input_metadata"]
     toe_input_key = keys.build_key(
         facet=facet,
         values={
