@@ -226,6 +226,7 @@ def decode_repo_registration(
 def decode_commit_table_row(
     raw: RawRow,
 ) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
-    return decode_repo_registration(raw).bind(
-        lambda _: decode_commit_stamp(raw)
-    )
+    reg: Result[
+        Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]
+    ] = decode_repo_registration(raw)
+    return reg.lash(lambda _: decode_commit_stamp(raw))
