@@ -1,7 +1,7 @@
-import itertools
 from lib_root.utilities.c_sharp import (
     yield_member_access,
     yield_object_creation,
+    yield_shard_object_creation,
 )
 from model.core_model import (
     FindingEnum,
@@ -26,10 +26,8 @@ from utils.graph.text_nodes import (
 )
 
 
-def c_sharp_insecure_keys(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-
+def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
+    arg_list = "argument_list"
     ciphers = {
         "RSACryptoServiceProvider",
         "DSACng",
@@ -37,24 +35,26 @@ def c_sharp_insecure_keys(
     }
 
     def n_ids() -> GraphShardNodes:
-        for shard, member in itertools.chain(
-            yield_object_creation(graph_db, ciphers),
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.CSHARP,
         ):
-            args_list = g.get_ast_childs(shard.graph, member, "argument_list")
-            keys = g.get_ast_childs(
-                shard.graph, args_list[0], "integer_literal", depth=2
-            )
-            if keys:
-                for key in keys:
-                    if int(shard.graph.nodes[key].get("label_text")) < 2048:
+            for member in yield_shard_object_creation(shard, ciphers):
+                args_list = g.get_ast_childs(shard.graph, member, arg_list)
+                keys = g.get_ast_childs(
+                    shard.graph, args_list[0], "integer_literal", depth=2
+                )
+                if keys:
+                    for key in keys:
+                        size = int(shard.graph.nodes[key].get("label_text"))
+                        if size < 2048:
+                            yield shard, member
+                else:
+                    object_name = g.match_ast(shard.graph, member)["__1__"]
+                    if (
+                        shard.graph.nodes[object_name].get("label_text")
+                        == "RSACryptoServiceProvider"
+                    ):
                         yield shard, member
-            else:
-                object_name = g.match_ast(shard.graph, member)["__1__"]
-                if (
-                    shard.graph.nodes[object_name].get("label_text")
-                    == "RSACryptoServiceProvider"
-                ):
-                    yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
