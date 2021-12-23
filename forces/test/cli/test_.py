@@ -7,12 +7,46 @@ from forces.cli import (
 import os
 
 
-def test_cli_strict(test_token: str) -> None:
+def test_cli_strict_no_breaking(test_token: str) -> None:
     runner = CliRunner()
     result = runner.invoke(
         main, ["--token", test_token, "--strict", "--repo-name", "forces"]
     )
     assert result.exit_code == 1
+
+
+def test_cli_strict_breaking_low(test_token: str) -> None:
+    runner = CliRunner()
+    result = runner.invoke(
+        main,
+        [
+            "--token",
+            test_token,
+            "--strict",
+            "--repo-name",
+            "forces",
+            "--breaking",
+            "2",
+        ],
+    )
+    assert result.exit_code == 1
+
+
+def test_cli_strict_breaking_high(test_token: str) -> None:
+    runner = CliRunner()
+    result = runner.invoke(
+        main,
+        [
+            "--token",
+            test_token,
+            "--strict",
+            "--repo-name",
+            "forces",
+            "--breaking",
+            "10",
+        ],
+    )
+    assert result.exit_code == 0
 
 
 def test_cli_lax(test_token: str) -> None:
