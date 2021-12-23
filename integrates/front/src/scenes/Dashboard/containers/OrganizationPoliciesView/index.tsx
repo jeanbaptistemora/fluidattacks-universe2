@@ -28,11 +28,20 @@ import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import {
+  composeValidators,
+  isFloatOrInteger,
+  isPositive,
+  numberBetween,
+  numeric,
+} from "utils/validations";
 
 const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   props: IOrganizationPolicies
 ): JSX.Element => {
   // State management
+  const minSeverity: number = 0.0;
+  const maxSeverity: number = 10.0;
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
 
@@ -160,6 +169,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"maxAcceptanceDays"}
               type={"text"}
+              validate={composeValidators([isPositive, numeric])}
             />
           )}
         </Can>
@@ -194,6 +204,10 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                     disabled={!canEdit}
                     name={"minAcceptanceSeverity"}
                     type={"text"}
+                    validate={composeValidators([
+                      isFloatOrInteger,
+                      numberBetween(minSeverity, maxSeverity),
+                    ])}
                   />
                 )}
               </Can>
@@ -213,6 +227,10 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                     disabled={!canEdit}
                     name={"maxAcceptanceSeverity"}
                     type={"text"}
+                    validate={composeValidators([
+                      isFloatOrInteger,
+                      numberBetween(minSeverity, maxSeverity),
+                    ])}
                   />
                 )}
               </Can>
@@ -247,6 +265,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"maxNumberAcceptances"}
               type={"text"}
+              validate={composeValidators([isPositive, numeric])}
             />
           )}
         </Can>
@@ -278,6 +297,10 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"minBreakingSeverity"}
               type={"text"}
+              validate={composeValidators([
+                isFloatOrInteger,
+                numberBetween(minSeverity, maxSeverity),
+              ])}
             />
           )}
         </Can>
@@ -336,7 +359,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         name={"orgPolicies"}
         onSubmit={handleFormSubmit}
       >
-        {({ dirty, submitForm }): JSX.Element => (
+        {({ dirty, isValid, submitForm }): JSX.Element => (
           <Form id={"orgPolicies"}>
             <TooltipWrapper
               id={translate.t(
@@ -360,7 +383,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             <Can do={"api_mutations_update_organization_policies_mutate"}>
               {!dirty || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>
-                  <Button onClick={submitForm}>
+                  <Button disabled={!isValid} onClick={submitForm}>
                     {translate.t("organization.tabs.policies.save")}
                   </Button>
                 </ButtonToolbar>

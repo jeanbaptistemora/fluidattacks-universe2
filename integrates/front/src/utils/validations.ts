@@ -269,6 +269,17 @@ const validDatetime: Validator = (
 ): string | undefined =>
   isMoment(value) ? undefined : translate.t("validations.datetime");
 
+const isFloatOrInteger: Validator = (value: string): string | undefined => {
+  function checkNumeric(valueToValidate: never): boolean {
+    return !isNaN(valueToValidate - parseFloat(valueToValidate));
+  }
+  if (!checkNumeric(value as never)) {
+    return translate.t("validations.numeric");
+  }
+
+  return undefined;
+};
+
 const getFileExtension: (file: File) => string = (file: File): string => {
   const splittedName: string[] = file.name.split(".");
   const extension: string =
@@ -462,6 +473,7 @@ export {
   validDraftTitle,
   isPositive,
   isValidVulnSeverity,
+  isFloatOrInteger,
   validDatetime,
   validEventFile,
   validEvidenceImage,
