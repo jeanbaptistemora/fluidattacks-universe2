@@ -432,6 +432,8 @@ enum TierType {
   MACHINE
   "One-Shot Tier"
   ONESHOT
+  "Other custom tier (old)"
+  OTHER
   "Continuous Squad Tier"
   SQUAD
 }

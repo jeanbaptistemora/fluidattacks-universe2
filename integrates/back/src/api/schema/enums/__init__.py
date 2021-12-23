@@ -226,6 +226,7 @@ ENUMS: Tuple[EnumType, ...] = (
             "FREE": "free",
             "MACHINE": "machine",
             "ONESHOT": "oneshot",
+            "OTHER": "other",
             "SQUAD": "squad",
         },
     ),

@@ -734,7 +734,7 @@ async def update_group_attrs(
     requester_email: str,
     service: str,
     subscription: str,
-    tier: str = "free",
+    tier: str = "",
 ) -> bool:
     success: bool = False
 
@@ -758,6 +758,8 @@ async def update_group_attrs(
     if get_key_or_fallback(item):
         if service != item["historic_configuration"][-1]["service"]:
             await validate_open_roots(loaders, group_name)
+        if tier == "":
+            tier = item["historic_configuration"][-1].get("tier", "free")
 
         success = await update(
             data={
