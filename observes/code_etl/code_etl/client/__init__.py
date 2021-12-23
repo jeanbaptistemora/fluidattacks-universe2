@@ -3,9 +3,9 @@
 from code_etl.client import (
     query,
 )
-from code_etl.client.decoder import (
-    assert_int,
+from code_etl.client._assert import (
     assert_key,
+    assert_type,
 )
 from code_etl.client.encoder import (
     RawRow,
@@ -44,10 +44,15 @@ from returns.result import (
     Result,
 )
 from typing import (
+    Any,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
+
+
+def _assert_int(j: Any) -> Result[int, TypeError]:
+    return assert_type(j, int)
 
 
 def all_data_count(
@@ -55,7 +60,7 @@ def all_data_count(
 ) -> IO[Result[int, Union[KeyError, TypeError]]]:
     return client.cursor.execute_query(query.all_data_count(table)).bind(
         lambda _: client.cursor.fetch_one().map(
-            lambda i: unify(assert_int)(assert_key(i, 0))
+            lambda i: unify(_assert_int)(assert_key(i, 0))
         )
     )
 

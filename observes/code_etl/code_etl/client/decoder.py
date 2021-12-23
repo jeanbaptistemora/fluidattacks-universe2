@@ -1,7 +1,11 @@
 # pylint: skip-file
 
+from code_etl.client._assert import (
+    assert_not_none,
+    assert_type,
+)
 from code_etl.client.encoder import (
-    RawRow,
+    CommitTableRow,
 )
 from code_etl.objs import (
     Commit,
@@ -15,9 +19,6 @@ from code_etl.objs import (
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
-)
-from dataclasses import (
-    dataclass,
 )
 from datetime import (
     datetime,
@@ -35,6 +36,7 @@ from returns.result import (
 )
 from typing import (
     Any,
+    Optional,
     Union,
 )
 
@@ -51,59 +53,28 @@ class RawDecodeError(Exception):
         )
 
 
-def _assert_datetime(raw: Any) -> datetime:
-    if isinstance(raw, datetime):
-        return raw
-    raise TypeError("Not a datetime obj")
-
-
-def _assert_str(raw: Any) -> str:
-    if isinstance(raw, str):
-        return raw
-    raise TypeError("Not a str obj")
-
-
-def assert_datetime(raw: Any) -> Result[datetime, TypeError]:
-    if isinstance(raw, datetime):
-        return Success(raw)
-    return Failure(TypeError("Not a datetime obj"))
-
-
-def assert_str(raw: Any) -> Result[str, TypeError]:
-    if isinstance(raw, str):
-        return Success(raw)
-    return Failure(TypeError("Not a str obj"))
-
-
-def assert_int(raw: Any) -> Result[int, TypeError]:
-    if isinstance(raw, int):
-        return Success(raw)
-    return Failure(TypeError("Not a int obj"))
-
-
-def assert_key(raw: FrozenList[Any], key: int) -> Result[Any, KeyError]:
-    try:
-        return Success(raw[key])
-    except KeyError as err:
-        return Failure(err)
-
-
 def decode_commit_data(
     raw: FrozenList[Any],
 ) -> Result[CommitData, Union[KeyError, TypeError]]:
     try:
         data = CommitData(
-            User(_assert_str(raw[0]), _assert_str(raw[1])),
-            _assert_datetime(raw[2]),
-            User(_assert_str(raw[3]), _assert_str(raw[4])),
-            _assert_datetime(raw[5]),
-            _assert_str(raw[6]),
-            _assert_str(raw[7]),
+            User(
+                assert_type(raw[0], str).alt(raise_exception).unwrap(),
+                assert_type(raw[1], str).alt(raise_exception).unwrap(),
+            ),
+            assert_type(raw[2], datetime).alt(raise_exception).unwrap(),
+            User(
+                assert_type(raw[3], str).alt(raise_exception).unwrap(),
+                assert_type(raw[4], str).alt(raise_exception).unwrap(),
+            ),
+            assert_type(raw[5], datetime).alt(raise_exception).unwrap(),
+            assert_type(raw[6], str).alt(raise_exception).unwrap(),
+            assert_type(raw[7], str).alt(raise_exception).unwrap(),
             Deltas(
-                assert_int(raw[8]).alt(raise_exception).unwrap(),
-                assert_int(raw[9]).alt(raise_exception).unwrap(),
-                assert_int(raw[10]).alt(raise_exception).unwrap(),
-                assert_int(raw[11]).alt(raise_exception).unwrap(),
+                assert_type(raw[8], int).alt(raise_exception).unwrap(),
+                assert_type(raw[9], int).alt(raise_exception).unwrap(),
+                assert_type(raw[10], int).alt(raise_exception).unwrap(),
+                assert_type(raw[11], int).alt(raise_exception).unwrap(),
             ),
         )
         return Success(data)
@@ -113,17 +84,19 @@ def decode_commit_data(
         return Failure(err)
 
 
-def _decode_user(name: Any, email: Any) -> Result[User, TypeError]:
-    return assert_str(name).bind(
-        lambda n: assert_str(email).map(lambda e: User(n, e))
+def _decode_user(
+    name: Optional[str], email: Optional[str]
+) -> Result[User, TypeError]:
+    return assert_not_none(name).bind(
+        lambda n: assert_not_none(email).map(lambda e: User(n, e))
     )
 
 
-def decode_deltas(raw: RawRow) -> Result[Deltas, TypeError]:
-    return assert_int(raw.total_insertions).bind(
-        lambda i: assert_int(raw.total_deletions).bind(
-            lambda d: assert_int(raw.total_lines).bind(
-                lambda l: assert_int(raw.total_files).map(
+def decode_deltas(raw: CommitTableRow) -> Result[Deltas, TypeError]:
+    return assert_not_none(raw.total_insertions).bind(
+        lambda i: assert_not_none(raw.total_deletions).bind(
+            lambda d: assert_not_none(raw.total_lines).bind(
+                lambda l: assert_not_none(raw.total_files).map(
                     lambda f: Deltas(i, d, l, f)
                 )
             )
@@ -132,20 +105,20 @@ def decode_deltas(raw: RawRow) -> Result[Deltas, TypeError]:
 
 
 def decode_commit_data_2(
-    raw: RawRow,
+    raw: CommitTableRow,
 ) -> Result[CommitData, Union[KeyError, TypeError]]:
     author = _decode_user(raw.author_name, raw.author_email).bind(
-        lambda u: assert_datetime(raw.authored_at).map(lambda d: (u, d))
+        lambda u: assert_not_none(raw.authored_at).map(lambda d: (u, d))
     )
     commiter = _decode_user(raw.committer_name, raw.committer_email).bind(
-        lambda u: assert_datetime(raw.committed_at).map(lambda d: (u, d))
+        lambda u: assert_not_none(raw.committed_at).map(lambda d: (u, d))
     )
     deltas = decode_deltas(raw)
     return author.bind(
         lambda a: commiter.bind(
             lambda c: deltas.bind(
-                lambda dl: assert_str(raw.message).bind(
-                    lambda msg: assert_str(raw.summary).map(
+                lambda dl: assert_not_none(raw.message).bind(
+                    lambda msg: assert_not_none(raw.summary).map(
                         lambda s: CommitData(
                             a[0], a[1], c[0], c[1], msg, s, dl
                         )
@@ -157,56 +130,44 @@ def decode_commit_data_2(
 
 
 def decode_commit_data_id(
-    raw: RawRow,
+    raw: CommitTableRow,
 ) -> Result[CommitDataId, Union[KeyError, TypeError]]:
-    try:
-        _id = CommitDataId(
-            _assert_str(raw.namespace),
-            _assert_str(raw.repository),
-            CommitId(_assert_str(raw.hash), _assert_str(raw.fa_hash)),
-        )
-        return Success(_id)
-    except KeyError as err:
-        return Failure(err)
-    except TypeError as err:
-        return Failure(err)
-
-
-def decode_commit_stamp(
-    raw: RawRow,
-) -> Result[CommitStamp, Union[KeyError, TypeError]]:
-    return (
-        decode_commit_data_id(raw)
-        .bind(lambda i: decode_commit_data_2(raw).map(lambda j: Commit(i, j)))
-        .bind(
-            lambda c: assert_datetime(raw.seen_at).map(
-                lambda d: CommitStamp(c, d)
-            )
+    return assert_not_none(raw.fa_hash).map(
+        lambda fa: CommitDataId(
+            raw.namespace, raw.repository, CommitId(raw.hash, fa)
         )
     )
 
 
+def decode_commit_stamp(
+    raw: CommitTableRow,
+) -> Result[CommitStamp, Union[KeyError, TypeError]]:
+    return (
+        decode_commit_data_id(raw)
+        .bind(lambda i: decode_commit_data_2(raw).map(lambda j: Commit(i, j)))
+        .map(lambda c: CommitStamp(c, raw.seen_at))
+    )
+
+
 def decode_repo_registration(
-    raw: RawRow,
+    raw: CommitTableRow,
 ) -> Result[RepoRegistration, Union[KeyError, TypeError]]:
-    try:
-        if raw.hash != COMMIT_HASH_SENTINEL:
-            return Failure(TypeError("Not a RepoRegistration object"))
-        repo = RepoRegistration(
+    if raw.hash != COMMIT_HASH_SENTINEL:
+        return Failure(TypeError("Not a RepoRegistration object"))
+    return Success(
+        RepoRegistration(
             CommitDataId(
-                _assert_str(raw.namespace),
-                _assert_str(raw.repository),
-                CommitId(_assert_str(raw.hash), "-" * 64),
+                raw.namespace,
+                raw.repository,
+                CommitId(raw.hash, "-" * 64),
             ),
-            _assert_datetime(raw.seen_at),
+            raw.seen_at,
         )
-        return Success(repo)
-    except TypeError as err:
-        return Failure(err)
+    )
 
 
 def decode_commit_table_row(
-    raw: RawRow,
+    raw: CommitTableRow,
 ) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
     reg: Result[
         Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]

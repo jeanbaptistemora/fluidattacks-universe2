@@ -1,13 +1,11 @@
 # pylint: skip-file
 
 from code_etl.client.decoder import (
-    assert_datetime,
-    assert_str,
     decode_commit_data_2,
     decode_repo_registration,
 )
 from code_etl.client.encoder import (
-    RawRow,
+    CommitTableRow,
 )
 from code_etl.factories import (
     gen_fa_hash,
@@ -31,30 +29,22 @@ LOG = logging.getLogger(__name__)
 
 
 def migrate_commit(
-    raw: RawRow,
+    raw: CommitTableRow,
 ) -> Result[CommitStamp, Union[KeyError, TypeError]]:
     data = decode_commit_data_2(raw)
-    _id = data.bind(
-        lambda cd: assert_str(raw.namespace).bind(
-            lambda n: assert_str(raw.repository).bind(
-                lambda r: assert_str(raw.hash).map(
-                    lambda h: CommitDataId(
-                        n,
-                        r,
-                        CommitId(h, gen_fa_hash(cd)),
-                    )
-                )
-            )
+    _id = data.map(
+        lambda cd: CommitDataId(
+            raw.namespace,
+            raw.repository,
+            CommitId(raw.hash, gen_fa_hash(cd)),
         )
     )
     commit = data.bind(lambda d: _id.map(lambda i: Commit(i, d)))
-    return commit.bind(
-        lambda c: assert_datetime(raw.seen_at).map(lambda d: CommitStamp(c, d))
-    )
+    return commit.map(lambda c: CommitStamp(c, raw.seen_at))
 
 
 def migrate_row(
-    row: RawRow,
+    row: CommitTableRow,
 ) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
     reg: Result[
         Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]

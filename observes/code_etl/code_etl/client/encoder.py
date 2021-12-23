@@ -40,13 +40,14 @@ class RawRow:
 
 @dataclass(frozen=True)
 class CommitTableRow:
+    # Represents commit table schema
     # pylint: disable=too-many-instance-attributes
     author_name: Optional[str]
     author_email: Optional[str]
-    authored_at: Optional[str]
+    authored_at: Optional[datetime]
     committer_email: Optional[str]
     committer_name: Optional[str]
-    committed_at: Optional[str]
+    committed_at: Optional[datetime]
     message: Optional[str]
     summary: Optional[str]
     total_insertions: Optional[int]
@@ -56,8 +57,8 @@ class CommitTableRow:
     namespace: str
     repository: str
     hash: str
-    fa_hash: str
-    seen_at: str
+    fa_hash: Optional[str]
+    seen_at: datetime
 
 
 def from_objs(
@@ -66,10 +67,10 @@ def from_objs(
     return CommitTableRow(
         data.author.name if data else None,
         data.author.email if data else None,
-        data.authored_at.isoformat() if data else None,
+        data.authored_at if data else None,
         data.committer.name if data else None,
         data.committer.email if data else None,
-        data.committed_at.isoformat() if data else None,
+        data.committed_at if data else None,
         data.message if data else None,
         data.summary if data else None,
         data.deltas.total_insertions if data else None,
@@ -80,7 +81,7 @@ def from_objs(
         commit_id.repository,
         commit_id.hash.hash,
         commit_id.hash.fa_hash,
-        seen_at.isoformat(),
+        seen_at,
     )
 
 
