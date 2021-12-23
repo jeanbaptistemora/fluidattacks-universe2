@@ -4480,10 +4480,8 @@
       introducing vulnerabilities
       or causing unexpected behaviors.
     impact: >
-      - Generate malfunctions in the
-      application.
-
-      - Modify production functions.
+      Cause unexpected behaviors
+      by uncommenting the code
     recommendation: >
       Delete all lines
       of functional commented code
@@ -4502,10 +4500,8 @@
       de este código
       y desplegarlo en producción.
     impact: >
-      - Generar mal funcionamiento en
-      la aplicación.
-
-      - Modificar funciones de producción.
+      Causar comportamientos inesperados
+      al descomentar el código
     recommendation: >
       Eliminar todas las líneas
       de código funcional comentado
@@ -4521,12 +4517,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
-      availability: "L"
+      integrity: "L"
+      availability: "N"
     temporal:
       exploit_code_maturity: "U"
-      remediation_level: "X"
-      report_confidence: "X"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["171"]
   metadata:
     en:
@@ -7990,8 +7986,8 @@
   score:
     base:
       attack_vector: "A"
-      attack_complexity: "H"
-      privileges_required: "H"
+      attack_complexity: "L"
+      privileges_required: "N"
       user_interaction: "R"
       scope: "U"
       confidentiality: "L"
@@ -8110,9 +8106,9 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "H"
-      user_interaction: "R"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
       scope: "U"
       confidentiality: "L"
       integrity: "L"
@@ -8226,7 +8222,7 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "R"
       scope: "U"
@@ -8351,7 +8347,7 @@
       user_interaction: "R"
       scope: "U"
       confidentiality: "L"
-      integrity: "L"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
@@ -10250,7 +10246,7 @@
   en:
     title: Insecure service configuration - Kerberoast
     description: >
-      Due to the operation of the Kerberoast
+      Due to the operation of the Kerberos
       service it is possible to extract krbtgs
       hashes of users within the domain.
     impact: >
@@ -10265,7 +10261,7 @@
     title: Insecure service configuration - Kerberoast
     description: >
       Debido al funcionamiento del servicio
-      de Kerberoast es posible extraer hashes
+      de Kerberos es posible extraer hashes
       krbtgs de usuarios dentro del dominio.
     impact: >
       Obtener hashes de usuarios.
