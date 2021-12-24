@@ -3,8 +3,8 @@
 This migration aims to add the free tier attribute to
 all groups' historic_configuration
 
-Execution Time: -
-Finalization Time: -
+Execution Time:    2021-12-24 at 00:13:12 UTC
+Finalization Time: 2021-12-24 at 00:14:29 UTC
 """
 
 from aioextensions import (
