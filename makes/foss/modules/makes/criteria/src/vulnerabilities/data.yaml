@@ -2613,8 +2613,8 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "H"
+      attack_complexity: "H"
+      privileges_required: "N"
       user_interaction: "R"
       scope: "U"
       confidentiality: "L"
