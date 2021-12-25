@@ -7,8 +7,8 @@ We'll keep deleted items out of the new model while we define the path
 going forward for archived data.
 Details at https://gitlab.com/fluidattacks/product/-/issues/5690
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-12-21 at 19:55:23 UTC
+Finalization Time:  2021-12-24 at 17:00:29 UTC
 """
 from aioextensions import (
     collect,
@@ -67,7 +67,7 @@ from typing import (
     Optional,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _add_historic(
@@ -144,7 +144,10 @@ async def _get_vulnerability_vms(vuln_id: str) -> Optional[Vulnerability]:
     )
     if not response.items:
         return None
-    return db_model_utils.format_vulnerability(response.items[0])
+    try:
+        return db_model_utils.format_vulnerability(response.items[0])
+    except KeyError:
+        return None
 
 
 async def _get_vulnerability_old(vuln_id: str) -> Vulnerability:
@@ -198,6 +201,10 @@ async def _process_vulnerability(
     if current_vuln.state.status == VulnerabilityStateStatus.DELETED:
         return _log(group_name, finding_id, vuln_id, "DELETED", False)
 
+    vuln_in_vms = await _get_vulnerability_vms(vuln_id)
+    if current_vuln == vuln_in_vms:
+        return _log(group_name, finding_id, vuln_id, "ALREADY_MIGRATED", True)
+
     state_loader = loaders.vulnerability_historic_state
     treatment_loader = loaders.vulnerability_historic_treatment
     verification_loader = loaders.vulnerability_historic_verification
@@ -225,7 +232,6 @@ async def _process_vulnerability(
         zero_risk=historic_zero_risk[-1] if historic_zero_risk else None,
     )
 
-    vuln_in_vms = await _get_vulnerability_vms(vuln_id)
     if current_vuln == vuln_in_vms:
         return _log(group_name, finding_id, vuln_id, "ALREADY_MIGRATED", True)
 
