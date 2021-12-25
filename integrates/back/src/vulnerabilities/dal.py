@@ -9,9 +9,6 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
 )
-from contextlib import (
-    suppress,
-)
 from custom_exceptions import (
     UnavailabilityError,
     VulnNotFound,
@@ -66,16 +63,15 @@ TABLE_NAME: str = "FI_vulnerabilities"
 
 async def add(vulnerability: Vulnerability) -> None:
     """Add vulnerability."""
-    item = format_vulnerability_item(vulnerability)
+    if vulnerability.state.status != VulnerabilityStateStatus.DELETED:
+        await vulns_model.add(vulnerability=vulnerability)
 
+    item = format_vulnerability_item(vulnerability)
     try:
         await dynamodb_ops.put_item(TABLE_NAME, item)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
-
-    if vulnerability.state.status != VulnerabilityStateStatus.DELETED:
-        await vulns_model.add(vulnerability=vulnerability)
 
 
 async def get_by_finding(
@@ -227,6 +223,12 @@ async def update_metadata(
     metadata: VulnerabilityMetadataToUpdate,
     deleted: Optional[bool] = False,
 ) -> None:
+    if not deleted:
+        await vulns_model.update_metadata(
+            finding_id=finding_id,
+            metadata=metadata,
+            vulnerability_id=vulnerability_id,
+        )
     item = format_vulnerability_metadata_item(metadata)
     if item:
         await _update(
@@ -234,13 +236,6 @@ async def update_metadata(
             vuln_id=vulnerability_id,
             data=item,
         )
-    if not deleted:
-        with suppress(VulnNotFound):
-            await vulns_model.update_metadata(
-                finding_id=finding_id,
-                metadata=metadata,
-                vulnerability_id=vulnerability_id,
-            )
 
 
 async def update_state(
@@ -250,25 +245,24 @@ async def update_state(
     vulnerability_id: str,
     state: VulnerabilityState,
 ) -> None:
+    if state.status == VulnerabilityStateStatus.DELETED:
+        # Keep deleted items out of the new model while we define the path
+        # going forward for archived data
+        # details at https://gitlab.com/fluidattacks/product/-/issues/5690
+        await vulns_model.remove(vulnerability_id=vulnerability_id)
+    else:
+        await vulns_model.update_historic_entry(
+            current_entry=current_value,
+            entry=state,
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+        )
     item = format_vulnerability_state_item(state)
     await _append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_state": (item,)},
     )
-    with suppress(VulnNotFound):
-        if state.status == VulnerabilityStateStatus.DELETED:
-            # Keep deleted items out of the new model while we define the path
-            # going forward for archived data
-            # details at https://gitlab.com/fluidattacks/product/-/issues/5690
-            await vulns_model.remove(vulnerability_id=vulnerability_id)
-        else:
-            await vulns_model.update_historic_entry(
-                current_entry=current_value,
-                entry=state,
-                finding_id=finding_id,
-                vulnerability_id=vulnerability_id,
-            )
 
 
 async def update_historic_state(
@@ -277,6 +271,11 @@ async def update_historic_state(
     vulnerability_id: str,
     historic_state: Tuple[VulnerabilityState, ...],
 ) -> None:
+    await vulns_model.update_historic(
+        finding_id=finding_id,
+        historic=historic_state,
+        vulnerability_id=vulnerability_id,
+    )
     await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
@@ -287,12 +286,6 @@ async def update_historic_state(
             ]
         },
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic(
-            finding_id=finding_id,
-            historic=historic_state,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_treatment(
@@ -302,19 +295,18 @@ async def update_treatment(
     vulnerability_id: str,
     treatment: VulnerabilityTreatment,
 ) -> None:
+    await vulns_model.update_historic_entry(
+        current_entry=current_value,
+        entry=treatment,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+    )
     item = format_vulnerability_treatment_item(treatment)
     await _append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_treatment": (item,)},
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic_entry(
-            current_entry=current_value,
-            entry=treatment,
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_historic_treatment(
@@ -324,6 +316,12 @@ async def update_historic_treatment(
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
     deleted: Optional[bool] = False,
 ) -> None:
+    if not deleted:
+        await vulns_model.update_historic(
+            finding_id=finding_id,
+            historic=historic_treatment,
+            vulnerability_id=vulnerability_id,
+        )
     await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
@@ -334,13 +332,6 @@ async def update_historic_treatment(
             ]
         },
     )
-    if not deleted:
-        with suppress(VulnNotFound):
-            await vulns_model.update_historic(
-                finding_id=finding_id,
-                historic=historic_treatment,
-                vulnerability_id=vulnerability_id,
-            )
 
 
 async def update_verification(
@@ -350,19 +341,18 @@ async def update_verification(
     vulnerability_id: str,
     verification: VulnerabilityVerification,
 ) -> None:
+    await vulns_model.update_historic_entry(
+        current_entry=current_value,
+        entry=verification,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+    )
     item = format_vulnerability_verification_item(verification)
     await _append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_verification": (item,)},
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic_entry(
-            current_entry=current_value,
-            entry=verification,
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_historic_verification(
@@ -371,6 +361,11 @@ async def update_historic_verification(
     vulnerability_id: str,
     historic_verification: Tuple[VulnerabilityVerification, ...],
 ) -> None:
+    await vulns_model.update_historic(
+        finding_id=finding_id,
+        historic=historic_verification,
+        vulnerability_id=vulnerability_id,
+    )
     await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
@@ -381,12 +376,6 @@ async def update_historic_verification(
             ]
         },
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic(
-            finding_id=finding_id,
-            historic=historic_verification,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_zero_risk(
@@ -396,19 +385,18 @@ async def update_zero_risk(
     vulnerability_id: str,
     zero_risk: VulnerabilityZeroRisk,
 ) -> None:
+    await vulns_model.update_historic_entry(
+        current_entry=current_value,
+        entry=zero_risk,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+    )
     item = format_vulnerability_zero_risk_item(zero_risk)
     await _append(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         elements={"historic_zero_risk": (item,)},
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic_entry(
-            current_entry=current_value,
-            entry=zero_risk,
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_historic_zero_risk(
@@ -417,6 +405,11 @@ async def update_historic_zero_risk(
     vulnerability_id: str,
     historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
 ) -> None:
+    await vulns_model.update_historic(
+        finding_id=finding_id,
+        historic=historic_zero_risk,
+        vulnerability_id=vulnerability_id,
+    )
     await _update(
         finding_id=finding_id,
         vuln_id=vulnerability_id,
@@ -427,9 +420,3 @@ async def update_historic_zero_risk(
             ]
         },
     )
-    with suppress(VulnNotFound):
-        await vulns_model.update_historic(
-            finding_id=finding_id,
-            historic=historic_zero_risk,
-            vulnerability_id=vulnerability_id,
-        )
