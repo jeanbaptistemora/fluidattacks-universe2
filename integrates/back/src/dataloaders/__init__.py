@@ -1,9 +1,6 @@
 from .event import (
     EventLoader,
 )
-from .finding_vulns import (
-    FindingVulnsTypedLoader,
-)
 from .finding_vulns_non_deleted import (
     FindingVulnsNonDeletedTypedLoader,
 )
@@ -30,14 +27,6 @@ from .organization_tags import (
 )
 from .root_vulns import (
     RootVulnsTypedLoader,
-)
-from .vulnerability import (
-    VulnerabilityHistoricStateLoader,
-    VulnerabilityHistoricTreatmentLoader,
-    VulnerabilityHistoricVerificationLoader,
-    VulnerabilityHistoricZeroRiskLoader,
-    VulnerabilityLoader,
-    VulnerabilityTypedLoader,
 )
 from collections import (
     defaultdict,
@@ -70,6 +59,14 @@ from db_model.toe_lines.get import (
     RootToeLinesLoader,
     ToeLinesLoader,
 )
+from db_model.vulnerabilities.get import (
+    FindingVulnsNewLoader,
+    VulnHistoricStateNewLoader,
+    VulnHistoricTreatmentNewLoader,
+    VulnHistoricVerificationNewLoader,
+    VulnHistoricZeroRiskNewLoader,
+    VulnNewLoader,
+)
 from starlette.requests import (
     Request,
 )
@@ -84,9 +81,9 @@ class Dataloaders(NamedTuple):
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
-    finding_vulns_typed: FindingVulnsNonDeletedTypedLoader  # Migration
-    finding_vulns_all_typed: FindingVulnsTypedLoader  # Migration
-    finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader  # Migration
+    finding_vulns_typed: FindingVulnsNonDeletedTypedLoader
+    finding_vulns_all_typed: FindingVulnsNewLoader
+    finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader
     finding_vulns_zr_typed: FindingVulnsOnlyZeroRiskTypedLoader
     group: GroupLoader
     group_drafts: GroupDraftsLoader
@@ -109,13 +106,11 @@ class Dataloaders(NamedTuple):
     root_vulns_typed: RootVulnsTypedLoader  # Migration
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    vulnerability_typed: VulnerabilityTypedLoader
-    vulnerability_historic_state: VulnerabilityHistoricStateLoader
-    vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
-    vulnerability_historic_verification: (
-        VulnerabilityHistoricVerificationLoader
-    )
-    vulnerability_historic_zero_risk: VulnerabilityHistoricZeroRiskLoader
+    vulnerability_typed: VulnNewLoader
+    vulnerability_historic_state: VulnHistoricStateNewLoader
+    vulnerability_historic_treatment: VulnHistoricTreatmentNewLoader
+    vulnerability_historic_verification: VulnHistoricVerificationNewLoader
+    vulnerability_historic_zero_risk: VulnHistoricZeroRiskNewLoader
 
 
 def apply_context_attrs(
@@ -132,10 +127,8 @@ def get_new_context() -> Dataloaders:
     group_findings_loader = GroupFindingsLoader(
         group_drafts_and_findings_loader
     )
-    vulnerability_loader = VulnerabilityLoader()
 
-    # Migration
-    finding_vulns_typed_loader = FindingVulnsTypedLoader(vulnerability_loader)
+    finding_vulns_typed_loader = FindingVulnsNewLoader()
     finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
         finding_vulns_typed_loader
     )
@@ -176,17 +169,11 @@ def get_new_context() -> Dataloaders:
         root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
-        vulnerability_typed=VulnerabilityTypedLoader(vulnerability_loader),
-        vulnerability_historic_state=VulnerabilityHistoricStateLoader(
-            vulnerability_loader
-        ),
-        vulnerability_historic_treatment=VulnerabilityHistoricTreatmentLoader(
-            vulnerability_loader
-        ),
+        vulnerability_typed=VulnNewLoader(),
+        vulnerability_historic_state=VulnHistoricStateNewLoader(),
+        vulnerability_historic_treatment=VulnHistoricTreatmentNewLoader(),
         vulnerability_historic_verification=(
-            VulnerabilityHistoricVerificationLoader(vulnerability_loader)
+            VulnHistoricVerificationNewLoader()
         ),
-        vulnerability_historic_zero_risk=VulnerabilityHistoricZeroRiskLoader(
-            vulnerability_loader
-        ),
+        vulnerability_historic_zero_risk=VulnHistoricZeroRiskNewLoader(),
     )
