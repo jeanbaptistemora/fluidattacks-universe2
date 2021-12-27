@@ -24,6 +24,10 @@
   "ch.qos.logback:logback-access": {
     "CVE-2017-5929": ">=0.6 <1.2.0"
   },
+  "ch.qos.logback:logback-classic": {
+    "CVE-2017-5929": "<1.2.0",
+    "SNYK-JAVA-CHQOSLOGBACK-31407": ">=0.3 <1.2.0"
+  },
   "ch.qos.logback:logback-core": {
     "CVE-2017-5929": ">=0 <=1.1.10"
   },
@@ -876,6 +880,9 @@
   },
   "javax.faces:jsf-impl": {
     "CVE-2013-5855": ">=1.2_03 <2.0.0"
+  },
+  "javax.servlet:jstl": {
+    "SNYK-JAVA-JAVAXSERVLET-30449": "<=1.2.1"
   },
   "javax.validation:validation-api": {},
   "jenkins.ci.plugins.computerqueue:computer-queue-plugin": {
@@ -3714,6 +3721,17 @@
   },
   "org.vivoweb:vitro-project": {
     "CVE-2019-6986": "1.10.0"
+  },
+  "org.webjars:jquery": {
+    "SNYK-JAVA-ORGWEBJARS-479767": "<1.6.3",
+    "SNYK-JAVA-ORGWEBJARS-479771": ">=1.4.2 <1.6.2",
+    "SNYK-JAVA-ORGWEBJARS-479774": "<3.4.0",
+    "SNYK-JAVA-ORGWEBJARS-479778": ">=1.7.1 <1.9.0",
+    "SNYK-JAVA-ORGWEBJARS-479782": "<1.12.2 || >=1.12.3 <2.2.0 || >=2.2.3 <3.0.0",
+    "SNYK-JAVA-ORGWEBJARS-479786": ">=3.0.0-rc1 <3.0.0",
+    "SNYK-JAVA-ORGWEBJARS-565171": ">=1.0.3 <3.5.0",
+    "SNYK-JAVA-ORGWEBJARS-567882": ">=1.2.0 <3.5.0",
+    "SNYK-JAVA-ORGWEBJARS-569654": "<1.9.0"
   },
   "org.wildfly.openssl:wildfly-openssl": {
     "CVE-2020-25644": ">=0 <1.1.3"
