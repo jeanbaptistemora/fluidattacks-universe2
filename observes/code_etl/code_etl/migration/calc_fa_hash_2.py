@@ -1,6 +1,7 @@
 # pylint: skip-file
 
 from code_etl.client import (
+    all_data_count,
     all_data_raw,
     insert_rows,
 )
@@ -25,6 +26,11 @@ from code_etl.objs import (
 import logging
 from postgres_client.client import (
     Client,
+    ClientFactory,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
 )
 from postgres_client.ids import (
     TableID,
@@ -34,6 +40,9 @@ from purity.v1 import (
 )
 from purity.v1.pure_iter.transform.io import (
     consume,
+)
+from purity.v2.frozen import (
+    FrozenList,
 )
 from returns.io import (
     IO,
@@ -47,10 +56,16 @@ from returns.result import (
     Success,
 )
 from typing import (
+    Any,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
+
+
+def _log_info(msg: str, *args: Any) -> IO[None]:
+    LOG.info(msg, *args)
+    return IO(None)
 
 
 def migrate_commit(
@@ -77,13 +92,19 @@ def migrate_row(
     return reg.lash(lambda _: migrate_commit(row))
 
 
+def _progress(count: int, total: int) -> IO[None]:
+    LOG.info("Migration %s/%s [%s%%]", count, total, (count * 100) // total)
+    return IO(None)
+
+
 def migration(
     client: Client,
     client_2: Client,
-    table: TableID,
+    source: TableID,
+    target: TableID,
 ) -> IO[ResultE[None]]:
     data = (
-        all_data_raw(client, table)
+        all_data_raw(client, source)
         .map(lambda i: i.map(lambda r: r.bind(migrate_row)))
         .chunked(100)
         .map(
@@ -91,17 +112,36 @@ def migration(
                 lambda l: Flattener.result_list(l)
             )
         )
-    )
-    result = data.map(
-        lambda i: i.map(
-            lambda r: r.map(lambda t: tuple(from_row_obj(j) for j in t)).map(
-                lambda n: insert_rows(client_2, table, n)
+        .map(
+            lambda i: i.map(
+                lambda r: r.map(lambda t: tuple(from_row_obj(j) for j in t))
             )
         )
     )
     try:
-        return consume(result.map(lambda a: a.bind(lambda d: d.unwrap()))).map(
-            Success
-        )
+        count = IO(0)
+        total = all_data_count(client, source).map(lambda i: i.unwrap())
+        total.bind(lambda t: _log_info("Total rows: %s", t))
+        for items in data:
+            _items = items.map(lambda i: i.unwrap())
+            pkg_len = _items.map(lambda i: len(i))
+            count = count.bind(lambda c: pkg_len.map(lambda l: c + l))
+            _items.bind(lambda i: insert_rows(client_2, target, i)).bind(
+                lambda _: count.bind(
+                    lambda c: total.map(lambda t: _progress(c, t))
+                )
+            )
+        return IO(Success(None))
     except UnwrapFailedError as err:
         return IO(Failure(err.halted_container.failure()))
+
+
+def start(
+    db_id: DatabaseID,
+    creds: Credentials,
+    source: TableID,
+    target: TableID,
+) -> IO[None]:
+    client = ClientFactory().from_creds(db_id, creds)
+    client2 = ClientFactory().from_creds(db_id, creds)
+    return migration(client, client2, source, target).map(lambda i: i.unwrap())
