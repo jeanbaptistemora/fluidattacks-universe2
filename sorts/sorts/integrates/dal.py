@@ -107,7 +107,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
             query SortsGetToeLines($group_name: String!) {
                 group(groupName: $group_name) {
                     name
-                    toeLines {
+                    toeLines(bePresent:true) {
                         edges {
                             node {
                                 filename
@@ -153,7 +153,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                 query SortsGetToeLines($group_name: String!, $after: String!) {
                     group(groupName: $group_name) {
                         name
-                        toeLines(after: $after) {
+                        toeLines(bePresent:true after: $after) {
                             edges {
                                 node {
                                     filename
