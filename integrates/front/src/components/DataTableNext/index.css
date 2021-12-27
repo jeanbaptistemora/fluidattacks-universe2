@@ -35,7 +35,7 @@
 :local .tableHeader > th {
   text-align: center !important;
   vertical-align: middle !important;
-  font-weight: 400;
+  font-weight: bold;
   padding: 8px;
 }
 
