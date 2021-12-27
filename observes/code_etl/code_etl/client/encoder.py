@@ -21,7 +21,7 @@ from returns.functions import (
 )
 from returns.result import (
     Failure,
-    Result,
+    ResultE,
     Success,
 )
 from typing import (
@@ -99,7 +99,7 @@ def from_objs(
     )
 
 
-def from_raw(raw: RawRow) -> Result[CommitTableRow, TypeError]:
+def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
     try:
         row = CommitTableRow(
             assert_opt_type(raw.author_name, str)

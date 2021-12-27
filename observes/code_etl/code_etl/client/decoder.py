@@ -31,7 +31,7 @@ from returns.functions import (
 )
 from returns.result import (
     Failure,
-    Result,
+    ResultE,
     Success,
 )
 from typing import (
@@ -55,7 +55,7 @@ class RawDecodeError(Exception):
 
 def decode_commit_data(
     raw: FrozenList[Any],
-) -> Result[CommitData, Union[KeyError, TypeError]]:
+) -> ResultE[CommitData]:
     try:
         data = CommitData(
             User(
@@ -84,15 +84,13 @@ def decode_commit_data(
         return Failure(err)
 
 
-def _decode_user(
-    name: Optional[str], email: Optional[str]
-) -> Result[User, TypeError]:
+def _decode_user(name: Optional[str], email: Optional[str]) -> ResultE[User]:
     return assert_not_none(name).bind(
         lambda n: assert_not_none(email).map(lambda e: User(n, e))
     )
 
 
-def decode_deltas(raw: CommitTableRow) -> Result[Deltas, TypeError]:
+def decode_deltas(raw: CommitTableRow) -> ResultE[Deltas]:
     return assert_not_none(raw.total_insertions).bind(
         lambda i: assert_not_none(raw.total_deletions).bind(
             lambda d: assert_not_none(raw.total_lines).bind(
@@ -106,7 +104,7 @@ def decode_deltas(raw: CommitTableRow) -> Result[Deltas, TypeError]:
 
 def decode_commit_data_2(
     raw: CommitTableRow,
-) -> Result[CommitData, Union[KeyError, TypeError]]:
+) -> ResultE[CommitData]:
     author = _decode_user(raw.author_name, raw.author_email).bind(
         lambda u: assert_not_none(raw.authored_at).map(lambda d: (u, d))
     )
@@ -131,7 +129,7 @@ def decode_commit_data_2(
 
 def decode_commit_data_id(
     raw: CommitTableRow,
-) -> Result[CommitDataId, Union[KeyError, TypeError]]:
+) -> ResultE[CommitDataId]:
     return assert_not_none(raw.fa_hash).map(
         lambda fa: CommitDataId(
             raw.namespace, raw.repository, CommitId(raw.hash, fa)
@@ -141,7 +139,7 @@ def decode_commit_data_id(
 
 def decode_commit_stamp(
     raw: CommitTableRow,
-) -> Result[CommitStamp, Union[KeyError, TypeError]]:
+) -> ResultE[CommitStamp]:
     return (
         decode_commit_data_id(raw)
         .bind(lambda i: decode_commit_data_2(raw).map(lambda j: Commit(i, j)))
@@ -151,7 +149,7 @@ def decode_commit_stamp(
 
 def decode_repo_registration(
     raw: CommitTableRow,
-) -> Result[RepoRegistration, Union[KeyError, TypeError]]:
+) -> ResultE[RepoRegistration]:
     if raw.hash != COMMIT_HASH_SENTINEL:
         return Failure(TypeError("Not a RepoRegistration object"))
     return Success(
@@ -168,8 +166,8 @@ def decode_repo_registration(
 
 def decode_commit_table_row(
     raw: CommitTableRow,
-) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
-    reg: Result[
-        Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]
+) -> ResultE[Union[CommitStamp, RepoRegistration]]:
+    reg: ResultE[
+        Union[CommitStamp, RepoRegistration]
     ] = decode_repo_registration(raw)
     return reg.lash(lambda _: decode_commit_stamp(raw))

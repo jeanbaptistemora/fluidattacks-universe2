@@ -19,7 +19,7 @@ from code_etl.objs import (
 )
 import logging
 from returns.result import (
-    Result,
+    ResultE,
 )
 from typing import (
     Union,
@@ -30,7 +30,7 @@ LOG = logging.getLogger(__name__)
 
 def migrate_commit(
     raw: CommitTableRow,
-) -> Result[CommitStamp, Union[KeyError, TypeError]]:
+) -> ResultE[CommitStamp]:
     data = decode_commit_data_2(raw)
     _id = data.map(
         lambda cd: CommitDataId(
@@ -45,8 +45,8 @@ def migrate_commit(
 
 def migrate_row(
     row: CommitTableRow,
-) -> Result[Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]]:
-    reg: Result[
-        Union[CommitStamp, RepoRegistration], Union[KeyError, TypeError]
+) -> ResultE[Union[CommitStamp, RepoRegistration]]:
+    reg: ResultE[
+        Union[CommitStamp, RepoRegistration]
     ] = decode_repo_registration(row)
     return reg.lash(lambda _: migrate_commit(row))

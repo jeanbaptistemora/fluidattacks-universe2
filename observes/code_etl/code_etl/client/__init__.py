@@ -8,6 +8,8 @@ from code_etl.client._assert import (
     assert_type,
 )
 from code_etl.client.encoder import (
+    CommitTableRow,
+    from_raw,
     RawRow,
 )
 import logging
@@ -37,43 +39,34 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from returns.pointfree import (
-    unify,
-)
 from returns.result import (
-    Result,
-)
-from typing import (
-    Any,
-    Union,
+    ResultE,
 )
 
 LOG = logging.getLogger(__name__)
 
 
-def _assert_int(j: Any) -> Result[int, TypeError]:
-    return assert_type(j, int)
-
-
-def all_data_count(
-    client: Client, table: TableID
-) -> IO[Result[int, Union[KeyError, TypeError]]]:
+def all_data_count(client: Client, table: TableID) -> IO[ResultE[int]]:
     return client.cursor.execute_query(query.all_data_count(table)).bind(
         lambda _: client.cursor.fetch_one().map(
-            lambda i: unify(_assert_int)(assert_key(i, 0))
+            lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
         )
     )
 
 
-def _fetch(client: Client, chunk: int) -> IO[Maybe[FrozenList[RawRow]]]:
+def _fetch(
+    client: Client, chunk: int
+) -> IO[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
     return client.cursor.fetch_many(chunk).map(
         lambda rows: Maybe.from_optional(
-            tuple(RawRow(*r) for r in rows) if rows else None
+            tuple(from_raw(RawRow(*r)) for r in rows) if rows else None
         )
     )
 
 
-def all_data_raw(client: Client, table: TableID) -> PureIter[IO[RawRow]]:
+def all_data_raw(
+    client: Client, table: TableID
+) -> PureIter[IO[ResultE[CommitTableRow]]]:
     pkg_items = 2000
     client.cursor.execute_query(query.all_data(table))
     items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
