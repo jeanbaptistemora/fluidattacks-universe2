@@ -23302,38 +23302,83 @@
   en:
     title: Insecure authentication method - LDAP
     description: >
-      _empty_
+      The use of LDAP software in its current state is
+      not suitable as an authentication service.
+      LDAP is an active directory, this means that it
+      (the LDAP server) is constantly being inundated
+      with new queries.
+      An authentication service should never have more
+      traffic than necessary.
+
+      Passwords can be sent over networks in plain-text.
+      Although v3 of the protocol allows TLS sessions,
+      the use of such security has not fully carried over
+      due to historic security policies using the obsolete
+      SSL-session method, which can be easily compromised
+      by SSL certificate spoofing.
     impact: >
-      _empty_
+      DoS attack exploiting the TCP three-way handshake
+      required when initializing a connection to an LDAP server.
     recommendation: >
-      _empty_
+      - LDAP had to incorporate the use of SSL to provide
+      encryption of traffic containing plain-text passwords.
+
+      - Bind all blind authentication connections to a second physical LDAP
+      server that is a clone of the directory tree for the scope
+      of a blind authentication.
+
+      - If allowing connections from the Internet, only allow
+      blind authentication.
     threat: >
-      _empty_
+      Unauthorized attacker from intranet.
   category: Protocol Manipulation
   es:
     title: Insecure authentication method - LDAP
     description: >
-      _empty_
+      El uso del software LDAP en su estado actual no es
+      adecuado como servicio de autenticación.
+      LDAP es un directorio activo, esto significa que (el servidor LDAP)
+      está constantemente inundado de nuevas consultas.
+      Un servicio de autenticación nunca debería tener
+      más tráfico del necesario.
+
+      Las contraseñas pueden enviarse a través de
+      las redes en texto plano.
+      Aunque la v3 del protocolo permite las sesiones TLS,
+      el uso de dicha seguridad no se ha trasladado del
+      todo debido a las políticas de seguridad históricas
+      que utilizan el obsoleto método de la sesión SSL,
+      que puede verse fácilmente comprometido por la
+      suplantación del certificado SSL.
     impact: >
-      _empty_
+      Ataque DoS que explota el handshake TCP de tres vías
+      requerido al inicializar una conexión a un servidor LDAP.
     recommendation: >
-      _empty_
+      - LDAP tuvo que incorporar el uso de SSL para proporcionar
+      encriptación del tráfico que contiene contraseñas de texto plano.
+
+      - Enlaza todas las conexiones de autenticación ciega a un
+      segundo servidor LDAP físico que es un clon del árbol de
+      directorios para el ámbito de una autenticación ciega.
+
+      - Si se permiten conexiones desde Internet, sólo
+      permita la autenticación ciega.
     threat: >
-      _empty_
+      Atacante no autorizado desde intranet.
   score:
     base:
-      attack_vector: "A"
+      attack_vector: "N"
       attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "R"
+      user_interaction: "N"
       scope: "U"
       confidentiality: "L"
       integrity: "L"
-      availability: "N"
+      availability: "L"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "C"
+      report_confidence: "X"
   requirements: ["228", "319"]
   metadata:
     en:
