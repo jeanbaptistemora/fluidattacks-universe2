@@ -111,7 +111,9 @@ function execute_skims_combination {
 
   for check in $(echo "${CHECKS}" | jq -r '.[] | @base64'); do
     check="$(echo "${check}" | base64 --decode)" \
-      && checks=("${checks[@]}" "${check}")
+      && if skims_should_run "${group}" "${namespace}" "${check}"; then
+        checks=("${checks[@]}" "${check}")
+      fi
   done \
     && if test -e "groups/${group}/fusion/${namespace}"; then
       skims_rebase "${group}" "${namespace}" \
@@ -148,7 +150,6 @@ function main {
   export -f aws_s3_sync
 
   local parallel_args=()
-  local result_logs="/var/log/skims"
 
   check_cli_arg 1 group "${group}" \
     && shopt -s nullglob \
@@ -161,10 +162,6 @@ function main {
     && use_git_repo_services \
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
-    && if test -d "${result_logs}"; then
-      echo "The logs will be saved in the route ${result_logs}" \
-        && parallel_args+=(--result "${result_logs}/${group}/")
-    fi \
     && parallel "${parallel_args[@]}" execute_skims_combination "${group}" ::: "${roots}" \
     && skims_cache push "${group}" \
     && popd \
