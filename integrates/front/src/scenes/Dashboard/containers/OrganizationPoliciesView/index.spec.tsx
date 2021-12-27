@@ -115,6 +115,13 @@ describe("Organization policies view", (): void => {
     expect(
       wrapper.find({ name: "minBreakingSeverity" }).find("input").prop("value")
     ).toBe("0.0");
+
+    expect(
+      wrapper
+        .find({ name: "vulnerabilityGracePeriod" })
+        .find("input")
+        .prop("value")
+    ).toBe("1");
   });
 
   it("should render an error message", async (): Promise<void> => {
@@ -192,7 +199,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 4,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
-            vulnerabilityGracePeriod: 1,
+            vulnerabilityGracePeriod: 2,
           },
         },
         result: {
@@ -220,7 +227,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 0,
               minBreakingSeverity: 4,
               name: "okada",
-              vulnerabilityGracePeriod: 1,
+              vulnerabilityGracePeriod: 2,
             },
           },
         },
@@ -267,6 +274,9 @@ describe("Organization policies view", (): void => {
     const minBreakingSeverity: ReactWrapper = wrapper
       .find({ name: "minBreakingSeverity" })
       .find("input");
+    const vulnerabilityGracePeriod: ReactWrapper = wrapper
+      .find({ name: "vulnerabilityGracePeriod" })
+      .find("input");
     const saveButton1: ReactWrapper = wrapper
       .find("button")
       .filterWhere((element: ReactWrapper): boolean => element.contains("Save"))
@@ -288,6 +298,9 @@ describe("Organization policies view", (): void => {
     });
     minBreakingSeverity.simulate("change", {
       target: { name: "minBreakingSeverity", value: "4" },
+    });
+    vulnerabilityGracePeriod.simulate("change", {
+      target: { name: "vulnerabilityGracePeriod", value: "2" },
     });
 
     await act(async (): Promise<void> => {
@@ -538,6 +551,28 @@ describe("Organization policies view", (): void => {
           errors: [
             new GraphQLError(
               "Exception - Severity value must be between 0.0 and 10.0"
+            ),
+          ],
+        },
+      },
+      {
+        request: {
+          query: UPDATE_ORGANIZATION_POLICIES,
+          variables: {
+            maxAcceptanceDays: 1,
+            maxAcceptanceSeverity: 7.5,
+            maxNumberAcceptances: 2,
+            minAcceptanceSeverity: 3,
+            minBreakingSeverity: 3,
+            organizationId: mockProps.organizationId,
+            organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - Vulnerability grace period value should be a positive integer"
             ),
           ],
         },
