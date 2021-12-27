@@ -187,6 +187,13 @@
     "CVE-2021-39208": ">=0 <0.29.0",
     "GHSA-jp7f-grcv-6mjf": ">=0 <0.29.0"
   },
+  "system.net.http": {
+    "CVE-2017-0247": "4.1.1 || 4.3.1",
+    "CVE-2017-0249": "4.1.1 || 4.3.1",
+    "CVE-2017-0256": "4.1.1 || 4.3.1",
+    "SNYK-DOTNET-SYSTEMNETHTTP-60046": "<4.1.2 || >=4.3 <4.3.2",
+    "SNYK-DOTNET-SYSTEMNETHTTP-72899": ">=2.1.0 <2.1.7 || >=2.2.0 <2.2.1"
+  },
   "system.net.websockets.client": {
     "CVE-2017-0247": "4.0.0 || 4.3.0",
     "CVE-2017-0249": "4.0.0 || 4.3.0",
@@ -195,6 +202,9 @@
   },
   "system.servicemodel.primitives": {
     "SNYK-DOTNET-SYSTEMSERVICEMODELPRIMITIVES-60253": ">=4.0.0 <4.1.2 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
+  },
+  "system.text.regularexpressions": {
+    "SNYK-DOTNET-SYSTEMTEXTREGULAREXPRESSIONS-174708": ">=4.3.0 <4.3.1"
   },
   "tinymce": {
     "CVE-2020-12648": ">=0 <4.9.11 || >=5.0.0 <5.4.1",
