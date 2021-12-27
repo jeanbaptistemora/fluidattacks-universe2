@@ -2,6 +2,11 @@
   "ajaxcontroltoolkit": {
     "CVE-2015-4670": "<=15.0"
   },
+  "angularjs": {
+    "CVE-2019-10768": "<1.7.9",
+    "CVE-2019-14863": ">=1.0.0 <=1.4.14",
+    "CVE-2020-7676": "<1.8.0"
+  },
   "bootstrap": {
     "CVE-2016-10735": ">=3.0.0 <3.4.0",
     "CVE-2018-14040": "<3.4.0 || >=4.0.0 <4.1.2",
@@ -56,6 +61,10 @@
     "CVE-2020-11023": ">=1.0.3 <3.5.0",
     "SNYK-DOTNET-JQUERY-450227": "<1.12.2 || >=1.12.3 <2.2.2 || >=2.2.3 <3.0.0",
     "SNYK-DOTNET-JQUERY-60119": "<3.0.0"
+  },
+  "jquery.ui.combined": {
+    "NYK-DOTNET-JQUERYUICOMBINED-449591": "<1.12.0",
+    "SNYK-DOTNET-JQUERYUICOMBINED-60230": "<1.10.0"
   },
   "jquery.validation": {
     "SNYK-DOTNET-JQUERYVALIDATION-1056869": "<1.19.3"
@@ -134,6 +143,9 @@
   },
   "microsoft.identitymodel.tokens": {
     "SNYK-DOTNET-MICROSOFTIDENTITYMODELTOKENS-60016": "<5.1.1"
+  },
+  "moment.js": {
+    "CVE-2017-18214": "<=2.19.2"
   },
   "nasm": {
     "CVE-2020-18974": ">=2.15 <=2.15.05",
