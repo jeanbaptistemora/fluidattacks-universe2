@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 
 import type { IQueue } from "./types";
 
@@ -11,7 +11,10 @@ import { translate } from "utils/translations/translate";
 const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
   const { rootNicknames, onClose, onSubmit } = props;
 
+  const [isJobSubmitted, setJObSubmitted] = useState(false);
+
   async function handleSubmit(values: Record<string, unknown>): Promise<void> {
+    setJObSubmitted(true);
     const nicknames = Object.keys(values);
     await onSubmit(nicknames);
     onClose();
@@ -39,7 +42,11 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button id={"submit-job"} type={"submit"}>
+                    <Button
+                      disabled={isJobSubmitted}
+                      id={"submit-job"}
+                      type={"submit"}
+                    >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
                   </ButtonToolbar>

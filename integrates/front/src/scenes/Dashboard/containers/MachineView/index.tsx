@@ -1,13 +1,14 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import { faClock, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB } from "./queries";
+import { Queue } from "./queue";
 import type {
   IFindingMachineJob,
   IFindingMachineJobs,
@@ -16,10 +17,11 @@ import type {
   ITableRow,
 } from "./types";
 
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromUnix } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { DropdownButton, MenuItem } from "components/DropdownButton";
+import { Modal } from "components/Modal";
 import { ButtonToolbarCenter } from "styles/styledComponents";
 import { formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
@@ -73,6 +75,14 @@ const MachineView: React.FC = (): JSX.Element => {
       onError: handleOnError,
     }
   );
+
+  const [isQueueModalOpen, setQueueModalOpen] = useState(false);
+  const closeQueueModal: () => void = useCallback((): void => {
+    setQueueModalOpen(false);
+  }, []);
+  function openQueueModal(): void {
+    setQueueModalOpen(true);
+  }
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -137,53 +147,27 @@ const MachineView: React.FC = (): JSX.Element => {
         })
       );
 
-  const submitJobOnClick = (rootNickname: string): void => {
-    void submitMachineJob({ variables: { findingId, rootNickname } });
-  };
+  async function submitJobOnClick(
+    roots: string[]
+  ): Promise<FetchResult<ISubmitMachineJobResult>> {
+    return submitMachineJob({
+      variables: { findingId, rootNicknames: roots },
+    });
+  }
 
   const isLoading: boolean =
     submittingMachineJob || dataNS === NetworkStatus.refetch;
 
   return (
     <React.StrictMode>
-      <ButtonToolbarCenter hidden={true}>
-        {isLoading ? (
-          <DropdownButton
-            content={
-              <div className={"tc"}>
-                <FontAwesomeIcon icon={faClock} />
-                &nbsp;
-                {translate.t("searchFindings.tabMachine.submitting")}
-              </div>
-            }
-            id={"submitJob"}
-            items={[]}
-            scrollInto={true}
-          />
-        ) : (
-          <DropdownButton
-            content={
-              <div className={"tc w5"}>
-                <FontAwesomeIcon icon={faRocket} />
-                &nbsp;
-                {translate.t("searchFindings.tabMachine.submitJob")}
-              </div>
-            }
-            id={"submitJob"}
-            items={rootNicknames.map(
-              (nickname: string): JSX.Element => (
-                <MenuItem
-                  eventKey={nickname}
-                  itemContent={<span>{nickname}</span>}
-                  key={nickname}
-                  // eslint-disable-next-line react/jsx-no-bind
-                  onClick={submitJobOnClick}
-                />
-              )
-            )}
-            scrollInto={true}
-          />
-        )}
+      <ButtonToolbarCenter>
+        <Button disabled={isLoading} id={"submitJob"} onClick={openQueueModal}>
+          <div className={"tc w5"}>
+            <FontAwesomeIcon icon={isLoading ? faClock : faRocket} />
+            &nbsp;
+            {translate.t("searchFindings.tabMachine.submitJob")}
+          </div>
+        </Button>
       </ButtonToolbarCenter>
 
       <DataTableNext
@@ -195,6 +179,18 @@ const MachineView: React.FC = (): JSX.Element => {
         pageSize={1000}
         search={false}
       />
+      <Modal
+        headerTitle={"Queue Job"}
+        onEsc={closeQueueModal}
+        open={isQueueModalOpen}
+        size={"mediumModal"}
+      >
+        <Queue
+          onClose={closeQueueModal}
+          onSubmit={submitJobOnClick}
+          rootNicknames={rootNicknames}
+        />
+      </Modal>
     </React.StrictMode>
   );
 };

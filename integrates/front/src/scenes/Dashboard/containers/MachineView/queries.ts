@@ -30,8 +30,8 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
 `;
 
 const SUBMIT_MACHINE_JOB: DocumentNode = gql`
-  mutation SubmitMachineJob($findingId: String!, $rootNickname: String!) {
-    submitMachineJob(findingId: $findingId, rootNickname: $rootNickname) {
+  mutation SubmitMachineJob($findingId: String!, $rootNicknames: [String!]!) {
+    submitMachineJob(findingId: $findingId, rootNicknames: $rootNicknames) {
       success
     }
   }
