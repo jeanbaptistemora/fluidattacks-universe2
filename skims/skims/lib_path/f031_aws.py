@@ -704,6 +704,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_iam_user_missing_role_based_security(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])

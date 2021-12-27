@@ -3362,6 +3362,102 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   127 |                 {
       ^ Col 0
 ",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,23,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
+  13 |           - Effect: Allow
+  14 |             Action:
+  15 |             - sqs:*
+  16 |             Resource:
+  17 |             - !GetAtt myqueue.Arn
+  18 |           - Effect: Deny
+  19 |             Action:
+  20 |             - sqs:*
+  21 |             NotResource:
+  22 |             - !GetAtt myqueue.Arn
+> 23 |       - PolicyName: giveaccesstotopiconly
+  24 |         PolicyDocument:
+  25 |           Version: '2012-10-17'
+  26 |           Statement:
+  27 |           - Effect: Allow
+  28 |             Action:
+  29 |             - sns:*
+  30 |             Resource:
+  31 |             - !Ref mytopic
+  32 |           - Effect: Deny
+  33 |             Action:
+     ^ Col 0
+",f031_aws._cfn_iam_user_missing_role_based_security
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,9,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
+   1 | Resources:
+   2 |   myuser:
+   3 |     Type: AWS::IAM::User
+   4 |     Properties:
+   5 |       Path: ""/""
+   6 |       LoginProfile:
+   7 |         Password: myP@ssW0rd
+   8 |       Policies:
+>  9 |       - PolicyName: giveaccesstoqueueonly
+  10 |         PolicyDocument:
+  11 |           Version: '2012-10-17'
+  12 |           Statement:
+  13 |           - Effect: Allow
+  14 |             Action:
+  15 |             - sqs:*
+  16 |             Resource:
+  17 |             - !GetAtt myqueue.Arn
+  18 |           - Effect: Deny
+  19 |             Action:
+  20 |             - sqs:*
+  21 |             NotResource:
+     ^ Col 0
+",f031_aws._cfn_iam_user_missing_role_based_security
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,12,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""myuser"": {
+   4 |       ""Type"": ""AWS::IAM::User"",
+   5 |       ""Properties"": {
+   6 |         ""Path"": ""/"",
+   7 |         ""LoginProfile"": {
+   8 |           ""Password"": ""myP@ssW0rd""
+   9 |         },
+  10 |         ""Policies"": [
+  11 |           {
+> 12 |             ""PolicyName"": ""giveaccesstoqueueonly"",
+  13 |             ""PolicyDocument"": {
+  14 |               ""Version"": ""2012-10-17"",
+  15 |               ""Statement"": [
+  16 |                 {
+  17 |                   ""Effect"": ""Allow"",
+  18 |                   ""Action"": [
+  19 |                     ""sqs:*""
+  20 |                   ],
+  21 |                   ""Resource"": [
+  22 |                     {
+     ^ Col 0
+",f031_aws._cfn_iam_user_missing_role_based_security
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,48,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,"
+  38 |                         ""myqueue"",
+  39 |                         ""Arn""
+  40 |                       ]
+  41 |                     }
+  42 |                   ]
+  43 |                 }
+  44 |               ]
+  45 |             }
+  46 |           },
+  47 |           {
+> 48 |             ""PolicyName"": ""giveaccesstotopiconly"",
+  49 |             ""PolicyDocument"": {
+  50 |               ""Version"": ""2012-10-17"",
+  51 |               ""Statement"": [
+  52 |                 {
+  53 |                   ""Effect"": ""Allow"",
+  54 |                   ""Action"": [
+  55 |                     ""sns:*""
+  56 |                   ],
+  57 |                   ""Resource"": [
+  58 |                     {
+     ^ Col 0
+",f031_aws._cfn_iam_user_missing_role_based_security
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
   30 |           - Action:
   31 |               - ""s3:DeleteObject""
