@@ -43,7 +43,7 @@ def insert_row(table: TableID) -> Query:
     _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
     values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
     return Query(
-        f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES {values}",
+        f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values})",
         SqlArgs(
             identifiers={
                 "schema": table.schema.name,

@@ -103,7 +103,7 @@ def migration(
     data = (
         all_data_raw(client, source)
         .map(lambda i: i.map(lambda r: r.bind(migrate_row)))
-        .chunked(100)
+        .chunked(2000)
         .map(
             lambda i: Flattener.list_io(tuple(i)).map(
                 lambda l: Flattener.result_list(l)
@@ -117,7 +117,7 @@ def migration(
     )
     try:
         count = IO(0)
-        total = all_data_count(client, source).map(lambda i: i.unwrap())
+        total = all_data_count(client_2, source).map(lambda i: i.unwrap())
         total.bind(lambda t: _log_info("Total rows: %s", t))
         for items in data:
             _items = items.map(lambda i: i.unwrap())
