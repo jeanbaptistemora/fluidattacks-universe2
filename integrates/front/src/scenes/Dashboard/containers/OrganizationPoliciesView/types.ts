@@ -9,6 +9,7 @@ interface IPoliciesFormData {
   maxAcceptanceSeverity: string;
   maxNumberAcceptances: string;
   minAcceptanceSeverity: string;
+  vulnerabilityGracePeriod: string;
   minBreakingSeverity: string;
 }
 
@@ -20,6 +21,7 @@ interface IOrganizationPoliciesData {
     maxNumberAcceptances: string;
     minAcceptanceSeverity: string;
     minBreakingSeverity: string;
+    vulnerabilityGracePeriod: string;
     name: string;
   };
 }

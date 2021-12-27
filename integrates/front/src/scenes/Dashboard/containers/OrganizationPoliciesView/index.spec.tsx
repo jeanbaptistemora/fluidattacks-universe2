@@ -34,7 +34,7 @@ describe("Organization policies view", (): void => {
     organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
   };
 
-  const orgPolicyTableRows: number = 5;
+  const orgPolicyTableRows: number = 6;
 
   it("should return a  function", (): void => {
     expect.hasAssertions();
@@ -63,6 +63,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 0,
               minBreakingSeverity: 0,
               name: "okada",
+              vulnerabilityGracePeriod: 1,
             },
           },
         },
@@ -175,6 +176,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 3,
               minBreakingSeverity: 1,
               name: "okada",
+              vulnerabilityGracePeriod: 1,
             },
           },
         },
@@ -190,6 +192,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 4,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -217,6 +220,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 0,
               minBreakingSeverity: 4,
               name: "okada",
+              vulnerabilityGracePeriod: 1,
             },
           },
         },
@@ -345,6 +349,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 3,
               minBreakingSeverity: 3,
               name: "okada",
+              vulnerabilityGracePeriod: 1,
             },
           },
         },
@@ -422,6 +427,7 @@ describe("Organization policies view", (): void => {
               minAcceptanceSeverity: 3,
               minBreakingSeverity: 3,
               name: "okada",
+              vulnerabilityGracePeriod: 1,
             },
           },
         },
@@ -437,6 +443,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -458,6 +465,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -479,6 +487,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -500,6 +509,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -521,6 +531,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {
@@ -542,6 +553,7 @@ describe("Organization policies view", (): void => {
             minBreakingSeverity: 3,
             organizationId: mockProps.organizationId,
             organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
           },
         },
         result: {

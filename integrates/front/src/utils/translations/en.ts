@@ -1062,6 +1062,8 @@ export const enTranslations: ResourceKey = {
             "Maximum acceptance days should be a positive integer between 0 and 180",
           maxNumberAcceptances:
             "Maximum number of acceptances should be a positive integer",
+          vulnerabilityGracePeriod:
+            "Maximum acceptance days should be a positive integer",
         },
         findings: {
           addPolicies: {

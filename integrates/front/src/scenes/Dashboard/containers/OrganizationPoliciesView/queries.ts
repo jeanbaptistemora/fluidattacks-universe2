@@ -16,6 +16,7 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
       maxNumberAcceptances
       minAcceptanceSeverity
       minBreakingSeverity
+      vulnerabilityGracePeriod
       name
     }
   }
@@ -28,6 +29,7 @@ const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
     $maxNumberAcceptances: Int
     $minAcceptanceSeverity: Float
     $minBreakingSeverity: Float
+    $vulnerabilityGracePeriod: Int
     $organizationId: String!
     $organizationName: String!
   ) {
@@ -37,6 +39,7 @@ const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
       maxNumberAcceptances: $maxNumberAcceptances
       minAcceptanceSeverity: $minAcceptanceSeverity
       minBreakingSeverity: $minBreakingSeverity
+      vulnerabilityGracePeriod: $vulnerabilityGracePeriod
       organizationId: $organizationId
       organizationName: $organizationName
     ) {

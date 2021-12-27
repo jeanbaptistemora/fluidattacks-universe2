@@ -78,6 +78,13 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       onError: (error: ApolloError): void => {
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
+            case "Exception - Vulnerability grace period value should be a positive integer":
+              msgError(
+                translate.t(
+                  "organization.tabs.policies.errors.vulnerabilityGracePeriod"
+                )
+              );
+              break;
             case "Exception - Acceptance days should be a positive integer":
               msgError(
                 translate.t(
@@ -179,6 +186,105 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       policy: (
         <p>
           {translate.t(
+            "organization.tabs.policies.policies.maxNumberAcceptances"
+          )}
+        </p>
+      ),
+      recommended: (
+        <p className={style.recommended}>
+          {translate.t(
+            "organization.tabs.policies.recommended.numberAcceptances"
+          )}
+        </p>
+      ),
+      value: (
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"maxNumberAcceptances"}
+              type={"text"}
+              validate={composeValidators([isPositive, numeric])}
+            />
+          )}
+        </Can>
+      ),
+    },
+    {
+      policy: (
+        <p>
+          {translate.t(
+            "organization.tabs.policies.policies.vulnerabilityGracePeriod"
+          )}
+        </p>
+      ),
+      recommended: (
+        <p className={style.recommended}>
+          {translate.t(
+            "organization.tabs.policies.recommended.vulnerabilityGracePeriod"
+          )}
+        </p>
+      ),
+      value: (
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"vulnerabilityGracePeriod"}
+              type={"text"}
+              validate={composeValidators([isPositive, numeric])}
+            />
+          )}
+        </Can>
+      ),
+    },
+    {
+      policy: (
+        <p>
+          {translate.t(
+            "organization.tabs.policies.policies.minBreakingSeverity"
+          )}
+        </p>
+      ),
+      recommended: (
+        <p className={style.recommended}>
+          {translate.t(
+            "organization.tabs.policies.recommended.breakableSeverity"
+          )}
+        </p>
+      ),
+      value: (
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"minBreakingSeverity"}
+              type={"text"}
+              validate={composeValidators([
+                isFloatOrInteger,
+                numberBetween(minSeverity, maxSeverity),
+              ])}
+            />
+          )}
+        </Can>
+      ),
+    },
+    {
+      policy: (
+        <p>
+          {translate.t(
             "organization.tabs.policies.policies.acceptanceSeverityRange"
           )}
         </p>
@@ -239,73 +345,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </div>
       ),
     },
-    {
-      policy: (
-        <p>
-          {translate.t(
-            "organization.tabs.policies.policies.maxNumberAcceptances"
-          )}
-        </p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.numberAcceptances"
-          )}
-        </p>
-      ),
-      value: (
-        <Can
-          do={"api_mutations_update_organization_policies_mutate"}
-          passThrough={true}
-        >
-          {(canEdit: boolean): JSX.Element => (
-            <Field
-              component={FormikText}
-              disabled={!canEdit}
-              name={"maxNumberAcceptances"}
-              type={"text"}
-              validate={composeValidators([isPositive, numeric])}
-            />
-          )}
-        </Can>
-      ),
-    },
-    {
-      policy: (
-        <p>
-          {translate.t(
-            "organization.tabs.policies.policies.minBreakingSeverity"
-          )}
-        </p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.breakableSeverity"
-          )}
-        </p>
-      ),
-      value: (
-        <Can
-          do={"api_mutations_update_organization_policies_mutate"}
-          passThrough={true}
-        >
-          {(canEdit: boolean): JSX.Element => (
-            <Field
-              component={FormikText}
-              disabled={!canEdit}
-              name={"minBreakingSeverity"}
-              type={"text"}
-              validate={composeValidators([
-                isFloatOrInteger,
-                numberBetween(minSeverity, maxSeverity),
-              ])}
-            />
-          )}
-        </Can>
-      ),
-    },
   ];
 
   const handleFormSubmit = useCallback(
@@ -319,6 +358,10 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           minBreakingSeverity: parseFloat(values.minBreakingSeverity),
           organizationId,
           organizationName: organizationName.toLowerCase(),
+          vulnerabilityGracePeriod: parseInt(
+            values.vulnerabilityGracePeriod,
+            10
+          ),
         },
       });
     },
@@ -355,6 +398,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             : parseFloat(data.organization.minBreakingSeverity)
                 .toFixed(1)
                 .toString(),
+          vulnerabilityGracePeriod: _.isNull(
+            data.organization.vulnerabilityGracePeriod
+          )
+            ? ""
+            : data.organization.vulnerabilityGracePeriod.toString(),
         }}
         name={"orgPolicies"}
         onSubmit={handleFormSubmit}
