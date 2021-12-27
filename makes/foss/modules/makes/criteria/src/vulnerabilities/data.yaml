@@ -23298,3 +23298,43 @@
   metadata:
     en:
       details: __empty__
+"397":
+  en:
+    title: Insecure authentication method - LDAP
+    description: >
+      _empty_
+    impact: >
+      _empty_
+    recommendation: >
+      _empty_
+    threat: >
+      _empty_
+  category: Protocol Manipulation
+  es:
+    title: Insecure authentication method - LDAP
+    description: >
+      _empty_
+    impact: >
+      _empty_
+    recommendation: >
+      _empty_
+    threat: >
+      _empty_
+  score:
+    base:
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["228", "319"]
+  metadata:
+    en:
+      details: __empty__
