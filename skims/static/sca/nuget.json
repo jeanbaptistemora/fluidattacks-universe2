@@ -137,6 +137,12 @@
     "CVE-2020-17054": ">=1.11.0 <1.11.23",
     "CVE-2020-17131": ">=0 <1.11.0"
   },
+  "microsoft.data.odata": {
+    "SNYK-DOTNET-MICROSOFTDATAODATA-72486": "<5.8.4"
+  },
+  "microsoft.identitymodel": {
+    "CVE-2019-1006": "7.0.0"
+  },
   "microsoft.identitymodel.clients.activedirectory": {
     "CVE-2019-1258": ">=5.0.0 <=5.1.1",
     "GHSA-xc6x-cq47-9chw": ">=5.0.0 <=5.1.1"
@@ -186,6 +192,9 @@
     "CVE-2017-0249": "4.0.0 || 4.3.0",
     "CVE-2017-0256": "4.0.0 || 4.3.0",
     "SNYK-DOTNET-SYSTEMNETWEBSOCKETSCLIENT-60102": "<4.0.1 || >=4.3 <4.3.1"
+  },
+  "system.servicemodel.primitives": {
+    "SNYK-DOTNET-SYSTEMSERVICEMODELPRIMITIVES-60253": ">=4.0.0 <4.1.2 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
   },
   "tinymce": {
     "CVE-2020-12648": ">=0 <4.9.11 || >=5.0.0 <5.4.1",
