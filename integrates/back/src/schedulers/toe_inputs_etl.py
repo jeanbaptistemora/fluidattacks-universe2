@@ -41,9 +41,14 @@ import tempfile
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
+from toe.inputs.types import (
+    ToeInputAttributesToAdd,
+    ToeInputAttributesToUpdate,
+)
 from typing import (
     Any,
     Callable,
+    Dict,
     List,
     Optional,
     Set,
@@ -85,7 +90,7 @@ def _format_email(email: str) -> str:
 
 def _get_group_toe_inputs_from_cvs(
     inputs_csv_path: str, group: Group, group_roots: Tuple[RootItem, ...]
-) -> Set[ToeInput]:
+) -> Dict[int, ToeInput]:
     inputs_csv_fields: List[Tuple[str, Callable, Any]] = [
         # field_name, field_formater, field_default_value
         ("commit", str, ""),
@@ -97,7 +102,7 @@ def _get_group_toe_inputs_from_cvs(
         ("verified", str, ""),
         ("vulns", str, ""),
     ]
-    group_toe_inputs = set()
+    group_toe_inputs: Set[ToeInput] = set()
     with open(  # pylint: disable=unspecified-encoding
         inputs_csv_path
     ) as csv_file:
@@ -151,43 +156,85 @@ def _get_group_toe_inputs_from_cvs(
                 )
             )
 
-    return group_toe_inputs
+    return {toe_input.get_hash(): toe_input for toe_input in group_toe_inputs}
 
 
-def _get_toe_inputs_to_add(
-    group_toe_inputs: Set[ToeInput],
-    group_toe_input_hashes: Set[int],
-    cvs_group_toe_inputs: Set[ToeInput],
-) -> Set[ToeInput]:
-    return {
-        toe_input
-        for toe_input in cvs_group_toe_inputs
-        if toe_input not in group_toe_inputs
-        and toe_input.get_hash() not in group_toe_input_hashes
-    }
+async def add_toe_inputs(
+    group_toe_inputs: Dict[int, ToeInput],
+    cvs_group_toe_inputs: Dict[int, ToeInput],
+) -> None:
+    await collect(
+        tuple(
+            toe_inputs_domain.add(
+                group_name=cvs_toe_input.group_name,
+                component=cvs_toe_input.component,
+                entry_point=cvs_toe_input.entry_point,
+                attributes=ToeInputAttributesToAdd(
+                    attacked_at=cvs_toe_input.attacked_at,
+                    attacked_by=cvs_toe_input.attacked_by,
+                    be_present=cvs_toe_input.be_present,
+                    be_present_until=cvs_toe_input.be_present_until,
+                    first_attack_at=cvs_toe_input.first_attack_at,
+                    seen_at=cvs_toe_input.seen_at,
+                    seen_first_time_by=cvs_toe_input.seen_first_time_by,
+                    unreliable_root_id=cvs_toe_input.unreliable_root_id,
+                ),
+            )
+            for cvs_toe_input in cvs_group_toe_inputs.values()
+            if cvs_toe_input.get_hash() not in group_toe_inputs
+        )
+    )
 
 
-def _get_toe_inputs_to_update(
-    _group_toe_inputs: Set[ToeInput],
-    group_toe_input_hashes: Set[int],
-    cvs_group_toe_inputs: Set[ToeInput],
-) -> Set[ToeInput]:
-    return {
-        toe_input
-        for toe_input in cvs_group_toe_inputs
-        if toe_input.get_hash() in group_toe_input_hashes
-    }
+async def update_toe_inputs(
+    group_toe_inputs: Dict[int, ToeInput],
+    cvs_group_toe_inputs: Dict[int, ToeInput],
+) -> None:
+    group_toe_inputs_set = set(group_toe_inputs.values())
+    await collect(
+        [
+            toe_inputs_domain.update(
+                current_value=group_toe_inputs[cvs_toe_input.get_hash()],
+                attributes=ToeInputAttributesToUpdate(
+                    attacked_at=cvs_toe_input.attacked_at,
+                    attacked_by=cvs_toe_input.attacked_by,
+                    be_present=cvs_toe_input.be_present,
+                    be_present_until=cvs_toe_input.be_present_until,
+                    first_attack_at=cvs_toe_input.first_attack_at,
+                    seen_at=cvs_toe_input.seen_at,
+                    seen_first_time_by=cvs_toe_input.seen_first_time_by,
+                    unreliable_root_id=cvs_toe_input.unreliable_root_id,
+                    clean_attacked_at=bool(cvs_toe_input.attacked_at is None),
+                    clean_be_present_until=bool(
+                        cvs_toe_input.be_present_until is None
+                    ),
+                    clean_first_attack_at=bool(
+                        cvs_toe_input.first_attack_at is None
+                    ),
+                ),
+            )
+            for cvs_toe_input in cvs_group_toe_inputs.values()
+            if cvs_toe_input.get_hash() in group_toe_inputs
+            and cvs_toe_input not in group_toe_inputs_set
+        ]
+    )
 
 
-def _get_toe_inputs_to_remove(
-    group_toe_inputs: Set[ToeInput],
-    cvs_group_toe_input_hashes: Set[int],
-) -> Set[ToeInput]:
-    return {
-        toe_input
-        for toe_input in group_toe_inputs
-        if toe_input.get_hash() not in cvs_group_toe_input_hashes
-    }
+async def remove_toe_inputs(
+    group_toe_inputs: Dict[int, ToeInput],
+    cvs_group_toe_inputs: Dict[int, ToeInput],
+) -> None:
+    await collect(
+        [
+            toe_inputs_domain.remove(
+                entry_point=toe_input.entry_point,
+                component=toe_input.component,
+                group_name=toe_input.group_name,
+            )
+            for toe_input in group_toe_inputs.values()
+            if toe_input.get_hash() not in cvs_group_toe_inputs
+        ]
+    )
 
 
 async def update_toe_inputs_from_csv(
@@ -196,55 +243,19 @@ async def update_toe_inputs_from_csv(
     group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
         group_name
     )
-    group_toe_inputs: Set[ToeInput] = set(
-        await loaders.group_toe_inputs.load_nodes(
+    group_toe_inputs = {
+        toe_input.get_hash(): toe_input
+        for toe_input in await loaders.group_toe_inputs.load_nodes(
             GroupToeInputsRequest(group_name=group_name)
         )
-    )
-    group: Group = await loaders.group.load(group_name)
-    group_toe_input_hashes = {
-        toe_input.get_hash() for toe_input in group_toe_inputs
     }
+    group: Group = await loaders.group.load(group_name)
     cvs_group_toe_inputs = await in_process(
         _get_group_toe_inputs_from_cvs, inputs_csv_path, group, group_roots
     )
-    cvs_group_toe_input_hashes = {
-        toe_input.get_hash() for toe_input in cvs_group_toe_inputs
-    }
-    toe_inputs_to_update = await in_process(
-        _get_toe_inputs_to_update,
-        group_toe_inputs,
-        group_toe_input_hashes,
-        cvs_group_toe_inputs,
-    )
-    await collect(
-        [
-            toe_inputs_domain.update(toe_input)
-            for toe_input in toe_inputs_to_update
-        ]
-    )
-    toe_inputs_to_remove = await in_process(
-        _get_toe_inputs_to_remove, group_toe_inputs, cvs_group_toe_input_hashes
-    )
-    await collect(
-        [
-            toe_inputs_domain.remove(
-                toe_input.entry_point,
-                toe_input.component,
-                toe_input.group_name,
-            )
-            for toe_input in toe_inputs_to_remove
-        ]
-    )
-    toe_inputs_to_add = await in_process(
-        _get_toe_inputs_to_add,
-        group_toe_inputs,
-        group_toe_input_hashes,
-        cvs_group_toe_inputs,
-    )
-    await collect(
-        [toe_inputs_domain.add(toe_input) for toe_input in toe_inputs_to_add]
-    )
+    await update_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
+    await remove_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
+    await add_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
 
 
 def _get_group_name(tmpdirname: str, inputs_csv_path: str) -> str:

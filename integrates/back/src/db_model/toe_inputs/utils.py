@@ -4,7 +4,6 @@ from .types import (
 )
 from datetime import (
     datetime,
-    timezone,
 )
 from db_model import (
     utils as db_model_utils,
@@ -42,9 +41,7 @@ def format_toe_input(
         if item.get("first_attack_at")
         else None,
         group_name=group_name,
-        seen_at=datetime.fromisoformat(
-            item.get("seen_at", datetime.now(tz=timezone.utc).isoformat()),
-        ),
+        seen_at=datetime.fromisoformat(item["seen_at"]),
         seen_first_time_by=item["seen_first_time_by"],
         unreliable_root_id=item.get("unreliable_root_id", ""),
     )

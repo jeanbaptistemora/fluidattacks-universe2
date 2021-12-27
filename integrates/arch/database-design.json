@@ -2179,6 +2179,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "unreliable_root_id": {
+                "S": ""
+              },
               "first_attack_at": {
                 "S": "2020-01-02T05:00:00+00:00"
               },
@@ -2222,6 +2225,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "unreliable_root_id": {
+                "S": ""
               },
               "first_attack_at": {
                 "S": "2021-01-02T05:00:00+00:00"
