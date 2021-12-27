@@ -132,7 +132,9 @@ async def update_user_information(
     success: bool = False
 
     if responsibility:
-        if len(responsibility) <= 50:
+        if validate_field_length(
+            responsibility, 50
+        ) and validate_alphanumeric_field(responsibility):
             coroutines.append(
                 group_access_domain.update(
                     email, group_name, {"responsibility": responsibility}
