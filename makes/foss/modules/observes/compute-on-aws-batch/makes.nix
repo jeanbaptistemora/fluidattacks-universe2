@@ -131,7 +131,7 @@ in
     };
 
     observesDynamoTableEtlBig = sharedConfiguration // {
-      attemptDurationSeconds = 18000;
+      attemptDurationSeconds = 86400;
       command = [ "m" "f" "/observes/etl/dynamo/table" ];
       queue = "observes_soon";
     };

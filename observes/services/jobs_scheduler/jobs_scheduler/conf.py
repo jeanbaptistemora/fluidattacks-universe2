@@ -78,8 +78,6 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
         work_days(ANY, (11, 18)).unwrap(): (Jobs.FORMSTACK,),
         work_days(ANY, range(0, 16, 5)).unwrap(): (Jobs.DYNAMO_FORCES,),
         work_days(ANY, range(5, 19, 3)).unwrap(): (Jobs.DYNAMO_INTEGRATES,),
-        work_days(ANY, range(5, 19, 5)).unwrap(): (
-            Jobs.DYNAMO_INTEGRATES_MAIN,
-        ),
+        work_days(ANY, 19).unwrap(): (Jobs.DYNAMO_INTEGRATES_MAIN,),
     }
 )
