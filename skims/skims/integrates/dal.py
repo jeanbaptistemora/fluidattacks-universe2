@@ -329,13 +329,11 @@ async def get_finding_vulnerabilities(
                         commitHash
                         currentState
                         historicState
-                        historicVerification {
-                            date
-                            status
-                        }
                         id
+                        lastVerificationDate
                         specific
                         stream
+                        verification
                         vulnerabilityType
                         where
                     }
@@ -360,8 +358,16 @@ async def get_finding_vulnerabilities(
         source = core_model.VulnerabilitySourceEnum.from_historic(
             vulnerability["historicState"],
         )
-        verification = core_model.VulnerabilityVerification.from_historic(
-            vulnerability["historicVerification"],
+        verification = (
+            core_model.VulnerabilityVerification(
+                date=vulnerability["lastVerificationDate"],
+                state=core_model.VulnerabilityVerificationStateEnum(
+                    str(vulnerability["verification"]).upper()
+                ),
+            )
+            if vulnerability["lastVerificationDate"] is not None
+            and vulnerability["verification"] is not None
+            else None
         )
         stream = vulnerability["stream"]
         if stream is not None:

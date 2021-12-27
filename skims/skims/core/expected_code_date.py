@@ -53,11 +53,11 @@ async def main(
             if (
                 namespace == vulnerability.namespace
                 and verification
-                and verification[-1].state
+                and verification.state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
-                and verification[-1].date > max_reattack_date
+                and verification.date > max_reattack_date
             ):
-                max_reattack_date = verification[-1].date
+                max_reattack_date = verification.date
 
     sys.stdout.write(str(int(max_reattack_date.timestamp())))
     sys.stdout.write("\n")

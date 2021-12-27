@@ -12,7 +12,6 @@ from enum import (
 )
 from model import (
     cvss3_model,
-    time_model,
 )
 from typing import (
     Any,
@@ -1884,24 +1883,6 @@ class VulnerabilityVerification(NamedTuple):
     date: datetime
     state: VulnerabilityVerificationStateEnum
 
-    @classmethod
-    def from_historic(
-        cls,
-        historic: List[Dict[str, str]],
-    ) -> Tuple[VulnerabilityVerification, ...]:
-        return tuple(
-            VulnerabilityVerification(
-                date=time_model.from_colombian(
-                    string=item["date"],
-                    fmt=time_model.INTEGRATES_1,
-                ),
-                state=VulnerabilityVerificationStateEnum(item["status"]),
-            )
-            for item in historic
-            if item["status"] is not None
-            if item["date"] is not None
-        )
-
 
 class GrammarMatch(NamedTuple):
     start_column: int
@@ -1911,7 +1892,7 @@ class GrammarMatch(NamedTuple):
 class IntegratesVulnerabilityMetadata(NamedTuple):
     commit_hash: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
-    verification: Optional[Tuple[VulnerabilityVerification, ...]] = None
+    verification: Optional[VulnerabilityVerification] = None
     uuid: Optional[str] = None
 
 
