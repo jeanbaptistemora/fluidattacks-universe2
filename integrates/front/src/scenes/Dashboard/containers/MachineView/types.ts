@@ -1,3 +1,5 @@
+import type { FetchResult } from "@apollo/client";
+
 interface IFindingMachineJob {
   createdAt: string | null;
   exitCode: string | null;
@@ -39,10 +41,19 @@ interface ITableRow {
   status: string;
 }
 
+interface IQueue {
+  rootNicknames: string[];
+  onClose: () => void;
+  onSubmit: (
+    rootNicknames: string[]
+  ) => Promise<FetchResult<ISubmitMachineJobResult>>;
+}
+
 export {
   IFindingMachineJob,
   IFindingMachineJobs,
   IGroupRoot,
+  IQueue,
   ISubmitMachineJobResult,
   ITableRow,
 };
