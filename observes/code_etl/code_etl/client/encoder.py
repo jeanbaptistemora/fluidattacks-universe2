@@ -19,6 +19,9 @@ from datetime import (
 from returns.functions import (
     raise_exception,
 )
+from returns.maybe import (
+    Maybe,
+)
 from returns.result import (
     Failure,
     ResultE,
@@ -26,6 +29,7 @@ from returns.result import (
 )
 from typing import (
     Any,
+    Dict,
     Optional,
 )
 
@@ -151,3 +155,35 @@ def from_stamp(stamp: CommitStamp) -> CommitTableRow:
 
 def from_reg(reg: RepoRegistration) -> CommitTableRow:
     return from_objs(None, reg.commit_id, reg.seen_at)
+
+
+def _encode_opt_datetime(date: Optional[datetime]) -> Optional[str]:
+    return (
+        Maybe.from_optional(date).map(lambda i: i.isoformat()).value_or(None)
+    )
+
+
+def _encode_opt_int(num: Optional[int]) -> Optional[str]:
+    return Maybe.from_optional(num).map(lambda i: str(i)).value_or(None)
+
+
+def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
+    return {
+        "author_name": row.author_name,
+        "author_email": row.author_email,
+        "authored_at": _encode_opt_datetime(row.authored_at),
+        "committer_email": row.committer_email,
+        "committer_name": row.committer_name,
+        "committed_at": _encode_opt_datetime(row.committed_at),
+        "message": row.message,
+        "summary": row.summary,
+        "total_insertions": _encode_opt_int(row.total_insertions),
+        "total_deletions": _encode_opt_int(row.total_deletions),
+        "total_lines": _encode_opt_int(row.total_lines),
+        "total_files": _encode_opt_int(row.total_files),
+        "namespace": row.namespace,
+        "repository": row.repository,
+        "hash": row.hash,
+        "fa_hash": row.fa_hash,
+        "seen_at": row.seen_at.isoformat(),
+    }

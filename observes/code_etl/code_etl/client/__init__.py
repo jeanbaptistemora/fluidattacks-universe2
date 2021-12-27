@@ -11,6 +11,7 @@ from code_etl.client.encoder import (
     CommitTableRow,
     from_raw,
     RawRow,
+    to_dict,
 )
 import logging
 from postgres_client.client import (
@@ -18,6 +19,9 @@ from postgres_client.client import (
 )
 from postgres_client.ids import (
     TableID,
+)
+from postgres_client.query import (
+    SqlArgs,
 )
 from purity.v1.pure_iter import (
     PureIter,
@@ -71,3 +75,11 @@ def all_data_raw(
     client.cursor.execute_query(query.all_data(table))
     items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
     return chain(until_empty(items).map(lambda i: i.map(from_flist)))
+
+
+def insert_rows(
+    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
+) -> IO[None]:
+    return client.cursor.execute_batch(
+        query.insert_row(table), [SqlArgs(to_dict(r)) for r in rows]
+    )
