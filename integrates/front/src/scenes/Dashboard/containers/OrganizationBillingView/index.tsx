@@ -11,13 +11,13 @@ import type {
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
 import type {
   IBillingData,
   IGetOrganizationBilling,
   IOrganizationBillingProps,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
-import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import { Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -25,11 +25,12 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
+  forces: string;
   groupName: string;
   machine: string;
   service: string;
   squad: string;
-  subscription: string;
+  tier: string;
 }
 const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   props: IOrganizationBillingProps
@@ -37,7 +38,7 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const { organizationId } = props;
 
   // GraphQL operations
-  const { data } = useQuery<IGetOrganizationBilling>(GET_ORGANIZATION_GROUPS, {
+  const { data } = useQuery<IGetOrganizationBilling>(GET_ORGANIZATION_BILLING, {
     onCompleted: (paramData: IGetOrganizationBilling): void => {
       if (_.isEmpty(paramData.organization.groups)) {
         Logger.warning("Empty groups", document.location.pathname);
@@ -66,7 +67,10 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       };
       const name: string = group.name.toUpperCase();
       const service: string = _.capitalize(group.service);
-      const subscription: string = _.capitalize(group.subscription);
+      const tier: string = _.capitalize(group.tier);
+      const forces: string = translate.t(
+        servicesParameters[group.hasForces.toString()]
+      );
       const machine: string = translate.t(
         servicesParameters[group.hasMachine.toString()]
       );
@@ -76,11 +80,12 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
 
       return {
         ...group,
+        forces,
         machine,
         name,
         service,
         squad,
-        subscription,
+        tier,
       };
     });
 
@@ -92,11 +97,12 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     useStoredState(
       "filterOrganizationGroupset",
       {
+        forces: "",
         groupName: "",
         machine: "",
         service: "",
         squad: "",
-        subscription: "",
+        tier: "",
       },
       localStorage
     );
@@ -114,8 +120,8 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     },
     {
       align: "center",
-      dataField: "subscription",
-      header: "Subscription",
+      dataField: "tier",
+      header: "Tier",
     },
     {
       align: "center",
@@ -134,6 +140,13 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       dataField: "squad",
       formatter: pointStatusFormatter,
       header: "Squad",
+      width: "90px",
+    },
+    {
+      align: "left",
+      dataField: "forces",
+      formatter: pointStatusFormatter,
+      header: "Forces",
       width: "90px",
     },
   ];
@@ -167,21 +180,19 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     "name"
   );
 
-  function onSubscriptionChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
+  function onTierChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
     setFilterOrganizationGroupsTable(
       (value): IFilterSet => ({
         ...value,
-        subscription: event.target.value,
+        tier: event.target.value,
       })
     );
   }
-  const filterSubscriptionDataset: IBillingData[] = filterText(
+  const filterTierDataset: IBillingData[] = filterText(
     dataset,
-    filterOrganizationGroupsTable.subscription,
-    "subscription"
+    filterOrganizationGroupsTable.tier,
+    "tier"
   );
 
   function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -229,14 +240,30 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     "squad"
   );
 
+  function onForcesChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterOrganizationGroupsTable(
+      (value): IFilterSet => ({
+        ...value,
+        forces: event.target.value,
+      })
+    );
+  }
+  const filterForcesDataset: IBillingData[] = filterText(
+    dataset,
+    filterOrganizationGroupsTable.forces,
+    "forces"
+  );
+
   function clearFilters(): void {
     setFilterOrganizationGroupsTable(
       (): IFilterSet => ({
+        forces: "",
         groupName: "",
         machine: "",
         service: "",
         squad: "",
-        subscription: "",
+        tier: "",
       })
     );
     setSearchTextFilter("");
@@ -245,10 +272,11 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const resultDataset: IBillingData[] = _.intersection(
     filterSearchTextDataset,
     filterGroupNameDataset,
-    filterSubscriptionDataset,
+    filterTierDataset,
     filterServiceDataset,
     filterMachineDataset,
-    filterSquadDataset
+    filterSquadDataset,
+    filterForcesDataset
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -261,15 +289,15 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       type: "text",
     },
     {
-      defaultValue: filterOrganizationGroupsTable.subscription,
-      onChangeSelect: onSubscriptionChange,
-      placeholder: "Subscription",
+      defaultValue: filterOrganizationGroupsTable.tier,
+      onChangeSelect: onTierChange,
+      placeholder: "Tier",
       selectOptions: {
-        Continuous: "Continuous",
-        Oneshot: "Oneshot",
+        Disabled: "Disabled",
+        Enabled: "Enabled",
       },
-      tooltipId: "organization.tabs.groups.filtersTooltips.subscription.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.subscription",
+      tooltipId: "organization.tabs.groups.filtersTooltips.tier.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.tier",
       type: "select",
     },
     {
@@ -306,6 +334,18 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       },
       tooltipId: "organization.tabs.groups.filtersTooltips.squad.id",
       tooltipMessage: "organization.tabs.groups.filtersTooltips.squad",
+      type: "select",
+    },
+    {
+      defaultValue: filterOrganizationGroupsTable.forces,
+      onChangeSelect: onForcesChange,
+      placeholder: "Forces",
+      selectOptions: {
+        Disabled: "Disabled",
+        Enabled: "Enabled",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.forces.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.forces",
       type: "select",
     },
   ];

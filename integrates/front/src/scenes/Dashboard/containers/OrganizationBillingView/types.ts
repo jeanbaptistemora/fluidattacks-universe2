@@ -1,11 +1,13 @@
 interface IBillingData {
+  forces: string;
+  hasForces: boolean;
   hasMachine: boolean;
   hasSquad: boolean;
   machine: string;
   name: string;
   service: string;
   squad: string;
-  subscription: string;
+  tier: string;
 }
 
 interface IOrganizationBillingProps {

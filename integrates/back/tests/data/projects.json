@@ -85,6 +85,9 @@
                   "service": {
                     "S": "BLACK"
                   },
+                  "tier": {
+                    "S": "oneshot"
+                  },
                   "type": {
                     "S": "oneshot"
                   }
@@ -470,6 +473,9 @@
                   },
                   "service": {
                     "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "machine"
                   },
                   "type": {
                     "S": "continuous"
@@ -1327,6 +1333,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "squad"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -1605,6 +1614,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "other"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -1866,6 +1878,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "free"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -1990,6 +2005,9 @@
                   },
                   "service": {
                     "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "machine"
                   },
                   "type": {
                     "S": "continuous"
@@ -2116,6 +2134,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "oneshot"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -2240,6 +2261,9 @@
                   },
                   "service": {
                     "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "other"
                   },
                   "type": {
                     "S": "continuous"
@@ -2366,6 +2390,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "squad"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -2491,6 +2518,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "free"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -2611,6 +2641,9 @@
                   "service": {
                     "S": "WHITE"
                   },
+                  "tier": {
+                    "S": "machine"
+                  },
                   "type": {
                     "S": "continuous"
                   }
@@ -2730,6 +2763,9 @@
                   },
                   "service": {
                     "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "oneshot"
                   },
                   "type": {
                     "S": "continuous"
@@ -2853,6 +2889,9 @@
                   },
                   "service": {
                     "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "other"
                   },
                   "type": {
                     "S": "continuous"

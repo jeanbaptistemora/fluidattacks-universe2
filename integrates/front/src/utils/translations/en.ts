@@ -987,11 +987,13 @@ export const enTranslations: ResourceKey = {
         disabled: "Disabled",
         enabled: "Enabled",
         filtersTooltips: {
+          forces: "Filter by forces",
           groupName: "Filter by group name",
           machine: "Filter by machine",
           service: "Filter by service",
           squad: "Filter by squad",
           subscription: "Filter by subscription",
+          tier: "Filter by tier",
         },
         newGroup: {
           description: {
