@@ -37,25 +37,23 @@ const PartnerPage: React.FC = (): JSX.Element => {
   return (
     <React.Fragment>
       <CardsContainer>
-        {partnerInfo.map(
-          ({ node }): JSX.Element => {
-            const { alt, partnerlogo, slug, title } = node.frontmatter;
+        {partnerInfo.map(({ node }): JSX.Element => {
+          const { alt, partnerlogo, slug, title } = node.frontmatter;
 
-            return (
-              <DropDownCard
-                alt={alt}
-                cardType={"partners-cards"}
-                haveTitle={false}
-                htmlData={node.html}
-                key={slug}
-                logo={partnerlogo}
-                logoPaths={"/airs/partners"}
-                slug={slug}
-                title={title}
-              />
-            );
-          }
-        )}
+          return (
+            <DropDownCard
+              alt={alt}
+              cardType={"partners-cards"}
+              haveTitle={false}
+              htmlData={node.html}
+              key={slug}
+              logo={partnerlogo}
+              logoPaths={"/airs/partners"}
+              slug={slug}
+              title={title}
+            />
+          );
+        })}
       </CardsContainer>
       <div>
         <p>

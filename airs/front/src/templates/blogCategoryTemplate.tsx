@@ -37,9 +37,9 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
           <NavbarComponent />
 
           <Breadcrumb
-            crumbLabel={`${categoryName
-              .charAt(0)
-              .toUpperCase()}${categoryName.slice(1).replace("-", " ")}`}
+            crumbLabel={`${categoryName.charAt(0).toUpperCase()}${categoryName
+              .slice(1)
+              .replace("-", " ")}`}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />

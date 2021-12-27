@@ -36,14 +36,8 @@ const PlansIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    description,
-    keywords,
-    phrase,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { banner, description, keywords, phrase, slug, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

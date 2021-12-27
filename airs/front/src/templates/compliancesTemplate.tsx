@@ -32,13 +32,8 @@ const CompliancesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    description,
-    keywords,
-    phrase,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, keywords, phrase, slug, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

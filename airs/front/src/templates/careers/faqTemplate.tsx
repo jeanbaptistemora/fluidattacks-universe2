@@ -24,15 +24,8 @@ const FaqIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    description,
-    keywords,
-    slug,
-    subtext,
-    subtitle,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { banner, description, keywords, slug, subtext, subtitle, title } =
+    data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
 
@@ -50,9 +43,9 @@ const FaqIndex: React.FC<IQueryData> = ({
   const hideSection = (): void => {
     const numToShow = 10;
     document.querySelectorAll(".sect3").forEach((element): void => {
-      const [numbers] = (element
+      const [numbers] = element
         .querySelector("h4")
-        ?.innerText.split(".") as unknown) as number[];
+        ?.innerText.split(".") as unknown as number[];
       if (numbers > numToShow) {
         element.classList.add("dn");
       }
@@ -71,9 +64,9 @@ const FaqIndex: React.FC<IQueryData> = ({
         .querySelector(showMore === "1" ? ".b1" : ".b2")
         ?.querySelectorAll(".sect3")
         .forEach((element): void => {
-          const [numbers] = (element
+          const [numbers] = element
             .querySelector("h4")
-            ?.innerText.split(".") as unknown) as number[];
+            ?.innerText.split(".") as unknown as number[];
           if (
             (showMore === "1" &&
               numbers > next1 &&

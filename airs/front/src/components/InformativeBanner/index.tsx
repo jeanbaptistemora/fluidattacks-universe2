@@ -26,6 +26,7 @@ export const InformativeBanner: React.FC<IProps> = ({
   return (
     <InformativeBannerContainer className={isClose ? "dn" : ""}>
       <InformativeBannerItems
+        /* eslint-disable-next-line react/jsx-no-bind */
         close={close}
         image={image}
         subtitle={subtitle}

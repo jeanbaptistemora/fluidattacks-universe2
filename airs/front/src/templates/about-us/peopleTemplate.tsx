@@ -34,13 +34,8 @@ const PeopleIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    description,
-    keywords,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { banner, description, keywords, slug, title } =
+    data.markdownRemark.frontmatter;
   const metaImage: string =
     "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.png";
 

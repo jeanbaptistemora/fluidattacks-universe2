@@ -46,25 +46,23 @@ const ClientsPage: React.FC = (): JSX.Element => {
         </MenuList>
       </div>
       <CardsContainer>
-        {partnerInfo.map(
-          ({ node }): JSX.Element => {
-            const { alt, clientlogo, filter, slug, title } = node.frontmatter;
+        {partnerInfo.map(({ node }): JSX.Element => {
+          const { alt, clientlogo, filter, slug, title } = node.frontmatter;
 
-            return (
-              <DropDownCard
-                alt={alt}
-                cardType={`all-clients-cards ${filter}-cards`}
-                haveTitle={true}
-                htmlData={node.html}
-                key={slug}
-                logo={clientlogo}
-                logoPaths={"/airs/about-us/clients"}
-                slug={slug}
-                title={title}
-              />
-            );
-          }
-        )}
+          return (
+            <DropDownCard
+              alt={alt}
+              cardType={`all-clients-cards ${filter}-cards`}
+              haveTitle={true}
+              htmlData={node.html}
+              key={slug}
+              logo={clientlogo}
+              logoPaths={"/airs/about-us/clients"}
+              slug={slug}
+              title={title}
+            />
+          );
+        })}
       </CardsContainer>
     </React.Fragment>
   );

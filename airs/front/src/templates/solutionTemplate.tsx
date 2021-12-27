@@ -45,14 +45,8 @@ const SolutionIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    description,
-    image,
-    keywords,
-    slug,
-    solution,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, image, keywords, slug, solution, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

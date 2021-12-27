@@ -49,60 +49,58 @@ const AdviseCard: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      {adviseInfo.map(
-        (advisePage): JSX.Element => {
-          const {
-            authors,
-            codename,
-            cveid,
-            date,
-            description,
-            product,
-            slug,
-            writer,
-          } = advisePage.node.frontmatter;
+      {adviseInfo.map((advisePage): JSX.Element => {
+        const {
+          authors,
+          codename,
+          cveid,
+          date,
+          description,
+          product,
+          slug,
+          writer,
+        } = advisePage.node.frontmatter;
 
-          return (
-            <AdvisoriesShadowBoxContainer key={date}>
-              <AdvisoriesCardFront>
-                <AdvisoriesCardFrontTitle>
-                  {"VULNERABILITY"}
-                </AdvisoriesCardFrontTitle>
-                <AdvisoriesCardFrontDesc>{description}</AdvisoriesCardFrontDesc>
+        return (
+          <AdvisoriesShadowBoxContainer key={date}>
+            <AdvisoriesCardFront>
+              <AdvisoriesCardFrontTitle>
+                {"VULNERABILITY"}
+              </AdvisoriesCardFrontTitle>
+              <AdvisoriesCardFrontDesc>{description}</AdvisoriesCardFrontDesc>
+              <br />
+              <AdvisoriesCardFrontAuthorContainer>
+                <CloudImage
+                  alt={"Author picture"}
+                  src={`authors/${writer}`}
+                  styles={"br-100 mr3 w-10"}
+                />
+                <p className={"roboto"}>{authors}</p>
                 <br />
-                <AdvisoriesCardFrontAuthorContainer>
-                  <CloudImage
-                    alt={"Author picture"}
-                    src={`authors/${writer}`}
-                    styles={"br-100 mr3 w-10"}
-                  />
-                  <p className={"roboto"}>{authors}</p>
-                  <br />
-                </AdvisoriesCardFrontAuthorContainer>
-              </AdvisoriesCardFront>
-              <AdvisoriesCardBack>
-                <AdvisoriesCardBackList>
-                  <AdvisoriesCardBackItem>
-                    {`Code name: ${codename}`}
-                  </AdvisoriesCardBackItem>
-                  <AdvisoriesCardBackItem>
-                    {`Product: ${product}`}
-                  </AdvisoriesCardBackItem>
-                  <AdvisoriesCardBackItem>
-                    {`Release date: ${date}`}
-                  </AdvisoriesCardBackItem>
-                  <AdvisoriesCardBackItem>
-                    {`CVE ID(s): ${cveid}`}
-                  </AdvisoriesCardBackItem>
-                </AdvisoriesCardBackList>
-                <Link to={`/${slug}`}>
-                  <RegularRedButton>{"Read More"}</RegularRedButton>
-                </Link>
-              </AdvisoriesCardBack>
-            </AdvisoriesShadowBoxContainer>
-          );
-        }
-      )}
+              </AdvisoriesCardFrontAuthorContainer>
+            </AdvisoriesCardFront>
+            <AdvisoriesCardBack>
+              <AdvisoriesCardBackList>
+                <AdvisoriesCardBackItem>
+                  {`Code name: ${codename}`}
+                </AdvisoriesCardBackItem>
+                <AdvisoriesCardBackItem>
+                  {`Product: ${product}`}
+                </AdvisoriesCardBackItem>
+                <AdvisoriesCardBackItem>
+                  {`Release date: ${date}`}
+                </AdvisoriesCardBackItem>
+                <AdvisoriesCardBackItem>
+                  {`CVE ID(s): ${cveid}`}
+                </AdvisoriesCardBackItem>
+              </AdvisoriesCardBackList>
+              <Link to={`/${slug}`}>
+                <RegularRedButton>{"Read More"}</RegularRedButton>
+              </Link>
+            </AdvisoriesCardBack>
+          </AdvisoriesShadowBoxContainer>
+        );
+      })}
     </React.StrictMode>
   );
 };

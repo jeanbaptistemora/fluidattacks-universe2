@@ -3,7 +3,7 @@ import { faLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import { decode } from "he";
-import React from "react";
+import React, { useCallback } from "react";
 import { Snippet } from "react-instantsearch-dom";
 
 export const PageHit = ({
@@ -15,9 +15,9 @@ export const PageHit = ({
   const fixedSlug = slug.startsWith("/pages/")
     ? slug.replace("/pages/", "/")
     : slug;
-  function closeMenu(): void {
+  const closeMenu = useCallback((): void => {
     document.body.setAttribute("style", "overflow-y: auto;");
-  }
+  }, []);
 
   return (
     <Link onClick={closeMenu} to={fixedSlug}>

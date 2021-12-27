@@ -11,12 +11,8 @@ const SubscribeIndex: React.FC<IQueryData> = ({
   data,
 }: IQueryData): JSX.Element => {
   const { html } = data.markdownRemark;
-  const {
-    description,
-    keywords,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, keywords, slug, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

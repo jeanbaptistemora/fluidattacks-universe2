@@ -33,15 +33,8 @@ const MdDefaultPage: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    description,
-    keywords,
-    slug,
-    subtext,
-    subtitle,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { banner, description, keywords, slug, subtext, subtitle, title } =
+    data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
   const isCareers: boolean = slug === "careers/";

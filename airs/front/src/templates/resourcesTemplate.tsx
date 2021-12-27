@@ -27,12 +27,8 @@ const ResourcesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    description,
-    keywords,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, keywords, slug, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

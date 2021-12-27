@@ -67,9 +67,9 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
             className={"scroll-touch bs-btm-h-10 bn"}
             indices={indices}
             show={
-              ((queryValue &&
-                ((queryValue as unknown) as string).length > 0 &&
-                hasFocus) as unknown) as boolean
+              (queryValue &&
+                (queryValue as unknown as string).length > 0 &&
+                hasFocus) as unknown as boolean
             }
           />
         </InstantSearch>

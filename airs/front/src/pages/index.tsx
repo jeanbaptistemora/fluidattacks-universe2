@@ -11,13 +11,8 @@ import { Seo } from "../components/Seo";
 import "modal-video-custom/scss/modal-video.scss";
 
 const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
-  const {
-    author,
-    description,
-    keywords,
-    siteUrl,
-    title,
-  } = data.site.siteMetadata;
+  const { author, description, keywords, siteUrl, title } =
+    data.site.siteMetadata;
 
   return (
     <React.Fragment>

@@ -21,14 +21,8 @@ const ContacUsIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    description,
-    keywords,
-    slug,
-    subtext,
-    subtitle,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, keywords, slug, subtext, subtitle, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>

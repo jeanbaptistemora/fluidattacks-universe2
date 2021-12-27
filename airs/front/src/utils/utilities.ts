@@ -23,14 +23,12 @@ const capitalizeDashedString: (words: string) => string = (
 };
 
 const capitalizeObject = (crumbs: IProps[]): IProps[] => {
-  return crumbs.map(
-    (crumb): IProps => {
-      return {
-        crumbLabel: capitalizeDashedString(crumb.crumbLabel),
-        pathname: crumb.pathname,
-      };
-    }
-  );
+  return crumbs.map((crumb): IProps => {
+    return {
+      crumbLabel: capitalizeDashedString(crumb.crumbLabel),
+      pathname: crumb.pathname,
+    };
+  });
 };
 
 const stringToUri = (word: string): string => {

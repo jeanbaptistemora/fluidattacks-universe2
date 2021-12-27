@@ -34,15 +34,8 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    definition,
-    description,
-    image,
-    keywords,
-    slug,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { banner, definition, description, image, keywords, slug, title } =
+    data.markdownRemark.frontmatter;
 
   const currentService =
     slug === "services/continuous-hacking/"
