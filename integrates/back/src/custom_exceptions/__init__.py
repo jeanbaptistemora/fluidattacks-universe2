@@ -327,6 +327,21 @@ class InvalidAcceptanceSeverityRange(CustomBaseException):
         super(InvalidAcceptanceSeverityRange, self).__init__(msg)
 
 
+class InvalidVulnerabilityGracePeriod(CustomBaseException):
+    """Exception to control correct input in organization settings
+    (DevSecOps vulnerability grace period)"""
+
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = f"Exception - {expr}"
+        else:
+            msg = (
+                "Exception - Vulnerability grace period value should be a "
+                "positive integer"
+            )
+        super(InvalidVulnerabilityGracePeriod, self).__init__(msg)
+
+
 class InvalidAuthorization(CustomBaseException):
     """Exception to control authorization."""
 

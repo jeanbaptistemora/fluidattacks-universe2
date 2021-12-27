@@ -12,6 +12,7 @@ from custom_exceptions import (
     InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidSeverity,
+    InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
     UserNotInOrganization,
 )
@@ -140,6 +141,9 @@ async def _get_new_policies(
             ),
             _add_updated_values(
                 loaders, organization_id, values, "min_breaking_severity"
+            ),
+            _add_updated_values(
+                loaders, organization_id, values, "vulnerability_grace_period"
             ),
         ]
     )
@@ -511,4 +515,11 @@ def validate_min_breaking_severity(value: Decimal) -> bool:
         ) from error
     if not DEFAULT_MIN_SEVERITY <= value <= DEFAULT_MAX_SEVERITY:
         raise InvalidSeverity([DEFAULT_MIN_SEVERITY, DEFAULT_MAX_SEVERITY])
+    return success
+
+
+def validate_vulnerability_grace_period(value: int) -> bool:
+    success: bool = True
+    if value < 0:
+        raise InvalidVulnerabilityGracePeriod()
     return success

@@ -797,6 +797,9 @@ type Mutation {
     organizationId: String!
     "Name of the Organization whose policies are to be updated"
     organizationName: String!
+    """Grace period in days where newly reported vulnerabilities won't break
+    the build (DevSecOps only)"""
+    vulnerabilityGracePeriod: Int
   ): SimplePayload!
 
   "Updates an stakeholder's data from an Organization"

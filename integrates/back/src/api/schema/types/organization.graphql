@@ -43,4 +43,7 @@ type Organization {
     Organization identifier"""
     identifier: String
   ): String
+  """Grace period in days where newly reported vulnerabilities won't break the
+  build (DevSecOps only)"""
+  vulnerabilityGracePeriod: Int!
 }

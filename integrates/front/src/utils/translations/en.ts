@@ -1115,6 +1115,9 @@ export const enTranslations: ResourceKey = {
           minBreakingSeverity:
             "Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to" +
             " break the build in strict mode",
+          vulnerabilityGracePeriod:
+            "Grace period in days where newly reported vulnerabilities won't " +
+            "break the build (DevSecOps only)",
         },
         policy: "Policy",
         recommended: {
@@ -1123,6 +1126,7 @@ export const enTranslations: ResourceKey = {
           breakableSeverity: "0.0",
           numberAcceptances: "0",
           title: "Recommended Values",
+          vulnerabilityGracePeriod: "0",
         },
         save: "Save",
         success: "Organization policies updated successfully",
