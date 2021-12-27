@@ -41,7 +41,9 @@ def format_toe_input(
         if item.get("first_attack_at")
         else None,
         group_name=group_name,
-        seen_at=datetime.fromisoformat(item["seen_at"]),
+        seen_at=datetime.fromisoformat(item["seen_at"])
+        if item.get("seen_at")
+        else None,
         seen_first_time_by=item["seen_first_time_by"],
         unreliable_root_id=item.get("unreliable_root_id", ""),
     )
@@ -89,9 +91,9 @@ def format_toe_input_item(
             toe_input.first_attack_at
         ),
         "group_name": toe_input.group_name,
-        "seen_at": db_model_utils.get_date_as_utc_iso_format(
-            toe_input.seen_at
-        ),
+        "seen_at": ""
+        if toe_input.seen_at is None
+        else db_model_utils.get_date_as_utc_iso_format(toe_input.seen_at),
         "seen_first_time_by": toe_input.seen_first_time_by,
         "unreliable_root_id": toe_input.unreliable_root_id,
     }

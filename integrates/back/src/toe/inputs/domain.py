@@ -5,9 +5,6 @@ from db_model.toe_inputs.types import (
     ToeInput,
     ToeInputMetadataToUpdate,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from toe.inputs.types import (
     ToeInputAttributesToAdd,
     ToeInputAttributesToUpdate,
@@ -29,7 +26,7 @@ async def add(
         entry_point=entry_point,
         first_attack_at=attributes.first_attack_at,
         group_name=group_name,
-        seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
+        seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
     )
@@ -58,6 +55,7 @@ async def update(
         clean_attacked_at=attributes.clean_attacked_at,
         clean_be_present_until=attributes.clean_be_present_until,
         clean_first_attack_at=attributes.clean_first_attack_at,
+        clean_seen_at=attributes.clean_seen_at,
     )
     await toe_inputs_model.update_metadata(
         current_value=current_value,

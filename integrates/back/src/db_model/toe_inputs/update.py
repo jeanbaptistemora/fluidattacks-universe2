@@ -77,6 +77,7 @@ async def update_metadata(
             "clean_attacked_at",
             "clean_be_present_until",
             "clean_first_attack_at",
+            "clean_seen_at",
         }
     }
     if metadata.clean_attacked_at:
@@ -85,6 +86,8 @@ async def update_metadata(
         metadata_item["be_present_until"] = ""
     if metadata.clean_first_attack_at:
         metadata_item["first_attack_at"] = ""
+    if metadata.clean_seen_at:
+        metadata_item["seen_at"] = ""
 
     conditions = (
         Attr(attr_name).eq(current_value_item[attr_name])

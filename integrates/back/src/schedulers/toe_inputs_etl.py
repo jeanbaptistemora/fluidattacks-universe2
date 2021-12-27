@@ -138,7 +138,8 @@ def _get_group_toe_inputs_from_cvs(
             new_toe_input["seen_at"] = (
                 _format_date(new_toe_input["created_date"])
                 or _format_date(new_toe_input["tested_date"])
-                or datetime_utils.get_utc_now()
+                if new_toe_input["seen_first_time_by"]
+                else None
             )
             group_toe_inputs.add(
                 ToeInput(
@@ -189,11 +190,17 @@ async def add_toe_inputs(
 def _get_seen_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
-) -> datetime:
+) -> Optional[datetime]:
     return (
-        cvs_toe_input.seen_at
-        if cvs_toe_input.seen_at < toe_input.seen_at
-        else toe_input.seen_at
+        None
+        if cvs_toe_input.seen_at is None
+        else (
+            cvs_toe_input.seen_at
+            if cvs_toe_input.seen_at
+            and toe_input.seen_at
+            and cvs_toe_input.seen_at < toe_input.seen_at
+            else toe_input.seen_at or cvs_toe_input.seen_at
+        )
     )
 
 
@@ -224,6 +231,13 @@ async def update_toe_inputs(
                     ),
                     clean_first_attack_at=bool(
                         cvs_toe_input.first_attack_at is None
+                    ),
+                    clean_seen_at=bool(
+                        _get_seen_at(
+                            group_toe_inputs[cvs_toe_input.get_hash()],
+                            cvs_toe_input,
+                        )
+                        is None
                     ),
                 ),
             )

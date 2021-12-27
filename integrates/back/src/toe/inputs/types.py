@@ -30,3 +30,4 @@ class ToeInputAttributesToUpdate(NamedTuple):
     clean_attacked_at: bool = False
     clean_be_present_until: bool = False
     clean_first_attack_at: bool = False
+    clean_seen_at: bool = False

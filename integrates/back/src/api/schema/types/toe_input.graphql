@@ -15,7 +15,7 @@ type ToeInput {
   "First attack moment in iso format"
   firstAttackAt: DateTime
   "First time the input was seen"
-  seenAt: DateTime!
+  seenAt: DateTime
   "Hacker who found the application input"
   seenFirstTimeBy: String!
   """
