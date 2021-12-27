@@ -589,8 +589,8 @@ type Mutation {
     """Identifier of the Finding where the results should be reported. Also
     sets the Vulnerability type to check for"""
     findingId: String!
-    "Nickname of the root to run Machine on"
-    rootNickname: String!
+    "Nickname of the roots to run Machine on"
+    rootNicknames: [String!]!
   ): SimplePayload!
 
   """Submits a Finding policy for the Organization, pending approval of a

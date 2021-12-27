@@ -45,18 +45,18 @@ async def mutate(
     _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    root_nickname: str,
+    root_nicknames: str,
 ) -> SimplePayload:
     finding_loader = info.context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     group_name: str = finding.group_name
     finding_title: str = finding.title
-    root_nicknames: Set[str] = {
+    _root_nicknames: Set[str] = {
         root.state.nickname
         for root in await info.context.loaders.group_roots.load(group_name)
         if isinstance(root, GitRootItem)
     }
-    if root_nickname not in root_nicknames:
+    if not root_nicknames:
         return SimplePayload(success=False)
 
     finding_code: Optional[str] = get_finding_code_from_title(finding_title)
@@ -68,7 +68,7 @@ async def mutate(
         result = await queue_boto3(
             finding_code=finding_code,
             group=group_name,
-            namespace=root_nickname,
+            namespaces=tuple(_root_nicknames.intersection(_root_nicknames)),
         )
         success = bool(result)
 

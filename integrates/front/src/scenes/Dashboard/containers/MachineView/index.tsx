@@ -146,7 +146,7 @@ const MachineView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <ButtonToolbarCenter>
+      <ButtonToolbarCenter hidden={true}>
         {isLoading ? (
           <DropdownButton
             content={

@@ -173,10 +173,10 @@ async def _list_jobs_by_name(
 async def queue_boto3(
     group: str,
     finding_code: str,
-    namespace: str,
+    namespaces: List[str],
 ) -> Dict[str, Any]:
     queue_name = "skims_all_soon"
-    job_name = f"skims-process-{group}-{finding_code}-{namespace}"
+    job_name = f"skims-process-{group}-{finding_code}"
     resource_options = dict(
         service_name="batch",
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
@@ -208,7 +208,7 @@ async def queue_boto3(
                     "/skims/process-group-all",
                     group,
                     json.dumps([finding_code]),
-                    json.dumps([namespace]),
+                    json.dumps(list(namespaces)),
                 ],
                 "environment": [
                     {"name": "CI", "value": "true"},
@@ -230,7 +230,7 @@ async def queue_boto3(
 async def queue_all_checks_new(
     group: str,
     roots: List[str],
-    finding_codes: List[str],
+    finding_codes: Tuple[str],
 ) -> Dict[str, Any]:
     queue_name = "skims_all_later"
     job_name = f"skims-process-{group}"
