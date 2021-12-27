@@ -1,4 +1,5 @@
 # pylint: disable=super-with-arguments
+# pylint:disable=too-many-lines
 from __future__ import (
     annotations,
 )
@@ -865,6 +866,15 @@ class TagNotFound(CustomBaseException):
         """Constructor"""
         msg = "Access denied or tag not found"
         super(TagNotFound, self).__init__(msg)
+
+
+class ToeInputAlreadyUpdated(CustomBaseException):
+    """Exception to control the toe input has not been updated"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The toe input has been updated by another operation"
+        super(ToeInputAlreadyUpdated, self).__init__(msg)
 
 
 class ToeInputNotFound(CustomBaseException):
