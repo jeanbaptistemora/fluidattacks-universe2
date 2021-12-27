@@ -13,9 +13,9 @@ class ToeInputAttributesToAdd(NamedTuple):
     be_present: bool
     be_present_until: Optional[datetime]
     first_attack_at: Optional[datetime]
-    seen_at: datetime
     seen_first_time_by: str
     unreliable_root_id: str
+    seen_at: Optional[datetime] = None
 
 
 class ToeInputAttributesToUpdate(NamedTuple):

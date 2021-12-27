@@ -186,6 +186,17 @@ async def add_toe_inputs(
     )
 
 
+def _get_seen_at(
+    toe_input: ToeInput,
+    cvs_toe_input: ToeInput,
+) -> datetime:
+    return (
+        cvs_toe_input.seen_at
+        if cvs_toe_input.seen_at < toe_input.seen_at
+        else toe_input.seen_at
+    )
+
+
 async def update_toe_inputs(
     group_toe_inputs: Dict[int, ToeInput],
     cvs_group_toe_inputs: Dict[int, ToeInput],
@@ -201,7 +212,10 @@ async def update_toe_inputs(
                     be_present=cvs_toe_input.be_present,
                     be_present_until=cvs_toe_input.be_present_until,
                     first_attack_at=cvs_toe_input.first_attack_at,
-                    seen_at=cvs_toe_input.seen_at,
+                    seen_at=_get_seen_at(
+                        group_toe_inputs[cvs_toe_input.get_hash()],
+                        cvs_toe_input,
+                    ),
                     seen_first_time_by=cvs_toe_input.seen_first_time_by,
                     unreliable_root_id=cvs_toe_input.unreliable_root_id,
                     clean_attacked_at=bool(cvs_toe_input.attacked_at is None),

@@ -600,7 +600,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2020-01-02T05:00:00+00:00"
             ),
             group_name="unittesting",
-            seen_at=datetime.fromisoformat("2020-01-02T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
             seen_first_time_by="",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         ),
