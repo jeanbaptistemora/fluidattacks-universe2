@@ -328,9 +328,9 @@ async def get_finding_vulnerabilities(
                     vulnerabilities {
                         commitHash
                         currentState
-                        historicState
                         id
                         lastVerificationDate
+                        source
                         specific
                         stream
                         verification
@@ -355,8 +355,10 @@ async def get_finding_vulnerabilities(
             kind=kind,
             what_on_integrates=vulnerability["where"],
         )
-        source = core_model.VulnerabilitySourceEnum.from_historic(
-            vulnerability["historicState"],
+        source = (
+            core_model.VulnerabilitySourceEnum.SKIMS
+            if vulnerability["source"] in {"machine", "skims"}
+            else core_model.VulnerabilitySourceEnum.INTEGRATES
         )
         verification = (
             core_model.VulnerabilityVerification(
