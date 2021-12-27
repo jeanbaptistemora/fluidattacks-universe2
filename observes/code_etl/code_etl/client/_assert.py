@@ -24,6 +24,14 @@ def assert_type(raw: Any, _type: Type[_T]) -> Result[_T, TypeError]:
     return Failure(TypeError(f"Not a {_type} obj"))
 
 
+def assert_opt_type(
+    raw: Any, _type: Type[_T]
+) -> Result[Optional[_T], TypeError]:
+    if raw is None:
+        return Success(raw)
+    return assert_type(raw, _type)
+
+
 def assert_not_none(obj: Optional[_T]) -> Result[_T, TypeError]:
     if obj is not None:
         return Success(obj)

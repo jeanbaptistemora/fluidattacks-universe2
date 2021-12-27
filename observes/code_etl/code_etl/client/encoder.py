@@ -1,3 +1,9 @@
+# pylint: skip-file
+
+from code_etl.client._assert import (
+    assert_opt_type,
+    assert_type,
+)
 from code_etl.objs import (
     CommitData,
     CommitDataId,
@@ -9,6 +15,14 @@ from dataclasses import (
 )
 from datetime import (
     datetime,
+)
+from returns.functions import (
+    raise_exception,
+)
+from returns.result import (
+    Failure,
+    Result,
+    Success,
 )
 from typing import (
     Any,
@@ -83,6 +97,52 @@ def from_objs(
         commit_id.hash.fa_hash,
         seen_at,
     )
+
+
+def from_raw(raw: RawRow) -> Result[CommitTableRow, TypeError]:
+    try:
+        row = CommitTableRow(
+            assert_opt_type(raw.author_name, str)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.author_email, str)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.authored_at, datetime)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.committer_email, str)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.committer_name, str)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.committed_at, datetime)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.message, str).alt(raise_exception).unwrap(),
+            assert_opt_type(raw.summary, str).alt(raise_exception).unwrap(),
+            assert_opt_type(raw.total_insertions, int)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.total_deletions, int)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.total_lines, int)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_opt_type(raw.total_files, int)
+            .alt(raise_exception)
+            .unwrap(),
+            assert_type(raw.namespace, str).alt(raise_exception).unwrap(),
+            assert_type(raw.repository, str).alt(raise_exception).unwrap(),
+            assert_type(raw.hash, str).alt(raise_exception).unwrap(),
+            assert_opt_type(raw.fa_hash, str).alt(raise_exception).unwrap(),
+            assert_type(raw.seen_at, datetime).alt(raise_exception).unwrap(),
+        )
+        return Success(row)
+    except TypeError as err:
+        return Failure(err)
 
 
 def from_stamp(stamp: CommitStamp) -> CommitTableRow:
