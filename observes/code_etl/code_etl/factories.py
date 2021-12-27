@@ -44,6 +44,22 @@ def gen_fa_hash(commit: CommitData) -> str:
     return fa_hash.hexdigest()
 
 
+def gen_fa_hash_2(commit: CommitData) -> str:
+    fa_hash = hashlib.sha256()
+    fa_hash.update(bytes(commit.author.name, "utf-8"))
+    fa_hash.update(bytes(commit.author.email, "utf-8"))
+    fa_hash.update(bytes(commit.authored_at.isoformat(), "utf-8"))
+
+    fa_hash.update(bytes(commit.message, "utf-8"))
+    fa_hash.update(bytes(commit.summary, "utf-8"))
+
+    fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_lines), "utf-8"))
+    fa_hash.update(bytes(str(commit.deltas.total_files), "utf-8"))
+    return fa_hash.hexdigest()
+
+
 @dataclass(frozen=True)
 class CommitDataFactory:
     @staticmethod

@@ -14,7 +14,7 @@ from code_etl.client.encoder import (
     from_row_obj,
 )
 from code_etl.factories import (
-    gen_fa_hash,
+    gen_fa_hash_2,
 )
 from code_etl.objs import (
     Commit,
@@ -37,12 +37,6 @@ from postgres_client.ids import (
 )
 from purity.v1 import (
     Flattener,
-)
-from purity.v1.pure_iter.transform.io import (
-    consume,
-)
-from purity.v2.frozen import (
-    FrozenList,
 )
 from returns.io import (
     IO,
@@ -76,7 +70,7 @@ def migrate_commit(
         lambda cd: CommitDataId(
             raw.namespace,
             raw.repository,
-            CommitId(raw.hash, gen_fa_hash(cd)),
+            CommitId(raw.hash, gen_fa_hash_2(cd)),
         )
     )
     commit = data.bind(lambda d: _id.map(lambda i: Commit(i, d)))
