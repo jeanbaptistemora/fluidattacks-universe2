@@ -108,6 +108,16 @@ in
       ];
     };
 
+    observesCodeEtlMigration2 = sharedConfiguration // {
+      attempts = 1;
+      attemptDurationSeconds = 86400;
+      command = [ "m" "f" "/observes/etl/code/upload/migration/fa-hash/v2" ];
+      environment = [
+        "PRODUCT_API_TOKEN"
+        "SERVICES_API_TOKEN"
+      ];
+    };
+
     observesDynamoTableEtl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/etl/dynamo/table" ];
