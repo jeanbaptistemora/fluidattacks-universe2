@@ -9,6 +9,7 @@ from code_etl import (
 )
 from code_etl.migration import (
     calc_fa_hash,
+    calc_fa_hash_2,
 )
 from os.path import (
     abspath,
@@ -19,6 +20,7 @@ from postgres_client.connection.decoder import (
 )
 from postgres_client.ids import (
     SchemaID,
+    TableID,
 )
 from returns.maybe import (
     Maybe,
@@ -98,6 +100,29 @@ def calculate_fa_hash(
     )
 
 
+@click.command()
+@click.option("--db-id", type=click.File("r"), required=True)
+@click.option("--creds", type=click.File("r"), required=True)
+@click.option("--source-schema", type=str, required=True)
+@click.option("--source-table", type=str, required=True)
+@click.option("--target-schema", type=str, required=True)
+@click.option("--target-table", type=str, required=True)
+def calculate_fa_hash_2(
+    db_id: FILE[str],
+    creds: FILE[str],
+    source_schema: str,
+    source_table: str,
+    target_schema: str,
+    target_table: str,
+) -> None:
+    calc_fa_hash_2.start(
+        id_from_str(db_id.read()),
+        creds_from_str(creds.read()),
+        TableID(SchemaID(source_schema), source_table),
+        TableID(SchemaID(target_schema), target_table),
+    )
+
+
 @click.group()
 def migration() -> None:
     # main cli group
@@ -105,6 +130,7 @@ def migration() -> None:
 
 
 migration.add_command(calculate_fa_hash)
+migration.add_command(calculate_fa_hash_2)
 
 
 @click.group()

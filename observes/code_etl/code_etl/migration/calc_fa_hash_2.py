@@ -16,6 +16,9 @@ from code_etl.client.encoder import (
 from code_etl.factories import (
     gen_fa_hash_2,
 )
+from code_etl.migration.tables import (
+    init_table_2_query,
+)
 from code_etl.objs import (
     Commit,
     CommitDataId,
@@ -138,4 +141,8 @@ def start(
 ) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
     client2 = ClientFactory().from_creds(db_id, creds)
-    return migration(client, client2, source, target).map(lambda i: i.unwrap())
+    return init_table_2_query(client, target).bind(
+        lambda _: migration(client, client2, source, target).map(
+            lambda i: i.unwrap()
+        )
+    )
