@@ -48,7 +48,6 @@ async def test_add() -> None:
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="test@test.com",
             be_present=True,
-            be_present_until=None,
             first_attack_at=datetime.fromisoformat(
                 "2021-02-12T05:00:00+00:00"
             ),
@@ -103,7 +102,6 @@ async def test_update() -> None:
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
         unreliable_root_id="",
-        clean_be_present_until=True,
     )
     await toe_inputs_domain.update(current_value, attributes)
     loaders = get_new_context()

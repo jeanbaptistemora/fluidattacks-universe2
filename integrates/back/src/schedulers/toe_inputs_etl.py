@@ -18,7 +18,9 @@ from datetime import (
     datetime,
 )
 from db_model.roots.types import (
+    GitRootItem,
     RootItem,
+    URLRootItem,
 )
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
@@ -122,6 +124,11 @@ def _get_group_toe_inputs_from_cvs(
             unreliable_root = roots_domain.get_unreliable_root_by_component(
                 new_toe_input["component"], group_roots, group
             )
+            be_present = (
+                unreliable_root.state.status == "ACTIVE"
+                if isinstance(unreliable_root, (GitRootItem, URLRootItem))
+                else False
+            )
             new_toe_input["unreliable_root_id"] = (
                 unreliable_root.id if unreliable_root is not None else ""
             )
@@ -130,8 +137,10 @@ def _get_group_toe_inputs_from_cvs(
                 new_toe_input["tested_date"]
             )
             new_toe_input["attacked_by"] = ""
-            new_toe_input["be_present"] = True
-            new_toe_input["be_present_until"] = None
+            new_toe_input["be_present"] = be_present
+            new_toe_input["be_present_until"] = (
+                None if be_present else datetime_utils.get_utc_now()
+            )
             new_toe_input["first_attack_at"] = _format_date(
                 new_toe_input["tested_date"]
             )
@@ -174,7 +183,6 @@ async def add_toe_inputs(
                     attacked_at=cvs_toe_input.attacked_at,
                     attacked_by=cvs_toe_input.attacked_by,
                     be_present=cvs_toe_input.be_present,
-                    be_present_until=cvs_toe_input.be_present_until,
                     first_attack_at=cvs_toe_input.first_attack_at,
                     seen_at=cvs_toe_input.seen_at,
                     seen_first_time_by=cvs_toe_input.seen_first_time_by,
@@ -208,7 +216,6 @@ async def update_toe_inputs(
     group_toe_inputs: Dict[int, ToeInput],
     cvs_group_toe_inputs: Dict[int, ToeInput],
 ) -> None:
-    group_toe_inputs_set = set(group_toe_inputs.values())
     await collect(
         [
             toe_inputs_domain.update(
@@ -217,7 +224,6 @@ async def update_toe_inputs(
                     attacked_at=cvs_toe_input.attacked_at,
                     attacked_by=cvs_toe_input.attacked_by,
                     be_present=cvs_toe_input.be_present,
-                    be_present_until=cvs_toe_input.be_present_until,
                     first_attack_at=cvs_toe_input.first_attack_at,
                     seen_at=_get_seen_at(
                         group_toe_inputs[cvs_toe_input.get_hash()],
@@ -226,9 +232,6 @@ async def update_toe_inputs(
                     seen_first_time_by=cvs_toe_input.seen_first_time_by,
                     unreliable_root_id=cvs_toe_input.unreliable_root_id,
                     clean_attacked_at=bool(cvs_toe_input.attacked_at is None),
-                    clean_be_present_until=bool(
-                        cvs_toe_input.be_present_until is None
-                    ),
                     clean_first_attack_at=bool(
                         cvs_toe_input.first_attack_at is None
                     ),
@@ -243,7 +246,24 @@ async def update_toe_inputs(
             )
             for cvs_toe_input in cvs_group_toe_inputs.values()
             if cvs_toe_input.get_hash() in group_toe_inputs
-            and cvs_toe_input not in group_toe_inputs_set
+            and (
+                cvs_toe_input.attacked_at,
+                cvs_toe_input.attacked_by,
+                cvs_toe_input.be_present,
+                cvs_toe_input.first_attack_at,
+                cvs_toe_input.seen_at,
+                cvs_toe_input.seen_first_time_by,
+                cvs_toe_input.unreliable_root_id,
+            )
+            != (
+                group_toe_inputs[cvs_toe_input.get_hash()].attacked_at,
+                group_toe_inputs[cvs_toe_input.get_hash()].attacked_by,
+                group_toe_inputs[cvs_toe_input.get_hash()].be_present,
+                group_toe_inputs[cvs_toe_input.get_hash()].first_attack_at,
+                group_toe_inputs[cvs_toe_input.get_hash()].seen_at,
+                group_toe_inputs[cvs_toe_input.get_hash()].seen_first_time_by,
+                group_toe_inputs[cvs_toe_input.get_hash()].unreliable_root_id,
+            )
         ]
     )
 
