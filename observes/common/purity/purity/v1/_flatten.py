@@ -10,6 +10,14 @@ from returns.converters import (
 from returns.io import (
     IO,
 )
+from returns.primitives.exceptions import (
+    UnwrapFailedError,
+)
+from returns.result import (
+    Failure,
+    ResultE,
+    Success,
+)
 from returns.unsafe import (
     unsafe_perform_io,
 )
@@ -30,3 +38,10 @@ class Flattener:
     def denest(items: IO[IO[_D]]) -> IO[_D]:
         # this wrapper improves type signature clarity
         return flatten(items)
+
+    @staticmethod
+    def result_list(items: FrozenList[ResultE[_D]]) -> ResultE[FrozenList[_D]]:
+        try:
+            return Success(tuple(i.unwrap() for i in items))
+        except UnwrapFailedError as err:
+            return Failure(err.halted_container.failure())

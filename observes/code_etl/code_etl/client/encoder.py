@@ -31,6 +31,7 @@ from typing import (
     Any,
     Dict,
     Optional,
+    Union,
 )
 
 
@@ -155,6 +156,12 @@ def from_stamp(stamp: CommitStamp) -> CommitTableRow:
 
 def from_reg(reg: RepoRegistration) -> CommitTableRow:
     return from_objs(None, reg.commit_id, reg.seen_at)
+
+
+def from_row_obj(item: Union[CommitStamp, RepoRegistration]) -> CommitTableRow:
+    if isinstance(item, RepoRegistration):
+        return from_reg(item)
+    return from_stamp(item)
 
 
 def _encode_opt_datetime(date: Optional[datetime]) -> Optional[str]:
