@@ -1,3 +1,6 @@
+src.lib_path.f031.iam_user_missing_role_based_security:
+  en: IAM User is granted privileges but not through a Role
+  es: Al usuario de IAM se le otorgan privilegios, pero no a través de un rol
 src.lib_path.f031.bucket_policy_allows_public_access:
   en: S3 buckets allow unauthorized public access via bucket policies
   es: Los buckets de S3 permiten el acceso público no autorizado a través de políticas del bucket

@@ -9,6 +9,7 @@ from aws.iam.utils import (
     match_pattern,
 )
 from aws.model import (
+    AWSIamManagedPolicy,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSS3BucketPolicy,
@@ -30,6 +31,7 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_iam_users,
     iter_s3_bucket_policies,
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
@@ -227,6 +229,16 @@ def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
                 and is_s3_action_writeable(statement.inner["Action"])
             ):
                 yield statement.inner["Principal"]
+
+
+def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
+    users_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for user in users_iterator:
+        policies_node = user.inner.get("Policies", None)
+        if policies_node:
+            for policy in policies_node.data:
+                yield policy.inner["PolicyName"]
 
 
 def _cfn_negative_statement(
@@ -573,6 +585,27 @@ def _cfn_bucket_policy_allows_public_access(
     )
 
 
+def _cfn_iam_user_missing_role_based_security(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F031_CWE},
+        description_key=(
+            "src.lib_path.f031.iam_user_missing_role_based_security"
+        ),
+        finding=_FINDING_F031,
+        iterator=get_cloud_iterator(
+            _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
+                users_iterator=iter_iam_users(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -600,6 +633,22 @@ async def cfn_bucket_policy_allows_public_access(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_bucket_policy_allows_public_access,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+# @CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_iam_user_missing_role_based_security(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_iam_user_missing_role_based_security,
         content=content,
         path=path,
         template=template,
