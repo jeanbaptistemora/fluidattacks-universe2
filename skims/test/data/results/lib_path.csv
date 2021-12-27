@@ -14211,7 +14211,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 ",f009._java_properties_sensitive_data
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
    1 | package f127
    2 |
@@ -14236,7 +14236,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lac
   21 |  amount := strconv.ParseFloat(request.Amount)
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
    6 |  ""math""
    7 |  ""strconv""
@@ -14261,7 +14261,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lac
   26 |  operation := db.Transaction{}
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
   11 |  amount := strconv.ParseFloat(request.Amount)
   12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
@@ -14286,7 +14286,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lac
   31 |
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff
+F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
   17 |  DBQuerySameFile(""Message"", amount, 0)
   18 | }

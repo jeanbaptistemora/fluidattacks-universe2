@@ -136,13 +136,13 @@ class FindingMetadata(NamedTuple):
         return FindingMetadata(
             auto_approve=auto_approve,
             cwe=cwe,
-            description=f"{code}.description",
+            description=f"criteria.vulns.{code[1:]}.description",
             execution_queue=execution_queue,
-            impact=f"{code}.impact",
-            recommendation=f"{code}.recommendation",
+            impact=f"criteria.vulns.{code[1:]}.impact",
+            recommendation=f"criteria.vulns.{code[1:]}.recommendation",
             requirements=requirements,
             score=score,
-            threat=f"{code}.threat",
+            threat=f"criteria.vulns.{code[1:]}.threat",
             title=f"criteria.vulns.{code[1:]}.title",
         )
 
