@@ -488,6 +488,12 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
+      {resultSize && (
+        <p>{`${t("dataTableNext.results", {
+          matches: resultSize.current,
+          total: resultSize.total,
+        })}`}</p>
+      )}
       {resultSize && !oneRowMessage && (
         <div className={"fw4 mb0 nt1"}>
           {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(

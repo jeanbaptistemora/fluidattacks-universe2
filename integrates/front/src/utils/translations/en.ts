@@ -243,6 +243,7 @@ export const enTranslations: ResourceKey = {
     filters: "Filters",
     more: "--View More--",
     noDataIndication: "There is no data to display",
+    results: "Showing {{matches}} matching results out of {{total}} total",
     search: "Search",
     tooltip: "Search filters for the table",
   },
