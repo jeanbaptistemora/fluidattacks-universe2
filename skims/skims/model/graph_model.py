@@ -509,7 +509,7 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum.F100: (
         GraphVulnerabilityParameters(
             cwe=(918,),
-            desc_key="F100.description",
+            desc_key="criteria.vulns.100.description",
             desc_params={},
         )
     ),
@@ -523,14 +523,14 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
             cwe=(90,),
-            desc_key="F107.description",
+            desc_key="criteria.vulns.107.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F320: (
         GraphVulnerabilityParameters(
             cwe=(90,),
-            desc_key="F320.title",
+            desc_key="criteria.vulns.320.description",
             desc_params={},
         )
     ),

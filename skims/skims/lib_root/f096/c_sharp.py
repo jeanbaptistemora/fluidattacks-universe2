@@ -50,7 +50,7 @@ def insecure_deserialization(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("502",),
-        desc_key="F096.title",
+        desc_key="criteria.vulns.096.description",
         desc_params={},
         finding=core_model.FindingEnum.F096,
         graph_shard_nodes=n_ids(),

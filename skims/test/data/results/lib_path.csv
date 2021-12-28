@@ -705,7 +705,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_unencrypted_volum
   18 | }
      ^ Col 0
 ",f333._cfn_ec2_has_unencrypted_volumes
-F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"Insecure service configuration - EC2
+F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"The EC2 instance does not define the API termination resource which by default is set to false, allowing it to be terminated or stopped at any time from the AWS console, the client or the API.
  in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   16 |
   17 |   cpu_options {
@@ -10938,7 +10938,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   16 |
      ^ Col 6
 ",c_sharp.check_xml_serializer
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
    2 | em.Runtime.Serialization.IFormatter;
@@ -10957,7 +10957,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Ins
   15 |
      ^ Col 10
 ",c_sharp.insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"Insecure deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | m.Runtime.Serialization.Formatters.Binary;
    2 | m.Runtime.Serialization.IFormatter;
@@ -10976,7 +10976,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Inse
   15 |
      ^ Col 11
 ",c_sharp.insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"Insecure deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | rialization.Formatters.Binary;
    2 | rialization.IFormatter;
@@ -10995,7 +10995,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Ins
   15 |
      ^ Col 23
 ",c_sharp.insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"Insecure deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | tem.Runtime.Serialization.Formatters.Binary;
    2 | tem.Runtime.Serialization.IFormatter;
@@ -13486,7 +13486,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,s
   9 | }
     ^ Col 0
 ",f256._tfm_rds_no_deletion_protection
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
  in namespace/skims/test/data/lib_path/f381/Dockerfile","
    1 | # Insecure
    2 | FROM node
@@ -13511,7 +13511,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. 
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
 ",f380._unpinned_docker_image
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace
+F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
  in namespace/skims/test/data/lib_path/f381/Dockerfile","
    1 | # Insecure
 >  2 | FROM node
@@ -15315,7 +15315,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
    56 | /*
       ^ Col 0
 ",java.jpa_like
-F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
+F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Internal service information should not be stored in the source code, especially AD configurations, as it is obtained from the admon-chanel configuration file.
  in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | using System;
    2 | class cipher{

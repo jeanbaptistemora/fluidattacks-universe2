@@ -43,7 +43,7 @@ def _unpinned_docker_image(
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"749"},
-        description_key="F380.description",
+        description_key="criteria.vulns.380.description",
         finding=core_model.FindingEnum.F380,
         grammar=grammar,
         path=path,

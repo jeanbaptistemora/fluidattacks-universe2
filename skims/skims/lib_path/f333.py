@@ -128,7 +128,7 @@ def _ec2_has_not_termination_protection(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F333_CWE},
-        description_key="F333.title",
+        description_key="criteria.vulns.333.description",
         finding=_FINDING_F333,
         iterator=get_cloud_iterator(
             ec2_has_not_termination_protection_iterate_vulnerabilities(
