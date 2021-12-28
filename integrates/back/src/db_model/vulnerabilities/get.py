@@ -200,13 +200,21 @@ class RootVulnsNewLoader(DataLoader):
 
 
 class FindingVulnsNewLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
-        return await collect(
+        vulns = await collect(
             _get_finding_vulnerabilities(finding_id=id) for id in ids
         )
+        for finding_vulns in vulns:
+            for vuln in finding_vulns:
+                self.dataloader.prime(vuln.id, vuln)
+        return vulns
 
 
 class VulnNewLoader(DataLoader):
