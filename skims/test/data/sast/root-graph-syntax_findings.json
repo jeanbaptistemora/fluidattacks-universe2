@@ -524,6 +524,10 @@
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
     "skims/test/data/lib_path/f160/Test.java": {}
   },
+  "F257": {
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
+    "skims/test/data/lib_path/f160/Test.java": {}
+  },
   "F258": {
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
     "skims/test/data/lib_path/f160/Test.java": {}

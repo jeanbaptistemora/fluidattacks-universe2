@@ -519,6 +519,14 @@
       "title": "256. Lack of protection against deletion - RDS"
     }
   },
+  "F257": {
+    "EN": {
+      "title": "257. Lack of protection against deletion - EC2"
+    },
+    "ES": {
+      "title": "257. Lack of protection against deletion - EC2"
+    }
+  },
   "F258": {
     "EN": {
       "title": "258. Lack of protection against deletion - ELB"
