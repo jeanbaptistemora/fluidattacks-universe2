@@ -981,6 +981,22 @@ export const enTranslations: ResourceKey = {
         tooltip: "Organization status at a glance",
       },
       billing: {
+        modal: {
+          close: "Close",
+          continue: "Continue",
+          form: {
+            title: "Tier",
+            tooltip: "Tier to subscribe",
+            type: {
+              free: "Free",
+              machine: "Machine",
+              oneshot: "Oneshot",
+              other: "Other",
+              squad: "Squad",
+            },
+          },
+          title: "Subscription Details",
+        },
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",
       },

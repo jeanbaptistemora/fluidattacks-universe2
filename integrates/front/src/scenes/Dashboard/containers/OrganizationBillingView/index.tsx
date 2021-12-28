@@ -4,12 +4,14 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type {
   IFilterProps,
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { Modal } from "components/Modal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
 import type {
@@ -18,7 +20,7 @@ import type {
   IOrganizationBillingProps,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
-import { Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -32,10 +34,28 @@ interface IFilterSet {
   squad: string;
   tier: string;
 }
+
 const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   props: IOrganizationBillingProps
 ): JSX.Element => {
   const { organizationId } = props;
+
+  // States
+  const defaultCurrentRow: IBillingData = {
+    forces: "",
+    hasForces: false,
+    hasMachine: false,
+    hasSquad: false,
+    machine: "",
+    name: "",
+    service: "",
+    squad: "",
+    tier: "",
+  };
+
+  const [currentRow, updateRow] = useState(defaultCurrentRow);
+  const [isBillingDetailsModalOpen, setBillingDetailsModalOpen] =
+    useState(false);
 
   // GraphQL operations
   const { data } = useQuery<IGetOrganizationBilling>(GET_ORGANIZATION_BILLING, {
@@ -350,6 +370,18 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     },
   ];
 
+  const openSeeBillingDetailsModal: (
+    event: Record<string, unknown>,
+    row: IBillingData
+  ) => void = (_0: Record<string, unknown>, row: IBillingData): void => {
+    updateRow(row);
+    setBillingDetailsModalOpen(true);
+  };
+
+  const closeSeeBillingDetailsModal: () => void = useCallback((): void => {
+    setBillingDetailsModalOpen(false);
+  }, []);
+
   return (
     <React.StrictMode>
       <div className={style.container}>
@@ -381,8 +413,33 @@ const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
                 headers={tableHeaders}
                 id={"tblBilling"}
                 pageSize={10}
+                rowEvents={{ onClick: openSeeBillingDetailsModal }}
                 search={false}
               />
+              <Modal
+                headerTitle={translate.t(
+                  "organization.tabs.billing.modal.title"
+                )}
+                onEsc={closeSeeBillingDetailsModal}
+                open={isBillingDetailsModalOpen}
+                size={"largeModal"}
+              >
+                <div>{currentRow.name}</div>
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button onClick={closeSeeBillingDetailsModal}>
+                        {translate.t(
+                          "organization.tabs.billing.modal.continue"
+                        )}
+                      </Button>
+                      <Button onClick={closeSeeBillingDetailsModal}>
+                        {translate.t("organization.tabs.billing.modal.close")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
+              </Modal>
             </Row>
           </Col100>
         </Row>
