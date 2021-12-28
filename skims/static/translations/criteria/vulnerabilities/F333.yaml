@@ -1,3 +1,6 @@
+src.lib_path.f333.ec2_has_unencrypted_volumes:
+  en: Encrypted property should enabled
+  es: La propiedad Encrypted debería habilitada
 lib_path.f333.ec2_allows_shutdown_command:
   en: EC2 Launch Templates allows the shutdown command to terminate the instance
   es: Las plantillas de lanzamiento de EC2 permiten que el comando de apagado termine la instancia

@@ -1,9 +1,14 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSEC2,
+)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
+    FALSE_OPTIONS,
     get_cloud_iterator,
+    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -13,6 +18,9 @@ from metaloaders.model import (
 from model import (
     core_model,
 )
+from parse_cfn.structure import (
+    iter_ec2_volumes,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
@@ -21,6 +29,9 @@ from parse_hcl2.structure.aws import (
 )
 from parse_hcl2.tokens import (
     Attribute,
+)
+from state.cache import (
+    CACHE_ETERNALLY,
 )
 from typing import (
     Any,
@@ -69,6 +80,23 @@ def ec2_has_not_termination_protection_iterate_vulnerabilities(
             yield bucket
 
 
+def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
+    file_ext: str,
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        if "Encrypted" not in ec2_res.raw:
+            yield AWSEC2(
+                column=ec2_res.start_column,
+                data=ec2_res.data,
+                line=get_line_by_extension(ec2_res.start_line, file_ext),
+            )
+        else:
+            vol_encryption = ec2_res.inner.get("Encrypted")
+            if vol_encryption.raw in FALSE_OPTIONS:
+                yield vol_encryption
+
+
 def _ec2_has_terminate_shutdown_behavior(
     content: str,
     path: str,
@@ -107,6 +135,27 @@ def _ec2_has_not_termination_protection(
     )
 
 
+def _cfn_ec2_has_unencrypted_volumes(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F333_CWE},
+        description_key="src.lib_path.f333.ec2_has_unencrypted_volumes",
+        finding=_FINDING_F333,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
+                file_ext=file_ext,
+                ec2_iterator=iter_ec2_volumes(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_has_terminate_shutdown_behavior(
@@ -134,6 +183,24 @@ async def ec2_has_not_termination_protection(
         content=content,
         path=path,
         model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_unencrypted_volumes(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_unencrypted_volumes,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
     )
 
 
