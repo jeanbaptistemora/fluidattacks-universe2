@@ -1,3 +1,7 @@
+from datetime import (
+    datetime,
+    timedelta,
+)
 from forces.utils.logs import (
     log,
 )
@@ -37,18 +41,38 @@ async def set_forces_exit_code(
                 f"{config.breaking_severity}"
             ),
         )
+        await log(
+            "info",
+            (
+                (
+                    "Newly reported vulnerabilities' [bright_yellow]grace "
+                    f"period[/] policy is set to {config.grace_period} day(s)"
+                )
+            ),
+        )
         for finding in findings:
             for vuln in finding["vulnerabilities"]:
+                severity: float = (
+                    float(vuln["severity"])
+                    if vuln["severity"] is not None
+                    else float(finding["severity"])
+                )
+                current_date: datetime = datetime.now()
+                report_date: datetime = datetime.strptime(
+                    vuln["report_date"], "%Y-%m-%d %H:%M:%S"
+                )
+                time_diff: timedelta = current_date - report_date
                 if (
                     vuln["state"] == "open"
-                    and finding["severity"] >= config.breaking_severity
+                    and severity >= config.breaking_severity
+                    and time_diff.days >= config.grace_period
                 ):
                     await log(
                         "warning",
                         (
-                            "Found at least one open vulnerability with a "
-                            f"severity of {finding['severity']} >= "
-                            f"{config.breaking_severity}"
+                            "Found an open vulnerability with a severity of "
+                            f"{severity} >= {config.breaking_severity} "
+                            f"reported {time_diff.days} day(s) ago"
                         ),
                     )
                     return 1
@@ -58,7 +82,7 @@ async def set_forces_exit_code(
             "info",
             (
                 "[green]No open vulnerabilities with a severity above this"
-                " threshold found[/]"
+                " threshold and outside the grace period set found[/]"
             ),
         )
     # Forces wasn't set to strict mode or there aren't any findings yet

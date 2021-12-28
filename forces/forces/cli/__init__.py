@@ -174,12 +174,14 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
         entrypoint,
     )
     from forces.apis.integrates.api import (
-        get_forces_user_and_severity,
+        get_forces_user_and_org_data,
     )
 
-    group, global_brk_severity = await get_forces_user_and_severity(
-        api_token=token
-    )
+    (
+        group,
+        global_brk_severity,
+        vuln_grace_period,
+    ) = await get_forces_user_and_org_data(api_token=token)
     if not group:
         await log("warning", "Please make sure that you use a forces user")
         return 1
@@ -189,15 +191,19 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     configure_bugsnag(group=group or "")
     show_banner()
 
-    striccness = "strict" if strict else "lax"
-    start_msg: str = "Running DevSecOps agent"
-    await log("info", f"{start_msg} in [bright_yellow]{striccness}[/] mode")
-    await log("info", f"{start_msg} in [bright_yellow]{kind}[/] kind")
+    strictness = "strict" if strict else "lax"
+    await log(
+        "info",
+        f"Running DevSecOps agent in [bright_yellow]{strictness}[/] mode",
+    )
+    await log(
+        "info", f"Running DevSecOps agent in [bright_yellow]{kind}[/] kind"
+    )
     if repo_name:
         await log(
             "info",
             (
-                f"{start_msg} for vulnerabilities in the repo: "
+                f"Running DevSecOps agent for vulnerabilities in the repo: "
                 f"[bright_yellow]{repo_name}[/]"
             ),
         )
@@ -224,6 +230,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
             global_brk_severity=global_brk_severity,
             local_brk_severity=local_breaking,
         ),
+        grace_period=vuln_grace_period if vuln_grace_period is not None else 0,
     )
     return await entrypoint(
         token=token,

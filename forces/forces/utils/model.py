@@ -25,3 +25,4 @@ class ForcesConfig(NamedTuple):
     strict: Optional[bool] = False
     verbose_level: int = 3
     breaking_severity: float = 0.0
+    grace_period: int = 0

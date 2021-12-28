@@ -95,7 +95,9 @@ async def get_vulnerabilities(
               treatment
               vulnerabilityType
               where
+              severity
               specific
+              reportDate
               rootNickname
               zeroRisk
             }
@@ -288,16 +290,17 @@ async def upload_report(
 @SHIELD
 async def get_groups_access(
     **kwargs: Any,
-) -> List[Tuple[Dict[str, str], Optional[float]]]:
+) -> List[Tuple[Dict[str, str], float, int]]:
     query = """
         query ForcesGetMeGroups {
           me {
             organizations {
-              minBreakingSeverity
               groups {
                 name
                 userRole
               }
+              minBreakingSeverity
+              vulnerabilityGracePeriod
             }
           }
         }
@@ -307,7 +310,7 @@ async def get_groups_access(
             str,
             Dict[
                 str,
-                List[Dict[str, Union[List[Dict[str, str]], Optional[float]]]],
+                List[Dict[str, Union[List[Dict[str, str]], float, int]]],
             ],
         ] = await execute(
             query,
@@ -325,7 +328,8 @@ async def get_groups_access(
     return list(
         (
             group,
-            cast(Optional[float], organization["minBreakingSeverity"]),
+            cast(float, organization["minBreakingSeverity"]),
+            cast(int, organization["vulnerabilityGracePeriod"]),
         )
         for organization in response["me"]["organizations"]
         for group in cast(List[Dict[str, str]], organization["groups"])
@@ -356,11 +360,11 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
     return response["group"]["roots"]
 
 
-async def get_forces_user_and_severity(
+async def get_forces_user_and_org_data(
     **kwargs: Any,
-) -> Tuple[Optional[str], Optional[float]]:
+) -> Tuple[Optional[str], Optional[float], Optional[int]]:
     groups = await get_groups_access(**kwargs)
-    for group, global_brk_severity in groups:
+    for group, global_brk_severity, vuln_grace_period in groups:
         if group["userRole"] == "service_forces":
-            return (group["name"], global_brk_severity)
-    return (None, None)
+            return (group["name"], global_brk_severity, vuln_grace_period)
+    return (None, None, None)

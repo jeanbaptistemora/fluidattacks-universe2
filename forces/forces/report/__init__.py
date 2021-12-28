@@ -252,27 +252,19 @@ def filter_report(
         finding for finding in report["findings"] if finding["vulnerabilities"]
     ]
 
+    # Remove extra info not needed for the formatted report
     if verbose_level == 1:
         # Filter level 1, do not show vulnerabilities details
-        for finding in report["findings"]:
-            finding.pop("vulnerabilities")
+        filter_vulns(report["findings"], (None,))
     elif verbose_level == 2:
         # Filter level 2, only show open vulnerabilities
-        for finding in report["findings"]:
-            finding["vulnerabilities"] = [
-                vuln
-                for vuln in finding["vulnerabilities"]
-                if vuln["state"] == "open"
-            ]
+        filter_vulns(report["findings"], ("open",))
     elif verbose_level == 3:
         # Filter level 3, only show open and closed vulnerabilities
-        for finding in report["findings"]:
-            finding["vulnerabilities"] = [
-                vuln
-                for vuln in finding["vulnerabilities"]
-                if vuln["state"] in ("open", "closed")
-            ]
-    # If filter level is 4 show accepted, open and closed vulnerabilities
+        filter_vulns(report["findings"], ("open", "closed"))
+    else:
+        # If filter level is 4 show open, closed and accepted vulnerabilities
+        filter_vulns(report["findings"], ("open", "closed", "accepted"))
     return report
 
 
@@ -339,6 +331,8 @@ async def generate_report(
                     f'{config.group}/vulns/{vuln["findingId"]}'
                 ),
                 "state": state,
+                "severity": vuln["severity"],
+                "report_date": vuln["reportDate"],
                 "exploitability": findings_dict[find_id]["exploitability"],
             }
         )
@@ -357,3 +351,33 @@ async def generate_report(
     }
     raw_report.update(summary)  # type: ignore
     return raw_report
+
+
+def filter_vulns(
+    findings: List[Dict[str, Any]],
+    allowed_vuln_states: Tuple[Optional[str], ...],
+) -> List[Dict[str, Any]]:
+    """Helper method to filter vulns in findings based on the requested vuln
+    states set by the verbosity level of the report"""
+    # Verbosity level of 1
+    if None in allowed_vuln_states:
+        for finding in findings:
+            finding.pop("vulnerabilities")
+    # Verbosity levels of 2, 3 and 4
+    else:
+        for finding in findings:
+            finding["vulnerabilities"] = [
+                strip_vuln(vuln)
+                for vuln in finding["vulnerabilities"]
+                if vuln["state"] in allowed_vuln_states
+            ]
+    return findings
+
+
+def strip_vuln(vuln: Dict[str, Any]) -> Dict[str, Any]:
+    """Helper method to strip unneeded report data from vulns"""
+    # These two attrs are needed to check the grace period and severity
+    # policies, they aren't needed in formatted reports
+    vuln.pop("report_date")
+    vuln.pop("severity")
+    return vuln
