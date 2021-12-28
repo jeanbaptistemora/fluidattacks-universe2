@@ -92,16 +92,12 @@ async def get_vulnerabilities(
             vulnerabilities {
               findingId
               currentState
-              historicTreatment {
-                treatment
-              }
-              historicZeroRisk{
-                status
-              }
+              treatment
               vulnerabilityType
               where
               specific
               rootNickname
+              zeroRisk
             }
           }
         }
@@ -118,15 +114,11 @@ async def get_vulnerabilities(
     finding_value = response.get("finding", {})
     vulnerabilities = finding_value.get("vulnerabilities", [])
     for index, _ in enumerate(vulnerabilities):
-        historic_treatment = vulnerabilities[index].get("historicTreatment")
-        zero_risk = vulnerabilities[index].get("historicZeroRisk")
-        if (
-            historic_treatment
-            and "accepted"
-            in historic_treatment[-1].get("treatment", "unknown").lower()
-        ):
+        treatment = vulnerabilities[index].get("treatment")
+        zero_risk = vulnerabilities[index].get("zeroRisk")
+        if treatment and "ACCEPTED" in treatment.upper():
             vulnerabilities[index]["currentState"] = "accepted"
-        if zero_risk and zero_risk[-1].get("status") in {
+        if zero_risk and zero_risk.upper() in {
             "REQUESTED",
             "CONFIRMED",
         }:
