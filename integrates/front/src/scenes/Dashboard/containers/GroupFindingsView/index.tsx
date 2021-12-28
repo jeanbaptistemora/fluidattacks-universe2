@@ -324,6 +324,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     _.sortBy(typesArray, (arr): string => arr[0])
   );
 
+  const initialSort: string = JSON.stringify({
+    dataField: "severityScore",
+    order: "desc",
+  });
+
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -729,7 +734,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             position: "right",
           }}
           dataset={resultFindings}
-          defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
+          defaultSorted={JSON.parse(
+            _.get(sessionStorage, "findingSort", initialSort)
+          )}
           expandRow={{
             expandByColumnOnly: true,
             expanded: expandedRows,
