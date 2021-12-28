@@ -71,7 +71,7 @@ def verify_decoder(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("319",),
-        desc_key="criteria.vulns.017.title",
+        desc_key="criteria.vulns.017.description",
         desc_params=dict(lang="C#"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
