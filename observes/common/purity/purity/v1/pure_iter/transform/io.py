@@ -4,15 +4,12 @@ from collections import (
 from purity.v1.pure_iter._iter_factory import (
     IterableFactoryIO,
 )
-from purity.v2._patch import (
-    Patch,
+from purity.v1.pure_iter.factory import (
+    iter_obj,
+    unsafe_from_generator,
 )
 from purity.v2.pure_iter.core import (
-    _PureIter,
     PureIter,
-)
-from returns.curry import (
-    partial,
 )
 from returns.io import (
     IO,
@@ -31,8 +28,9 @@ _I = TypeVar("_I")
 def chain(
     unchained: PureIter[IO[PureIter[_I]]],
 ) -> PureIter[IO[_I]]:
-    function = partial(IterableFactoryIO.chain_io, unchained)
-    return PureIter(_PureIter(Patch(function)))
+    return unsafe_from_generator(
+        lambda: iter_obj(IterableFactoryIO.chain_io(unchained))
+    )
 
 
 def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
@@ -41,8 +39,9 @@ def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
 
 
 def until_none(items: PureIter[IO[Optional[_I]]]) -> PureIter[IO[_I]]:
-    draft = _PureIter(Patch(lambda: iter(IterableFactoryIO.filter_io(items))))
-    return PureIter(draft)
+    return unsafe_from_generator(
+        lambda: iter_obj(IterableFactoryIO.filter_io(items))
+    )
 
 
 def until_empty(items: PureIter[IO[Maybe[_I]]]) -> PureIter[IO[_I]]:

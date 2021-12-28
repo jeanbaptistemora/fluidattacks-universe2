@@ -9,8 +9,14 @@ import more_itertools
 from purity.v2._patch import (
     Patch,
 )
+from returns.io import (
+    IO,
+)
 from returns.primitives.hkt import (
     SupportsKind1,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from typing import (
     Callable,
@@ -27,7 +33,7 @@ _R = TypeVar("_R")
 class _PureIter(
     SupportsKind1["_PureIter[_I]", _I],
 ):
-    _iter_obj: Patch[Callable[[], Iterable[_I]]]
+    _iter_obj: Patch[Callable[[], IO[Iterable[_I]]]]
 
 
 class PureIter(_PureIter[_I]):
@@ -35,21 +41,26 @@ class PureIter(_PureIter[_I]):
         super().__init__(obj._iter_obj)
 
     def __iter__(self) -> Iterator[_I]:
-        return iter(self._iter_obj.unwrap())
+        # unsafe used for compatibility
+        return iter(unsafe_perform_io(self._iter_obj.unwrap()))
 
     def map(self, function: Callable[[_I], _R]) -> PureIter[_R]:
-        draft = _PureIter(Patch(lambda: iter(map(function, self))))
+        draft: _PureIter[_R] = _PureIter(
+            Patch(lambda: IO(iter(map(function, self))))
+        )
         return PureIter(draft)
 
     def chunked(self, size: int) -> PureIter[PureIter[_I]]:
-        draft = _PureIter(
+        draft: _PureIter[PureIter[_I]] = _PureIter(
             Patch(
-                lambda: iter(
-                    map(
-                        lambda items: PureIter(
-                            _PureIter(Patch(lambda: items))
-                        ),
-                        more_itertools.chunked(self, size),
+                lambda: IO(
+                    iter(
+                        map(
+                            lambda items: PureIter(
+                                _PureIter(Patch(lambda: IO(tuple(items))))
+                            ),
+                            more_itertools.chunked(self, size),
+                        )
                     )
                 )
             )

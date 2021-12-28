@@ -15,8 +15,16 @@ from purity.v2.pure_iter.core import (
     _PureIter,
     PureIter,
 )
+from returns.io import (
+    IO,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     Callable,
+    Iterable,
+    Iterator,
     List,
     TypeVar,
     Union,
@@ -27,24 +35,41 @@ _I = TypeVar("_I")
 _R = TypeVar("_R")
 
 
-def from_flist(items: FrozenList[_T]) -> PureIter[_T]:
-    draft = _PureIter(Patch(lambda: items))
+def iter_obj(iterable: Iterable[_T]) -> IO[Iterator[_T]]:
+    return IO(iter(iterable))
+
+
+def unsafe_from_iterable(iterable: Iterable[_T]) -> PureIter[_T]:
+    # This is an unsafe constructor do not use until is strictly necessary
+    # iterable MUST be an IMMUTABLE object e.g. a tuple
+    draft: _PureIter[_T] = _PureIter(Patch(lambda: IO(iterable)))
     return PureIter(draft)
+
+
+def unsafe_from_generator(
+    generator: Callable[[], IO[Iterable[_T]]]
+) -> PureIter[_T]:
+    # This is an unsafe constructor do not use until is strictly necessary
+    # generator MUST return a new different object in each call
+    draft: _PureIter[_T] = _PureIter(Patch(generator))
+    return PureIter(draft)
+
+
+def from_flist(items: FrozenList[_T]) -> PureIter[_T]:
+    return unsafe_from_iterable(items)
 
 
 def from_list(items: Union[List[_T], FrozenList[_T]]) -> PureIter[_T]:
-    draft = _PureIter(Patch(lambda: tuple(items)))
-    return PureIter(draft)
+    _items = tuple(items) if isinstance(items, list) else items
+    return from_flist(_items)
 
 
 def from_range(range_obj: range) -> PureIter[int]:
-    draft = _PureIter(Patch(lambda: iter(range_obj)))
-    return PureIter(draft)
+    return unsafe_from_generator(lambda: iter_obj(range_obj))
 
 
 def infinite_range(start: int, step: int) -> PureIter[int]:
-    draft = _PureIter(Patch(lambda: count(start, step)))
-    return PureIter(draft)
+    return unsafe_from_generator(lambda: iter_obj(count(start, step)))
 
 
 def pure_map(

@@ -1,15 +1,12 @@
 from purity.v1.pure_iter._iter_factory import (
     IterableFactory,
 )
-from purity.v2._patch import (
-    Patch,
+from purity.v1.pure_iter.factory import (
+    iter_obj,
+    unsafe_from_generator,
 )
 from purity.v2.pure_iter.core import (
-    _PureIter,
     PureIter,
-)
-from returns.curry import (
-    partial,
 )
 from returns.maybe import (
     Maybe,
@@ -25,24 +22,25 @@ _I = TypeVar("_I")
 def chain(
     unchained: PureIter[PureIter[_I]],
 ) -> PureIter[_I]:
-    function = partial(IterableFactory.chain, unchained)
-    return PureIter(_PureIter(Patch(function)))
+    return unsafe_from_generator(
+        lambda: iter_obj(IterableFactory.chain(unchained))
+    )
 
 
 def filter_opt(items: PureIter[Optional[_I]]) -> PureIter[_I]:
-    draft = _PureIter(Patch(lambda: iter(IterableFactory.filter_none(items))))
-    return PureIter(draft)
+    return unsafe_from_generator(
+        lambda: iter_obj(IterableFactory.filter_none(items))
+    )
 
 
 def filter_maybe(items: PureIter[Maybe[_I]]) -> PureIter[_I]:
-    _items = items.map(lambda x: x.value_or(None))
-    draft = _PureIter(Patch(lambda: iter(IterableFactory.filter_none(_items))))
-    return PureIter(draft)
+    return filter_opt(items.map(lambda x: x.value_or(None)))
 
 
 def until_none(items: PureIter[Optional[_I]]) -> PureIter[_I]:
-    draft = _PureIter(Patch(lambda: iter(IterableFactory.until_none(items))))
-    return PureIter(draft)
+    return unsafe_from_generator(
+        lambda: iter_obj(IterableFactory.until_none(items))
+    )
 
 
 def until_empty(items: PureIter[Maybe[_I]]) -> PureIter[_I]:
