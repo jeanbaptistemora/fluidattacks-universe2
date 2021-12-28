@@ -57,7 +57,7 @@ interface ICustomFiltersProps {
 interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
-  clearFiltersButton?: (() => void) | undefined;
+  clearFiltersButton?: () => void;
   columnToggle?: boolean;
   csvFilename?: string;
   customSearch?: ICustomSearchProps;
@@ -73,7 +73,6 @@ interface ITableProps {
   id: string;
   isFilterEnabled?: boolean;
   onPageChange?: (arg1: number) => void;
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   pageSize: number;
   rowEvents?: Record<string, unknown>;
   search: boolean;
