@@ -1014,7 +1014,6 @@ def exec_cloudformation_package(
             "iam.is_managed_policy_miss_configured",
             "iam.is_policy_miss_configured",
             "iam.is_role_over_privileged",
-            "iam.missing_role_based_security",
         ],
     }
 
