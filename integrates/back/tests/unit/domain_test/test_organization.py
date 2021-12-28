@@ -10,6 +10,7 @@ from custom_exceptions import (
     InvalidOrganization,
     InvalidSeverity,
     InvalidUserProvided,
+    InvalidVulnerabilityGracePeriod,
     UserNotInOrganization,
 )
 from dataloaders import (
@@ -358,6 +359,9 @@ async def test_validate_negative_values() -> None:
 
     with pytest.raises(InvalidSeverity):
         orgs_domain.validate_min_breaking_severity(-1)
+
+    with pytest.raises(InvalidVulnerabilityGracePeriod):
+        orgs_domain.validate_vulnerability_grace_period(-1)
 
 
 async def test_validate_severity_range() -> None:

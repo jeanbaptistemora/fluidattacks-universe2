@@ -770,6 +770,9 @@
                   },
                   "min_breaking_severity": {
                     "N": "0.0"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
                   }
                 }
               },

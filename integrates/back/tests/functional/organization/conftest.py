@@ -37,6 +37,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "max_acceptance_severity": 7,
                     "min_acceptance_severity": 3,
                     "min_breaking_severity": 2,
+                    "vulnerability_grace_period": 2,
                     "historic_max_number_acceptations": [
                         {
                             "date": "2019-11-22 15:07:57",

@@ -74,6 +74,8 @@ async def _add_updated_values(
     values: Dict[str, Optional[Decimal]],
     value_to_update: str,
 ) -> OrganizationType:
+    """Generic method to update org policies and reuse typical validation
+    logic"""
     new_value = values.get(value_to_update)
     organization_data = await loaders.organization.load(organization_id)
     old_value: Optional[Decimal] = organization_data.get(value_to_update)

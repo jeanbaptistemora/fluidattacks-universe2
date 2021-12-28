@@ -35,6 +35,9 @@
           "min_breaking_severity": {
             "N": "0"
           },
+          "vulnerability_grace_period": {
+            "N": "0"
+          },
           "pending_deletion_date": {
             "S": "2019-11-22 15:07:57"
           }
@@ -230,6 +233,9 @@
             "N": "1"
           },
           "min_breaking_severity": {
+            "N": "0"
+          },
+          "vulnerability_grace_period": {
             "N": "0"
           },
           "pending_deletion_date": {
