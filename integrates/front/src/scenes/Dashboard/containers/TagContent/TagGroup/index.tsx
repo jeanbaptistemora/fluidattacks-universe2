@@ -2,11 +2,12 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
 import { Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -32,6 +33,13 @@ const TagsGroup: React.FC = (): JSX.Element => {
     variables: { tag: tagName },
   });
   const { push } = useHistory();
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
 
   const tableHeaders: IHeaderConfig[] = [
     { dataField: "name", header: "Group Name" },
@@ -51,19 +59,29 @@ const TagsGroup: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
+  const filterSearchTextDataset: IPortfolio["tag"]["groups"] = filterSearchText(
+    data.tag.groups,
+    searchTextFilter
+  );
 
   return (
     <div>
       <Row>
         <DataTableNext
           bordered={true}
-          dataset={data.tag.groups}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
+          }}
+          dataset={filterSearchTextDataset}
           exportCsv={false}
           headers={tableHeaders}
           id={"tblGroupsTag"}
           pageSize={10}
           rowEvents={{ onClick: handleRowTagClick }}
-          search={true}
+          search={false}
         />
       </Row>
     </div>
