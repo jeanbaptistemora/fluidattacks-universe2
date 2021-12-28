@@ -9214,7 +9214,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
   28 | }
      ^ Col 0
 ",f016._tfm_aws_serves_content_over_insecure_protocols
-F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in namespace/skims/test/data/lib_path/f034/Test.java","
    1 |
    2 | public class BenchmarkTest00167 extends HttpServlet {
@@ -10831,6 +10831,46 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 ",c_sharp.insecure_logging
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The system's credential policy is not compliant with security regulations.
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+   8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+> 13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.get_vulnerabilities_from_syntax
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The system's credential policy is not compliant with security regulations.
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+>  8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+  13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.get_vulnerabilities_from_syntax
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,10,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -11099,46 +11139,6 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. 
   15 |
      ^ Col 12
 ",c_sharp.no_password
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
- in namespace/skims/test/data/lib_root/f035/Test.cs","
-   1 | ï»¿public class Startup
-   2 | {
-   3 |     public void start(IServiceCollection services)
-   4 |     {
-   5 |         services.Configure<IdentityOptions>( options =>
-   6 |         {
-   7 |             options.Password.RequireDigit = true;
-   8 |             options.Password.RequireDigit = false;
-   9 |             options.Password.RequiredLength = 8;
-  10 |             options.Password.RequireNonAlphanumeric = true;
-  11 |             options.Password.RequireUppercase = true;
-  12 |             options.Password.RequireLowercase = true;
-> 13 |             options.Password.RequiredUniqueChars = 5;
-  14 |         });
-  15 |     }
-  16 | }
-     ^ Col 0
-",query.get_vulnerabilities_from_syntax
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
- in namespace/skims/test/data/lib_root/f035/Test.cs","
-   1 | ï»¿public class Startup
-   2 | {
-   3 |     public void start(IServiceCollection services)
-   4 |     {
-   5 |         services.Configure<IdentityOptions>( options =>
-   6 |         {
-   7 |             options.Password.RequireDigit = true;
->  8 |             options.Password.RequireDigit = false;
-   9 |             options.Password.RequiredLength = 8;
-  10 |             options.Password.RequireNonAlphanumeric = true;
-  11 |             options.Password.RequireUppercase = true;
-  12 |             options.Password.RequireLowercase = true;
-  13 |             options.Password.RequiredUniqueChars = 5;
-  14 |         });
-  15 |     }
-  16 | }
-     ^ Col 0
-",query.get_vulnerabilities_from_syntax
 F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
@@ -11202,7 +11202,7 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   14 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
    3 | namespace cookies
@@ -11227,7 +11227,7 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
   22 | }
      ^ Col 0
 ",c_sharp.insecurely_generated_cookies
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
    3 | namespace cookies

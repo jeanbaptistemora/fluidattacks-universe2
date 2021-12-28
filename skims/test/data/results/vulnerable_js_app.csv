@@ -1822,7 +1822,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,328,skims,052
   18 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test148.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1836,7 +1836,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034.
   10 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test151.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1857,7 +1857,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test151.js,13,330,skims,034
   17 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test152.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1878,7 +1878,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test152.js,13,330,skims,034
   17 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test154.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1902,7 +1902,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test154.js,16,330,skims,034
   20 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test155.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1917,7 +1917,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034.
   11 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test097.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1941,7 +1941,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042.
   20 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test098.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1966,7 +1966,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042
   21 |       </body>
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test099.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -1990,7 +1990,7 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042.
   20 | export default router;
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test100.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
