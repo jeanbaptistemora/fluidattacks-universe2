@@ -13,6 +13,11 @@ type Group {
     (year and month)"""
     date: DateTime
   ): Bill
+  "Checkout URL for purchasing a new tier"
+  checkout(
+    "Group tier (Free, One-Shot, Other, Machine or Squad)"
+    tier: TierType!
+  ): Checkout
   "Amount of currently closed vulnerabilities in the group"
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"
@@ -107,7 +112,7 @@ type Group {
   "Group-wide tags"
   tags: [String!]
   "Group tier (Free, One-Shot, Other, Machine or Squad)"
-  tier: String
+  tier: TierType
   "Target of Evaluation inputs information"
   toeInputs(
     "The cursor for the forward pagination"

@@ -24,7 +24,7 @@ from api.schema import (
 )
 import asyncio
 from billing.domain import (
-    main as billing_main,
+    webhook,
 )
 import bugsnag
 from bugsnag.asgi import (
@@ -270,7 +270,7 @@ STARLETTE_APP = Starlette(
             StaticFiles(directory=f"{TEMPLATES_DIR}/static"),
             name="static",
         ),
-        Route("/billing", billing_main, methods=["POST"]),
+        Route("/billing", webhook, methods=["POST"]),
         Route("/{full_path:path}", app),
     ],
     middleware=[

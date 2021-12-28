@@ -1,0 +1,9 @@
+"Checkout type definition"
+type Checkout {
+  "Redirct url when checkout is cancelled"
+  cancel_url: String!
+  "Stripe payment url"
+  payment_url: String!
+  "Redirct url when checkout is successful"
+  success_url: String!
+}

@@ -1,4 +1,8 @@
+from billing.types import (
+    Checkout,
+)
 from context import (
+    BASE_URL,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
 )
@@ -24,7 +28,35 @@ LOGGER = logging.getLogger(__name__)
 stripe.api_key = FI_STRIPE_API_KEY
 
 
-async def main(request: Request) -> JSONResponse:
+async def checkout(
+    *,
+    tier: str,
+    org_name: str,
+    group_name: str,
+) -> Checkout:
+
+    price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
+    session = stripe.checkout.Session.create(
+        client_reference_id=group_name,
+        line_items=[
+            {
+                "price": price_id,
+                "quantity": 1,
+            },
+        ],
+        mode="subscription",
+        success_url=f"{BASE_URL}/orgs/{org_name}/billing",
+        cancel_url=f"{BASE_URL}/orgs/{org_name}/billing",
+    )
+
+    return Checkout(
+        cancel_url=session.cancel_url,
+        success_url=session.success_url,
+        payment_url=session.url,
+    )
+
+
+async def webhook(request: Request) -> JSONResponse:
     """Parse webhook request and execute event"""
 
     body: Optional[bytes] = await request.body()
