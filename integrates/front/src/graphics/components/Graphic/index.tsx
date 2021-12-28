@@ -34,6 +34,7 @@ import {
 } from "graphics/components/Graphic/ctx";
 import { FilterButton } from "graphics/components/Graphic/filterButton";
 import styles from "graphics/components/Graphic/index.css";
+import { hasIFrameError } from "graphics/components/Graphic/utils";
 import type { IGraphicProps } from "graphics/types";
 import {
   ButtonGroup,
@@ -41,7 +42,6 @@ import {
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
-  GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
 } from "styles/styledComponents";
 import type { ISecureStoreConfig } from "utils/secureStore";
@@ -100,7 +100,6 @@ function buildUrl(
     : url.toString();
 }
 
-// eslint-disable-next-line complexity
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
@@ -110,7 +109,6 @@ export const Graphic: React.FC<IGraphicProps> = (
     documentName,
     documentType,
     entity,
-    footer,
     infoLink,
     reportMode,
     subject,
@@ -305,21 +303,11 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
 
-  if (
-    iframeState === "ready" &&
-    bodyRef.current !== null &&
-    bodyRef.current.contentDocument !== null &&
-    bodyRef.current.contentDocument.title.toLowerCase().includes("error")
-  ) {
+  if (iframeState === "ready" && hasIFrameError(bodyRef)) {
     setIframeState("error");
   }
 
-  if (
-    modalIframeState === "ready" &&
-    modalBodyRef.current !== null &&
-    modalBodyRef.current.contentDocument !== null &&
-    modalBodyRef.current.contentDocument.title.toLowerCase().includes("error")
-  ) {
+  if (modalIframeState === "ready" && hasIFrameError(modalBodyRef)) {
     setModalIframeState("error");
   }
 
@@ -475,12 +463,6 @@ export const Graphic: React.FC<IGraphicProps> = (
             </div>
           )}
         </div>
-        {_.isUndefined(footer) ? undefined : (
-          <React.Fragment>
-            <hr />
-            <div>{footer}</div>
-          </React.Fragment>
-        )}
       </Modal>
       <div ref={fullRef}>
         <GraphicPanelCollapse
@@ -610,11 +592,6 @@ export const Graphic: React.FC<IGraphicProps> = (
               )}
             </div>
           </GraphicPanelCollapseBody>
-          {!_.isUndefined(footer) && (
-            <GraphicPanelCollapseFooter>
-              <div className={"report-footer"}>{footer}</div>
-            </GraphicPanelCollapseFooter>
-          )}
         </GraphicPanelCollapse>
       </div>
     </React.Fragment>
