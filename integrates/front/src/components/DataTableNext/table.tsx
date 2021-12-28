@@ -435,6 +435,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                                   color: "#2e2e38",
                                 }
                           }
+                          value={customSearchDefault ?? ""}
                         />
                       </div>
                     </ButtonGroup>
