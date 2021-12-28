@@ -2515,5 +2515,6 @@ export const enTranslations: ResourceKey = {
     validDate: "The date must be below six months",
     validDateToken: "The date must be below six months",
     validSessionDate: "The session has expired",
+    zeroOrPositive: "The number must be either 0 or positive",
   },
 };

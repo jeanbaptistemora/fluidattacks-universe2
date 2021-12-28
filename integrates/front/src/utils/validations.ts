@@ -194,6 +194,9 @@ const optionalNumberBetween: (min: number, max: number) => Validator =
 const isPositive = (value: number): string | undefined =>
   value < 1 ? translate.t("validations.positive") : undefined;
 
+const isZeroOrPositive = (value: number): string | undefined =>
+  value < 0 ? translate.t("validations.zeroOrPositive") : undefined;
+
 const minLength: (min: number) => Validator = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({
     message: translate.t("validations.minLength", { count: min }),
@@ -472,6 +475,7 @@ export {
   validEmail,
   validDraftTitle,
   isPositive,
+  isZeroOrPositive,
   isValidVulnSeverity,
   isFloatOrInteger,
   validDatetime,

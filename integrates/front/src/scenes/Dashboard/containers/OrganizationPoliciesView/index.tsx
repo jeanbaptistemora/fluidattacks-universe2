@@ -31,7 +31,7 @@ import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isFloatOrInteger,
-  isPositive,
+  isZeroOrPositive,
   numberBetween,
   numeric,
 } from "utils/validations";
@@ -176,7 +176,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"maxAcceptanceDays"}
               type={"text"}
-              validate={composeValidators([isPositive, numeric])}
+              validate={composeValidators([isZeroOrPositive, numeric])}
             />
           )}
         </Can>
@@ -208,7 +208,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"maxNumberAcceptances"}
               type={"text"}
-              validate={composeValidators([isPositive, numeric])}
+              validate={composeValidators([isZeroOrPositive, numeric])}
             />
           )}
         </Can>
@@ -240,7 +240,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               disabled={!canEdit}
               name={"vulnerabilityGracePeriod"}
               type={"text"}
-              validate={composeValidators([isPositive, numeric])}
+              validate={composeValidators([isZeroOrPositive, numeric])}
             />
           )}
         </Can>
