@@ -1,9 +1,10 @@
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import type {
   IOrganizationPortfoliosProps,
@@ -20,7 +21,14 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   const { url } = useRouteMatch();
   const { push } = useHistory();
 
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+
   // Auxiliary Opertaions
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
   const formatPortfolioDescription: (groups: { name: string }[]) => string = (
     groups: { name: string }[]
   ): string => {
@@ -94,6 +102,11 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
     },
   ];
 
+  const filterSearchTextDataset: IPortfoliosTable[] = filterSearchText(
+    formatPortfolioTableData(portfolios),
+    searchTextFilter
+  );
+
   return (
     <React.StrictMode>
       <div className={style.container}>
@@ -105,13 +118,19 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
               <Row>
                 <DataTableNext
                   bordered={true}
-                  dataset={formatPortfolioTableData(portfolios)}
+                  customSearch={{
+                    customSearchDefault: searchTextFilter,
+                    isCustomSearchEnabled: true,
+                    onUpdateCustomSearch: onSearchTextChange,
+                    position: "right",
+                  }}
+                  dataset={filterSearchTextDataset}
                   exportCsv={false}
                   headers={tableHeaders}
                   id={"tblGroups"}
                   pageSize={10}
                   rowEvents={{ onClick: handleRowClick }}
-                  search={true}
+                  search={false}
                 />
               </Row>
             </Col100>
