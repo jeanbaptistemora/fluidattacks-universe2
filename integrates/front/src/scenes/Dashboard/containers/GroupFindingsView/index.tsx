@@ -255,13 +255,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "age",
-      header: "Age",
-      onSort: onSortState,
-      visible: checkedItems.age,
-    },
-    {
-      align: "center",
       dataField: "openVulnerabilities",
       header: "Locations",
       onSort: onSortState,

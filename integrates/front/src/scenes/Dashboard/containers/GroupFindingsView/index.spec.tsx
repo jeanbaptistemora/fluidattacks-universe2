@@ -228,7 +228,6 @@ describe("GroupFindingsView", (): void => {
       .find(CustomToggleList)
       .find("input");
 
-    const ageCheckbox: ReactWrapper = columnFilterInputs.find({ name: "age" });
     const remediatedCheckbox: ReactWrapper = columnFilterInputs.find({
       name: "remediated",
     });
@@ -236,7 +235,6 @@ describe("GroupFindingsView", (): void => {
       name: "where",
     });
 
-    ageCheckbox.simulate("change");
     remediatedCheckbox.simulate("change");
     whereCheckbox.simulate("change");
 
@@ -247,7 +245,6 @@ describe("GroupFindingsView", (): void => {
     const tableHeader: ReactWrapper = findingTable.find("Header");
 
     expect(tableHeader.text()).toContain("Last report");
-    expect(tableHeader.text()).toContain("Age");
     expect(tableHeader.text()).toContain("Type");
     expect(tableHeader.text()).toContain("Severity");
     expect(tableHeader.text()).toContain("Status");
@@ -257,7 +254,6 @@ describe("GroupFindingsView", (): void => {
     const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
 
     expect(firstRow.text()).toContain("33");
-    expect(firstRow.text()).toContain("252");
     expect(firstRow.text()).toContain("038. Business information leak");
     expect(firstRow.text()).toContain("2.9");
     expect(firstRow.text()).toContain("Open");
