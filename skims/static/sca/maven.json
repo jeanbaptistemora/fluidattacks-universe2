@@ -631,6 +631,11 @@
   "dev.paseto:jpaseto-impl": {
     "CVE-2020-10244": ">=0 <0.3.0"
   },
+  "dom4j:dom4j": {
+    "CVE-2018-1000632": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.1",
+    "CVE-2020-10683": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.3",
+    "SNYK-JAVA-DOM4J-174153": "<=1.6.1"
+  },
   "edu.vt.middleware:vt-ldap": {
     "CVE-2014-3607": ">=0 <=3.3.7"
   },
@@ -1162,6 +1167,9 @@
   },
   "org.apache.commons:commons-configuration2": {
     "CVE-2020-1953": ">=2.2 <=2.6"
+  },
+  "org.apache.commons:commons-dbcp2": {
+    "SNYK-JAVA-ORGAPACHECOMMONS-559327": "<2.9.0"
   },
   "org.apache.commons:commons-email": {
     "CVE-2017-9801": ">=0 <=1.4",
