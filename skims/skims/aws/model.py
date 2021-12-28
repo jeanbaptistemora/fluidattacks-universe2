@@ -142,3 +142,9 @@ class AWSIamManagedPolicy(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSEC2(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

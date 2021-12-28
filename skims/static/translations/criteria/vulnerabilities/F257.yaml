@@ -1,3 +1,6 @@
+src.lib_path.f257.ec2_has_not_termination_protection:
+  en: DisableApiTermination property should enabled
+  es: La propiedad DisableApiTermination debería habilitada
 F257.title:
   en: >
     Lack of protection against deletion - EC2
