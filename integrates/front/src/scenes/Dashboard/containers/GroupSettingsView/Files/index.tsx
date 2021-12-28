@@ -11,6 +11,7 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddedFileModal } from "scenes/Dashboard/components/AddedFileModal";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
@@ -50,6 +51,8 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const closeOptionsModal: () => void = useCallback((): void => {
     setOptionsModalOpen(false);
   }, []);
+
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const handleRowClick: (_0: React.FormEvent, row: Dictionary<string>) => void =
@@ -191,6 +194,12 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     };
   }
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
   const filesDataset: IFile[] = (
     JSON.parse(data.resources.files) as IFile[]
   ).filter(
@@ -315,6 +324,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
   ];
 
+  const filterSearchTextDataset: IFile[] = filterSearchText(
+    filesDataset,
+    searchTextFilter
+  );
+
   return (
     <React.StrictMode>
       <Row>
@@ -345,14 +359,20 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       </Row>
       <DataTableNext
         bordered={true}
-        dataset={filesDataset}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
+        }}
+        dataset={filterSearchTextDataset}
         defaultSorted={JSON.parse(_.get(sessionStorage, "fileSort", "{}"))}
         exportCsv={false}
         headers={tableHeaders}
         id={"tblFiles"}
         pageSize={10}
         rowEvents={{ onClick: handleRowClick }}
-        search={true}
+        search={false}
         striped={true}
       />
       <label>
