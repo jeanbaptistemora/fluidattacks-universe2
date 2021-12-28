@@ -59,7 +59,7 @@ def sql_injection(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("89",),
-        desc_key="F001.description",
+        desc_key="criteria.vulns.001.description",
         desc_params=dict(lang="C#"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
