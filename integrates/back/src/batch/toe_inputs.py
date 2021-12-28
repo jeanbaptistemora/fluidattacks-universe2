@@ -45,7 +45,6 @@ from toe.inputs.types import (
     ToeInputAttributesToUpdate,
 )
 from typing import (
-    Dict,
     Optional,
     Tuple,
     Union,
@@ -64,7 +63,7 @@ toe_inputs_update = retry_on_exceptions(
 
 def get_non_present_toe_inputs_to_update(
     root: Union[GitRootItem, URLRootItem],
-    root_toe_inputs: Dict[str, ToeInput],
+    root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
     LOGGER_CONSOLE.info(
         "Getting non present toe inputs to update",
@@ -76,13 +75,13 @@ def get_non_present_toe_inputs_to_update(
     )
     return tuple(
         (
-            root_toe_inputs[toe_input_hash],
+            toe_input,
             ToeInputAttributesToUpdate(
                 be_present=False,
             ),
         )
-        for toe_input_hash in root_toe_inputs
-        if root.state.status == "INACTIVE"
+        for toe_input in root_toe_inputs
+        if root.state.status == "INACTIVE" and toe_input.be_present
     )
 
 
@@ -99,12 +98,14 @@ async def refresh_inactive_root_toe_inputs(
             }
         },
     )
-    root_toe_inputs = {
-        toe_input.get_hash(): toe_input
-        for toe_input in await loaders.group_toe_inputs.load_nodes(
-            GroupToeInputsRequest(group_name=group_name)
-        )
-    }
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
+    root_toe_inputs = tuple(
+        toe_input
+        for toe_input in group_toe_inputs
+        if toe_input.unreliable_root_id == root.id
+    )
     non_present_toe_inputs_to_update = get_non_present_toe_inputs_to_update(
         root, root_toe_inputs
     )

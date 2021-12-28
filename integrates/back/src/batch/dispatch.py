@@ -17,6 +17,9 @@ from batch.report import (
 from batch.roots import (
     move_root,
 )
+from batch.toe_inputs import (
+    refresh_toe_inputs,
+)
 from batch.toe_lines import (
     refresh_toe_lines,
 )
@@ -58,6 +61,8 @@ async def main() -> None:
             await handle_finding_policy(item=item)
         elif action == "handle_virus_scan":
             await handle_virus_scan(item=item)
+        elif action == "refresh_toe_inputs":
+            await refresh_toe_inputs(item=item)
         elif action == "refresh_toe_lines":
             await refresh_toe_lines(item=item)
         else:
