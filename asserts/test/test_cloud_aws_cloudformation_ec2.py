@@ -38,14 +38,6 @@ def test_has_unrestricted_ports():
     assert ec2.has_unrestricted_ports(SAFE).is_closed()
 
 
-def test_has_unencrypted_volumes():
-    """test ec2.has_unencrypted_volumes."""
-    result = ec2.has_unencrypted_volumes(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert ec2.has_unencrypted_volumes(SAFE).is_closed()
-
-
 def test_has_not_an_iam_instance_profile():
     """test ec2.has_not_an_iam_instance_profile."""
     result = ec2.has_not_an_iam_instance_profile(VULN)
