@@ -1,11 +1,20 @@
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    RepeatedToeInput,
+    ToeInputAlreadyUpdated,
+)
 from dataloaders import (
     Dataloaders,
+    get_new_context,
+)
+from datetime import (
+    datetime,
 )
 from db_model.roots.types import (
     GitRootItem,
+    RootItem,
     URLRootItem,
 )
 from db_model.toe_inputs.types import (
@@ -31,6 +40,7 @@ from toe.inputs.types import (
 )
 from typing import (
     Dict,
+    Optional,
     Tuple,
     Union,
 )
@@ -108,3 +118,45 @@ async def refresh_inactive_root_toe_inputs(
             }
         },
     )
+
+
+@retry_on_exceptions(
+    exceptions=(
+        RepeatedToeInput,
+        ToeInputAlreadyUpdated,
+    ),
+)
+async def refresh_root_toe_inputs(
+    group_name: str, optional_repo_nickname: Optional[str]
+) -> None:
+    loaders = get_new_context()
+    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    # There are roots with the same nickname
+    # then it is going to take the last modified root
+    sorted_roots = sorted(
+        roots,
+        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+    )
+    active_roots = {
+        root.state.nickname: root
+        for root in sorted_roots
+        if isinstance(root, (GitRootItem, URLRootItem))
+        and root.state.status == "ACTIVE"
+    }
+    # Deactivate all the toe inputs for all the inactive roots
+    # with the same nickname
+    inactive_roots = tuple(
+        root
+        for root in sorted_roots
+        if isinstance(root, (GitRootItem, URLRootItem))
+        and root.state.status == "INACTIVE"
+        and root.state.nickname not in active_roots
+    )
+    inactive_root_to_proccess = tuple(
+        root_repo
+        for root_repo in inactive_roots
+        if not optional_repo_nickname
+        or root_repo.state.nickname == optional_repo_nickname
+    )
+    for root in inactive_root_to_proccess:
+        await refresh_inactive_root_toe_inputs(loaders, group_name, root)
