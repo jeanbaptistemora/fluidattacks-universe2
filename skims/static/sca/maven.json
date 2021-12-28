@@ -298,6 +298,10 @@
     "CVE-2019-16558": ">=0 <=3.2.3"
   },
   "com.jayway.jsonpath:json-path": {},
+  "com.jcraft:jsch": {
+    "CVE-2016-5725": "<=0.1.53",
+    "SNYK-JAVA-COMJCRAFT-30302": ">=0.1.29 <0.1.54"
+  },
   "com.jfinal:jfinal": {
     "CVE-2019-17352": ">=0 <4.4",
     "CVE-2021-31649": ">=0 <=4.9.08",
@@ -3517,6 +3521,10 @@
   },
   "org.springblade:blade-core-log": {
     "CVE-2020-16165": ">=0 <=2.7.1"
+  },
+  "org.springframework.batch:spring-batch-core": {
+    "SNYK-JAVA-ORGSPRINGFRAMEWORKBATCH-572008": ">=4.0.0.release <4.2.3.release",
+    "SNYK-JAVA-ORGSPRINGFRAMEWORKBATCH-73519": ">=3.0.9.release <3.0.10.release || >=4.0.0.release <4.0.2.release || >=4.1.0.release <4.1.1.release"
   },
   "org.springframework.boot:spring-boot": {
     "CVE-2017-8046": ">=0 <1.5.9",
