@@ -1,0 +1,132 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "finding_id": {
+            "S": "940350540"
+          },
+          "treatment": {
+            "M": {
+              "modified_date": {
+                "S": "2020-07-22T21:19:24+00:00"
+              },
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "status": {
+                "S": "NEW"
+              }
+            }
+          },
+          "repo": {
+            "S": "forces"
+          },
+          "sk": {
+            "S": "FIN#940350540"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "id": {
+            "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "state": {
+            "M": {
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2020-07-22T21:19:25+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              }
+            }
+          },
+          "specific": {
+            "S": "1"
+          },
+          "type": {
+            "S": "LINES"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "STATE#2020-07-22T21:19:24+00:00"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "source": {
+            "S": "ASM"
+          },
+          "modified_date": {
+            "S": "2020-07-22T21:19:24+00:00"
+          },
+          "status": {
+            "S": "OPEN"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "STATE#2020-07-22T21:19:25+00:00"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "source": {
+            "S": "ASM"
+          },
+          "modified_date": {
+            "S": "2020-07-22T21:19:25+00:00"
+          },
+          "status": {
+            "S": "CLOSED"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "TREATMENT#2020-07-22T21:19:24+00:00"
+          },
+          "modified_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "modified_date": {
+            "S": "2020-07-22T21:19:24+00:00"
+          },
+          "status": {
+            "S": "NEW"
+          }
+        }
+      }
+    }
+  ]
+}
