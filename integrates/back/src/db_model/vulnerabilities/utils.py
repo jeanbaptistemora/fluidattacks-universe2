@@ -8,11 +8,17 @@ from .enums import (
 )
 from .types import (
     Vulnerability,
+    VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
+)
+from datetime import (
+    datetime,
+    timedelta,
+    timezone,
 )
 from db_model.enums import (
     Source,
@@ -20,6 +26,9 @@ from db_model.enums import (
 )
 from dynamodb.types import (
     Item,
+)
+from typing import (
+    cast,
 )
 
 
@@ -113,3 +122,23 @@ def historic_entry_type_to_str(item: VulnerabilityHistoricEntry) -> str:
     if isinstance(item, VulnerabilityZeroRisk):
         return "zero_risk"
     return ""
+
+
+def adjust_historic_dates(
+    historic: VulnerabilityHistoric,
+) -> VulnerabilityHistoric:
+    """Ensure dates are not the same and in ascending order."""
+    new_historic = []
+    comparison_date = ""
+    for entry in historic:
+        if entry.modified_date > comparison_date:
+            comparison_date = entry.modified_date
+        else:
+            fixed_date = datetime.fromisoformat(comparison_date) + timedelta(
+                seconds=1
+            )
+            comparison_date = fixed_date.astimezone(
+                tz=timezone.utc
+            ).isoformat()
+        new_historic.append(entry._replace(modified_date=comparison_date))
+    return cast(VulnerabilityHistoric, tuple(new_historic))

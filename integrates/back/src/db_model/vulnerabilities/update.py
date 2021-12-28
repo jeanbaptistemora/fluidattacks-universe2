@@ -7,6 +7,7 @@ from .types import (
     VulnerabilityMetadataToUpdate,
 )
 from .utils import (
+    adjust_historic_dates,
     historic_entry_type_to_str,
 )
 from boto3.dynamodb.conditions import (
@@ -124,6 +125,7 @@ async def update_historic(
     vulnerability_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
+    historic = adjust_historic_dates(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
 
