@@ -1637,6 +1637,7 @@ export const enTranslations: ResourceKey = {
       },
     },
     tabMachine: {
+      checkAll: "Check all roots",
       errorNoCheck: "There is no Machine type for this finding",
       headerDuration: "Duration (hh:mm:ss)",
       headerPriority: "Priority",

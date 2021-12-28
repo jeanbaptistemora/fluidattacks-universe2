@@ -9,17 +9,57 @@ import { FormikCheckbox } from "utils/forms/fields";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 
+const initializeRootNicknames = (
+  nicknames: string[],
+  value: boolean
+): Record<string, boolean> =>
+  Object.fromEntries(
+    new Map(
+      nicknames.map((root: string): readonly [PropertyKey, boolean] => [
+        root,
+        value,
+      ])
+    )
+  );
+
 const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
   const { rootNicknames, onClose, onSubmit } = props;
 
   const [isJobSubmitted, setJObSubmitted] = useState(false);
+  const [isCheckAll, setCheckAll] = useState(false);
+
+  const availableRoots: Record<string, boolean> = initializeRootNicknames(
+    rootNicknames,
+    false
+  );
+  const [initialValues, setInitialValues] = useState<Record<string, boolean>>({
+    ...availableRoots,
+    checkAll: isCheckAll,
+  });
 
   function handleClose(): void {
     onClose();
   }
+  function handleOnCheckAll(): void {
+    setCheckAll(!isCheckAll);
+    if (isCheckAll) {
+      setInitialValues({
+        ...initializeRootNicknames(rootNicknames, false),
+        checkAll: false,
+      });
+    } else {
+      setInitialValues({
+        ...initializeRootNicknames(rootNicknames, true),
+        checkAll: true,
+      });
+    }
+  }
   async function handleSubmit(values: Record<string, unknown>): Promise<void> {
     setJObSubmitted(true);
-    const nicknames = Object.keys(values);
+    const nicknames = Object.keys(values).flatMap(
+      (root: string): [] | [string] =>
+        rootNicknames.includes(root) && values[root] === true ? [root] : []
+    );
     await onSubmit(nicknames);
     onClose();
   }
@@ -27,8 +67,20 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
   return (
     <div>
       <p>{"Roots to execute"}</p>
-      <Formik initialValues={{}} onSubmit={handleSubmit}>
+      <Formik
+        enableReinitialize={true}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+      >
         <Form>
+          <React.Fragment>
+            <input
+              name={"checkAll"}
+              onChange={handleOnCheckAll}
+              type={"checkbox"}
+            />
+            {` ${translate.t("searchFindings.tabMachine.checkAll")}`}
+          </React.Fragment>
           <div>
             <FormGroup>
               <ul className={style.suggestionList}>
@@ -38,9 +90,8 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
                       component={FormikCheckbox}
                       key={root}
                       label={root}
-                      name={`root_nick_${root}`}
+                      name={root}
                       type={"checkbox"}
-                      value={root}
                     />
                   );
                 })}
