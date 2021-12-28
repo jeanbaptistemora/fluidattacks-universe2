@@ -24,7 +24,7 @@ import {
   SIGN_POST_URL_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import type { IGetFilesQuery } from "scenes/Dashboard/containers/GroupSettingsView/types";
-import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
+import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -332,49 +332,51 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   return (
     <React.StrictMode>
       <Row>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col60 className={"pa0"}>
-          <h2>{translate.t("searchFindings.tabResources.files.title")}</h2>
-        </Col60>
-        <Can do={"api_mutations_add_files_mutate"}>
-          {/* eslint-disable-next-line react/forbid-component-props */}
-          <Col40 className={"pa0"}>
-            <ButtonToolbar>
-              <TooltipWrapper
-                id={"searchFindings.tabResources.files.btnTooltip.id"}
-                message={translate.t(
-                  "searchFindings.tabResources.files.btnTooltip"
-                )}
-                placement={"top"}
-              >
-                <Button id={"file-add"} onClick={openAddModal}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;
-                  {translate.t("searchFindings.tabResources.addRepository")}
-                </Button>
-              </TooltipWrapper>
-            </ButtonToolbar>
-          </Col40>
-        </Can>
+        <h2 className={"mb0 pb0"}>
+          {translate.t("searchFindings.tabResources.files.title")}
+        </h2>
       </Row>
-      <DataTableNext
-        bordered={true}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        dataset={filterSearchTextDataset}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "fileSort", "{}"))}
-        exportCsv={false}
-        headers={tableHeaders}
-        id={"tblFiles"}
-        pageSize={10}
-        rowEvents={{ onClick: handleRowClick }}
-        search={false}
-        striped={true}
-      />
+      <div className={"flex flex-wrap nt1"}>
+        <DataTableNext
+          bordered={true}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
+          }}
+          dataset={filterSearchTextDataset}
+          defaultSorted={JSON.parse(_.get(sessionStorage, "fileSort", "{}"))}
+          exportCsv={false}
+          extraButtons={
+            <Row>
+              <Can do={"api_mutations_add_files_mutate"}>
+                <ButtonToolbar>
+                  <TooltipWrapper
+                    id={"searchFindings.tabResources.files.btnTooltip.id"}
+                    message={translate.t(
+                      "searchFindings.tabResources.files.btnTooltip"
+                    )}
+                    placement={"top"}
+                  >
+                    <Button id={"file-add"} onClick={openAddModal}>
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;
+                      {translate.t("searchFindings.tabResources.addRepository")}
+                    </Button>
+                  </TooltipWrapper>
+                </ButtonToolbar>
+              </Can>
+            </Row>
+          }
+          headers={tableHeaders}
+          id={"tblFiles"}
+          pageSize={10}
+          rowEvents={{ onClick: handleRowClick }}
+          search={false}
+          striped={true}
+        />
+      </div>
       <label>
         <b>{translate.t("searchFindings.tabResources.totalFiles")}</b>
         {filesDataset.length}
