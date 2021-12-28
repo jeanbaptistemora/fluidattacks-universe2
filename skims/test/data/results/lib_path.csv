@@ -396,6 +396,150 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 ",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+> 32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,44,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+> 44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,38,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+> 38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+> 43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+> 51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+  59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
 F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"Insecure service configuration - EC2
  in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   16 |
@@ -9203,6 +9347,342 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asy
   17 | }
      ^ Col 0
 ",c_sharp.vuln_regular_expression
+F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+> 17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+  22 |         LaunchTemplateName: launchTemplate
+  23 |         Version:
+  24 |           Fn::GetAtt:
+  25 |             - launchTemplate
+  26 |             - LatestVersionNumber
+  27 |       NetworkInterfaces:
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+  22 |         ]
+  23 |       }
+  24 |     },
+  25 |     ""EC2Instance2"": {
+> 26 |       ""Properties"": {
+  27 |         ""IamInstanceProfile"": ""iamInstanceProfile1"",
+  28 |         ""LaunchTemplate"": {
+  29 |           ""LaunchTemplateId"": {
+  30 |             ""Ref"": ""launchTemplate""
+  31 |           },
+  32 |           ""LaunchTemplateName"": ""launchTemplate"",
+  33 |           ""Version"": {
+  34 |             ""Fn::GetAtt"": [
+  35 |               ""launchTemplate"",
+  36 |               ""LatestVersionNumber""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+   7 |        InstanceType: t2.micro
+   8 |        KeyName: MyKeyPair
+   9 |        DisableApiTermination: true
+  10 |  MyLaunchTemplate2:
+  11 |    Type: AWS::EC2::LaunchTemplate
+  12 |    Properties:
+  13 |      LaunchTemplateName: MyLaunchTemplate
+  14 |      LaunchTemplateData:
+  15 |        InstanceType: t2.micro
+  16 |        KeyName: MyKeyPair
+> 17 |        DisableApiTermination: False
+  18 |  MyLaunchTemplate3:
+  19 |    Type: AWS::EC2::LaunchTemplate
+  20 |    Properties:
+  21 |      LaunchTemplateName: MyLaunchTemplate
+  22 |      LaunchTemplateData:
+  23 |        InstanceType: t2.micro
+  24 |        KeyName: MyKeyPair
+  25 |  MyLaunchTemplate4:
+  26 |    Type: AWS::EC2::LaunchTemplate
+  27 |    Properties:
+     ^ Col 1
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,22,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  12 |     Properties:
+  13 |       LaunchTemplateName: MyLaunchTemplate
+  14 |       LaunchTemplateData:
+  15 |         InstanceType: t2.micro
+  16 |         KeyName: MyKeyPair
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+> 22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,27,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+> 27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+> 43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,40,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+> 40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,21,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  11 |    }
+  12 |  }
+  13 | ,
+  14 | MyLaunchTemplate2"": {
+  15 |  ""Type"": ""AWS::EC2::LaunchTemplate"",
+  16 |  ""Properties"": {
+  17 |    ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  18 |    ""LaunchTemplateData"": {
+  19 |      ""InstanceType"": ""t2.micro"",
+  20 |      ""KeyName"": ""MyKeyPair"",
+> 21 |      ""DisableApiTermination"": false
+  22 |    }
+  23 |  }
+  24 | ,
+  25 | MyLaunchTemplate3"": {
+  26 |  ""Type"": ""AWS::EC2::LaunchTemplate"",
+  27 |  ""Properties"": {
+  28 |    ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  29 |    ""LaunchTemplateData"": {
+  30 |      ""InstanceType"": ""t2.micro"",
+  31 |      ""KeyName"": ""MyKeyPair""
+     ^ Col 5
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,29,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  19 |           ""InstanceType"": ""t2.micro"",
+  20 |           ""KeyName"": ""MyKeyPair"",
+  21 |           ""DisableApiTermination"": false
+  22 |         }
+  23 |       }
+  24 |     },
+  25 |     ""MyLaunchTemplate3"": {
+  26 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  27 |       ""Properties"": {
+  28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 29 |         ""LaunchTemplateData"": {
+  30 |           ""InstanceType"": ""t2.micro"",
+  31 |           ""KeyName"": ""MyKeyPair""
+  32 |         }
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,37,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  27 |       ""Properties"": {
+  28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  29 |         ""LaunchTemplateData"": {
+  30 |           ""InstanceType"": ""t2.micro"",
+  31 |           ""KeyName"": ""MyKeyPair""
+  32 |         }
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+> 37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,54,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  44 |      ""ImageId"": ""ami-79fd7eee"",
+  45 |      ""KeyName"": ""testkey"",
+  46 |      ""DisableApiTermination"": true
+  47 |    }
+  48 |  },
+  49 |  ""MyEC2Instance2"": {
+  50 |    ""Type"": ""AWS::EC2::Instance"",
+  51 |    ""Properties"": {
+  52 |      ""ImageId"": ""ami-79fd7eee"",
+  53 |      ""KeyName"": ""testkey"",
+> 54 |      ""DisableApiTermination"": false
+  55 |    }
+  56 |  },
+  57 |  ""MyEC2Instance3"": {
+  58 |    ""Type"": ""AWS::EC2::Instance"",
+  59 |    ""Properties"": {
+  60 |      ""ImageId"": ""ami-79fd7eee"",
+  61 |      ""KeyName"": ""testkey""
+  62 |    }
+  63 |  }
+  64 |
+     ^ Col 3
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String
