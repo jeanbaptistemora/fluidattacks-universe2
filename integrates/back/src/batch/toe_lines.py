@@ -521,7 +521,7 @@ async def refresh_inactive_root_repo_toe_lines(
         RepeatedToeLines,
         ToeLinesAlreadyUpdated,
     ),
-    max_attempts=2,
+    max_attempts=3,
 )
 async def refresh_root_repo_toe_lines(
     group_name: str, group_path: str, optional_repo_nickname: Optional[str]

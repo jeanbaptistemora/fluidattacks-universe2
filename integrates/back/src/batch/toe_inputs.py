@@ -1,6 +1,12 @@
 from aioextensions import (
     collect,
 )
+from batch.dal import (
+    delete_action,
+)
+from batch.types import (
+    BatchProcessing,
+)
 from custom_exceptions import (
     RepeatedToeInput,
     ToeInputAlreadyUpdated,
@@ -160,3 +166,18 @@ async def refresh_root_toe_inputs(
     )
     for root in inactive_root_to_proccess:
         await refresh_inactive_root_toe_inputs(loaders, group_name, root)
+
+
+async def refresh_toe_inputs(*, item: BatchProcessing) -> None:
+    group_name: str = item.entity
+    optional_repo_nickname: Optional[str] = (
+        None if item.additional_info == "*" else item.additional_info
+    )
+    await refresh_root_toe_inputs(group_name, optional_repo_nickname)
+    await delete_action(
+        action_name=item.action_name,
+        additional_info=item.additional_info,
+        entity=item.entity,
+        subject=item.subject,
+        time=item.time,
+    )
