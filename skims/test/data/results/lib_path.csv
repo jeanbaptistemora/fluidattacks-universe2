@@ -2492,6 +2492,150 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   117 | }
       ^ Col 0
 ",f024_aws._cnf_unrestricted_ports
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,12,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,"
+   2 |   MyPolicy:
+   3 |     Type: 'AWS::IAM::Policy'
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+> 12 |               - 'ssm:CreateAssociation'
+  13 |               - 'cloudformation:Get*'
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,24,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,"
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+> 24 |             Action: 'ssm:CreateAssociation'
+  25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:CreateAssociation'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,48,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,"
+  35 |       Groups:
+  36 |         - TestDBGroup
+  37 |   RootRole:
+  38 |     Type: ""AWS::IAM::Role""
+  39 |     Properties:
+  40 |       AssumeRolePolicyDocument:
+  41 |         Version: ""2012-10-17""
+  42 |         Statement:
+  43 |           - Effect: ""Allow""
+  44 |             Principal:
+  45 |               Service:
+  46 |                 - ""ec2.amazonaws.com""
+  47 |             Action:
+> 48 |               - ""ssm:CreateAssociation""
+  49 |           - Effect: ""Allow""
+  50 |             Principal:
+  51 |               Service:
+  52 |                 - ""ec2.amazonaws.com""
+  53 |             Action:
+  54 |               - ""sts:AssumeRole""
+  55 |       Path: ""/""
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,14,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,"
+   4 |       ""Type"": ""AWS::IAM::Policy"",
+   5 |       ""Properties"": {
+   6 |         ""PolicyName"": ""CFNUsers"",
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+> 14 |                 ""ssm:CreateAssociation"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+  17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,33,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,"
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+> 33 |               ""Action"": ""ssm:CreateAssociation"",
+  34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:CreateAssociation"",
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,72,16,skims,333. Insecure service configuration - EC2,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,"
+  62 |           ""Version"": ""2012-10-17"",
+  63 |           ""Statement"": [
+  64 |             {
+  65 |               ""Effect"": ""Allow"",
+  66 |               ""Principal"": {
+  67 |                 ""Service"": [
+  68 |                   ""ec2.amazonaws.com""
+  69 |                 ]
+  70 |               },
+  71 |               ""Action"": [
+> 72 |                 ""ssm:CreateAssociation""
+  73 |               ]
+  74 |             },
+  75 |             {
+  76 |               ""Effect"": ""Allow"",
+  77 |               ""Principal"": {
+  78 |                 ""Service"": [
+  79 |                   ""ec2.amazonaws.com""
+  80 |                 ]
+  81 |               },
+  82 |               ""Action"": [
+     ^ Col 0
+",f333._cfn_iam_has_full_access_to_ssm
 F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
@@ -4304,6 +4448,56 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   126 |               ""Statement"": [
   127 |                 {
       ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml","
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+  24 |             Action: 'ssm:CreateAssociation'
+> 25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:CreateAssociation'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+  35 |       Groups:
+     ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml.json","
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+  33 |               ""Action"": ""ssm:CreateAssociation"",
+> 34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:CreateAssociation"",
+  44 |               ""Resource"": ""*"",
+     ^ Col 0
 ",f325._cfn_iam_has_wildcard_resource_on_write_action
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,"
    1 | Resources:

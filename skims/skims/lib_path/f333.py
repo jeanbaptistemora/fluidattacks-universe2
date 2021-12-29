@@ -282,6 +282,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_iam_has_full_access_to_ssm(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     if file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
