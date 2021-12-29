@@ -85,6 +85,72 @@ def get_non_present_toe_inputs_to_update(
     )
 
 
+def get_present_toe_inputs_to_update(
+    root: Union[GitRootItem, URLRootItem],
+    root_toe_inputs: Tuple[ToeInput, ...],
+) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
+    LOGGER_CONSOLE.info(
+        "Getting present toe inputs to update",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    return tuple(
+        (
+            toe_input,
+            ToeInputAttributesToUpdate(
+                be_present=True,
+            ),
+        )
+        for toe_input in root_toe_inputs
+        if root.state.status == "ACTIVE" and not toe_input.be_present
+    )
+
+
+async def refresh_active_root_toe_inputs(
+    loaders: Dataloaders,
+    group_name: str,
+    root: Union[GitRootItem, URLRootItem],
+) -> None:
+    LOGGER_CONSOLE.info(
+        "Refreshing active toe inputs",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+        GroupToeInputsRequest(group_name=group_name)
+    )
+    root_toe_inputs = tuple(
+        toe_input
+        for toe_input in group_toe_inputs
+        if toe_input.unreliable_root_id == root.id
+    )
+    present_toe_inputs_to_update = get_present_toe_inputs_to_update(
+        root, root_toe_inputs
+    )
+    await collect(
+        tuple(
+            toe_inputs_update(current_value, attrs_to_update)
+            for current_value, attrs_to_update in (
+                present_toe_inputs_to_update
+            )
+        ),
+    )
+    LOGGER_CONSOLE.info(
+        "Finish refreshing active toe inputs",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+
+
 async def refresh_inactive_root_toe_inputs(
     loaders: Dataloaders,
     group_name: str,
@@ -159,13 +225,21 @@ async def refresh_root_toe_inputs(
         and root.state.status == "INACTIVE"
         and root.state.nickname not in active_roots
     )
-    inactive_root_to_proccess = tuple(
+    active_roots_to_proccess = tuple(
+        root
+        for root in active_roots.values()
+        if not optional_repo_nickname
+        or root.state.nickname == optional_repo_nickname
+    )
+    for root in active_roots_to_proccess:
+        await refresh_active_root_toe_inputs(loaders, group_name, root)
+    inactive_roots_to_proccess = tuple(
         root_repo
         for root_repo in inactive_roots
         if not optional_repo_nickname
         or root_repo.state.nickname == optional_repo_nickname
     )
-    for root in inactive_root_to_proccess:
+    for root in inactive_roots_to_proccess:
         await refresh_inactive_root_toe_inputs(loaders, group_name, root)
 
 

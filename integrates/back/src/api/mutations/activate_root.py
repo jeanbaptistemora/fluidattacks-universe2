@@ -4,6 +4,9 @@ from aiodataloader import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from batch import (
+    dal as batch_dal,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -100,5 +103,21 @@ async def mutate(
         await activate_ip_root(info, root, user_email, **kwargs)
     else:
         await activate_url_root(info, root, user_email, **kwargs)
+
+    if root.state.status != "ACTIVE":
+        if isinstance(root, GitRootItem):
+            await batch_dal.put_action(
+                action_name="refresh_toe_lines",
+                entity=kwargs["group_name"],
+                subject=user_email,
+                additional_info=root.state.nickname,
+            )
+        if isinstance(root, (GitRootItem, URLRootItem)):
+            await batch_dal.put_action(
+                action_name="refresh_toe_inputs",
+                entity=kwargs["group_name"],
+                subject=user_email,
+                additional_info=root.state.nickname,
+            )
 
     return SimplePayload(success=True)

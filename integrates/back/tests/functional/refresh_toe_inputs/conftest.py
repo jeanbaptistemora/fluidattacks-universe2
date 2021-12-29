@@ -80,6 +80,23 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                 ),
             ),
+            URLRootItem(
+                group_name="group1",
+                id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                metadata=URLRootMetadata(type="URL"),
+                state=URLRootState(
+                    host="app.fluidattacks.com",
+                    modified_by="admin@gmail.com",
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    nickname="test_nickname_3",
+                    other=None,
+                    path="/",
+                    port="8080",
+                    protocol="HTTPS",
+                    reason=None,
+                    status="ACTIVE",
+                ),
+            ),
         ),
         "toe_inputs": (
             ToeInput(
@@ -134,6 +151,25 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+            ),
+            ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-11T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=False,
+                be_present_until=datetime.fromisoformat(
+                    "2021-03-11T05:00:00+00:00"
+                ),
+                component="test.com/test3/test.aspx",
+                entry_point="-",
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-11T05:00:00+00:00"
+                ),
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
+                seen_first_time_by="test3@test.com",
+                unreliable_root_id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
             ),
         ),
     }

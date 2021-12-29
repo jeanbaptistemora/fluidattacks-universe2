@@ -78,9 +78,24 @@ async def test_refresh_toe_inputs(
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
             },
+            {
+                "node": {
+                    "attackedAt": "2021-02-11T05:00:00+00:00",
+                    "attackedBy": "",
+                    "bePresent": True,
+                    "bePresentUntil": None,
+                    "component": "test.com/test3/test.aspx",
+                    "entryPoint": "-",
+                    "firstAttackAt": "2021-02-11T05:00:00+00:00",
+                    "seenAt": "2020-01-11T05:00:00+00:00",
+                    "seenFirstTimeBy": "test3@test.com",
+                    "unreliableRootNickname": "test_nickname_3",
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+            },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
         },
     }
