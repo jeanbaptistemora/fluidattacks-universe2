@@ -49,12 +49,3 @@ def test_has_privileges_over_iam():
     assert result.get_vulns_number() == 2 * 1
     assert iam.has_privileges_over_iam(NOT_EXISTS).is_unknown()
     assert iam.has_privileges_over_iam(SAFE).is_closed()
-
-
-def test_has_full_access_to_ssm():
-    """test iam.has_full_access_to_ssm."""
-    result = iam.has_full_access_to_ssm(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert iam.has_full_access_to_ssm(NOT_EXISTS).is_unknown()
-    assert iam.has_full_access_to_ssm(SAFE).is_closed()
