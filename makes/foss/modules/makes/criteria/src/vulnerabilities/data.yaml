@@ -14340,12 +14340,12 @@
     description: >
       Technical information is obtained
       from the application due to the use
-      of the System.out.println() function
+      of print functions (Print, PrinStackTrace, Println, among others)
       whose outputs are normally shown in
       the stdout (standard output).
       In development environment it is acceptable
-      to use this function to see errors (Debug),
-      but using it in production environment is
+      to use these functions to see errors (Debug),
+      but using them in production environment is
       the same as exposing yourself to show
       sensitive information of the application.
     impact: >
@@ -14367,12 +14367,13 @@
     title: Technical information leak - Print Functions
     description: >
       Se obtiene información técnica de la
-      aplicación debido al uso de la función
-      System.out.println() cuya salidas normalmente
+      aplicación debido al uso de funciones print
+      (Print, PrinStackTrace, Println, entre otras)
+      cuyas salidas normalmente
       se muestran en el stdout (salida estándar).
       En ambiente de desarrollo es aceptable utilizar
-      esta función para ver errores (Debug), pero
-      utilizarla en ambiente de producción es igual
+      estas funciones para ver errores (Debug), pero
+      utilizarlas en ambiente de producción es igual
       a exponerse a mostrar información sensible
       de la aplicación.
     impact: >
@@ -14402,8 +14403,8 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "X"
-      report_confidence: "X"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["077","176"]
   metadata:
     en:
