@@ -296,13 +296,6 @@ const GraphicPanelCollapseHeader: StyledComponent<
   className: "pb3 pl4 pt3 pr4 items-center panel-ch",
 })``;
 
-const GraphicPanelCollapseFooter: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "pb3 pl4 pt3 pr4 items-center panel-cf",
-})``;
-
 const InputGroup: StyledComponent<
   "span",
   Record<string, unknown>
@@ -659,7 +652,6 @@ export {
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
-  GraphicPanelCollapseFooter,
   GraphicPanelCollapseHeader,
   InputGroup,
   Label,
