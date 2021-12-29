@@ -1,3 +1,6 @@
+lib_path.f015.does_not_use_ssh:
+  en: Azure instance does not authenticate using SSH keys
+  es: La instancia azure no se autentica con llaves SSH
 lib_http.analyze_headers.www_authenticate.basic:
   en: The application uses Basic authentication over HTTP
   es: La aplicación usa autenticación de tipo Basic sobre HTTP
