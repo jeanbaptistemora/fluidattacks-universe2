@@ -1,0 +1,90 @@
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Allow http to client host
+        VpcId:
+          Ref: myVPC
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 40
+          ToPort: 55
+          CidrIp: 0.0.0.0/0
+        SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+  InstanceSecurityGroup2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Allow http to client host
+        VpcId:
+          Ref: myVPC
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 50
+          ToPort: 60
+          CidrIp: 0.0.0.0/0
+  OutboundRule:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      IpProtocol: tcp
+      FromPort: 49
+      ToPort: 53
+      CidrIp: 0.0.0.0/0
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+        - TargetSG
+        - GroupId
+      GroupId:
+        Fn::GetAtt:
+        - SourceSG
+        - GroupId
+  OutboundRule2:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      IpProtocol: tcp
+      FromPort: 500
+      ToPort: 500
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+        - TargetSG
+        - GroupId
+      GroupId:
+        Fn::GetAtt:
+        - SourceSG
+        - GroupId
+  InboundRule:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      FromPort: 0
+      ToPort: 56
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+        - SourceSG
+        - GroupId
+      GroupId:
+        Fn::GetAtt:
+        - TargetSG
+        - GroupId
+  InboundRule2:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      FromPort: "53"
+      ToPort: 53
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+        - SourceSG
+        - GroupId
+      GroupId:
+        Fn::GetAtt:
+        - TargetSG
+        - GroupId
