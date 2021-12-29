@@ -31,8 +31,14 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import type {
+  IGetFindingAndGroupInfo,
+  IGetFindingVulns,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -131,9 +137,24 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const [isRequestingVerify, setRequestingVerify] = useState(false);
   const [isVerifying, setVerifying] = useState(false);
 
-  const { data, refetch } = useQuery<IGetFindingVulnInfoAttr>(
-    GET_FINDING_VULN_INFO,
+  const { data } = useQuery<IGetFindingAndGroupInfo>(
+    GET_FINDING_AND_GROUP_INFO,
     {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred loading finding", error);
+        });
+      },
+      variables: {
+        findingId,
+        groupName,
+      },
+    }
+  );
+
+  const { data: vulnsData, refetch: refetchVulnsData } =
+    useQuery<IGetFindingVulns>(GET_FINDING_VULNS, {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(t("groupAlerts.errorTextsad"));
@@ -144,21 +165,23 @@ export const VulnsView: React.FC = (): JSX.Element => {
         canRetrieveHacker,
         canRetrieveZeroRisk,
         findingId,
-        groupName,
       },
-    }
-  );
+    });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
 
-  const zeroRiskVulns: IVulnRowAttr[] = data.finding.zeroRisk
-    ? data.finding.zeroRisk
+  if (_.isUndefined(vulnsData) || _.isEmpty(vulnsData)) {
+    return <React.StrictMode />;
+  }
+
+  const zeroRiskVulns: IVulnRowAttr[] = vulnsData.finding.zeroRisk
+    ? vulnsData.finding.zeroRisk
     : [];
 
   const vulnerabilities: IVulnRowAttr[] =
-    data.finding.vulnerabilities.concat(zeroRiskVulns);
+    vulnsData.finding.vulnerabilities.concat(zeroRiskVulns);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -520,7 +543,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             findingId={findingId}
             groupName={groupName}
             handleCloseModal={toggleHandleAcceptanceModal}
-            refetchData={refetch}
+            refetchData={refetchVulnsData}
             vulns={vulnerabilities}
           />
         ) : undefined}

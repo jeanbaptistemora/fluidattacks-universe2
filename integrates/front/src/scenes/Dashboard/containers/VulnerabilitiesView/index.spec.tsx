@@ -10,16 +10,17 @@ import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnerabilitiesView", (): void => {
-  const mocksQuery: MockedResponse = {
+  const mocksQueryFindingAndGroupInfo: MockedResponse = {
     request: {
-      query: GET_FINDING_VULN_INFO,
+      query: GET_FINDING_AND_GROUP_INFO,
       variables: {
-        canRetrieveHacker: true,
-        canRetrieveZeroRisk: true,
         findingId: "422286126",
         groupName: "testgroup",
       },
@@ -33,6 +34,29 @@ describe("VulnerabilitiesView", (): void => {
           remediated: false,
           state: "open",
           verified: false,
+        },
+        group: {
+          __typename: "Group",
+          name: "testgroup",
+          subscription: "continuous",
+        },
+      },
+    },
+  };
+
+  const mocksQueryFindingVulns: MockedResponse = {
+    request: {
+      query: GET_FINDING_VULNS,
+      variables: {
+        canRetrieveHacker: true,
+        canRetrieveZeroRisk: true,
+        findingId: "422286126",
+      },
+    },
+    result: {
+      data: {
+        finding: {
+          __typename: "Finding",
           vulnerabilities: [
             {
               __typename: "Vulnerability",
@@ -146,11 +170,6 @@ describe("VulnerabilitiesView", (): void => {
             },
           ],
         },
-        group: {
-          __typename: "Group",
-          name: "testgroup",
-          subscription: "continuous",
-        },
       },
     },
   };
@@ -176,7 +195,10 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mocksQueryFindingAndGroupInfo, mocksQueryFindingVulns]}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={VulnsView}
@@ -217,7 +239,10 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mocksQueryFindingAndGroupInfo, mocksQueryFindingVulns]}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={VulnsView}
@@ -267,7 +292,10 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mocksQueryFindingAndGroupInfo, mocksQueryFindingVulns]}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider value={mockedServices}>
               <Route
@@ -343,7 +371,10 @@ describe("VulnerabilitiesView", (): void => {
           "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
         ]}
       >
-        <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mocksQueryFindingAndGroupInfo, mocksQueryFindingVulns]}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={VulnsView}
