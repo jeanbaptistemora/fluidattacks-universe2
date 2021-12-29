@@ -1,3 +1,6 @@
+src.lib_path.f177.ec2_has_unrestricted_dns_access:
+  en: Rules allow unrestricted access to port 53 (DNS)
+  es: Las reglas permiten el acceso sin restricciones al puerto 53 (DNS)
 lib_path.f177.ec2_using_default_security_group:
   en: >
     EC2 Instances or Launch Templates are using the default security group
