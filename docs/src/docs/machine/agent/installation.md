@@ -57,6 +57,14 @@ you need to do the following:
     - You can use `-v`, `-vv`, `-vvv`, `-vvvv`.
 - `--strict / --lax`: Run forces in strict mode (default `--lax`).
 - `--repo-name`: Git repository name (optional)
+- `--breaking`: Strict mode severity customization. Open vulnerabilities
+  with a severity below this threshold will not break the pipeline. This option
+  takes values between 0.0 (recommended) all the way up to 10. (optional)
+
+Note: Strict mode customization like severity thresholds and grace periods
+for new vulnerabilities can also be set in the ASM organization's Policies tab.
+In the case of `--breaking`, the value passed to the CLI option takes
+precedence over the value set in ASM.
 
 ## Examples
 
@@ -72,3 +80,7 @@ Run the Docker image:
 1. To check only `dynamic` vulnerabilities
     - `docker run --rm -ti fluidattacks/forces:new
     forces --dynamic --strict --token <your-token>`.
+1. To break the pipeline only if open vulnerabilities
+  with a severity above 4.5 are found
+    - `docker run --rm -ti fluidattacks/forces:new
+    forces --dynamic --strict --token <your-token> --breaking 4.5`.

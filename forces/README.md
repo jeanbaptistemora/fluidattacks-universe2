@@ -28,6 +28,14 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 - `--dynamic`: Only check DAST vulnerabilities
 - `--static`: Only check SAST vulnerabilities
 - If you do not specify `--dynamic/--static` all vulnerabilities are checked
+- `--breaking`: Strict mode severity customization. Open vulnerabilities
+  with a severity below this threshold will not break the pipeline. This option
+  takes values between 0.0 (recommended) all the way up to 10. (optional)
+
+Note: Strict mode customization like severity thresholds and grace periods
+for new vulnerabilities can also be set in the ASM organization's Policies tab.
+In the case of `--breaking`, the value passed to the CLI option takes
+precedence over the value set in ASM.
 
 # Examples
 
@@ -35,6 +43,12 @@ How to use the docker image:
 `docker run --rm -ti -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token> --repo-name <repository name>`
 
 _Note_: To run the container you must pass the working repository as a volume to the `/src` directory (`--volume "<path to repo>:/src"`), the path is used to extract information from the repository
+
+Customize strict mode:
+1. Break the pipeline only if open vulnerabilities with a severity above
+  4.5 are found
+    - `docker run --rm -ti fluidattacks/forces:new
+    forces --dynamic --strict --token <your-token> --breaking 4.5`.
 
 ## Use in some CI\CD
 
