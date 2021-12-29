@@ -1004,7 +1004,6 @@ def exec_cloudformation_package(
         ("ec2", "EC2 (Elastic Cloud Compute)"): [
             "ec2.has_unrestricted_cidrs",
             "ec2.has_unrestricted_ip_protocols",
-            "ec2.has_unrestricted_ports",
         ],
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
