@@ -135,6 +135,10 @@
     "CVE-2021-29620": ">=3.1.0 <5.4.0",
     "GHSA-24wf-7vf2-pv59": ">=3.1.0 <5.4.0"
   },
+  "com.fasterxml.jackson.core:jackson-core": {
+    "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31519": "<2.8.6",
+    "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31520": ">=2.3.0-rc1 <2.7.7"
+  },
   "com.fasterxml.jackson.core:jackson-databind": {
     "CVE-2017-15095": "2.9.0 || >=0 <2.7.9.2 || >=2.8.0 <2.8.10",
     "CVE-2017-17485": ">=2.8.0 <2.8.11 || >=2.9.0 <2.9.4",
@@ -2264,6 +2268,9 @@
   },
   "org.fedoraproject.jenkins.plugins:copr": {
     "CVE-2020-2177": ">=0 <=0.3"
+  },
+  "org.freemarker:freemarker": {
+    "SNYK-JAVA-ORGFREEMARKER-1076795": "<2.3.30"
   },
   "org.fusesource.hawtjni:hawtjni-runtime": {
     "CVE-2013-2035": ">=1-alpha0 <=1.7"
