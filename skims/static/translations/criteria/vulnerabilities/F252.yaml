@@ -1,0 +1,42 @@
+F252.title:
+  en: >
+    Automatic information enumeration - Open ports
+  es: >
+    Automatic information enumeration - Open ports
+F252.description:
+  en: >
+    The security group is configured to open
+    an unnecessarily large range of ports.
+    With the scan is possible to list the
+    services available on the servers to
+    know which one can be consumed.
+  es: >
+    El grupo de seguridad está configurado
+    para abrir un rango innecesario de puertos.
+    Con el escaneo es posible listar los servicios
+    disponibles en los servidores para saber
+    cuál puede ser consumido.
+F252.impact:
+  en: >
+    - Scan all the system ports and access
+    the services that are running on them.
+
+    - Install backdoors on the compromised
+    system through the open ports.
+  es: >
+    - Escanear todos los puertos del sistema y
+    acceder a los servicios que se ejecutan en ellos.
+
+    - Instalar puertas traseras en el sistema
+    comprometido a través de los puertos abiertos.
+F252.recommendation:
+  en: >
+    Securely configure the vulnerable service
+    to be accessed only by authorized users.
+  es: >
+    Configurar de forma segura el servicio
+    vulnerable para que sólo puedan acceder
+    a él los usuarios autorizados.
+F252.threat:
+  en: Internal attacker with access to the VPC.
+  es: Atacante interno con acceso al VPC.

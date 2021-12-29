@@ -511,6 +511,14 @@
       "title": "250. Non-encrypted hard drives"
     }
   },
+  "F252": {
+    "EN": {
+      "title": "252. Automatic information enumeration - Open ports"
+    },
+    "ES": {
+      "title": "252. Automatic information enumeration - Open ports"
+    }
+  },
   "F256": {
     "EN": {
       "title": "256. Lack of protection against deletion - RDS"
