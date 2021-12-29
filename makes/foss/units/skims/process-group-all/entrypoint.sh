@@ -60,11 +60,15 @@ function skims_cache {
   local cache_remote="s3://skims.data/cache/${group}/"
 
   echo "[INFO] Cache ${command}" \
-    && case "${command}" in
-      pull) aws_s3_sync "${cache_remote}" "${cache_local}" --delete ;;
-      push) aws_s3_sync "${cache_local}" "${cache_remote}" --delete ;;
-      *) abort "[CRITICAL] cache command must be one of: pull, push" ;;
-    esac
+    && if test -d "${cache_local}"; then
+      case "${command}" in
+        pull) aws_s3_sync "${cache_remote}" "${cache_local}" --delete ;;
+        push) aws_s3_sync "${cache_local}" "${cache_remote}" --delete ;;
+        *) abort "[CRITICAL] cache command must be one of: pull, push" ;;
+      esac
+    else
+      echo "[WARNING] the cache directory ${cache_local} does not exist"
+    fi
 }
 
 function skims_rebase {
@@ -116,16 +120,20 @@ function execute_skims_combination {
       fi
   done \
     && if test -e "groups/${group}/fusion/${namespace}"; then
-      skims_rebase "${group}" "${namespace}" \
-        && config="$(mktemp)" \
-        && echo "[INFO] Running skims scan in ${group}" \
-        && lang="$(get_skims_language "${group}")" \
-        && python3 __argGetConfig__ --check "${checks[@]}" \
-          --group "${group}" \
-          --language "${lang}" \
-          --namespace "${namespace}" \
-          --out "${config}" \
-        && skims scan --group "${group}" "${config}"
+      if test "${#checks[@]}" -gt 0; then
+        skims_rebase "${group}" "${namespace}" \
+          && config="$(mktemp)" \
+          && echo "[INFO] Running skims scan in ${group}" \
+          && lang="$(get_skims_language "${group}")" \
+          && python3 __argGetConfig__ --check "${checks[@]}" \
+            --group "${group}" \
+            --language "${lang}" \
+            --namespace "${namespace}" \
+            --out "${config}" \
+          && skims scan --group "${group}" "${config}"
+      else
+        echo "[WARNING] there are no findings to run"
+      fi
     else
       echo "[ERROR] repos no not cloned: ${namespace}"
     fi
