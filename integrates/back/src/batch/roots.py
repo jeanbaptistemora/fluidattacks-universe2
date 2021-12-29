@@ -3,12 +3,15 @@ from aioextensions import (
 )
 from batch.dal import (
     delete_action,
+    put_action,
 )
 from batch.types import (
     BatchProcessing,
 )
 from custom_exceptions import (
+    RepeatedToeInput,
     RepeatedToeLines,
+    ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
@@ -31,6 +34,12 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
+    URLRootItem,
+)
+from db_model.toe_inputs.types import (
+    GroupToeInputsRequest,
+    ToeInput,
+    ToeInputRequest,
 )
 from db_model.toe_lines.types import (
     RootToeLinesRequest,
@@ -63,6 +72,13 @@ from operator import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
+from toe.inputs.types import (
+    ToeInputAttributesToAdd,
+    ToeInputAttributesToUpdate,
+)
 from toe.lines import (
     domain as toe_lines_domain,
 )
@@ -71,7 +87,6 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
-    Optional,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -86,6 +101,12 @@ from vulnerabilities import (
     domain as vulns_domain,
 )
 
+toe_inputs_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.add)
+toe_inputs_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.update)
 toe_lines_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.add)
@@ -239,6 +260,50 @@ async def process_finding(
 
 
 @retry_on_exceptions(
+    exceptions=(ToeInputAlreadyUpdated,),
+)
+async def process_toe_input(
+    loaders: Dataloaders,
+    target_group_name: str,
+    target_root_id: str,
+    toe_input: ToeInput,
+) -> None:
+    attributes_to_add = ToeInputAttributesToAdd(
+        attacked_at=toe_input.attacked_at,
+        attacked_by=toe_input.attacked_by,
+        be_present=False,
+        first_attack_at=toe_input.first_attack_at,
+        seen_first_time_by=toe_input.seen_first_time_by,
+        unreliable_root_id=target_root_id,
+        seen_at=toe_input.seen_at,
+    )
+    try:
+        await toe_inputs_add(
+            target_group_name,
+            toe_input.component,
+            toe_input.entry_point,
+            attributes_to_add,
+        )
+    except RepeatedToeInput:
+        current_value: ToeInput = await loaders.toe_input.load(
+            ToeInputRequest(
+                component=toe_input.component,
+                entry_point=toe_input.entry_point,
+                group_name=target_group_name,
+            )
+        )
+        attributes_to_update = ToeInputAttributesToUpdate(
+            attacked_at=toe_input.attacked_at,
+            attacked_by=toe_input.attacked_by,
+            first_attack_at=toe_input.first_attack_at,
+            seen_at=toe_input.seen_at,
+            seen_first_time_by=toe_input.seen_first_time_by,
+            unreliable_root_id=target_root_id,
+        )
+        await toe_inputs_update(current_value, attributes_to_update)
+
+
+@retry_on_exceptions(
     exceptions=(ToeLinesAlreadyUpdated,),
 )
 async def process_toe_lines(
@@ -277,17 +342,11 @@ async def process_toe_lines(
                 root_id=target_root_id,
             )
         )
-        attacked_at = current_value.attacked_at or toe_lines.attacked_at
-        attacked_by = current_value.attacked_by or toe_lines.attacked_by
-        attacked_lines = (
-            current_value.attacked_lines or toe_lines.attacked_lines
-        )
-        comments = current_value.comments or toe_lines.comments
         attributes_to_update = ToeLinesAttributesToUpdate(
-            attacked_at=attacked_at,
-            attacked_by=attacked_by,
-            attacked_lines=attacked_lines,
-            comments=comments,
+            attacked_at=toe_lines.attacked_at,
+            attacked_by=toe_lines.attacked_by,
+            attacked_lines=toe_lines.attacked_lines,
+            comments=toe_lines.comments,
             first_attack_at=toe_lines.first_attack_at,
             seen_at=toe_lines.seen_at,
             sorts_risk_level=toe_lines.sorts_risk_level,
@@ -296,11 +355,7 @@ async def process_toe_lines(
 
 
 async def move_root(*, item: BatchProcessing) -> None:
-    target_root_id: Optional[str] = None
-    try:
-        target_group_name, target_root_id = item.entity.split("/")
-    except ValueError:
-        target_group_name = item.entity
+    target_group_name, target_root_id = item.entity.split("/")
     source_group_name, source_root_id = item.additional_info.split("/")
     loaders: Dataloaders = get_new_context()
     root: RootItem = await loaders.root.load(
@@ -327,7 +382,36 @@ async def move_root(*, item: BatchProcessing) -> None:
             for source_finding_id, vulns in vulns_by_finding
         )
     )
-    if target_root_id and isinstance(root, GitRootItem):
+    target_root: RootItem = await loaders.root.load(
+        (target_group_name, target_root_id)
+    )
+    if isinstance(root, (GitRootItem, URLRootItem)):
+        group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+            GroupToeInputsRequest(group_name=source_group_name)
+        )
+        root_toe_inputs = tuple(
+            toe_input
+            for toe_input in group_toe_inputs
+            if toe_input.unreliable_root_id == source_root_id
+        )
+        await collect(
+            tuple(
+                process_toe_input(
+                    loaders,
+                    target_group_name,
+                    target_root_id,
+                    toe_input,
+                )
+                for toe_input in root_toe_inputs
+            )
+        )
+        await put_action(
+            action_name="refresh_toe_inputs",
+            entity=target_group_name,
+            subject=item.subject,
+            additional_info=target_root.state.nickname,
+        )
+    if isinstance(root, GitRootItem):
         repo_toe_lines = await loaders.root_toe_lines.load_nodes(
             RootToeLinesRequest(
                 group_name=source_group_name, root_id=source_root_id
@@ -343,6 +427,12 @@ async def move_root(*, item: BatchProcessing) -> None:
                 )
                 for toe_lines in repo_toe_lines
             )
+        )
+        await put_action(
+            action_name="refresh_toe_lines",
+            entity=target_group_name,
+            subject=item.subject,
+            additional_info=target_root.state.nickname,
         )
     await send_mails_async(
         email_to=[item.subject],

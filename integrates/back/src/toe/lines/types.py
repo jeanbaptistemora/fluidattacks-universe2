@@ -18,6 +18,7 @@ class ToeLinesAttributesToAdd(NamedTuple):
     modified_date: datetime
     be_present: bool = True
     be_present_until: Optional[datetime] = None
+    first_attack_at: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: int = -1
 

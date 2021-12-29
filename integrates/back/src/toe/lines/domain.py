@@ -51,7 +51,7 @@ async def add(
         attributes.be_present_until
         or _get_optional_be_present_until(attributes.be_present)
     )
-    first_attack_at = attributes.attacked_at
+    first_attack_at = attributes.first_attack_at or attributes.attacked_at
     toe_lines = ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
