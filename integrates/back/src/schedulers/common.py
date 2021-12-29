@@ -17,6 +17,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    Tuple,
 )
 
 # FP: local testing
@@ -36,9 +37,9 @@ async def machine_queue(
     *,
     finding_code: str,
     group_name: str,
-    namespace: str,
+    namespaces: Tuple[str, ...],
 ) -> Dict[str, Any]:
-    return await queue_boto3(group_name, finding_code, namespace)
+    return await queue_boto3(group_name, finding_code, namespaces)
 
 
 def scheduler_send_mail(

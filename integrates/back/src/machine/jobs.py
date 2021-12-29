@@ -173,7 +173,7 @@ async def _list_jobs_by_name(
 async def queue_boto3(
     group: str,
     finding_code: str,
-    namespaces: List[str],
+    namespaces: Tuple[str, ...],
 ) -> Dict[str, Any]:
     queue_name = "skims_all_soon"
     job_name = f"skims-process-{group}-{finding_code}"
@@ -229,8 +229,8 @@ async def queue_boto3(
 
 async def queue_all_checks_new(
     group: str,
-    roots: List[str],
-    finding_codes: Tuple[str],
+    roots: Tuple[str, ...],
+    finding_codes: Tuple[str, ...],
 ) -> Dict[str, Any]:
     queue_name = "skims_all_later"
     job_name = f"skims-process-{group}"
@@ -251,8 +251,8 @@ async def queue_all_checks_new(
                     "f",
                     "/skims/process-group-all",
                     group,
-                    json.dumps(finding_codes),
-                    json.dumps(roots),
+                    json.dumps(list(finding_codes)),
+                    json.dumps(list(roots)),
                 ],
                 "environment": [
                     {"name": "CI", "value": "true"},

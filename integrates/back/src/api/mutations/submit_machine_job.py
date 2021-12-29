@@ -30,6 +30,7 @@ from machine.jobs import (
     queue_boto3,
 )
 from typing import (
+    List,
     Optional,
     Set,
 )
@@ -45,7 +46,7 @@ async def mutate(
     _: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    root_nicknames: str,
+    root_nicknames: List[str],
 ) -> SimplePayload:
     finding_loader = info.context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
@@ -65,10 +66,11 @@ async def mutate(
         return SimplePayload(success=False)
     success = False
     with suppress(ClientError):
+        roots_to_execute = _root_nicknames.intersection(root_nicknames)
         result = await queue_boto3(
             finding_code=finding_code,
             group=group_name,
-            namespaces=tuple(_root_nicknames.intersection(_root_nicknames)),
+            namespaces=tuple(roots_to_execute),
         )
         success = bool(result)
 

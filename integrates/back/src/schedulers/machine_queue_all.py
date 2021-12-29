@@ -41,6 +41,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -57,8 +58,8 @@ class PreparedJob(NamedTuple):
 
 async def _queue_all_checks(
     group: str,
-    repos: List[str],
-    finding_codes: List[str],
+    repos: Tuple[str, ...],
+    finding_codes: Tuple[str, ...],
 ) -> Dict[str, Any]:
     result = await queue_all_checks_new(group, repos, finding_codes)
     if result:
@@ -186,8 +187,8 @@ async def main() -> None:
     all_job_futures = [
         _queue_all_checks(
             group=prepared_job.group_name,
-            repos=prepared_job.roots,
-            finding_codes=findings,
+            repos=tuple(prepared_job.roots),
+            finding_codes=tuple(findings),
         )
         for prepared_job in sorted_jobs
         if len(prepared_job.roots) > 0

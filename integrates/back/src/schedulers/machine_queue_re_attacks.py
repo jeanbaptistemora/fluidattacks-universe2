@@ -57,16 +57,16 @@ async def main() -> None:
                 == VulnerabilityVerificationStatus.REQUESTED
             )
 
-            if vulns_to_reattack:
-                for root in await get_root_nicknames_for_skims(
-                    dataloaders=dataloaders,
-                    group=group,
-                    vulnerabilities=vulns_to_reattack,
-                ):
-                    finding_code = get_finding_code_from_title(finding_title)
-                    if finding_code is not None:
-                        await machine_queue(
-                            finding_code=finding_code,
-                            group_name=group,
-                            namespace=root,
+            finding_code = get_finding_code_from_title(finding_title)
+            if vulns_to_reattack and finding_code is not None:
+                await machine_queue(
+                    finding_code=finding_code,
+                    group_name=group,
+                    namespaces=tuple(
+                        await get_root_nicknames_for_skims(
+                            dataloaders=dataloaders,
+                            group=group,
+                            vulnerabilities=vulns_to_reattack,
                         )
+                    ),
+                )
