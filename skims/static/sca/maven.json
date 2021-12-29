@@ -604,6 +604,9 @@
     "CVE-2014-0114": ">=0 <=1.9.1",
     "CVE-2019-10086": ">=0 <=1.9.3"
   },
+  "commons-codec:commons-codec": {
+    "SNYK-JAVA-COMMONSCODEC-561518": "<1.13"
+  },
   "commons-collections:commons-collections": {
     "CVE-2015-7501": ">=3-alpha0 <=3.2.1"
   },
