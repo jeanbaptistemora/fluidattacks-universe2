@@ -56,6 +56,7 @@ def post_process(data: Any) -> Any:
     data = coerce_to_string_lit(data)
     data = coerce_to_boolean(data)
     data = coerce_to_tuple(data)
+    data = coerce_to_index(data)
     data = extract_single_expr_term(data)
     data = load_objects(data)
     data = replace_attributes(data)
@@ -75,13 +76,31 @@ def remove_discarded(data: Any) -> Any:
     return data
 
 
+def coerce_to_index(data: Any) -> Any:
+    if isinstance(data, lark.Tree) and data.data == "index_expr_term":
+        for index in data.children:
+            if (
+                isinstance(index, lark.Tree)
+                and index.data == "index"
+                and isinstance(index.children, list)
+                and all(
+                    isinstance(elem, lark.Token) for elem in index.children
+                )
+            ):
+                index.children = int(
+                    "".join(child.value for child in index.children)
+                )
+
+    return data
+
+
 def coerce_to_boolean(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data == "true_lit" and not data.children:
             data = True
         elif data.data == "false_lit" and not data.children:
             data = False
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(coerce_to_string_lit, data.children))
 
     return data
@@ -91,7 +110,7 @@ def coerce_to_tuple(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data == "tuple":
             data = data.children
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(coerce_to_tuple, data.children))
 
     return data
@@ -101,10 +120,14 @@ def coerce_to_int_lit(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data == "int_lit":
             data = int("".join(child.value for child in data.children))
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(coerce_to_int_lit, data.children))
     elif isinstance(data, lark.Token):
-        if data.type == "__ANON_3":
+        if data.type in (
+            "__ANON_3",
+            "__ANON_4",
+            "__ANON_5",
+        ):
             data = data.value
         elif data.type == "STRING_LIT":
             data = data.value[1:-1]
@@ -113,7 +136,7 @@ def coerce_to_int_lit(data: Any) -> Any:
 
 
 def coerce_to_string_lit(data: Any) -> Any:
-    if isinstance(data, lark.Tree):
+    if isinstance(data, lark.Tree) and isinstance(data.children, list):
         data.children = list(map(coerce_to_string_lit, data.children))
     elif isinstance(data, lark.Token):
         if data.type == "__ANON_3":
@@ -128,7 +151,7 @@ def extract_single_expr_term(data: Any) -> Any:
     if isinstance(data, lark.Tree):
         if data.data == "expr_term" and len(data.children) == 1:
             data = extract_single_expr_term(data.children[0])
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(extract_single_expr_term, data.children))
     return data
 
@@ -145,7 +168,7 @@ def load_heredocs(data: Any) -> Any:
                 )
             except json.JSONDecodeError:
                 data = raw
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(load_heredocs, data.children))
     return data
 
@@ -171,7 +194,7 @@ def load_blocks(data: Any) -> Any:
                 line=data.line,
                 namespace=namespace,
             )
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(load_blocks, data.children))
     return data
 
@@ -189,7 +212,7 @@ def load_objects(data: Any) -> Any:
                 for children in data.children
             }
             data = copy
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(extract_single_expr_term, data.children))
     return data
 
@@ -203,7 +226,7 @@ def replace_attributes(data: Any) -> Any:
                 line=data.line,
                 val=data.children[1],
             )
-        else:
+        elif isinstance(data.children, list):
             data.children = list(map(replace_attributes, data.children))
 
     return data
