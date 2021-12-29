@@ -9,6 +9,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import type { IFilesProps } from "scenes/Dashboard/containers/GroupSettingsView/Files";
 import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
@@ -210,6 +211,8 @@ describe("Files", (): void => {
   it("should remove a file", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
@@ -238,8 +241,11 @@ describe("Files", (): void => {
       </MockedProvider>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
     });
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
@@ -264,13 +270,12 @@ describe("Files", (): void => {
     proceedButton.first().simulate("click");
 
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
     });
-
-    expect(msgSuccess).toHaveBeenCalledTimes(1);
-
-    jest.clearAllMocks();
   });
 
   it("should download a file", async (): Promise<void> => {
@@ -337,8 +342,6 @@ describe("Files", (): void => {
       undefined,
       "noopener,noreferrer,"
     );
-
-    jest.clearAllMocks();
   });
 
   // Temporarily disabled until it gets properly refactored to Formik
