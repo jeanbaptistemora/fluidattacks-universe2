@@ -15,3 +15,9 @@ class AzurermDataFactory(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AzurermVirtualMachine(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
