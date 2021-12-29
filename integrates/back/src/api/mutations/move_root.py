@@ -7,6 +7,14 @@ from batch import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.roots.types import (
+    GitRootItem,
+    RootItem,
+    URLRootItem,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -40,6 +48,7 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     group_name: str = kwargs["group_name"].lower()
@@ -60,6 +69,21 @@ async def mutate(
         additional_info=f"{group_name}/{root_id}",
         queue="dedicated_soon",
     )
+    root: RootItem = await loaders.root.load((group_name, root_id))
+    if isinstance(root, GitRootItem):
+        await batch_dal.put_action(
+            action_name="refresh_toe_lines",
+            entity=group_name,
+            subject=user_email,
+            additional_info=root.state.nickname,
+        )
+    if isinstance(root, (GitRootItem, URLRootItem)):
+        await batch_dal.put_action(
+            action_name="refresh_toe_inputs",
+            entity=group_name,
+            subject=user_email,
+            additional_info=root.state.nickname,
+        )
 
     logs_utils.cloudwatch_log(
         info.context,
