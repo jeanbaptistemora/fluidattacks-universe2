@@ -17,6 +17,7 @@ from custom_types import (
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
+    URLRootItem,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -116,13 +117,21 @@ async def deactivate_root(
         root=root,
         user_email=user_email,
     )
-    if root.state.status != "INACTIVE" and isinstance(root, GitRootItem):
-        await batch_dal.put_action(
-            action_name="refresh_toe_lines",
-            entity=group_name,
-            subject=user_email,
-            additional_info=root.state.nickname,
-        )
+    if root.state.status != "INACTIVE":
+        if isinstance(root, GitRootItem):
+            await batch_dal.put_action(
+                action_name="refresh_toe_lines",
+                entity=group_name,
+                subject=user_email,
+                additional_info=root.state.nickname,
+            )
+        if isinstance(root, (GitRootItem, URLRootItem)):
+            await batch_dal.put_action(
+                action_name="refresh_toe_inputs",
+                entity=group_name,
+                subject=user_email,
+                additional_info=root.state.nickname,
+            )
     await collect(
         tuple(
             update_unreliable_indicators_by_deps(
