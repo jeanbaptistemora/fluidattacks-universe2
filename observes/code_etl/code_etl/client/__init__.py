@@ -13,6 +13,15 @@ from code_etl.client.encoder import (
     RawRow,
     to_dict,
 )
+from code_etl.objs import (
+    RepoId,
+)
+from code_etl.upload_repo import (
+    RepoContex,
+)
+from code_etl.utils import (
+    COMMIT_HASH_SENTINEL,
+)
 import logging
 from postgres_client.client import (
     Client,
@@ -46,8 +55,13 @@ from returns.maybe import (
 from returns.result import (
     ResultE,
 )
+from typing import (
+    Type,
+    TypeVar,
+)
 
 LOG = logging.getLogger(__name__)
+_T = TypeVar("_T")
 
 
 def all_data_count(client: Client, table: TableID) -> IO[ResultE[int]]:
@@ -82,4 +96,30 @@ def insert_rows(
 ) -> IO[None]:
     return client.cursor.execute_batch(
         query.insert_row(table), [SqlArgs(to_dict(r)) for r in rows]
+    )
+
+
+def _fetch_one(client: Client, d_type: Type[_T]) -> IO[ResultE[_T]]:
+    return (
+        client.cursor.fetch_one()
+        .map(lambda l: assert_key(l, 0))
+        .map(lambda v: v.bind(lambda i: assert_type(i, d_type)))
+    )
+
+
+def get_context(
+    client: Client, table: TableID, repo: RepoId
+) -> IO[ResultE[RepoContex]]:
+    last = client.cursor.execute_query(
+        query.last_commit_hash(table, repo)
+    ).bind(lambda _: _fetch_one(client, str))
+    is_new = client.cursor.execute_query(
+        query.commit_exists(table, repo, COMMIT_HASH_SENTINEL),
+    ).bind(lambda _: _fetch_one(client, bool))
+    return last.bind(
+        lambda l: is_new.map(
+            lambda n: l.bind(
+                lambda ls: n.map(lambda ns: RepoContex(repo, ls, ns))
+            )
+        )
     )
