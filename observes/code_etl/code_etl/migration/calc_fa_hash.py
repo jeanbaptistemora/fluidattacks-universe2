@@ -11,6 +11,7 @@ from code_etl.objs import (
     CommitData,
     CommitDataId,
     CommitId,
+    RepoId,
 )
 import logging
 from postgres_client.client import (
@@ -73,7 +74,7 @@ def calc_commit_id(
     data: CommitData, namespace: str, repository: str, hash: str
 ) -> CommitDataId:
     return CommitDataId(
-        namespace, repository, CommitId(hash, gen_fa_hash(data))
+        RepoId(namespace, repository), CommitId(hash, gen_fa_hash(data))
     )
 
 
@@ -169,8 +170,8 @@ def calc_hash(
                 {
                     "fa_hash": cid.hash.fa_hash,
                     "hash": cid.hash.hash,
-                    "namespace": cid.namespace,
-                    "repository": cid.repository,
+                    "namespace": cid.repo.namespace,
+                    "repository": cid.repo.repository,
                 }
             )
         )

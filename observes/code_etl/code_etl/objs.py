@@ -21,8 +21,7 @@ class CommitId:
 
 @dataclass(frozen=True)
 class CommitDataId:
-    namespace: str
-    repository: str
+    repo: RepoId
     hash: CommitId
 
 

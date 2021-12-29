@@ -2,6 +2,9 @@ from code_etl.client.encoder import (
     CommitTableRow,
     RawRow,
 )
+from code_etl.objs import (
+    RepoId,
+)
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
@@ -105,8 +108,7 @@ def update_users(table: TableID) -> Query:
 
 def commit_exists(
     table: TableID,
-    namespace: str,
-    repo: str,
+    repo: RepoId,
     commit_hash: str,
 ) -> Query:
     return Query(
@@ -120,8 +122,8 @@ def commit_exists(
         """,
         SqlArgs(
             {
-                "namespace": namespace,
-                "repository": repo,
+                "namespace": repo.namespace,
+                "repository": repo.repository,
                 "hash": commit_hash,
             },
             {
@@ -132,7 +134,7 @@ def commit_exists(
     )
 
 
-def last_commit_hash(table: TableID, namespace: str, repo: str) -> Query:
+def last_commit_hash(table: TableID, repo: RepoId) -> Query:
     return Query(
         """
         SELECT hash FROM {schema}.{table}
@@ -145,8 +147,8 @@ def last_commit_hash(table: TableID, namespace: str, repo: str) -> Query:
         """,
         SqlArgs(
             {
-                "namespace": namespace,
-                "repository": repo,
+                "namespace": repo.namespace,
+                "repository": repo.repository,
                 "hash": COMMIT_HASH_SENTINEL,
             },
             {

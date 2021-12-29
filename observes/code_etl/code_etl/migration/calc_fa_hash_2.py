@@ -24,6 +24,7 @@ from code_etl.objs import (
     CommitDataId,
     CommitId,
     CommitStamp,
+    RepoId,
     RepoRegistration,
 )
 import logging
@@ -71,8 +72,7 @@ def migrate_commit(
     data = decode_commit_data_2(raw)
     _id = data.map(
         lambda cd: CommitDataId(
-            raw.namespace,
-            raw.repository,
+            RepoId(raw.namespace, raw.repository),
             CommitId(raw.hash, gen_fa_hash_2(cd)),
         )
     )

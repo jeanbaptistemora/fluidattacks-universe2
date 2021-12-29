@@ -50,9 +50,7 @@ def _to_stamp(context: RepoContex, commit: GitCommit) -> Maybe[CommitStamp]:
     if commit.hexsha == context.last_commit:
         return Maybe.empty
     _id, data = CommitDataFactory.from_commit(commit)
-    data_id = CommitDataId(
-        context.repo.namespace, context.repo.repository, _id
-    )
+    data_id = CommitDataId(context.repo, _id)
     stamp = CommitStamp(
         Commit(data_id, data),
         DATE_SENTINEL if context.is_new else DATE_NOW,

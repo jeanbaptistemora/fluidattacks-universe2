@@ -14,6 +14,7 @@ from code_etl.objs import (
     CommitId,
     CommitStamp,
     Deltas,
+    RepoId,
     RepoRegistration,
     User,
 )
@@ -132,7 +133,7 @@ def decode_commit_data_id(
 ) -> ResultE[CommitDataId]:
     return assert_not_none(raw.fa_hash).map(
         lambda fa: CommitDataId(
-            raw.namespace, raw.repository, CommitId(raw.hash, fa)
+            RepoId(raw.namespace, raw.repository), CommitId(raw.hash, fa)
         )
     )
 
@@ -155,8 +156,7 @@ def decode_repo_registration(
     return Success(
         RepoRegistration(
             CommitDataId(
-                raw.namespace,
-                raw.repository,
+                RepoId(raw.namespace, raw.repository),
                 CommitId(raw.hash, "-" * 64),
             ),
             raw.seen_at,
