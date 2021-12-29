@@ -1,3 +1,6 @@
+src.lib_path.f333.ec2_has_not_an_iam_instance_profile:
+  en: EC2 instance have not an IamInstanceProfile
+  es: La instancia EC2 no tiene un IamInstanceProfile
 src.lib_path.f333.iam_has_full_access_to_ssm:
   en: There are policy documents that allow full access to ssm agent
   es: Hay documentos de políticas que permiten el acceso completo al agente ssm

@@ -24,6 +24,7 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_ec2_instances,
     iter_ec2_volumes,
     iterate_iam_policy_documents,
 )
@@ -103,6 +104,19 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 yield vol_encryption
 
 
+def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
+    file_ext: str,
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        if "IamInstanceProfile" not in ec2_res.inner:
+            yield AWSEC2(
+                column=ec2_res.start_column,
+                data=ec2_res.data,
+                line=get_line_by_extension(ec2_res.start_line, file_ext),
+            )
+
+
 def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
     iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
@@ -178,6 +192,29 @@ def _cfn_ec2_has_unencrypted_volumes(
     )
 
 
+def _cfn_ec2_has_not_an_iam_instance_profile(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F333_CWE},
+        description_key=(
+            "src.lib_path.f333.ec2_has_not_an_iam_instance_profile"
+        ),
+        finding=_FINDING_F333,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
+                file_ext=file_ext,
+                ec2_iterator=iter_ec2_instances(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
 def _cfn_iam_has_full_access_to_ssm(
     content: str,
     path: str,
@@ -238,6 +275,24 @@ async def cfn_ec2_has_unencrypted_volumes(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_ec2_has_unencrypted_volumes,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_not_an_iam_instance_profile(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_not_an_iam_instance_profile,
         content=content,
         file_ext=file_ext,
         path=path,
