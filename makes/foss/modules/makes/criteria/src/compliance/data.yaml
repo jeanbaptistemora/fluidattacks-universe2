@@ -3240,7 +3240,26 @@
   title: FCRA/FACTA and GLBA
   en:
     description: >
-      ...
+      Fair Credit Reporting Act (FCRA),
+      regulates the way credit reporting
+      agencies can collect, access, use
+      and share the data they collect in
+      consumer reports, referencing personal
+      and sensitive information.
+
+      Fair and Accurate Credit Transactions
+      Act (FACTA) of 2003, amending the Fair
+      Credit Reporting Act, adds provisions
+      designed to improve the accuracy of
+      consumer's credit-related records.
+
+      Lastly, Gramm–Leach–Bliley Act (GLBA)
+      requires financial institutions – companies
+      that offer consumers financial products
+      or services like loans, financial or
+      investment advice, or insurance – to explain
+      their information-sharing practices to their
+      customers and to safeguard sensitive data.
   es:
     description: __empty__
   definitions:
