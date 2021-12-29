@@ -28,9 +28,10 @@ One is that Log4j is a logging tool used in [potentially](https://www.csoonline.
 millions of Java-based applications.
 People normally use open-source libraries as software components because
 pre-written code is handier and faster than writing everything from scratch.
-Seeing as [logging](https://www.wired.com/story/log4j-log4shell/)
-is so very important to keep track of what happens in a given application,
-Log4j happens to be an extremely popular library.
+[Logging](https://www.wired.com/story/log4j-log4shell/)
+is a very important functionality
+to keep track of what happens in a given application.
+Log4j happens to be an extremely popular library to do that.
 However,
 lots of people **may not even know they use it**.
 
@@ -47,6 +48,11 @@ has been rated critical with the highest possible [CVSS score of 10](https://nvd
 After the discovery of Log4Shell on December 9,
 the Apache Software Foundation has promptly released fixes
 that have led to the discovery of two other vulnerabilities.
+
+> **Update, December 29, 2021:**
+> Apache has released [Log4j 2.17.1](https://logging.apache.org/log4j/2.x/security.html),
+> fixing a new vulnerability
+> known as [CVE-2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832).
 
 ## The bombshell zero-day exploit
 
@@ -135,6 +141,12 @@ For that,
 we have to thank Apache Software Foundation's efforts
 and security researchers that have worked inspecting every patch.
 
+> **Update, December 29, 2021:**
+> Most Log4j versions up to 2.17.0 are vulnerable
+> to a Remote Code Execution attack.
+> Apache addressed this vulnerability \(CVE-2021-44832\)
+> in version 2.17.1.
+
 The global response to Log4Shell has been historical.
 [Many](https://gist.github.com/SwitHak/b66db3a06c2955a9cb71a8718970c592)
 organizations have already released their statements
@@ -177,10 +189,13 @@ they can look for the vulnerability type
 under which any of Log4j's high to critical vulnerabilities should appear.
 What should people do then?
 Well,
-teams that have Log4j 2 in their software should
+teams that have Log4j2 in their software should
 **upgrade to [version 2.17.0](https://logging.apache.org/log4j/2.x/download.html)**
 or the latest version,
 should a newer version be released.
+
+> **Update, December 29, 2021:**
+> Teams are urged to upgrade to version 2.17.1.
 
 New vulnerabilities are being exploited daily.
 Want to learn how to be better prepared for these threats?
