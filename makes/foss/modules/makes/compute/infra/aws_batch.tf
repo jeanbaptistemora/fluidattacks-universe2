@@ -322,22 +322,6 @@ resource "aws_batch_job_definition" "makes" {
     # Will be overridden on job submission
     memory = 1800
     vcpus  = 1
-
-    mountPoints = [
-      {
-        sourceVolume  = "logs_skims"
-        containerPath = "/var/log/skims"
-        readOnly      = false
-      }
-    ]
-    volumes = [
-      {
-        name = "logs_skims"
-        host = {
-          sourcePath = "/var/log/skims/"
-        }
-      }
-    ]
   })
 
   tags = {
@@ -358,21 +342,6 @@ resource "aws_batch_job_definition" "skims_process_group" {
     memory = 1800
     vcpus  = 1
 
-    mountPoints = [
-      {
-        sourceVolume  = "service_data"
-        containerPath = "/process_group/"
-        readOnly      = false
-      }
-    ]
-    volumes = [
-      {
-        name = "service_data"
-        host = {
-          sourcePath = "/process_group/"
-        }
-      }
-    ]
   })
 
   tags = {
