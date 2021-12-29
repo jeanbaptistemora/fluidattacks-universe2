@@ -205,7 +205,7 @@ const rejectZeroRiskProps = (
   };
 };
 
-const isAcceptedUndefinedSelectedHelper = (
+const isAcceptedUndefinedSelectedHelper = async (
   isAcceptedUndefinedSelected: boolean,
   handleAcceptance: (
     options?: MutationFunctionOptions | undefined
@@ -216,11 +216,9 @@ const isAcceptedUndefinedSelectedHelper = (
     justification: string;
   },
   rejectedVulnIds: string[]
-): void => {
+): Promise<void> => {
   if (isAcceptedUndefinedSelected) {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void handleAcceptance({ //NOSONAR
+    await handleAcceptance({
       variables: {
         acceptedVulnerabilities: acceptedVulnIds,
         findingId,
@@ -231,7 +229,7 @@ const isAcceptedUndefinedSelectedHelper = (
   }
 };
 
-const isConfirmZeroRiskSelectedHelper = (
+const isConfirmZeroRiskSelectedHelper = async (
   existAcceptedVulns: boolean,
   isConfirmZeroRiskSelected: boolean,
   confirmZeroRisk: (
@@ -242,11 +240,9 @@ const isConfirmZeroRiskSelectedHelper = (
   values: {
     justification: string;
   }
-): void => {
+): Promise<void> => {
   if (isConfirmZeroRiskSelected && existAcceptedVulns) {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void confirmZeroRisk({ //NOSONAR
+    await confirmZeroRisk({
       variables: {
         findingId,
         justification: values.justification,
@@ -256,7 +252,7 @@ const isConfirmZeroRiskSelectedHelper = (
   }
 };
 
-const isRejectZeroRiskSelectedHelper = (
+const isRejectZeroRiskSelectedHelper = async (
   existRejectedVulns: boolean,
   isRejectZeroRiskSelected: boolean,
   rejectZeroRisk: (
@@ -267,11 +263,9 @@ const isRejectZeroRiskSelectedHelper = (
     justification: string;
   },
   rejectedVulnIds: string[]
-): void => {
+): Promise<void> => {
   if (isRejectZeroRiskSelected && existRejectedVulns) {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void rejectZeroRisk({ //NOSONAR
+    await rejectZeroRisk({
       variables: {
         findingId,
         justification: values.justification,
