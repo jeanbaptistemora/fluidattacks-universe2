@@ -122,3 +122,4 @@ class RootMachineExecutionItem(NamedTuple):
     name: str
     findings_executed: List[MachineFindingResult]
     queue: str
+    commit: str

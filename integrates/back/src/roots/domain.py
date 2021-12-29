@@ -924,5 +924,6 @@ async def add_machine_execution(
         started_at=datetime_utils.get_as_str(start_date),
         stopped_at=datetime_utils.get_as_str(end_date),
         findings_executed=kwargs.pop("findings_executed", []),
+        commit=kwargs.pop("git_commit", ""),
     )
     return await roots_model.add_machine_execution(root_id, execution)

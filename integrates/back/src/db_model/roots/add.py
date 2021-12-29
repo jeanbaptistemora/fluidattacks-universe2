@@ -90,6 +90,7 @@ async def add_machine_execution(
         "findings_executed": execution.findings_executed,
         "queue": execution.queue,
         "name": execution.name,
+        "commit": execution.commit,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_write_item(

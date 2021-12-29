@@ -241,6 +241,8 @@ type Mutation {
     stoppedAt: DateTime!
     "Findings executed in the job"
     findingsExecuted: [MachineFindingResultInput]
+    "Full SHA-1 hash of the tested commit"
+    gitCommit: String
   ):SimplePayload!
 
   "Adds a new Organization"

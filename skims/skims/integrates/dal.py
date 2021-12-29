@@ -923,6 +923,7 @@ async def do_add_execution(
     start_date: str,
     end_date: str,
     findings_executed: Tuple[Dict[str, Union[int, str]], ...],
+    commit_hash: str,
 ) -> bool:
     result = await _execute(
         query="""
@@ -931,8 +932,9 @@ async def do_add_execution(
                 $group_name: String!
                 $job_id: ID!
                 $start_date: DateTime!
-                $end_date: DateTime !
+                $end_date: DateTime!
                 $findings_executed: [MachineFindingResultInput]
+                $commit_hash: String!
             ) {
                 addMachineExecution(
                     rootNickname: $root,
@@ -941,6 +943,7 @@ async def do_add_execution(
                     startedAt: $start_date,
                     stoppedAt: $end_date,
                     findingsExecuted: $findings_executed
+                    gitCommit: $commit_hash
                 ) {
                     success
                 }
@@ -954,6 +957,7 @@ async def do_add_execution(
             start_date=start_date,
             end_date=end_date,
             findings_executed=findings_executed,
+            commit_hash=commit_hash,
         ),
     )
 

@@ -51,6 +51,9 @@ from utils.logs import (
     configure as configure_logs,
     log,
 )
+from utils.repositories import (
+    get_repo_head_hash,
+)
 from zone import (
     t,
 )
@@ -127,6 +130,7 @@ async def execute_skims(token: Optional[str]) -> bool:
                 start_date=start_date,
                 end_date=end_date,
                 findings_executed=tuple(executed),
+                commit_hash=get_repo_head_hash(CTX.config.working_dir),
             )
     else:
         success = True

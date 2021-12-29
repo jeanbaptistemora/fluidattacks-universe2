@@ -282,6 +282,7 @@ async def do_add_skims_execution(  # pylint: disable=too-many-arguments
     start_date: datetime,
     end_date: datetime,
     findings_executed: Tuple[Dict[str, Union[int, str]], ...],
+    commit_hash: str,
 ) -> bool:
     return await do_add_execution(
         root=root,
@@ -290,4 +291,5 @@ async def do_add_skims_execution(  # pylint: disable=too-many-arguments
         start_date=start_date.isoformat(),
         end_date=end_date.isoformat(),
         findings_executed=findings_executed,
+        commit_hash=commit_hash,
     )
