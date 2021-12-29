@@ -449,8 +449,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
                   oneRowMessage: true,
                   resultSize: {
-                    current: resultVulnerabilities.length,
-                    total: vulnerabilities.length,
+                    current: filterZeroRisk(resultVulnerabilities).length,
+                    total: filterZeroRisk(vulnerabilities).length,
                   },
                 }}
                 customSearch={{
@@ -462,7 +462,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 extraButtons={
                   <ActionButtons
                     areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
-                      resultVulnerabilities
+                      vulnerabilities
                     )}
                     areVulnsSelected={
                       remediationModalConfig.vulnerabilities.length > 0
@@ -521,7 +521,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             groupName={groupName}
             handleCloseModal={toggleHandleAcceptanceModal}
             refetchData={refetch}
-            vulns={resultVulnerabilities}
+            vulns={vulnerabilities}
           />
         ) : undefined}
         {isEditing ? (
