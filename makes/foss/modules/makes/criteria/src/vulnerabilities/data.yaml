@@ -1915,12 +1915,12 @@
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "H"
-      integrity: "H"
-      availability: "H"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "U"
@@ -15013,17 +15013,15 @@
       allowing an attacker to view it
       without any encryption.
     impact: >
-      A user of the application can reverse-engineer
-      and be able to view these keys.
+      Obtain sensitive information
+      to compromise resources or services
     recommendation: >
       Verify that sensitive information, API keys
       and passwords are not included in the source
       code, nor in online code repositories.
     threat: >
-      A user with access to the application can
-      compromise the application's operations
-      since the application is storing access
-      passwords without any encryption or bypassing.
+      Authenticated attacker from the Internet
+      with access to the source code
   es:
     title: Non-encrypted confidential information - Credentials
     description: >
@@ -15031,24 +15029,21 @@
       el código fuente de la aplicación permitiendo
       a un atacante visualizarla sin ningún tipo de cifrado.
     impact: >
-      Un usuario de la aplicación puede realizar
-      ingeniería inversa y poder visualizar estas claves.
+      Obtener información sensible
+      para comprometer más recursos o servicios
     recommendation: >
       Verificar que información sensible, llaves
       API y contraseñas no sean incluidas en el
       código fuente, ni en repositorios en línea
       de código.
     threat: >
-      Un usuario con acceso a la aplicación puede
-      comprometer las operaciones de la aplicación
-      ya que esta se está tiene almacenadas las
-      contraseñas de acceso sin ningún tipo de
-      cifrado o derivación.
+      Atacante autenticado desde Internet
+      con acceso al código fuente
   category: Collect Information
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "H"
+      attack_complexity: "L"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
@@ -15056,8 +15051,8 @@
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "O"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
       report_confidence: "C"
   requirements: ["134","135","185","229","264","300"]
   metadata:
