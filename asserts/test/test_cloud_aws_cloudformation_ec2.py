@@ -38,14 +38,6 @@ def test_security_group_allows_anyone_to_admin_ports():
     assert ec2.security_group_allows_anyone_to_admin_ports(SAFE).is_closed()
 
 
-def test_has_unrestricted_dns_access():
-    """test ec2.has_unrestricted_dns_access."""
-    result = ec2.has_unrestricted_dns_access(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert ec2.has_unrestricted_dns_access(SAFE).is_closed()
-
-
 def test_has_unrestricted_ftp_access():
     """test ec2.has_unrestricted_ftp_access."""
     result = ec2.has_unrestricted_ftp_access(VULN)
