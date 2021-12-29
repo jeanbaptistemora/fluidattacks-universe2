@@ -338,6 +338,14 @@ async def analyze(
                 )
             )
             coroutines.append(
+                cfn_ec2_has_not_an_iam_instance_profile(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
                 cfn_iam_has_full_access_to_ssm(
                     content=content,
                     path=path,

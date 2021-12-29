@@ -348,6 +348,222 @@ F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. 
   54 |   key_name = ""test""
      ^ Col 0
 ",f333._ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+> 43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,37,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+> 37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+> 43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+> 51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+  59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",f333._cfn_ec2_has_not_an_iam_instance_profile
 F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -538,6 +754,30 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |     }
   64 |   }
   65 | }
+     ^ Col 0
+",f024_aws._cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+>  5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
      ^ Col 0
 ",f024_aws._cfn_instances_without_profile
 F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,11,16,skims,333. Insecure service configuration - EC2,Encrypted property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
@@ -10133,6 +10373,78 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |     }
   64 |   }
   65 | }
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+> 18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+  22 |       BlockDeviceMappings:
+  23 |       - DeviceName: ""/dev/sdm""
+  24 |         Ebs:
+  25 |           VolumeType: ""io1""
+  26 |           Iops: ""200""
+  27 |           DeleteOnTermination: ""false""
+  28 |           VolumeSize: ""20""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""IamInstanceProfile"": ""iamProfile"",
+   9 |         ""BlockDeviceMappings"": [
+  10 |           {
+  11 |             ""DeviceName"": ""/dev/sdm"",
+  12 |             ""Ebs"": {
+  13 |               ""VolumeType"": ""io1"",
+  14 |               ""Iops"": ""200"",
+  15 |               ""DeleteOnTermination"": ""false"",
+  16 |               ""VolumeSize"": ""20""
+  17 |             }
+  18 |           },
+  19 |           {
+  20 |             ""DeviceName"": ""/dev/sdk"",
+  21 |             ""NoDevice"": {}
      ^ Col 0
 ",f257._cfn_ec2_has_not_termination_protection
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
