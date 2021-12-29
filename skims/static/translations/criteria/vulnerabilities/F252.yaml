@@ -1,3 +1,6 @@
+src.lib_path.f252.ec2_has_unrestricted_ports:
+  en: Avoid SecurityGroup ingress/egress rules with port ranges
+  es: Evite las reglas de entrada/salida de SecurityGroup con rangos de puertos
 F252.title:
   en: >
     Automatic information enumeration - Open ports
