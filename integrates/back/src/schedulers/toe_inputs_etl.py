@@ -6,12 +6,13 @@ import csv
 from custom_exceptions import (
     GroupNameNotFound,
     InvalidField,
+    RepeatedToeInput,
+    ToeInputAlreadyUpdated,
 )
 from custom_types import (
     Group,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -25,6 +26,12 @@ from db_model.roots.types import (
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 import glob
 from newutils import (
@@ -58,6 +65,17 @@ from typing import (
 )
 
 bugsnag_utils.start_scheduler_session()
+
+
+toe_inputs_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.add)
+toe_inputs_remove = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.remove)
+toe_inputs_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.update)
 
 
 def _format_date(iso_date_str: str) -> Optional[datetime]:
@@ -175,7 +193,7 @@ async def add_toe_inputs(
 ) -> None:
     await collect(
         tuple(
-            toe_inputs_domain.add(
+            toe_inputs_add(
                 group_name=cvs_toe_input.group_name,
                 component=cvs_toe_input.component,
                 entry_point=cvs_toe_input.entry_point,
@@ -218,7 +236,7 @@ async def update_toe_inputs(
 ) -> None:
     await collect(
         [
-            toe_inputs_domain.update(
+            toe_inputs_update(
                 current_value=group_toe_inputs[cvs_toe_input.get_hash()],
                 attributes=ToeInputAttributesToUpdate(
                     attacked_at=cvs_toe_input.attacked_at,
@@ -274,7 +292,7 @@ async def remove_toe_inputs(
 ) -> None:
     await collect(
         [
-            toe_inputs_domain.remove(
+            toe_inputs_remove(
                 entry_point=toe_input.entry_point,
                 component=toe_input.component,
                 group_name=toe_input.group_name,
@@ -285,9 +303,16 @@ async def remove_toe_inputs(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(
+        RepeatedToeInput,
+        ToeInputAlreadyUpdated,
+    ),
+)
 async def update_toe_inputs_from_csv(
-    loaders: Dataloaders, group_name: str, inputs_csv_path: str
+    group_name: str, inputs_csv_path: str
 ) -> None:
+    loaders = get_new_context()
     group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
         group_name
     )
@@ -318,7 +343,6 @@ def _get_group_name(tmpdirname: str, inputs_csv_path: str) -> str:
 
 async def main() -> None:
     """Update the root toe inputs from services repository"""
-    loaders = get_new_context()
     with tempfile.TemporaryDirectory() as tmpdirname:
         git_utils.clone_services_repository(tmpdirname)
         inputs_csv_glob = f"{tmpdirname}/groups/*/toe/inputs.csv"
@@ -329,9 +353,7 @@ async def main() -> None:
         ]
         await collect(
             [
-                update_toe_inputs_from_csv(
-                    loaders, group_name, inputs_csv_path
-                )
+                update_toe_inputs_from_csv(group_name, inputs_csv_path)
                 for inputs_csv_path, group_name in zip(
                     inputs_cvs_paths, inputs_csv_group_names
                 )
