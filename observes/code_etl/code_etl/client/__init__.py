@@ -10,11 +10,15 @@ from code_etl.client._assert import (
 from code_etl.client.encoder import (
     CommitTableRow,
     from_raw,
+    from_reg,
+    from_stamp,
     RawRow,
     to_dict,
 )
 from code_etl.objs import (
+    CommitStamp,
     RepoId,
+    RepoRegistration,
 )
 from code_etl.upload_repo import (
     RepoContex,
@@ -99,6 +103,14 @@ def insert_rows(
     )
 
 
+def insert_unique_rows(
+    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
+) -> IO[None]:
+    return client.cursor.execute_batch(
+        query.insert_unique_row(table), [SqlArgs(to_dict(r)) for r in rows]
+    )
+
+
 def _fetch_one(client: Client, d_type: Type[_T]) -> IO[ResultE[_T]]:
     return (
         client.cursor.fetch_one()
@@ -123,3 +135,17 @@ def get_context(
             )
         )
     )
+
+
+def register_repos(
+    client: Client, table: TableID, reg: FrozenList[RepoRegistration]
+) -> IO[None]:
+    encoded = tuple(from_reg(r) for r in reg)
+    return insert_unique_rows(client, table, encoded)
+
+
+def insert_stamps(
+    client: Client, table: TableID, stamps: FrozenList[CommitStamp]
+) -> IO[None]:
+    encoded = tuple(from_stamp(s) for s in stamps)
+    return insert_unique_rows(client, table, encoded)
