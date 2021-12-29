@@ -14,6 +14,26 @@ from typing import (
 )
 
 
+def _filter_refresh_toe_inputs_actions(
+    pending_actions: List[BatchProcessing],
+) -> List[BatchProcessing]:
+    refresh_toe_inputs_actions_to_requeue = list(
+        {
+            action.entity: action
+            for action in pending_actions
+            if action.action_name == "refresh_toe_inputs"
+        }.values()
+    )
+    non_refresh_toe_inputs_actions = [
+        action
+        for action in pending_actions
+        if not action.action_name == "refresh_toe_inputs"
+    ]
+    return (
+        non_refresh_toe_inputs_actions + refresh_toe_inputs_actions_to_requeue
+    )
+
+
 def _filter_refresh_toe_lines_actions(
     pending_actions: List[BatchProcessing],
 ) -> List[BatchProcessing]:
@@ -47,6 +67,7 @@ async def requeue_actions() -> None:
             batch_dal.JobStatus.RUNNING,
         ],
     )
+    pending_actions = _filter_refresh_toe_inputs_actions(pending_actions)
     pending_actions = _filter_refresh_toe_lines_actions(pending_actions)
     await collect(
         [
