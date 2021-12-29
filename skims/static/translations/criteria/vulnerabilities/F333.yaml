@@ -1,3 +1,6 @@
+src.lib_path.f333.iam_has_full_access_to_ssm:
+  en: There are policy documents that allow full access to ssm agent
+  es: Hay documentos de políticas que permiten el acceso completo al agente ssm
 src.lib_path.f333.ec2_has_unencrypted_volumes:
   en: Encrypted property should enabled
   es: La propiedad Encrypted debería habilitada

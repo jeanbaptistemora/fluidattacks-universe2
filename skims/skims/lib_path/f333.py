@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from aws.model import (
     AWSEC2,
+    AWSIamManagedPolicy,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
@@ -24,6 +25,7 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_ec2_volumes,
+    iterate_iam_policy_documents,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -101,6 +103,22 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 yield vol_encryption
 
 
+def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
+    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for stmt in iam_iterator:
+        effect = stmt.inner.get("Effect")
+        action = stmt.inner.get("Action")
+        if effect and action and effect.raw == "Allow":
+            if isinstance(action.raw, list):
+                for act in action.data:
+                    if act.raw.startswith("ssm:"):
+                        yield act
+            else:
+                if action.raw.startswith("ssm:"):
+                    yield action
+
+
 def _ec2_has_terminate_shutdown_behavior(
     content: str,
     path: str,
@@ -160,6 +178,25 @@ def _cfn_ec2_has_unencrypted_volumes(
     )
 
 
+def _cfn_iam_has_full_access_to_ssm(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F333_CWE},
+        description_key="src.lib_path.f333.iam_has_full_access_to_ssm",
+        finding=_FINDING_F333,
+        iterator=get_cloud_iterator(
+            _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
+                iam_iterator=iterate_iam_policy_documents(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_has_terminate_shutdown_behavior(
@@ -203,6 +240,22 @@ async def cfn_ec2_has_unencrypted_volumes(
         _cfn_ec2_has_unencrypted_volumes,
         content=content,
         file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_iam_has_full_access_to_ssm(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_iam_has_full_access_to_ssm,
+        content=content,
         path=path,
         template=template,
     )
