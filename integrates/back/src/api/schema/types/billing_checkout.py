@@ -7,4 +7,4 @@ from ariadne import (
 
 # None
 
-CHECKOUT = ObjectType("Checkout")
+BILLING_CHECKOUT = ObjectType("BillingCheckout")

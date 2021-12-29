@@ -1,5 +1,6 @@
 from billing.types import (
     Checkout,
+    Portal,
 )
 from context import (
     BASE_URL,
@@ -53,6 +54,23 @@ async def checkout(
         cancel_url=session.cancel_url,
         success_url=session.success_url,
         payment_url=session.url,
+    )
+
+
+async def portal(
+    *,
+    org_name: str,
+    group_name: str,
+) -> Portal:
+    session = stripe.billing_portal.Session.create(
+        customer=group_name,
+        return_url=f"{BASE_URL}/orgs/{org_name}/billing",
+    )
+
+    return Portal(
+        group=group_name,
+        portal_url=session.url,
+        return_url=session.return_url,
     )
 
 

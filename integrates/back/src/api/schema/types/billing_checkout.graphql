@@ -1,5 +1,5 @@
-"Checkout type definition"
-type Checkout {
+"BillingCheckout type definition"
+type BillingCheckout {
   "Redirect url when checkout is cancelled"
   cancelUrl: String!
   "Stripe payment url"

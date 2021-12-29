@@ -1,0 +1,9 @@
+"BillingPortal type definition"
+type BillingPortal {
+  "Portal session identifier"
+  group: String!
+  "Stripe Portal url"
+  portalUrl: String!
+  "ASM Return url"
+  returnUrl: String!
+}
