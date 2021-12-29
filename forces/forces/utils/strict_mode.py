@@ -57,7 +57,7 @@ async def set_forces_exit_code(
                     if vuln["severity"] is not None
                     else float(finding["severity"])
                 )
-                current_date: datetime = datetime.now()
+                current_date: datetime = datetime.utcnow()
                 report_date: datetime = datetime.strptime(
                     vuln["report_date"], "%Y-%m-%d %H:%M:%S"
                 )
@@ -82,7 +82,7 @@ async def set_forces_exit_code(
             "info",
             (
                 "[green]No open vulnerabilities with a severity above this"
-                " threshold and outside the grace period set found[/]"
+                " threshold and outside the set grace period were found[/]"
             ),
         )
     # Forces wasn't set to strict mode or there aren't any findings yet

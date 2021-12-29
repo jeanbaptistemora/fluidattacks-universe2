@@ -29,7 +29,7 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
-from forces.utils.severity import (
+from forces.utils.strict_mode import (
     set_forces_exit_code,
 )
 import os

@@ -21,7 +21,7 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
-from forces.utils.severity import (
+from forces.utils.strict_mode import (
     choose_min_breaking_severity,
 )
 from io import (
