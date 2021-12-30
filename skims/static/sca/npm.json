@@ -779,6 +779,9 @@
   "console-io": {
     "GMS-2016-22": "<=2.6.3"
   },
+  "constantinople": {
+    "npm:constantinople:20180421": "<3.1.1"
+  },
   "content": {
     "CVE-2017-16111": "<=3.0.5",
     "GMS-2017-209": "<=3.0.5"
@@ -2119,6 +2122,10 @@
   },
   "json-ptr": {
     "CVE-2020-7766": "<2.0.0"
+  },
+  "json-schema": {
+    "CVE-2021-3918": "<0.4.0",
+    "SNYK-JS-JSONSCHEMA-1920922": "<0.4.0"
   },
   "json-schema-traverse": {},
   "json8": {
