@@ -5,7 +5,7 @@ from billing.types import (
     Portal,
 )
 from custom_types import (
-    Group,
+    Organization,
 )
 from decorators import (
     concurrent_decorators,
@@ -15,9 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 
 
 @concurrent_decorators(
@@ -25,13 +22,12 @@ from organizations import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    parent: Group, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Organization, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Portal:
-    group_name: str = parent["name"]
-    org_id: str = await orgs_domain.get_id_for_group(group_name)
-    org_name: str = await orgs_domain.get_name_by_id(org_id)
+    org_name: str = parent["name"]
+    org_billing_customer: str = parent["billing_customer"]
 
     return await billing_domain.portal(
         org_name=org_name,
-        group_name=group_name,
+        org_billing_customer=org_billing_customer,
     )

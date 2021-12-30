@@ -13,8 +13,6 @@ type Group {
     (year and month)"""
     date: DateTime
   ): Bill
-  "Portal URL for managing group tiers"
-  billingPortal: BillingPortal
   "Amount of currently closed vulnerabilities in the group"
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"

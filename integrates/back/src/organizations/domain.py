@@ -395,6 +395,17 @@ async def update_pending_deletion_date(
     return success
 
 
+async def update_billing_customer(
+    org_id: str,
+    org_name: str,
+    org_billing_customer: str,
+) -> bool:
+    """Update Stripe billing customer"""
+    values: OrganizationType = {"billing_customer": org_billing_customer}
+    success = await orgs_dal.update(org_id, org_name, values)
+    return success
+
+
 async def update_policies(
     loaders: Any,
     organization_id: str,

@@ -4,6 +4,6 @@ from typing import (
 
 
 class Portal(NamedTuple):
-    group: str
+    organization: str
     portal_url: str
     return_url: str

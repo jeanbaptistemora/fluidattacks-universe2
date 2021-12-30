@@ -36,9 +36,11 @@ async def checkout(
     tier: str,
     org_name: str,
     group_name: str,
+    user_email: str,
 ) -> AddBillingCheckoutPayload:
     price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
     session_data = {
+        "customer_email": user_email,
         "client_reference_id": group_name,
         "line_items": [
             {
@@ -64,15 +66,16 @@ async def checkout(
 async def portal(
     *,
     org_name: str,
-    group_name: str,
+    org_billing_customer: str,
 ) -> Portal:
+
     session = stripe.billing_portal.Session.create(
-        customer=group_name,
+        customer=org_billing_customer,
         return_url=f"{BASE_URL}/orgs/{org_name}/billing",
     )
 
     return Portal(
-        group=group_name,
+        organization=org_name,
         portal_url=session.url,
         return_url=session.return_url,
     )

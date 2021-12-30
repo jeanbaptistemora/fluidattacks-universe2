@@ -15,11 +15,15 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    token as token_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
@@ -30,16 +34,19 @@ from typing import (
 )
 async def mutate(
     _parent: None,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> AddBillingCheckoutPayload:
     tier: str = kwargs["tier"]
     group_name: str = kwargs["group_name"]
     org_id: str = await orgs_domain.get_id_for_group(group_name)
     org_name: str = await orgs_domain.get_name_by_id(org_id)
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_email: str = user_info["user_email"]
 
     return await billing_domain.checkout(
         tier=tier,
         org_name=org_name,
         group_name=group_name,
+        user_email=user_email,
     )

@@ -4,7 +4,6 @@
 from api.resolvers.group import (
     analytics,
     bill,
-    billing_portal,
     consulting,
     drafts,
     events,
@@ -33,7 +32,6 @@ from ariadne import (
 GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
-GROUP.set_field("billingPortal", billing_portal.resolve)
 GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("drafts", drafts.resolve)
