@@ -31,8 +31,16 @@ from git.repo.base import (
 from pathlib import (
     Path,
 )
+from pathos.threading import (
+    ThreadPool,
+)
 from postgres_client.client import (
     Client,
+    ClientFactory,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
 )
 from postgres_client.ids import (
     TableID,
@@ -45,6 +53,9 @@ from purity.v1.pure_iter.transform import (
 )
 from purity.v1.pure_iter.transform.io import (
     consume,
+)
+from purity.v2.frozen import (
+    FrozenList,
 )
 from purity.v2.pure_iter.core import (
     PureIter,
@@ -133,3 +144,18 @@ def upload(
             lambda context: upload_or_register(client, target, context, repo)
         )
     )
+
+
+def upload_repos(
+    db_id: DatabaseID,
+    creds: Credentials,
+    target: TableID,
+    namespace: str,
+    repo_paths: FrozenList[Path],
+) -> IO[None]:
+    client_paths = tuple(
+        (ClientFactory().from_creds(db_id, creds), p) for p in repo_paths
+    )
+    pool = ThreadPool()
+    pool.map(lambda i: upload(i[0], target, namespace, i[1]), client_paths)
+    return IO(None)

@@ -6,6 +6,7 @@ from code_etl import (
     amend_authors as amend,
     compute_bills as bills,
     upload,
+    upload_repo,
 )
 from code_etl.migration import (
     calc_fa_hash,
@@ -13,6 +14,9 @@ from code_etl.migration import (
 )
 from os.path import (
     abspath,
+)
+from pathlib import (
+    Path,
 )
 from postgres_client.connection.decoder import (
     creds_from_str,
@@ -82,6 +86,32 @@ def upload_code(
         upload.main(Maybe.from_optional(mailmap), namespace, *repos)
     )
     sys.exit(0 if success else 1)
+
+
+@click.command()
+@click.option("--db-id", type=click.File("r"), required=True)
+@click.option("--creds", type=click.File("r"), required=True)
+@click.option("--schema", type=str, required=True)
+@click.option("--table", type=str, required=True)
+@click.option("--namespace", type=str)
+@click.option("--repositories", type=str, nargs=-1)
+def upload_code_v2(
+    db_id: FILE[str],
+    creds: FILE[str],
+    schema: str,
+    table: str,
+    namespace: str,
+    repositories: Tuple[str, ...],
+) -> None:
+    repos = tuple(Path(abspath(r)) for r in repositories)
+    target = TableID(SchemaID(schema), table)
+    return upload_repo.upload_repos(
+        id_from_str(db_id.read()),
+        creds_from_str(creds.read()),
+        target,
+        namespace,
+        repos,
+    )
 
 
 @click.command()
