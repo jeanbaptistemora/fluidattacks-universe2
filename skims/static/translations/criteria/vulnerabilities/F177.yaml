@@ -1,3 +1,9 @@
+src.lib_path.f177.ec2_sg_allows_anyone_to_admin_ports:
+  en: >
+    SecurityGroup allows connection from internet to admin services
+  es: >
+    SecurityGroup permite la conexión desde Internet a servicios
+    de administración
 src.lib_path.f177.ec2_has_open_all_ports_to_the_public:
   en: >
     Security groups has all ports open to the public
