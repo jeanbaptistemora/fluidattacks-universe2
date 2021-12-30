@@ -48,7 +48,6 @@ describe("VulnerabilitiesView", (): void => {
     request: {
       query: GET_FINDING_VULNS,
       variables: {
-        canRetrieveHacker: true,
         canRetrieveZeroRisk: true,
         findingId: "422286126",
       },
@@ -60,13 +59,9 @@ describe("VulnerabilitiesView", (): void => {
           vulnerabilities: [
             {
               __typename: "Vulnerability",
-              commitHash: null,
               currentState: "open",
-              cycles: "",
-              efficacy: "",
               externalBugTrackingSystem: null,
               findingId: "422286126",
-              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",
@@ -96,13 +91,9 @@ describe("VulnerabilitiesView", (): void => {
             },
             {
               __typename: "Vulnerability",
-              commitHash: null,
               currentState: "open",
-              cycles: "",
-              efficacy: "",
               externalBugTrackingSystem: null,
               findingId: "422286126",
-              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",
@@ -134,13 +125,9 @@ describe("VulnerabilitiesView", (): void => {
           zeroRisk: [
             {
               __typename: "Vulnerability",
-              commitHash: null,
               currentState: "open",
-              cycles: "",
-              efficacy: "",
               externalBugTrackingSystem: null,
               findingId: "422286126",
-              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",

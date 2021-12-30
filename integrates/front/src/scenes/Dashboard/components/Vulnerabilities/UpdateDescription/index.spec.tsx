@@ -64,7 +64,6 @@ describe("Update Description component", (): void => {
     request: {
       query: GET_FINDING_VULN_INFO,
       variables: {
-        canRetrieveHacker: false,
         canRetrieveZeroRisk: false,
         findingId: "422286126",
         groupName: "",
@@ -79,8 +78,6 @@ describe("Update Description component", (): void => {
           verified: false,
           vulnerabilities: {
             currentState: "open",
-            cycles: "0",
-            efficacy: "0",
             externalBugTrackingSystem: null,
             findingId: "480857698",
             historicTreatment: [],

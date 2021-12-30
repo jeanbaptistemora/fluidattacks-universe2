@@ -162,7 +162,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
         });
       },
       variables: {
-        canRetrieveHacker,
         canRetrieveZeroRisk,
         findingId,
       },

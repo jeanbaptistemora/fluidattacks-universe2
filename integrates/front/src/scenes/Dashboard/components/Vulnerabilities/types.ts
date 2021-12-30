@@ -8,7 +8,6 @@ interface IVulnRowAttr {
   currentState: "closed" | "open";
   currentStateCapitalized: "Closed" | "Open";
   externalBugTrackingSystem: string | null;
-  hacker?: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
   lastReattackDate: string | null;

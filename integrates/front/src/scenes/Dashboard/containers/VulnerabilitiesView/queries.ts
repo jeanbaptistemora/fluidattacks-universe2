@@ -6,7 +6,6 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     currentState
     externalBugTrackingSystem
     findingId
-    hacker @include(if: $canRetrieveHacker)
     historicTreatment {
       acceptanceDate
       acceptanceStatus
@@ -35,7 +34,6 @@ const VULNS_FRAGMENT: DocumentNode = gql`
 
 const GET_FINDING_VULN_INFO: DocumentNode = gql`
   query GetFindingVulnInfo(
-    $canRetrieveHacker: Boolean!
     $canRetrieveZeroRisk: Boolean!
     $findingId: String!
     $groupName: String!
@@ -78,11 +76,7 @@ const GET_FINDING_AND_GROUP_INFO: DocumentNode = gql`
 `;
 
 const GET_FINDING_VULNS: DocumentNode = gql`
-  query GetFindingVulns(
-    $canRetrieveHacker: Boolean!
-    $canRetrieveZeroRisk: Boolean!
-    $findingId: String!
-  ) {
+  query GetFindingVulns($canRetrieveZeroRisk: Boolean!, $findingId: String!) {
     finding(identifier: $findingId) {
       vulnerabilities {
         ...vulnFields
