@@ -4,6 +4,9 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
+from billing.types import (
+    Customer,
+)
 from custom_types import (
     AddBillingCheckoutPayload,
 )
@@ -23,7 +26,6 @@ from organizations import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -41,12 +43,33 @@ async def mutate(
     group_name: str = kwargs["group_name"]
     org_id: str = await orgs_domain.get_id_for_group(group_name)
     org_name: str = await orgs_domain.get_name_by_id(org_id)
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
+    org_billing_customer: str = await orgs_domain.get_billing_customer_by_id(
+        org_id,
+    )
+    user_email: str = (
+        await token_utils.get_jwt_content(
+            info.context,
+        )
+    )["user_email"]
+
+    # Create customer if it does not exist
+    if org_billing_customer == "":
+        customer: Customer = await billing_domain.create_customer(
+            org_name=org_name,
+            user_email=user_email,
+        )
+        await orgs_domain.update_billing_customer(
+            org_id=org_id,
+            org_name=org_name,
+            org_billing_customer=customer.id,
+        )
+        org_billing_customer = await orgs_domain.get_billing_customer_by_id(
+            org_id,
+        )
 
     return await billing_domain.checkout(
         tier=tier,
+        org_billing_customer=org_billing_customer,
         org_name=org_name,
         group_name=group_name,
-        user_email=user_email,
     )

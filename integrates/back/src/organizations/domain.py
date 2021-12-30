@@ -283,6 +283,15 @@ async def get_name_by_id(organization_id: str) -> str:
     return str(result["name"])
 
 
+async def get_billing_customer_by_id(organization_id: str) -> str:
+    result: OrganizationType = await orgs_dal.get_by_id(
+        organization_id, ["billing_customer"]
+    )
+    if not result:
+        return ""
+    return result["billing_customer"]
+
+
 async def get_or_add(
     organization_name: str, email: str = ""
 ) -> OrganizationType:

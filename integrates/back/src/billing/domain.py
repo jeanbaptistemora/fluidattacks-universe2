@@ -1,4 +1,5 @@
 from billing.types import (
+    Customer,
     Portal,
 )
 from context import (
@@ -31,17 +32,34 @@ LOGGER = logging.getLogger(__name__)
 stripe.api_key = FI_STRIPE_API_KEY
 
 
+async def create_customer(
+    *,
+    org_name: str,
+    user_email: str,
+) -> Customer:
+    customer = stripe.Customer.create(
+        name=org_name,
+        email=user_email,
+    )
+
+    return Customer(
+        id=customer.id,
+        name=customer.name,
+        email=customer.email,
+    )
+
+
 async def checkout(
     *,
     tier: str,
+    org_billing_customer: str,
     org_name: str,
     group_name: str,
-    user_email: str,
 ) -> AddBillingCheckoutPayload:
     price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
     session_data = {
-        "customer_email": user_email,
-        "client_reference_id": group_name,
+        "customer": org_billing_customer,
+        "client_reference_id": f"{org_name}__{group_name}",
         "line_items": [
             {
                 "price": price_id,
