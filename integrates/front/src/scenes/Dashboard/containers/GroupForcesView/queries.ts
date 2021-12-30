@@ -6,11 +6,13 @@ const GET_FORCES_EXECUTIONS: DocumentNode = gql`
     forcesExecutions(groupName: $groupName) {
       executions {
         groupName
+        gracePeriod
         date
         exitCode
         gitRepo
         executionId
         kind
+        severityThreshold
         strictness
         vulnerabilities {
           numOfAcceptedVulnerabilities

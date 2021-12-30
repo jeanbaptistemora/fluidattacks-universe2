@@ -241,6 +241,32 @@ const Execution: React.FC<IExecution> = (
           <p>{execution.strictness}</p>
         </Col33>
       </Row>
+      {execution.strictness === "strict" ? (
+        <React.Fragment>
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <Row className={"nb3"}>
+            <Col33>
+              <p>
+                <b>{translate.t("group.forces.severityThreshold.title")}</b>
+              </p>
+            </Col33>
+            <Col33>
+              <p>{execution.severityThreshold}</p>
+            </Col33>
+          </Row>
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <Row className={"nb3"}>
+            <Col33>
+              <p>
+                <b>{translate.t("group.forces.gracePeriod.title")}</b>
+              </p>
+            </Col33>
+            <Col33>
+              <p>{execution.gracePeriod}</p>
+            </Col33>
+          </Row>
+        </React.Fragment>
+      ) : undefined}
       {/* eslint-disable-next-line react/forbid-component-props */}
       <Row className={"nb3"}>
         <Col33>

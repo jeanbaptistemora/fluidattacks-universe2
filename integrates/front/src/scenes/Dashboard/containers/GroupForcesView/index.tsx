@@ -57,8 +57,10 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       total: 0,
     },
     gitRepo: "",
+    gracePeriod: 0,
     kind: "",
     log: "",
+    severityThreshold: 0,
     status: "",
     strictness: "",
     vulnerabilities: {
@@ -473,9 +475,11 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           exitCode={currentRow.exitCode}
           foundVulnerabilities={currentRow.foundVulnerabilities}
           gitRepo={currentRow.gitRepo}
+          gracePeriod={currentRow.gracePeriod}
           groupName={currentRow.groupName}
           kind={currentRow.kind}
           log={currentRow.log}
+          severityThreshold={currentRow.severityThreshold}
           status={currentRow.status}
           strictness={currentRow.strictness}
           vulnerabilities={currentRow.vulnerabilities}

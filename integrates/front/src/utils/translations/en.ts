@@ -519,6 +519,9 @@ export const enTranslations: ResourceKey = {
         total: "Total",
       },
       gitRepo: "Git Repository",
+      gracePeriod: {
+        title: "Grace Period",
+      },
       identifier: "Identifier",
       kind: {
         all: "ALL",
@@ -526,6 +529,9 @@ export const enTranslations: ResourceKey = {
         other: "ALL",
         static: "SAST",
         title: "Type",
+      },
+      severityThreshold: {
+        title: "Severity Threshold",
       },
       status: {
         accepted: "Accepted",

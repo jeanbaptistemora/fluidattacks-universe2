@@ -27,12 +27,14 @@ interface IExecution {
   executionId: string;
   exitCode: string;
   foundVulnerabilities: IFoundVulnerabilities;
+  gracePeriod: number;
   gitRepo: string;
   kind: string;
   log?: string;
   groupName?: string;
   status: string;
   strictness: string;
+  severityThreshold: number;
   vulnerabilities: IVulnerabilities | null;
 }
 

@@ -30,9 +30,11 @@ describe("ForcesView", (): void => {
                 executionId: "33e5d863252940edbfb144ede56d56cf",
                 exitCode: "1",
                 gitRepo: "Repository",
+                gracePeriod: "0",
                 groupName: "unittesting",
                 kind: "dynamic",
                 log: "...",
+                severityThreshold: "0.0",
                 strictness: "strict",
                 vulnerabilities: {
                   accepted: [
