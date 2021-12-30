@@ -268,6 +268,8 @@ async def process_toe_input(
     target_root_id: str,
     toe_input: ToeInput,
 ) -> None:
+    if toe_input.seen_at is None:
+        return
     attributes_to_add = ToeInputAttributesToAdd(
         attacked_at=toe_input.attacked_at,
         attacked_by=toe_input.attacked_by,

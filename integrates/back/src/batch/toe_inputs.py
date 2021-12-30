@@ -56,6 +56,10 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
+
+toe_inputs_remove = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_inputs_domain.remove)
 toe_inputs_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_inputs_domain.update)
@@ -81,7 +85,28 @@ def get_non_present_toe_inputs_to_update(
             ),
         )
         for toe_input in root_toe_inputs
-        if root.state.status == "INACTIVE" and toe_input.be_present
+        if root.state.status == "INACTIVE"
+        and toe_input.be_present
+        and toe_input.seen_at is not None
+    )
+
+
+def get_toe_inputs_to_remove(
+    root: Union[GitRootItem, URLRootItem],
+    root_toe_inputs: Tuple[ToeInput, ...],
+) -> Tuple[ToeInput, ...]:
+    LOGGER_CONSOLE.info(
+        "Getting non present toe inputs to remove",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    return tuple(
+        toe_input
+        for toe_input in root_toe_inputs
+        if root.state.status == "INACTIVE" and toe_input.seen_at is None
     )
 
 
@@ -181,6 +206,17 @@ async def refresh_inactive_root_toe_inputs(
             for current_value, attrs_to_update in (
                 non_present_toe_inputs_to_update
             )
+        ),
+    )
+    toe_inputs_to_remove = get_toe_inputs_to_remove(root, root_toe_inputs)
+    await collect(
+        tuple(
+            toe_inputs_remove(
+                entry_point=toe_input.entry_point,
+                component=toe_input.component,
+                group_name=toe_input.group_name,
+            )
+            for toe_input in toe_inputs_to_remove
         ),
     )
     LOGGER_CONSOLE.info(

@@ -632,4 +632,19 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             seen_first_time_by="test@test.com",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         ),
+        ToeInput(
+            attacked_at=datetime.fromisoformat("2021-02-11T05:00:00+00:00"),
+            attacked_by="test2@test.com",
+            be_present=True,
+            be_present_until=None,
+            component="test.com/test2/test.aspx",
+            entry_point="-",
+            first_attack_at=datetime.fromisoformat(
+                "2021-02-11T05:00:00+00:00"
+            ),
+            group_name="unittesting",
+            seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
+            seen_first_time_by="test2@test.com",
+            unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+        ),
     )

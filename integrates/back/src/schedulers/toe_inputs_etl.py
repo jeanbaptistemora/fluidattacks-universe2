@@ -57,6 +57,7 @@ from toe.inputs.types import (
 from typing import (
     Any,
     Callable,
+    cast,
     Dict,
     List,
     Optional,
@@ -109,7 +110,7 @@ def _format_email(email: str) -> str:
 
 
 def _get_group_toe_inputs_from_cvs(
-    inputs_csv_path: str, group: Group, group_roots: Tuple[RootItem, ...]
+    inputs_csv_path: str, group: Group, group_roots: Dict[str, RootItem]
 ) -> Dict[int, ToeInput]:
     inputs_csv_fields: List[Tuple[str, Callable, Any]] = [
         # field_name, field_formater, field_default_value
@@ -140,7 +141,7 @@ def _get_group_toe_inputs_from_cvs(
                     new_toe_input[field_name] = default_value
 
             unreliable_root = roots_domain.get_unreliable_root_by_component(
-                new_toe_input["component"], group_roots, group
+                new_toe_input["component"], group_roots.values(), group
             )
             be_present = (
                 unreliable_root.state.status == "ACTIVE"
@@ -287,8 +288,8 @@ async def update_toe_inputs(
 
 
 async def remove_toe_inputs(
+    group_roots: Dict[str, RootItem],
     group_toe_inputs: Dict[int, ToeInput],
-    cvs_group_toe_inputs: Dict[int, ToeInput],
 ) -> None:
     await collect(
         [
@@ -298,7 +299,10 @@ async def remove_toe_inputs(
                 group_name=toe_input.group_name,
             )
             for toe_input in group_toe_inputs.values()
-            if toe_input.get_hash() not in cvs_group_toe_inputs
+            if toe_input.seen_at is None
+            and group_roots.get(toe_input.unreliable_root_id)
+            and group_roots[toe_input.unreliable_root_id].state.status
+            == "INACTIVE"
         ]
     )
 
@@ -313,9 +317,12 @@ async def update_toe_inputs_from_csv(
     group_name: str, inputs_csv_path: str
 ) -> None:
     loaders = get_new_context()
-    group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
-        group_name
-    )
+    group_roots = {
+        root.id: root
+        for root in cast(
+            Tuple[RootItem, ...], await loaders.group_roots.load(group_name)
+        )
+    }
     group_toe_inputs = {
         toe_input.get_hash(): toe_input
         for toe_input in await loaders.group_toe_inputs.load_nodes(
@@ -327,7 +334,7 @@ async def update_toe_inputs_from_csv(
         _get_group_toe_inputs_from_cvs, inputs_csv_path, group, group_roots
     )
     await update_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
-    await remove_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
+    await remove_toe_inputs(group_roots, group_toe_inputs)
     await add_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
 
 

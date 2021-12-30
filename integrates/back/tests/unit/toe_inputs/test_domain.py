@@ -70,7 +70,7 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 4
+    assert len(group_toe_inputs) == 5
     await toe_inputs_domain.remove(
         entry_point="btnTest",
         component="test.com/test/new.aspx",
@@ -80,7 +80,7 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 3
+    assert len(group_toe_inputs) == 4
 
 
 @pytest.mark.changes_db
