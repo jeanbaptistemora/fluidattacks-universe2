@@ -4,6 +4,14 @@ from aioextensions import (
 from aws.model import (
     AWSEC2,
 )
+from contextlib import (
+    suppress,
+)
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
@@ -52,6 +60,18 @@ _FINDING_F177 = core_model.FindingEnum.F177
 _FINDING_F177_CWE = _FINDING_F177.value.cwe
 
 SECURITY_GROUP_ATTRIBUTES = {"security_groups", "vpc_security_group_ids"}
+
+
+def is_cidr(cidr: str) -> bool:
+    """Validate if a string is a valid CIDR."""
+    result = False
+    with suppress(AddressValueError, ValueError):
+        IPv4Network(cidr, strict=False)
+        result = True
+    with suppress(AddressValueError, ValueError):
+        IPv6Network(cidr, strict=False)
+        result = True
+    return result
 
 
 def ec2_use_default_security_group_iterate_vulnerabilities(
@@ -127,6 +147,24 @@ def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
                 ec2_res.raw.get("IpProtocol")
             ) in ("tcp", "-1"):
                 yield from_port
+
+
+def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        rfc1918 = {
+            "10.0.0.0/8",
+            "172.16.0.0/12",
+            "192.168.0.0/16",
+        }
+        cidr = ec2_res.inner.get("CidrIp", None) or ec2_res.inner.get(
+            "CidrIpv6", None
+        )
+        if not cidr or not is_cidr(cidr.raw):
+            continue
+        if cidr.raw in rfc1918:
+            yield cidr
 
 
 def _ec2_use_default_security_group(
@@ -209,6 +247,29 @@ def _cfn_ec2_has_unrestricted_ftp_access(
     )
 
 
+def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F177_CWE},
+        description_key=(
+            "src.lib_path.f177.ec2_has_security_groups_ip_ranges_in_rfc1918"
+        ),
+        finding=_FINDING_F177,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
+                ec2_iterator=iter_ec2_ingress_egress(
+                    template=template, ingress=True, egress=True
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_use_default_security_group(
@@ -265,6 +326,22 @@ async def cfn_ec2_has_unrestricted_ftp_access(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_ec2_has_unrestricted_ftp_access,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
         content=content,
         path=path,
         template=template,
