@@ -70,13 +70,14 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 
-  const formatDate: (date: string) => string = (date: string): string => {
-    if (_.isEmpty(date)) {
+  const formatDate: (date: Date | undefined) => string = (
+    date: Date | undefined
+  ): string => {
+    if (_.isUndefined(date)) {
       return "";
     }
-    const dateObj: Date = new Date(date);
 
-    return moment(dateObj).format("YYYY-MM-DD");
+    return moment(date).format("YYYY-MM-DD");
   };
   const onSort: (dataField: string, order: SortOrder) => void = (
     dataField: string,
@@ -85,6 +86,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("toeInputsSort", JSON.stringify(newSorted));
   };
+
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       align: "center",
@@ -157,9 +159,16 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   const toeInputsEdges: IToeInputEdge[] =
     data === undefined ? [] : data.group.toeInputs.edges;
 
+  const formatOptionalDate: (date: string | null) => Date | undefined = (
+    date: string | null
+  ): Date | undefined => (_.isNull(date) ? undefined : new Date(date));
   const toeInputs: IToeInputData[] = toeInputsEdges.map(
     ({ node }): IToeInputData => ({
       ...node,
+      attackedAt: formatOptionalDate(node.attackedAt),
+      bePresentUntil: formatOptionalDate(node.bePresentUntil),
+      firstAttackAt: formatOptionalDate(node.firstAttackAt),
+      seenAt: formatOptionalDate(node.seenAt),
     })
   );
   useEffect((): void => {

@@ -10,27 +10,27 @@ interface IToeInputsConnection {
   };
 }
 interface IToeInputAttr {
-  attackedAt: string;
+  attackedAt: string | null;
   attackedBy: string;
   bePresent: boolean;
-  bePresentUntil: string;
+  bePresentUntil: string | null;
   component: string;
   entryPoint: string;
-  firstAttackAt: string;
-  seenAt: string;
+  firstAttackAt: string | null;
+  seenAt: string | null;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;
 }
 
 interface IToeInputData {
-  attackedAt: string;
+  attackedAt: Date | undefined;
   attackedBy: string;
   bePresent: boolean;
-  bePresentUntil: string;
+  bePresentUntil: Date | undefined;
   component: string;
   entryPoint: string;
-  firstAttackAt: string;
-  seenAt: string;
+  firstAttackAt: Date | undefined;
+  seenAt: Date | undefined;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;
 }

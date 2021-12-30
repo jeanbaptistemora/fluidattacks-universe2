@@ -139,13 +139,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     setEditing(!isEditing);
   }
 
-  const formatDate: (date: string) => string = (date: string): string => {
-    if (_.isEmpty(date)) {
+  const formatDate: (date: Date | undefined) => string = (
+    date: Date | undefined
+  ): string => {
+    if (_.isUndefined(date)) {
       return "";
     }
-    const dateObj: Date = new Date(date);
 
-    return moment(dateObj).format("YYYY-MM-DD");
+    return moment(date).format("YYYY-MM-DD");
   };
   const formatPercentage = (value: number): string =>
     new Intl.NumberFormat("en-IN", {
@@ -348,14 +349,23 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           moment(toeLinesAttr.modifiedDate),
           "days"
         );
+  const formatOptionalDate: (date: string | null) => Date | undefined = (
+    date: string | null
+  ): Date | undefined =>
+    _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
   const toeLines: IToeLinesData[] = toeLinesEdges.map(
     ({ node }): IToeLinesData => ({
       ...node,
+      attackedAt: formatOptionalDate(node.attackedAt),
+      bePresentUntil: formatOptionalDate(node.bePresentUntil),
       coverage: getCoverage(node),
       daysToAttack: getDaysToAttack(node),
+      firstAttackAt: formatOptionalDate(node.firstAttackAt),
       modifiedCommit: commitFormatter(node.modifiedCommit),
+      modifiedDate: formatOptionalDate(node.modifiedDate),
       rootId: node.root.id,
       rootNickname: node.root.nickname,
+      seenAt: formatOptionalDate(node.seenAt),
     })
   );
   useEffect((): void => {

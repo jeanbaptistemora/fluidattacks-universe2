@@ -26,7 +26,7 @@ const AttackedAtField: React.FC<IAttackedAtFieldProps> = (
   const from: Moment = max(
     selectedToeLinesDatas.map(
       (toeLinesData: IToeLinesData): Moment =>
-        _.isEmpty(toeLinesData.attackedAt)
+        _.isUndefined(toeLinesData.attackedAt)
           ? moment(toeLinesData.seenAt)
           : moment(toeLinesData.attackedAt)
     )

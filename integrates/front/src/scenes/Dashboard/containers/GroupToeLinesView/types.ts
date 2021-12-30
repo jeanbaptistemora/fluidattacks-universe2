@@ -11,20 +11,20 @@ interface IToeLinesConnection {
 }
 
 interface IToeLinesAttr {
-  attackedAt: string;
+  attackedAt: string | null;
   attackedBy: string;
   attackedLines: number;
   bePresent: boolean;
-  bePresentUntil: string;
+  bePresentUntil: string | null;
   comments: string;
   commitAuthor: string;
   filename: string;
-  firstAttackAt: string;
+  firstAttackAt: string | null;
   loc: number;
   modifiedCommit: string;
-  modifiedDate: string;
+  modifiedDate: string | null;
   root: IGitRootAttr;
-  seenAt: string;
+  seenAt: string | null;
   sortsRiskLevel: number;
 }
 
@@ -34,24 +34,24 @@ interface IGitRootAttr {
 }
 
 interface IToeLinesData {
-  attackedAt: string;
+  attackedAt: Date | undefined;
   attackedBy: string;
   attackedLines: number;
   bePresent: boolean;
-  bePresentUntil: string;
+  bePresentUntil: Date | undefined;
   comments: string;
   commitAuthor: string;
   coverage: number;
   daysToAttack: number;
   filename: string;
-  firstAttackAt: string;
+  firstAttackAt: Date | undefined;
   loc: number;
   modifiedCommit: string;
-  modifiedDate: string;
+  modifiedDate: Date | undefined;
   root: IGitRootAttr;
   rootNickname: string;
   rootId: string;
-  seenAt: string;
+  seenAt: Date | undefined;
   sortsRiskLevel: number;
 }
 

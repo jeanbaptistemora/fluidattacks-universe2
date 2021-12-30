@@ -50,27 +50,27 @@ describe("handle toe lines edition modal", (): void => {
     ];
     const mokedVulns: IToeLinesData[] = [
       {
-        attackedAt: "2021-02-20T05:00:00+00:00",
+        attackedAt: new Date("2021-02-20T05:00:00+00:00"),
         attackedBy: "test2@test.com",
         attackedLines: 4,
         bePresent: true,
-        bePresentUntil: "",
+        bePresentUntil: undefined,
         comments: "comment 1",
         commitAuthor: "customer@gmail.com",
         coverage: 0.1,
         daysToAttack: 4,
         filename: "test/test#.config",
-        firstAttackAt: "2020-02-19T15:41:04+00:00",
+        firstAttackAt: new Date("2020-02-19T15:41:04+00:00"),
         loc: 8,
         modifiedCommit: "983466z",
-        modifiedDate: "2020-11-15T15:41:04+00:00",
+        modifiedDate: new Date("2020-11-15T15:41:04+00:00"),
         root: {
           id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
           nickname: "product",
         },
         rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
         rootNickname: "product",
-        seenAt: "2020-02-01T15:41:04+00:00",
+        seenAt: new Date("2020-02-01T15:41:04+00:00"),
         sortsRiskLevel: 80,
       },
     ];
