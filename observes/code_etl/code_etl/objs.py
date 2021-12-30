@@ -66,3 +66,10 @@ class CommitStamp:
 class RepoRegistration:
     commit_id: CommitDataId
     seen_at: datetime
+
+
+@dataclass(frozen=True)
+class RepoContex:
+    repo: RepoId
+    last_commit: str
+    is_new: bool

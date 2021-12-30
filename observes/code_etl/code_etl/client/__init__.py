@@ -17,11 +17,9 @@ from code_etl.client.encoder import (
 )
 from code_etl.objs import (
     CommitStamp,
+    RepoContex,
     RepoId,
     RepoRegistration,
-)
-from code_etl.upload_repo import (
-    RepoContex,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,

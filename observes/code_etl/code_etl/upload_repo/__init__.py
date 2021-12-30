@@ -13,6 +13,7 @@ from code_etl.objs import (
     CommitDataId,
     CommitId,
     CommitStamp,
+    RepoContex,
     RepoId,
     RepoRegistration,
 )
@@ -20,9 +21,6 @@ from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     DATE_NOW,
     DATE_SENTINEL,
-)
-from dataclasses import (
-    dataclass,
 )
 from git.objects import (
     Commit as GitCommit,
@@ -61,20 +59,10 @@ from returns.result import (
     Failure,
     ResultE,
 )
-from typing import (
-    Callable,
-)
 
 
 class NonexistentPath(Exception):
     pass
-
-
-@dataclass(frozen=True)
-class RepoContex:
-    repo: RepoId
-    last_commit: str
-    is_new: bool
 
 
 def _to_stamp(context: RepoContex, commit: GitCommit) -> Maybe[CommitStamp]:
