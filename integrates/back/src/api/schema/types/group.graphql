@@ -13,11 +13,6 @@ type Group {
     (year and month)"""
     date: DateTime
   ): Bill
-  "Checkout URL for purchasing a new tier"
-  billingCheckout(
-    "Group tier (Free, One-Shot, Other, Machine or Squad)"
-    tier: TierType!
-  ): BillingCheckout
   "Portal URL for managing group tiers"
   billingPortal: BillingPortal
   "Amount of currently closed vulnerabilities in the group"

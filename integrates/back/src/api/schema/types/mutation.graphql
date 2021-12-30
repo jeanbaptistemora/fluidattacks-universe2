@@ -17,6 +17,14 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
+  "Checkout URL for purchasing a new tier"
+  addBillingCheckout(
+    "Group name"
+    group: String!
+    "Group tier (Free, One-Shot, Other, Machine or Squad)"
+    tier: TierType!
+  ): AddBillingCheckoutPayload
+
   "Adds a new draft Finding to the specified Group"
   addDraft(
     """Measure of the effort and resources needed for an attacker to put

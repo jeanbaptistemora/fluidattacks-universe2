@@ -1,11 +1,13 @@
 from billing.types import (
-    Checkout,
     Portal,
 )
 from context import (
     BASE_URL,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
+)
+from custom_types import (
+    AddBillingCheckoutPayload,
 )
 import logging
 import logging.config
@@ -34,24 +36,26 @@ async def checkout(
     tier: str,
     org_name: str,
     group_name: str,
-) -> Checkout:
-
+) -> AddBillingCheckoutPayload:
     price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
-    session = stripe.checkout.Session.create(
-        client_reference_id=group_name,
-        line_items=[
+    session_data = {
+        "client_reference_id": group_name,
+        "line_items": [
             {
                 "price": price_id,
                 "quantity": 1,
             },
         ],
-        mode="subscription",
-        success_url=f"{BASE_URL}/orgs/{org_name}/billing",
-        cancel_url=f"{BASE_URL}/orgs/{org_name}/billing",
-    )
+        "mode": "subscription",
+        "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
+        "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
+    }
 
-    return Checkout(
+    session = stripe.checkout.Session.create(**session_data)
+
+    return AddBillingCheckoutPayload(
         cancel_url=session.cancel_url,
+        success=True,
         success_url=session.success_url,
         payment_url=session.url,
     )

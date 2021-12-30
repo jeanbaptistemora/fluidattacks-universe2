@@ -10,6 +10,18 @@ type SimplePayload implements Payload {
   success: Boolean!
 }
 
+"Add billing checkout payload definition"
+type AddBillingCheckoutPayload implements Payload {
+  "Redirect url when checkout is cancelled"
+  cancelUrl: String!
+  "Stripe payment url"
+  paymentUrl: String!
+  "Did the query succeed?"
+  success: Boolean!
+  "Redirect url when checkout is successful"
+  successUrl: String!
+}
+
 "Simple Payload type definition"
 type AddOrganizationPayload implements Payload {
   "Newly added Organization"

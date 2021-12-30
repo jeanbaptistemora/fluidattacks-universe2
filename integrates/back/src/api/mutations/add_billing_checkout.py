@@ -1,11 +1,11 @@
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
 from billing import (
     domain as billing_domain,
 )
-from billing.types import (
-    Checkout,
-)
 from custom_types import (
-    Group,
+    AddBillingCheckoutPayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -18,17 +18,23 @@ from graphql.type.definition import (
 from organizations import (
     domain as orgs_domain,
 )
+from typing import (
+    Any,
+)
 
 
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
 )
-async def resolve(
-    parent: Group, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Checkout:
-    tier: str = parent["tier"]
-    group_name: str = parent["name"]
+async def mutate(
+    _parent: None,
+    _info: GraphQLResolveInfo,
+    **kwargs: Any,
+) -> AddBillingCheckoutPayload:
+    tier: str = kwargs["tier"]
+    group_name: str = kwargs["group"]
     org_id: str = await orgs_domain.get_id_for_group(group_name)
     org_name: str = await orgs_domain.get_name_by_id(org_id)
 
