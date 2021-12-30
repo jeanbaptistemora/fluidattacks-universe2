@@ -107,6 +107,28 @@ def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
             yield from_port
 
 
+def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
+            "CidrIpv6", None
+        )
+        is_public_cidr = cidr in (
+            "::/0",
+            "0.0.0.0/0",
+        )
+        if not is_public_cidr:
+            continue
+        from_port = ec2_res.inner.get("FromPort")
+        to_port = ec2_res.inner.get("ToPort")
+        for port in range(20, 22):
+            if float(from_port.raw) <= port <= float(to_port.raw) and str(
+                ec2_res.raw.get("IpProtocol")
+            ) in ("tcp", "-1"):
+                yield from_port
+
+
 def _ec2_use_default_security_group(
     content: str,
     path: str,
@@ -166,6 +188,27 @@ def _cfn_ec2_has_unrestricted_dns_access(
     )
 
 
+def _cfn_ec2_has_unrestricted_ftp_access(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F177_CWE},
+        description_key=("src.lib_path.f177.ec2_has_unrestricted_ftp_access"),
+        finding=_FINDING_F177,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
+                ec2_iterator=iter_ec2_ingress_egress(
+                    template=template, ingress=True, egress=True
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_use_default_security_group(
@@ -206,6 +249,22 @@ async def cfn_ec2_has_unrestricted_dns_access(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_ec2_has_unrestricted_dns_access,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_unrestricted_ftp_access(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_unrestricted_ftp_access,
         content=content,
         path=path,
         template=template,

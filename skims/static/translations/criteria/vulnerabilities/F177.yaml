@@ -1,3 +1,9 @@
+src.lib_path.f177.ec2_has_unrestricted_ftp_access:
+  en: >
+    Group must restrict access to TCP port 20/21 to the necessary IP addresses
+  es: >
+    El grupo debe restringir el acceso al puerto TCP 20/21 a las direcciones
+    IP necesarias
 src.lib_path.f177.ec2_has_unrestricted_dns_access:
   en: Rules allow unrestricted access to port 53 (DNS)
   es: Las reglas permiten el acceso sin restricciones al puerto 53 (DNS)
