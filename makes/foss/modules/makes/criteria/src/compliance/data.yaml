@@ -3289,7 +3289,19 @@
   title: MISRA-C
   en:
     description: >
-      ...
+      Developed to fulfil the need for a
+      "restricted subset of a standardized
+      programming language" and against the
+      background of the emerging use of C
+      for developing embedded software in
+      automotive applications.
+      Its aims are to facilitate code safety,
+      security, portability and reliability
+      in the context of embedded systems,
+      specifically those systems programmed
+      in ISO C.
+      The version used in this section is
+      MISRA-C:2004.
   es:
     description: __empty__
   definitions:
