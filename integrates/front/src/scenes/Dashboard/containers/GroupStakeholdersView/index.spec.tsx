@@ -8,6 +8,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
@@ -393,22 +394,19 @@ describe("Group stakeholders view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
+    form.simulate("submit");
     await act(async (): Promise<void> => {
-      form.simulate("submit");
+      await waitForExpect((): void => {
+        wrapper.update();
 
-      await wait(0);
-      wrapper.update();
+        const addUserModal2: ReactWrapper = wrapper
+          .find("ModalBase")
+          .find({ headerTitle: "Add stakeholder to this group", open: true });
+
+        expect(addUserModal2).toHaveLength(0);
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
     });
-
-    const addUserModal2: ReactWrapper = wrapper
-      .find("ModalBase")
-      .find({ headerTitle: "Add stakeholder to this group", open: true });
-
-    expect(addUserModal2).toHaveLength(0);
-
-    await wait(0);
-
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
@@ -465,16 +463,14 @@ describe("Group stakeholders view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
+    removeButton.simulate("click");
     await act(async (): Promise<void> => {
-      removeButton.simulate("click");
+      await waitForExpect((): void => {
+        wrapper.update();
 
-      await wait(0);
-      wrapper.update();
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
     });
-
-    await wait(0);
-
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
@@ -556,21 +552,19 @@ describe("Group stakeholders view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
+    form.simulate("submit");
     await act(async (): Promise<void> => {
-      form.simulate("submit");
+      await waitForExpect((): void => {
+        wrapper.update();
 
-      await wait(0);
-      wrapper.update();
+        const editUserModal2: ReactWrapper = wrapper
+          .find("ModalBase")
+          .find({ headerTitle: "Edit stakeholder information", open: true });
+
+        expect(editUserModal2).toHaveLength(0);
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
     });
-    const editUserModal2: ReactWrapper = wrapper
-      .find("ModalBase")
-      .find({ headerTitle: "Edit stakeholder information", open: true });
-
-    expect(editUserModal2).toHaveLength(0);
-
-    await wait(0);
-
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
@@ -725,15 +719,14 @@ describe("Group stakeholders view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
+    removeButton.simulate("click");
     await act(async (): Promise<void> => {
-      removeButton.simulate("click");
+      await waitForExpect((): void => {
+        wrapper.update();
 
-      await wait(0);
-      wrapper.update();
+        expect(msgError).toHaveBeenCalledTimes(1);
+      });
     });
-    await wait(0);
-
-    expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
     jest.clearAllMocks();
   });
