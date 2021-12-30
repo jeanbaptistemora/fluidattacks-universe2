@@ -33,7 +33,9 @@ async def get_result(
                     gitCommit
                     gitOrigin
                     gitRepo
+                    gracePeriod
                     kind
+                    severityThreshold
                     strictness
                     vulnerabilities {{
                         numOfOpenVulnerabilities

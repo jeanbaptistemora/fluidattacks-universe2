@@ -46,6 +46,8 @@ async def get_result(
                     kind: "dynamic",
                     log: $file,
                     strictness: "strict",
+                    gracePeriod: 0
+                    severityThreshold: 0.0
                     vulnerabilities: {
                         accepted: [
                             {

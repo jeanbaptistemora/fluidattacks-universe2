@@ -22,6 +22,9 @@ from groups import (
 )
 import json
 import logging
+from organizations import (
+    domain as orgs_domain,
+)
 import os
 import re
 from settings import (
@@ -53,6 +56,15 @@ async def add_forces_execution(
     **execution_attributes: Any,
 ) -> bool:
     success = False
+    if "severity_threshold" in execution_attributes:
+        orgs_domain.validate_min_breaking_severity(
+            execution_attributes["severity_threshold"]
+        )
+    if "grace_period" in execution_attributes:
+        orgs_domain.validate_vulnerability_grace_period(
+            execution_attributes["grace_period"]
+        )
+
     vulnerabilities = execution_attributes.pop("vulnerabilities")
 
     execution_attributes["vulnerabilities"] = {}

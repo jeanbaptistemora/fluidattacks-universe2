@@ -23,7 +23,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "git_commit": "6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6",
                 "git_origin": "http://test.com",
                 "git_repo": "Repository",
+                "grace_period": 0,
                 "kind": "dynamic",
+                "severity_threshold": 0.0,
                 "strictness": "strict",
                 "vulnerabilities": {
                     "num_of_accepted_vulnerabilities": 1,

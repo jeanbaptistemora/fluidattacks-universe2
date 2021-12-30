@@ -51,6 +51,8 @@ async def test_get_forces_executions(populate: bool, email: str) -> None:
     assert executions[0]["gitRepo"] == "Repository"
     assert executions[0]["kind"] == "dynamic"
     assert executions[0]["strictness"] == "strict"
+    assert executions[0]["gracePeriod"] == 0
+    assert executions[0]["severityThreshold"] == 0.0
 
 
 @pytest.mark.asyncio
