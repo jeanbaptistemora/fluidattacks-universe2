@@ -1,3 +1,8 @@
+src.lib_path.f177.ec2_has_unrestricted_cidrs:
+  en: >
+    EC2 security groups have unrestricted CIDRs
+  es: >
+    Los grupos de seguridad de EC2 tienen CIDR sin restricciones
 src.lib_path.f177.ec2_has_unrestricted_ip_protocols:
   en: >
     SecurityGroup ingress/egress rules with any ip protocol
