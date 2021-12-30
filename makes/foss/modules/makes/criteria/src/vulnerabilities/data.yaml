@@ -20395,69 +20395,49 @@
   en:
     title: Excessive privileges - Mobile App
     description: >
-      The application has a single Google Cloud
-      account associated with it with permissions
-      on all required APIs (Firebase, ResourceManager,
-      BigQuery, Kubernetes, etc).
+      The application defines unnecesary permissions
+      that can be abused by an attacker
+      to perform unauthorized read or write
+      operations in the device.
     impact: >
-      Anyone with access to the Google Cloud administrative
-      account has read permissions on all system services.
+      Execute read or write actions
+      that should not be allowed
     recommendation: >
-      - Create accounts with the privileges strictly
-      necessary to perform their tasks (Buckets only
-      for the buckets account, containers only for
-      the containers account, etc).
-
-      - Use protected environment variables instead
-      of flat files to store keys.
+      Disable unnecessary permissions,
+      complying with the principle of least privilege
     threat: >
-      Any employee with access to the Google Cloud
-      administrative account has read permissions on
-      all information and infrastructure of the platform.
-      These permissions allow them to read all information
-      related to firebase databases, application logs,
-      containers and other active Google Cloud services.
+      Authenticated attacker
+      with local access to the application
   es:
     title: Excessive privileges - Mobile App
     description: >
-      La aplicación tiene asociada una sola cuenta de
-      Google Cloud con permisos sobre todas las APIs
-      requeridas (Firebase, ResourceManager, BigQuery,
-      Kubernetes, etc).
+      La aplicación define permisos innecesarios
+      que pueden ser explotados por un atacante
+      para leer o escribir información
+      de forma no autorizada en el dispositivo.
     impact: >
-      Cualquier persona con acceso a la cuenta administrativa
-      de Google Cloud tiene permisos de lectura sobre todas
-      los servicios del sistema
+      Ejecutar acciones de lectura o modificación
+      que no deberían estar permitidas.
     recommendation: >
-      - Crear cuentas con los privilegios estrictamente
-      necesarios para la realización de sus tareas (solo
-      Buckets para la cuenta de buckets, solo contenedores
-      para la cuenta de contenedores, etc).
-
-      - Utilizar variables de entorno protegidas en vez
-      de archivos planos para almacenar claves.
+      Desactivar permisos que la aplicación no utilice,
+      operando de acuerdo al principio de mínimo privilegio
     threat: >
-      Cualquier empleado con acceso a la cuenta administrativa
-      de Google Cloud tiene permisos de lectura sobre toda la
-      información e infrastructura de la plataforma.
-      Dichos permisos le permiten leer toda la información
-      relativa a bases de datos firebase, logs de la aplicación,
-      contenedores y demás servicios activos de Google Cloud.
+      Atacante autenticado con acceso local a la aplicación
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "H"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "U"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "R"
   requirements: ["095","096","186"]
   metadata:
     en:
