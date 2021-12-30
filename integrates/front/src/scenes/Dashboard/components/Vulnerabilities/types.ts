@@ -5,11 +5,8 @@ import type {
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IVulnRowAttr {
-  commitHash: string | null;
   currentState: "closed" | "open";
   currentStateCapitalized: "Closed" | "Open";
-  cycles: string;
-  efficacy: string;
   externalBugTrackingSystem: string | null;
   hacker?: string;
   historicTreatment: IHistoricTreatment[];

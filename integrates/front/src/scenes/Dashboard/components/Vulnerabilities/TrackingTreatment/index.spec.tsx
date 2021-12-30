@@ -52,11 +52,8 @@ describe("TrackingTreatment", (): void => {
   ];
   const mockVuln1: IVulnRowAttr = {
     assigned: "assigned-treatment-4",
-    commitHash: null,
     currentState: "open",
     currentStateCapitalized: "Open",
-    cycles: "1",
-    efficacy: "0",
     externalBugTrackingSystem: null,
     historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",

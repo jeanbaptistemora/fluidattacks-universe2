@@ -88,7 +88,6 @@ const formatVulnerabilities: (
   vulnerabilities: IVulnRowAttr[]
 ) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
-    const hasVulnCycles: boolean = _.toInteger(vulnerability.cycles) > 0;
     const lastTreatment: IHistoricTreatment = getLastTreatment(
       vulnerability.historicTreatment
     );
@@ -125,8 +124,6 @@ const formatVulnerabilities: (
       currentStateCapitalized: _.capitalize(
         vulnerability.currentState
       ) as IVulnRowAttr["currentStateCapitalized"],
-      cycles: hasVulnCycles ? vulnerability.cycles : "",
-      efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
       lastRequestedReattackDate:
         vulnerability.lastRequestedReattackDate?.split(" ")[0] ?? "",
       reportDate: vulnerability.reportDate.split(" ")[0],

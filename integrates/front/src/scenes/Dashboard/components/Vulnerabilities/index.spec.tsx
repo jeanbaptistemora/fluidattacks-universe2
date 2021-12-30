@@ -22,11 +22,8 @@ describe("VulnComponent", (): void => {
   const mocks: IVulnRowAttr[] = [
     {
       assigned: "",
-      commitHash: null,
       currentState: "open",
       currentStateCapitalized: "Open",
-      cycles: "1",
-      efficacy: "0",
       externalBugTrackingSystem: null,
       historicTreatment: [
         {
@@ -59,11 +56,8 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "",
-      commitHash: null,
       currentState: "closed",
       currentStateCapitalized: "Closed",
-      cycles: "1",
-      efficacy: "100",
       externalBugTrackingSystem: null,
       historicTreatment: [
         {
@@ -98,11 +92,8 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "assigned-user-4",
-      commitHash: null,
       currentState: "open",
       currentStateCapitalized: "Open",
-      cycles: "1",
-      efficacy: "0",
       externalBugTrackingSystem: null,
       historicTreatment: [
         {
