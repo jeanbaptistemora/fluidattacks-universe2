@@ -335,7 +335,53 @@ async def get_machine_executions(
             started_at=item["started_at"],
             stopped_at=item["stopped_at"],
             name=item["name"],
+            root_id=item["pk"].split("#")[-1],
             queue=item["queue"],
+            findings_executed=[
+                MachineFindingResult(
+                    finding=x["finding"],
+                    open=x["open"],
+                    modified=x.get("modified", 0),
+                )
+                for x in item["findings_executed"]
+            ],
+            commit=item.get("commit", ""),
+        )
+        for item in response.items
+    )
+
+
+async def get_machine_executions_by_job_id(
+    *, job_id: str, root_id: Optional[str] = None
+) -> Tuple[RootMachineExecutionItem, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution_new"],
+        values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = TABLE.primary_key
+
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.sort_key).eq(primary_key.sort_key)
+            & Key(key_structure.partition_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["machine_git_root_execution_new"],),
+        table=TABLE,
+        index=index,
+    )
+    return tuple(
+        RootMachineExecutionItem(
+            job_id=item["sk"].split("#")[-1],
+            created_at=item["created_at"],
+            started_at=item["started_at"],
+            stopped_at=item["stopped_at"],
+            name=item["name"],
+            queue=item["queue"],
+            root_id=item["pk"].split("#")[-1],
             findings_executed=[
                 MachineFindingResult(
                     finding=x["finding"],
