@@ -21099,18 +21099,11 @@
       such as users, passwords, emails, API
       credentials, among others.
     impact: >
-      - Obtain sensitive information such as
-      credentials to access services.
-
-      - Logging into databases.
-
-      - Perform queries on databases.
-
-      - Logging into GCP with credentials
-      stored in the database.
+      Obtain sensitive information
+      to compromise other resources or services
     recommendation: >
-      - Remove sensitive information burned into source
-      code and purge GitLab history.
+      - Remove the hardcoded sensitive information
+      and purge git logs
 
       - Change login credentials that were compromised.
 
@@ -21126,18 +21119,11 @@
       información sensible como usuarios, contraseñas,
       correos electrónicos, credenciales de API, entre otros.
     impact: >
-      - Obtener información sensible como credenciales
-      para ingresar a servicios.
-
-      - Ingresar a las bases de datos.
-
-      - Realizar consultas en las bases de datos.
-
-      - Ingresar a GCP con la credenciales
-      almacenadas en la base de datos.
+      Obtener información sensible
+      para comprometer otros recursos o servicios
     recommendation: >
       - Eliminar la información sensible quemada en el
-      código fuente y purgar el historial de GiLab.
+      código fuente y purgar el historial de git.
 
       - Cambiar las credenciales de acceso que
       se vieron comprometidas.
@@ -21150,18 +21136,18 @@
   category: Collect Information
   score:
     base:
-      attack_vector: "L"
+      attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
-      scope: "C"
-      confidentiality: "H"
-      integrity: "H"
-      availability: "H"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["145","156","266"]
   metadata:
     en:
