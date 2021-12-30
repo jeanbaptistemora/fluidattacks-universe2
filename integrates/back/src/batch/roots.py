@@ -224,21 +224,23 @@ async def process_finding(
                 threat=source_finding.threat,
             )
         )
+        target_submission = source_finding.submission._replace(
+            modified_date=datetime_utils.get_iso_date()
+        )
         await findings_model.update_state(
             current_value=initial_state,
             finding_id=target_finding_id,
             group_name=target_group_name,
-            state=source_finding.submission._replace(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=target_submission,
+        )
+        target_approval = source_finding.approval._replace(
+            modified_date=datetime_utils.get_iso_date()
         )
         await findings_model.update_state(
-            current_value=source_finding.submission,
+            current_value=target_submission,
             finding_id=target_finding_id,
             group_name=target_group_name,
-            state=source_finding.approval._replace(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=target_approval,
         )
 
     await collect(
