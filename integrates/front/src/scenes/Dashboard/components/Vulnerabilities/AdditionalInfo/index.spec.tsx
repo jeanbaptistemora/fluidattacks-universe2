@@ -46,7 +46,6 @@ describe("AdditionalInfo", (): void => {
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
-    treatmentChanges: 1,
     treatmentDate: "2019-07-05 09:56:40",
     verification: "Verified",
     vulnerabilityType: "lines",
@@ -69,6 +68,11 @@ describe("AdditionalInfo", (): void => {
           commitHash: null,
           cycles: "1",
           efficacy: "0",
+          historicTreatment: [
+            {
+              treatment: "IN PROGRESS",
+            },
+          ],
           lastReattackRequester: "",
           lastRequestedReattackDate: null,
         },

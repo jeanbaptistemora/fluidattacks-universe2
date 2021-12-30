@@ -143,6 +143,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     return <React.StrictMode />;
   }
 
+  const [firstTreatment] = data.vulnerability.historicTreatment;
+  const treatmentChanges: number =
+    data.vulnerability.historicTreatment.length -
+    (firstTreatment.treatment === "NEW" ? 1 : 0);
+
   return (
     <React.StrictMode>
       <div className={"pb1 pt2 w-100"}>
@@ -291,7 +296,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.treatmentChanges} />
+                <Value value={treatmentChanges} />
               </InfoField>
             </Row>
           </Col50>

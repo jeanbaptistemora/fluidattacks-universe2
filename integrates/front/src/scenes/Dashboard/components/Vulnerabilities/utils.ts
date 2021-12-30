@@ -100,10 +100,6 @@ const formatVulnerabilities: (
       (isPendingToApproval
         ? translate.t("searchFindings.tabDescription.treatment.pendingApproval")
         : "");
-    const [firstTreatment] = vulnerability.historicTreatment;
-    const treatmentChanges: number =
-      vulnerability.historicTreatment.length -
-      (firstTreatment.treatment === "NEW" ? 1 : 0);
     const verification: string =
       vulnerability.verification === "Verified"
         ? `${vulnerability.verification} (${vulnerability.currentState})`
@@ -126,7 +122,6 @@ const formatVulnerabilities: (
       ) as IVulnRowAttr["currentStateCapitalized"],
       reportDate: vulnerability.reportDate.split(" ")[0],
       treatment: isVulnOpen ? treatmentLabel : "-",
-      treatmentChanges,
       treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
       verification: shouldDisplayVerification ? verification : "",
       vulnerabilityType: translate.t(

@@ -18,7 +18,6 @@ interface IVulnRowAttr {
   stream: string | null;
   tag: string;
   treatment: string;
-  treatmentChanges: number;
   treatmentDate: string;
   assigned: string;
   verification: string | null;

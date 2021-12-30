@@ -67,7 +67,6 @@ describe("TrackingTreatment", (): void => {
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
-    treatmentChanges: 1,
     treatmentDate: "2019-07-05 09:56:40",
     verification: "Verified",
     vulnerabilityType: "lines",

@@ -8,6 +8,9 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
       cycles
       efficacy
       hacker @include(if: $canRetrieveHacker)
+      historicTreatment {
+        treatment
+      }
       lastReattackRequester
       lastRequestedReattackDate
     }
