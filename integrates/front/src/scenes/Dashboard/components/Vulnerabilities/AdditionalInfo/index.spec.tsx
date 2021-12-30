@@ -70,7 +70,9 @@ describe("AdditionalInfo", (): void => {
       data: {
         vulnerability: {
           __typename: "Vulnerability",
-          cycles: 1,
+          commitHash: null,
+          cycles: "1",
+          efficacy: "0",
         },
       },
     },

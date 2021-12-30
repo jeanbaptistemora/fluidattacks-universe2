@@ -213,7 +213,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.efficacy} />
+                <Value value={data.vulnerability.efficacy} />
               </InfoField>
             </Row>
           </Col50>
@@ -304,7 +304,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Value value={vulnerability.reportDate} />
               </InfoField>
             </Row>
-            {_.isEmpty(vulnerability.commitHash) ? undefined : (
+            {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
               <Row>
                 <LabelField>
                   <Label>{t("searchFindings.tabVuln.commitHash")}</Label>
@@ -315,7 +315,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       "lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
                     }
                   >
-                    {commitFormatter(vulnerability.commitHash as string)}
+                    {commitFormatter(data.vulnerability.commitHash as string)}
                   </p>
                 </InfoField>
               </Row>
