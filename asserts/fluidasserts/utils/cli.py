@@ -1001,9 +1001,6 @@ def exec_cloudformation_package(
     )
 
     source: Dict[str, str] = {
-        ("ec2", "EC2 (Elastic Cloud Compute)"): [
-            "ec2.has_unrestricted_cidrs",
-        ],
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
             "iam.is_managed_policy_miss_configured",
