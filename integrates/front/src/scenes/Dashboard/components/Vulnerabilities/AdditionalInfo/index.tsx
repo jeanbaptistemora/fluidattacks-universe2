@@ -21,7 +21,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 interface IAdditionalInfoProps {
-  canDisplayHacker: boolean;
+  canRetrieveHacker: boolean;
   vulnerability: IVulnRowAttr;
   onClose: () => void;
 }
@@ -96,7 +96,7 @@ const Status: StyledComponent<
 })``;
 
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
-  canDisplayHacker,
+  canRetrieveHacker,
   vulnerability,
   onClose,
 }: IAdditionalInfoProps): JSX.Element => {
@@ -133,6 +133,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         });
       },
       variables: {
+        canRetrieveHacker,
         vulnId,
       },
     }
@@ -368,13 +369,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 )}
               </div>
             </Row>
-            {canDisplayHacker ? (
+            {canRetrieveHacker ? (
               <Row>
                 <LabelField>
                   <Label>{t("searchFindings.tabDescription.hacker")}</Label>
                 </LabelField>
                 <InfoField>
-                  <Value value={vulnerability.hacker} />
+                  <Value value={data.vulnerability.hacker} />
                 </InfoField>
               </Row>
             ) : undefined}

@@ -63,6 +63,7 @@ describe("AdditionalInfo", (): void => {
     request: {
       query: GET_VULN_ADDITIONAL_INFO,
       variables: {
+        canRetrieveHacker: false,
         vulnId: "af7a48b8-d8fc-41da-9282-d424fff563f0",
       },
     },
@@ -96,7 +97,7 @@ describe("AdditionalInfo", (): void => {
           mocks={[mockQueryVulnAdditionalInfo]}
         >
           <AdditionalInfo
-            canDisplayHacker={false}
+            canRetrieveHacker={false}
             onClose={jest.fn()}
             vulnerability={formatVulnerabilities([mockVuln])[0]}
           />
