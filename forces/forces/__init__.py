@@ -130,6 +130,8 @@ async def entrypoint(
                 strictness="strict" if config.strict else "lax",
                 git_metadata=metadata,
                 kind=config.kind.value,
+                grace_period=config.grace_period,
+                severity_threshold=config.breaking_severity,
             )
             await log("info", f"{tasks.pop(0)}{footer}")
             await log("info", f"Success execution: {exit_code == 0}")

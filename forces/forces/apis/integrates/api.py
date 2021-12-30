@@ -184,7 +184,8 @@ async def upload_report(
     report: Dict[str, Any],
     log_file: str,
     git_metadata: Dict[str, str],
-    **kwargs: Union[datetime, str],
+    severity_threshold: float,
+    **kwargs: Union[datetime, str, int],
 ) -> bool:
     """
     Upload report execution to Integrates.
@@ -195,6 +196,9 @@ async def upload_report(
     :param report: Forces execution report.
     :param log: Forces execution log.
     :param strictness: Strictness execution.
+    :param severity_threshold: CVSS score threshold for failure in strict mode
+    :param grace_period: Period in days where new open vulns are given a free
+    pass in strict mode
     :param git_metadata: Repository metadata.
     :param date: Forces execution date.
     """
@@ -212,6 +216,8 @@ async def upload_report(
             $kind: String
             $log: Upload
             $strictness: String!
+            $grace_period: Int!
+            $severity_threshold: Float!
             $open: [ExploitResultInput!]
             $closed: [ExploitResultInput!]
             $accepted: [ExploitResultInput!]
@@ -228,6 +234,8 @@ async def upload_report(
                 kind: $kind
                 log: $log
                 strictness: $strictness
+                gracePeriod: $grace_period
+                severityThreshold: $severity_threshold
                 vulnerabilities: {
                     open: $open,
                     accepted: $accepted,
@@ -274,6 +282,8 @@ async def upload_report(
         "closed": closed_vulns,
         "log": open(log_file, "rb"),
         "strictness": kwargs.pop("strictness"),
+        "grace_period": kwargs.pop("grace_period"),
+        "severity_threshold": severity_threshold,
         "kind": kwargs.pop("kind", "all"),
     }
 
