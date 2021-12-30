@@ -36,11 +36,3 @@ def test_security_group_allows_anyone_to_admin_ports():
     assert result.is_open()
     assert result.get_vulns_number() == ((2 * 7) * 2) * 2
     assert ec2.security_group_allows_anyone_to_admin_ports(SAFE).is_closed()
-
-
-def test_has_open_all_ports_to_the_public():
-    """test ec2.has_open_all_ports_to_the_public."""
-    result = ec2.has_open_all_ports_to_the_public(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-    assert ec2.has_open_all_ports_to_the_public(SAFE).is_closed()
