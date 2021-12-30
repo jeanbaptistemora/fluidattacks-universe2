@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    collect,
+)
 from batch.dal import (
     describe_jobs,
     Job,
@@ -11,6 +14,15 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
     PRODUCT_API_TOKEN,
+)
+from dateutil.parser import (  # type: ignore
+    parse as date_parse,
+)
+from db_model.roots.get import (
+    get_machine_executions_by_job_id,
+)
+from db_model.roots.types import (
+    RootMachineExecutionItem,
 )
 import json
 import logging
@@ -78,24 +90,34 @@ def get_finding_code_from_title(finding_title: str) -> Optional[str]:
     return None
 
 
-async def list_(
+async def _get_machine_executions_by_job_id(
+    *, job_id: str, root_id: Optional[str] = None
+) -> Tuple[str, Tuple[RootMachineExecutionItem, ...]]:
+    return (
+        job_id,
+        await get_machine_executions_by_job_id(job_id=job_id, root_id=root_id),
+    )
+
+
+async def list_(  # pylint: disable=too-many-locals
     *,
     finding_code: str,
     group_name: str,
     include_non_urgent: bool = False,
     include_urgent: bool = False,
     statuses: List[JobStatus],
+    group_roots: Dict[str, str],
 ) -> List[Job]:
-    queues: List[str] = []
-    if include_non_urgent:
-        queues.append("skims_all_later")
-    if include_urgent:
-        queues.append("skims_all_soon")
-
     list_jobs: Dict[str, Dict[str, Any]] = {
         item["jobId"]: item
         for item in more_itertools.flatten(
-            [await list_jobs_by_group(_queue, group_name) for _queue in queues]
+            [
+                await list_jobs_by_group(_queue, group_name)
+                for _queue in [
+                    *(["skims_all_later"] if include_non_urgent else []),
+                    *(["skims_all_soon"] if include_urgent else []),
+                ]
+            ]
         )
     }
 
@@ -106,26 +128,53 @@ async def list_(
         and item["status"] in {x.name for x in statuses}
     }
 
-    job_logs: Dict[str, Dict[str, Any]] = {
-        item["logStreamName"].split("/")[1]: item
-        for item in await list_log_streams(group_name, *job_items.keys())
+    job_logs = await list_log_streams(group_name, *job_items.keys())
+
+    root_machine_executions: Dict[str, Dict[str, RootMachineExecutionItem]] = {
+        job_id: {execution.root_id: execution for execution in executions}
+        for job_id, executions in await collect(
+            _get_machine_executions_by_job_id(
+                job_id=job_id,
+            )
+            for job_id in list_jobs.keys()
+        )
     }
 
-    jobs = [
-        Job(
-            created_at=job_items[job_id].get("createdAt"),
-            exit_code=job_items[job_id].get("container", {}).get("exitCode"),
-            exit_reason=job_items[job_id].get("container", {}).get("reason"),
-            id=job_items[job_id]["jobId"],
-            name=job_items[job_id]["jobName"],
-            root_nickname=job_logs[job_id]["logStreamName"].split("/")[-1],
-            queue=job_items[job_id]["jobQueue"],
-            started_at=job_logs[job_id].get("firstEventTimestamp", 0),
-            stopped_at=job_logs[job_id].get("lastEventTimestamp", 0),
-            status=job_items[job_id]["status"],
+    jobs = []
+    for job_item in job_logs:
+        group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
+
+        db_execution: Optional[RootMachineExecutionItem] = None
+        if git_root_nickname in group_roots:
+            db_execution = root_machine_executions.get(job_id, {}).get(
+                group_roots[git_root_nickname]
+            )
+        jobs.append(
+            Job(
+                created_at=job_items[job_id].get("createdAt"),
+                exit_code=job_items[job_id]
+                .get("container", {})
+                .get("exitCode"),
+                exit_reason=job_items[job_id]
+                .get("container", {})
+                .get("reason"),
+                id=job_items[job_id]["jobId"],
+                name=f"skims-process-{group}-{git_root_nickname}",
+                root_nickname=job_item["logStreamName"].split("/")[-1],
+                queue=job_items[job_id]["jobQueue"],
+                started_at=int(
+                    date_parse(db_execution.started_at).timestamp() * 1000
+                )
+                if db_execution
+                else job_item.get("firstEventTimestamp", 0),
+                stopped_at=int(
+                    date_parse(db_execution.stopped_at).timestamp() * 1000
+                )
+                if db_execution
+                else job_item.get("lastEventTimestamp", 0),
+                status=job_items[job_id]["status"],
+            )
         )
-        for job_id in job_logs.keys()
-    ]
 
     return sorted(
         jobs,

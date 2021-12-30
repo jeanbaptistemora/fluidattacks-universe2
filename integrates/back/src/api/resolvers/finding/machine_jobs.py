@@ -5,6 +5,9 @@ from batch.dal import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.roots.types import (
+    GitRootItem,
+)
 from decorators import (
     enforce_group_level_auth_async,
 )
@@ -26,10 +29,17 @@ from typing import (
 @enforce_group_level_auth_async
 async def resolve(
     parent: Finding,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_: None,
 ) -> List[Dict[str, Any]]:
     finding_code: Optional[str] = get_finding_code_from_title(parent.title)
+    root_nicknames: Dict[str, str] = {
+        root.state.nickname: root.id
+        for root in await info.context.loaders.group_roots.load(
+            parent.group_name
+        )
+        if isinstance(root, GitRootItem)
+    }
     if finding_code is None:
         jobs: List[Job] = []
     else:
@@ -39,6 +49,7 @@ async def resolve(
             include_non_urgent=True,
             include_urgent=True,
             statuses=list(JobStatus),
+            group_roots=root_nicknames,
         )
 
     return jobs
