@@ -4377,6 +4377,9 @@
   "underscore": {
     "CVE-2021-23358": ">=1.13.0-0 <1.13.0-2 || >=1.3.2 <1.12.1"
   },
+  "underscore.string": {
+    "npm:underscore.string:20170908": ">2.4.0 <=3.3.5"
+  },
   "ungit": {
     "CVE-2015-4130": "<=0.8.4"
   },
@@ -4511,6 +4514,9 @@
   },
   "webrtc-native": {
     "GMS-2017-99": ">=0.0.0-alpha"
+  },
+  "websocket-driver": {
+    "npm:websocket-driver:20131012": " <0.3.1"
   },
   "websocket-extensions": {
     "CVE-2020-7662": "<0.1.4",
