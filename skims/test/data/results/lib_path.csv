@@ -1095,6 +1095,56 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
 ",f177._cfn_ec2_has_unrestricted_ftp_access
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,26,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+> 26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+     ^ Col 0
+",f177._cfn_ec2_has_unrestricted_dns_access
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+   34 |         },
+   35 |         ""SecurityGroupIngress"": [
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+>  38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+      ^ Col 0
+",f177._cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml","
    1 | Resources:
@@ -1295,6 +1345,156 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    48 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
 ",f177._cfn_ec2_has_unrestricted_dns_access
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,12,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+   2 |   InstanceSecurityGroup:
+   3 |     Type: AWS::EC2::SecurityGroup
+   4 |     Properties:
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+  11 |           ToPort: 22
+> 12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+     ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,33,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+> 33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+  39 |       ToPort: 20
+  40 |       CidrIp: 192.168.0.0/16
+  41 |       DestinationSecurityGroupId:
+  42 |         Fn::GetAtt:
+  43 |         - TargetSG
+     ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,40,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+  39 |       ToPort: 20
+> 40 |       CidrIp: 192.168.0.0/16
+  41 |       DestinationSecurityGroupId:
+  42 |         Fn::GetAtt:
+  43 |         - TargetSG
+  44 |         - GroupId
+  45 |       GroupId:
+  46 |         Fn::GetAtt:
+  47 |         - SourceSG
+  48 |         - GroupId
+  49 |   OutboundRule2:
+  50 |     Type: AWS::EC2::SecurityGroupEgress
+     ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,15,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+    5 |       ""Properties"": {
+    6 |         ""GroupDescription"": ""Allow http to client host"",
+    7 |         ""VpcId"": {
+    8 |           ""Ref"": ""myVPC""
+    9 |         },
+   10 |         ""SecurityGroupIngress"": [
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+   13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+>  15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+   25 |         ]
+      ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,48,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+   38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+>  48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+   50 |         ]
+   51 |       }
+   52 |     },
+   53 |     ""OutboundRule"": {
+   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
+   55 |       ""Properties"": {
+   56 |         ""IpProtocol"": ""tcp"",
+   57 |         ""FromPort"": 20,
+   58 |         ""ToPort"": 20,
+      ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,59,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+   49 |           }
+   50 |         ]
+   51 |       }
+   52 |     },
+   53 |     ""OutboundRule"": {
+   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
+   55 |       ""Properties"": {
+   56 |         ""IpProtocol"": ""tcp"",
+   57 |         ""FromPort"": 20,
+   58 |         ""ToPort"": 20,
+>  59 |         ""CidrIp"": ""192.168.0.0/16"",
+   60 |         ""DestinationSecurityGroupId"": {
+   61 |           ""Fn::GetAtt"": [
+   62 |             ""TargetSG"",
+   63 |             ""GroupId""
+   64 |           ]
+   65 |         },
+   66 |         ""GroupId"": {
+   67 |           ""Fn::GetAtt"": [
+   68 |             ""SourceSG"",
+   69 |             ""GroupId""
+      ^ Col 0
+",f177._cfn_ec2_has_security_groups_ip_ranges_in_rfc1918
 F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"The EC2 instance does not define the API termination resource which by default is set to false, allowing it to be terminated or stopped at any time from the AWS console, the client or the API.
  in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   16 |
@@ -1914,6 +2114,106 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    96 |         },
    97 |         ""FromPort"": 8080,
    98 |         ""GroupName"": ""securityGroup2"",
+      ^ Col 0
+",f024_aws._cfn_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,83,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+  71 |         - SourceSG
+  72 |         - GroupId
+  73 |       GroupId:
+  74 |         Fn::GetAtt:
+  75 |         - TargetSG
+  76 |         - GroupId
+  77 |   InboundRule2:
+  78 |     Type: AWS::EC2::SecurityGroupIngress
+  79 |     Properties:
+  80 |       CidrIp: 0.0.0.0/0
+  81 |       IpProtocol: udp
+  82 |       FromPort: 22
+> 83 |       ToPort: 22
+  84 |       SourceSecurityGroupId:
+  85 |         Fn::GetAtt:
+  86 |         - SourceSG
+  87 |         - GroupId
+  88 |       GroupId:
+  89 |         Fn::GetAtt:
+  90 |         - TargetSG
+  91 |         - GroupId
+     ^ Col 0
+",f024_aws._cfn_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,82,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
+  71 |         - SourceSG
+  72 |         - GroupId
+  73 |       GroupId:
+  74 |         Fn::GetAtt:
+  75 |         - TargetSG
+  76 |         - GroupId
+  77 |   InboundRule2:
+  78 |     Type: AWS::EC2::SecurityGroupIngress
+  79 |     Properties:
+  80 |       CidrIp: 0.0.0.0/0
+  81 |       IpProtocol: udp
+> 82 |       FromPort: 22
+  83 |       ToPort: 22
+  84 |       SourceSecurityGroupId:
+  85 |         Fn::GetAtt:
+  86 |         - SourceSG
+  87 |         - GroupId
+  88 |       GroupId:
+  89 |         Fn::GetAtt:
+  90 |         - TargetSG
+  91 |         - GroupId
+     ^ Col 0
+",f024_aws._cfn_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,119,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+  109 |             ""GroupId""
+  110 |           ]
+  111 |         }
+  112 |       }
+  113 |     },
+  114 |     ""InboundRule2"": {
+  115 |       ""Type"": ""AWS::EC2::SecurityGroupIngress"",
+  116 |       ""Properties"": {
+  117 |         ""CidrIp"": ""0.0.0.0/0"",
+  118 |         ""IpProtocol"": ""udp"",
+> 119 |         ""FromPort"": 22,
+  120 |         ""ToPort"": 22,
+  121 |         ""SourceSecurityGroupId"": {
+  122 |           ""Fn::GetAtt"": [
+  123 |             ""SourceSG"",
+  124 |             ""GroupId""
+  125 |           ]
+  126 |         },
+  127 |         ""GroupId"": {
+  128 |           ""Fn::GetAtt"": [
+  129 |             ""TargetSG"",
+      ^ Col 0
+",f024_aws._cfn_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,120,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
+  110 |           ]
+  111 |         }
+  112 |       }
+  113 |     },
+  114 |     ""InboundRule2"": {
+  115 |       ""Type"": ""AWS::EC2::SecurityGroupIngress"",
+  116 |       ""Properties"": {
+  117 |         ""CidrIp"": ""0.0.0.0/0"",
+  118 |         ""IpProtocol"": ""udp"",
+  119 |         ""FromPort"": 22,
+> 120 |         ""ToPort"": 22,
+  121 |         ""SourceSecurityGroupId"": {
+  122 |           ""Fn::GetAtt"": [
+  123 |             ""SourceSG"",
+  124 |             ""GroupId""
+  125 |           ]
+  126 |         },
+  127 |         ""GroupId"": {
+  128 |           ""Fn::GetAtt"": [
+  129 |             ""TargetSG"",
+  130 |             ""GroupId""
       ^ Col 0
 ",f024_aws._cfn_allows_anyone_to_admin_ports
 F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
@@ -2796,6 +3096,150 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    87 |         },
    88 |         ""ToPort"": 22
    89 |       },
+      ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,17,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+  16 |           ToPort: 22
+> 17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+     ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+> 28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+     ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,80,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  70 |         Fn::GetAtt:
+  71 |         - SourceSG
+  72 |         - GroupId
+  73 |       GroupId:
+  74 |         Fn::GetAtt:
+  75 |         - TargetSG
+  76 |         - GroupId
+  77 |   InboundRule2:
+  78 |     Type: AWS::EC2::SecurityGroupIngress
+  79 |     Properties:
+> 80 |       CidrIp: 0.0.0.0/0
+  81 |       IpProtocol: udp
+  82 |       FromPort: 22
+  83 |       ToPort: 22
+  84 |       SourceSecurityGroupId:
+  85 |         Fn::GetAtt:
+  86 |         - SourceSG
+  87 |         - GroupId
+  88 |       GroupId:
+  89 |         Fn::GetAtt:
+  90 |         - TargetSG
+     ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,23,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+>  23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+   25 |         ]
+   26 |       }
+   27 |     },
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+      ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,40,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+   34 |         },
+   35 |         ""SecurityGroupIngress"": [
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+   38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+>  40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+   50 |         ]
+      ^ Col 0
+",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,117,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+  107 |           ""Fn::GetAtt"": [
+  108 |             ""TargetSG"",
+  109 |             ""GroupId""
+  110 |           ]
+  111 |         }
+  112 |       }
+  113 |     },
+  114 |     ""InboundRule2"": {
+  115 |       ""Type"": ""AWS::EC2::SecurityGroupIngress"",
+  116 |       ""Properties"": {
+> 117 |         ""CidrIp"": ""0.0.0.0/0"",
+  118 |         ""IpProtocol"": ""udp"",
+  119 |         ""FromPort"": 22,
+  120 |         ""ToPort"": 22,
+  121 |         ""SourceSecurityGroupId"": {
+  122 |           ""Fn::GetAtt"": [
+  123 |             ""SourceSG"",
+  124 |             ""GroupId""
+  125 |           ]
+  126 |         },
+  127 |         ""GroupId"": {
       ^ Col 0
 ",f024_aws._cnf_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,12,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,"
@@ -3852,6 +4296,390 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   115 |     }
   116 |   }
   117 | }
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   1 | Resources:
+   2 |   InstanceSecurityGroup:
+   3 |     Type: AWS::EC2::SecurityGroup
+   4 |     Properties:
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+> 11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   1 | Resources:
+   2 |   InstanceSecurityGroup:
+   3 |     Type: AWS::EC2::SecurityGroup
+   4 |     Properties:
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+> 10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,15,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+> 15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,16,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+> 16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+> 26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,27,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+> 27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,31,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+> 31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+  39 |       ToPort: 20
+  40 |       CidrIp: 192.168.0.0/16
+  41 |       DestinationSecurityGroupId:
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+> 32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+  39 |       ToPort: 20
+  40 |       CidrIp: 192.168.0.0/16
+  41 |       DestinationSecurityGroupId:
+  42 |         Fn::GetAtt:
+     ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,13,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+    3 |     ""InstanceSecurityGroup"": {
+    4 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+    5 |       ""Properties"": {
+    6 |         ""GroupDescription"": ""Allow http to client host"",
+    7 |         ""VpcId"": {
+    8 |           ""Ref"": ""myVPC""
+    9 |         },
+   10 |         ""SecurityGroupIngress"": [
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+>  13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,14,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+    4 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+    5 |       ""Properties"": {
+    6 |         ""GroupDescription"": ""Allow http to client host"",
+    7 |         ""VpcId"": {
+    8 |           ""Ref"": ""myVPC""
+    9 |         },
+   10 |         ""SecurityGroupIngress"": [
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+   13 |             ""FromPort"": 20,
+>  14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,21,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+   13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+>  21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+   25 |         ]
+   26 |       }
+   27 |     },
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,22,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   12 |             ""IpProtocol"": ""tcp"",
+   13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+>  22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+   25 |         ]
+   26 |       }
+   27 |     },
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,38,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+   34 |         },
+   35 |         ""SecurityGroupIngress"": [
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+>  38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+   34 |         },
+   35 |         ""SecurityGroupIngress"": [
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+   38 |             ""FromPort"": 50,
+>  39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,46,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+   38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+>  46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+   50 |         ]
+   51 |       }
+   52 |     },
+   53 |     ""OutboundRule"": {
+   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
+   55 |       ""Properties"": {
+   56 |         ""IpProtocol"": ""tcp"",
+      ^ Col 0
+",f024_aws._cnf_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,47,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   37 |             ""IpProtocol"": ""tcp"",
+   38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+>  47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+   50 |         ]
+   51 |       }
+   52 |     },
+   53 |     ""OutboundRule"": {
+   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
+   55 |       ""Properties"": {
+   56 |         ""IpProtocol"": ""tcp"",
+   57 |         ""FromPort"": 20,
       ^ Col 0
 ",f024_aws._cnf_unrestricted_ports
 F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,"
@@ -8303,6 +9131,198 @@ F252,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   115 |     }
   116 |   }
   117 | }
+      ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,10,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   1 | Resources:
+   2 |   InstanceSecurityGroup:
+   3 |     Type: AWS::EC2::SecurityGroup
+   4 |     Properties:
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+> 10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+  15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+     ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,15,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+   5 |         GroupDescription: Allow http to client host
+   6 |         VpcId:
+   7 |           Ref: myVPC
+   8 |         SecurityGroupIngress:
+   9 |         - IpProtocol: tcp
+  10 |           FromPort: 20
+  11 |           ToPort: 22
+  12 |           CidrIp: 10.0.0.0/8
+  13 |         SecurityGroupEgress:
+  14 |         - IpProtocol: udp
+> 15 |           FromPort: 20
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+     ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,26,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  16 |           ToPort: 22
+  17 |           CidrIp: 0.0.0.0/0
+  18 |   InstanceSecurityGroup2:
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |     Properties:
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+> 26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+  31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+     ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,31,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
+  21 |         GroupDescription: Allow http to client host
+  22 |         VpcId:
+  23 |           Ref: myVPC
+  24 |         SecurityGroupIngress:
+  25 |         - IpProtocol: tcp
+  26 |           FromPort: 50
+  27 |           ToPort: 60
+  28 |           CidrIp: 0.0.0.0/0
+  29 |         SecurityGroupEgress:
+  30 |         - IpProtocol: tcp
+> 31 |           FromPort: 20
+  32 |           ToPort: 21
+  33 |           CidrIp: 172.16.0.0/12
+  34 |   OutboundRule:
+  35 |     Type: AWS::EC2::SecurityGroupEgress
+  36 |     Properties:
+  37 |       IpProtocol: tcp
+  38 |       FromPort: 20
+  39 |       ToPort: 20
+  40 |       CidrIp: 192.168.0.0/16
+  41 |       DestinationSecurityGroupId:
+     ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,13,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+    3 |     ""InstanceSecurityGroup"": {
+    4 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+    5 |       ""Properties"": {
+    6 |         ""GroupDescription"": ""Allow http to client host"",
+    7 |         ""VpcId"": {
+    8 |           ""Ref"": ""myVPC""
+    9 |         },
+   10 |         ""SecurityGroupIngress"": [
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+>  13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+   21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+      ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,21,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   11 |           {
+   12 |             ""IpProtocol"": ""tcp"",
+   13 |             ""FromPort"": 20,
+   14 |             ""ToPort"": 22,
+   15 |             ""CidrIp"": ""10.0.0.0/8""
+   16 |           }
+   17 |         ],
+   18 |         ""SecurityGroupEgress"": [
+   19 |           {
+   20 |             ""IpProtocol"": ""udp"",
+>  21 |             ""FromPort"": 20,
+   22 |             ""ToPort"": 22,
+   23 |             ""CidrIp"": ""0.0.0.0/0""
+   24 |           }
+   25 |         ]
+   26 |       }
+   27 |     },
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+      ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,38,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   28 |     ""InstanceSecurityGroup2"": {
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
+   30 |       ""Properties"": {
+   31 |         ""GroupDescription"": ""Allow http to client host"",
+   32 |         ""VpcId"": {
+   33 |           ""Ref"": ""myVPC""
+   34 |         },
+   35 |         ""SecurityGroupIngress"": [
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+>  38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+   46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+      ^ Col 0
+",f252._cfn_ec2_has_unrestricted_ports
+F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,46,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
+   36 |           {
+   37 |             ""IpProtocol"": ""tcp"",
+   38 |             ""FromPort"": 50,
+   39 |             ""ToPort"": 60,
+   40 |             ""CidrIp"": ""0.0.0.0/0""
+   41 |           }
+   42 |         ],
+   43 |         ""SecurityGroupEgress"": [
+   44 |           {
+   45 |             ""IpProtocol"": ""tcp"",
+>  46 |             ""FromPort"": 20,
+   47 |             ""ToPort"": 21,
+   48 |             ""CidrIp"": ""172.16.0.0/12""
+   49 |           }
+   50 |         ]
+   51 |       }
+   52 |     },
+   53 |     ""OutboundRule"": {
+   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
+   55 |       ""Properties"": {
+   56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
 ",f252._cfn_ec2_has_unrestricted_ports
 F252,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,10,284,skims,252. Automatic information enumeration - Open ports,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,"
