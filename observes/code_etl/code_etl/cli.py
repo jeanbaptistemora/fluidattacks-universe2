@@ -8,6 +8,9 @@ from code_etl import (
     upload,
     upload_repo,
 )
+from code_etl.mailmap import (
+    MailmapFactory,
+)
 from code_etl.migration import (
     calc_fa_hash,
     calc_fa_hash_2,
@@ -93,8 +96,9 @@ def upload_code(
 @click.option("--creds", type=click.File("r"), required=True)
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
-@click.option("--namespace", type=str)
-@click.option("--repositories", type=str, nargs=-1)
+@click.option("--namespace", type=str, required=True)
+@click.option("--repositories", type=str, nargs=-1, required=True)
+@click.option("--mailmap", type=mailmap_file)
 def upload_code_v2(
     db_id: FILE[str],
     creds: FILE[str],
@@ -102,15 +106,19 @@ def upload_code_v2(
     table: str,
     namespace: str,
     repositories: Tuple[str, ...],
+    mailmap: Optional[str],
 ) -> None:
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = TableID(SchemaID(schema), table)
+    mailmap_path = Maybe.from_optional(mailmap)
+    mmap = mailmap_path.map(MailmapFactory.from_file_path)
     return upload_repo.upload_repos(
         id_from_str(db_id.read()),
         creds_from_str(creds.read()),
         target,
         namespace,
         repos,
+        mmap,
     )
 
 

@@ -41,7 +41,7 @@ class Mailmap:
 class MailmapFactory:
     @staticmethod
     def from_line(line: str) -> Maybe[MailmapItem]:
-        mailmap_line: Pattern = re.compile(
+        mailmap_line: Pattern[str] = re.compile(
             r"^(?P<canon_name>[A-Z][a-z]+ [A-Z][a-z]+) "
             r"<(?P<canon_email>.*)> "
             r"(?P<alias_name>.*?) "

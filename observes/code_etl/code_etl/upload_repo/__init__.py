@@ -3,6 +3,9 @@
 from code_etl.client import (
     get_context,
 )
+from code_etl.mailmap import (
+    Mailmap,
+)
 from code_etl.objs import (
     RepoId,
 )
@@ -38,6 +41,9 @@ from purity.v2.frozen import (
 from returns.io import (
     IO,
 )
+from returns.maybe import (
+    Maybe,
+)
 from returns.result import (
     Failure,
     ResultE,
@@ -56,14 +62,18 @@ def upload_or_register(
 
 
 def upload(
-    client: Client, target: TableID, namespace: str, repo_path: Path
+    client: Client,
+    target: TableID,
+    namespace: str,
+    repo_path: Path,
+    mailmap: Maybe[Mailmap],
 ) -> IO[ResultE[IO[None]]]:
     if not repo_path.exists():
         return IO(Failure(NonexistentPath(str(repo_path))))
     repo = Repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
     extractor = get_context(client, target, repo_id).map(
-        lambda r: r.map(lambda i: Extractor(i))
+        lambda r: r.map(lambda i: Extractor(i, mailmap))
     )
     return extractor.map(
         lambda r_ext: r_ext.map(
@@ -78,10 +88,13 @@ def upload_repos(
     target: TableID,
     namespace: str,
     repo_paths: FrozenList[Path],
+    mailmap: Maybe[Mailmap],
 ) -> IO[None]:
     client_paths = tuple(
         (ClientFactory().from_creds(db_id, creds), p) for p in repo_paths
     )
     pool = ThreadPool()
-    pool.map(lambda i: upload(i[0], target, namespace, i[1]), client_paths)
+    pool.map(
+        lambda i: upload(i[0], target, namespace, i[1], mailmap), client_paths
+    )
     return IO(None)

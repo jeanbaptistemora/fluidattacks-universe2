@@ -3,6 +3,9 @@
 from code_etl.factories import (
     CommitDataFactory,
 )
+from code_etl.mailmap import (
+    Mailmap,
+)
 from code_etl.objs import (
     Commit,
     CommitDataId,
@@ -10,6 +13,9 @@ from code_etl.objs import (
     CommitStamp,
     RepoContex,
     RepoRegistration,
+)
+from code_etl.upload_repo.amend import (
+    amend_commit_users,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
@@ -45,11 +51,15 @@ from returns.maybe import (
 @dataclass(frozen=True)
 class Extractor:
     _context: RepoContex
+    _mailmap: Maybe[Mailmap]
 
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
         if commit.hexsha == self._context.last_commit:
             return Maybe.empty
-        _id, data = CommitDataFactory.from_commit(commit)
+        _id, _data = CommitDataFactory.from_commit(commit)
+        data = self._mailmap.map(
+            lambda m: amend_commit_users(m, _data)
+        ).value_or(_data)
         data_id = CommitDataId(self._context.repo, _id)
         stamp = CommitStamp(
             Commit(data_id, data),
