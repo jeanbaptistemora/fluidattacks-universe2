@@ -1,3 +1,6 @@
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -7,11 +10,15 @@ import styled from "styled-components";
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import { Button } from "components/Button";
 import { commitFormatter } from "components/DataTableNext/formatters";
+import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
+import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { ButtonToolbar } from "styles/styledComponents";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 interface IAdditionalInfoProps {
   canDisplayHacker: boolean;
@@ -95,6 +102,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
 
+  const vulnId = vulnerability.id;
   const lastTreatment: IHistoricTreatment = getLastTreatment(
     vulnerability.historicTreatment
   );
@@ -111,6 +119,28 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     _.isEmpty(lastTreatment.justification)
       ? ""
       : lastTreatment.justification;
+
+  const { data } = useQuery<IGetVulnAdditionalInfoAttr>(
+    GET_VULN_ADDITIONAL_INFO,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred loading the vulnerability info",
+            error
+          );
+        });
+      },
+      variables: {
+        vulnId,
+      },
+    }
+  );
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.StrictMode />;
+  }
 
   return (
     <React.StrictMode>
@@ -175,7 +205,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.cycles} />
+                <Value value={data.vulnerability.cycles} />
               </InfoField>
             </Row>
             <Row>

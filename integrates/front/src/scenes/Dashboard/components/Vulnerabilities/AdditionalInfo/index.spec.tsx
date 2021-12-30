@@ -1,14 +1,20 @@
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import moment from "moment";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
+import { MemoryRouter } from "react-router-dom";
+import waitForExpect from "wait-for-expect";
 
 import type { IVulnRowAttr } from "../types";
 import {
   AdditionalInfo,
   Label,
 } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
+import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
 
 describe("AdditionalInfo", (): void => {
@@ -53,41 +59,59 @@ describe("AdditionalInfo", (): void => {
     zeroRisk: null,
   };
 
+  const mockQueryVulnAdditionalInfo: MockedResponse = {
+    request: {
+      query: GET_VULN_ADDITIONAL_INFO,
+      variables: {
+        vulnId: "af7a48b8-d8fc-41da-9282-d424fff563f0",
+      },
+    },
+    result: {
+      data: {
+        vulnerability: {
+          __typename: "Vulnerability",
+          cycles: 1,
+        },
+      },
+    },
+  };
+
   it("should return a function", (): void => {
     expect.hasAssertions();
 
     expect(typeof AdditionalInfo).toStrictEqual("function");
   });
 
-  it("should render in vulnerabilities", (): void => {
+  it("should render in vulnerabilities", async (): Promise<void> => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
 
     const wrapper: ReactWrapper = mount(
-      <AdditionalInfo
-        canDisplayHacker={false}
-        onClose={jest.fn()}
-        vulnerability={formatVulnerabilities([mockVuln])[0]}
-      />
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockQueryVulnAdditionalInfo]}
+        >
+          <AdditionalInfo
+            canDisplayHacker={false}
+            onClose={jest.fn()}
+            vulnerability={formatVulnerabilities([mockVuln])[0]}
+          />
+        </MockedProvider>
+      </MemoryRouter>
     );
-    wrapper.update();
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+      });
+    });
 
     expect(wrapper).toHaveLength(1);
 
     expect(wrapper.find(Label).first().find("span").text()).toBe(
       t("searchFindings.tabVuln.vulnTable.specificType.code")
-    );
-
-    wrapper.setProps({
-      vulnerability: formatVulnerabilities([
-        { ...mockVuln, vulnerabilityType: "inputs" },
-      ])[0],
-    });
-    wrapper.update();
-
-    expect(wrapper.find(Label).first().find("span").text()).toBe(
-      t("searchFindings.tabVuln.vulnTable.specificType.app")
     );
   });
 });
