@@ -38,6 +38,7 @@ const MachineView: React.FC = (): JSX.Element => {
     refetch,
     networkStatus: dataNS,
   } = useQuery<IFindingMachineJobs>(GET_FINDING_MACHINE_JOBS, {
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {

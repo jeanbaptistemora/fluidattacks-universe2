@@ -2,7 +2,7 @@ import type { FetchResult } from "@apollo/client";
 
 interface IFindingMachineJob {
   createdAt: string | null;
-  exitCode: string | null;
+  exitCode: number | null;
   exitReason: string | null;
   id: string;
   name: string;
