@@ -3284,4 +3284,15 @@
     "502_B":
       title: Obligations with respect to disclosures of personal information – Opt out
       link: https://www.govinfo.gov/content/pkg/PLAW-106publ102/pdf/PLAW-106publ102.pdf
+"025":
+  title: MISRA-C
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "1_1":
+      title: Notification System
+      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
   metadata: {}
