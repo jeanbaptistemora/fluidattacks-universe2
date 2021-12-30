@@ -71,7 +71,7 @@ describe("handle toe lines edition modal", (): void => {
         rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
         rootNickname: "product",
         seenAt: "2020-02-01T15:41:04+00:00",
-        sortsRiskLevel: "80%",
+        sortsRiskLevel: 80,
       },
     ];
     const wrapper: ReactWrapper = mount(

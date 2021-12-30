@@ -162,6 +162,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     const newSorted = { dataField, order };
     sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
   };
+  const formatRiskLevel = (sortsRiskLevel: number): string =>
+    sortsRiskLevel >= 0 ? `${sortsRiskLevel.toString()} %` : "n/a";
 
   const headersToeLinesTable: IHeaderConfig[] = [
     {
@@ -299,6 +301,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       align: "center",
       dataField: "sortsRiskLevel",
+      formatter: formatRiskLevel,
       header: translate.t("group.toe.lines.sortsRiskLevel"),
       onSort,
       visible: checkedItems.sortsRiskLevel,
@@ -345,10 +348,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           moment(toeLinesAttr.modifiedDate),
           "days"
         );
-  const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
-    toeLinesAttr.sortsRiskLevel >= 0
-      ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
-      : "n/a";
   const toeLines: IToeLinesData[] = toeLinesEdges.map(
     ({ node }): IToeLinesData => ({
       ...node,
@@ -357,7 +356,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       modifiedCommit: commitFormatter(node.modifiedCommit),
       rootId: node.root.id,
       rootNickname: node.root.nickname,
-      sortsRiskLevel: getSortsRiskLevel(node),
     })
   );
   useEffect((): void => {

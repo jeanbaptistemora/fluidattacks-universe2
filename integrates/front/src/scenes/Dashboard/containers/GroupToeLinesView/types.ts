@@ -52,7 +52,7 @@ interface IToeLinesData {
   rootNickname: string;
   rootId: string;
   seenAt: string;
-  sortsRiskLevel: string;
+  sortsRiskLevel: number;
 }
 
 interface IGroupToeLinesViewProps {
