@@ -3,9 +3,14 @@ closure:
   certifi: 2021.10.8
   chardet: 4.0.0
   click: 7.1.2
+  dill: 0.3.4
   gitdb: 4.0.9
   gitpython: 3.1.14
   idna: "2.10"
+  multiprocess: 0.70.12.2
+  pathos: 0.2.8
+  pox: 0.3.0
+  ppft: 1.6.6.4
   psycopg2: 2.9.1
   ratelimiter: 1.2.0.post0
   requests: 2.25.1
@@ -38,6 +43,12 @@ links:
   - name: click-7.1.2.tar.gz
     sha256: 06kbzd6sjfkqan3miwj9wqyddfxc2b6hi7p5s4dvqjb3gif2bdfj
     url: https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz
+  - name: dill-0.3.4-py2.py3-none-any.whl
+    sha256: 0ksdr8yqvz4sxkvwg3mkfskw9ncihzjkcpakngm9rz840fky8h3y
+    url: https://files.pythonhosted.org/packages/b6/c3/973676ceb86b60835bb3978c6db67a5dc06be6cfdbd14ef0f5a13e3fc9fd/dill-0.3.4-py2.py3-none-any.whl
+  - name: dill-0.3.4.zip
+    sha256: 0xg677bq9jig7pw2libqmvfvcdq20zq9mv1zmd9v7cj6a4h395wz
+    url: https://files.pythonhosted.org/packages/57/b7/c4aa04a27040e6a3b09f5a652976ead00b66504c014425a7aad887aa8d7f/dill-0.3.4.zip
   - name: gitdb-4.0.9-py3-none-any.whl
     sha256: 1zd8y65kz9hjshj96zmzr27inc495zgvjl10m5nblrihhm7ascw0
     url: https://files.pythonhosted.org/packages/a3/7c/5d747655049bfbf75b5fcec57c8115896cb78d6fafa84f6d3ef4c0f13a98/gitdb-4.0.9-py3-none-any.whl
@@ -56,6 +67,27 @@ links:
   - name: idna-2.10.tar.gz
     sha256: 1xmk3s92d2vq42684p61wixfmh3qpr2mw762w0n6662vhlpqf1xk
     url: https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz
+  - name: multiprocess-0.70.12.2.zip
+    sha256: 10x0alld0l3iph54a9a2m1m2al19fvw1jnni3vn7zy3kgfwvjsr0
+    url: https://files.pythonhosted.org/packages/99/1a/472900644359cdd208d1fbe71706bdeecbc6e8db2e39c35ebe89459e9172/multiprocess-0.70.12.2.zip
+  - name: pathos-0.2.8-py2.py3-none-any.whl
+    sha256: 1rxg3dcjy5d76i0naaf40q1g55qvi8c075rbrhzkkyg5hwsfb6kq
+    url: https://files.pythonhosted.org/packages/23/6b/7ffe02bdb5f5cf4b2290cc906b415dde7c886dbb11928dda40d39e6654dd/pathos-0.2.8-py2.py3-none-any.whl
+  - name: pathos-0.2.8.zip
+    sha256: 05bgzh2z87v4jw0fbn5j2w6kdsgx028555m77d16rdks1yljf3qz
+    url: https://files.pythonhosted.org/packages/66/74/2630ffec903fe3cb712f2c8a538d55422298a31461ff5370e9c6b97a93de/pathos-0.2.8.zip
+  - name: pox-0.3.0-py2.py3-none-any.whl
+    sha256: 15ak18spxzbhwxvpjsllvrxnycs3blqryr9lp734vm3f3k6qk8wp
+    url: https://files.pythonhosted.org/packages/25/6e/7bc83d285dd0438f6ba106dba4fa85e569b09bae14f3c8d9df7acdc92629/pox-0.3.0-py2.py3-none-any.whl
+  - name: pox-0.3.0.zip
+    sha256: 0cdy58z543gf2va5bvx0gbyscfpchx2hh8asj2s6nil6n58875nb
+    url: https://files.pythonhosted.org/packages/b9/bc/d348b6372b72fea32be294481e068659d277db3fb49be08f7955c5a55425/pox-0.3.0.zip
+  - name: ppft-1.6.6.4-py3-none-any.whl
+    sha256: 070k10k530j2ib6j0iy5d87bhs4b95ddgp7yl3km5zbdg0sj1lb3
+    url: https://files.pythonhosted.org/packages/e1/95/17253538621d21308a6e7ca67cd8f87c64e81f95477e57ee78766cf79aaa/ppft-1.6.6.4-py3-none-any.whl
+  - name: ppft-1.6.6.4.zip
+    sha256: 1lk30h3d1gb0qmrkllp4gl0211xr9d2npg95pn86k19icz644d27
+    url: https://files.pythonhosted.org/packages/6b/89/871fdf9f6b295559099de627d56e8a5d052d2654c80e249a71b10037f232/ppft-1.6.6.4.zip
   - name: psycopg2-2.9.1.tar.gz
     sha256: 0z0v2d5gpgy0wf2ypqxv955c9k44yszd7r20km5s79yhy6k06lyy
     url: https://files.pythonhosted.org/packages/aa/8a/7c80e7e44fb1b4277e89bd9ca509aefdd4dd1b2c547c6f293afe9f7ffd04/psycopg2-2.9.1.tar.gz
