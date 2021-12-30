@@ -518,6 +518,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_ec2_sg_allows_anyone_to_admin_ports(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
     if file_extension in EXTENSIONS_TERRAFORM:
         content = await content_generator()
         model = await load_terraform(stream=content, default=[])
