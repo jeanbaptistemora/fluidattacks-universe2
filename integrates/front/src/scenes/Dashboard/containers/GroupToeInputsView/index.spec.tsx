@@ -37,6 +37,7 @@ describe("GroupToeInputsView", (): void => {
                 {
                   node: {
                     attackedAt: "2020-01-02T00:00:00-05:00",
+                    bePresent: true,
                     component: "test.com/api/Test",
                     entryPoint: "idTest",
                     seenAt: "2000-01-01T05:00:00+00:00",
@@ -47,6 +48,7 @@ describe("GroupToeInputsView", (): void => {
                 {
                   node: {
                     attackedAt: "2021-02-02T00:00:00-05:00",
+                    bePresent: true,
                     component: "test.com/test/test.aspx",
                     entryPoint: "btnTest",
                     seenAt: "2020-03-14T00:00:00-05:00",
@@ -57,6 +59,7 @@ describe("GroupToeInputsView", (): void => {
                 {
                   node: {
                     attackedAt: "2021-02-11T00:00:00-05:00",
+                    bePresent: false,
                     component: "test.com/test2/test.aspx",
                     entryPoint: "-",
                     seenAt: "2020-01-11T00:00:00-05:00",
@@ -100,6 +103,7 @@ describe("GroupToeInputsView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
+        "Be present",
         "Root",
         "Entry point",
         "Attacked at",
@@ -108,10 +112,13 @@ describe("GroupToeInputsView", (): void => {
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
-      ["test_nickname", "idTest", "2020-01-02", "2000-01-01", ""].join("")
+      ["Yes", "test_nickname", "idTest", "2020-01-02", "2000-01-01", ""].join(
+        ""
+      )
     );
     expect(secondRow.text()).toStrictEqual(
       [
+        "Yes",
         "test_nickname",
         "btnTest",
         "2021-02-02",
@@ -120,7 +127,7 @@ describe("GroupToeInputsView", (): void => {
       ].join("")
     );
     expect(thirdRow.text()).toStrictEqual(
-      ["", "-", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
+      ["No", "", "-", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
     );
   });
 });

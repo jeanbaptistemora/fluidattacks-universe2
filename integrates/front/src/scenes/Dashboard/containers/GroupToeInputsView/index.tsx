@@ -30,6 +30,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     "toeInputsTableSet",
     {
       attackedAt: true,
+      bePresent: true,
       component: false,
       entryPoint: true,
       seenAt: true,
@@ -70,6 +71,10 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 
+  const formatBoolean = (value: boolean): string =>
+    value
+      ? translate.t("group.toe.inputs.yes")
+      : translate.t("group.toe.inputs.no");
   const formatDate: (date: Date | undefined) => string = (
     date: Date | undefined
   ): string => {
@@ -90,11 +95,18 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       align: "center",
+      dataField: "bePresent",
+      formatter: formatBoolean,
+      header: translate.t("group.toe.inputs.bePresent"),
+      onSort,
+      visible: checkedItems.bePresent,
+    },
+    {
+      align: "center",
       dataField: "unreliableRootNickname",
       header: translate.t("group.toe.inputs.root"),
       onSort,
       visible: checkedItems.unreliableRootNickname,
-      width: "10%",
     },
     {
       align: "left",
@@ -102,7 +114,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.inputs.component"),
       onSort,
       visible: checkedItems.component,
-      width: "30%",
     },
     {
       align: "left",
@@ -110,7 +121,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.inputs.entryPoint"),
       onSort,
       visible: checkedItems.entryPoint,
-      width: "10%",
     },
     {
       align: "center",
@@ -120,7 +130,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.inputs.testedDate"),
       onSort,
       visible: checkedItems.testedDate,
-      width: "8%",
     },
     {
       align: "center",
@@ -130,7 +139,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.inputs.createdDate"),
       onSort,
       visible: checkedItems.createdDate,
-      width: "8%",
     },
     {
       align: "left",
@@ -138,7 +146,6 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       header: translate.t("group.toe.inputs.seenFirstTimeBy"),
       onSort,
       visible: checkedItems.seenFirstTimeBy,
-      width: "15%",
     },
   ];
 

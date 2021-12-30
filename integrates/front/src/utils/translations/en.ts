@@ -758,13 +758,16 @@ export const enTranslations: ResourceKey = {
     },
     toe: {
       inputs: {
+        bePresent: "Be present",
         commit: "Commit",
         component: "Component",
         createdDate: "Seen at",
         entryPoint: "Entry point",
+        no: "No",
         root: "Root",
         seenFirstTimeBy: "Seen first time by",
         testedDate: "Attacked at",
+        yes: "Yes",
       },
       lines: {
         actionButtons: {
