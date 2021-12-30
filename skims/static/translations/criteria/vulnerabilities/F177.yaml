@@ -5,8 +5,12 @@ src.lib_path.f177.ec2_has_unrestricted_ftp_access:
     El grupo debe restringir el acceso al puerto TCP 20/21 a las direcciones
     IP necesarias
 src.lib_path.f177.ec2_has_unrestricted_dns_access:
-  en: Rules allow unrestricted access to port 53 (DNS)
-  es: Las reglas permiten el acceso sin restricciones al puerto 53 (DNS)
+  en: >
+    Group must restrict access to TCP port and UDP 53 to the
+    necessary IP addresses
+  es: >
+    El grupo debe restringir el acceso al puerto TCP y UDP 53 a las
+    direcciones IP necesarias
 lib_path.f177.ec2_using_default_security_group:
   en: >
     EC2 Instances or Launch Templates are using the default security group
