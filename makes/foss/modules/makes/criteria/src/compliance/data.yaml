@@ -3294,6 +3294,36 @@
     description: __empty__
   definitions:
     "1_1":
-      title: Notification System
-      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
+      title: All code shall conform to legal compliance
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "1_4":
+      title: The compiler/linker shall be checked
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "2_1":
+      title: Assembly language shall be encapsulated and isolated
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "2_4":
+      title: Sections of code should not be “commented out”
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "3_2":
+      title: Character set and corresponding encoding shall be documented
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "3_6":
+      title: All libraries used in production code shall be written
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "5_5":
+      title: No object or function identifier with static storage duration should be reused
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "5_7":
+      title: No identifier name should be reused
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "8_8":
+      title: An external object or function shall be declared in one and only one file
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "15_0":
+      title: The MISRA C switch syntax shall be used
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
+    "20_2":
+      title: Names of standard library macros, objects and functions shall not be reused
+      link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
   metadata: {}
