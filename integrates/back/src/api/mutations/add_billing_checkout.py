@@ -34,7 +34,7 @@ async def mutate(
     **kwargs: Any,
 ) -> AddBillingCheckoutPayload:
     tier: str = kwargs["tier"]
-    group_name: str = kwargs["group"]
+    group_name: str = kwargs["group_name"]
     org_id: str = await orgs_domain.get_id_for_group(group_name)
     org_name: str = await orgs_domain.get_name_by_id(org_id)
 

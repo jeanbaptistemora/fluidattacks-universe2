@@ -15,6 +15,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_activate_root_mutate",
             "api_mutations_add_event_consult_mutate",
+            "api_mutations_add_billing_checkout_mutate",
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
             "api_mutations_add_files_mutate",
@@ -79,7 +80,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_zero_risk_resolve",
             "api_resolvers_group_analytics_resolve",
             "api_resolvers_group_bill_resolve",
-            "api_resolvers_group_billing_checkout_resolve",
             "api_resolvers_group_billing_portal_resolve",
             "api_resolvers_group_consulting_resolve",
             "api_resolvers_group_drafts_resolve",

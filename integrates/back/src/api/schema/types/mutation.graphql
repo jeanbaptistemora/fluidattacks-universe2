@@ -20,7 +20,7 @@ type Mutation {
   "Checkout URL for purchasing a new tier"
   addBillingCheckout(
     "Group name"
-    group: String!
+    groupName: String!
     "Group tier (Free, One-Shot, Other, Machine or Squad)"
     tier: TierType!
   ): AddBillingCheckoutPayload
