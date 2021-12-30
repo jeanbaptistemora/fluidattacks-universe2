@@ -1,3 +1,8 @@
+src.lib_path.f177.ec2_has_unrestricted_ip_protocols:
+  en: >
+    SecurityGroup ingress/egress rules with any ip protocol
+  es: >
+    Reglas de entrada/salida de SecurityGroup con cualquier protocolo ip
 src.lib_path.f177.ec2_sg_allows_anyone_to_admin_ports:
   en: >
     SecurityGroup allows connection from internet to admin services

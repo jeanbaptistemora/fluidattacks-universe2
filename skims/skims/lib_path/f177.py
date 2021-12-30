@@ -218,6 +218,20 @@ def _cfn_ec2_sg_allows_anyone_to_admin_ports_iter_vulns(
                 yield from_port
 
 
+def _cfn_ec2_has_unrestricted_ip_protocols_iter_vulns(
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        cidr = ec2_res.inner.get("CidrIp", None) or ec2_res.inner.get(
+            "CidrIpv6", None
+        )
+        if not cidr or not is_cidr(cidr.raw):
+            continue
+        ip_protocol = ec2_res.inner.get("IpProtocol")
+        if ip_protocol.raw in ("-1", -1):
+            yield ip_protocol
+
+
 def _ec2_use_default_security_group(
     content: str,
     path: str,
@@ -367,6 +381,29 @@ def _cfn_ec2_sg_allows_anyone_to_admin_ports(
     )
 
 
+def _cfn_ec2_has_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F177_CWE},
+        description_key=(
+            "src.lib_path.f177.ec2_has_unrestricted_ip_protocols"
+        ),
+        finding=_FINDING_F177,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_unrestricted_ip_protocols_iter_vulns(
+                ec2_iterator=iter_ec2_ingress_egress(
+                    template=template, ingress=True, egress=True
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_use_default_security_group(
@@ -471,6 +508,22 @@ async def cfn_ec2_sg_allows_anyone_to_admin_ports(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _cfn_ec2_sg_allows_anyone_to_admin_ports,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_unrestricted_ip_protocols,
         content=content,
         path=path,
         template=template,
