@@ -12,9 +12,6 @@ from asyncio import (
     create_task,
     Queue,
 )
-from code_etl.amend import (
-    CommitDataAmend,
-)
 from code_etl.factories import (
     CommitDataAdapters,
     CommitDataFactory,
@@ -22,6 +19,9 @@ from code_etl.factories import (
 from code_etl.mailmap import (
     Mailmap,
     MailmapFactory,
+)
+from code_etl.upload_repo.amend import (
+    amend_commit_users,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
@@ -187,9 +187,9 @@ def get_commit_to_fix(
     mailmap: Maybe[Mailmap], commit: Commit
 ) -> Maybe[Dict[str, Any]]:
     _id, _data = CommitDataFactory.from_commit(commit)
-    data = mailmap.map(
-        lambda mmap: CommitDataAmend.amend_users(mmap, _data)
-    ).value_or(_data)
+    data = mailmap.map(lambda mmap: amend_commit_users(mmap, _data)).value_or(
+        _data
+    )
     if data != _data:
         return Maybe.from_value(CommitDataAdapters.to_raw_dict(_id, data))
     return Maybe.empty
@@ -197,9 +197,9 @@ def get_commit_to_fix(
 
 def get_commit_data(mailmap: Maybe[Mailmap], commit: Commit) -> Dict[str, Any]:
     _id, _data = CommitDataFactory.from_commit(commit)
-    data = mailmap.map(
-        lambda mmap: CommitDataAmend.amend_users(mmap, _data)
-    ).value_or(_data)
+    data = mailmap.map(lambda mmap: amend_commit_users(mmap, _data)).value_or(
+        _data
+    )
     return CommitDataAdapters.to_raw_dict(_id, data)
 
 
