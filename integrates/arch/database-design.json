@@ -955,6 +955,12 @@
               "strictness": {
                 "S": "strict"
               },
+              "grace_period": {
+                "N": "0"
+              },
+              "severity_threshold": {
+                "N": "0"
+              },
               "results": {
                 "M": {
                   "num_of_accepted_vulnerabilities": {

@@ -147,13 +147,18 @@ type Mutation {
     gitOrigin: String
     "Root nickname"
     gitRepo: String
+    "Grace period in days for new vulnerabilities at the time of execution"
+    gracePeriod: Int
     "Name of the Group where the Forces log will be in"
     groupName: String
     "Applied kind of application security testing technique"
     kind: String
     "Forces execution log"
     log: Upload
-    "Strict mode, if enabled, forces the fix of security issues"
+    """Minimum CVSS score of an `open` vulnerability for DevSecOps to break the
+    build in strict mode"""
+    severityThreshold: Float
+    "Execution mode"
     strictness: String!
     "Object containing arrays of accepted, open and closed vulnerabilities"
     vulnerabilities: ExecutionVulnerabilitiesInput!

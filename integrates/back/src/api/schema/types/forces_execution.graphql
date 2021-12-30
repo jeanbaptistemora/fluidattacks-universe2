@@ -17,6 +17,8 @@ type ForcesExecution {
   gitOrigin: String
   "Root nickname"
   gitRepo: String
+  "Grace period in days for new vulnerabilities at the time of execution"
+  gracePeriod: Int!
   "Name of the Group where the Forces log will be in"
   groupName: String!
   "Kind of application security testing technique applied"
@@ -26,7 +28,10 @@ type ForcesExecution {
   "Deprecated .Use `groupName` instead."
   projectName: String! @deprecated(reason: """This field will
     be removed after 2022/01/13. Use `groupName` instead.""")
-  "Strict mode, if enabled, forces the fix of security issues"
+  """Minimum CVSS score of an `open` vulnerability for DevSecOps to break the
+  build in strict mode"""
+  severityThreshold: Float!
+  "Execution mode"
   strictness: String
   "Object containing arrays of accepted, open and closed vulnerabilities"
   vulnerabilities: ExecutionVulnerabilities
