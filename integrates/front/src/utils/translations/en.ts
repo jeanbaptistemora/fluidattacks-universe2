@@ -1410,10 +1410,6 @@ export const enTranslations: ResourceKey = {
       acceptanceJustification: "Acceptance Justification",
       acceptanceUser: "Acceptance User",
       action: "Action",
-      affectedSystems: {
-        text: "Affected systems",
-        tooltip: "Project or application that contains the vulnerability",
-      },
       approvalMessage:
         "Remember that the indefinite acceptance of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",

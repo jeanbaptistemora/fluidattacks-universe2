@@ -183,41 +183,6 @@ async def test_group() -> None:
     ]
 
 
-async def test_group_filtered() -> None:
-    """Check for group mutation."""
-    query = """
-      query {
-        group(groupName: "unittesting"){
-          findings(filters: {affectedSystems: "test"}) {
-            id
-          }
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert len(result["data"]["group"]["findings"]) == 2
-    assert result["data"]["group"]["findings"][0]["id"] == "463461507"
-
-
-async def test_group_filter_not_match() -> None:
-    """Check for group mutation."""
-    query = """
-      query {
-        group(groupName: "unittesting"){
-          findings(filters: {affectedSystems: "notexists"}) {
-            id
-          }
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert len(result["data"]["group"]["findings"]) == 0
-
-
 @pytest.mark.changes_db
 async def test_add_group() -> None:
     """Check for addGroup mutation."""

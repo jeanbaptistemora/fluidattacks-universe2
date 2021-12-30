@@ -9,7 +9,6 @@ interface IHistoricTreatment {
 }
 
 interface IFinding {
-  affectedSystems: string;
   attackVectorDescription: string;
   description: string;
   hacker?: string;

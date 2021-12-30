@@ -101,7 +101,6 @@ mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
 
 describe("Finding Description", (): void => {
   const finding: IFinding = {
-    affectedSystems: "BWAPP Server",
     attackVectorDescription: "Run a reverse shell",
     description: "It's possible to execute shell commands from the site",
     id: "413372600",
@@ -222,7 +221,7 @@ describe("Finding Description", (): void => {
     const fieldsAsEditable: ReactWrapper = wrapper.find({
       renderAsEditable: true,
     });
-    const EXPECTED_LENGTH: number = 5;
+    const EXPECTED_LENGTH: number = 4;
 
     expect(editingComponents).toHaveLength(2);
     expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);

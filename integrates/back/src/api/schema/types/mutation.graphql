@@ -641,8 +641,6 @@ type Mutation {
 
   "Updates a Finding's description"
   updateDescription(
-    "Project or application that contains the vulnerability"
-    affectedSystems: String!
     "Deprecated. Use `attackVectorDescription` instead"
     attackVectorDesc: String
     "Malicious actions that can be performed by exploiting the vulnerability"

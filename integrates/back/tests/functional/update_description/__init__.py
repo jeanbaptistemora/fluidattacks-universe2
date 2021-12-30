@@ -15,7 +15,6 @@ async def get_result(
     user: str,
 ) -> Dict[str, Any]:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    affected_systems: str = "edited affected_systems"
     attack_vector_description: str = "This is an updated attack vector"
     records: str = "Clave plana"
     description: str = "I just have updated the description"
@@ -26,7 +25,6 @@ async def get_result(
     query: str = f"""
         mutation {{
             updateDescription(
-                affectedSystems: "{affected_systems}",
                 attackVectorDescription: "{attack_vector_description}",
                 description: "{description}",
                 findingId: "{finding_id}",
@@ -37,7 +35,6 @@ async def get_result(
                 title: "{title}",
             ) {{
                 finding {{
-                    affectedSystems
                     age
                     hacker
                     attackVectorDescription

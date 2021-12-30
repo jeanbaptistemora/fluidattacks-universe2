@@ -42,16 +42,12 @@ import {
 
 const MAX_DESCRIPTION_LENGTH = 500;
 const MAX_IMPACTS_LENGTH = 300;
-const MAX_AFFECTED_SYSTEMS_LENGTH = 200;
 const MAX_THREAT_LENGTH = 300;
 const MAX_RECOMENDATION_LENGTH = 300;
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
 const maxImpactsLength: ConfigurableValidator = maxLength(MAX_IMPACTS_LENGTH);
-const maxAffectedSystemsLength: ConfigurableValidator = maxLength(
-  MAX_AFFECTED_SYSTEMS_LENGTH
-);
 const maxThreatLength: ConfigurableValidator = maxLength(MAX_THREAT_LENGTH);
 const maxRecommendationLength: ConfigurableValidator = maxLength(
   MAX_RECOMENDATION_LENGTH
@@ -335,35 +331,6 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       required,
                       validTextField,
                       maxImpactsLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
-                )}
-              </Can>
-            </Col45>
-            <Col45>
-              <Can
-                do={"api_mutations_update_finding_description_mutate"}
-                passThrough={true}
-              >
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.affectedSystems}
-                    id={"searchFindings.tabDescription.affectedSystems.tooltip"}
-                    label={translate.t(
-                      "searchFindings.tabDescription.affectedSystems.text"
-                    )}
-                    name={"affectedSystems"}
-                    renderAsEditable={isEditing}
-                    tooltip={translate.t(
-                      "searchFindings.tabDescription.affectedSystems.tooltip"
-                    )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxAffectedSystemsLength,
                     ])}
                     visibleWhileEditing={canEdit}
                   />

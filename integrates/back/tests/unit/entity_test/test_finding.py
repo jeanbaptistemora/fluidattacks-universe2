@@ -173,7 +173,6 @@ async def test_finding() -> None:
           attackVectorDescription
           threat
           recommendation
-          affectedSystems
           remediated
           age
           isExploitable
@@ -246,7 +245,6 @@ async def test_finding() -> None:
     assert "attackVectorDescription" in result["data"]["finding"]
     assert "threat" in result["data"]["finding"]
     assert "recommendation" in result["data"]["finding"]
-    assert "affectedSystems" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
     assert "age" in result["data"]["finding"]
     assert "isExploitable" in result["data"]["finding"]
@@ -505,7 +503,6 @@ async def test_update_description() -> None:
     """Check for updateDescription mutation."""
     query = """
         mutation UpdateFindingDescription(
-            $affectedSystems: String!,
             $attackVectorDescription: String!,
             $description: String!,
             $findingId: String!,
@@ -514,7 +511,6 @@ async def test_update_description() -> None:
             $title: String!,
         ){
             updateDescription(
-            affectedSystems: $affectedSystems,
             attackVectorDescription: $attackVectorDescription,
             description: $description,
             findingId: $findingId,
@@ -527,7 +523,6 @@ async def test_update_description() -> None:
         }
     """
     variables = {
-        "affectedSystems": "Server bWAPP",
         "attackVectorDescription": "This is an updated attack vector",
         "description": "I just have updated the description",
         "findingId": "422286126",

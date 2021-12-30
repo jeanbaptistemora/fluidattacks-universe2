@@ -67,7 +67,6 @@ async def mutate(
         )
 
         description = FindingDescriptionToUpdate(
-            affected_systems=kwargs["affected_systems"],
             attack_vector_description=get_key_or_fallback(
                 kwargs, "attack_vector_description", "attack_vector_desc"
             ),
