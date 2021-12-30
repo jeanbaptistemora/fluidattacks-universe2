@@ -37,9 +37,9 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-      lastReattackDate: null,
       lastReattackRequester: "testrequester@test.com",
       lastRequestedReattackDate: null,
+      lastVerificationDate: null,
       remediated: true,
       reportDate: "",
       severity: "3",
@@ -71,11 +71,11 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-      lastReattackDate: moment()
-        .subtract(numberOfDays, "days")
-        .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
       lastRequestedReattackDate: null,
+      lastVerificationDate: moment()
+        .subtract(numberOfDays, "days")
+        .format("YYYY-MM-DD hh:mm:ss"),
       remediated: false,
       reportDate: "",
       severity: "1",
@@ -107,11 +107,11 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
-      lastReattackDate: moment()
-        .subtract(numberOfDaysOldThanAWeek, "days")
-        .format("YYYY-MM-DD hh:mm:ss"),
       lastReattackRequester: "",
       lastRequestedReattackDate: null,
+      lastVerificationDate: moment()
+        .subtract(numberOfDaysOldThanAWeek, "days")
+        .format("YYYY-MM-DD hh:mm:ss"),
       remediated: false,
       reportDate: "",
       severity: "1",

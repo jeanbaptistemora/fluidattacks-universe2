@@ -16,9 +16,9 @@ const VULNS_FRAGMENT: DocumentNode = gql`
       treatment
     }
     id
-    lastReattackDate
     lastReattackRequester
     lastRequestedReattackDate
+    lastVerificationDate
     remediated
     reportDate
     severity

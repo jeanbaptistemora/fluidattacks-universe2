@@ -109,11 +109,11 @@ const formatVulnerabilities: (
         ? `${vulnerability.verification} (${vulnerability.currentState})`
         : (vulnerability.verification as string);
     const shouldDisplayVerification: boolean =
-      !_.isEmpty(vulnerability.lastReattackDate) &&
+      !_.isEmpty(vulnerability.lastVerificationDate) &&
       vulnerability.verification === "Verified"
         ? Boolean(
             isWithInAWeek(
-              moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
+              moment(vulnerability.lastVerificationDate, "YYYY-MM-DD hh:mm:ss")
             )
           )
         : true;
