@@ -10,8 +10,6 @@ interface IVulnRowAttr {
   externalBugTrackingSystem: string | null;
   historicTreatment: IHistoricTreatment[];
   id: string;
-  lastReattackRequester: string;
-  lastRequestedReattackDate: string | null;
   lastVerificationDate: string | null;
   remediated: boolean;
   reportDate: string;

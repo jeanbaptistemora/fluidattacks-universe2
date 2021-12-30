@@ -57,8 +57,6 @@ describe("TrackingTreatment", (): void => {
     externalBugTrackingSystem: null,
     historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
-    lastReattackRequester: "",
-    lastRequestedReattackDate: null,
     lastVerificationDate: moment()
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),

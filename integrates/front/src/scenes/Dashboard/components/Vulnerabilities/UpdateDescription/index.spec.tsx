@@ -82,8 +82,6 @@ describe("Update Description component", (): void => {
             findingId: "480857698",
             historicTreatment: [],
             id: "",
-            lastReattackRequester: "",
-            lastRequestedReattackDate: null,
             remediated: false,
             reportDate: "",
             severity: null,

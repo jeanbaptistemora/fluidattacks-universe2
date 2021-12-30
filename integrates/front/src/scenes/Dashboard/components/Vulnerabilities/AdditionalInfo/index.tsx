@@ -190,7 +190,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.lastRequestedReattackDate ?? ""} />
+                <Value
+                  value={
+                    data.vulnerability.lastRequestedReattackDate?.split(
+                      " "
+                    )[0] ?? ""
+                  }
+                />
               </InfoField>
             </Row>
             <Row>
@@ -198,7 +204,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.lastReattackRequester} />
+                <Value value={data.vulnerability.lastReattackRequester} />
               </InfoField>
             </Row>
             <Row>

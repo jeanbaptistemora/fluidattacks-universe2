@@ -3,6 +3,8 @@ interface IVulnInfoAttr {
   cycles: string;
   efficacy: string;
   hacker?: string;
+  lastReattackRequester: string;
+  lastRequestedReattackDate: string | null;
 }
 
 interface IGetVulnAdditionalInfoAttr {

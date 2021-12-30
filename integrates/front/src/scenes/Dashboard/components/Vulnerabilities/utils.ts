@@ -124,8 +124,6 @@ const formatVulnerabilities: (
       currentStateCapitalized: _.capitalize(
         vulnerability.currentState
       ) as IVulnRowAttr["currentStateCapitalized"],
-      lastRequestedReattackDate:
-        vulnerability.lastRequestedReattackDate?.split(" ")[0] ?? "",
       reportDate: vulnerability.reportDate.split(" ")[0],
       treatment: isVulnOpen ? treatmentLabel : "-",
       treatmentChanges,

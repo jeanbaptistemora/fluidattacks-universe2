@@ -37,8 +37,6 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-      lastReattackRequester: "testrequester@test.com",
-      lastRequestedReattackDate: null,
       lastVerificationDate: null,
       remediated: true,
       reportDate: "",
@@ -71,8 +69,6 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
-      lastReattackRequester: "",
-      lastRequestedReattackDate: null,
       lastVerificationDate: moment()
         .subtract(numberOfDays, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
@@ -107,8 +103,6 @@ describe("VulnComponent", (): void => {
         },
       ],
       id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
-      lastReattackRequester: "",
-      lastRequestedReattackDate: null,
       lastVerificationDate: moment()
         .subtract(numberOfDaysOldThanAWeek, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
