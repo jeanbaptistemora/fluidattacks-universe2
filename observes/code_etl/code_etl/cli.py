@@ -97,8 +97,8 @@ def upload_code(
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
-@click.option("--repositories", type=str, nargs=-1, required=True)
 @click.option("--mailmap", type=mailmap_file)
+@click.argument("repositories", type=str, nargs=-1)
 def upload_code_v2(
     db_id: FILE[str],
     creds: FILE[str],
@@ -180,4 +180,5 @@ def main() -> None:
 main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
+main.add_command(upload_code_v2)
 main.add_command(migration)
