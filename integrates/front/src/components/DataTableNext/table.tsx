@@ -129,7 +129,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     onSizePerPageChange,
     sizePerPage: preferredPageSize,
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    sizePerPageList: [10, 25, 30, 50, 100, 200, 500, 1000],
+    sizePerPageList: [10, 20, 30, 50, 100, 200, 500, 1000],
     sizePerPageRenderer:
       SizePerPageRenderer as unknown as PaginationOptions["sizePerPageRenderer"],
   };
