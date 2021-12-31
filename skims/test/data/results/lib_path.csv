@@ -18433,6 +18433,30 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provid
   16 | </manifest>
      ^ Col 0
 ",__init__._apk_exported_cp
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
+   1 | resource ""azurerm_virtual_machine"" ""vulnerable"" {
+   2 |   name                  = ""${var.prefix}-vm""
+   3 |   location              = azurerm_resource_group.main.location
+   4 |   resource_group_name   = azurerm_resource_group.main.name
+   5 |   network_interface_ids = [azurerm_network_interface.main.id]
+   6 |   vm_size               = ""Standard_DS1_v2""
+   7 |
+>  8 |   os_profile_linux_config {
+   9 |     disable_password_authentication = false
+  10 |   }
+  11 | }
+  12 |
+  13 | resource ""azurerm_virtual_machine"" ""not_vulnerable"" {
+  14 |   name                  = ""${var.prefix}-vm""
+  15 |   location              = azurerm_resource_group.main.location
+  16 |   resource_group_name   = azurerm_resource_group.main.name
+  17 |   network_interface_ids = [azurerm_network_interface.main.id]
+  18 |   vm_size               = ""Standard_DS1_v2""
+  19 |
+  20 |   os_profile_linux_config {
+  21 |     disable_password_authentication = false
+     ^ Col 0
+",f015._tfm_azure_virtual_machine_insecure_authentication
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
