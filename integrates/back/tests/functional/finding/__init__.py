@@ -20,7 +20,6 @@ async def get_result(
             finding(
                 identifier: "{finding_id}"
             ){{
-                affectedSystems
                 age
                 hacker
                 attackVectorDesc

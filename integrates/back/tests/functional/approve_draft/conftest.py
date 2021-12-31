@@ -84,7 +84,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    affected_systems="Server bWAPP",
                     attack_vector_description="This is an updated attack vector",
                 ),
                 "historic_state": [
@@ -158,7 +157,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    affected_systems="Server bWAPP",
                     attack_vector_description="This is an updated attack vector",
                 ),
                 "historic_state": [

@@ -55,7 +55,6 @@ async def get_result(
                 }}
                 findings(
                     filters: {{
-                        affectedSystems: "system1",
                         verified: false
                     }}
                 ) {{

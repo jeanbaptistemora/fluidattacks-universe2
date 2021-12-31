@@ -111,7 +111,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
-    affected_systems: str = "Server bWAPP"
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -155,7 +154,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     )
     where: str = "192.168.1.2"
     assert "errors" not in result
-    assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["hacker"] == hacker
     assert (
@@ -314,7 +312,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
-    affected_systems: str = "Server bWAPP"
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -358,7 +355,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         user=email, finding_id=finding_id
     )
     assert "errors" in result
-    assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert (
         result["data"]["finding"]["attackVectorDesc"]
