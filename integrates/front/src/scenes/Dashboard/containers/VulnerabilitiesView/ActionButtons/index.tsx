@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { EditButton } from "./EditButton";
 import { HandleAcceptanceButton } from "./HandleAcceptanceButton";
 import { ReattackVulnButton } from "./ReattackVulnButton";
-import { VerifyVunButton } from "./VerifyVunButton";
+import { VerifyVulnerabilitiesButton } from "./VerifyVulnerabilitiesButton";
 
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Have } from "utils/authz/Have";
@@ -67,7 +67,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
-      <VerifyVunButton
+      <VerifyVulnerabilitiesButton
         areVulnsSelected={areVulnsSelected}
         isEditing={isEditing}
         isRequestingReattack={isRequestingReattack}
