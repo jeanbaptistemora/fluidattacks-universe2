@@ -51,13 +51,17 @@ if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
 
 @asynccontextmanager
 async def client() -> aioboto3.session.Session.client:
-    async with aioboto3.client(**RESOURCE_OPTIONS) as dynamodb_client:
+    async with aioboto3.Session().client(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_client:
         yield dynamodb_client
 
 
 async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with aioboto3.Session().resource(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.delete_item(**delete_attrs._asdict())
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
@@ -66,7 +70,9 @@ async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
 
 async def put_item(table: str, item: Dict[str, Any]) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with aioboto3.Session().resource(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.put_item(Item=item)
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
@@ -76,7 +82,9 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
 async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     try:
-        async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        async with aioboto3.Session().resource(
+            **RESOURCE_OPTIONS
+        ) as dynamodb_resource:
             dynamo_table = await dynamodb_resource.Table(table)
             response = await dynamo_table.query(**query_attrs)
             response_items = response.get("Items", [])
@@ -93,7 +101,9 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
 
 async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with aioboto3.Session().resource(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.scan(**scan_attrs)
         response_items = response.get("Items", [])
@@ -123,13 +133,17 @@ def serialize(object_: Any) -> Any:
 
 @asynccontextmanager
 async def start_context() -> aioboto3.session.Session.resource:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with aioboto3.Session().resource(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_resource:
         yield dynamodb_resource
 
 
 async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with aioboto3.Session().resource(
+        **RESOURCE_OPTIONS
+    ) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.update_item(**update_attrs)
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200

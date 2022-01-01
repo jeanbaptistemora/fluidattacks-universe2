@@ -377,7 +377,11 @@ def test_finding_vulnerabilities(
         "Vulnerability",
         timeout,
     )
-    assert "Expiration" in driver.page_source
+    assert utils.wait_for_text(
+        driver,
+        "Expiration",
+        timeout,
+    )
 
     # Vulnerabilities treatment tracking
     tracking_tab = utils.wait_for_id(
