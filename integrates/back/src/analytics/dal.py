@@ -15,9 +15,7 @@ from custom_exceptions import (
 import io
 import logging
 import logging.config
-from newutils import (
-    apm,
-)
+import newrelic.agent
 from s3.operations import (
     aio_client,
 )
@@ -31,7 +29,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@apm.trace()
+@newrelic.agent.function_trace()
 async def get_document(key: str) -> str:
     key = f"{CI_COMMIT_REF_NAME}/documents/{key}"
 
@@ -51,7 +49,7 @@ async def get_document(key: str) -> str:
         return stream.read().decode()
 
 
-@apm.trace()
+@newrelic.agent.function_trace()
 async def get_snapshot(key: str) -> bytes:
     key = f"{CI_COMMIT_REF_NAME}/snapshots/{key}"
 

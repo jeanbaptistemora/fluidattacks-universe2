@@ -99,8 +99,8 @@ from mailer import (
 from names import (
     domain as names_domain,
 )
+import newrelic.agent
 from newutils import (
-    apm,
     datetime as datetime_utils,
     events as events_utils,
     resources as resources_utils,
@@ -890,7 +890,7 @@ async def get_description(group_name: str) -> str:
     return await groups_dal.get_description(group_name)
 
 
-@apm.trace()
+@newrelic.agent.function_trace()
 async def get_groups_by_user(
     user_email: str,
     active: bool = True,

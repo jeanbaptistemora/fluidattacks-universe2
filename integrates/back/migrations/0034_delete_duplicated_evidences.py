@@ -21,9 +21,6 @@ from context import (
 import contextlib
 import logging
 import logging.config
-from newutils import (
-    apm,
-)
 import os
 from settings import (
     LOGGING,
@@ -48,7 +45,6 @@ OPTIONS = dict(
 STAGE = os.environ["STAGE"]
 
 
-@apm.trace()
 @contextlib.asynccontextmanager
 async def aio_client():  # type: ignore
     async with aioboto3.client(**OPTIONS) as client:

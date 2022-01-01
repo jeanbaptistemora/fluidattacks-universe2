@@ -15,8 +15,8 @@ from dynamodb import (
 )
 import logging
 import logging.config
+import newrelic.agent
 from newutils import (
-    apm,
     datetime as datetime_utils,
 )
 from newutils.utils import (
@@ -98,7 +98,7 @@ async def get_user_access(
     return items
 
 
-@apm.trace()
+@newrelic.agent.function_trace()
 async def get_user_groups(user_email: str, active: bool) -> List[str]:
     """Get groups of a user"""
     filtering_exp = Key("user_email").eq(user_email.lower())
