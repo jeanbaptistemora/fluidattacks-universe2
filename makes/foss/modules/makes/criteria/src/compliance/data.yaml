@@ -3339,3 +3339,15 @@
       title: Names of standard library macros, objects and functions shall not be reused
       link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
   metadata: {}
+"026":
+  title: New York SHIELD Act and NYDFS Cybersecurity Regulation
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "5575_B_2":
+      title: Personal and private information
+      link: https://www.nysenate.gov/legislation/bills/2019/s5575
+  metadata: {}
