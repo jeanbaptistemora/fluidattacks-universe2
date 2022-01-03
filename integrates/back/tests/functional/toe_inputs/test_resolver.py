@@ -14,6 +14,7 @@ from typing import (
     ["email"],
     [
         ["admin@fluidattacks.com"],
+        ["architect@fluidattacks.com"],
         ["hacker@fluidattacks.com"],
         ["reattacker@fluidattacks.com"],
         ["customer@fluidattacks.com"],
@@ -88,6 +89,7 @@ async def test_get_toe_inputs(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
+        ["architect@gmail.com"],
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customer@gmail.com"],
