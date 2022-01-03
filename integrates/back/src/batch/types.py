@@ -18,6 +18,11 @@ class BatchProcessing(NamedTuple):
     queue: str
 
 
+class VulnerabilitiesSummary(NamedTuple):
+    open: int
+    modified: int
+
+
 class Job(NamedTuple):
     created_at: Optional[int]
     exit_code: Optional[int]
@@ -28,6 +33,7 @@ class Job(NamedTuple):
     started_at: Optional[int]
     stopped_at: Optional[int]
     status: str
+    vulnerabilities: Optional[VulnerabilitiesSummary] = None
     root_nickname: Optional[str] = None
 
 

@@ -1,3 +1,10 @@
+"""Vulnerabilities in the job"""
+type VulnerabilitiesSummary {
+  "Vulnerabilities modified in teh current execution"
+  modified: Int
+  "Vulnerabilities found in the current execution"
+  open: Int
+}
 """MachineJob type definition"""
 type MachineJob {
   "Unix timestamp of the job creation"
@@ -20,4 +27,6 @@ type MachineJob {
   status: String!
   "Stopping time of the job"
   stoppedAt: String
+  "Vulnerabilities summary"
+  vulnerabilities: VulnerabilitiesSummary
 }

@@ -10,6 +10,9 @@ from batch.dal import (
     list_jobs_filter,
     list_log_streams,
 )
+from batch.types import (
+    VulnerabilitiesSummary,
+)
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
@@ -108,7 +111,7 @@ async def list_(  # pylint: disable=too-many-locals
     statuses: List[JobStatus],
     group_roots: Dict[str, str],
 ) -> List[Job]:
-    list_jobs: Dict[str, Dict[str, Any]] = {
+    list_jobs_from_batch: Dict[str, Dict[str, Any]] = {
         item["jobId"]: item
         for item in more_itertools.flatten(
             [
@@ -121,14 +124,16 @@ async def list_(  # pylint: disable=too-many-locals
         )
     }
 
-    job_items = {
+    jobs_details = {
         item["jobId"]: item
-        for item in (await describe_jobs(*list_jobs.keys()))
+        for item in (await describe_jobs(*list_jobs_from_batch.keys()))
         if finding_code in json.loads(item["container"]["command"][-2])
         and item["status"] in {x.name for x in statuses}
     }
 
-    job_logs = await list_log_streams(group_name, *job_items.keys())
+    job_logs_description = await list_log_streams(
+        group_name, *jobs_details.keys()
+    )
 
     root_machine_executions: Dict[str, Dict[str, RootMachineExecutionItem]] = {
         job_id: {execution.root_id: execution for execution in executions}
@@ -136,32 +141,46 @@ async def list_(  # pylint: disable=too-many-locals
             _get_machine_executions_by_job_id(
                 job_id=job_id,
             )
-            for job_id in list_jobs.keys()
+            for job_id in list_jobs_from_batch.keys()
         )
     }
 
     jobs = []
-    for job_item in job_logs:
+
+    for job_item in job_logs_description:
         group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
 
         db_execution: Optional[RootMachineExecutionItem] = None
+        vulns_summary: Optional[RootMachineExecutionItem] = None
+
         if git_root_nickname in group_roots:
             db_execution = root_machine_executions.get(job_id, {}).get(
                 group_roots[git_root_nickname]
             )
+            if db_execution and (
+                _vulns := [
+                    x
+                    for x in db_execution.findings_executed
+                    if x.finding == finding_code
+                ]
+            ):
+                vulns_summary = VulnerabilitiesSummary(
+                    modified=_vulns[0].modified, open=_vulns[0].open
+                )
+
         jobs.append(
             Job(
-                created_at=job_items[job_id].get("createdAt"),
-                exit_code=job_items[job_id]
+                created_at=jobs_details[job_id].get("createdAt"),
+                exit_code=jobs_details[job_id]
                 .get("container", {})
                 .get("exitCode"),
-                exit_reason=job_items[job_id]
+                exit_reason=jobs_details[job_id]
                 .get("container", {})
                 .get("reason"),
-                id=job_items[job_id]["jobId"],
+                id=jobs_details[job_id]["jobId"],
                 name=f"skims-process-{group}-{git_root_nickname}",
                 root_nickname=job_item["logStreamName"].split("/")[-1],
-                queue=job_items[job_id]["jobQueue"],
+                queue=jobs_details[job_id]["jobQueue"],
                 started_at=int(
                     date_parse(db_execution.started_at).timestamp() * 1000
                 )
@@ -172,7 +191,8 @@ async def list_(  # pylint: disable=too-many-locals
                 )
                 if db_execution
                 else job_item.get("lastEventTimestamp", 0),
-                status=job_items[job_id]["status"],
+                status=jobs_details[job_id]["status"],
+                vulnerabilities=vulns_summary,
             )
         )
 
