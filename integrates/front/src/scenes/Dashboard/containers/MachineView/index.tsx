@@ -7,23 +7,28 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { Execution } from "./execution";
 import { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB } from "./queries";
 import { Queue } from "./queue";
 import type {
+  IExecution,
   IFindingMachineJob,
   IFindingMachineJobs,
   IGroupRoot,
   ISubmitMachineJobResult,
-  ITableRow,
 } from "./types";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { timeFromUnix } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { ButtonToolbarCenter } from "styles/styledComponents";
-import { formatDuration } from "utils/formatHelpers";
+import {
+  ButtonToolbar,
+  ButtonToolbarCenter,
+  Col100,
+  Row,
+} from "styles/styledComponents";
+import { formatDate, formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -31,6 +36,36 @@ import { translate } from "utils/translations/translate";
 const MachineView: React.FC = (): JSX.Element => {
   const { findingId, groupName } =
     useParams<{ findingId: string; groupName: string }>();
+
+  // States
+  const defaultCurrentRow: IExecution = {
+    createdAt: "",
+    duration: 0,
+    jobId: "",
+    name: "",
+    priority: "",
+    queue: "",
+    rootId: "",
+    rootNickname: "",
+    startedAt: "",
+    status: "",
+    stoppedAt: "",
+  };
+  const [currentRow, updateRow] = useState(defaultCurrentRow);
+  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
+    useState(false);
+
+  const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
+    setExecutionDetailsModalOpen(false);
+  }, []);
+
+  const openSeeExecutionDetailsModal: (
+    event: Record<string, unknown>,
+    row: IExecution
+  ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
+    updateRow(row);
+    setExecutionDetailsModalOpen(true);
+  };
 
   // GraphQL operations
   const {
@@ -106,7 +141,7 @@ const MachineView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "startedAt",
-      formatter: timeFromUnix,
+      formatter: formatDate,
       header: translate.t("searchFindings.tabMachine.headerStartedAt"),
       width: "10%",
     },
@@ -131,20 +166,29 @@ const MachineView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const tableDataset: ITableRow[] = _.isUndefined(data.finding.machineJobs)
+  const tableDataset: IExecution[] = _.isUndefined(data.finding.machineJobs)
     ? []
     : data.finding.machineJobs.map(
-        (job: IFindingMachineJob): ITableRow => ({
+        (job: IFindingMachineJob): IExecution => ({
+          createdAt: job.createdAt,
           duration:
             job.startedAt === null || job.stoppedAt === null
               ? -1
               : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
+          jobId: job.id,
+          name: job.name,
           priority: job.queue.endsWith("_soon")
             ? translate.t("searchFindings.tabMachine.priorityHigh")
             : translate.t("searchFindings.tabMachine.priorityNormal"),
+          queue: job.queue,
+          rootId: job.rootNickname,
           rootNickname: job.rootNickname,
-          startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
+          startedAt: (job.startedAt === null
+            ? -1
+            : parseFloat(job.startedAt)
+          ).toString(),
           status: job.status,
+          stoppedAt: job.startedAt,
         })
       );
 
@@ -178,8 +222,38 @@ const MachineView: React.FC = (): JSX.Element => {
         headers={headers}
         id={"tblMachineJobs"}
         pageSize={1000}
+        rowEvents={{ onClick: openSeeExecutionDetailsModal }}
         search={false}
       />
+      <Modal
+        headerTitle={translate.t("group.machine.executionDetailsModal.title")}
+        onEsc={closeSeeExecutionDetailsModal}
+        open={isExecutionDetailsModalOpen}
+        size={"largeModal"}
+      >
+        <Execution
+          createdAt={currentRow.createdAt}
+          duration={currentRow.duration}
+          jobId={currentRow.jobId}
+          name={currentRow.name}
+          priority={currentRow.priority}
+          queue={currentRow.queue}
+          rootId={currentRow.rootId}
+          rootNickname={currentRow.rootNickname}
+          startedAt={currentRow.startedAt}
+          status={currentRow.status}
+          stoppedAt={currentRow.stoppedAt}
+        />
+        <Row>
+          <Col100>
+            <ButtonToolbar>
+              <Button onClick={closeSeeExecutionDetailsModal}>
+                {translate.t("group.forces.executionDetailsModal.close")}
+              </Button>
+            </ButtonToolbar>
+          </Col100>
+        </Row>
+      </Modal>
       <Modal
         headerTitle={"Queue Job"}
         onEsc={closeQueueModal}
