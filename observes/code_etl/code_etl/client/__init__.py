@@ -173,3 +173,24 @@ def insert_stamps(
     LOG.info("inseting %s stamps", len(stamps))
     encoded = tuple(from_stamp(s) for s in stamps)
     return insert_unique_rows(client, table, encoded)
+
+
+def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
+    _filter = filter(
+        lambda x: x[0],
+        ((bool(getattr(new, k) != v), k) for k, v in old.__dict__.items()),
+    )
+    return tuple(map(lambda x: x[1], _filter))
+
+
+def delta_update(
+    client: Client, table: TableID, old: CommitTableRow, new: CommitTableRow
+) -> IO[None]:
+    _fields = _delta_fields(old, new)
+    if len(_fields) > 0:
+        LOG.info("delta update %s fields", len(_fields))
+        return client.cursor.execute_query(
+            query.update_row(table, new, _fields)
+        )
+    LOG.info("delta update skipped")
+    return IO(None)

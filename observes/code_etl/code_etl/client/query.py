@@ -20,6 +20,9 @@ from postgres_client.query import (
     Query,
     SqlArgs,
 )
+from purity.v2.frozen import (
+    FrozenList,
+)
 from returns.maybe import (
     Maybe,
 )
@@ -182,3 +185,23 @@ def last_commit_hash(table: TableID, repo: RepoId) -> Query:
             },
         ),
     )
+
+
+def update_row(
+    table: TableID, row: CommitTableRow, _fields: FrozenList[str]
+) -> Query:
+    values = ",".join(tuple(f"{f} = %({f})s" for f in _fields))
+    statement = f"""
+        UPDATE {{schema}}.{{table}} SET {values} WHERE
+            hash = %(hash)s
+            and namespace = %(namespace)s
+            and repository = %(repository)s
+    """
+    args = SqlArgs(
+        row.__dict__,
+        {
+            "schema": table.schema.name,
+            "table": table.table_name,
+        },
+    )
+    return Query(statement, args)
