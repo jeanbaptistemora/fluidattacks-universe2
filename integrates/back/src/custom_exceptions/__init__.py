@@ -37,10 +37,6 @@ class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 
 
-class ExpectedVulnToHaveNickname(_SingleMessageException):
-    msg: str = "Expected vulnerability to have repo_nickname"
-
-
 class IndicatorAlreadyUpdated(CustomBaseException):
     """Exception to control the indicator has not been updated"""
 
