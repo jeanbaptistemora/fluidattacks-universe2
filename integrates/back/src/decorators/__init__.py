@@ -547,13 +547,23 @@ async def resolve_group_name(  # noqa: MC0001
     if args and args[0] and isinstance(args[0], Vulnerability):
         vuln: Vulnerability = args[0]
         name = await _resolve_from_finding_id(context, vuln.finding_id)
-    elif args and args[0] and "name" in args[0]:
-        name = args[0]["name"]
-    elif args and args[0] and "project_name" in args[0]:
-        name = args[0]["project_name"]
     elif args and args[0] and hasattr(args[0], "group_name"):
         name = getattr(args[0], "group_name")
-    elif args and args[0] and "finding_id" in args[0]:
+    elif args and args[0] and isinstance(args[0], dict) and "name" in args[0]:
+        name = args[0]["name"]
+    elif (
+        args
+        and args[0]
+        and isinstance(args[0], dict)
+        and "project_name" in args[0]
+    ):
+        name = args[0]["project_name"]
+    elif (
+        args
+        and args[0]
+        and isinstance(args[0], dict)
+        and "finding_id" in args[0]
+    ):
         name = await _resolve_from_finding_id(context, args[0]["finding_id"])
     elif "group_name" in kwargs or "project_name" in kwargs:
         name = get_key_or_fallback(kwargs)
