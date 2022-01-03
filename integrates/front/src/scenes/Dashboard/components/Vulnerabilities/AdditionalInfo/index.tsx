@@ -103,22 +103,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const { t } = useTranslation();
 
   const vulnId = vulnerability.id;
-  const lastTreatment: IHistoricTreatment = getLastTreatment(
-    vulnerability.historicTreatment
-  );
-  const currentExpiration: string =
-    vulnerability.currentState === "open" &&
-    lastTreatment.treatment === "ACCEPTED" &&
-    !_.isUndefined(lastTreatment.acceptanceDate)
-      ? lastTreatment.acceptanceDate
-      : "";
-
-  const currentJustification: string =
-    vulnerability.currentState === "closed" ||
-    _.isUndefined(lastTreatment.justification) ||
-    _.isEmpty(lastTreatment.justification)
-      ? ""
-      : lastTreatment.justification;
 
   const { data } = useQuery<IGetVulnAdditionalInfoAttr>(
     GET_VULN_ADDITIONAL_INFO,
@@ -143,10 +127,37 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     return <React.StrictMode />;
   }
 
+  const isVulnOpen: boolean = vulnerability.currentState === "open";
+  const lastTreatment: IHistoricTreatment = getLastTreatment(
+    data.vulnerability.historicTreatment
+  );
+  const currentExpiration: string =
+    isVulnOpen &&
+    lastTreatment.treatment === "ACCEPTED" &&
+    !_.isUndefined(lastTreatment.acceptanceDate)
+      ? lastTreatment.acceptanceDate
+      : "";
+  const currentJustification: string =
+    !isVulnOpen ||
+    _.isUndefined(data.vulnerability.treatmentJustification) ||
+    _.isNull(data.vulnerability.treatmentJustification)
+      ? ""
+      : data.vulnerability.treatmentJustification;
+  const currentAssigned: string = isVulnOpen
+    ? (data.vulnerability.treatmentAssigned as string)
+    : "";
+  const treatmentDate: string = isVulnOpen
+    ? lastTreatment.date.split(" ")[0]
+    : "";
+
   const [firstTreatment] = data.vulnerability.historicTreatment;
   const treatmentChanges: number =
     data.vulnerability.historicTreatment.length -
     (firstTreatment.treatment === "NEW" ? 1 : 0);
+
+  const vulnerabilityType: string = t(
+    `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
+  );
 
   return (
     <React.StrictMode>
@@ -154,7 +165,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         <Col100>
           <Status>
             <b>
-              <PointStatus status={vulnerability.currentStateCapitalized} />
+              <PointStatus status={_.capitalize(vulnerability.currentState)} />
             </b>
           </Status>
         </Col100>
@@ -164,8 +175,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         <div className={"flex flex-wrap pb0"}>
           <div className={"pl1 pr0 pb0 w-100"}>
             <Field>{vulnerability.where}</Field>
-            {_.isEmpty(vulnerability.stream) ? undefined : (
-              <Field>{vulnerability.stream}</Field>
+            {_.isEmpty(data.vulnerability.stream) ? undefined : (
+              <Field>{data.vulnerability.stream}</Field>
             )}
           </div>
         </div>
@@ -173,7 +184,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <div className={"pl1 pr0 w-10-l w-100-m w-100-ns"}>
             <Label>
               {t(
-                `searchFindings.tabVuln.vulnTable.specificType.${vulnerability.vulnerabilityType}`
+                `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
               )}
             </Label>
           </div>
@@ -253,9 +264,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     "f5 lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns truncate"
                   }
                 >
-                  {_.isEmpty(vulnerability.assigned)
+                  {_.isEmpty(currentAssigned)
                     ? t("searchFindings.tabVuln.notApplicable")
-                    : vulnerability.assigned}
+                    : currentAssigned}
                 </p>
               </InfoField>
             </Row>
@@ -266,7 +277,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.treatmentDate} />
+                <Value value={treatmentDate} />
               </InfoField>
             </Row>
             <Row>
@@ -313,7 +324,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.reportDate} />
+                <Value value={data.vulnerability.reportDate} />
               </InfoField>
             </Row>
             {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
@@ -347,7 +358,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.severity ?? ""} />
+                <Value value={data.vulnerability.severity ?? ""} />
               </InfoField>
             </Row>
           </Col50>
@@ -361,7 +372,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.vulnerabilityType} />
+                <Value value={vulnerabilityType} />
               </InfoField>
             </Row>
             <Row>

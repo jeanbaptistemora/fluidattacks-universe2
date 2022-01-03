@@ -74,11 +74,20 @@ describe("AdditionalInfo", (): void => {
           efficacy: "0",
           historicTreatment: [
             {
+              acceptanceDate: "",
+              date: "2019-07-05 09:56:40",
               treatment: "IN PROGRESS",
+              user: "usertreatment@test.test",
             },
           ],
           lastReattackRequester: "",
           lastRequestedReattackDate: null,
+          reportDate: "",
+          severity: "1",
+          stream: null,
+          treatmentAssigned: "assigned-user-4",
+          treatmentJustification: "test progress justification",
+          vulnerabilityType: "lines",
         },
       },
     },
@@ -118,8 +127,8 @@ describe("AdditionalInfo", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    expect(wrapper.find(Label).first().find("span").text()).toBe(
-      t("searchFindings.tabVuln.vulnTable.specificType.code")
+    expect(wrapper.find(Label).first().find("span").text()).toContain(
+      t("searchFindings.tabVuln.vulnTable.vulnerabilityType.lines")
     );
   });
 });
