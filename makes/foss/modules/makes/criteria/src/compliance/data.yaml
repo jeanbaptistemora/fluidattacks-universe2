@@ -3359,4 +3359,19 @@
     "500_2":
       title: Cybersecurity program
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_3":
+      title: Cybersecurity policy
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_5":
+      title: Penetration testing and vulnerability assessments
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_6":
+      title: Audit Trail
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_7":
+      title: Access Privileges
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_10":
+      title: Cybersecurity Personnel and Intelligence
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
