@@ -79,7 +79,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       attackedAt: true,
       attackedBy: false,
       attackedLines: true,
-      bePresent: true,
+      bePresent: false,
       bePresentUntil: false,
       comments: true,
       commitAuthor: false,

@@ -45,7 +45,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     "toeInputsTableSet",
     {
       attackedAt: true,
-      bePresent: true,
+      bePresent: false,
       component: false,
       entryPoint: true,
       seenAt: true,

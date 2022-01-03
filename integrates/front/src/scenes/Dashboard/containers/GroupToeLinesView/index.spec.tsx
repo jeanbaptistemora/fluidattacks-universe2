@@ -143,7 +143,6 @@ describe("GroupToeLinesView", (): void => {
         "Modified commit",
         "Attacked at",
         "Comments",
-        "Be present",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
@@ -156,7 +155,6 @@ describe("GroupToeLinesView", (): void => {
         "273412t",
         "",
         "comment 2",
-        "No",
       ].join("")
     );
     expect(secondRow.text()).toStrictEqual(
@@ -169,7 +167,6 @@ describe("GroupToeLinesView", (): void => {
         "983466z",
         "2021-02-20",
         "comment 1",
-        "Yes",
       ].join("")
     );
   });
