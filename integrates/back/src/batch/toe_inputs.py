@@ -96,7 +96,7 @@ def get_toe_inputs_to_remove(
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[ToeInput, ...]:
     LOGGER_CONSOLE.info(
-        "Getting non present toe inputs to remove",
+        "Getting toe inputs to remove",
         extra={
             "extra": {
                 "repo_nickname": root.state.nickname,

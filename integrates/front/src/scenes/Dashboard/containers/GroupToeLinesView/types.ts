@@ -22,9 +22,9 @@ interface IToeLinesAttr {
   firstAttackAt: string | null;
   loc: number;
   modifiedCommit: string;
-  modifiedDate: string | null;
+  modifiedDate: string;
   root: IGitRootAttr;
-  seenAt: string | null;
+  seenAt: string;
   sortsRiskLevel: number;
 }
 
