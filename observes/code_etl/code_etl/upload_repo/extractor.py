@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from code_etl.amend.core import (
+    amend_commit_users,
+)
 from code_etl.factories import (
     CommitDataFactory,
 )
@@ -13,9 +16,6 @@ from code_etl.objs import (
     CommitStamp,
     RepoContex,
     RepoRegistration,
-)
-from code_etl.upload_repo.amend import (
-    amend_commit_users,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,

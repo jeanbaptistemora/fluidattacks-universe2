@@ -12,6 +12,9 @@ from asyncio import (
     create_task,
     Queue,
 )
+from code_etl.amend.core import (
+    amend_commit_users,
+)
 from code_etl.factories import (
     CommitDataAdapters,
     CommitDataFactory,
@@ -19,9 +22,6 @@ from code_etl.factories import (
 from code_etl.mailmap import (
     Mailmap,
     MailmapFactory,
-)
-from code_etl.upload_repo.amend import (
-    amend_commit_users,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,

@@ -7,9 +7,12 @@ from code_etl.mailmap import (
     Mailmap,
 )
 from code_etl.objs import (
+    Commit,
     CommitData,
+    CommitDataId,
     CommitDataObj,
     CommitId,
+    CommitStamp,
     User,
 )
 from returns.curry import (
@@ -37,3 +40,13 @@ def amend_commit_users(mailmap: Mailmap, raw: CommitDataObj) -> CommitDataObj:
     )
     _id = CommitId(raw.commit_id.hash, gen_fa_hash(data))
     return CommitDataObj(_id, data)
+
+
+def amend_commit_stamp_users(
+    mailmap: Mailmap, raw: CommitStamp
+) -> CommitStamp:
+    obj = amend_commit_users(
+        mailmap, CommitDataObj(raw.commit.commit_id.hash, raw.commit.data)
+    )
+    _id = CommitDataId(raw.commit.commit_id.repo, obj.commit_id)
+    return CommitStamp(Commit(_id, obj.data), raw.seen_at)
