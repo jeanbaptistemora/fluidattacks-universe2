@@ -1,17 +1,23 @@
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import moment from "moment";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
+import { MemoryRouter } from "react-router-dom";
+import waitForExpect from "wait-for-expect";
 
-import type { IVulnRowAttr } from "../types";
 import { TreatmentTracking } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index";
-import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { formatDropdownField } from "utils/formatHelpers";
 
 describe("TrackingTreatment", (): void => {
-  const numberOfDays: number = 5;
+  const vulnId: string = "af7a48b8-d8fc-41da-9282-d424fff563f0";
+  const newNumberOfFields: number = 1;
+  const normalNumberOfFields: number = 3;
+  const permanentlyNumberOfFields: number = 5;
   const historicTreatment: IHistoricTreatment[] = [
     {
       date: "2019-01-17 10:06:04",
@@ -50,37 +56,55 @@ describe("TrackingTreatment", (): void => {
       user: "usertreatment4@test.test",
     },
   ];
-  const mockVuln1: IVulnRowAttr = {
-    assigned: "assigned-treatment-4",
-    currentState: "open",
-    currentStateCapitalized: "Open",
-    externalBugTrackingSystem: null,
-    historicTreatment: [...historicTreatment],
-    id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
-    lastTreatmentDate: "2019-07-05 09:56:40",
-    lastVerificationDate: moment()
-      .subtract(numberOfDays, "days")
-      .format("YYYY-MM-DD hh:mm:ss"),
-    remediated: false,
-    reportDate: "",
-    severity: "1",
-    specific: "specific-3",
-    stream: null,
-    tag: "tag-7, tag-8",
-    treatment: "IN PROGRESS",
-    treatmentAcceptanceStatus: "",
-    treatmentAssigned: "usermanager4@test.test",
-    treatmentDate: "2020-10-08 15:29:48",
-    treatmentJustification: "test progress justification",
-    verification: "Verified",
-    vulnerabilityType: "lines",
-    where: "https://example.com/lines",
-    zeroRisk: null,
+
+  const mockQueryVulnTreatment1: MockedResponse = {
+    request: {
+      query: GET_VULN_TREATMENT,
+      variables: {
+        vulnId,
+      },
+    },
+    result: {
+      data: {
+        vulnerability: {
+          __typename: "Vulnerability",
+          historicTreatment: [...historicTreatment],
+        },
+      },
+    },
   };
 
-  const mockVuln2: IVulnRowAttr = {
-    ...mockVuln1,
-    historicTreatment: [...historicTreatment.slice(0, 2)],
+  const rejectedObservation: string = "The treatment was rejected";
+  const mockQueryVulnTreatment2: MockedResponse = {
+    request: {
+      query: GET_VULN_TREATMENT,
+      variables: {
+        vulnId,
+      },
+    },
+    result: {
+      data: {
+        vulnerability: {
+          __typename: "Vulnerability",
+          historicTreatment: [
+            ...historicTreatment.slice(0, 2),
+            {
+              acceptanceStatus: "REJECTED",
+              assigned: "usermanager2@test.test",
+              date: "2020-02-18 18:36:24",
+              justification: rejectedObservation,
+              treatment: "ACCEPTED_UNDEFINED",
+              user: "usertreatment2@test.test",
+            },
+            {
+              date: "2020-02-18 18:36:25",
+              treatment: "NEW",
+              user: "",
+            },
+          ],
+        },
+      },
+    },
   };
 
   it("should return a function", (): void => {
@@ -89,27 +113,27 @@ describe("TrackingTreatment", (): void => {
     expect(typeof TreatmentTracking).toStrictEqual("function");
   });
 
-  it("should render in treatment tracking", (): void => {
+  it("should render in treatment tracking 1", async (): Promise<void> => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
     const onClose: jest.Mock = jest.fn();
 
     const wrapper: ReactWrapper = mount(
-      <TreatmentTracking
-        historicTreatment={
-          formatVulnerabilities([mockVuln1])[0].historicTreatment
-        }
-        onClose={onClose}
-      />
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
+        <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment1]}>
+          <TreatmentTracking onClose={onClose} vulnId={vulnId} />
+        </MockedProvider>
+      </MemoryRouter>
     );
-    wrapper.update();
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+      });
+    });
 
     expect(wrapper).toHaveLength(1);
-
-    const newNumberOfFields: number = 1;
-    const normalNumberOfFields: number = 3;
-    const permanentlyNumberOfFields: number = 5;
 
     expect(wrapper.find("li").first().find("p")).toHaveLength(
       normalNumberOfFields
@@ -125,66 +149,6 @@ describe("TrackingTreatment", (): void => {
       t("searchFindings.tabDescription.treatment.inProgress")
     );
 
-    wrapper.setProps({
-      historicTreatment: formatVulnerabilities([mockVuln2])[0]
-        .historicTreatment,
-    });
-    wrapper.update();
-
-    expect(wrapper.find("li").first().find("p")).toHaveLength(
-      normalNumberOfFields
-    );
-    expect(wrapper.find("li").first().find("p").first().text()).toBe(
-      t(
-        formatDropdownField(
-          formatVulnerabilities([mockVuln2])[0].historicTreatment.slice(-1)[0]
-            .treatment
-        )
-      ) + t("searchFindings.tabDescription.treatment.pendingApproval")
-    );
-
-    const rejectedObservation: string = "The treatment was rejected";
-
-    wrapper.setProps({
-      historicTreatment: [
-        ...formatVulnerabilities([mockVuln2])[0].historicTreatment,
-        {
-          acceptanceStatus: "REJECTED",
-          assigned: "usermanager2@test.test",
-          date: "2020-02-18 18:36:24",
-          justification: rejectedObservation,
-          treatment: "ACCEPTED_UNDEFINED",
-          user: "usertreatment2@test.test",
-        },
-        {
-          date: "2020-02-18 18:36:25",
-          treatment: "NEW",
-          user: "",
-        },
-      ],
-    });
-    wrapper.update();
-
-    expect(wrapper.find("li").first().find("p")).toHaveLength(
-      newNumberOfFields
-    );
-    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
-      normalNumberOfFields
-    );
-    expect(wrapper.find("li").at(1).find("p").first().text()).toBe(
-      t(
-        formatDropdownField(
-          formatVulnerabilities([mockVuln2])[0].historicTreatment.slice(-1)[0]
-            .treatment
-        )
-      ) + t("searchFindings.tabDescription.treatment.pendingApproval")
-    );
-    expect(wrapper.find("li").at(1).find("p").last().text()).toBe(
-      `${t(
-        "searchFindings.tabTracking.justification"
-      )}\u00a0${rejectedObservation}`
-    );
-
     const closeButton: ReactWrapper = wrapper
       .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
@@ -196,5 +160,44 @@ describe("TrackingTreatment", (): void => {
     wrapper.update();
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("should render in treatment tracking 2", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const onClose: jest.Mock = jest.fn();
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
+        <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment2]}>
+          <TreatmentTracking onClose={onClose} vulnId={vulnId} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+      });
+    });
+
+    expect(wrapper).toHaveLength(1);
+
+    expect(wrapper.find("li").first().find("p")).toHaveLength(
+      newNumberOfFields
+    );
+    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
+      normalNumberOfFields
+    );
+    expect(wrapper.find("li").at(1).find("p").first().text()).toBe(
+      t(formatDropdownField(historicTreatment[2].treatment)) +
+        t("searchFindings.tabDescription.treatment.pendingApproval")
+    );
+    expect(wrapper.find("li").at(1).find("p").last().text()).toBe(
+      `${t(
+        "searchFindings.tabTracking.justification"
+      )}\u00a0${rejectedObservation}`
+    );
   });
 });

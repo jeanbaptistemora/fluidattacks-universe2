@@ -1,3 +1,7 @@
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
@@ -5,11 +9,15 @@ import styled from "styled-components";
 import { Button } from "components/Button";
 import styles from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index.css";
 import { TrackingTreatment } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/item";
+import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
+import type { IGetVulnTreatmentAttr } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { ButtonToolbar, Col100 } from "styles/styledComponents";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 interface ITreatmentTrackingAttr {
-  historicTreatment: IHistoricTreatment[];
+  vulnId: string;
   onClose: () => void;
 }
 
@@ -20,11 +28,31 @@ const TrackingContainer = styled.nav.attrs({
 `;
 
 export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
-  historicTreatment,
+  vulnId,
   onClose,
 }: ITreatmentTrackingAttr): JSX.Element => {
   const { t } = useTranslation();
 
+  const { data } = useQuery<IGetVulnTreatmentAttr>(GET_VULN_TREATMENT, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred loading the vulnerability historic treatment",
+          error
+        );
+      });
+    },
+    variables: {
+      vulnId,
+    },
+  });
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <React.StrictMode />;
+  }
+
+  const { historicTreatment } = data.vulnerability;
   const reversedHistoricTreatment = historicTreatment
     .reduce(
       (
