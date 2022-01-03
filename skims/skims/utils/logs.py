@@ -42,23 +42,14 @@ def configure() -> None:
         and (batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"))
     ):
         log_stream_name = (
-            f"{CTX.config.group}/{CTX.config.namespace}/{batch_job_id}"
+            f"{CTX.config.group}/{batch_job_id}/{CTX.config.namespace}"
         )
         watchover_handler = watchtower.CloudWatchLogHandler(
             "skims",
             log_stream_name,
             send_interval=15,
         )
-        log_stream_name_pf = (
-            f"{CTX.config.group}/{batch_job_id}/{CTX.config.namespace}"
-        )
-        watchover_handler_pf = watchtower.CloudWatchLogHandler(
-            "skims",
-            log_stream_name_pf,
-            send_interval=15,
-        )
         _LOGGER.addHandler(watchover_handler)
-        _LOGGER.addHandler(watchover_handler_pf)
     _LOGGER_HANDLER.setStream(sys.stdout)
     _LOGGER_HANDLER.setLevel(logging.INFO)
     _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
