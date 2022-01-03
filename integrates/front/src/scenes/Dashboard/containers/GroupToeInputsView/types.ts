@@ -1,3 +1,6 @@
+interface IGroupToeInputsViewProps {
+  isInternal: boolean;
+}
 interface IToeInputEdge {
   node: IToeInputAttr;
 }
@@ -36,6 +39,7 @@ interface IToeInputData {
 }
 
 export type {
+  IGroupToeInputsViewProps,
   IToeInputAttr,
   IToeInputEdge,
   IToeInputData,

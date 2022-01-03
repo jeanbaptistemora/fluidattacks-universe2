@@ -63,11 +63,9 @@ const toeContent: React.FC<IToeContentProps> = (
           <Route exact={true} path={`${path}/lines`}>
             <GroupToeLinesView isInternal={isInternal} />
           </Route>
-          <Route
-            component={GroupToeInputsView}
-            exact={true}
-            path={`${path}/inputs`}
-          />
+          <Route exact={true} path={`${path}/inputs`}>
+            <GroupToeInputsView isInternal={isInternal} />
+          </Route>
           {canGetToeLines ? <Redirect to={`${path}/lines`} /> : undefined}
           {canGetToeInputs ? <Redirect to={`${path}/inputs`} /> : undefined}
         </Switch>

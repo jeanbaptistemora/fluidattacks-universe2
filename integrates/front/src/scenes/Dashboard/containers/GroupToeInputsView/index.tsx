@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
@@ -13,15 +15,28 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
+  IGroupToeInputsViewProps,
   IToeInputData,
   IToeInputEdge,
   IToeInputsConnection,
 } from "scenes/Dashboard/containers/GroupToeInputsView/types";
+import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
-const GroupToeInputsView: React.FC = (): JSX.Element => {
+const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
+  props: IGroupToeInputsViewProps
+): JSX.Element => {
+  const { isInternal } = props;
+
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canGetAttackedAt: boolean = permissions.can(
+    "api_resolvers_toe_input_attacked_at_resolve"
+  );
+  const canGetSeenFirstTimeBy: boolean = permissions.can(
+    "api_resolvers_toe_input_seen_first_time_by_resolve"
+  );
   const { groupName } = useParams<{ groupName: string }>();
 
   const [checkedItems, setCheckedItems] = useStoredState<
@@ -128,6 +143,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.inputs.testedDate"),
+      omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.testedDate,
     },
@@ -144,6 +160,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       align: "left",
       dataField: "seenFirstTimeBy",
       header: translate.t("group.toe.inputs.seenFirstTimeBy"),
+      omit: !isInternal || !canGetSeenFirstTimeBy,
       onSort,
       visible: checkedItems.seenFirstTimeBy,
     },

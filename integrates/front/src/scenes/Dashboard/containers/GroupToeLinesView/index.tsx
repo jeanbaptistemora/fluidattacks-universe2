@@ -337,6 +337,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
   const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
+    _.isNull(toeLinesAttr.attackedAt) ||
     _.isEmpty(toeLinesAttr.attackedAt) ||
     moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
       ? toeLinesAttr.bePresent

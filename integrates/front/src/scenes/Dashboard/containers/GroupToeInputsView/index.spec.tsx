@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
@@ -12,6 +13,7 @@ import { GET_TOE_INPUTS } from "./queries";
 import { GroupToeInputsView } from ".";
 import { DataTableNext } from "components/DataTableNext";
 import type { ITableProps } from "components/DataTableNext/types";
+import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupToeInputsView", (): void => {
   it("should return a function", (): void => {
@@ -77,13 +79,18 @@ describe("GroupToeInputsView", (): void => {
         },
       },
     };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_toe_input_attacked_at_resolve" },
+      { action: "api_resolvers_toe_input_seen_first_time_by_resolve" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/surface/inputs"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
-          <Route
-            component={GroupToeInputsView}
-            path={"/:groupName/surface/inputs"}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/inputs"}>
+              <GroupToeInputsView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
