@@ -2,8 +2,6 @@ import _ from "lodash";
 import moment from "moment";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
@@ -88,15 +86,12 @@ const formatVulnerabilities: (
   vulnerabilities: IVulnRowAttr[]
 ) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
-    const lastTreatment: IHistoricTreatment = getLastTreatment(
-      vulnerability.historicTreatment
-    );
     const isPendingToApproval: boolean =
-      lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
-      lastTreatment.acceptanceStatus !== "APPROVED";
+      vulnerability.treatment === "ACCEPTED_UNDEFINED" &&
+      vulnerability.treatmentAcceptanceStatus !== "APPROVED";
     const isVulnOpen: boolean = vulnerability.currentState === "open";
     const treatmentLabel: string =
-      translate.t(formatDropdownField(lastTreatment.treatment)) +
+      translate.t(formatDropdownField(vulnerability.treatment)) +
       (isPendingToApproval
         ? translate.t("searchFindings.tabDescription.treatment.pendingApproval")
         : "");
@@ -116,13 +111,21 @@ const formatVulnerabilities: (
 
     return {
       ...vulnerability,
-      assigned: isVulnOpen ? (lastTreatment.assigned as string) : "-",
+      assigned: isVulnOpen ? (vulnerability.treatmentAssigned as string) : "-",
       currentStateCapitalized: _.capitalize(
         vulnerability.currentState
       ) as IVulnRowAttr["currentStateCapitalized"],
+      lastTreatmentDate: isVulnOpen
+        ? vulnerability.lastTreatmentDate.split(" ")[0]
+        : "-",
       reportDate: vulnerability.reportDate.split(" ")[0],
       treatment: isVulnOpen ? treatmentLabel : "-",
-      treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
+      treatmentAssigned: isVulnOpen
+        ? (vulnerability.treatmentAssigned as string)
+        : "-",
+      treatmentDate: isVulnOpen
+        ? vulnerability.lastTreatmentDate.split(" ")[0]
+        : "-",
       verification: shouldDisplayVerification ? verification : "",
       vulnerabilityType: translate.t(
         `searchFindings.tabVuln.vulnTable.vulnerabilityType.${vulnerability.vulnerabilityType}`
@@ -144,8 +147,7 @@ function filterTreatment(
   return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
     _.isEmpty(treatment)
       ? true
-      : getLastTreatment(vuln.historicTreatment).treatment === treatment &&
-        vuln.currentState === "open"
+      : vuln.treatment === treatment && vuln.currentState === "open"
   );
 }
 function filterVerification(
@@ -195,12 +197,9 @@ function filterTreatmentCurrentStatus(
   currentState: string
 ): IVulnRowAttr[] {
   return vulnerabilities.filter((vuln: IVulnRowAttr): boolean => {
-    const lastTreatment: IHistoricTreatment = getLastTreatment(
-      vuln.historicTreatment
-    );
     const isPendingToApproval: string = (
-      lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
-      lastTreatment.acceptanceStatus !== "APPROVED"
+      vuln.treatment === "ACCEPTED_UNDEFINED" &&
+      vuln.treatmentAcceptanceStatus !== "APPROVED"
     ).toString();
 
     return _.isEmpty(currentState)

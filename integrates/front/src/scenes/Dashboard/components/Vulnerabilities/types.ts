@@ -10,6 +10,7 @@ interface IVulnRowAttr {
   externalBugTrackingSystem: string | null;
   historicTreatment: IHistoricTreatment[];
   id: string;
+  lastTreatmentDate: string;
   lastVerificationDate: string | null;
   remediated: boolean;
   reportDate: string;
@@ -19,6 +20,9 @@ interface IVulnRowAttr {
   tag: string;
   treatment: string;
   treatmentDate: string;
+  treatmentAcceptanceStatus: string | null;
+  treatmentAssigned: string | null;
+  treatmentJustification: string | null;
   assigned: string;
   verification: string | null;
   vulnerabilityType: string;

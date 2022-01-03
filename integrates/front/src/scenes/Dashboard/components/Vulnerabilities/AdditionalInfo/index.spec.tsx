@@ -36,6 +36,7 @@ describe("AdditionalInfo", (): void => {
       },
     ],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
+    lastTreatmentDate: "2019-07-05 09:56:40",
     lastVerificationDate: moment()
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
@@ -46,7 +47,10 @@ describe("AdditionalInfo", (): void => {
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
+    treatmentAcceptanceStatus: "",
+    treatmentAssigned: "assigned-user-4",
     treatmentDate: "2019-07-05 09:56:40",
+    treatmentJustification: "test progress justification",
     verification: "Verified",
     vulnerabilityType: "lines",
     where: "https://example.com/lines",

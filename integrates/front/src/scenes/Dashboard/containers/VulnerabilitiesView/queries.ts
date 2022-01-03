@@ -16,6 +16,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
       treatment
     }
     id
+    lastTreatmentDate
     lastVerificationDate
     remediated
     reportDate
@@ -23,6 +24,10 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     specific
     stream
     tag
+    treatment
+    treatmentAcceptanceStatus
+    treatmentAssigned
+    treatmentJustification
     verification
     vulnerabilityType
     where

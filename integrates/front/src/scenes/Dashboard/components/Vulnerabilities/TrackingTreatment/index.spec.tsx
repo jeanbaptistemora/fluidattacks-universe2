@@ -57,6 +57,7 @@ describe("TrackingTreatment", (): void => {
     externalBugTrackingSystem: null,
     historicTreatment: [...historicTreatment],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
+    lastTreatmentDate: "2019-07-05 09:56:40",
     lastVerificationDate: moment()
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
@@ -67,7 +68,10 @@ describe("TrackingTreatment", (): void => {
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
-    treatmentDate: "2019-07-05 09:56:40",
+    treatmentAcceptanceStatus: "",
+    treatmentAssigned: "usermanager4@test.test",
+    treatmentDate: "2020-10-08 15:29:48",
+    treatmentJustification: "test progress justification",
     verification: "Verified",
     vulnerabilityType: "lines",
     where: "https://example.com/lines",
