@@ -25,12 +25,6 @@ class CommitId:
 
 
 @dataclass(frozen=True)
-class CommitDataId:
-    repo: RepoId
-    hash: CommitId
-
-
-@dataclass(frozen=True)
 class User:
     name: str
     email: str
@@ -53,6 +47,18 @@ class CommitData:
     message: str
     summary: str
     deltas: Deltas
+
+
+@dataclass(frozen=True)
+class CommitDataObj:
+    commit_id: CommitId
+    data: CommitData
+
+
+@dataclass(frozen=True)
+class CommitDataId:
+    repo: RepoId
+    hash: CommitId
 
 
 @dataclass(frozen=True)

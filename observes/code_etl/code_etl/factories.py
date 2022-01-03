@@ -1,5 +1,6 @@
 from code_etl.objs import (
     CommitData,
+    CommitDataObj,
     CommitId,
     Deltas,
     User,
@@ -17,7 +18,6 @@ from purity.v1 import (
 from typing import (
     Any,
     Dict,
-    Tuple,
 )
 
 _to_prim = PrimitiveFactory.to_primitive
@@ -63,7 +63,7 @@ def gen_fa_hash_2(commit: CommitData) -> str:
 @dataclass(frozen=True)
 class CommitDataFactory:
     @staticmethod
-    def from_commit(commit: Commit) -> Tuple[CommitId, CommitData]:
+    def from_commit(commit: Commit) -> CommitDataObj:
         author = User(
             _to_prim(commit.author.name, str),
             _to_prim(commit.author.email, str),
@@ -88,7 +88,7 @@ class CommitDataFactory:
             deltas,
         )
         _id = CommitId(commit.hexsha, gen_fa_hash(data))
-        return (_id, data)
+        return CommitDataObj(_id, data)
 
 
 @dataclass(frozen=True)

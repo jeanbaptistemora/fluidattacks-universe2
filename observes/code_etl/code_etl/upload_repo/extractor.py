@@ -56,13 +56,13 @@ class Extractor:
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
         if commit.hexsha == self._context.last_commit.value_or(None):
             return Maybe.empty
-        _id, _data = CommitDataFactory.from_commit(commit)
-        data = self._mailmap.map(
-            lambda m: amend_commit_users(m, _data)
-        ).value_or(_data)
-        data_id = CommitDataId(self._context.repo, _id)
+        _obj = CommitDataFactory.from_commit(commit)
+        obj = self._mailmap.map(
+            lambda m: amend_commit_users(m, _obj)
+        ).value_or(_obj)
+        data_id = CommitDataId(self._context.repo, obj.commit_id)
         stamp = CommitStamp(
-            Commit(data_id, data),
+            Commit(data_id, obj.data),
             DATE_SENTINEL if self._context.is_new else DATE_NOW,
         )
         return Maybe.from_value(stamp)

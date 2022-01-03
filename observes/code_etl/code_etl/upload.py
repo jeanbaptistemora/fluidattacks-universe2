@@ -186,21 +186,23 @@ def cli() -> None:
 def get_commit_to_fix(
     mailmap: Maybe[Mailmap], commit: Commit
 ) -> Maybe[Dict[str, Any]]:
-    _id, _data = CommitDataFactory.from_commit(commit)
-    data = mailmap.map(lambda mmap: amend_commit_users(mmap, _data)).value_or(
-        _data
+    _obj = CommitDataFactory.from_commit(commit)
+    obj = mailmap.map(lambda mmap: amend_commit_users(mmap, _obj)).value_or(
+        _obj
     )
-    if data != _data:
-        return Maybe.from_value(CommitDataAdapters.to_raw_dict(_id, data))
+    if obj != _obj:
+        return Maybe.from_value(
+            CommitDataAdapters.to_raw_dict(obj.commit_id, obj.data)
+        )
     return Maybe.empty
 
 
 def get_commit_data(mailmap: Maybe[Mailmap], commit: Commit) -> Dict[str, Any]:
-    _id, _data = CommitDataFactory.from_commit(commit)
-    data = mailmap.map(lambda mmap: amend_commit_users(mmap, _data)).value_or(
-        _data
+    _obj = CommitDataFactory.from_commit(commit)
+    obj = mailmap.map(lambda mmap: amend_commit_users(mmap, _obj)).value_or(
+        _obj
     )
-    return CommitDataAdapters.to_raw_dict(_id, data)
+    return CommitDataAdapters.to_raw_dict(obj.commit_id, obj.data)
 
 
 async def manager(
