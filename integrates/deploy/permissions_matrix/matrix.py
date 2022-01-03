@@ -61,13 +61,8 @@ def get_matrix_parameters(
         roles_lenght.keys(), key=lambda k: roles_lenght[k], reverse=True
     )
     dataset = fill_matrix(roles_and_permissions, sorted_columns, all_actions)
-    pattern = "api_resolvers_"
-    rows = [
-        action.replace(pattern, "") if pattern in action else action
-        for action in all_actions
-    ]
 
-    create_dataframe(dataset, sorted_columns, rows, filename)
+    create_dataframe(dataset, sorted_columns, all_actions, filename)
 
 
 # Matrix for common permissions
