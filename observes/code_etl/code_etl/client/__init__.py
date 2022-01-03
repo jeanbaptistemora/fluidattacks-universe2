@@ -48,6 +48,9 @@ from purity.v1.pure_iter.transform.io import (
 from purity.v2.frozen import (
     FrozenList,
 )
+from returns.converters import (
+    result_to_maybe,
+)
 from returns.io import (
     IO,
 )
@@ -96,6 +99,7 @@ def all_data_raw(
 def insert_rows(
     client: Client, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> IO[None]:
+    LOG.debug("inserting %s rows", len(rows))
     return client.cursor.execute_batch(
         query.insert_row(table), [SqlArgs(to_dict(r)) for r in rows]
     )
@@ -104,6 +108,7 @@ def insert_rows(
 def insert_unique_rows(
     client: Client, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> IO[None]:
+    LOG.debug("unique inserting %s rows", len(rows))
     return client.cursor.execute_batch(
         query.insert_unique_row(table), [SqlArgs(to_dict(r)) for r in rows]
     )
@@ -117,27 +122,32 @@ def _fetch_one(client: Client, d_type: Type[_T]) -> IO[ResultE[_T]]:
     )
 
 
+def _fetch_not_empty(client: Client) -> IO[bool]:
+    return client.cursor.fetch_one().map(lambda i: bool(i))
+
+
 def get_context(
     client: Client, table: TableID, repo: RepoId
-) -> IO[ResultE[RepoContex]]:
+) -> IO[RepoContex]:
     last = client.cursor.execute_query(
         query.last_commit_hash(table, repo)
     ).bind(lambda _: _fetch_one(client, str))
-    is_new = client.cursor.execute_query(
-        query.commit_exists(table, repo, COMMIT_HASH_SENTINEL),
-    ).bind(lambda _: _fetch_one(client, bool))
-    return last.bind(
-        lambda l: is_new.map(
-            lambda n: l.bind(
-                lambda ls: n.map(lambda ns: RepoContex(repo, ls, ns))
-            )
+    is_new = (
+        client.cursor.execute_query(
+            query.commit_exists(table, repo, COMMIT_HASH_SENTINEL),
         )
+        .bind(lambda _: _fetch_not_empty(client))
+        .map(lambda b: not b)
+    )
+    return last.bind(
+        lambda l: is_new.map(lambda n: RepoContex(repo, result_to_maybe(l), n))
     )
 
 
 def register_repos(
     client: Client, table: TableID, reg: FrozenList[RepoRegistration]
 ) -> IO[None]:
+    LOG.info("register_repos %s", str(reg))
     encoded = tuple(from_reg(r) for r in reg)
     return insert_unique_rows(client, table, encoded)
 
@@ -145,5 +155,6 @@ def register_repos(
 def insert_stamps(
     client: Client, table: TableID, stamps: FrozenList[CommitStamp]
 ) -> IO[None]:
+    LOG.info("inseting %s stamps", len(stamps))
     encoded = tuple(from_stamp(s) for s in stamps)
     return insert_unique_rows(client, table, encoded)

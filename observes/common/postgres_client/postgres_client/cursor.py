@@ -71,7 +71,8 @@ class Cursor(NamedTuple):
         return IO(tuple(self.db_cursor.fetchmany(limit)))
 
     def fetch_one(self) -> IO[Tuple[Any, ...]]:
-        return IO(self.db_cursor.fetchone())
+        raw = self.db_cursor.fetchone()
+        return IO(raw if raw else tuple())
 
     @classmethod
     def new(cls, connection: DbConnection) -> Cursor:

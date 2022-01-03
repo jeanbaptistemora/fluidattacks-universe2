@@ -54,7 +54,7 @@ class Extractor:
     _mailmap: Maybe[Mailmap]
 
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
-        if commit.hexsha == self._context.last_commit:
+        if commit.hexsha == self._context.last_commit.value_or(None):
             return Maybe.empty
         _id, _data = CommitDataFactory.from_commit(commit)
         data = self._mailmap.map(

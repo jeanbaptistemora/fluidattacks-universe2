@@ -18,6 +18,7 @@ from code_etl.upload_repo.extractor import (
 from git.repo.base import (
     Repo,
 )
+import logging
 from pathlib import (
     Path,
 )
@@ -38,6 +39,9 @@ from postgres_client.ids import (
 from purity.v2.frozen import (
     FrozenList,
 )
+from returns.functions import (
+    raise_exception,
+)
 from returns.io import (
     IO,
 )
@@ -48,6 +52,11 @@ from returns.result import (
     Failure,
     ResultE,
 )
+from typing import (
+    List,
+)
+
+LOG = logging.getLogger(__name__)
 
 
 class NonexistentPath(Exception):
@@ -67,18 +76,15 @@ def upload(
     namespace: str,
     repo_path: Path,
     mailmap: Maybe[Mailmap],
-) -> IO[ResultE[IO[None]]]:
-    if not repo_path.exists():
-        return IO(Failure(NonexistentPath(str(repo_path))))
+) -> IO[None]:
     repo = Repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
+    LOG.info("Uploading %s", repo_id)
     extractor = get_context(client, target, repo_id).map(
-        lambda r: r.map(lambda i: Extractor(i, mailmap))
+        lambda r: Extractor(r, mailmap)
     )
-    return extractor.map(
-        lambda r_ext: r_ext.map(
-            lambda ext: upload_or_register(client, target, ext, repo)
-        )
+    return extractor.bind(
+        lambda ext: upload_or_register(client, target, ext, repo)
     )
 
 
@@ -90,11 +96,14 @@ def upload_repos(
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> IO[None]:
+    LOG.info(
+        "Uploading repos data into %s.%s", target.schema, target.table_name
+    )
     client_paths = tuple(
         (ClientFactory().from_creds(db_id, creds), p) for p in repo_paths
     )
     pool = ThreadPool()
-    pool.map(
+    results: List[IO[None]] = pool.map(
         lambda i: upload(i[0], target, namespace, i[1], mailmap), client_paths
     )
     return IO(None)

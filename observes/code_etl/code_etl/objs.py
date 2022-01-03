@@ -1,8 +1,13 @@
+# pylint: skip-file
+
 from dataclasses import (
     dataclass,
 )
 from datetime import (
     datetime,
+)
+from returns.maybe import (
+    Maybe,
 )
 
 
@@ -71,5 +76,5 @@ class RepoRegistration:
 @dataclass(frozen=True)
 class RepoContex:
     repo: RepoId
-    last_commit: str
+    last_commit: Maybe[str]
     is_new: bool

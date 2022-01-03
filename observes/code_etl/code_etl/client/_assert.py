@@ -41,3 +41,5 @@ def assert_key(raw: FrozenList[Any], key: int) -> ResultE[Any]:
         return Success(raw[key])
     except KeyError as err:
         return Failure(err)
+    except IndexError as i_err:
+        return Failure(i_err)
