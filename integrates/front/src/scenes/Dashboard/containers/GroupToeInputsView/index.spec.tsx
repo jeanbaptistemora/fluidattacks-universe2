@@ -110,31 +110,31 @@ describe("GroupToeInputsView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
-        "Be present",
         "Root",
         "Entry point",
         "Attacked at",
         "Seen at",
         "Seen first time by",
+        "Be present",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
-      ["Yes", "test_nickname", "idTest", "2020-01-02", "2000-01-01", ""].join(
+      ["test_nickname", "idTest", "2020-01-02", "2000-01-01", "", "Yes"].join(
         ""
       )
     );
     expect(secondRow.text()).toStrictEqual(
       [
-        "Yes",
         "test_nickname",
         "btnTest",
         "2021-02-02",
         "2020-03-14",
         "test@test.com",
+        "Yes",
       ].join("")
     );
     expect(thirdRow.text()).toStrictEqual(
-      ["No", "", "-", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
+      ["", "-", "2021-02-11", "2020-01-11", "test2@test.com", "No"].join("")
     );
   });
 });

@@ -110,14 +110,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "bePresent",
-      formatter: formatBoolean,
-      header: translate.t("group.toe.inputs.bePresent"),
-      onSort,
-      visible: checkedItems.bePresent,
-    },
-    {
-      align: "center",
       dataField: "unreliableRootNickname",
       header: translate.t("group.toe.inputs.root"),
       onSort,
@@ -163,6 +155,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       omit: !isInternal || !canGetSeenFirstTimeBy,
       onSort,
       visible: checkedItems.seenFirstTimeBy,
+    },
+    {
+      align: "center",
+      dataField: "bePresent",
+      formatter: formatBoolean,
+      header: translate.t("group.toe.inputs.bePresent"),
+      onSort,
+      visible: checkedItems.bePresent,
     },
   ];
 
