@@ -25,14 +25,15 @@ interface IPointStatus {
 const PointStatus: React.FC<IPointStatus> = ({
   status,
 }: IPointStatus): JSX.Element => {
-  const statusCapitalized: string = _.capitalize(status);
-  const currentStateBgColor: string = getBgColor(statusCapitalized);
+  const formatedStatus: string =
+    _.upperCase(status) === "OK" ? _.upperCase(status) : _.capitalize(status);
+  const currentStateBgColor: string = getBgColor(_.capitalize(status));
 
   return (
     <React.StrictMode>
       <span>
         <Point className={`v-mid ${currentStateBgColor}`} />
-        <span className={"v-mid"}>&nbsp;{statusCapitalized.split(" ")[0]}</span>
+        <span className={"v-mid"}>&nbsp;{formatedStatus.split(" ")[0]}</span>
       </span>
     </React.StrictMode>
   );
