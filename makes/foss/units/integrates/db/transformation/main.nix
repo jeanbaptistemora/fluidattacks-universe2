@@ -6,7 +6,7 @@
 makeDerivation {
   env = {
     envDbData = projectPath "/integrates/back/tests/data";
-    envNewDbDesign = projectPath "/integrates/arch";
+    envNewDbDesign = projectPath "/integrates/arch/database-design.json";
   };
   name = "integrates-db-data-transformation";
   searchPaths = {
