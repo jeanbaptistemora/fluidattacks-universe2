@@ -327,6 +327,14 @@
       "title": "100. Server-side request forgery (SSRF)"
     }
   },
+  "F101": {
+    "EN": {
+      "title": "101. Lack of protection against deletion"
+    },
+    "ES": {
+      "title": "101. Lack of protection against deletion"
+    }
+  },
   "F103": {
     "EN": {
       "title": "103. Insufficient data authenticity validation - APK signing"
