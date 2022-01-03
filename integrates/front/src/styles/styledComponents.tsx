@@ -393,7 +393,7 @@ const GroupScopeText: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 vertical-center w-60-ns fw2 f4",
+  className: "ph1-5 vertical-center w-60-ns fw2 f5",
 })``;
 
 const GroupScopeTextWide: StyledComponent<
@@ -402,7 +402,7 @@ const GroupScopeTextWide: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 vertical-center w-75 fw2 f4",
+  className: "ph1-5 vertical-center w-75 fw2 f5",
 })``;
 
 const QuestionButton: StyledComponent<
