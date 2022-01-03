@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from code_etl.client.encoder import (
     CommitTableRow,
     RawRow,
@@ -18,17 +20,40 @@ from postgres_client.query import (
     Query,
     SqlArgs,
 )
+from returns.maybe import (
+    Maybe,
+)
 
 
-def all_data(table: TableID) -> Query:
+def _all_data(table: TableID, namespace: Maybe[str]) -> Query:
     _attrs = ",".join([f.name for f in fields(RawRow)])
-    args = SqlArgs(
+    _args = SqlArgs(
         identifiers={
             "schema": table.schema.name,
             "table": table.table_name,
         }
     )
-    return Query(f"SELECT {_attrs} FROM {{schema}}.{{table}}", args)
+    args = namespace.map(
+        lambda n: SqlArgs(
+            {
+                "namespace": n,
+            },
+            _args.identifiers,
+        )
+    ).value_or(_args)
+    _query = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
+    query = namespace.map(
+        lambda n: _query + " WHERE namespace = %(namespace)s"
+    ).value_or(_query)
+    return Query(query, args)
+
+
+def namespace_data(table: TableID, namespace: str) -> Query:
+    return _all_data(table, Maybe.from_value(namespace))
+
+
+def all_data(table: TableID) -> Query:
+    return _all_data(table, Maybe.empty)
 
 
 def all_data_count(table: TableID) -> Query:

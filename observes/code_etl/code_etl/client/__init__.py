@@ -87,13 +87,28 @@ def _fetch(
     )
 
 
+def _all_data(
+    client: Client, table: TableID, namespace: Maybe[str]
+) -> PureIter[IO[ResultE[CommitTableRow]]]:
+    pkg_items = 2000
+    statement = namespace.map(
+        lambda n: query.namespace_data(table, n)
+    ).or_else_call(lambda: query.all_data(table))
+    client.cursor.execute_query(statement)
+    items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
+    return chain(until_empty(items).map(lambda i: i.map(from_flist)))
+
+
+def namespace_data(
+    client: Client, table: TableID, namespace: str
+) -> PureIter[IO[ResultE[CommitTableRow]]]:
+    return _all_data(client, table, Maybe.from_value(namespace))
+
+
 def all_data_raw(
     client: Client, table: TableID
 ) -> PureIter[IO[ResultE[CommitTableRow]]]:
-    pkg_items = 2000
-    client.cursor.execute_query(query.all_data(table))
-    items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
-    return chain(until_empty(items).map(lambda i: i.map(from_flist)))
+    return _all_data(client, table, Maybe.empty)
 
 
 def insert_rows(
