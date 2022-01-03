@@ -169,24 +169,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const headersToeLinesTable: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "bePresent",
-      formatter: formatBoolean,
-      header: translate.t("group.toe.lines.bePresent"),
-      onSort,
-      visible: checkedItems.bePresent,
-    },
-    {
-      align: "center",
-      dataField: "bePresentUntil",
-      filter: dateFilter({}),
-      formatter: formatDate,
-      header: translate.t("group.toe.lines.bePresentUntil"),
-      omit: !isInternal || !canGetBePresentUntil,
-      onSort,
-      visible: checkedItems.bePresentUntil,
-    },
-    {
-      align: "center",
       dataField: "rootNickname",
       header: translate.t("group.toe.lines.root"),
       onSort,
@@ -306,6 +288,24 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       header: translate.t("group.toe.lines.sortsRiskLevel"),
       onSort,
       visible: checkedItems.sortsRiskLevel,
+    },
+    {
+      align: "center",
+      dataField: "bePresent",
+      formatter: formatBoolean,
+      header: translate.t("group.toe.lines.bePresent"),
+      onSort,
+      visible: checkedItems.bePresent,
+    },
+    {
+      align: "center",
+      dataField: "bePresentUntil",
+      filter: dateFilter({}),
+      formatter: formatDate,
+      header: translate.t("group.toe.lines.bePresentUntil"),
+      omit: !isInternal || !canGetBePresentUntil,
+      onSort,
+      visible: checkedItems.bePresentUntil,
     },
   ];
 

@@ -135,7 +135,6 @@ describe("GroupToeLinesView", (): void => {
 
     expect(tableHeader.text()).toStrictEqual(
       [
-        "Be present",
         "Root",
         "Coverage",
         "LOC",
@@ -144,11 +143,11 @@ describe("GroupToeLinesView", (): void => {
         "Modified commit",
         "Attacked at",
         "Comments",
+        "Be present",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
       [
-        "No",
         "integrates_1",
         "70%",
         "172",
@@ -157,11 +156,11 @@ describe("GroupToeLinesView", (): void => {
         "273412t",
         "",
         "comment 2",
+        "No",
       ].join("")
     );
     expect(secondRow.text()).toStrictEqual(
       [
-        "Yes",
         "product",
         "50%",
         "8",
@@ -170,6 +169,7 @@ describe("GroupToeLinesView", (): void => {
         "983466z",
         "2021-02-20",
         "comment 1",
+        "Yes",
       ].join("")
     );
   });
