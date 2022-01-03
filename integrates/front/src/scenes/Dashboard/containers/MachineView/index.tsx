@@ -50,6 +50,7 @@ const MachineView: React.FC = (): JSX.Element => {
     startedAt: "",
     status: "",
     stoppedAt: "",
+    vulnerabilities: null,
   };
   const [currentRow, updateRow] = useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
@@ -170,25 +171,21 @@ const MachineView: React.FC = (): JSX.Element => {
     ? []
     : data.finding.machineJobs.map(
         (job: IFindingMachineJob): IExecution => ({
-          createdAt: job.createdAt,
+          ...job,
           duration:
             job.startedAt === null || job.stoppedAt === null
               ? -1
               : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
           jobId: job.id,
-          name: job.name,
           priority: job.queue.endsWith("_soon")
             ? translate.t("searchFindings.tabMachine.priorityHigh")
             : translate.t("searchFindings.tabMachine.priorityNormal"),
-          queue: job.queue,
           rootId: job.rootNickname,
           rootNickname: job.rootNickname,
           startedAt: (job.startedAt === null
             ? -1
             : parseFloat(job.startedAt)
           ).toString(),
-          status: job.status,
-          stoppedAt: job.startedAt,
         })
       );
 
@@ -243,6 +240,7 @@ const MachineView: React.FC = (): JSX.Element => {
           startedAt={currentRow.startedAt}
           status={currentRow.status}
           stoppedAt={currentRow.stoppedAt}
+          vulnerabilities={currentRow.vulnerabilities}
         />
         <Row>
           <Col100>

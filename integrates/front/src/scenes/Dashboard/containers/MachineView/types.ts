@@ -11,6 +11,12 @@ interface IFindingMachineJob {
   startedAt: string | null;
   stoppedAt: string | null;
   status: string;
+  vulnerabilities: IVulnerabilitiesDetails | null;
+}
+
+interface IVulnerabilitiesDetails {
+  modified: number;
+  open: number;
 }
 
 interface IExecution {
@@ -25,6 +31,7 @@ interface IExecution {
   stoppedAt: string | null;
   rootId: string;
   rootNickname: string;
+  vulnerabilities: IVulnerabilitiesDetails | null;
 }
 interface IGroupRoot {
   nickname: string;

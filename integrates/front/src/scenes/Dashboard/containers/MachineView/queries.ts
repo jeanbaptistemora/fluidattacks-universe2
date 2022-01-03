@@ -15,6 +15,10 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
         startedAt
         stoppedAt
         status
+        vulnerabilities {
+          open
+          modified
+        }
       }
     }
     group(groupName: $groupName) {

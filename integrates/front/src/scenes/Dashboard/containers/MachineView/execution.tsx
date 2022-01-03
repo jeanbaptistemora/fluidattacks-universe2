@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 
 import type { IExecution } from "./types";
@@ -18,6 +19,7 @@ const Execution: React.FC<IExecution> = (
     name,
     queue,
     rootNickname,
+    vulnerabilities,
   } = props;
 
   return (
@@ -110,6 +112,32 @@ const Execution: React.FC<IExecution> = (
           <p>{formatDuration(duration)}</p>
         </Col33>
       </Row>
+      {!_.isUndefined(vulnerabilities) && (
+        <React.Fragment>
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <Row className={"nb3"}>
+            <Col33>
+              <p>
+                <b>{"Open vulnerabilities"}</b>
+              </p>
+            </Col33>
+            <Col33>
+              <p>{vulnerabilities?.open}</p>
+            </Col33>
+          </Row>
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <Row className={"nb3"}>
+            <Col33>
+              <p>
+                <b>{"Modified vulnerabilities"}</b>
+              </p>
+            </Col33>
+            <Col33>
+              <p>{vulnerabilities?.modified}</p>
+            </Col33>
+          </Row>
+        </React.Fragment>
+      )}
       <br />
     </div>
   );
