@@ -1008,7 +1008,7 @@ class FindingEnum(Enum):
         ),
     )
     F101: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F101",
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
