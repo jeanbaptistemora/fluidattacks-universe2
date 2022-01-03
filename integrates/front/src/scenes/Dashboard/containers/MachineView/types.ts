@@ -13,6 +13,19 @@ interface IFindingMachineJob {
   status: string;
 }
 
+interface IExecution {
+  createdAt: string | null;
+  duration: number;
+  jobId: string;
+  name: string;
+  priority: string;
+  queue: string;
+  status: string;
+  startedAt: string | null;
+  stoppedAt: string | null;
+  rootId: string;
+  rootNickname: string;
+}
 interface IGroupRoot {
   nickname: string;
   state: string;
@@ -50,6 +63,7 @@ interface IQueue {
 }
 
 export {
+  IExecution,
   IFindingMachineJob,
   IFindingMachineJobs,
   IGroupRoot,

@@ -177,7 +177,7 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
 };
 
 const formatDate: (date: string) => string = (date: string): string => {
-  const dateObj: Date = new Date(date);
+  const dateObj: Date = new Date(parseFloat(date));
 
   const toStringAndPad: (input: number, positions: number) => string = (
     input: number,
