@@ -15,7 +15,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_activate_root_mutate",
             "api_mutations_add_event_consult_mutate",
-            "api_mutations_add_billing_checkout_mutate",
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
             "api_mutations_add_files_mutate",
@@ -80,7 +79,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_zero_risk_resolve",
             "api_resolvers_group_analytics_resolve",
             "api_resolvers_group_bill_resolve",
-            "api_resolvers_group_billing_portal_resolve",
             "api_resolvers_group_consulting_resolve",
             "api_resolvers_group_drafts_resolve",
             "api_resolvers_group_forces_token_resolve",
@@ -641,10 +639,12 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *GROUP_LEVEL_ROLES["admin"]["actions"],
+            "api_mutations_add_billing_checkout_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
+            "api_resolvers_organization_billing_portal_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",

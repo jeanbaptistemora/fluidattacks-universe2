@@ -1020,3 +1020,13 @@ class InvalidToeLinesAttackedLines(CustomBaseException):
             "(lines of code)"
         )
         super(InvalidToeLinesAttackedLines, self).__init__(msg)
+
+
+class InvalidBillingCustomer(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Cannot create portal session. "
+            "The organization does not have a customer yet. "
+            "Please checkout at least one subscription for a group."
+        )
+        super(InvalidBillingCustomer, self).__init__(msg)

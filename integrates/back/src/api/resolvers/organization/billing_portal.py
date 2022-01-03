@@ -25,7 +25,7 @@ async def resolve(
     parent: Organization, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Portal:
     org_name: str = parent["name"]
-    org_billing_customer: str = parent["billing_customer"]
+    org_billing_customer: str = parent.get("billing_customer", "")
 
     return await billing_domain.portal(
         org_name=org_name,

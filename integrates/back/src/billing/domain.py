@@ -1,4 +1,8 @@
+from billing import (
+    utils,
+)
 from billing.types import (
+    ClientReference,
     Customer,
     Portal,
 )
@@ -7,8 +11,17 @@ from context import (
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
 )
+from custom_exceptions import (
+    InvalidBillingCustomer,
+)
 from custom_types import (
     AddBillingCheckoutPayload,
+)
+from dataloaders import (
+    get_new_context,
+)
+from groups import (
+    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -32,11 +45,42 @@ LOGGER = logging.getLogger(__name__)
 stripe.api_key = FI_STRIPE_API_KEY
 
 
+async def _set_group_tier(
+    *,
+    event_id: str,
+    group_name: str,
+    tier: str,
+) -> bool:
+    data = {
+        "loaders": get_new_context(),
+        "group_name": group_name,
+        "reason": f"Triggered by Stripe event {event_id}",
+        "requester_email": "Integrates billing module",
+        "comments": "",
+        "subscription": "",
+        "has_machine": False,
+        "has_squad": False,
+        "has_asm": True,
+        "service": "",
+        "tier": tier,
+    }
+
+    if tier == "machine":
+        data["subscription"] = "continuous"
+        data["has_machine"] = True
+        data["has_squad"] = False
+        data["has_asm"] = True
+        data["service"] = "WHITE"
+
+    return await groups_domain.update_group_attrs(**data)
+
+
 async def create_customer(
     *,
     org_name: str,
     user_email: str,
 ) -> Customer:
+    """Create Stripe customer"""
     customer = stripe.Customer.create(
         name=org_name,
         email=user_email,
@@ -56,10 +100,11 @@ async def checkout(
     org_name: str,
     group_name: str,
 ) -> AddBillingCheckoutPayload:
+    """Create Stripe checkout session"""
     price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
     session_data = {
         "customer": org_billing_customer,
-        "client_reference_id": f"{org_name}__{group_name}",
+        "client_reference_id": f"{org_name}/{group_name}",
         "line_items": [
             {
                 "price": price_id,
@@ -86,6 +131,9 @@ async def portal(
     org_name: str,
     org_billing_customer: str,
 ) -> Portal:
+    """Create Stripe portal session"""
+    if org_billing_customer == "":
+        raise InvalidBillingCustomer()
 
     session = stripe.billing_portal.Session.create(
         customer=org_billing_customer,
@@ -100,7 +148,7 @@ async def portal(
 
 
 async def webhook(request: Request) -> JSONResponse:
-    """Parse webhook request and execute event"""
+    """Parse Stripe webhook request and execute event"""
 
     body: Optional[bytes] = await request.body()
     signature: Optional[str] = request.headers.get("stripe-signature")
@@ -114,8 +162,16 @@ async def webhook(request: Request) -> JSONResponse:
             FI_STRIPE_WEBHOOK_KEY,
         )
 
-        if event.type == "payment_intent.succeeded":
-            message = "PaymentIntent was successful!"
+        if event.type == "customer.subscription.created":
+            client: ClientReference = utils.parse_client_reference(
+                event.client_reference_id
+            )
+            if await _set_group_tier(
+                event_id=event.id,
+                group_name=client.group,
+                tier=event.items.data.plan.nickname,
+            ):
+                message = "Subscription was successful!"
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"
