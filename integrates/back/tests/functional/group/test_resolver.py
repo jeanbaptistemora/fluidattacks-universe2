@@ -104,22 +104,3 @@ async def test_get_assigned(populate: bool, email: str, length: int) -> None:
     )
     assert "errors" not in result
     assert len(result["data"]["group"]["vulnerabilitiesAssigned"]) == length
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("group")
-@pytest.mark.parametrize(
-    ["email"],
-    [
-        ["hacker@gmail.com"],
-        ["reattacker@gmail.com"],
-    ],
-)
-async def test_get_assigned_fail(populate: bool, email: str) -> None:
-    assert populate
-    group_name: str = "group1"
-    result: Dict[str, Any] = await get_vulnerabilities(
-        user=email, group=group_name
-    )
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
