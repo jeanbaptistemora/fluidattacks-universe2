@@ -47,9 +47,6 @@ class GroupVulnsReportHeader(GenericHeader):
     SEVERITY: ColumnConfig = ColumnConfig("Severity", width=13)
     REQUIREMENTS: ColumnConfig = ColumnConfig(label="Requirements", width=100)
     IMPACT: ColumnConfig = ColumnConfig(label="Impact", width=65)
-    AFFECTED_SYSTEMS: ColumnConfig = ColumnConfig(
-        label="Affected System", width=45
-    )
     THREAT: ColumnConfig = ColumnConfig(label="Threat", width=55)
     RECOMMENDATION: ColumnConfig = ColumnConfig(
         label="Recommendation", width=100
@@ -151,7 +148,6 @@ class GroupVulnsReportHeader(GenericHeader):
 
 
 class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
-    affected_systems: str
     attack_vector_description: str
     closed_vulnerabilities: int
     description: str
@@ -243,9 +239,6 @@ class PDFWordlistEn(Wordlist):
         "treatment_title", "Treatment"
     )
     EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidences")
-    COMPROMISED_SYSTEM_TITLE: WordlistItem = WordlistItem(
-        "compromised_system_title", "Compromised System"
-    )
     SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
     CARDINALITY_TITLE: WordlistItem = WordlistItem(
         "cardinality_title", "Vulnerabilities"

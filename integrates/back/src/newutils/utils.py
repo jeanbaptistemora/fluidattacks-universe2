@@ -36,7 +36,6 @@ async def filter_findings(
 
     def satisfies_filter(finding: Finding) -> bool:
         filter_finding_value = {
-            "affectedSystems": finding.affected_systems,
             "verified": finding.unreliable_indicators.unreliable_is_verified,
         }
         hits = 0

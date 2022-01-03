@@ -30,7 +30,7 @@ type Group {
   "Approved findings with discovered vulnerabilities"
   findings(
     """Filters findings in this Group. A dict-like object must be provided
-    e.g. `{affectedSystems: "system"}`"""
+    e.g. `{verified: True}`"""
     filters: GenericScalar
   ): [Finding]
   "Current DevSecOps (Forces) token to allow access to your CI/CD pipelines"

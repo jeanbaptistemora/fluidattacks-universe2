@@ -115,7 +115,6 @@ async def add_draft(
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())
     draft = Finding(
-        affected_systems=draft_info.affected_systems,
         hacker_email=user_email,
         attack_vector_description=draft_info.attack_vector_description,
         description=draft_info.description,

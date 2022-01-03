@@ -71,7 +71,6 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         else FindingCvssVersion.V20
     )
     finding_metadata = {
-        "affected_systems": finding.affected_systems,
         "analyst_email": finding.hacker_email,
         "attack_vector_description": finding.attack_vector_description,
         "cvss_version": cvss_version.value,

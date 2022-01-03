@@ -208,7 +208,6 @@ async def process_finding(
         )
         await findings_model.add(
             finding=Finding(
-                affected_systems=source_finding.affected_systems,
                 hacker_email=source_finding.hacker_email,
                 attack_vector_description=(
                     source_finding.attack_vector_description

@@ -110,7 +110,6 @@ Context = TypedDict(
         "severity_title": str,
         "cardinality_title": str,
         "attack_vector_title": str,
-        "compromised_system_title": str,
         "resume_page_title": str,
         "resume_table_title": str,
         "state_title": str,
@@ -181,7 +180,6 @@ async def format_finding(
         treatment = "-"
 
     return PdfFindingInfo(
-        affected_systems=finding.affected_systems,
         attack_vector_description=finding.attack_vector_description,
         closed_vulnerabilities=closed_vulnerabilities,
         description=finding.description,
@@ -468,7 +466,6 @@ class CreatorPdf:
             "severity_title": words["severity_title"],
             "cardinality_title": words["cardinality_title"],
             "attack_vector_title": words["attack_vector_title"],
-            "compromised_system_title": words["compromised_system_title"],
             "resume_page_title": words["resume_page_title"],
             "resume_table_title": words["resume_table_title"],
             "state_title": words["state_title"],

@@ -147,7 +147,6 @@ def format_finding(
     )
 
     return Finding(
-        affected_systems=metadata["affected_systems"],
         hacker_email=metadata["analyst_email"],
         approval=approval,
         attack_vector_description=metadata["attack_vector_description"],

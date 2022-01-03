@@ -91,9 +91,6 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 ===== {{attack_vector_title}}
 {{finding.attack_vector_description + "\n"}}
 
-===== {{compromised_system_title}}
-{{finding.affected_systems + "\n"}}
-
 ===== {{solution_title}}
 {{finding.recommendation + "\n"}}
 ===== {{requisite_title}}

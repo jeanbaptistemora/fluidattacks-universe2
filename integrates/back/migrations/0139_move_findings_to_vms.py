@@ -506,7 +506,6 @@ async def _proccess_finding(
                 id=finding_id,
                 state=_format_state(historic_state[0]),
                 title=old_finding.get("finding", ""),
-                affected_systems=old_finding.get("affected_systems", ""),
                 attack_vector_description=old_finding.get(
                     "attack_vector_description", ""
                 )

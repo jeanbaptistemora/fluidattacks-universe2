@@ -93,7 +93,6 @@ async def mutate(
             user_interaction=Decimal(kwargs.get("user_interaction", "0.0")),
         )
         draft_info = FindingDraftToAdd(
-            affected_systems=kwargs.get("affected_systems", ""),
             attack_vector_description=kwargs.get(
                 "attack_vector_description", ""
             )

@@ -233,7 +233,6 @@ class ITReport:
             "Severity": severity or EMPTY,
             "Requirements": finding.requirements,
             "Impact": finding.attack_vector_description,
-            "Affected System": finding.affected_systems,
             "Threat": finding.threat,
             "Recommendation": finding.recommendation,
         }

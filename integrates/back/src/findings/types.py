@@ -11,7 +11,6 @@ from typing import (
 
 
 class FindingDescriptionToUpdate(NamedTuple):
-    affected_systems: Optional[str] = None
     attack_vector_description: Optional[str] = None
     description: Optional[str] = None
     recommendation: Optional[str] = None
@@ -21,7 +20,6 @@ class FindingDescriptionToUpdate(NamedTuple):
 
 
 class FindingDraftToAdd(NamedTuple):
-    affected_systems: str
     attack_vector_description: str
     description: str
     hacker_email: str
