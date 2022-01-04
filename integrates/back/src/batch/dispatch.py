@@ -15,6 +15,7 @@ from batch.report import (
     generate_report,
 )
 from batch.roots import (
+    clone_root,
     move_root,
 )
 from batch.toe_inputs import (
@@ -36,7 +37,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def main() -> None:
+async def main() -> None:  # noqa: MC0001
     try:
         action = sys.argv[1]
         subject = sys.argv[2]
@@ -65,6 +66,8 @@ async def main() -> None:
             await refresh_toe_inputs(item=item)
         elif action == "refresh_toe_lines":
             await refresh_toe_lines(item=item)
+        elif action == "clone_root":
+            await clone_root(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(

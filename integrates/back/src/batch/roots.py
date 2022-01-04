@@ -1,6 +1,8 @@
 from aioextensions import (
     collect,
 )
+import asyncio
+import base64
 from batch.dal import (
     delete_action,
     put_action,
@@ -31,6 +33,9 @@ from db_model.findings.types import (
     Finding,
     FindingState,
 )
+from db_model.root_credentials.types import (
+    RootCredentialItem,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
@@ -59,6 +64,8 @@ from dynamodb.exceptions import (
     UnavailabilityError,
 )
 import itertools
+import logging
+import logging.config
 from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
@@ -69,9 +76,17 @@ from newutils import (
 from operator import (
     attrgetter,
 )
+import os
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from roots import (
+    domain as roots_domain,
+)
+from settings import (
+    LOGGING,
+)
+import tempfile
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
@@ -95,11 +110,20 @@ from unreliable_indicators.enums import (
 from unreliable_indicators.operations import (
     update_unreliable_indicators_by_deps,
 )
+from urllib.parse import (
+    urlparse,
+)
 import uuid
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+
 
 toe_inputs_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
@@ -455,6 +479,70 @@ async def move_root(*, item: BatchProcessing) -> None:
         ),
         template_name="root_moved",
     )
+    await delete_action(
+        action_name=item.action_name,
+        additional_info=item.additional_info,
+        entity=item.entity,
+        subject=item.subject,
+        time=item.time,
+    )
+
+
+async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
+    root_url: str = root.state.url
+    parsed_url = urlparse(root_url)
+    raw_root_url = root_url.replace(parsed_url.scheme, "")
+    branch: str = root.state.branch
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = f"{temp_dir}/{uuid.uuid4()}"
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            ssh_file.write(base64.b64decode(cred.state.key).decode())
+
+        proc = await asyncio.create_subprocess_exec(
+            "git",
+            "clone",
+            "--branch",
+            branch,
+            raw_root_url,
+            stderr=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
+            },
+        )
+        await proc.communicate()
+        if proc.returncode != 0:
+            LOGGER.error("Root cloning failed", extra=dict(extra=locals()))
+
+
+async def clone_root(*, item: BatchProcessing) -> None:
+    group_name: str = item.entity
+    root_nickname: str = item.additional_info
+
+    dataloaders: Dataloaders = get_new_context()
+    group_root_creds_loader = dataloaders.group_root_credentials
+    group_roots_loader = dataloaders.group_roots
+    group_creds = await group_root_creds_loader.load(group_name)
+    group_roots = await group_roots_loader.load(group_name)
+    root_id = await roots_domain.get_root_id_by_nickname(
+        nickname=root_nickname, group_roots=group_roots, is_git_root=True
+    )
+    root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
+    root_cred: RootCredentialItem = next(
+        filter(lambda x: root_nickname in x.state.roots, group_creds), None
+    )
+    if root and root_cred:
+        if root_cred.metadata.type.value == "SSH":
+            await _ssh_clone_root(root, root_cred)
+    else:
+        LOGGER.error(
+            "Root has not credentials to clone", extra=dict(extra=locals())
+        )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,

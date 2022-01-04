@@ -51,6 +51,10 @@ from db_model.findings.get import (
     GroupFindingsLoader,
     GroupRemovedFindingsLoader,
 )
+from db_model.root_credentials.get import (
+    GroupRootCredentialsLoader,
+    RootCredentialLoader,
+)
 from db_model.roots.get import (
     GroupRootsLoader,
     RootLoader,
@@ -93,6 +97,7 @@ class Dataloaders(NamedTuple):
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
     group_removed_findings: GroupRemovedFindingsLoader
+    group_root_credentials: GroupRootCredentialsLoader
     group_roots: GroupRootsLoader
     group_services_toe_lines: GroupServicesToeLinesLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -102,6 +107,7 @@ class Dataloaders(NamedTuple):
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
+    root_credential: RootCredentialLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
@@ -160,6 +166,7 @@ def get_new_context() -> Dataloaders:
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
+        group_root_credentials=GroupRootCredentialsLoader(),
         group_roots=GroupRootsLoader(),
         group_services_toe_lines=GroupServicesToeLinesLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
@@ -169,6 +176,7 @@ def get_new_context() -> Dataloaders:
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
         root=RootLoader(),
+        root_credential=RootCredentialLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
