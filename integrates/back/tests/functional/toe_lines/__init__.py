@@ -31,7 +31,7 @@ async def get_result(
                         filename
                         firstAttackAt
                         loc
-                        modifiedCommit
+                        lastCommit
                         modifiedDate
                         root {{
                             nickname

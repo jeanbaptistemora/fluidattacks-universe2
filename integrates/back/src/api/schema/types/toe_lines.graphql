@@ -25,10 +25,17 @@ type ToeLines {
   firstAttackAt: DateTime
   "Last author to modify this file"
   lastAuthor: String!
+  "SHA-1 commit hash in short form in which this file was modified"
+  lastCommit: String!
   "Lines of code"
   loc: Int!
   "SHA-1 commit hash in short form"
-  modifiedCommit: String!
+  modifiedCommit: String! @deprecated(
+    reason: """
+      This field will be removed after 2022/06/04.
+      Use `lastCommit` instead.
+    """
+  )
   "Modified date in iso format"
   modifiedDate: DateTime!
   "Toe lines Git Root"

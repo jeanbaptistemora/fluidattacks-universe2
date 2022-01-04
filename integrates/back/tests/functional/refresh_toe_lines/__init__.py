@@ -105,8 +105,8 @@ async def query_get(
                         filename
                         firstAttackAt
                         lastAuthor
+                        lastCommit
                         loc
-                        modifiedCommit
                         modifiedDate
                         seenAt
                         sortsRiskLevel

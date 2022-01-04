@@ -45,6 +45,7 @@ async def test_get() -> None:
         first_attack_at=datetime.fromisoformat("2020-02-19T15:41:04+00:00"),
         group_name="unittesting",
         last_author="customer@gmail.com",
+        last_commit="983466z",
         loc=8,
         modified_commit="983466z",
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
@@ -72,6 +73,7 @@ async def test_get() -> None:
         first_attack_at=datetime.fromisoformat("2020-01-19T15:41:04+00:00"),
         group_name="unittesting",
         last_author="customer@gmail.com",
+        last_commit="273412t",
         loc=172,
         modified_commit="273412t",
         modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
@@ -106,6 +108,7 @@ async def test_get_by_group() -> None:
                     ),
                     group_name="unittesting",
                     last_author="customer@gmail.com",
+                    last_commit="983466z",
                     loc=8,
                     modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
@@ -138,6 +141,7 @@ async def test_get_by_group() -> None:
                     ),
                     group_name="unittesting",
                     last_author="customer@gmail.com",
+                    last_commit="273412t",
                     loc=172,
                     modified_commit="273412t",
                     modified_date=datetime.fromisoformat(
@@ -182,6 +186,7 @@ async def test_get_by_root() -> None:
                     ),
                     group_name="unittesting",
                     last_author="customer@gmail.com",
+                    last_commit="983466z",
                     loc=8,
                     modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
@@ -224,6 +229,7 @@ async def test_get_by_root() -> None:
                     ),
                     group_name="unittesting",
                     last_author="customer@gmail.com",
+                    last_commit="273412t",
                     loc=172,
                     modified_commit="273412t",
                     modified_date=datetime.fromisoformat(

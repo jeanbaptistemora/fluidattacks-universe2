@@ -59,7 +59,7 @@ async def query_get(
                         filename
                         firstAttackAt
                         loc
-                        modifiedCommit
+                        lastCommit
                         modifiedDate
                         root {{
                             nickname

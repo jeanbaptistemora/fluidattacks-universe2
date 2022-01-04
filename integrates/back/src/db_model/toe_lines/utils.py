@@ -41,6 +41,7 @@ def format_toe_lines(item: Item) -> ToeLines:
         else None,
         group_name=item["group_name"],
         last_author=item["commit_author"],
+        last_commit=item["modified_commit"],
         loc=int(item["loc"]),
         modified_commit=item["modified_commit"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
