@@ -10,7 +10,6 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     lastTreatmentDate
     lastVerificationDate
     remediated
-    reportDate
     severity
     specific
     stream

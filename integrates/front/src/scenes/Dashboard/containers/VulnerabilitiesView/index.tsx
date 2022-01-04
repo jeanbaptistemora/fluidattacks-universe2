@@ -459,6 +459,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
       type: "dateRange",
     },
   ];
+  /*
+   * We are disabling the report date filter temporarily, while the
+   * performance issue related to vulns historics is solved
+   *
+   * https://gitlab.com/fluidattacks/product/-/issues/5777
+   */
+  const customFiltersPropsNoReportDate: IFilterProps[] =
+    customFiltersProps.slice(0, -1);
 
   return (
     <React.StrictMode>
@@ -470,7 +478,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 canDisplayHacker={canRetrieveHacker}
                 clearFiltersButton={clearFilters}
                 customFilters={{
-                  customFiltersProps,
+                  customFiltersProps: customFiltersPropsNoReportDate,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
                   oneRowMessage: true,
