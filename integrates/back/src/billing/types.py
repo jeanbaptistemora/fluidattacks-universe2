@@ -13,8 +13,3 @@ class Customer(NamedTuple):
     id: str
     name: str
     email: str
-
-
-class ClientReference(NamedTuple):
-    organization: str
-    group: str

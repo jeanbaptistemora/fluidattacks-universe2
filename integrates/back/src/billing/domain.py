@@ -1,8 +1,4 @@
-from billing import (
-    utils,
-)
 from billing.types import (
-    ClientReference,
     Customer,
     Portal,
 )
@@ -104,13 +100,22 @@ async def checkout(
     price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
     session_data = {
         "customer": org_billing_customer,
-        "client_reference_id": f"{org_name}/{group_name}",
         "line_items": [
             {
                 "price": price_id,
                 "quantity": 1,
             },
         ],
+        "metadata": {
+            "organization": org_name,
+            "group": group_name,
+        },
+        "subscription_data": {
+            "metadata": {
+                "organization": org_name,
+                "group": group_name,
+            },
+        },
         "mode": "subscription",
         "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
         "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
@@ -163,13 +168,10 @@ async def webhook(request: Request) -> JSONResponse:
         )
 
         if event.type == "customer.subscription.created":
-            client: ClientReference = utils.parse_client_reference(
-                event.client_reference_id
-            )
             if await _set_group_tier(
                 event_id=event.id,
-                group_name=client.group,
-                tier=event.items.data.plan.nickname,
+                group_name=event.metadata.group,
+                tier=event.items.data[0].price.nickname,
             ):
                 message = "Subscription was successful!"
         else:
