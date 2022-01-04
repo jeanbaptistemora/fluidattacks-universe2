@@ -345,7 +345,7 @@ async def get_machine_executions(
                 )
                 for x in item["findings_executed"]
             ],
-            commit=item.get("commit", ""),
+            commit=item.get("commit"),
         )
         for item in response.items
     )

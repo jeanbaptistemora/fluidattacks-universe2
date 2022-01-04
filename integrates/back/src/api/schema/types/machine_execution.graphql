@@ -10,6 +10,8 @@ type MachineFindingResult {
 
 """MachineJob type definition"""
 type MachineExecution {
+  "Commit of namespace"
+  commit: String
   "Unix timestamp of the job creation"
   createdAt: DateTime!
   "Findings executed in the job"
