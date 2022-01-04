@@ -13,7 +13,7 @@ description: In this blog post, we discuss an article from Boston University
 keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI,
   Ethical Hacking, Pentesting
 author: Oscar Uribe
-writer: oscardjuribe
+writer: ouribe
 name: Oscar Uribe
 about1: Software and Computer Engineering undergrad student
 about2: '"Behind every successful Coder there is an even more successful
