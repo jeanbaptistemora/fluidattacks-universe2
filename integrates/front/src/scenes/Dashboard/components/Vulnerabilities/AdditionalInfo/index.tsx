@@ -324,7 +324,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={data.vulnerability.reportDate} />
+                <Value value={data.vulnerability.reportDate.split(" ")[0]} />
               </InfoField>
             </Row>
             {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
