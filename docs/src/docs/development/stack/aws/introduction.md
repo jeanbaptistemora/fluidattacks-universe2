@@ -93,7 +93,7 @@ to generate a key pair:
     ```bash
     function okta-login {
       local role="${1:-<default-role>}" # Set as default role the role that you uses most
-      local role_uppercase="$(echo "${role^^}" | tr - _)" # Used to export the "PRODUC_ENV_*" vars
+      local role_uppercase="$(echo "${role^^}" | tr - _)" # Used to export "PROD_*" vars
       local env="${role_uppercase##*_}" # Services compatibility
       local args=(
         authenticate
@@ -105,13 +105,10 @@ to generate a key pair:
         --silent
         --duration 32400
         --environment
-      ) # Flags required to aws-okta-processor
+        --no-aws-cache
+      ) # Flags required for aws-okta-processor
 
-      if [ "${env}" == 'PROD' ]
-      then
-        args+=("--no-aws-cache") # If env is PROD cache is not used
-      fi \
-        && eval $(aws-okta-processor "${args[@]}") \
+      eval $(aws-okta-processor "${args[@]}") \
         && export "${role_uppercase}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
         && export "${role_uppercase}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" \
         && export "${env}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
