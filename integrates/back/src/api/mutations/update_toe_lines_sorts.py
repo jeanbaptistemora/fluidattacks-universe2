@@ -76,16 +76,15 @@ async def mutate(
             group_name
         )
         root_id = roots_domain.get_root_id_by_nickname(root_nickname, roots)
-        with suppress(ToeLinesNotFound):
-            toe_lines: ToeLines = await loaders.toe_lines.load(
-                ToeLinesRequest(
-                    filename=filename, group_name=group_name, root_id=root_id
-                )
+        toe_lines: ToeLines = await loaders.toe_lines.load(
+            ToeLinesRequest(
+                filename=filename, group_name=group_name, root_id=root_id
             )
-            await toe_lines_domain.update(
-                toe_lines,
-                ToeLinesAttributesToUpdate(sorts_risk_level=sorts_risk_level),
-            )
+        )
+        await toe_lines_domain.update(
+            toe_lines,
+            ToeLinesAttributesToUpdate(sorts_risk_level=sorts_risk_level),
+        )
         with suppress(ToeLinesNotFound):
             await services_toe_lines_domain.update_risk_level(
                 group_name=group_name,
