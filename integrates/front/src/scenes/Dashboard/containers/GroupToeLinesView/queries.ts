@@ -28,8 +28,8 @@ const GET_TOE_LINES: DocumentNode = gql`
             filename
             firstAttackAt @include(if: $canGetFirstAttackAt)
             lastAuthor
+            lastCommit
             loc
-            modifiedCommit
             modifiedDate
             root {
               id

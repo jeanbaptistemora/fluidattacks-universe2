@@ -57,8 +57,8 @@ describe("GroupToeLinesView", (): void => {
                     filename: "test/test#.config",
                     firstAttackAt: "2020-02-19T15:41:04+00:00",
                     lastAuthor: "customer@gmail.com",
+                    lastCommit: "983466z",
                     loc: 8,
-                    modifiedCommit: "983466z",
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
                       id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -79,8 +79,8 @@ describe("GroupToeLinesView", (): void => {
                     filename: "test2/test.sh",
                     firstAttackAt: "",
                     lastAuthor: "customer@gmail.com",
+                    lastCommit: "273412t",
                     loc: 172,
-                    modifiedCommit: "273412t",
                     modifiedDate: "2020-11-16T15:41:04+00:00",
                     root: {
                       id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
@@ -140,7 +140,7 @@ describe("GroupToeLinesView", (): void => {
         "LOC",
         "Attacked lines",
         "Modified date",
-        "Modified commit",
+        "Last commit",
         "Attacked at",
         "Comments",
       ].join("")

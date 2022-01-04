@@ -20,8 +20,8 @@ interface IToeLinesAttr {
   filename: string;
   firstAttackAt: string | null;
   lastAuthor: string;
+  lastCommit: string;
   loc: number;
-  modifiedCommit: string;
   modifiedDate: string;
   root: IGitRootAttr;
   seenAt: string;
@@ -45,8 +45,8 @@ interface IToeLinesData {
   filename: string;
   firstAttackAt: Date | undefined;
   lastAuthor: string;
+  lastCommit: string;
   loc: number;
-  modifiedCommit: string;
   modifiedDate: Date | undefined;
   root: IGitRootAttr;
   rootNickname: string;

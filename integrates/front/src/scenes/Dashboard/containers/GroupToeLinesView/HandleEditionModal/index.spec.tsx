@@ -61,8 +61,8 @@ describe("handle toe lines edition modal", (): void => {
         filename: "test/test#.config",
         firstAttackAt: new Date("2020-02-19T15:41:04+00:00"),
         lastAuthor: "customer@gmail.com",
+        lastCommit: "983466z",
         loc: 8,
-        modifiedCommit: "983466z",
         modifiedDate: new Date("2020-11-15T15:41:04+00:00"),
         root: {
           id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
