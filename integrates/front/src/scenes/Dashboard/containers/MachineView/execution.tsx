@@ -17,7 +17,6 @@ const Execution: React.FC<IExecution> = (
     stoppedAt,
     duration,
     name,
-    queue,
     rootNickname,
     vulnerabilities,
   } = props;
@@ -44,17 +43,6 @@ const Execution: React.FC<IExecution> = (
         </Col33>
         <Col60>
           <p>{name}</p>
-        </Col60>
-      </Row>
-      {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
-        <Col33>
-          <p>
-            <b>{translate.t("group.machine.job.queue")}</b>
-          </p>
-        </Col33>
-        <Col60>
-          <p>{queue}</p>
         </Col60>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
