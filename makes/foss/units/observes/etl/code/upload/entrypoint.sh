@@ -12,12 +12,6 @@ function job_code_upload {
     && aws_login_prod_new 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      'REDSHIFT_DATABASE' \
-      'REDSHIFT_HOST' \
-      'REDSHIFT_PASSWORD' \
-      'REDSHIFT_PORT' \
-      'REDSHIFT_USER' \
     && use_git_repo_services \
     && echo "[INFO] Working on ${group}" \
     && echo "[INFO] Cloning ${group}" \
@@ -28,10 +22,16 @@ function job_code_upload {
       melts drills --pull-repos "${group}"; then
       echo "[INFO] Uploading ${group}" \
         && shopt -s nullglob \
-        && code-etl upload-code \
-          "${group}" \
-          "groups/${group}/fusion/"* \
+        && code-etl v2 \
+          --db-id "${db}" \
+          --creds "${creds}" \
+          upload-code-v2 \
+          --schema 'code' \
+          --table 'commits' \
+          --namespace "${group}" \
           --mailmap '.groups-mailmap' \
+          "groups/${group}/fusion/"* \
+        && echo "[INFO] Amend authors of ${group}" \
         && code-etl v2 \
           --db-id "${db}" \
           --creds "${creds}" \
