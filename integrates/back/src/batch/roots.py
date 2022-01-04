@@ -129,6 +129,7 @@ async def process_vuln(
     loaders: Dataloaders,
     vuln: Vulnerability,
     target_finding_id: str,
+    target_root_id: str,
     item_subject: str,
 ) -> None:
     state_loader = loaders.vulnerability_historic_state
@@ -144,6 +145,7 @@ async def process_vuln(
         vulnerability=vuln._replace(
             finding_id=target_finding_id,
             id=new_id,
+            root_id=target_root_id,
             state=vuln.state,
         ),
     )
@@ -179,6 +181,7 @@ async def process_finding(
     loaders: Dataloaders,
     source_group_name: str,
     target_group_name: str,
+    target_root_id: str,
     source_finding_id: str,
     vulns: Tuple[Vulnerability, ...],
     item_subject: str,
@@ -247,6 +250,7 @@ async def process_finding(
             loaders=loaders,
             vuln=vuln,
             target_finding_id=target_finding_id,
+            target_root_id=target_root_id,
             item_subject=item_subject,
         )
         for vuln in vulns
@@ -378,6 +382,7 @@ async def move_root(*, item: BatchProcessing) -> None:
                 loaders=loaders,
                 source_group_name=source_group_name,
                 target_group_name=target_group_name,
+                target_root_id=target_root_id,
                 source_finding_id=source_finding_id,
                 vulns=tuple(vulns),
                 item_subject=item.subject,
