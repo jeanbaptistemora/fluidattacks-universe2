@@ -1,26 +1,3 @@
 src.lib_path.f011.npm_package_json.description:
   en: Use of {product} at version {version} with {cve}
   es: Uso de {product} en la version {version} con {cve}
-F011.description:
-  en: >
-    The system uses the version of a software or dependency with known
-    vulnerabilities.
-  es: >
-    El sistema usa la version de un software o dependencia con vulnerabilidades
-    conocidas.
-F011.impact:
-  en: >
-    Exploit found vulnerabilities in the affected components.
-  es: >
-    Explotar vulnerabilidades encontradas en los componentes afectados.
-F011.recommendation:
-  en: >
-    Update the affected software to the versions recommended by the vendor.
-  es: >
-    Actualizar el software afectado a las versiones recomendadas por el
-    fabricante.
-F011.threat:
-  en: >
-    Autenticated attacker from the Internet.
-  es: >
-    Atacante autenticado desde Internet.
