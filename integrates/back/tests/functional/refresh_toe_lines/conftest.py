@@ -111,6 +111,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-19T15:41:04+00:00"
                 ),
                 group_name="group1",
+                last_author="customer1@gmail.com",
                 loc=4324,
                 modified_commit="273412t",
                 modified_date=datetime.fromisoformat(
@@ -135,6 +136,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-02-19T15:41:04+00:00"
                 ),
                 group_name="group1",
+                last_author="customer2@gmail.com",
                 loc=8,
                 modified_commit="983466z",
                 modified_date=datetime.fromisoformat(
@@ -159,6 +161,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-14T15:41:04+00:00"
                 ),
                 group_name="group1",
+                last_author="customer3@gmail.com",
                 loc=243,
                 modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(
@@ -183,6 +186,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-14T15:41:04+00:00"
                 ),
                 group_name="group1",
+                last_author="customer4@gmail.com",
                 loc=243,
                 modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(
@@ -203,6 +207,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 filename="test5/test.sh",
                 first_attack_at=None,
                 group_name="group1",
+                last_author="customer5@gmail.com",
                 loc=243,
                 modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(

@@ -40,6 +40,7 @@ def format_toe_lines(item: Item) -> ToeLines:
         if item["first_attack_at"]
         else None,
         group_name=item["group_name"],
+        last_author=item["commit_author"],
         loc=int(item["loc"]),
         modified_commit=item["modified_commit"],
         modified_date=datetime.fromisoformat(item["modified_date"]),

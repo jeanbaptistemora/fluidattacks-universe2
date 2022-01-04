@@ -13,11 +13,18 @@ type ToeLines {
   "ToE comment"
   comments: String!
   "Author of the commit"
-  commitAuthor: String!
+  commitAuthor: String! @deprecated(
+    reason: """
+      This field will be removed after 2022/06/04.
+      Use `lastAuthor` instead.
+    """
+  )
   "ToE Filename"
   filename: String!
   "First attack moment in iso format"
   firstAttackAt: DateTime
+  "Last author to modify this file"
+  lastAuthor: String!
   "Lines of code"
   loc: Int!
   "SHA-1 commit hash in short form"

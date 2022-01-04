@@ -102,9 +102,9 @@ async def query_get(
                         bePresent
                         bePresentUntil
                         comments
-                        commitAuthor
                         filename
                         firstAttackAt
+                        lastAuthor
                         loc
                         modifiedCommit
                         modifiedDate

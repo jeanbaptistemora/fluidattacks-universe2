@@ -22,6 +22,7 @@ class ToeLines(NamedTuple):
     filename: str
     first_attack_at: Optional[datetime]
     group_name: str
+    last_author: str
     loc: int
     modified_commit: str
     modified_date: datetime

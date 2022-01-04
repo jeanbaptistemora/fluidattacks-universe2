@@ -44,6 +44,7 @@ async def test_get() -> None:
         filename="test/test#.config",
         first_attack_at=datetime.fromisoformat("2020-02-19T15:41:04+00:00"),
         group_name="unittesting",
+        last_author="customer@gmail.com",
         loc=8,
         modified_commit="983466z",
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
@@ -70,6 +71,7 @@ async def test_get() -> None:
         filename="test2/test.sh",
         first_attack_at=datetime.fromisoformat("2020-01-19T15:41:04+00:00"),
         group_name="unittesting",
+        last_author="customer@gmail.com",
         loc=172,
         modified_commit="273412t",
         modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
@@ -103,6 +105,7 @@ async def test_get_by_group() -> None:
                         "2020-02-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    last_author="customer@gmail.com",
                     loc=8,
                     modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
@@ -134,6 +137,7 @@ async def test_get_by_group() -> None:
                         "2020-01-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    last_author="customer@gmail.com",
                     loc=172,
                     modified_commit="273412t",
                     modified_date=datetime.fromisoformat(
@@ -177,6 +181,7 @@ async def test_get_by_root() -> None:
                         "2020-02-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    last_author="customer@gmail.com",
                     loc=8,
                     modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
@@ -218,6 +223,7 @@ async def test_get_by_root() -> None:
                         "2020-01-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    last_author="customer@gmail.com",
                     loc=172,
                     modified_commit="273412t",
                     modified_date=datetime.fromisoformat(

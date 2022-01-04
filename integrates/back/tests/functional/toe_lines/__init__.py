@@ -27,7 +27,7 @@ async def get_result(
                         bePresent
                         bePresentUntil
                         comments
-                        commitAuthor
+                        lastAuthor
                         filename
                         firstAttackAt
                         loc

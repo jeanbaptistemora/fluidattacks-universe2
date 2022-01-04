@@ -63,6 +63,7 @@ async def add(
         filename=filename,
         first_attack_at=first_attack_at,
         group_name=group_name,
+        last_author=attributes.commit_author,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,

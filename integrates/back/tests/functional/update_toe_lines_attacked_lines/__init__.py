@@ -80,7 +80,7 @@ async def query_get(
                         bePresent
                         bePresentUntil
                         comments
-                        commitAuthor
+                        lastAuthor
                         filename
                         firstAttackAt
                         loc
