@@ -2,6 +2,7 @@ import _ from "lodash";
 import moment from "moment";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
@@ -130,6 +131,34 @@ const formatVulnerabilities: (
       vulnerabilityType: translate.t(
         `searchFindings.tabVuln.vulnTable.vulnerabilityType.${vulnerability.vulnerabilityType}`
       ),
+    };
+  });
+
+const formatVulnerabilitiesTreatment: (
+  vulnerabilities: IVulnRowAttr[]
+) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
+  vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
+    const lastTreatment: IHistoricTreatment = {
+      acceptanceDate: _.isNull(vulnerability.treatmentAcceptanceDate)
+        ? undefined
+        : vulnerability.treatmentAcceptanceDate,
+      acceptanceStatus: _.isNull(vulnerability.treatmentAcceptanceStatus)
+        ? undefined
+        : vulnerability.treatmentAcceptanceStatus,
+      assigned: _.isNull(vulnerability.treatmentAssigned)
+        ? undefined
+        : vulnerability.treatmentAssigned,
+      date: vulnerability.lastTreatmentDate,
+      justification: _.isNull(vulnerability.treatmentJustification)
+        ? undefined
+        : vulnerability.treatmentJustification,
+      treatment: vulnerability.treatment,
+      user: "",
+    };
+
+    return {
+      ...vulnerability,
+      historicTreatment: [lastTreatment],
     };
   });
 
@@ -278,6 +307,7 @@ export {
   filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,
+  formatVulnerabilitiesTreatment,
   getNonSelectableVulnerabilitiesOnEdit,
   getNonSelectableVulnerabilitiesOnReattack,
   getNonSelectableVulnerabilitiesOnReattackIds,

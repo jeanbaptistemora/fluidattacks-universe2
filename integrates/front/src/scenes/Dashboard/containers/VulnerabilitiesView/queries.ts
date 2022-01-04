@@ -6,15 +6,6 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     currentState
     externalBugTrackingSystem
     findingId
-    historicTreatment {
-      acceptanceDate
-      acceptanceStatus
-      assigned
-      date
-      justification
-      user
-      treatment
-    }
     id
     lastTreatmentDate
     lastVerificationDate
@@ -25,6 +16,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     stream
     tag
     treatment
+    treatmentAcceptanceDate
     treatmentAcceptanceStatus
     treatmentAssigned
     treatmentJustification

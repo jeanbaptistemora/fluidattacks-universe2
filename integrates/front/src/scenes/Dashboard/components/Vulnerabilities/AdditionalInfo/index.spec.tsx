@@ -47,6 +47,7 @@ describe("AdditionalInfo", (): void => {
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
+    treatmentAcceptanceDate: "",
     treatmentAcceptanceStatus: "",
     treatmentAssigned: "assigned-user-4",
     treatmentDate: "2019-07-05 09:56:40",

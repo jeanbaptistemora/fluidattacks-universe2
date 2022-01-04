@@ -20,6 +20,7 @@ interface IVulnRowAttr {
   tag: string;
   treatment: string;
   treatmentDate: string;
+  treatmentAcceptanceDate: string | null;
   treatmentAcceptanceStatus: string | null;
   treatmentAssigned: string | null;
   treatmentJustification: string | null;

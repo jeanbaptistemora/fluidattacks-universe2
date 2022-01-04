@@ -26,6 +26,7 @@ import {
   filterTreatment,
   filterTreatmentCurrentStatus,
   filterZeroRisk,
+  formatVulnerabilitiesTreatment,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
@@ -179,8 +180,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
     ? vulnsData.finding.zeroRisk
     : [];
 
-  const vulnerabilities: IVulnRowAttr[] =
+  const unformattedVulns: IVulnRowAttr[] =
     vulnsData.finding.vulnerabilities.concat(zeroRiskVulns);
+
+  const vulnerabilities: IVulnRowAttr[] =
+    formatVulnerabilitiesTreatment(unformattedVulns);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
