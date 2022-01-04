@@ -9,6 +9,8 @@ from context import (
 )
 from custom_exceptions import (
     InvalidBillingCustomer,
+    InvalidBillingPrice,
+    InvalidBillingTier,
 )
 from custom_types import (
     AddBillingCheckoutPayload,
@@ -65,8 +67,24 @@ async def _set_group_tier(
         data["subscription"] = "continuous"
         data["has_machine"] = True
         data["has_squad"] = False
-        data["has_asm"] = True
         data["service"] = "WHITE"
+    elif tier == "squad":
+        data["subscription"] = "continuous"
+        data["has_machine"] = True
+        data["has_squad"] = True
+        data["service"] = "WHITE"
+    elif tier == "oneshot":
+        data["subscription"] = "oneshot"
+        data["has_machine"] = False
+        data["has_squad"] = False
+        data["service"] = "BLACK"
+    elif tier == "free":
+        data["subscription"] = "continuous"
+        data["has_machine"] = False
+        data["has_squad"] = False
+        data["service"] = "WHITE"
+    else:
+        raise InvalidBillingTier()
 
     return await groups_domain.update_group_attrs(**data)
 
@@ -97,7 +115,11 @@ async def checkout(
     group_name: str,
 ) -> AddBillingCheckoutPayload:
     """Create Stripe checkout session"""
-    price_id: str = stripe.Price.list(lookup_keys=[tier]).data[0].id
+    prices = stripe.Price.list(lookup_keys=[tier]).data
+    if len(prices) > 0:
+        price_id: str = prices[0].id
+    else:
+        raise InvalidBillingPrice()
     session_data = {
         "customer": org_billing_customer,
         "line_items": [

@@ -1030,3 +1030,21 @@ class InvalidBillingCustomer(CustomBaseException):
             "Please checkout at least one subscription for a group."
         )
         super(InvalidBillingCustomer, self).__init__(msg)
+
+
+class InvalidBillingTier(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid tier. "
+            "Only 'oneshot', 'machine', 'squad' and 'free' allowed."
+        )
+        super(InvalidBillingTier, self).__init__(msg)
+
+
+class InvalidBillingPrice(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid price. "
+            "Provided price does not exist in Stripe."
+        )
+        super(InvalidBillingPrice, self).__init__(msg)
