@@ -170,8 +170,8 @@ async def webhook(request: Request) -> JSONResponse:
         if event.type == "customer.subscription.created":
             if await _set_group_tier(
                 event_id=event.id,
-                group_name=event.metadata.group,
-                tier=event.items.data[0].price.nickname,
+                group_name=event.data.object.metadata.group,
+                tier=event.data.object.plan.nickname,
             ):
                 message = "Subscription was successful!"
         else:

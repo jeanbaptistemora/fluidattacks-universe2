@@ -648,8 +648,33 @@ async def add_without_group(
     return success
 
 
+async def deactivate_all_roots(
+    loaders: Any,
+    group_name: str,
+    user_email: str,
+    other: str = "",
+    reason: str = "",
+) -> bool:
+    group_roots_loader: DataLoader = loaders.group_roots
+    all_group_roots = await group_roots_loader.load(group_name)
+    return all(
+        await collect(
+            [
+                roots_domain.deactivate_root(
+                    group_name=group_name,
+                    other=other,
+                    reason=reason,
+                    root=root,
+                    user_email=user_email,
+                )
+                for root in all_group_roots
+            ]
+        )
+    )
+
+
 async def remove_group(
-    context: Any,
+    loaders: Any,
     group_name: str,
     user_email: str,
     organization_id: str,
@@ -666,7 +691,7 @@ async def remove_group(
         get_key_or_fallback(data, "group_status", "project_status")
         != "DELETED"
     ):
-        all_resources_removed = await remove_resources(context, group_name)
+        all_resources_removed = await remove_resources(loaders, group_name)
         today = datetime_utils.get_now()
         new_state = {
             "date": datetime_utils.get_as_str(today),
@@ -684,21 +709,12 @@ async def remove_group(
             [all_resources_removed, await update(group_name, new_data)]
         )
         if response:
-            group_roots_loader: DataLoader = context.group_roots
-            all_group_roots = await group_roots_loader.load(group_name)
-            other = ""
-            reason = "GROUP_DELETED"
-            await collect(
-                [
-                    roots_domain.deactivate_root(
-                        group_name=group_name,
-                        other=other,
-                        reason=reason,
-                        root=root,
-                        user_email=user_email,
-                    )
-                    for root in all_group_roots
-                ]
+            await deactivate_all_roots(
+                loaders=loaders,
+                group_name=group_name,
+                user_email=user_email,
+                other="",
+                reason="GROUP_DELETED",
             )
     else:
         raise AlreadyPendingDeletion()
@@ -757,7 +773,13 @@ async def update_group_attrs(
 
     if get_key_or_fallback(item):
         if service != item["historic_configuration"][-1]["service"]:
-            await validate_open_roots(loaders, group_name)
+            await deactivate_all_roots(
+                loaders=loaders,
+                group_name=group_name,
+                user_email=requester_email,
+                other=comments,
+                reason=reason,
+            )
         if tier == "":
             tier = item["historic_configuration"][-1].get("tier", "free")
 
