@@ -1,3 +1,6 @@
+lib_path.f101.azure_key_vault_not_recoverable:
+  en: Azure key vault is not recoverable
+  es: Azure key vault no es recuperable
 F101.title:
   en: >
     Lack of protection against deletion
