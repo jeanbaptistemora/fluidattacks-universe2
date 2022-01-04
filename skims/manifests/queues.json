@@ -60,6 +60,7 @@
   "skims_crypto": {
     "availability": "WORKING_HOURS",
     "findings": [
+      "F020",
       "F034",
       "F052",
       "F246"

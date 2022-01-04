@@ -71,6 +71,14 @@
       "title": "017. Sensitive information sent insecurely"
     }
   },
+  "F020": {
+    "EN": {
+      "title": "020. Non-encrypted confidential information"
+    },
+    "ES": {
+      "title": "020. Non-encrypted confidential information"
+    }
+  },
   "F021": {
     "EN": {
       "title": "021. XPath injection"
