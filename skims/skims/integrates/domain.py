@@ -114,7 +114,6 @@ async def get_closest_finding_ids(
 
 async def get_closest_finding_id(
     *,
-    affected_systems: str = "",
     create_if_missing: bool = False,
     finding: core_model.FindingEnum,
     group: str,
@@ -139,7 +138,6 @@ async def get_closest_finding_id(
         not finding_id
         and create_if_missing
         and await do_create_draft(
-            affected_systems=affected_systems,
             finding=finding,
             group=group,
         )

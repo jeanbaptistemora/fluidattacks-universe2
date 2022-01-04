@@ -456,7 +456,6 @@ async def do_add_git_root(
 @SHIELD
 async def do_create_draft(
     *,
-    affected_systems: str,
     finding: core_model.FindingEnum,
     group: str,
 ) -> bool:
@@ -464,7 +463,6 @@ async def do_create_draft(
         result = await _execute(
             query="""
             mutation SkimsDoAddDraft(
-                $affected_systems: String
                 $impact: String
                 $description: String
                 $group: String!
@@ -474,7 +472,6 @@ async def do_create_draft(
                 $title: String!
             ) {
                 addDraft(
-                    affectedSystems: $affected_systems
                     attackVectorDescription: $impact
                     description: $description
                     groupName: $group
@@ -489,7 +486,6 @@ async def do_create_draft(
         """,
             operation="SkimsDoAddDraft",
             variables=dict(
-                affected_systems=affected_systems,
                 description=t(finding.value.description),
                 impact=t(finding.value.impact),
                 group=group,

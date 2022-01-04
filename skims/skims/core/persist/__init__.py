@@ -45,21 +45,6 @@ from utils.string import (
 )
 
 
-async def get_affected_systems(store: EphemeralStore) -> str:
-    """Compute a list of systems from the provided store.
-
-    :param store: Store to read data from
-    :type store: EphemeralStore
-    :return: A new-line separated string with the affected systems
-    :rtype: str
-    """
-    affected_systems: Tuple[str, ...] = tuple(
-        {result.namespace async for result in store.iterate()}
-    )
-
-    return "\n".join(affected_systems)
-
-
 async def upload_evidences(
     *,
     finding_id: str,
@@ -236,7 +221,6 @@ async def persist_finding(
     await log("info", "persisting: %s, %s vulns", finding.name, store_length)
 
     finding_id: str = await get_closest_finding_id(
-        affected_systems=await get_affected_systems(store),
         create_if_missing=has_results,
         finding=finding,
         group=group,
