@@ -2510,6 +2510,8 @@ export const enTranslations: ResourceKey = {
     numeric: "This field can only contain numbers",
     oneOf: "This field must be one of the suggested values",
     positive: "The number must be greater than 0",
+    requestedTooSoon:
+      "Please wait a minute before resending an invitation to this user",
     requireNickname: "Nickname already exist",
     required: "Required field",
     someRequired: "Select at least one value",

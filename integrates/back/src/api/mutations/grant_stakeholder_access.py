@@ -20,6 +20,9 @@ from graphql.type.definition import (
 from group_access import (
     domain as group_access_domain,
 )
+from group_access.domain import (
+    validate_new_invitation_time_limit,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -70,8 +73,13 @@ async def mutate(
     group_access = await group_access_domain.get_user_access(
         new_user_email, group_name
     )
-    if group_access and group_access["has_access"]:
-        raise StakeholderHasGroupAccess()
+    if group_access:
+        # Stakeholder has already accepted the invitation
+        if group_access["has_access"]:
+            raise StakeholderHasGroupAccess()
+        # Too soon to send another email invitation to the same stakeholder
+        if "expiration_time" in group_access:
+            validate_new_invitation_time_limit(group_access["expiration_time"])
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(

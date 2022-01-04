@@ -2,12 +2,27 @@ from aioextensions import (
     collect,
 )
 import authz
+from custom_exceptions import (
+    RequestedInvitationTooSoon,
+)
 from custom_types import (
     Group as GroupType,
     GroupAccess as GroupAccessType,
 )
+from datetime import (
+    datetime,
+    timedelta,
+)
+from decimal import (
+    Decimal,
+)
 from group_access import (
     dal as group_access_dal,
+)
+from newutils.datetime import (
+    get_from_epoch,
+    get_minus_delta,
+    get_now,
 )
 from typing import (
     cast,
@@ -128,3 +143,14 @@ async def update_has_access(
     user_email: str, group_name: str, access: bool
 ) -> bool:
     return await update(user_email, group_name, {"has_access": access})
+
+
+def validate_new_invitation_time_limit(inv_expiration_time: Decimal) -> bool:
+    """Validates that new invitations to the same user in the same group/org
+    are spaced out by at least one minute to avoid email flooding"""
+    expiration_date: datetime = get_from_epoch(inv_expiration_time)
+    creation_date: datetime = get_minus_delta(date=expiration_date, weeks=1)
+    current_date: datetime = get_now()
+    if current_date - creation_date < timedelta(minutes=1):
+        raise RequestedInvitationTooSoon()
+    return True

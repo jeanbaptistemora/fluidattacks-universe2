@@ -147,7 +147,7 @@ async def test_grant_stakeholder_access_2() -> None:
     query = """
         mutation {
             grantStakeholderAccess (
-            email: "test@test.test"
+            email: "test2@test.test"
             groupName: "unittesting"
             responsibility: "test"
             role: HACKER) {

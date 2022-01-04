@@ -819,6 +819,19 @@ class RepeatedValues(CustomBaseException):
         super(RepeatedValues, self).__init__(msg)
 
 
+class RequestedInvitationTooSoon(CustomBaseException):
+    """Exception to control that new invitations to the same user in the same
+    group/org are spaced out by at least one minute"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = (
+            "The previous invitation to this user was requested less"
+            " than a minute ago"
+        )
+        super(RequestedInvitationTooSoon, self).__init__(f"Exception - {msg}")
+
+
 class RequestedReportError(CustomBaseException):
     """Exception to control pdf, xls or data report error."""
 

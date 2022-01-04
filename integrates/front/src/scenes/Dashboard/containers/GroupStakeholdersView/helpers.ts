@@ -14,6 +14,10 @@ const handleGrantError = (grantError: ApolloError): void => {
       case "Exception - This role can only be granted to Fluid Attacks users":
         msgError(translate.t("validations.userIsNotFromFluidAttacks"));
         break;
+      case "Exception - The previous invitation to this user was requested" +
+        " less than a minute ago":
+        msgError(translate.t("validations.requestedTooSoon"));
+        break;
       case "Exception - Invalid field in form":
         msgError(translate.t("validations.invalidValueInField"));
         break;
