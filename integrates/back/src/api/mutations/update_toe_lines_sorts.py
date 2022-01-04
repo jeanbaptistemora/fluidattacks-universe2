@@ -75,7 +75,9 @@ async def mutate(
         roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
             group_name
         )
-        root_id = roots_domain.get_root_id_by_nickname(root_nickname, roots)
+        root_id = roots_domain.get_root_id_by_nickname(
+            root_nickname, roots, is_git_root=True
+        )
         toe_lines: ToeLines = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=filename, group_name=group_name, root_id=root_id

@@ -761,7 +761,7 @@ async def update_root_state(
 
 
 def get_root_id_by_nickname(
-    nickname: str, group_roots: Tuple[RootItem, ...]
+    nickname: str, group_roots: Tuple[RootItem, ...], is_git_root: bool = False
 ) -> str:
     # There are roots with the same nickname
     # then It is going to take the last modified root
@@ -771,7 +771,9 @@ def get_root_id_by_nickname(
         reverse=True,
     )
     for root in sorted_roots:
-        if isinstance(root, GitRootItem) and root.state.nickname == nickname:
+        if (
+            not is_git_root or isinstance(root, GitRootItem)
+        ) and root.state.nickname == nickname:
             return root.id
 
     raise RootNotFound()
