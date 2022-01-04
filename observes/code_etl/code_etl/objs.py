@@ -1,10 +1,10 @@
 # pylint: skip-file
 
+from code_etl.time_utils import (
+    DatetimeUTC,
+)
 from dataclasses import (
     dataclass,
-)
-from datetime import (
-    datetime,
 )
 from returns.maybe import (
     Maybe,
@@ -41,9 +41,9 @@ class Deltas:
 @dataclass(frozen=True)
 class CommitData:
     author: User
-    authored_at: datetime
+    authored_at: DatetimeUTC
     committer: User
-    committed_at: datetime
+    committed_at: DatetimeUTC
     message: str
     summary: str
     deltas: Deltas
@@ -70,13 +70,13 @@ class Commit:
 @dataclass(frozen=True)
 class CommitStamp:
     commit: Commit
-    seen_at: datetime
+    seen_at: DatetimeUTC
 
 
 @dataclass(frozen=True)
 class RepoRegistration:
     commit_id: CommitDataId
-    seen_at: datetime
+    seen_at: DatetimeUTC
 
 
 @dataclass(frozen=True)

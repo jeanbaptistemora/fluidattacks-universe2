@@ -5,6 +5,9 @@ from code_etl.objs import (
     Deltas,
     User,
 )
+from code_etl.time_utils import (
+    to_utc,
+)
 from dataclasses import (
     dataclass,
 )
@@ -31,11 +34,11 @@ def gen_fa_hash(commit: CommitData) -> str:
     fa_hash = hashlib.sha256()
     fa_hash.update(bytes(commit.author.name, "utf-8"))
     fa_hash.update(bytes(commit.author.email, "utf-8"))
-    fa_hash.update(bytes(commit.authored_at.isoformat(), "utf-8"))
+    fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
 
     fa_hash.update(bytes(commit.committer.name, "utf-8"))
     fa_hash.update(bytes(commit.committer.email, "utf-8"))
-    fa_hash.update(bytes(commit.committed_at.isoformat(), "utf-8"))
+    fa_hash.update(bytes(commit.committed_at.time.isoformat(), "utf-8"))
 
     fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
     fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
@@ -48,7 +51,7 @@ def gen_fa_hash_2(commit: CommitData) -> str:
     fa_hash = hashlib.sha256()
     fa_hash.update(bytes(commit.author.name, "utf-8"))
     fa_hash.update(bytes(commit.author.email, "utf-8"))
-    fa_hash.update(bytes(commit.authored_at.isoformat(), "utf-8"))
+    fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
 
     fa_hash.update(bytes(commit.message, "utf-8"))
     fa_hash.update(bytes(commit.summary, "utf-8"))
@@ -80,9 +83,9 @@ class CommitDataFactory:
         )
         data = CommitData(
             author,
-            commit.authored_datetime,
+            to_utc(commit.authored_datetime),
             commiter,
-            commit.committed_datetime,
+            to_utc(commit.committed_datetime),
             str(commit.message),
             str(commit.summary),
             deltas,

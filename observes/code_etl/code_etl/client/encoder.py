@@ -10,6 +10,10 @@ from code_etl.objs import (
     CommitStamp,
     RepoRegistration,
 )
+from code_etl.time_utils import (
+    DatetimeUTC,
+    to_utc,
+)
 from dataclasses import (
     dataclass,
 )
@@ -63,10 +67,10 @@ class CommitTableRow:
     # pylint: disable=too-many-instance-attributes
     author_name: Optional[str]
     author_email: Optional[str]
-    authored_at: Optional[datetime]
+    authored_at: Optional[DatetimeUTC]
     committer_email: Optional[str]
     committer_name: Optional[str]
-    committed_at: Optional[datetime]
+    committed_at: Optional[DatetimeUTC]
     message: Optional[str]
     summary: Optional[str]
     total_insertions: Optional[int]
@@ -77,11 +81,11 @@ class CommitTableRow:
     repository: str
     hash: str
     fa_hash: Optional[str]
-    seen_at: datetime
+    seen_at: DatetimeUTC
 
 
 def from_objs(
-    data: Optional[CommitData], commit_id: CommitDataId, seen_at: datetime
+    data: Optional[CommitData], commit_id: CommitDataId, seen_at: DatetimeUTC
 ) -> CommitTableRow:
     return CommitTableRow(
         data.author.name if data else None,
@@ -114,6 +118,7 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             .alt(raise_exception)
             .unwrap(),
             assert_opt_type(raw.authored_at, datetime)
+            .map(lambda d: to_utc(d) if d is not None else d)
             .alt(raise_exception)
             .unwrap(),
             assert_opt_type(raw.committer_email, str)
@@ -123,6 +128,7 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             .alt(raise_exception)
             .unwrap(),
             assert_opt_type(raw.committed_at, datetime)
+            .map(lambda d: to_utc(d) if d is not None else d)
             .alt(raise_exception)
             .unwrap(),
             assert_opt_type(raw.message, str).alt(raise_exception).unwrap(),
@@ -143,7 +149,10 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             assert_type(raw.repository, str).alt(raise_exception).unwrap(),
             assert_type(raw.hash, str).alt(raise_exception).unwrap(),
             assert_opt_type(raw.fa_hash, str).alt(raise_exception).unwrap(),
-            assert_type(raw.seen_at, datetime).alt(raise_exception).unwrap(),
+            assert_type(raw.seen_at, datetime)
+            .map(to_utc)
+            .alt(raise_exception)
+            .unwrap(),
         )
         return Success(row)
     except TypeError as err:
@@ -164,9 +173,11 @@ def from_row_obj(item: Union[CommitStamp, RepoRegistration]) -> CommitTableRow:
     return from_stamp(item)
 
 
-def _encode_opt_datetime(date: Optional[datetime]) -> Optional[str]:
+def _encode_opt_datetime(date: Optional[DatetimeUTC]) -> Optional[str]:
     return (
-        Maybe.from_optional(date).map(lambda i: i.isoformat()).value_or(None)
+        Maybe.from_optional(date)
+        .map(lambda i: i.time.isoformat())
+        .value_or(None)
     )
 
 
@@ -192,5 +203,5 @@ def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
         "repository": row.repository,
         "hash": row.hash,
         "fa_hash": row.fa_hash,
-        "seen_at": row.seen_at.isoformat(),
+        "seen_at": row.seen_at.time.isoformat(),
     }

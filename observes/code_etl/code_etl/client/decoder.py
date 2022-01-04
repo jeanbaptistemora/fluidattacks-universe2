@@ -18,6 +18,9 @@ from code_etl.objs import (
     RepoRegistration,
     User,
 )
+from code_etl.time_utils import (
+    to_utc,
+)
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
@@ -63,12 +66,18 @@ def decode_commit_data(
                 assert_type(raw[0], str).alt(raise_exception).unwrap(),
                 assert_type(raw[1], str).alt(raise_exception).unwrap(),
             ),
-            assert_type(raw[2], datetime).alt(raise_exception).unwrap(),
+            assert_type(raw[2], datetime)
+            .map(to_utc)
+            .alt(raise_exception)
+            .unwrap(),
             User(
                 assert_type(raw[3], str).alt(raise_exception).unwrap(),
                 assert_type(raw[4], str).alt(raise_exception).unwrap(),
             ),
-            assert_type(raw[5], datetime).alt(raise_exception).unwrap(),
+            assert_type(raw[5], datetime)
+            .map(to_utc)
+            .alt(raise_exception)
+            .unwrap(),
             assert_type(raw[6], str).alt(raise_exception).unwrap(),
             assert_type(raw[7], str).alt(raise_exception).unwrap(),
             Deltas(
