@@ -545,6 +545,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2020-01-02T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
             seen_first_time_by="",
             unreliable_root_id="",
@@ -562,6 +563,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2021-01-02T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
             seen_first_time_by="test@test.com",
             unreliable_root_id="",
@@ -577,6 +579,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2021-02-11T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
             seen_first_time_by="test2@test.com",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -600,6 +603,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2020-01-02T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=None,
             seen_first_time_by="",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -615,6 +619,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2021-02-11T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=None,
             seen_at=None,
             seen_first_time_by="",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -628,6 +633,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             entry_point="btnTest",
             first_attack_at=None,
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
             seen_first_time_by="test@test.com",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -643,6 +649,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
                 "2021-02-11T05:00:00+00:00"
             ),
             group_name="unittesting",
+            has_vulnerabilities=False,
             seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
             seen_first_time_by="test2@test.com",
             unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",

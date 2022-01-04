@@ -44,6 +44,7 @@ async def test_get() -> None:
         filename="test/test#.config",
         first_attack_at=datetime.fromisoformat("2020-02-19T15:41:04+00:00"),
         group_name="unittesting",
+        has_vulnerabilities=False,
         last_author="customer@gmail.com",
         last_commit="983466z",
         loc=8,
@@ -72,6 +73,7 @@ async def test_get() -> None:
         filename="test2/test.sh",
         first_attack_at=datetime.fromisoformat("2020-01-19T15:41:04+00:00"),
         group_name="unittesting",
+        has_vulnerabilities=False,
         last_author="customer@gmail.com",
         last_commit="273412t",
         loc=172,
@@ -107,6 +109,7 @@ async def test_get_by_group() -> None:
                         "2020-02-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     last_author="customer@gmail.com",
                     last_commit="983466z",
                     loc=8,
@@ -140,6 +143,7 @@ async def test_get_by_group() -> None:
                         "2020-01-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     last_author="customer@gmail.com",
                     last_commit="273412t",
                     loc=172,
@@ -185,6 +189,7 @@ async def test_get_by_root() -> None:
                         "2020-02-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     last_author="customer@gmail.com",
                     last_commit="983466z",
                     loc=8,
@@ -228,6 +233,7 @@ async def test_get_by_root() -> None:
                         "2020-01-19T15:41:04+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     last_author="customer@gmail.com",
                     last_commit="273412t",
                     loc=172,

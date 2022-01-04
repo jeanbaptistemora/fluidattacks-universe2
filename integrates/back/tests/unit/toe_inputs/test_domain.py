@@ -36,6 +36,7 @@ async def test_add() -> None:
         first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         entry_point="btnTest",
         group_name=group_name,
+        has_vulnerabilities=False,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="new@test.com",
         unreliable_root_id="",
@@ -48,6 +49,7 @@ async def test_add() -> None:
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="test@test.com",
             be_present=True,
+            has_vulnerabilities=False,
             first_attack_at=datetime.fromisoformat(
                 "2021-02-12T05:00:00+00:00"
             ),
@@ -99,6 +101,7 @@ async def test_update() -> None:
         attacked_by="",
         be_present=True,
         first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+        has_vulnerabilities=False,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
         unreliable_root_id="",
@@ -118,6 +121,7 @@ async def test_update() -> None:
         component="test.com/test/test.aspx",
         entry_point="btnTest",
         first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+        has_vulnerabilities=False,
         group_name=group_name,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",

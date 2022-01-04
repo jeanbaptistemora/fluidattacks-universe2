@@ -19,6 +19,7 @@ class ToeInput(NamedTuple):
     component: str
     entry_point: str
     first_attack_at: Optional[datetime]
+    has_vulnerabilities: Optional[bool]
     group_name: str
     seen_at: Optional[datetime]
     seen_first_time_by: str
@@ -58,6 +59,7 @@ class ToeInputMetadataToUpdate(NamedTuple):
     be_present: Optional[bool] = None
     be_present_until: Optional[datetime] = None
     first_attack_at: Optional[datetime] = None
+    has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     unreliable_root_id: Optional[str] = None

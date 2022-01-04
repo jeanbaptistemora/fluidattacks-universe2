@@ -107,6 +107,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-02T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="",
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -124,6 +125,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-02T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
                 unreliable_root_id="",
@@ -143,6 +145,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-11T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",

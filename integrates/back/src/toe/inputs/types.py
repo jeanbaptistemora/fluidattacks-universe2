@@ -14,6 +14,8 @@ class ToeInputAttributesToAdd(NamedTuple):
     first_attack_at: Optional[datetime]
     seen_first_time_by: str
     unreliable_root_id: str
+
+    has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
 
 
@@ -22,6 +24,7 @@ class ToeInputAttributesToUpdate(NamedTuple):
     attacked_by: Optional[str] = None
     be_present: Optional[bool] = None
     first_attack_at: Optional[datetime] = None
+    has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     unreliable_root_id: Optional[str] = None

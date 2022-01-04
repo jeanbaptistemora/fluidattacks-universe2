@@ -1961,6 +1961,9 @@
               "be_present_until": {
                 "S": ""
               },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
               "pk_2": {
                 "S": "GROUP#unittesting"
               },
@@ -2023,6 +2026,9 @@
               "be_present_until": {
                 "S": "2021-01-01T15:41:04+00:00"
               },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
               "pk_2": {
                 "S": "GROUP#unittesting"
               },
@@ -2034,6 +2040,7 @@
           "NonKeyAttributes": [
             "modified_date",
             "comments",
+            "has_vulnerabilities",
             "loc",
             "modified_commit",
             "sorts_risk_level",
@@ -2065,6 +2072,9 @@
               },
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
               },
               "seen_first_time_by": {
                 "S": ""
@@ -2113,6 +2123,9 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
               },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
               "seen_first_time_by": {
                 "S": "test@test.com"
               },
@@ -2160,6 +2173,9 @@
               "sk": {
                 "S": "INPUTS#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
               },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
               "seen_first_time_by": {
                 "S": "test2@test.com"
               },
@@ -2202,6 +2218,7 @@
             }
           ],
           "NonKeyAttributes": [
+            "has_vulnerabilities",
             "seen_first_time_by",
             "component",
             "entry_point",

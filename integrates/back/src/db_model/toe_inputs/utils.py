@@ -41,6 +41,7 @@ def format_toe_input(
         if item.get("first_attack_at")
         else None,
         group_name=group_name,
+        has_vulnerabilities=item.get("has_vulnerabilities"),
         seen_at=datetime.fromisoformat(item["seen_at"])
         if item.get("seen_at")
         else None,
@@ -90,6 +91,7 @@ def format_toe_input_item(
         else db_model_utils.get_date_as_utc_iso_format(
             toe_input.first_attack_at
         ),
+        "has_vulnerabilities": toe_input.has_vulnerabilities,
         "group_name": toe_input.group_name,
         "seen_at": ""
         if toe_input.seen_at is None

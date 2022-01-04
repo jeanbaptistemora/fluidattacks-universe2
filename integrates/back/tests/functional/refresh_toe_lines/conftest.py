@@ -111,6 +111,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-19T15:41:04+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 last_author="customer1@gmail.com",
                 last_commit="273412t",
                 loc=4324,
@@ -137,6 +138,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-02-19T15:41:04+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 last_author="customer2@gmail.com",
                 last_commit="983466z",
                 loc=8,
@@ -163,6 +165,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-14T15:41:04+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 last_author="customer3@gmail.com",
                 last_commit="g545435i",
                 loc=243,
@@ -189,6 +192,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2020-01-14T15:41:04+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 last_author="customer4@gmail.com",
                 last_commit="g545435i",
                 loc=243,
@@ -211,6 +215,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 filename="test5/test.sh",
                 first_attack_at=None,
                 group_name="group1",
+                has_vulnerabilities=False,
                 last_author="customer5@gmail.com",
                 last_commit="g545435i",
                 loc=243,

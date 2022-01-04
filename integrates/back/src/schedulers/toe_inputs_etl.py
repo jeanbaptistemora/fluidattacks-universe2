@@ -178,6 +178,7 @@ def _get_group_toe_inputs_from_cvs(
                     component=new_toe_input["component"],
                     entry_point=new_toe_input["entry_point"],
                     first_attack_at=new_toe_input["first_attack_at"],
+                    has_vulnerabilities=None,
                     group_name=new_toe_input["group_name"],
                     seen_at=new_toe_input["seen_at"],
                     seen_first_time_by=new_toe_input["seen_first_time_by"],
@@ -203,6 +204,7 @@ async def add_toe_inputs(
                     attacked_by=cvs_toe_input.attacked_by,
                     be_present=cvs_toe_input.be_present,
                     first_attack_at=cvs_toe_input.first_attack_at,
+                    has_vulnerabilities=cvs_toe_input.has_vulnerabilities,
                     seen_at=cvs_toe_input.seen_at,
                     seen_first_time_by=cvs_toe_input.seen_first_time_by,
                     unreliable_root_id=cvs_toe_input.unreliable_root_id,
@@ -244,6 +246,7 @@ async def update_toe_inputs(
                     attacked_by=cvs_toe_input.attacked_by,
                     be_present=cvs_toe_input.be_present,
                     first_attack_at=cvs_toe_input.first_attack_at,
+                    has_vulnerabilities=cvs_toe_input.has_vulnerabilities,
                     seen_at=_get_seen_at(
                         group_toe_inputs[cvs_toe_input.get_hash()],
                         cvs_toe_input,

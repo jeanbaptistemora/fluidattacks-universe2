@@ -40,6 +40,7 @@ def format_toe_lines(item: Item) -> ToeLines:
         if item["first_attack_at"]
         else None,
         group_name=item["group_name"],
+        has_vulnerabilities=item.get("has_vulnerabilities"),
         last_author=item["commit_author"],
         last_commit=item["modified_commit"],
         loc=int(item["loc"]),

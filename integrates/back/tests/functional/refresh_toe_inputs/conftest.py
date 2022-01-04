@@ -111,6 +111,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-02T05:00:00+00:00"
                 ),
+                has_vulnerabilities=False,
                 group_name="group1",
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="",
@@ -129,6 +130,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-02T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
                 unreliable_root_id="",
@@ -148,6 +150,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-11T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
@@ -167,6 +170,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-11T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test3@test.com",
                 unreliable_root_id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
@@ -186,6 +190,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-02-11T05:00:00+00:00"
                 ),
                 group_name="group1",
+                has_vulnerabilities=False,
                 seen_at=None,
                 seen_first_time_by="test4@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",

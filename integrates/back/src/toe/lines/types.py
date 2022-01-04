@@ -16,9 +16,11 @@ class ToeLinesAttributesToAdd(NamedTuple):
     loc: int
     modified_commit: str
     modified_date: datetime
+
     be_present: bool = True
     be_present_until: Optional[datetime] = None
     first_attack_at: Optional[datetime] = None
+    has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: int = -1
 
@@ -31,6 +33,7 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     comments: Optional[str] = None
     commit_author: Optional[str] = None
     first_attack_at: Optional[datetime] = None
+    has_vulnerabilities: Optional[bool] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[datetime] = None

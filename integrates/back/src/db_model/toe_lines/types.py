@@ -21,6 +21,7 @@ class ToeLines(NamedTuple):
     commit_author: str
     filename: str
     first_attack_at: Optional[datetime]
+    has_vulnerabilities: Optional[bool]
     group_name: str
     last_author: str
     last_commit: str

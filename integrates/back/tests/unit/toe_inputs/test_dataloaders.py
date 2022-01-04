@@ -43,6 +43,7 @@ async def test_get_by_group() -> None:
                         "2020-01-02T05:00:00+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     seen_at=datetime.fromisoformat(
                         "2000-01-01T05:00:00+00:00"
                     ),
@@ -67,6 +68,7 @@ async def test_get_by_group() -> None:
                         "2021-01-02T05:00:00+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     seen_at=datetime.fromisoformat(
                         "2020-03-14T05:00:00+00:00"
                     ),
@@ -89,6 +91,7 @@ async def test_get_by_group() -> None:
                         "2021-02-11T05:00:00+00:00"
                     ),
                     group_name="unittesting",
+                    has_vulnerabilities=False,
                     seen_at=datetime.fromisoformat(
                         "2020-01-11T05:00:00+00:00"
                     ),
