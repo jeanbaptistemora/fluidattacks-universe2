@@ -15,6 +15,11 @@ from code_etl.mailmap import (
 )
 from postgres_client.client import (
     Client,
+    ClientFactory,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
 )
 from postgres_client.ids import (
     TableID,
@@ -48,3 +53,14 @@ def amend_users(
             )
         )
     return IO(None)
+
+
+def start(
+    db_id: DatabaseID,
+    creds: Credentials,
+    table: TableID,
+    namespace: str,
+    mailmap: Maybe[Mailmap],
+) -> IO[None]:
+    client = ClientFactory().from_creds(db_id, creds)
+    return amend_users(client, table, namespace, mailmap)

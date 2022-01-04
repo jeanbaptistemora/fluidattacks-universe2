@@ -6,7 +6,6 @@ from code_etl import (
     amend as amend_v2,
     amend_authors as amend,
     compute_bills as bills,
-    mailmap,
     upload,
     upload_repo,
 )
@@ -38,6 +37,9 @@ from postgres_client.connection.decoder import (
 from postgres_client.ids import (
     SchemaID,
     TableID,
+)
+from returns.io import (
+    IO,
 )
 from returns.maybe import (
     Maybe,
@@ -88,6 +90,28 @@ def amend_authors(schema: str, mailmap_path: str, namespace: str) -> None:
 
 
 @click.command()
+@click.option("--mailmap", type=mailmap_file)
+@click.option("--schema", type=str, required=True)
+@click.option("--table", type=str, required=True)
+@click.option("--namespace", type=str, required=True)
+@click.pass_obj
+def amend_authors_v2(
+    ctx: CmdContext,
+    schema: str,
+    table: str,
+    mailmap: Optional[str],
+    namespace: str,
+) -> IO[None]:
+    return amend_v2.start(
+        ctx.db_id,
+        ctx.creds,
+        _to_table((schema, table)),
+        namespace,
+        _get_mailmap(mailmap),
+    )
+
+
+@click.command()
 @click.argument("folder", type=str)
 @click.argument("year", type=int)
 @click.argument("month", type=int)
@@ -131,7 +155,7 @@ def upload_code_v2(
     namespace: str,
     repositories: Tuple[str, ...],
     mailmap: Optional[str],
-) -> None:
+) -> IO[None]:
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = _to_table((schema, table))
     mmap = _get_mailmap(mailmap)
@@ -149,8 +173,10 @@ def upload_code_v2(
 @click.argument("namespace", type=str)
 @click.option("--schema", type=str, required=True)
 @pass_ctx
-def calculate_fa_hash(ctx: CmdContext, namespace: str, schema: str) -> None:
-    calc_fa_hash.start(
+def calculate_fa_hash(
+    ctx: CmdContext, namespace: str, schema: str
+) -> IO[None]:
+    return calc_fa_hash.start(
         ctx.db_id,
         ctx.creds,
         SchemaID(schema),
@@ -166,8 +192,8 @@ def calculate_fa_hash_2(
     ctx: CmdContext,
     source: Tuple[str, str],
     target: Tuple[str, str],
-) -> None:
-    calc_fa_hash_2.start(
+) -> IO[None]:
+    return calc_fa_hash_2.start(
         ctx.db_id,
         ctx.creds,
         _to_table(source),
@@ -198,6 +224,7 @@ def v2(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
 
 
 v2.add_command(upload_code_v2)
+v2.add_command(amend_authors_v2)
 v2.add_command(migration)
 
 
