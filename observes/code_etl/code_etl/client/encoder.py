@@ -68,8 +68,8 @@ class CommitTableRow:
     author_name: Optional[str]
     author_email: Optional[str]
     authored_at: Optional[DatetimeUTC]
-    committer_email: Optional[str]
     committer_name: Optional[str]
+    committer_email: Optional[str]
     committed_at: Optional[DatetimeUTC]
     message: Optional[str]
     summary: Optional[str]
@@ -121,10 +121,10 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             .map(lambda d: to_utc(d) if d is not None else d)
             .alt(raise_exception)
             .unwrap(),
-            assert_opt_type(raw.committer_email, str)
+            assert_opt_type(raw.committer_name, str)
             .alt(raise_exception)
             .unwrap(),
-            assert_opt_type(raw.committer_name, str)
+            assert_opt_type(raw.committer_email, str)
             .alt(raise_exception)
             .unwrap(),
             assert_opt_type(raw.committed_at, datetime)
