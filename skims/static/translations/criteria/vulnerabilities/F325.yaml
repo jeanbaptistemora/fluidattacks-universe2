@@ -1,3 +1,8 @@
+src.lib_path.f325.iam_has_privileges_over_iam:
+  en: >
+    Policies have privileges over IAM
+  es: >
+    Las políticas tienen privilegios sobre IAM
 src.lib_path.f325.iam_is_policy_miss_configured:
   en: >
     IAM Policy should consider the next rules:

@@ -184,6 +184,45 @@ def _cfn_iam_is_policy_miss_configured_iter_vulns(
             )
 
 
+def service_is_present_action(
+    action_node: Node, service: str
+) -> Iterator[Node]:
+    actions = (
+        action_node.data
+        if isinstance(action_node.data, list)
+        else [action_node]
+    )
+    for act in actions:
+        if act.raw == "*":
+            yield act
+        elif act.raw.split(":")[0] == service:
+            yield act
+
+
+def iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
+    effect = stmt.inner.get("Effect")
+    if effect.raw == "Allow":
+        if action := stmt.inner.get("Action"):
+            yield from service_is_present_action(action, "iam")
+
+
+def _cfn_iam_has_privileges_over_iam_iter_vulns(
+    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        policies = (
+            iam_res.inner["Policies"].data
+            if "Policies" in iam_res.raw
+            else [iam_res]
+        )
+        for policy in policies:
+            statements = get_node_by_keys(
+                policy, ["PolicyDocument", "Statement"]
+            )
+            for stmt in statements.data or []:
+                yield from iam_is_present_in_action(stmt)
+
+
 def _cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str,
     path: str,
@@ -251,6 +290,27 @@ def _cfn_iam_is_policy_miss_configured(
     )
 
 
+def _cfn_iam_has_privileges_over_iam(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F325_CWE},
+        description_key=("src.lib_path.f325.iam_has_privileges_over_iam"),
+        finding=_FINDING_F325,
+        iterator=get_cloud_iterator(
+            _cfn_iam_has_privileges_over_iam_iter_vulns(
+                iam_iterator=iter_iam_managed_policies_and_roles(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -296,6 +356,22 @@ async def cfn_iam_is_policy_miss_configured(
         _cfn_iam_is_policy_miss_configured,
         content=content,
         file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_iam_has_privileges_over_iam(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_iam_has_privileges_over_iam,
+        content=content,
         path=path,
         template=template,
     )
