@@ -76,7 +76,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p>{createdAt === null ? "" : formatDate(createdAt)}</p>
+          <p>{createdAt === null ? "" : formatDate(parseFloat(createdAt))}</p>
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
@@ -87,7 +87,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p>{startedAt === null ? "" : formatDate(startedAt)}</p>
+          <p>{startedAt === null ? "" : formatDate(parseFloat(startedAt))}</p>
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
@@ -98,7 +98,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p>{stoppedAt === null ? "" : formatDate(stoppedAt)}</p>
+          <p>{stoppedAt === null ? "" : formatDate(parseFloat(stoppedAt))}</p>
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}

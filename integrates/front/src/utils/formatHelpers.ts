@@ -176,8 +176,10 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
   return translate.t(treatmentParameters[treatment]);
 };
 
-const formatDate: (date: string) => string = (date: string): string => {
-  const dateObj: Date = new Date(parseFloat(date));
+const formatDate: (date: number | string) => string = (
+  date: number | string
+): string => {
+  const dateObj: Date = new Date(date);
 
   const toStringAndPad: (input: number, positions: number) => string = (
     input: number,

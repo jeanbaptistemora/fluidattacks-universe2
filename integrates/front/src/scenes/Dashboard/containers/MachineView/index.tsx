@@ -142,7 +142,7 @@ const MachineView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "startedAt",
-      formatter: formatDate,
+      formatter: (date: string): string => formatDate(parseFloat(date)),
       header: translate.t("searchFindings.tabMachine.headerStartedAt"),
       width: "10%",
     },
