@@ -1,0 +1,76 @@
+Resources:
+  CreateTestDBPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: 'rds:CreateDBInstance'
+            Condition:
+              StringEquals:
+                'rds:DatabaseEngine': mysql
+          - Effect: Allow
+            Action: 'rds:CreateGlobalCluster'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:*'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:ModifyDBCluster*'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            - '*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+          - Effect: Allow
+            Action:
+            - 'rds:CreateDBSnapshot'
+            Resource: '*'
+            NotResource:
+            - "arn:aws:s3:::HRBucket/Payroll"
+            - "arn:aws:s3:::HRBucket/Payroll/*"
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+      Users:
+        - user1
+      Groups:
+        - TestDBGroup
+  Policy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: CFNUsers
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'cloudformation:Describe*'
+              - 'cloudformation:List*'
+              - 'cloudformation:Get*'
+            Resource: '*'
+            NotAction: "iam:*"
+      Groups:
+        - !Ref CFNUserGroup

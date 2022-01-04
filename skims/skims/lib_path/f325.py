@@ -328,5 +328,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_iam_is_policy_miss_configured(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
 
     return coroutines
