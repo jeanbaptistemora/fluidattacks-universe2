@@ -26472,6 +26472,20 @@ F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skim
   17 | }
      ^ Col 0
 ",f101._tfm_azure_key_vault_not_recoverable
+F101,lines,namespace/skims/test/data/lib_path/f020/azure_key_valut_secret.tf,3,463,skims,101. Lack of protection against deletion,Confidential information is stored in plain text in namespace/skims/test/data/lib_path/f020/azure_key_valut_secret.tf,"
+   1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
+   2 |   name         = ""example_name""
+>  3 |   value        = ""ID=userAdmin;Password=8aYHDkf73""
+   4 |   key_vault_id = azurerm_key_vault.example.id
+   5 | }
+   6 |
+   7 | resource ""azurerm_key_vault_secret"" ""not_vulnerable"" {
+   8 |   name         = ""secret-sauce""
+   9 |   value        = ""szechuan""
+  10 |   key_vault_id = azurerm_key_vault.example.id
+  11 | }
+     ^ Col 0
+",f020._tfm_azure_key_vault_confidential_information
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
