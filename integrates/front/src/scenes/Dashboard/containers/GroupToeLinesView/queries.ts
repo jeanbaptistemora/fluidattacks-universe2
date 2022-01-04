@@ -25,9 +25,9 @@ const GET_TOE_LINES: DocumentNode = gql`
             bePresent
             bePresentUntil @include(if: $canGetBePresentUntil)
             comments @include(if: $canGetComments)
-            commitAuthor
             filename
             firstAttackAt @include(if: $canGetFirstAttackAt)
+            lastAuthor
             loc
             modifiedCommit
             modifiedDate

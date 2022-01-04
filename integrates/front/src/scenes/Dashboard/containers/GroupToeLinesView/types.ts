@@ -17,9 +17,9 @@ interface IToeLinesAttr {
   bePresent: boolean;
   bePresentUntil: string | null;
   comments: string;
-  commitAuthor: string;
   filename: string;
   firstAttackAt: string | null;
+  lastAuthor: string;
   loc: number;
   modifiedCommit: string;
   modifiedDate: string;
@@ -40,11 +40,11 @@ interface IToeLinesData {
   bePresent: boolean;
   bePresentUntil: Date | undefined;
   comments: string;
-  commitAuthor: string;
   coverage: number;
   daysToAttack: number;
   filename: string;
   firstAttackAt: Date | undefined;
+  lastAuthor: string;
   loc: number;
   modifiedCommit: string;
   modifiedDate: Date | undefined;

@@ -789,7 +789,6 @@ export const enTranslations: ResourceKey = {
         bePresent: "Be present",
         bePresentUntil: "Be present until",
         comments: "Comments",
-        commitAuthor: "Commit author",
         coverage: "Coverage",
         daysToAttack: "Days to attack",
         editModal: {
@@ -814,6 +813,7 @@ export const enTranslations: ResourceKey = {
         },
         filename: "Filename",
         firstAttackAt: "First attack at",
+        lastAuthor: "Last author",
         loc: "LOC",
         modifiedCommit: "Modified commit",
         modifiedDate: "Modified date",
