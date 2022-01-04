@@ -18,6 +18,7 @@ from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure.azure import (
+    iter_azurerm_linux_virtual_machine,
     iter_azurerm_virtual_machine,
 )
 from state.cache import (
@@ -50,6 +51,17 @@ def tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
                 yield linux_config
 
 
+def tfm_azure_linux_vm_insecure_authentication_iterate_vulnerabilities(
+    buckets_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for bucket in buckets_iterator:
+        if not get_argument(
+            key="admin_ssh_key",
+            body=bucket.data,
+        ):
+            yield bucket
+
+
 def _tfm_azure_virtual_machine_insecure_authentication(
     content: str,
     path: str,
@@ -63,6 +75,27 @@ def _tfm_azure_virtual_machine_insecure_authentication(
         iterator=get_cloud_iterator(
             tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
                 buckets_iterator=iter_azurerm_virtual_machine(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_azure_linux_vm_insecure_authentication(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F015_CWE},
+        description_key=("lib_path.f015.does_not_use_ssh"),
+        finding=_FINDING_F015,
+        iterator=get_cloud_iterator(
+            tfm_azure_linux_vm_insecure_authentication_iterate_vulnerabilities(
+                buckets_iterator=iter_azurerm_linux_virtual_machine(
+                    model=model
+                )
             )
         ),
         path=path,
@@ -85,6 +118,22 @@ async def tfm_azure_virtual_machine_insecure_authentication(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_linux_vm_insecure_authentication(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_linux_vm_insecure_authentication,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -98,6 +147,13 @@ async def analyze(
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             tfm_azure_virtual_machine_insecure_authentication(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_azure_linux_vm_insecure_authentication(
                 content=content,
                 path=path,
                 model=model,

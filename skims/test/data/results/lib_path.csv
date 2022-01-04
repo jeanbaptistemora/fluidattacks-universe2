@@ -19927,6 +19927,26 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provid
   16 | </manifest>
      ^ Col 0
 ",__init__._apk_exported_cp
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
+>  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
+   2 |   name           = ""example-machine""
+   3 |   size           = ""Standard_F2""
+   4 |   admin_username = ""adminuser""
+   5 |
+   6 | }
+   7 |
+   8 | resource ""azurerm_linux_virtual_machine"" ""not_vulnerable"" {
+   9 |   name           = ""example-machine""
+  10 |   size           = ""Standard_F2""
+  11 |   admin_username = ""adminuser""
+  12 |
+  13 |   admin_ssh_key {
+  14 |     username   = ""adminuser""
+  15 |     public_key = file(""~/.ssh/id_rsa.pub"")
+  16 |   }
+  17 | }
+     ^ Col 0
+",f015._tfm_azure_linux_vm_insecure_authentication
 F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
    1 | resource ""azurerm_virtual_machine"" ""vulnerable"" {
    2 |   name                  = ""${var.prefix}-vm""
