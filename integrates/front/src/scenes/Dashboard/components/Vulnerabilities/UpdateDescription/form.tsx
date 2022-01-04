@@ -59,7 +59,10 @@ import {
   hasNewTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
@@ -152,11 +155,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
       refetchQueries: [
         {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId,
+            groupName,
+          },
+        },
+        {
+          query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
             findingId,
-            groupName,
           },
         },
       ],
@@ -187,11 +196,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     },
     refetchQueries: [
       {
-        query: GET_FINDING_VULN_INFO,
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId,
+          groupName,
+        },
+      },
+      {
+        query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
           findingId,
-          groupName,
         },
       },
     ],
@@ -263,11 +278,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       },
       refetchQueries: [
         {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId,
+            groupName,
+          },
+        },
+        {
+          query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
             findingId,
-            groupName,
           },
         },
         {

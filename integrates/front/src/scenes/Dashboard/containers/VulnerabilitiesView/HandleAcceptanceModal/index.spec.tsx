@@ -24,7 +24,10 @@ import {
   HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -68,9 +71,8 @@ describe("handle vulns acceptance modal", (): void => {
       },
       {
         request: {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            canRetrieveZeroRisk: false,
             findingId: "1",
             groupName: "",
           },
@@ -79,10 +81,29 @@ describe("handle vulns acceptance modal", (): void => {
           data: {
             finding: {
               id: "1",
-              inputsVulnerabilities: [],
-              linesVulnerabilities: [],
-              portsVulnerabilities: [],
-              releaseDate: null,
+              remediated: false,
+              state: "false",
+              verified: false,
+            },
+            group: {
+              name: "",
+              subscription: "",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_FINDING_VULNS,
+          variables: {
+            canRetrieveZeroRisk: false,
+            findingId: "1",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              vulnerabilities: [],
             },
           },
         },
@@ -297,35 +318,47 @@ describe("handle vulns acceptance modal", (): void => {
         },
       },
     };
-    const mocksFindingVulnInfo: MockedResponse = {
-      request: {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveZeroRisk: false,
-          findingId: "422286126",
-          groupName: "group name",
-        },
-      },
-      result: {
-        data: {
-          finding: {
-            id: "422286126",
-            inputsVulnerabilities: [],
-            linesVulnerabilities: [],
-            portsVulnerabilities: [],
-            releaseDate: null,
-            remediated: false,
-            state: "",
-            verified: "",
-            vulnerabilities: [],
+    const mocksFindingVulnInfo: MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId: "422286126",
+            groupName: "group_name",
           },
-          group: {
-            name: "group name",
-            subscription: "",
+        },
+        result: {
+          data: {
+            finding: {
+              findingId: "422286126",
+              remediated: false,
+              state: "false",
+              verified: false,
+            },
+            group: {
+              groupName: "group_name",
+              subscription: "",
+            },
           },
         },
       },
-    };
+      {
+        request: {
+          query: GET_FINDING_VULNS,
+          variables: {
+            canRetrieveZeroRisk: false,
+            findingId: "422286126",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              vulnerabilities: [],
+            },
+          },
+        },
+      },
+    ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
@@ -348,7 +381,7 @@ describe("handle vulns acceptance modal", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
       >
         <HandleAcceptanceModal
           findingId={"422286126"}
@@ -459,35 +492,47 @@ describe("handle vulns acceptance modal", (): void => {
         },
       },
     };
-    const mocksFindingVulnInfo: MockedResponse = {
-      request: {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveZeroRisk: false,
-          findingId: "422286126",
-          groupName: "group name",
-        },
-      },
-      result: {
-        data: {
-          finding: {
-            id: "422286126",
-            inputsVulnerabilities: [],
-            linesVulnerabilities: [],
-            portsVulnerabilities: [],
-            releaseDate: null,
-            remediated: false,
-            state: "",
-            verified: "",
-            vulnerabilities: [],
+    const mocksFindingVulnInfo: MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId: "422286126",
+            groupName: "group_name",
           },
-          group: {
-            name: "group name",
-            subscription: "",
+        },
+        result: {
+          data: {
+            finding: {
+              findingId: "422286126",
+              remediated: false,
+              state: "false",
+              verified: false,
+            },
+            group: {
+              groupName: "group_name",
+              subscription: "",
+            },
           },
         },
       },
-    };
+      {
+        request: {
+          query: GET_FINDING_VULNS,
+          variables: {
+            canRetrieveZeroRisk: false,
+            findingId: "422286126",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              vulnerabilities: [],
+            },
+          },
+        },
+      },
+    ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
@@ -510,7 +555,7 @@ describe("handle vulns acceptance modal", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
       >
         <HandleAcceptanceModal
           findingId={"422286126"}
@@ -614,35 +659,47 @@ describe("handle vulns acceptance modal", (): void => {
         },
       },
     };
-    const mocksFindingVulnInfo: MockedResponse = {
-      request: {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveZeroRisk: false,
-          findingId: "422286126",
-          groupName: "group name",
-        },
-      },
-      result: {
-        data: {
-          finding: {
-            id: "422286126",
-            inputsVulnerabilities: [],
-            linesVulnerabilities: [],
-            portsVulnerabilities: [],
-            releaseDate: null,
-            remediated: false,
-            state: "",
-            verified: "",
-            vulnerabilities: [],
+    const mocksFindingVulnInfo: MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId: "422286126",
+            groupName: "group_name",
           },
-          group: {
-            name: "group name",
-            subscription: "",
+        },
+        result: {
+          data: {
+            finding: {
+              findingId: "422286126",
+              remediated: false,
+              state: "false",
+              verified: false,
+            },
+            group: {
+              groupName: "group_name",
+              subscription: "",
+            },
           },
         },
       },
-    };
+      {
+        request: {
+          query: GET_FINDING_VULNS,
+          variables: {
+            canRetrieveZeroRisk: false,
+            findingId: "422286126",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              vulnerabilities: [],
+            },
+          },
+        },
+      },
+    ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
@@ -665,7 +722,7 @@ describe("handle vulns acceptance modal", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
       >
         <HandleAcceptanceModal
           findingId={"422286126"}
@@ -776,35 +833,47 @@ describe("handle vulns acceptance modal", (): void => {
         },
       },
     };
-    const mocksFindingVulnInfo: MockedResponse = {
-      request: {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveZeroRisk: false,
-          findingId: "422286126",
-          groupName: "group name",
-        },
-      },
-      result: {
-        data: {
-          finding: {
-            id: "422286126",
-            inputsVulnerabilities: [],
-            linesVulnerabilities: [],
-            portsVulnerabilities: [],
-            releaseDate: null,
-            remediated: false,
-            state: "",
-            verified: "",
-            vulnerabilities: [],
+    const mocksFindingVulnInfo: MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId: "422286126",
+            groupName: "group_name",
           },
-          group: {
-            name: "group name",
-            subscription: "",
+        },
+        result: {
+          data: {
+            finding: {
+              findingId: "422286126",
+              remediated: false,
+              state: "false",
+              verified: false,
+            },
+            group: {
+              groupName: "group_name",
+              subscription: "",
+            },
           },
         },
       },
-    };
+      {
+        request: {
+          query: GET_FINDING_VULNS,
+          variables: {
+            canRetrieveZeroRisk: false,
+            findingId: "422286126",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              vulnerabilities: [],
+            },
+          },
+        },
+      },
+    ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
         historicTreatment: [
@@ -827,7 +896,7 @@ describe("handle vulns acceptance modal", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, mocksFindingVulnInfo]}
+        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
       >
         <HandleAcceptanceModal
           findingId={"422286126"}

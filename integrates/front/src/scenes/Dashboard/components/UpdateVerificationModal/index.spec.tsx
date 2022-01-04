@@ -14,30 +14,53 @@ import {
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 
 describe("update verification component", (): void => {
-  const mocksVulns: MockedResponse = {
-    request: {
-      query: GET_FINDING_VULN_INFO,
-      variables: {
-        canRetrieveZeroRisk: false,
-        findingId: "",
-        groupName: "",
+  const mocksVulns: MockedResponse[] = [
+    {
+      request: {
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId: "",
+          groupName: "",
+        },
       },
-    },
-    result: {
-      data: {
-        finding: {
-          id: "",
-          remediated: true,
-          state: "open",
-          verified: false,
-          vulnerabilities: [],
+      result: {
+        data: {
+          finding: {
+            id: "",
+            remediated: true,
+            state: "open",
+            verified: false,
+          },
+          group: {
+            name: "",
+            subscription: "",
+          },
         },
       },
     },
-  };
+    {
+      request: {
+        query: GET_FINDING_VULNS,
+        variables: {
+          canRetrieveZeroRisk: false,
+          findingId: "",
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            vulnerabilities: [],
+          },
+        },
+      },
+    },
+  ];
 
   it("should handle request verification", async (): Promise<void> => {
     expect.hasAssertions();
@@ -59,7 +82,7 @@ describe("update verification component", (): void => {
           data: { requestVulnerabilitiesVerification: { success: true } },
         },
       },
-      mocksVulns,
+      ...mocksVulns,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
@@ -215,7 +238,7 @@ describe("update verification component", (): void => {
           },
         },
       },
-      mocksVulns,
+      ...mocksVulns,
     ];
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>

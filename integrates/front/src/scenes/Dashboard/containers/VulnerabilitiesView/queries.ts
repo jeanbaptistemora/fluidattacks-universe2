@@ -27,33 +27,6 @@ const VULNS_FRAGMENT: DocumentNode = gql`
   }
 `;
 
-const GET_FINDING_VULN_INFO: DocumentNode = gql`
-  query GetFindingVulnInfo(
-    $canRetrieveZeroRisk: Boolean!
-    $findingId: String!
-    $groupName: String!
-  ) {
-    finding(identifier: $findingId) {
-      id
-      remediated
-      releaseDate
-      state
-      verified
-      vulnerabilities {
-        ...vulnFields
-      }
-      zeroRisk @include(if: $canRetrieveZeroRisk) {
-        ...vulnFields
-      }
-    }
-    group(groupName: $groupName) {
-      name
-      subscription
-    }
-  }
-  ${VULNS_FRAGMENT}
-`;
-
 const GET_FINDING_AND_GROUP_INFO: DocumentNode = gql`
   query GetFindingAndGroupInfo($findingId: String!, $groupName: String!) {
     finding(identifier: $findingId) {
@@ -84,9 +57,4 @@ const GET_FINDING_VULNS: DocumentNode = gql`
   ${VULNS_FRAGMENT}
 `;
 
-export {
-  VULNS_FRAGMENT,
-  GET_FINDING_VULN_INFO,
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-};
+export { VULNS_FRAGMENT, GET_FINDING_AND_GROUP_INFO, GET_FINDING_VULNS };

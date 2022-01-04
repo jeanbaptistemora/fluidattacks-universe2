@@ -21,7 +21,10 @@ import {
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
@@ -74,13 +77,19 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     {
       refetchQueries: [
         {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId,
+            groupName,
+          },
+        },
+        {
+          query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
             ),
             findingId,
-            groupName,
           },
         },
       ],
@@ -99,13 +108,19 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           },
         },
         {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId,
+            groupName,
+          },
+        },
+        {
+          query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
             ),
             findingId,
-            groupName,
           },
         },
       ],

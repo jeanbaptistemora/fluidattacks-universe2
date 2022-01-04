@@ -22,7 +22,10 @@ import type {
   IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import {
   ButtonToolbarLeft,
   Col33,
@@ -110,13 +113,19 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       onError: handleUploadError,
       refetchQueries: [
         {
-          query: GET_FINDING_VULN_INFO,
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId,
+            groupName,
+          },
+        },
+        {
+          query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
             ),
             findingId,
-            groupName,
           },
         },
         {

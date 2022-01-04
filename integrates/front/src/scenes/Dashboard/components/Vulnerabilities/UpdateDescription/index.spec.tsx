@@ -23,7 +23,10 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -60,46 +63,63 @@ describe("Update Description component", (): void => {
       where: "",
     },
   ];
-  const mocksVulns: MockedResponse = {
-    request: {
-      query: GET_FINDING_VULN_INFO,
-      variables: {
-        canRetrieveZeroRisk: false,
-        findingId: "422286126",
-        groupName: "",
+  const mocksVulns: MockedResponse[] = [
+    {
+      request: {
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId: "422286126",
+          groupName: "",
+        },
       },
-    },
-    result: {
-      data: {
-        finding: {
-          id: "480857698",
-          remediated: false,
-          state: "open",
-          verified: false,
-          vulnerabilities: {
-            currentState: "open",
-            externalBugTrackingSystem: null,
-            findingId: "480857698",
-            historicTreatment: [],
-            id: "",
+      result: {
+        data: {
+          finding: {
+            id: "422286126",
             remediated: false,
-            reportDate: "",
-            severity: null,
-            specific: "",
-            tag: "",
-            verification: null,
-            vulnerabilityType: "",
-            where: "",
-            zeroRisk: null,
+            state: "open",
+            verified: false,
+          },
+          group: {
+            name: "",
+            subscription: "",
           },
         },
-        group: {
-          name: "",
-          subscription: "",
+      },
+    },
+    {
+      request: {
+        query: GET_FINDING_VULNS,
+        variables: {
+          canRetrieveZeroRisk: false,
+          id: "422286126",
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            vulnerabilities: [
+              {
+                currentState: "open",
+                externalBugTrackingSystem: null,
+                findingId: "422286126",
+                id: "",
+                remediated: false,
+                reportDate: "",
+                severity: null,
+                specific: "",
+                tag: "",
+                verification: null,
+                vulnerabilityType: "",
+                where: "",
+                zeroRisk: null,
+              },
+            ],
+          },
         },
       },
     },
-  };
+  ];
   const mocksFindingHeader: MockedResponse = {
     request: {
       query: GET_FINDING_HEADER,
@@ -244,7 +264,7 @@ describe("Update Description component", (): void => {
         },
         result: { data: { requestVulnerabilitiesZeroRisk: { success: true } } },
       },
-      mocksVulns,
+      ...mocksVulns,
       mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
@@ -468,7 +488,7 @@ describe("Update Description component", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, mocksVulns]}
+        mocks={[...mocksMutation, ...mocksVulns]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
@@ -595,7 +615,7 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={[mocksError, mocksVulns]}>
+      <MockedProvider addTypename={false} mocks={[mocksError, ...mocksVulns]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
             findingId={"422286126"}

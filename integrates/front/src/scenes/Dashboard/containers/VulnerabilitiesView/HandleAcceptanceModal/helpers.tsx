@@ -18,7 +18,10 @@ import type {
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import {
+  GET_FINDING_AND_GROUP_INFO,
+  GET_FINDING_VULNS,
+} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -84,11 +87,17 @@ const acceptanceProps = (
     },
     refetchQueries: [
       {
-        query: GET_FINDING_VULN_INFO,
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId,
+          groupName,
+        },
+      },
+      {
+        query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
           findingId,
-          groupName,
         },
       },
     ],
@@ -129,11 +138,17 @@ const confirmZeroRiskProps = (
     },
     refetchQueries: [
       {
-        query: GET_FINDING_VULN_INFO,
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId,
+          groupName,
+        },
+      },
+      {
+        query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
           findingId,
-          groupName,
         },
       },
       {
@@ -181,11 +196,17 @@ const rejectZeroRiskProps = (
     },
     refetchQueries: [
       {
-        query: GET_FINDING_VULN_INFO,
+        query: GET_FINDING_AND_GROUP_INFO,
+        variables: {
+          findingId,
+          groupName,
+        },
+      },
+      {
+        query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
           findingId,
-          groupName,
         },
       },
       {
