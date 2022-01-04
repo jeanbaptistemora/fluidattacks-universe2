@@ -12,10 +12,11 @@ function migration {
     && aws_login_prod_new 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && code-etl migration calculate-fa-hash \
-      "${namespace}" \
+    && code-etl v2 \
       --db-id "${db}" \
       --creds "${creds}" \
+      migration calculate-fa-hash \
+      "${namespace}" \
       --schema "code"
 }
 

@@ -3,23 +3,33 @@
 import asyncio
 import click
 from code_etl import (
+    amend as amend_v2,
     amend_authors as amend,
     compute_bills as bills,
+    mailmap,
     upload,
     upload_repo,
 )
 from code_etl.mailmap import (
+    Mailmap,
     MailmapFactory,
 )
 from code_etl.migration import (
     calc_fa_hash,
     calc_fa_hash_2,
 )
+from dataclasses import (
+    dataclass,
+)
 from os.path import (
     abspath,
 )
 from pathlib import (
     Path,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
 )
 from postgres_client.connection.decoder import (
     creds_from_str,
@@ -34,11 +44,39 @@ from returns.maybe import (
 )
 import sys
 from typing import (
+    Any,
     IO as FILE,
     Iterator,
     Optional,
     Tuple,
 )
+
+
+@dataclass(frozen=True)
+class CmdContext:
+    db_id: DatabaseID
+    creds: Credentials
+
+
+mailmap_file = click.Path(
+    exists=True,
+    file_okay=True,
+    dir_okay=False,
+    writable=False,
+    readable=True,
+    resolve_path=True,
+    allow_dash=False,
+    path_type=str,
+)
+pass_ctx = click.make_pass_decorator(CmdContext)
+
+
+def _get_mailmap(path: Optional[str]) -> Maybe[Mailmap]:
+    return Maybe.from_optional(path).map(MailmapFactory.from_file_path)
+
+
+def _to_table(pair: Tuple[str, str]) -> TableID:
+    return TableID(SchemaID(pair[0]), pair[1])
 
 
 @click.command()
@@ -65,18 +103,6 @@ def compute_bills(
     )
 
 
-mailmap_file = click.Path(
-    exists=True,
-    file_okay=True,
-    dir_okay=False,
-    writable=False,
-    readable=True,
-    resolve_path=True,
-    allow_dash=False,
-    path_type=str,
-)
-
-
 @click.command()
 @click.argument("namespace", type=str)
 @click.argument("repositories", type=str, nargs=-1)
@@ -92,16 +118,14 @@ def upload_code(
 
 
 @click.command()
-@click.option("--db-id", type=click.File("r"), required=True)
-@click.option("--creds", type=click.File("r"), required=True)
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.option("--mailmap", type=mailmap_file)
 @click.argument("repositories", type=str, nargs=-1)
+@pass_ctx
 def upload_code_v2(
-    db_id: FILE[str],
-    creds: FILE[str],
+    ctx: CmdContext,
     schema: str,
     table: str,
     namespace: str,
@@ -109,12 +133,11 @@ def upload_code_v2(
     mailmap: Optional[str],
 ) -> None:
     repos = tuple(Path(abspath(r)) for r in repositories)
-    target = TableID(SchemaID(schema), table)
-    mailmap_path = Maybe.from_optional(mailmap)
-    mmap = mailmap_path.map(MailmapFactory.from_file_path)
+    target = _to_table((schema, table))
+    mmap = _get_mailmap(mailmap)
     return upload_repo.upload_repos(
-        id_from_str(db_id.read()),
-        creds_from_str(creds.read()),
+        ctx.db_id,
+        ctx.creds,
         target,
         namespace,
         repos,
@@ -124,51 +147,58 @@ def upload_code_v2(
 
 @click.command()
 @click.argument("namespace", type=str)
-@click.option("--db-id", type=click.File("r"), required=True)
-@click.option("--creds", type=click.File("r"), required=True)
 @click.option("--schema", type=str, required=True)
-def calculate_fa_hash(
-    namespace: str, db_id: FILE[str], creds: FILE[str], schema: str
-) -> None:
+@pass_ctx
+def calculate_fa_hash(ctx: CmdContext, namespace: str, schema: str) -> None:
     calc_fa_hash.start(
-        id_from_str(db_id.read()),
-        creds_from_str(creds.read()),
+        ctx.db_id,
+        ctx.creds,
         SchemaID(schema),
         namespace,
     )
 
 
 @click.command()
-@click.option("--db-id", type=click.File("r"), required=True)
-@click.option("--creds", type=click.File("r"), required=True)
-@click.option("--source-schema", type=str, required=True)
-@click.option("--source-table", type=str, required=True)
-@click.option("--target-schema", type=str, required=True)
-@click.option("--target-table", type=str, required=True)
+@click.option("--source", type=(str, str), help="schema-table pair")
+@click.option("--target", type=(str, str), help="schema-table pair")
+@pass_ctx
 def calculate_fa_hash_2(
-    db_id: FILE[str],
-    creds: FILE[str],
-    source_schema: str,
-    source_table: str,
-    target_schema: str,
-    target_table: str,
+    ctx: CmdContext,
+    source: Tuple[str, str],
+    target: Tuple[str, str],
 ) -> None:
     calc_fa_hash_2.start(
-        id_from_str(db_id.read()),
-        creds_from_str(creds.read()),
-        TableID(SchemaID(source_schema), source_table),
-        TableID(SchemaID(target_schema), target_table),
+        ctx.db_id,
+        ctx.creds,
+        _to_table(source),
+        _to_table(target),
     )
 
 
 @click.group()
 def migration() -> None:
-    # main cli group
+    # migration cli group
     pass
 
 
 migration.add_command(calculate_fa_hash)
 migration.add_command(calculate_fa_hash_2)
+
+
+@click.group()
+@click.option("--db-id", type=click.File("r"), required=True)
+@click.option("--creds", type=click.File("r"), required=True)
+@click.pass_context
+def v2(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
+    if "--help" not in click.get_os_args():
+        ctx.obj = CmdContext(
+            id_from_str(db_id.read()),
+            creds_from_str(creds.read()),
+        )
+
+
+v2.add_command(upload_code_v2)
+v2.add_command(migration)
 
 
 @click.group()
@@ -180,5 +210,4 @@ def main() -> None:
 main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
-main.add_command(upload_code_v2)
-main.add_command(migration)
+main.add_command(v2)

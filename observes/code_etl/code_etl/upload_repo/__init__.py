@@ -39,21 +39,11 @@ from postgres_client.ids import (
 from purity.v2.frozen import (
     FrozenList,
 )
-from returns.functions import (
-    raise_exception,
-)
 from returns.io import (
     IO,
 )
 from returns.maybe import (
     Maybe,
-)
-from returns.result import (
-    Failure,
-    ResultE,
-)
-from typing import (
-    List,
 )
 
 LOG = logging.getLogger(__name__)
@@ -103,7 +93,7 @@ def upload_repos(
         (ClientFactory().from_creds(db_id, creds), p) for p in repo_paths
     )
     pool = ThreadPool()
-    results: List[IO[None]] = pool.map(
+    pool.map(
         lambda i: upload(i[0], target, namespace, i[1], mailmap), client_paths
     )
     return IO(None)
