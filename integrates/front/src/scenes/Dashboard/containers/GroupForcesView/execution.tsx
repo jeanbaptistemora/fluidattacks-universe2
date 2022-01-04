@@ -241,7 +241,7 @@ const Execution: React.FC<IExecution> = (
           <p>{execution.strictness}</p>
         </Col33>
       </Row>
-      {execution.strictness === "strict" ? (
+      {execution.strictness === "strict" && (
         <React.Fragment>
           {/* eslint-disable-next-line react/forbid-component-props */}
           <Row className={"nb3"}>
@@ -266,7 +266,7 @@ const Execution: React.FC<IExecution> = (
             </Col33>
           </Row>
         </React.Fragment>
-      ) : undefined}
+      )}
       {/* eslint-disable-next-line react/forbid-component-props */}
       <Row className={"nb3"}>
         <Col33>
