@@ -21,3 +21,9 @@ class AzurermVirtualMachine(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AzurermLinuxVirtualMachine(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

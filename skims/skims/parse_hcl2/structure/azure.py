@@ -1,5 +1,6 @@
 from azure.model import (
     AzurermDataFactory,
+    AzurermLinuxVirtualMachine,
     AzurermStorageAccount,
     AzurermVirtualMachine,
 )
@@ -36,6 +37,18 @@ def iter_azurerm_virtual_machine(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "azurerm_virtual_machine")
     for bucket in iterator:
         yield AzurermVirtualMachine(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_azurerm_linux_virtual_machine(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "azurerm_linux_virtual_machine"
+    )
+    for bucket in iterator:
+        yield AzurermLinuxVirtualMachine(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
