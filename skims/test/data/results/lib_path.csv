@@ -14063,6 +14063,102 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    87 |         ""Users"": [
       ^ Col 0
 ",f031_aws._cfn_negative_statement
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,97,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+   87 |               - '*'
+   88 |               Condition:
+   89 |                 StringEquals:
+   90 |                   'rds:DatabaseClass': db.t2.micro
+   91 |             - Effect: Allow
+   92 |               Action:
+   93 |               - 'rds:CreateDBSnapshot'
+   94 |               Resource: '*'
+   95 |               NotResource:
+   96 |               - ""arn:aws:s3:::HRBucket/Payroll""
+>  97 |               - ""arn:aws:s3:::HRBucket/Payroll/*""
+   98 |               Condition:
+   99 |                 StringEquals:
+  100 |                   'rds:DatabaseClass': db.t2.micro
+      ^ Col 0
+",f031_aws._cfn_negative_statement
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,96,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+   87 |               - '*'
+   88 |               Condition:
+   89 |                 StringEquals:
+   90 |                   'rds:DatabaseClass': db.t2.micro
+   91 |             - Effect: Allow
+   92 |               Action:
+   93 |               - 'rds:CreateDBSnapshot'
+   94 |               Resource: '*'
+   95 |               NotResource:
+>  96 |               - ""arn:aws:s3:::HRBucket/Payroll""
+   97 |               - ""arn:aws:s3:::HRBucket/Payroll/*""
+   98 |               Condition:
+   99 |                 StringEquals:
+  100 |                   'rds:DatabaseClass': db.t2.micro
+      ^ Col 0
+",f031_aws._cfn_negative_statement
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,99,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   89 |                     }
+   90 |                   }
+   91 |                 },
+   92 |                 {
+   93 |                   ""Effect"": ""Allow"",
+   94 |                   ""Action"": [
+   95 |                     ""rds:CreateDBSnapshot""
+   96 |                   ],
+   97 |                   ""Resource"": ""*"",
+   98 |                   ""NotResource"": [
+>  99 |                     ""arn:aws:s3:::HRBucket/Payroll"",
+  100 |                     ""arn:aws:s3:::HRBucket/Payroll/*""
+  101 |                   ],
+  102 |                   ""Condition"": {
+  103 |                     ""StringEquals"": {
+  104 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+  105 |                     }
+  106 |                   }
+  107 |                 }
+  108 |               ]
+  109 |             }
+      ^ Col 0
+",f031_aws._cfn_negative_statement
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,100,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   90 |                   }
+   91 |                 },
+   92 |                 {
+   93 |                   ""Effect"": ""Allow"",
+   94 |                   ""Action"": [
+   95 |                     ""rds:CreateDBSnapshot""
+   96 |                   ],
+   97 |                   ""Resource"": ""*"",
+   98 |                   ""NotResource"": [
+   99 |                     ""arn:aws:s3:::HRBucket/Payroll"",
+> 100 |                     ""arn:aws:s3:::HRBucket/Payroll/*""
+  101 |                   ],
+  102 |                   ""Condition"": {
+  103 |                     ""StringEquals"": {
+  104 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+  105 |                     }
+  106 |                   }
+  107 |                 }
+  108 |               ]
+  109 |             }
+  110 |           }
+      ^ Col 0
+",f031_aws._cfn_negative_statement
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,10,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
    1 | Resources:
    2 |   AWS_IAM_Role_1:
@@ -14877,6 +14973,78 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   125 |               ""Version"": ""2012-10-17"",
   126 |               ""Statement"": [
   127 |                 {
+      ^ Col 0
+",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,31,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+>  31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+   33 |   RootRole:
+   34 |     Type: 'AWS::IAM::Role'
+   35 |     Properties:
+   36 |       AssumeRolePolicyDocument:
+   37 |         Version: ""2012-10-17""
+   38 |         Statement:
+   39 |           - Effect: Allow
+   40 |             Principal:
+   41 |               Service:
+      ^ Col 0
+",f031_aws._cfn_admin_policy_attached
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,21,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   11 |                 - ec2.amazonaws.com
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+>  21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+      ^ Col 0
+",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+>  22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
       ^ Col 0
 ",f031_aws._cfn_permissive_policy
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,11,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
@@ -16127,6 +16295,1446 @@ F325,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ss
   44 |               ""Resource"": ""*"",
      ^ Col 0
 ",f325._cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,6,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
+   1 | Resources:
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       ManagedPolicyArns:
+>  6 |         - arn:aws:iam::aws:policy/AdministratorAccess
+   7 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+   8 |         - arn:aws:iam::aws:policy/IAMFullAccess
+   9 |         - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+  10 |         - arn:aws:iam::aws:policy/PowerUserAccess
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""AWS_IAM_Role_1"": {
+   4 |       ""Type"": ""AWS::IAM::Role"",
+   5 |       ""Properties"": {
+   6 |         ""ManagedPolicyArns"": [
+>  7 |           ""arn:aws:iam::aws:policy/AdministratorAccess"",
+   8 |           ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"",
+   9 |           ""arn:aws:iam::aws:policy/IAMFullAccess"",
+  10 |           ""arn:aws:iam::aws:policy/SecretsManagerReadWrite"",
+  11 |           ""arn:aws:iam::aws:policy/PowerUserAccess""
+  12 |         ]
+  13 |       }
+  14 |     }
+  15 |   }
+  16 | }
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+  20 |
+  21 |           - Effect: Allow
+  22 |             NotAction: s3:ListBucket
+  23 |             NotResource: ""something""
+  24 |
+  25 |   AWS_IAM_Role_1:
+  26 |     Type: AWS::IAM::Role
+  27 |     Properties:
+  28 |       AssumeRolePolicyDocument:
+  29 |         Statement:
+  30 |           - Effect: Allow
+  31 |             Principal:
+  32 |               Service:
+  33 |                 - ec2.amazonaws.com
+  34 |             Action:
+  35 |               - sts:AssumeRole
+  36 |           - Effect: Allow
+> 37 |             NotAction: s3:ListBucket
+  38 |             NotResource: ""something""
+  39 |
+  40 | ---
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+  38 |               ""Effect"": ""Allow"",
+  39 |               ""Principal"": {
+  40 |                 ""Service"": [
+  41 |                   ""ec2.amazonaws.com""
+  42 |                 ]
+  43 |               },
+  44 |               ""Action"": [
+  45 |                 ""sts:AssumeRole""
+  46 |               ]
+  47 |             },
+  48 |             {
+  49 |               ""Effect"": ""Allow"",
+> 50 |               ""NotAction"": ""s3:ListBucket"",
+  51 |               ""NotResource"": ""something""
+  52 |             }
+  53 |           ]
+  54 |         }
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   1 | Resources:
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       Policies:
+   6 |         - PolicyDocument:
+   7 |             Version: '2012-10-17'
+   8 |             Statement:
+   9 |               - Action:
+  10 |                   - ec2:*
+> 11 |                   - autoscaling:*
+  12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+  19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,10,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   1 | Resources:
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       Policies:
+   6 |         - PolicyDocument:
+   7 |             Version: '2012-10-17'
+   8 |             Statement:
+   9 |               - Action:
+> 10 |                   - ec2:*
+  11 |                   - autoscaling:*
+  12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+  19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       Policies:
+   6 |         - PolicyDocument:
+   7 |             Version: '2012-10-17'
+   8 |             Statement:
+   9 |               - Action:
+  10 |                   - ec2:*
+  11 |                   - autoscaling:*
+> 12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+  19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+  22 |               - Action: ec2:Something
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       Policies:
+   6 |         - PolicyDocument:
+   7 |             Version: '2012-10-17'
+   8 |             Statement:
+   9 |               - Action:
+  10 |                   - ec2:*
+  11 |                   - autoscaling:*
+  12 |                   - eks:*
+> 13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+  19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+  22 |               - Action: ec2:Something
+  23 |                 Resource: arn:::ec2/specific
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,17,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   7 |             Version: '2012-10-17'
+   8 |             Statement:
+   9 |               - Action:
+  10 |                   - ec2:*
+  11 |                   - autoscaling:*
+  12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+> 17 |                 Resource: '*'
+  18 |                 Effect: Allow
+  19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+  22 |               - Action: ec2:Something
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,19,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   9 |               - Action:
+  10 |                   - ec2:*
+  11 |                   - autoscaling:*
+  12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+> 19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+  22 |               - Action: ec2:Something
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,42,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+  30 |                 - ec2.amazonaws.com
+  31 |             Action:
+  32 |               - sts:AssumeRole
+  33 |           - Effect: Allow
+  34 |             Action:
+  35 |               - ec2:*
+  36 |               - autoscaling:*
+  37 |               - eks:*
+  38 |             Resource: '*'
+  39 |           - Effect: Allow
+  40 |             Principal:
+  41 |               AWS: arn:aws:iam:::root
+> 42 |             Action: kms:*
+  43 |             Resource: ""*""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+  30 |                 - ec2.amazonaws.com
+  31 |             Action:
+  32 |               - sts:AssumeRole
+  33 |           - Effect: Allow
+  34 |             Action:
+  35 |               - ec2:*
+  36 |               - autoscaling:*
+> 37 |               - eks:*
+  38 |             Resource: '*'
+  39 |           - Effect: Allow
+  40 |             Principal:
+  41 |               AWS: arn:aws:iam:::root
+  42 |             Action: kms:*
+  43 |             Resource: ""*""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+  30 |                 - ec2.amazonaws.com
+  31 |             Action:
+  32 |               - sts:AssumeRole
+  33 |           - Effect: Allow
+  34 |             Action:
+  35 |               - ec2:*
+> 36 |               - autoscaling:*
+  37 |               - eks:*
+  38 |             Resource: '*'
+  39 |           - Effect: Allow
+  40 |             Principal:
+  41 |               AWS: arn:aws:iam:::root
+  42 |             Action: kms:*
+  43 |             Resource: ""*""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+  30 |                 - ec2.amazonaws.com
+  31 |             Action:
+  32 |               - sts:AssumeRole
+  33 |           - Effect: Allow
+  34 |             Action:
+> 35 |               - ec2:*
+  36 |               - autoscaling:*
+  37 |               - eks:*
+  38 |             Resource: '*'
+  39 |           - Effect: Allow
+  40 |             Principal:
+  41 |               AWS: arn:aws:iam:::root
+  42 |             Action: kms:*
+  43 |             Resource: ""*""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+   3 |     ""AWS_IAM_Role_1"": {
+   4 |       ""Type"": ""AWS::IAM::Role"",
+   5 |       ""Properties"": {
+   6 |         ""Policies"": [
+   7 |           {
+   8 |             ""PolicyDocument"": {
+   9 |               ""Version"": ""2012-10-17"",
+  10 |               ""Statement"": [
+  11 |                 {
+  12 |                   ""Action"": [
+> 13 |                     ""ec2:*"",
+  14 |                     ""autoscaling:*"",
+  15 |                     ""eks:*""
+  16 |                   ],
+  17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+   4 |       ""Type"": ""AWS::IAM::Role"",
+   5 |       ""Properties"": {
+   6 |         ""Policies"": [
+   7 |           {
+   8 |             ""PolicyDocument"": {
+   9 |               ""Version"": ""2012-10-17"",
+  10 |               ""Statement"": [
+  11 |                 {
+  12 |                   ""Action"": [
+  13 |                     ""ec2:*"",
+> 14 |                     ""autoscaling:*"",
+  15 |                     ""eks:*""
+  16 |                   ],
+  17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+  24 |                   ""Resource"": ""*"",
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+   5 |       ""Properties"": {
+   6 |         ""Policies"": [
+   7 |           {
+   8 |             ""PolicyDocument"": {
+   9 |               ""Version"": ""2012-10-17"",
+  10 |               ""Statement"": [
+  11 |                 {
+  12 |                   ""Action"": [
+  13 |                     ""ec2:*"",
+  14 |                     ""autoscaling:*"",
+> 15 |                     ""eks:*""
+  16 |                   ],
+  17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+  24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+   7 |           {
+   8 |             ""PolicyDocument"": {
+   9 |               ""Version"": ""2012-10-17"",
+  10 |               ""Statement"": [
+  11 |                 {
+  12 |                   ""Action"": [
+  13 |                     ""ec2:*"",
+  14 |                     ""autoscaling:*"",
+  15 |                     ""eks:*""
+  16 |                   ],
+> 17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+  24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+  26 |                 },
+  27 |                 {
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,24,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  14 |                     ""autoscaling:*"",
+  15 |                     ""eks:*""
+  16 |                   ],
+  17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+> 24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+  26 |                 },
+  27 |                 {
+  28 |                   ""Action"": ""*"",
+  29 |                   ""Resource"": ""arn:::ec2/specific"",
+  30 |                   ""Effect"": ""Allow""
+  31 |                 },
+  32 |                 {
+  33 |                   ""Action"": ""ec2:Something"",
+  34 |                   ""Resource"": ""arn:::ec2/specific"",
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,28,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+  24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+  26 |                 },
+  27 |                 {
+> 28 |                   ""Action"": ""*"",
+  29 |                   ""Resource"": ""arn:::ec2/specific"",
+  30 |                   ""Effect"": ""Allow""
+  31 |                 },
+  32 |                 {
+  33 |                   ""Action"": ""ec2:Something"",
+  34 |                   ""Resource"": ""arn:::ec2/specific"",
+  35 |                   ""Effect"": ""Allow""
+  36 |                 }
+  37 |               ]
+  38 |             }
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  47 |                   ""ec2.amazonaws.com""
+  48 |                 ]
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+> 57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  48 |                 ]
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+> 58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+  68 |               ""Action"": ""kms:*"",
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+> 59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+  68 |               ""Action"": ""kms:*"",
+  69 |               ""Resource"": ""*""
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,68,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+> 68 |               ""Action"": ""kms:*"",
+  69 |               ""Resource"": ""*""
+  70 |             }
+  71 |           ]
+  72 |         }
+  73 |       }
+  74 |     }
+  75 |   }
+  76 | }
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,52,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+> 52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+> 46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,45,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+> 45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  59 |         },
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+> 69 |                   ""Action"": ""iam:*"",
+  70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+  69 |                   ""Action"": ""iam:*"",
+> 70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,82,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
+  81 |                   ""Effect"": ""Allow"",
+> 82 |                   ""Action"": ""*"",
+  83 |                   ""Resource"": ""s3:GetObject""
+  84 |                 }
+  85 |               ]
+  86 |             }
+  87 |           }
+  88 |         ]
+  89 |       }
+  90 |     }
+  91 |   }
+  92 | }
+     ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,75,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   65 |                 - ec2.amazonaws.com
+   66 |             Action:
+   67 |               - 'sts:AssumeRole'
+   68 |       Path: /
+   69 |       Policies:
+   70 |         - PolicyName: root
+   71 |           PolicyDocument:
+   72 |             Version: ""2012-10-17""
+   73 |             Statement:
+   74 |               - Effect: Allow
+>  75 |                 Action: '*'
+   76 |                 Resource: '*'
+   77 |         - PolicyName: root
+   78 |           PolicyDocument:
+   79 |             Version: ""2012-10-17""
+   80 |             Statement:
+   81 |               - Effect: Deny
+   82 |                 Action: '*'
+   83 |                 Resource: '*'
+   84 |         - PolicyName: root
+   85 |           PolicyDocument:
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,76,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   66 |             Action:
+   67 |               - 'sts:AssumeRole'
+   68 |       Path: /
+   69 |       Policies:
+   70 |         - PolicyName: root
+   71 |           PolicyDocument:
+   72 |             Version: ""2012-10-17""
+   73 |             Statement:
+   74 |               - Effect: Allow
+   75 |                 Action: '*'
+>  76 |                 Resource: '*'
+   77 |         - PolicyName: root
+   78 |           PolicyDocument:
+   79 |             Version: ""2012-10-17""
+   80 |             Statement:
+   81 |               - Effect: Deny
+   82 |                 Action: '*'
+   83 |                 Resource: '*'
+   84 |         - PolicyName: root
+   85 |           PolicyDocument:
+   86 |             Version: ""2012-10-17""
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,90,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   80 |             Statement:
+   81 |               - Effect: Deny
+   82 |                 Action: '*'
+   83 |                 Resource: '*'
+   84 |         - PolicyName: root
+   85 |           PolicyDocument:
+   86 |             Version: ""2012-10-17""
+   87 |             Statement:
+   88 |               - Effect: Allow
+   89 |                 Action: 'ec2:ModifySnapshotAttribute'
+>  90 |                 Resource: '*'
+   91 |         - PolicyName: root
+   92 |           PolicyDocument:
+   93 |             Version: ""2012-10-17""
+   94 |             Statement:
+   95 |               - Effect: Allow
+   96 |                 Action: 's3:List*'
+   97 |                 Resource: '*'
+   98 |         - PolicyName: root
+   99 |           PolicyDocument:
+  100 |             Version: ""2012-10-17""
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,103,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   85 |           PolicyDocument:
+   86 |             Version: ""2012-10-17""
+   87 |             Statement:
+   88 |               - Effect: Allow
+   89 |                 Action: 'ec2:ModifySnapshotAttribute'
+   90 |                 Resource: '*'
+   91 |         - PolicyName: root
+   92 |           PolicyDocument:
+   93 |             Version: ""2012-10-17""
+   94 |             Statement:
+   95 |               - Effect: Allow
+   96 |                 Action: 's3:List*'
+   97 |                 Resource: '*'
+   98 |         - PolicyName: root
+   99 |           PolicyDocument:
+  100 |             Version: ""2012-10-17""
+  101 |             Statement:
+  102 |               - Effect: Allow
+> 103 |                 Action: '*'
+  104 |                 Resource:
+  105 |                 - ec2:StartInstances
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,97,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   85 |           PolicyDocument:
+   86 |             Version: ""2012-10-17""
+   87 |             Statement:
+   88 |               - Effect: Allow
+   89 |                 Action: 'ec2:ModifySnapshotAttribute'
+   90 |                 Resource: '*'
+   91 |         - PolicyName: root
+   92 |           PolicyDocument:
+   93 |             Version: ""2012-10-17""
+   94 |             Statement:
+   95 |               - Effect: Allow
+   96 |                 Action: 's3:List*'
+>  97 |                 Resource: '*'
+   98 |         - PolicyName: root
+   99 |           PolicyDocument:
+  100 |             Version: ""2012-10-17""
+  101 |             Statement:
+  102 |               - Effect: Allow
+  103 |                 Action: '*'
+  104 |                 Resource:
+  105 |                 - ec2:StartInstances
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,116,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  106 |         },
+  107 |         ""Path"": ""/"",
+  108 |         ""Policies"": [
+  109 |           {
+  110 |             ""PolicyName"": ""root"",
+  111 |             ""PolicyDocument"": {
+  112 |               ""Version"": ""2012-10-17"",
+  113 |               ""Statement"": [
+  114 |                 {
+  115 |                   ""Effect"": ""Allow"",
+> 116 |                   ""Action"": ""*"",
+  117 |                   ""Resource"": ""*""
+  118 |                 }
+  119 |               ]
+  120 |             }
+  121 |           },
+  122 |           {
+  123 |             ""PolicyName"": ""root"",
+  124 |             ""PolicyDocument"": {
+  125 |               ""Version"": ""2012-10-17"",
+  126 |               ""Statement"": [
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,117,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  107 |         ""Path"": ""/"",
+  108 |         ""Policies"": [
+  109 |           {
+  110 |             ""PolicyName"": ""root"",
+  111 |             ""PolicyDocument"": {
+  112 |               ""Version"": ""2012-10-17"",
+  113 |               ""Statement"": [
+  114 |                 {
+  115 |                   ""Effect"": ""Allow"",
+  116 |                   ""Action"": ""*"",
+> 117 |                   ""Resource"": ""*""
+  118 |                 }
+  119 |               ]
+  120 |             }
+  121 |           },
+  122 |           {
+  123 |             ""PolicyName"": ""root"",
+  124 |             ""PolicyDocument"": {
+  125 |               ""Version"": ""2012-10-17"",
+  126 |               ""Statement"": [
+  127 |                 {
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,143,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  133 |             }
+  134 |           },
+  135 |           {
+  136 |             ""PolicyName"": ""root"",
+  137 |             ""PolicyDocument"": {
+  138 |               ""Version"": ""2012-10-17"",
+  139 |               ""Statement"": [
+  140 |                 {
+  141 |                   ""Effect"": ""Allow"",
+  142 |                   ""Action"": ""ec2:ModifySnapshotAttribute"",
+> 143 |                   ""Resource"": ""*""
+  144 |                 }
+  145 |               ]
+  146 |             }
+  147 |           },
+  148 |           {
+  149 |             ""PolicyName"": ""root"",
+  150 |             ""PolicyDocument"": {
+  151 |               ""Version"": ""2012-10-17"",
+  152 |               ""Statement"": [
+  153 |                 {
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,156,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  146 |             }
+  147 |           },
+  148 |           {
+  149 |             ""PolicyName"": ""root"",
+  150 |             ""PolicyDocument"": {
+  151 |               ""Version"": ""2012-10-17"",
+  152 |               ""Statement"": [
+  153 |                 {
+  154 |                   ""Effect"": ""Allow"",
+  155 |                   ""Action"": ""s3:List*"",
+> 156 |                   ""Resource"": ""*""
+  157 |                 }
+  158 |               ]
+  159 |             }
+  160 |           },
+  161 |           {
+  162 |             ""PolicyName"": ""root"",
+  163 |             ""PolicyDocument"": {
+  164 |               ""Version"": ""2012-10-17"",
+  165 |               ""Statement"": [
+  166 |                 {
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,168,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  158 |               ]
+  159 |             }
+  160 |           },
+  161 |           {
+  162 |             ""PolicyName"": ""root"",
+  163 |             ""PolicyDocument"": {
+  164 |               ""Version"": ""2012-10-17"",
+  165 |               ""Statement"": [
+  166 |                 {
+  167 |                   ""Effect"": ""Allow"",
+> 168 |                   ""Action"": ""*"",
+  169 |                   ""Resource"": [
+  170 |                     ""ec2:StartInstances""
+  171 |                   ]
+  172 |                 }
+  173 |               ]
+  174 |             }
+  175 |           }
+  176 |         ]
+  177 |       }
+  178 |     }
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,65,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   55 |               Action: 'rds:CreateDBInstance'
+   56 |               Condition:
+   57 |                 StringEquals:
+   58 |                   'rds:DatabaseEngine': mysql
+   59 |             - Effect: Allow
+   60 |               Action: 'rds:CreateGlobalCluster'
+   61 |               Resource:
+   62 |               - ''
+   63 |               - ec2:StartInstances
+   64 |               - s3:GetObject
+>  65 |               - '*'
+   66 |               Condition:
+   67 |                 StringEquals:
+   68 |                   'rds:DatabaseClass': db.t2.micro
+   69 |             - Effect: Allow
+   70 |               Action:
+   71 |               - 'rds:*'
+   72 |               Resource:
+   73 |               - ''
+   74 |               - ec2:StartInstances
+   75 |               - s3:GetObject
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,71,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   61 |               Resource:
+   62 |               - ''
+   63 |               - ec2:StartInstances
+   64 |               - s3:GetObject
+   65 |               - '*'
+   66 |               Condition:
+   67 |                 StringEquals:
+   68 |                   'rds:DatabaseClass': db.t2.micro
+   69 |             - Effect: Allow
+   70 |               Action:
+>  71 |               - 'rds:*'
+   72 |               Resource:
+   73 |               - ''
+   74 |               - ec2:StartInstances
+   75 |               - s3:GetObject
+   76 |               - '*'
+   77 |               Condition:
+   78 |                 StringEquals:
+   79 |                   'rds:DatabaseClass': db.t2.micro
+   80 |             - Effect: Deny
+   81 |               Action:
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,76,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   66 |               Condition:
+   67 |                 StringEquals:
+   68 |                   'rds:DatabaseClass': db.t2.micro
+   69 |             - Effect: Allow
+   70 |               Action:
+   71 |               - 'rds:*'
+   72 |               Resource:
+   73 |               - ''
+   74 |               - ec2:StartInstances
+   75 |               - s3:GetObject
+>  76 |               - '*'
+   77 |               Condition:
+   78 |                 StringEquals:
+   79 |                   'rds:DatabaseClass': db.t2.micro
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,21,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   11 |                 - ec2.amazonaws.com
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+>  21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+>  22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,28,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+>  28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+   33 |   RootRole:
+   34 |     Type: 'AWS::IAM::Role'
+   35 |     Properties:
+   36 |       AssumeRolePolicyDocument:
+   37 |         Version: ""2012-10-17""
+   38 |         Statement:
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,31,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+>  31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+   33 |   RootRole:
+   34 |     Type: 'AWS::IAM::Role'
+   35 |     Properties:
+   36 |       AssumeRolePolicyDocument:
+   37 |         Version: ""2012-10-17""
+   38 |         Statement:
+   39 |           - Effect: Allow
+   40 |             Principal:
+   41 |               Service:
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,43,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   33 |   RootRole:
+   34 |     Type: 'AWS::IAM::Role'
+   35 |     Properties:
+   36 |       AssumeRolePolicyDocument:
+   37 |         Version: ""2012-10-17""
+   38 |         Statement:
+   39 |           - Effect: Allow
+   40 |             Principal:
+   41 |               Service:
+   42 |                 - ec2.amazonaws.com
+>  43 |             NotPrincipal:
+   44 |               Service:
+   45 |                 - ec2.amazonaws.com
+   46 |             Action:
+   47 |               - 'sts:AssumeRole'
+   48 |       Path: /
+   49 |       Policies:
+   50 |         - PolicyName: root
+   51 |           PolicyDocument:
+   52 |             Version: ""2012-10-17""
+   53 |             Statement:
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,95,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+   87 |               - '*'
+   88 |               Condition:
+   89 |                 StringEquals:
+   90 |                   'rds:DatabaseClass': db.t2.micro
+   91 |             - Effect: Allow
+   92 |               Action:
+   93 |               - 'rds:CreateDBSnapshot'
+   94 |               Resource: '*'
+>  95 |               NotResource:
+   96 |               - ""arn:aws:s3:::HRBucket/Payroll""
+   97 |               - ""arn:aws:s3:::HRBucket/Payroll/*""
+   98 |               Condition:
+   99 |                 StringEquals:
+  100 |                   'rds:DatabaseClass': db.t2.micro
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,94,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+   87 |               - '*'
+   88 |               Condition:
+   89 |                 StringEquals:
+   90 |                   'rds:DatabaseClass': db.t2.micro
+   91 |             - Effect: Allow
+   92 |               Action:
+   93 |               - 'rds:CreateDBSnapshot'
+>  94 |               Resource: '*'
+   95 |               NotResource:
+   96 |               - ""arn:aws:s3:::HRBucket/Payroll""
+   97 |               - ""arn:aws:s3:::HRBucket/Payroll/*""
+   98 |               Condition:
+   99 |                 StringEquals:
+  100 |                   'rds:DatabaseClass': db.t2.micro
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,16,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+    6 |         ""AssumeRolePolicyDocument"": {
+    7 |           ""Version"": ""2012-10-17"",
+    8 |           ""Statement"": [
+    9 |             {
+   10 |               ""Effect"": ""Allow"",
+   11 |               ""Principal"": {
+   12 |                 ""Service"": [
+   13 |                   ""ec2.amazonaws.com""
+   14 |                 ]
+   15 |               },
+>  16 |               ""NotPrincipal"": {
+   17 |                 ""Service"": [
+   18 |                   ""ec2.amazonaws.com""
+   19 |                 ]
+   20 |               },
+   21 |               ""Action"": [
+   22 |                 ""sts:AssumeRole""
+   23 |               ]
+   24 |             }
+   25 |           ]
+   26 |         },
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,50,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   40 |                     }
+   41 |                   }
+   42 |                 },
+   43 |                 {
+   44 |                   ""Effect"": ""Allow"",
+   45 |                   ""Action"": ""rds:CreateGlobalCluster"",
+   46 |                   ""Resource"": [
+   47 |                     """",
+   48 |                     ""ec2:StartInstances"",
+   49 |                     ""s3:GetObject"",
+>  50 |                     ""*""
+   51 |                   ],
+   52 |                   ""Condition"": {
+   53 |                     ""StringEquals"": {
+   54 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   55 |                     }
+   56 |                   }
+   57 |                 },
+   58 |                 {
+   59 |                   ""Effect"": ""Allow"",
+   60 |                   ""Action"": [
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   51 |                   ],
+   52 |                   ""Condition"": {
+   53 |                     ""StringEquals"": {
+   54 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   55 |                     }
+   56 |                   }
+   57 |                 },
+   58 |                 {
+   59 |                   ""Effect"": ""Allow"",
+   60 |                   ""Action"": [
+>  61 |                     ""rds:*""
+   62 |                   ],
+   63 |                   ""Resource"": [
+   64 |                     """",
+   65 |                     ""ec2:StartInstances"",
+   66 |                     ""s3:GetObject"",
+   67 |                     ""*""
+   68 |                   ],
+   69 |                   ""Condition"": {
+   70 |                     ""StringEquals"": {
+   71 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,67,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   57 |                 },
+   58 |                 {
+   59 |                   ""Effect"": ""Allow"",
+   60 |                   ""Action"": [
+   61 |                     ""rds:*""
+   62 |                   ],
+   63 |                   ""Resource"": [
+   64 |                     """",
+   65 |                     ""ec2:StartInstances"",
+   66 |                     ""s3:GetObject"",
+>  67 |                     ""*""
+   68 |                   ],
+   69 |                   ""Condition"": {
+   70 |                     ""StringEquals"": {
+   71 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   72 |                     }
+   73 |                   }
+   74 |                 },
+   75 |                 {
+   76 |                   ""Effect"": ""Deny"",
+   77 |                   ""Action"": [
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,97,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   87 |                     ""StringEquals"": {
+   88 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   89 |                     }
+   90 |                   }
+   91 |                 },
+   92 |                 {
+   93 |                   ""Effect"": ""Allow"",
+   94 |                   ""Action"": [
+   95 |                     ""rds:CreateDBSnapshot""
+   96 |                   ],
+>  97 |                   ""Resource"": ""*"",
+   98 |                   ""NotResource"": [
+   99 |                     ""arn:aws:s3:::HRBucket/Payroll"",
+  100 |                     ""arn:aws:s3:::HRBucket/Payroll/*""
+  101 |                   ],
+  102 |                   ""Condition"": {
+  103 |                     ""StringEquals"": {
+  104 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+  105 |                     }
+  106 |                   }
+  107 |                 }
+      ^ Col 0
+",f325._cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,98,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   88 |                    ""rds:DatabaseClass"": ""db.t2.micro""
+   89 |                  }
+   90 |                }
+   91 |              },
+   92 |              {
+   93 |                ""Effect"": ""Allow"",
+   94 |                ""Action"": [
+   95 |                  ""rds:CreateDBSnapshot""
+   96 |                ],
+   97 |                ""Resource"": ""*"",
+>  98 |                ""NotResource"": [
+   99 |                  ""arn:aws:s3:::HRBucket/Payroll"",
+  100 |                  ""arn:aws:s3:::HRBucket/Payroll/*""
+  101 |                ],
+  102 |                ""Condition"": {
+  103 |                  ""StringEquals"": {
+  104 |                    ""rds:DatabaseClass"": ""db.t2.micro""
+  105 |                  }
+  106 |                }
+  107 |              }
+  108 |            ]
+      ^ Col 3
+",f325._cfn_iam_is_role_over_privileged
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,23,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
   13 |           - Effect: Allow
   14 |             Action:
@@ -16471,6 +18079,56 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   176 |         ]
   177 |       }
   178 |     }
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,21,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   11 |                 - ec2.amazonaws.com
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+>  21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,28,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+>  28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+   33 |   RootRole:
+   34 |     Type: 'AWS::IAM::Role'
+   35 |     Properties:
+   36 |       AssumeRolePolicyDocument:
+   37 |         Version: ""2012-10-17""
+   38 |         Statement:
       ^ Col 0
 ",f325._cfn_iam_has_privileges_over_iam
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
@@ -17211,6 +18869,131 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    71 |               ""Action"": [
       ^ Col 0
 ",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,65,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   55 |               Action: 'rds:CreateDBInstance'
+   56 |               Condition:
+   57 |                 StringEquals:
+   58 |                   'rds:DatabaseEngine': mysql
+   59 |             - Effect: Allow
+   60 |               Action: 'rds:CreateGlobalCluster'
+   61 |               Resource:
+   62 |               - ''
+   63 |               - ec2:StartInstances
+   64 |               - s3:GetObject
+>  65 |               - '*'
+   66 |               Condition:
+   67 |                 StringEquals:
+   68 |                   'rds:DatabaseClass': db.t2.micro
+   69 |             - Effect: Allow
+   70 |               Action:
+   71 |               - 'rds:*'
+   72 |               Resource:
+   73 |               - ''
+   74 |               - ec2:StartInstances
+   75 |               - s3:GetObject
+      ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,76,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   66 |               Condition:
+   67 |                 StringEquals:
+   68 |                   'rds:DatabaseClass': db.t2.micro
+   69 |             - Effect: Allow
+   70 |               Action:
+   71 |               - 'rds:*'
+   72 |               Resource:
+   73 |               - ''
+   74 |               - ec2:StartInstances
+   75 |               - s3:GetObject
+>  76 |               - '*'
+   77 |               Condition:
+   78 |                 StringEquals:
+   79 |                   'rds:DatabaseClass': db.t2.micro
+   80 |             - Effect: Deny
+   81 |               Action:
+   82 |               - 'rds:ModifyDBCluster*'
+   83 |               Resource:
+   84 |               - ''
+   85 |               - ec2:StartInstances
+   86 |               - s3:GetObject
+      ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+>  22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+      ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,50,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   40 |                     }
+   41 |                   }
+   42 |                 },
+   43 |                 {
+   44 |                   ""Effect"": ""Allow"",
+   45 |                   ""Action"": ""rds:CreateGlobalCluster"",
+   46 |                   ""Resource"": [
+   47 |                     """",
+   48 |                     ""ec2:StartInstances"",
+   49 |                     ""s3:GetObject"",
+>  50 |                     ""*""
+   51 |                   ],
+   52 |                   ""Condition"": {
+   53 |                     ""StringEquals"": {
+   54 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   55 |                     }
+   56 |                   }
+   57 |                 },
+   58 |                 {
+   59 |                   ""Effect"": ""Allow"",
+   60 |                   ""Action"": [
+      ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,67,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
+   57 |                 },
+   58 |                 {
+   59 |                   ""Effect"": ""Allow"",
+   60 |                   ""Action"": [
+   61 |                     ""rds:*""
+   62 |                   ],
+   63 |                   ""Resource"": [
+   64 |                     """",
+   65 |                     ""ec2:StartInstances"",
+   66 |                     ""s3:GetObject"",
+>  67 |                     ""*""
+   68 |                   ],
+   69 |                   ""Condition"": {
+   70 |                     ""StringEquals"": {
+   71 |                       ""rds:DatabaseClass"": ""db.t2.micro""
+   72 |                     }
+   73 |                   }
+   74 |                 },
+   75 |                 {
+   76 |                   ""Effect"": ""Deny"",
+   77 |                   ""Action"": [
+      ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f333/cfn_iam_has_full_access_to_ssm.yaml","
   15 |   CreateTestDBPolicy:
@@ -17655,6 +19438,54 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   125 |               ""Version"": ""2012-10-17"",
   126 |               ""Statement"": [
   127 |                 {
+      ^ Col 0
+",f031_aws._cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,21,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,"
+   11 |                 - ec2.amazonaws.com
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+>  21 |                 Action: 'iam:*'
+   22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+      ^ Col 0
+",f031_aws._cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,"
+   12 |             Action:
+   13 |               - 'sts:AssumeRole'
+   14 |       Path: /
+   15 |       Policies:
+   16 |         - PolicyName: root
+   17 |           PolicyDocument:
+   18 |             Version: ""2012-10-17""
+   19 |             Statement:
+   20 |               - Effect: Allow
+   21 |                 Action: 'iam:*'
+>  22 |                 Resource: '*'
+   23 |         - PolicyName: root
+   24 |           PolicyDocument:
+   25 |             Version: ""2012-10-17""
+   26 |             Statement:
+   27 |               - Effect: Allow
+   28 |                 Action: '*'
+   29 |                 Resource: 's3:GetObject'
+   30 |       ManagedPolicyArns:
+   31 |         - 'arn:aws:iam::aws:policy/AdministratorAccess'
+   32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
       ^ Col 0
 ",f031_aws._cfn_open_passrole
 F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,30,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,"

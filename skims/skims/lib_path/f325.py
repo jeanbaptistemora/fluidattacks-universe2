@@ -552,5 +552,13 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_iam_is_role_over_privileged(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
 
     return coroutines
