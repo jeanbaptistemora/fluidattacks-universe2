@@ -180,7 +180,7 @@ async def list_(  # pylint: disable=too-many-locals
                 id=jobs_details[job_id]["jobId"],
                 name=f"skims-process-{group}-{git_root_nickname}",
                 root_nickname=job_item["logStreamName"].split("/")[-1],
-                queue=jobs_details[job_id]["jobQueue"],
+                queue=jobs_details[job_id]["jobQueue"].split("/")[-1],
                 started_at=int(
                     date_parse(db_execution.started_at).timestamp() * 1000
                 )
