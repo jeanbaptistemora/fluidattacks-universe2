@@ -24,6 +24,7 @@ from decimal import (
     Decimal,
 )
 import logging
+import newrelic.agent
 import os
 from typing import (
     Any,
@@ -79,6 +80,7 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
     return success
 
 
+@newrelic.agent.function_trace()
 async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     try:

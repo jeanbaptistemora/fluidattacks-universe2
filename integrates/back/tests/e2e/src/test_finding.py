@@ -400,7 +400,11 @@ def test_finding_vulnerabilities(
         "In progress",
         timeout,
     )
-    assert "Assigned:" in driver.page_source
+    assert utils.wait_for_text(
+        driver,
+        "Assigned:",
+        timeout,
+    )
     assert "integratescustomer" in driver.page_source
 
     close = utils.wait_for_id(
