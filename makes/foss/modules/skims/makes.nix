@@ -18,11 +18,6 @@
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/skims:latest";
       };
-      skimsProcessGroup = {
-        src = outputs."/skims/container/process-group";
-        registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/skims-process-group:latest";
-      };
     };
   };
   deployTerraform = {
@@ -65,12 +60,12 @@
         python = "3.8";
         src = "/makes/foss/units/skims/test/mocks/http/src";
       };
-      skimsProcessGroup = {
+      skimsProcessGroupAll = {
         searchPaths.source = [
           outputs."/skims/config-runtime"
         ];
         python = "3.8";
-        src = "/makes/foss/units/skims/process-group/src";
+        src = "/makes/foss/units/skims/process-group-all/src";
       };
     };
   };

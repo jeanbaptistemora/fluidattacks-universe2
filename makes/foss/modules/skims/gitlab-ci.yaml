@@ -16,26 +16,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployContainerImage/skimsProcessGroup:
-  image: ghcr.io/fluidattacks/makes:22.01
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH != "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /deployContainerImage/skimsProcessGroup
-  stage: deploy-app
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /deployContainerImage/skimsProd:
   image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
@@ -121,7 +101,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintPython/module/skimsProcessGroup:
+/lintPython/module/skimsProcessGroupAll:
   image: ghcr.io/fluidattacks/makes:22.01
   interruptible: true
   needs: []
@@ -136,7 +116,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
-    - m . /lintPython/module/skimsProcessGroup
+    - m . /lintPython/module/skimsProcessGroupAll
   stage: lint-code
   tags:
     - autoscaling

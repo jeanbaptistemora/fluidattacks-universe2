@@ -82,10 +82,6 @@ in
           gitlabExtra = gitlabDeployApp;
         }
         {
-          output = "/deployContainerImage/skimsProcessGroup";
-          gitlabExtra = gitlabDeployApp;
-        }
-        {
           output = "/deployTerraform/skims";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -106,7 +102,7 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/skimsProcessGroup";
+          output = "/lintPython/module/skimsProcessGroupAll";
           gitlabExtra = gitlabLint;
         }
         {

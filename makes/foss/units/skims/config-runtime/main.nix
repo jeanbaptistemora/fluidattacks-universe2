@@ -44,7 +44,7 @@ makeTemplate {
           __argSkimsLegal__ =
             projectPath "/skims/LEGAL.md";
           __argSkimsProcessGroupOnAws__ =
-            outputs."/computeOnAwsBatch/skimsProcessGroup";
+            outputs."/computeOnAwsBatch/skimsProcessGroupAll";
           __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";
           __argSrcSkimsStatic__ = projectPath "/skims/static";
           __argSrcSkimsToolsSemverMatch__ =
