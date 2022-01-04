@@ -330,3 +330,14 @@ def iter_iam_users(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_iam_roles(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::IAM::Role",
+            exact=True,
+        )
+    )

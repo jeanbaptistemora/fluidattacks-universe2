@@ -1,3 +1,28 @@
+src.lib_path.f325.iam_is_role_over_privileged:
+  en: >
+    IAM Role is miss configured:
+
+    - Should not allow * action on its trust policy
+    - Should not allow * action on its permissions policy
+    - Should not allow Allow+NotPrincipal in its trust policy
+    - Should not allow * resource with PassRole action on its permissions policy
+    - Should not allow * resource on its permissions policy
+    - Should not allow Allow+NotAction on trust permissions
+    - Should not allow Allow+NotAction
+    - Should not allow Allow+NotResource
+    - Should not have AdministratorAccess policy
+  es: >
+    El Role de IAM está mal configurado:
+
+    - No debe permitir acciones * sobre su política de confianza
+    - No debe permitir acciones * en su política de permisos
+    - No debe permitir Allow + NotPrincipal en su política de confianza
+    - No debe permitir recursos * con acción PassRole en su política de permisos
+    - No debe permitir recursos * en su política de permisos
+    - No debe permitir Allow + NotAction en permisos de confianza
+    - No debe permitir Allow + NotAction
+    - No debe permitir Allow + NotResource
+    - No debe tener una política de AdministratorAccess
 src.lib_path.f325.iam_has_privileges_over_iam:
   en: >
     Policies have privileges over IAM
