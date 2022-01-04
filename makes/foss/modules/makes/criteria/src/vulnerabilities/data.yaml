@@ -8755,7 +8755,7 @@
     description: >
       La función eval es usada con la entrada
       de datos de las solicitudes, como
-      parámentros en la url o cabeceras en la
+      parámetros en la url o cabeceras en la
       solicitud, estos datos no son correctamente
       validados y puede llevar a que se inyecten
       sentencias de python para ejecutar comandos
