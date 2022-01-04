@@ -3374,4 +3374,22 @@
     "500_10":
       title: Cybersecurity Personnel and Intelligence
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_11":
+      title: Third party service provider security policy
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_12":
+      title:  Multi-factor Authentication
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_13":
+      title: Limitations on data retention
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_14":
+      title: Training and monitoring
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_15":
+      title: Encryption of Nonpublic Information
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+    "500_16":
+      title: Incident Response Plan
+      link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
