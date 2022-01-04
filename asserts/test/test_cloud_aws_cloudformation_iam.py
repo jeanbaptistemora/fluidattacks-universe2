@@ -22,12 +22,3 @@ def test_is_role_over_privileged():
     assert result.get_vulns_number() == 2 * 12
     assert iam.is_role_over_privileged(SAFE).is_closed()
     assert iam.is_role_over_privileged(NOT_EXISTS).is_unknown()
-
-
-def test_has_privileges_over_iam():
-    """test iam.has_wildcard_resource_on_write_action."""
-    result = iam.has_privileges_over_iam(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 1
-    assert iam.has_privileges_over_iam(NOT_EXISTS).is_unknown()
-    assert iam.has_privileges_over_iam(SAFE).is_closed()
