@@ -14687,6 +14687,102 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   83 |   }
      ^ Col 0
 ",f031_aws._terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+> 46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,45,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+> 45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  59 |         },
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+> 69 |                   ""Action"": ""iam:*"",
+  70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+     ^ Col 0
+",f031_aws._cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+  69 |                   ""Action"": ""iam:*"",
+> 70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
+     ^ Col 0
+",f031_aws._cfn_permissive_policy
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,75,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    65 |                 - ec2.amazonaws.com
    66 |             Action:
@@ -16127,6 +16223,256 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   58 |                     {
      ^ Col 0
 ",f031_aws._cfn_iam_user_missing_role_based_security
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,19,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   9 |               - Action:
+  10 |                   - ec2:*
+  11 |                   - autoscaling:*
+  12 |                   - eks:*
+  13 |                 Resource: '*'
+  14 |                 Effect: Allow
+  15 |               - Action:
+  16 |                   - ec2:Something
+  17 |                 Resource: '*'
+  18 |                 Effect: Allow
+> 19 |               - Action: '*'
+  20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
+  22 |               - Action: ec2:Something
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,28,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+  24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+  26 |                 },
+  27 |                 {
+> 28 |                   ""Action"": ""*"",
+  29 |                   ""Resource"": ""arn:::ec2/specific"",
+  30 |                   ""Effect"": ""Allow""
+  31 |                 },
+  32 |                 {
+  33 |                   ""Action"": ""ec2:Something"",
+  34 |                   ""Resource"": ""arn:::ec2/specific"",
+  35 |                   ""Effect"": ""Allow""
+  36 |                 }
+  37 |               ]
+  38 |             }
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,52,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+> 52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,45,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+> 45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  59 |         },
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+> 69 |                   ""Action"": ""iam:*"",
+  70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,82,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
+  81 |                   ""Effect"": ""Allow"",
+> 82 |                   ""Action"": ""*"",
+  83 |                   ""Resource"": ""s3:GetObject""
+  84 |                 }
+  85 |               ]
+  86 |             }
+  87 |           }
+  88 |         ]
+  89 |       }
+  90 |     }
+  91 |   }
+  92 | }
+     ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,75,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   65 |                 - ec2.amazonaws.com
+   66 |             Action:
+   67 |               - 'sts:AssumeRole'
+   68 |       Path: /
+   69 |       Policies:
+   70 |         - PolicyName: root
+   71 |           PolicyDocument:
+   72 |             Version: ""2012-10-17""
+   73 |             Statement:
+   74 |               - Effect: Allow
+>  75 |                 Action: '*'
+   76 |                 Resource: '*'
+   77 |         - PolicyName: root
+   78 |           PolicyDocument:
+   79 |             Version: ""2012-10-17""
+   80 |             Statement:
+   81 |               - Effect: Deny
+   82 |                 Action: '*'
+   83 |                 Resource: '*'
+   84 |         - PolicyName: root
+   85 |           PolicyDocument:
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,103,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   85 |           PolicyDocument:
+   86 |             Version: ""2012-10-17""
+   87 |             Statement:
+   88 |               - Effect: Allow
+   89 |                 Action: 'ec2:ModifySnapshotAttribute'
+   90 |                 Resource: '*'
+   91 |         - PolicyName: root
+   92 |           PolicyDocument:
+   93 |             Version: ""2012-10-17""
+   94 |             Statement:
+   95 |               - Effect: Allow
+   96 |                 Action: 's3:List*'
+   97 |                 Resource: '*'
+   98 |         - PolicyName: root
+   99 |           PolicyDocument:
+  100 |             Version: ""2012-10-17""
+  101 |             Statement:
+  102 |               - Effect: Allow
+> 103 |                 Action: '*'
+  104 |                 Resource:
+  105 |                 - ec2:StartInstances
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,116,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  106 |         },
+  107 |         ""Path"": ""/"",
+  108 |         ""Policies"": [
+  109 |           {
+  110 |             ""PolicyName"": ""root"",
+  111 |             ""PolicyDocument"": {
+  112 |               ""Version"": ""2012-10-17"",
+  113 |               ""Statement"": [
+  114 |                 {
+  115 |                   ""Effect"": ""Allow"",
+> 116 |                   ""Action"": ""*"",
+  117 |                   ""Resource"": ""*""
+  118 |                 }
+  119 |               ]
+  120 |             }
+  121 |           },
+  122 |           {
+  123 |             ""PolicyName"": ""root"",
+  124 |             ""PolicyDocument"": {
+  125 |               ""Version"": ""2012-10-17"",
+  126 |               ""Statement"": [
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,168,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+  158 |               ]
+  159 |             }
+  160 |           },
+  161 |           {
+  162 |             ""PolicyName"": ""root"",
+  163 |             ""PolicyDocument"": {
+  164 |               ""Version"": ""2012-10-17"",
+  165 |               ""Statement"": [
+  166 |                 {
+  167 |                   ""Effect"": ""Allow"",
+> 168 |                   ""Action"": ""*"",
+  169 |                   ""Resource"": [
+  170 |                     ""ec2:StartInstances""
+  171 |                   ]
+  172 |                 }
+  173 |               ]
+  174 |             }
+  175 |           }
+  176 |         ]
+  177 |       }
+  178 |     }
+      ^ Col 0
+",f325._cfn_iam_has_privileges_over_iam
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
   30 |           - Action:
   31 |               - ""s3:DeleteObject""
@@ -16463,6 +16809,56 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   25 |                   ""Effect"": ""Allow""
   26 |                 },
   27 |                 {
+     ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+> 46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f325._cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+  69 |                   ""Action"": ""iam:*"",
+> 70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
      ^ Col 0
 ",f325._cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,21,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -17069,6 +17465,102 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 ",f031_aws._terraform_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,"
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+  45 |                 Action: 'iam:*'
+> 46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f031_aws._cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,45,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,"
+  33 |             Principal:
+  34 |               Service:
+  35 |                 - ec2.amazonaws.com
+  36 |             Action:
+  37 |               - 'sts:AssumeRole'
+  38 |       Path: /
+  39 |       Policies:
+  40 |         - PolicyName: root
+  41 |           PolicyDocument:
+  42 |             Version: ""2012-10-17""
+  43 |             Statement:
+  44 |               - Effect: Allow
+> 45 |                 Action: 'iam:*'
+  46 |                 Resource: '*'
+  47 |         - PolicyName: root
+  48 |           PolicyDocument:
+  49 |             Version: ""2012-10-17""
+  50 |             Statement:
+  51 |               - Effect: Allow
+  52 |                 Action: '*'
+  53 |                 Resource: 's3:GetObject'
+     ^ Col 0
+",f031_aws._cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,"
+  59 |         },
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+> 69 |                   ""Action"": ""iam:*"",
+  70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+     ^ Col 0
+",f031_aws._cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,"
+  60 |         ""Path"": ""/"",
+  61 |         ""Policies"": [
+  62 |           {
+  63 |             ""PolicyName"": ""root"",
+  64 |             ""PolicyDocument"": {
+  65 |               ""Version"": ""2012-10-17"",
+  66 |               ""Statement"": [
+  67 |                 {
+  68 |                   ""Effect"": ""Allow"",
+  69 |                   ""Action"": ""iam:*"",
+> 70 |                   ""Resource"": ""*""
+  71 |                 }
+  72 |               ]
+  73 |             }
+  74 |           },
+  75 |           {
+  76 |             ""PolicyName"": ""root"",
+  77 |             ""PolicyDocument"": {
+  78 |               ""Version"": ""2012-10-17"",
+  79 |               ""Statement"": [
+  80 |                 {
+     ^ Col 0
+",f031_aws._cfn_open_passrole
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,75,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,"
    65 |                 - ec2.amazonaws.com
    66 |             Action:

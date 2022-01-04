@@ -412,5 +412,12 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_iam_has_privileges_over_iam(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
 
     return coroutines

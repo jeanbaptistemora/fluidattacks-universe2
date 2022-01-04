@@ -1,0 +1,53 @@
+Resources:
+  CreateTestDBPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Deny
+            Action: 'iam:*'
+            Condition:
+              StringEquals:
+                'rds:DatabaseEngine': mysql
+          - Effect: Allow
+            Action: 'rds:CreateGlobalCluster'
+            Resource:
+            - ''
+            - ec2:StartInstances
+            - s3:GetObject
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+      Groups:
+        - TestDBGroup
+  RootRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 'iam:*'
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: 's3:GetObject'
