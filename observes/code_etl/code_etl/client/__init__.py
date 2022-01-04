@@ -34,6 +34,7 @@ from postgres_client.ids import (
 from postgres_client.query import (
     SqlArgs,
 )
+import psycopg2
 from purity.v1.pure_iter import (
     PureIter,
 )
@@ -80,11 +81,14 @@ def all_data_count(client: Client, table: TableID) -> IO[ResultE[int]]:
 def _fetch(
     client: Client, chunk: int
 ) -> IO[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
-    return client.cursor.fetch_many(chunk).map(
-        lambda rows: Maybe.from_optional(
-            tuple(from_raw(RawRow(*r)) for r in rows) if rows else None
+    try:
+        return client.cursor.fetch_many(chunk).map(
+            lambda rows: Maybe.from_optional(
+                tuple(from_raw(RawRow(*r)) for r in rows) if rows else None
+            )
         )
-    )
+    except psycopg2.ProgrammingError:
+        return IO(Maybe.empty)
 
 
 def _all_data(
