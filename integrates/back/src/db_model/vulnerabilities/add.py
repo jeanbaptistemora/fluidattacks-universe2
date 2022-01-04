@@ -4,6 +4,9 @@ from .types import (
 from db_model import (
     TABLE,
 )
+from db_model.vulnerabilities.constants import (
+    ROOT_INDEX_METADATA,
+)
 from dynamodb import (
     keys,
     operations,
@@ -14,7 +17,7 @@ import simplejson as json  # type: ignore
 async def add(*, vulnerability: Vulnerability) -> None:
     items = []
     key_structure = TABLE.primary_key
-
+    gsi_2_index = TABLE.indexes["gsi_2"]
     vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={
@@ -22,9 +25,20 @@ async def add(*, vulnerability: Vulnerability) -> None:
             "id": vulnerability.id,
         },
     )
+    gsi_2_key = keys.build_key(
+        facet=ROOT_INDEX_METADATA,
+        values={
+            "root_id": ""
+            if vulnerability.root_id is None
+            else vulnerability.root_id,
+            "vuln_id": vulnerability.id,
+        },
+    )
     vulnerability_item = {
         key_structure.partition_key: vulnerability_key.partition_key,
         key_structure.sort_key: vulnerability_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         **json.loads(json.dumps(vulnerability)),
     }
     items.append(vulnerability_item)
