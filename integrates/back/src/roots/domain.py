@@ -948,6 +948,7 @@ async def add_machine_execution(
     ).astimezone(tzn)
     end_date = kwargs.pop("stopped_at").astimezone(tzn)
     execution = RootMachineExecutionItem(
+        root_id=root_id,
         job_id=job_id,
         name=current_job["jobName"],
         queue=current_job["jobQueue"].split("/")[-1],
