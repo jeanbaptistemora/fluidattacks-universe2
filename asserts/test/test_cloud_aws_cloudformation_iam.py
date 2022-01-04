@@ -24,24 +24,6 @@ def test_is_role_over_privileged():
     assert iam.is_role_over_privileged(NOT_EXISTS).is_unknown()
 
 
-def test_is_policy_miss_configured():
-    """test iam.is_policy_miss_configured."""
-    result = iam.is_policy_miss_configured(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 7
-    assert iam.is_policy_miss_configured(SAFE).is_closed()
-    assert iam.is_policy_miss_configured(NOT_EXISTS).is_unknown()
-
-
-def test_is_managed_policy_miss_configured():
-    """test iam.is_managed_policy_miss_configured."""
-    result = iam.is_managed_policy_miss_configured(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 7
-    assert iam.is_managed_policy_miss_configured(SAFE).is_closed()
-    assert iam.is_managed_policy_miss_configured(NOT_EXISTS).is_unknown()
-
-
 def test_has_privileges_over_iam():
     """test iam.has_wildcard_resource_on_write_action."""
     result = iam.has_privileges_over_iam(VULN)

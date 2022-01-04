@@ -1003,8 +1003,6 @@ def exec_cloudformation_package(
     source: Dict[str, str] = {
         ("iam", "IAM (Identity and Access Management)"): [
             "iam.has_privileges_over_iam",
-            "iam.is_managed_policy_miss_configured",
-            "iam.is_policy_miss_configured",
             "iam.is_role_over_privileged",
         ],
     }
