@@ -1,3 +1,22 @@
+src.lib_path.f325.iam_is_policy_miss_configured:
+  en: >
+    IAM Policy should consider the next rules:
+
+    - Should not allow * action.
+    - Should not apply directly to users, Should be on group.
+    - Should not allow * resource with PassRole action.
+    - Should not allow * resource.
+    - Should not allow Allow+NotAction.
+    - Should not allow Allow+NotResource.
+  es: >
+    La política de IAM debe considerar las siguientes reglas:
+
+    - No debe permitir acción *.
+    - No debe aplicarse directamente a los usuarios, debe estar en el grupo.
+    - No debe permitir recurso * con acción PassRole.
+    - No debe permitir recurso *.
+    - No debe permitir Allow + NotAction.
+    - No debe permitir Allow + NotResource.
 src.lib_path.f325.iam_has_wildcard_resource_on_write_action:
   en: >
     Write actions are allowed on all resources

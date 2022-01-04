@@ -11,6 +11,7 @@ from aws.services import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     get_cloud_iterator,
+    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -24,9 +25,11 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_iam_managed_policies_and_mgd_policies,
     iter_iam_managed_policies_and_roles,
     iter_kms_keys,
 )
+import re
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -37,6 +40,7 @@ from typing import (
     Iterator,
     List,
     Optional,
+    Pattern,
     Union,
 )
 from utils.function import (
@@ -132,6 +136,54 @@ def _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 yield from policy_statement_privilege(statements)
 
 
+def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
+    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
+        if pattern.match(act.raw):
+            yield act
+
+
+def is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
+    wildcard_action: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
+    wildcard_resource: Pattern = re.compile(r"^(\*)$")
+    effect = stmt.inner.get("Effect")
+    if effect.raw == "Allow":
+        if no_action := stmt.inner.get("NotAction"):
+            yield AWSIamManagedPolicy(
+                column=no_action.start_column,
+                data=no_action.data,
+                line=get_line_by_extension(no_action.start_line, file_ext),
+            ) if isinstance(no_action.raw, List) else no_action
+        if no_resource := stmt.inner.get("NotResource"):
+            yield AWSIamManagedPolicy(
+                column=no_resource.start_column,
+                data=no_resource.data,
+                line=get_line_by_extension(no_resource.start_line, file_ext),
+            ) if isinstance(no_resource.raw, List) else no_resource
+        action = stmt.inner.get("Action")
+        if action:
+            yield from get_wildcard_nodes(action, wildcard_action)
+        resource = stmt.inner.get("Resource")
+        if resource:
+            yield from get_wildcard_nodes(resource, wildcard_resource)
+
+
+def _cfn_iam_is_policy_miss_configured_iter_vulns(
+    file_ext: str,
+    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        pol_document = iam_res.inner.get("PolicyDocument")
+        statements = pol_document.inner.get("Statement")
+        for stmt in statements.data:
+            yield from is_statement_miss_configured(file_ext, stmt)
+        if users := iam_res.inner.get("Users"):
+            yield AWSIamManagedPolicy(
+                column=users.start_column,
+                data=users.data,
+                line=get_line_by_extension(users.start_line, file_ext),
+            )
+
+
 def _cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str,
     path: str,
@@ -176,6 +228,29 @@ def _cfn_iam_has_wildcard_resource_on_write_action(
     )
 
 
+def _cfn_iam_is_policy_miss_configured(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F325_CWE},
+        description_key=("src.lib_path.f325.iam_is_policy_miss_configured"),
+        finding=_FINDING_F325,
+        iterator=get_cloud_iterator(
+            _cfn_iam_is_policy_miss_configured_iter_vulns(
+                file_ext=file_ext,
+                iam_iterator=iter_iam_managed_policies_and_mgd_policies(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -203,6 +278,24 @@ async def cfn_iam_has_wildcard_resource_on_write_action(
     return await in_process(
         _cfn_iam_has_wildcard_resource_on_write_action,
         content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_iam_is_policy_miss_configured(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_iam_is_policy_miss_configured,
+        content=content,
+        file_ext=file_ext,
         path=path,
         template=template,
     )

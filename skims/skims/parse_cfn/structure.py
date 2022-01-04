@@ -307,6 +307,20 @@ def iter_iam_managed_policies_and_roles(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_iam_managed_policies_and_mgd_policies(
+    template: Node,
+) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::IAM::ManagedPolicy",
+            "AWS::IAM::Policy",
+            exact=True,
+        )
+    )
+
+
 def iter_iam_users(template: Node) -> Iterator[Node]:
     yield from (
         props
