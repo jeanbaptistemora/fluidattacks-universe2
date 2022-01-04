@@ -4,12 +4,14 @@ alias code-etl="observes-etl-code-bin"
 
 function job_code_upload {
   local group="${1}"
+  local db
+  local creds
 
-  true \
-    && if test -z "${group}"; then
-      abort '[INFO] Please set the first argument to the group name'
-    fi \
+  db=$(mktemp) \
+    && creds=$(mktemp) \
     && aws_login_prod_new 'observes' \
+    && prod_db "${db}" \
+    && prod_user "${creds}" \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \
@@ -30,10 +32,14 @@ function job_code_upload {
           "${group}" \
           "groups/${group}/fusion/"* \
           --mailmap '.groups-mailmap' \
-        && code-etl amend-authors \
-          'code' \
-          '.groups-mailmap' \
-          "${group}" \
+        && code-etl v2 \
+          --db-id "${db}" \
+          --creds "${creds}" \
+          amend-authors-v2 \
+          --schema 'code' \
+          --table 'commits' \
+          --namespace "${group}" \
+          --mailmap '.groups-mailmap' \
         && shopt -u nullglob \
         && rm -rf "groups/${group}/fusion/"
 
