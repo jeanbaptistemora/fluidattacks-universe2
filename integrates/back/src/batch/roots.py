@@ -497,7 +497,7 @@ async def move_root(*, item: BatchProcessing) -> None:
 
 
 async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> None:
-    repo_path: str = os.path.join(os.getcwd(), os.listdir(content_dir)[0])
+    repo_path: str = os.path.join(content_dir, os.listdir(content_dir)[0])
 
     # Add metadata about the last cloning date, which is right now
     with open(
@@ -506,7 +506,13 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> None:
         encoding="utf-8",
     ) as metadata:
         json.dump(
-            {"date": datetime_utils.get_now_as_str()}, metadata, indent=2
+            {
+                "date": datetime_utils.convert_to_iso_str(
+                    datetime_utils.get_now_as_str()
+                )
+            },
+            metadata,
+            indent=2,
         )
 
     # Create .keep files in empty directories so the structure is kept in S3

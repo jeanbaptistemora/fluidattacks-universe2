@@ -16,8 +16,12 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.enums import (
+    GitCredentialType,
+)
 from db_model.root_credentials.types import (
     RootCredentialItem,
+    RootCredentialMetadata,
     RootCredentialState,
 )
 from dynamodb import (
@@ -55,8 +59,16 @@ def _build_root_credential(
     return RootCredentialItem(
         group_name=group_name,
         id=item_id,
-        metadata=metadata,
-        state=state,
+        metadata=RootCredentialMetadata(
+            type=GitCredentialType(metadata["type"]),
+        ),
+        state=RootCredentialState(
+            key=state["key"],
+            modified_by=state["modified_by"],
+            modified_date=state["modified_date"],
+            name=state["name"],
+            roots=state["roots"],
+        ),
     )
 
 
@@ -187,7 +199,7 @@ async def _get_historic_state(
 
     return tuple(
         RootCredentialState(
-            key=state.get("key"),
+            key=state["key"],
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
             name=state["name"],

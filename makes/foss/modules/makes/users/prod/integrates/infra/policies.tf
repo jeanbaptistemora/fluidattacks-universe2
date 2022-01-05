@@ -78,6 +78,8 @@ locals {
           "arn:aws:s3:::fluidintegrates*",
           "arn:aws:s3:::integrates*/*",
           "arn:aws:s3:::integrates*",
+          "arn:aws:s3:::continuous-repositories",
+          "arn:aws:s3:::continuous-repositories/*",
         ]
       },
       {

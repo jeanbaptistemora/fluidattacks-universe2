@@ -4,7 +4,6 @@ from db_model.enums import (
 from typing import (
     List,
     NamedTuple,
-    Optional,
 )
 
 
@@ -13,7 +12,7 @@ class RootCredentialMetadata(NamedTuple):
 
 
 class RootCredentialState(NamedTuple):
-    key: Optional[str]
+    key: str
     modified_by: str
     modified_date: str
     name: str
