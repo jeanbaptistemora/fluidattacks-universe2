@@ -76,6 +76,7 @@ try:
     FI_AWS_S3_ANALYTICS_BUCKET = "fluidintegrates.analytics"
     FI_AWS_S3_BUCKET = "fluidintegrates.evidences"
     FI_AWS_S3_FORCES_BUCKET = "fluidintegrates.forces"
+    FI_AWS_S3_MIRRORS_BUCKET = "continuous-repositories"
     FI_AWS_S3_REPORTS_BUCKET = "fluidintegrates.reports"
     FI_AWS_S3_RESOURCES_BUCKET = "fluidintegrates.resources"
     FI_NEW_RELIC_CONF_FILE = os.path.join(

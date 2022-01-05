@@ -125,7 +125,7 @@ async def validate_git_credentials(
 ) -> None:
     if credential_type == "SSH":
         with tempfile.TemporaryDirectory() as temp_dir:
-            ssh_file_name: str = f"{temp_dir}/{uuid.uuid4()}"
+            ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
             parsed_url = urlparse(repo_url)
             url = repo_url.replace(f"{parsed_url.scheme}://", "")
             with open(
@@ -143,7 +143,7 @@ async def validate_git_credentials(
                 stderr=asyncio.subprocess.PIPE,
                 stdout=asyncio.subprocess.PIPE,
                 env={
-                    **os.environ,
+                    **os.environ.copy(),
                     "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
                 },
             )

@@ -10,6 +10,9 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from context import (
+    FI_AWS_S3_MIRRORS_BUCKET,
+)
 from custom_exceptions import (
     RepeatedToeInput,
     RepeatedToeLines,
@@ -64,6 +67,7 @@ from dynamodb.exceptions import (
     UnavailabilityError,
 )
 import itertools
+import json
 import logging
 import logging.config
 from mailer.common import (
@@ -488,13 +492,61 @@ async def move_root(*, item: BatchProcessing) -> None:
     )
 
 
+async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> None:
+    repo_path: str = os.path.join(os.getcwd(), os.listdir(content_dir)[0])
+
+    # Add metadata about the last cloning date, which is right now
+    with open(
+        os.path.join(repo_path, ".git/fluidattacks_metadata"),
+        "w",
+        encoding="utf-8",
+    ) as metadata:
+        json.dump(
+            {"date": datetime_utils.get_now_as_str()}, metadata, indent=2
+        )
+
+    # Create .keep files in empty directories so the structure is kept in S3
+    empty_dirs = [
+        root
+        for root, dirs, files in os.walk(repo_path)
+        if not dirs and not files
+    ]
+    for _dir in empty_dirs:
+        with open(os.path.join(_dir, ".keep"), "w", encoding="utf-8"):
+            pass
+
+    proc = await asyncio.create_subprocess_exec(
+        "aws",
+        "s3",
+        "sync",
+        "--delete",
+        "--sse",
+        "AES256",
+        "--exclude",
+        "*",
+        "--include",
+        "*/.git/*",
+        content_dir,
+        f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}",
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        env={**os.environ.copy()},
+    )
+    await proc.communicate()
+    if proc.returncode != 0:
+        LOGGER.error(
+            "Uploading cloned root to S3 failed", extra=dict(extra=locals())
+        )
+
+
 async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
+    group_name: str = root.group_name
     root_url: str = root.state.url
     parsed_url = urlparse(root_url)
-    raw_root_url = root_url.replace(parsed_url.scheme, "")
+    raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
     branch: str = root.state.branch
     with tempfile.TemporaryDirectory() as temp_dir:
-        ssh_file_name: str = f"{temp_dir}/{uuid.uuid4()}"
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
         with open(
             os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
             "w",
@@ -502,6 +554,7 @@ async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
         ) as ssh_file:
             ssh_file.write(base64.b64decode(cred.state.key).decode())
 
+        os.chdir(temp_dir)
         proc = await asyncio.create_subprocess_exec(
             "git",
             "clone",
@@ -516,8 +569,12 @@ async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
             },
         )
         await proc.communicate()
+
+        os.remove(ssh_file_name)
         if proc.returncode != 0:
-            LOGGER.error("Root cloning failed", extra=dict(extra=locals()))
+            LOGGER.error("Root SSH cloning failed", extra=dict(extra=locals()))
+        else:
+            await _upload_cloned_repo_to_s3(temp_dir, group_name)
 
 
 async def clone_root(*, item: BatchProcessing) -> None:
@@ -529,7 +586,9 @@ async def clone_root(*, item: BatchProcessing) -> None:
     group_roots_loader = dataloaders.group_roots
     group_creds = await group_root_creds_loader.load(group_name)
     group_roots = await group_roots_loader.load(group_name)
-    root_id = await roots_domain.get_root_id_by_nickname(
+
+    # In the off case there are multiple roots with the same nickname
+    root_id = roots_domain.get_root_id_by_nickname(
         nickname=root_nickname, group_roots=group_roots, is_git_root=True
     )
     root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
@@ -541,7 +600,8 @@ async def clone_root(*, item: BatchProcessing) -> None:
             await _ssh_clone_root(root, root_cred)
     else:
         LOGGER.error(
-            "Root has not credentials to clone", extra=dict(extra=locals())
+            "Root could not be determined or it does not have any credentials",
+            extra=dict(extra=locals()),
         )
     await delete_action(
         action_name=item.action_name,
