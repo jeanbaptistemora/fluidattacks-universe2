@@ -3415,7 +3415,17 @@
   title: MITRE ATT&CK® - Enterprise Mitigations
   en:
     description: >
-      ...
+      MITRE ATT&CK® is a globally-accessible
+      knowledge base of adversary tactics
+      and techniques based on real-world
+      observations and is used as a
+      cybersecurity product and service
+      community.
+      This mitigation describes any guidance
+      or training given to developers of
+      applications to avoid introducing
+      security weaknesses that an adversary
+      may be able to take advantage of.
   es:
     description: __empty__
   definitions:
