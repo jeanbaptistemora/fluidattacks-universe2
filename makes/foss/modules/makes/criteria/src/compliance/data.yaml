@@ -3422,4 +3422,46 @@
     "M1036":
       title: Account Use Policies
       link: https://attack.mitre.org/mitigations/enterprise/
+    "M1049":
+      title: Antivirus/Antimalware
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1048":
+      title: Application Isolation and Sandboxing
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1047":
+      title: Audit
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1040":
+      title: Behavior Prevention on Endpoint
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1046":
+      title: Boot Integrity
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1045":
+      title: Code Signing
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1043":
+      title: Credential Access Protection
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1057":
+      title: Data Loss Prevention
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1041":
+      title: Encrypt Sensitive Information
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1039":
+      title: Environment Variable Permissions
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1038":
+      title: Execution Prevention
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1037":
+      title: Filter Network Traffic
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1035":
+      title: Limit Access to Resource Over Network
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1034":
+      title: Limit Hardware Installation
+      link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
