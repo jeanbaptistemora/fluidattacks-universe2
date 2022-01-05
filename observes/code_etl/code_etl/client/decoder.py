@@ -18,6 +18,9 @@ from code_etl.objs import (
     RepoRegistration,
     User,
 )
+from code_etl.str_utils import (
+    truncate,
+)
 from code_etl.time_utils import (
     to_utc,
 )
@@ -79,7 +82,10 @@ def decode_commit_data(
             .alt(raise_exception)
             .unwrap(),
             assert_type(raw[6], str).alt(raise_exception).unwrap(),
-            assert_type(raw[7], str).alt(raise_exception).unwrap(),
+            assert_type(raw[7], str)
+            .map(lambda s: truncate(s, 256))
+            .alt(raise_exception)
+            .unwrap(),
             Deltas(
                 assert_type(raw[8], int).alt(raise_exception).unwrap(),
                 assert_type(raw[9], int).alt(raise_exception).unwrap(),

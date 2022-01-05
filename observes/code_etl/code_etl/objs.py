@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from code_etl.str_utils import (
+    TruncatedStr,
+)
 from code_etl.time_utils import (
     DatetimeUTC,
 )
@@ -8,6 +11,9 @@ from dataclasses import (
 )
 from returns.maybe import (
     Maybe,
+)
+from typing import (
+    Literal,
 )
 
 
@@ -45,7 +51,7 @@ class CommitData:
     committer: User
     committed_at: DatetimeUTC
     message: str
-    summary: str
+    summary: TruncatedStr[Literal[256]]
     deltas: Deltas
 
 

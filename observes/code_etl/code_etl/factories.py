@@ -5,6 +5,9 @@ from code_etl.objs import (
     Deltas,
     User,
 )
+from code_etl.str_utils import (
+    truncate,
+)
 from code_etl.time_utils import (
     to_utc,
 )
@@ -54,7 +57,7 @@ def gen_fa_hash_2(commit: CommitData) -> str:
     fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
 
     fa_hash.update(bytes(commit.message, "utf-8"))
-    fa_hash.update(bytes(commit.summary, "utf-8"))
+    fa_hash.update(bytes(commit.summary.msg, "utf-8"))
 
     fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
     fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
@@ -87,7 +90,7 @@ class CommitDataFactory:
             commiter,
             to_utc(commit.committed_datetime),
             str(commit.message),
-            str(commit.summary),
+            truncate(str(commit.summary), 256),
             deltas,
         )
         _id = CommitId(commit.hexsha, gen_fa_hash(data))
@@ -108,7 +111,7 @@ class CommitDataAdapters:
             hash=id_obj.hash,
             fa_hash=id_obj.fa_hash,
             message=_truncate_bytes(data.message, 0, 4096),
-            summary=_truncate_bytes(data.summary, 0, 256),
+            summary=data.summary.msg,
             total_insertions=data.deltas.total_insertions,
             total_deletions=data.deltas.total_deletions,
             total_lines=data.deltas.total_lines,
