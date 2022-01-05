@@ -188,9 +188,16 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
 
 
 def delta_update(
-    client: Client, table: TableID, old: CommitTableRow, new: CommitTableRow
+    client: Client,
+    table: TableID,
+    old: CommitTableRow,
+    new: CommitTableRow,
+    ignore_fa_hash: bool = True,
 ) -> IO[None]:
     _fields = _delta_fields(old, new)
+    if ignore_fa_hash and _fields == ("fa_hash",):
+        LOG.info("delta fa_hash update skipped")
+        return IO(None)
     if len(_fields) > 0:
         LOG.info("delta update %s fields", len(_fields))
         return client.cursor.execute_query(
