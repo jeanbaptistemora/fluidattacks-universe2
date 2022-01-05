@@ -27,6 +27,7 @@ const GET_TOE_LINES: DocumentNode = gql`
             comments @include(if: $canGetComments)
             filename
             firstAttackAt @include(if: $canGetFirstAttackAt)
+            hasVulnerabilities
             lastAuthor
             lastCommit
             loc

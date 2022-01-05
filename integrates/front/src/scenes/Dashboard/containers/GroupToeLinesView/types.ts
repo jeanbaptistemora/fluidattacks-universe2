@@ -19,6 +19,7 @@ interface IToeLinesAttr {
   comments: string;
   filename: string;
   firstAttackAt: string | null;
+  hasVulnerabilities: boolean;
   lastAuthor: string;
   lastCommit: string;
   loc: number;
@@ -44,6 +45,7 @@ interface IToeLinesData {
   daysToAttack: number;
   filename: string;
   firstAttackAt: Date | undefined;
+  hasVulnerabilities: string;
   lastAuthor: string;
   lastCommit: string;
   loc: number;

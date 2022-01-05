@@ -813,6 +813,7 @@ export const enTranslations: ResourceKey = {
         },
         filename: "Filename",
         firstAttackAt: "First attack at",
+        hasVulnerabilities: "Has vulnerabilities",
         lastAuthor: "Last author",
         lastCommit: "Last commit",
         loc: "LOC",
