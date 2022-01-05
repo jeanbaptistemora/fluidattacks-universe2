@@ -23345,3 +23345,66 @@
   metadata:
     en:
       details: __empty__
+"398":
+  en:
+    title: Fragment Injection
+    description: >
+      The application is vulnerable to Fragment Injection
+      caused either by an unsafe implementation of PreferenceActivity
+      or an insecure configuration of isValidFragment.
+    impact: >
+      Use malicious fragments
+      to exploit different vulnerabilities
+    recommendation: >
+      - Set the attribute exported to false
+      to avoid the attempt of
+      foreign applications to exploit the vulnerability
+
+      - Ensure the application is running
+      with targetSdkVersion higher than 19
+
+      - Set a whitelist of trusted fragments
+      and validate them through the implementation of isValidFragment.
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Fragment Injection
+    description: >
+      La aplicación es vulnerable a una inyección de fragmentos
+      al definir una implementación insegura de PreferenceActivity
+      o establecer una configuración incorrrecta de isValidFragment.
+    impact: >
+      Utilizar fragmentos maliciosos
+      que pueden ser usados para explotar
+      diferentes vulnerabilidades
+    recommendation: >
+      - Establecer el atributo exported a false
+       para evitar intentos de explotación
+       de aplicaciones de terceros
+
+      - Garantizar que la aplicación corra
+      con targetSdkVersion superior a 19
+
+      - Establecer una lista de fragmentos de confianza,
+       validándolos mediante la implementación de isValidFragment.
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["266","173"]
+  metadata:
+    en:
+      details: __empty__
