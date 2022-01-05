@@ -107,6 +107,12 @@
   "microsoft.aspnet.webpages": {
     "CVE-2018-8171": "3.2.3"
   },
+  "microsoft.aspnetcore": {
+    "CVE-2017-11770": "1.0 || 1.1 || 2.0",
+    "CVE-2017-11883": "1.0 || 1.1 || 2.0",
+    "CVE-2019-0815": "2.2",
+    "SNYK-DOTNET-MICROSOFTASPNETCORE-174184": ">=2.0.0-preview1-final <2.0.1"
+  },
   "microsoft.aspnetcore.authentication.jwtbearer": {
     "GHSA-q7cg-43mg-qp69": "<2.1.29 || >=3.0.0 <3.1.18 || >=5.0.0 <5.0.9",
     "SNYK-DOTNET-MICROSOFTASPNETCOREAUTHENTICATIONJWTBEARER-1540308": "<2.1.19 || >=3.0.0 <3.1.18 || >=5.0.0 <5.0.9"
