@@ -1,6 +1,12 @@
 from datetime import (
     datetime,
 )
+from dateutil import (  # type: ignore
+    parser as date_parser,
+)
+from dateutil.parser import (  # type: ignore
+    ParserError,
+)
 from integrates.dal import (
     get_finding_vulnerabilities,
     get_group_language,
@@ -49,15 +55,23 @@ async def main(
         )
         async for vulnerability in vulnerabilities_store.iterate():
             verification = vulnerability.integrates_metadata.verification
-
+            if not isinstance(verification.date, datetime) and isinstance(
+                verification.date, str
+            ):
+                try:
+                    verification_date = date_parser.parse(verification.date)
+                except ParserError:
+                    continue
+            else:
+                verification_date = verification.date
             if (
                 namespace == vulnerability.namespace
                 and verification
                 and verification.state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
-                and verification.date > max_reattack_date
+                and verification_date > max_reattack_date
             ):
-                max_reattack_date = verification.date
+                max_reattack_date = verification_date
 
     sys.stdout.write(str(int(max_reattack_date.timestamp())))
     sys.stdout.write("\n")
