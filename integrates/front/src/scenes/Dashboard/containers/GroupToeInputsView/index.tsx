@@ -34,6 +34,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const canGetAttackedAt: boolean = permissions.can(
     "api_resolvers_toe_input_attacked_at_resolve"
   );
+  const canGetAttackedBy: boolean = permissions.can(
+    "api_resolvers_toe_input_attacked_by_resolve"
+  );
+  const canGetBePresentUntil: boolean = permissions.can(
+    "api_resolvers_toe_input_be_present_until_resolve"
+  );
+  const canGetFirstAttackAt: boolean = permissions.can(
+    "api_resolvers_toe_input_first_attack_at_resolve"
+  );
   const canGetSeenFirstTimeBy: boolean = permissions.can(
     "api_resolvers_toe_input_seen_first_time_by_resolve"
   );
@@ -176,7 +185,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         Logger.error("Couldn't load toe inputs", error);
       });
     },
-    variables: { first: 300, groupName },
+    variables: {
+      canGetAttackedAt,
+      canGetAttackedBy,
+      canGetBePresentUntil,
+      canGetFirstAttackAt,
+      canGetSeenFirstTimeBy,
+      first: 300,
+      groupName,
+    },
   });
   const pageInfo =
     data === undefined ? undefined : data.group.toeInputs.pageInfo;

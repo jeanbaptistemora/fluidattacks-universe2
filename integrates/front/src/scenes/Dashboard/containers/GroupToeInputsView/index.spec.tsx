@@ -27,7 +27,15 @@ describe("GroupToeInputsView", (): void => {
     const mockedToeInputs: MockedResponse = {
       request: {
         query: GET_TOE_INPUTS,
-        variables: { first: 300, groupName: "unittesting" },
+        variables: {
+          canGetAttackedAt: true,
+          canGetAttackedBy: true,
+          canGetBePresentUntil: true,
+          canGetFirstAttackAt: true,
+          canGetSeenFirstTimeBy: true,
+          first: 300,
+          groupName: "unittesting",
+        },
       },
       result: {
         data: {
@@ -81,6 +89,9 @@ describe("GroupToeInputsView", (): void => {
     };
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_toe_input_attacked_at_resolve" },
+      { action: "api_resolvers_toe_input_attacked_by_resolve" },
+      { action: "api_resolvers_toe_input_be_present_until_resolve" },
+      { action: "api_resolvers_toe_input_first_attack_at_resolve" },
       { action: "api_resolvers_toe_input_seen_first_time_by_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(

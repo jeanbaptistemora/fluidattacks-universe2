@@ -5,23 +5,28 @@ const GET_TOE_INPUTS: DocumentNode = gql`
   query GetToeInputs(
     $after: String
     $bePresent: Boolean
-    $groupName: String!
+    $canGetAttackedAt: Boolean!
+    $canGetAttackedBy: Boolean!
+    $canGetBePresentUntil: Boolean!
+    $canGetFirstAttackAt: Boolean!
+    $canGetSeenFirstTimeBy: Boolean!
     $first: Int
+    $groupName: String!
   ) {
     group(groupName: $groupName) {
       name
       toeInputs(bePresent: $bePresent, after: $after, first: $first) {
         edges {
           node {
-            attackedAt
-            attackedBy
+            attackedAt @include(if: $canGetAttackedAt)
+            attackedBy @include(if: $canGetAttackedBy)
             bePresent
-            bePresentUntil
+            bePresentUntil @include(if: $canGetBePresentUntil)
             component
             entryPoint
-            firstAttackAt
+            firstAttackAt @include(if: $canGetFirstAttackAt)
             seenAt
-            seenFirstTimeBy
+            seenFirstTimeBy @include(if: $canGetSeenFirstTimeBy)
             unreliableRootNickname
           }
         }
