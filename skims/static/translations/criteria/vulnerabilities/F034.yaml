@@ -10,29 +10,3 @@ src.lib_path.f034.java_use_of_util_random.description:
 src.lib_path.f034.javascript_insecure_randoms.description:
   en: Use of Javascript Math.random
   es: Uso de Javascript Math.random
-F034.description:
-  en: >
-    The system uses insecure functions, insufficient ranges or low-entropy
-    components to generate random numbers.
-  es: >
-    El sistema usa funciones inseguras, rangos insuficientes o componentes
-    de baja entropía para generar números aleatorios.
-F034.impact:
-  en: >
-    Predict the sequence of random numbers.
-  es: >
-    Predecir la secuencia de números aleatorios.
-F034.recommendation:
-  en: >
-    Use a well-vetted algorithm that is currently considered to be
-    strong by experts in the field, and select well-tested
-    implementations with adequate length seeds.
-  es: >
-    Utilizar un algoritmo bien examinado que se considere fuerte actualmente
-    por expertos en el campo, y seleccionar implementaciones bien probadas
-    con semillas o vectores de inicialización de longitud adecuada.
-F034.threat:
-  en: >
-    Autenticated attacker from the Internet.
-  es: >
-    Atacante autenticado desde Internet.
