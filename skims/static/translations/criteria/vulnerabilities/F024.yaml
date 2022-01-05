@@ -29,30 +29,3 @@ src.lib_path.f024_aws.instances_without_profile:
 src.lib_path.f024_aws.public_buckets:
   en: S3 buckets are publicly accessible for read or write operations
   es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura
-F024.description:
-  en: >
-    The system’s network configuration does not properly limit access between
-    network segments. This allows employees from any office to access
-    administrative services of servers and other offices.
-    Alternatively, servers that are supposed to be accessed only from an
-    internal network are exposed to other network segments, such as the
-    internet.
-  es: >
-    La configuración de red del sistema no limita apropiadamente el acceso
-    entre segmentos de red. Esto permite que empleados desde cualquier oficina
-    accesen servicios administrativos de servicios y otras oficinas.
-    Alternativamente, los servidores que se espera sean accedidos solo desde
-    una red interna estan expuertos a otros segmentos de red, como Internet.
-F024.impact:
-  en: Expose resources, processes and sensitive information that could be compromised.
-  es: Exponer recursos, procesos e información sensible que podrían ser comprometidos.
-F024.recommendation:
-  en: >
-    Limit network segments, ports, IP addresses, network protocols, and
-    administrative services only to the required users.
-  es: >
-    Limitar los segmentos de red, puertos, direcciones IP, protocolos de red,
-    y servicios administrativos solamente a los usuarios requeridos.
-F024.threat:
-  en: Anonymous attacker from Internet.
-  es: Atacante anónimo desde Internet.
