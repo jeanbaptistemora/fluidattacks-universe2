@@ -1061,3 +1061,12 @@ class InvalidBillingPrice(CustomBaseException):
             "Provided price does not exist in Stripe."
         )
         super(InvalidBillingPrice, self).__init__(msg)
+
+
+class BillingSubscriptionAlreadyActive(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Subscription is already active. "
+            "Provided subscription is already active for this group."
+        )
+        super(BillingSubscriptionAlreadyActive, self).__init__(msg)

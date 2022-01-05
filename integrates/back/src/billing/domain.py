@@ -1,6 +1,8 @@
 from billing.types import (
     Customer,
     Portal,
+    Price,
+    Subscription,
 )
 from context import (
     BASE_URL,
@@ -8,6 +10,7 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
+    BillingSubscriptionAlreadyActive,
     InvalidBillingCustomer,
     InvalidBillingPrice,
     InvalidBillingTier,
@@ -43,12 +46,70 @@ LOGGER = logging.getLogger(__name__)
 stripe.api_key = FI_STRIPE_API_KEY
 
 
+async def _get_price(
+    *,
+    tier: str,
+) -> Optional[Price]:
+    """Return a tier price"""
+    prices = stripe.Price.list(lookup_keys=[tier]).data
+    if len(prices) > 0:
+        return Price(
+            id=prices[0].id,
+            tier=prices[0].lookup_key,
+        )
+    return None
+
+
+async def _get_group_subscription(
+    *,
+    group_name: str,
+    org_billing_customer: str,
+    limit: int = 1000,
+    status: str = "all",
+) -> Optional[Subscription]:
+    """Return subscription for a group"""
+    subs = stripe.Subscription.list(
+        customer=org_billing_customer,
+        limit=limit,
+        status=status,
+    ).data
+    filtered = [sub for sub in subs if sub.metadata["group"] == group_name]
+    if len(filtered) > 0:
+        return Subscription(
+            id=filtered[0].id,
+            group=filtered[0].metadata["group"],
+            org_billing_customer=filtered[0].customer,
+            organization=filtered[0].metadata["organization"],
+            tier=filtered[0].metadata["tier"],
+        )
+    return None
+
+
+async def _group_has_active_subscription(
+    *,
+    group_name: str,
+    org_billing_customer: str,
+    tier: str,
+) -> bool:
+    """True if group has active subscription of tier type"""
+    sub: Optional[Subscription] = await _get_group_subscription(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="active",
+        limit=1000,
+    )
+    if sub is not None and sub.tier == tier:
+        return True
+    return False
+
+
 async def _set_group_tier(
     *,
     event_id: str,
     group_name: str,
     tier: str,
 ) -> bool:
+    """Set a new tier for a group"""
     data = {
         "loaders": get_new_context(),
         "group_name": group_name,
@@ -115,27 +176,38 @@ async def checkout(
     group_name: str,
 ) -> AddBillingCheckoutPayload:
     """Create Stripe checkout session"""
-    prices = stripe.Price.list(lookup_keys=[tier]).data
-    if len(prices) > 0:
-        price_id: str = prices[0].id
-    else:
+
+    # Raise exception if group already has the same subscription active
+    if await _group_has_active_subscription(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        tier=tier,
+    ):
+        raise BillingSubscriptionAlreadyActive()
+
+    # Raise exception if Stripe price does not exist
+    price: Optional[Price] = await _get_price(tier=tier)
+    if price is None:
         raise InvalidBillingPrice()
+
     session_data = {
         "customer": org_billing_customer,
         "line_items": [
             {
-                "price": price_id,
+                "price": price.id,
                 "quantity": 1,
             },
         ],
         "metadata": {
-            "organization": org_name,
             "group": group_name,
+            "organization": org_name,
+            "tier": tier,
         },
         "subscription_data": {
             "metadata": {
-                "organization": org_name,
                 "group": group_name,
+                "organization": org_name,
+                "tier": tier,
             },
         },
         "mode": "subscription",
@@ -176,12 +248,10 @@ async def portal(
 
 async def webhook(request: Request) -> JSONResponse:
     """Parse Stripe webhook request and execute event"""
-
     body: Optional[bytes] = await request.body()
     signature: Optional[str] = request.headers.get("stripe-signature")
     message: str = ""
     status: str = "success"
-
     try:
         event = stripe.Webhook.construct_event(
             body,
