@@ -97,7 +97,7 @@ async def get_vulnerabilities(
               where
               severity
               specific
-              reportDate
+              lastTreatmentDate
               rootNickname
               zeroRisk
             }
@@ -125,6 +125,13 @@ async def get_vulnerabilities(
             "CONFIRMED",
         }:
             vulnerabilities[index]["currentState"] = "accepted"
+
+        # We are using lastTreatmentDate temporarily as reportDate hits the
+        # query performance.
+        # https://gitlab.com/fluidattacks/product/-/issues/5777
+        vulnerabilities[index]["reportDate"] = vulnerabilities[index].get(
+            "lastTreatmentDate"
+        )
 
     return finding_value.get("vulnerabilities", [])
 
