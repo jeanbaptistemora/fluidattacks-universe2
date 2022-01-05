@@ -58,6 +58,17 @@ locals {
         ]
       },
       {
+        Sid    = "s3List"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "arn:aws:s3:::continuous-repositories",
+          "arn:aws:s3:::continuous-repositories/*",
+        ]
+      },
+      {
         Sid    = "s3Write"
         Effect = "Allow"
         Action = ["*"]
