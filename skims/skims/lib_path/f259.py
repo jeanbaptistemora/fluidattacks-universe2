@@ -76,13 +76,13 @@ def cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
 
 
 def tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         recovery_attr = False
         if recovery := get_argument(
             key="point_in_time_recovery",
-            body=bucket.data,
+            body=resource.data,
         ):
             recovery_attr = True
             if recovery_attr := get_block_attribute(
@@ -91,7 +91,7 @@ def tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
                 if recovery_attr.val is False:
                     yield recovery_attr
         if not recovery_attr:
-            yield bucket
+            yield resource
 
 
 def _cfn_has_not_point_in_time_recovery(
@@ -127,7 +127,7 @@ def _tfm_db_no_point_in_time_recovery(
         finding=_FINDING_F259,
         iterator=get_cloud_iterator(
             tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_dynambodb_table(model=model)
+                resource_iterator=iter_aws_dynambodb_table(model=model)
             )
         ),
         path=path,

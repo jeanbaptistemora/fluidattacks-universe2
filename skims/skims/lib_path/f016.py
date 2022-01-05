@@ -105,13 +105,13 @@ def cfn_content_over_insecure_protocols_iterate_vulnerabilities(
 
 
 def tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        if isinstance(bucket, AWSCloudfrontDistribution):
+    for resource in resource_iterator:
+        if isinstance(resource, AWSCloudfrontDistribution):
             if v_cert := get_argument(
                 key="viewer_certificate",
-                body=bucket.data,
+                body=resource.data,
             ):
                 if min_prot := get_block_attribute(
                     v_cert, "minimum_protocol_version"
@@ -124,7 +124,7 @@ def tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
                         yield min_prot
             if origin := get_argument(
                 key="origin",
-                body=bucket.data,
+                body=resource.data,
             ):
                 if ssl_prot := get_attribute_by_block(
                     block=origin,
@@ -143,17 +143,17 @@ def tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
 
 
 def tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protocol_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if isinstance(elem, Attribute) and elem.key == "min_tls_version":
                 protocol_attr = True
                 if elem.val in ("TLS1_0", "TLS1_1"):
                     yield elem
         if not protocol_attr:
-            yield bucket
+            yield resource
 
 
 def _cfn_serves_content_over_insecure_protocols(
@@ -193,7 +193,7 @@ def _tfm_aws_serves_content_over_insecure_protocols(
         finding=_FINDING_F016,
         iterator=get_cloud_iterator(
             tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_cloudfront_distribution(model=model)
+                resource_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
         path=path,
@@ -214,7 +214,7 @@ def _tfm_azure_serves_content_over_insecure_protocols(
         finding=_FINDING_F016,
         iterator=get_cloud_iterator(
             tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
-                buckets_iterator=iter_azurerm_storage_account(model=model)
+                resource_iterator=iter_azurerm_storage_account(model=model)
             )
         ),
         path=path,

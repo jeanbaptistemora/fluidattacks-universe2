@@ -54,10 +54,10 @@ _FINDING_F070_CWE = _FINDING_F070.value.cwe
 
 
 def tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "port"
@@ -102,7 +102,7 @@ def _tfm_lb_target_group_insecure_port(
         finding=_FINDING_F070,
         iterator=get_cloud_iterator(
             tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_lb_target_group(model=model)
+                resource_iterator=iter_aws_lb_target_group(model=model)
             )
         ),
         path=path,

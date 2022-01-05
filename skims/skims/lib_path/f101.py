@@ -38,18 +38,20 @@ _FINDING_F101_CWE = _FINDING_F101.value.cwe
 
 
 def tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
-    for bucket in buckets_iterator:
-        soft_delete = get_attribute(bucket.data, "soft_delete_enabled")
-        purge_protect = get_attribute(bucket.data, "purge_protection_enabled")
+    for resource in resource_iterator:
+        soft_delete = get_attribute(resource.data, "soft_delete_enabled")
+        purge_protect = get_attribute(
+            resource.data, "purge_protection_enabled"
+        )
         if (
             not soft_delete
             or soft_delete.val is False
             or not purge_protect
             or purge_protect.val is False
         ):
-            yield bucket
+            yield resource
 
 
 def _tfm_azure_key_vault_not_recoverable(
@@ -64,7 +66,7 @@ def _tfm_azure_key_vault_not_recoverable(
         finding=_FINDING_F101,
         iterator=get_cloud_iterator(
             tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
-                buckets_iterator=iter_azurerm_key_vault(model=model)
+                resource_iterator=iter_azurerm_key_vault(model=model)
             )
         ),
         path=path,

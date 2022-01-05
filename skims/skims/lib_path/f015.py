@@ -40,26 +40,26 @@ _FINDING_F015_CWE = _FINDING_F015.value.cwe
 
 
 def tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         if linux_config := get_argument(
             key="os_profile_linux_config",
-            body=bucket.data,
+            body=resource.data,
         ):
             if not get_block_attribute(linux_config, "ssh_keys"):
                 yield linux_config
 
 
 def tfm_azure_linux_vm_insecure_authentication_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         if not get_argument(
             key="admin_ssh_key",
-            body=bucket.data,
+            body=resource.data,
         ):
-            yield bucket
+            yield resource
 
 
 def _tfm_azure_virtual_machine_insecure_authentication(
@@ -74,7 +74,7 @@ def _tfm_azure_virtual_machine_insecure_authentication(
         finding=_FINDING_F015,
         iterator=get_cloud_iterator(
             tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
-                buckets_iterator=iter_azurerm_virtual_machine(model=model)
+                resource_iterator=iter_azurerm_virtual_machine(model=model)
             )
         ),
         path=path,
@@ -93,7 +93,7 @@ def _tfm_azure_linux_vm_insecure_authentication(
         finding=_FINDING_F015,
         iterator=get_cloud_iterator(
             tfm_azure_linux_vm_insecure_authentication_iterate_vulnerabilities(
-                buckets_iterator=iter_azurerm_linux_virtual_machine(
+                resource_iterator=iter_azurerm_linux_virtual_machine(
                     model=model
                 )
             )

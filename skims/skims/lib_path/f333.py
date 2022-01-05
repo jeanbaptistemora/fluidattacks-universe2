@@ -57,10 +57,10 @@ _FINDING_F333_CWE = _FINDING_F333.value.cwe
 
 
 def ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "instance_initiated_shutdown_behavior"
@@ -71,11 +71,11 @@ def ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
 
 
 def ec2_has_not_termination_protection_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protection_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "disable_api_termination"
@@ -84,7 +84,7 @@ def ec2_has_not_termination_protection_iterate_vulnerabilities(
                 if elem.val is False:
                     yield elem
         if not protection_attr:
-            yield bucket
+            yield resource
 
 
 def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
@@ -145,7 +145,7 @@ def _ec2_has_terminate_shutdown_behavior(
         finding=_FINDING_F333,
         iterator=get_cloud_iterator(
             ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_launch_template(model=model)
+                resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
         path=path,
@@ -164,7 +164,7 @@ def _ec2_has_not_termination_protection(
         finding=_FINDING_F333,
         iterator=get_cloud_iterator(
             ec2_has_not_termination_protection_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_launch_template(model=model)
+                resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
         path=path,

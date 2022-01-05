@@ -75,33 +75,33 @@ def is_cidr(cidr: str) -> bool:
 
 
 def ec2_use_default_security_group_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         use_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key in SECURITY_GROUP_ATTRIBUTES
             ):
                 use_attr = True
         if not use_attr:
-            yield bucket
+            yield resource
 
 
 def aws_instance_use_default_security_group_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         use_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key in SECURITY_GROUP_ATTRIBUTES
             ):
                 use_attr = True
         if not use_attr:
-            yield bucket
+            yield resource
 
 
 def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
@@ -273,7 +273,7 @@ def _ec2_use_default_security_group(
         finding=_FINDING_F177,
         iterator=get_cloud_iterator(
             ec2_use_default_security_group_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_launch_template(model=model)
+                resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
         path=path,
@@ -292,7 +292,7 @@ def _aws_instance_use_default_security_group(
         finding=_FINDING_F177,
         iterator=get_cloud_iterator(
             aws_instance_use_default_security_group_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_instance(model=model)
+                resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,

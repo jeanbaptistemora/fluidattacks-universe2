@@ -56,11 +56,11 @@ _FINDING_F256_CWE = _FINDING_F256.value.cwe
 
 
 def tfm_db_no_deletion_protection_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protection_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "deletion_protection"
@@ -69,15 +69,15 @@ def tfm_db_no_deletion_protection_iterate_vulnerabilities(
                 if elem.val is False:
                     yield elem
         if not protection_attr:
-            yield bucket
+            yield resource
 
 
 def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protection_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "deletion_protection"
@@ -86,14 +86,14 @@ def tfm_rds_no_deletion_protection_iterate_vulnerabilities(
                 if elem.val is False:
                     yield elem
         if not protection_attr:
-            yield bucket
+            yield resource
 
 
 def tfm_db_has_not_automated_backups_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "backup_retention_period"
@@ -103,10 +103,10 @@ def tfm_db_has_not_automated_backups_iterate_vulnerabilities(
 
 
 def tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "backup_retention_period"
@@ -156,7 +156,7 @@ def _tfm_db_no_deletion_protection(
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_db_no_deletion_protection_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
@@ -175,7 +175,7 @@ def _tfm_rds_no_deletion_protection(
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_rds_no_deletion_protection_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster(model=model)
+                resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
@@ -194,7 +194,7 @@ def _tfm_db_has_not_automated_backups(
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_db_has_not_automated_backups_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
@@ -213,7 +213,7 @@ def _tfm_rds_has_not_automated_backups(
         finding=_FINDING_F256,
         iterator=get_cloud_iterator(
             tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster(model=model)
+                resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,

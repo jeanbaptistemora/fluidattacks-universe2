@@ -54,33 +54,33 @@ _FINDING_F109_CWE = _FINDING_F109.value.cwe
 
 
 def tfm_db_cluster_inside_subnet_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         subnet = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "db_subnet_group_name"
             ):
                 subnet = True
         if not subnet:
-            yield bucket
+            yield resource
 
 
 def tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         subnet = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "db_subnet_group_name"
             ):
                 subnet = True
         if not subnet:
-            yield bucket
+            yield resource
 
 
 def _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
@@ -110,7 +110,7 @@ def _tfm_db_cluster_inside_subnet(
         finding=_FINDING_F109,
         iterator=get_cloud_iterator(
             tfm_db_cluster_inside_subnet_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
@@ -131,7 +131,7 @@ def _tfm_rds_instance_inside_subnet(
         finding=_FINDING_F109,
         iterator=get_cloud_iterator(
             tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster(model=model)
+                resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,

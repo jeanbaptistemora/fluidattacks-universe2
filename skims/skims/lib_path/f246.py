@@ -56,31 +56,31 @@ _FINDING_F246_CWE = _FINDING_F246.value.cwe
 
 
 def tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protection_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if isinstance(elem, Attribute) and elem.key == "storage_encrypted":
                 protection_attr = True
                 if elem.val is False:
                     yield elem
         if not protection_attr:
-            yield bucket
+            yield resource
 
 
 def tfm_db_has_unencrypted_storage_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         protection_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if isinstance(elem, Attribute) and elem.key == "storage_encrypted":
                 protection_attr = True
                 if elem.val is False:
                     yield elem
         if not protection_attr:
-            yield bucket
+            yield resource
 
 
 def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
@@ -113,7 +113,7 @@ def _tfm_rds_has_unencrypted_storage(
         finding=_FINDING_F246,
         iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster(model=model)
+                resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
@@ -132,7 +132,7 @@ def _tfm_db_has_unencrypted_storage(
         finding=_FINDING_F246,
         iterator=get_cloud_iterator(
             tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,

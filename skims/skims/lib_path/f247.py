@@ -1,11 +1,6 @@
 from aioextensions import (
     in_process,
 )
-from aws.model import (
-    AWSEbsVolume,
-    AWSFsxWindowsFileSystem,
-    AWSInstance,
-)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
@@ -54,40 +49,40 @@ _FINDING_F247_CWE = _FINDING_F247.value.cwe
 
 
 def tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSFsxWindowsFileSystem, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         kms_key = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if isinstance(elem, Attribute) and elem.key == "kms_key_id":
                 kms_key = True
         if not kms_key:
-            yield bucket
+            yield resource
 
 
 def tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSEbsVolume, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         encrypted_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if isinstance(elem, Attribute) and elem.key == "encrypted":
                 encrypted_attr = True
                 if elem.val is False:
                     yield elem
         if not encrypted_attr:
-            yield bucket
+            yield resource
 
 
 def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
-    buckets_iterator: Iterator[AWSInstance],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         root_encrypted = False
         ebs_encrypted = False
         if root_device := get_argument(
             key="root_block_device",
-            body=bucket.data,
+            body=resource.data,
         ):
             if root_encrypted_attr := get_block_attribute(
                 block=root_device, key="encrypted"
@@ -97,7 +92,7 @@ def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
                     yield root_encrypted_attr
         if ebs_device := get_argument(
             key="ebs_block_device",
-            body=bucket.data,
+            body=resource.data,
         ):
             if ebs_encrypted_attr := get_block_attribute(
                 block=ebs_device, key="encrypted"
@@ -112,10 +107,10 @@ def tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
 
 
 def tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "enabled"
@@ -136,7 +131,7 @@ def _tfm_fsx_unencrypted_volumes(
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_fsx_windows_file_system(model=model)
+                resource_iterator=iter_aws_fsx_windows_file_system(model=model)
             )
         ),
         path=path,
@@ -155,7 +150,7 @@ def _tfm_ebs_unencrypted_volumes(
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_ebs_volume(model=model)
+                resource_iterator=iter_aws_ebs_volume(model=model)
             )
         ),
         path=path,
@@ -174,7 +169,7 @@ def _tfm_ec2_unencrypted_volumes(
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_instance(model=model)
+                resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,
@@ -193,7 +188,7 @@ def _tfm_ebs_unencrypted_by_default(
         finding=_FINDING_F247,
         iterator=get_cloud_iterator(
             tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_ebs_encryption_by_default(
+                resource_iterator=iter_aws_ebs_encryption_by_default(
                     model=model
                 )
             )

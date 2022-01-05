@@ -1,9 +1,6 @@
 from aioextensions import (
     in_process,
 )
-from aws.model import (
-    AWSCloudfrontDistribution,
-)
 from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
@@ -45,11 +42,11 @@ _FINDING_F157_CWE = _FINDING_F157.value.cwe
 
 
 def tfm_azure_unrestricted_access_network_segments_iterate(
-    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
+    for resource in resource_iterator:
         public_attr = False
-        for elem in bucket.data:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "public_network_enabled"
@@ -58,7 +55,7 @@ def tfm_azure_unrestricted_access_network_segments_iterate(
                 if elem.val is True:
                     yield elem
         if not public_attr:
-            yield bucket
+            yield resource
 
 
 def _tfm_azure_unrestricted_access_network_segments(
@@ -73,7 +70,7 @@ def _tfm_azure_unrestricted_access_network_segments(
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
             tfm_azure_unrestricted_access_network_segments_iterate(
-                buckets_iterator=iter_azurerm_data_factory(model=model)
+                resource_iterator=iter_azurerm_data_factory(model=model)
             )
         ),
         path=path,

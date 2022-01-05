@@ -158,15 +158,15 @@ def _has_logging_disabled_iterate_vulnerabilities(
 
 
 def tfm_elb_logging_disabled_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        if access_logs := get_argument(body=bucket.data, key="access_logs"):
+    for resource in resource_iterator:
+        if access_logs := get_argument(body=resource.data, key="access_logs"):
             for elem in iterate_block_attributes(access_logs):
                 if elem.key == "enabled" and elem.val is False:
                     yield elem
         else:
-            yield bucket
+            yield resource
 
 
 def _tfm_elb_logging_disabled(
@@ -181,7 +181,7 @@ def _tfm_elb_logging_disabled(
         finding=_FINDING_F200,
         iterator=get_cloud_iterator(
             tfm_elb_logging_disabled_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_elb(model=model)
+                resource_iterator=iter_aws_elb(model=model)
             )
         ),
         path=path,

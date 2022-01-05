@@ -84,17 +84,17 @@ def cfn_content_over_http_iterate_vulnerabilities(
 
 
 def tfm_content_over_http_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]]
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        if isinstance(bucket, AWSCloudfrontDistribution):
+    for resource in resource_iterator:
+        if isinstance(resource, AWSCloudfrontDistribution):
             if get_argument(
                 key="default_cache_behavior",
-                body=bucket.data,
+                body=resource.data,
             ):
                 for attr in iterate_block_attributes(
                     get_argument(
-                        body=bucket.data, key="default_cache_behavior"
+                        body=resource.data, key="default_cache_behavior"
                     )
                 ):
                     if (
@@ -104,11 +104,11 @@ def tfm_content_over_http_iterate_vulnerabilities(
                         yield attr
             if get_argument(
                 key="ordered_cache_behavior",
-                body=bucket.data,
+                body=resource.data,
             ):
                 for attr in iterate_block_attributes(
                     get_argument(
-                        body=bucket.data, key="ordered_cache_behavior"
+                        body=resource.data, key="ordered_cache_behavior"
                     )
                 ):
                     if (
@@ -172,7 +172,7 @@ def _tfm_serves_content_over_http(
         finding=_FINDING_F372,
         iterator=get_cloud_iterator(
             tfm_content_over_http_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_cloudfront_distribution(model=model)
+                resource_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
         path=path,

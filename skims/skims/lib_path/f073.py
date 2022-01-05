@@ -55,10 +55,10 @@ _FINDING_F073_CWE = _FINDING_F073.value.cwe
 
 
 def tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "publicly_accessible"
@@ -68,10 +68,10 @@ def tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
 
 
 def tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "publicly_accessible"
@@ -101,7 +101,7 @@ def _tfm_db_cluster_publicly_accessible(
         finding=_FINDING_F073,
         iterator=get_cloud_iterator(
             tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_db_instance(model=model)
+                resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
@@ -120,7 +120,7 @@ def _tfm_db_instance_publicly_accessible(
         finding=_FINDING_F073,
         iterator=get_cloud_iterator(
             tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
-                buckets_iterator=iter_aws_rds_cluster_instance(model=model)
+                resource_iterator=iter_aws_rds_cluster_instance(model=model)
             )
         ),
         path=path,

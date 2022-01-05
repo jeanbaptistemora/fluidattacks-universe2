@@ -56,7 +56,7 @@ _FINDING_F335_CWE = _FINDING_F335.value.cwe
 
 
 def tfm_s3_not_private_access_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Any],
+    resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     danger_values = {
         "public-read",
@@ -66,8 +66,8 @@ def tfm_s3_not_private_access_iterate_vulnerabilities(
         "bucket-owner-full-control",
         "log-delivery-write",
     }
-    for bucket in buckets_iterator:
-        for elem in bucket.data:
+    for resource in resource_iterator:
+        for elem in resource.data:
             if (
                 isinstance(elem, Attribute)
                 and elem.key == "acl"
@@ -105,7 +105,7 @@ def _tfm_s3_not_private_access(
         finding=_FINDING_F335,
         iterator=get_cloud_iterator(
             tfm_s3_not_private_access_iterate_vulnerabilities(
-                buckets_iterator=iter_s3_buckets(model=model)
+                resource_iterator=iter_s3_buckets(model=model)
             )
         ),
         path=path,
