@@ -28,10 +28,14 @@ from parse_cfn.structure import (
     iter_ec2_volumes,
     iterate_iam_policy_documents,
 )
+from parse_hcl2.common import (
+    get_attribute,
+)
 from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_instance,
     iter_aws_launch_template,
 )
 from parse_hcl2.tokens import (
@@ -131,6 +135,17 @@ def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
             else:
                 if action.raw.startswith("ssm:"):
                     yield action
+
+
+def tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if not get_attribute(
+            key="iam_instance_profile",
+            body=resource.data,
+        ):
+            yield resource
 
 
 def _ec2_has_terminate_shutdown_behavior(
@@ -234,6 +249,28 @@ def _cfn_iam_has_full_access_to_ssm(
     )
 
 
+def _tfm_ec2_has_not_an_iam_instance_profile(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F333_CWE},
+        description_key=(
+            "src.lib_path.f333.ec2_has_not_an_iam_instance_profile"
+        ),
+        finding=_FINDING_F333,
+        iterator=get_cloud_iterator(
+            tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
+                resource_iterator=iter_aws_instance(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_has_terminate_shutdown_behavior(
@@ -249,6 +286,7 @@ async def ec2_has_terminate_shutdown_behavior(
     )
 
 
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def ec2_has_not_termination_protection(
@@ -316,6 +354,22 @@ async def cfn_iam_has_full_access_to_ssm(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_ec2_has_not_an_iam_instance_profile(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_ec2_has_not_an_iam_instance_profile,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -364,6 +418,13 @@ async def analyze(
         )
         coroutines.append(
             ec2_has_not_termination_protection(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_ec2_has_not_an_iam_instance_profile(
                 content=content,
                 path=path,
                 model=model,

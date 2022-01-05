@@ -324,6 +324,31 @@ F177,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,1,
   21 |   credit_specification {
      ^ Col 0
 ",f177._ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf","
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+> 22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+     ^ Col 0
+",f177._ec2_use_default_security_group
 F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,EC2 Launch Templates allows the shutdown command to terminate the instance in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
   34 |   elastic_inference_accelerator {
   35 |     type = ""eia1.medium""
@@ -396,6 +421,47 @@ F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 ",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
+   1 |
+>  2 | resource ""aws_instance"" ""foo"" {
+   3 |   ami           = ""ami-005e54dee72cc1d00""
+   4 |   instance_type = ""t2.micro""
+   5 |
+   6 |   network_interface {
+   7 |     network_interface_id = aws_network_interface.foo.id
+   8 |     device_index         = 0
+   9 |   }
+  10 |
+  11 |   credit_specification {
+  12 |     cpu_credits = ""unlimited""
+  13 |   }
+  14 | }
+     ^ Col 0
+",f333._tfm_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,1,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",f333._tfm_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   21 |       LaunchTemplateName: MyLaunchTemplate
   22 |       LaunchTemplateData:
@@ -564,6 +630,30 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |       IamInstanceProfile: iamProfile
      ^ Col 0
 ",f333._cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,333. Insecure service configuration - EC2,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+> 22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+     ^ Col 0
+",f333._tfm_ec2_has_not_an_iam_instance_profile
 F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
