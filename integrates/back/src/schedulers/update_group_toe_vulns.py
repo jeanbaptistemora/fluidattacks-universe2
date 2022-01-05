@@ -128,6 +128,7 @@ async def main() -> None:
             if toe_input.has_vulnerabilities != has_vulnerabilities:
                 _log(
                     "  updating toe_input",
+                    has_vulnerabilities=has_vulnerabilities,
                     where=toe_input.component,
                     specific=toe_input.entry_point,
                 )
