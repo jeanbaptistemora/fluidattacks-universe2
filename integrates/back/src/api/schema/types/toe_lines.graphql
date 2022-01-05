@@ -23,6 +23,11 @@ type ToeLines {
   filename: String!
   "First attack moment in iso format"
   firstAttackAt: DateTime
+  """
+  True if the associated `filename` has OPEN vulnerabilities.
+  This field is eventually consistent.
+  """
+  hasVulnerabilities: Boolean
   "Last author to modify this file"
   lastAuthor: String!
   "SHA-1 commit hash in short form in which this file was modified"
