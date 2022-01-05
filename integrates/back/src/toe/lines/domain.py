@@ -154,6 +154,7 @@ async def update(
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         first_attack_at=first_attack_at,
+        has_vulnerabilities=attributes.has_vulnerabilities,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,

@@ -55,6 +55,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     comments: Optional[str] = None
     commit_author: Optional[str] = None
     first_attack_at: Optional[datetime] = None
+    has_vulnerabilities: Optional[bool] = None
     loc: Optional[int] = None
     modified_commit: Optional[str] = None
     modified_date: Optional[datetime] = None

@@ -94,6 +94,7 @@ def format_toe_lines_item(
             toe_lines.first_attack_at
         ),
         "group_name": toe_lines.group_name,
+        "has_vulnerabilities": toe_lines.has_vulnerabilities,
         "loc": toe_lines.loc,
         "modified_commit": toe_lines.modified_commit,
         "modified_date": db_model_utils.get_date_as_utc_iso_format(
