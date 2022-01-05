@@ -43,6 +43,7 @@ from toe.lines.types import (
 )
 from typing import (
     Any,
+    Dict,
     Tuple,
 )
 
@@ -56,8 +57,8 @@ def _log(msg: str, **extra: Any) -> None:
     LOGGER_CONSOLE.info(msg, extra={"extra": extra})
 
 
-def _strip_first_dir(where: str) -> str:
-    return where[where.find("/") + 1 :]
+def _strip_first_dir(where: str) -> Tuple[str, str]:
+    return (where[0 : where.find("/")], where[where.find("/") + 1 :])
 
 
 async def main() -> None:
@@ -66,6 +67,12 @@ async def main() -> None:
 
     for group in groups:
         _log("group", id=group)
+
+        _log("  getting root nicknames")
+        root_nicknames: Dict[str, str] = {
+            root.id: root.state.nickname
+            for root in await loaders.group_roots.load(group)
+        }
 
         findings: Tuple[Finding, ...]
         findings = await loaders.group_findings.load(group)
@@ -120,7 +127,7 @@ async def main() -> None:
 
             if toe_input.has_vulnerabilities != has_vulnerabilities:
                 _log(
-                    "  updating toe_input:",
+                    "  updating toe_input",
                     where=toe_input.component,
                     specific=toe_input.entry_point,
                 )
@@ -136,15 +143,18 @@ async def main() -> None:
         for toe_line in group_toe_lines:
             has_vulnerabilities = any(
                 vulnerability.state.status is VulnerabilityStateStatus.OPEN
-                and vulnerability.root_id == toe_line.root_id
-                and _strip_first_dir(vulnerability.where) == toe_line.filename
-                and vulnerability.where == toe_line.filename
+                and vulnerability_where_repo
+                == root_nicknames[toe_line.root_id]
+                and vulnerability_where_path.startswith(toe_line.filename)
                 for vulnerability in vulnerabilities
+                for vulnerability_where_repo, vulnerability_where_path in [
+                    _strip_first_dir(vulnerability.where)
+                ]
             )
 
             if toe_line.has_vulnerabilities != has_vulnerabilities:
                 _log(
-                    "  updating toe_line:",
+                    "  updating toe_line",
                     filename=toe_line.filename,
                     has_vulnerabilities=has_vulnerabilities,
                     root_id=toe_line.root_id,
