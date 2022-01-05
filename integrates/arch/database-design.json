@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 29, 2021, 12:34 PM",
+    "DateLastModified": "Jan 05, 2022, 12:40 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -10605,7 +10605,8 @@
             "treatment",
             "verification",
             "zero_risk",
-            "bug_tracking_system_url"
+            "bug_tracking_system_url",
+            "root_id"
           ]
         },
         {
@@ -12946,12 +12947,12 @@
           "NonKeyAttributes": [
             "name",
             "exit_code",
+            "commit",
             "started_at",
             "stopped_at",
             "findings_executed",
             "created_at",
-            "queue",
-            "commit"
+            "queue"
           ]
         }
       ],
