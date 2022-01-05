@@ -11,6 +11,7 @@ from ipaddress import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
@@ -28,6 +29,15 @@ from parse_cfn.structure import (
     iter_ec2_ingress_egress,
     iter_ec2_instances,
     iter_ec2_security_groups,
+)
+from parse_hcl2.common import (
+    get_argument,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure.aws import (
+    iter_aws_security_group,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -237,6 +247,17 @@ def _cfn_iter_vulnerable_admin_ports(
             yield rule.inner["ToPort"]
 
 
+def tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if not get_argument(
+            key="egress",
+            body=resource.data,
+        ):
+            yield resource
+
+
 def _cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -299,6 +320,27 @@ def _cfn_allows_anyone_to_admin_ports(
                     template=template,
                     ingress=True,
                 )
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_aws_ec2_allows_all_outbound_traffic(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F024_CWE},
+        description_key=(
+            "src.lib_path.f024_aws.security_group_without_egress"
+        ),
+        finding=_FINDING_F024,
+        iterator=get_cloud_iterator(
+            tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
+                resource_iterator=iter_aws_security_group(model=model)
             )
         ),
         path=path,
@@ -411,6 +453,22 @@ async def cfn_unrestricted_ip_protocols(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_aws_ec2_allows_all_outbound_traffic(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_aws_ec2_allows_all_outbound_traffic,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -460,5 +518,14 @@ async def analyze(
                     template=template,
                 )
             )
-
+    if file_extension in EXTENSIONS_TERRAFORM:
+        content = await content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(
+            tfm_aws_ec2_allows_all_outbound_traffic(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
     return coroutines

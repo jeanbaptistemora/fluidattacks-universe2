@@ -3945,6 +3945,30 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
 ",f177._cfn_ec2_has_unrestricted_dns_access
+F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf","
+>  1 | resource ""aws_security_group"" ""insecure"" {
+   2 |   name        = ""allow_tls""
+   3 |   description = ""Allow TLS inbound traffic""
+   4 |   vpc_id      = ""someid""
+   5 |
+   6 |   ingress {
+   7 |     from_port        = 443
+   8 |     to_port          = 446
+   9 |     protocol         = ""-1""
+  10 |     cidr_blocks      = [""0.0.0.0/0""]
+  11 |     ipv6_cidr_blocks = [""::/0""]
+  12 |   }
+  13 |
+  14 |   tags = {
+  15 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  16 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  17 |   }
+  18 | }
+  19 |
+  20 | resource ""aws_security_group"" ""secure"" {
+  21 |   name        = ""allow_tls""
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_allows_all_outbound_traffic
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,12,16,skims,177. Insecure service configuration - Security Groups,"Security groups contain RFC-1918 CIDRs open
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
    2 |   InstanceSecurityGroup:
