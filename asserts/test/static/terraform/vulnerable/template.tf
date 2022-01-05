@@ -1,23 +1,3 @@
-resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic"
-  vpc_id      = "someid"
-
-  ingress {
-    # TLS (change to whatever ports you need)
-    from_port        = 443
-    to_port          = 446
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    method = "aws.terraform.ec2.allows_all_outbound_traffic"
-    Name   = "aws.terraform.allows_all_outbound_traffic"
-  }
-}
-
 resource "aws_security_group_rule" "allow_all" {
   security_group_id = "sg-123456"
   type              = "ingress"
