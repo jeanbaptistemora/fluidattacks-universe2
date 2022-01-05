@@ -13,29 +13,3 @@ src.lib_path.f031_aws.permissive_policy:
 src.lib_path.f031_aws.negative_statement:
   en: Excessive privileges, avoid the use of negative statements
   es: Privilegios excesivos, evitar el uso de políticas negativas
-F031.description:
-  en: >
-    The application, a user or a role have more privileges than they require.
-    This can be leveraged by an attacker to execute normally restricted actions
-    on a system.
-  es: >
-    La aplicación, un usuario o un rol tienen más privilegios/permisos que los
-    que requieren. Esto puede ser aprovechado por un atacante para ejecutar
-    acciones sobre un sistema que normalmente estarían restringidas.
-F031.impact:
-  en: >
-    Execute actions that should be restricted to other groups or roles.
-  es: >
-    Ejecutar acciones que deberían estar restringidas a otros grupos o roles.
-F031.recommendation:
-  en: >
-    Explicitly assign permissions to the appropriate groups and roles following
-    the principle of least privilege.
-  es: >
-    Asignar permisos explícitamente a los grupos y roles adecuados siguiendo
-    el principio del mínimo privilegio.
-F031.threat:
-  en: >
-    Attacker from the Internet with access to any of the misconfigured roles.
-  es: >
-    Atacante desde Internet con acceso a cualquiera de los roles mal configurados.
