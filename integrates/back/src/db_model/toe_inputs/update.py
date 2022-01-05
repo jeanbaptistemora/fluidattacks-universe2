@@ -92,7 +92,7 @@ async def update_metadata(
     conditions = (
         Attr(attr_name).eq(current_value_item[attr_name])
         for attr_name in metadata_item
-        if attr_name
+        if attr_name and current_value_item[attr_name] is not None
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
