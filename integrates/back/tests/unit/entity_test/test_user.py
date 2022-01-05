@@ -147,6 +147,37 @@ async def test_grant_stakeholder_access_2() -> None:
     query = """
         mutation {
             grantStakeholderAccess (
+            email: "test@test.test"
+            groupName: "unittesting"
+            responsibility: "test"
+            role: HACKER) {
+                success
+                grantedStakeholder {
+                    email
+                    role
+                    responsibility
+                    firstLogin
+                    lastLogin
+                }
+            }
+        }
+    """
+    data = {"query": query}
+    request = await create_dummy_session()
+    _, result = await graphql(SCHEMA, data, context_value=request)
+    assert "errors" in result
+    assert result["errors"][0]["message"] == (
+        "Exception - The previous invitation to this user was requested "
+        "less than a minute ago"
+    )
+
+
+@pytest.mark.changes_db
+async def test_grant_stakeholder_access_3() -> None:
+    """Check for grantStakeholderAccess mutation."""
+    query = """
+        mutation {
+            grantStakeholderAccess (
             email: "test2@test.test"
             groupName: "unittesting"
             responsibility: "test"
@@ -173,7 +204,7 @@ async def test_grant_stakeholder_access_2() -> None:
 
 
 @pytest.mark.changes_db
-async def test_grant_stakeholder_access_3() -> None:
+async def test_grant_stakeholder_access_4() -> None:
     """Check for grantStakeholderAccess mutation."""
     query = """
         mutation {
