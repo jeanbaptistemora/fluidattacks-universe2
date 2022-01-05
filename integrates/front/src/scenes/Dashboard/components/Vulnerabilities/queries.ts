@@ -15,6 +15,7 @@ const GET_GROUP_USERS: DocumentNode = gql`
       name
       stakeholders {
         email
+        invitationState
       }
     }
   }

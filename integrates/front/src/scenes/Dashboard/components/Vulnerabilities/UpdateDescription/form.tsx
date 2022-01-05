@@ -305,9 +305,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const userEmails: string[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? [userEmail]
-      : data.group.stakeholders.map(
-          (stakeholder: IStakeholderAttr): string => stakeholder.email
-        );
+      : data.group.stakeholders
+          .filter(
+            (stakeholder: IStakeholderAttr): boolean =>
+              stakeholder.invitationState === "CONFIRMED"
+          )
+          .map((stakeholder: IStakeholderAttr): string => stakeholder.email);
 
   const lastTreatment: IHistoricTreatment = {
     ...groupLastHistoricTreatment(vulnerabilities),

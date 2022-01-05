@@ -54,6 +54,7 @@ interface IRequestVulnZeroRiskResultAttr {
 
 interface IStakeholderAttr {
   email: string;
+  invitationState: string;
 }
 
 interface IUpdateVulnDescriptionResultAttr {
