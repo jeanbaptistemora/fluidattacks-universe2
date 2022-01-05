@@ -23,6 +23,7 @@ from model import (
 )
 import sys
 from typing import (
+    Optional,
     Tuple,
 )
 
@@ -55,18 +56,22 @@ async def main(
         )
         async for vulnerability in vulnerabilities_store.iterate():
             verification = vulnerability.integrates_metadata.verification
-            if not isinstance(verification.date, datetime) and isinstance(
-                verification.date, str
+            verification_date: Optional[datetime] = None
+            if (
+                verification
+                and not isinstance(verification.date, datetime)
+                and isinstance(verification.date, str)
             ):
                 try:
                     verification_date = date_parser.parse(verification.date)
                 except ParserError:
                     continue
-            else:
+            elif verification_date:
                 verification_date = verification.date
+
             if (
                 namespace == vulnerability.namespace
-                and verification
+                and verification_date
                 and verification.state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
                 and verification_date > max_reattack_date
