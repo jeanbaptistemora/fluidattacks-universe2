@@ -190,6 +190,12 @@
   "moment.js": {
     "CVE-2017-18214": "<=2.19.2"
   },
+  "microsoft.aspnetcore.spaservices": {
+    "SNYK-DOTNET-MICROSOFTASPNETCORESPASERVICES-466519": ">=2.1.0 <2.1.2 || >=2.2.0 <2.2.1"
+  },
+  "swashbuckle.aspnetcore.swaggerui": {
+    "CVE-2019-17495": "<3.23.11"
+  },
   "nasm": {
     "CVE-2020-18974": ">=2.15 <=2.15.05",
     "CVE-2020-24241": "2.15",
