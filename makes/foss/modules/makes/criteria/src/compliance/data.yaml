@@ -3411,3 +3411,15 @@
       title: Incident Response Plan
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
+"027":
+  title: MITRE ATT&CK® - Enterprise Mitigations
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "M1036":
+      title: Account Use Policies
+      link: https://attack.mitre.org/mitigations/enterprise/
+  metadata: {}
