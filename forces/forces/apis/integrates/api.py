@@ -118,6 +118,7 @@ async def get_vulnerabilities(
     for index, _ in enumerate(vulnerabilities):
         treatment = vulnerabilities[index].get("treatment")
         zero_risk = vulnerabilities[index].get("zeroRisk")
+        treatment_date = vulnerabilities[index].get("lastTreatmentDate")
         if treatment and "ACCEPTED" in treatment.upper():
             vulnerabilities[index]["currentState"] = "accepted"
         if zero_risk and zero_risk.upper() in {
@@ -126,12 +127,12 @@ async def get_vulnerabilities(
         }:
             vulnerabilities[index]["currentState"] = "accepted"
 
-        # We are using lastTreatmentDate temporarily as reportDate hits the
-        # query performance.
-        # https://gitlab.com/fluidattacks/product/-/issues/5777
-        vulnerabilities[index]["reportDate"] = vulnerabilities[index].get(
-            "lastTreatmentDate"
+        report_date = (
+            treatment_date
+            if treatment and treatment.upper() == "NEW" and treatment_date
+            else datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         )
+        vulnerabilities[index]["reportDate"] = report_date
 
     return finding_value.get("vulnerabilities", [])
 
