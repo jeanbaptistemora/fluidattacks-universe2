@@ -298,7 +298,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skim
   13 |   }
   14 | }
      ^ Col 0
-",f177._aws_instance_use_default_security_group
+",f177._ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,1,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf","
 >  1 | resource ""aws_launch_template"" ""foo"" {
