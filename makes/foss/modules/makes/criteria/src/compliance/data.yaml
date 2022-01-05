@@ -3464,4 +3464,46 @@
     "M1034":
       title: Limit Hardware Installation
       link: https://attack.mitre.org/mitigations/enterprise/
+    "M1033":
+      title: Limit Software Installation
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1032":
+      title: Multi-factor Authentication
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1031":
+      title: Network Intrusion Prevention
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1030":
+      title: Network Segmentation
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1027":
+      title: Password Policies
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1026":
+      title: Privileged Account Management
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1025":
+      title: Privileged Process Integrity
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1029":
+      title: Remote Data Storage and Log
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1022":
+      title: Restrict File and Directory Permissions
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1021":
+      title: Restrict Web-Based Content
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1020":
+      title: SSL/TLS Inspection
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1051":
+      title: Update Software
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1018":
+      title: User Account Management
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1016":
+      title: Vulnerability Scanning
+      link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
