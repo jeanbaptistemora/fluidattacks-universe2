@@ -141,7 +141,21 @@ async def _roots_by_group(
 
 
 async def main() -> None:
-    groups: List[str] = await get_active_groups()
+    session = aioboto3.Session()
+    async with session.client("s3") as s3_client:
+        groups: List[str] = [
+            prefix["Prefix"].split("/")[0]
+            for response in await collect(
+                s3_client.list_objects(
+                    Bucket="continuous-repositories",
+                    Prefix=group,
+                    Delimiter="/",
+                    MaxKeys=1,
+                )
+                for group in await get_active_groups()
+            )
+            for prefix in response.get("CommonPrefixes", [])
+        ]
     dataloaders: Dataloaders = get_new_context()
     groups_data = await collect(
         get_attributes(group, ["historic_configuration"]) for group in groups
