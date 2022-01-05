@@ -220,5 +220,6 @@ async def main(
         os.chdir(CTX.config.working_dir)
         return await execute_skims(token)
     finally:
-        os.chdir(CTX.config.start_dir)
-        await reset_ephemeral_state()
+        if CTX and CTX.config and CTX.config.start_dir:
+            os.chdir(CTX.config.start_dir)
+            await reset_ephemeral_state()
