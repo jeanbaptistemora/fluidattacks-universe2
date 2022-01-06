@@ -1,24 +1,3 @@
 src.lib_path.f109.rds_is_not_inside_a_db_subnet_group:
   en: DBInstance or DBCluster are not inside a DBSubnetGroup
   es: DBInstance o DBCluster no está adentro de un DBSubnetGroup
-F109.title:
-  en: Unrestricted access between network segments - RDS
-  es: Unrestricted access between network segments - RDS
-F109.description:
-  en: >
-    Some RDS Cluster or Instances are not defined inside a Database Subnet Group
-  es: >
-    Algunos cluster o instancias de RDS no se encuentran definidos dentro de un
-    Subnet Group para Bases de datos
-F109.impact:
-  en: Access to RDS services in a insecure way from the Interne
-  es: Acceder a los servicios de RDS de forma insegura desde Internet
-F109.recommendation:
-  en: >
-    Ensure that all RDS instances belong to a Database Subnet Group
-  es: >
-    Asegurar que todas las instancias de RDS pertenezcan un Database Subnet
-    Group
-F109.threat:
-  en: Authenticated attacker from the Internet
-  es: Atacante autenticado desde Internet

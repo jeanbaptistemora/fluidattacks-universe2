@@ -1,20 +1,3 @@
 lib_apk.analyze_bytecodes.apk_unsigned:
   en: Not signed
   es: Sin firma
-F103.description:
-  en: The APK is not digitally signed.
-  es: El APK no esta firmado digitalmente.
-F103.impact:
-  en: >
-    Mischief users into installing an APK
-    that is not owned by the original author.
-  es: >
-    Engañar a los usuarios
-    para que instalen un APK
-    que no es propiedad del autor original.
-F103.recommendation:
-  en: Digitally sign the APK.
-  es: Firmar digitalmente el APK.
-F103.threat:
-  en: Non-autenticated attacker from the Internet.
-  es: Atacante no autenticado desde Internet.

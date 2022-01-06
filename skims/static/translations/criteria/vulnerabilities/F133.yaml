@@ -1,30 +1,3 @@
 lib_ssl.analyze_protocol.pfs_disabled:
   en: server refuses connections with PFS support
   es: el servidor descarta conexiones con soporte PFS
-F133.description:
-  en: >
-    The application uses cipher algorithms that expose all messages
-    made during the communication if the current private key is compromised.
-  es: >
-    La aplicación utiliza algoritmos de cifrado que exponen todos los
-    mensajes realizados durante la comunicación si la llave privada actual es
-    comprometida.
-F133.impact:
-  en: >
-    Obtain sensitive information that is being transmitted or has been stored.
-  es: >
-    Obtener información sensible que se esta transmitiendo o ha sido guardada.
-F133.recommendation:
-  en: >
-    Use cipher algorithms that do not expose previous communications in case
-    a private key is compromised.
-  es: >
-    Usar algoritmos de cifrado que no expongan las comunicaciones previas en
-    caso de que la llave privada sea comprometida.
-F133.threat:
-  en: >
-    Unauthorized attacker from adjacent network that has compromised a private
-    key.
-  es: >
-    Atacante sin autorización desde red adyacente que haya comprometido una
-    llave privada.

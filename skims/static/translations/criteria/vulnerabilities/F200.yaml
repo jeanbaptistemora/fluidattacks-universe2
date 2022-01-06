@@ -10,30 +10,3 @@ src.lib_path.f200.trails_not_multiregion:
 src.lib_path.f200.has_logging_disabled:
   en: Missing Logging property to make traceability
   es: Falta la propiedad Logging para hacer trazabilidad
-F200.title:
-  en: >
-    Traceability loss
-  es: >
-    Traceability loss
-F200.description:
-  en: >
-    Some instances of S3 do not have the Logging property enabled,
-    which does not keep records of the actions executed, this makes
-    it difficult to track and identify anomalous behaviors in the service.
-  es: >
-    Algunas instancias de S3 no tienen habilitada la propiedad Logging, con lo
-    cual no se guardan registros de las acciones ejecutadas, esto dificulta la
-    trazabilidad e identificación de comportamientos anómalos en el servicio.
-F200.impact:
-  en: |
-    Modify the requests made to the server affecting the
-    traceability of the system.
-  es: >
-    Modificar las peticiones realizadas al servidor afectando
-    la trazabilidad del sistema.
-F200.recommendation:
-  en: Enable Logging property on all S3 instances.
-  es: Habilitar la propiedad Logging en todas las instancias de S3.
-F200.threat:
-  en: Attacker authenticated from internet.
-  es: Atacante autenticado desde internet.

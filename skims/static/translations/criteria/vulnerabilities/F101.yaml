@@ -1,35 +1,3 @@
 lib_path.f101.azure_key_vault_not_recoverable:
   en: Azure key vault is not recoverable
   es: Azure key vault no es recuperable
-F101.title:
-  en: >
-    Lack of protection against deletion
-  es: >
-    Lack of protection against deletion
-F101.impact:
-  en: |
-    - Loss information in case of accidental modification or deletion.
-    - Loss information in the case of a security incident.
-  es: |
-    - Perder información en caso de una modificación o borrado accidental.
-    - Perder información en caso de un incidente de seguridad.
-F101.description:
-  en: >
-    The system does not prevent critical objects from being deleted accidentally.
-  es: >
-    El sistema no tiene protecciones que impidan que recursos críticos
-    sean borrados accidentalmente.
-F101.recommendation:
-  en: >
-    Set up automatic backup on DynamoDB tables and enable protection against
-    accidental deletion.
-  es: >
-    Configurar backup automático en las tablas de DynamoDB y habilitar protección
-    contra borrado accidental.
-F101.threat:
-  en: |
-    - Database administrator user.
-    - Attacker in any scenario that modifies or deletes information from databases.
-  es: |
-    - Usuario administrador de la base de datos.
-    - Atacante en cualquier escenario que llegue a modificar o borrar la información de las bases de datos.

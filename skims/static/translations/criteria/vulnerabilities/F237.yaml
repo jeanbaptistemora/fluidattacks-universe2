@@ -1,15 +1,3 @@
 src.lib_root.f237.java_info_leak_stacktrace:
   en: error stacktrace can be printed
   es: la traza del error puede ser impresa
-F237.description:
-  en: The source code allows the printing of the stacktrace.
-  es: El código fuente permite que la traza del error sea impresa.
-F237.impact:
-  en: Expose technical information of the system.
-  es: Exponer información técnica del sistema.
-F237.recommendation:
-  en: Remove the code that prints the stacktrace.
-  es: Eliminar el código que imprime la traza del error.
-F237.threat:
-  en: Authenticated attacker with local access to the server terminal.
-  es: Atacante autenticado con acceso local a la consola del servidor.

@@ -4,19 +4,3 @@ lib_http.analyze_headers.strict_transport_security.missing:
 lib_http.analyze_headers.strict_transport_security.short_max_age:
   en: max-age less than 31536000
   es: max-age menor que 31536000
-F131.description:
-  en: >
-    The server is missing the Strict-Transport-Security HTTP header.
-    Alternatively, the header's max-age is too short.
-  es: >
-    El servidor carece del encabezado HTTP Strict-Transport-Security.
-    Alternativamente, el valor "max-age" del mismo es muy pequeño.
-F131.impact:
-  en: Visit the website under an insecure channel.
-  es: Visitar el servidor usando un canal inseguro.
-F131.recommendation:
-  en: Set the Strict-Transport-Security header and a max-age of at least 31536000.
-  es: Establecer la cabecera Strict-Transport-Security y un max-age superior a 31536000.
-F131.threat:
-  en: Unauthorized attacker from adjacent network performing a MITM.
-  es: Atacante sin autorización desde red adyacente ejecutando un MITM.

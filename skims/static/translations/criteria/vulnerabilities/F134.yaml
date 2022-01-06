@@ -1,26 +1,3 @@
 lib_root.f134.cors_policy_allows_any_origin:
   en: The cors policy allows any origin
   es: La política de cors permite cualquier origen
-F134.title:
-  en: >
-    Insecure or unset HTTP headers - CORS
-  es: >
-    Insecure or unset HTTP headers - CORS
-F134.description:
-  en: >
-    The cross-domain policy includes wildcards, accepting any domain as valid
-    for sharing resources.
-  es: >
-    La política entre dominios incluye comodines, aceptando cualquier dominio
-    como válido para compartir recursos.
-F134.impact:
-  en: Include resources from untrusted origins.
-  es: Incluir recursos de orígenes maliciosos.
-F134.recommendation:
-  en: Define explicitly the trusted origins for the application resources.
-  es: >
-    Definir explícitamente los orígenes permitidos para los recursos de la
-    aplicación.
-F134.threat:
-  en: Unauthorized attacker from the Internet.
-  es: Atacante sin autorización desde Internet.

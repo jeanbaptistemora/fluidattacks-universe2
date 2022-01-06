@@ -1,30 +1,3 @@
 src.lib_path.f117.unverifiable_files.description:
   en: Unverifiable file
   es: Archivo no verificable
-F117.description:
-  en: >
-    The repository is storing files that either can not be verified nor
-    should be versioned, such as binary files, logs or temporary files.
-    information.
-  es: >
-    En el repositorio se almacenan archivos que no son verificables o no
-    deberían ser versionados, como archivos binarios, logs o archivos temporales.
-F117.impact:
-  en: |
-    - Difficult the versioning and security auditing process.
-    - Introduce vulnerabilities of previous versions in the repository.
-  es: |
-    - Dificultar el proceso de versionamiento y auditoría de seguridad.
-    - Introducir vulnerabilidades de versiones pasadas de archivos en el repositorio.
-F117.recommendation:
-  en: |
-    - Remove the files that should not be versioned from the repository.
-    - Include the affected extensions in the .gitignore file.
-  es: |
-    - Remover los archivos que no deberían ser versionados en el repositorio de código.
-    - Incluir las extensiones afectadas en el archivo .gitignore.
-F117.threat:
-  en: >
-    Autenticated attacker from the Internet.
-  es: >
-    Atacante autenticado desde Internet.

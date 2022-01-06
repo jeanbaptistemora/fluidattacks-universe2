@@ -4,32 +4,3 @@ src.lib_path.f160.java_file_create_temp_file.description:
 src.lib_path.f160.c_sharp_file_create_temp_file.description:
   en: Use of C# Path.GetTempFileName
   es: Uso de C# Path.GetTempFileName
-F160.description:
-  en: >
-    Opening temporary files without appropriate measures or controls can leave
-    the file, its contents and any function that consumes it vulnerable to
-    attack.
-  es: >
-    Abrir archivos temporales sin las medidas o controles adecuados puede dejar
-    el archivo, su contenido y cualquier función que lo consuma vulnerable a
-    ataques.
-F160.impact:
-  en: |
-    - Get access to the created temporary files.
-    - Tamper data contained in the created temporary files.
-  es: |
-    - Obtener acceso a los archivos temporales creados.
-    - Manipular los datos contenidos en los archivos temporales.
-F160.recommendation:
-  en: >
-    Create the temporary files in a different directory than the default
-    provided by the Operative system and ensure it has 0600 permission mask.
-  es: >
-    Crear los archivos temporales en un directorio diferente al provisto por
-    defecto en el sistema operativo y asegurar que estos tienen una mascara
-    de permisos 0600.
-F160.threat:
-  en: >
-    Authenticated attacker from local network.
-  es: >
-    Atacante autenticado desde una red local.

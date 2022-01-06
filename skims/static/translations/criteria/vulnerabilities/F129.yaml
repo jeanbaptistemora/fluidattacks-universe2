@@ -1,23 +1,3 @@
 lib_http.analyze_headers.set_cookie_samesite.bad_samesite:
   en: "{cookie_name} does not have SameSite correctly initialized"
   es: "{cookie_name} no tiene SameSite correctamente inicializado"
-F129.description:
-  en: >
-    The application's cookies are generated without properly setting the
-    SameSite attribute.
-  es: >
-    La aplicación genera cookies sin establecer correctamente el atributo
-    SameSite.
-F129.impact:
-  en: Perform a malicious request via a CSRF attack.
-  es: Realizar una petición maliciosa con un ataque CSRF.
-F129.recommendation:
-  en: >
-    The application must set the SameSite attribute in the cookies with
-    sensitive information.
-  es: >
-    La aplicación debe establecer el atributo SameSite en la cookies con
-    información sensible.
-F129.threat:
-  en: Attacker from internet network performing a CSRF attack.
-  es: Atacante desde internet ejecutando un ataque CSRF.

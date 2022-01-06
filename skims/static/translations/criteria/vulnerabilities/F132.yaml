@@ -4,15 +4,3 @@ lib_http.analyze_headers.x_content_type_options.insecure:
 lib_http.analyze_headers.x_content_type_options.missing:
   en: Missing X-Content-Type-Options
   es: X-Content-Type-Options ausente
-F132.description:
-  en: The server is missing the X-Content-Type-Options HTTP header.
-  es: El servidor carece de la cabecera HTTP X-Content-Type-Options.
-F132.impact:
-  en: Interpret files as a different MIME type to what is expected.
-  es: Interpretar archivos como un tipo MIME diferente a los esperados.
-F132.recommendation:
-  en: Set the X-Content-Type-Options header to nosniff.
-  es: Establecer la cabecera X-Content-Type-Options a nosniff.
-F132.threat:
-  en: Unauthorized attacker from internet network.
-  es: Atacante sin autorización desde internet.
