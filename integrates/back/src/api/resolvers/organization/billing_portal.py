@@ -27,7 +27,7 @@ async def resolve(
     org_name: str = parent["name"]
     org_billing_customer: str = parent.get("billing_customer", "")
 
-    return await billing_domain.portal(
+    return await billing_domain.create_portal(
         org_name=org_name,
         org_billing_customer=org_billing_customer,
     )

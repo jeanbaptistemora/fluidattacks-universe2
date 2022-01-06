@@ -1,3 +1,6 @@
+from aiodataloader import (
+    DataLoader,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -18,6 +21,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from groups import (
+    domain as groups_domain,
+)
 from newutils import (
     token as token_utils,
 )
@@ -26,6 +32,8 @@ from organizations import (
 )
 from typing import (
     Any,
+    Dict,
+    Optional,
 )
 
 
@@ -39,37 +47,44 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> AddBillingCheckoutPayload:
-    tier: str = kwargs["tier"]
-    group_name: str = kwargs["group_name"]
-    org_id: str = await orgs_domain.get_id_for_group(group_name)
-    org_name: str = await orgs_domain.get_name_by_id(org_id)
-    org_billing_customer: str = await orgs_domain.get_billing_customer_by_id(
-        org_id,
-    )
-    user_email: str = (
-        await token_utils.get_jwt_content(
-            info.context,
-        )
-    )["user_email"]
+    group_loader: DataLoader = info.context.loaders.group
+    group_loader.clear(kwargs["group_name"])
+    group = await group_loader.load(kwargs["group_name"])
+
+    org_loader: DataLoader = info.context.loaders.organization
+    org_loader.clear(group["organization"])
+    org = await org_loader.load(group["organization"])
+
+    org_billing_customer: Optional[str] = org["billing_customer"]
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_email: str = user_info["user_email"]
 
     # Create customer if it does not exist
-    if org_billing_customer == "":
+    if org_billing_customer is None:
         customer: Customer = await billing_domain.create_customer(
-            org_name=org_name,
+            org_name=org["name"],
             user_email=user_email,
         )
         await orgs_domain.update_billing_customer(
-            org_id=org_id,
-            org_name=org_name,
+            org_id=org["id"],
+            org_name=org["name"],
             org_billing_customer=customer.id,
         )
-        org_billing_customer = await orgs_domain.get_billing_customer_by_id(
-            org_id,
-        )
+        org_billing_customer = customer.id
 
-    return await billing_domain.checkout(
-        tier=tier,
+    # Create checkout session
+    checkout: AddBillingCheckoutPayload = await billing_domain.create_checkout(
+        tier=kwargs["tier"],
         org_billing_customer=org_billing_customer,
-        org_name=org_name,
-        group_name=group_name,
+        org_name=org["name"],
+        group_name=group["name"],
+        previous_checkout_id=group["billing_checkout_id"],
     )
+
+    # Update group with new billing checkout id
+    await groups_domain.update_billing_checkout_id(
+        group["name"],
+        checkout.id,
+    )
+
+    return checkout

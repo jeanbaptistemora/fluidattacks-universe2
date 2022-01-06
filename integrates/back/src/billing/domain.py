@@ -46,6 +46,23 @@ LOGGER = logging.getLogger(__name__)
 stripe.api_key = FI_STRIPE_API_KEY
 
 
+async def _expire_checkout(
+    *,
+    checkout_id: str,
+) -> bool:
+    checkout = stripe.checkout.Session.retrieve(
+        checkout_id,
+    )
+    if checkout.status == "open":
+        return (
+            stripe.checkout.Session.expire(
+                checkout_id,
+            ).status
+            == "expired"
+        )
+    return True
+
+
 async def _get_price(
     *,
     tier: str,
@@ -168,12 +185,13 @@ async def create_customer(
     )
 
 
-async def checkout(
+async def create_checkout(
     *,
     tier: str,
     org_billing_customer: str,
     org_name: str,
     group_name: str,
+    previous_checkout_id: Optional[str],
 ) -> AddBillingCheckoutPayload:
     """Create Stripe checkout session"""
 
@@ -189,6 +207,12 @@ async def checkout(
     price: Optional[Price] = await _get_price(tier=tier)
     if price is None:
         raise InvalidBillingPrice()
+
+    # Expire previous checkout if it is still open
+    if previous_checkout_id is not None:
+        await _expire_checkout(
+            checkout_id=previous_checkout_id,
+        )
 
     session_data = {
         "customer": org_billing_customer,
@@ -218,6 +242,7 @@ async def checkout(
     session = stripe.checkout.Session.create(**session_data)
 
     return AddBillingCheckoutPayload(
+        id=session.id,
         cancel_url=session.cancel_url,
         success=True,
         success_url=session.success_url,
@@ -225,7 +250,7 @@ async def checkout(
     )
 
 
-async def portal(
+async def create_portal(
     *,
     org_name: str,
     org_billing_customer: str,

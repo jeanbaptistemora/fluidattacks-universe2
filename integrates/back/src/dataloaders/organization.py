@@ -33,6 +33,7 @@ async def _batch_load_fn(
     for organization in organizations_by_id:
         organization_id = organization["id"]
         organizations[organization_id] = dict(
+            billing_customer=organization.get("billing_customer", None),
             historic_max_number_acceptations=get_key_or_fallback(
                 organization,
                 "historic_max_number_acceptances",

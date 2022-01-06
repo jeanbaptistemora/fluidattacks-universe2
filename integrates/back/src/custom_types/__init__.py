@@ -141,6 +141,7 @@ class AddRootPayload(NamedTuple):
 
 
 class AddBillingCheckoutPayload(NamedTuple):
+    id: str
     cancel_url: str
     success: bool
     success_url: str
