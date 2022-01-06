@@ -3517,3 +3517,15 @@
       title: Vulnerability Scanning
       link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
+"028":
+  title: PA DSS
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "1_1":
+      title: Do not store sensitive authentication data after authorization
+      link: https://attack.mitre.org/mitigations/enterprise/
+  metadata: {}
