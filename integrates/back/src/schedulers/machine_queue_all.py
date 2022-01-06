@@ -27,6 +27,7 @@ from machine.jobs import (
     FINDINGS,
     list_jobs_filter,
     queue_all_checks_new,
+    SkimsBatchQueue,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -61,7 +62,12 @@ async def _queue_all_checks(
     repos: Tuple[str, ...],
     finding_codes: Tuple[str, ...],
 ) -> Dict[str, Any]:
-    result = await queue_all_checks_new(group, repos, finding_codes)
+    result = await queue_all_checks_new(
+        group=group,
+        roots=repos,
+        finding_codes=finding_codes,
+        queue=SkimsBatchQueue.LOW,
+    )
     if result:
         info("Queued %s", group)
     else:

@@ -70,6 +70,14 @@ import itertools
 import json
 import logging
 import logging.config
+from machine.availability import (
+    is_check_available,
+)
+from machine.jobs import (
+    FINDINGS,
+    queue_all_checks_new,
+    SkimsBatchQueue,
+)
 from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
@@ -496,7 +504,8 @@ async def move_root(*, item: BatchProcessing) -> None:
     )
 
 
-async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> None:
+async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
+    success: bool = False
     repo_path: str = os.path.join(content_dir, os.listdir(content_dir)[0])
 
     # Add metadata about the last cloning date, which is right now
@@ -542,14 +551,18 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> None:
         stdout=asyncio.subprocess.PIPE,
         env={**os.environ.copy()},
     )
-    await proc.communicate()
-    if proc.returncode != 0:
+    _, stderr = await proc.communicate()
+    if proc.returncode != 0 or stderr:
         LOGGER.error(
             "Uploading cloned root to S3 failed", extra=dict(extra=locals())
         )
+    else:
+        success = True
+    return success
 
 
-async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
+async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> bool:
+    success: bool = False
     group_name: str = root.group_name
     root_url: str = root.state.url
     parsed_url = urlparse(root_url)
@@ -578,13 +591,14 @@ async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> None:
                 "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
             },
         )
-        await proc.communicate()
+        _, stderr = await proc.communicate()
 
         os.remove(ssh_file_name)
-        if proc.returncode != 0:
+        if proc.returncode != 0 or stderr:
             LOGGER.error("Root SSH cloning failed", extra=dict(extra=locals()))
         else:
-            await _upload_cloned_repo_to_s3(temp_dir, group_name)
+            success = await _upload_cloned_repo_to_s3(temp_dir, group_name)
+    return success
 
 
 async def clone_root(*, item: BatchProcessing) -> None:
@@ -605,13 +619,25 @@ async def clone_root(*, item: BatchProcessing) -> None:
     root_cred: RootCredentialItem = next(
         filter(lambda x: root_nickname in x.state.roots, group_creds), None
     )
+
+    root_cloned: bool = False
     if root and root_cred:
         if root_cred.metadata.type.value == "SSH":
-            await _ssh_clone_root(root, root_cred)
+            root_cloned = await _ssh_clone_root(root, root_cred)
     else:
         LOGGER.error(
             "Root could not be determined or it does not have any credentials",
             extra=dict(extra=locals()),
+        )
+    if root_cloned:
+        findings = tuple(
+            key for key in FINDINGS.keys() if is_check_available(key)
+        )
+        await queue_all_checks_new(
+            group=group_name,
+            roots=tuple(root.state.nickname),
+            finding_codes=findings,
+            queue=SkimsBatchQueue.HIGH,
         )
     await delete_action(
         action_name=item.action_name,

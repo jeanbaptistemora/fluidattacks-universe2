@@ -27,6 +27,9 @@ from db_model.roots.get import (
 from db_model.roots.types import (
     RootMachineExecutionItem,
 )
+from enum import (
+    Enum,
+)
 import json
 import logging
 import logging.config
@@ -56,6 +59,11 @@ QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]
 )
+
+
+class SkimsBatchQueue(Enum):
+    HIGH: str = "skims_all_soon"
+    LOW: str = "skims_all_later"
 
 
 class JobArguments(NamedTuple):
@@ -300,8 +308,9 @@ async def queue_all_checks_new(
     group: str,
     roots: Tuple[str, ...],
     finding_codes: Tuple[str, ...],
+    queue: SkimsBatchQueue,
 ) -> Dict[str, Any]:
-    queue_name = "skims_all_later"
+    queue_name = queue.value
     job_name = f"skims-process-{group}"
     resource_options = dict(
         service_name="batch",
