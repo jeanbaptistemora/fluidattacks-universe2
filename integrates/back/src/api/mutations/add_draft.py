@@ -67,7 +67,13 @@ async def mutate(
     )
     validations.validate_no_duplicate_drafts(title, drafts, findings)
 
-    validations.validate_fields([kwargs.get("requirements", "")])
+    validations.validate_fields(
+        [
+            kwargs.get("requirements", ""),
+            kwargs.get("description", ""),
+            kwargs.get("recommendation", ""),
+        ]
+    )
     findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
 
     try:

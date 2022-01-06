@@ -27,6 +27,9 @@ const handleCreationError: (creationError: ApolloError) => void = (
       case "Exception - Invalid File Type: EVENT_FILE":
         msgError(translate.t("group.events.form.wrongFileType"));
         break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalidChar"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(

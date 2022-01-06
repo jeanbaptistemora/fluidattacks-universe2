@@ -100,7 +100,7 @@ async def add_event(  # pylint: disable=too-many-locals
     image: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> bool:
-    validations.validate_fields([kwargs["detail"]])
+    validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
 
     event_id = str(random.randint(10000000, 170000000))  # nosec
@@ -332,6 +332,7 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
     mib = 1048576
     success = False
     validations.validate_file_name(file.filename)
+    validations.validate_fields([file.content_type])
 
     if evidence_type == "evidence":
         allowed_mimes = ["image/gif", "image/jpeg", "image/png"]
