@@ -3,6 +3,7 @@
 alias code-etl="observes-etl-code-bin"
 
 function migration {
+  local namespace="${1}"
   local db
   local creds
 
@@ -15,8 +16,9 @@ function migration {
       --db-id "${db}" \
       --creds "${creds}" \
       migration calculate-fa-hash-2 \
+      "${namespace}" \
       --source "code" "commits" \
       --target "code" "migrated"
 }
 
-migration
+migration "${@}"
