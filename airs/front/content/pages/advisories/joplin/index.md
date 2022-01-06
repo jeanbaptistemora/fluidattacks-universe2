@@ -6,6 +6,7 @@ writer: ouribe
 codename: joplin
 product: PartKeepr v1.4.0
 date: 2022-01-04 14:00 COT
+cveid: CVE-2022-22702
 description: PartKeepr v1.4.0 url attachment 'add parts' - SSRF
 keywords: Fluid Attacks, Security, Vulnerabilities, PartKeepr
 banner: advisories-bg
@@ -22,6 +23,33 @@ template: advisory
 | **Product**        | PartKeepr                                           |
 | **Versions**       | v1.4.0                                              |
 | **State**          | Unpublished/Contacted Vendor                        |
+
+## Vulnerability
+
+|                       |                                                                  |
+|-----------------------|------------------------------------------------------------------|
+| **Kind**              | Server Side Request Forgery                                      |
+| **Rule**              | [100. Server-side request forgery (SSRF)](https://docs.fluidattacks.com/criteria/vulnerabilities/100)   |
+| **Remote**            | Yes                                                              |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N                                                                                        |
+| **CVSSv3 Base Score** |   4.3                                                            |
+| **Exploit available** |   No                                                             |
+| **CVE ID(s)**         | [CVE-2022-22702](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22702)                   |
+
+## Description
+
+In PartKeepr before v1.4.0, the functionality to upload attachments
+using a URL when creating a part does not validate that
+requests can be made to local ports, allowing an authenticated user
+to carry out SSRF attacks and port enumeration.
+
+## Exploit
+
+There is no exploit for the vulnerability but can be manually exploited.
+
+## Mitigation
+
+By 2022-01-04 there is not a patch resolving the issue.
 
 ## Credits
 
