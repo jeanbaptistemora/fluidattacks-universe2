@@ -469,6 +469,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         isFilterEnabled={isFilterEnabled}
         onColumnToggle={handleChange}
         onUpdateEnableFilter={handleUpdateFilter}
+        overflow={"visible"}
         pageSize={100}
         search={false}
         selectionMode={selectionMode}

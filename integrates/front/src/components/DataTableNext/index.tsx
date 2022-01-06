@@ -24,6 +24,7 @@ export const DataTableNext: React.FC<ITableProps> = (
     headers,
     id,
     isFilterEnabled,
+    overflow,
     pageSize,
     search,
   } = props;
@@ -82,6 +83,7 @@ export const DataTableNext: React.FC<ITableProps> = (
             <TableWrapper
               dataset={datasetWithUniqueKeys}
               onSizePerPageChange={handleSizePerPageChange}
+              overflow={overflow}
               preferredPageSize={storedPageSize[id]}
               tableProps={props}
               toolkitProps={toolkitProps}

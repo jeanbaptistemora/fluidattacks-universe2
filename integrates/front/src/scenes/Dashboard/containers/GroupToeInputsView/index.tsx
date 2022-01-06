@@ -278,6 +278,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         isFilterEnabled={isFilterEnabled}
         onColumnToggle={handleChange}
         onUpdateEnableFilter={handleUpdateFilter}
+        overflow={"visible"}
         pageSize={100}
         search={false}
       />
