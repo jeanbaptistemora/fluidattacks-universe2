@@ -185,6 +185,7 @@ def calculate_fa_hash(
 
 
 @click.command()
+@click.argument("namespace", type=str)
 @click.option("--source", type=(str, str), help="schema-table pair")
 @click.option("--target", type=(str, str), help="schema-table pair")
 @pass_ctx
@@ -192,12 +193,10 @@ def calculate_fa_hash_2(
     ctx: CmdContext,
     source: Tuple[str, str],
     target: Tuple[str, str],
+    namespace: str,
 ) -> IO[None]:
     return calc_fa_hash_2.start(
-        ctx.db_id,
-        ctx.creds,
-        _to_table(source),
-        _to_table(target),
+        ctx.db_id, ctx.creds, _to_table(source), _to_table(target), namespace
     )
 
 

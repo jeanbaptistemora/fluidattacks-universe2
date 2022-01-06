@@ -4,6 +4,7 @@ from code_etl.client import (
     all_data_count,
     all_data_raw,
     insert_rows,
+    namespace_data,
 )
 from code_etl.client.decoder import (
     decode_commit_data_2,
@@ -99,9 +100,10 @@ def migration(
     client_2: Client,
     source: TableID,
     target: TableID,
+    namespace: str,
 ) -> IO[ResultE[None]]:
     data = (
-        all_data_raw(client, source)
+        namespace_data(client, source, namespace)
         .map(lambda i: i.map(lambda r: r.bind(migrate_row)))
         .chunked(2000)
         .map(
@@ -138,11 +140,12 @@ def start(
     creds: Credentials,
     source: TableID,
     target: TableID,
+    namespace: str,
 ) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
     client2 = ClientFactory().from_creds(db_id, creds)
     return init_table_2_query(client, target).bind(
-        lambda _: migration(client, client2, source, target).map(
+        lambda _: migration(client, client2, source, target, namespace).map(
             lambda i: i.unwrap()
         )
     )
