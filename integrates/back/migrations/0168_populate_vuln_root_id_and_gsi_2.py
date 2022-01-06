@@ -46,14 +46,25 @@ from dynamodb.exceptions import (
 from groups.dal import (
     get_all as get_all_groups,
 )
+import logging
+import logging.config
 from roots import (
     domain as roots_domain,
+)
+from settings import (
+    LOGGING,
 )
 import time
 from typing import (
     Dict,
     Tuple,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 @retry_on_exceptions(
@@ -170,8 +181,15 @@ async def populate_root_id_by_group(
         populate_root_id_by_finding(finding=finding, group_roots=group_roots)
         for finding in all_findings
     )
-    print(f"Group updated: {group_name}")
-    print("Progress", progress)
+    LOGGER_CONSOLE.info(
+        "Group updated",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "progress": str(progress),
+            }
+        },
+    )
 
 
 async def main() -> None:
