@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -47,14 +44,8 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> AddBillingCheckoutPayload:
-    group_loader: DataLoader = info.context.loaders.group
-    group_loader.clear(kwargs["group_name"])
-    group = await group_loader.load(kwargs["group_name"])
-
-    org_loader: DataLoader = info.context.loaders.organization
-    org_loader.clear(group["organization"])
-    org = await org_loader.load(group["organization"])
-
+    group = await info.context.loaders.group.load(kwargs["group_name"])
+    org = await info.context.loaders.organization.load(group["organization"])
     org_billing_customer: Optional[str] = org["billing_customer"]
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
