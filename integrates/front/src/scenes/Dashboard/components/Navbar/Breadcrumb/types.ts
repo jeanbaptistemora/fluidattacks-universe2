@@ -1,5 +1,3 @@
-import type { IVulnRowAttr } from "../../Vulnerabilities/types";
-
 interface IUserOrgs {
   me: {
     organizations: { name: string }[];
@@ -13,31 +11,4 @@ interface IFindingTitle {
   };
 }
 
-interface IOrganizationGroups {
-  groups: {
-    name: string;
-  }[];
-  name: string;
-}
-
-interface IGetVulnsGroups {
-  group: {
-    vulnerabilitiesAssigned: IVulnRowAttr[];
-    name: string;
-  };
-}
-
-interface IGetUserOrganizationsGroups {
-  me: {
-    organizations: IOrganizationGroups[];
-    userEmail: string;
-  };
-}
-
-export {
-  IFindingTitle,
-  IGetUserOrganizationsGroups,
-  IGetVulnsGroups,
-  IOrganizationGroups,
-  IUserOrgs,
-};
+export { IFindingTitle, IUserOrgs };

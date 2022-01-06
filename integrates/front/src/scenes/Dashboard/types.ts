@@ -1,3 +1,5 @@
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+
 interface IAddStakeholderAttr {
   addStakeholder: {
     email: string;
@@ -16,4 +18,42 @@ interface IUser {
   };
 }
 
-export { IAddStakeholderAttr, IUser };
+interface IOrganizationGroups {
+  groups: {
+    name: string;
+    permissions: string[];
+    userRole: string;
+  }[];
+  name: string;
+}
+
+interface IGetVulnsGroups {
+  group: {
+    vulnerabilitiesAssigned: IVulnRowAttr[];
+    name: string;
+  };
+}
+
+interface IGetUserOrganizationsGroups {
+  me: {
+    organizations: IOrganizationGroups[];
+    userEmail: string;
+  };
+}
+
+interface IAssignedVulnerabilitiesContext
+  extends Array<
+    IGetVulnsGroups[] | React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>
+  > {
+  0: IGetVulnsGroups[];
+  1: React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>;
+}
+
+export {
+  IAddStakeholderAttr,
+  IAssignedVulnerabilitiesContext,
+  IGetUserOrganizationsGroups,
+  IGetVulnsGroups,
+  IOrganizationGroups,
+  IUser,
+};

@@ -1,6 +1,8 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+import { VULNS_FRAGMENT } from "./containers/VulnerabilitiesView/queries";
+
 const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
   mutation AcceptLegalMutation($remember: Boolean!) {
     acceptLegal(remember: $remember) {
@@ -60,6 +62,34 @@ const GET_USER: DocumentNode = gql`
   }
 `;
 
+const GET_USER_ORGANIZATIONS_GROUPS: DocumentNode = gql`
+  query GetUserOrganizationsGroups {
+    me(callerOrigin: "FRONT") {
+      organizations {
+        groups {
+          name
+          permissions
+          userRole
+        }
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
+const GET_VULNS_GROUPS: DocumentNode = gql`
+  query GetVulnerabilitiesAssigned($groupName: String!) {
+    group(groupName: $groupName) {
+      vulnerabilitiesAssigned {
+        ...vulnFields
+      }
+      name
+    }
+  }
+  ${VULNS_FRAGMENT}
+`;
+
 export {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
@@ -67,4 +97,6 @@ export {
   GET_USER,
   GET_ORG_LEVEL_PERMISSIONS,
   GET_GROUP_LEVEL_PERMISSIONS,
+  GET_USER_ORGANIZATIONS_GROUPS,
+  GET_VULNS_GROUPS,
 };
