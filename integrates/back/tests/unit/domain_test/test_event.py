@@ -87,10 +87,12 @@ async def test_add_event_file_image() -> None:
     imagename = os.path.dirname(os.path.abspath(__file__))
     imagename = os.path.join(imagename, "../mock/test-anim.gif")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "text/csv")
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, "text/csv"
+        )
         with open(imagename, "rb") as image_test:
             uploaded_image = UploadFile(
-                image_test.name, image_test, "image/gif"
+                "test-anim.gif", image_test, "image/gif"
             )
             test_data = await events_domain.add_event(
                 get_new_context(),
@@ -174,7 +176,9 @@ async def test_update_evidence() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "text/csv")
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, "text/csv"
+        )
         test_data = await events_domain.update_evidence(
             event_id,
             evidence_type,
@@ -191,7 +195,9 @@ async def test_validate_evidence_invalid_image_type() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "text/csv")
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, "text/csv"
+        )
         with pytest.raises(InvalidFileType):
             await events_domain.validate_evidence(evidence_type, uploaded_file)
 
@@ -201,7 +207,9 @@ async def test_validate_evidence_invalid_file_size() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-big-image.jpg")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "image/jpg")
+        uploaded_file = UploadFile(
+            "test-big-image.jpg", test_file, "image/jpg"
+        )
         with pytest.raises(InvalidFileSize):
             await events_domain.validate_evidence(evidence_type, uploaded_file)
 
@@ -228,7 +236,9 @@ async def test_mask_event() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "text/csv")
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, "text/csv"
+        )
         await events_domain.update_evidence(
             event_id,
             evidence_type,

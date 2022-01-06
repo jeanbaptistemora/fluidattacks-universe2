@@ -354,8 +354,11 @@ class InvalidAuthorization(CustomBaseException):
 class InvalidChar(CustomBaseException):
     """Exception to control invalid characters in forms"""
 
-    def __init__(self) -> None:
-        msg = "Exception - Invalid characters"
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = f"Exception - Invalid characters in {expr}"
+        else:
+            msg = "Exception - Invalid characters"
         super(InvalidChar, self).__init__(msg)
 
 

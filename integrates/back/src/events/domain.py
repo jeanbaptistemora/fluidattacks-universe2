@@ -331,6 +331,7 @@ async def update_evidence(
 async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
     mib = 1048576
     success = False
+    validations.validate_file_name(file.filename)
 
     if evidence_type == "evidence":
         allowed_mimes = ["image/gif", "image/jpeg", "image/png"]

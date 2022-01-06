@@ -36,9 +36,7 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from newutils.validations import (
-    validate_no_duplicate_drafts,
+    validations,
 )
 from typing import (
     Any,
@@ -67,7 +65,9 @@ async def mutate(
     findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
-    validate_no_duplicate_drafts(title, drafts, findings)
+    validations.validate_no_duplicate_drafts(title, drafts, findings)
+
+    validations.validate_fields([kwargs.get("requirements", "")])
     findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
 
     try:

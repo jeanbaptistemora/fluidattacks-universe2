@@ -18,6 +18,9 @@ const handleCreationError: (creationError: ApolloError) => void = (
       case "Exception - Invalid File Size":
         msgError(translate.t("validations.fileSize", { count: 10 }));
         break;
+      case "Exception - Invalid characters in filename":
+        msgError(translate.t("validations.invalidFileName"));
+        break;
       case "Exception - Invalid File Type: EVENT_IMAGE":
         msgError(translate.t("group.events.form.wrongImageType"));
         break;

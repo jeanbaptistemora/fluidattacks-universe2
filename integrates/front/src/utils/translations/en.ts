@@ -379,6 +379,7 @@ export const enTranslations: ResourceKey = {
         details: "Details",
         evidence: "Evidence image",
         evidenceFile: "Evidence file",
+        invalidFileName: "Evidence filename must not have invalid chars",
         none: "None",
         other: "Other",
         responsible: "Person in charge (client)",

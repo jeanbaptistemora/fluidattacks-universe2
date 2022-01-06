@@ -68,15 +68,18 @@ def validate_url(url: Optional[str]) -> None:
 
 
 def validate_file_name(name: str) -> bool:
-    """Verify that filename has valid characters."""
+    """Verify that filename has valid characters. Raises InvalidChar
+    otherwise"""
     name = str(name)
     name_len = len(name.split("."))
     if name_len <= 2:
         is_valid = bool(
             re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name))
         )
+        if not is_valid:
+            raise InvalidChar("filename")
     else:
-        is_valid = False
+        raise InvalidChar("filename")
     return is_valid
 
 
