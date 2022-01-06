@@ -8,6 +8,7 @@ from aws.model import (
     AWSEbsEncryptionByDefault,
     AWSEbsVolume,
     AWSEC2,
+    AWSEC2Rule,
     AWSElb,
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
@@ -293,6 +294,16 @@ def iter_aws_security_group(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_security_group")
     for bucket in iterator:
         yield AWSEC2(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_security_group_rule(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_security_group_rule")
+    for bucket in iterator:
+        yield AWSEC2Rule(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
