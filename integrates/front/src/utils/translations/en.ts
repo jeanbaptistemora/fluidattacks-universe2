@@ -770,6 +770,7 @@ export const enTranslations: ResourceKey = {
         component: "Component",
         createdDate: "Seen at",
         entryPoint: "Entry point",
+        hasVulnerabilities: "Has vulnerabilities",
         no: "No",
         root: "Root",
         seenFirstTimeBy: "Seen first time by",

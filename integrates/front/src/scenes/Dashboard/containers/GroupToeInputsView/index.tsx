@@ -57,6 +57,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       bePresent: false,
       component: false,
       entryPoint: true,
+      hasVulnerabilities: true,
       seenAt: true,
       seenFirstTimeBy: true,
       unreliableRootNickname: true,
@@ -147,6 +148,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.testedDate,
+    },
+    {
+      align: "center",
+      dataField: "hasVulnerabilities",
+      formatter: formatBoolean,
+      header: translate.t("group.toe.inputs.hasVulnerabilities"),
+      onSort,
+      visible: checkedItems.hasVulnerabilities,
     },
     {
       align: "center",

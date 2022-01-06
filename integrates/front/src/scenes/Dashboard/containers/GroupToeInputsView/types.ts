@@ -20,6 +20,7 @@ interface IToeInputAttr {
   component: string;
   entryPoint: string;
   firstAttackAt: string | null;
+  hasVulnerabilities: boolean;
   seenAt: string | null;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;
@@ -33,6 +34,7 @@ interface IToeInputData {
   component: string;
   entryPoint: string;
   firstAttackAt: Date | undefined;
+  hasVulnerabilities: boolean;
   seenAt: Date | undefined;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;

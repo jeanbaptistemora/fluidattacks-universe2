@@ -209,6 +209,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       align: "center",
       dataField: "hasVulnerabilities",
+      formatter: formatBoolean,
       header: translate.t("group.toe.lines.hasVulnerabilities"),
       onSort,
       visible: checkedItems.hasVulnerabilities,
@@ -370,7 +371,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       coverage: getCoverage(node),
       daysToAttack: getDaysToAttack(node),
       firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      hasVulnerabilities: formatBoolean(node.hasVulnerabilities),
       lastCommit: commitFormatter(node.lastCommit),
       modifiedDate: formatOptionalDate(node.modifiedDate),
       rootId: node.root.id,

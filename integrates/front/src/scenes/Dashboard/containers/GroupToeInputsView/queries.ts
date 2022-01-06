@@ -25,6 +25,7 @@ const GET_TOE_INPUTS: DocumentNode = gql`
             component
             entryPoint
             firstAttackAt @include(if: $canGetFirstAttackAt)
+            hasVulnerabilities
             seenAt
             seenFirstTimeBy @include(if: $canGetSeenFirstTimeBy)
             unreliableRootNickname

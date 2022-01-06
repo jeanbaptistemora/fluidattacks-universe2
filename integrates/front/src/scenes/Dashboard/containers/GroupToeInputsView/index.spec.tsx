@@ -50,6 +50,7 @@ describe("GroupToeInputsView", (): void => {
                     bePresent: true,
                     component: "test.com/api/Test",
                     entryPoint: "idTest",
+                    hasVulnerabilities: false,
                     seenAt: "2000-01-01T05:00:00+00:00",
                     seenFirstTimeBy: "",
                     unreliableRootNickname: "test_nickname",
@@ -61,6 +62,7 @@ describe("GroupToeInputsView", (): void => {
                     bePresent: true,
                     component: "test.com/test/test.aspx",
                     entryPoint: "btnTest",
+                    hasVulnerabilities: true,
                     seenAt: "2020-03-14T00:00:00-05:00",
                     seenFirstTimeBy: "test@test.com",
                     unreliableRootNickname: "test_nickname",
@@ -72,6 +74,7 @@ describe("GroupToeInputsView", (): void => {
                     bePresent: false,
                     component: "test.com/test2/test.aspx",
                     entryPoint: "-",
+                    hasVulnerabilities: true,
                     seenAt: "2020-01-11T00:00:00-05:00",
                     seenFirstTimeBy: "test2@test.com",
                     unreliableRootNickname: "",
@@ -124,24 +127,26 @@ describe("GroupToeInputsView", (): void => {
         "Root",
         "Entry point",
         "Attacked at",
+        "Has vulnerabilities",
         "Seen at",
         "Seen first time by",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
-      ["test_nickname", "idTest", "2020-01-02", "2000-01-01", ""].join("")
+      ["test_nickname", "idTest", "2020-01-02", "No", "2000-01-01", ""].join("")
     );
     expect(secondRow.text()).toStrictEqual(
       [
         "test_nickname",
         "btnTest",
         "2021-02-02",
+        "Yes",
         "2020-03-14",
         "test@test.com",
       ].join("")
     );
     expect(thirdRow.text()).toStrictEqual(
-      ["", "-", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
+      ["", "-", "2021-02-11", "Yes", "2020-01-11", "test2@test.com"].join("")
     );
   });
 });

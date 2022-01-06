@@ -45,7 +45,7 @@ interface IToeLinesData {
   daysToAttack: number;
   filename: string;
   firstAttackAt: Date | undefined;
-  hasVulnerabilities: string;
+  hasVulnerabilities: boolean;
   lastAuthor: string;
   lastCommit: string;
   loc: number;
