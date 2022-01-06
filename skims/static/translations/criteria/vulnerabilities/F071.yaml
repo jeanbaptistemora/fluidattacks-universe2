@@ -7,23 +7,3 @@ lib_http.analyze_headers.referrer_policy.weak:
 lib_http.analyze_headers.referrer_policy.missing.weak:
   en: Weak Referrer-Policy
   es: Referrer-Policy debil
-F071.description:
-  en: >
-    The server is missing the Referrer-Policy HTTP header.
-    Alternatively, the header's configuration is unsafe.
-  es: >
-    El servidor carece del encabezado HTTP Referrer-Policy.
-    Alternativamente, la configuración del mismo es insegura.
-F071.impact:
-  en: Leak website domain and path to external services.
-  es: Fugar el dominio del sitio web y su ruta a servicios externos.
-F071.recommendation:
-  en: >
-    Set the Referrer-Policy header to "no-referrer", "same-origin",
-    "strict-origin", or "strict-origin-when-cross-origin".
-  es: >
-    Establecer la cabecera Referrer-Policy a "no-referrer", "same-origin",
-    "strict-origin", o "strict-origin-when-cross-origin".
-F071.threat:
-  en: Unauthorized attacker from Internet.
-  es: Atacante sin autorización desde Internet.

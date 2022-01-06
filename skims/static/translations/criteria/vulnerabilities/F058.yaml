@@ -1,35 +1,3 @@
 lib_apk.analyze_bytecodes.debugging_enabled:
   en: application.android:debuggable enabled
   es: application.android:debuggable habilitado
-F058.description:
-  en: >
-    The system has debugging enabled
-    in the production environment,
-    which can cause technical information leaks
-    when an error occurs.
-  es: >
-    El sistema tiene el modo depuración habilitado
-    en el ambiente productivo,
-    lo que puede causar fugas de información técnica
-    cuando un error ocurra.
-F058.impact:
-  en: >
-    Get technical
-    or sensitive information.
-  es: >
-    Obtener información técnica
-    o sensible.
-F058.recommendation:
-  en: >
-    Configure the attribute: application.android:debuggable to "false"
-    in the file: AndroidManifest.xml.
-  es: >
-    Configurar el atributo: application.android:debuggable a "false"
-    en el archivo: AndroidManifest.xml.
-F058.threat:
-  en: >
-    Unauthorized attacker
-    from internet network.
-  es: >
-    Atacante sin autorización
-    desde internet.

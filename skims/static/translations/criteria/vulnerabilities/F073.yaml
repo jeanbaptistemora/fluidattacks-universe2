@@ -1,28 +1,3 @@
 src.lib_path.f073.rds_is_publicly_accessible:
   en: RDS instance should not be publicly accessible
   es: La instancia de RDS no debería ser accesible publicamente
-F073.title:
-  en: Improper authorization control for web services - RDS
-  es: Improper authorization control for web services - RDS
-F073.description:
-  en: >
-    Some RDS instances can be publicly accessible, which can compromise the
-    stored information
-  es: >
-    Algunas instancias de RDS pueden ser accedidas públicamente, con lo cual
-    es posible comprometer la información allí almacenada
-F073.impact:
-  en: >
-    Obtain confidential information of the database
-  es: >
-    Obtener información confidencial de la base de datos
-F073.recommendation:
-  en: >
-    Ensure that the relational databases are accesible only by users and roles
-    authenticated and authorized
-  es: >
-    Garantizar que las bases de datos relacionales sean accesibles únicamente
-    por usuarios y roles autenticados y autorizados
-F073.threat:
-  en: Anonymous attacker on the Internet
-  es: Atacante anónimo desde Internet

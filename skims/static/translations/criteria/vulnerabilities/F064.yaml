@@ -1,15 +1,3 @@
 lib_http.analyze_headers.date.un_synced:
   en: Server clock is out of time {minutes} minute{minutes_plural}
   es: Reloj del servidor está desfasado {minutes} minuto{minutes_plural}
-F064.description:
-  en: The system's internal clock is not synced with NTP servers.
-  es: El reloj interno del sistema no esta sincronizado con servidores NTP.
-F064.impact:
-  en: Write log entries with a wrong date.
-  es: Escribir entradas de logs con una fecha errónea.
-F064.recommendation:
-  en: Sync the server date with a NTP server.
-  es: Sincronizar la fecha del servidor con un servidor NTP.
-F064.threat:
-  en: Anonymous attacker from the Internet.
-  es: Atacante anónimo desde Internet.

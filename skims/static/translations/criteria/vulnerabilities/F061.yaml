@@ -1,31 +1,3 @@
 src.lib_path.f061.swallows_exceptions.description:
   en: Empty {lang} catch
   es: Catch de {lang} vacío
-F061.description:
-  en: >
-    Application errors are handled neither by throwing an exception nor by
-    triggering a logging event, which causes a loss of traceability.
-  es: >
-    Los errores generados en la aplicación no lanzan ninguna excepción o
-    guardado en logs para saber donde se generaron.
-F061.impact:
-  en: |
-    - Perform malicious actions within the application and leave no trace about it.
-    - Make auditing and debugging difficult, as it is not possible to
-      correctly identify the errors generated.
-  es: |
-    - Realizar acciones maliciosas en la aplicación sin dejar ningún rastro.
-    - Dificultar las labores de auditoría y debug, ya que no es posible
-      identificar correctamente los errores generados.
-F061.recommendation:
-  en: |
-    - Use a centralized logging mechanism that supports several levels of detail.
-    - Make sure all events related to successes and failures are recorded.
-  es: |
-    - Utilizar un mecanismo de registro centralizado que admita varios niveles de detalle.
-    - Asegurarse de que se registren todos los eventos relacionados con éxitos y fracasos.
-F061.threat:
-  en: >
-    Autenticated attacker from the Internet.
-  es: >
-    Atacante autenticado desde Internet.
