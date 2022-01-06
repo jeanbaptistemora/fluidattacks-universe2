@@ -183,7 +183,7 @@ async def add_git_root(
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
-) -> str:
+) -> GitRootItem:
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
@@ -272,7 +272,7 @@ async def add_git_root(
             user_email=user_email,
         )
 
-    return root.id
+    return root
 
 
 async def add_ip_root(
@@ -867,7 +867,7 @@ async def move_root(
         if not validations.is_git_unique(root.state.url, target_group_roots):
             raise RepeatedRoot()
 
-        new_root_id = await add_git_root(
+        new_root = await add_git_root(
             loaders,
             user_email,
             ensure_org_uniqueness=False,
@@ -879,6 +879,7 @@ async def move_root(
             nickname=root.state.nickname,
             url=root.state.url,
         )
+        new_root_id = new_root.id
     elif isinstance(root, IPRootItem):
         if not validations.is_ip_unique(
             root.state.url, root.state.branch, target_group_roots
