@@ -1,6 +1,10 @@
 from aioextensions import (
     in_process,
 )
+from aws.model import (
+    AWSEC2,
+    AWSEC2Rule,
+)
 from contextlib import (
     suppress,
 )
@@ -8,6 +12,9 @@ from ipaddress import (
     AddressValueError,
     IPv4Network,
     IPv6Network,
+)
+from itertools import (
+    chain,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
@@ -32,12 +39,15 @@ from parse_cfn.structure import (
 )
 from parse_hcl2.common import (
     get_argument,
+    get_attribute,
+    get_block_attribute,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure.aws import (
     iter_aws_security_group,
+    iter_aws_security_group_rule,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -258,6 +268,36 @@ def tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
             yield resource
 
 
+def tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    danger_values = ("-1", -1)
+    for resource in resource_iterator:
+        if isinstance(resource, AWSEC2):
+            if ingress_block := get_argument(
+                key="ingress",
+                body=resource.data,
+            ):
+                ingress_protocol = get_block_attribute(
+                    block=ingress_block, key="protocol"
+                )
+                if ingress_protocol.val in danger_values:
+                    yield ingress_block
+            if egress_block := get_argument(
+                key="egress",
+                body=resource.data,
+            ):
+                egress_protocol = get_block_attribute(
+                    block=egress_block, key="protocol"
+                )
+                if egress_protocol.val in danger_values:
+                    yield egress_block
+        elif isinstance(resource, AWSEC2Rule):
+            protocol_attr = get_attribute(body=resource.data, key="protocol")
+            if protocol_attr.val in danger_values:
+                yield resource
+
+
 def _cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -341,6 +381,28 @@ def _tfm_aws_ec2_allows_all_outbound_traffic(
         iterator=get_cloud_iterator(
             tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
                 resource_iterator=iter_aws_security_group(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_aws_ec2_cfn_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F024_CWE},
+        description_key=("src.lib_path.f024_aws.unrestricted_protocols"),
+        finding=_FINDING_F024,
+        iterator=get_cloud_iterator(
+            tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
+                resource_iterator=chain(
+                    iter_aws_security_group(model=model),
+                    iter_aws_security_group_rule(model=model),
+                )
             )
         ),
         path=path,
@@ -469,6 +531,22 @@ async def tfm_aws_ec2_allows_all_outbound_traffic(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_aws_ec2_cfn_unrestricted_ip_protocols,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -523,6 +601,13 @@ async def analyze(
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             tfm_aws_ec2_allows_all_outbound_traffic(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_aws_ec2_cfn_unrestricted_ip_protocols(
                 content=content,
                 path=path,
                 model=model,

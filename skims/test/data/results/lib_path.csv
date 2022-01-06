@@ -7030,6 +7030,81 @@ F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    49 |           }
       ^ Col 0
 ",f024_aws._cfn_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,6,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf","
+   1 | resource ""aws_security_group"" ""insecure"" {
+   2 |   name        = ""allow_tls""
+   3 |   description = ""Allow TLS inbound traffic""
+   4 |   vpc_id      = ""someid""
+   5 |
+>  6 |   ingress {
+   7 |     from_port        = 443
+   8 |     to_port          = 446
+   9 |     protocol         = ""-1""
+  10 |     cidr_blocks      = [""0.0.0.0/0""]
+  11 |     ipv6_cidr_blocks = [""::/0""]
+  12 |   }
+  13 |
+  14 |   tags = {
+  15 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  16 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  17 |   }
+  18 | }
+  19 |
+  20 | resource ""aws_security_group"" ""secure"" {
+  21 |   name        = ""allow_tls""
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_cfn_unrestricted_ip_protocols.tf,42,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_cfn_unrestricted_ip_protocols.tf","
+  32 |   cidr_blocks       = ""127.0.0.1/32""
+  33 |   prefix_list_ids   = [""pl-12c4e678""]
+  34 |
+  35 | }
+  36 |
+  37 | resource ""aws_security_group"" ""vulnerable"" {
+  38 |   name        = ""allow_tls""
+  39 |   description = ""Allow TLS inbound traffic""
+  40 |   vpc_id      = ""someid""
+  41 |
+> 42 |   egress {
+  43 |     from_port = 443
+  44 |     to_port   = 443
+  45 |     protocol  = ""-1""
+  46 |   }
+  47 |
+  48 |   tags = {
+  49 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  50 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  51 |   }
+  52 | }
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_cfn_unrestricted_ip_protocols.tf,54,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_cfn_unrestricted_ip_protocols.tf","
+  40 |   vpc_id      = ""someid""
+  41 |
+  42 |   egress {
+  43 |     from_port = 443
+  44 |     to_port   = 443
+  45 |     protocol  = ""-1""
+  46 |   }
+  47 |
+  48 |   tags = {
+  49 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  50 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  51 |   }
+  52 | }
+  53 |
+> 54 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  55 |   security_group_id = ""sg-123456""
+  56 |   type              = ""ingress""
+  57 |   from_port         = 0
+  58 |   to_port           = 0
+  59 |   protocol          = ""-1""
+  60 | }
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
  in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
    1 | Resources:
@@ -7430,6 +7505,56 @@ F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ip_p
    55 |       ""Properties"": {
       ^ Col 0
 ",f024_aws._cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,38,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf","
+  28 |     cidr_blocks     = [""127.0.0.1/32""]
+  29 |     prefix_list_ids = [""pl-12c4e678""]
+  30 |   }
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+> 38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,55,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf","
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+> 55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+  59 |     cidr_blocks      = [""0.0.0.0/0""]
+  60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,"
    1 | Resources:
    2 |   securityGroup1:
