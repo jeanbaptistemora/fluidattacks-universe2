@@ -25,23 +25,3 @@ lib_http.analyze_headers.content_security_policy.wild_uri:
 lib_http.analyze_headers.upgrade_insecure_requests.missing:
   en: Could not found upgrade-insecure-requests header or CSP directive
   es: No se encontró la cabecera upgrade-insecure-requests ni la directiva CSP
-F043.description:
-  en: >
-    The server is missing the Content-Security-Policy HTTP header.
-    Alternatively, the header's configuration is not secure enough.
-  es: >
-    El servidor carece del encabezado HTTP Content-Security-Policy.
-    Alternativamente, el valor del mismo no es suficientemente fuerte.
-F043.impact:
-  en: |
-    - Embed content, scripts, blobs or images from potencially malicious sources.
-    - Make possible to carry attacks like Cross-Site Scripting, Cross-Site Leaks, among others.
-  es: |
-    - Incluir contenido, scripts, binarios o imagenes desde fuentes potencialmente maliciosas.
-    - Aumentar la probabilidad de llevar a cabo ataques como Cross-Site Scripting, Cross-Site Leaks, entre otros.
-F043.recommendation:
-  en: Set the Content-Security-Policy header and configure it in a secure way.
-  es: Establecer la cabecera Content-Security-Policy y configurarla de forma segura.
-F043.threat:
-  en: Unauthorized attacker from Internet.
-  es: Atacante sin autorización desde Internet.

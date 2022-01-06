@@ -19,25 +19,3 @@ src.lib_path.f052.insecure_pass.description:
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: server accepts connections with weak ciphers
   es: el servidor acepta conexiones con métodos cifrados débiles
-F052.description:
-  en: >
-    The application uses insecure encryption algorithms.
-  es: >
-    La aplicación usa algoritmos de cifrado inseguros.
-F052.impact:
-  en: |
-    - Reverse the ciphertext and collect sensible information.
-    - Tamper protected data by exploiting algorithm collisions.
-  es: |
-    - Reversar el texto cifrado para encontrar información sensible.
-    - Alterar datos protegidos al aprovechar colisiones de la función resumen.
-F052.recommendation:
-  en: >
-    Use algorithms considered cryptographically secure.
-  es: >
-    Utilizar algoritmos considerados criptográficamente seguros.
-F052.threat:
-  en: >
-    Anonymous attacker from adjacent network via MITM.
-  es: >
-    Atacante anónimo desde red interna ejecutando un MITM.

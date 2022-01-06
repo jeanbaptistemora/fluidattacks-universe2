@@ -1,39 +1,3 @@
 lib_apk.analyze_bytecodes.no_root_check:
   en: Missing rooted device detection
   es: Detección de dispositivo rooteado ausente
-F048.description:
-  en: >
-    The application does not check
-    whether the Android system
-    on which it is running
-    has been rooted.
-  es: >
-    No se está detectando
-    si el sistema Android
-    se encuentra rooteado
-    al utilizar la aplicación.
-F048.impact:
-  en: >
-    Install malicious tools
-    in order to cause unexpected behaviours.
-  es: >
-    Instalar herramientas maliciosas
-    con el fin de causar comportamientos inesperados.
-F048.recommendation:
-  en: >
-    Validate that the device
-    is not rooted
-    at application startup.
-  es: >
-    Validar que el dispositivo
-    no se encuentre rooteado
-    al inicializar la aplicación.
-F048.threat:
-  en: >
-    Unauthorized attacker
-    with a rooted device
-    and the APK installed.
-  es: >
-    Atacante sin autorización
-    con un dispositivo rooteado
-    y el APK instalado.

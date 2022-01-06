@@ -4,24 +4,3 @@ src.lib_root.f035.csharp_weak_credential_policy.description:
 src.lib_root.f035.csharp_no_password.description:
   en: The system credential policy is not compliant with security regulations
   es: La política de credenciales no se ajusta a las regulaciones de seguridad
-F035.description:
-  en: >
-    The system credential policy is not compliant with security regulations.
-  es: >
-    La política de credenciales del sistema no cumple con las regulaciones de
-    seguridad.
-F035.impact:
-  en: >
-    Increase the chances of getting valid credentials using brute force or
-    dictionary attacks.
-  es: >
-    Incremento en la probilidad de obtener credenciales validas utilizando
-    fuerza bruta o diccionarios de ataque.
-F035.recommendation:
-  en: Establish a policy for the creation of secure passwords.
-  es: Establecer una politica para la creación de contraseñas seguras.
-F035.threat:
-  en: >
-    Anonymous user from the Internet compromising a weak password.
-  es: >
-    Usuario anonimo desde internet comprometiendo una contraseña débil.
