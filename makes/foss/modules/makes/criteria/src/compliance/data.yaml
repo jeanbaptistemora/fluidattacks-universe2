@@ -3521,7 +3521,15 @@
   title: PA DSS
   en:
     description: >
-      ...
+      The PCI Payment Application Data
+      Security Standard (PA-DSS)
+      Requirements and Security Assessment
+      Procedures define security
+      requirements and assessment
+      procedures for software vendors
+      of payment applications.
+      The version used in this section
+      is PA DSS version 3.0, November 2013.
   es:
     description: __empty__
   definitions:
@@ -3694,6 +3702,6 @@
       title: Render the PAN unreadable
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "12_1":
-      title: Encrypt all  nonconsole administrative access with strong cryptography
+      title: Encrypt all nonconsole administrative access with strong cryptography
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
