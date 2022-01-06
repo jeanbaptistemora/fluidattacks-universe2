@@ -3,6 +3,18 @@
 }:
 {
   computeOnAwsBatch = {
+    integratesMigration = rec {
+      allowDuplicates = false;
+      attempts = 1;
+      command = [ "m" "f" "/integrates/db/migration" ];
+      definition = "makes";
+      includePositionalArgsInName = true;
+      environment = [ "PRODUCT_API_TOKEN" ];
+      memory = 1800 * vcpus;
+      queue = "dedicated_soon";
+      setup = [ outputs."/secretsForAwsFromEnv/prodIntegrates" ];
+      vcpus = 4;
+    };
     integratesScheduler = rec {
       allowDuplicates = false;
       attempts = 1;

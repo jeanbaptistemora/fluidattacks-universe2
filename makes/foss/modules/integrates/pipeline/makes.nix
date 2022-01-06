@@ -107,6 +107,22 @@ in
       jobs = [ ]
         ++ (builtins.map
         (name: {
+          args = [ "prod" name ];
+          output = "/computeOnAwsBatch/integratesMigration";
+          gitlabExtra = schedulerTemplate // {
+            rules = [
+              (gitlabCi.rules.schedules)
+              (gitlabCi.rules.varIsDefined (builtins.replaceStrings [ ".py" ] [ "" ] "integrates_migration_${name}"))
+              (gitlabCi.rules.always)
+            ];
+            tags = [ "autoscaling" ];
+          };
+        })
+        [
+          "0168_populate_vuln_root_id_and_gsi_2.py"
+        ])
+        ++ (builtins.map
+        (name: {
           args = [ "prod" "schedulers.${name}.main" ];
           output = "/computeOnAwsBatch/integratesScheduler";
           gitlabExtra = schedulerTemplate // {

@@ -1,3 +1,21 @@
+/computeOnAwsBatch/integratesMigration__prod__0168_populate_vuln_root_id_and_gsi_2.py:
+  image: ghcr.io/fluidattacks/makes:22.01
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_migration_0168_populate_vuln_root_id_and_gsi_2 == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesMigration 'prod' '0168_populate_vuln_root_id_and_gsi_2.py'
+  stage: scheduler
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
   image: ghcr.io/fluidattacks/makes:22.01
   interruptible: false
