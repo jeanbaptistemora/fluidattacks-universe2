@@ -24,6 +24,8 @@ describe("AdditionalInfo", (): void => {
     currentState: "open",
     currentStateCapitalized: "Open",
     externalBugTrackingSystem: null,
+    findingId: "438679960",
+    groupName: "test",
     historicTreatment: [
       {
         acceptanceDate: "",

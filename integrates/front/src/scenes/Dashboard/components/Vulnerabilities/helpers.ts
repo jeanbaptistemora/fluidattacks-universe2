@@ -13,6 +13,7 @@ import {
   getNonSelectableVulnerabilitiesOnReattack,
   getNonSelectableVulnerabilitiesOnVerify,
   getVulnerabilitiesIds,
+  getVulnerabilityById,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
@@ -147,9 +148,18 @@ const onSelectVariousVulnerabilitiesHelper = (
 const handleDeleteVulnerabilityHelper = (
   vulnInfo: Record<string, string> | undefined,
   setVulnerabilityId: (value: React.SetStateAction<string>) => void,
-  setDeleteVulnOpen: (value: React.SetStateAction<boolean>) => void
+  setDeleteVulnOpen: (value: React.SetStateAction<boolean>) => void,
+  updateRow: (value: React.SetStateAction<IVulnRowAttr | undefined>) => void,
+  vulnerabilities: IVulnRowAttr[]
 ): void => {
   if (vulnInfo !== undefined) {
+    const vulnerability: IVulnRowAttr | undefined = getVulnerabilityById(
+      vulnerabilities,
+      vulnInfo.id
+    );
+    if (vulnerability !== undefined) {
+      updateRow(vulnerability);
+    }
     setVulnerabilityId(vulnInfo.id);
     setDeleteVulnOpen(true);
   }

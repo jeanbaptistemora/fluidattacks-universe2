@@ -2,7 +2,13 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
@@ -10,10 +16,8 @@ import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
   onSelectVariousVulnerabilitiesHelper,
-  setColumnHelper,
   setNonSelectable,
 } from "./helpers";
-import { UploadVulnerabilities } from "./uploadFile";
 import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
@@ -37,8 +41,6 @@ import {
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
-import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
-import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 
 function usePreviousProps(value: boolean): boolean {
@@ -57,9 +59,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   customFilters,
   customSearch,
   extraButtons,
-  findingId,
   findingState,
-  groupName,
   isEditing,
   isFindingReleased,
   isRequestingReattack,
@@ -97,8 +97,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     _0: React.FormEvent,
     vulnerability: IVulnRowAttr
   ): void {
-    track("ViewVulnerability", { groupName });
     updateRow(vulnerability);
+    track("ViewVulnerability", { groupName: vulnerability.groupName });
     setAdditionalInfoOpen(true);
   }
   const closeAdditionalInfoModal: () => void = useCallback((): void => {
@@ -117,7 +117,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     handleDeleteVulnerabilityHelper(
       vulnInfo,
       setVulnerabilityId,
-      setDeleteVulnOpen
+      setDeleteVulnOpen,
+      updateRow,
+      vulnerabilities
     );
   }
   const clearSelectedVulns: () => void = useCallback((): void => {
@@ -221,6 +223,15 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     sessionStorage.setItem("vulnerabilitiesSort", JSON.stringify(newSorted));
   }
 
+  const findingId: string = useMemo(
+    (): string => (currentRow === undefined ? "" : currentRow.findingId),
+    [currentRow]
+  );
+  const groupName: string = useMemo(
+    (): string => (currentRow === undefined ? "" : currentRow.groupName),
+    [currentRow]
+  );
+
   const headers: IHeaderConfig[] = [
     {
       dataField: "where",
@@ -241,20 +252,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       width: "60px",
     },
   ];
-
-  function columnHelper(): JSX.Element {
-    return (
-      <Col100>
-        <Can do={"api_mutations_upload_file_mutate"}>
-          <UploadVulnerabilities findingId={findingId} groupName={groupName} />
-        </Can>
-      </Col100>
-    );
-  }
-
-  function setColumn(): JSX.Element | undefined {
-    return setColumnHelper(true, columnHelper);
-  }
 
   return (
     <React.StrictMode>
@@ -287,7 +284,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         onRemoveVulnRes={onDeleteVulnResult}
         open={isDeleteVulnOpen}
       />
-      {setColumn()}
       <AdditionalInformation
         canDisplayHacker={canDisplayHacker}
         canRemoveVulnsTags={canRemoveVulnsTags}

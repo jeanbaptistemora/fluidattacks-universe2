@@ -251,6 +251,21 @@ function filterOutVulnerabilities(
   );
 }
 
+const getVulnerabilityById: (
+  vulnerabilities: IVulnRowAttr[],
+  vulnerabilityId: string
+) => IVulnRowAttr | undefined = (
+  vulnerabilities: IVulnRowAttr[],
+  vulnerabilityId: string
+): IVulnRowAttr | undefined => {
+  const vulns = vulnerabilities.filter(
+    (vulnerability: IVulnRowAttr): boolean =>
+      vulnerability.id === vulnerabilityId
+  );
+
+  return vulns.length > 0 ? vulns[0] : undefined;
+};
+
 export {
   filterTreatment,
   filterCurrentStatus,
@@ -264,6 +279,7 @@ export {
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerify,
   getNonSelectableVulnerabilitiesOnVerifyIds,
+  getVulnerabilityById,
   getVulnerabilitiesIds,
   getVulnerabilitiesIndex,
 };

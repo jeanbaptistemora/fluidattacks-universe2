@@ -18,6 +18,8 @@ import {
 import { Modal } from "components/Modal";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
+import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities//helpers";
+import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities//uploadFile";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
@@ -41,6 +43,8 @@ import type {
   IGetFindingVulns,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
+import { Col100 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -183,8 +187,15 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const unformattedVulns: IVulnRowAttr[] =
     vulnsData.finding.vulnerabilities.concat(zeroRiskVulns);
 
-  const vulnerabilities: IVulnRowAttr[] =
-    formatVulnerabilitiesTreatment(unformattedVulns);
+  const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
+    unformattedVulns.map(
+      (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
+        ...vulnerability,
+        findingId,
+        groupName,
+      })
+    )
+  );
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -468,6 +479,20 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const customFiltersPropsNoReportDate: IFilterProps[] =
     customFiltersProps.slice(0, -1);
 
+  function columnHelper(): JSX.Element {
+    return (
+      <Col100>
+        <Can do={"api_mutations_upload_file_mutate"}>
+          <UploadVulnerabilities findingId={findingId} groupName={groupName} />
+        </Can>
+      </Col100>
+    );
+  }
+
+  function setColumn(): JSX.Element | undefined {
+    return setColumnHelper(true, columnHelper);
+  }
+
   return (
     <React.StrictMode>
       <React.Fragment>
@@ -517,9 +542,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     subscription={data.group.subscription}
                   />
                 }
-                findingId={findingId}
                 findingState={data.finding.state}
-                groupName={groupName}
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
                 isRequestingReattack={isRequestingVerify}
@@ -534,6 +557,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 }
               />
             </div>
+            {setColumn()}
           </div>
         </div>
         {isOpen ? (

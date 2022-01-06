@@ -8,6 +8,8 @@ interface IVulnRowAttr {
   currentState: "closed" | "open";
   currentStateCapitalized: "Closed" | "Open";
   externalBugTrackingSystem: string | null;
+  findingId: string;
+  groupName: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
   lastTreatmentDate: string;
@@ -58,13 +60,11 @@ interface IVulnDataTypeAttr {
 
 interface IVulnComponentProps {
   canDisplayHacker: boolean;
-  clearFiltersButton?: (() => void) | undefined;
+  clearFiltersButton?: () => void;
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
   extraButtons: JSX.Element;
-  findingId: string;
   findingState: "closed" | "open";
-  groupName: string;
   isFindingReleased: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;

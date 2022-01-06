@@ -25,6 +25,8 @@ describe("VulnComponent", (): void => {
       currentState: "open",
       currentStateCapitalized: "Open",
       externalBugTrackingSystem: null,
+      findingId: "438679960",
+      groupName: "test",
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -61,6 +63,8 @@ describe("VulnComponent", (): void => {
       currentState: "closed",
       currentStateCapitalized: "Closed",
       externalBugTrackingSystem: null,
+      findingId: "438679960",
+      groupName: "test",
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -99,6 +103,8 @@ describe("VulnComponent", (): void => {
       currentState: "open",
       currentStateCapitalized: "Open",
       externalBugTrackingSystem: null,
+      findingId: "438679960",
+      groupName: "test",
       historicTreatment: [
         {
           acceptanceDate: "",
@@ -147,9 +153,7 @@ describe("VulnComponent", (): void => {
       <VulnComponent
         canDisplayHacker={false}
         extraButtons={<div />}
-        findingId={"480857698"}
         findingState={"open"}
-        groupName={"test"}
         isEditing={true}
         isFindingReleased={true}
         isRequestingReattack={false}
@@ -201,9 +205,7 @@ describe("VulnComponent", (): void => {
       <VulnComponent
         canDisplayHacker={false}
         extraButtons={<div />}
-        findingId={"480857698"}
         findingState={"open"}
-        groupName={"test"}
         isEditing={true}
         isFindingReleased={false}
         isRequestingReattack={false}
