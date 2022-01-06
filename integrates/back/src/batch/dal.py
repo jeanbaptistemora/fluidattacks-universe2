@@ -280,7 +280,7 @@ async def list_log_streams(
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
 
-    async with aioboto3.Session().client(**resource_options) as cloudwatch:
+    async with aioboto3.client(**resource_options) as cloudwatch:
 
         async def _request(
             _job_id: str, next_token: Optional[str] = None
@@ -310,7 +310,7 @@ async def describe_jobs(*job_ids: str) -> List[Dict[str, Any]]:
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
     result = []
-    async with aioboto3.Session().client(**resource_options) as batch:
+    async with aioboto3.client(**resource_options) as batch:
         for _set_jobs in more_itertools.divide(
             math.ceil(len(job_ids) / 100), job_ids
         ):
@@ -371,7 +371,7 @@ async def decribe_jobs(
         aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
         aws_session_token=FI_AWS_SESSION_TOKEN,
     )
-    async with aioboto3.Session().client(**resource_options) as batch:
+    async with aioboto3.client(**resource_options) as batch:
         responses = await collect(
             tuple(
                 batch.describe_jobs(jobs=jobs_ids_chunk)
@@ -521,7 +521,7 @@ async def put_action_to_batch(
             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
             aws_session_token=FI_AWS_SESSION_TOKEN,
         )
-        async with aioboto3.Session().client(**resource_options) as batch:
+        async with aioboto3.client(**resource_options) as batch:
             await batch.submit_job(
                 jobName=f"integrates-{action_name}",
                 jobQueue=queue,

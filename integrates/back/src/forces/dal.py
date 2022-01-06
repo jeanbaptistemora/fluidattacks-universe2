@@ -70,9 +70,7 @@ async def get_execution(group_name: str, execution_id: str) -> Any:
         "subscription"
     ).eq(group_name)
 
-    async with aioboto3.Session().resource(
-        **dynamodb_ops.RESOURCE_OPTIONS
-    ) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
         results = await table.query(
             KeyConditionExpression=key_condition_expresion
@@ -162,9 +160,7 @@ async def yield_executions(
         "date"
     ).lte(to_date.isoformat())
 
-    async with aioboto3.Session().resource(
-        **dynamodb_ops.RESOURCE_OPTIONS
-    ) as resource:
+    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
         query_params = {
             "KeyConditionExpression": key_condition_expresion,

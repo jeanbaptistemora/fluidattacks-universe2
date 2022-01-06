@@ -90,7 +90,7 @@ async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
-    async with aioboto3.Session().client(**resource_options) as batch:
+    async with aioboto3.client(**resource_options) as batch:
         try:
             result = await batch.describe_jobs(jobs=jobs)
             return result["jobs"]

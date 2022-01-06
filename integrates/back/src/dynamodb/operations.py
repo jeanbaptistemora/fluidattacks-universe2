@@ -128,7 +128,7 @@ async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
         async with table_resource.batch_writer() as batch_writer:
@@ -152,7 +152,7 @@ async def batch_delete_item(
 
 @newrelic.agent.function_trace()
 async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
         async with table_resource.batch_writer() as batch_writer:
@@ -176,7 +176,7 @@ async def delete_item(
 ) -> None:
     key_structure = table.primary_key
 
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         args = {
             "ConditionExpression": condition_expression,
@@ -200,7 +200,7 @@ async def put_item(
     item: Item,
     table: Table,
 ) -> None:
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         facet_item = _build_facet_item(facet=facet, item=item, table=table)
         args = {
@@ -226,7 +226,7 @@ async def query(  # pylint: disable=too-many-locals
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         start_key = None
         if after:
@@ -299,7 +299,7 @@ async def update_item(
         if value is None
     )
 
-    async with aioboto3.Session().resource(**RESOURCE_OPTIONS) as resource:
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         base_args: Dict[str, Any] = {
             "ConditionExpression": condition_expression,

@@ -53,7 +53,7 @@ if FI_ENVIRONMENT == "development":
 
 @contextlib.asynccontextmanager
 async def aio_client() -> aioboto3.session.Session.client:
-    async with aioboto3.Session().client(**OPTIONS) as client:
+    async with aioboto3.client(**OPTIONS) as client:
         yield client
 
 

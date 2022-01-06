@@ -200,11 +200,6 @@ def test_group_scope_environments(
         timeout,
     )
     proceed.click()
-    assert utils.wait_for_hide_text(
-        driver,
-        "Edit root",
-        timeout,
-    )
     expand_button = utils.wait_for_class_name(
         driver, "expand-cell-header", timeout
     )
