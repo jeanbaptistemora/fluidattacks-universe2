@@ -11,6 +11,12 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from botocore.exceptions import (
+    HTTPClientError,
+)
+from custom_exceptions import (
+    RootNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -61,15 +67,20 @@ async def populate_root_id_by_vuln(
     gsi_2_index = TABLE.indexes["gsi_2"]
     finding_id = current_item["sk"].split("#")[1]
     vulnerability_id = current_item["pk"].split("#")[1]
-    root_id = (
-        roots_domain.get_root_id_by_nickname(
-            nickname=current_item["repo"],
-            group_roots=group_roots,
-            is_git_root=False,
+    is_root_found = True
+    root_id = None
+    try:
+        root_id = (
+            roots_domain.get_root_id_by_nickname(
+                nickname=current_item["repo"],
+                group_roots=group_roots,
+                is_git_root=False,
+            )
+            if current_item.get("repo")
+            else None
         )
-        if current_item.get("repo")
-        else None
-    )
+    except RootNotFound:
+        is_root_found = False
     gsi_2_key = keys.build_key(
         facet=ROOT_INDEX_METADATA,
         values={
@@ -83,6 +94,8 @@ async def populate_root_id_by_vuln(
     }
     if root_id is not None:
         vulnerability_item["root_id"] = root_id
+    if not is_root_found:
+        vulnerability_item["repo"] = None
 
     vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
@@ -136,6 +149,10 @@ async def populate_root_id_by_finding(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(HTTPClientError,),
+    sleep_seconds=5,
+)
 async def populate_root_id_by_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
@@ -170,7 +187,7 @@ async def main() -> None:
             )
             for count, group in enumerate(groups)
         ),
-        workers=20,
+        workers=5,
     )
 
 
