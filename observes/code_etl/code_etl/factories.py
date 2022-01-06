@@ -57,7 +57,6 @@ def gen_fa_hash_2(commit: CommitData) -> str:
     fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
 
     fa_hash.update(bytes(commit.message, "utf-8"))
-    fa_hash.update(bytes(commit.summary.msg, "utf-8"))
 
     fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
     fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
@@ -68,8 +67,9 @@ def gen_fa_hash_2(commit: CommitData) -> str:
 
 @dataclass(frozen=True)
 class CommitDataFactory:
-    @staticmethod
-    def from_commit(commit: Commit) -> CommitDataObj:
+    _hash_2: bool
+
+    def from_commit(self, commit: Commit) -> CommitDataObj:
         author = User(
             _to_prim(commit.author.name, str),
             _to_prim(commit.author.email, str),
@@ -93,7 +93,8 @@ class CommitDataFactory:
             truncate(str(commit.summary), 256),
             deltas,
         )
-        _id = CommitId(commit.hexsha, gen_fa_hash(data))
+        calc = gen_fa_hash_2 if self._hash_2 else gen_fa_hash
+        _id = CommitId(commit.hexsha, calc(data))
         return CommitDataObj(_id, data)
 
 

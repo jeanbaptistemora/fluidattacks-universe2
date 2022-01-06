@@ -55,13 +55,14 @@ from returns.maybe import (
 class Extractor:
     _context: RepoContex
     _mailmap: Maybe[Mailmap]
+    _hash_2: bool
 
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
         if commit.hexsha == self._context.last_commit.value_or(None):
             return Maybe.empty
-        _obj = CommitDataFactory.from_commit(commit)
+        _obj = CommitDataFactory(self._hash_2).from_commit(commit)
         obj = self._mailmap.map(
-            lambda m: amend_commit_users(m, _obj)
+            lambda m: amend_commit_users(m, _obj, self._hash_2)
         ).value_or(_obj)
         data_id = CommitDataId(self._context.repo, obj.commit_id)
         stamp = CommitStamp(

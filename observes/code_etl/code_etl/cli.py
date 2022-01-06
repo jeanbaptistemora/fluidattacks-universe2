@@ -94,6 +94,7 @@ def amend_authors(schema: str, mailmap_path: str, namespace: str) -> None:
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
+@click.option("--hash-2", is_flag=True)
 @click.pass_obj
 def amend_authors_v2(
     ctx: CmdContext,
@@ -101,6 +102,7 @@ def amend_authors_v2(
     table: str,
     mailmap: Optional[str],
     namespace: str,
+    hash_2: bool,
 ) -> IO[None]:
     return amend_v2.start(
         ctx.db_id,
@@ -108,6 +110,7 @@ def amend_authors_v2(
         _to_table((schema, table)),
         namespace,
         _get_mailmap(mailmap),
+        hash_2,
     )
 
 
@@ -146,6 +149,7 @@ def upload_code(
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.option("--mailmap", type=mailmap_file)
+@click.option("--hash-2", is_flag=True)
 @click.argument("repositories", type=str, nargs=-1)
 @pass_ctx
 def upload_code_v2(
@@ -155,17 +159,13 @@ def upload_code_v2(
     namespace: str,
     repositories: Tuple[str, ...],
     mailmap: Optional[str],
+    hash_2: bool,
 ) -> IO[None]:
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = _to_table((schema, table))
     mmap = _get_mailmap(mailmap)
     return upload_repo.upload_repos(
-        ctx.db_id,
-        ctx.creds,
-        target,
-        namespace,
-        repos,
-        mmap,
+        ctx.db_id, ctx.creds, target, namespace, repos, mmap, hash_2
     )
 
 

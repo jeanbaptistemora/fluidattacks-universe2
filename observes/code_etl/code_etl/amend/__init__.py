@@ -39,7 +39,11 @@ from returns.maybe import (
 
 
 def amend_users(
-    client: Client, table: TableID, namespace: str, mailmap: Maybe[Mailmap]
+    client: Client,
+    table: TableID,
+    namespace: str,
+    mailmap: Maybe[Mailmap],
+    hash_2: bool,
 ) -> IO[None]:
     data = namespace_data(client, table, namespace).map(
         lambda i: i.map(lambda r: r.bind(decoder.decode_commit_table_row))
@@ -51,7 +55,7 @@ def amend_users(
                 table,
                 c,
                 mailmap.map(
-                    lambda mmap: amend_commit_stamp_users(mmap, c)
+                    lambda mmap: amend_commit_stamp_users(mmap, c, hash_2)
                 ).value_or(c),
             )
             if isinstance(c, CommitStamp)
@@ -66,6 +70,7 @@ def start(
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
+    hash_2: bool,
 ) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
-    return amend_users(client, table, namespace, mailmap)
+    return amend_users(client, table, namespace, mailmap, hash_2)
