@@ -79,6 +79,8 @@ const EventCommentsView: React.FC = (): JSX.Element => {
             count: 1,
           })
         );
+      } else if (message === "Exception - Invalid characters") {
+        msgError(translate.t("validations.invalidChar"));
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(

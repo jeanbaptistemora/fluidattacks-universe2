@@ -69,9 +69,14 @@ async def mutate(
 
     validations.validate_fields(
         [
-            kwargs.get("requirements", ""),
+            kwargs.get(
+                "attack_vector_description",
+                kwargs.get("attack_vector_desc", ""),
+            ),
             kwargs.get("description", ""),
             kwargs.get("recommendation", ""),
+            kwargs.get("requirements", ""),
+            kwargs.get("threat", ""),
         ]
     )
     findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
