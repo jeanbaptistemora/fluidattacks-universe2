@@ -3527,5 +3527,50 @@
   definitions:
     "1_1":
       title: Do not store sensitive authentication data after authorization
-      link: https://attack.mitre.org/mitigations/enterprise/
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "1_1_1":
+      title: Do not store full contents of any track from the magnetic stripe
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "1_1_2":
+      title: Do not store the card verification value or code used to verify transactions
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "1_1_3":
+      title: Do not store personal identification number (PIN) or the encrypted PIN block
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "1_1_4":
+      title: Securely delete any track data, card verification values or codes, and PINs or PIN block data stored by application in accordance with industry-accepted standards
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "1_1_5":
+      title: Do not store sensitive authentication data on vendor systems
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_1":
+      title: Provide guidance to customers regarding secure deletion of cardholder data
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_2":
+      title: Mask PAN when displayed
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_3":
+      title: Render PAN unreadable anywhere it is stored
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5":
+      title: Implement key management processes and procedures for cryptographic keys used for encryption of cardholder data
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_1":
+      title: Generation of strong cryptographic keys
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_2":
+      title: Secure cryptographic key distribution
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_3":
+      title: Secure cryptographic key storage
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_4":
+      title: Cryptographic key changes for keys
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_5":
+      title: Retirement or replacement of keys
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "2_5_7":
+      title: Prevention of unauthorized substitution of cryptographic keys
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
