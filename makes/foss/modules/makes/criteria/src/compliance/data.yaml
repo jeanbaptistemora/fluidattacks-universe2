@@ -3573,4 +3573,55 @@
     "2_5_7":
       title: Prevention of unauthorized substitution of cryptographic keys
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1":
+      title: Support and enforce the use of unique user IDs and secure authentication for all administrative access
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_2":
+      title: Enforce the changing of all default application passwords for all accounts
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_4":
+      title: Application employs methods to authenticate all users
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_5":
+      title: Payment application does not require or use any group, shared, or generic accounts and passwords
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_6":
+      title: Passwords must meet minimum requirements
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_7":
+      title: Payment application requires changes to user passwords at least every 90 days
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_1_11":
+      title: Require the user to re-authenticate to re-activate the session (inactive)
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_3_1":
+      title: Use strong cryptography to render all payment application passwords unreadable during transmission
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "3_4":
+      title: Limit access to required functions/resources and enforce least privilege for built-in accounts
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_1":
+      title: Log all user access and be able to link all activities to individual users
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_2_2":
+      title: Actions taken by any individual with root or administrative privileges
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_2_4":
+      title: Invalid logical access attempts
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_2_5":
+      title: Changes to the application’s identification and authentication mechanisms with root or administrative privileges
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_2_6":
+      title: Initialization, stopping, or pausing of the application audit logs
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_2_7":
+      title: Creation and deletion of system-level objects
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_3":
+      title: Payment application’s audit log settings and audit log output
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "4_4":
+      title: Facilitate centralized logging
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
