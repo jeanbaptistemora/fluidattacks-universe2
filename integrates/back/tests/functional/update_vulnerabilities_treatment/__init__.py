@@ -88,3 +88,68 @@ async def get_vulnerability(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def grant_stakeholder(
+    *,
+    user: str,
+    stakeholder: str,
+    group: str,
+    role: str = "CUSTOMER",
+) -> Dict[str, Any]:
+    query: str = """
+        mutation GrantStakeholderGroupAccess(
+            $stakeholder: String!
+            $groupName: String
+            $role: StakeholderRole!
+        ) {
+            grantStakeholderAccess (
+                email: $stakeholder
+                groupName: $groupName
+                role: $role
+            ) {
+                success
+            }
+        }
+    """
+    data: Dict[str, str] = {
+        "query": query,
+        "variables": {
+            "stakeholder": stakeholder,
+            "groupName": group,
+            "role": role,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
+async def get_stakeholders(
+    *,
+    user: str,
+    group: str,
+) -> Dict[str, Any]:
+    query: str = """
+        query GetStakeholders($groupName: String!) {
+            group (groupName: $groupName) {
+                stakeholders {
+                    email
+                    invitationState
+                }
+            }
+        }
+    """
+    data: Dict[str, str] = {
+        "query": query,
+        "variables": {
+            "groupName": group,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
