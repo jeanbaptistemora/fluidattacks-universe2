@@ -1,36 +1,3 @@
 src.lib_path.f257.ec2_has_not_termination_protection:
   en: DisableApiTermination property should enabled
   es: La propiedad DisableApiTermination debería habilitada
-F257.title:
-  en: >
-    Lack of protection against deletion - EC2
-  es: >
-    Lack of protection against deletion - EC2
-F257.description:
-  en: >
-    Instances do not have the termination/removal
-    protection option enabled.
-  es: >
-    Las instancias no tienen activada la
-    opción de protección de terminación/eliminación.
-F257.impact:
-  en: >
-    - Delete or terminate instances by accident.
-
-    - Lose of EBS  data.
-  es: >
-    - Eliminación o finalización de
-    instancias por accidente.
-
-    - Pérdida de datos de EBS.
-F257.recommendation:
-  en: >
-    Ensure that instances have Termination
-    Protection safety feature enabled.
-  es: >
-    Asegúrese de que las instancias tienen
-    activada la función de seguridad de
-    protección de la terminación.
-F257.threat:
-  en: External atacker with AWS credentials.
-  es: Ataque externo con credenciales de AWS.

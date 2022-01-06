@@ -1,35 +1,3 @@
 lib_root.f366.conflicting_transparency_annotations:
   en: Members should not have conflicting transparency annotations
   es: Los miembros no deben tener anotaciones de transparencia contradictorias
-F366.title:
-  en: >
-    Inappropriate coding practices - Transparency Conflict
-  es: >
-    Prácticas de codificación inapropiadas - Conflicto de transparencia
-F366.description:
-  en: >
-    Attackers will attempt to exploit unpatched flaws or access
-    default accounts, unused pages, unprotected files and directories,
-    etc to gain unauthorized access or knowledge of the system.
-  es: >
-    Los atacantes a intentarán explotar fallas no reparadas o
-    acceder a cuentas predeterminadas, páginas no utilizadas, archivos
-    y directorios desprotegidos, etc. para obtener acceso no autorizado
-    o conocimiento del sistema.
-F366.impact:
-  en: Such flaws frequently give attackers unauthorized access to some
-      system data or functionality. Occasionally, such flaws result in
-      a complete system compromise.
-  es: Con frecuencia, estos defectos dan a los atacantes acceso no
-      autorizado a algunos datos o funciones del sistema. Ocasionalmente,
-      tales fallas resultan en un compromiso completo del sistema.
-F366.recommendation:
-  en: Remove or do not install unused features and frameworks.
-      Run an automated process to verify the effectiveness of settings
-      and adjustments in all environments.
-  es: Elimine o no instale funciones y marcos no utilizados.
-      Ejecute un proceso automatizado para verificar la efectividad
-      de las configuraciones y ajustes en todos los entornos.
-F366.threat:
-  en: Anonymous attacker from Internet.
-  es: Atacante anónimo desde Internet.

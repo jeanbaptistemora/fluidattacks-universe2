@@ -1,29 +1,3 @@
 src.lib_path.f258.elb2_has_not_deletion_protection:
   en: The deletion_protection.enabled property must be enabled
   es: La propiedad deletion_protection.enabled debe estar habilitada
-F258.title:
-  en: >
-    Lack of protection against deletion - ELB
-  es: >
-    Lack of protection against deletion - ELB
-F258.description:
-  en: >
-    The current configuration of Elastic Load Balancing
-    has no Deletion Protection safety feature enabled.
-  es: >
-    La configuración actual de Elastic Load Balancing
-    no tiene activada la función de seguridad de
-    protección contra el borrado.
-F258.impact:
-  en: Delete AWS load balancers causing service unavailability.
-  es: >
-    Eliminar permanente los balanceadores de carga causando indisponibilidad
-    del servicio.
-F258.recommendation:
-  en: Activate delete protection for all ELB instances.
-  es: Activar la protección contra borrado en todas las instancias de ELB.
-F258.threat:
-  en: >
-    Authenticated attacker from the Internet with access to AWS configurations
-  es: >
-    Atacante autenticado desde Internet con acceso a configuraciones de AWS.
