@@ -127,6 +127,14 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "grace_period",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "severity_threshold",
+          "AttributeType": "N"
+        },
+        {
           "AttributeName": "results",
           "AttributeType": "M"
         },
@@ -529,6 +537,10 @@
         {
           "AttributeName": "roots",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "has_vulnerabilities",
+          "AttributeType": "BOOL"
         }
       ],
       "TableFacets": [
@@ -981,6 +993,8 @@
             "origin",
             "repo",
             "strictness",
+            "grace_period",
+            "severity_threshold",
             "results"
           ]
         },
