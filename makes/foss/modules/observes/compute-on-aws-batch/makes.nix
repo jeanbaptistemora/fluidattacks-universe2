@@ -109,7 +109,7 @@ in
     };
 
     observesCodeEtlMigration2 = sharedConfiguration // {
-      queue = "spot_later";
+      queue = "dedicated_later";
       attempts = 1;
       attemptDurationSeconds = 604800;
       command = [ "m" "f" "/observes/etl/code/upload/migration/fa-hash/v2" ];
