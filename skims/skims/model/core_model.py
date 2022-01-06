@@ -2057,6 +2057,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     path: str
     repo_nickname: str
     state: VulnerabilityStateEnum
+    skims_method: Optional[str]  # sould be str only when the db ready
 
 
 class IntegratesVulnerabilitiesInputs(NamedTuple):

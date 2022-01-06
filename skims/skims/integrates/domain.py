@@ -79,6 +79,9 @@ def _build_vulnerabilities_stream(
                 path=result.what_on_integrates,
                 repo_nickname=CTX.config.namespace,
                 state=result.state,
+                skims_method=result.skims_metadata.source_method
+                if result.skims_metadata
+                else None,
             )
             for result in results
             if result.kind == core_model.VulnerabilityKindEnum.LINES

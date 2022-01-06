@@ -143,6 +143,7 @@ async def diff_results(
                 # Mark them as managed by skims
                 source=core_model.VulnerabilitySourceEnum.SKIMS,
             ),
+            skims_metadata=result.skims_metadata,
             kind=result.kind,
             namespace=result.namespace,
             state=state,

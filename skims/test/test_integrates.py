@@ -42,6 +42,7 @@ async def test_client(
 @run_decorator
 @pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
+    skims_method = "query.get_vulnerabilities_from_syntax"
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
 
     assert (
@@ -58,7 +59,13 @@ async def test_build_vulnerabilities_stream() -> None:
                     namespace="test",
                     state=core_model.VulnerabilityStateEnum.OPEN,
                     what="what",
-                    where="123",
+                    where="11",
+                    skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                        cwe=(330,),
+                        description="Vulnerability description",
+                        snippet="Vulnerability snippet",
+                        source_method=skims_method,
+                    ),
                 ),
                 core_model.Vulnerability(
                     finding=core_model.FindingEnum.F034,
@@ -86,9 +93,10 @@ async def test_build_vulnerabilities_stream() -> None:
           url: https://example.com (test)
         lines:
         - commit_hash: {commit_hash}
-          line: '123'
+          line: '11'
           path: test/what
           repo_nickname: test
+          skims_method: {skims_method}
           state: open
     """
         )[1:]
