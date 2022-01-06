@@ -3669,4 +3669,31 @@
     "6_2":
       title: For wireless technology, implement strong encryption for authentication and transmission
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "8_1":
+      title: Secure network environment
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "8_2":
+      title: Use of necessary and secure services, including those provided by third parties
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "8_3":
+      title: Operation of two-factor authentication technologies for secure remote access
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "9_1":
+      title: Any web server and any cardholder data storage component are not required to be on the same server
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "10_2_2":
+      title: Unique authentication credential must be used for each customer environment
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "10_2_3":
+      title: Remote access to customer’s payment applications must be implemented securely
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "11_1":
+      title: Use of strong cryptography and security protocols to safeguard sensitive cardholder data during transmission
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "11_2":
+      title: Render the PAN unreadable
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "12_1":
+      title: Encrypt all  nonconsole administrative access with strong cryptography
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
