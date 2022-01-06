@@ -6,22 +6,3 @@ src.lib_path.f080_aws.unencrypted_volumes:
 src.lib_path.f080_aws.unencrypted_buckets:
   en: S3 buckets do not use server-side encryption
   es: Los buckets S3 no usan cifrado del lado del servidor
-F080.description:
-  en: Infrastructure is not encrypted.
-  es: La infrastructura no se encuentra cifrada.
-F080.impact:
-  en: >
-    Expose resources, processes and sensitive information that could be
-    compromised.
-  es: >
-    Exponer recursos, procesos e información sensible que podrían ser
-    comprometidos.
-F080.recommendation:
-  en: >
-    Encrypt infrastructure with server-side encryption or customer-managed keys
-  es: >
-    Cifrar la infrastructura con cifrado del lado del servidor o llaves
-    administradas por el usuario
-F080.threat:
-  en: Internal attacker with access to the configuration.
-  es: Atacante interno con acceso a la configuración.

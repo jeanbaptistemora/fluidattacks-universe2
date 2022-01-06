@@ -4,17 +4,3 @@ lib_ssl.analyze_protocol.cbc_enabled:
 lib_ssl.analyze_protocol.sweet32_possible:
   en: server is vulnerable to SWEET32 attacks
   es: el servidor es vulnerable a ataques SWEET32
-F094.description:
-  en: The application uses algorithms with insecure cipher block chaining.
-  es: La aplicación usa algoritmos con CBC inseguros.
-F094.impact:
-  en: Exploit cipher process vulnerability and collect sensible information.
-  es: >
-    Aprovechar vulnerabilidad en el proceso de cifrado para recolectar
-    información sensible.
-F094.recommendation:
-  en: Use algorithms considered cryptographically secure.
-  es: Utilizar algoritmos considerados criptográficamente seguros.
-F094.threat:
-  en: Unauthorized attacker from adjacent network exploiting vulnerability.
-  es: Atacante sin autorización desde red adyacente explotando vulnerabilidad.
