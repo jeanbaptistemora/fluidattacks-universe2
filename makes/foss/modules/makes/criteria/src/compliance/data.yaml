@@ -3624,4 +3624,49 @@
     "4_4":
       title: Facilitate centralized logging
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_1_1":
+      title: Live PANs are not used for testing or development
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_1_2":
+      title: Test data and accounts are removed before release to customer
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_1_5":
+      title: Secure practices are implemented to verify integrity of source code during the development process
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_1":
+      title: Injection flaws, particularly SQL injection
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_2":
+      title: Buffer Overflow
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_3":
+      title: Insecure cryptographic storage
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_4":
+      title: Insecure communications
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_5":
+      title: Improper error handling
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_7":
+      title: Cross-site scripting (XSS)
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_8":
+      title: Improper access controls
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_9":
+      title: Cross-site request forgery (CSRF)
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_2_10":
+      title: Broken authentication and session management
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "5_4_6":
+      title: Process in place to review application updates
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "6_1":
+      title: The wireless technology must be implemented securely
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
+    "6_2":
+      title: For wireless technology, implement strong encryption for authentication and transmission
+      link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
