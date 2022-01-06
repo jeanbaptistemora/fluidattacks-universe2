@@ -14,15 +14,6 @@ VULN: str = "test/static/terraform/vulnerable"
 NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
-def test_has_unrestricted_ip_protocols():
-    """test ec2.allows_all_outbound_traffic."""
-    result = ec2.has_unrestricted_ip_protocols(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert ec2.has_unrestricted_ip_protocols(SAFE).is_closed()
-    assert ec2.has_unrestricted_ip_protocols(NOT_EXISTS).is_unknown()
-
-
 def test_has_unrestricted_cidrs():
     """test ec2.has_unrestricted_cidrs."""
     result = ec2.has_unrestricted_cidrs(VULN)

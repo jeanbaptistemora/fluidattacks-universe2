@@ -53,55 +53,6 @@ def _tipify_rules(res_props):
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unrestricted_ip_protocols(
-    path: str, exclude: Optional[List[str]] = None
-) -> tuple:
-    """
-    Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
-
-    The following checks are performed:
-
-    * W40 Security Groups egress with an IpProtocol of -1 found
-    * W42 Security Groups ingress with an ipProtocol of -1 found
-
-    :param path: Location of CloudFormation's template file.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-        starting_path=path,
-        resource_types=["aws_security_group", "aws_security_group_rule"],
-        exclude=exclude,
-    ):
-        rules = _tipify_rules(res_props)
-        for rule in rules:
-            if str(rule.get("protocol")) == "-1":
-                vuln = Vulnerability(
-                    path=yaml_path,
-                    entity=f'{rule.get("type")}/protocol/-1',
-                    identifier=res_name,
-                    reason="Authorize all IP protocols",
-                )
-                vulnerabilities.append(vuln)
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open=(
-            "EC2 security groups have ingress/egress rules "
-            "with unrestricted IP protocols"
-        ),
-        msg_closed=(
-            "EC2 security groups do not have ingress/egress rules "
-            "with unrestricted IP protocols"
-        ),
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError)
 def has_unrestricted_cidrs(
     path: str, exclude: Optional[List[str]] = None
 ) -> tuple:
