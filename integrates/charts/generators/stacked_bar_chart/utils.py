@@ -431,78 +431,78 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
     data_monthly: List[GroupDocumentData] = []
     data_yearly: List[GroupDocumentData] = []
     if over_time_weekly:
-        group_found_over_time = over_time_weekly[0]
+        group_opened_over_time = over_time_weekly[4]
         group_closed_over_time = over_time_weekly[1]
         group_accepted_over_time = over_time_weekly[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
-                    date=translate_date(str(found["x"])),
-                    total=found["y"],
+                    opened=opened["y"],
+                    date=translate_date(str(accepted["x"])),
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
     if over_time_monthly:
-        group_found_over_time = over_time_monthly[0]
+        group_opened_over_time = over_time_monthly[4]
         group_closed_over_time = over_time_monthly[1]
         group_accepted_over_time = over_time_monthly[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data_monthly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
+                    opened=opened["y"],
                     date=(
-                        translate_date_last(str(found["x"]))
-                        if translate_date_last(str(found["x"]))
+                        translate_date_last(str(accepted["x"]))
+                        if translate_date_last(str(accepted["x"]))
                         < datetime.now()
                         else datetime.combine(
                             datetime.now(),
                             datetime.min.time(),
                         )
                     ),
-                    total=found["y"],
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
     if over_time_yearly:
-        group_found_over_time = over_time_yearly[0]
+        group_opened_over_time = over_time_yearly[4]
         group_closed_over_time = over_time_yearly[1]
         group_accepted_over_time = over_time_yearly[2]
 
-        for accepted, closed, found in zip(
+        for accepted, closed, opened in zip(
             group_accepted_over_time,
             group_closed_over_time,
-            group_found_over_time,
+            group_opened_over_time,
         ):
             data_yearly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
-                    opened=found["y"] - closed["y"] - accepted["y"],
+                    opened=opened["y"],
                     date=(
-                        datetime.strptime(str(found["x"]), DATE_FMT)
-                        if datetime.strptime(str(found["x"]), DATE_FMT)
+                        datetime.strptime(str(accepted["x"]), DATE_FMT)
+                        if datetime.strptime(str(accepted["x"]), DATE_FMT)
                         < datetime.now()
                         else datetime.combine(
                             datetime.now(),
                             datetime.min.time(),
                         )
                     ),
-                    total=found["y"],
+                    total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
