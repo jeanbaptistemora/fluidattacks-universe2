@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 import type { FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -90,6 +92,9 @@ const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
+      case "Exception - Git repository was not accessible with given credentials":
+        msgError(translate.t("group.scope.git.errors.invalidGitCredentials"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't add git roots", error);
@@ -159,6 +164,9 @@ function useGitSubmit(
   ) => Promise<FetchResult<unknown>>
 ): ({
   branch,
+  credential,
+  credentialName,
+  credentialType,
   environment,
   gitignore,
   id,
@@ -169,6 +177,9 @@ function useGitSubmit(
   return useCallback(
     async ({
       branch,
+      credential,
+      credentialName,
+      credentialType,
       environment,
       gitignore,
       id,
@@ -182,6 +193,12 @@ function useGitSubmit(
           await addGitRoot({
             variables: {
               branch: branch.trim(),
+              credential:
+                credential === ""
+                  ? credential
+                  : Buffer.from(credential).toString("base64"),
+              credentialName,
+              credentialType: credentialType === "" ? null : credentialType,
               environment,
               gitignore,
               groupName,

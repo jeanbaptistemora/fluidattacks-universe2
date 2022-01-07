@@ -640,6 +640,8 @@ export const enTranslations: ResourceKey = {
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",
+          invalidGitCredentials:
+            "Git repository was not accessible with given credentials",
           rootInGitignore:
             "Root name should not be included in gitignore pattern",
         },
@@ -673,6 +675,12 @@ export const enTranslations: ResourceKey = {
           cloning: {
             message: "Message",
             status: "Status",
+          },
+          credentials: {
+            name: "Cloning credential",
+            nameHint: "Repository SSH Key",
+            ssh: "SSH",
+            type: "Type",
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",

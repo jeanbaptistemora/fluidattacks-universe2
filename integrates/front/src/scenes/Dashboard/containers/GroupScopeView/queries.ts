@@ -47,6 +47,9 @@ const GET_ROOTS: DocumentNode = gql`
 const ADD_GIT_ROOT: DocumentNode = gql`
   mutation AddGitRoot(
     $branch: String!
+    $credential: String
+    $credentialName: String
+    $credentialType: CredentialType
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
@@ -56,6 +59,9 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   ) {
     addGitRoot(
       branch: $branch
+      credential: $credential
+      credentialName: $credentialName
+      credentialType: $credentialType
       environment: $environment
       gitignore: $gitignore
       groupName: $groupName

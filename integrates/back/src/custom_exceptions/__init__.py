@@ -50,10 +50,6 @@ class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
     msg: str = "Invalid, you cannot change the nickname while closing"
 
 
-class InvalidGitCredentials(_SingleMessageException):
-    msg: str = "Git repository was not accessible with given credentials"
-
-
 class InvalidNewVulnState(_SingleMessageException):
     msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
 
@@ -1082,3 +1078,12 @@ class BillingSubscriptionAlreadyActive(CustomBaseException):
             "Provided subscription is already active for this group."
         )
         super(BillingSubscriptionAlreadyActive, self).__init__(msg)
+
+
+class InvalidGitCredentials(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - Git repository was not accessible "
+            "with given credentials"
+        )
+        super(InvalidGitCredentials, self).__init__(msg)

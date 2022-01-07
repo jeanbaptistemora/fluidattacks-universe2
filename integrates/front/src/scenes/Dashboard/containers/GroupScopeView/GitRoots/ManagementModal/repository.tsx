@@ -2,7 +2,8 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
-import React, { useCallback, useState } from "react";
+import _ from "lodash";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IGitRootAttr } from "../../types";
@@ -19,11 +20,15 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import {
   FormikArrayField,
   FormikCheckbox,
+  FormikDropdown,
   FormikText,
+  FormikTextArea,
 } from "utils/forms/fields";
 import { openUrl } from "utils/resourceHelpers";
 import { checked, required } from "utils/validations";
@@ -53,6 +58,8 @@ const Repository: React.FC<IRepositoryProps> = ({
 
     return nicknames.includes(repoName) && initialNickname !== repoName;
   };
+
+  const user: IAuthContext = useContext(authContext);
 
   const requireNickname: FieldValidator = useCallback(
     (field: string): string | undefined => {
@@ -133,6 +140,56 @@ const Repository: React.FC<IRepositoryProps> = ({
                       </div>
                     </div>
                     <br />
+                  </React.Fragment>
+                ) : undefined}
+                {_.endsWith(user.userEmail, "@fluidattacks.com") &&
+                !isEditing ? (
+                  <React.Fragment>
+                    <div className={"flex"}>
+                      <div className={"w-70 mr3"}>
+                        <ControlLabel>
+                          {t("group.scope.git.repo.credentials.name")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikText}
+                          name={"credentialName"}
+                          placeholder={t(
+                            "group.scope.git.repo.credentials.nameHint"
+                          )}
+                          type={"text"}
+                        />
+                      </div>
+                      <div className={"w-30"}>
+                        <ControlLabel>
+                          {t("group.scope.git.repo.credentials.type")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikDropdown}
+                          name={"credentialType"}
+                        >
+                          <option value={""}>{""}</option>
+                          <option value={"SSH"}>
+                            {t("group.scope.git.repo.credentials.ssh")}
+                          </option>
+                        </Field>
+                      </div>
+                    </div>
+                    <br />
+                    {values.credentialType === "SSH" ? (
+                      <React.Fragment>
+                        <div className={"flex"}>
+                          <div className={"w-100"}>
+                            <Field
+                              component={FormikTextArea}
+                              name={"credential"}
+                              type={"text"}
+                              validate={required}
+                            />
+                          </div>
+                        </div>
+                        <br />
+                      </React.Fragment>
+                    ) : undefined}
                   </React.Fragment>
                 ) : undefined}
                 <div className={"flex"}>
