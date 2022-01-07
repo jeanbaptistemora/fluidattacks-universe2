@@ -2374,7 +2374,7 @@
       The system's web services
       do not have an authorization control mechanism
       or the one in place can be bypassed.
-    impact: Obtaining confidential information from users.
+    impact: Obtain confidential information from users.
     recommendation: >
       Validate through session cookies or
       tokens that users trying to access
@@ -2704,7 +2704,7 @@
     impact: >
       - Allow an attacker to modify the page.
 
-      - Attacker crafts malicious links, including
+      - Craft malicious links, including
       his injected HTML content, and sends it to a
       user via email.
     recommendation: >
@@ -2840,7 +2840,7 @@
       available services
       and users' personal data.
     impact: >
-      - Obtaining information from
+      - Obtain information from
       internal users.
 
       - Obtain account information
@@ -2960,7 +2960,7 @@
 
       - Compiler will take more time to run the code.
 
-      - This weakness could be an indication of a bug in
+      - Could be an indication of a bug in
       the program or a deprecated variable that was not
       removed and is an indication of poor quality.
     recommendation: >
@@ -2979,9 +2979,9 @@
 
       - El compilador tardará más tiempo en ejecutar el código.
 
-      - Esta debilidad podría ser una indicación de un
-      error en el programa o de una variable obsoleta que
-      no fue eliminada y es una indicación de mala calidad.
+      - Podría ser una indicación de un error en el
+      programa o de una variable obsoleta que no fue
+      eliminada y es una indicación de mala calidad.
     recommendation: >
       Detectar y eliminar las variables no utilizadas del código.
     threat: >
