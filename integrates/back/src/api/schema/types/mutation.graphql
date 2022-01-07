@@ -448,6 +448,12 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Remove a subscription for a group. Makes it free tier"
+  removeBillingSubscription(
+    "Group name"
+    groupName: String!
+  ): SimplePayload!
+
   "Removes evidence from an Event"
   removeEventEvidence(
     "Identifier of the event to which the Evidence belongs"

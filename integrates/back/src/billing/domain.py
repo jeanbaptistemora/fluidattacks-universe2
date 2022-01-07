@@ -13,6 +13,7 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
+    BillingGroupWithoutSubscription,
     BillingSubscriptionAlreadyActive,
     InvalidBillingCustomer,
     InvalidBillingPrice,
@@ -122,14 +123,14 @@ async def _get_group_subscription(
         limit=limit,
         status=status,
     ).data
-    filtered = [sub for sub in subs if sub.metadata["group"] == group_name]
+    filtered = [sub for sub in subs if sub.metadata.group == group_name]
     if len(filtered) > 0:
         return Subscription(
             id=filtered[0].id,
-            group=filtered[0].metadata["group"],
+            group=filtered[0].metadata.group,
             org_billing_customer=filtered[0].customer,
-            organization=filtered[0].metadata["organization"],
-            type=filtered[0].metadata["subscription"],
+            organization=filtered[0].metadata.organization,
+            type=filtered[0].metadata.subscription,
         )
     return None
 
@@ -257,6 +258,7 @@ async def create_portal(
     org_billing_customer: str,
 ) -> Portal:
     """Create Stripe portal session"""
+    # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
@@ -269,6 +271,35 @@ async def create_portal(
         organization=org_name,
         portal_url=session.url,
         return_url=session.return_url,
+    )
+
+
+async def remove_subscription(
+    *,
+    group_name: str,
+    org_billing_customer: str,
+) -> bool:
+    """Cancel a stripe subscription"""
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    sub: Optional[Subscription] = await _get_group_subscription(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="active",
+        limit=1000,
+    )
+
+    # Raise exception if group does not have an active subscription
+    if sub is None:
+        raise BillingGroupWithoutSubscription()
+
+    return (
+        stripe.Subscription.delete(
+            sub.id,
+        ).status
+        == "canceled"
     )
 
 
@@ -289,9 +320,9 @@ async def webhook(request: Request) -> JSONResponse:
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
                 reason=f"Update triggered by String with event {event.id}",
-                requester_email="Stripe webhook",
+                requester_email="development@fluidattacks.com",
                 group_name=event.data.object.metadata.group,
-                tier=event.data.object.plan.nickname,
+                tier=event.data.object.metadata.subscription,
             ):
                 message = "Subscription was successful!"
         else:

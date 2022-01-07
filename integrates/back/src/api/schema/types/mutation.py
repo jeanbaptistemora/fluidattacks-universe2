@@ -40,6 +40,7 @@ from api.mutations import (
     refresh_toe_lines,
     reject_draft,
     reject_vulnerabilities_zero_risk,
+    remove_billing_subscription,
     remove_event_evidence,
     remove_files,
     remove_finding,
@@ -153,6 +154,9 @@ MUTATION.set_field("rejectDraft", reject_draft.mutate)
 MUTATION.set_field(
     "rejectVulnerabilitiesZeroRisk",
     reject_vulnerabilities_zero_risk.mutate,
+)
+MUTATION.set_field(
+    "removeBillingSubscription", remove_billing_subscription.mutate
 )
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)

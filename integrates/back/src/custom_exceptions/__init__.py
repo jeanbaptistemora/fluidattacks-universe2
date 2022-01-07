@@ -1050,9 +1050,9 @@ class InvalidToeLinesAttackedLines(CustomBaseException):
 class InvalidBillingCustomer(CustomBaseException):
     def __init__(self) -> None:
         msg = (
-            "Exception - Cannot create portal session. "
-            "The organization does not have a customer yet. "
-            "Please checkout at least one subscription for a group."
+            "Exception - Cannot perform action. "
+            "The organization does not have a billing customer yet. "
+            "Please get at least one subscription for a group."
         )
         super(InvalidBillingCustomer, self).__init__(msg)
 
@@ -1064,6 +1064,15 @@ class InvalidBillingPrice(CustomBaseException):
             "Provided price does not exist in Stripe."
         )
         super(InvalidBillingPrice, self).__init__(msg)
+
+
+class BillingGroupWithoutSubscription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid group. "
+            "Provided group currently does not have an active subscription."
+        )
+        super(BillingGroupWithoutSubscription, self).__init__(msg)
 
 
 class BillingSubscriptionAlreadyActive(CustomBaseException):
