@@ -21,12 +21,3 @@ def test_has_unrestricted_cidrs():
     assert result.get_vulns_number() == 5
     assert ec2.has_unrestricted_cidrs(SAFE).is_closed()
     assert ec2.has_unrestricted_cidrs(NOT_EXISTS).is_unknown()
-
-
-def test_is_associate_public_ip_address_enabled():
-    """test ec2.is_associate_public_ip_address_enabled."""
-    result = ec2.is_associate_public_ip_address_enabled(VULN)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert ec2.is_associate_public_ip_address_enabled(SAFE).is_closed()
-    assert ec2.is_associate_public_ip_address_enabled(NOT_EXISTS).is_unknown()
