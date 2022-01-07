@@ -196,12 +196,17 @@ def delta_update(
 ) -> IO[None]:
     _fields = _delta_fields(old, new)
     if ignore_fa_hash and _fields == ("fa_hash",):
-        LOG.info("delta fa_hash update skipped")
+        LOG.warning("delta fa_hash update skipped")
         return IO(None)
     if len(_fields) > 0:
-        LOG.info("delta update %s fields", len(_fields))
+        changes = tuple(
+            f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields
+        )
+        LOG.info(
+            "delta update %s fields:\n%s", len(_fields), "\n".join(changes)
+        )
         return client.cursor.execute_query(
             query.update_row(table, new, _fields)
         )
-    LOG.info("delta update skipped")
+    LOG.debug("delta update skipped")
     return IO(None)

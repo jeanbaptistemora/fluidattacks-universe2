@@ -16,6 +16,7 @@ from code_etl.mailmap import (
 from code_etl.objs import (
     CommitStamp,
 )
+import logging
 from postgres_client.client import (
     Client,
     ClientFactory,
@@ -37,6 +38,8 @@ from returns.maybe import (
     Maybe,
 )
 
+LOG = logging.getLogger(__name__)
+
 
 def amend_users(
     client: Client,
@@ -45,9 +48,11 @@ def amend_users(
     mailmap: Maybe[Mailmap],
     hash_2: bool,
 ) -> IO[None]:
+    LOG.info("Getting data stream...")
     data = namespace_data(client, table, namespace).map(
         lambda i: i.map(lambda r: r.bind(decoder.decode_commit_table_row))
     )
+    LOG.info("Mutation started")
     for io_r in data:
         io_r.map(lambda r: r.alt(raise_exception).unwrap()).map(
             lambda c: update_stamp(
