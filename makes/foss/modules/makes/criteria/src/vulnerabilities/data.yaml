@@ -5376,7 +5376,7 @@
       in the same data structure
       or structured message.
     impact: >
-      Pushing data into critical data structures,
+      Introduce data into critical data structures,
       which could lead to some types
       of injections.
     recommendation: >
@@ -5941,7 +5941,7 @@
       It is possible to modify the path
       to which an uploaded file will be saved.
     impact: >
-      Saving files in paths other than
+      Save files in paths other than
       those expected by the application.
     recommendation: >
       Validate uploaded files names
