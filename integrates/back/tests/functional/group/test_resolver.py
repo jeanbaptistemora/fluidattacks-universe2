@@ -31,7 +31,6 @@ async def test_get_group(populate: bool, email: str) -> None:
     consult: str = "This is a test comment"
     finding: str = "475041521"
     event: str = "418900971"
-    root: str = "63298a73-9dff-46cf-b42d-9b2f01a56690"
     result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Exception - Document not found"
@@ -84,7 +83,15 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert event in [
         event["id"] for event in result["data"]["group"]["events"]
     ]
-    assert root in [root["id"] for root in result["data"]["group"]["roots"]]
+    assert result["data"]["group"]["roots"] == [
+        {
+            "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
+            "vulnerabilities": [
+                {"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"},
+                {"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b"},
+            ],
+        }
+    ]
 
 
 @pytest.mark.asyncio

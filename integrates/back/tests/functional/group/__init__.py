@@ -66,6 +66,9 @@ async def get_result(
                 roots {{
                     ...on GitRoot {{
                         id
+                        vulnerabilities {{
+                            id
+                        }}
                     }}
                 }}
                 drafts {{

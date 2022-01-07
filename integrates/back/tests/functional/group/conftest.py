@@ -402,6 +402,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     where="192.168.1.1",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },
             {
@@ -427,6 +428,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     where="192.168.1.2",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },
             {
@@ -454,6 +456,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     where="192.168.1.3",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },
         ],
