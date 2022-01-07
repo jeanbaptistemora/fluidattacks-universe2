@@ -3716,4 +3716,25 @@
     "119":
       title: Improper Restriction of Operations within the Bounds of a Memory Buffer
       link: https://www.sans.org/top25-software-errors/
+    "79":
+      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+      link: https://www.sans.org/top25-software-errors/
+    "20":
+      title: Improper Input Validation
+      link: https://www.sans.org/top25-software-errors/
+    "200":
+      title: Information Exposure
+      link: https://www.sans.org/top25-software-errors/
+    "125":
+      title: Out-of-bounds Read
+      link: https://www.sans.org/top25-software-errors/
+    "89":
+      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "416":
+      title: Use After Free
+      link: https://www.sans.org/top25-software-errors/
+    "190":
+      title: Integer Overflow or Wraparound
+      link: https://www.sans.org/top25-software-errors/
   metadata: {}
