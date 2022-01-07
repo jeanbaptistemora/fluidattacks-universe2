@@ -7,11 +7,8 @@ subtitle: The story of David and Goliath
 tags: security, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/cover_hdty39.webp
 alt: greek statue with small angels.
-description: Here you'll learn how a slow HTTP attack works,
-  how to inspect HTTP requests and responses, and you'll see
-  how to perform an asymmetric denial of service.
-keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP,
-  Asymmetric Attacks, Ethical Hacking, Pentesting
+description: Here you'll learn how a slow HTTP attack works, how to inspect HTTP requests and responses, and you'll see how to perform an asymmetric denial of service.
+keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP, Asymmetric Attacks, Ethical Hacking, Pentesting
 author: Kevin Amado
 writer: kamadoatfluid
 name: Kevin Amado
@@ -20,61 +17,71 @@ about2: An algorithm must be seen to be believed, Donald Knuth
 source: https://unsplash.com/photos/Wf2tCunxqQU
 ---
 
-Have you ever heard the story of David and Goliath? David, a young boy,
-goes out to confront a giant, named Goliath. David is the underdog in
-this fight and is expected to lose. But, everyone underestimates David
-and his prowess with a slingshot. When David ultimately kills Goliath,
-he demonstrates that even a little guy can triumph over the biggest and
-strongest of enemies.
+Have you ever heard the story of David and Goliath?
+David, a young boy, goes out to confront a giant, named Goliath.
+David is the underdog in this fight and is expected to lose.
+But, everyone underestimates David and his prowess with a slingshot.
+When David ultimately kills Goliath,
+he demonstrates that even a little guy can triumph
+over the biggest and strongest of enemies.
 
-Fine\! Today we are going to talk about unequal scenarios. Furthermore,
-we are going to battle one ourselves.
+Fine\! Today we are going to talk about unequal scenarios.
+Furthermore, we are going to battle one ourselves.
 
 ## Let’s get started
 
-So, let’s imagine, for a moment, that all you need to kill the giant,
-that everyone fears, is a little slingshot, not a big mace, nor the
-strength of a thousand men. Sound crazy? Well, it is. But it’s possible.
+So, let’s imagine, for a moment,
+that all you need to kill the giant,
+that everyone fears, is a little slingshot,
+not a big mace, nor the strength of a thousand men.
+Sound crazy? Well, it is. But it’s possible.
 
-A cyber attack is considered "asymmetric" in the sense that you only
-need a few resources, in this case, a laptop, in order to cause a
-considerable amount of damage, malfunction or failure in the server. A
-very real case of David vs. Goliath.
+A cyber attack is considered "asymmetric"
+in the sense that you only need a few resources,
+in this case, a laptop,
+in order to cause a considerable amount of damage,
+malfunction or failure in the server.
+A very real case of David vs. Goliath.
 
-If we push hard enough, the server is going to stop providing the
-service to other users, in other words, we will cause a *Denial of
-Service* (DoS).
+If we push hard enough, the server is going to stop providing the service to
+other users, in other words, we will cause a *Denial of Service* (DoS).
 
 ## How does a slow http attack work?
 
-Imagine a line at the local fast food restaurant. A customer at the head
-of the line can’t decide if he wants a burger or a hot-dog. People
-behind him in line are getting mad; they aren’t getting their food
+Imagine a line at the local fast food restaurant.
+A customer at the head of the line
+can’t decide if he wants a burger or a hot-dog.
+People behind him in line are getting mad;
+they aren’t getting their food
 because he is holding up the whole line.
 
-If you look at it in more detail, all this customer needed to do was to
-"not know what to order". His indecision basically caused a denial of
-service for every other person waiting behind him at the counter, i.e.,
-A DoS.
+If you look at it in more detail,
+all this customer needed to do was to "not know what to order".
+His indecision basically caused a denial of service
+for every other person waiting behind him at the counter, i.e., A DoS.
 
-Now imagine the same line, but the customer at the counter knows what he
-wants to order, and he’s ordering a thousand burgers and a hundred
-hot-dogs. Again, this means everyone behind him in line will have to
-wait while his order is filled. The restaurant can take no more orders
-until his is complete.
+Now imagine the same line,
+but the customer at the counter knows what he wants to order,
+and he’s ordering a thousand burgers and a hundred hot-dogs.
+Again, this means everyone behind him in line
+will have to wait while his order is filled.
+The restaurant can take no more orders until his is complete.
 
-The HTTP protocol works similarly, it requires requests to be fully
-received by the final user before they are processed.
+The HTTP protocol works similarly, it requires requests to be fully received by
+the final user before they are processed.
 
-Two things can happen, if a request is not completed, the server can
-either wait or set the request as timed out after some few seconds.
-However, if you let the request complete, but at a slow rate, then the
-server will keep the resource busy waiting for the end of the data.
+Two things can happen, if a request is not completed,
+the server can either wait
+or set the request as timed out after some few seconds.
+However, if you let the request complete,
+but at a slow rate, then the server will keep the resource busy
+waiting for the end of the data.
 
-What would happen if the customer orders a thousand burgers and a
-hundred hot-dogs, but he can’t decide which sauces and drinks to order
-with them? And, to make matters worse, he seems to be intentionally
-indecisive and he’s speaking very slowly.
+What would happen if the customer orders a thousand burgers
+and a hundred hot-dogs, but he can’t decide
+which sauces and drinks to order with them?
+And, to make matters worse, he seems to be intentionally indecisive
+and he’s speaking very slowly.
 
 The answer:
 
@@ -82,22 +89,24 @@ The answer:
 
 This is exactly the idea behind a slow HTTP attack.
 
-A web server keeps its active connections in a relatively small
-connection pool. We will try to tie all the connections in this pool to
-slow requests, making the server reject other users.
+A web server keeps its active connections
+in a relatively small connection pool.
+We will try to tie all the connections in this pool
+to slow requests, making the server reject other users.
 
 ## Let’s do an HTTP request
 
-First, let’s run a [bWAPP](http://www.itsecgames.com/) server on ip
-*192.168.56.101*.
+First, let’s run a
+[bWAPP](http://www.itsecgames.com/)
+server on ip *192.168.56.101*.
 
 <div class="imgblock">
 
-![bwapp-running](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/bwapp-running_lncq1r.webp)
+![bWAPP-running](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/bwapp-running_lncq1r.webp)
 
 <div class="title">
 
-Figure 1. BWAPP server
+Figure 1. bWAPP server
 
 </div>
 
@@ -121,10 +130,12 @@ Figure 2. XSS page and input
 
 </div>
 
-Once we access a page, the browser is going to ask the server for some
-resources (images, texts, `HTML` pages, `CSS` and `JavaScript` files,
-etc) and we can see these requests and responses from the command line
-using `curl` (or Google Chrome, or Firefox, or `BURP`).
+Once we access a page,
+the browser is going to ask the server for some resources
+(images, texts, `HTML` pages, `CSS` and `JavaScript` files, etc)
+and we can see these requests and responses
+from the command line using `curl`
+(or Google Chrome, or Firefox, or `BURP`).
 
 The process using *curl* is:
 
@@ -141,9 +152,10 @@ http://192.168.56.101/bWAPP/xss_post.php
 $ # output is displayed to console, we'll see it in a moment
 ```
 
-As mentioned before, every single resource is going to have a request
-and a corresponding response. In other words, we are asking the server
-for the *xss\_post.php* resource with the parameters:
+As mentioned before,
+every single resource is going to have a request and a corresponding response.
+In other words, we are asking the server for the *xss\_post.php* resource with
+the parameters:
 
 **POST Parameters.**
 
@@ -188,8 +200,8 @@ OpenSSL/0.9.8k Phusion_Passenger/4.0.38 mod_perl/2.0.4 Perl/v5.10.1
 < Content-Type: text/html
 ```
 
-At this point, nothing stops us from sending follow up headers with
-random values:
+At this point,
+nothing stops us from sending follow up headers with random values:
 
 **POST Parameters.**
 
@@ -205,20 +217,22 @@ wait some seconds…​
 firstname=IEU182KSZ&lastname=test2&form=submit
 ```
 
-And nothing stops us from simulating a slow connection on each one of
-these requests, so the server is going to have to wait until we receive
-the full resource.
+And nothing stops us from simulating a slow connection
+on each one of these requests,
+so the server is going to have to wait
+until we receive the full resource.
 
-Why not do a thousand requests until every single connection available
-on the server pool is busy with us?
+Why not do a thousand requests
+until every single connection available on the server pool
+is busy with us?
 
 To do this, we are going to use a tool.
 
 ## Using slowhttptest
 
-First, let’s pull the [slowhttptest docker
-image](https://hub.docker.com/r/frapsoft/slowhttptest/) from the docker
-hub.
+First, let’s pull the
+[slowhttptest docker image](https://hub.docker.com/r/frapsoft/slowhttptest/)
+from the docker hub.
 
 **Bash command.**
 
@@ -257,16 +271,16 @@ The parameters you see are described below:
 | <p> \-t firstname </p> | <p> add ?firstname=(-x 10bytes) to the target url                                                                   </p> |
 | <p> \-u URL       </p> | <p> target URL                                                                                                      </p> |
 
-While the attack is running a user that tries to access the service is
-going to see:
+While the attack is running a user that tries to access the service is going
+to see:
 
 <div class="imgblock">
 
-![bwapp-while-attacking](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-while-attacking_rqvn9n.webp)
+![bWAPP-while-attacking](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-while-attacking_rqvn9n.webp)
 
 <div class="title">
 
-Figure 3. BWAPP is trying to connect without success
+Figure 3. bWAPP is trying to connect without success
 
 </div>
 
@@ -276,11 +290,11 @@ If the attack is long enough, it is going to get timed out:
 
 <div class="imgblock">
 
-![bwapp-timed-out](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-timed-out_zqmfbc.webp)
+![bWAPP-timed-out](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-timed-out_zqmfbc.webp)
 
 <div class="title">
 
-Figure 4. BWAPP gets timed-out
+Figure 4. bWAPP gets timed-out
 
 </div>
 
@@ -290,25 +304,26 @@ Once the attack is finished everything returns to a normal state:
 
 <div class="imgblock">
 
-![bwapp-attack-finished](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/asymmetric-dos-slow-http-attack/bwapp-attack-finished_ka1ois.webp)
+![bWAPP-attack-finished](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/asymmetric-dos-slow-http-attack/bwapp-attack-finished_ka1ois.webp)
 
 <div class="title">
 
-Figure 5. BWAPP working normally after attacks
+Figure 5. bWAPP working normally after attacks
 
 </div>
 
 </div>
 
-Since we only need a few resources (the internet and a laptop) we can
-even do it on a low-bandwidth connection. Moreover, since we don’t need
-too much bandwidth, we can pass everything through a proxy in the tor
-network and hide ourselves.
+Since we only need a few resources (the internet and a laptop)
+we can even do it on a low-bandwidth connection.
+Moreover, since we don’t need too much bandwidth,
+we can pass everything through a proxy
+in the tor network and hide ourselves.
 
 ## Sounds scary, how do I protect myself?
 
-Counter-measures depend mainly on your service. Some useful mechanisms
-to prevent this kind of attacks are:
+Counter-measures depend mainly on your service.
+Some useful mechanisms to prevent this kind of attacks are:
 
 - Limit the number of resources an unauthorized user can expend.
 
@@ -322,12 +337,13 @@ to prevent this kind of attacks are:
 
 - Reject connections with verbs not supported by the URL.
 
-In cases where you need to set minimum and maximum limits, it’s a good
-idea to use the values from your statistics. If the value is too short,
-you may risk dropping legitimate connections; if it is too long, you
-won’t get any protection from attacks. Perhaps using a margin ranging
-from one to two [standard
-deviations](https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Empirical_Rule.PNG)
+In cases where you need to set minimum and maximum limits,
+it’s a good idea to use the values from your statistics.
+If the value is too short, you may risk dropping legitimate connections;
+if it is too long, you won’t get any protection from attacks.
+Perhaps using a margin ranging
+from one to two
+[standard deviations](https://en.wikipedia.org/wiki/Normal_distribution#/media/File:Empirical_Rule.PNG)
 may help you with this.
 
 ## Finally
