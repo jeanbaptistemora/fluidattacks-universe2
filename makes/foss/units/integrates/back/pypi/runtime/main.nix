@@ -19,10 +19,10 @@ let
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
     searchPathsBuild = {
-      bin = [ inputs.nixpkgs.gcc ];
+      bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
     };
     searchPathsRuntime = {
-      bin = [ inputs.nixpkgs.gcc ];
+      bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
     };
     withSetuptools_57_4_0 = true;
     withWheel_0_37_0 = true;

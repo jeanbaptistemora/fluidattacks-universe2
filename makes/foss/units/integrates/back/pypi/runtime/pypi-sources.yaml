@@ -12,12 +12,14 @@ closure:
   antlr4-python3-runtime: 4.7.2
   ariadne: 0.12.0
   asgiref: 3.4.1
+  asn1crypto: 1.4.0
   async-lru: 1.0.2
   async-timeout: 4.0.2
   attrs: 21.4.0
   authlib: 0.15.4
   awscli: 1.18.32
   backports.csv: 1.0.7
+  beautifulsoup4: 4.10.0
   binaryornot: 0.4.4
   bleach: 4.1.0
   boto3: 1.12.32
@@ -61,7 +63,7 @@ closure:
   jwcrypto: "0.8"
   kiwisolver: 1.3.2
   korean-lunar-calendar: 0.2.1
-  lxml: 4.6.4
+  lxml: 4.7.1
   mailchimp-transactional: 1.0.40
   markupsafe: 2.0.1
   matplotlib: 3.4.3
@@ -75,6 +77,7 @@ closure:
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.0.0
+  psycopg: 3.0.7
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
   pycparser: "2.21"
@@ -94,6 +97,7 @@ closure:
   pyyaml: 5.3.1
   redis: 3.5.3
   redis-py-cluster: 2.1.0
+  redshift-connector: 2.0.902
   requests: 2.26.0
   requests-oauthlib: 1.3.0
   retrying: 1.3.3
@@ -102,11 +106,13 @@ closure:
   ruamel.yaml: 0.17.20
   ruamel.yaml.clib: 0.2.6
   s3transfer: 0.3.3
+  scramp: 1.4.1
   simplejson: 3.17.0
   six: 1.16.0
   smmap: 5.0.0
   sniffio: 1.2.0
   social-auth-core: 3.3.3
+  soupsieve: 2.3.1
   starlette: 0.13.8
   stripe: 2.63.0
   tracers: 21.8.6876
@@ -229,6 +235,12 @@ links:
   - name: asgiref-3.4.1.tar.gz
     sha256: 1saqgpgbdvb8awzm0f0640j0im55hkrfzvcw683cgqw4ni3apwaf
     url: https://files.pythonhosted.org/packages/07/93/3618b68b4ba6b54bc97b5fd7d90e4981471edfaf51c8321a29a3c76cf47c/asgiref-3.4.1.tar.gz
+  - name: asn1crypto-1.4.0-py2.py3-none-any.whl
+    sha256: 1a1gvqpy2kjvz6ivjh6zzhhc7ak1fvfy9n3lrnyl0z8whqyg7kab
+    url: https://files.pythonhosted.org/packages/b5/a8/56be92dcd4a5bf1998705a9b4028249fe7c9a035b955fe93b6a3e5b829f8/asn1crypto-1.4.0-py2.py3-none-any.whl
+  - name: asn1crypto-1.4.0.tar.gz
+    sha256: 0734wydwkd8j8xi9ifc9vlmxfksvb3migy0s5d5f0n2f8wcy3xpl
+    url: https://files.pythonhosted.org/packages/6b/b4/42f0e52ac2184a8abb31f0a6f98111ceee1aac0b473cee063882436e0e09/asn1crypto-1.4.0.tar.gz
   - name: async_lru-1.0.2.tar.gz
     sha256: 1jvplhv57byilm08jsi0p91xzh2g1vq9cvwnnwqwrx8rfq19ia5s
     url: https://files.pythonhosted.org/packages/7e/c1/a3d6207deaaeb582d16dc9a0fd217f192efc9487ce59897131cf9a2bdc1c/async_lru-1.0.2.tar.gz
@@ -262,6 +274,12 @@ links:
   - name: backports.csv-1.0.7.tar.gz
     sha256: 0vdx5jlhs91iizc8j8l8811nqprwvdx39pgkdc82w2qkfgzxyxqj
     url: https://files.pythonhosted.org/packages/79/0c/d0eaa9380189a292121acab65199ac95b9209b45006ad8aa5266abd36943/backports.csv-1.0.7.tar.gz
+  - name: beautifulsoup4-4.10.0-py3-none-any.whl
+    sha256: 1gs9w76lzb85ha2zqdhxa90cj06p9fy5ah1aayj0x4j903kmqccs
+    url: https://files.pythonhosted.org/packages/69/bf/f0f194d3379d3f3347478bd267f754fc68c11cbf2fe302a6ab69447b1417/beautifulsoup4-4.10.0-py3-none-any.whl
+  - name: beautifulsoup4-4.10.0.tar.gz
+    sha256: 14c8z4gh9bi38agx9ls8ym5rscc02pc6f6hmliaqk08xa8yd4fn2
+    url: https://files.pythonhosted.org/packages/a1/69/daeee6d8f22c997e522cdbeb59641c4d31ab120aba0f2c799500f7456b7e/beautifulsoup4-4.10.0.tar.gz
   - name: binaryornot-0.4.4.tar.gz
     sha256: 0qc006986rb6bcbmiymwgcl1mns2jphr1j7sr7nk41nlr7gh359m
     url: https://files.pythonhosted.org/packages/a7/fe/7ebfec74d49f97fc55cd38240c7a7d08134002b1e14be8c3897c0dd5e49b/binaryornot-0.4.4.tar.gz
@@ -589,30 +607,30 @@ links:
   - name: korean_lunar_calendar-0.2.1.tar.gz
     sha256: 0p97r21298ipgvsqh978aq2n6cvybzp8bskcvj15mm1f76qm9khj
     url: https://files.pythonhosted.org/packages/fa/c4/2f0f2329098ee24f629c3ad4dcb210fbedb52e51fa6348ebdcbd7af2151b/korean_lunar_calendar-0.2.1.tar.gz
-  - name: lxml-4.6.4-cp39-cp39-macosx_10_14_x86_64.whl
-    sha256: 1vm3syk41kv033fk1cblnyh23nh8ny12g0d7wigk1qviz81liclx
-    url: https://files.pythonhosted.org/packages/e0/c5/c86d76bb4ec75e5dd04e11640ac5950f76c3500e6a77297db110bca1b502/lxml-4.6.4-cp39-cp39-macosx_10_14_x86_64.whl
-  - name: lxml-4.6.4-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
-    sha256: 19kipp3czlp58r181bpqnzh0jbvj8fiw6pll0nhcp2wxmlq05mmg
-    url: https://files.pythonhosted.org/packages/c1/60/00789fff597b8b20d25c33d9259db5020a148bdcb5531c659831fcb63a8c/lxml-4.6.4-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
-  - name: lxml-4.6.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
-    sha256: 0hma9vw8mrq17phg6gmwjq38a1b03h7jfch7ggkmcn85ap6y258c
-    url: https://files.pythonhosted.org/packages/44/a0/63c1da7ce00cb70b3e489e51a0b9e4c4683accfbef67c6bf431090b95c8f/lxml-4.6.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
-  - name: lxml-4.6.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
-    sha256: 1mmih0mv4vzfc5vgkcpqb1jab0y9ashmz8krjaixhdwpf8y2nhkd
-    url: https://files.pythonhosted.org/packages/2f/36/fb2a97e0c58e32e8b6650bdfd190818a10a13e1f3d9e670ba726a12ecb46/lxml-4.6.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
-  - name: lxml-4.6.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
-    sha256: 1jx435sn7jkwdqrgcnir7m17vrr31myfx2mk3cpyydn2qdp0zf9f
-    url: https://files.pythonhosted.org/packages/30/fb/ba614d3e83778072d3efd7f6a53012fba10bea11e71252b26c2ce605c91e/lxml-4.6.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
-  - name: lxml-4.6.4-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-    sha256: 1m45q89v83ic59dpilg2fbbjl8sb3l969r14dvs9cxb88g9fb82i
-    url: https://files.pythonhosted.org/packages/2e/fd/54bcfc35c77107e54a35182a8de04508af35ade832bd0c0f5b53ae98a6f0/lxml-4.6.4-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - name: lxml-4.6.4-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 0i4anz7nba5hr1l5iammywccippc2mm4a1f0jzi897042j3xcfyl
-    url: https://files.pythonhosted.org/packages/58/cf/59f4a0188bd3abdd3373362a81a4bb73692396cf241d72423c4deedac2c0/lxml-4.6.4-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: lxml-4.6.4.tar.gz
-    sha256: 171rs6w8rj5nfg3zzcwgllz6i3csw1ci0glbjajwgw9ixqgvvyfs
-    url: https://files.pythonhosted.org/packages/fe/4c/a4dbb4e389f75e69dbfb623462dfe0d0e652107a95481d40084830d29b37/lxml-4.6.4.tar.gz
+  - name: lxml-4.7.1-cp39-cp39-macosx_10_14_x86_64.whl
+    sha256: 1j82iqqlwh2i4y81ad8gzysmh0fbd8d3incl0apnmn62p44753bi
+    url: https://files.pythonhosted.org/packages/08/5f/f8a96c8fcbf150b0e314e7dd60facd590deabdc1af9ffe242714ddd8490a/lxml-4.7.1-cp39-cp39-macosx_10_14_x86_64.whl
+  - name: lxml-4.7.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
+    sha256: 12d438mm7k71dnl261rcjgb54kfkicfnzr5hgxm6i1yvpw61pvjv
+    url: https://files.pythonhosted.org/packages/a6/b9/9ffff5398e02768b20bb50ab6776620e47699a5cb56e37cfb726ea0e62c9/lxml-4.7.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
+  - name: lxml-4.7.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
+    sha256: 0dnzg8lvi05cfjx1kifw9wq1wb595wm7h06p4rasil3j48xcy474
+    url: https://files.pythonhosted.org/packages/8f/4d/04ee445272c2a980c130a0f4efa45fbb105fbad793f0c4346626c3fa362c/lxml-4.7.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
+  - name: lxml-4.7.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+    sha256: 0hlcprv6y2c8jr2hgq1hygy8aqn2vf0mabsym4cdqqa9xr0s4pjq
+    url: https://files.pythonhosted.org/packages/38/43/175fd97c02351c2bcb1b3b01fe524c343103fe94646c53933b20d33a3d72/lxml-4.7.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+  - name: lxml-4.7.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
+    sha256: 1nq0gzz7qm50n0y9dz5f0a2k5nazy1zm1bfhpizidp66crjy0md5
+    url: https://files.pythonhosted.org/packages/32/1e/bc9034b86525f38b90b6d2e44a9902b383ada831356522126a8af59f2d65/lxml-4.7.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
+  - name: lxml-4.7.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 0l8qcplfk7rz5kmf9947kb808y34af8z1i4ilvcg1zsiwddv5amd
+    url: https://files.pythonhosted.org/packages/c1/cd/c5035434fc7dc3c3e96c51fda3ae4b40f8654bc3accf49315bf22caf599b/lxml-4.7.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: lxml-4.7.1-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 1i702jnxyzbkn8bbkr1i8dq8l4wzbf6d2fnnr29wnw394dj6mlc2
+    url: https://files.pythonhosted.org/packages/ab/e6/c66f806b3d38b32f6fa95fdb7afde0a0ee2118e3b5266a04cb78907ea9e3/lxml-4.7.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: lxml-4.7.1.tar.gz
+    sha256: 090viyanaki4q7w7i000xl0qh4in52bkl3qal55sz2bbm8w3hqd1
+    url: https://files.pythonhosted.org/packages/84/74/4a97db45381316cd6e7d4b1eb707d7f60d38cb2985b5dfd7251a340404da/lxml-4.7.1.tar.gz
   - name: mailchimp_transactional-1.0.40-py3-none-any.whl
     sha256: 1i1lp9vplr8njz17d5ifs4kgy5sbd66p9phpc29fkbh3j16f9mfs
     url: https://files.pythonhosted.org/packages/00/21/a99ee4bc849fe0e2ec4822033dffe8d7bacf0691ce0ba4a06760607ac7a1/mailchimp_transactional-1.0.40-py3-none-any.whl
@@ -808,6 +826,12 @@ links:
   - name: Pillow-9.0.0.tar.gz
     sha256: 0gjry0yqryd2678sm47jhdnbghzxn5wk8pgyaqwr4qi7x5ijjvpf
     url: https://files.pythonhosted.org/packages/b0/43/3e286c93b9fa20e233d53532cc419b5aad8a468d91065dbef4c846058834/Pillow-9.0.0.tar.gz
+  - name: psycopg-3.0.7-py3-none-any.whl
+    sha256: 1nizjy0cvynqwy1bckqxcnyp68p01q1sb5zcyq51x3nhga9qj3ls
+    url: https://files.pythonhosted.org/packages/d4/f1/c3925adee57cfa21730db7877a0df98604ab9b4c16fcd6961912b0906f68/psycopg-3.0.7-py3-none-any.whl
+  - name: psycopg-3.0.7.tar.gz
+    sha256: 0m7309chikl792nwhgw16l33pkg68r79wrm1840jsw6fgv5vpwsl
+    url: https://files.pythonhosted.org/packages/26/6d/836360c3d462c8e04c3f4c783e0c30913deda2b50137ce2e5779567133a2/psycopg-3.0.7.tar.gz
   - name: pyasn1-0.4.8-py2.py3-none-any.whl
     sha256: 0pda8szs8jsaknf4ggilgn2q8vpwdm2nzyw79vzlfnai63nf5irr
     url: https://files.pythonhosted.org/packages/62/1e/a94a8d635fa3ce4cfc7f506003548d0a2447ae76fd5ca53932970fe3053f/pyasn1-0.4.8-py2.py3-none-any.whl
@@ -910,6 +934,9 @@ links:
   - name: redis-py-cluster-2.1.0.tar.gz
     sha256: 0lj1szq1jia7cbqqhmbfsdppc00qixggl8mc8yx2j1is46mv1n6y
     url: https://files.pythonhosted.org/packages/4e/fc/ca4935af7da1d879547c4783c2c403d1d33e31ae1e400be44eb6317d2f3f/redis-py-cluster-2.1.0.tar.gz
+  - name: redshift_connector-2.0.902-py3-none-any.whl
+    sha256: 0vwxdkjbin91fkjwgilh29h9ws271czz1i3q72lmvlmixkg349wz
+    url: https://files.pythonhosted.org/packages/01/f1/f011267661c4ebc6d0534d974e7dfcf08a1f4251246529ca2f1d6ea913f1/redshift_connector-2.0.902-py3-none-any.whl
   - name: requests-2.26.0-py2.py3-none-any.whl
     sha256: 097xdqddqm6ikzf30867irmrq3wg1s8nz450512wspnd7r8lc4kc
     url: https://files.pythonhosted.org/packages/92/96/144f70b972a9c0eabbd4391ef93ccd49d0f2747f4f6a2a2738e99e5adc65/requests-2.26.0-py2.py3-none-any.whl
@@ -952,6 +979,12 @@ links:
   - name: s3transfer-0.3.3.tar.gz
     sha256: 1nzp5kwmy9669334shcz9ipg89jgpdqhrmbkgdg18r7wmvi3f6lj
     url: https://files.pythonhosted.org/packages/50/de/2b688c062107942486c81a739383b1432a72717d9a85a6a1a692f003c70c/s3transfer-0.3.3.tar.gz
+  - name: scramp-1.4.1-py3-none-any.whl
+    sha256: 136asvpr3zxlrwwrjy0225q31n6b4dd7mh4157h5392lzqpwrjck
+    url: https://files.pythonhosted.org/packages/27/31/80bfb02ba2daa9a0ca66f82650c411f1a2b21ce85164408f57e99aab4e4e/scramp-1.4.1-py3-none-any.whl
+  - name: scramp-1.4.1.tar.gz
+    sha256: 03pp17r5da3niz9fb32wklylp0vq5mfjbzkg86hy56xyfw880r7r
+    url: https://files.pythonhosted.org/packages/56/26/7cb510bc22da4e6234e9b90586c43eb4fbece4004b35d5a00987808185f5/scramp-1.4.1.tar.gz
   - name: simplejson-3.17.0.tar.gz
     sha256: 108yf3252fy4ndqab7h46raksxfhcn113bzy2yd8369vidrjnjrb
     url: https://files.pythonhosted.org/packages/98/87/a7b98aa9256c8843f92878966dc3d8d914c14aad97e2c5ce4798d5743e07/simplejson-3.17.0.tar.gz
@@ -979,6 +1012,12 @@ links:
   - name: social-auth-core-3.3.3.tar.gz
     sha256: 1h3zwzgf5q5i6kdl2samxs8z14j29rypyr3dp0vwrcn2ispy2v1g
     url: https://files.pythonhosted.org/packages/2e/1c/bcece546f7e7045a55985fdb0283d27d4ae64668e616bdadbc2f74f75cd8/social-auth-core-3.3.3.tar.gz
+  - name: soupsieve-2.3.1-py3-none-any.whl
+    sha256: 1yzy3q502f0kkyyj5znlazr3fmnyllginrpd8c1qrcy62wkclg0s
+    url: https://files.pythonhosted.org/packages/72/a6/fd01694427f1c3fcadfdc5f1de901b813b9ac756f0806ef470cfed1de281/soupsieve-2.3.1-py3-none-any.whl
+  - name: soupsieve-2.3.1.tar.gz
+    sha256: 1yginhllifd5nxai2fhwn5zmk8hsh2hxz0wn584cfdzhshf9pm5q
+    url: https://files.pythonhosted.org/packages/e1/25/a3005eedafb34e1258458e8a4b94900a60a41a2b4e459e0e19631648a2a0/soupsieve-2.3.1.tar.gz
   - name: starlette-0.13.8-py3-none-any.whl
     sha256: 0vms42q9f62sjaqlrdm6dffmgbc6d80dzvy41j04j243z9pymbs0
     url: https://files.pythonhosted.org/packages/85/a1/309e5ca23ec0ab6757275c9be777430399c5292608e30f63fb2ab2acb8dc/starlette-0.13.8-py3-none-any.whl
