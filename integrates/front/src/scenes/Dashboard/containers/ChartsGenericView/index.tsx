@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
 import React, { useCallback, useState } from "react";
 
-import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
+import { Col100, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
@@ -709,7 +709,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </RowCenter>
             <div className={styles.separatorTitleFromCharts} />
             <RowCenter>
-              <Col25>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -723,8 +723,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesStatus.title")}
                 />
-              </Col25>
-              <Col25>
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -738,25 +738,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesUsage.title")}
                 />
-              </Col25>
-              <Col25>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
-                  documentName={"forcesAutomatizedVulnerabilities"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"raw"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}groups#automatized-vulnerabilities`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.forcesAutomatizedVulns.title"
-                  )}
-                />
-              </Col25>
-              <Col25>
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -772,7 +755,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     "analytics.textBox.forcesRepositoriesAndBranches.title"
                   )}
                 />
-              </Col25>
+              </Col33>
             </RowCenter>
             <RowCenter>
               <Col50>

@@ -123,7 +123,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       forces: {
-        title: "DevSecOps",
+        title: "Agent",
       },
     },
     stackedBarChart: {
@@ -165,22 +165,25 @@ export const enTranslations: ResourceKey = {
       forcesStatus: {
         footer: {
           breaks:
-            "In case Forces finds one vulnerability to be open, " +
-            "we can (optionally) mark the build as failed, so you never introduce known vulnerabilities " +
-            "into the production environment.",
+            "In case the DevSecOps agent finds one vulnerability to be open, " +
+            "we can (optionally) mark the build as failed, so you never " +
+            "introduce known vulnerabilities into the production environment. " +
+            "This strict mode can be customized with severity thresholds and " +
+            "grace periods to be tailored to your needs.",
           intro:
-            "By enabling Forces you get access to a Docker container built to specifically verify the status " +
-            "of security findings in your system. " +
-            "You can embed this container in your Continuous Integration system to test " +
-            "for changes in security vulnerabilities:",
+            "By enabling DevSecOps you get access to a Docker container built " +
+            "to specifically verify the status of security findings in your system. " +
+            "You can embed this container in your Continuous Integration system " +
+            "to test for changes in security vulnerabilities:",
           smart:
-            "Forces is fast and automatic, but it is created by the same intelligence " +
-            "of the hackers who already know your system in-depth, and therefore can verify the " +
-            "attack vectors that no other tool can.",
+            "DevSecOps is fast and automatic, as it is created by the same intelligence " +
+            "of the hackers who already know your system in-depth, it can therefore " +
+            "verify the attack vectors as no other tools can.",
           stats:
-            "Statistics from over a hundred different systems show that Forces increases the " +
-            "remediation ratio, helping you to build a safer system and to be more cost-effective " +
-            "throughout your Software Security Development Life Cycle.",
+            "Statistics from over a hundred different systems show that DevSecOps " +
+            "increases the remediation ratio, helping you to build a safer system " +
+            "and to be more cost-effective throughout your Software " +
+            "Security Development Life Cycle.",
         },
         title: "Service status",
       },
