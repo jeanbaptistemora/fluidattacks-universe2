@@ -11,8 +11,6 @@ import type {
 } from "react-bootstrap-table-next";
 import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
 
-type Overflow = "auto" | "hidden" | "scroll" | "visible";
-
 interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
   onSelectAll?: (
     isSelect: boolean,
@@ -75,7 +73,6 @@ interface ITableProps {
   id: string;
   isFilterEnabled?: boolean;
   onPageChange?: (arg1: number) => void;
-  overflow?: Overflow;
   pageSize: number;
   rowEvents?: Record<string, unknown>;
   search: boolean;
@@ -100,6 +97,7 @@ interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
 }
 
 interface ICustomToggleProps {
+  onUpdate?: () => void;
   propsTable: ITableProps;
   propsToggle: ToolkitContextType["columnToggleProps"];
 }
@@ -109,7 +107,6 @@ interface ITableWrapperProps {
   extraButtons?: JSX.Element;
   preferredPageSize: number;
   onSizePerPageChange?: (sizePerPage: number, page: number) => void;
-  overflow?: Overflow;
   tableProps: ITableProps;
   toolkitProps: ToolkitContextType;
 }

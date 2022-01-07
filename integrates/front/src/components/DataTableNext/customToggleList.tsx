@@ -26,6 +26,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
 ): JSX.Element => {
   const { t } = useTranslation();
   const {
+    onUpdate,
     propsTable: { onColumnToggle: sideEffects },
     propsToggle: { columns, toggles, onColumnToggle },
   } = props;
@@ -35,6 +36,9 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
   }
   function handleCloseTableSetClick(): void {
     setHidden(false);
+    if (!_.isUndefined(onUpdate)) {
+      onUpdate();
+    }
   }
 
   return (

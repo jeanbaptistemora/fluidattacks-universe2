@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React from "react";
+import React, { createRef, useEffect } from "react";
 import type {
   PaginationOptions,
   SelectRowProps,
@@ -60,7 +60,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const {
     dataset,
     onSizePerPageChange,
-    overflow,
     preferredPageSize,
     toolkitProps,
     tableProps,
@@ -317,6 +316,47 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     );
   };
 
+  const scrollbar: React.RefObject<HTMLDivElement> = createRef();
+  const table: React.RefObject<HTMLDivElement> = createRef();
+  const tableMimic: React.RefObject<HTMLDivElement> = createRef();
+
+  function scrollTable(): void {
+    if (table.current && scrollbar.current) {
+      // eslint-disable-next-line fp/no-mutation
+      table.current.children[0].scrollLeft = scrollbar.current.scrollLeft;
+    }
+  }
+
+  function syncScrollbar(): void {
+    const tableChild: HTMLElement | undefined = table.current?.children[0]
+      ?.children[0] as HTMLElement;
+
+    if (
+      table.current &&
+      tableMimic.current &&
+      scrollbar.current &&
+      !_.isUndefined(tableChild)
+    ) {
+      if (scrollbar.current.offsetWidth === tableChild.offsetWidth) {
+        // eslint-disable-next-line fp/no-mutation
+        scrollbar.current.style.visibility = "hidden";
+      } else {
+        // eslint-disable-next-line fp/no-mutation
+        scrollbar.current.style.visibility = "visible";
+      }
+
+      // eslint-disable-next-line fp/no-mutation
+      tableMimic.current.style.width = `${tableChild.offsetWidth}px`;
+    }
+  }
+
+  useEffect(syncScrollbar, [
+    scrollbar,
+    scrollbar.current?.offsetWidth,
+    table,
+    tableMimic,
+  ]);
+
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
@@ -340,6 +380,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 {columnToggle && (
                   <ButtonGroup>
                     <CustomToggleList
+                      onUpdate={syncScrollbar}
                       propsTable={tableProps}
                       propsToggle={columnToggleProps}
                     />
@@ -502,37 +543,45 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           )} ${resultSize.total}`}
         </div>
       )}
-      <BootstrapTable
-        {...baseProps}
-        bootstrap4={true}
-        bordered={bordered}
-        defaultSorted={
-          _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
-        }
-        expandRow={
-          expandRow === undefined
-            ? undefined
-            : {
-                expandColumnRenderer: renderExpandIcon,
-                expandHeaderColumnRenderer: renderHeaderExpandIcon,
-                ...expandRow,
-              }
-        }
-        filter={filterFactory()}
-        headerClasses={style.tableHeader}
-        hover={true}
-        noDataIndication={handleNoData}
-        pagination={
-          enablePagination ? paginationFactory(paginationOptions) : undefined
-        }
-        rowClasses={style.tableBody}
-        rowEvents={rowEvents}
-        selectRow={selectionMode as SelectRowProps<unknown>}
-        striped={striped}
-        wrapperClasses={`mw-100
-          overflow-${_.isUndefined(overflow) ? "auto" : overflow}
-          ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}
-      />
+      <div ref={table}>
+        <BootstrapTable
+          {...baseProps}
+          bootstrap4={true}
+          bordered={bordered}
+          defaultSorted={
+            _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
+          }
+          expandRow={
+            expandRow === undefined
+              ? undefined
+              : {
+                  expandColumnRenderer: renderExpandIcon,
+                  expandHeaderColumnRenderer: renderHeaderExpandIcon,
+                  ...expandRow,
+                }
+          }
+          filter={filterFactory()}
+          headerClasses={style.tableHeader}
+          hover={true}
+          noDataIndication={handleNoData}
+          pagination={
+            enablePagination ? paginationFactory(paginationOptions) : undefined
+          }
+          rowClasses={style.tableBody}
+          rowEvents={rowEvents}
+          selectRow={selectionMode as SelectRowProps<unknown>}
+          striped={striped}
+          wrapperClasses={`mw-100 overflow-hidden
+            ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}
+        />
+      </div>
+      <div
+        className={`overflow-x-scroll overflow-y-hidden ${style.scrollbar}`}
+        onScroll={scrollTable}
+        ref={scrollbar}
+      >
+        <div className={style.tableMimic} ref={tableMimic} />
+      </div>
     </div>
   );
 };
