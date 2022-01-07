@@ -3709,7 +3709,17 @@
   title: SANS 25
   en:
     description: >
-      ...
+      CWE/SANS TOP 25 Most Dangerous
+      Software Errors is a demonstrative
+      list of the most common and impactful
+      issues experienced over the previous
+      two calendar years.
+      Present detailed descriptions of the
+      top 25 Software errors along with
+      authoritative guidance for mitigating
+      and avoiding them.
+      The version used in this section is
+      CWE Top 25 2020.
   es:
     description: __empty__
   definitions:
