@@ -282,15 +282,17 @@ async def process_finding(
         )
 
     await collect(
-        process_vuln(
-            loaders=loaders,
-            vuln=vuln,
-            target_finding_id=target_finding_id,
-            target_root_id=target_root_id,
-            item_subject=item_subject,
-        )
-        for vuln in vulns
-        if vuln.state.status != VulnerabilityStateStatus.DELETED
+        tuple(
+            process_vuln(
+                loaders=loaders,
+                vuln=vuln,
+                target_finding_id=target_finding_id,
+                target_root_id=target_root_id,
+                item_subject=item_subject,
+            )
+            for vuln in vulns
+            if vuln.state.status != VulnerabilityStateStatus.DELETED
+        ),
     )
     await collect(
         (
@@ -397,6 +399,7 @@ async def process_toe_lines(
             has_vulnerabilities=toe_lines.has_vulnerabilities,
             seen_at=toe_lines.seen_at,
             sorts_risk_level=toe_lines.sorts_risk_level,
+            is_moving_toe_lines=True,
         )
         await toe_lines_update(current_value, attributes_to_update)
 
@@ -411,11 +414,12 @@ async def move_root(*, item: BatchProcessing) -> None:
     root_vulns = await loaders.root_vulns_typed.load(
         (source_group_name, root.state.nickname)
     )
-    vulns_by_finding = itertools.groupby(
-        sorted(root_vulns, key=attrgetter("finding_id")),
-        key=attrgetter("finding_id"),
+    vulns_by_finding = tuple(
+        itertools.groupby(
+            sorted(root_vulns, key=attrgetter("finding_id")),
+            key=attrgetter("finding_id"),
+        )
     )
-
     await collect(
         tuple(
             process_finding(
@@ -428,7 +432,7 @@ async def move_root(*, item: BatchProcessing) -> None:
                 item_subject=item.subject,
             )
             for source_finding_id, vulns in vulns_by_finding
-        )
+        ),
     )
     target_root: RootItem = await loaders.root.load(
         (target_group_name, target_root_id)
