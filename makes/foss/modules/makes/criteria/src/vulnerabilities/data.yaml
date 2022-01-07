@@ -4070,8 +4070,8 @@
       an enormous amount of resources
       are processed without any restriction.
     impact: >
-      Exhausting the server's resources
-      and thus preventing other users
+      Exhauste the server's resources
+      and thus, prevent other users
       from accessing the server.
     recommendation: >
       Use stable and optimized libraries
@@ -4133,7 +4133,7 @@
     impact: >
       - Obtain user information.
 
-      - Uploading files to the application
+      - Upload files to the application
       without authorization.
     recommendation: >
       Close the sessions
@@ -4920,10 +4920,8 @@
       who has compromised a user’s account
       to access those resources.
     impact: >
-      - Multi-factor authentication is flawed to
+      Multi-factor authentication is flawed to
       the point where it can be bypassed entirely.
-
-      - External attacker.
     recommendation: >
       Implement a double factor authentication
       by software or hardware
@@ -4943,11 +4941,9 @@
       lo cual hace más fácil para un atacante
       con un usuario comprometido acceder a estos.
     impact: >
-      - La autenticación de múltiples factores
+      La autenticación de múltiples factores
       es defectuosa hasta hasta el punto de que
       se puede eludir por completo.
-
-      - Atacante externo.
     recommendation: >
       Implementar un doble factor de autenticación
       ya sea por software o hardware
@@ -5124,7 +5120,7 @@
       debido a que no se cuenta
       con medidas de seguridad en la red.
     impact: >
-      Vector de ataque porque es posible
+      Atacar al vector porque es posible
       extraer credenciales administrativas
       desde la caché de los procesos.
     recommendation: >
