@@ -38,8 +38,8 @@ template: advisory
 
 ## Description
 
-In PartKeepr before v1.4.0, the functionality to upload attachments
-using a URL when creating a part does not validate that
+In PartKeepr versions up to and including 1.4.0, the functionality to
+upload attachments using a URL when creating a part does not validate that
 requests can be made to local ports, allowing an authenticated user
 to carry out SSRF attacks and port enumeration.
 

@@ -38,8 +38,9 @@ template: advisory
 
 ## Description
 
-In PartKeepr before v1.4.0, the functionality to load attachments using
-a URL while creating a part, allows the use of the 'file://' URI scheme,
+In PartKeepr versions up to and including 1.4.0, the functionality to
+load attachments using a URL while creating a part,
+allows the use of the 'file://' URI scheme,
 allowing an authenticated user to read local files.
 
 ## Exploit
