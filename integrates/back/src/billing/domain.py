@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from billing.types import (
     Customer,
     Portal,
@@ -37,6 +40,9 @@ from starlette.responses import (
 )
 import stripe
 from typing import (
+    Any,
+    Dict,
+    List,
     Optional,
 )
 
@@ -66,15 +72,42 @@ async def _expire_checkout(
 async def _get_price(
     *,
     tier: str,
-) -> Optional[Price]:
+    active: bool = True,
+) -> Price:
     """Return a tier price"""
-    prices = stripe.Price.list(lookup_keys=[tier]).data
+    prices = stripe.Price.list(
+        lookup_keys=[tier],
+        active=active,
+    ).data
     if len(prices) > 0:
         return Price(
             id=prices[0].id,
             tier=prices[0].lookup_key,
+            metered=prices[0].recurring.aggregate_usage is not None,
         )
-    return None
+    raise InvalidBillingPrice()
+
+
+def _format_line_items(
+    *,
+    prices: List[Price],
+) -> List[Dict[str, Any]]:
+    line_items: List[Dict[str, Any]] = []
+    for price in prices:
+        if price.metered:
+            line_items.append(
+                {
+                    "price": price.id,
+                }
+            )
+        else:
+            line_items.append(
+                {
+                    "price": price.id,
+                    "quantity": 1,
+                }
+            )
+    return line_items
 
 
 async def _get_group_subscription(
@@ -203,25 +236,41 @@ async def create_checkout(
     ):
         raise BillingSubscriptionAlreadyActive()
 
-    # Raise exception if Stripe price does not exist
-    price: Optional[Price] = await _get_price(tier=tier)
-    if price is None:
-        raise InvalidBillingPrice()
-
     # Expire previous checkout if it is still open
     if previous_checkout_id is not None:
         await _expire_checkout(
             checkout_id=previous_checkout_id,
         )
 
+    # Collect stripe prices
+    prices: List[Price] = []
+    if tier == "squad":
+        prices.extend(
+            await collect(
+                [
+                    _get_price(
+                        tier=f"{tier}_base",
+                        active=True,
+                    ),
+                    _get_price(
+                        tier=f"{tier}_recurring",
+                        active=True,
+                    ),
+                ]
+            )
+        )
+    else:
+        prices.append(
+            await _get_price(
+                tier=tier,
+                active=True,
+            )
+        )
+
+    # Format checkout session data
     session_data = {
         "customer": org_billing_customer,
-        "line_items": [
-            {
-                "price": price.id,
-                "quantity": 1,
-            },
-        ],
+        "line_items": _format_line_items(prices=prices),
         "metadata": {
             "group": group_name,
             "organization": org_name,
@@ -256,7 +305,7 @@ async def create_portal(
     org_billing_customer: str,
 ) -> Portal:
     """Create Stripe portal session"""
-    if org_billing_customer == "":
+    if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
     session = stripe.billing_portal.Session.create(

@@ -15,6 +15,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Optional,
+)
 
 
 @concurrent_decorators(
@@ -25,7 +28,7 @@ async def resolve(
     parent: Organization, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Portal:
     org_name: str = parent["name"]
-    org_billing_customer: str = parent.get("billing_customer", "")
+    org_billing_customer: Optional[str] = parent.get("billing_customer", None)
 
     return await billing_domain.create_portal(
         org_name=org_name,

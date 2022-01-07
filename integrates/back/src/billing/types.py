@@ -12,6 +12,7 @@ class Customer(NamedTuple):
 class Price(NamedTuple):
     id: str
     tier: str
+    metered: bool
 
 
 class Portal(NamedTuple):
