@@ -1,6 +1,12 @@
 # pylint: disable=invalid-name
 """
 Populate the root_id and their gsi_2 in vulnerabilities.
+
+Execution Time: 2022-01-06 at 19:28:54 UTC
+Finalization Time: 2022-01-06 at 21:31:08 UTC
+
+Execution Time: 2022-01-06 at 22:18:21 UTC
+Finalization Time: 2022-01-06 at 22:45:12 UTC
 """
 
 from aioextensions import (
