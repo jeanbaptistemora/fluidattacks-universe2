@@ -93,6 +93,9 @@ from .verification import (
 from .vulnerability import (
     VULNERABILITY,
 )
+from .vulnerability_historic_state import (
+    VULNERABILITY_HISTORIC_STATE,
+)
 from api.schema.types.toe_lines import (
     TOELINES,
 )
@@ -138,4 +141,5 @@ TYPES: Tuple[ObjectType, ...] = (
     URLROOT,
     VERIFICATION,
     VULNERABILITY,
+    VULNERABILITY_HISTORIC_STATE,
 )
