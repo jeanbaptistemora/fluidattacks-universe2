@@ -973,6 +973,9 @@ export const enTranslations: ResourceKey = {
     newsTooltip: "Latest updates about ASM",
     role: "Role:",
     searchPlaceholder: "Search Group Name",
+    task: {
+      tooltip: "To-Do List",
+    },
     token: {
       text: "API",
       tooltip: "Get an ASM API Token",

@@ -191,7 +191,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     unformattedVulns.map(
       (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
         ...vulnerability,
-        findingId,
         groupName,
       })
     )
