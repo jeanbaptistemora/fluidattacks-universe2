@@ -30,13 +30,10 @@ async def generate_one(group: str) -> dict:
         or vulns.get("num_of_accepted_vulnerabilities", 0) > 0
     )
 
-    executions_in_strict_mode_with_vulns = tuple(
+    successful_executions_in_strict_mode = tuple(
         execution
         for execution in executions_in_strict_mode
-        for vulns in [execution["vulnerabilities"]]
-        if vulns.get("num_of_vulnerabilities_in_exploits", 0) > 0
-        or vulns.get("num_of_vulnerabilities_in_integrates_exploits", 0) > 0
-        or vulns.get("num_of_open_vulnerabilities", 0) > 0
+        if execution.get("exit_code", 0) == 0
     )
 
     return {
@@ -46,8 +43,8 @@ async def generate_one(group: str) -> dict:
         "data": {
             "columns": [
                 [
-                    "Vulnerable builds prevented",
-                    len(executions_in_strict_mode_with_vulns),
+                    "Successful builds",
+                    len(successful_executions_in_strict_mode),
                 ],
                 ["Vulnerable builds", len(executions_in_any_mode_with_vulns)],
             ],

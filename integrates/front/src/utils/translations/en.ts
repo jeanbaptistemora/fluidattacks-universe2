@@ -156,9 +156,6 @@ export const enTranslations: ResourceKey = {
       findingsBeingReattacked: {
         title: "Vulnerabilities being re-attacked",
       },
-      forcesAutomatizedVulns: {
-        title: "Automatized Vulnerabilities",
-      },
       forcesRepositoriesAndBranches: {
         title: "Repositories and branches",
       },
