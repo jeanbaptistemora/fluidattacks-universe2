@@ -25,9 +25,6 @@ from .organization_stakeholders import (
 from .organization_tags import (
     OrganizationTagsLoader,
 )
-from .root_vulns import (
-    RootVulnsTypedLoader,
-)
 from collections import (
     defaultdict,
 )
@@ -65,6 +62,7 @@ from db_model.toe_lines.get import (
 )
 from db_model.vulnerabilities.get import (
     FindingVulnsNewLoader,
+    RootVulnsNewLoader,
     VulnHistoricStateNewLoader,
     VulnHistoricTreatmentNewLoader,
     VulnHistoricVerificationNewLoader,
@@ -109,7 +107,7 @@ class Dataloaders(NamedTuple):
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
-    root_vulns_typed: RootVulnsTypedLoader  # Migration
+    root_vulns: RootVulnsNewLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     vulnerability_typed: VulnNewLoader
@@ -175,7 +173,7 @@ def get_new_context() -> Dataloaders:
         root_states=RootStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_toe_lines=RootToeLinesLoader(),
-        root_vulns_typed=RootVulnsTypedLoader(group_findings_loader),
+        root_vulns=RootVulnsNewLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         vulnerability_typed=vulnerability_typed,

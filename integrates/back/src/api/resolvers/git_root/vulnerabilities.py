@@ -16,6 +16,7 @@ from roots.types import (
 )
 from typing import (
     List,
+    Tuple,
 )
 
 
@@ -23,7 +24,7 @@ async def resolve(
     parent: Root, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
-    root_vulns = await loaders.root_vulns_typed.load(
-        (parent.group_name, parent.nickname)
+    root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
+        parent.id
     )
     return list(filter_non_zero_risk(filter_non_deleted(root_vulns)))

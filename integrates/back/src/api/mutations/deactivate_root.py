@@ -89,9 +89,9 @@ async def deactivate_root(
         if user_role
         in {"customeradmin", "group_manager", "resourcer", "system_owner"}
     ]
-    root_vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.root_vulns_typed.load((group_name, root.state.nickname))
+    root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
+        root.id
+    )
     root_vulns_nzr = filter_non_zero_risk(filter_non_deleted(root_vulns))
     sast_vulns = [
         vuln for vuln in root_vulns_nzr if vuln.type == VulnerabilityType.LINES

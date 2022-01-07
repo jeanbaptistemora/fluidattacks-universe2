@@ -411,8 +411,8 @@ async def move_root(*, item: BatchProcessing) -> None:
     root: RootItem = await loaders.root.load(
         (source_group_name, source_root_id)
     )
-    root_vulns = await loaders.root_vulns_typed.load(
-        (source_group_name, root.state.nickname)
+    root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
+        root.id
     )
     vulns_by_finding = tuple(
         itertools.groupby(
