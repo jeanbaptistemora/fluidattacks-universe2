@@ -4,6 +4,9 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -26,11 +29,12 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> bool:
+) -> SimplePayload:
     group = await info.context.loaders.group.load(kwargs["group_name"])
     org = await info.context.loaders.organization.load(group["organization"])
 
-    return await billing_domain.remove_subscription(
+    result: bool = await billing_domain.remove_subscription(
         org_billing_customer=org["billing_customer"],
         group_name=group["name"],
     )
+    return SimplePayload(success=result)

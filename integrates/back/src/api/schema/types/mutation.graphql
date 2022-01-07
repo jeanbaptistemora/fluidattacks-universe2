@@ -448,7 +448,7 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
-  "Remove a subscription for a group. Makes it free tier"
+  "Remove a subscription for a group and make it free"
   removeBillingSubscription(
     "Group name"
     groupName: String!
