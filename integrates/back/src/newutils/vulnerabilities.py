@@ -282,6 +282,10 @@ def format_vulnerabilities(
         )
         if vuln.commit:
             finding[vuln_type][-1]["commit_hash"] = vuln.commit
+        if vuln.stream:
+            finding[vuln_type][-1]["stream"] = ",".join(vuln.stream)
+        if vuln.repo:
+            finding[vuln_type][-1]["repo_nickname"] = vuln.repo
     return finding
 
 
