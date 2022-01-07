@@ -1007,7 +1007,7 @@
       The server allows
       the usage of insecure TLS protocol versions.
     impact: >
-      Compromize sensitive information
+      Compromise sensitive information
       that travels between client and server.
     recommendation: >
       Update TLS protocol to version
@@ -1166,7 +1166,7 @@
       sin ningún tipo de credencial
       permitiendo el acceso
       a información confidencial.
-    impact: Acceder a Información sensible almacenada en carpetas.
+    impact: Acceder a información sensible almacenada en carpetas.
     recommendation: >
       Limitar el acceso a carpetas compartidas
       solo a personal autorizado
@@ -1436,7 +1436,7 @@
       - Enumerar la red interna
       a través de prueba y error.
 
-      - Realizar un subconjunto de ataques
+      - Ejecutar un subconjunto de ataques
       de Server Side Request Forgery.
     recommendation: >
       Configurar el servidor
@@ -1696,7 +1696,7 @@
       Alternatively,
       the system deploys sensitive temporary files
       to the production environment.
-    impact: Stealing server secrets.
+    impact: Steal server secrets.
     recommendation: >
       Avoid saving sensitive information
       in server files.
