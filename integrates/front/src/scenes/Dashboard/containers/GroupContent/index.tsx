@@ -151,7 +151,7 @@ const GroupContent: React.FC = (): JSX.Element => {
               </StickyContainer>
 
               <div className={globalStyle.tabContent}>
-                <groupContext.Provider value={{ url }}>
+                <groupContext.Provider value={{ path, url }}>
                   <Switch>
                     <Route
                       component={GroupAuthorsView}

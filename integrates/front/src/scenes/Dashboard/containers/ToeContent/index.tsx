@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import type { IToeContentProps } from "./types";
 
+import { groupContext } from "../GroupContent/context";
+import type { IGroupContext } from "../GroupContent/types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
@@ -23,6 +25,7 @@ const toeContent: React.FC<IToeContentProps> = (
 ): JSX.Element => {
   const { isInternal } = props;
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+  const { path: groupPath }: IGroupContext = useContext(groupContext);
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
@@ -66,6 +69,7 @@ const toeContent: React.FC<IToeContentProps> = (
           </Route>
           {canGetToeLines ? <Redirect to={`${path}/lines`} /> : undefined}
           {canGetToeInputs ? <Redirect to={`${path}/inputs`} /> : undefined}
+          <Redirect to={groupPath} />
         </Switch>
       </TabContent>
     </React.StrictMode>
