@@ -61,6 +61,7 @@ interface IVulnDataTypeAttr {
 interface IVulnComponentProps {
   canDisplayHacker: boolean;
   clearFiltersButton?: () => void;
+  changePermissions?: (groupName: string) => void;
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
   extraButtons: JSX.Element;

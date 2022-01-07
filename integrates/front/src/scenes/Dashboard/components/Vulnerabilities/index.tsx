@@ -55,6 +55,7 @@ function usePreviousProps(value: boolean): boolean {
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayHacker,
+  changePermissions,
   clearFiltersButton,
   customFilters,
   customSearch,
@@ -97,6 +98,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     _0: React.FormEvent,
     vulnerability: IVulnRowAttr
   ): void {
+    if (changePermissions !== undefined) {
+      changePermissions(vulnerability.groupName);
+    }
     updateRow(vulnerability);
     track("ViewVulnerability", { groupName: vulnerability.groupName });
     setAdditionalInfoOpen(true);

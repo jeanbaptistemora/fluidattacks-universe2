@@ -22,6 +22,7 @@ import type {
   IGetVulnsGroups,
   IOrganizationGroups,
 } from "scenes/Dashboard/types";
+import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 interface ITasksContent {
@@ -33,6 +34,10 @@ interface ITasksContent {
 
 interface IAction {
   action: string;
+}
+interface IGroupAction {
+  groupName: string;
+  actions: IAction[];
 }
 
 export const TasksContent: React.FC<ITasksContent> = ({
@@ -67,6 +72,37 @@ export const TasksContent: React.FC<ITasksContent> = ({
     [userData]
   );
   const [allData] = useContext(AssignedVulnerabilitiesContext);
+
+  const changePermissions = useCallback(
+    (groupName: string): void => {
+      permissionsContext.update([]);
+      if (userData !== undefined && userGroupsRoles.length > 0) {
+        const recordPermissions: IGroupAction[] = _.flatten(
+          userData.me.organizations.map(
+            (organization: IOrganizationGroups): IGroupAction[] =>
+              organization.groups.map(
+                (group: IOrganizationGroups["groups"][0]): IGroupAction => ({
+                  actions: group.permissions.map(
+                    (action: string): IAction => ({
+                      action,
+                    })
+                  ),
+                  groupName: group.name,
+                })
+              )
+          )
+        );
+        const filteredPermissions: IGroupAction[] = recordPermissions.filter(
+          (recordPermission: IGroupAction): boolean =>
+            recordPermission.groupName.toLowerCase() === groupName.toLowerCase()
+        );
+        if (filteredPermissions.length > 0) {
+          permissionsContext.update(filteredPermissions[0].actions);
+        }
+      }
+    },
+    [permissionsContext, userData, userGroupsRoles.length]
+  );
 
   const onGroupChange: () => void = (): void => {
     attributesContext.update([]);
@@ -164,27 +200,30 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   return (
     <React.StrictMode>
-      <VulnComponent
-        canDisplayHacker={canRetrieveHacker}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-          position: "right",
-        }}
-        extraButtons={
-          <Button onClick={refreshAssigned}>
-            <FontAwesomeIcon icon={faSyncAlt} />
-          </Button>
-        }
-        findingState={"open"}
-        isEditing={false}
-        isFindingReleased={true}
-        isRequestingReattack={false}
-        isVerifyingRequest={false}
-        onVulnSelect={openRemediationModal}
-        vulnerabilities={filterSearchTextVulnerabilities}
-      />
+      <Col100>
+        <VulnComponent
+          canDisplayHacker={canRetrieveHacker}
+          changePermissions={changePermissions}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
+          }}
+          extraButtons={
+            <Button onClick={refreshAssigned}>
+              <FontAwesomeIcon icon={faSyncAlt} />
+            </Button>
+          }
+          findingState={"open"}
+          isEditing={false}
+          isFindingReleased={true}
+          isRequestingReattack={false}
+          isVerifyingRequest={false}
+          onVulnSelect={openRemediationModal}
+          vulnerabilities={filterSearchTextVulnerabilities}
+        />
+      </Col100>
     </React.StrictMode>
   );
 };

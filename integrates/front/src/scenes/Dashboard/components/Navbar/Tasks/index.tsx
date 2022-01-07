@@ -3,8 +3,9 @@ import { useApolloClient } from "@apollo/client";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 import type { IVulnRowAttr } from "../../Vulnerabilities/types";
 import { NavbarButton } from "../styles";
@@ -15,15 +16,22 @@ import type { IGetVulnsGroups } from "scenes/Dashboard/types";
 
 interface INavbarTasksProps {
   groups: string[];
+  taskState: boolean;
 }
 
 export const TaskInfo: React.FC<INavbarTasksProps> = ({
   groups,
+  taskState,
 }: INavbarTasksProps): JSX.Element => {
   const { t } = useTranslation();
+  const { push } = useHistory();
   const client = useApolloClient();
 
   const [allData, setAllData] = useContext(AssignedVulnerabilitiesContext);
+
+  const onClick = useCallback((): void => {
+    push("/todos");
+  }, [push]);
 
   const allAssigned: number = _.flatten(
     allData.map(
@@ -87,7 +95,13 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
     }
     void fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groups.length]);
+  }, [groups.length, taskState]);
+
+  const limitFormatter = useCallback((assigned: number): string => {
+    const maxLimit: number = 99;
+
+    return assigned > maxLimit ? "99+" : `${assigned}`;
+  }, []);
 
   if (allAssigned <= 0) {
     return <div />;
@@ -96,15 +110,15 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
   return (
     <React.StrictMode>
       <TooltipWrapper id={"navbar.task.id"} message={t("navbar.task.tooltip")}>
-        <NavbarButton onClick={undefined}>
+        <NavbarButton onClick={onClick}>
           <span className={"fa-layers fa-fw"}>
             <FontAwesomeIcon icon={faTasks} />
             &nbsp;
             <span
-              className={"fa-layers-counter f1 b light-gray"}
+              className={"fa-layers-counter f2 b light-gray"}
               data-fa-transform={"shrink-8 down-3"}
             >
-              {allAssigned}
+              {limitFormatter(allAssigned)}
             </span>
           </span>
         </NavbarButton>
