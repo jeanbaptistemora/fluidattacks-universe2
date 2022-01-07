@@ -647,7 +647,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *GROUP_LEVEL_ROLES["admin"]["actions"],
-            "api_mutations_add_billing_checkout_mutate",
+            "api_mutations_add_billing_subscription_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",

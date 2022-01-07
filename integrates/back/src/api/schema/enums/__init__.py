@@ -70,6 +70,13 @@ ENUMS: Tuple[EnumType, ...] = (
             "MICROSOFT": "microsoft",
         },
     ),
+    EnumType(
+        "BillingSubscriptionType",
+        {
+            "MACHINE": "machine",
+            "SQUAD": "squad",
+        },
+    ),
     EnumType("CallerOrigin", {"API": "API", "FRONT": "FRONT"}),
     EnumType(
         "RemoveFindingJustification",

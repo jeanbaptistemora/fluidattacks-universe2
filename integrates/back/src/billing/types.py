@@ -11,7 +11,7 @@ class Customer(NamedTuple):
 
 class Price(NamedTuple):
     id: str
-    tier: str
+    subscription: str
     metered: bool
 
 
@@ -26,4 +26,4 @@ class Subscription(NamedTuple):
     group: str
     org_billing_customer: str
     organization: str
-    tier: str
+    type: str

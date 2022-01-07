@@ -85,6 +85,14 @@ enum AuthProvider {
   MICROSOFT
 }
 
+"Billing subscription type enum definition"
+enum BillingSubscriptionType {
+  "Continuous Machine"
+  MACHINE
+  "Continuous Squad"
+  SQUAD
+}
+
 "Origin of requests made"
 enum CallerOrigin {
   "The request came from the API"
@@ -424,6 +432,7 @@ enum SubscriptionType {
   "One-Shot Hacking"
   ONESHOT
 }
+
 "Group tier type enum definition"
 enum TierType {
   "Free Tier"

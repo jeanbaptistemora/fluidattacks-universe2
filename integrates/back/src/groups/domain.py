@@ -28,6 +28,7 @@ from custom_exceptions import (
     HasActiveRoots,
     InvalidGroupName,
     InvalidGroupServicesConfig,
+    InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
     UserNotInOrganization,
@@ -862,6 +863,55 @@ async def update_group_info(
     success = await update(group_name, new_data)
 
     return success
+
+
+async def update_group_tier(
+    *,
+    loaders: Any,
+    reason: str,
+    requester_email: str,
+    group_name: str,
+    tier: str,
+) -> bool:
+    """Set a new tier for a group"""
+    data = {
+        "loaders": loaders,
+        "group_name": group_name,
+        "reason": reason,
+        "requester_email": requester_email,
+        "comments": "",
+        "subscription": "",
+        "has_machine": False,
+        "has_squad": False,
+        "has_asm": True,
+        "service": "",
+        "tier": tier,
+    }
+
+    if tier == "machine":
+        data["subscription"] = "continuous"
+        data["has_machine"] = True
+        data["has_squad"] = False
+        data["service"] = "WHITE"
+    elif tier == "squad":
+        data["subscription"] = "continuous"
+        data["has_machine"] = True
+        data["has_squad"] = True
+        data["service"] = "WHITE"
+    elif tier == "oneshot":
+        data["subscription"] = "oneshot"
+        data["has_machine"] = False
+        data["has_squad"] = False
+        data["service"] = "BLACK"
+    elif tier == "free":
+        data["subscription"] = "continuous"
+        data["has_machine"] = False
+        data["has_squad"] = False
+        data["service"] = "WHITE"
+    else:
+        raise InvalidGroupTier()
+
+    return await update_group_attrs(**data)
 
 
 async def get_active_groups() -> List[str]:

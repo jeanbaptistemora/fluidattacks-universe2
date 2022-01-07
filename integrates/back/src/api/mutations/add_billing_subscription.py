@@ -8,7 +8,7 @@ from billing.types import (
     Customer,
 )
 from custom_types import (
-    AddBillingCheckoutPayload,
+    AddBillingSubscriptionPayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -43,7 +43,7 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> AddBillingCheckoutPayload:
+) -> AddBillingSubscriptionPayload:
     group = await info.context.loaders.group.load(kwargs["group_name"])
     org = await info.context.loaders.organization.load(group["organization"])
     org_billing_customer: Optional[str] = org["billing_customer"]
@@ -64,12 +64,14 @@ async def mutate(
         org_billing_customer = customer.id
 
     # Create checkout session
-    checkout: AddBillingCheckoutPayload = await billing_domain.create_checkout(
-        tier=kwargs["tier"],
-        org_billing_customer=org_billing_customer,
-        org_name=org["name"],
-        group_name=group["name"],
-        previous_checkout_id=group["billing_checkout_id"],
+    checkout: AddBillingSubscriptionPayload = (
+        await billing_domain.create_checkout(
+            subscription=kwargs["subscription"],
+            org_billing_customer=org_billing_customer,
+            org_name=org["name"],
+            group_name=group["name"],
+            previous_checkout_id=group["billing_checkout_id"],
+        )
     )
 
     # Update group with new billing checkout id

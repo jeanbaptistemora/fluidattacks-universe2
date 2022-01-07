@@ -11,7 +11,7 @@ type SimplePayload implements Payload {
 }
 
 "Add billing checkout payload definition"
-type AddBillingCheckoutPayload implements Payload {
+type AddBillingSubscriptionPayload implements Payload {
   "Redirect url when checkout is cancelled"
   cancelUrl: String!
   "Stripe payment url"

@@ -140,7 +140,7 @@ class AddRootPayload(NamedTuple):
     success: bool
 
 
-class AddBillingCheckoutPayload(NamedTuple):
+class AddBillingSubscriptionPayload(NamedTuple):
     id: str
     cancel_url: str
     success: bool

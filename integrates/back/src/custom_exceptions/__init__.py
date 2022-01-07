@@ -528,6 +528,15 @@ class InvalidGroupServicesConfig(CustomBaseException):
         super(InvalidGroupServicesConfig, self).__init__(f"Exception - {msg}")
 
 
+class InvalidGroupTier(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid tier. "
+            "Only 'oneshot', 'machine', 'squad' and 'free' allowed."
+        )
+        super(InvalidGroupTier, self).__init__(msg)
+
+
 class InvalidJustificationMaxLength(CustomBaseException):
     """Exception to control justification length"""
 
@@ -1046,15 +1055,6 @@ class InvalidBillingCustomer(CustomBaseException):
             "Please checkout at least one subscription for a group."
         )
         super(InvalidBillingCustomer, self).__init__(msg)
-
-
-class InvalidBillingTier(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Invalid tier. "
-            "Only 'oneshot', 'machine', 'squad' and 'free' allowed."
-        )
-        super(InvalidBillingTier, self).__init__(msg)
 
 
 class InvalidBillingPrice(CustomBaseException):

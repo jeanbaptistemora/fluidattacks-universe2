@@ -16,10 +16,9 @@ from custom_exceptions import (
     BillingSubscriptionAlreadyActive,
     InvalidBillingCustomer,
     InvalidBillingPrice,
-    InvalidBillingTier,
 )
 from custom_types import (
-    AddBillingCheckoutPayload,
+    AddBillingSubscriptionPayload,
 )
 from dataloaders import (
     get_new_context,
@@ -71,18 +70,18 @@ async def _expire_checkout(
 
 async def _get_price(
     *,
-    tier: str,
+    subscription: str,
     active: bool = True,
 ) -> Price:
-    """Return a tier price"""
+    """Return a subscription price"""
     prices = stripe.Price.list(
-        lookup_keys=[tier],
+        lookup_keys=[subscription],
         active=active,
     ).data
     if len(prices) > 0:
         return Price(
             id=prices[0].id,
-            tier=prices[0].lookup_key,
+            subscription=prices[0].lookup_key,
             metered=prices[0].recurring.aggregate_usage is not None,
         )
     raise InvalidBillingPrice()
@@ -130,7 +129,7 @@ async def _get_group_subscription(
             group=filtered[0].metadata["group"],
             org_billing_customer=filtered[0].customer,
             organization=filtered[0].metadata["organization"],
-            tier=filtered[0].metadata["tier"],
+            type=filtered[0].metadata["subscription"],
         )
     return None
 
@@ -139,65 +138,18 @@ async def _group_has_active_subscription(
     *,
     group_name: str,
     org_billing_customer: str,
-    tier: str,
+    subscription: str,
 ) -> bool:
-    """True if group has active subscription of tier type"""
+    """True if group has active subscription"""
     sub: Optional[Subscription] = await _get_group_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
         limit=1000,
     )
-    if sub is not None and sub.tier == tier:
+    if sub is not None and sub.type == subscription:
         return True
     return False
-
-
-async def _set_group_tier(
-    *,
-    event_id: str,
-    group_name: str,
-    tier: str,
-) -> bool:
-    """Set a new tier for a group"""
-    data = {
-        "loaders": get_new_context(),
-        "group_name": group_name,
-        "reason": f"Triggered by Stripe event {event_id}",
-        "requester_email": "Integrates billing module",
-        "comments": "",
-        "subscription": "",
-        "has_machine": False,
-        "has_squad": False,
-        "has_asm": True,
-        "service": "",
-        "tier": tier,
-    }
-
-    if tier == "machine":
-        data["subscription"] = "continuous"
-        data["has_machine"] = True
-        data["has_squad"] = False
-        data["service"] = "WHITE"
-    elif tier == "squad":
-        data["subscription"] = "continuous"
-        data["has_machine"] = True
-        data["has_squad"] = True
-        data["service"] = "WHITE"
-    elif tier == "oneshot":
-        data["subscription"] = "oneshot"
-        data["has_machine"] = False
-        data["has_squad"] = False
-        data["service"] = "BLACK"
-    elif tier == "free":
-        data["subscription"] = "continuous"
-        data["has_machine"] = False
-        data["has_squad"] = False
-        data["service"] = "WHITE"
-    else:
-        raise InvalidBillingTier()
-
-    return await groups_domain.update_group_attrs(**data)
 
 
 async def create_customer(
@@ -220,19 +172,19 @@ async def create_customer(
 
 async def create_checkout(
     *,
-    tier: str,
+    subscription: str,
     org_billing_customer: str,
     org_name: str,
     group_name: str,
     previous_checkout_id: Optional[str],
-) -> AddBillingCheckoutPayload:
+) -> AddBillingSubscriptionPayload:
     """Create Stripe checkout session"""
 
     # Raise exception if group already has the same subscription active
     if await _group_has_active_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
-        tier=tier,
+        subscription=subscription,
     ):
         raise BillingSubscriptionAlreadyActive()
 
@@ -244,16 +196,16 @@ async def create_checkout(
 
     # Collect stripe prices
     prices: List[Price] = []
-    if tier == "squad":
+    if subscription == "squad":
         prices.extend(
             await collect(
                 [
                     _get_price(
-                        tier=f"{tier}_base",
+                        subscription=f"{subscription}_base",
                         active=True,
                     ),
                     _get_price(
-                        tier=f"{tier}_recurring",
+                        subscription=f"{subscription}_recurring",
                         active=True,
                     ),
                 ]
@@ -262,7 +214,7 @@ async def create_checkout(
     else:
         prices.append(
             await _get_price(
-                tier=tier,
+                subscription=subscription,
                 active=True,
             )
         )
@@ -274,13 +226,13 @@ async def create_checkout(
         "metadata": {
             "group": group_name,
             "organization": org_name,
-            "tier": tier,
+            "subscription": subscription,
         },
         "subscription_data": {
             "metadata": {
                 "group": group_name,
                 "organization": org_name,
-                "tier": tier,
+                "subscription": subscription,
             },
         },
         "mode": "subscription",
@@ -290,7 +242,7 @@ async def create_checkout(
 
     session = stripe.checkout.Session.create(**session_data)
 
-    return AddBillingCheckoutPayload(
+    return AddBillingSubscriptionPayload(
         id=session.id,
         cancel_url=session.cancel_url,
         success=True,
@@ -334,8 +286,10 @@ async def webhook(request: Request) -> JSONResponse:
         )
 
         if event.type == "customer.subscription.created":
-            if await _set_group_tier(
-                event_id=event.id,
+            if await groups_domain.update_group_tier(
+                loaders=get_new_context(),
+                reason=f"Update triggered by String with event {event.id}",
+                requester_email="Stripe webhook",
                 group_name=event.data.object.metadata.group,
                 tier=event.data.object.plan.nickname,
             ):

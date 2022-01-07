@@ -5,7 +5,7 @@ from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
     activate_root,
-    add_billing_checkout,
+    add_billing_subscription,
     add_draft,
     add_event,
     add_event_consult,
@@ -98,7 +98,7 @@ MUTATION.set_field(
     "acknowledgeConcurrentSession", acknowledge_concurrent_session.mutate
 )
 MUTATION.set_field("activateRoot", activate_root.mutate)
-MUTATION.set_field("addBillingCheckout", add_billing_checkout.mutate)
+MUTATION.set_field("addBillingSubscription", add_billing_subscription.mutate)
 MUTATION.set_field("addDraft", add_draft.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
