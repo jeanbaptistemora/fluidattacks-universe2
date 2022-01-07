@@ -3761,4 +3761,31 @@
     "434":
       title: Unrestricted Upload of File with Dangerous Type
       link: https://www.sans.org/top25-software-errors/
+    "611":
+      title: Improper Restriction of XML External Entity Reference
+      link: https://www.sans.org/top25-software-errors/
+    "94":
+      title: Improper Control of Generation of Code ('Code Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "798":
+      title: Use of Hard-coded Credentials
+      link: https://www.sans.org/top25-software-errors/
+    "400":
+      title: Uncontrolled Resource Consumption
+      link: https://www.sans.org/top25-software-errors/
+    "772":
+      title: Missing Release of Resource after Effective Lifetime
+      link: https://www.sans.org/top25-software-errors/
+    "426":
+      title: Untrusted Search Path
+      link: https://www.sans.org/top25-software-errors/
+    "502":
+      title: Deserialization of Untrusted Data
+      link: https://www.sans.org/top25-software-errors/
+    "269":
+      title: Improper Privilege Management
+      link: https://www.sans.org/top25-software-errors/
+    "295":
+      title: Improper Certificate Validation
+      link: https://www.sans.org/top25-software-errors/
   metadata: {}
