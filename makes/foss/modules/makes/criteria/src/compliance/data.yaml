@@ -3705,3 +3705,15 @@
       title: Encrypt all nonconsole administrative access with strong cryptography
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
   metadata: {}
+"029":
+  title: SANS 25
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "119":
+      title: Improper Restriction of Operations within the Bounds of a Memory Buffer
+      link: https://www.sans.org/top25-software-errors/
+  metadata: {}
