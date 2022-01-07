@@ -119,7 +119,6 @@ in
           };
         })
         [
-          "0168_populate_vuln_root_id_and_gsi_2.py"
         ])
         ++ (builtins.map
         (name: {
