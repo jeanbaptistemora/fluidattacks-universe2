@@ -3737,4 +3737,28 @@
     "190":
       title: Integer Overflow or Wraparound
       link: https://www.sans.org/top25-software-errors/
+    "352":
+      title: Cross-Site Request Forgery (CSRF)
+      link: https://www.sans.org/top25-software-errors/
+    "22":
+      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+      link: https://www.sans.org/top25-software-errors/
+    "78":
+      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "787":
+      title: Out-of-bounds Write
+      link: https://www.sans.org/top25-software-errors/
+    "287":
+      title: Improper Authentication
+      link: https://www.sans.org/top25-software-errors/
+    "476":
+      title: NULL Pointer Dereference
+      link: https://www.sans.org/top25-software-errors/
+    "732":
+      title: Incorrect Permission Assignment for Critical Resource
+      link: https://www.sans.org/top25-software-errors/
+    "434":
+      title: Unrestricted Upload of File with Dangerous Type
+      link: https://www.sans.org/top25-software-errors/
   metadata: {}
