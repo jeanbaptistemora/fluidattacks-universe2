@@ -914,7 +914,7 @@
       can be leveraged by an attacker
       in order to negatively impact it.
     impact: >
-      Changing the password after the
+      Change the password after the
       security code has been compromised.
     recommendation: >
       Validate on the server side that the
