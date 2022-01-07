@@ -23404,3 +23404,54 @@
   metadata:
     en:
       details: __empty__
+"399":
+  en:
+    title: Security controls absence - Monitoring
+    description: >
+      The application lacks of alert or notification mechanisms
+      in the presence of critical changes in the system,
+      such as: access and modification of resources,
+      roles creation, among others
+    impact: >
+      Perform potentially harmful operations in the system
+      without raising an alert
+    recommendation: >
+      Set notification mechanisms
+    threat: >
+      Authenticated attacker from the Internet
+      who succeeded to compromise a resource
+  category: Abuse Functionality
+  es:
+    title: Security controls absence - Monitoring
+    description: >
+      La aplicación no cuenta con mecanismos de alerta
+      o notificación ante cambios críticos del sistema
+      como acceso y edición de recursos, creación de roles,
+      entre otros
+    impact: >
+      Realizar acciones potencialmente dañinas en el sistema
+      sin generar ninguna alerta
+    recommendation: >
+      Establecer mecanismos de notificación
+      ante cambios críticos en los recursos o servicios del sistema
+    threat: >
+      Atacante autenticado desde Internet
+      que haya logrado comprometer un recurso
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "H"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["301","318"]
+  metadata:
+    en:
+      details: __empty__
