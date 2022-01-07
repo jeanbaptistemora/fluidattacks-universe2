@@ -870,6 +870,126 @@ F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |       IamInstanceProfile: iamProfile
      ^ Col 0
 ",f024_aws._cfn_instances_without_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
+  60 |     http_endpoint               = ""enabled""
+  61 |     http_tokens                 = ""required""
+  62 |     http_put_response_hop_limit = 1
+  63 |   }
+  64 |
+  65 |   monitoring {
+  66 |     enabled = true
+  67 |   }
+  68 |
+  69 |   network_interfaces {
+> 70 |     associate_public_ip_address = true
+  71 |   }
+  72 |
+  73 |   placement {
+  74 |     availability_zone = ""us-west-2a""
+  75 |   }
+  76 |
+  77 |   ram_disk_id = ""test""
+  78 |
+  79 |   tag_specifications {
+  80 |     resource_type = ""instance""
+     ^ Col 0
+",f333._tfm_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,71,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
+  61 |     http_endpoint               = ""enabled""
+  62 |     http_tokens                 = ""required""
+  63 |     http_put_response_hop_limit = 1
+  64 |   }
+  65 |
+  66 |   monitoring {
+  67 |     enabled = true
+  68 |   }
+  69 |
+  70 |   network_interfaces {
+> 71 |     associate_public_ip_address = true
+  72 |   }
+  73 |
+  74 |   placement {
+  75 |     availability_zone = ""us-west-2a""
+  76 |   }
+  77 |
+  78 |   ram_disk_id = ""test""
+  79 |
+  80 |   vpc_security_group_ids = [""sg-12345678""]
+  81 |
+     ^ Col 0
+",f333._tfm_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,15,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+   5 |   key_name                             = ""test""
+   6 |   disable_api_termination              = ""false""
+   7 |   instance_initiated_shutdown_behavior = ""terminate""
+   8 |   security_groups                      = []
+   9 |
+  10 |   monitoring {
+  11 |     enabled = true
+  12 |   }
+  13 |
+  14 |   network_interfaces {
+> 15 |     associate_public_ip_address = true
+  16 |   }
+  17 |
+  18 |   placement {
+  19 |     availability_zone = ""us-west-2a""
+  20 |   }
+  21 |
+  22 |   ram_disk_id = ""test""
+  23 | }
+  24 |
+  25 | resource ""aws_launch_template"" ""not_vulnerable"" {
+     ^ Col 0
+",f333._tfm_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,54,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+  44 |   }
+  45 |   ram_disk_id = ""test""
+  46 | }
+  47 |
+  48 | resource ""aws_instance"" ""vulnerable"" {
+  49 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  50 |   availability_zone           = ""us-east-1a""
+  51 |   instance_type               = ""t2.small""
+  52 |   key_name                    = ""generic_aws_key""
+  53 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+> 54 |   associate_public_ip_address = true
+  55 |   private_ip                  = ""10.0.0.44""
+  56 |   iam_instance_profile        = ""example""
+  57 |   security_groups             = []
+  58 |
+  59 |   tags = {
+  60 |     method = ""aws.ec2.has_unencrypted_volumes""
+  61 |     Name   = ""aws.ec2_unencrypted""
+  62 |   }
+  63 | }
+  64 |
+     ^ Col 0
+",f333._tfm_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,30,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+> 30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+  33 |
+  34 |   tags = {
+  35 |     method = ""aws.ec2.has_unencrypted_volumes""
+  36 |     Name   = ""aws.ec2_unencrypted""
+  37 |   }
+  38 | }
+     ^ Col 0
+",f333._tfm_ec2_associate_public_ip_address
 F177,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml,6,16,skims,177. Insecure service configuration - Security Groups,"EC2 security groups have unrestricted CIDRs
  in namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml","
    1 | Resources:
