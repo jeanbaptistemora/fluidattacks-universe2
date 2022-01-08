@@ -49,6 +49,9 @@ from parse_hcl2.structure.aws import (
     iter_aws_security_group,
     iter_aws_security_group_rule,
 )
+from parse_hcl2.tokens import (
+    Block,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
@@ -58,6 +61,7 @@ from typing import (
     Callable,
     Iterator,
     List,
+    Optional,
     Union,
 )
 from utils.function import (
@@ -298,6 +302,65 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
                 yield protocol_attr
 
 
+def insecure_ec2_tfm_cidrs(
+    block: Any, ip_type: str, rule: Optional[str]
+) -> bool:
+    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
+    unrestricted_ipv6 = IPv6Network("::/0")
+    ip_val = block.val[0] if isinstance(block.val, list) else block.val
+    if ip_type == "ipv4":
+        ipv4_object = IPv4Network(ip_val, strict=False)
+        if ipv4_object == unrestricted_ipv4 or (
+            rule == "ingress" and ipv4_object.num_addresses > 1
+        ):
+            return True
+    else:
+        ipv6_object = IPv6Network(ip_val, strict=False)
+        if ipv6_object == unrestricted_ipv6 or (
+            rule == "ingress" and ipv6_object.num_addresses > 1
+        ):
+            return True
+    return False
+
+
+def tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if isinstance(resource, AWSEC2):
+            for item in resource.data:
+                if isinstance(item, Block) and item.namespace[0] in (
+                    "ingress",
+                    "egress",
+                ):
+                    item_block = get_argument(
+                        key=item.namespace[0], body=resource.data
+                    )
+                    ipv4_attr = get_block_attribute(
+                        block=item_block,
+                        key="cidr_blocks",
+                    )
+                    if ipv4_attr and insecure_ec2_tfm_cidrs(
+                        ipv4_attr, "ipv4", item.namespace[0]
+                    ):
+                        yield ipv4_attr
+                    ipv6_attr = get_block_attribute(
+                        block=item_block,
+                        key="ipv6_cidr_blocks",
+                    )
+                    if ipv6_attr and insecure_ec2_tfm_cidrs(
+                        ipv6_attr, "ipv6", item.namespace[0]
+                    ):
+                        yield ipv6_attr
+        else:
+            ipv4 = get_attribute(body=resource.data, key="cidr_blocks")
+            if ipv4 and insecure_ec2_tfm_cidrs(ipv4, "ipv4", None):
+                yield ipv4
+            ipv6 = get_attribute(body=resource.data, key="ipv6_cidr_blocks")
+            if ipv6 and insecure_ec2_tfm_cidrs(ipv6, "ipv6", None):
+                yield ipv6
+
+
 def _cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -399,6 +462,28 @@ def _tfm_aws_ec2_cfn_unrestricted_ip_protocols(
         finding=_FINDING_F024,
         iterator=get_cloud_iterator(
             tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
+                resource_iterator=chain(
+                    iter_aws_security_group(model=model),
+                    iter_aws_security_group_rule(model=model),
+                )
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_aws_ec2_unrestricted_cidrs(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F024_CWE},
+        description_key=("src.lib_path.f024_aws.unrestricted_cidrs"),
+        finding=_FINDING_F024,
+        iterator=get_cloud_iterator(
+            tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
                 resource_iterator=chain(
                     iter_aws_security_group(model=model),
                     iter_aws_security_group_rule(model=model),
@@ -547,6 +632,22 @@ async def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_aws_ec2_unrestricted_cidrs(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_aws_ec2_unrestricted_cidrs,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -608,6 +709,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_aws_ec2_cfn_unrestricted_ip_protocols(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_aws_ec2_unrestricted_cidrs(
                 content=content,
                 path=path,
                 model=model,

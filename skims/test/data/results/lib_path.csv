@@ -7675,6 +7675,150 @@ F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_port
   68 |     prefix_list_ids = [""pl-12c4e678""]
      ^ Col 0
 ",f024_aws._tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,11,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,"
+   1 | resource ""aws_security_group"" ""insecure"" {
+   2 |   name        = ""allow_tls""
+   3 |   description = ""Allow TLS inbound traffic""
+   4 |   vpc_id      = ""someid""
+   5 |
+   6 |   ingress {
+   7 |     from_port        = 443
+   8 |     to_port          = 446
+   9 |     protocol         = ""-1""
+  10 |     cidr_blocks      = [""0.0.0.0/0""]
+> 11 |     ipv6_cidr_blocks = [""::/0""]
+  12 |   }
+  13 |
+  14 |   tags = {
+  15 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  16 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  17 |   }
+  18 | }
+  19 |
+  20 | resource ""aws_security_group"" ""secure"" {
+  21 |   name        = ""allow_tls""
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,10,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,"
+   1 | resource ""aws_security_group"" ""insecure"" {
+   2 |   name        = ""allow_tls""
+   3 |   description = ""Allow TLS inbound traffic""
+   4 |   vpc_id      = ""someid""
+   5 |
+   6 |   ingress {
+   7 |     from_port        = 443
+   8 |     to_port          = 446
+   9 |     protocol         = ""-1""
+> 10 |     cidr_blocks      = [""0.0.0.0/0""]
+  11 |     ipv6_cidr_blocks = [""::/0""]
+  12 |   }
+  13 |
+  14 |   tags = {
+  15 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  16 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  17 |   }
+  18 | }
+  19 |
+  20 | resource ""aws_security_group"" ""secure"" {
+  21 |   name        = ""allow_tls""
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,48,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,"
+  38 |
+  39 | resource ""aws_security_group"" ""vulnerable"" {
+  40 |   name        = ""allow_tls""
+  41 |   description = ""Allow TLS inbound traffic""
+  42 |   vpc_id      = ""someid""
+  43 |
+  44 |   ingress {
+  45 |     from_port        = 443
+  46 |     to_port          = 443
+  47 |     protocol         = ""tcp""
+> 48 |     cidr_blocks      = [""0.0.0.0/0""]
+  49 |     ipv6_cidr_blocks = [""::/0""]
+  50 |
+  51 |   }
+  52 |
+  53 |   egress {
+  54 |     from_port       = 8080
+  55 |     to_port         = 8080
+  56 |     protocol        = ""udp""
+  57 |     cidr_blocks     = [""0.0.0.0/0""]
+  58 |     prefix_list_ids = [""pl-12c4e678""]
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,49,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,"
+  39 | resource ""aws_security_group"" ""vulnerable"" {
+  40 |   name        = ""allow_tls""
+  41 |   description = ""Allow TLS inbound traffic""
+  42 |   vpc_id      = ""someid""
+  43 |
+  44 |   ingress {
+  45 |     from_port        = 443
+  46 |     to_port          = 443
+  47 |     protocol         = ""tcp""
+  48 |     cidr_blocks      = [""0.0.0.0/0""]
+> 49 |     ipv6_cidr_blocks = [""::/0""]
+  50 |
+  51 |   }
+  52 |
+  53 |   egress {
+  54 |     from_port       = 8080
+  55 |     to_port         = 8080
+  56 |     protocol        = ""udp""
+  57 |     cidr_blocks     = [""0.0.0.0/0""]
+  58 |     prefix_list_ids = [""pl-12c4e678""]
+  59 |   }
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,57,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,"
+  47 |     protocol         = ""tcp""
+  48 |     cidr_blocks      = [""0.0.0.0/0""]
+  49 |     ipv6_cidr_blocks = [""::/0""]
+  50 |
+  51 |   }
+  52 |
+  53 |   egress {
+  54 |     from_port       = 8080
+  55 |     to_port         = 8080
+  56 |     protocol        = ""udp""
+> 57 |     cidr_blocks     = [""0.0.0.0/0""]
+  58 |     prefix_list_ids = [""pl-12c4e678""]
+  59 |   }
+  60 |
+  61 |   tags = {
+  62 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  63 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  64 |   }
+  65 | }
+  66 |
+  67 | resource ""aws_security_group_rule"" ""vulnerable"" {
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,73,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidrs.tf,"
+  56 |     protocol        = ""udp""
+  57 |     cidr_blocks     = [""0.0.0.0/0""]
+  58 |     prefix_list_ids = [""pl-12c4e678""]
+  59 |   }
+  60 |
+  61 |   tags = {
+  62 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  63 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  64 |   }
+  65 | }
+  66 |
+  67 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  68 |   security_group_id = ""sg-123456""
+  69 |   type              = ""ingress""
+  70 |   from_port         = 443
+  71 |   to_port           = 443
+  72 |   protocol          = ""tcp""
+> 73 |   cidr_blocks       = ""0.0.0.0/0""
+  74 |   prefix_list_ids   = [""pl-12c4e678""]
+  75 |
+  76 | }
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,"
    1 | Resources:
    2 |   securityGroup1:
@@ -9883,6 +10027,78 @@ F024,lines,namespace/skims/test/data/lib_path/f252/cfn_ec2_has_unrestricted_port
    58 |         ""ToPort"": 65535,
       ^ Col 0
 ",f024_aws._cnf_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,44,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,"
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+> 44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,59,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,"
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+  55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+> 59 |     cidr_blocks      = [""0.0.0.0/0""]
+  60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+  66 |     protocol        = ""udp""
+  67 |     cidr_blocks     = [""127.0.0.1/32""]
+  68 |     prefix_list_ids = [""pl-12c4e678""]
+  69 |   }
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,60,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f252/tfm_ec2_has_unrestricted_ports.tf,"
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+  55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+  59 |     cidr_blocks      = [""0.0.0.0/0""]
+> 60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+  66 |     protocol        = ""udp""
+  67 |     cidr_blocks     = [""127.0.0.1/32""]
+  68 |     prefix_list_ids = [""pl-12c4e678""]
+  69 |   }
+  70 |
+     ^ Col 0
+",f024_aws._tfm_aws_ec2_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,"
    1 | Resources:
    2 |   securityGroup1:
