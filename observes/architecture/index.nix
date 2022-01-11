@@ -1,6 +1,16 @@
 let
   commonPath = "/observes/common";
   singerPath = "/observes/singer";
+  std_data = root: {
+    inherit root;
+    env = {
+      runtime = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/env/runtime";
+      dev = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/env/development";
+    };
+    bin = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/bin";
+    src = "${root}/${baseNameOf root}";
+    test = "${root}/test";
+  };
 in
 {
   common = {
@@ -16,15 +26,7 @@ in
     checkly = "${singerPath}/tap_checkly";
     csv = "${singerPath}/tap_csv";
     delighted = "${singerPath}/tap_delighted";
-    dynamo = rec {
-      root = "${singerPath}/tap_dynamo";
-      env = {
-        runtime = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/env/runtime";
-        dev = "${root}/env/development";
-      };
-      src = "${root}/tap_dynamo";
-      test = "${root}/test";
-    };
+    dynamo = std_data "${singerPath}/tap_dynamo";
     formstack = "${singerPath}/tap_formstack";
     git = "${singerPath}/tap_git";
     gitlab = "${singerPath}/tap_gitlab";
