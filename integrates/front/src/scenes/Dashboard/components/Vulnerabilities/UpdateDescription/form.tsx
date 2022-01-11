@@ -171,8 +171,18 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       ],
     });
 
+  const numberOfGroups: number = Array.from(
+    new Set(
+      vulnerabilities.map(
+        (vulnerability: IVulnDataTypeAttr): string => vulnerability.groupName
+      )
+    )
+  ).length;
+
   const { data } = useQuery<IGroupUsersAttr>(GET_GROUP_USERS, {
-    skip: permissions.cannot("api_resolvers_group_stakeholders_resolve"),
+    skip:
+      permissions.cannot("api_resolvers_group_stakeholders_resolve") ||
+      numberOfGroups > 1,
     variables: {
       groupName,
     },
@@ -303,7 +313,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
 
   const userEmails: string[] =
-    _.isUndefined(data) || _.isEmpty(data)
+    _.isUndefined(data) || _.isEmpty(data) || numberOfGroups > 1
       ? [userEmail]
       : data.group.stakeholders
           .filter(
