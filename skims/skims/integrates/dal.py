@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 import aiohttp
 from integrates.graphql import (
     client as graphql_client,
@@ -84,7 +85,7 @@ async def _execute(
     query: str,
     operation: str,
     variables: Dict[str, Any],
-) -> Dict[str, Any]:
+) -> Optional[Dict[str, Any]]:
     async with graphql_client() as client:
         response: aiohttp.ClientResponse = await client.execute(
             query=query,
@@ -449,7 +450,9 @@ async def do_add_git_root(
         ),
     )
 
-    success: bool = result.get("data", {}).get("addGitRoot", {}).get("success")
+    success: bool = (
+        (result or {}).get("data", {}).get("addGitRoot", {}).get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
@@ -504,7 +507,7 @@ async def do_create_draft(
         )
 
         success: bool = (
-            result.get("data", {}).get("addDraft", {}).get("success")
+            (result or {}).get("data", {}).get("addDraft", {}).get("success")
         )
         if success is None:
             raise RetryAndFinallyReturn(success)
@@ -541,7 +544,7 @@ async def do_delete_finding(
     )
 
     success: bool = (
-        result.get("data", {}).get("removeFinding", {}).get("success")
+        (result or {}).get("data", {}).get("removeFinding", {}).get("success")
     )
 
     await log("warn", "Removing finding: %s, success: %s", finding_id, success)
@@ -577,7 +580,10 @@ async def do_approve_draft(
         )
 
         success: bool = (
-            result.get("data", {}).get("approveDraft", {}).get("success")
+            (result or {})
+            .get("data", {})
+            .get("approveDraft", {})
+            .get("success")
         )
 
         if success is None:
@@ -613,7 +619,10 @@ async def do_submit_draft(
         )
 
         success: bool = (
-            result.get("data", {}).get("submitDraft", {}).get("success")
+            (result or {})
+            .get("data", {})
+            .get("submitDraft", {})
+            .get("success")
         )
 
         if success is None:
@@ -699,7 +708,10 @@ async def do_update_finding_severity(
         )
 
         success: bool = (
-            result.get("data", {}).get("updateSeverity", {}).get("success")
+            (result or {})
+            .get("data", {})
+            .get("updateSeverity", {})
+            .get("success")
         )
 
         if success is None:
@@ -744,7 +756,7 @@ async def do_update_evidence(
     )
 
     success: bool = (
-        result.get("data", {}).get("updateEvidence", {}).get("success")
+        (result or {}).get("data", {}).get("updateEvidence", {}).get("success")
     )
 
     if success is None:
@@ -784,9 +796,14 @@ async def do_update_evidence_description(
         ),
     )
 
-    success: bool = result["data"]["updateEvidenceDescription"]["success"]
+    success: bool = (
+        (result or {})
+        .get("data", {})
+        .get("updateEvidenceDescription", {})
+        .get("success")
+    )
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -828,7 +845,8 @@ async def do_update_vulnerability_commit(
     )
 
     success: bool = (
-        result.get("data", {})
+        (result or {})
+        .get("data", {})
         .get("updateVulnerabilityCommit", {})
         .get("success")
         if result["data"]
@@ -876,7 +894,7 @@ async def do_upload_vulnerabilities(
         )
 
         success: bool = (
-            result.get("data", {}).get("uploadFile", {}).get("success")
+            (result or {}).get("data", {}).get("uploadFile", {}).get("success")
         )
 
         if success is None:
@@ -923,7 +941,8 @@ async def do_verify_request_vuln(
     )
 
     success: bool = (
-        result.get("data", {})
+        (result or {})
+        .get("data", {})
         .get("verifyVulnerabilitiesRequest", {})
         .get("success")
     )
@@ -982,7 +1001,10 @@ async def do_add_execution(
     )
 
     success: bool = (
-        result.get("data", {}).get("addMachineExecution", {}).get("success")
+        (result or {})
+        .get("data", {})
+        .get("addMachineExecution", {})
+        .get("success")
     )
 
     if success is None:
