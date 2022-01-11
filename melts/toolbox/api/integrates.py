@@ -288,7 +288,12 @@ class Queries:
                     threat
                     title
                     vulnerabilities @include(if: $withVulns) {
-                        historicState @include(if: $withVulns)
+                        historicState @include(if: $withVulns) {
+                            date
+                            hacker
+                            source
+                            state
+                        }
                         historicTreatment {
                             date
                             treatment
