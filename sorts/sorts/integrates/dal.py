@@ -46,7 +46,7 @@ def _execute(
 
 
 def get_vulnerabilities(group: str) -> List[Vulnerability]:
-    """Fetches all the vulnerabilities reported in a group"""
+    """Fetches all reported vulnerabilities in a group"""
     vulnerabilities: List[Vulnerability] = []
     result = _execute(
         query="""
