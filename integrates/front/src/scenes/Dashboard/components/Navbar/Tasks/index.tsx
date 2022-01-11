@@ -100,7 +100,7 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
   const limitFormatter = useCallback((assigned: number): string => {
     const maxLimit: number = 99;
 
-    return assigned > maxLimit ? "99+" : `${assigned}`;
+    return assigned > maxLimit ? `${maxLimit}+` : `${assigned}`;
   }, []);
 
   if (allAssigned <= 0) {

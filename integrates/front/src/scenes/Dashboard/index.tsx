@@ -30,8 +30,12 @@ import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
   GET_USER,
+  GET_USER_ORGANIZATIONS_GROUPS,
 } from "scenes/Dashboard/queries";
-import type { IUser } from "scenes/Dashboard/types";
+import type {
+  IGetUserOrganizationsGroups,
+  IUser,
+} from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -70,6 +74,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
+  const [, setUserData] = useState<IGetUserOrganizationsGroups | undefined>(
+    undefined
+  );
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
@@ -113,6 +120,20 @@ export const Dashboard: React.FC = (): JSX.Element => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't load user-level permissions", error);
+      });
+    },
+  });
+
+  useQuery<IGetUserOrganizationsGroups>(GET_USER_ORGANIZATIONS_GROUPS, {
+    onCompleted: (result: IGetUserOrganizationsGroups): void => {
+      setUserData(result);
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        Logger.warning(
+          "An error occurred fetching groups from dashboard",
+          error
+        );
       });
     },
   });
