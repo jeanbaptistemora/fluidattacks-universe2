@@ -73,8 +73,8 @@
         src = inputs.observesIndex.tap.checkly.root;
       };
       observesTapCsv = {
-        config = "/observes/singer/tap_csv/setup.imports.cfg";
-        src = "/observes/singer/tap_csv";
+        config = "${inputs.observesIndex.tap.csv.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.csv.root;
       };
       observesTapDelighted = {
         config = "/observes/singer/tap_delighted/tap_delighted/setup.imports.cfg";
@@ -252,17 +252,17 @@
       };
       observesTapCsv = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-csv/env/development"
+          outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_csv/tap_csv";
+        src = inputs.observesIndex.tap.csv.src;
       };
       observesTapCsvTests = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-csv/env/development"
+          outputs."${inputs.observesIndex.tap.csv.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_csv/tests";
+        src = inputs.observesIndex.tap.csv.tests;
       };
       observesTapDelighted = {
         searchPaths.source = [

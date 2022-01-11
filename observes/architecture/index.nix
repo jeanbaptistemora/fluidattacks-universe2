@@ -24,7 +24,7 @@ in
     announcekit = std_data "${singerPath}/tap_announcekit";
     bugsnag = std_data "${singerPath}/tap_bugsnag";
     checkly = std_data "${singerPath}/tap_checkly";
-    csv = "${singerPath}/tap_csv";
+    csv = std_data "${singerPath}/tap_csv";
     delighted = "${singerPath}/tap_delighted";
     dynamo = std_data "${singerPath}/tap_dynamo";
     formstack = "${singerPath}/tap_formstack";

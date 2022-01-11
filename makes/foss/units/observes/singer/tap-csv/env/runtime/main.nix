@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_csv";
+  self = projectPath inputs.observesIndex.tap.csv.root;
 in
 makeTemplate {
   name = "observes-singer-tap-csv-env-runtime";
