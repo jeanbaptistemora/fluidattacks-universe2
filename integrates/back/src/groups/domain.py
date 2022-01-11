@@ -58,7 +58,6 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
-    VulnerabilityVerification,
 )
 from decimal import (
     Decimal,
@@ -1578,11 +1577,6 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     ] = await loaders.vulnerability_historic_treatment.load_many(
         [vuln.id for vuln in group_vulns]
     )
-    verification_historics: Tuple[
-        Tuple[VulnerabilityVerification, ...], ...
-    ] = await loaders.vulnerability_historic_verification.load_many(
-        [vuln.id for vuln in group_vulns]
-    )
 
     oldest_finding = await get_oldest_no_treatment(loaders, findings)
     if oldest_finding:
@@ -1629,7 +1623,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         "undefined_treatment", 0
     )
     content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
-        loaders, group_vulns, verification_historics, last_day
+        loaders, group_vulns, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
         findings_ids, group_name, last_day
