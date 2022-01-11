@@ -610,7 +610,10 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-    min_v_id: SSLVersionId = min(tls_versions)
+    if tls_versions:
+        min_v_id: SSLVersionId = min(tls_versions)
+    else:
+        return tuple()
 
     if min_v_id == SSLVersionId.tlsv1_2 or len(tls_versions) < 2:
         return tuple()
