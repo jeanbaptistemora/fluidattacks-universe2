@@ -9,7 +9,7 @@ let
     };
     bin = builtins.replaceStrings [ "_" ] [ "-" ] "${root}/bin";
     src = "${root}/${baseNameOf root}";
-    test = "${root}/test";
+    tests = "${root}/tests";
   };
 in
 {
@@ -21,7 +21,7 @@ in
     utilsLogger = "${commonPath}/utils_logger";
   };
   tap = {
-    announcekit = "${singerPath}/tap_announcekit";
+    announcekit = std_data "${singerPath}/tap_announcekit";
     bugsnag = "${singerPath}/tap_bugsnag";
     checkly = "${singerPath}/tap_checkly";
     csv = "${singerPath}/tap_csv";

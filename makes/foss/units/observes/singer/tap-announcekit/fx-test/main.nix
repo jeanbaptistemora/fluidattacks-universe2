@@ -1,11 +1,12 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , projectPath
 , ...
 }:
 makeScript {
   replace = {
-    __argEnvSrc__ = projectPath "/observes/singer/tap_announcekit";
+    __argEnvSrc__ = projectPath inputs.observesIndex.tap.announcekit.root;
     __argEnvTestDir__ = "fx_tests";
   };
   searchPaths = {

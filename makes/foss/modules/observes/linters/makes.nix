@@ -61,8 +61,8 @@
         src = "/observes/common/singer_io";
       };
       observesTapAnnounceKit = {
-        config = "/observes/singer/tap_announcekit/tap_announcekit/setup.imports.cfg";
-        src = "/observes/singer/tap_announcekit";
+        config = "${inputs.observesIndex.tap.announcekit.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.announcekit.root;
       };
       observesTapBugsnag = {
         config = "/observes/singer/tap_bugsnag/tap_bugsnag/setup.imports.cfg";
@@ -224,17 +224,17 @@
       };
       observesTapAnnounceKit = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-announcekit/env/runtime"
+          outputs."${inputs.observesIndex.tap.announcekit.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_announcekit/tap_announcekit";
+        src = inputs.observesIndex.tap.announcekit.src;
       };
       observesTapAnnounceKitTests = {
         searchPaths.source = [
           outputs."/observes/singer/tap-announcekit/env/development"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_announcekit/tests";
+        src = inputs.observesIndex.tap.announcekit.tests;
       };
       observesTapBugsnag = {
         searchPaths.source = [

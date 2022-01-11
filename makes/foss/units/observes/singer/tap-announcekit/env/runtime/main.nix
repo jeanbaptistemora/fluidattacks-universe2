@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_announcekit";
+  self = projectPath inputs.observesIndex.tap.announcekit.root;
 in
 makeTemplate {
   name = "observes-singer-tap-announcekit-env-runtime";

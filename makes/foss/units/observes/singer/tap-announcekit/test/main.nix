@@ -1,4 +1,5 @@
-{ makeDerivation
+{ inputs
+, makeDerivation
 , outputs
 , projectPath
 , ...
@@ -6,7 +7,7 @@
 makeDerivation {
   name = "observes-singer-tap-announcekit-test";
   env = {
-    envSrc = projectPath "/observes/singer/tap_announcekit";
+    envSrc = projectPath inputs.observesIndex.tap.announcekit.root;
     envTestDir = "tests";
   };
   searchPaths = {
