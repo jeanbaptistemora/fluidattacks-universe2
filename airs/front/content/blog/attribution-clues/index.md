@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, company, exploit, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1638883041/blog/attribution-clues/cover_attribution.webp
 alt: Photo by Clark Van Der Beken on Unsplash
-description: We describe the kinds of technical traces
-  left in the phases of a cyberattack
-  and talk about how they may help the attribution process.
-keywords: Artifacts, Attribution, Malware, Investigation, Phishing, Attack,
-  Ttp, Ethical Hacking, Pentesting
+description: We describe the kinds of technical traces left in the phases of a cyberattack and talk about how they may help the attribution process.
+keywords: Artifacts, Attribution, Malware, Investigation, Phishing, Attack, Ttp, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría
