@@ -69,8 +69,8 @@
         src = inputs.observesIndex.tap.bugsnag.root;
       };
       observesTapCheckly = {
-        config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
-        src = "/observes/singer/tap_checkly";
+        config = "${inputs.observesIndex.tap.checkly.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.checkly.root;
       };
       observesTapCsv = {
         config = "/observes/singer/tap_csv/setup.imports.cfg";
@@ -245,10 +245,10 @@
       };
       observesTapCheckly = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-checkly/env/runtime"
+          outputs."${inputs.observesIndex.tap.checkly.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_checkly/tap_checkly";
+        src = inputs.observesIndex.tap.checkly.src;
       };
       observesTapCsv = {
         searchPaths.source = [

@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_checkly";
+  self = projectPath inputs.observesIndex.tap.checkly.root;
 in
 makeTemplate {
   name = "observes-singer-tap-checkly-env-runtime";
