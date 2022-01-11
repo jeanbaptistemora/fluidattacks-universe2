@@ -1,4 +1,5 @@
 import authz
+import base64
 import boto3
 from custom_exceptions import (
     HasVulns,
@@ -217,6 +218,7 @@ async def add_git_root(
     root_credential_type: Optional[str] = kwargs.get("credential_type")
     if root_credential_type:
         credential: str = kwargs["credential"]
+        credential = _format_root_credential(root_credential_type, credential)
         await validations.validate_git_credentials(
             url, root_credential_type, credential
         )
@@ -407,6 +409,15 @@ def _format_root_nickname(nickname: str, url: str) -> str:
     if nick.endswith("_git"):
         return nick[:-4]
     return nick
+
+
+def _format_root_credential(credential_type: str, credential: str) -> str:
+    if credential_type == "SSH":
+        raw_key: str = base64.b64decode(credential).decode()
+        if not raw_key.endswith("\n"):
+            raw_key += "\n"
+            credential = base64.b64encode(raw_key.encode()).decode()
+    return credential
 
 
 async def update_git_environments(

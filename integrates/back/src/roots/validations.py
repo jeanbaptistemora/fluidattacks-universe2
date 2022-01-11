@@ -133,10 +133,7 @@ async def validate_git_credentials(
                 "w",
                 encoding="utf-8",
             ) as ssh_file:
-                raw_key: str = base64.b64decode(credentials).decode()
-                if not raw_key.endswith("\n"):
-                    raw_key += "\n"
-                ssh_file.write(raw_key)
+                ssh_file.write(base64.b64decode(credentials).decode())
 
             proc = await asyncio.create_subprocess_exec(
                 "git",
