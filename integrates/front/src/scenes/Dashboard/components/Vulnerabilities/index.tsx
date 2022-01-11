@@ -61,6 +61,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   customSearch,
   extraButtons,
   findingState,
+  hideSelectVulnerability,
   isEditing,
   isFindingReleased,
   isRequestingReattack,
@@ -210,7 +211,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 
   const selectionMode: ISelectRowProps = {
     clickToSelect: false,
-    hideSelectColumn: findingState === "closed",
+    hideSelectColumn:
+      hideSelectVulnerability === true || findingState === "closed",
     mode: "checkbox",
     nonSelectable: setNonSelectable(
       vulnerabilities,

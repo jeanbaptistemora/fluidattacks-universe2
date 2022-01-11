@@ -39,6 +39,10 @@ interface IGroupAction {
   groupName: string;
   actions: IAction[];
 }
+interface IGroupRole {
+  groupName: string;
+  role: string;
+}
 
 export const TasksContent: React.FC<ITasksContent> = ({
   setUserRole,
@@ -96,12 +100,30 @@ export const TasksContent: React.FC<ITasksContent> = ({
           (recordPermission: IGroupAction): boolean =>
             recordPermission.groupName.toLowerCase() === groupName.toLowerCase()
         );
+        const recordRoles: IGroupRole[] = _.flatten(
+          userData.me.organizations.map(
+            (organization: IOrganizationGroups): IGroupRole[] =>
+              organization.groups.map(
+                (group: IOrganizationGroups["groups"][0]): IGroupRole => ({
+                  groupName: group.name,
+                  role: group.userRole,
+                })
+              )
+          )
+        );
+        const filteredRole: IGroupRole[] = recordRoles.filter(
+          (recordRole: IGroupRole): boolean =>
+            recordRole.groupName.toLowerCase() === groupName.toLowerCase()
+        );
         if (filteredPermissions.length > 0) {
           permissionsContext.update(filteredPermissions[0].actions);
         }
+        if (filteredRole.length > 0) {
+          setUserRole(filteredRole[0].role);
+        }
       }
     },
-    [permissionsContext, userData, userGroupsRoles.length]
+    [permissionsContext, setUserRole, userData, userGroupsRoles.length]
   );
 
   const onGroupChange: () => void = (): void => {
@@ -216,6 +238,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
             </Button>
           }
           findingState={"open"}
+          hideSelectVulnerability={true}
           isEditing={false}
           isFindingReleased={true}
           isRequestingReattack={false}

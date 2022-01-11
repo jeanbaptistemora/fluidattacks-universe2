@@ -66,6 +66,7 @@ interface IVulnComponentProps {
   customSearch?: ICustomSearchProps;
   extraButtons: JSX.Element;
   findingState: "closed" | "open";
+  hideSelectVulnerability?: boolean;
   isFindingReleased: boolean;
   isEditing: boolean;
   isRequestingReattack: boolean;
