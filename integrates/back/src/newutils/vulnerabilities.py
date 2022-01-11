@@ -873,8 +873,8 @@ def format_vulnerability_state_item(
     else:
         formatted_status = str(state.status.value).lower()
     item = {
-        "analyst": state.modified_by,
         "date": convert_from_iso_str(state.modified_date),
+        "hacker": state.modified_by,
         "source": str(state.source.value).lower(),
         "state": formatted_status,
     }

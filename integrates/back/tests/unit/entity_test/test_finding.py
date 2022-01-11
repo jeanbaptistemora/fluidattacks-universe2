@@ -82,8 +82,8 @@ async def test_finding() -> None:
         "specific": "12",
         "historicState": [
             {
-                "analyst": "unittest@fluidattacks.com",
                 "date": "2020-01-03 12:46:10",
+                "hacker": "unittest@fluidattacks.com",
                 "source": "asm",
                 "state": "open",
             }
@@ -187,7 +187,12 @@ async def test_finding() -> None:
             findingId
             where
             specific
-            historicState
+            historicState {
+              date
+              hacker
+              source
+              state
+            }
             tag
             severity
             remediated
