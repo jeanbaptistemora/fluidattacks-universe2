@@ -1,4 +1,5 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
@@ -8,7 +9,7 @@ makeTemplate {
   name = "observes-singer-tap-gitlab-env-runtime";
   searchPaths = {
     pythonPackage = [
-      (projectPath "/observes/singer/tap_gitlab")
+      (projectPath inputs.observesIndex.tap.gitlab.root)
     ];
     source = [
       (makePythonPypiEnvironment {

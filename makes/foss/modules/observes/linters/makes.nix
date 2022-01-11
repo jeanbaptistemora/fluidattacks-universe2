@@ -85,8 +85,8 @@
         src = inputs.observesIndex.tap.formstack.root;
       };
       observesTapGitlab = {
-        config = "/observes/singer/tap_gitlab/tap_gitlab/setup.imports.cfg";
-        src = "/observes/singer/tap_gitlab";
+        config = "${inputs.observesIndex.tap.gitlab.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.gitlab.root;
       };
       observesTapJson = {
         config = "/observes/singer/tap_json/tap_json/setup.imports.cfg";
@@ -287,17 +287,17 @@
       };
       observesTapGitlab = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-gitlab/env/development"
+          outputs."${inputs.observesIndex.tap.gitlab.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_gitlab/tap_gitlab";
+        src = inputs.observesIndex.tap.gitlab.src;
       };
       observesTapGitlabTests = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-gitlab/env/development"
+          outputs."${inputs.observesIndex.tap.gitlab.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_gitlab/tests";
+        src = inputs.observesIndex.tap.gitlab.tests;
       };
       observesTapJson = {
         searchPaths.source = [
