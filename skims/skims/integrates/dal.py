@@ -98,7 +98,7 @@ async def _execute(
             await log("debug", "response status: %s", response.status)
             raise aiohttp.ClientError()
 
-        result: Dict[str, Any] = await response.json()
+        result: Dict[str, Any] = (await response.json()) or {}
 
     await raise_errors(
         errors=result.get("errors"),
