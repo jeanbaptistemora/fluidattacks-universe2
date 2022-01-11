@@ -28,7 +28,7 @@ in
     delighted = std_data "${singerPath}/tap_delighted";
     dynamo = std_data "${singerPath}/tap_dynamo";
     formstack = std_data "${singerPath}/tap_formstack";
-    git = "${singerPath}/tap_git";
+    git = std_data "${singerPath}/tap_git";
     gitlab = "${singerPath}/tap_gitlab";
     json = "${singerPath}/tap_json";
     mailchimp = "${singerPath}/tap_mailchimp";
