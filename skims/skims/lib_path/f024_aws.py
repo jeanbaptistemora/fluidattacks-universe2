@@ -197,7 +197,7 @@ def _protocol_iter_vulnerabilities(
     for rule in rules_iterator:
         rule_raw = rule.raw
         with suppress(ValueError, KeyError):
-            if rule_raw["IpProtocol"] == "-1":
+            if rule_raw["IpProtocol"] in ("-1", -1):
                 yield rule.inner["IpProtocol"]
 
 
