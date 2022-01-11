@@ -307,6 +307,7 @@ class Queries:
                 }
             }
             """
+
         params: dict = {
             "identifier": identifier,
             "withVulns": with_vulns,
