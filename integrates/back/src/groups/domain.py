@@ -1628,8 +1628,8 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     content["treatments"]["undefined"] = treatments.get(
         "undefined_treatment", 0
     )
-    content["reattacks"] = vulns_utils.get_total_reattacks_stats(
-        group_vulns, verification_historics, last_day
+    content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
+        loaders, group_vulns, verification_historics, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
         findings_ids, group_name, last_day

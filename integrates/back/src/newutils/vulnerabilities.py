@@ -619,10 +619,14 @@ def get_last_requested_reattack_date(
     )
 
 
-def get_last_reattack_date(
-    historic: Tuple[VulnerabilityVerification, ...],
+async def get_last_reattack_date(
+    loaders: Any,
+    vuln: Vulnerability,
 ) -> Optional[str]:
     """Get last reattack date in ISO8601 UTC format."""
+    historic: Tuple[
+        VulnerabilityVerification, ...
+    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return next(
         (
             verification.modified_date
@@ -633,7 +637,8 @@ def get_last_reattack_date(
     )
 
 
-def get_total_reattacks_stats(  # pylint: disable=too-many-locals
+async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
+    loaders: Any,
     vulns: Tuple[Vulnerability, ...],
     historics: Tuple[Tuple[VulnerabilityVerification, ...], ...],
     min_date: datetime,
@@ -661,7 +666,7 @@ def get_total_reattacks_stats(  # pylint: disable=too-many-locals
             )
             if min_date and last_requested_reattack_date >= min_date:
                 reattacks_requested += 1
-        verified_date = get_last_reattack_date(historic)
+        verified_date = await get_last_reattack_date(loaders, vuln)
         if verified_date:
             # Increment totals, no date filtered
             reattacks_executed_total += 1
