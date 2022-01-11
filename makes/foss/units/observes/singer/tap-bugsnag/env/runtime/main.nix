@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_bugsnag";
+  self = projectPath inputs.observesIndex.tap.bugsnag.root;
 in
 makeTemplate {
   name = "observes-singer-tap-bugsnag-env-runtime";

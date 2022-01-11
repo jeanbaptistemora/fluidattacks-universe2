@@ -65,8 +65,8 @@
         src = inputs.observesIndex.tap.announcekit.root;
       };
       observesTapBugsnag = {
-        config = "/observes/singer/tap_bugsnag/tap_bugsnag/setup.imports.cfg";
-        src = "/observes/singer/tap_bugsnag";
+        config = "${inputs.observesIndex.tap.bugsnag.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.bugsnag.root;
       };
       observesTapCheckly = {
         config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
@@ -238,10 +238,10 @@
       };
       observesTapBugsnag = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-bugsnag/env/runtime"
+          outputs."${inputs.observesIndex.tap.bugsnag.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_bugsnag/tap_bugsnag";
+        src = inputs.observesIndex.tap.bugsnag.src;
       };
       observesTapCheckly = {
         searchPaths.source = [

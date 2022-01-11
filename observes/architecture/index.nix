@@ -22,7 +22,7 @@ in
   };
   tap = {
     announcekit = std_data "${singerPath}/tap_announcekit";
-    bugsnag = "${singerPath}/tap_bugsnag";
+    bugsnag = std_data "${singerPath}/tap_bugsnag";
     checkly = "${singerPath}/tap_checkly";
     csv = "${singerPath}/tap_csv";
     delighted = "${singerPath}/tap_delighted";
