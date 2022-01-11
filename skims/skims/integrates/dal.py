@@ -140,7 +140,7 @@ async def get_group_level_role(
         ),
     )
 
-    role: str = result["data"]["group"]["userRole"] or "none"
+    role: str = result.get("data", {}).get("group", {}).get("userRole", "none")
 
     return role
 
@@ -190,8 +190,8 @@ async def get_group_findings(
             title=finding["title"],
         )
         for finding in (
-            result["data"]["group"]["findings"]
-            + result["data"]["group"]["drafts"]
+            result.get("data", {}).get("group", {}).get("findings", [])
+            + result.get("data", {}).get("group", {}).get("drafts", [])
         )
     ]
 
@@ -239,7 +239,9 @@ async def get_group_open_severity(group: str) -> float:
 
     return sum(
         finding["openVulnerabilities"] * (4 ** (finding["severityScore"] - 4))
-        for finding in result["data"]["group"]["findings"]
+        for finding in result.get("data", {})
+        .get("group", {})
+        .get("findings", [])
     )
 
 
@@ -279,7 +281,7 @@ async def get_group_roots(
             environment_urls=root["environmentUrls"],
             nickname=root["nickname"],
         )
-        for root in result["data"]["group"]["roots"]
+        for root in result.get("data", {}).get("group", {}).get("roots", [])
     )
 
 
@@ -306,9 +308,9 @@ async def get_finding_current_release_status(
 
     return (
         core_model.FindingReleaseStatusEnum(
-            result["data"]["finding"]["currentState"]
+            result.get("data", {}).get("finding", {}).get("currentState")
         )
-        if result["data"]["finding"]["currentState"]
+        if result.get("data", {}).get("finding", {}).get("currentState")
         else core_model.FindingReleaseStatusEnum.APPROVED
     )
 
@@ -347,7 +349,9 @@ async def get_finding_vulnerabilities(
     )
 
     store: EphemeralStore = get_ephemeral_store()
-    for vulnerability in result["data"]["finding"]["vulnerabilities"]:
+    for vulnerability in (
+        result.get("data", {}).get("finding", {}).get("vulnerabilities", [])
+    ):
         kind = core_model.VulnerabilityKindEnum(
             vulnerability["vulnerabilityType"]
         )
@@ -445,9 +449,9 @@ async def do_add_git_root(
         ),
     )
 
-    success: bool = result["data"]["addGitRoot"]["success"]
+    success: bool = result.get("data", {}).get("addGitRoot", {}).get("success")
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -499,8 +503,10 @@ async def do_create_draft(
             ),
         )
 
-        success: bool = result["data"]["addDraft"]["success"]
-        if not success:
+        success: bool = (
+            result.get("data", {}).get("addDraft", {}).get("success")
+        )
+        if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
@@ -534,11 +540,13 @@ async def do_delete_finding(
         ),
     )
 
-    success: bool = result["data"]["removeFinding"]["success"]
+    success: bool = (
+        result.get("data", {}).get("removeFinding", {}).get("success")
+    )
 
     await log("warn", "Removing finding: %s, success: %s", finding_id, success)
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -568,9 +576,11 @@ async def do_approve_draft(
             ),
         )
 
-        success: bool = result["data"]["approveDraft"]["success"]
+        success: bool = (
+            result.get("data", {}).get("approveDraft", {}).get("success")
+        )
 
-        if not success:
+        if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
@@ -602,9 +612,11 @@ async def do_submit_draft(
             ),
         )
 
-        success: bool = result["data"]["submitDraft"]["success"]
+        success: bool = (
+            result.get("data", {}).get("submitDraft", {}).get("success")
+        )
 
-        if not success:
+        if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
@@ -686,9 +698,11 @@ async def do_update_finding_severity(
             ),
         )
 
-        success: bool = result["data"]["updateSeverity"]["success"]
+        success: bool = (
+            result.get("data", {}).get("updateSeverity", {}).get("success")
+        )
 
-        if not success:
+        if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
@@ -729,9 +743,11 @@ async def do_update_evidence(
         ),
     )
 
-    success: bool = result["data"]["updateEvidence"]["success"]
+    success: bool = (
+        result.get("data", {}).get("updateEvidence", {}).get("success")
+    )
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -812,12 +828,14 @@ async def do_update_vulnerability_commit(
     )
 
     success: bool = (
-        result["data"]["updateVulnerabilityCommit"]["success"]
+        result.get("data", {})
+        .get("updateVulnerabilityCommit", {})
+        .get("success")
         if result["data"]
         else False
     )
 
-    if not success and "errors" not in result:
+    if result is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -857,9 +875,11 @@ async def do_upload_vulnerabilities(
             ),
         )
 
-        success: bool = result["data"]["uploadFile"]["success"]
+        success: bool = (
+            result.get("data", {}).get("uploadFile", {}).get("success")
+        )
 
-        if not success:
+        if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
@@ -902,9 +922,13 @@ async def do_verify_request_vuln(
         ),
     )
 
-    success: bool = result["data"]["verifyVulnerabilitiesRequest"]["success"]
+    success: bool = (
+        result.get("data", {})
+        .get("verifyVulnerabilitiesRequest", {})
+        .get("success")
+    )
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -957,9 +981,11 @@ async def do_add_execution(
         ),
     )
 
-    success: bool = result["data"]["addMachineExecution"]["success"]
+    success: bool = (
+        result.get("data", {}).get("addMachineExecution", {}).get("success")
+    )
 
-    if not success:
+    if success is None:
         raise RetryAndFinallyReturn(success)
 
     return success
