@@ -1,11 +1,12 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/singer/tap-formstack/bin"
+      outputs."${inputs.observesIndex.tap.formstack.bin}"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/service/job-last-success/bin"
     ];

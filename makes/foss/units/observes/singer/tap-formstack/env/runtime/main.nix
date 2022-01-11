@@ -1,10 +1,11 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_formstack";
+  self = projectPath inputs.observesIndex.tap.formstack.root;
 in
 makeTemplate {
   name = "observes-singer-tap-formstack-env-runtime";

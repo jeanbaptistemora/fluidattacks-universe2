@@ -81,8 +81,8 @@
         src = inputs.observesIndex.tap.delighted.root;
       };
       observesTapFormstack = {
-        config = "/observes/singer/tap_formstack/tap_formstack/setup.imports.cfg";
-        src = "/observes/singer/tap_formstack";
+        config = "${inputs.observesIndex.tap.formstack.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.formstack.root;
       };
       observesTapGitlab = {
         config = "/observes/singer/tap_gitlab/tap_gitlab/setup.imports.cfg";
@@ -280,10 +280,10 @@
       };
       observesTapFormstack = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-formstack/env/runtime"
+          outputs."${inputs.observesIndex.tap.formstack.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_formstack/tap_formstack";
+        src = inputs.observesIndex.tap.formstack.src;
       };
       observesTapGitlab = {
         searchPaths.source = [

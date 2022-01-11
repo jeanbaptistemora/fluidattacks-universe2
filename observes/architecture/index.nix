@@ -27,7 +27,7 @@ in
     csv = std_data "${singerPath}/tap_csv";
     delighted = std_data "${singerPath}/tap_delighted";
     dynamo = std_data "${singerPath}/tap_dynamo";
-    formstack = "${singerPath}/tap_formstack";
+    formstack = std_data "${singerPath}/tap_formstack";
     git = "${singerPath}/tap_git";
     gitlab = "${singerPath}/tap_gitlab";
     json = "${singerPath}/tap_json";
