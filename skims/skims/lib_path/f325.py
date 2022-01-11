@@ -220,11 +220,11 @@ def _cfn_iam_has_privileges_over_iam_iter_vulns(
             else [iam_res]
         )
         for policy in policies:
-            statements = get_node_by_keys(
+            if statements := get_node_by_keys(
                 policy, ["PolicyDocument", "Statement"]
-            )
-            for stmt in statements.data or []:
-                yield from iam_is_present_in_action(stmt)
+            ):
+                for stmt in statements.data or []:
+                    yield from iam_is_present_in_action(stmt)
 
 
 def _has_admin_access(managed_policies: Node) -> Iterator[Node]:

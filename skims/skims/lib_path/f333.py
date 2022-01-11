@@ -169,12 +169,16 @@ def tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
                 )
                 if net_public_ip.val is True:
                     yield net_public_ip
-        elif isinstance(resource, AWSInstance):
-            public_ip = get_attribute(
-                body=resource.data, key="associate_public_ip_address"
+        elif (
+            isinstance(resource, AWSInstance)
+            and (
+                public_ip := get_attribute(
+                    body=resource.data, key="associate_public_ip_address"
+                )
             )
-            if public_ip.val is True:
-                yield public_ip
+            and public_ip.val is True
+        ):
+            yield public_ip
 
 
 def _ec2_has_terminate_shutdown_behavior(
