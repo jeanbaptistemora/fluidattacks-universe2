@@ -40,11 +40,6 @@ def test_permissions_open():
     assert apk.uses_dangerous_perms(SIGNED_APK)
 
 
-def test_fragment_injection_open():
-    """Test if APK vulnerable to fragment injection."""
-    assert apk.has_fragment_injection(OLD_APK)
-
-
 def test_webview_cache_open():
     """Test if APK webviews clear JS cache."""
     assert apk.webview_caches_javascript(JS_APK)
@@ -93,11 +88,6 @@ def test_frida_open():
 def test_permissions_close():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NO_ROOT_APK)
-
-
-def test_fragment_injection_close():
-    """Test if APK vulnerable to fragment injection."""
-    assert not apk.has_fragment_injection(NO_ROOT_APK)
 
 
 def test_webview_cache_close():
@@ -163,16 +153,6 @@ def test_frida_close():
 def test_permissions_unknown():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NOT_EXISTS_APK)
-
-
-def test_fragment_injection_unknown1():
-    """Test if APK vulnerable to fragment injection."""
-    assert not apk.has_fragment_injection(SIGNED_APK)
-
-
-def test_fragment_injection_unknown2():
-    """Test if APK vulnerable to fragment injection."""
-    assert not apk.has_fragment_injection(NOT_EXISTS_APK)
 
 
 def test_webview_cache_unknown():

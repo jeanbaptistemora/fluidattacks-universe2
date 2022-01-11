@@ -103,40 +103,6 @@ def get_http_urls(dex):
     ]
 
 
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(AssertionError, FileNotFoundError, apk.Error, dvm.Error)
-def has_fragment_injection(apk_file: str) -> tuple:
-    """
-    Check if the given APK is vulnerable to fragment injection.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if the target SDK version is less than 19, and
-                *PreferenceActivity* is present.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj, dvms, _ = analyze_apk(apk_file)
-
-    sdk_version = apk_obj.get_target_sdk_version()
-    target_sdk_version = int(sdk_version) if sdk_version else 0
-
-    if target_sdk_version == 0:
-        raise AssertionError("Could not determine target SDK version")
-
-    is_vulnerable: bool = (
-        target_sdk_version < 19
-        and "PreferenceActivity" in get_activities_source(dvms)
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK vulnerable to fragment injection",
-        msg_closed="APK not vulnerable to fragment injection",
-        open_if=is_vulnerable,
-    )
-
-
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def webview_caches_javascript(apk_file: str) -> tuple:
