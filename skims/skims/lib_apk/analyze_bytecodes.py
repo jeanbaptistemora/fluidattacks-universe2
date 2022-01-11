@@ -445,6 +445,69 @@ def _webview_caches_javascript(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _add_webview_allows_resource_access(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    source: str,
+) -> None:
+    locations.append(
+        desc="webview_allows_resource_access",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse APK and all Dalvik Executables (classes*.dex)
+                >>> # in the APK
+                >>> _, dex, _ = AnalyzeAPK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                >>> {repr(source)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=12, wrap=True),
+        ),
+    )
+
+
+def _webview_allows_resource_access(
+    ctx: APKCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    dangerous_allows = {
+        "setAllowContentAccess",
+        "setAllowFileAccess",
+        "setAllowFileAccessFromFileURLs",
+        "setAllowUniversalAccessFromFileURLs",
+    }
+    if ctx.apk_ctx.analysis is not None:
+        act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
+
+        effective_dangerous: List[str] = []
+
+        if "setJavaScriptEnabled" in act_source:
+            effective_dangerous = list(
+                filter(act_source.__contains__, dangerous_allows)
+            )
+
+        has_dangerous_permissions: bool = bool(effective_dangerous)
+
+        if has_dangerous_permissions:
+            _add_webview_allows_resource_access(ctx, locations, act_source)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F103,
+        locations=locations,
+    )
+
+
 CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
