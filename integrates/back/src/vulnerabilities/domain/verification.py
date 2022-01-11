@@ -19,18 +19,19 @@ async def get_efficacy(
     loaders: Any,
     vuln: Vulnerability,
 ) -> Decimal:
-    historic: Tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
-    cycles: int = get_reattack_cycles(historic)
+    cycles: int = await get_reattack_cycles(loaders, vuln)
     if cycles and vuln.state.status == VulnerabilityStateStatus.CLOSED:
         return Decimal(100 / cycles).quantize(Decimal("0.01"))
     return Decimal(0)
 
 
-def get_reattack_cycles(
-    historic: Tuple[VulnerabilityVerification, ...]
+async def get_reattack_cycles(
+    loaders: Any,
+    vuln: Vulnerability,
 ) -> int:
+    historic: Tuple[
+        VulnerabilityVerification, ...
+    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return len(
         [
             verification
