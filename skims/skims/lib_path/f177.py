@@ -220,35 +220,6 @@ def _cfn_ec2_has_unrestricted_ip_protocols_iter_vulns(
             yield ip_protocol
 
 
-def has_unrestricted_cidrs(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]], is_ingress: bool
-) -> Iterator[Union[AWSEC2, Node]]:
-    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
-    unrestricted_ipv6 = IPv6Network("::/0")
-    for ec2_res in ec2_iterator:
-        ip_object: Union[IPv4Network, IPv6Network]
-        if cidr := ec2_res.inner.get("CidrIp", None):
-            ip_object = IPv4Network(cidr.raw, strict=False)
-            if ip_object == unrestricted_ipv4:
-                yield cidr
-            if is_ingress and ip_object.num_addresses > 1:
-                yield cidr
-        elif cidr := ec2_res.inner.get("CidrIpv6", None):
-            ip_object = IPv6Network(cidr.raw, strict=False)
-            if ip_object == unrestricted_ipv6:
-                yield cidr
-            if is_ingress and ip_object.num_addresses > 1:
-                yield cidr
-
-
-def _cfn_ec2_has_unrestricted_cidrs_iter_vulns(
-    ec2_egress_iterator: Iterator[Union[AWSEC2, Node]],
-    ec2_ingress_iterator: Iterator[Union[AWSEC2, Node]],
-) -> Iterator[Union[AWSEC2, Node]]:
-    yield from has_unrestricted_cidrs(ec2_egress_iterator, False)
-    yield from has_unrestricted_cidrs(ec2_ingress_iterator, True)
-
-
 def _ec2_use_default_security_group(
     content: str,
     path: str,
@@ -405,30 +376,6 @@ def _cfn_ec2_has_unrestricted_ip_protocols(
     )
 
 
-def _cfn_ec2_has_unrestricted_cidrs(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F177_CWE},
-        description_key=("src.lib_path.f177.ec2_has_unrestricted_cidrs"),
-        finding=_FINDING_F177,
-        iterator=get_cloud_iterator(
-            _cfn_ec2_has_unrestricted_cidrs_iter_vulns(
-                ec2_egress_iterator=iter_ec2_ingress_egress(
-                    template=template, ingress=False, egress=True
-                ),
-                ec2_ingress_iterator=iter_ec2_ingress_egress(
-                    template=template, ingress=True, egress=False
-                ),
-            )
-        ),
-        path=path,
-    )
-
-
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -541,22 +488,6 @@ async def cfn_ec2_has_unrestricted_ip_protocols(
     )
 
 
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_ec2_has_unrestricted_cidrs(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_ec2_has_unrestricted_cidrs,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -607,13 +538,6 @@ async def analyze(
             )
             coroutines.append(
                 cfn_ec2_has_unrestricted_ip_protocols(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_ec2_has_unrestricted_cidrs(
                     content=content,
                     path=path,
                     template=template,
