@@ -75,7 +75,7 @@ async def test_graph_generation(
     suffix_out: str,
 ) -> None:
     # Test the GraphDB
-    graph_db = await get_graph_db(files_to_test)
+    graph_db = get_graph_db(files_to_test)
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 
     expected_path = os.path.join(

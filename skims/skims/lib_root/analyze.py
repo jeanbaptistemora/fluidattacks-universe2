@@ -88,7 +88,7 @@ async def analyze(
         include=CTX.config.path.include,
     )
 
-    graph_db = await parse.get_graph_db(tuple(unique_paths))
+    graph_db = parse.get_graph_db(tuple(unique_paths))
     queries: graph_model.Queries = tuple(
         (finding, query)
         for finding, query in QUERIES

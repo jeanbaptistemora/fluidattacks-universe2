@@ -409,7 +409,7 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
             yield graph_shard
 
 
-async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
+def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     # Reproducibility
     paths = tuple(sorted(paths))
     available_languages = {"java", "c_sharp"}
