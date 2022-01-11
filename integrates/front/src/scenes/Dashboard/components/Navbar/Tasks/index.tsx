@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import type { IVulnRowAttr } from "../../Vulnerabilities/types";
 import { NavbarButton } from "../styles";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { mergedAssigned } from "scenes/Dashboard/components/Navbar/Tasks/utils";
 import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import type { IGetVulnsGroups } from "scenes/Dashboard/types";
@@ -76,20 +77,22 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
       );
       setAllData((current: IGetVulnsGroups[]): IGetVulnsGroups[] =>
         Array.from(
-          new Set([
-            ...current,
-            ...newvar.map(
-              (varT: ApolloQueryResult<IGetVulnsGroups>): IGetVulnsGroups =>
-                _.isUndefined(varT.errors) && _.isEmpty(varT.errors)
-                  ? varT.data
-                  : {
-                      group: {
-                        name: "",
-                        vulnerabilitiesAssigned: [],
-                      },
-                    }
-            ),
-          ])
+          new Set(
+            mergedAssigned(
+              current,
+              newvar.map(
+                (varT: ApolloQueryResult<IGetVulnsGroups>): IGetVulnsGroups =>
+                  _.isUndefined(varT.errors) && _.isEmpty(varT.errors)
+                    ? varT.data
+                    : {
+                        group: {
+                          name: "",
+                          vulnerabilitiesAssigned: [],
+                        },
+                      }
+              )
+            )
+          )
         )
       );
     }
