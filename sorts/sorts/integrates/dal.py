@@ -59,7 +59,9 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
                         vulnerabilities(state: "open") {
                             vulnerabilityType
                             where
-                            historicState
+                            historicState {
+                                source
+                            }
                         }
                     }
                 }
