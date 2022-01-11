@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from billing.types import (
     Customer,
+    Invoice,
     Portal,
     Price,
     Subscription,
@@ -39,6 +40,7 @@ from starlette.responses import (
     JSONResponse,
 )
 import stripe
+import time
 from typing import (
     Any,
     Dict,
@@ -88,6 +90,37 @@ async def _get_price(
     raise InvalidBillingPrice()
 
 
+async def _collect_subscription_prices(
+    *,
+    subscription: str,
+) -> List[Price]:
+    # Collect stripe prices
+    prices: List[Price] = []
+    if subscription == "squad":
+        prices.extend(
+            await collect(
+                [
+                    _get_price(
+                        subscription=f"{subscription}_base",
+                        active=True,
+                    ),
+                    _get_price(
+                        subscription=f"{subscription}_recurring",
+                        active=True,
+                    ),
+                ]
+            )
+        )
+    else:
+        prices.append(
+            await _get_price(
+                subscription=subscription,
+                active=True,
+            )
+        )
+    return prices
+
+
 def _format_line_items(
     *,
     prices: List[Price],
@@ -131,6 +164,7 @@ async def _get_group_subscription(
             org_billing_customer=filtered[0].customer,
             organization=filtered[0].metadata.organization,
             type=filtered[0].metadata.subscription,
+            items=[item["id"] for item in filtered[0]["items"]["data"]],
         )
     return None
 
@@ -180,7 +214,6 @@ async def create_checkout(
     previous_checkout_id: Optional[str],
 ) -> AddBillingSubscriptionPayload:
     """Create Stripe checkout session"""
-
     # Raise exception if group already has the same subscription active
     if await _group_has_active_subscription(
         group_name=group_name,
@@ -195,30 +228,10 @@ async def create_checkout(
             checkout_id=previous_checkout_id,
         )
 
-    # Collect stripe prices
-    prices: List[Price] = []
-    if subscription == "squad":
-        prices.extend(
-            await collect(
-                [
-                    _get_price(
-                        subscription=f"{subscription}_base",
-                        active=True,
-                    ),
-                    _get_price(
-                        subscription=f"{subscription}_recurring",
-                        active=True,
-                    ),
-                ]
-            )
-        )
-    else:
-        prices.append(
-            await _get_price(
-                subscription=subscription,
-                active=True,
-            )
-        )
+    # Collect subscription prices
+    prices: List[Price] = await _collect_subscription_prices(
+        subscription=subscription
+    )
 
     # Format checkout session data
     session_data = {
@@ -274,6 +287,78 @@ async def create_portal(
     )
 
 
+async def update_subscription_preview(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    group_name: str,
+) -> Invoice:
+    """Preview a subscription update"""
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    sub: Optional[Subscription] = await _get_group_subscription(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="active",
+        limit=1000,
+    )
+
+    # Raise exception if group does not have an active subscription
+    if sub is None:
+        raise BillingGroupWithoutSubscription()
+
+    # Raise exception if group already has the same subscription active
+    if await _group_has_active_subscription(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        subscription=subscription,
+    ):
+        raise BillingSubscriptionAlreadyActive()
+
+    # Collect subscription prices
+    prices: List[Price] = await _collect_subscription_prices(
+        subscription=subscription
+    )
+    proration_date: int = int(time.time())
+    items: List[Dict[str, Any]] = []
+
+    if subscription == "machine":
+        items = [
+            {
+                "id": sub.items[0],
+                "price": prices[0].id,
+            },
+            {
+                "id": sub.items[1],
+                "deleted": True,
+            },
+        ]
+    else:
+        items = [
+            {
+                "id": sub.items[0],
+                "price": prices[0].id,
+            },
+        ]
+
+    invoice = stripe.Invoice.upcoming(
+        customer=org_billing_customer,
+        subscription=sub.id,
+        subscription_items=items,
+        subscription_proration_date=proration_date,
+    )
+
+    return Invoice(
+        account_name=invoice.account_name,
+        amount_due=invoice.amount_due,
+        amount_paid=invoice.amount_paid,
+        amount_remaining=invoice.amount_remaining,
+        data=invoice.lines.data,
+    )
+
+
 async def remove_subscription(
     *,
     group_name: str,
@@ -324,7 +409,16 @@ async def webhook(request: Request) -> JSONResponse:
                 group_name=event.data.object.metadata.group,
                 tier=event.data.object.metadata.subscription,
             ):
-                message = "Subscription was successful!"
+                message = "Subscription creation was successful!"
+        elif event.type == "customer.subscription.deleted":
+            if await groups_domain.update_group_tier(
+                loaders=get_new_context(),
+                reason=f"Update triggered by String with event {event.id}",
+                requester_email="development@fluidattacks.com",
+                group_name=event.data.object.metadata.group,
+                tier="free",
+            ):
+                message = "Subscription deletion was successful!"
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"

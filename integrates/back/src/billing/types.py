@@ -1,4 +1,7 @@
 from typing import (
+    Any,
+    Dict,
+    List,
     NamedTuple,
 )
 
@@ -7,6 +10,14 @@ class Customer(NamedTuple):
     id: str
     name: str
     email: str
+
+
+class Invoice(NamedTuple):
+    account_name: str
+    amount_due: int
+    amount_paid: int
+    amount_remaining: int
+    data: List[Dict[str, Any]]
 
 
 class Price(NamedTuple):
@@ -27,3 +38,4 @@ class Subscription(NamedTuple):
     org_billing_customer: str
     organization: str
     type: str
+    items: List[str]
