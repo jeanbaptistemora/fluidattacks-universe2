@@ -670,5 +670,13 @@
     "ES": {
       "title": "396. Insecure service configuration - KMS"
     }
+  },
+  "F398": {
+    "EN": {
+      "title": "398. Fragment Injection"
+    },
+    "ES": {
+      "title": "398. Fragment Injection"
+    }
   }
 }

@@ -93132,5 +93132,10 @@
     "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
     "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},
     "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {}
+  },
+  "F398": {
+    "skims/test/data/benchmark/owasp/BenchmarkTest00001.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00008.java": {},
+    "skims/test/data/benchmark/owasp/BenchmarkTest00167.java": {}
   }
 }
