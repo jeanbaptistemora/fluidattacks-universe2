@@ -12161,6 +12161,30 @@ F103,inputs,examples/tests/multidex/multidex.apk (namespace),Not signed,325,"hom
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
 ",analyze_bytecodes._apk_unsigned
+F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application is vulnerable to Fragment Injection,470,"home,apk,bytecodes",398. Fragment Injection,The application is vulnerable to Fragment Injection,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
+   7 | >>> # in the APK
+   8 | >>> apk_obj, dex, _ = AnalyzeAPK('examples/tests/com.teleca.jamendo_35.apk')
+   9 |
+> 10 | >>> # Get the targetSdkVersion attribute
+  11 | >>> apk_obj.get_target_sdk_version()
+  12 | >>> 8
+  13 | >>> # Get the method names from all classes in each .dex file
+  14 | >>> sorted(set(method.name for method in dex.get_methods()))
+  15 | # No method performs root detection
+  16 | >>> 'package com.teleca.jamendo.activity;\n class AlbumActivity$1 implements android.widget.AdapterView$OnItemSelectedLi
+     | stener {\n    final synthetic com.teleca.jamendo.activity.AlbumActivity this$0;\n    final synthetic java.util.ArrayList
+     |  val$langs;\n\n    AlbumActivity$1(com.teleca.jamendo.activity.AlbumActivity p1, java.util.ArrayList p2)\n    {\n
+     |  this.this$0 = p1;\n        this.val$langs = p2;\n        return;\n    }\n\n    public void onItemSelected(android.widge
+     | t.AdapterView p3, android.view.View p4, int p5, long p6)\n    {\n        com.teleca.jamendo.activity.AlbumActivity.acces
+     | s$000(this.this$0).setLang(((String) this.val$langs.get(p5)));\n        return;\n    }\n\n    public void onNothingSelec
+     ^ Col 0
+",analyze_bytecodes._has_fragment_injection
 F058,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
      | tp://schemas.android.com/apk/res/android"">
