@@ -145,6 +145,15 @@ All teams should know if they are exposing things they want to keep private,
 so they need to ensure security is an [integral part](../devsecops-concept/)
 of development.
 
+We have stated [elsewhere](../oss-security/),
+however,
+that **a hidden source code isn't necessarily a secure one**.
+Indeed,
+the bigger issue isn't exactly that anyone can review your code,
+but rather
+that if your exposed code has any vulnerability,
+you're just moments away from being attacked.
+
 At `Fluid Attacks`,
 we perform comprehensive testing
 in search of vulnerabilities during the entire software development lifecycle.
@@ -154,4 +163,11 @@ among many other things,
 whether you are inadvertently exposing your `.git` folder and,
 in doing so,
 possibly compromising sensitive data.
-[Contact us](../../contact-us/)\!
+But most importantly,
+you can find out just **how secure your code is**
+at each point in development.
+So,
+if it's actually supposed to be out there,
+you'll know it's fine.
+Take this step now and
+[contact us](../../contact-us/)\!
