@@ -285,7 +285,7 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
                 ingress_protocol = get_block_attribute(
                     block=ingress_block, key="protocol"
                 )
-                if ingress_protocol.val in danger_values:
+                if ingress_protocol and ingress_protocol.val in danger_values:
                     yield ingress_protocol
             if egress_block := get_argument(
                 key="egress",
@@ -294,11 +294,11 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
                 egress_protocol = get_block_attribute(
                     block=egress_block, key="protocol"
                 )
-                if egress_protocol.val in danger_values:
+                if egress_protocol and egress_protocol.val in danger_values:
                     yield egress_protocol
         elif isinstance(resource, AWSEC2Rule):
             protocol_attr = get_attribute(body=resource.data, key="protocol")
-            if protocol_attr.val in danger_values:
+            if protocol_attr and protocol_attr.val in danger_values:
                 yield protocol_attr
 
 

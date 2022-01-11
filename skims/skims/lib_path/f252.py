@@ -87,7 +87,12 @@ def tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 ingress_to_port = get_block_attribute(
                     block=ingress_block, key="to_port"
                 )
-                if float(ingress_from_port.val) != float(ingress_to_port.val):
+                if (
+                    ingress_from_port
+                    and ingress_to_port
+                    and float(ingress_from_port.val)
+                    != float(ingress_to_port.val)
+                ):
                     yield ingress_block
             if egress_block := get_argument(
                 key="egress",
@@ -99,12 +104,21 @@ def tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 egress_to_port = get_block_attribute(
                     block=egress_block, key="to_port"
                 )
-                if float(egress_from_port.val) != float(egress_to_port.val):
+                if (
+                    egress_from_port
+                    and egress_to_port
+                    and float(egress_from_port.val)
+                    != float(egress_to_port.val)
+                ):
                     yield egress_block
         elif isinstance(resource, AWSEC2Rule):
             from_port_attr = get_attribute(body=resource.data, key="from_port")
             to_port_attr = get_attribute(body=resource.data, key="to_port")
-            if float(from_port_attr.val) != float(to_port_attr.val):
+            if (
+                from_port_attr
+                and to_port_attr
+                and float(from_port_attr.val) != float(to_port_attr.val)
+            ):
                 yield resource
 
 
