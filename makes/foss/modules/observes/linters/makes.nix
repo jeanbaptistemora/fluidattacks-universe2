@@ -77,8 +77,8 @@
         src = inputs.observesIndex.tap.csv.root;
       };
       observesTapDelighted = {
-        config = "/observes/singer/tap_delighted/tap_delighted/setup.imports.cfg";
-        src = "/observes/singer/tap_delighted";
+        config = "${inputs.observesIndex.tap.delighted.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.delighted.root;
       };
       observesTapFormstack = {
         config = "/observes/singer/tap_formstack/tap_formstack/setup.imports.cfg";
@@ -266,10 +266,10 @@
       };
       observesTapDelighted = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-delighted/env/runtime"
+          outputs."${inputs.observesIndex.tap.delighted.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_delighted/tap_delighted";
+        src = inputs.observesIndex.tap.delighted.src;
       };
       observesTapDynamo = {
         searchPaths.source = [

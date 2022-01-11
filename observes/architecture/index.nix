@@ -25,7 +25,7 @@ in
     bugsnag = std_data "${singerPath}/tap_bugsnag";
     checkly = std_data "${singerPath}/tap_checkly";
     csv = std_data "${singerPath}/tap_csv";
-    delighted = "${singerPath}/tap_delighted";
+    delighted = std_data "${singerPath}/tap_delighted";
     dynamo = std_data "${singerPath}/tap_dynamo";
     formstack = "${singerPath}/tap_formstack";
     git = "${singerPath}/tap_git";

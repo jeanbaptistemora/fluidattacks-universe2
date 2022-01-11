@@ -1,4 +1,5 @@
-{ makeTemplate
+{ inputs
+, makeTemplate
 , outputs
 , ...
 }:
@@ -6,7 +7,7 @@ makeTemplate {
   name = "observes-singer-tap-delighted-env-development";
   searchPaths = {
     source = [
-      outputs."/observes/singer/tap-delighted/env/runtime"
+      outputs."${inputs.observesIndex.tap.delighted.env.runtime}"
     ];
   };
 }
