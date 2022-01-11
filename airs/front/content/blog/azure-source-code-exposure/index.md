@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, cloud, flaw, git, code, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1641563215/blog/azure-source-code-exposure/cover_azure.webp
 alt: Photo by Vincent van Zalinge on Unsplash
-description: A recently discovered four-year-old vulnerability
-  in Microsoft's Azure App Service
-  has been keeping the source codes of customer applications public.
-keywords: Notlegit, Azure, Source Code, Local Git, Bug, Cloud, Wiz,
-  Ethical Hacking, Pentesting
+description: A recently discovered four-year-old vulnerability in Microsoft's Azure App Service has been keeping the source codes of customer applications public.
+keywords: Notlegit, Azure, Source Code, Local Git, Bug, Cloud, Wiz, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría
