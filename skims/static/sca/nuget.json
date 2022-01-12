@@ -39,6 +39,10 @@
   "halibut": {
     "CVE-2021-31819": ">=0 <4.4.7"
   },
+  "hangfire": {
+    "CVE-2021-41238": "1.7.25",
+    "SNYK-DOTNET-HANGFIRE-1910224": "1.7.25"
+  },
   "hawk.ueditor": {
     "CVE-2021-37271": "1.4.3.3"
   },
@@ -112,6 +116,16 @@
     "CVE-2017-11883": "1.0 || 1.1 || 2.0",
     "CVE-2019-0815": "2.2",
     "SNYK-DOTNET-MICROSOFTASPNETCORE-174184": ">=2.0.0-preview1-final <2.0.1"
+  },
+  "microsoft.aspnetcore.all": {
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-451560": ">=2.1.0 <2.1.12 || >=2.2.0 <2.2.6",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-541841": ">=2.1.0 <2.1.15",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-541845": ">=2.1.0 <2.1.15",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-60122": ">=2 <2.0.3",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-60240": "<2.0.3 || >=2.1.0-preview1-final <2.1.0-rc1-final",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-60258": "<2.0.9 || >=2.1.0 <2.1.2",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-72395": ">=2.1.0 <2.1.4",
+    "SNYK-DOTNET-MICROSOFTASPNETCOREALL-72897": " >=2.2.0 <2.2.1 || >=2.1.0 <2.1.7"
   },
   "microsoft.aspnetcore.authentication.jwtbearer": {
     "GHSA-q7cg-43mg-qp69": "<2.1.29 || >=3.0.0 <3.1.18 || >=5.0.0 <5.0.9",
