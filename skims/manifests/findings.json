@@ -479,6 +479,14 @@
       "title": "200. Traceability loss"
     }
   },
+  "F206": {
+    "EN": {
+      "title": "206. Security controls bypass or absence - Anti hooking"
+    },
+    "ES": {
+      "title": "206. Security controls bypass or absence - Anti hooking"
+    }
+  },
   "F207": {
     "EN": {
       "title": "207. Security controls bypass or absence - SSLPinning"
