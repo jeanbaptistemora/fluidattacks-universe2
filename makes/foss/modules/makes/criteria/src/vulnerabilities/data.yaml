@@ -15909,7 +15909,7 @@
       Authenticated attacker with local
       access to the container.
   es:
-    title: Excessive Privieleges - Docker
+    title: Excessive Privileges - Docker
     description: >
       Los contenedores ejecutados en la aplicación
       no limitan los permisos de los usuarios
@@ -15964,7 +15964,7 @@
       Authenticated attacker with local
       access to PoD or container.
   es:
-    title: Excessive Privieleges - Kubernetes
+    title: Excessive Privileges - Kubernetes
     description: >
       La configuración por defecto de Kubernetes
       es demasiado permisiva,
