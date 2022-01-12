@@ -251,8 +251,22 @@
     "CVE-2017-0256": "4.0.0 || 4.3.0",
     "SNYK-DOTNET-SYSTEMNETWEBSOCKETSCLIENT-60102": "<4.0.1 || >=4.3 <4.3.1"
   },
+  "system.servicemodel.duplex": {
+    "CVE-2018-8356": ">=4.0.0 <=4.0.2 || >=4.3.0 <=4.3.1 || >=4.4.0 <=4.4.2 || >=4.5.0 <=4.5.1",
+    "SNYK-DOTNET-SYSTEMSERVICEMODELDUPLEX-60250": ">=4.0.0 <4.0.3 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
+  },
+  "system.servicemodel.http": {
+    "CVE-2018-8356": "4.0.0 || 4.0.10 || 4.1.0 || 4.1.1 || 4.3.0 || 4.3.1 || 4.4.0 || 4.4.1 || 4.4.2 || 4.5.0 || 4.5.1",
+    "SNYK-DOTNET-SYSTEMSERVICEMODELHTTP-60251": ">=4.0.0 <4.1.2 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
+  },
+  "system.servicemodel.nettcp": {
+    "SNYK-DOTNET-SYSTEMSERVICEMODELNETTCP-60252": ">=4.0.0 <4.1.2 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
+  },
   "system.servicemodel.primitives": {
     "SNYK-DOTNET-SYSTEMSERVICEMODELPRIMITIVES-60253": ">=4.0.0 <4.1.2 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 <4.5.2"
+  },
+  "system.servicemodel.security": {
+    "SNYK-DOTNET-SYSTEMSERVICEMODELSECURITY-60254": ">=4.0.0 <4.0.3 || >=4.3 <4.3.2 || >=4.4 <4.4.3 || >=4.5 4.5.2"
   },
   "system.text.regularexpressions": {
     "SNYK-DOTNET-SYSTEMTEXTREGULAREXPRESSIONS-174708": ">=4.3.0 <4.3.1"
