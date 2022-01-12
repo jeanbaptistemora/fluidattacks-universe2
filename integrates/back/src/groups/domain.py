@@ -973,9 +973,17 @@ async def get_groups_by_user(
     group_level_roles = await authz.get_group_level_roles(
         user_email, groups, with_cache=with_cache
     )
+    if organization_id:
+        org_groups: Set[str] = set(
+            await orgs_domain.get_groups(organization_id)
+        )
+        groups = [group for group in groups if group in org_groups]
+
     can_access_list = await collect(
-        can_user_access(group, role)
-        for role, group in zip(group_level_roles.values(), groups)
+        tuple(
+            can_user_access(group, role)
+            for role, group in zip(group_level_roles.values(), groups)
+        )
     )
     user_groups = [
         group
@@ -983,9 +991,6 @@ async def get_groups_by_user(
         if can_access
     ]
 
-    if organization_id:
-        org_groups = await orgs_domain.get_groups(organization_id)
-        user_groups = [group for group in user_groups if group in org_groups]
     return user_groups
 
 
@@ -1022,8 +1027,10 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(groups_dal.TABLE_NAME)
         groups = await collect(
-            groups_dal.get_group(group_name, table)
-            for group_name in groups_name
+            tuple(
+                groups_dal.get_group(group_name, table)
+                for group_name in groups_name
+            )
         )
     return cast(List[GroupType], groups)
 
