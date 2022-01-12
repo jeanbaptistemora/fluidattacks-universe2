@@ -1,10 +1,11 @@
-{ makeTemplate
+{ inputs
+, makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_mailchimp";
+  self = projectPath inputs.observesIndex.tap.mailchimp.root;
 in
 makeTemplate {
   name = "observes-singer-tap-mailchimp-env-runtime";
@@ -16,7 +17,7 @@ makeTemplate {
       self
     ];
     source = [
-      outputs."/observes/singer/tap-mailchimp/env/runtime/python"
+      outputs."${inputs.observesIndex.tap.mailchimp.env.runtime}/python"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/common/paginator/env/runtime"
       outputs."/observes/env/utils-logger/runtime"

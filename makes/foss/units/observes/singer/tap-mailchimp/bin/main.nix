@@ -1,5 +1,5 @@
-{ makeScript
-, inputs
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
@@ -11,7 +11,7 @@ makeScript {
     bin = [ inputs.nixpkgs.python38 ];
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-mailchimp/env/runtime"
+      outputs."${inputs.observesIndex.tap.mailchimp.env.runtime}"
     ];
   };
   name = "observes-singer-tap-mailchimp-bin";

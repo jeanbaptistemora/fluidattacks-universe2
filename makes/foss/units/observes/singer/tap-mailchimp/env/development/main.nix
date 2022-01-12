@@ -1,4 +1,5 @@
-{ makeTemplate
+{ inputs
+, makeTemplate
 , makePythonPypiEnvironment
 , outputs
 , ...
@@ -11,7 +12,7 @@ makeTemplate {
         name = "observes-singer-tap-mailchimp-env-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/singer/tap-mailchimp/env/runtime"
+      outputs."${inputs.observesIndex.tap.mailchimp.env.runtime}"
     ];
   };
 }

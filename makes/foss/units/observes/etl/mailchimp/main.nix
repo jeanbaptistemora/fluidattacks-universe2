@@ -8,7 +8,7 @@ makeScript {
     bin = [
       outputs."/observes/bin/target-redshift"
       outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."/observes/singer/tap-mailchimp/bin"
+      outputs."${inputs.observesIndex.tap.mailchimp.bin}"
       outputs."/observes/service/job-last-success/bin"
     ];
     source = [

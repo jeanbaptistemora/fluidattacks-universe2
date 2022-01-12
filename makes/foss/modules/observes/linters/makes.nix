@@ -93,8 +93,8 @@
         src = inputs.observesIndex.tap.json.root;
       };
       observesTapMailchimp = {
-        config = "/observes/singer/tap_mailchimp/tap_mailchimp/setup.imports.cfg";
-        src = "/observes/singer/tap_mailchimp";
+        config = "${inputs.observesIndex.tap.mailchimp.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.mailchimp.root;
       };
       observesTapMixpanel = {
         config = "/observes/singer/tap_mixpanel/tap_mixpanel/setup.imports.cfg";
@@ -308,17 +308,17 @@
       };
       observesTapMailchimp = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-mailchimp/env/development"
+          outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_mailchimp/tap_mailchimp";
+        src = inputs.observesIndex.tap.mailchimp.src;
       };
       observesTapMailchimpTests = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-mailchimp/env/development"
+          outputs."${inputs.observesIndex.tap.mailchimp.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_mailchimp/tests";
+        src = inputs.observesIndex.tap.mailchimp.tests;
       };
       observesTapMixpanel = {
         searchPaths.source = [

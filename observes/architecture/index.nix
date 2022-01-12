@@ -31,7 +31,7 @@ in
     git = std_data "${singerPath}/tap_git";
     gitlab = std_data "${singerPath}/tap_gitlab";
     json = std_data "${singerPath}/tap_json";
-    mailchimp = "${singerPath}/tap_mailchimp";
+    mailchimp = std_data "${singerPath}/tap_mailchimp";
     mixpanel = "${singerPath}/tap_mixpanel";
     timedoctor = "${singerPath}/tap_timedoctor";
     toe_files = "${singerPath}/tap_toe_files";
