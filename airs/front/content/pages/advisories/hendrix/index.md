@@ -43,6 +43,15 @@ load attachments using a URL while creating a part,
 allows the use of the 'file://' URI scheme,
 allowing an authenticated user to read local files.
 
+## Proof of Concept
+
+- Go to 'Add Part'.
+- Click on 'Attachments'.
+- Click on 'Add'.
+- Fill the 'URL' field with "file:///etc/passwd".
+- Click on 'Upload'.
+- Click on the uploaded file in order to see the content.
+
 ## Exploit
 
 There is no exploit for the vulnerability but can be manually exploited.
@@ -61,7 +70,8 @@ Team of  `Fluid Attacks`.
 
 |                     |                                                                 |
 |---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://partkeepr.org/>                               |
+| **Vendor page**     | <https://partkeepr.org/>                                        |
+| **Issue**           | <https://github.com/partkeepr/PartKeepr/issues/1229/>           |
 
 ## Timeline
 

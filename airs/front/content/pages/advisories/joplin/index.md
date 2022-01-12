@@ -43,6 +43,15 @@ upload attachments using a URL when creating a part does not validate that
 requests can be made to local ports, allowing an authenticated user
 to carry out SSRF attacks and port enumeration.
 
+## Proof of Concept
+
+- Go to 'Add Part'.
+- Click on 'Attachments'.
+- Click on 'Add'.
+- Fill the 'URL' field with an url using a local port "http://127.0.0.1:3306".
+- Click on 'Upload'.
+- Click on the uploaded file in order to download the file and see the content.
+
 ## Exploit
 
 There is no exploit for the vulnerability but can be manually exploited.
@@ -62,6 +71,7 @@ Team of  `Fluid Attacks`.
 |                     |                                                                 |
 |---------------------|-----------------------------------------------------------------|
 | **Vendor page**     | <https://partkeepr.org/>                                        |
+| **Issue**           | <https://github.com/partkeepr/PartKeepr/issues/1230/>           |
 
 ## Timeline
 

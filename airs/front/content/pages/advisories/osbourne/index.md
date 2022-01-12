@@ -41,6 +41,11 @@ template: advisory
 This information will be released later according to our
 [Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
 
+## Proof of Concept
+
+This information will be released later according to our
+[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+
 ## Exploit
 
 This information will be released later according to our
