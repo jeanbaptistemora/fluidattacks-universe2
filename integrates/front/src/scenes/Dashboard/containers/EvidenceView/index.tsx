@@ -101,14 +101,24 @@ const EvidenceView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
+  const handleIncomingEvidence = (
+    evidence: Record<string, string | null>
+  ): IEvidenceItem => {
+    return {
+      date: evidence.date ?? "",
+      description: evidence.description ?? "",
+      url: evidence.url ?? "",
+    };
+  };
+
   const evidenceImages: Dictionary<IEvidenceItem> = {
-    ...data.finding.evidence,
-    animation: {
-      ...data.finding.evidence.animation,
-    },
-    exploitation: {
-      ...data.finding.evidence.exploitation,
-    },
+    animation: handleIncomingEvidence(data.finding.evidence.animation),
+    evidence1: handleIncomingEvidence(data.finding.evidence.evidence1),
+    evidence2: handleIncomingEvidence(data.finding.evidence.evidence2),
+    evidence3: handleIncomingEvidence(data.finding.evidence.evidence3),
+    evidence4: handleIncomingEvidence(data.finding.evidence.evidence4),
+    evidence5: handleIncomingEvidence(data.finding.evidence.evidence5),
+    exploitation: handleIncomingEvidence(data.finding.evidence.exploitation),
   };
   const evidenceList: string[] = _.uniq([
     "animation",
@@ -236,7 +246,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         <EvidenceImage
                           acceptedMimes={"image/gif,image/png"}
                           content={showUrl(showEmpty, evidence)}
-                          date={evidence.date}
+                          date={evidence.date ?? ""}
                           description={altDescription}
                           isDescriptionEditable={true}
                           isEditing={isEditing}

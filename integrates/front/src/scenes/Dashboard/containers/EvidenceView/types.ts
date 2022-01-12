@@ -2,39 +2,39 @@ export interface IGetFindingEvidences {
   finding: {
     evidence: {
       animation: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       evidence1: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       evidence2: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       evidence3: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       evidence4: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       evidence5: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
       exploitation: {
-        date: string;
-        description: string;
-        url: string;
+        date: string | null;
+        description: string | null;
+        url: string | null;
       };
     };
     id: string;

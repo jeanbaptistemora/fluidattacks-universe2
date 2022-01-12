@@ -149,11 +149,12 @@ def get_updated_evidence_date(
 
 def format_evidence(
     finding: Finding, evidence: Optional[FindingEvidence]
-) -> Dict[str, str]:
+) -> Dict[str, Optional[str]]:
     return (
         {
-            "description": "",
-            "url": "",
+            "date": None,
+            "description": None,
+            "url": None,
         }
         if evidence is None
         else {
@@ -166,7 +167,9 @@ def format_evidence(
     )
 
 
-def get_formatted_evidence(parent: Finding) -> Dict[str, Dict[str, str]]:
+def get_formatted_evidence(
+    parent: Finding,
+) -> Dict[str, Dict[str, Optional[str]]]:
     return {
         "animation": format_evidence(parent, parent.evidences.animation),
         "evidence1": format_evidence(parent, parent.evidences.evidence1),
