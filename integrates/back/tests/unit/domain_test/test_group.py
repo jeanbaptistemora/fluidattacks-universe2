@@ -58,6 +58,7 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_group,
+    filter_active_groups,
     get_active_groups,
     get_alive_group_names,
     get_closed_vulnerabilities,
@@ -815,6 +816,7 @@ async def test_get_group_digest_stats() -> None:
 
 
 async def test_get_groups_by_user() -> None:
+    loaders = get_new_context()
     expected_groups = [
         "asgard",
         "barranquilla",
@@ -824,14 +826,20 @@ async def test_get_groups_by_user() -> None:
         "monteria",
         "unittesting",
     ]
-    assert sorted(
-        await get_groups_by_user("integratesmanager@gmail.com")
-    ) == sorted(expected_groups)
+    user_groups = await get_groups_by_user("integratesmanager@gmail.com")
+    groups = await loaders.group.load_many(user_groups)
+    groups_filtered = filter_active_groups(groups)
+    assert sorted([group["name"] for group in groups_filtered]) == sorted(
+        expected_groups
+    )
 
     expected_org_groups = ["oneshottest", "unittesting"]
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    assert sorted(
-        await get_groups_by_user(
-            "integratesmanager@gmail.com", organization_id=org_id
-        )
-    ) == sorted(expected_org_groups)
+    user_org_groups = await get_groups_by_user(
+        "integratesmanager@gmail.com", organization_id=org_id
+    )
+    groups = await loaders.group.load_many(user_org_groups)
+    groups_filtered = filter_active_groups(groups)
+    assert sorted([group["name"] for group in groups_filtered]) == sorted(
+        expected_org_groups
+    )

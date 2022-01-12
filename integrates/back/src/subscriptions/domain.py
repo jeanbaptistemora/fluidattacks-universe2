@@ -270,10 +270,13 @@ async def _send_digest_report(
     )
 
     if FI_ENVIRONMENT == "production":
+        context = loaders if loaders else get_new_context()
+        user_groups = await context.group.load_many(groups)
+        groups_filtered = groups_domain.filter_active_groups(user_groups)
         groups = [
-            group
-            for group in groups
-            if group not in FI_TEST_PROJECTS.split(",")
+            str(group["name"])
+            for group in groups_filtered
+            if group["name"] not in FI_TEST_PROJECTS.split(",")
         ]
 
     if digest_stats:
@@ -444,10 +447,12 @@ async def _get_digest_stats(
     digest_groups = set(chain.from_iterable(digest_groups))
 
     if FI_ENVIRONMENT == "production":
+        all_groups = await loaders.group.load_many(digest_groups)
+        groups_filtered = groups_domain.filter_active_groups(all_groups)
         digest_groups = {
-            group
-            for group in digest_groups
-            if group not in FI_TEST_PROJECTS.split(",")
+            str(group["name"])
+            for group in groups_filtered
+            if group["name"] not in FI_TEST_PROJECTS.split(",")
         }
 
     LOGGER_CONSOLE.info(

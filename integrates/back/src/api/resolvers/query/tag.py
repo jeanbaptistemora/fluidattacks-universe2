@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from custom_exceptions import (
     TagNotFound,
 )
@@ -37,13 +40,21 @@ async def resolve(
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     user_groups: List[str] = await groups_domain.get_groups_by_user(user_email)
+    are_alive_groups = await collect(
+        tuple(groups_domain.is_alive(group) for group in user_groups)
+    )
+    groups_filtered = [
+        group
+        for group, is_alive in zip(user_groups, are_alive_groups)
+        if is_alive
+    ]
 
-    if user_groups:
-        org_id: str = await orgs_domain.get_id_for_group(user_groups[0])
+    if groups_filtered:
+        org_id: str = await orgs_domain.get_id_for_group(groups_filtered[0])
         org_name: str = await orgs_domain.get_name_by_id(org_id)
 
         allowed_tags: List[str] = await tags_domain.filter_allowed_tags(
-            org_name, user_groups
+            org_name, groups_filtered
         )
         if tag_name in allowed_tags:
             tag = await tags_domain.get_attributes(org_name, tag_name)

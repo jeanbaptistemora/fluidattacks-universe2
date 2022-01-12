@@ -979,16 +979,10 @@ async def get_groups_by_user(
         )
         groups = [group for group in groups if group in org_groups]
 
-    can_access_list = await collect(
-        tuple(
-            can_user_access(group, role)
-            for role, group in zip(group_level_roles.values(), groups)
-        )
-    )
     user_groups = [
         group
-        for can_access, group in zip(can_access_list, groups)
-        if can_access
+        for role, group in zip(group_level_roles.values(), groups)
+        if bool(role)
     ]
 
     return user_groups
@@ -1417,13 +1411,19 @@ async def remove_user(
         org_id = group["organization"]
 
         has_org_access = await orgs_domain.has_user_access(org_id, email)
-        has_groups_in_org = bool(
-            await get_groups_by_user(email, organization_id=org_id)
+        user_org_groups = await get_groups_by_user(
+            email, organization_id=org_id
         )
+        groups = await loaders.group.load_many(user_org_groups)
+        groups_filtered = filter_active_groups(groups)
+        has_groups_in_org = bool(groups_filtered)
         if has_org_access and not has_groups_in_org:
             success = success and await orgs_domain.remove_user(org_id, email)
 
-        has_groups = bool(await get_groups_by_user(email))
+        user_groups = await get_groups_by_user(email, organization_id=org_id)
+        groups = await loaders.group.load_many(user_groups)
+        groups_filtered = filter_active_groups(groups)
+        has_groups = bool(groups_filtered)
         if not has_groups:
             success = success and await users_domain.delete(email)
     return success

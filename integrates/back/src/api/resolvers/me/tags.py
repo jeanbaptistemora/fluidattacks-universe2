@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -35,6 +38,15 @@ async def resolve(
     user_groups = await groups_domain.get_groups_by_user(
         user_email, organization_id=organization_id
     )
+    are_alive_groups = await collect(
+        tuple(groups_domain.is_alive(group) for group in user_groups)
+    )
+    groups_filtered = [
+        group
+        for group, is_alive in zip(user_groups, are_alive_groups)
+        if is_alive
+    ]
+
     return [
         {
             "name": tag["tag"],
@@ -43,6 +55,7 @@ async def resolve(
         }
         for tag in org_tags
         if any(
-            group in user_groups for group in cast(List[str], tag["groups"])
+            group in groups_filtered
+            for group in cast(List[str], tag["groups"])
         )
     ]
