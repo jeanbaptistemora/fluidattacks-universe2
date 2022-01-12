@@ -1,5 +1,6 @@
 from .operations import (
     execute,
+    execute_many,
     initialize_schema,
     SCHEMA_NAME,
 )
@@ -10,8 +11,12 @@ from dataclasses import (
     dataclass,
     fields,
 )
+from datetime import (
+    datetime,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 import logging
 import logging.config
@@ -45,6 +50,15 @@ class MetadataTableRow:
     skims_method: Optional[str]
 
 
+@dataclass(frozen=True)
+class StateTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    source: str
+    status: str
+
+
 def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
     _fields = ",".join(tuple(f.name for f in fields(table_row_class)))
     values = ",".join(tuple(f"%({f.name})s" for f in fields(table_row_class)))
@@ -70,6 +84,34 @@ async def insert_metadata(
                 SELECT id
                 FROM {METADATA_TABLE}
                 WHERE id = %(id)s
+            )
+         """,
+        sql_values,
+    )
+
+
+async def insert_historic_state(
+    *,
+    vulnerability_id: str,
+    historic_state: Tuple[VulnerabilityState, ...],
+) -> None:
+    _fields, values = _format_query_fields(StateTableRow)
+    sql_values = [
+        dict(
+            id=vulnerability_id,
+            modified_date=datetime.fromisoformat(state.modified_date),
+            source=state.source.value,
+            status=state.status.value,
+        )
+        for state in historic_state
+    ]
+    await execute_many(  # nosec
+        f"""
+            INSERT INTO {STATE_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id, modified_date
+                FROM {STATE_TABLE}
+                WHERE id = %(id)s and modified_date = %(modified_date)s
             )
          """,
         sql_values,
