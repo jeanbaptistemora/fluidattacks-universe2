@@ -101,8 +101,8 @@
         src = inputs.observesIndex.tap.mixpanel.root;
       };
       observesTapTimedoctor = {
-        config = "/observes/singer/tap_timedoctor/tap_timedoctor/setup.imports.cfg";
-        src = "/observes/singer/tap_timedoctor";
+        config = "${inputs.observesIndex.tap.timedoctor.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.timedoctor.root;
       };
       observesServiceTimedoctorTokens = {
         config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
@@ -336,10 +336,10 @@
       };
       observesTapTimedoctor = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-timedoctor/env/runtime"
+          outputs."${inputs.observesIndex.tap.timedoctor.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_timedoctor/tap_timedoctor";
+        src = inputs.observesIndex.tap.timedoctor.src;
       };
       observesTargetRedshift = {
         searchPaths.source = [

@@ -1,10 +1,10 @@
-{ makeTemplate
-, inputs
+{ inputs
+, makeTemplate
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_timedoctor";
+  self = projectPath inputs.observesIndex.tap.timedoctor.root;
 in
 makeTemplate {
   name = "observes-singer-tap-timedoctor-env-runtime";

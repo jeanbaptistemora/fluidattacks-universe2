@@ -9,7 +9,7 @@ makeScript {
       inputs.nixpkgs.awscli
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
-      outputs."/observes/singer/tap-timedoctor/bin"
+      outputs."${inputs.observesIndex.tap.timedoctor.bin}"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/service/job-last-success/bin"
     ];
