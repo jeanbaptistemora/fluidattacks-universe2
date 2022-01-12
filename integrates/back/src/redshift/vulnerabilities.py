@@ -19,6 +19,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
+    VulnerabilityZeroRisk,
 )
 import logging
 import logging.config
@@ -73,6 +74,14 @@ class TreatmentTableRow:
 
 @dataclass(frozen=True)
 class VerificationTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    status: str
+
+
+@dataclass(frozen=True)
+class ZeroRiskTableRow:
     # pylint: disable=invalid-name
     id: str
     modified_date: datetime
@@ -191,6 +200,33 @@ async def insert_historic_verification(
             WHERE NOT EXISTS (
                 SELECT id, modified_date
                 FROM {VERIFICATION_TABLE}
+                WHERE id = %(id)s and modified_date = %(modified_date)s
+            )
+         """,
+        sql_values,
+    )
+
+
+async def insert_historic_zero_risk(
+    *,
+    vulnerability_id: str,
+    historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
+) -> None:
+    _fields, values = _format_query_fields(ZeroRiskTableRow)
+    sql_values = [
+        dict(
+            id=vulnerability_id,
+            modified_date=datetime.fromisoformat(zero_risk.modified_date),
+            status=zero_risk.status.value,
+        )
+        for zero_risk in historic_zero_risk
+    ]
+    await execute_many(  # nosec
+        f"""
+            INSERT INTO {ZERO_RISK_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id, modified_date
+                FROM {ZERO_RISK_TABLE}
                 WHERE id = %(id)s and modified_date = %(modified_date)s
             )
          """,
