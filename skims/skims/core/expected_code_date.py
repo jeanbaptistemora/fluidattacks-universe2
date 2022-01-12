@@ -74,7 +74,8 @@ async def main(
                 and verification_date
                 and verification.state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
-                and verification_date > max_reattack_date
+                and verification_date.timestamp()
+                > max_reattack_date.timestamp()
             ):
                 max_reattack_date = verification_date
 
