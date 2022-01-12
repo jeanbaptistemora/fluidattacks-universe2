@@ -181,7 +181,7 @@ async def cfn_ec2_has_unrestricted_ports(
     )
 
 
-#  @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def tfm_ec2_has_unrestricted_ports(
