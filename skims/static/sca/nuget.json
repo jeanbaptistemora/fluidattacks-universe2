@@ -214,6 +214,10 @@
     "GHSA-525h-wxcc-f66m": ">=0 <0.12.0",
     "GHSA-7wjx-wcwg-w999": ">=0 <0.10.0"
   },
+  "org.apache.camel:camel-http4": {
+    "CVE-2015-5348": "2.16.0 || >=2.6.0 <2.15.5",
+    "SNYK-JAVA-ORGAPACHECAMEL-30539": ">=2.16.0 <2.16.1 || >=2.6.0 <2.15.5"
+  },
   "popper.js": {
     "CVE-2005-1870": "1.41_r2"
   },
