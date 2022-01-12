@@ -8,7 +8,7 @@ makeScript {
     bin = [
       outputs."${inputs.observesIndex.tap.gitlab.bin}"
       outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."/observes/bin/target-redshift"
+      outputs."${inputs.observesIndex.target.redshift.bin}"
     ];
   };
   name = "observes-etl-gitlab";

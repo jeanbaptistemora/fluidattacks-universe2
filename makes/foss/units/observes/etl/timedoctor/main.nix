@@ -10,7 +10,7 @@ makeScript {
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
       outputs."${inputs.observesIndex.tap.timedoctor.bin}"
-      outputs."/observes/bin/target-redshift"
+      outputs."${inputs.observesIndex.target.redshift.bin}"
       outputs."/observes/service/job-last-success/bin"
     ];
     source = [
