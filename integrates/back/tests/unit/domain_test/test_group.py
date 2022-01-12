@@ -63,6 +63,7 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
+    get_groups_by_user,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
@@ -811,3 +812,26 @@ async def test_get_group_digest_stats() -> None:
         "vulns_len": 36,
     }
     assert expected_output == total_stats
+
+
+async def test_get_groups_by_user() -> None:
+    expected_groups = [
+        "asgard",
+        "barranquilla",
+        "gotham",
+        "metropolis",
+        "oneshottest",
+        "monteria",
+        "unittesting",
+    ]
+    assert sorted(
+        await get_groups_by_user("integratesmanager@gmail.com")
+    ) == sorted(expected_groups)
+
+    expected_org_groups = ["oneshottest", "unittesting"]
+    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+    assert sorted(
+        await get_groups_by_user(
+            "integratesmanager@gmail.com", organization_id=org_id
+        )
+    ) == sorted(expected_org_groups)
