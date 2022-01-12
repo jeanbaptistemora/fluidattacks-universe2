@@ -639,7 +639,7 @@ async def cfn_bucket_policy_allows_public_access(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def cfn_iam_user_missing_role_based_security(
