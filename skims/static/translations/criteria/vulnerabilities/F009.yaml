@@ -1,3 +1,6 @@
+src.lib_path.f009.docker_compose_env_secrets:
+  en: Environmental variables may have sensitive values in plain-text
+  es: Las variables de entorno pueden tener valores sensibles en texto plano
 src.lib_path.f009.java_properties_sensitive_data:
   en: Sensitive information
   es: Información sensible
