@@ -508,6 +508,54 @@ def _webview_allows_resource_access(
     )
 
 
+def _add_has_frida(
+    ctx: APKCheckCtx, locations: Locations, source: List[str]
+) -> None:
+    locations.append(
+        desc="has_frida",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse APK and all Dalvik Executables (classes*.dex)
+                >>> # in the APK
+                >>> apk_obj, _ = AnalyzeAPK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get the files attribute
+                >>> apk_obj.get_files()
+                # No method performs root detection
+                >>> {repr(source)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=13, wrap=True),
+        ),
+    )
+
+
+def _has_frida(
+    ctx: APKCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    apk_obj = ctx.apk_ctx.apk_obj
+
+    frida_gadgets: List[str] = [x for x in apk_obj.get_files() if "frida" in x]
+    is_frida_gadget_in_files: bool = bool(frida_gadgets)
+
+    if is_frida_gadget_in_files:
+        _add_has_frida(ctx, locations, apk_obj.get_files())
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F103,
+        locations=locations,
+    )
+
+
 CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
