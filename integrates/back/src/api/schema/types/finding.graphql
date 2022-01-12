@@ -21,7 +21,7 @@ type Finding {
   "Brief explanation of the vulnerability and how it works"
   description: String!
   "Evidences of the Finding"
-  evidence: GenericScalar!
+  evidence: FindingEvidence!
   "Name of the Group where the Finding is in"
   groupName: String!
   "Hacker responsible for the Finding"

@@ -25,7 +25,13 @@ async def get_result(
                 evidenceId: $evidenceId, findingId: $findingId
             ) {
                 finding {
-                    evidence
+                    evidence {
+                        evidence1 {
+                            date
+                            description
+                            url
+                        }
+                    }
                 }
                 success
             }

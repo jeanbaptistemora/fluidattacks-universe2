@@ -155,7 +155,13 @@ async def test_finding() -> None:
             userInteraction
           }
           cvssVersion
-          evidence
+          evidence {
+            evidence1 {
+              date
+              description
+              url
+            }
+          }
           consulting {
               id
               content

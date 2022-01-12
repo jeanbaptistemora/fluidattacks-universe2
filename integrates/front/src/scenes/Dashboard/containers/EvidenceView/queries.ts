@@ -4,7 +4,43 @@ import type { DocumentNode } from "graphql";
 const GET_FINDING_EVIDENCES: DocumentNode = gql`
   query GetFindingEvidences($findingId: String!) {
     finding(identifier: $findingId) {
-      evidence
+      evidence {
+        animation {
+          date
+          description
+          url
+        }
+        evidence1 {
+          date
+          description
+          url
+        }
+        evidence2 {
+          date
+          description
+          url
+        }
+        evidence3 {
+          date
+          description
+          url
+        }
+        evidence4 {
+          date
+          description
+          url
+        }
+        evidence5 {
+          date
+          description
+          url
+        }
+        exploitation {
+          date
+          description
+          url
+        }
+      }
       id
     }
   }

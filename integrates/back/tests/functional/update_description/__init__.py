@@ -45,7 +45,6 @@ async def get_result(
                     currentState
                     cvssVersion
                     description
-                    evidence
                     historicState
                     id
                     inputsVulnerabilities {{
