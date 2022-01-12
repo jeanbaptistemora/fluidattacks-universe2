@@ -3799,3 +3799,15 @@
       title: Improper Certificate Validation
       link: https://www.sans.org/top25-software-errors/
   metadata: {}
+"030":
+  title: Singapore PDPA Compliance and Cybersecurity
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "3_12":
+      title: Policies and practices
+      link: https://sso.agc.gov.sg/Act/PDPA2012
+  metadata: {}
