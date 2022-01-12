@@ -28121,6 +28121,54 @@ F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798,skims,009. S
   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
     ^ Col 0
 ",f009._dockerfile_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,14,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   4 |     build: .
+   5 |     ports:
+   6 |       - ""5000:5000""
+   7 |     volumes:
+   8 |       - .:/code
+   9 |       - logvolume01:/var/log
+  10 |     links:
+  11 |       - redis
+  12 |     environment:
+  13 |     - DEBUG=${VAR}
+> 14 |     - API_KEY='123'
+  15 |     - API_KEY
+  16 |     - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  17 |   redis:
+  18 |     image: redis
+  19 |     environment:
+  20 |     - API_NAME=name1
+  21 |   db:
+  22 |     image: ""postgres:${POSTGRES_VERSION}""
+  23 |     environment:
+  24 |     - API_PASSWORD=pass
+     ^ Col 0
+",f009._docker_compose_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,24,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   6 |       - ""5000:5000""
+   7 |     volumes:
+   8 |       - .:/code
+   9 |       - logvolume01:/var/log
+  10 |     links:
+  11 |       - redis
+  12 |     environment:
+  13 |     - DEBUG=${VAR}
+  14 |     - API_KEY='123'
+  15 |     - API_KEY
+  16 |     - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  17 |   redis:
+  18 |     image: redis
+  19 |     environment:
+  20 |     - API_NAME=name1
+  21 |   db:
+  22 |     image: ""postgres:${POSTGRES_VERSION}""
+  23 |     environment:
+> 24 |     - API_PASSWORD=pass
+  25 | volumes:
+  26 |   logvolume01: {}
+     ^ Col 0
+",f009._docker_compose_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,8,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | mbda.credentials2.key       = AKIA0000000000000000
    2 | azon.aws.accesskey          = AKIA0000000000000000

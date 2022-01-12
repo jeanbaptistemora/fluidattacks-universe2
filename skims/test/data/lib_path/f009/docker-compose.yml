@@ -1,0 +1,26 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    links:
+      - redis
+    environment:
+    - DEBUG=${VAR}
+    - API_KEY='123'
+    - API_KEY
+    - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  redis:
+    image: redis
+    environment:
+    - API_NAME=name1
+  db:
+    image: "postgres:${POSTGRES_VERSION}"
+    environment:
+    - API_PASSWORD=pass
+volumes:
+  logvolume01: {}

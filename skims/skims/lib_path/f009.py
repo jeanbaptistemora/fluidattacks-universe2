@@ -9,6 +9,7 @@ from jose.jwt import (
 )
 from lib_path.common import (
     EXTENSIONS_JAVA_PROPERTIES,
+    EXTENSIONS_YAML,
     get_cloud_iterator,
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
@@ -21,6 +22,9 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
+)
+from parse_cfn.loader import (
+    load_templates,
 )
 from parse_java_properties import (
     load as load_java_properties,
@@ -514,6 +518,16 @@ async def analyze(
                 path=path,
             )
         )
+    elif file_name == "docker-compose" and file_extension in EXTENSIONS_YAML:
+        content = await content_generator()
+        async for template in load_templates(
+            content=content, fmt=file_extension
+        ):
+            coroutines.append(
+                docker_compose_env_secrets(
+                    content=content, path=path, template=template
+                )
+            )
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_sensitive_data(
