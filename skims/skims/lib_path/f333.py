@@ -137,10 +137,10 @@ def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
         if effect and action and effect.raw == "Allow":
             if isinstance(action.raw, list):
                 for act in action.data:
-                    if act.raw.startswith("ssm:"):
+                    if act.raw == "ssm:*":
                         yield act
             else:
-                if action.raw.startswith("ssm:"):
+                if action.raw == "ssm:*":
                     yield action
 
 

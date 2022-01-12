@@ -9,7 +9,7 @@ Resources:
           - Effect: Allow
             Action:
               - 'cloudformation:Describe*'
-              - 'ssm:CreateAssociation'
+              - 'ssm:*'
               - 'cloudformation:Get*'
             Resource: '*'
   CreateTestDBPolicy:
@@ -21,13 +21,13 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
-            Action: 'ssm:CreateAssociation'
+            Action: 'ssm:*'
             Resource: "*"
             Condition:
               StringEquals:
                 'rds:DatabaseEngine': mysql
           - Effect: Deny
-            Action: 'ssm:CreateAssociation'
+            Action: 'ssm:*'
             Resource: "*"
             Condition:
               StringEquals:
