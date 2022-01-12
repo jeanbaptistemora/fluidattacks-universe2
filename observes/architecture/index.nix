@@ -11,6 +11,7 @@ let
     src = "${root}/${baseNameOf root}";
     tests = "${root}/tests";
   };
+  streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in
 {
   common = {
@@ -36,7 +37,11 @@ in
     timedoctor = std_data "${singerPath}/tap_timedoctor";
     toe_files = std_data "${singerPath}/tap_toe_files";
     zoho_analytics = std_data "${singerPath}/tap_zoho_analytics";
-    zoho_crm = "${singerPath}/streamer_zoho_crm";
+    zoho_crm = std_data "${singerPath}/tap_zoho_crm" // {
+      root = streamer_zoho_crm.root;
+      src = streamer_zoho_crm.src;
+      tests = streamer_zoho_crm.tests;
+    };
   };
   target = {
     redshift = "${singerPath}/target_redshift";

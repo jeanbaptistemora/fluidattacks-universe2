@@ -1,11 +1,12 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/singer/tap-zoho-crm/bin"
+      outputs."${inputs.observesIndex.tap.zoho_crm.bin}"
       outputs."/observes/service/job-last-success/bin"
     ];
   };

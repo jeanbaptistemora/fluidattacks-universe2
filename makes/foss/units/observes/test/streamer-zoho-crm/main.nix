@@ -1,4 +1,5 @@
-{ makeDerivation
+{ inputs
+, makeDerivation
 , outputs
 , projectPath
 , ...
@@ -12,7 +13,7 @@ makeDerivation {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/singer/tap-zoho-crm/env/development"
+      outputs."${inputs.observesIndex.tap.zoho_crm.env.dev}"
     ];
   };
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";
