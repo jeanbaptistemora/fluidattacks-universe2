@@ -680,46 +680,49 @@ async def remove_group(
     organization_id: str,
     reason: Optional[str] = "",
 ) -> bool:
-    response = False
     data = await groups_dal.get_attributes(
         group_name, ["project_status", "historic_deletion"]
     )
+    if (
+        get_key_or_fallback(data, "group_status", "project_status")
+        == "DELETED"
+    ):
+        raise AlreadyPendingDeletion()
+
+    all_resources_removed = await remove_resources(loaders, group_name)
+    is_group_masked = await mask(group_name)
+    today = datetime_utils.get_now()
+    new_state = {
+        "date": datetime_utils.get_as_str(today),
+        "deletion_date": datetime_utils.get_as_str(today),
+        "user": user_email.lower(),
+    }
     historic_deletion = cast(
         List[Dict[str, str]], data.get("historic_deletion", [])
     )
-    if (
-        get_key_or_fallback(data, "group_status", "project_status")
-        != "DELETED"
-    ):
-        all_resources_removed = await remove_resources(loaders, group_name)
-        today = datetime_utils.get_now()
-        new_state = {
-            "date": datetime_utils.get_as_str(today),
-            "deletion_date": datetime_utils.get_as_str(today),
-            "user": user_email.lower(),
-        }
-        historic_deletion.append(new_state)
-        new_data: GroupType = {
-            "historic_deletion": historic_deletion,
-            "group_status": "DELETED",
-            "project_status": "DELETED",
-            "reason": reason,
-        }
-        response = all(
-            [all_resources_removed, await update(group_name, new_data)]
+    historic_deletion.append(new_state)
+    new_data: GroupType = {
+        "historic_deletion": historic_deletion,
+        "group_status": "DELETED",
+        "project_status": "DELETED",
+        "reason": reason,
+    }
+    success = all(
+        [
+            all_resources_removed,
+            is_group_masked,
+            await update(group_name, new_data),
+        ]
+    )
+    if success:
+        await deactivate_all_roots(
+            loaders=loaders,
+            group_name=group_name,
+            user_email=user_email,
+            other="",
+            reason="GROUP_DELETED",
         )
-        if response:
-            await deactivate_all_roots(
-                loaders=loaders,
-                group_name=group_name,
-                user_email=user_email,
-                other="",
-                reason="GROUP_DELETED",
-            )
-    else:
-        raise AlreadyPendingDeletion()
-    if response:
-        response = all(
+        success = all(
             [
                 await collect(
                     (
@@ -729,7 +732,7 @@ async def remove_group(
                 )
             ]
         )
-    return response
+    return success
 
 
 async def validate_open_roots(loaders: Any, group_name: str) -> None:
@@ -806,14 +809,10 @@ async def update_group_attrs(
             group_name=group_name,
         )
 
-    if not has_asm:
-        group = await loaders.group.load(group_name)
-        org_id = group["organization"]
-        success = success and await remove_group(
-            loaders, group_name, requester_email, org_id, reason
-        )
+    if not success:
+        return False
 
-    if success and has_asm:
+    if has_asm:
         await notifications_domain.update_group(
             comments=comments,
             group_name=group_name,
@@ -839,7 +838,14 @@ async def update_group_attrs(
             service=service,
             subscription=subscription,
         )
-    elif success and not has_asm:
+        return True
+
+    group = await loaders.group.load(group_name)
+    org_id = group["organization"]
+    success = await remove_group(
+        loaders, group_name, requester_email, org_id, reason
+    )
+    if success:
         await notifications_domain.delete_group(
             deletion_date=datetime_utils.get_now_as_str(),
             group_name=group_name,
@@ -1288,6 +1294,7 @@ async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
     are_comments_masked = await mask_comments(group_name)
     update_data: Dict[str, Union[str, List[str], object]] = {
+        "group_status": "FINISHED",
         "project_status": "FINISHED",
         "deletion_date": datetime_utils.get_as_str(today),
     }
@@ -1385,7 +1392,6 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_events_masked = all(
         await collect(events_domain.mask(event_id) for event_id in events)
     )
-    is_group_masked = await mask(group_name)
     are_resources_masked = all(
         list(cast(List[bool], await mask_resources(group_name)))
     )
@@ -1393,7 +1399,6 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
         [
             are_findings_masked,
             are_users_removed,
-            is_group_masked,
             are_events_masked,
             are_resources_masked,
         ]
