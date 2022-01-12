@@ -78,7 +78,6 @@ from typing import (
     Iterable,
     List,
     Optional,
-    Set,
     Tuple,
     Union,
 )
@@ -441,29 +440,22 @@ def get_ranges(numberlist: List[int]) -> str:
     return range_str
 
 
-def get_reattack_requesters(
-    historic_verification: Tuple[FindingVerification, ...],
-    vulnerability_ids: Set[str],
-) -> List[str]:
+async def get_reattack_requester(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> str:
+    historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await loaders.finding_historic_verification.load(vuln.finding_id)
     reversed_historic_verification = tuple(reversed(historic_verification))
-    users: Set[str] = set()
     for verification in reversed_historic_verification:
-        if verification.status == FindingVerificationStatus.REQUESTED and (
-            [
-                vuln_id
-                for vuln_id in verification.vulnerability_ids
-                if vuln_id in vulnerability_ids
-            ]
+        if (
+            verification.status == FindingVerificationStatus.REQUESTED
+            and verification.vulnerability_ids is not None
+            and vuln.id in verification.vulnerability_ids
         ):
-            vulnerability_ids = {
-                vuln_id
-                for vuln_id in vulnerability_ids
-                if vuln_id not in verification.vulnerability_ids
-            }
-            users.add(verification.modified_by)
-        if not vulnerability_ids:
-            break
-    return list(users)
+            return verification.modified_by
+    return ""
 
 
 def get_report_dates(

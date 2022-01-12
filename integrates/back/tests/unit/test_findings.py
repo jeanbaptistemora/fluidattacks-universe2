@@ -4,21 +4,18 @@ from collections import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    FindingVerification,
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from findings.domain import (
     download_evidence_file,
     get_records_from_file,
 )
 from newutils.vulnerabilities import (
-    get_reattack_requesters,
+    get_reattack_requester,
 )
 import os
 import pytest
-from typing import (
-    Tuple,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -68,13 +65,13 @@ async def test_get_records_from_file() -> None:
     assert test_data == expected_output
 
 
-async def test_get_reattack_requesters() -> None:
+async def test_get_reattack_requester() -> None:
     loaders = get_new_context()
-    historic_verification: Tuple[
-        FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load("463558592")
-    recipients = get_reattack_requesters(
-        historic_verification,
-        {"3bcdb384-5547-4170-a0b6-3b397a245465"},
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        "3bcdb384-5547-4170-a0b6-3b397a245465"
     )
-    assert recipients == ["integratesuser@gmail.com"]
+    requester = await get_reattack_requester(
+        loaders,
+        vuln=vulnerability,
+    )
+    assert requester == "integratesuser@gmail.com"
