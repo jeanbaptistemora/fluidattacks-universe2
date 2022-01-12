@@ -1,13 +1,14 @@
-{ makeTemplate
+{ inputs
+, makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/target_redshift";
+  self = projectPath inputs.observesIndex.target.redshift.root;
 in
 makeTemplate {
-  name = "observes-env-target-redshift-runtime";
+  name = "observes-singer-target-redshift-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -16,7 +17,7 @@ makeTemplate {
       self
     ];
     source = [
-      outputs."/observes/env/target-redshift/runtime/python"
+      outputs."${inputs.observesIndex.target.redshift.env.runtime}/python"
       outputs."/observes/common/postgres-client/env/runtime"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/env/utils-logger/runtime"

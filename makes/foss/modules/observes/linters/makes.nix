@@ -343,10 +343,10 @@
       };
       observesTargetRedshift = {
         searchPaths.source = [
-          outputs."/observes/env/target-redshift/runtime"
+          outputs."${inputs.observesIndex.target.redshift.env.runtime}"
         ];
         python = "3.8";
-        src = "/observes/singer/target_redshift/target_redshift";
+        src = inputs.observesIndex.target.redshift.src;
       };
       observesServiceTimedoctorTokens = {
         searchPaths.source = [
