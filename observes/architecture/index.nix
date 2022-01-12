@@ -44,8 +44,6 @@ in
     };
   };
   target = {
-    redshift = std_data "${singerPath}/target_redshift" // {
-      bin = "/observes/bin/target-redshift";
-    };
+    redshift = std_data "${singerPath}/target_redshift";
   };
 }
