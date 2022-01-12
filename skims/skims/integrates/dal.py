@@ -185,15 +185,15 @@ async def get_group_findings(
         ),
     )
 
+    raw_findings = result.get("data", {}).get("group", {}).get("findings")
+    raw_drafts = result.get("data", {}).get("group", {}).get("drafts")
+
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
-            identifier=finding["id"],
-            title=finding["title"],
+            identifier=raw_finding["id"],
+            title=raw_finding["title"],
         )
-        for finding in (
-            result.get("data", {}).get("group", {}).get("findings", [])
-            + result.get("data", {}).get("group", {}).get("drafts", [])
-        )
+        for raw_finding in (raw_findings or []) + (raw_drafts or [])
     ]
 
     findings = sorted(
