@@ -85,7 +85,7 @@ async def get_all_time_forces_executions(
 
 
 def get_finding_name(item: List[str]) -> str:
-    return item[0].split("/")[-1].split(" -")[0]
+    return item[0].split("/")[-1]
 
 
 def get_result_path(name: str) -> str:
