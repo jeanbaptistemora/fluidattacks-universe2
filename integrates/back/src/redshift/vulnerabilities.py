@@ -6,11 +6,23 @@ from .operations import (
 from aioextensions import (
     collect,
 )
+from dataclasses import (
+    dataclass,
+    fields,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 import logging
 import logging.config
 from settings import (
     LOGGING,
     NOEXTRA,
+)
+from typing import (
+    Any,
+    Optional,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -21,6 +33,47 @@ STATE_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_state"
 TREATMENT_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_treatment"
 VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_verification"
 ZERO_RISK_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_zero_risk"
+
+
+@dataclass(frozen=True)
+class MetadataTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    finding_id: str
+    type: str
+    custom_severity: Optional[int]
+    skims_method: Optional[str]
+
+
+def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
+    _fields = ",".join(tuple(f.name for f in fields(table_row_class)))
+    values = ",".join(tuple(f"%({f.name})s" for f in fields(table_row_class)))
+    return _fields, values
+
+
+async def insert_metadata(
+    *,
+    vulnerability: Vulnerability,
+) -> None:
+    _fields, values = _format_query_fields(MetadataTableRow)
+    sql_values = dict(
+        id=vulnerability.id,
+        custom_severity=vulnerability.custom_severity,
+        finding_id=vulnerability.finding_id,
+        skims_method=vulnerability.skims_method,
+        type=vulnerability.type.value,
+    )
+    await execute(  # nosec
+        f"""
+            INSERT INTO {METADATA_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id
+                FROM {METADATA_TABLE}
+                WHERE id = %(id)s
+            )
+         """,
+        sql_values,
+    )
 
 
 async def _initialize_metadata_table() -> None:
