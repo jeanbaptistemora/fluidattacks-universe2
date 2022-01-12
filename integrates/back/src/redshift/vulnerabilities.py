@@ -18,6 +18,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityVerification,
 )
 import logging
 import logging.config
@@ -68,6 +69,14 @@ class TreatmentTableRow:
     status: str
     accepted_until: Optional[datetime]
     acceptance_status: Optional[str]
+
+
+@dataclass(frozen=True)
+class VerificationTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    status: str
 
 
 def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
@@ -155,6 +164,33 @@ async def insert_historic_treatment(
             WHERE NOT EXISTS (
                 SELECT id, modified_date
                 FROM {TREATMENT_TABLE}
+                WHERE id = %(id)s and modified_date = %(modified_date)s
+            )
+         """,
+        sql_values,
+    )
+
+
+async def insert_historic_verification(
+    *,
+    vulnerability_id: str,
+    historic_verification: Tuple[VulnerabilityVerification, ...],
+) -> None:
+    _fields, values = _format_query_fields(VerificationTableRow)
+    sql_values = [
+        dict(
+            id=vulnerability_id,
+            modified_date=datetime.fromisoformat(verification.modified_date),
+            status=verification.status.value,
+        )
+        for verification in historic_verification
+    ]
+    await execute_many(  # nosec
+        f"""
+            INSERT INTO {VERIFICATION_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id, modified_date
+                FROM {VERIFICATION_TABLE}
                 WHERE id = %(id)s and modified_date = %(modified_date)s
             )
          """,
