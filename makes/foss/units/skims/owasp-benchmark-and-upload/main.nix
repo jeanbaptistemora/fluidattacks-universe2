@@ -9,7 +9,7 @@ makeScript {
     bin = [
       outputs."/skims/owasp-benchmark"
       outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."/observes/bin/target-redshift"
+      outputs."${inputs.observesIndex.target.redshift.bin}"
     ];
     source = [
       outputs."/utils/aws"
