@@ -633,6 +633,17 @@ async def get_last_reattack_date(
     )
 
 
+async def get_report_date(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> datetime:
+    """Get report date as datetime."""
+    historic: Tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    return datetime.fromisoformat(historic[0].modified_date)
+
+
 async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     loaders: Any,
     vulns: Tuple[Vulnerability, ...],
