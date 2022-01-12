@@ -25,6 +25,9 @@ from .exploit_result import (
 from .finding import (
     FINDING,
 )
+from .finding_evidence import (
+    FINDING_EVIDENCE,
+)
 from .finding_policy import (
     FINDING_POLICY,
 )
@@ -116,6 +119,7 @@ TYPES: Tuple[ObjectType, ...] = (
     EXECUTION_VULNERABILITIES,
     EXPLOIT_RESULT,
     FINDING_POLICY,
+    FINDING_EVIDENCE,
     FINDING,
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
