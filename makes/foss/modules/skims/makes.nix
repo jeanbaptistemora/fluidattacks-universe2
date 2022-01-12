@@ -11,6 +11,9 @@
     ./tests/makes.nix
     ./pipeline/makes.nix
   ];
+  inputs = {
+    observesIndex = import (projectPath "/observes/architecture/index.nix");
+  };
   deployContainerImage = {
     images = {
       skimsProd = {
