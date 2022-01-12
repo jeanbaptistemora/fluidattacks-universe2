@@ -12,7 +12,7 @@ function migration {
     && aws_login_prod_new 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && code-etl v2 \
+    && code-etl \
       --db-id "${db}" \
       --creds "${creds}" \
       migration calculate-fa-hash-2 \

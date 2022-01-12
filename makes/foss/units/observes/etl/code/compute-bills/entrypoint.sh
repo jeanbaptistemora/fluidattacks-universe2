@@ -6,8 +6,14 @@ function job_compute_bills {
   local bucket_month
   local bucket_day
   local folder
+  local db
+  local creds
 
-  aws_login_prod_new 'observes' \
+  db=$(mktemp) \
+    && creds=$(mktemp) \
+    && aws_login_prod_new 'observes' \
+    && prod_db "${db}" \
+    && prod_user "${creds}" \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \
@@ -18,7 +24,10 @@ function job_compute_bills {
     && bucket_month="s3://continuous-data/bills/$(date +%Y)/$(date +%m)" \
     && bucket_day="s3://continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \
     && echo "[INFO] Temporary results folder: ${folder}" \
-    && code-etl compute-bills \
+    && code-etl \
+      --db-id "${db}" \
+      --creds "${creds}" \
+      compute-bills \
       "${folder}" \
       "$(date +%Y)" \
       "$(date +%m)" \

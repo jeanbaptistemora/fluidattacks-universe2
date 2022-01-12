@@ -82,20 +82,12 @@ def _to_table(pair: Tuple[str, str]) -> TableID:
 
 
 @click.command()
-@click.argument("schema", type=str)
-@click.argument("mailmap_path", type=str)
-@click.argument("namespace", type=str)
-def amend_authors(schema: str, mailmap_path: str, namespace: str) -> None:
-    asyncio.run(amend.main(schema, mailmap_path, namespace))
-
-
-@click.command()
 @click.option("--mailmap", type=mailmap_file)
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.pass_obj
-def amend_authors_v2(
+def amend_authors(
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -128,27 +120,13 @@ def compute_bills(
 
 
 @click.command()
-@click.argument("namespace", type=str)
-@click.argument("repositories", type=str, nargs=-1)
-@click.option("--mailmap", type=mailmap_file)
-def upload_code(
-    namespace: str, repositories: Tuple[str, ...], mailmap: Optional[str]
-) -> None:
-    repos: Iterator[str] = map(abspath, repositories)
-    success: bool = asyncio.run(
-        upload.main(Maybe.from_optional(mailmap), namespace, *repos)
-    )
-    sys.exit(0 if success else 1)
-
-
-@click.command()
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.option("--mailmap", type=mailmap_file)
 @click.argument("repositories", type=str, nargs=-1)
 @pass_ctx
-def upload_code_v2(
+def upload_code(
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -209,7 +187,7 @@ migration.add_command(calculate_fa_hash_2)
 @click.option("--db-id", type=click.File("r"), required=True)
 @click.option("--creds", type=click.File("r"), required=True)
 @click.pass_context
-def v2(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
+def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
     if "--help" not in click.get_os_args():
         ctx.obj = CmdContext(
             id_from_str(db_id.read()),
@@ -217,18 +195,7 @@ def v2(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
         )
 
 
-v2.add_command(upload_code_v2)
-v2.add_command(amend_authors_v2)
-v2.add_command(migration)
-
-
-@click.group()
-def main() -> None:
-    # main cli group
-    pass
-
-
 main.add_command(amend_authors)
 main.add_command(compute_bills)
 main.add_command(upload_code)
-main.add_command(v2)
+main.add_command(migration)

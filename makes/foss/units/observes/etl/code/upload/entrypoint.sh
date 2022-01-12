@@ -34,44 +34,28 @@ function job_code_upload {
           melts drills --pull-repos "${group}"; then
           echo "[INFO] Uploading ${group}" \
             && shopt -s nullglob \
-            && code-etl v2 \
+            && code-etl \
               --db-id "${db}" \
               --creds "${creds}" \
-              upload-code-v2 \
+              upload-code \
               --schema 'code' \
               --table 'commits' \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
               "groups/${group}/fusion/"* \
             && echo "[INFO] Amend authors of ${group}" \
-            && code-etl v2 \
+            && code-etl \
               --db-id "${db}" \
               --creds "${creds}" \
-              amend-authors-v2 \
+              amend-authors \
               --schema 'code' \
               --table 'commits' \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
             && if [[ ${migrated_groups[*]} =~ ${group} ]]; then
-              echo "[INFO] Uploading ${group} into migration" \
-                && code-etl v2 \
-                  --db-id "${db}" \
-                  --creds "${creds}" \
-                  upload-code-v2 \
-                  --schema 'code' \
-                  --table 'migrated' \
-                  --namespace "${group}" \
-                  --mailmap '.groups-mailmap' \
-                  "groups/${group}/fusion/"* \
-                && echo "[INFO] Amend authors of ${group} into migration" \
-                && code-etl v2 \
-                  --db-id "${db}" \
-                  --creds "${creds}" \
-                  amend-authors-v2 \
-                  --schema 'code' \
-                  --table 'migrated' \
-                  --namespace "${group}" \
-                  --mailmap '.groups-mailmap'
+              echo "[INFO] Migrated group procedure" \
+                && echo "[ERROR] Not defined" \
+                && return 1
             fi \
             && shopt -u nullglob \
             && rm -rf "groups/${group}/fusion/"
