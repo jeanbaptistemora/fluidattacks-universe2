@@ -34,7 +34,7 @@ in
     mailchimp = std_data "${singerPath}/tap_mailchimp";
     mixpanel = std_data "${singerPath}/tap_mixpanel";
     timedoctor = std_data "${singerPath}/tap_timedoctor";
-    toe_files = "${singerPath}/tap_toe_files";
+    toe_files = std_data "${singerPath}/tap_toe_files";
     zoho_analytics = "${singerPath}/tap_zoho_analytics";
     zoho_crm = "${singerPath}/streamer_zoho_crm";
   };

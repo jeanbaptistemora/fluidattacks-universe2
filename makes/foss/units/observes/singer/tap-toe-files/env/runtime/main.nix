@@ -1,10 +1,10 @@
-{ makeTemplate
-, inputs
+{ inputs
+, makeTemplate
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_toe_files";
+  self = projectPath inputs.observesIndex.tap.toe_files.root;
 in
 makeTemplate {
   name = "observes-singer-tap-toe-env-files-runtime";
