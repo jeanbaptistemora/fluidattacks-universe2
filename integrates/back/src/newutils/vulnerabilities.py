@@ -644,6 +644,17 @@ async def get_report_date(
     return datetime.fromisoformat(historic[0].modified_date)
 
 
+async def get_source(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> Source:
+    """Get the source of creation."""
+    historic: Tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    return historic[0].source
+
+
 async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     loaders: Any,
     vulns: Tuple[Vulnerability, ...],
