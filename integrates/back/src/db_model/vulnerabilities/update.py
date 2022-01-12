@@ -2,9 +2,11 @@ from .enums import (
     VulnerabilityStateStatus,
 )
 from .types import (
+    Vulnerability,
     VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityMetadataToUpdate,
+    VulnerabilityUnreliableIndicatorsToUpdate,
 )
 from .utils import (
     adjust_historic_dates,
@@ -15,6 +17,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    IndicatorAlreadyUpdated,
     VulnNotFound,
 )
 from db_model import (
@@ -26,6 +29,7 @@ from dynamodb import (
 )
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
+    ValidationException,
 )
 import simplejson as json  # type: ignore
 from typing import (
@@ -191,3 +195,64 @@ async def update_historic(
         keys=tuple(key for key in current_keys if key not in new_keys),
         table=TABLE,
     )
+
+
+async def update_unreliable_indicators(
+    *,
+    current_value: Vulnerability,
+    indicators: VulnerabilityUnreliableIndicatorsToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    vulnerability_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_metadata"],
+        values={
+            "finding_id": current_value.finding_id,
+            "id": current_value.id,
+        },
+    )
+    unreliable_indicators = {
+        f"unreliable_indicators.{key}": value
+        for key, value in json.loads(json.dumps(indicators)).items()
+        if value is not None
+    }
+    current_value_item = {
+        f"unreliable_indicators.{key}": value
+        for key, value in json.loads(
+            json.dumps(current_value.unreliable_indicators)
+        ).items()
+    }
+    conditions = (
+        (
+            Attr(indicator_name).not_exists()
+            | Attr(indicator_name).eq(current_value_item[indicator_name])
+        )
+        for indicator_name in unreliable_indicators
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    for condition in conditions:
+        condition_expression &= condition
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=unreliable_indicators,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise IndicatorAlreadyUpdated() from ex
+    except ValidationException:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item={"unreliable_indicators": {}},
+            key=vulnerability_key,
+            table=TABLE,
+        )
+        try:
+            await operations.update_item(
+                condition_expression=condition_expression,
+                item=unreliable_indicators,
+                key=vulnerability_key,
+                table=TABLE,
+            )
+        except ConditionalCheckFailedException as ex:
+            raise IndicatorAlreadyUpdated() from ex

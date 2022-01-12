@@ -37,6 +37,10 @@ class VulnerabilityTreatment(NamedTuple):
     modified_by: Optional[str] = None
 
 
+class VulnerabilityUnreliableIndicators(NamedTuple):
+    unreliable_report_date: Optional[str] = None
+
+
 class VulnerabilityVerification(NamedTuple):
     modified_date: str
     status: VulnerabilityVerificationStatus
@@ -66,6 +70,9 @@ class Vulnerability(NamedTuple):
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
+    unreliable_indicators: VulnerabilityUnreliableIndicators = (
+        VulnerabilityUnreliableIndicators()
+    )
     verification: Optional[VulnerabilityVerification] = None
     zero_risk: Optional[VulnerabilityZeroRisk] = None
 
@@ -97,3 +104,7 @@ VulnerabilityHistoricEntry = Union[
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 ]
+
+
+class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_report_date: Optional[str] = None
