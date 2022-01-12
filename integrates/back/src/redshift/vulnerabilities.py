@@ -17,6 +17,7 @@ from datetime import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
 )
 import logging
 import logging.config
@@ -57,6 +58,16 @@ class StateTableRow:
     modified_date: datetime
     source: str
     status: str
+
+
+@dataclass(frozen=True)
+class TreatmentTableRow:
+    # pylint: disable=invalid-name
+    id: str
+    modified_date: datetime
+    status: str
+    accepted_until: Optional[datetime]
+    acceptance_status: Optional[str]
 
 
 def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
@@ -111,6 +122,39 @@ async def insert_historic_state(
             WHERE NOT EXISTS (
                 SELECT id, modified_date
                 FROM {STATE_TABLE}
+                WHERE id = %(id)s and modified_date = %(modified_date)s
+            )
+         """,
+        sql_values,
+    )
+
+
+async def insert_historic_treatment(
+    *,
+    vulnerability_id: str,
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+) -> None:
+    _fields, values = _format_query_fields(TreatmentTableRow)
+    sql_values = [
+        dict(
+            id=vulnerability_id,
+            modified_date=datetime.fromisoformat(treatment.modified_date),
+            status=treatment.status.value,
+            accepted_until=datetime.fromisoformat(treatment.accepted_until)
+            if treatment.accepted_until
+            else None,
+            acceptance_status=treatment.acceptance_status.value
+            if treatment.acceptance_status
+            else None,
+        )
+        for treatment in historic_treatment
+    ]
+    await execute_many(  # nosec
+        f"""
+            INSERT INTO {TREATMENT_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id, modified_date
+                FROM {TREATMENT_TABLE}
                 WHERE id = %(id)s and modified_date = %(modified_date)s
             )
          """,
