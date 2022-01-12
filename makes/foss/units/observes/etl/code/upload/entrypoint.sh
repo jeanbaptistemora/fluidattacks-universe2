@@ -19,8 +19,8 @@ function job_code_upload {
     && sops_export_vars 'observes/conf/code_migration.json' \
       migration \
       migrated \
-    && echo "${migration}" | jq -erc '.[]' > "${migration_groups_file}" \
-    && echo "${migrated}" | jq -erc '.[]' > "${migrated_groups_file}" \
+    && echo "${migration}" | jq -rc '.[]' > "${migration_groups_file}" \
+    && echo "${migrated}" | jq -rc '.[]' > "${migrated_groups_file}" \
     && readarray -t migration_groups < "${migration_groups_file}" \
     && readarray -t migrated_groups < "${migrated_groups_file}" \
     && if [[ ! ${migration_groups[*]} =~ ${group} ]]; then
