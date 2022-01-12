@@ -5,7 +5,7 @@ from code_etl.client.decoder import (
     RawDecodeError,
 )
 from code_etl.factories import (
-    gen_fa_hash,
+    gen_fa_hash_2,
 )
 from code_etl.objs import (
     CommitData,
@@ -74,7 +74,7 @@ def calc_commit_id(
     data: CommitData, namespace: str, repository: str, hash: str
 ) -> CommitDataId:
     return CommitDataId(
-        RepoId(namespace, repository), CommitId(hash, gen_fa_hash(data))
+        RepoId(namespace, repository), CommitId(hash, gen_fa_hash_2(data))
     )
 
 

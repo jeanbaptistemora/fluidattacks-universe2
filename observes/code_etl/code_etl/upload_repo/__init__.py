@@ -66,13 +66,12 @@ def upload(
     namespace: str,
     repo_path: Path,
     mailmap: Maybe[Mailmap],
-    hash_2: bool,
 ) -> IO[None]:
     repo = Repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
     LOG.info("Uploading %s", repo_id)
     extractor = get_context(client, target, repo_id).map(
-        lambda r: Extractor(r, mailmap, hash_2)
+        lambda r: Extractor(r, mailmap)
     )
     return extractor.bind(
         lambda ext: upload_or_register(client, target, ext, repo)
@@ -86,7 +85,6 @@ def upload_repos(
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
-    hash_2: bool,
 ) -> IO[None]:
     LOG.info(
         "Uploading repos data into %s.%s", target.schema, target.table_name
@@ -96,7 +94,7 @@ def upload_repos(
     )
     pool = ThreadPool()
     pool.map(
-        lambda i: upload(i[0], target, namespace, i[1], mailmap, hash_2),
+        lambda i: upload(i[0], target, namespace, i[1], mailmap),
         client_paths,
     )
     return IO(None)

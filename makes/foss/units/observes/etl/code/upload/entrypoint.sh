@@ -62,7 +62,6 @@ function job_code_upload {
                   --table 'migrated' \
                   --namespace "${group}" \
                   --mailmap '.groups-mailmap' \
-                  --hash-2 \
                   "groups/${group}/fusion/"* \
                 && echo "[INFO] Amend authors of ${group} into migration" \
                 && code-etl v2 \
@@ -72,7 +71,6 @@ function job_code_upload {
                   --schema 'code' \
                   --table 'migrated' \
                   --namespace "${group}" \
-                  --hash-2 \
                   --mailmap '.groups-mailmap'
             fi \
             && shopt -u nullglob \

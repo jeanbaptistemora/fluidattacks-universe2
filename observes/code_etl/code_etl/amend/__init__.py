@@ -46,7 +46,6 @@ def amend_users(
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
-    hash_2: bool,
 ) -> IO[None]:
     LOG.info("Getting data stream...")
     data = namespace_data(client, table, namespace).map(
@@ -60,7 +59,7 @@ def amend_users(
                 table,
                 c,
                 mailmap.map(
-                    lambda mmap: amend_commit_stamp_users(mmap, c, hash_2)
+                    lambda mmap: amend_commit_stamp_users(mmap, c)
                 ).value_or(c),
             )
             if isinstance(c, CommitStamp)
@@ -75,7 +74,6 @@ def start(
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
-    hash_2: bool,
 ) -> IO[None]:
     client = ClientFactory().from_creds(db_id, creds)
-    return amend_users(client, table, namespace, mailmap, hash_2)
+    return amend_users(client, table, namespace, mailmap)

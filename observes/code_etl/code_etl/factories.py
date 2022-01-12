@@ -33,23 +33,6 @@ def _truncate_bytes(string: str, start: int, end: int) -> str:
     return string.encode()[start:end].decode()
 
 
-def gen_fa_hash(commit: CommitData) -> str:
-    fa_hash = hashlib.sha256()
-    fa_hash.update(bytes(commit.author.name, "utf-8"))
-    fa_hash.update(bytes(commit.author.email, "utf-8"))
-    fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
-
-    fa_hash.update(bytes(commit.committer.name, "utf-8"))
-    fa_hash.update(bytes(commit.committer.email, "utf-8"))
-    fa_hash.update(bytes(commit.committed_at.time.isoformat(), "utf-8"))
-
-    fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
-    fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
-    fa_hash.update(bytes(str(commit.deltas.total_lines), "utf-8"))
-    fa_hash.update(bytes(str(commit.deltas.total_files), "utf-8"))
-    return fa_hash.hexdigest()
-
-
 def gen_fa_hash_2(commit: CommitData) -> str:
     fa_hash = hashlib.sha256()
     fa_hash.update(bytes(commit.author.name, "utf-8"))
@@ -67,9 +50,8 @@ def gen_fa_hash_2(commit: CommitData) -> str:
 
 @dataclass(frozen=True)
 class CommitDataFactory:
-    _hash_2: bool
-
-    def from_commit(self, commit: Commit) -> CommitDataObj:
+    @staticmethod
+    def from_commit(commit: Commit) -> CommitDataObj:
         author = User(
             _to_prim(commit.author.name, str),
             _to_prim(commit.author.email, str),
@@ -93,8 +75,7 @@ class CommitDataFactory:
             truncate(str(commit.summary), 256),
             deltas,
         )
-        calc = gen_fa_hash_2 if self._hash_2 else gen_fa_hash
-        _id = CommitId(commit.hexsha, calc(data))
+        _id = CommitId(commit.hexsha, gen_fa_hash_2(data))
         return CommitDataObj(_id, data)
 
 
