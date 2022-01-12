@@ -1,5 +1,7 @@
 from azure.model import (
+    AzurermAppService,
     AzurermDataFactory,
+    AzurermFunctionApp,
     AzurermKeyVault,
     AzurermKeyVaultSecret,
     AzurermLinuxVirtualMachine,
@@ -71,6 +73,26 @@ def iter_azurerm_key_vault_secret(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "azurerm_key_vault_secret")
     for bucket in iterator:
         yield AzurermKeyVaultSecret(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_azurerm_app_service(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "azurerm_app_service")
+    for bucket in iterator:
+        yield AzurermAppService(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_azurerm_function_app(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "azurerm_function_app")
+    for bucket in iterator:
+        yield AzurermFunctionApp(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

@@ -39,3 +39,15 @@ class AzurermKeyVaultSecret(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AzurermAppService(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
+
+
+class AzurermFunctionApp(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
