@@ -23,6 +23,11 @@ async def get_result(
             isConcurrentSession
             organizations {{
                 name
+                groups {{
+                    hasForces
+                    hasSquad
+                    name
+                }}
             }}
             permissions
             remember

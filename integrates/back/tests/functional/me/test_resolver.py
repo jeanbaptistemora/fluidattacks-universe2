@@ -11,22 +11,26 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("me")
 @pytest.mark.parametrize(
-    ("email", "role", "permissions"),
+    ("email", "role", "permissions", "groups_length"),
     (
-        ("admin@gmail.com", "admin", 16),
-        ("customer@gmail.com", "customer", 3),
-        ("customeradmin@gmail.com", "customeradmin", 0),
-        ("executive@gmail.com", "executive", 0),
-        ("hacker@gmail.com", "hacker", 3),
-        ("reattacker@gmail.com", "reattacker", 0),
-        ("resourcer@gmail.com", "resourcer", 0),
-        ("reviewer@gmail.com", "reviewer", 0),
-        ("service_forces@gmail.com", "service_forces", 0),
-        ("system_owner@gmail.com", "system_owner", 0),
+        ("admin@gmail.com", "admin", 16, 0),
+        ("customer@gmail.com", "customer", 3, 1),
+        ("customeradmin@gmail.com", "customeradmin", 0, 1),
+        ("executive@gmail.com", "executive", 0, 1),
+        ("hacker@gmail.com", "hacker", 3, 2),
+        ("reattacker@gmail.com", "reattacker", 0, 1),
+        ("resourcer@gmail.com", "resourcer", 0, 1),
+        ("reviewer@gmail.com", "reviewer", 0, 2),
+        ("service_forces@gmail.com", "service_forces", 0, 1),
+        ("system_owner@gmail.com", "system_owner", 0, 1),
     ),
 )
 async def test_get_me(
-    populate: bool, email: str, role: str, permissions: int
+    populate: bool,
+    email: str,
+    role: str,
+    permissions: int,
+    groups_length: int,
 ) -> None:
     assert populate
     org_name: str = "orgtest"
@@ -40,7 +44,11 @@ async def test_get_me(
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert not result["data"]["me"]["hasMobileApp"]
     assert not result["data"]["me"]["isConcurrentSession"]
-    assert result["data"]["me"]["organizations"] == [{"name": org_name}]
+    assert result["data"]["me"]["organizations"][0]["name"] == org_name
+    assert (
+        len(result["data"]["me"]["organizations"][0]["groups"])
+        == groups_length
+    )
     assert len(result["data"]["me"]["permissions"]) == permissions
     assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == role
