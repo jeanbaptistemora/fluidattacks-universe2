@@ -1,4 +1,5 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
@@ -6,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."/observes/bin/target-redshift"
-      outputs."/observes/singer/tap-json/bin"
+      outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."/observes/singer/tap-mailchimp/bin"
       outputs."/observes/service/job-last-success/bin"
     ];

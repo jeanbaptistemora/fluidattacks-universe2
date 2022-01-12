@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_json";
+  self = projectPath inputs.observesIndex.tap.json.root;
 in
 makeTemplate {
   name = "observes-singer-tap-json-env-runtime";

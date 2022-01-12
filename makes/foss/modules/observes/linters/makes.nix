@@ -89,8 +89,8 @@
         src = inputs.observesIndex.tap.gitlab.root;
       };
       observesTapJson = {
-        config = "/observes/singer/tap_json/tap_json/setup.imports.cfg";
-        src = "/observes/singer/tap_json";
+        config = "${inputs.observesIndex.tap.json.src}/setup.imports.cfg";
+        src = inputs.observesIndex.tap.json.root;
       };
       observesTapMailchimp = {
         config = "/observes/singer/tap_mailchimp/tap_mailchimp/setup.imports.cfg";
@@ -301,10 +301,10 @@
       };
       observesTapJson = {
         searchPaths.source = [
-          outputs."/observes/singer/tap-json/env/development"
+          outputs."${inputs.observesIndex.tap.json.env.dev}"
         ];
         python = "3.8";
-        src = "/observes/singer/tap_json/tap_json";
+        src = inputs.observesIndex.tap.json.src;
       };
       observesTapMailchimp = {
         searchPaths.source = [

@@ -1,4 +1,5 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
@@ -7,7 +8,7 @@ makeScript {
     bin = [
       outputs."/observes/service/job-last-success/bin"
       outputs."/observes/bin/streamer-dynamodb"
-      outputs."/observes/singer/tap-json/bin"
+      outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."/observes/bin/target-redshift"
     ];
     source = [

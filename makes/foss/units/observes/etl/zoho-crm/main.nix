@@ -8,7 +8,7 @@ makeScript {
     bin = [
       outputs."/observes/singer/tap-zoho-crm/bin"
       outputs."${inputs.observesIndex.tap.csv.bin}"
-      outputs."/observes/singer/tap-json/bin"
+      outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/service/job-last-success/bin"
     ];

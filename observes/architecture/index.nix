@@ -30,7 +30,7 @@ in
     formstack = std_data "${singerPath}/tap_formstack";
     git = std_data "${singerPath}/tap_git";
     gitlab = std_data "${singerPath}/tap_gitlab";
-    json = "${singerPath}/tap_json";
+    json = std_data "${singerPath}/tap_json";
     mailchimp = "${singerPath}/tap_mailchimp";
     mixpanel = "${singerPath}/tap_mixpanel";
     timedoctor = "${singerPath}/tap_timedoctor";
