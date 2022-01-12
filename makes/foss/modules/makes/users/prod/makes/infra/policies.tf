@@ -8,6 +8,7 @@ locals {
         Action = [
           "access-analyzer:*",
           "acm:*",
+          "artifact:*",
           "autoscaling:*",
           "aws-marketplace:*",
           "aws-portal:*",
