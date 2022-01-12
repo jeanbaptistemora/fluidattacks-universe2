@@ -1,0 +1,9 @@
+"Finding evidence item type definition"
+type FindingEvidenceItem {
+  "Upload date in the format yyyy-MM-dd hh:mm:ss"
+  date: String
+  "Evidence description"
+  description: String
+  "Evidence URL"
+  url: String
+}

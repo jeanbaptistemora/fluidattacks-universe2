@@ -1,9 +1,17 @@
 "Finding evidence type definition"
 type FindingEvidence {
-  "Upload date in the format yyyy-MM-dd hh:mm:ss"
-  date: String
-  "Evidence description"
-  description: String
-  "Evidence URL"
-  url: String
+  "Exploit Animation"
+  animation: FindingEvidenceItem
+  "Evidence image 1"
+  evidence1: FindingEvidenceItem
+  "Evidence image 2"
+  evidence2: FindingEvidenceItem
+  "Evidence image 3"
+  evidence3: FindingEvidenceItem
+  "Evidence image 4"
+  evidence4: FindingEvidenceItem
+  "Evidence image 5"
+  evidence5: FindingEvidenceItem
+  "Exploitation evidence"
+  exploitation: FindingEvidenceItem
 }
