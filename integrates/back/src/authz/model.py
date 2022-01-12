@@ -651,6 +651,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_remove_billing_subscription_mutate",
             "api_mutations_submit_machine_job_mutate",
+            "api_mutations_update_billing_subscription_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_organization_billing_portal_resolve",

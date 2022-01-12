@@ -64,6 +64,7 @@ from api.mutations import (
     subscribe_to_entity_report,
     unsubscribe_from_group,
     update_access_token,
+    update_billing_subscription,
     update_event_evidence,
     update_evidence,
     update_evidence_description,
@@ -195,6 +196,9 @@ MUTATION.set_field(
 )
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
+MUTATION.set_field(
+    "updateBillingSubscription", update_billing_subscription.mutate
+)
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
 MUTATION.set_field("updateEvidence", update_evidence.mutate)

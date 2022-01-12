@@ -140,14 +140,6 @@ class AddRootPayload(NamedTuple):
     success: bool
 
 
-class AddBillingSubscriptionPayload(NamedTuple):
-    id: str
-    cancel_url: str
-    success: bool
-    success_url: str
-    payment_url: str
-
-
 ApproveDraftPayload = NamedTuple(
     "ApproveDraftPayload",
     [

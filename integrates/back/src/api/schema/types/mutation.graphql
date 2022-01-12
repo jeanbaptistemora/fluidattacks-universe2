@@ -649,6 +649,16 @@ type Mutation {
     expirationTime: Int!
   ): UpdateAccessTokenPayload!
 
+  "Returns invoice information after updating a subscription for a group"
+  updateBillingSubscription(
+    "Group name"
+    groupName: String!
+    "Group subscription (Machine or Squad)"
+    subscription: BillingSubscriptionType!
+    "Preview invoice information without updating the group subscription"
+    preview: Boolean!
+  ): UpdateBillingSubscriptionPayload!
+
   "Updates a Finding's description"
   updateDescription(
     "Deprecated. Use `attackVectorDescription` instead"

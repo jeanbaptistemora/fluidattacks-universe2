@@ -1,23 +1,21 @@
 from typing import (
-    Any,
-    Dict,
     List,
     NamedTuple,
 )
+
+
+class AddBillingSubscriptionPayload(NamedTuple):
+    id: str
+    cancel_url: str
+    success: bool
+    success_url: str
+    payment_url: str
 
 
 class Customer(NamedTuple):
     id: str
     name: str
     email: str
-
-
-class Invoice(NamedTuple):
-    account_name: str
-    amount_due: int
-    amount_paid: int
-    amount_remaining: int
-    data: List[Dict[str, Any]]
 
 
 class Price(NamedTuple):
@@ -39,3 +37,10 @@ class Subscription(NamedTuple):
     organization: str
     type: str
     items: List[str]
+
+
+class UpdateBillingSubscriptionPayload(NamedTuple):
+    amount_due: int
+    amount_paid: int
+    amount_remaining: int
+    success: bool

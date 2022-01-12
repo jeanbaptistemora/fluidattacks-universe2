@@ -2,11 +2,12 @@ from aioextensions import (
     collect,
 )
 from billing.types import (
+    AddBillingSubscriptionPayload,
     Customer,
-    Invoice,
     Portal,
     Price,
     Subscription,
+    UpdateBillingSubscriptionPayload,
 )
 from context import (
     BASE_URL,
@@ -18,9 +19,6 @@ from custom_exceptions import (
     BillingSubscriptionAlreadyActive,
     InvalidBillingCustomer,
     InvalidBillingPrice,
-)
-from custom_types import (
-    AddBillingSubscriptionPayload,
 )
 from dataloaders import (
     get_new_context,
@@ -124,14 +122,14 @@ async def _collect_subscription_prices(
     return prices
 
 
-async def _format_session_data(
+async def _format_create_subscription_data(
     *,
     subscription: str,
     org_billing_customer: str,
     org_name: str,
     group_name: str,
 ) -> Dict[str, Any]:
-    """Format a checkout session data according to stripe API"""
+    """Format create subscription session data according to stripe API"""
     prices: List[Price] = await _collect_subscription_prices(
         subscription=subscription
     )
@@ -169,6 +167,51 @@ async def _format_session_data(
         "mode": "subscription",
         "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
         "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
+    }
+
+
+async def _format_update_subscription_data(
+    *,
+    org_billing_customer: str,
+    subscription_id: str,
+    subscription: str,
+    current_items: List[str],
+) -> Dict[str, Any]:
+    """Format update subscription session data according to stripe API"""
+    prices: List[Price] = await _collect_subscription_prices(
+        subscription=subscription,
+    )
+    proration_date: int = int(time.time())
+    items: List[Dict[str, Any]] = []
+
+    if subscription == "machine":
+        items = [
+            {
+                "id": current_items[0],
+                "price": prices[0].id,
+            },
+            {
+                "id": current_items[1],
+                "deleted": True,
+                "clear_usage": True,
+            },
+        ]
+    else:
+        items = [
+            {
+                "id": current_items[0],
+                "price": prices[0].id,
+            },
+            {
+                "price": prices[1].id,
+            },
+        ]
+
+    return {
+        "customer": org_billing_customer,
+        "subscription": subscription_id,
+        "subscription_items": items,
+        "subscription_proration_date": proration_date,
     }
 
 
@@ -244,7 +287,7 @@ async def _create_customer(
     return customer
 
 
-async def create_checkout(
+async def create_subscription(
     *,
     subscription: str,
     org_billing_customer: Optional[str],
@@ -280,14 +323,14 @@ async def create_checkout(
         )
 
     # Format checkout session data
-    session_data: Dict[str, Any] = await _format_session_data(
+    data: Dict[str, Any] = await _format_create_subscription_data(
         subscription=subscription,
         org_billing_customer=org_billing_customer,
         org_name=org_name,
         group_name=group_name,
     )
 
-    session = stripe.checkout.Session.create(**session_data)
+    session = stripe.checkout.Session.create(**data)
     checkout = AddBillingSubscriptionPayload(
         id=session.id,
         cancel_url=session.cancel_url,
@@ -327,12 +370,13 @@ async def create_portal(
     )
 
 
-async def update_subscription_preview(
+async def update_subscription(
     *,
     subscription: str,
     org_billing_customer: str,
     group_name: str,
-) -> Invoice:
+    preview: bool,
+) -> UpdateBillingSubscriptionPayload:
     """Preview a subscription update"""
     # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
@@ -350,52 +394,33 @@ async def update_subscription_preview(
         raise BillingGroupWithoutSubscription()
 
     # Raise exception if group already has the same subscription active
-    if await _group_has_active_subscription(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-        subscription=subscription,
-    ):
+    if sub.type == subscription:
         raise BillingSubscriptionAlreadyActive()
 
-    # Collect subscription prices
-    prices: List[Price] = await _collect_subscription_prices(
-        subscription=subscription
-    )
-    proration_date: int = int(time.time())
-    items: List[Dict[str, Any]] = []
-
-    if subscription == "machine":
-        items = [
-            {
-                "id": sub.items[0],
-                "price": prices[0].id,
-            },
-            {
-                "id": sub.items[1],
-                "deleted": True,
-            },
-        ]
-    else:
-        items = [
-            {
-                "id": sub.items[0],
-                "price": prices[0].id,
-            },
-        ]
-
-    invoice = stripe.Invoice.upcoming(
-        customer=org_billing_customer,
-        subscription=sub.id,
-        subscription_items=items,
-        subscription_proration_date=proration_date,
+    data = await _format_update_subscription_data(
+        org_billing_customer=org_billing_customer,
+        subscription_id=sub.id,
+        subscription=subscription,
+        current_items=sub.items,
     )
 
-    return Invoice(
-        account_name=invoice.account_name,
+    invoice = stripe.Invoice.upcoming(**data)
+
+    # Update subscription if is not a preview
+    if not preview:
+        stripe.Subscription.modify(
+            sub.id,
+            cancel_at_period_end=False,
+            proration_behavior="create_prorations",
+            items=data["subscription_items"],
+            metadata={"subscription": subscription},
+        )
+
+    return UpdateBillingSubscriptionPayload(
         amount_due=invoice.amount_due,
         amount_paid=invoice.amount_paid,
         amount_remaining=invoice.amount_remaining,
-        data=invoice.lines.data,
+        success=True,
     )
 
 
