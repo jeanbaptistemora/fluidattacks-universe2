@@ -1,11 +1,11 @@
-{ makeTemplate
-, inputs
+{ inputs
+, makeTemplate
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_zoho_analytics";
+  self = projectPath inputs.observesIndex.tap.zoho_analytics.root;
 in
 makeTemplate {
   name = "observes-singer-tap-zoho-env-analytics-runtime";
@@ -20,7 +20,7 @@ makeTemplate {
       self
     ];
     source = [
-      outputs."/observes/singer/tap-zoho-analytics/env/runtime/python"
+      outputs."${inputs.observesIndex.tap.zoho_analytics.env.runtime}/python"
     ];
   };
 }

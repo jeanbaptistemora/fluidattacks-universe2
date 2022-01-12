@@ -35,7 +35,7 @@ in
     mixpanel = std_data "${singerPath}/tap_mixpanel";
     timedoctor = std_data "${singerPath}/tap_timedoctor";
     toe_files = std_data "${singerPath}/tap_toe_files";
-    zoho_analytics = "${singerPath}/tap_zoho_analytics";
+    zoho_analytics = std_data "${singerPath}/tap_zoho_analytics";
     zoho_crm = "${singerPath}/streamer_zoho_crm";
   };
   target = {
