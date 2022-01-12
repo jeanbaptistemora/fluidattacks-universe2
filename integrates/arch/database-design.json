@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 05, 2022, 02:23 PM",
+    "DateLastModified": "Jan 12, 2022, 01:24 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -541,6 +541,10 @@
         {
           "AttributeName": "has_vulnerabilities",
           "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "unreliable_indicators",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -2054,7 +2058,6 @@
           "NonKeyAttributes": [
             "modified_date",
             "comments",
-            "has_vulnerabilities",
             "loc",
             "modified_commit",
             "sorts_risk_level",
@@ -2070,7 +2073,8 @@
             "commit_author",
             "be_present_until",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "has_vulnerabilities"
           ]
         },
         {
@@ -2232,7 +2236,6 @@
             }
           ],
           "NonKeyAttributes": [
-            "has_vulnerabilities",
             "seen_first_time_by",
             "component",
             "entry_point",
@@ -2245,7 +2248,8 @@
             "attacked_by",
             "be_present_until",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "has_vulnerabilities"
           ]
         },
         {
@@ -10900,6 +10904,7 @@
             "stream",
             "hash",
             "custom_severity",
+            "root_id",
             "pk_2",
             "sk_2",
             "skims_method",
@@ -10908,7 +10913,7 @@
             "verification",
             "zero_risk",
             "bug_tracking_system_url",
-            "root_id"
+            "unreliable_indicators"
           ]
         },
         {
