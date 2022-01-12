@@ -7,7 +7,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."/observes/singer/tap-mixpanel/bin"
+      outputs."${inputs.observesIndex.tap.mixpanel.bin}"
       outputs."/observes/bin/target-redshift"
       outputs."/observes/service/job-last-success/bin"
     ];

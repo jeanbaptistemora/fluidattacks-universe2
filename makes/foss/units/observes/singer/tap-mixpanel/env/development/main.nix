@@ -1,4 +1,5 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , ...
@@ -11,7 +12,7 @@ makeTemplate {
         name = "observes-singer-tap-mixpanel-env-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/singer/tap-mixpanel/env/runtime"
+      outputs."${inputs.observesIndex.tap.mixpanel.env.runtime}"
     ];
   };
 }

@@ -32,7 +32,7 @@ in
     gitlab = std_data "${singerPath}/tap_gitlab";
     json = std_data "${singerPath}/tap_json";
     mailchimp = std_data "${singerPath}/tap_mailchimp";
-    mixpanel = "${singerPath}/tap_mixpanel";
+    mixpanel = std_data "${singerPath}/tap_mixpanel";
     timedoctor = "${singerPath}/tap_timedoctor";
     toe_files = "${singerPath}/tap_toe_files";
     zoho_analytics = "${singerPath}/tap_zoho_analytics";

@@ -1,4 +1,5 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
@@ -9,7 +10,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/singer/tap-mixpanel/env/runtime"
+      outputs."${inputs.observesIndex.tap.mixpanel.env.runtime}"
     ];
   };
   name = "observes-singer-tap-mixpanel-bin";

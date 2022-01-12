@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_mixpanel";
+  self = projectPath inputs.observesIndex.tap.mixpanel.root;
 in
 makeTemplate {
   name = "observes-singer-tap-mixpanel-env-runtime";
