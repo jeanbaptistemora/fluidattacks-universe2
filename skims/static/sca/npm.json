@@ -1231,9 +1231,18 @@
   },
   "escape-html": {},
   "escape-string-regexp": {},
+  "eslint": {
+    "npm:eslint:20180222": ">=1.4.0 <4.18.2"
+  },
+  "eslint-scope": {
+    "SNYK-JS-ESLINTSCOPE-11120": "3.7.2"
+  },
   "eslint-utils": {
     "CVE-2019-15657": "<1.4.1",
     "GHSA-3gx7-xhv7-5mx3": "<1.4.1"
+  },
+  "esm": {
+    "SNYK-JS-ESM-72880": "<3.1.0"
   },
   "esprima": {},
   "estraverse": {},
@@ -1966,6 +1975,9 @@
     "CVE-2021-30483": "<1.8.2"
   },
   "istanbul-lib-coverage": {},
+  "istanbul-reports": {
+    "SNYK-JS-ISTANBULREPORTS-2328088": "<3.1.3"
+  },
   "iter-http": {
     "CVE-2017-16094": "<=1.0.13",
     "GMS-2017-194": ">=0.0.0-alpha"
@@ -2421,6 +2433,12 @@
     "SNYK-JS-LODASH-608086": "<4.17.17",
     "SNYK-JS-LODASH-73639": "<4.17.11"
   },
+  "lodash.merge": {
+    "CVE-2018-16487": "<4.17.11",
+    "CVE-2018-3721": "<4.17.5",
+    "SNYK-JS-LODASHMERGE-173732": "<4.6.2",
+    "SNYK-JS-LODASHMERGE-173733": "<4.6.2"
+  },
   "lodash.set": {
     "SNYK-JS-LODASHSET-1320032": "<=4.3.2"
   },
@@ -2822,6 +2840,9 @@
   "nis-utils": {
     "CVE-2020-7703": ">=0"
   },
+  "njwt": {
+    "npm:njwt:20180614": "<1.0.0"
+  },
   "no-case": {
     "CVE-2017-16099": "<2.3.2",
     "GMS-2017-198": "<2.3.2"
@@ -3199,6 +3220,10 @@
   "parcel": {
     "CVE-2018-14731": "<1.10.0"
   },
+  "parse-link-header": {
+    "CVE-2021-23490": "<2.0.0",
+    "SNYK-JS-PARSELINKHEADER-1582783": "<2.0.0"
+  },
   "parse-server": {
     "CVE-2020-15126": ">=3.5.0 <4.3.0",
     "CVE-2020-15270": "<=4.3.0",
@@ -3403,6 +3428,9 @@
   "promisehelpers": {
     "CVE-2020-7723": ">=0"
   },
+  "prompts": {
+    "SNYK-JS-PROMPTS-1729737": "<2.4.2"
+  },
   "property-expr": {
     "CVE-2020-7707": "<2.0.3"
   },
@@ -3487,6 +3515,9 @@
   },
   "querymen": {
     "CVE-2020-7600": "<2.1.4"
+  },
+  "querystringify": {
+    "npm:querystringify:20180419": "<2.0.0"
   },
   "quickserver": {
     "CVE-2017-16196": "=1.1.0 || >=1.0.0 <=1.0.1",
@@ -4558,6 +4589,9 @@
   "wffserve": {
     "CVE-2017-16168": "=1.0.0",
     "GMS-2017-263": ">=0.0.0-alpha"
+  },
+  "whatwg-mimetype": {
+    "npm:whatwg-mimetype:20170907": "<2.0.0"
   },
   "whereis": {
     "CVE-2018-3772": "<0.4.1"
