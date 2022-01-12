@@ -30,6 +30,9 @@ from groups import (
 )
 import logging
 import logging.config
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -121,10 +124,17 @@ async def _collect_subscription_prices(
     return prices
 
 
-def _format_line_items(
+async def _format_session_data(
     *,
-    prices: List[Price],
-) -> List[Dict[str, Any]]:
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> Dict[str, Any]:
+    """Format a checkout session data according to stripe API"""
+    prices: List[Price] = await _collect_subscription_prices(
+        subscription=subscription
+    )
     line_items: List[Dict[str, Any]] = []
     for price in prices:
         if price.metered:
@@ -140,7 +150,26 @@ def _format_line_items(
                     "quantity": 1,
                 }
             )
-    return line_items
+
+    return {
+        "customer": org_billing_customer,
+        "line_items": line_items,
+        "metadata": {
+            "group": group_name,
+            "organization": org_name,
+            "subscription": subscription,
+        },
+        "subscription_data": {
+            "metadata": {
+                "group": group_name,
+                "organization": org_name,
+                "subscription": subscription,
+            },
+        },
+        "mode": "subscription",
+        "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
+        "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
+    }
 
 
 async def _get_group_subscription(
@@ -187,33 +216,55 @@ async def _group_has_active_subscription(
     return False
 
 
-async def create_customer(
+async def _create_customer(
     *,
+    org_id: str,
     org_name: str,
     user_email: str,
 ) -> Customer:
     """Create Stripe customer"""
-    customer = stripe.Customer.create(
+    # Create customer in stripe
+    stripe_customer = stripe.Customer.create(
         name=org_name,
         email=user_email,
     )
-
-    return Customer(
-        id=customer.id,
-        name=customer.name,
-        email=customer.email,
+    customer: Customer = Customer(
+        id=stripe_customer.id,
+        name=stripe_customer.name,
+        email=stripe_customer.email,
     )
+
+    # Assign customer to org
+    await orgs_domain.update_billing_customer(
+        org_id=org_id,
+        org_name=org_name,
+        org_billing_customer=customer.id,
+    )
+
+    return customer
 
 
 async def create_checkout(
     *,
     subscription: str,
-    org_billing_customer: str,
+    org_billing_customer: Optional[str],
+    org_id: str,
     org_name: str,
     group_name: str,
     previous_checkout_id: Optional[str],
+    user_email: str,
 ) -> AddBillingSubscriptionPayload:
     """Create Stripe checkout session"""
+
+    # Create customer if it does not exist
+    if org_billing_customer is None:
+        customer: Customer = await _create_customer(
+            org_id=org_id,
+            org_name=org_name,
+            user_email=user_email,
+        )
+        org_billing_customer = customer.id
+
     # Raise exception if group already has the same subscription active
     if await _group_has_active_subscription(
         group_name=group_name,
@@ -228,41 +279,30 @@ async def create_checkout(
             checkout_id=previous_checkout_id,
         )
 
-    # Collect subscription prices
-    prices: List[Price] = await _collect_subscription_prices(
-        subscription=subscription
+    # Format checkout session data
+    session_data: Dict[str, Any] = await _format_session_data(
+        subscription=subscription,
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
+        group_name=group_name,
     )
 
-    # Format checkout session data
-    session_data = {
-        "customer": org_billing_customer,
-        "line_items": _format_line_items(prices=prices),
-        "metadata": {
-            "group": group_name,
-            "organization": org_name,
-            "subscription": subscription,
-        },
-        "subscription_data": {
-            "metadata": {
-                "group": group_name,
-                "organization": org_name,
-                "subscription": subscription,
-            },
-        },
-        "mode": "subscription",
-        "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
-        "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
-    }
-
     session = stripe.checkout.Session.create(**session_data)
-
-    return AddBillingSubscriptionPayload(
+    checkout = AddBillingSubscriptionPayload(
         id=session.id,
         cancel_url=session.cancel_url,
         success=True,
         success_url=session.success_url,
         payment_url=session.url,
     )
+
+    # Update group with new billing checkout id
+    await groups_domain.update_billing_checkout_id(
+        group_name,
+        checkout.id,
+    )
+
+    return checkout
 
 
 async def create_portal(
@@ -380,9 +420,16 @@ async def remove_subscription(
     if sub is None:
         raise BillingGroupWithoutSubscription()
 
+    # Will generate a draft invoice if subscription is squad
+    invoice_now: bool = False
+    if sub.type == "squad":
+        invoice_now = True
+
     return (
         stripe.Subscription.delete(
             sub.id,
+            invoice_now=invoice_now,
+            prorate=True,
         ).status
         == "canceled"
     )
