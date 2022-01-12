@@ -369,7 +369,7 @@ in
           output = "/integrates/charts/documents";
           gitlabExtra = chartsTemplate // {
             interruptible = false;
-            parallel = 17;
+            parallel = 20;
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined "integrates_charts_make_documents_prod_schedule")
