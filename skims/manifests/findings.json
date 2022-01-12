@@ -567,6 +567,14 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
+  "F277": {
+    "EN": {
+      "title": "277. Weak credential policy - Password Expiration"
+    },
+    "ES": {
+      "title": "277. Weak credential policy - Password Expiration"
+    }
+  },
   "F281": {
     "EN": {
       "title": "281. Use of an insecure channel - AWS"
