@@ -575,6 +575,14 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
+  "F268": {
+    "EN": {
+      "title": "268. Insecure service configuration - Webview"
+    },
+    "ES": {
+      "title": "268. Insecure service configuration - Webview"
+    }
+  },
   "F277": {
     "EN": {
       "title": "277. Weak credential policy - Password Expiration"
