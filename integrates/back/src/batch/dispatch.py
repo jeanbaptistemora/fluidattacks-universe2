@@ -11,6 +11,9 @@ from batch.handle_finding_policy import (
 from batch.handle_virus_scan import (
     handle_virus_scan,
 )
+from batch.remove_group_resources import (
+    remove_group_resources,
+)
 from batch.report import (
     generate_report,
 )
@@ -68,6 +71,8 @@ async def main() -> None:  # noqa: MC0001
             await refresh_toe_lines(item=item)
         elif action == "clone_root":
             await clone_root(item=item)
+        elif action == "remove_group_resources":
+            await remove_group_resources(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(
