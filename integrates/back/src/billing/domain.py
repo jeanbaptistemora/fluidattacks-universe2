@@ -15,8 +15,9 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
+    BillingGroupActiveSubscription,
     BillingGroupWithoutSubscription,
-    BillingSubscriptionAlreadyActive,
+    BillingSubscriptionSameActive,
     InvalidBillingCustomer,
     InvalidBillingPrice,
 )
@@ -245,7 +246,6 @@ async def _group_has_active_subscription(
     *,
     group_name: str,
     org_billing_customer: str,
-    subscription: str,
 ) -> bool:
     """True if group has active subscription"""
     sub: Optional[Subscription] = await _get_group_subscription(
@@ -254,9 +254,7 @@ async def _group_has_active_subscription(
         status="active",
         limit=1000,
     )
-    if sub is not None and sub.type == subscription:
-        return True
-    return False
+    return sub is not None
 
 
 async def _create_customer(
@@ -308,13 +306,12 @@ async def create_subscription(
         )
         org_billing_customer = customer.id
 
-    # Raise exception if group already has the same subscription active
+    # Raise exception if group already has an active subscription
     if await _group_has_active_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
-        subscription=subscription,
     ):
-        raise BillingSubscriptionAlreadyActive()
+        raise BillingGroupActiveSubscription()
 
     # Expire previous checkout if it is still open
     if previous_checkout_id is not None:
@@ -322,7 +319,7 @@ async def create_subscription(
             checkout_id=previous_checkout_id,
         )
 
-    # Format checkout session data
+    # Format subscription creation data
     data: Dict[str, Any] = await _format_create_subscription_data(
         subscription=subscription,
         org_billing_customer=org_billing_customer,
@@ -395,8 +392,9 @@ async def update_subscription(
 
     # Raise exception if group already has the same subscription active
     if sub.type == subscription:
-        raise BillingSubscriptionAlreadyActive()
+        raise BillingSubscriptionSameActive()
 
+    # Format subscription update data
     data = await _format_update_subscription_data(
         org_billing_customer=org_billing_customer,
         subscription_id=sub.id,
@@ -406,7 +404,7 @@ async def update_subscription(
 
     invoice = stripe.Invoice.upcoming(**data)
 
-    # Update subscription if is not a preview
+    # Update subscription if not a preview
     if not preview:
         stripe.Subscription.modify(
             sub.id,
@@ -446,9 +444,7 @@ async def remove_subscription(
         raise BillingGroupWithoutSubscription()
 
     # Will generate a draft invoice if subscription is squad
-    invoice_now: bool = False
-    if sub.type == "squad":
-        invoice_now = True
+    invoice_now: bool = sub.type == "squad"
 
     return (
         stripe.Subscription.delete(

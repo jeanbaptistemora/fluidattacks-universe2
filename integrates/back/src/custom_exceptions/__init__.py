@@ -1071,13 +1071,22 @@ class BillingGroupWithoutSubscription(CustomBaseException):
         super(BillingGroupWithoutSubscription, self).__init__(msg)
 
 
-class BillingSubscriptionAlreadyActive(CustomBaseException):
+class BillingGroupActiveSubscription(CustomBaseException):
     def __init__(self) -> None:
         msg = (
-            "Exception - Subscription is already active. "
-            "Provided subscription is already active for this group."
+            "Exception - Invalid group. "
+            "A subscription for this group is already active"
         )
-        super(BillingSubscriptionAlreadyActive, self).__init__(msg)
+        super(BillingGroupActiveSubscription, self).__init__(msg)
+
+
+class BillingSubscriptionSameActive(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid subscription. "
+            "Provided subscription is already active."
+        )
+        super(BillingSubscriptionSameActive, self).__init__(msg)
 
 
 class InvalidGitCredentials(CustomBaseException):
