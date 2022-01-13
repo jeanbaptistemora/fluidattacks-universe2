@@ -1,13 +1,14 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/streamer_dynamodb";
+  self = projectPath inputs.observesIndex.tap.streamer_dynamodb.root;
 in
 makeTemplate {
-  name = "observes-env-streamer-dynamodb-runtime";
+  name = "observes-singer-streamer-dynamodb-env-runtime";
   searchPaths = {
     pythonMypy = [
       self

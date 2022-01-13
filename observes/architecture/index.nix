@@ -28,6 +28,7 @@ in
     csv = std_data "${singerPath}/tap_csv";
     delighted = std_data "${singerPath}/tap_delighted";
     dynamo = std_data "${singerPath}/tap_dynamo";
+    streamer_dynamodb = std_data "${singerPath}/streamer_dynamodb";
     formstack = std_data "${singerPath}/tap_formstack";
     git = std_data "${singerPath}/tap_git";
     gitlab = std_data "${singerPath}/tap_gitlab";

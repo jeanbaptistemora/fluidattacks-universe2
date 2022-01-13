@@ -1,4 +1,5 @@
-{ makeScript
+{ inputs
+, makeScript
 , outputs
 , ...
 }:
@@ -9,8 +10,8 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/import-and-run"
-      outputs."/observes/env/streamer-dynamodb/runtime"
+      outputs."${inputs.observesIndex.tap.streamer_dynamodb.env.runtime}"
     ];
   };
-  name = "observes-bin-streamer-dynamodb";
+  name = "observes-singer-streamer-dynamodb-bin";
 }
