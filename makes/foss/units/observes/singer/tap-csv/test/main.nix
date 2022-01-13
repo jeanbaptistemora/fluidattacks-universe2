@@ -5,7 +5,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-test-tap-csv";
+  name = "observes-singer-tap-csv-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.csv.root;
     envTestDir = baseNameOf inputs.observesIndex.tap.csv.tests;
