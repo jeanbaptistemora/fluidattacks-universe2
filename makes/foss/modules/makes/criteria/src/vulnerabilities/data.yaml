@@ -6938,7 +6938,7 @@
       due to improperly configured
       corporate email clients.
     impact: >
-      Misleading users to
+      Mislead users to
       obtain information.
     recommendation: >
       - Use anti-spam controls to
@@ -7042,7 +7042,7 @@
       to obtain sensitive information
       from the users.
     impact: >
-      - To know the step in which the
+      - Know the step in which the
       user is at a given moment.
 
       - Leak sensitive data
@@ -7169,7 +7169,7 @@
       having accepted the terms and
       conditions of the application.
 
-      - Incurring a fine or other
+      - Incur a fine or other
       legal sanction.
     recommendation: >
       Consider the applicable regulations
@@ -7670,8 +7670,8 @@
       isolation methods
       for running applications.
     impact: >
-      Construction of covert
-      channel communication.
+      Allow the construction of covert
+      communication channel.
     recommendation: >
       - Use dedicated cloud servers rather
       than VMs or cloud-based containers.
@@ -7690,8 +7690,8 @@
       para las aplicaciones
       que están siendo ejecutadas.
     impact: >
-      Construcción de un canal
-      encubierto de comunicación.
+      Permitir la construcción de un canal
+      de comunicación encubierto.
     recommendation: >
       - Utilizar servidores dedicados en la
       nube en lugar de máquinas virtuales
