@@ -5,10 +5,10 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-lint-tap-mailchimp";
+  name = "observes-singer-tap-mailchimp-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.mailchimp.root;
-    envTestDir = "tests";
+    envTestDir = baseNameOf inputs.observesIndex.tap.mailchimp.tests;
   };
   searchPaths = {
     source = [

@@ -8,7 +8,7 @@ makeDerivation {
   name = "observes-singer-tap-gitlab-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.gitlab.root;
-    envTestDir = "tests";
+    envTestDir = baseNameOf inputs.observesIndex.tap.gitlab.tests;
   };
   searchPaths = {
     source = [

@@ -8,7 +8,7 @@ makeDerivation {
   name = "observes-test-tap-csv";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.csv.root;
-    envTestDir = "tests";
+    envTestDir = baseNameOf inputs.observesIndex.tap.csv.tests;
   };
   searchPaths = {
     source = [

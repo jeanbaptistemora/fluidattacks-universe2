@@ -8,7 +8,7 @@ makeDerivation {
   name = "observes-test-tap-mixpanel";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.mixpanel.root;
-    envTestDir = "tests";
+    envTestDir = baseNameOf inputs.observesIndex.tap.mixpanel.tests;
   };
   searchPaths = {
     source = [
