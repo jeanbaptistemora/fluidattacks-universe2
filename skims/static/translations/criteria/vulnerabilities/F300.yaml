@@ -1,0 +1,5 @@
+lib_path.f300.azure_app_authentication_is_off:
+  en: >
+    Ensure Azure app authentication is on
+  es: >
+    Asegúrese de que la autenticación de la aplicación de Azure esté activada
