@@ -365,7 +365,7 @@
       that should not be available for the current role.
     recommendation: >
       The roles must be controlled
-      with users' tokens
+      with users tokens
       or the exposure of user ID
       must be avoided.
     threat: >
@@ -474,7 +474,7 @@
   en:
     title: Cross-site request forgery
     description: >
-      The application's configuration
+      The applications configuration
       allows an attacker
       to trick authenticated users
       into executing actions
@@ -859,9 +859,9 @@
   en:
     title: Insecure object reference
     description: >
-      The system's authorization mechanism
+      The systems authorization mechanism
       does not prevent one user
-      from accessing another user's data
+      from accessing another users data
       by modifying the key value that identifies it.
     impact: Obtain, modify or delete information from other users.
     recommendation: >
@@ -1197,7 +1197,7 @@
     description: >
       It is possible to retrieve
       administrative credentials
-      from the system's cache memory.
+      from the systems cache memory.
     impact: Obtain functional credetials for privileged users.
     recommendation: >
       Avoid the store of sensitive information
@@ -1247,7 +1247,7 @@
       Encrypt all sensitive information
       that is transported or stored
       within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       Attacker with access
       to the source-code from the Internet.
@@ -1640,7 +1640,7 @@
       any type of malicious code.
 
       - Validate that Content Type corresponds
-      to the file's extension
+      to the files extension
       before upload it to the server.
     threat: >
       Authenticated attacker from the Internet.
@@ -1815,9 +1815,9 @@
       that may belong to third-parties.
     impact: Obtain sensitive information from application URLs.
     recommendation: >
-      Guarantee that the session's ID
+      Guarantee that the sessions ID
       are sent through secure methods (POST)
-      or obtain the cookies' session.
+      or obtain the cookies session.
     threat: >
       Anonymous attacker from adjacent network
       performing a sniffing attack.
@@ -2199,7 +2199,7 @@
       in the application configuration.
     threat: >
       Anonymous attacker
-      with local access to the victim's browser.
+      with local access to the victims browser.
   es:
     title: ViewState not encrypted
     description: >
@@ -2371,7 +2371,7 @@
   en:
     title: Improper authorization control for web services
     description: >
-      The system's web services
+      The systems web services
       do not have an authorization control mechanism
       or the one in place can be bypassed.
     impact: Obtain confidential information from users.
@@ -2416,7 +2416,7 @@
   en:
     title: Exposed web services
     description: >
-      The system's WSDL file
+      The systems WSDL file
       contains sensitive information
       and is exposed to a larger audience than required.
     impact: >
@@ -2572,7 +2572,7 @@
       The server is missing
       the Content-Security-Policy HTTP header.
       Alternatively,
-      the header's configuration
+      the headers configuration
       is not secure enough.
     impact: >
       - Embed content, scripts, blobs
@@ -2646,7 +2646,7 @@
       Cross-Site Leaks, and others.
     recommendation: >
       Configure secure methods
-      for server's requests.
+      for servers requests.
     threat: >
       Authenticated attacker from the Internet.
   es:
@@ -2695,10 +2695,10 @@
   en:
     title: HTML code injection
     description: >
-      The application's fields
+      The applications fields
       allow the injection of HTML code.
       This could enable attackers
-      to modify the application's appearance
+      to modify the applications appearance
       in order to trick its users
       into performing undesired actions.
     impact: >
@@ -2773,9 +2773,9 @@
     impact: >
       Get technical
       or sensitive information
-      from the application's source code.
+      from the applications source code.
     recommendation: >
-      Obfuscate the application's source code
+      Obfuscate the applications source code
       at deploy time
       with tools like:
       https://github.com/ClaudiuGeorgiu/Obfuscapk
@@ -2838,7 +2838,7 @@
       to automatically enumerate
       system information such as open ports,
       available services
-      and users' personal data.
+      and users personal data.
     impact: >
       - Obtain information from
       internal users.
@@ -3009,7 +3009,7 @@
   en:
     title: Guessed weak credentials
     description: >
-      The system credentials' low complexity
+      The system credentials low complexity
       considerably reduces the amount of time
       required to guess them.
       This allows an attacker
@@ -3250,7 +3250,7 @@
   en:
     title: Exposed administrative services
     description: >
-      One or more of the system's
+      One or more of the systems
       administration consoles are exposed
       (possibly on the internet),
       which may lead
@@ -3260,7 +3260,7 @@
       Restrict the access
       to the administrative consoles,
       IP addresses
-      or management's network segments
+      or managements network segments
       explicitly allowed.
     threat: >
       Anonymous attacker from the Internet.
@@ -3387,7 +3387,7 @@
     impact: Read and/or modify files within the service.
     recommendation: >
       Configure the services
-      to avoid services' enumeration
+      to avoid services enumeration
       or to connect to these anonymously.
     threat: >
       Anonymous attacker from adjacent network.
@@ -3716,7 +3716,7 @@
       has already been initiated
       nor when a second one commences
       from a different location.
-    impact: Affect the traceability and non-repudiation of the user's actions.
+    impact: Affect the traceability and non-repudiation of the users actions.
     recommendation: >
       The system must restrict
       the number of concurrent sessions
@@ -3842,7 +3842,7 @@
   en:
     title: Traceability loss - Server's clock
     description: >
-      The system's internal clock
+      The systems internal clock
       is not synced with NTP servers.
     impact: >
       Write log entries with a wrong date.
@@ -3895,7 +3895,7 @@
       in the browser’s cache.
     impact: Obtain valid users of the application.
     recommendation: >
-      The data cache to browser's level
+      The data cache to browsers level
       must be disabled
       using some of these methods:
 
@@ -3905,7 +3905,7 @@
       - Use meta-tags in HTML pages.
 
       - Disable the autocomplete field
-      to prevent cache to field's level.
+      to prevent cache to fields level.
     threat: >
       Anonymous attacker from local network.
   es:
@@ -3963,7 +3963,7 @@
       of server components (php.ini, web.config).
     impact: Gather technical information to craft new attack vectors.
     recommendation: >
-      Delete the service's banner
+      Delete the services banner
       information leakage.
       Verify that HTTP headers
       do not expose any name or version.
@@ -4070,7 +4070,7 @@
       an enormous amount of resources
       are processed without any restriction.
     impact: >
-      Exhauste the server's resources
+      Exhauste the servers resources
       and thus, prevent other users
       from accessing the server.
     recommendation: >
@@ -4192,10 +4192,10 @@
       Bypass security mechanisms
       to perform automated attacks.
     recommendation: >
-      Ensure that captcha's response
-      is at server's level
+      Ensure that captchas response
+      is at servers level
       and is not exposed
-      on the HTML web page's code,
+      on the HTML web pages code,
       also,
       ensure that captcha
       can not be read by an OCR.
@@ -4246,7 +4246,7 @@
       A misconfiguration or default setting on
       Elastic Load Balancers that can cause to
       unintentionally increase the attack surface
-      of the company's cloud infrastructure.
+      of the company cloud infrastructure.
     impact: >
       - Result in the connection between load balancer
       and server being exploited.
@@ -4316,7 +4316,7 @@
       The server is missing
       the Referrer-Policy HTTP header.
       Alternatively,
-      the header's configuration is unsafe.
+      the headers configuration is unsafe.
     impact: >
       Leak website domain and path
       to external services.
@@ -4811,7 +4811,7 @@
       and must referenced
       with a dependency manager (npm, pip, maven).
       This allows to standardize
-      projects' construction and packaging.
+      projects construction and packaging.
     threat: >
       Authenticated attacker from the Internet.
   es:
@@ -4926,7 +4926,7 @@
       Implement a double factor authentication
       by software or hardware
       to increase the protection level
-      of the resources' authentication.
+      of the resources authentication.
     threat: Authenticathed attacker from the Internet.
   es:
     title: Lack of multi-factor authentication
@@ -5171,7 +5171,7 @@
     threat: >
       Attacker with physical
       or virtual access
-      to the victim's browser.
+      to the victims browser.
   es:
     title: Sensitive data stored in client-side storage
     description: >
@@ -5274,7 +5274,7 @@
     impact: >
       Avoid the access of valid users to the application.
     recommendation: >
-      Avoid blocking users' accounts
+      Avoid blocking users accounts
       as a mechanism of protection,
       make it more restrictive
       or control it to prevent
@@ -5490,7 +5490,7 @@
       or escaping their content.
     impact: >
       Inject code or fake inputs
-      in the system's log,
+      in the systems log,
       compromising the integrity
       of logs,
       or in the worst case,
@@ -5671,7 +5671,7 @@
       by user.
     recommendation: >
       Send only fields that require
-      users' inputs in the requests,
+      users inputs in the requests,
       and control the rest
       from the server.
     threat: >
@@ -6400,7 +6400,7 @@
       - Obtain information linking a
       user to a Wallet ID.
 
-      - Obtain balances on users' accounts.
+      - Obtain balances on users accounts.
 
       - Overwriting files with
       manipulated information.
@@ -6690,7 +6690,7 @@
       an ambiguous HTTP request between
       front-end and back-end system.
     recommendation: >
-      Use the same web server's software
+      Use the same web servers software
       on the front-end and back-end servers,
       making the delimiters
       among the requests coincide each other.
@@ -7226,7 +7226,7 @@
       - Obtain information that can be
       used to compromise other systems.
     recommendation: >
-      Delete files' metadata
+      Delete files metadata
       before sharing or publishing them.
     threat: >
       Attacker with access to the
@@ -7290,7 +7290,7 @@
       with a dependency manager
       (npm, pip, maven).
       This allows to standardize
-      the projects' construction
+      the projects construction
       and packaging.
     threat: >
       Accept a range of versions
@@ -7416,7 +7416,7 @@
     description: >
       It is possible
       to send emails massively
-      to a victim's inbox,
+      to a victims inbox,
       causing its saturation.
     impact: >
       - Send massive spam to a user email.
@@ -7600,7 +7600,7 @@
     title: Directory listing
     description: >
       The system displays
-      the application's directories,
+      the applications directories,
       allowing an attacker
       to know the content of the files stored
       on the server.
@@ -7619,7 +7619,7 @@
       Obtain technical
       or sensitive information
       of the files stored
-      in the application's directory.
+      in the applications directory.
   es:
     title: Directory listing
     description: >
@@ -7781,7 +7781,7 @@
   en:
     title: Insecurely generated cookies - HttpOnly
     description: >
-      The application's cookies
+      The applications cookies
       are generated without properly setting
       the HttpOnly attribute.
     impact: >
@@ -7835,7 +7835,7 @@
   en:
     title: Insecurely generated cookies - SameSite
     description: >
-      The application's cookies
+      The applications cookies
       are generated without properly
       setting the SameSite attribute.
     impact: >
