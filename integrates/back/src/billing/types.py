@@ -21,7 +21,6 @@ class Customer(NamedTuple):
 class Price(NamedTuple):
     id: str
     subscription: str
-    metered: bool
 
 
 class Portal(NamedTuple):

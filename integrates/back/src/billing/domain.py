@@ -87,7 +87,6 @@ async def _get_price(
         return Price(
             id=prices[0].id,
             subscription=prices[0].lookup_key,
-            metered=prices[0].recurring.aggregate_usage is not None,
         )
     raise InvalidBillingPrice()
 
@@ -97,30 +96,22 @@ async def _collect_subscription_prices(
     subscription: str,
 ) -> List[Price]:
     # Collect stripe prices
-    prices: List[Price] = []
-    if subscription == "squad":
-        prices.extend(
-            await collect(
-                [
-                    _get_price(
-                        subscription=f"{subscription}_base",
-                        active=True,
-                    ),
-                    _get_price(
-                        subscription=f"{subscription}_recurring",
-                        active=True,
-                    ),
-                ]
-            )
+    prices = [
+        _get_price(
+            subscription=subscription,
+            active=True,
         )
-    else:
+    ]
+
+    # Add machine base price if subscription is squad
+    if subscription == "squad":
         prices.append(
-            await _get_price(
-                subscription=subscription,
+            _get_price(
+                subscription="machine",
                 active=True,
             )
         )
-    return prices
+    return await collect(prices)
 
 
 async def _format_create_subscription_data(
@@ -132,21 +123,21 @@ async def _format_create_subscription_data(
 ) -> Dict[str, Any]:
     """Format create subscription session data according to stripe API"""
     prices: List[Price] = await _collect_subscription_prices(
-        subscription=subscription
+        subscription=subscription,
     )
     line_items: List[Dict[str, Any]] = []
     for price in prices:
-        if price.metered:
+        if price.subscription == "machine":
             line_items.append(
                 {
                     "price": price.id,
+                    "quantity": 1,
                 }
             )
         else:
             line_items.append(
                 {
                     "price": price.id,
-                    "quantity": 1,
                 }
             )
 
@@ -469,7 +460,10 @@ async def webhook(request: Request) -> JSONResponse:
             FI_STRIPE_WEBHOOK_KEY,
         )
 
-        if event.type == "customer.subscription.created":
+        if event.type in (
+            "customer.subscription.created",
+            "customer.subscription.updated",
+        ):
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
                 reason=f"Update triggered by String with event {event.id}",
@@ -477,7 +471,7 @@ async def webhook(request: Request) -> JSONResponse:
                 group_name=event.data.object.metadata.group,
                 tier=event.data.object.metadata.subscription,
             ):
-                message = "Subscription creation was successful!"
+                message = "Subscription successful!"
         elif event.type == "customer.subscription.deleted":
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
@@ -486,7 +480,7 @@ async def webhook(request: Request) -> JSONResponse:
                 group_name=event.data.object.metadata.group,
                 tier="free",
             ):
-                message = "Subscription deletion was successful!"
+                message = "Subscription deletion successful!"
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"
