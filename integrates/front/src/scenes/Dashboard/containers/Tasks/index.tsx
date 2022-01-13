@@ -16,33 +16,19 @@ import { filterSearchText } from "components/DataTableNext/utils";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { formatVulnerabilitiesTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import type {
+  IAction,
+  IGroupAction,
+  IGroupRole,
+  ITasksContent,
+} from "scenes/Dashboard/containers/Tasks/types";
 import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
 import type {
-  IGetUserOrganizationsGroups,
   IGetVulnsGroups,
   IOrganizationGroups,
 } from "scenes/Dashboard/types";
 import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-
-interface ITasksContent {
-  setUserRole: (userRole: string | undefined) => void;
-  userData: IGetUserOrganizationsGroups | undefined;
-  setTaskState: (taskState: boolean) => void;
-  taskState: boolean;
-}
-
-interface IAction {
-  action: string;
-}
-interface IGroupAction {
-  groupName: string;
-  actions: IAction[];
-}
-interface IGroupRole {
-  groupName: string;
-  role: string;
-}
 
 export const TasksContent: React.FC<ITasksContent> = ({
   setUserRole,
