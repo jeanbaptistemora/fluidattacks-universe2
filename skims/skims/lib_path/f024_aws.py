@@ -21,6 +21,7 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
+    is_cidr,
     SHIELD,
 )
 from metaloaders.model import (
@@ -361,6 +362,24 @@ def tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
                 yield ipv6
 
 
+def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
+    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+) -> Iterator[Union[AWSEC2, Node]]:
+    for ec2_res in ec2_iterator:
+        rfc1918 = {
+            "10.0.0.0/8",
+            "172.16.0.0/12",
+            "192.168.0.0/16",
+        }
+        cidr = ec2_res.inner.get("CidrIp", None) or ec2_res.inner.get(
+            "CidrIpv6", None
+        )
+        if not cidr or not is_cidr(cidr.raw):
+            continue
+        if cidr.raw in rfc1918:
+            yield cidr
+
+
 def _cnf_unrestricted_ports(
     content: str,
     path: str,
@@ -488,6 +507,29 @@ def _tfm_aws_ec2_unrestricted_cidrs(
                     iter_aws_security_group(model=model),
                     iter_aws_security_group_rule(model=model),
                 )
+            )
+        ),
+        path=path,
+    )
+
+
+def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F024_CWE},
+        description_key=(
+            "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
+        ),
+        finding=_FINDING_F024,
+        iterator=get_cloud_iterator(
+            _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
+                ec2_iterator=iter_ec2_ingress_egress(
+                    template=template, ingress=True, egress=True
+                ),
             )
         ),
         path=path,
@@ -648,6 +690,22 @@ async def tfm_aws_ec2_unrestricted_cidrs(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    content: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -692,6 +750,13 @@ async def analyze(
             )
             coroutines.append(
                 cfn_unrestricted_ip_protocols(
+                    content=content,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
                     content=content,
                     path=path,
                     template=template,

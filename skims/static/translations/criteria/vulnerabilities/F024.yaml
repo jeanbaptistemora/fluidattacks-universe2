@@ -1,3 +1,8 @@
+src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918:
+  en: >
+    Security groups contain RFC-1918 CIDRs open
+  es: >
+    Los grupos de seguridad contienen RFC-1918 CIDRs abiertas
 src.lib_path.f024_aws.unrestricted_protocols:
   en: >
     The ingress/egress rules of the SecurityGroup allow the use of all ip

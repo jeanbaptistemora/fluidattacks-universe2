@@ -1,8 +1,16 @@
 import ast
+from contextlib import (
+    suppress,
+)
 from frozendict import (  # type: ignore
     frozendict,
 )
 import inspect
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
 import math
 from metaloaders.model import (
     Node,
@@ -202,6 +210,18 @@ def str_to_number(token: str, default: float = math.nan) -> float:
 
 def get_line_by_extension(line: int, file_ext: str) -> int:
     return line - 1 if file_ext in EXTENSIONS_YAML else line
+
+
+def is_cidr(cidr: str) -> bool:
+    """Validate if a string is a valid CIDR."""
+    result = False
+    with suppress(AddressValueError, ValueError):
+        IPv4Network(cidr, strict=False)
+        result = True
+    with suppress(AddressValueError, ValueError):
+        IPv6Network(cidr, strict=False)
+        result = True
+    return result
 
 
 def get_cloud_iterator(
