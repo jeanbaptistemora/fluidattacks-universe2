@@ -88,8 +88,8 @@ async def mutate(
                 action_name="remove_group_resources",
                 entity=group_name,
                 subject=requester_email,
-                additional_info="no_info",
-                queue="dedicated_soon",
+                additional_info="mutation_update_group",
+                queue="dedicated_later",
             )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

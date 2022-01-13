@@ -50,8 +50,8 @@ async def _remove_group(
             action_name="remove_group_resources",
             entity=group_name,
             subject=user_email,
-            additional_info="no_info",
-            queue="dedicated_soon",
+            additional_info="obsolete_groups",
+            queue="dedicated_later",
         )
     return success
 

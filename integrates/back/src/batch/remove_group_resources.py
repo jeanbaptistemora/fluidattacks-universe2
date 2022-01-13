@@ -15,13 +15,13 @@ import logging
 import logging.config
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def remove_group_resources(*, item: BatchProcessing) -> None:
@@ -30,7 +30,9 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     message = (
         f"Removing resources requested by {user_email} for group {group_name}"
     )
-    LOGGER.info(":".join([item.subject, message]), **NOEXTRA)
+    LOGGER_CONSOLE.info(
+        ":".join([item.subject, message]), extra={"extra": {"action": item}}
+    )
 
     loaders: Dataloaders = get_new_context()
     success = await groups_domain.remove_resources(
@@ -38,7 +40,10 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
         group_name=group_name,
     )
     message = f"Removal result: {success}"
-    LOGGER.info(":".join([item.subject, message]), **NOEXTRA)
+    LOGGER_CONSOLE.info(
+        ":".join([item.subject, message]),
+        extra={"extra": {"action": item, "success": success}},
+    )
 
     await delete_action(
         action_name=item.action_name,
