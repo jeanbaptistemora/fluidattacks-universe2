@@ -2136,7 +2136,7 @@
   en:
     title: Weak credential policy
     description: >
-      The system's credential policy
+      The systems credential policy
       is not compliant with security regulations.
     impact: >
       Increase the chances of getting valid credentials
@@ -18183,7 +18183,7 @@
       permissions to access.
     threat: >
       An attacker, knowing a victims user ID, can
-      access or manipulate the victim's account information.
+      access or manipulate the victims account information.
   es:
     title: Insecure object reference - Files
     description: >
@@ -18293,7 +18293,7 @@
   en:
     title: Enabled default configuration
     description: >
-      The server's default page is enabled,
+      The servers default page is enabled,
       which allows an attacker to access it
       and obtain relevant technical information
       about the server.
@@ -18301,7 +18301,7 @@
       Obtain technical information from the application
       that can be used to augment the attack vector.
     recommendation: >
-      Disable or modify the server's default
+      Disable or modify the servers default
       page in such a way that no information
       can be obtained from it.
     threat: >
@@ -19434,8 +19434,8 @@
     impact: >
       Close user sessions in the application.
     recommendation: >
-      Validate that the user's email is not
-      altered or replaced by another user's
+      Validate that the users email is not
+      altered or replaced by another users
       email in the logout process.
     threat: >
       Authenticated attacker from the Internet.
@@ -19579,7 +19579,7 @@
       Find valid users within the application.
     recommendation: >
       Implement generic error messages that do
-      not allow an attacker to discern the user's
+      not allow an attacker to discern the users
       existence on the system through HTTP errors (500 or 404).
     threat: >
       Anonymous attacker from the Internet.
@@ -19848,7 +19848,7 @@
     title: Business information leak - Corporate information
     description: >
       It is possible to access information about
-      some of the company's employees, such as
+      some of the company employees, such as
       their roles and contact information.
     impact: >
       Obtain information about the role played
@@ -19856,7 +19856,7 @@
       As well as their contact information.
     recommendation: >
       Establish controls to prevent an
-      attacker from accessing the organization's
+      attacker from accessing the organizations
       corporate information.
     threat: >
       Attacker with access to the application from the Internet.
@@ -20222,7 +20222,7 @@
 
       - It stores secrets (session tokens or anti-CSRF).
     impact: >
-      User with access to the victim's traffic
+      User with access to the victims traffic
       (man-in-the-middle attack).
     recommendation: >
       Securely configure the vulnerable service so
@@ -20329,14 +20329,14 @@
     title: Security controls bypass or absence - Session Invalidation
     description: >
       A function is implemented in the application
-      that returns the user's Main from his session code.
+      that returns the users Main from his session code.
       However, since the source code used in the
       debugging phase was left in this functionality,
-      if a session code containing the word 'auto' is
+      if a session code containing the word auto is
       used, access is allowed.
     impact: >
       Anonymous attacker from the Internet puts
-      in his session code the word 'auto' and manages
+      in his session code the word auto and manages
       to access the application with a Main used
       during the testing phase.
     recommendation: >
@@ -20354,11 +20354,11 @@
       No obstante, debido a que se dejó en esta
       funcionalidad el código fuente usado en la
       fase de depuración, si se usa un código de
-      sesión que contenga la palabra 'auto',
+      sesión que contenga la palabra auto,
       se permite el acceso.
     impact: >
       Atacante anónimo desde Internet pone en su
-      código de sesión la palabra 'auto' y logra
+      código de sesión la palabra auto y logra
       acceder la aplicación con una Principal
       usada durante la fase de pruebas.
     recommendation: >
@@ -20449,12 +20449,12 @@
       to Task Hijacking.
     impact: >
       Mislead the user with a malicious application that
-      impersonates the application's functionalities.
+      impersonates the applications functionalities.
     recommendation: >
       Configure the launchMode with the singleInstance option.
     threat: >
       Malicious application installed on the
-      application user's device.
+      application users device.
   es:
     title: Insecure service configuration - Task Hijacking
     description: >
@@ -20597,7 +20597,7 @@
   en:
     title: Insecure digital certificates - Chain of trust
     description: >
-      Due to improper implementation of TrustManager's
+      Due to improper implementation of the TrustManager
       checkServerTrusted method, methods are created
       that do not throw a certificate exception when
       invalid certificates are detected.
@@ -21867,7 +21867,7 @@
     title: Use of an insecure channel - Oracle Database
     description: >
       Insecure connections from servers to the database.
-      Encryption doesn't address all communications with
+      Encryption does not address all communications with
       the database, including transmissions from clients
       and transmissions from middle tiers.
     impact: >
@@ -22633,7 +22633,7 @@
     recommendation: >
       Encrypt all sensitive information that is
       transported or stored within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       Attacker with access to source code from the Internet.
   category: Collect Information

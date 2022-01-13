@@ -45,7 +45,7 @@ def validate_email_address(email: str) -> bool:
 
 def validate_fields(fields: List[str]) -> None:
     allowed_chars = (
-        r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c()',./:;%@_$#*=\?-"
+        r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;%@_$#*=\?-"
     )
     regex = fr'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
     for field in map(str, fields):
