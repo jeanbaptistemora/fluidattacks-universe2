@@ -6181,10 +6181,10 @@
       The system does not prevent critical objects
       from being deleted accidentally.
     impact: >
-      - Loss information in case of
-      accidental modification or deletion.
+      - Result in loss information in case of
+      an accidental modification or deletion.
 
-      - Loss information in the case
+      - Result in loss information in the case
       of a security incident.
     recommendation: >
       Set up automatic backup on DynamoDB
@@ -6402,7 +6402,7 @@
 
       - Obtain balances on users accounts.
 
-      - Overwriting files with
+      - Overwrite files with
       manipulated information.
     recommendation: >
       Perform database queries through the JSON
@@ -6567,7 +6567,7 @@
       to the server
       in a short period of time.
     impact: >
-      - Filling the application logs with
+      - Fill the application logs with
       junk information.
 
       - Saturate the server with multiple
@@ -6686,7 +6686,7 @@
       each one uses
       delimits requests differently.
     impact: >
-      An attacker might be able to send
+      Allow an attacker to send
       an ambiguous HTTP request between
       front-end and back-end system.
     recommendation: >
@@ -6710,7 +6710,7 @@
       a un dispositivo
       sin que el otro se percate.
     impact: >
-      Un atacante podría ser capaz de
+      Permitir a un atacante
       enviar una petición HTTP ambigua
       entre el sistema de front-end y
       back-end.
@@ -6872,7 +6872,7 @@
       to identify the variable’s data type
       and cast it every time it is used.
     impact: >
-      Modification of that resource
+      Result in modification of that resource
       by unintended parties.
     recommendation: >
       Check to see if the resource has insecure
@@ -6892,7 +6892,7 @@
       y convertir el tipo de dato
       que será usado en cada interacción.
     impact: >
-      Modificación de ese recurso
+      Resulta en la modificación de ese recurso
       por parte de personas no deseadas.
     recommendation: >
       Comprobar si el recurso tiene permisos
