@@ -7,6 +7,7 @@ from context import (
     FI_AWS_REDSHIFT_PASSWORD,
     FI_AWS_REDSHIFT_PORT,
     FI_AWS_REDSHIFT_USER,
+    FI_ENVIRONMENT,
 )
 from contextlib import (
     contextmanager,
@@ -71,13 +72,15 @@ async def execute(
     sql_query: str,
     sql_vars: Optional[Dict[str, Any]] = None,
 ) -> None:
-    with db_cursor() as cursor:
-        await in_thread(cursor.execute, sql_query, sql_vars)
+    if FI_ENVIRONMENT == "production":
+        with db_cursor() as cursor:
+            await in_thread(cursor.execute, sql_query, sql_vars)
 
 
 async def execute_many(
     sql_query: str,
     sql_vars: Optional[List[Dict[str, Any]]] = None,
 ) -> None:
-    with db_cursor() as cursor:
-        await in_thread(cursor.executemany, sql_query, sql_vars)
+    if FI_ENVIRONMENT == "production":
+        with db_cursor() as cursor:
+            await in_thread(cursor.executemany, sql_query, sql_vars)
