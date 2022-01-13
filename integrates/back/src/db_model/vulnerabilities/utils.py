@@ -12,6 +12,7 @@ from .types import (
     VulnerabilityHistoricEntry,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
@@ -45,6 +46,11 @@ def format_vulnerability(item: Item) -> Vulnerability:
     zero_risk = (
         format_zero_risk(item["zero_risk"]) if "zero_risk" in item else None
     )
+    unreliable_indicators = (
+        format_unreliable_indicators(item["unreliable_indicators"])
+        if "unreliable_indicators" in item
+        else VulnerabilityUnreliableIndicators()
+    )
 
     return Vulnerability(
         bug_tracking_system_url=item.get("bug_tracking_system_url", None),
@@ -62,6 +68,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
         treatment=treatment,
         type=VulnerabilityType[item["type"]],
         id=item["pk"].split("#")[1],
+        unreliable_indicators=unreliable_indicators,
         verification=verification,
         where=item["where"],
         zero_risk=zero_risk,
@@ -93,6 +100,14 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         modified_by=item.get("modified_by", None),
         modified_date=item["modified_date"],
         status=VulnerabilityTreatmentStatus[item["status"]],
+    )
+
+
+def format_unreliable_indicators(
+    item: Item,
+) -> VulnerabilityUnreliableIndicators:
+    return VulnerabilityUnreliableIndicators(
+        unreliable_report_date=item.get("unreliable_report_date", None),
     )
 
 
