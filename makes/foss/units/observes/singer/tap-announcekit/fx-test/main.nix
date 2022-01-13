@@ -12,7 +12,7 @@ makeScript {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/singer/tap-announcekit/env/development"
+      outputs."${inputs.observesIndex.tap.announcekit.env.dev}"
       outputs."/utils/aws"
       outputs."/utils/sops"
     ];

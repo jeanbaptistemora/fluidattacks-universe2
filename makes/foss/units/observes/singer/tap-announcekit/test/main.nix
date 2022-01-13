@@ -13,7 +13,7 @@ makeDerivation {
   searchPaths = {
     source = [
       outputs."/observes/common/tester"
-      outputs."/observes/singer/tap-announcekit/env/development"
+      outputs."${inputs.observesIndex.tap.announcekit.env.dev}"
     ];
   };
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";
