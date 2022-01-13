@@ -36,7 +36,6 @@ from typing import (
     Union,
 )
 from utils.function import (
-    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -48,16 +47,19 @@ def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
     file_ext: str,
     keys_iterator: Iterator[Union[AWSKmsKey, Node]],
 ) -> Iterator[Union[AWSKmsKey, Node]]:
+    key_spec_symmetric = "SYMMETRIC_DEFAULT"
     for key in keys_iterator:
-        en_key_rot = get_node_by_keys(key, ["EnableKeyRotation"])
-        if not isinstance(en_key_rot, Node):
-            yield AWSKmsKey(
-                column=key.start_column,
-                data=key.data,
-                line=get_line_by_extension(key.start_line, file_ext),
-            )
-        elif en_key_rot.raw in FALSE_OPTIONS:
-            yield en_key_rot
+        en_key_rot = key.inner.get("EnableKeyRotation")
+        key_spec = key.raw.get("KeySpec", key_spec_symmetric)
+        if key_spec == key_spec_symmetric:
+            if not isinstance(en_key_rot, Node):
+                yield AWSKmsKey(
+                    column=key.start_column,
+                    data=key.data,
+                    line=get_line_by_extension(key.start_line, file_ext),
+                )
+            elif en_key_rot.raw in FALSE_OPTIONS:
+                yield en_key_rot
 
 
 def _cfn_kms_key_is_key_rotation_absent_or_disabled(

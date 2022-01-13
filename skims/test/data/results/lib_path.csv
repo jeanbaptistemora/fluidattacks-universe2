@@ -16209,53 +16209,101 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   48 |             Principal:
      ^ Col 0
 ",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
-F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,32,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
-  22 |             }
-  23 |           ]
-  24 |         }
-  25 |       }
-  26 |     },
-  27 |     ""key2"": {
-  28 |       ""Type"": ""AWS::KMS::Key"",
-  29 |       ""Properties"": {
-  30 |         ""Description"": ""An example multi-Region primary key"",
-  31 |         ""MultiRegion"": true,
-> 32 |         ""EnableKeyRotation"": false,
-  33 |         ""PendingWindowInDays"": 10,
-  34 |         ""KeyPolicy"": {
-  35 |           ""Version"": ""2012-10-17"",
-  36 |           ""Id"": ""key-default-1"",
-  37 |           ""Statement"": [
-  38 |             {
-  39 |               ""Sid"": ""Enable IAM User Permissions"",
-  40 |               ""Effect"": ""Allow"",
-  41 |               ""Principal"": {
-  42 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,72,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  62 |         Statement:
+  63 |           - Sid: Enable IAM User Permissions
+  64 |             Effect: Allow
+  65 |             Principal:
+  66 |               AWS: 'arn:aws:iam::111122223333:root'
+  67 |             Action: 'kms:*'
+  68 |             Resource: '*'
+  69 |       KeySpec: RSA_2048
+  70 |   key5:
+  71 |     Type: 'AWS::KMS::Key'
+> 72 |     Properties:
+  73 |       Description: An example multi-Region primary key
+  74 |       MultiRegion: false
+  75 |       PendingWindowInDays: 10
+  76 |       KeyPolicy:
+  77 |         Version: 2012-10-17
+  78 |         Id: key-default-1
+  79 |         Statement:
+  80 |           - Sid: Enable IAM User Permissions
+  81 |             Effect: Allow
+  82 |             Principal:
      ^ Col 0
 ",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,32,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+   22 |             }
+   23 |           ]
+   24 |         }
+   25 |       }
+   26 |     },
+   27 |     ""key2"": {
+   28 |       ""Type"": ""AWS::KMS::Key"",
+   29 |       ""Properties"": {
+   30 |         ""Description"": ""An example multi-Region primary key"",
+   31 |         ""MultiRegion"": true,
+>  32 |         ""EnableKeyRotation"": false,
+   33 |         ""PendingWindowInDays"": 10,
+   34 |         ""KeyPolicy"": {
+   35 |           ""Version"": ""2012-10-17"",
+   36 |           ""Id"": ""key-default-1"",
+   37 |           ""Statement"": [
+   38 |             {
+   39 |               ""Sid"": ""Enable IAM User Permissions"",
+   40 |               ""Effect"": ""Allow"",
+   41 |               ""Principal"": {
+   42 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
+      ^ Col 0
+",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,53,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
-  43 |               },
-  44 |               ""Action"": ""kms:*"",
-  45 |               ""Resource"": ""*""
-  46 |             }
-  47 |           ]
-  48 |         }
-  49 |       }
-  50 |     },
-  51 |     ""key3"": {
-  52 |       ""Type"": ""AWS::KMS::Key"",
-> 53 |       ""Properties"": {
-  54 |         ""Description"": ""An example multi-Region primary key"",
-  55 |         ""MultiRegion"": true,
-  56 |         ""PendingWindowInDays"": 10,
-  57 |         ""KeyPolicy"": {
-  58 |           ""Version"": ""2012-10-17"",
-  59 |           ""Id"": ""key-default-1"",
-  60 |           ""Statement"": [
-  61 |             {
-  62 |               ""Sid"": ""Enable IAM User Permissions"",
-  63 |               ""Effect"": ""Allow"",
-     ^ Col 0
+   43 |               },
+   44 |               ""Action"": ""kms:*"",
+   45 |               ""Resource"": ""*""
+   46 |             }
+   47 |           ]
+   48 |         }
+   49 |       }
+   50 |     },
+   51 |     ""key3"": {
+   52 |       ""Type"": ""AWS::KMS::Key"",
+>  53 |       ""Properties"": {
+   54 |         ""Description"": ""An example multi-Region primary key"",
+   55 |         ""MultiRegion"": true,
+   56 |         ""PendingWindowInDays"": 10,
+   57 |         ""KeyPolicy"": {
+   58 |           ""Version"": ""2012-10-17"",
+   59 |           ""Id"": ""key-default-1"",
+   60 |           ""Statement"": [
+   61 |             {
+   62 |               ""Sid"": ""Enable IAM User Permissions"",
+   63 |               ""Effect"": ""Allow"",
+      ^ Col 0
+",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,101,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+   91 |               ""Action"": ""kms:*"",
+   92 |               ""Resource"": ""*""
+   93 |             }
+   94 |           ]
+   95 |         },
+   96 |         ""KeySpec"": ""RSA_2048""
+   97 |       }
+   98 |     },
+   99 |     ""key5"": {
+  100 |       ""Type"": ""AWS::KMS::Key"",
+> 101 |       ""Properties"": {
+  102 |         ""Description"": ""An example multi-Region primary key"",
+  103 |         ""MultiRegion"": false,
+  104 |         ""PendingWindowInDays"": 10,
+  105 |         ""KeyPolicy"": {
+  106 |           ""Version"": ""2012-10-17"",
+  107 |           ""Id"": ""key-default-1"",
+  108 |           ""Statement"": [
+  109 |             {
+  110 |               ""Sid"": ""Enable IAM User Permissions"",
+  111 |               ""Effect"": ""Allow"",
+      ^ Col 0
 ",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   23 |          RedirectConfig:
@@ -24389,46 +24437,6 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 ",c_sharp.insecure_logging
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The system's credential policy is not compliant with security regulations.
- in namespace/skims/test/data/lib_root/f035/Test.cs","
-   1 | ï»¿public class Startup
-   2 | {
-   3 |     public void start(IServiceCollection services)
-   4 |     {
-   5 |         services.Configure<IdentityOptions>( options =>
-   6 |         {
-   7 |             options.Password.RequireDigit = true;
-   8 |             options.Password.RequireDigit = false;
-   9 |             options.Password.RequiredLength = 8;
-  10 |             options.Password.RequireNonAlphanumeric = true;
-  11 |             options.Password.RequireUppercase = true;
-  12 |             options.Password.RequireLowercase = true;
-> 13 |             options.Password.RequiredUniqueChars = 5;
-  14 |         });
-  15 |     }
-  16 | }
-     ^ Col 0
-",query.get_vulnerabilities_from_syntax
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The system's credential policy is not compliant with security regulations.
- in namespace/skims/test/data/lib_root/f035/Test.cs","
-   1 | ï»¿public class Startup
-   2 | {
-   3 |     public void start(IServiceCollection services)
-   4 |     {
-   5 |         services.Configure<IdentityOptions>( options =>
-   6 |         {
-   7 |             options.Password.RequireDigit = true;
->  8 |             options.Password.RequireDigit = false;
-   9 |             options.Password.RequiredLength = 8;
-  10 |             options.Password.RequireNonAlphanumeric = true;
-  11 |             options.Password.RequireUppercase = true;
-  12 |             options.Password.RequireLowercase = true;
-  13 |             options.Password.RequiredUniqueChars = 5;
-  14 |         });
-  15 |     }
-  16 | }
-     ^ Col 0
-",query.get_vulnerabilities_from_syntax
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,10,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -24697,6 +24705,46 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. 
   15 |
      ^ Col 12
 ",c_sharp.no_password
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The systems credential policy is not compliant with security regulations.
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+   8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+> 13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.get_vulnerabilities_from_syntax
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The systems credential policy is not compliant with security regulations.
+ in namespace/skims/test/data/lib_root/f035/Test.cs","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+>  8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+  13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.get_vulnerabilities_from_syntax
 F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
 ","
