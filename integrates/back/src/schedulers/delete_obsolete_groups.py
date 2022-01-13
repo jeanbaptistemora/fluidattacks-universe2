@@ -4,6 +4,9 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
+from batch import (
+    dal as batch_dal,
+)
 from custom_types import (
     Group as GroupType,
 )
@@ -28,14 +31,33 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
-    Any,
     List,
     Tuple,
 )
 
 
+async def _remove_group(
+    loaders: Dataloaders,
+    group_name: str,
+    user_email: str,
+    organization_id: str,
+) -> bool:
+    success = await groups_domain.remove_group(
+        loaders, group_name, user_email, organization_id
+    )
+    if success:
+        await batch_dal.put_action(
+            action_name="remove_group_resources",
+            entity=group_name,
+            subject=user_email,
+            additional_info="no_info",
+            queue="dedicated_soon",
+        )
+    return success
+
+
 async def _delete_groups(
-    loaders: Any, obsolete_groups: List[GroupType]
+    loaders: Dataloaders, obsolete_groups: List[GroupType]
 ) -> bool:
     today = datetime_utils.get_now().date()
     email = "integrates@fluidattacks.com"
@@ -59,7 +81,7 @@ async def _delete_groups(
     return all(
         await collect(
             [
-                groups_domain.remove_group(
+                _remove_group(
                     loaders, get_key_or_fallback(group), email, org_id
                 )
                 for group, org_id in zip(

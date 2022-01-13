@@ -5,6 +5,9 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from batch import (
+    dal as batch_dal,
+)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -65,6 +68,13 @@ async def mutate(
             tier="free",
         )
         if success:
+            await batch_dal.put_action(
+                action_name="remove_group_resources",
+                entity=group_name,
+                subject=requester_email,
+                additional_info="no_info",
+                queue="dedicated_soon",
+            )
             redis_del_by_deps_soon("remove_group", group_name=group_name)
             await authz.revoke_cached_group_service_policies(group_name)
             logs_utils.cloudwatch_log(

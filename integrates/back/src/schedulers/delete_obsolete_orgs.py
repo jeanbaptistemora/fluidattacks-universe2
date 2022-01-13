@@ -1,7 +1,11 @@
 from aioextensions import (
     collect,
 )
+from batch import (
+    dal as batch_dal,
+)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from groups import (
@@ -13,15 +17,33 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
-from typing import (
-    Any,
-)
+
+
+async def _remove_group(
+    loaders: Dataloaders,
+    group_name: str,
+    user_email: str,
+    organization_id: str,
+) -> bool:
+    success = await groups_domain.remove_group(
+        loaders, group_name, user_email, organization_id
+    )
+    if success:
+        await batch_dal.put_action(
+            action_name="remove_group_resources",
+            entity=group_name,
+            subject=user_email,
+            additional_info="no_info",
+            queue="dedicated_soon",
+        )
+    return success
 
 
 async def delete_obsolete_orgs() -> None:
-    """Delete obsolete organizations"""
+    """Delete obsolete organizations."""
     today = datetime_utils.get_now().date()
     email = "integrates@fluidattacks.com"
+    loaders: Dataloaders = get_new_context()
     async for org_id, org_name in orgs_domain.iterate_organizations():
         org_pending_deletion_date_str = (
             await orgs_domain.get_pending_deletion_date_str(org_id)
@@ -34,7 +56,7 @@ async def delete_obsolete_orgs() -> None:
                     org_pending_deletion_date_str
                 )
                 if org_pending_deletion_date.date() <= today:
-                    await delete_organization(get_new_context(), org_id, email)
+                    await delete_organization(loaders, org_id, email)
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)
@@ -49,7 +71,7 @@ async def delete_obsolete_orgs() -> None:
 
 
 async def delete_organization(
-    context: Any, organization_id: str, email: str
+    loaders: Dataloaders, organization_id: str, email: str
 ) -> bool:
     users = await orgs_domain.get_users(organization_id)
     users_removed = await collect(
@@ -60,7 +82,7 @@ async def delete_organization(
     org_groups = await orgs_domain.get_groups(organization_id)
     groups_removed = all(
         await collect(
-            groups_domain.remove_group(context, group, email, organization_id)
+            _remove_group(loaders, group, email, organization_id)
             for group in org_groups
         )
     )

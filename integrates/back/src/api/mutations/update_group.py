@@ -2,6 +2,9 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from batch import (
+    dal as batch_dal,
+)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -80,6 +83,14 @@ async def mutate(
             subscription=subscription,
             tier=kwargs.get("tier", "free"),
         )
+        if success and not has_asm:
+            await batch_dal.put_action(
+                action_name="remove_group_resources",
+                entity=group_name,
+                subject=requester_email,
+                additional_info="no_info",
+                queue="dedicated_soon",
+            )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,

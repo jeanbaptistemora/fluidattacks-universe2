@@ -19,6 +19,7 @@ from collections import (
 from context import (
     BASE_URL,
     FI_DEFAULT_ORG,
+    FI_ENVIRONMENT,
 )
 from contextlib import (
     AsyncExitStack,
@@ -680,6 +681,11 @@ async def remove_group(
     organization_id: str,
     reason: Optional[str] = "",
 ) -> bool:
+    """
+    Update group state to DELETED and update some related resources.
+    For production, remember to remove additional resources
+    (user, findings, vulns ,etc) via the batch action remove_group_resources.
+    """
     data = await groups_dal.get_attributes(
         group_name, ["project_status", "historic_deletion"]
     )
@@ -689,7 +695,9 @@ async def remove_group(
     ):
         raise AlreadyPendingDeletion()
 
-    all_resources_removed = await remove_resources(loaders, group_name)
+    all_resources_removed = True
+    if FI_ENVIRONMENT == "development":
+        all_resources_removed = await remove_resources(loaders, group_name)
     is_group_masked = await mask(group_name)
     today = datetime_utils.get_now()
     new_state = {
@@ -723,14 +731,12 @@ async def remove_group(
             reason="GROUP_DELETED",
         )
         success = all(
-            [
-                await collect(
-                    (
-                        authz.revoke_cached_group_service_policies(group_name),
-                        orgs_domain.remove_group(group_name, organization_id),
-                    )
+            await collect(
+                (
+                    authz.revoke_cached_group_service_policies(group_name),
+                    orgs_domain.remove_group(group_name, organization_id),
                 )
-            ]
+            )
         )
     return success
 
