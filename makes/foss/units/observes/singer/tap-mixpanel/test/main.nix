@@ -5,7 +5,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-test-tap-mixpanel";
+  name = "observes-singer-tap-mixpanel-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.mixpanel.root;
     envTestDir = baseNameOf inputs.observesIndex.tap.mixpanel.tests;

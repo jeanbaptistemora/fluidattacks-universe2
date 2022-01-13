@@ -348,7 +348,7 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/observes/test/tap-mixpanel";
+          output = "/observes/singer/tap-mixpanel/test";
           gitlabExtra = gitlabTestCode;
         }
         {
