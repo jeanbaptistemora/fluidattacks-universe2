@@ -7950,7 +7950,7 @@
       The server is missing
       the Strict-Transport-Security HTTP header.
       Alternatively,
-      the header's max-age is too short.
+      the headers max-age is too short.
     impact: >
       Compromise confidential information
       sent through insecure channels.
@@ -8187,7 +8187,7 @@
     title: Insecure or unset HTTP headers - CORS
     description: >
       The cross-domain policy
-      includes wildcards,'
+      includes wildcards,
       accepting any domain
       as valid for sharing resources.
     impact: >
@@ -8304,7 +8304,7 @@
     impact: >
       - Store sever responses
       with sensitive information
-      in the browser's cache.
+      in the browsers cache.
 
       - Produce potentially
       harmful server responses
@@ -8675,7 +8675,7 @@
       application repository or an application
       file and use it to generate a more
       elaborate brute-force attack on the
-      application's encrypted messages.
+      applications encrypted messages.
   es:
     title: Sensitive information in source code - API Key
     description: >
@@ -8807,14 +8807,14 @@
     recommendation: >
       Use static import very
       sparingly, if at all.
-      It's useful for situations when you
+      Its useful for situations when you
       need frequent access to a few static
       objects from one or two classes.
     threat: >
       Overusing static import can result
       in code that is difficult to read
       and maintain, since readers of the
-      code won't know which class defines
+      code will not know which class defines
       a particular static object.
   es:
     title: Inappropriate coding practices - Static Import
@@ -9941,7 +9941,7 @@
       the application to generate new
       attack vectors.
     recommendation: >
-      Obfuscate the application's JavaScript
+      Obfuscate the applications JavaScript
       to prevent leakage of technical
       information that could reveal
       vulnerable features.
@@ -10078,7 +10078,7 @@
       information of the organization.
     impact: >
       - Obtain the signing key of
-      the application's certificate.
+      the applications certificate.
 
       - Change the application in the
       appStore to a malicious one by
@@ -10250,7 +10250,7 @@
       service it is possible to extract krbtgs
       hashes of users within the domain.
     impact: >
-      Obtain user's hashes.
+      Obtain users hashes.
     recommendation: >
       Configure a logger to alert
       Kerberoast attacks.
@@ -10515,9 +10515,9 @@
       the tools and using obfuscation.
       This would allow an attacker to get information
       in memory, perform attacks on the Kerberos service
-      or the organization's network, among others.
+      or the organizations network, among others.
     impact: >
-      - Evade the organization's security
+      - Evade the organizations security
       controls to install malicious software.
 
       - Exfiltrate data.
@@ -10646,7 +10646,7 @@
     description: >
       The application has the backup option active,
       which allows an attacker who has access to a
-      user's device to obtain the information stored
+      users device to obtain the information stored
       by the application inside the device.
     impact: >
       Obtain confidential user and application information.
@@ -10655,7 +10655,7 @@
       should not allow to backup itself.
     threat: >
       Anonymous attacker with local access
-      to a user's device.
+      to a users device.
   es:
     title: Insecure service configuration - App Backup
     description: >
@@ -12681,7 +12681,7 @@
     impact: >
       - Log in to the allied portal as any user.
 
-      - Approve or reject a user's transactions.
+      - Approve or reject a users transactions.
     recommendation: >
       Put in place for every resource with
       business-critical functionality a
@@ -12791,7 +12791,7 @@
     title: Security controls bypass or absence - Cloudflare
     description: >
       It is possible to make requests
-      directly to the server's IP and
+      directly to the servers IP and
       thus bypass Cloudflare.
     impact: >
       - Extract technical information
@@ -13425,7 +13425,7 @@
       their common transactions.
 
       - Obtain information about the
-      application's APIs, and the parameters
+      applications APIs, and the parameters
       required to query them.
 
       - Identify the devices a user uses to
@@ -13644,22 +13644,22 @@
   en:
     title: Business information leak - Azure
     description: >
-      A series of flaws in Azure's service
+      A series of flaws in Azures service
       feature created a loophole.
       This vulnerability could allow users to
-      access other customers' information in the platform.
+      access other customers information in the platform.
     impact: >
       - Could lead to compromise the Kubernetes clusters,
       thus providing attackers with full control over
       other Azure customers’ containers.
 
       - The vulnerability could have allowed users to
-      access other customers' information in the service.
+      access other customers information in the service.
 
       - Allow any user to download, delete or manipulate
       a massive collection of commercial databases.
     recommendation: >
-      - Change user's login credentials.
+      - Change users login credentials.
 
       - Rotate privileged credentials on a frequent basis.
     threat: >
@@ -13729,7 +13729,7 @@
       case it is necessary, the data used
       should not correspond to reality.
     threat: >
-      Attacker with access to the application's source code.
+      Attacker with access to the applications source code.
   es:
     title: Business information leak - Personal Information
     description: >
@@ -13782,7 +13782,7 @@
       Disrupt the NAC infrastructure to make it inaccessible.
     recommendation: >
       - Implement NAC can drastically improve an
-      organization's network security posture.
+      organizations network security posture.
 
       - A clean NAC solution can greatly increase
       the difficulty of a successful attack.
@@ -14810,7 +14810,7 @@
       Encrypt all sensitive information
       that is transported or stored within
       the application according to the
-      organization's policies.
+      organizations policies.
     threat: >
       Unauthorized insider attacker performing a MitM.
   es:
@@ -14860,7 +14860,7 @@
     recommendation: >
       Encrypt all sensitive information that is
       transported or stored within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       Unauthenticated attacker with access to the device.
   es:
@@ -14914,7 +14914,7 @@
     recommendation: >
       Encrypt all sensitive information that is
       transported or stored within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       Attacker with access to the code from the Internet.
   es:
@@ -15072,7 +15072,7 @@
 
       - Access to business sensitive information.
     recommendation: >
-      Encrypt a computer's files or the entire disk
+      Encrypt a computers files or the entire disk
       greatly reduces the risk of data theft.
     threat: >
       Internal attacker in the network.
@@ -15131,7 +15131,7 @@
     recommendation: >
       Encrypt all sensitive information that is
       transported or stored within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       External attacker with access to source code.
   es:
@@ -16161,15 +16161,15 @@
     title: Insecure functionality - Password management
     description: >
       There is a possibility to change the
-      access password to a user's application
-      from a different user's session.
+      access password to a users application
+      from a different users session.
     impact: >
       Change the password to access the application
-      of one user from another user's session.
+      of one user from another users session.
     recommendation: >
       Limit the permissions of each of the users
       that have access to the application.
-      So that they cannot modify other user's
+      So that they cannot modify other users
       configurations within the application.
     threat: >
       Attacker with access to the
@@ -16326,9 +16326,9 @@
       - Attacker enters upon registration
       confirmation request.
 
-      - Attacker changes employee's ID.
+      - Attacker changes employees ID.
 
-      - Attacker modifies or replaces employee's information.
+      - Attacker modifies or replaces employees information.
     recommendation: >
       Verify that the user who is trying
       to modify the information has the
@@ -16393,9 +16393,9 @@
     title: Non-encrypted confidential information - Local data
     description: >
       Confidential firebase data is stored in
-      plain text on the device's local storage
+      plain text on the devices local storage
       allowing an attacker who has access to
-      the physical device and bypasses the device's
+      the physical device and bypasses the device
       security mechanism to view it without any
       encryption in case of theft or loss.
     impact: >
@@ -16404,7 +16404,7 @@
     recommendation: >
       Encrypt all sensitive information that
       is transported or stored within the application
-      according to the organization's policies.
+      according to the organizations policies.
     threat: >
       Unauthorized attacker with physical access to device.
   es:
@@ -16453,7 +16453,7 @@
       history, allowing attackers with local access
       to the machine to obtain it without any problem.
     impact: >
-      Obtain the user's session.
+      Obtain the users session.
     recommendation: >
       Use secure mechanisms to send sensitive
       information between sites so that it cannot
@@ -16613,7 +16613,7 @@
       the application and disable detection
       of rooted devices.
     impact: >
-      Avoid the application's detection
+      Avoid the applications detection
       of rooted devices.
     recommendation: >
       Implement an integrity check on the
@@ -16825,10 +16825,10 @@
       leaving open the possibility to consult
       information of other users.
     impact: >
-      - Identify user's login method.
+      - Identify users login method.
 
       - Obtain strategic information.
-      from user's accounts.
+      from users accounts.
     recommendation: >
       Implement controls with cookies or
       session tokens to limit the information
@@ -16954,7 +16954,7 @@
       Conduct MiTM attacks over insecure channels
       to obtain sensitive user information.
     recommendation: >
-      Configure in the application's info.plist
+      Configure in the applications info.plist
       following good security practices.
     threat: >
       Internal attacker on the same network segment.
@@ -17000,7 +17000,7 @@
     title: Insecure object reference - Personal information
     description: >
       The system allows bypassing authentication
-      mechanisms and modifying other user's information
+      mechanisms and modifying other users information
       by altering the unique identifiers that
       distinguish each user.
     impact: >
@@ -17063,7 +17063,7 @@
       change the company identifier (payrollnumber)
       to one to which he does not have access.
       In this way the information sent is stored
-      in the third party's company, associating
+      in the third party company, associating
       new employees or updating the information of
       those that already existed.
     impact: >
@@ -17300,9 +17300,9 @@
 
       - Product information
 
-      - Collector's line of business
+      - Collectors line of business
 
-      - Payer's role
+      - Payers role
     impact: >
       Obtain sensitive information to create
       new attack vectors.
@@ -17552,7 +17552,7 @@
       after a password change process.
     threat: >
       Unauthorized user from the Internet
-      with access to a user's session.
+      with access to a users session.
   es:
     title: Insecure session management - Change Password
     description: >
@@ -17711,7 +17711,7 @@
       Probability of an unauthorized attacker
       bypassing the authentication process by
       changing the page redirection and thus
-      gaining access to the application's functionality.
+      gaining access to the applications functionality.
   es:
     title: Authentication mechanism absence or evasion - Redirect
     description: >
@@ -17819,7 +17819,7 @@
       - Organizations could be vulnerable to
       stealthy brute-force attacks.
 
-      - Fraudulent attempts on access user's accounts.
+      - Fraudulent attempts on access users accounts.
     recommendation: >
       - Configure Azure AD Multi-Factor Authentication (MFA).
 
@@ -18182,7 +18182,7 @@
       access the information has the necessary
       permissions to access.
     threat: >
-      An attacker, knowing a victim's user ID, can
+      An attacker, knowing a victims user ID, can
       access or manipulate the victim's account information.
   es:
     title: Insecure object reference - Files
