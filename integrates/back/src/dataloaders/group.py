@@ -20,19 +20,28 @@ from typing import (
     cast,
     Dict,
     List,
+    Optional,
+    Tuple,
+    Union,
 )
 
 
-async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
+async def _batch_load_fn(
+    group_names: List[str], parent_org_id: Optional[List[str]]
+) -> List[GroupType]:
     groups: Dict[str, GroupType] = {}
     groups_by_names: List[GroupType] = await groups_domain.get_many_groups(
         group_names
     )
-    organization_ids = await collect(
-        [
-            orgs_domain.get_id_for_group(group_name)
-            for group_name in group_names
-        ]
+    organization_ids = (
+        parent_org_id
+        if parent_org_id
+        else await collect(
+            [
+                orgs_domain.get_id_for_group(group_name)
+                for group_name in group_names
+            ]
+        )
     )
 
     for index, group in enumerate(groups_by_names):
@@ -148,5 +157,19 @@ class GroupLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
     # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
-        return await _batch_load_fn(group_names)
+    async def batch_load_fn(
+        self, group_names: Union[List[str], List[Tuple[str, str]]]
+    ) -> List[GroupType]:
+
+        groups_names = (
+            list(map(str, group_names))
+            if isinstance(group_names[0], str)
+            else [group_name[0] for group_name in group_names]
+        )
+        parent_org_id: Optional[List[str]] = (
+            None
+            if isinstance(group_names[0], str)
+            else [group_name[1] for group_name in group_names]
+        )
+
+        return await _batch_load_fn(groups_names, parent_org_id)

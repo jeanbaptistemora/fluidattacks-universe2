@@ -32,7 +32,9 @@ async def resolve(
     )
 
     group_loader: DataLoader = info.context.loaders.group
-    groups: List[Group] = await group_loader.load_many(user_groups)
+    groups: List[Group] = await group_loader.load_many(
+        [(group, org_id) for group in user_groups]
+    )
     groups_filtered = groups_domain.filter_active_groups(groups)
 
     return groups_filtered
