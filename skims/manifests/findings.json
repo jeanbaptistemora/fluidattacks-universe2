@@ -591,6 +591,14 @@
       "title": "281. Use of an insecure channel - AWS"
     }
   },
+  "F300": {
+    "EN": {
+      "title": "300. Authentication mechanism absence or evasion - Azure"
+    },
+    "ES": {
+      "title": "300. Authentication mechanism absence or evasion - Azure"
+    }
+  },
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
