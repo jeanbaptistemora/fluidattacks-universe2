@@ -1,3 +1,6 @@
+lib_path.f372.azure_only_accessible_over_http:
+  en: Ensure function apps are only accessible over HTTPS
+  es: Asegúrese de que las aplicaciones de funciones solo sean accesibles a través de HTTPS
 src.lib_path.f372.elb2_uses_insecure_protocol:
   en: TargetGroup should use a safe protocol (HTTPS)
   es: El TargetGroup debería usar un protocolo seguro (HTTPS)

@@ -24810,6 +24810,54 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
   22 | }
      ^ Col 0
 ",c_sharp.insecurely_generated_cookies
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,24,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
+  14 |   https_only          = true
+  15 |   tags                = var.modtags
+  16 | }
+  17 |
+  18 | resource ""azurerm_function_app"" ""vulnerable"" {
+  19 |   name                       = ""test-azure-functions""
+  20 |   location                   = azurerm_resource_group.example.location
+  21 |   resource_group_name        = azurerm_resource_group.example.name
+  22 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+  23 |   storage_account_name       = azurerm_storage_account.example.name
+> 24 |   https_only                 = false
+  25 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  26 |   os_type                    = ""linux""
+  27 |   version                    = ""~3""
+  28 | }
+  29 |
+  30 | resource ""azurerm_function_app"" ""not_vulnerable"" {
+  31 |   name                       = ""test-azure-functions""
+  32 |   location                   = azurerm_resource_group.example.location
+  33 |   resource_group_name        = azurerm_resource_group.example.name
+  34 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+     ^ Col 0
+",f372._tfm_azure_kv_only_accessible_over_https
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
+>  1 | resource ""azurerm_app_service"" ""vulnerable"" {
+   2 |   name                = var.functionapp_name
+   3 |   location            = var.rg_location
+   4 |   resource_group_name = var.resource_group_name
+   5 |   app_service_plan_id = var.asp_id
+   6 |   tags                = var.modtags
+   7 | }
+   8 |
+   9 | resource ""azurerm_app_service"" ""not_vulnerable"" {
+  10 |   name                = var.functionapp_name
+  11 |   location            = var.rg_location
+  12 |   resource_group_name = var.resource_group_name
+  13 |   app_service_plan_id = var.asp_id
+  14 |   https_only          = true
+  15 |   tags                = var.modtags
+  16 | }
+  17 |
+  18 | resource ""azurerm_function_app"" ""vulnerable"" {
+  19 |   name                       = ""test-azure-functions""
+  20 |   location                   = azurerm_resource_group.example.location
+  21 |   resource_group_name        = azurerm_resource_group.example.name
+     ^ Col 0
+",f372._tfm_azure_kv_only_accessible_over_https
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,4,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    1 | Resources:
    2 |   ELBv2targetGroup1:
