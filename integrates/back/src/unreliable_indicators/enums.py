@@ -6,21 +6,28 @@ from enum import (
 
 class Entity(Enum):
     finding: str = "finding"
+    vulnerability: str = "vulnerability"
 
 
 class EntityId(Enum):
     id: str = "id"
+    ids: str = "ids"
 
 
 class EntityAttr(Enum):
+    efficacy: str = "efficacy"
     closed_vulnerabilities: str = "closed_vulnerabilities"
     is_verified: str = "is_verified"
+    last_reattack_date: str = "last_reattack_date"
+    last_reattack_requester: str = "last_reattack_requester"
+    last_requested_reattack_date: str = "last_requested_reattack_date"
     newest_vulnerability_report_date: str = "last_vulnerability_report_date"
     oldest_open_vulnerability_report_date: str = (
         "oldest_open_vulnerability_report_date"
     )
     oldest_vulnerability_report_date: str = "oldest_vulnerability_report_date"
     open_vulnerabilities: str = "open_vulnerabilities"
+    reattack_cycles: str = "reattack_cycles"
     status: str = "status"
     treatment_summary: str = "treatment_summary"
     where: str = "where"

@@ -114,6 +114,18 @@ ENTITIES = {
             ),
         },
     ),
+    Entity.vulnerability: dict(
+        args={
+            EntityId.ids,
+        },
+        attrs={
+            EntityAttr.efficacy: dict(dependencies={}),
+            EntityAttr.last_reattack_date: dict(dependencies={}),
+            EntityAttr.last_reattack_requester: dict(dependencies={}),
+            EntityAttr.last_requested_reattack_date: dict(dependencies={}),
+            EntityAttr.reattack_cycles: dict(dependencies={}),
+        },
+    ),
 }
 
 
