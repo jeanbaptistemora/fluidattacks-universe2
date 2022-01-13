@@ -141,6 +141,9 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 
     # Within the context of one request we only need to process it once
     if context_store_key in store:
+        store[context_store_key]["user_email"] = store[context_store_key][
+            "user_email"
+        ].lower()
         return store[context_store_key]
 
     try:
@@ -186,6 +189,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     except InvalidJWEData:
         raise InvalidAuthorization() from None
     else:
+        content["user_email"] = content["user_email"].lower()
         store[context_store_key] = content
         return content
 
