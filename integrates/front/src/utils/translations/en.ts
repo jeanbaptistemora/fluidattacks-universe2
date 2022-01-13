@@ -248,6 +248,7 @@ export const enTranslations: ResourceKey = {
     tooltip: "Search filters for the table",
   },
   deleteVulns: {
+    closedVuln: "A closed vulnerability cannot be removed",
     notSuccess: "Vulnerability could not be eliminated",
     reportingError: "Error while reporting",
     title: "Delete Vulnerability",

@@ -94,7 +94,7 @@ def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
     return _fields, values
 
 
-async def insert_metadata(
+async def _insert_metadata(
     *,
     vulnerability: Vulnerability,
 ) -> None:
@@ -119,7 +119,7 @@ async def insert_metadata(
     )
 
 
-async def insert_historic_state(
+async def _insert_historic_state(
     *,
     vulnerability_id: str,
     historic_state: Tuple[VulnerabilityState, ...],
@@ -147,7 +147,7 @@ async def insert_historic_state(
     )
 
 
-async def insert_historic_treatment(
+async def _insert_historic_treatment(
     *,
     vulnerability_id: str,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
@@ -180,7 +180,7 @@ async def insert_historic_treatment(
     )
 
 
-async def insert_historic_verification(
+async def _insert_historic_verification(
     *,
     vulnerability_id: str,
     historic_verification: Tuple[VulnerabilityVerification, ...],
@@ -207,7 +207,7 @@ async def insert_historic_verification(
     )
 
 
-async def insert_historic_zero_risk(
+async def _insert_historic_zero_risk(
     *,
     vulnerability_id: str,
     historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
@@ -231,6 +231,37 @@ async def insert_historic_zero_risk(
             )
          """,
         sql_values,
+    )
+
+
+async def insert_vulnerability(
+    *,
+    vulnerability: Vulnerability,
+    historic_state: Tuple[VulnerabilityState, ...],
+    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    historic_verification: Tuple[VulnerabilityVerification, ...],
+    historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
+) -> None:
+    await _insert_metadata(vulnerability=vulnerability)
+    await collect(
+        (
+            _insert_historic_state(
+                vulnerability_id=vulnerability.id,
+                historic_state=historic_state,
+            ),
+            _insert_historic_treatment(
+                vulnerability_id=vulnerability.id,
+                historic_treatment=historic_treatment,
+            ),
+            _insert_historic_verification(
+                vulnerability_id=vulnerability.id,
+                historic_verification=historic_verification,
+            ),
+            _insert_historic_zero_risk(
+                vulnerability_id=vulnerability.id,
+                historic_zero_risk=historic_zero_risk,
+            ),
+        )
     )
 
 

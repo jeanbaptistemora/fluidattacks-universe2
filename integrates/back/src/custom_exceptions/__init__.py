@@ -54,6 +54,10 @@ class InvalidNewVulnState(_SingleMessageException):
     msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
 
 
+class InvalidRemovalVulnState(_SingleMessageException):
+    msg: str = "Invalid, you cannot remove a closed vulnerability"
+
+
 class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
     msg: str = "Invalid, vulnerability already exists"
 

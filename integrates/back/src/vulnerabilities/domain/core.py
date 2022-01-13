@@ -9,6 +9,7 @@ from contextlib import (
     AsyncExitStack,
 )
 from custom_exceptions import (
+    InvalidRemovalVulnState,
     VulnNotFound,
     VulnNotInFinding,
 )
@@ -64,6 +65,9 @@ from notifications import (
 from operator import (
     attrgetter,
 )
+from redshift import (
+    vulnerabilities as redshift_vulns,
+)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -99,6 +103,37 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+async def send_to_redshift(
+    *,
+    loaders: Any,
+    vulnerability: Vulnerability,
+    state_to_append: Optional[VulnerabilityState] = None,
+) -> None:
+    historic_state = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
+    if state_to_append:
+        historic_state = (*historic_state, state_to_append)
+    historic_treatment = await loaders.vulnerability_historic_treatment.load(
+        vulnerability.id
+    )
+    historic_verification = (
+        await loaders.vulnerability_historic_verification.load(
+            vulnerability.id
+        )
+    )
+    historic_zero_risk = await loaders.vulnerability_historic_zero_risk.load(
+        vulnerability.id
+    )
+    await redshift_vulns.insert_vulnerability(
+        vulnerability=vulnerability,
+        historic_state=historic_state,
+        historic_treatment=historic_treatment,
+        historic_verification=historic_verification,
+        historic_zero_risk=historic_zero_risk,
+    )
 
 
 async def confirm_vulnerabilities_zero_risk(
@@ -227,23 +262,24 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         vulnerability_id
     )
     if (
-        vulnerability.state.status == VulnerabilityStateStatus.OPEN
-        or include_closed_vuln
+        vulnerability.state.status != VulnerabilityStateStatus.OPEN
+        and not include_closed_vuln
     ):
-        await vulns_dal.update_state(
-            current_value=vulnerability.state,
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-            state=VulnerabilityState(
-                modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date_no_fractional(),
-                source=source,
-                status=VulnerabilityStateStatus.DELETED,
-                justification=justification,
-            ),
-        )
-        return True
-    return False
+        raise InvalidRemovalVulnState.new()
+
+    await vulns_dal.update_state(
+        current_value=vulnerability.state,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        state=VulnerabilityState(
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date_no_fractional(),
+            source=source,
+            status=VulnerabilityStateStatus.DELETED,
+            justification=justification,
+        ),
+    )
+    return True
 
 
 async def get_by_finding_and_vuln_ids(
