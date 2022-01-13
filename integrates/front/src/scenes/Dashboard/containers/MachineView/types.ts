@@ -49,6 +49,7 @@ interface IFindingMachineJobs {
 
 interface ISubmitMachineJobResult {
   submitMachineJob: {
+    message: string;
     success: boolean;
   };
 }

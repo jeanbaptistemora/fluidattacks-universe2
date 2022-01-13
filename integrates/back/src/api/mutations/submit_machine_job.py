@@ -8,7 +8,7 @@ from contextlib import (
     suppress,
 )
 from custom_types import (
-    SimplePayload,
+    SimplePayloadMessage,
 )
 from db_model.findings.types import (
     Finding,
@@ -47,7 +47,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     root_nicknames: List[str],
-) -> SimplePayload:
+) -> SimplePayloadMessage:
     finding_loader = info.context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     group_name: str = finding.group_name
@@ -58,13 +58,18 @@ async def mutate(
         if isinstance(root, GitRootItem)
     }
     if not root_nicknames:
-        return SimplePayload(success=False)
+        return SimplePayloadMessage(
+            success=False, message="GitRoot does not exists"
+        )
 
     finding_code: Optional[str] = get_finding_code_from_title(finding_title)
 
     if finding_code is None:
-        return SimplePayload(success=False)
+        return SimplePayloadMessage(
+            success=False, message="The finding cannot be found"
+        )
     success = False
+    message = ""
     with suppress(ClientError):
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
         result = await queue_boto3(
@@ -73,5 +78,8 @@ async def mutate(
             namespaces=tuple(roots_to_execute),
         )
         success = bool(result)
+        if error_message := result.get("error"):
+            message = error_message
+            success = False
 
-    return SimplePayload(success=success)
+    return SimplePayloadMessage(success=success, message=message)

@@ -9,6 +9,13 @@ type SimplePayload implements Payload {
   "Did the query succeed?"
   success: Boolean!
 }
+"Simple Payload with message type definition"
+type SimplePayloadMessage implements Payload {
+  "Message result"
+  message: String
+  "Did the query succeed?"
+  success: Boolean!
+}
 
 "Add billing subscription payload definition"
 type AddBillingSubscriptionPayload implements Payload {

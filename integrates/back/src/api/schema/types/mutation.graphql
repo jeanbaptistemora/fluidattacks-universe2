@@ -616,7 +616,7 @@ type Mutation {
     findingId: String!
     "Nickname of the roots to run Machine on"
     rootNicknames: [String!]!
-  ): SimplePayload!
+  ): SimplePayloadMessage!
 
   """Submits a Finding policy for the Organization, pending approval of a
   Stakeholder"""

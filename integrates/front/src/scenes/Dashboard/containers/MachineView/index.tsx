@@ -93,7 +93,12 @@ const MachineView: React.FC = (): JSX.Element => {
           translate.t("searchFindings.tabMachine.success")
         );
       } else {
-        msgError(translate.t("searchFindings.tabMachine.errorNoCheck"));
+        msgError(
+          translate.t(
+            result.submitMachineJob.message ||
+              "searchFindings.tabMachine.errorNoCheck"
+          )
+        );
       }
     }
   };

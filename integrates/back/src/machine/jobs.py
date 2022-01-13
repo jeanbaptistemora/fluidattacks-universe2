@@ -269,10 +269,13 @@ async def queue_boto3(
                 "SUBMITTED",
                 "PENDING",
                 "RUNNABLE",
+            }:
+                return {"error": "The job is already in queue"}
+            if current_job["status"] in {
                 "STARTING",
                 "RUNNING",
             }:
-                return {}
+                return {"error": "The job is already running"}
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
