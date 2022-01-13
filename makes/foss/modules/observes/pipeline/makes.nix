@@ -340,7 +340,7 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/observes/test/tap-gitlab";
+          output = "/observes/singer/tap-gitlab/test";
           gitlabExtra = gitlabTestCode;
         }
         {

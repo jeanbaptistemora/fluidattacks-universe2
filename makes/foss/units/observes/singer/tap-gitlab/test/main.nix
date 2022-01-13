@@ -5,7 +5,7 @@
 , ...
 }:
 makeDerivation {
-  name = "observes-test-tap-gitlab";
+  name = "observes-singer-tap-gitlab-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.gitlab.root;
     envTestDir = "tests";
