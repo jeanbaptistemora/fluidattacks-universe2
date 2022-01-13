@@ -1465,20 +1465,16 @@
   en:
     title: Unrestricted access between network segments - AWS
     description: >
-      The system’s network configuration
-      does not properly limit access
-      between network segments.
-      This allows employees from any office
-      to access administrative services
-      of servers and other offices.
-      Alternatively,
-      servers that are supposed to be accessed
-      only from an internal network
-      are exposed to other network segments,
-      such as the internet.
+      The infrastructure definition
+      for network segments
+      in the AWS context
+      is too permissive.
     impact: >
-      Expose resources, processes and sensitive information
+      - Expose resources, processes and sensitive information
       that could be compromised.
+
+      - Accept incoming or outcoming connections
+      that should be restricted by design
     recommendation: >
       Limit network segments, ports, IP addresses,
       network protocols, and administrative services
@@ -1487,33 +1483,28 @@
   es:
     title: Unrestricted access between network segments - AWS
     description: >
-      La configuración de red del sistema
-      no limita apropiadamente el acceso
-      entre segmentos de red.
-      Esto permite que empleados
-      desde cualquier oficina
-      accedan servicios administrativos
-      de servicios y otras oficinas.
-      Alternativamente,
-      los servidores que se espera sean accedidos
-      solo desde una red interna
-      están expuestos a otros segmentos de red,
-      como Internet.
+      La definición de la infraestructura
+      para la segmentación de redes
+      en el contexto de AWS
+      es demasiado permisiva.
     impact: >
-      Exponer recursos,
+      - Exponer recursos,
       procesos e información sensible
       que podrían ser comprometidos.
+
+      - Admitir conexiones entrantes o salientes
+      que deberían estar restringidas por diseño
     recommendation: >
       Limitar los segmentos de red,
       puertos, direcciones IP, protocolos de red,
       y servicios administrativos
-      solamente a los usuarios requeridos.
+      siguiendo el principio de mínimo privilegio.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
@@ -1521,7 +1512,7 @@
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
+      exploit_code_maturity: "P"
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["255"]
@@ -4559,7 +4550,7 @@
       you can allow specific Content Providers
       by using grant-uri-permission.
     threat: >
-      Unauthorized attacker
+      Unauthorized local attacker
       owner of a third party application
       installed in the device.
   es:
@@ -4591,7 +4582,7 @@
       se puede permitir Content Providers específicos
       usando grant-uri-permission.
     threat: >
-      Atacante sin autorización
+      Atacante local sin autorización
       propietario de una aplicación de terceros
       instalada en el dispositivo.
   category: Subvert Access
