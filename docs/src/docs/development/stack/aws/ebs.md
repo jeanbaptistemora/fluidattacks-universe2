@@ -28,7 +28,7 @@ are the following:
 - It provides a wide range of [disk types](https://aws.amazon.com/ebs/features/#Amazon_EBS_volume_types)
   that goes from [SSDs](https://en.wikipedia.org/wiki/Solid-state_drive)
   with a size of 64 [TiB](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
-  and a throughput of 4000 [MiB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second)
+  and a throughput of 4,000 [MiB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second)
   to [HHDs](https://en.wikipedia.org/wiki/Hard_disk_drive)
   with a size of 16 TiB
   and a throughput of 500 MiB/s.
