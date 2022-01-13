@@ -8530,7 +8530,7 @@
       application due to errors that
       are not being taken into account.
 
-      - Losing the traceability of the
+      - Lose the traceability of the
       errors presented.
     recommendation: >
       Use the libraries that allow to execute
@@ -9144,8 +9144,8 @@
       provide protection against
       man-in-the-middle attacks.
     impact: >
-      Intercepting sensitive information
-      traveling over an insecure channel.
+      Intercept sensitive information
+      over an insecure channel.
     recommendation: >
       Preferably make use of
       useSslProtocol(SSLContext).
