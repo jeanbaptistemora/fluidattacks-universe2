@@ -332,6 +332,7 @@ apk:
   - examples/tests/multidex/multidex.apk
   - examples/tests/partialsignature.apk
   - examples/tests/urzip-#U03c0#U00c7#U00c7#U03c0#U00c7#U00c7#U73b0#U4ee3#U6c49#U8bed#U901a#U7528#U5b57-#U0431#U044a#U043b#U0433#U0430#U0440#U0441#U043a#U0438-#U0639#U0631#U0628#U064a1234.apk
+  - ../product/skims/test/data/lib_apk/has_frida.apk
 namespace: namespace
 output: skims/test/outputs/lib_apk.csv
 working_dir: ../androguard

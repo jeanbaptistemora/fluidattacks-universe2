@@ -327,6 +327,54 @@ F046,inputs,examples/android/Invalid/Invalid.apk (namespace),android/support/v4/
   20 |     {
      ^ Col 0
 ",analyze_bytecodes._no_obfuscation
+F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,"
+>  1 | package android.support.v4.app;
+   2 |  class INotificationSideChannel$Stub$Proxy implements android.support.v4.app.INotificationSideChannel {
+   3 |     private android.os.IBinder mRemote;
+   4 |
+   5 |     INotificationSideChannel$Stub$Proxy(android.os.IBinder p1)
+   6 |     {
+   7 |         this.mRemote = p1;
+   8 |         return;
+   9 |     }
+  10 |
+  11 |     public android.os.IBinder asBinder()
+  12 |     {
+  13 |         return this.mRemote;
+  14 |     }
+  15 |
+  16 |     public void cancel(String p6, int p7, String p8)
+  17 |     {
+  18 |         android.os.Parcel v0 = android.os.Parcel.obtain();
+  19 |         try {
+  20 |             v0.writeInterfaceToken(""android.support.v4.app.INotificationSideChannel"");
+  21 |             v0.writeString(p6);
+     ^ Col 0
+",analyze_bytecodes._no_obfuscation
+F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/has_frida.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+  12 | ['$$triggerInterfaceInit', '<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToX
+     | YZ', 'S_ISREG', 'XYZToColor', 'XYZToLAB', 'abandon', 'abbreviate', 'abort', 'abortAnimatedScroll', 'abortAnimation', 'ab
+     | ortCaptures', 'abortCreation', 'abortImageCaptureRequests', 'aboutToAcquire', 'aboveAll', 'aboveValue', 'abs', 'absent',
+     |  'absorbGlows', 'accept', 'acceptMatch', 'access$000', 'access$001', 'access$100', 'access$1000', 'access$10000', 'acces
+     | s$101', 'access$10100', 'access$102', 'access$10200', 'access$10300', 'access$10400', 'access$10500', 'access$10600', 'a
+     | ccess$10700', 'access$10800', 'access$10900', 'access$1100', 'access$11000', 'access$11100', 'access$11200', 'access$113
+     | 00', 'access$11400', 'access$11500', 'access$11600', 'access$11700', 'access$11800', 'access$11900', 'access$1200', 'acc
+     | ess$12000', 'access$12100', 'access$12200', 'access$12300', 'access$12400', 'access$12500', 'access$12600', 'access$1270
+     | 0', 'access$12800', 'access$12900', 'access$1300', 'access$13000', 'access$13100', 'access$13200', 'access$13300', 'acce
+     | ss$13400', 'access$13500', 'access$13600', 'access$13700', 'access$13800', 'access$13900', 'access$1400', 'access$14000'
+     ^ Col 0
+",analyze_bytecodes._no_root_check
 F048,inputs,examples/android/Invalid/Invalid.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -5454,6 +5502,21 @@ F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),provid
   67 |    </intent-filter>
      ^ Col 0
 ",__init__._apk_exported_cp
+F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 |
+   6 | >>> # This object represents the APK to analyze
+   7 | >>> apk = APK('../product/skims/test/data/lib_apk/has_frida.apk')
+   8 |
+   9 | >>> # List all files in the APK
+  10 | >>> apk_files = apk.zip.nameslist()
+> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
+  12 | False  # No network security config exists
+     ^ Col 0
+",analyze_bytecodes._no_certs_pinning
 F207,inputs,examples/android/Invalid/Invalid.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -10391,6 +10454,45 @@ F207,inputs,examples/tests/urzip-#U03c0#U00c7#U00c7#U03c0#U00c7#U00c7#U73b0#U4ee
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes._no_certs_pinning
+F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Security controls bypass or absence - Anti hooking,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,Security controls bypass or absence - Anti hooking,"
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
+   7 | >>> # in the APK
+   8 | >>> apk_obj, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/has_frida.apk')
+   9 |
+  10 | >>> # Get the files attribute
+  11 | >>> apk_obj.get_files()
+  12 | # No method performs root detection
+> 13 | >>> ['res/drawable-v23/abc_control_background_material.xml', 'res/layout-v26/abc_screen_toolbar.xml', 'res/drawable-ldrt
+     | l-mdpi/abc_spinner_mtrl_am_alpha.9.png', 'res/drawable-ldrtl-mdpi/abc_ic_menu_cut_mtrl_alpha.png', 'res/drawable-ldrtl-m
+     | dpi/abc_ic_menu_copy_mtrl_am_alpha.png', 'res/layout-v22/abc_alert_dialog_button_bar_material.xml', 'res/color/switch_th
+     | umb_material_dark.xml', 'res/color/abc_tint_btn_checkable.xml', 'res/color/abc_primary_text_material_light.xml', 'res/co
+     | lor/switch_thumb_material_light.xml', 'res/color/abc_hint_foreground_material_light.xml', 'res/color/abc_hint_foreground
+     | _material_dark.xml', 'res/color/abc_tint_edittext.xml', 'res/color/abc_primary_text_material_dark.xml', 'res/color/abc_b
+     | tn_colored_borderless_text_material.xml', 'res/color/abc_secondary_text_material_dark.xml', 'res/color/abc_btn_colored_t
+     | ext_material.xml', 'res/color/abc_secondary_text_material_light.xml', 'res/color/abc_background_cache_hint_selector_mate
+     | rial_light.xml', 'res/color/abc_primary_text_disable_only_material_dark.xml', 'res/color/abc_search_url_text.xml', 'res/
+     | color/abc_tint_spinner.xml', 'res/color/abc_primary_text_disable_only_material_light.xml', 'res/color/abc_tint_default.x
+     | ml', 'res/color/abc_tint_switch_track.xml', 'res/color/abc_background_cache_hint_selector_material_dark.xml', 'res/color
+     ^ Col 0
+",analyze_bytecodes._has_frida
+F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 |
+   6 | >>> # This object represents the APK to analyze
+   7 | >>> apk = APK('../product/skims/test/data/lib_apk/has_frida.apk')
+   8 |
+   9 | >>> # Check the META-INF/ folder and retrieve signature pairs
+  10 | >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
+  11 | >>> apk.get_signature_names()
+> 12 | []  # Empty list means no signatures exist
+     ^ Col 0
+",analyze_bytecodes._apk_unsigned
 F103,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -12424,6 +12526,30 @@ F058,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),applic
   32 |   </activity>
      ^ Col 0
 ",__init__._apk_debugging_enabled
+F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+   1 | <manifest android:compilesdkversion=""23"" android:compilesdkversioncodename=""6.0-2438415"" package=""com.google.mediapipe.a
+     | pps.handtrackinggpu"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=""http://schemas.android.co
+     | m/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""21"" android:targetsdkversion=""27"">
+   3 |  </uses-sdk>
+   4 |  <uses-permission android:name=""android.permission.CAMERA"">
+   5 |  </uses-permission>
+   6 |  <uses-feature android:name=""android.hardware.camera"">
+   7 |  </uses-feature>
+>  8 |  <application android:allowbackup=""true"" android:appcomponentfactory=""androidx.core.app.CoreComponentFactory"" android:ic
+     | on=""@7F0B0000"" android:label=""Hand Tracking"" android:roundicon=""@7F0B0002"" android:supportsrtl=""true"" android:theme=""@7F
+     | 0D0005"">
+   9 |   <activity android:exported=""true"" android:name=""com.google.mediapipe.apps.handtrackinggpu.MainActivity"" android:screen
+     | orientation=""1"">
+  10 |    <intent-filter>
+  11 |     <action android:name=""android.intent.action.MAIN"">
+  12 |     </action>
+  13 |     <category android:name=""android.intent.category.LAUNCHER"">
+  14 |     </category>
+  15 |    </intent-filter>
+  16 |   </activity>
+     ^ Col 0
+",__init__._apk_backups_enabled
 F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.test.intent_filter"" platformbuildversioncode=""1"" platformbuildversionname=""1.000000"" xmlns:android

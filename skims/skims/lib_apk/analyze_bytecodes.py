@@ -551,7 +551,7 @@ def _has_frida(
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F103,
+        finding=core_model.FindingEnum.F206,
         locations=locations,
     )
 
@@ -566,6 +566,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F058: _apk_debugging_enabled,
     core_model.FindingEnum.F075: _apk_exported_cp,
     core_model.FindingEnum.F103: _apk_unsigned,
+    core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }
