@@ -22,7 +22,6 @@ interface IOrganizationGroups {
   groups: {
     name: string;
     permissions: string[];
-    userRole: string;
   }[];
   name: string;
 }

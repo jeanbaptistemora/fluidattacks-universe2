@@ -3,13 +3,7 @@ import { useAbility } from "@casl/react";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { Button } from "components/Button";
 import { filterSearchText } from "components/DataTableNext/utils";
@@ -19,7 +13,6 @@ import { formatVulnerabilitiesTreatment } from "scenes/Dashboard/components/Vuln
 import type {
   IAction,
   IGroupAction,
-  IGroupRole,
   ITasksContent,
 } from "scenes/Dashboard/containers/Tasks/types";
 import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
@@ -31,7 +24,6 @@ import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 export const TasksContent: React.FC<ITasksContent> = ({
-  setUserRole,
   userData,
   setTaskState,
   taskState,
@@ -46,27 +38,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
   );
-  const userGroupsRoles: string[] = useMemo(
-    (): string[] =>
-      userData === undefined || _.isEmpty(userData)
-        ? []
-        : _.flatten(
-            userData.me.organizations.map(
-              (organization: IOrganizationGroups): string[] =>
-                organization.groups.map(
-                  (group: IOrganizationGroups["groups"][0]): string =>
-                    group.userRole
-                )
-            )
-          ),
-    [userData]
-  );
   const [allData] = useContext(AssignedVulnerabilitiesContext);
 
   const changePermissions = useCallback(
     (groupName: string): void => {
       permissionsContext.update([]);
-      if (userData !== undefined && userGroupsRoles.length > 0) {
+      if (userData !== undefined) {
         const recordPermissions: IGroupAction[] = _.flatten(
           userData.me.organizations.map(
             (organization: IOrganizationGroups): IGroupAction[] =>
@@ -86,36 +63,18 @@ export const TasksContent: React.FC<ITasksContent> = ({
           (recordPermission: IGroupAction): boolean =>
             recordPermission.groupName.toLowerCase() === groupName.toLowerCase()
         );
-        const recordRoles: IGroupRole[] = _.flatten(
-          userData.me.organizations.map(
-            (organization: IOrganizationGroups): IGroupRole[] =>
-              organization.groups.map(
-                (group: IOrganizationGroups["groups"][0]): IGroupRole => ({
-                  groupName: group.name,
-                  role: group.userRole,
-                })
-              )
-          )
-        );
-        const filteredRole: IGroupRole[] = recordRoles.filter(
-          (recordRole: IGroupRole): boolean =>
-            recordRole.groupName.toLowerCase() === groupName.toLowerCase()
-        );
         if (filteredPermissions.length > 0) {
           permissionsContext.update(filteredPermissions[0].actions);
         }
-        if (filteredRole.length > 0) {
-          setUserRole(filteredRole[0].role);
-        }
       }
     },
-    [permissionsContext, setUserRole, userData, userGroupsRoles.length]
+    [permissionsContext, userData]
   );
 
   const onGroupChange: () => void = (): void => {
     attributesContext.update([]);
     permissionsContext.update([]);
-    if (userData !== undefined && userGroupsRoles.length > 0) {
+    if (userData !== undefined) {
       const currentPermissions: IAction[][] = _.flatten(
         userData.me.organizations.map(
           (organization: IOrganizationGroups): IAction[][] =>
@@ -147,17 +106,10 @@ export const TasksContent: React.FC<ITasksContent> = ({
           )
         );
       }
-      setUserRole(userGroupsRoles[0]);
     }
   };
 
-  useEffect(onGroupChange, [
-    attributesContext,
-    permissionsContext,
-    setUserRole,
-    userData,
-    userGroupsRoles,
-  ]);
+  useEffect(onGroupChange, [attributesContext, permissionsContext, userData]);
 
   const [, setRemediationModalConfig] = useState<{
     vulnerabilities: IVulnRowAttr[];
