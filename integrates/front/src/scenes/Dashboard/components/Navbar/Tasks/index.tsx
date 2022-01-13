@@ -1,5 +1,6 @@
 import type { ApolloQueryResult } from "@apollo/client";
 import { useApolloClient } from "@apollo/client";
+import { PureAbility } from "@casl/ability";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
@@ -11,12 +12,13 @@ import type { IVulnRowAttr } from "../../Vulnerabilities/types";
 import { NavbarButton } from "../styles";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { mergedAssigned } from "scenes/Dashboard/components/Navbar/Tasks/utils";
+import type { IGroupAction } from "scenes/Dashboard/containers/Tasks/types";
 import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import type { IGetVulnsGroups } from "scenes/Dashboard/types";
 
 interface INavbarTasksProps {
-  groups: string[];
+  groups: IGroupAction[];
   taskState: boolean;
 }
 
@@ -45,7 +47,20 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
     async function fetchData(): Promise<void> {
       setAllData([]);
       const limitSize: number = 5;
-      const groupsChunks: string[][] = _.chunk(groups, limitSize);
+      const filteredGroups: string[] = groups.reduce(
+        (reducedGroups: string[], currentGroup: IGroupAction): string[] => {
+          const currentGroupPermissions: PureAbility<string> = new PureAbility(
+            currentGroup.actions
+          );
+          if (currentGroupPermissions.can("valid_assigned")) {
+            return [...reducedGroups, currentGroup.groupName];
+          }
+
+          return reducedGroups;
+        },
+        []
+      );
+      const groupsChunks: string[][] = _.chunk(filteredGroups, limitSize);
 
       const requestedChunks = groupsChunks.map(
         (
