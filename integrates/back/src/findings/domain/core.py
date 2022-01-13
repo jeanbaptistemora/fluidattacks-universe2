@@ -113,6 +113,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def add_comment(
@@ -579,7 +580,18 @@ async def mask_finding(  # pylint: disable=too-many-locals
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
     await collect(mask_new_finding_coroutines)
-    return all(await collect(mask_finding_coroutines))
+    success = all(await collect(mask_finding_coroutines))
+    if success:
+        LOGGER_CONSOLE.info(
+            "Finding masked",
+            extra={
+                "extra": {
+                    "finding_id": finding.id,
+                    "group_name": finding.group_name,
+                }
+            },
+        )
+    return success
 
 
 async def request_vulnerabilities_verification(
