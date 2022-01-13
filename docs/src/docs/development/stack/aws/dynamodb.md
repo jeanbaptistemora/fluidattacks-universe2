@@ -117,11 +117,11 @@ are the following:
 We use [DynamoDB][DYNAMODB] for
 
 - storing and retrieving all the business-related data
-  in our [ASM][ASM],
+  in our [ASM][ASM];
 - storing [Point-in-Time Recovery backups](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/database/terraform/integrates-table.tf#L75)
-  of all our data,
+  of all our data;
 - storing [on-demand backups](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/backup/terraform/dynamodb.tf)
-  of all our data,
+  of all our data;
 - keeping a [versioned design](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/arch/database-design.json)
   of our database, and
 - managing [Terraform state locks](https://www.terraform.io/docs/language/settings/backends/s3.html#dynamodb-state-locking)

@@ -64,7 +64,8 @@ are the following:
 ## Alternatives
 
 - **[Google Compute Engine (GCE)](https://cloud.google.com/compute):**
-  It did not exist at the time we migrated to the cloud.
+  It did not exist
+  at the time we migrated to the cloud.
   [GCP](https://cloud.google.com/gcp) does not offer
   an equivalent to EBS.
   Instead,
@@ -72,7 +73,8 @@ are the following:
   exists within GCE.
   It does not support disk encryption.
 - **[Azure Disk Storage](https://azure.microsoft.com/en-us/services/storage/disks/):**
-  It did not exist at the time we migrated to the cloud
+  It did not exist
+  at the time we migrated to the cloud
   (pending review).
 
 ## Usage
@@ -84,7 +86,7 @@ We use [AWS EBS][EBS] for
   as it only needs to have basic software installed
   such as [Gitlab Runner](https://docs.gitlab.com/runner/install/)
   and [Docker Machine](https://docs.docker.com/machine/install-machine/);
-  high disk throughput is not required),
+  high disk throughput is not required);
 - [Gitlab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57)
   (we use 10 GiB [GP3][GP2] disks
   just for hosting our workers' [operating system][OS].
@@ -93,12 +95,12 @@ We use [AWS EBS][EBS] for
   [50 GiB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/),
   which are very useful
   for achieving as-fast-as-possible
-  job performance within our [CI](/development/stack/gitlab-ci)),
+  job performance within our [CI](/development/stack/gitlab-ci));
 - [Batch](/development/stack/aws/batch/) processing
   [workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112)
   (we use 8 GiB GP2 disks
   just for hosting the operating system.
-  These workers also come with 50 GiB internal NVMe disks),
+  These workers also come with 50 GiB internal NVMe disks);
 - [Kubernetes](/development/stack/kubernetes) cluster
   [workers](https://gitlab.com/fluidattacks/product/-/blob/53879d903b3c8c2561d45552cbc53f2350601e38/makes/applications/makes/k8s/src/terraform/cluster.tf#L40)
   (we use 50 GiB GP2 disks
@@ -107,7 +109,7 @@ We use [AWS EBS][EBS] for
   for applications like our [ASM](https://fluidattacks.com/categories/asm/).
   High disk throughput is not required
   as our ASM does not store any data
-  within local disks),
+  within local disks);
 - [Okta RADIUS Agent](/development/stack/okta#usage)
   (we use a 50 GiB GP2 disk.
   It is probably oversized

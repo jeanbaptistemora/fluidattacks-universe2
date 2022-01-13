@@ -66,21 +66,21 @@ are the following:
 We use [CloudWatch][CLOUDWATCH] for monitoring
 
 - [EC2][EC2]
-  instance performance,
+  instance performance;
 - [EBS](/development/stack/aws/ebs/)
-  disk usage and performance,
+  disk usage and performance;
 - [S3](/development/stack/aws/s3/)
-  bucket size and object number,
+  bucket size and object number;
 - [ELB](/development/stack/aws/elb/)
-  load balancer performance,
+  load balancer performance;
 - [Redshift](/development/stack/aws/redshift/)
-  database usage and performance,
+  database usage and performance;
 - [Redis cache cluster](/development/stack/aws/redis/)
-  usage and performance,
+  usage and performance;
 - [DynamoDB](/development/stack/aws/dynamodb/)
-  tables usage and performance,
+  tables usage and performance;
 - [SQS](https://aws.amazon.com/sqs/)
-  sent, delayed, received and deleted messages,
+  sent, delayed, received and deleted messages;
 - [ECS](https://aws.amazon.com/ecs/)
   cluster resource reservation and utilization,
   and
@@ -90,24 +90,24 @@ We use [CloudWatch][CLOUDWATCH] for monitoring
 We do not use CloudWatch for
 
 - [synthetic monitoring](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html)
-  (we use [Checkly](https://www.checklyhq.com/) instead),
+  (we use [Checkly](https://www.checklyhq.com/) instead);
 - [ServiceLens](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ServiceLens.html)
   (it only supports [Lambda][LAMBDA] functions,
   [API Gateway](https://aws.amazon.com/api-gateway/),
   and [Java-based](https://en.wikipedia.org/wiki/Java_(programming_language))
-  applications),
+  applications);
 - [Contributor Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights.html)
-  (we use [Cloudflare](/development/stack/cloudflare/) instead),
+  (we use [Cloudflare](/development/stack/cloudflare/) instead);
 - [Container Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights.html)
   (we use [New Relic](https://newrelic.com/);
-  pending review),
+  pending review);
 - [Lambda Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights.html)
   (we currently use [Lambda][LAMBDA]
-  for a few non-critical tasks),
+  for a few non-critical tasks);
 - [CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html)
   (it could increase visibility
   for [EC2][EC2] machines;
-  pending review),
+  pending review);
 - [CloudWatch Application Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-application-insights.html)
   (it only supports [Java-based](https://en.wikipedia.org/wiki/Java_(programming_language))
   applications),

@@ -72,8 +72,8 @@ and the [Gitlab CI Bastion](https://docs.gitlab.com/runner/configuration/autosca
 
 We use Batch for running
 
-- [Observes ETLs](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/observes/scheduled/on-aws),
-- [Skims scans](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/skims/process-groups-on-aws),
+- [Observes ETLs](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/observes/scheduled/on-aws);
+- [Skims scans](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/skims/process-groups-on-aws);
 - [Skims OWASP Benchmark](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/skims/owasp-benchmark-on-aws),
   and
 - [ASM Users to Entity reports](https://gitlab.com/fluidattacks/product/-/blob/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/integrates/subscriptions/user-to-entity-on-aws/default.nix).
