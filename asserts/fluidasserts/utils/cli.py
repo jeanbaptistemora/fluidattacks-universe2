@@ -1117,7 +1117,6 @@ def exec_apk_package(apks):
             apk.uses_insecure_delete('{apk}')
             apk.uses_http_resources('{apk}')
             apk.socket_uses_getinsecure('{apk}')
-            apk.has_frida('{apk}')
             """
         ).replace("{apk}", apk)
     return exec_wrapper("built-in APK package", template)

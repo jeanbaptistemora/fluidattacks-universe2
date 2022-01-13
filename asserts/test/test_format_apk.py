@@ -75,11 +75,6 @@ def test_unsafe_http_open():
     assert apk.uses_http_resources(HTTP_OPEN)
 
 
-def test_frida_open():
-    """Test if APK Frida embedded."""
-    assert apk.has_frida(FRIDA_APK)
-
-
 #
 # Close tests
 #
@@ -140,11 +135,6 @@ def test_getinsecure_close():
     assert not apk.socket_uses_getinsecure(SIGNED_APK)
 
 
-def test_frida_close():
-    """Test if APK Frida embedded."""
-    assert not apk.has_frida(SIGNED_APK)
-
-
 #
 # Unknown tests
 #
@@ -193,8 +183,3 @@ def test_unsafe_http_unknown():
 def test_getinsecure_unknown():
     """Test if APK uses getInsecure socket factory."""
     assert not apk.socket_uses_getinsecure(NOT_EXISTS_APK)
-
-
-def test_frida_unknown():
-    """Test if APK Frida embedded."""
-    assert not apk.has_frida(NOT_EXISTS_APK)

@@ -338,29 +338,3 @@ def socket_uses_getinsecure(apk_file: str) -> tuple:
         msg_closed="APK does not use sockets created with getInsecure",
         open_if=uses_get_insecure,
     )
-
-
-@api(risk=HIGH, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def has_frida(apk_file: str) -> tuple:
-    """
-    Check if the given APK has **Frida** gadget embedded.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK have the **Frida** gadget in its files.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    frida_gadgets: List[str] = [x for x in apk_obj.get_files() if "frida" in x]
-    is_frida_gadget_in_files: bool = bool(frida_gadgets)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK has Frida gadget embedded",
-        msg_closed="APK does not have Frida gadget embedded",
-        open_if=is_frida_gadget_in_files,
-        fingerprint={"frida_gadgets": frida_gadgets},
-    )
