@@ -108,6 +108,9 @@ def format_unreliable_indicators(
 ) -> VulnerabilityUnreliableIndicators:
     return VulnerabilityUnreliableIndicators(
         unreliable_report_date=item.get("unreliable_report_date", None),
+        unreliable_source=None
+        if item.get("unreliable_source", None) is None
+        else Source[item["unreliable_source"]],
     )
 
 

@@ -39,6 +39,7 @@ class VulnerabilityTreatment(NamedTuple):
 
 class VulnerabilityUnreliableIndicators(NamedTuple):
     unreliable_report_date: Optional[str] = None
+    unreliable_source: Optional[Source] = None
 
 
 class VulnerabilityVerification(NamedTuple):
