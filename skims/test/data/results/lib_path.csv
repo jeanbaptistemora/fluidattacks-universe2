@@ -24587,6 +24587,22 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 ",c_sharp.insecure_logging
+F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,"Azure Key Vault secrets do not have an expiration date set
+ in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf","
+>  1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
+   2 |   name         = ""example""
+   3 |   value        = var.value_azsqlrevapp
+   4 |   key_vault_id = data.azurerm_key_vault.kv.id
+   5 | }
+   6 |
+   7 | resource ""azurerm_key_vault_secret"" ""not_vulnerable"" {
+   8 |   name            = ""kvAzsqlRevApphist""
+   9 |   expiration_date = ""2020-12-30T20:00:00Z""
+  10 |   value           = var.value_azsqlrevapphist
+  11 |   key_vault_id    = data.azurerm_key_vault.kv.id
+  12 | }
+     ^ Col 0
+",f401._tfm_azure_kv_secret_no_expiration_date
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,10,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
