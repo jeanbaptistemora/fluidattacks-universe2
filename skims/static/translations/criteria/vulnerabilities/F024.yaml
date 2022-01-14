@@ -1,3 +1,6 @@
+src.lib_path.f024.ec2_has_unrestricted_ports:
+  en: Avoid SecurityGroup ingress/egress rules with port ranges
+  es: Evite las reglas de entrada/salida de SecurityGroup con rangos de puertos
 src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918:
   en: >
     Security groups contain RFC-1918 CIDRs open
