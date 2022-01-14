@@ -265,17 +265,39 @@ async def queue_boto3(
         )
         if len(current_jobs["jobSummaryList"]) > 0:
             current_job = current_jobs["jobSummaryList"][0]
+
             if current_job["status"] in {
                 "SUBMITTED",
                 "PENDING",
                 "RUNNABLE",
-            }:
-                return {"error": "The job is already in queue"}
-            if current_job["status"] in {
                 "STARTING",
                 "RUNNING",
             }:
-                return {"error": "The job is already running"}
+                current_job_description = (
+                    await describe_jobs(current_job["jobId"])
+                )[0]
+                roots_to_execute = json.loads(
+                    current_job_description["container"]["command"][-1]
+                )
+                if tuple(roots_to_execute) == namespaces:
+                    return {"error": "The job is already running"}
+                if current_job["status"] in {
+                    "STARTING",
+                    "RUNNING",
+                }:
+                    # only run the roots that are not in the current job
+                    namespaces = tuple(
+                        set(namespaces).difference(set(roots_to_execute))
+                    )
+                else:
+                    # cancel the queued job and create a new one by
+                    # joining the roots
+                    namespaces = tuple(set((*namespaces, *roots_to_execute)))
+                    await batch.cancel_job(
+                        jobId=current_job["jobId"],
+                        reason="another job was queued",
+                    )
+
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
