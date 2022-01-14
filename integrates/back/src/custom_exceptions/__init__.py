@@ -1100,3 +1100,12 @@ class InvalidGitCredentials(CustomBaseException):
             "with given credentials"
         )
         super(InvalidGitCredentials, self).__init__(msg)
+
+
+class EmptyHistoric(CustomBaseException):
+    """Exception to control the historic is not empty"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The historic can not be empty"
+        super(EmptyHistoric, self).__init__(msg)

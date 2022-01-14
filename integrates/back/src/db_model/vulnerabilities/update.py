@@ -17,6 +17,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    EmptyHistoric,
     IndicatorAlreadyUpdated,
     VulnNotFound,
 )
@@ -128,6 +129,8 @@ async def update_historic(
     historic: VulnerabilityHistoric,
     vulnerability_id: str,
 ) -> None:
+    if not historic:
+        raise EmptyHistoric()
     key_structure = TABLE.primary_key
     historic = adjust_historic_dates(historic)
     latest_entry = historic[-1]

@@ -194,21 +194,24 @@ async def process_vuln(
         vulnerability_id=new_id,
         historic_state=historic_state,
     )
-    await vulns_dal.update_historic_treatment(
-        finding_id=target_finding_id,
-        vulnerability_id=new_id,
-        historic_treatment=historic_treatment,
-    )
-    await vulns_dal.update_historic_verification(
-        finding_id=target_finding_id,
-        vulnerability_id=new_id,
-        historic_verification=historic_verification,
-    )
-    await vulns_dal.update_historic_zero_risk(
-        finding_id=target_finding_id,
-        vulnerability_id=new_id,
-        historic_zero_risk=historic_zero_risk,
-    )
+    if historic_treatment:
+        await vulns_dal.update_historic_treatment(
+            finding_id=target_finding_id,
+            vulnerability_id=new_id,
+            historic_treatment=historic_treatment,
+        )
+    if historic_verification:
+        await vulns_dal.update_historic_verification(
+            finding_id=target_finding_id,
+            vulnerability_id=new_id,
+            historic_verification=historic_verification,
+        )
+    if historic_zero_risk:
+        await vulns_dal.update_historic_zero_risk(
+            finding_id=target_finding_id,
+            vulnerability_id=new_id,
+            historic_zero_risk=historic_zero_risk,
+        )
     await vulns_domain.close_by_exclusion(
         vulnerability=vuln,
         modified_by=item_subject,
@@ -436,11 +439,9 @@ async def move_root(*, item: BatchProcessing) -> None:
     root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
         root.id
     )
-    vulns_by_finding = tuple(
-        itertools.groupby(
-            sorted(root_vulns, key=attrgetter("finding_id")),
-            key=attrgetter("finding_id"),
-        )
+    vulns_by_finding = itertools.groupby(
+        sorted(root_vulns, key=attrgetter("finding_id")),
+        key=attrgetter("finding_id"),
     )
     await collect(
         tuple(
