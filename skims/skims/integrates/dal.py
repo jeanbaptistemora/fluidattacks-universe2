@@ -1,8 +1,8 @@
 # pylint: disable=too-many-lines
-import aiohttp
-from functools import (
-    reduce,
+from aiogqlc import (
+    GraphQLClient,
 )
+import aiohttp
 from integrates.graphql import (
     client as graphql_client,
 )
@@ -61,22 +61,6 @@ class ErrorMapping(NamedTuple):
     messages: Tuple[str, ...]
 
 
-# This function is intended to handle the case when the value of a dictionary
-# is None. In this case a plain get function is useless because the key exists
-# For example
-# result = {"data": {"findings": [val1, val2, ...], "draft": None}}
-# result.get("data", {}).get("draft", {}).get("values", [])
-# results in a None type has no get attribute
-def safe_get(result: Dict[str, Any], fields: List[str], default: Any) -> Any:
-    def _get(result: Dict[str, Any], field: str) -> Any:
-        return result.get(field)
-
-    try:
-        return reduce(_get, fields, result) or default
-    except AttributeError:
-        return default
-
-
 async def raise_errors(
     errors: Optional[Tuple[Dict[str, Any], ...]],
     error_mappings: Tuple[ErrorMapping, ...],
@@ -104,21 +88,29 @@ async def _execute(
     query: str,
     operation: str,
     variables: Dict[str, Any],
-) -> Optional[Dict[str, Any]]:
-    async with graphql_client() as client:
+    client: Optional[GraphQLClient] = None,
+) -> Dict[str, Any]:
+    if client and not client.session.closed:
         response: aiohttp.ClientResponse = await client.execute(
             query=query,
             operation=operation,
             variables=variables,
         )
+    else:
+        async with graphql_client() as client:
+            response = await client.execute(
+                query=query,
+                operation=operation,
+                variables=variables,
+            )
 
-        if response.status >= 400:
-            await log("debug", "query: %s", query)
-            await log("debug", "variables: %s", variables)
-            await log("debug", "response status: %s", response.status)
-            raise aiohttp.ClientError()
+    if response.status >= 400:
+        await log("debug", "query: %s", query)
+        await log("debug", "variables: %s", variables)
+        await log("debug", "response status: %s", response.status)
+        raise aiohttp.ClientError()
 
-        result: Dict[str, Any] = (await response.json()) or {}
+    result: Dict[str, Any] = (await response.json()) or {}
 
     await raise_errors(
         errors=result.get("errors"),
@@ -204,15 +196,15 @@ async def get_group_findings(
         ),
     )
 
-    raw_findings = result.get("data", {}).get("group", {}).get("findings")
-    raw_drafts = result.get("data", {}).get("group", {}).get("drafts")
-
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
-            identifier=raw_finding["id"],
-            title=raw_finding["title"],
+            identifier=finding["id"],
+            title=finding["title"],
         )
-        for raw_finding in (raw_findings or []) + (raw_drafts or [])
+        for finding in (
+            result.get("data", {}).get("group", {}).get("findings", [])
+            + result.get("data", {}).get("group", {}).get("drafts", [])
+        )
     ]
 
     findings = sorted(
@@ -828,13 +820,13 @@ async def do_update_evidence_description(
     return success
 
 
-@SHIELD
 async def do_update_vulnerability_commit(
     *,
     vuln_commit: str,
     vuln_id: str,
     vuln_what: str,
     vuln_where: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     result = await _execute(
         query="""
@@ -861,7 +853,10 @@ async def do_update_vulnerability_commit(
             vuln_what=vuln_what,
             vuln_where=vuln_where,
         ),
+        client=client,
     )
+    if "errors" in result:
+        return False
 
     success: bool = (
         (result or {})
@@ -871,9 +866,6 @@ async def do_update_vulnerability_commit(
         if result["data"]
         else False
     )
-
-    if result is None:
-        raise RetryAndFinallyReturn(success)
 
     return success
 

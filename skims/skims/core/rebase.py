@@ -17,6 +17,7 @@ from integrates.dal import (
     get_group_finding_ids,
 )
 from integrates.graphql import (
+    client as graphql_client,
     create_session,
 )
 from model import (
@@ -83,7 +84,7 @@ def _rebase(
             rev_b="HEAD",
         ):
             log_blocking(
-                "info",
+                "debug",
                 (
                     "Vulnerability will be rebased from:\n"
                     "  from path: %s\n"
@@ -131,15 +132,19 @@ async def main(
                 lambda vuln: (_rebase(repo, vuln), vuln), vulnerabilities
             )
         )
-    futures = [
-        do_update_vulnerability_commit(
-            vuln_commit=rebase_data.rev,
-            vuln_id=vulnerability.integrates_metadata.uuid,
-            vuln_what=os.path.join(namespace, rebase_data.path),
-            vuln_where=str(rebase_data.line),
-        )
-        for rebase_data, vulnerability in all_rebase
-        if rebase_data
-    ]
-    await log("info", "Updating vulnerability commits")
-    return all(await collect(futures))
+    async with graphql_client() as client:
+        futures = [
+            do_update_vulnerability_commit(
+                vuln_commit=rebase_data.rev,
+                vuln_id=vulnerability.integrates_metadata.uuid,
+                vuln_what=os.path.join(namespace, rebase_data.path),
+                vuln_where=str(rebase_data.line),
+                client=client,
+            )
+            for rebase_data, vulnerability in all_rebase
+            if rebase_data
+        ]
+        await log("info", "Updating vulnerability commits")
+        await log("info", "Vulnerabilities to update %s", len(futures))
+
+        return all(await collect(futures))
