@@ -271,9 +271,20 @@ async def process_finding(
             group_name=target_group_name,
             state=target_submission,
         )
-        target_approval = source_finding.approval._replace(
-            modified_date=datetime_utils.get_iso_date()
-        )
+        try:
+            target_approval = source_finding.approval._replace(
+                modified_date=datetime_utils.get_iso_date()
+            )
+        except AttributeError:
+            LOGGER.error(
+                "Finding Attribute Error",
+                extra={
+                    "extra": {
+                        "finding": source_finding_id,
+                        "group": source_group_name,
+                    }
+                },
+            )
         await findings_model.update_state(
             current_value=target_submission,
             finding_id=target_finding_id,

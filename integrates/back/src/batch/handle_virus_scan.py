@@ -24,6 +24,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def handle_virus_scan(*, item: BatchProcessing) -> None:
@@ -34,7 +35,7 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
         f"Processing virus scan on file {file_name} requested by "
         f"{user_email} for group {group_name}"
     )
-    LOGGER.info(":".join([item.subject, message]), **NOEXTRA)
+    LOGGER_CONSOLE.info(":".join([item.subject, message]), **NOEXTRA)
 
     handled_file = await resources_utils.get_file(
         file_name, group_name, user_email

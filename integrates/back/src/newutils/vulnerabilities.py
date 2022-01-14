@@ -1004,7 +1004,7 @@ def get_optional(key: str, item: Dict[str, Any], fallback: Any = None) -> Any:
 
 def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
     return VulnerabilityState(
-        modified_by=state["analyst"],
+        modified_by=state.get("analyst") or state.get("hacker") or "",
         modified_date=convert_to_iso_str(state["date"]),
         source=Source[map_source(state["source"]).upper()],
         status=VulnerabilityStateStatus[state["state"].upper()],
