@@ -1,12 +1,16 @@
 from aioextensions import (
     collect,
 )
+from bill import (
+    domain as bill_domain,
+)
 from billing.types import (
     AddBillingSubscriptionPayload,
     Customer,
     Portal,
     Price,
     Subscription,
+    SubscriptionItem,
     UpdateBillingSubscriptionPayload,
 )
 from context import (
@@ -24,11 +28,17 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from groups import (
     domain as groups_domain,
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -167,7 +177,7 @@ async def _format_update_subscription_data(
     org_billing_customer: str,
     subscription_id: str,
     subscription: str,
-    current_items: List[str],
+    current_items: List[SubscriptionItem],
 ) -> Dict[str, Any]:
     """Format update subscription session data according to stripe API"""
     prices: List[Price] = await _collect_subscription_prices(
@@ -179,11 +189,11 @@ async def _format_update_subscription_data(
     if subscription == "machine":
         items = [
             {
-                "id": current_items[0],
+                "id": current_items[0].id,
                 "price": prices[0].id,
             },
             {
-                "id": current_items[1],
+                "id": current_items[1].id,
                 "deleted": True,
                 "clear_usage": True,
             },
@@ -191,7 +201,7 @@ async def _format_update_subscription_data(
     else:
         items = [
             {
-                "id": current_items[0],
+                "id": current_items[0].id,
                 "price": prices[0].id,
             },
             {
@@ -222,13 +232,20 @@ async def _get_group_subscription(
     ).data
     filtered = [sub for sub in subs if sub.metadata.group == group_name]
     if len(filtered) > 0:
+        sub_items: List[SubscriptionItem] = [
+            SubscriptionItem(
+                id=item["id"],
+                type=item["price"]["lookup_key"],
+            )
+            for item in filtered[0]["items"]["data"]
+        ]
         return Subscription(
             id=filtered[0].id,
             group=filtered[0].metadata.group,
             org_billing_customer=filtered[0].customer,
             organization=filtered[0].metadata.organization,
             type=filtered[0].metadata.subscription,
-            items=[item["id"] for item in filtered[0]["items"]["data"]],
+            items=sub_items,
         )
     return None
 
@@ -274,6 +291,31 @@ async def _create_customer(
     )
 
     return customer
+
+
+async def _report_subscription_usage(
+    *,
+    subscription: Subscription,
+) -> None:
+    """Report group squad usage to Stripe"""
+    timestamp: int = int(time.time())
+    date: datetime = datetime_utils.get_now()
+    authors: int = len(
+        await bill_domain.get_authors_data(
+            date=date,
+            group=subscription.group,
+        )
+    )
+    sub_item_id: str = [
+        item.id for item in subscription.items if item.type == "squad"
+    ][0]
+
+    stripe.SubscriptionItem.create_usage_record(
+        sub_item_id,
+        quantity=authors,
+        timestamp=timestamp,
+        action="set",
+    )
 
 
 async def create_subscription(
@@ -385,6 +427,12 @@ async def update_subscription(
     if sub.type == subscription:
         raise BillingSubscriptionSameActive()
 
+    # Report latest usage if subscription is squad
+    if sub.type == "squad":
+        await _report_subscription_usage(
+            subscription=sub,
+        )
+
     # Format subscription update data
     data = await _format_update_subscription_data(
         org_billing_customer=org_billing_customer,
@@ -434,8 +482,13 @@ async def remove_subscription(
     if sub is None:
         raise BillingGroupWithoutSubscription()
 
-    # Will generate a draft invoice if subscription is squad
-    invoice_now: bool = sub.type == "squad"
+    # Report usage if subscription is squad
+    invoice_now: bool = False
+    if sub.type == "squad":
+        await _report_subscription_usage(
+            subscription=sub,
+        )
+        invoice_now = True
 
     return (
         stripe.Subscription.delete(

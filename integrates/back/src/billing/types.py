@@ -29,13 +29,18 @@ class Portal(NamedTuple):
     return_url: str
 
 
+class SubscriptionItem(NamedTuple):
+    id: str
+    type: str
+
+
 class Subscription(NamedTuple):
     id: str
     group: str
     org_billing_customer: str
     organization: str
     type: str
-    items: List[str]
+    items: List[SubscriptionItem]
 
 
 class UpdateBillingSubscriptionPayload(NamedTuple):
