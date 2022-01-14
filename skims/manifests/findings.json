@@ -711,6 +711,14 @@
       "title": "398. Fragment Injection"
     }
   },
+  "F400": {
+    "EN": {
+      "title": "400. Tracebility Loss - AWS"
+    },
+    "ES": {
+      "title": "400. Tracebility Loss - AWS"
+    }
+  },
   "F401": {
     "EN": {
       "title": "401. Insecure service configuration - AKV Secret Expiration"
