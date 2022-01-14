@@ -27,6 +27,7 @@ import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -141,6 +142,21 @@ describe("Update Description component", (): void => {
           state: "default",
           title: "",
           tracking: [],
+        },
+      },
+    },
+  };
+  const mocksVulnGroups: MockedResponse = {
+    request: {
+      query: GET_VULNS_GROUPS,
+      variables: {
+        groupName: "testgroupname",
+      },
+    },
+    result: {
+      data: {
+        group: {
+          vulnerabilitiesAssigned: [],
         },
       },
     },
@@ -469,7 +485,7 @@ describe("Update Description component", (): void => {
         assigned: "",
         currentState: "open",
         externalBugTrackingSystem: null,
-        groupName: "",
+        groupName: "testgroupname",
         historicTreatment: [],
         id: "test1",
         severity: null,
@@ -481,7 +497,7 @@ describe("Update Description component", (): void => {
         assigned: "",
         currentState: "open",
         externalBugTrackingSystem: null,
-        groupName: "",
+        groupName: "testgroupname",
         historicTreatment: [],
         id: "test2",
         severity: null,
@@ -493,12 +509,12 @@ describe("Update Description component", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, ...mocksVulns]}
+        mocks={[...mocksMutation, ...mocksVulns, mocksVulnGroups]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
             findingId={"422286126"}
-            groupName={""}
+            groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
             vulnerabilities={vulnsToUpdate}
@@ -611,7 +627,7 @@ describe("Update Description component", (): void => {
         assigned: "",
         currentState: "open",
         externalBugTrackingSystem: null,
-        groupName: "",
+        groupName: "testgroupname",
         historicTreatment: [],
         id: "test",
         severity: null,
@@ -621,10 +637,14 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={[mocksError, ...mocksVulns]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[mocksError, ...mocksVulns, mocksVulnGroups]}
+      >
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
             findingId={"422286126"}
+            groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
             vulnerabilities={vulnsToUpdate}
