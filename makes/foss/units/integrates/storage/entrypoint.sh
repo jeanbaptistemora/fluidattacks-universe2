@@ -12,7 +12,9 @@ function serve {
   local buckets_by_root=(
     'fluidintegrates.reports'
   )
+  local bill_bucket='continuous-data'
   local buckets=(
+    "${bill_bucket}"
     "${buckets_by_branch[@]}"
     "${buckets_by_group[@]}"
     "${buckets_by_root[@]}"
@@ -20,6 +22,7 @@ function serve {
   local host='127.0.0.1'
   local port='9000'
   local state_path='.Storage'
+  local bill_date
 
   aws_login_dev \
     && sops_export_vars __argDevSecrets__ \
@@ -40,6 +43,7 @@ function serve {
     && __argMinioCli__ admin policy set storage readwrite user="${AWS_ACCESS_KEY_ID}" \
     && for bucket in "${buckets[@]}"; do
       __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
+        && __argMinioCli__ policy set public "storage/${bucket}" \
         || return 1
     done \
     && if test "${POPULATE}" != 'false'; then
@@ -61,7 +65,12 @@ function serve {
             "${state_path}/${bucket}/${CI_COMMIT_REF_NAME}" \
             --delete \
             || return 1
-        done
+        done \
+        && bill_date="$(date +'%Y/%m')" \
+        && aws_s3_sync \
+          "s3://${bill_bucket}/bills/test" \
+          "${state_path}/${bill_bucket}/bills/${bill_date}" \
+          --delete
     fi \
     && done_port "${host}" 29000 \
     && echo '[INFO] Storage is ready' \
