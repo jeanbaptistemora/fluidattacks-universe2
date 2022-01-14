@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 import aiohttp
 from functools import (
     reduce,
@@ -103,7 +104,7 @@ async def _execute(
     query: str,
     operation: str,
     variables: Dict[str, Any],
-) -> Dict[str, Any]:
+) -> Optional[Dict[str, Any]]:
     async with graphql_client() as client:
         response: aiohttp.ClientResponse = await client.execute(
             query=query,
@@ -159,7 +160,9 @@ async def get_group_level_role(
         ),
     )
 
-    return safe_get(result, ["data", "group", "userRole"], default="none")
+    role: str = result.get("data", {}).get("group", {}).get("userRole", "none")
+
+    return role
 
 
 class ResultGetGroupFindings(NamedTuple):
@@ -201,15 +204,15 @@ async def get_group_findings(
         ),
     )
 
+    raw_findings = result.get("data", {}).get("group", {}).get("findings")
+    raw_drafts = result.get("data", {}).get("group", {}).get("drafts")
+
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
             identifier=raw_finding["id"],
             title=raw_finding["title"],
         )
-        for raw_finding in (
-            safe_get(result, ["data", "group", "findings"], default=[])
-            + safe_get(result, ["data", "group", "drafts"], default=[])
-        )
+        for raw_finding in (raw_findings or []) + (raw_drafts or [])
     ]
 
     findings = sorted(
@@ -234,8 +237,7 @@ async def get_group_language(group: str) -> core_model.LocalesEnum:
         variables=dict(group=group),
     )
 
-    language = safe_get(result, ["data", "group", "language"], default="EN")
-    return core_model.LocalesEnum(language)
+    return core_model.LocalesEnum(result["data"]["group"]["language"])
 
 
 @SHIELD
@@ -255,10 +257,11 @@ async def get_group_open_severity(group: str) -> float:
         variables=dict(group=group),
     )
 
-    findings = safe_get(result, ["data", "group", "findings"], default=[])
     return sum(
         finding["openVulnerabilities"] * (4 ** (finding["severityScore"] - 4))
-        for finding in findings
+        for finding in result.get("data", {})
+        .get("group", {})
+        .get("findings", [])
     )
 
 
@@ -293,14 +296,12 @@ async def get_group_roots(
         ),
     )
 
-    roots = safe_get(result, ["data", "group", "roots"], default=[])
-
     return tuple(
         ResultGetGroupRoots(
             environment_urls=root["environmentUrls"],
             nickname=root["nickname"],
         )
-        for root in roots
+        for root in result.get("data", {}).get("group", {}).get("roots", [])
     )
 
 
@@ -325,13 +326,13 @@ async def get_finding_current_release_status(
         ),
     )
 
-    current_state = safe_get(
-        result,
-        ["data", "finding", "currentState"],
-        default=core_model.FindingReleaseStatusEnum.APPROVED,
+    return (
+        core_model.FindingReleaseStatusEnum(
+            result.get("data", {}).get("finding", {}).get("currentState")
+        )
+        if result.get("data", {}).get("finding", {}).get("currentState")
+        else core_model.FindingReleaseStatusEnum.APPROVED
     )
-
-    return core_model.FindingReleaseStatusEnum(current_state)
 
 
 @SHIELD
@@ -367,11 +368,10 @@ async def get_finding_vulnerabilities(
         ),
     )
 
-    fields = ["data", "finding", "vulnerabilities"]
-    vulnerabilities = safe_get(result, fields, default=[])
-
     store: EphemeralStore = get_ephemeral_store()
-    for vulnerability in vulnerabilities:
+    for vulnerability in (
+        result.get("data", {}).get("finding", {}).get("vulnerabilities", [])
+    ):
         kind = core_model.VulnerabilityKindEnum(
             vulnerability["vulnerabilityType"]
         )
@@ -469,8 +469,9 @@ async def do_add_git_root(
         ),
     )
 
-    fields = ["data", "addGitRoot", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {}).get("data", {}).get("addGitRoot", {}).get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
@@ -524,9 +525,9 @@ async def do_create_draft(
             ),
         )
 
-        fields = ["data", "addDraft", "success"]
-        success: Optional[bool] = safe_get(result, fields, default=None)
-
+        success: bool = (
+            (result or {}).get("data", {}).get("addDraft", {}).get("success")
+        )
         if success is None:
             raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
@@ -561,8 +562,9 @@ async def do_delete_finding(
         ),
     )
 
-    fields = ["data", "removeFinding", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {}).get("data", {}).get("removeFinding", {}).get("success")
+    )
 
     await log("warn", "Removing finding: %s, success: %s", finding_id, success)
 
@@ -596,8 +598,12 @@ async def do_approve_draft(
             ),
         )
 
-        fields = ["data", "approveDraft", "success"]
-        success: Optional[bool] = safe_get(result, fields, default=None)
+        success: bool = (
+            (result or {})
+            .get("data", {})
+            .get("approveDraft", {})
+            .get("success")
+        )
 
         if success is None:
             raise RetryAndFinallyReturn(success)
@@ -631,8 +637,12 @@ async def do_submit_draft(
             ),
         )
 
-        fields = ["data", "submitDraft", "success"]
-        success: Optional[bool] = safe_get(result, fields, default=None)
+        success: bool = (
+            (result or {})
+            .get("data", {})
+            .get("submitDraft", {})
+            .get("success")
+        )
 
         if success is None:
             raise RetryAndFinallyReturn(success)
@@ -716,8 +726,12 @@ async def do_update_finding_severity(
             ),
         )
 
-        fields = ["data", "updateSeverity", "success"]
-        success: Optional[bool] = safe_get(result, fields, default=None)
+        success: bool = (
+            (result or {})
+            .get("data", {})
+            .get("updateSeverity", {})
+            .get("success")
+        )
 
         if success is None:
             raise RetryAndFinallyReturn(success)
@@ -760,8 +774,9 @@ async def do_update_evidence(
         ),
     )
 
-    fields = ["data", "updateEvidence", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {}).get("data", {}).get("updateEvidence", {}).get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
@@ -800,8 +815,12 @@ async def do_update_evidence_description(
         ),
     )
 
-    fields = ["data", "updateEvidenceDescription", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {})
+        .get("data", {})
+        .get("updateEvidenceDescription", {})
+        .get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
@@ -844,10 +863,16 @@ async def do_update_vulnerability_commit(
         ),
     )
 
-    fields = ["data", "updateVulnerabilityCommit", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {})
+        .get("data", {})
+        .get("updateVulnerabilityCommit", {})
+        .get("success")
+        if result["data"]
+        else False
+    )
 
-    if success is None:
+    if result is None:
         raise RetryAndFinallyReturn(success)
 
     return success
@@ -887,8 +912,9 @@ async def do_upload_vulnerabilities(
             ),
         )
 
-        fields = ["data", "uploadFile", "success"]
-        success: Optional[bool] = safe_get(result, fields, default=None)
+        success: bool = (
+            (result or {}).get("data", {}).get("uploadFile", {}).get("success")
+        )
 
         if success is None:
             raise RetryAndFinallyReturn(success)
@@ -933,8 +959,12 @@ async def do_verify_request_vuln(
         ),
     )
 
-    fields = ["data", "verifyVulnerabilitiesRequest", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {})
+        .get("data", {})
+        .get("verifyVulnerabilitiesRequest", {})
+        .get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
@@ -989,8 +1019,12 @@ async def do_add_execution(
         ),
     )
 
-    fields = ["data", "addMachineExecution", "success"]
-    success: Optional[bool] = safe_get(result, fields, default=None)
+    success: bool = (
+        (result or {})
+        .get("data", {})
+        .get("addMachineExecution", {})
+        .get("success")
+    )
 
     if success is None:
         raise RetryAndFinallyReturn(success)
