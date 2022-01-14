@@ -23408,6 +23408,7 @@
       without raising an alert
     recommendation: >
       Set notification mechanisms
+      in critical changes in the system resources or services
     threat: >
       Authenticated attacker from the Internet
       who succeeded to compromise a resource
@@ -23502,8 +23503,7 @@
   requirements: ["075","376","377","378"]
   metadata:
     en:
-      details: >
-        https://docs.bridgecrew.io/docs/enable-requests-on-storage-logging-for-queue-service
+      details: __empty__
 "401":
   en:
     title: Insecure service configuration - AKV Secret Expiration
@@ -23551,3 +23551,60 @@
     en:
       details: >
         https://docs.bridgecrew.io/docs/set-an-expiration-date-on-all-secrets
+"402":
+  en:
+    title: Tracebility Loss - Azure
+    description: >
+      The Azure configurations
+      do not enable the log service
+      with enough granularity.
+      Ommiting relevant information
+      may hinder the detection
+      of anomalous behaviours
+      or security breaches.
+    impact: >
+      Hinder the detection of security issues
+    recommendation: >
+      Configure the logs with the necessary granularity level
+      to detect and identify potentially harmful behaviors
+      by enabling logging for read, write and delete requests
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Tracebility Loss - Azure
+    description: >
+      Las configuraciones de Azure
+      no habilitan el registro de logs
+      con un nivel de granularidad
+      lo suficientemente detallado.
+      Omitir detalles relevantes puede enmascarar
+      comportamientos anómalos o brechas de seguridad
+    impact: >
+      Dificultar la detección de inicidentes de seguridad
+    recommendation: >
+      Configurar los registros con el nivel de granularidad
+      necesario para identificar comportamientos potencialmente
+      peligrosos, habilitando los registros de peticiones
+      de lectura, escritura y borrado
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["075","376","377","378"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/enable-requests-on-storage-logging-for-queue-service
