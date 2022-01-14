@@ -72,7 +72,7 @@ def safe_get(result: Dict[str, Any], fields: List[str], default: Any) -> Any:
         return result.get(field)
 
     try:
-        return reduce(_get, fields, result)
+        return reduce(_get, fields, result) or default
     except AttributeError:
         return default
 
