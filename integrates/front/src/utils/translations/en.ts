@@ -439,6 +439,17 @@ export const enTranslations: ResourceKey = {
         type: "Filter by type",
         where: "Filter by text on 'Where' column",
       },
+      headersTooltips: {
+        lastReport: "Number of days since the last vulnerability was added",
+        locations: "Number of instances of the vulnerability",
+        reattack: "Current reattack status",
+        severity: "Risk scoring according to CVSS 3.1",
+        status:
+          "Current state of the vulnerability: Open if the vulnerabilty persists, " +
+          "Closed if it was solved",
+        type: "Vulnerability title",
+        where: "Exact location of the vulnerability.",
+      },
       helpLabel: "Click on a finding to see more details",
       records: {
         noData: "There are no records",

@@ -8,7 +8,7 @@ interface ITooltipWrapperProps {
   displayClass?: string;
   id: string;
   message: string;
-  placement?: string;
+  placement?: "bottom" | "left" | "right" | "top";
 }
 
 export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (

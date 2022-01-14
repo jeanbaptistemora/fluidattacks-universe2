@@ -54,6 +54,7 @@ const addGivenHeaders = (
         wordBreak: _.isUndefined(key.wordBreak) ? "normal" : key.wordBreak,
       }),
       text: key.header,
+      tooltipDataField: key.tooltipDataField,
     };
   });
 
