@@ -59,6 +59,19 @@ DOCKERFILE_ENV: Pattern[str] = re.compile(
 )
 
 
+def _is_key_sensitive(key: str) -> bool:
+    return any(
+        key.lower().endswith(suffix)
+        for suffix in [
+            "key",
+            "pass",
+            "passwd",
+            "user",
+            "username",
+        ]
+    )
+
+
 def _validate_jwt(token: str) -> bool:
     try:
         jwt_decode(
@@ -169,7 +182,10 @@ def _dockerfile_env_secrets(
                     value
                     and not value.startswith("#{")
                     and not value.endswith("}#")
-                    and any(smell in secret for smell in secret_smells)
+                    and (
+                        any(smell in secret for smell in secret_smells)
+                        or _is_key_sensitive(secret)
+                    )
                 ):
                     column: int = match.start("value")
                     yield line_no, column
@@ -230,9 +246,13 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
     for env_var in env_vars_iterator:
         env_var_str: str = env_var.raw.lower()
         key_val = env_var_str.split("=", 1)
-        secret, value = key_val[0], (key_val[1] if len(key_val) > 1 else None)
+        secret = key_val[0]
+        value = key_val[1].strip("'").strip('"') if len(key_val) > 1 else None
         if (
-            any(smell in secret for smell in secret_smells)
+            (
+                any(smell in secret for smell in secret_smells)
+                or _is_key_sensitive(secret)
+            )
             and value
             and not (value.startswith("${") and value.endswith("}"))
         ):
@@ -334,17 +354,7 @@ def _java_properties_sensitive_data(
             key = key.lower()
             for sensible_key_smell in sensible_key_smells:
                 if (
-                    sensible_key_smell in key
-                    or any(
-                        key.lower().endswith(suffix)
-                        for suffix in [
-                            "key",
-                            "pass",
-                            "passwd",
-                            "user",
-                            "username",
-                        ]
-                    )
+                    sensible_key_smell in key or _is_key_sensitive(key)
                 ) and val:
                     yield line_no, 0
 
@@ -489,7 +499,6 @@ async def analyze(
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-
     if file_extension in {
         "groovy",
         "java",
