@@ -1,4 +1,5 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
@@ -24,7 +25,7 @@ makeTemplate {
         name = "observes-service-timedoctor-tokens-env-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/observes/env/utils-logger/runtime"
+      outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
     ];
   };
 }

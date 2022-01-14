@@ -5,10 +5,10 @@
 , ...
 }:
 let
-  self = projectPath inputs.observesIndex.common.utilsLogger;
+  self = projectPath inputs.observesIndex.common.utils_logger.root;
 in
 makeTemplate {
-  name = "observes-env-utils-logger-runtime";
+  name = "observes-common-utils-logger-env-runtime";
   searchPaths = {
     pythonMypy = [
       self
@@ -17,7 +17,7 @@ makeTemplate {
       self
     ];
     source = [
-      outputs."/observes/env/utils-logger/runtime/python"
+      outputs."${inputs.observesIndex.common.utils_logger.env.runtime}/python"
     ];
   };
 }

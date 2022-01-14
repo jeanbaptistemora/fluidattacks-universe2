@@ -2,6 +2,6 @@
 , ...
 }:
 makePythonPypiEnvironment {
-  name = "observes-env-utils-logger-runtime-python";
+  name = "observes-common-utils-logger-env-runtime-python";
   sourcesYaml = ./pypi-sources.yaml;
 }

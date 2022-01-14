@@ -30,7 +30,7 @@ makeTemplate {
       outputs."/observes/common/purity/env/runtime"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/common/postgres-client/env/runtime"
-      outputs."/observes/env/utils-logger/runtime"
+      outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
     ];
   };
 }

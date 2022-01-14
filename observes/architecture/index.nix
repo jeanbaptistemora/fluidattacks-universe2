@@ -19,7 +19,7 @@ in
     postgresClient = "${commonPath}/postgres_client";
     purity = "${commonPath}/purity";
     singerIO = "${commonPath}/singer_io";
-    utilsLogger = "${commonPath}/utils_logger";
+    utils_logger = std_data "${commonPath}/utils_logger";
   };
   tap = {
     announcekit = std_data "${singerPath}/tap_announcekit";

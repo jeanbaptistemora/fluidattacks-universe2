@@ -20,7 +20,7 @@ makeTemplate {
       outputs."${inputs.observesIndex.tap.mailchimp.env.runtime}/python"
       outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/common/paginator/env/runtime"
-      outputs."/observes/env/utils-logger/runtime"
+      outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
     ];
   };
 }

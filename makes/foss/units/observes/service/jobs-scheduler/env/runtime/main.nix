@@ -1,4 +1,5 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeTemplate
 , outputs
 , projectPath
@@ -37,7 +38,7 @@ makeTemplate {
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/observes/common/purity/env/runtime"
-      outputs."/observes/env/utils-logger/runtime"
+      outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
     ];
   };
 }
