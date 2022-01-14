@@ -156,7 +156,8 @@ async def update_indicators(finding_id: str, group_name: str) -> None:
         "upload_file", finding_id=finding_id, group_name=group_name
     )
     await update_unreliable_indicators_by_deps(
-        EntityDependency.upload_file, finding_id=finding_id
+        EntityDependency.upload_file,
+        finding_ids=[finding_id],
     )
 
 

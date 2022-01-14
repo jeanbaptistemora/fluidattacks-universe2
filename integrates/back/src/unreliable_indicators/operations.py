@@ -32,6 +32,7 @@ from findings import (
     domain as findings_domain,
 )
 from typing import (
+    List,
     Optional,
     Set,
 )
@@ -70,15 +71,37 @@ def _format_unreliable_treatment_summary(
 
 
 @retry_on_exceptions(
-    exceptions=(IndicatorAlreadyUpdated, UnavailabilityError),
+    exceptions=(IndicatorAlreadyUpdated,),
+    max_attempts=20,
+    sleep_seconds=0,
+)
+async def update_findings_unreliable_indicators(
+    finding_ids: List[str],
+    attrs_to_update: Set[EntityAttr],
+) -> None:
+    loaders: Dataloaders = get_new_context()
+    await collect(
+        tuple(
+            update_finding_unreliable_indicators(
+                loaders,
+                finding_id,
+                attrs_to_update,
+            )
+            for finding_id in finding_ids
+        )
+    )
+
+
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
     max_attempts=20,
     sleep_seconds=0,
 )
 async def update_finding_unreliable_indicators(  # noqa: C901
+    loaders: Dataloaders,
     finding_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     indicators = {}
 
@@ -179,8 +202,8 @@ async def update_unreliable_indicators_by_deps(
 
     if Entity.finding in entities_to_update:
         updations.append(
-            update_finding_unreliable_indicators(
-                entities_to_update[Entity.finding].entity_ids[EntityId.id],
+            update_findings_unreliable_indicators(
+                entities_to_update[Entity.finding].entity_ids[EntityId.ids],
                 entities_to_update[Entity.finding].attributes_to_update,
             )
         )

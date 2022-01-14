@@ -59,17 +59,19 @@ async def mutate(
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
+        open_vulns_ids = get_key_or_fallback(
+            kwargs, "open_vulnerabilities", "open_vulns", []
+        )
+        closed_vulns_ids = get_key_or_fallback(
+            kwargs, "closed_vulnerabilities", "closed_vulns", []
+        )
         success = await findings_domain.verify_vulnerabilities(
             context=info.context,
             finding_id=finding_id,
             user_info=user_info,
             justification=kwargs.get("justification", ""),
-            open_vulns_ids=get_key_or_fallback(
-                kwargs, "open_vulnerabilities", "open_vulns", []
-            ),
-            closed_vulns_ids=get_key_or_fallback(
-                kwargs, "closed_vulnerabilities", "closed_vulns", []
-            ),
+            open_vulns_ids=open_vulns_ids,
+            closed_vulns_ids=closed_vulns_ids,
             vulns_to_close_from_file=[],
         )
         if success:
@@ -80,7 +82,8 @@ async def mutate(
             )
             await update_unreliable_indicators_by_deps(
                 EntityDependency.verify_vulnerabilities_request,
-                finding_id=finding.id,
+                finding_ids=[finding_id],
+                vulnerability_ids=set(open_vulns_ids + closed_vulns_ids),
             )
             logs_utils.cloudwatch_log(
                 info.context,

@@ -5,7 +5,6 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
-    ErrorUploadingFileS3,
     InvalidFileType,
 )
 from custom_types import (
@@ -57,7 +56,6 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
     try:
-        success = False
         finding_id = kwargs["finding_id"]
         file_input = kwargs["file"]
         finding_loader = info.context.loaders.finding
@@ -74,7 +72,7 @@ async def mutate(
             finding_name=finding.title.lower(),
         )
         if file_input and allowed_mime_type:
-            success = await vuln_files_domain.upload_file(
+            verified_vulnerabilities = await vuln_files_domain.upload_file(
                 info,
                 file_input,
                 finding_id,
@@ -83,28 +81,21 @@ async def mutate(
             )
         else:
             raise InvalidFileType()
-        if success:
-            await redis_del_by_deps(
-                "upload_file",
-                finding_id=finding_id,
-                group_name=finding.group_name,
-            )
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.upload_file,
-                finding_id=finding_id,
-            )
-            logs_utils.cloudwatch_log(
-                info.context,
-                f"Security: Uploaded file in {finding.group_name} group "
-                "successfully",
-            )
-        else:
-            logs_utils.cloudwatch_log(
-                info.context,
-                f"Security: Attempted to upload file in {finding.group_name}"
-                " group",
-            )
-            raise ErrorUploadingFileS3()
+        await redis_del_by_deps(
+            "upload_file",
+            finding_id=finding_id,
+            group_name=finding.group_name,
+        )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.upload_file,
+            finding_ids=[finding_id],
+            vulnerability_ids=verified_vulnerabilities,
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"Security: Uploaded file in {finding.group_name} group "
+            "successfully",
+        )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
@@ -113,4 +104,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)

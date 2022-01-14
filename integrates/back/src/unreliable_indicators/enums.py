@@ -10,7 +10,6 @@ class Entity(Enum):
 
 
 class EntityId(Enum):
-    id: str = "id"
     ids: str = "ids"
 
 

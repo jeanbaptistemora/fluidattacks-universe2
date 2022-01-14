@@ -16,7 +16,7 @@ from unreliable_indicators.types import (
 ENTITIES = {
     Entity.finding: dict(
         args={
-            EntityId.id,
+            EntityId.ids,
         },
         attrs={
             EntityAttr.closed_vulnerabilities: dict(

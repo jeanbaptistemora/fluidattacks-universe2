@@ -132,14 +132,10 @@ async def deactivate_root(
                 subject=user_email,
                 additional_info=root.state.nickname,
             )
-    await collect(
-        tuple(
-            update_unreliable_indicators_by_deps(
-                EntityDependency.deactivate_root,
-                finding_id=finding_id,
-            )
-            for finding_id in {vuln.finding_id for vuln in root_vulns}
-        )
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.deactivate_root,
+        finding_ids=list({vuln.finding_id for vuln in root_vulns}),
+        vulnerability_ids=[vuln.id for vuln in root_vulns],
     )
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,

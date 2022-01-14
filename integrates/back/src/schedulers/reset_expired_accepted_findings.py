@@ -80,7 +80,7 @@ async def reset_group_expired_accepted_findings(
         [
             update_unreliable_indicators_by_deps(
                 EntityDependency.reset_expired_accepted_findings,
-                finding_id=finding_id,
+                finding_ids=[finding_id],
             )
             for finding_id in findings_to_update
         ]

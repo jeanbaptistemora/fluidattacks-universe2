@@ -33,7 +33,7 @@ async def test_update_unreliable_indicators_by_deps() -> None:
     finding_id = "422286126"
     await update_unreliable_indicators_by_deps(
         EntityDependency.reject_vulnerabilities_zero_risk,
-        finding_id=finding_id,
+        finding_ids=[finding_id],
     )
     finding: Finding = await loaders.finding.load(finding_id)
     expected_output = FindingUnreliableIndicators(

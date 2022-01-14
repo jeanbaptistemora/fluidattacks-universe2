@@ -34,12 +34,12 @@ def test_get_entities_to_update_by_dependency() -> None:
     entities_to_update_by_dependency = (
         model.get_entities_to_update_by_dependency(
             EntityDependency.request_vulnerabilities_zero_risk,
-            finding_id=finding_id,
+            finding_ids=[finding_id],
         )
     )
     expected_output = {
         Entity.finding: EntityToUpdate(
-            entity_ids={EntityId.id: finding_id},
+            entity_ids={EntityId.ids: [finding_id]},
             attributes_to_update={
                 EntityAttr.is_verified,
                 EntityAttr.newest_vulnerability_report_date,
