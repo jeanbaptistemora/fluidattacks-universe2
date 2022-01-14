@@ -239,11 +239,7 @@ async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
         finding_id
     )
     open_vulns = vulns_utils.filter_open_vulns(vulns)
-    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await vulns_historic_loader.load_many([vuln.id for vuln in open_vulns])
-    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
+    report_dates = await vulns_utils.get_report_dates(loaders, open_vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
         return (datetime_utils.get_now() - oldest_report_date).days
@@ -319,11 +315,7 @@ async def get_newest_vulnerability_report_date(
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await vulns_historic_loader.load_many([vuln.id for vuln in vulns])
-    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
+    report_dates = await vulns_utils.get_report_dates(loaders, vulns)
     if report_dates:
         return datetime_utils.get_as_utc_iso_format(max(report_dates))
     return ""
@@ -845,11 +837,7 @@ async def get_oldest_open_vulnerability_report_date(
         finding_id
     )
     open_vulns = vulns_utils.filter_open_vulns(vulns)
-    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await vulns_historic_loader.load_many([vuln.id for vuln in open_vulns])
-    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
+    report_dates = await vulns_utils.get_report_dates(loaders, open_vulns)
     if report_dates:
         return datetime_utils.get_as_utc_iso_format(min(report_dates))
     return ""
@@ -863,11 +851,7 @@ async def get_oldest_vulnerability_report_date(
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    vulns_historic_loader: DataLoader = loaders.vulnerability_historic_state
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await vulns_historic_loader.load_many([vuln.id for vuln in vulns])
-    report_dates = vulns_utils.get_report_dates(vulns_historic_state)
+    report_dates = await vulns_utils.get_report_dates(loaders, vulns)
     if report_dates:
         return datetime_utils.get_as_utc_iso_format(min(report_dates))
     return ""

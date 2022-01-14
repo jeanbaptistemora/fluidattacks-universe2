@@ -458,14 +458,27 @@ async def get_reattack_requester(
     return ""
 
 
-def get_report_dates(
-    historics: Tuple[Tuple[VulnerabilityState, ...]]
+async def get_report_dates(
+    loaders: Any,
+    vulns: Tuple[Vulnerability, ...],
 ) -> Tuple[datetime, ...]:
-    """Get report dates for vulnerabilities, given the historic state."""
-    return tuple(
-        datetime.fromisoformat(historic[0].modified_date)
-        for historic in historics
-    )
+    """Get report dates for vulnerabilities."""
+    vulns_ids = [vuln.id for vuln in vulns]
+    vulns_historic_loader = loaders.vulnerability_historic_state
+    vulns_historic_state: Tuple[
+        Tuple[VulnerabilityState, ...]
+    ] = await vulns_historic_loader.load_many(vulns_ids)
+    try:
+        return tuple(
+            datetime.fromisoformat(historic[0].modified_date)
+            for historic in vulns_historic_state
+        )
+    except IndexError:
+        LOGGER.error(
+            "Vulnerability with empty historic state",
+            extra={"extra": {"vulnerabilities": vulns_ids}},
+        )
+        return tuple()
 
 
 def get_specific(value: Dict[str, str]) -> int:
