@@ -23446,3 +23446,108 @@
   metadata:
     en:
       details: __empty__
+"400":
+  en:
+    title: Tracebility Loss - AWS
+    description: >
+      Some EC2 or S3 instances do not set
+      the logging property,
+      which avoid the log files to be created.
+      These files are useful to identify
+      and trace malicious actions or anomalous behaviours.
+      Alternatively,
+      the log files do not have enough detail level.
+    impact: >
+      Perform harmful actions
+      without raising an alert
+    recommendation: >
+      Set the logging property
+      in all the EC2  and S3 instances
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Tracebility Loss - AWS
+    description: >
+      Algunas instancias de EC2 o S3
+      no definen la propiedad logging,
+      con lo cual no se crean registros
+      de trazabilidad que ayuden a identificar
+      acciones maliciosas o comportamientos anómalos.
+      Alternativamente,
+      los logs creados no cuentan
+      con el suficiente nivel de detalle.
+    impact: >
+      Realizar acciones maliciosas
+      sin dejar ningún rastro
+    recommendation: >
+      Establecer la propiedad logging en todas
+      las instancias de EC2 y S3.
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["075","376","377","378"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/enable-requests-on-storage-logging-for-queue-service
+"401":
+  en:
+    title: Insecure service configuration - AKV Secret Expiration
+    description: >
+      The secrets stored in Azure Key Vault
+      do not set an expiration date
+    impact: >
+      Increase the chances of
+      compromising sensitive secrets of the system
+    recommendation: >
+      Define an expiration date for Azure secrets
+      by setting the expiration_date property
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  es:
+    title: Insecure service configuration - AKV Secret Expiration
+    description: >
+      Los secretos almacenados en Azure Key Vault
+      no definen una fecha de expiración.
+    impact: >
+      Incrementar las probabilidades
+      de comprometer secretos sensibles del sistema
+    recommendation: >
+      Establecer una fecha de expiración para los secretos
+      definiendo la propiedad expiration_date
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "H"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["130", "138", "140"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/set-an-expiration-date-on-all-secrets
