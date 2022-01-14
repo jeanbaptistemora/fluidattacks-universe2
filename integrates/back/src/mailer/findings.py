@@ -210,17 +210,19 @@ async def send_mail_assigned_vulnerability(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
+    where: List[str],
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
 
     email_context: MailContentType = {
         "finding_title": finding_title,
         "group": group_name,
-        "vulnerability_url": (
+        "finding_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"
             f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
             "locations"
         ),
+        "where": where,
     }
     await send_mails_async(
         email_to=email_to,
