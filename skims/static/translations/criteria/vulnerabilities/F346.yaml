@@ -1,9 +1,7 @@
 src.lib_path.f346.dangerous_permission:
   en: >
-    Dangerous permissions give your app additional access to restricted data
-    and they allow your app to perform restricted actions
-    that more substantially affect the system and other apps.
+    The application defines dangerous permissions
+    that can be abused by an attacker.
   es: >
-    Los permisos peligrosos le dan a su aplicación acceso adicional
-    a datos restringidos y le permiten realizar acciones restringidas
-    que afectan de manera más sustancial al sistema y otras aplicaciones.
+    La aplicación define permisos peligrosos
+    que un atacante puede abusar.
