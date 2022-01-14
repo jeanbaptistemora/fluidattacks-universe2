@@ -120,7 +120,7 @@ def get_and_update_token(creds: str) -> None:
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps({**timedoctor, **new_timedoctor})
     cmd = (
-        "observes-bin-update-project-variable"
+        "observes-common-update-project-variable-bin"
         f"  '{analytics_gitlab_token}'"
         f"  '{project_id}'"
         "  'analytics_auth_timedoctor'"
@@ -154,7 +154,7 @@ def timedoctor_refresh(creds: str) -> bool:
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps({**timedoctor, **new_timedoctor})
     cmd = (
-        "observes-bin-update-project-variable"
+        "observes-common-update-project-variable-bin"
         f"  '{analytics_gitlab_token}'"
         f"  '{project_id}'"
         "  'analytics_auth_timedoctor'"

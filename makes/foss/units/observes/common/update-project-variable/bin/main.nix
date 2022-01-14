@@ -8,6 +8,6 @@ makeScript {
       outputs."/utils/gitlab"
     ];
   };
-  name = "observes-bin-update-project-variable";
+  name = "observes-common-update-project-variable-bin";
   entrypoint = ./entrypoint.sh;
 }

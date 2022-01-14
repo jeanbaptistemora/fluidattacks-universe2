@@ -14,7 +14,7 @@ makeTemplate {
       self
     ];
     bin = [
-      outputs."/observes/bin/update-project-variable"
+      outputs."/observes/common/update-project-variable/bin"
     ];
     pythonPackage = [
       self
