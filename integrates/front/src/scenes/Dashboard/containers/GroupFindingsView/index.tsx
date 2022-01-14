@@ -26,6 +26,7 @@ import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter } from "components/DataTableNext/formatters";
+import { tooltipFormatter } from "components/DataTableNext/headerFormatters/tooltipFormatter";
 import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
 import type {
   IFilterProps,
@@ -224,14 +225,21 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "lastVulnerability",
       header: "Last report",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t(
+        "group.findings.headersTooltips.lastReport"
+      ),
       visible: checkedItems.lastVulnerability,
+      wrapped: true,
     },
     {
       align: "left",
       dataField: "title",
       header: "Type",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.type"),
       visible: checkedItems.title,
       wrapped: true,
     },
@@ -240,7 +248,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       dataField: "state",
       formatter: formatState,
       header: "Status",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.status"),
       visible: checkedItems.state,
       width: "80px",
       wrapped: true,
@@ -249,7 +259,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "severityScore",
       header: "Severity",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.severity"),
       visible: checkedItems.severityScore,
       wrapped: true,
     },
@@ -257,15 +269,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "openVulnerabilities",
       header: "Locations",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.locations"),
       visible: checkedItems.openVulnerabilities,
+      wrapped: true,
     },
     {
       align: "center",
       dataField: "where",
       formatter: limitFormatter,
       header: "Where",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.where"),
       visible: checkedItems.where,
       wrapped: true,
     },
@@ -273,7 +290,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "remediated",
       header: "Reattack",
+      headerFormatter: tooltipFormatter,
       onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.reattack"),
       visible: checkedItems.remediated,
       wrapped: true,
     },
@@ -701,92 +720,87 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <TooltipWrapper
-        id={"group.findings.help"}
-        message={translate.t("group.findings.helpLabel")}
-      >
-        <DataTableNext
-          bordered={true}
-          clearFiltersButton={clearFilters}
-          columnToggle={true}
-          csvFilename={`${groupName}-findings-${currentDate}.csv`}
-          customFilters={{
-            customFiltersProps: customFilters,
-            isCustomFilterEnabled,
-            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-            oneRowMessage: true,
-            resultSize: {
-              current: resultFindings.length,
-              total: findings.length,
-            },
-          }}
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={resultFindings}
-          defaultSorted={JSON.parse(
-            _.get(sessionStorage, "findingSort", initialSort)
-          )}
-          expandRow={{
-            expandByColumnOnly: true,
-            expanded: expandedRows,
-            onExpand: handleRowExpand,
-            onExpandAll: handleRowExpandAll,
-            renderer: renderDescription,
-            showExpandColumn: true,
-          }}
-          exportCsv={false}
-          extraButtons={
-            <Row>
-              <Can I={"api_resolvers_query_report__get_url_group_report"}>
-                <TooltipWrapper
-                  id={"group.findings.report.btn.tooltip.id"}
-                  message={translate.t("group.findings.report.btn.tooltip")}
+      <DataTableNext
+        bordered={true}
+        clearFiltersButton={clearFilters}
+        columnToggle={true}
+        csvFilename={`${groupName}-findings-${currentDate}.csv`}
+        customFilters={{
+          customFiltersProps: customFilters,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          oneRowMessage: true,
+          resultSize: {
+            current: resultFindings.length,
+            total: findings.length,
+          },
+        }}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
+        }}
+        dataset={resultFindings}
+        defaultSorted={JSON.parse(
+          _.get(sessionStorage, "findingSort", initialSort)
+        )}
+        expandRow={{
+          expandByColumnOnly: true,
+          expanded: expandedRows,
+          onExpand: handleRowExpand,
+          onExpandAll: handleRowExpandAll,
+          renderer: renderDescription,
+          showExpandColumn: true,
+        }}
+        exportCsv={false}
+        extraButtons={
+          <Row>
+            <Can I={"api_resolvers_query_report__get_url_group_report"}>
+              <TooltipWrapper
+                id={"group.findings.report.btn.tooltip.id"}
+                message={translate.t("group.findings.report.btn.tooltip")}
+              >
+                <Button id={"reports"} onClick={openReportsModal}>
+                  {translate.t("group.findings.report.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
+            <Can do={"api_mutations_remove_finding_mutate"}>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"searchFindings.delete.btn.tooltip"}
+                message={translate.t("searchFindings.delete.btn.tooltip")}
+              >
+                <Button
+                  disabled={selectedFindings.length === 0 || deleting}
+                  onClick={openDeleteModal}
                 >
-                  <Button id={"reports"} onClick={openReportsModal}>
-                    {translate.t("group.findings.report.btn.text")}
-                  </Button>
-                </TooltipWrapper>
-              </Can>
-              <Can do={"api_mutations_remove_finding_mutate"}>
-                <TooltipWrapper
-                  displayClass={"dib"}
-                  id={"searchFindings.delete.btn.tooltip"}
-                  message={translate.t("searchFindings.delete.btn.tooltip")}
-                >
-                  <Button
-                    disabled={selectedFindings.length === 0 || deleting}
-                    onClick={openDeleteModal}
-                  >
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                    &nbsp;{translate.t("searchFindings.delete.btn.text")}
-                  </Button>
-                </TooltipWrapper>
-              </Can>
-            </Row>
-          }
-          headers={tableHeaders}
-          id={"tblFindings"}
-          onColumnToggle={handleChange}
-          pageSize={10}
-          rowEvents={{ onClick: goToFinding }}
-          search={false}
-          selectionMode={{
-            clickToSelect: false,
-            hideSelectColumn: permissions.cannot(
-              "api_mutations_remove_finding_mutate"
-            ),
-            mode: "checkbox",
-            onSelect: onSelectOneFinding,
-            onSelectAll: onSelectVariousFindings,
-            selected: getFindingsIndex(selectedFindings, resultFindings),
-          }}
-          striped={true}
-        />
-      </TooltipWrapper>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                  &nbsp;{translate.t("searchFindings.delete.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
+          </Row>
+        }
+        headers={tableHeaders}
+        id={"tblFindings"}
+        onColumnToggle={handleChange}
+        pageSize={10}
+        rowEvents={{ onClick: goToFinding }}
+        search={false}
+        selectionMode={{
+          clickToSelect: false,
+          hideSelectColumn: permissions.cannot(
+            "api_mutations_remove_finding_mutate"
+          ),
+          mode: "checkbox",
+          onSelect: onSelectOneFinding,
+          onSelectAll: onSelectVariousFindings,
+          selected: getFindingsIndex(selectedFindings, resultFindings),
+        }}
+        striped={true}
+      />
       <ReportsModal
         hasMobileApp={hasMobileApp}
         isOpen={isReportsModalOpen}

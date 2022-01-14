@@ -450,7 +450,6 @@ export const enTranslations: ResourceKey = {
         type: "Vulnerability title",
         where: "Exact location of the vulnerability.",
       },
-      helpLabel: "Click on a finding to see more details",
       records: {
         noData: "There are no records",
       },
