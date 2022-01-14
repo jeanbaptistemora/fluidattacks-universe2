@@ -710,5 +710,13 @@
     "ES": {
       "title": "398. Fragment Injection"
     }
+  },
+  "F401": {
+    "EN": {
+      "title": "401. Insecure service configuration - AKV Secret Expiration"
+    },
+    "ES": {
+      "title": "401. Insecure service configuration - AKV Secret Expiration"
+    }
   }
 }
