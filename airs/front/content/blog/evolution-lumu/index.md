@@ -7,11 +7,8 @@ category: opinions
 tags: cybersecurity, security-testing, pentesting, vulnerability, hacking, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/evolution-lumu/cover_s2kww9.webp
 alt: Photo by Johannes Plenio on Unsplash
-description: This post is based on the information given on February 7th
-  by Sylvester, from Lumu, in his webinar 'Cybersecurity Testing
-  Limitations & How to Overcome Them.'
-keywords: Cybersecurity, Security Testing, Pentesting, Vulnerability,
-  Hacking, Business, Ethical Hacking, Pentesting
+description: This post is based on the information given on February 7th by Sylvester, from Lumu, in his webinar 'Cybersecurity Testing Limitations & How to Overcome Them.'
+keywords: Cybersecurity, Security Testing, Pentesting, Vulnerability, Hacking, Business, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

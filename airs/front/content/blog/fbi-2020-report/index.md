@@ -8,11 +8,8 @@ tags: cybersecurity, social, documentation, risk,
   social-engineering, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330873/blog/fbi-2020-report/cover_t6mon0.webp
 alt: Photo by Joshua Sukoff on Unsplash
-description: This post gives you an overview of the FBI's 2020
-  Internet Crime Report, based on the activity of the
-  Internet Crime Complaint Center (IC3).
-keywords: FBI, Internet Crime, Report, Coronavirus, Social Engineering,
-  Hacking, Ethical Hacking, Pentesting
+description: This post gives you an overview of the FBI's 2020 Internet Crime Report, based on the activity of the Internet Crime Complaint Center (IC3).
+keywords: FBI, Internet Crime, Report, Coronavirus, Social Engineering, Hacking, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

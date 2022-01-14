@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, company, trends, risk, vulnerability, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627561560/blog/cyber-insurance-ransomware/cover-cyber-insurance-ransomware_lflmzi.webp
 alt: Photo by Chris Curryon on Unsplash
-description: This post will deepen in the relation between cyber insurance
-  and ransomware popularized by the Royal United Services Institute
-  last report.
-keywords: Ransomware, Attack, Vulnerability, Insurance, Cybersecurity,
-  Ethical Hacking, Cyber, Pentesting
+description: This post will deepen in the relation between cyber insurance and ransomware popularized by the Royal United Services Institute last report.
+keywords: Ransomware, Attack, Vulnerability, Insurance, Cybersecurity, Ethical Hacking, Cyber, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

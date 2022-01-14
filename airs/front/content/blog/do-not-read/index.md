@@ -7,11 +7,8 @@ category: attacks
 tags: social-engineering, hacking, security, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/do-not-read/cover_getmyo.webp
 alt: 'Yellow police line tape on Unsplash: https://unsplash.com/photos/jM6Y2nhsAtk'
-description: In this post, we'll look into the behavior trends
-  of developers when including security in their codes,
-  and how it can affect your company.
-keywords: Social Engineering, Malware, Behavior, Security, Developer,
-  Coding, Ethical Hacking, Pentesting
+description: In this post, we'll look into the behavior trends of developers when including security in their codes, and how it can affect your company.
+keywords: Social Engineering, Malware, Behavior, Security, Developer, Coding, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

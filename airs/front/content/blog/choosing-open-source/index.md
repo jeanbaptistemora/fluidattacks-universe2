@@ -7,11 +7,8 @@ category: opinions
 tags: software, devops, vulnerability, company, security testing, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1641222993/blog/choosing-open-source/cover_oss.webp
 alt: Photo by MD_JERRY on Unsplash
-description:  Developers need to mitigate risks
-  when using open-source software (OSS).
-  We share basic aspects by which developers can guide their choice of OSS.
-keywords: Open Source Software, Oss, Developers, Github, Code, License,
-  Vulnerabilities, Ethical Hacking, Pentesting
+description:  Developers need to mitigate risks when using open-source software (OSS). We share basic aspects by which developers can guide their choice of OSS.
+keywords: Open Source Software, Oss, Developers, Github, Code, License, Vulnerabilities, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

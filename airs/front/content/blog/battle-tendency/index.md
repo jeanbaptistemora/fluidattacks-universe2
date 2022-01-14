@@ -7,11 +7,8 @@ category: documentation
 tags: technology, investment, trends
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/battle-tendency/cover_j9zo74.webp
 alt: Mobile showing statistics. Photo by Austin Distel on Unsplash, https://unsplash.com/photos/EMPZ7yRZoGw
-description: In this article, we discuss our research into the most relevant
-  investments and budgets related to information technology
-  in 2019 and upcoming years.
-keywords: Technology, Innovation, Trends, IT, Investment, Budget,
-  Ethical Hacking, Pentesting
+description: In this article, we discuss our research into the most relevant investments and budgets related to information technology in 2019 and upcoming years.
+keywords: Technology, Innovation, Trends, IT, Investment, Budget, Ethical Hacking, Pentesting
 author: Oscar Prado
 writer: oprado
 name: Oscar Prado

@@ -7,10 +7,8 @@ category: philosophy
 tags: security, devops, software, information, web, cloud
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp
 alt: Photo by Sebastian Pena Lambarri on Unsplash
-description: Through this blog post, you will know what DevSecOps is,
-  how it applies, and why it is recommended for IT companies.
-keywords: Security, Devops, Devsecops, Secdevops, Information, Web,
-  Cloud, Ethical Hacking, Pentesting
+description: Through this blog post, you will know what DevSecOps is, how it applies, and why it is recommended for IT companies.
+keywords: Security, Devops, Devsecops, Secdevops, Information, Web, Cloud, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

@@ -7,10 +7,8 @@ subtitle: Fuzz testing using American Fuzzy Lop
 tags: fuzzing, application, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/infinite-monkey-fuzzer/cover_a1u7uj.webp
 alt: Photo by su fu on Unsplash
-description: In this blog post, we are focused on how to perform basic fuzz
-  attacks on desktop Linux C applications using American Fuzzy Lop.
-keywords: Fuzzing, Attack, AFL, Vulnerability, Security, Application, Hacking,
-  Ethical Hacking, Pentesting
+description: In this blog post, we are focused on how to perform basic fuzz attacks on desktop Linux C applications using American Fuzzy Lop.
+keywords: Fuzzing, Attack, AFL, Vulnerability, Security, Application, Hacking, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

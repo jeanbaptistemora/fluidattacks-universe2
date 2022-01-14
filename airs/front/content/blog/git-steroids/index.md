@@ -7,10 +7,8 @@ category: documentation
 tags: git, software, documentation, standard, engineering, business, linters
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
 alt: Computer with do what is great sign.
-description: Learn here, among other things, how to define a Git commit message
-  syntax and use real-time commit message linters to improve your Git history.
-keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging,
-  Documentation, Ethical Hacking, Pentesting
+description: Learn here, among other things, how to define a Git commit message syntax and use real-time commit message linters to improve your Git history.
+keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging, Documentation, Ethical Hacking, Pentesting
 author: Daniel Salazar
 writer: dsalazaratfluid
 :name: Daniel Salazar

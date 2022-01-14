@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/code-translate/cover_wmd0zp.webp
 alt: Book in two languages
-description: Here we talk about Code2seq, which differs in adapting neural
-  machine translation techniques to the task of mapping a snippet of code
-  to a sequence of words.
-keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier,
-  Vulnerability, Code2seq, Ethical Hacking, Pentesting
+description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.
+keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Code2seq, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

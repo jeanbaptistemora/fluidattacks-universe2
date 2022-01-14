@@ -7,11 +7,8 @@ category: techniques
 tags: software, hacking, cybersecurity, company, risk, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1630079924/blog/lockbit-ransomware/cover_lockbit_xhxdf5.webp
 alt: Photo by Icons8 Team on Unsplash
-description: In this post, you'll learn in general terms what LockBit
-  ransomware is, what its characteristics are and why it can pose
-  a significant threat to your business.
-keywords: Lockbit, Ransomware, Malware, Encryption, Insider, Employee, Company,
-  Pentesting, Ethical Hacking
+description: In this post, you'll learn in general terms what LockBit ransomware is, what its characteristics are and why it can pose a significant threat to your business.
+keywords: Lockbit, Ransomware, Malware, Encryption, Insider, Employee, Company, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

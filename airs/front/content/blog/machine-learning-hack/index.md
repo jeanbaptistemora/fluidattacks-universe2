@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/machine-learning-hack/cover_q6ydtc.webp
 alt: Can machines learn to hack?
-description: This post is a bird's eye view of machine learning techniques
-  applied to vulnerability discovery in source code, reviewing papers
-  from 2011 to 2018.
-keywords: Machine Learning, Vulnerability, Anomaly Detection,
-  Pattern Recognition, Deep Learning, Security, Ethical Hacking, Pentesting
+description: This post is a bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018.
+keywords: Machine Learning, Vulnerability, Anomaly Detection, Pattern Recognition, Deep Learning, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

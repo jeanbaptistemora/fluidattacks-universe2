@@ -7,11 +7,8 @@ subtitle: How to resolve HTB Bounty
 tags: security, htb, pwn, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/bounty-writeup/cover_plk66f.webp
 alt: Hand holding a pirate toy
-description: In this article, we present how to exploit a Bounty machine's
-  vulnerabilities and how to gain access as
-  an Administrator and obtain the root flag.
-keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty, Vulnerabilities,
-  Hacker, Ethical Hacking, Pentesting
+description: In this article, we present how to exploit a Bounty machine's vulnerabilities and how to gain access as an Administrator and obtain the root flag.
+keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty, Vulnerabilities, Hacker, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

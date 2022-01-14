@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330956/blog/natural-code/cover_vftkoh.webp
 alt: 'Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA'
-description: In this blog post, we present the use of Natural Language
-  Processing in bug finding and coding conventions,
-  both based upon the n-gram model.
-keywords: Machine Learning, Vulnerability, Natural Language Processing,
-  N-gram, Predict, Bug, Pentesting, Ethical Hacking
+description: In this blog post, we present the use of Natural Language Processing in bug finding and coding conventions, both based upon the n-gram model.
+keywords: Machine Learning, Vulnerability, Natural Language Processing, N-gram, Predict, Bug, Pentesting, Ethical Hacking
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

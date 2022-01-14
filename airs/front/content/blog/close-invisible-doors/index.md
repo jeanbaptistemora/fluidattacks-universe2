@@ -7,10 +7,8 @@ category: attacks
 tags: vulnerability, hacking, software, exploit, risk, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1635442529/blog/close-invisible-doors/cover_doors.webp
 alt: Photo by Nastya Dulhiier on Unsplash
-description: It is just a matter of updating or changing software. However,
-  unnoticed vulnerable software equals an open door for criminals.
-keywords: Attack Surface, Vulnerabilities, Remediation, Software Update,
-  Continuous Checks, Data Breaches, Intrusion, Ethical Hacking, Pentesting
+description: It is just a matter of updating or changing software. However, unnoticed vulnerable software equals an open door for criminals.
+keywords: Attack Surface, Vulnerabilities, Remediation, Software Update, Continuous Checks, Data Breaches, Intrusion, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

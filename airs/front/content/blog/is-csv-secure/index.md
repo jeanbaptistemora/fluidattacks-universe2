@@ -7,11 +7,8 @@ subtitle: Defining CSV injection vulnerabilities
 tags: security, csv, code, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330929/blog/is-csv-secure/cover_tteaiz.webp
 alt: Blank CSV document icon
-description: Comma-Separated Values file is a common extension in data files
-  used in several application fields. Here we present a CSV vulnerability
-  most people ignore.
-keywords: CSV, Security, Vulnerability, Code, Web, Spreadsheet,
-  Ethical Hacking, Pentesting
+description: Comma-Separated Values file is a common extension in data files used in several application fields. Here we present a CSV vulnerability most people ignore.
+keywords: CSV, Security, Vulnerability, Code, Web, Spreadsheet, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

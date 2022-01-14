@@ -7,11 +7,8 @@ category: interview
 tags: machine-learning, cybersecurity, security, interview, risk, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/cover_htrl0g.webp
 alt: Photo by Liam Tucker on Unsplash
-description: We had the pleasure of chatting with Daniel Correa, a Security
-  Expert who shared his views on current threats, human factors
-  in cybersecurity, and technology.
-keywords: Machine Learning, Cybersecurity, Security, Interview, Risk,
-  Software, Ethical Hacking, Pentesting
+description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.
+keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

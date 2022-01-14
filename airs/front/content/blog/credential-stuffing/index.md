@@ -7,10 +7,8 @@ category: techniques
 tags: credential, password, web, application, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/credential-stuffing/cover_t0zcnj.webp
 alt: Photo by Cookie the Pom on Unsplash
-description: I wrote this post to give you an overview of the Credential
-  Stuffing attack and some short recommendations for its prevention.
-keywords: Credential Stuffing, Credential, Password, Website, Application,
-  Cybersecurity, Attack, Technique
+description: I wrote this post to give you an overview of the Credential Stuffing attack and some short recommendations for its prevention.
+keywords: Credential Stuffing, Credential, Password, Website, Application, Cybersecurity, Attack, Technique
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

@@ -7,11 +7,8 @@ category: attacks
 tags: security, risk, vulnerability, business, policies, economics
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/cost-cybercrime-i/cover_z8o7li.webp
 alt: Photo by Andre Benz on Unsplash
-description: In 2012, the study ‘Measuring the cost of cybercrime’ was
-  presented at the WEIS. Here we highlight the findings of that updated
-  paper discussed last year.
-keywords: Security, Risk, Vulnerability, Business, Policies, Economics,
-  Ethical Hacking, Pentesting, WEIS
+description: In 2012, the study ‘Measuring the cost of cybercrime’ was presented at the WEIS. Here we highlight the findings of that updated paper discussed last year.
+keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
 author: Julian Arango
 writer: jarango
 name: Julian Arango

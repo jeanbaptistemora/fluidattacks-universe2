@@ -7,11 +7,8 @@ category: opinions
 tags: security, cybersecurity, trends, security-testing, technology, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330843/blog/cybersecurity-2020-21-iii/cover_rhdzrv.webp
 alt: Photo by Jr Korpa on Unsplash
-description: In this final part of the state of cybersecurity 2020-21, we want
-  to share with you some predictions and possible trends
-  in cybersecurity for 2021.
-keywords: Security, Cybersecurity, Predictions, Trends, Security Testing,
-  Company, Ethical Hacking, Pentesting
+description: In this final part of the state of cybersecurity 2020-21, we want to share with you some predictions and possible trends in cybersecurity for 2021.
+keywords: Security, Cybersecurity, Predictions, Trends, Security Testing, Company, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

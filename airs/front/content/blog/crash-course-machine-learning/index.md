@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, security, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
 alt: Robot playing the piano
-description: In this article, we give a high-level view of each of the most
-  important ML algorithms that have a relevant application
-  in information security.
-keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network,
-  Deep learning, Security, Ethical Hacking, Pentesting
+description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.
+keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network, Deep learning, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

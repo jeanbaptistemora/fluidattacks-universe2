@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, mistake, hacking, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/facebook-data-leak/cover_u38ho9.webp
 alt: Photo by Barefoot Communications on Unsplash
-description: This post outlines the most recent Facebook data leak
-  with approximately 533 million records, including users' phone numbers,
-  now posted for free.
-keywords: Facebook, Data, Leak, Breach, Scraping, Vulnerability,
-  Ethical Hacking, Pentesting
+description: This post outlines the most recent Facebook data leak with approximately 533 million records, including users' phone numbers, now posted for free.
+keywords: Facebook, Data, Leak, Breach, Scraping, Vulnerability, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

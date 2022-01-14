@@ -7,11 +7,8 @@ subtitle: How to define the scope of your objectives
 tags: ethical-hacking, pentesting, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330847/blog/delimit-ethical-hacking/cover_l6krrp.webp
 alt: Person working on the computer while looking at cellphone
-description: When security flaws are found through ethical hacking,
-  it is important to delimit the objectives' scope.
-  Here we will talk about it.
-keywords: Security, Hacking, Pentesting, Application, Infrastructure,
-  Code, Ethical Hacking
+description: When security flaws are found through ethical hacking, it is important to delimit the objectives' scope. Here we will talk about it.
+keywords: Security, Hacking, Pentesting, Application, Infrastructure, Code, Ethical Hacking
 author: Felipe Gómez
 writer: fgomez
 name: Felipe Gómez Arango

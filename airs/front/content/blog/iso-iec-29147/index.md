@@ -7,10 +7,8 @@ category: politics
 tags: cybersecurity, standard, vulnerability, information, company, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-29147/cover_l1aadb.webp
 alt: Photo by Keagan Henman on Unsplash
-description: Would you like to get a clearer idea about vulnerability
-   disclosure? Start with reading this post based on ISO/IEC 29147:2018.
-keywords: Standard, ISO, Vulnerability, Disclosure, Report, Remediation,
-  Ethical Hacking, Pentesting
+description: Would you like to get a clearer idea about vulnerability disclosure? Start with reading this post based on ISO/IEC 29147:2018.
+keywords: Standard, ISO, Vulnerability, Disclosure, Report, Remediation, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

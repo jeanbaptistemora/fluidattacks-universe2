@@ -7,11 +7,8 @@ category: opinions
 tags: security, cybersecurity, trends, security-testing, technology, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-2020-21-ii/cover_xfilrs.webp
 alt: Photo by Jr Korpa on Unsplash
-description: In this second part of the state of cybersecurity 2020-21,
-  we want to share with you some highlights of the current trends
-  in prevention.
-keywords: Security, Cybersecurity, Trends, Security Testing, Automation,
-  Company, Ethical Hacking, Pentesting
+description: In this second part of the state of cybersecurity 2020-21, we want to share with you some highlights of the current trends in prevention.
+keywords: Security, Cybersecurity, Trends, Security Testing, Automation, Company, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

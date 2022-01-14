@@ -7,10 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, company, exploit, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1638463448/blog/cyberattacks-2021/cover_cyberattacks.webp
 alt: Photo by Anil Xavier on Unsplash
-description: 'Supply chain attacks, ransomware and data leaks: We give you
-  a short summary of the major cyberattacks of 2021.'
-keywords: Supply Chain Attack, Ransomware, Leak, Trends, Solarwinds, Software,
-  Darkside, Ethical Hacking, Pentesting
+description: 'Supply chain attacks, ransomware and data leaks: We give you a short summary of the major cyberattacks of 2021.'
+keywords: Supply Chain Attack, Ransomware, Leak, Trends, Solarwinds, Software, Darkside, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

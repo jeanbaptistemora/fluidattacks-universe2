@@ -7,11 +7,8 @@ category: opinions
 tags: cybersecurity, red-team, interview, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392438/blog/certificates-comparison-i/cover-certificates-comparison-i_gutypd.webp
 alt: Photo by Liam Truong Cruz on Unsplash
-description: This is the first post reviewing the leading certifications
-  in red team field. Here, we will look at our beginner
-  and intermediate certificates.
-keywords: Security, Exam, Security, Certification, Cybersecurity,
-  Ethical Hacking, Certificate, Pentesting
+description: This is the first post reviewing the leading certifications in red team field. Here, we will look at our beginner and intermediate certificates.
+keywords: Security, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Certificate, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

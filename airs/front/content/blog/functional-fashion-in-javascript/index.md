@@ -7,12 +7,8 @@ subtitle: Functional programming in JavaScript
 tags: application, functional, javascript, eslint
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330877/blog/functional-fashion-in-javascript/cover_ixmn8l.webp
 alt: Cup with message in front of screen with code
-description: 'Here we talk about some first steps in functional JavaScript
-  and recommendations for migration. Functional JavaScript:
-  fleeting fashion or imminent future?'
-keywords: Functional Paradigm, JavaScript, Object-oriented, Linter,
-  Multiparadigm Application, Eslint, Programming Future, Ethical Hacking,
-  Pentesting
+description: 'Here we talk about some first steps in functional JavaScript and recommendations for migration. Functional JavaScript: fleeting fashion or imminent future?'
+keywords: Functional Paradigm, JavaScript, Object-oriented, Linter, Multiparadigm Application, Eslint, Programming Future, Ethical Hacking, Pentesting
 author: Oswaldo Parada
 writer: oparada
 name: Oswaldo José Parada Cuadros

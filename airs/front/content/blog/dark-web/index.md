@@ -7,10 +7,8 @@ category: philosophy
 tags: web, information, credential, password, security, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330845/blog/dark-web/cover_a24zzf.webp
 alt: Photo by eberhard grossgasteiger on Unsplash
-description: I wrote this post to give you an overview of what
-  the Dark Web is, how we get in, and what we can find within it.
-keywords: Dark Web, Deep Web, Information, Credential, Password,
-  Cybersecurity, Ethical Hacking, Pentesting
+description: I wrote this post to give you an overview of what the Dark Web is, how we get in, and what we can find within it.
+keywords: Dark Web, Deep Web, Information, Credential, Password, Cybersecurity, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

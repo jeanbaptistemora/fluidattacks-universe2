@@ -7,11 +7,8 @@ category: opinions
 tags: cybersecurity, trends, security-testing, technology, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1639694789/blog/cybersecurity-trends-2021/cover_trends.webp
 alt: Photo by Lance Anderson on Unsplash
-description:  In this post,
-  we share a digest of 2021's trends in cyberattacks and prevention,
-  as well as some predictions for the coming years.
-keywords: Attacks, Trends, Predictions, Prevention, Security Testing,
-  Automation, Company, Ethical Hacking, Pentesting
+description:  In this post, we share a digest of 2021's trends in cyberattacks and prevention, as well as some predictions for the coming years.
+keywords: Attacks, Trends, Predictions, Prevention, Security Testing, Automation, Company, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

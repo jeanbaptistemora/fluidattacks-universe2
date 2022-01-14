@@ -7,11 +7,8 @@ category: interview
 tags: cybersecurity, red-team, interview, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627391011/blog/ewptv1-certification/cover-ewptv1-certification_huw2bl.webp
 alt: Photo by Honey Yanibel Minaya Cruz on Unsplash
-description: Andres Roldan obtained the eLearnSecurity Web application
-  Penetration Tester (eWPTv1) certification. Here we talk
-  to him about this achievement.
-keywords: EWPT, Exam, Security, Certification, Cybersecurity,
-  Ethical Hacking, Report, Pentesting
+description: Andres Roldan obtained the eLearnSecurity Web application Penetration Tester (eWPTv1) certification. Here we talk to him about this achievement.
+keywords: EWPT, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Report, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

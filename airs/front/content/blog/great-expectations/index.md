@@ -7,10 +7,8 @@ category: philosophy
 tags: business, security, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/cover_cdvu5f.webp
 alt: 'Chess strategy. Photo by Inactive. on Unsplash: https://unsplash.com/photos/nAjil1z3eLk'
-description: This blog post is a review of a paper from the adversarial risk
-  analysis field applied to cybersecurity.
-keywords: Risk, Probability, Impact, Measure, Quantify, Security,
-  Pentesting, Ethical Hacking
+description: This blog post is a review of a paper from the adversarial risk analysis field applied to cybersecurity.
+keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

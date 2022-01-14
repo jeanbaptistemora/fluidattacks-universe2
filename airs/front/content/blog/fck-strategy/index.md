@@ -7,11 +7,8 @@ category: philosophy
 tags: business, security, mistake, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fck-strategy/cover_ofs1fa.webp
 alt: 'Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw'
-description: Companies should pay attention to how to handle mistakes
-  and think about how to leverage from imperfection. Here,
-  a F*CK statement provides a lesson.
-keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect,
-  Ethical Hacking, Pentesting
+description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.
+keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

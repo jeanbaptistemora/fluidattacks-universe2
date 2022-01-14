@@ -7,11 +7,8 @@ category: philosophy
 tags: devops, software, information, web, cloud, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
 alt: Photo by Michael Fenton on Unsplash
-description: Here we introduce DevOps, a working methodology whose principles
-  are communication, collaboration, automation, continuous release,
-  and quick reaction.
-keywords: Devops, Software, Information, Web, Cloud, Business,
-  Ethical Hacking, Pentesting
+description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
+keywords: Devops, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

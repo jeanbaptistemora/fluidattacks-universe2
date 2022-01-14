@@ -7,10 +7,8 @@ subtitle: Security issues and solutions of SSO services
 tags: security, credential, saml, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/multiple-credentials-begone/cover_ytxbj5.webp
 alt: Multiple icon accounts
-description: Here we explain how to use SAML, a popular SSO implementation
-  standard for logging users into applications based on their sessions.
-keywords: Security, SAML, Credentials, SSO, XML, Risks, Ethical Hacking,
-  Pentesting
+description: Here we explain how to use SAML, a popular SSO implementation standard for logging users into applications based on their sessions.
+keywords: Security, SAML, Credentials, SSO, XML, Risks, Ethical Hacking, Pentesting
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González

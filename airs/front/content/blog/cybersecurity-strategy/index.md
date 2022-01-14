@@ -7,11 +7,8 @@ category: philosophy
 tags: cybersecurity, mistake, risk, business, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 alt: Photo by Joanna Kosinska on Unsplash
-description: A recently published article calls to elevate cybersecurity
-  from operational to a strategic asset.
-  Here we discuss some insights from the paper.
-keywords: Cybersecurity, Mistake, Risk, Strategy, Business, Company,
-  Ethical Hacking, Pentesting
+description: A recently published article calls to elevate cybersecurity from operational to a strategic asset. Here we discuss some insights from the paper.
+keywords: Cybersecurity, Mistake, Risk, Strategy, Business, Company, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

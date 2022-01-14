@@ -7,11 +7,8 @@ category: opinions
 tags: cybersecurity, vulnerability, information, web, risk, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/insensato-reporte/cover_iye7uf.webp
 alt: Photo by Jono Hirst on Unsplash
-description: Aquí les doy una visión general de la reciente vulnerabilidad de
-  seguridad de la Cancillería colombiana y su inadecuada divulgación
-  en medios de comunicación.
-keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web,
-  Ethical Hacking, Pentesting
+description: Aquí les doy una visión general de la reciente vulnerabilidad de seguridad de la Cancillería colombiana y su inadecuada divulgación en medios de comunicación.
+keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 spanish: yes

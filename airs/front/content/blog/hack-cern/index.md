@@ -7,11 +7,8 @@ category: interview
 tags: security, machine-learning, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330889/blog/hack-cern/cover_fqngm1.webp
 alt: Photo by Aurélien Clément Ducret on Unsplash
-description: For this post, we spoke with Andrés Gómez, a former Fluid Attacks'
-  member, who is researching to protect a computer grid supporting experiments
-  at the LHC.
-keywords: CERN, Hacking, Security, Interview, LHC, Machine Learning,
-  Pentesting, Ethical Hacking
+description: For this post, we spoke with Andrés Gómez, a former Fluid Attacks' member, who is researching to protect a computer grid supporting experiments at the LHC.
+keywords: CERN, Hacking, Security, Interview, LHC, Machine Learning, Pentesting, Ethical Hacking
 author: Julian Arango
 writer: jarango
 name: Julian Arango

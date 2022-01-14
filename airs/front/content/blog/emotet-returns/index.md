@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, windows, software, social-engineering, flaw, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1637711055/blog/emotet-returns/cover_emotet.webp
 alt: Photo by Markus Spiske on Unsplash
-description: Emotet reigned as the most dangerous malware before the shutdown
-  of its servers earlier this year. Unfortunately, this month
-  has seen its reappearance.
-keywords: Emotet, Trickbot, Malware, Botnet, Email Spoofing, Word Document,
-  Macros, Ethical Hacking, Pentesting
+description: Emotet reigned as the most dangerous malware before the shutdown of its servers earlier this year. Unfortunately, this month has seen its reappearance.
+keywords: Emotet, Trickbot, Malware, Botnet, Email Spoofing, Word Document, Macros, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

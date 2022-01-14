@@ -7,11 +7,8 @@ category: politics
 tags: cybersecurity, standard, vulnerability, information, company, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-30111/cover_i6aiku.webp
 alt: Photo by Cristofer Jeschke on Unsplash
-description: This post is related to vulnerability handling processes
-  (ISO/IEC 30111), complementing the previous writing on vulnerability
-  disclosure (ISO/IEC 29147).
-keywords: Standard, ISO, Vulnerability, Handling, Verification, Remediation,
-  Ethical Hacking, Pentesting
+description: This post is related to vulnerability handling processes (ISO/IEC 30111), complementing the previous writing on vulnerability disclosure (ISO/IEC 29147).
+keywords: Standard, ISO, Vulnerability, Handling, Verification, Remediation, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

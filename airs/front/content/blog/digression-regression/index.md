@@ -7,10 +7,8 @@ category: machine-learning
 tags: machine-learning, python, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/digression-regression/cover_lmtulx.webp
 alt: Computer showing a graph
-description: In this post, we begin to tackle why vectors are the most
-  appropriate representation for data as input to machine learning algorithms.
-keywords: Machine Learning, Linear Regression, Python, Algorithm, Prediction,
-  Regression, Ethical Hacking, Pentesting
+description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.
+keywords: Machine Learning, Linear Regression, Python, Algorithm, Prediction, Regression, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

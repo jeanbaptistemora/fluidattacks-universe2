@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/fool-machine/cover_fbydkm.webp
 alt: 'Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw'
-description: You'll see how to create images that fool classifiers into
-  thinking they see the wrong object while maintaining visual similarity
-  to a rightly classified image.
-keywords: Machine Learning, Vulnerability, Classification, Adversarial Example,
-  Image, Artificial Intelligence, Ethical Hacking, Pentesting
+description: You'll see how to create images that fool classifiers into thinking they see the wrong object while maintaining visual similarity to a rightly classified image.
+keywords: Machine Learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

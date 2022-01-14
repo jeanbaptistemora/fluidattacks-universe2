@@ -7,11 +7,8 @@ category: opinions
 tags: security, cybersecurity, trends, hacking, social, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330842/blog/cybersecurity-2020-21-i/cover_kb8vag.webp
 alt: Photo by Jr Korpa on Unsplash
-description: In this first part of the state of cybersecurity 2020-21,
-  we want to share with you some highlights of the current trends
-  of cybercriminals.
-keywords: Security, Cybersecurity, Trends, Hacking, Attacks, Criminals,
-  Company, Ethical Hacking, Pentesting
+description: In this first part of the state of cybersecurity 2020-21, we want to share with you some highlights of the current trends of cybercriminals.
+keywords: Security, Cybersecurity, Trends, Hacking, Attacks, Criminals, Company, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

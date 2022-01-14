@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, vulnerability, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330672/blog/binary-learning/cover_ejwzaw.webp
 alt: Binary machine learning. Credits, https://unsplash.com/photos/h3sAF1cVURw
-description: In this article, we describe a system named VDiscover, created
-  from the ground up to learn vulnerabilities in binary code
-  without access to the source.
-keywords: Machine Learning, Vulnerability, Exploit, Dynamic Detection,
-  Static Detection, Security, VDiscover, Ethical Hacking, Pentesting
+description: In this article, we describe a system named VDiscover, created from the ground up to learn vulnerabilities in binary code without access to the source.
+keywords: Machine Learning, Vulnerability, Exploit, Dynamic Detection, Static Detection, Security, VDiscover, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

@@ -7,11 +7,8 @@ category: attacks
 tags: software, security, vulnerability, hacking, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330676/blog/babuk-locker/cover_dy5uwm.webp
 alt: Photo by Guido Hofmann on Unsplash
-description: Here's a post dedicated to the new form of ransomware,
-  Babuk Locker. I mention its encryption scheme, its injection,
-  operation, and other basic things about it.
-keywords: Ransomware, Babuk, Locker, Software, Security, Vulnerability,
-  Hacking, Ethical Hacking, Pentesting
+description: Here's a post dedicated to the new form of ransomware, Babuk Locker. I mention its encryption scheme, its injection, operation, and other basic things about it.
+keywords: Ransomware, Babuk, Locker, Software, Security, Vulnerability, Hacking, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

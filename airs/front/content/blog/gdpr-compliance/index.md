@@ -7,10 +7,8 @@ category: politics
 tags: policies, company, information, security, software, protect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392094/blog/gdpr-compliance/cover-gdpr-compliance_ak5cfl.webp
 alt: Photo by Tushar Mahajan on Unsplash
-description: In this post, we will learn what GDPR is and why it is essential
-  for your company to comply with its policies.
-keywords: GDPR, Data, Companies, Information, Security, Personal,
-  Ethical Hacking, Pentesting
+description: In this post, we will learn what GDPR is and why it is essential for your company to comply with its policies.
+keywords: GDPR, Data, Companies, Information, Security, Personal, Ethical Hacking, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

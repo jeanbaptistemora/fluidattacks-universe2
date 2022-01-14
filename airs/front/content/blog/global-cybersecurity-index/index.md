@@ -7,9 +7,7 @@ category: politics
 tags: cybersecurity, company, policies, business, vulnerability, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627663508/blog/global-cybersecurity-index/cover-global-cybersecurity-index_bwb3ld.webp
 alt: Photo by Sigmund on Unsplash
-description: In this post, we will review some of the most striking results o
-  f the Global Cybersecurity Index. And we will see, particularly,
-  where Latin America failed.
+description: In this post, we will review some of the most striking results of the Global Cybersecurity Index. And we will see, particularly, where Latin America failed.
 keywords: Countries, Measures, Latin America, Global Cybersecurity Index,
   Cybersecurity, Ethical Hacking, Pentesting
 author: Felipe Zárate

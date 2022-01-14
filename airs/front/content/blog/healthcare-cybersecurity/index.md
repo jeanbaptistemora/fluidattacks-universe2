@@ -7,10 +7,8 @@ category: philosophy
 tags: business, security, healthcare, operations
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/healthcare-cybersecurity/cover_v8na5i.webp
 alt: Digital heart beat monitor on Unsplash https://unsplash.com/photos/0lrJo37r6Nk
-description: In this blog post, we explore how simple yet incredibly effective
-  healthcare practices could inform better cybersecurity operations.
-keywords: Healthcare, HealthTech, Cybersecurity, Practices, Operations, Risks,
-  Ethical Hacking, Pentesting
+description: In this blog post, we explore how simple yet incredibly effective healthcare practices could inform better cybersecurity operations.
+keywords: Healthcare, HealthTech, Cybersecurity, Practices, Operations, Risks, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

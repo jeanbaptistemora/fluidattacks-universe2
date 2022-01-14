@@ -7,11 +7,8 @@ category: machine-learning
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330671/blog/big-code/cover_gbuzvj.webp
 alt: Git. Photo by Yancy Min on Unsplash, https://unsplash.com/photos/842ofHC6MaI/
-description: Here we'll see how DeepCode works. It has a lot of potential
-  for identifying bugs in your code by learning from
-  the abundant sources available in Github.
-keywords: Machine Learning, Vulnerability, Open Source, Deep Learning, Lint,
-  Bug, DeepCode, Github, Ethical Hacking, Pentesting
+description: Here we'll see how DeepCode works. It has a lot of potential for identifying bugs in your code by learning from the abundant sources available in Github.
+keywords: Machine Learning, Vulnerability, Open Source, Deep Learning, Lint, Bug, DeepCode, Github, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

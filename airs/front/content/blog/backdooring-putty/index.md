@@ -7,10 +7,8 @@ subtitle: Trust no one
 tags: osce, backdoor, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/backdooring-putty/cover_sa53hg.webp
 alt: Photo by Dil on Unsplash
-description: This article will show a way of creating a backdoor that will be
-  injected into PuTTY, a widely used software for accessing remote computers.
-keywords: Information, Security, Protection, Hacking, Exploit, Backdoor, OSCE,
-  PuTTY, Ethical Hacking, Pentesting
+description: This article will show a way of creating a backdoor that will be injected into PuTTY, a widely used software for accessing remote computers.
+keywords: Information, Security, Protection, Hacking, Exploit, Backdoor, OSCE, PuTTY, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

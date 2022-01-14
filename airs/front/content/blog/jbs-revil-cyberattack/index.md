@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, company, trends, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627389786/blog/jbs-revil-cyberattack/cover-jbs-revil-cyberattack_t9s8bc.webp
 alt: Photo by NASA on Unsplash
-description: FBI stated REvil as a global threat after confirming their
-  attack on the IT architecture of the world's largest
-  meat-producing company, JBS.
-keywords: Ransomware, Attack, Vulnerability, Software, Cybersecurity,
-  Ethical Hacking, Revil, Pentesting
+description: FBI stated REvil as a global threat after confirming their attack on the IT architecture of the world's largest meat-producing company, JBS.
+keywords: Ransomware, Attack, Vulnerability, Software, Cybersecurity, Ethical Hacking, Revil, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

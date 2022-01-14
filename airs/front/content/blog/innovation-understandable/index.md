@@ -7,11 +7,8 @@ category: interview
 tags: interview, machine-learning
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/innovation-understandable/cover_vfweh5.webp
 alt: Nicolás Acosta, CISO at Corona
-description: Nicolás Acosta, CISO of Corona, shared his perspective on topics
-  like artificial intelligence, machine learning, innovation, setbacks as CISO,
-  among others.
-keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity,
-  Cyberintelligence, Hacking, Ethical Hacking, Pentesting
+description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
+keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity, Cyberintelligence, Hacking, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

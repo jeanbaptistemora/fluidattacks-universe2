@@ -7,11 +7,8 @@ subtitle: How to resolve HTB DevOops
 tags: security, htb, pwn, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330849/blog/devoops-writeup/cover_sebbts.webp
 alt: Developers programming in an office
-description: In this article, we present how to exploit the vulnerabilities
-  of DevOops, a Linux Hack the Box machine, and how to gain access and obtain
-  the root flag.
-keywords: HTB, Security, Hack the Box, Web, Writeup, DevOops, Pentesting,
-  Ethical Hacking
+description: In this article, we present how to exploit the vulnerabilities of DevOops, a Linux Hack the Box machine, and how to gain access and obtain the root flag.
+keywords: HTB, Security, Hack the Box, Web, Writeup, DevOops, Pentesting, Ethical Hacking
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

@@ -6,13 +6,9 @@ subtitle: Deep learning for vulnerability discovery
 category: machine-learning
 tags: machine-learning, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330846/blog/deep-hacking/cover_oww6xm.webp
-alt: 'Depiction of a deep neural network. Credits:
-  https://unsplash.com/photos/R84Oy89aNKs'
-description: Here we describe the first systematic framework for using
-  deep learning to detect vulnerabilities in source code by cutting
-  the program into slices.
-keywords: Machine Learning, Vulnerability, Deep Learning, Discovery,
-  Static Detection, Security, Ethical Hacking, Pentesting
+alt: 'Depiction of a deep neural network. Credits: https://unsplash.com/photos/R84Oy89aNKs'
+description: Here we describe the first systematic framework for using deep learning to detect vulnerabilities in source code by cutting the program into slices.
+keywords: Machine Learning, Vulnerability, Deep Learning, Discovery, Static Detection, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

@@ -7,11 +7,8 @@ category: documentation
 tags: documentation, vector, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/gherkin-steroids/cover_iwilpg.webp
 alt: Cucumber lot
-description: In this post, we work on how to use Gherkin to document
-  attack vectors in vulnerable applications, employing more advanced
-  keywords from the Gherkin syntax.
-keywords: Gherkin, Attack Vector, Documentation, Report, Vulnerability, Inclusion,
-  Ethical Hacking, Pentesting
+description: In this post, we work on how to use Gherkin to document attack vectors in vulnerable applications, employing more advanced keywords from the Gherkin syntax.
+keywords: Gherkin, Attack Vector, Documentation, Report, Vulnerability, Inclusion, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

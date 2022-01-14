@@ -4,15 +4,11 @@ title: Continuous Search for the Unknown
 date: 2020-03-31
 subtitle: ForAllSecure on the Next-Generation fuzzing
 category: opinions
-tags: fuzzing, cybersecurity, security-testing, hacking,
-  vulnerability, business
+tags: fuzzing, cybersecurity, security-testing, hacking, vulnerability, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/fuzzing-forallsecure/cover_vfq8ht.webp
 alt: Photo by David Kovalenko on Unsplash
-description: "This post is based on the information given on February 11th
-  by Brumley (ForAllSecure) in his webinar 'Continuous Fuzzing:
-  The Trending Security Technique.'"
-keywords: Fuzzing, Cybersecurity, Security Testing, Hacking, Vulnerability,
-  Business, Pentesting, Ethical Hacking
+description: "This post is based on the information given on February 11th by Brumley (ForAllSecure) in his webinar 'Continuous Fuzzing: The Trending Security Technique.'"
+keywords: Fuzzing, Cybersecurity, Security Testing, Hacking, Vulnerability, Business, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

@@ -7,10 +7,8 @@ subtitle: How to crash Windows
 tags: osee, training, exploit, windows, kernel, hevd
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
 alt: Photo by Chaozzy Lin on Unsplash
-description: This article will be the first approach to start exploting
-  HackSys Extremely Vulnerable Driver with a Denial of Service
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSEE, Ethical Hacking, Pentesting
+description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

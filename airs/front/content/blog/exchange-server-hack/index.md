@@ -7,10 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, hacking, application, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/cover_ep44jq.webp
 alt: Photo by Alejandro Luengo on Unsplash
-description: This post describes the Microsoft Exchange Server hack that
-  has affected multiple companies and government agencies recently.
-keywords: Microsoft Exchange Server, Software, Attack, Hafnium, Vulnerability,
-  Update, Ethical Hacking, Pentesting
+description: This post describes the Microsoft Exchange Server hack that has affected multiple companies and government agencies recently.
+keywords: Microsoft Exchange Server, Software, Attack, Hafnium, Vulnerability, Update, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

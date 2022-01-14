@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, company, exploit, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1640267729/blog/log4shell/cover_log4shell.webp
 alt: Photo by tabitha turner on Unsplash
-description: A vulnerability in the ubiquitous open-source library Log4j
-  has revealed terrifying exploit possibilities.
-  Learn what it is and what you should do about it.
-keywords: Log4j, Log4shell, Upgrade, Apache, Remote Code Execution, Java,
-  Vulnerability, Ethical Hacking, Pentesting
+description: A vulnerability in the ubiquitous open-source library Log4j has revealed terrifying exploit possibilities. Learn what it is and what you should do about it.
+keywords: Log4j, Log4shell, Upgrade, Apache, Remote Code Execution, Java, Vulnerability, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

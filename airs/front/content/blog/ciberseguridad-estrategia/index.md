@@ -7,11 +7,8 @@ category: philosophy
 tags: cybersecurity, mistake, risk, business, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 alt: Photo by Joanna Kosinska on Unsplash
-description: Un artículo reciente sugiere elevar a la ciberseguridad de
-  una incorporación operativa a una estratégica.
-  Aquí discutimos algunas ideas de ese artículo.
-keywords: Ciberseguridad, Error, Riesgo, Estrategia, Negocio, Compañía,
-  Ethical Hacking, Pentesting
+description: Un artículo reciente sugiere elevar a la ciberseguridad de una incorporación operativa a una estratégica. Aquí discutimos algunas ideas de ese artículo.
+keywords: Ciberseguridad, Error, Riesgo, Estrategia, Negocio, Compañía, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 spanish: yes

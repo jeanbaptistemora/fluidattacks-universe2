@@ -7,9 +7,7 @@ subtitle: Cloud based systems in healthcare and their issues
 tags: cloud, protect, health
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330889/blog/healthcare-clouds/cover_b77ciq.webp
 alt: several balloons floating in the air
-description: Cloud-based systems can be of great benefit to healthcare
-  institutions, but they can also lead to security issues that must
-  be handled and that we explain here.
+description: Cloud-based systems can be of great benefit to healthcare institutions, but they can also lead to security issues that must be handled and that we explain here.
 keywords: Health Care, Cloud, Information, Risks, Security, Protect,
   Pentesting, Ethical Hacking
 author: Juan Aguirre
