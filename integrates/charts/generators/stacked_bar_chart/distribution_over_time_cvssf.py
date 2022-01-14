@@ -9,11 +9,12 @@ from charts import (
     utils,
 )
 from charts.generators.stacked_bar_chart.utils import (
-    DATE_FMT,
     DISTRIBUTION_OVER_TIME,
     format_distribution_document,
     get_current_time_range,
     get_distribution_over_rangetime,
+    get_min_date_formatted,
+    get_min_date_unformatted,
     get_quarter,
     get_semester,
     get_time_range,
@@ -21,7 +22,6 @@ from charts.generators.stacked_bar_chart.utils import (
     RiskOverTime,
     sum_over_time_many_groups,
     translate_date,
-    translate_date_last,
 )
 from dataloaders import (
     Dataloaders,
@@ -67,14 +67,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     accepted=accepted["y"],
                     closed=closed["y"],
                     opened=opened["y"],
-                    date=(
-                        translate_date_last(accepted["x"])
-                        if translate_date_last(accepted["x"]) < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    date=get_min_date_unformatted(accepted["x"]),
                     total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
@@ -114,15 +107,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     accepted=accepted["y"],
                     closed=closed["y"],
                     opened=opened["y"],
-                    date=(
-                        datetime.strptime(accepted["x"], DATE_FMT)
-                        if datetime.strptime(accepted["x"], DATE_FMT)
-                        < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    date=get_min_date_formatted(accepted["x"]),
                     total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )

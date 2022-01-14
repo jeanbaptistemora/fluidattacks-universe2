@@ -15,13 +15,14 @@ from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
     EXPOSED_OVER_TIME,
     get_current_time_range,
+    get_min_date_formatted,
+    get_min_date_unformatted,
     get_quarter,
     get_semester,
     get_time_range,
     RiskOverTime,
     sum_over_time_many_groups,
     translate_date,
-    translate_date_last,
 )
 from dataloaders import (
     Dataloaders,
@@ -122,14 +123,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     medium=medium["y"],
                     high=high["y"],
                     critical=critical["y"],
-                    data_date=(
-                        translate_date_last(low["x"])
-                        if translate_date_last(low["x"]) < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    data_date=get_min_date_unformatted(low["x"]),
                 )
             )
 
@@ -151,15 +145,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     medium=medium["y"],
                     high=high["y"],
                     critical=critical["y"],
-                    data_date=(
-                        datetime.strptime(low["x"], DATE_FMT)
-                        if datetime.strptime(low["x"], DATE_FMT)
-                        < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    data_date=get_min_date_formatted(low["x"]),
                 )
             )
 

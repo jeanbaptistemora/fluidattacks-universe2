@@ -702,3 +702,23 @@ def get_distribution_over_rangetime(
             get_time(key): value for key, value in group_data["Open"].items()
         },
     }
+
+
+def get_min_date_unformatted(date_str: str) -> datetime:
+    if translate_date_last(date_str) < datetime.now():
+        return translate_date_last(date_str)
+
+    return datetime.combine(
+        datetime.now(),
+        datetime.min.time(),
+    )
+
+
+def get_min_date_formatted(date_str: str) -> datetime:
+    if datetime.strptime(date_str, DATE_FMT) < datetime.now():
+        return datetime.strptime(date_str, DATE_FMT)
+
+    return datetime.combine(
+        datetime.now(),
+        datetime.min.time(),
+    )
