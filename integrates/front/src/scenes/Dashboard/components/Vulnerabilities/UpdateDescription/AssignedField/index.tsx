@@ -34,7 +34,6 @@ const AssignedField: React.FC<IAssignedFieldProps> = ({
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}
         >
-          <option value={""} />
           {userEmails.map(
             (email: string): JSX.Element => (
               <option key={email} value={email}>
