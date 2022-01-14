@@ -8,5 +8,5 @@ from model.graph_model import (
     Queries,
 )
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F034
 QUERIES: Queries = ((FINDING, javscript_weak_random),)
