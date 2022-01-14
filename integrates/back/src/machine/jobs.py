@@ -110,6 +110,35 @@ async def _get_machine_executions_by_job_id(
     )
 
 
+def _get_jobs_that_have_no_logs(
+    jobs_details_from_batch: Dict[str, Dict[str, Any]],
+    not_allowed_jobs_ids: List[str],
+) -> List[Job]:
+    jobs: List[Job] = []
+    for job_id, job_item in jobs_details_from_batch.items():
+        if job_id in not_allowed_jobs_ids:
+            continue
+        group = job_item["container"]["command"][3]
+        for git_root_nickname in json.loads(
+            job_item["container"]["command"][5]
+        ):
+            jobs.append(
+                Job(
+                    created_at=job_item.get("createdAt"),
+                    exit_code=job_item.get("container", {}).get("exitCode"),
+                    exit_reason=job_item.get("container", {}).get("reason"),
+                    id=job_item["jobId"],
+                    name=f"skims-process-{group}-{git_root_nickname}",
+                    root_nickname=git_root_nickname,
+                    queue=job_item["jobQueue"].split("/")[-1],
+                    started_at=job_item.get("startedAt", 0),
+                    stopped_at=job_item.get("stoppedAt", 0),
+                    status=job_item["status"],
+                )
+            )
+    return jobs
+
+
 async def list_(  # pylint: disable=too-many-locals
     *,
     finding_code: str,
@@ -132,7 +161,7 @@ async def list_(  # pylint: disable=too-many-locals
         )
     }
 
-    jobs_details = {
+    jobs_details_from_batch = {
         item["jobId"]: item
         for item in (await describe_jobs(*list_jobs_from_batch.keys()))
         if finding_code in json.loads(item["container"]["command"][-2])
@@ -140,28 +169,33 @@ async def list_(  # pylint: disable=too-many-locals
     }
 
     job_logs_description = await list_log_streams(
-        group_name, *jobs_details.keys()
+        group_name, *jobs_details_from_batch.keys()
     )
 
-    root_machine_executions: Dict[str, Dict[str, RootMachineExecutionItem]] = {
-        job_id: {execution.root_id: execution for execution in executions}
-        for job_id, executions in await collect(
-            _get_machine_executions_by_job_id(
-                job_id=job_id,
-            )
-            for job_id in list_jobs_from_batch.keys()
-        )
-    }
-
-    jobs = []
+    job_items = []
+    jobs_listed: List[str] = []
 
     for job_item in job_logs_description:
         group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
+        jobs_listed.append(job_id)
 
         db_execution: Optional[RootMachineExecutionItem] = None
         vulns_summary: Optional[RootMachineExecutionItem] = None
 
         if git_root_nickname in group_roots:
+            root_machine_executions: Dict[
+                str, Dict[str, RootMachineExecutionItem]
+            ] = {
+                job_id: {
+                    execution.root_id: execution for execution in executions
+                }
+                for job_id, executions in await collect(
+                    _get_machine_executions_by_job_id(
+                        job_id=job_id,
+                    )
+                    for job_id in list_jobs_from_batch.keys()
+                )
+            }
             db_execution = root_machine_executions.get(job_id, {}).get(
                 group_roots[git_root_nickname]
             )
@@ -176,19 +210,21 @@ async def list_(  # pylint: disable=too-many-locals
                     modified=_vulns[0].modified, open=_vulns[0].open
                 )
 
-        jobs.append(
+        job_items.append(
             Job(
-                created_at=jobs_details[job_id].get("createdAt"),
-                exit_code=jobs_details[job_id]
+                created_at=jobs_details_from_batch[job_id].get("createdAt"),
+                exit_code=jobs_details_from_batch[job_id]
                 .get("container", {})
                 .get("exitCode"),
-                exit_reason=jobs_details[job_id]
+                exit_reason=jobs_details_from_batch[job_id]
                 .get("container", {})
                 .get("reason"),
-                id=jobs_details[job_id]["jobId"],
+                id=jobs_details_from_batch[job_id]["jobId"],
                 name=f"skims-process-{group}-{git_root_nickname}",
                 root_nickname=job_item["logStreamName"].split("/")[-1],
-                queue=jobs_details[job_id]["jobQueue"].split("/")[-1],
+                queue=jobs_details_from_batch[job_id]["jobQueue"].split("/")[
+                    -1
+                ],
                 started_at=int(
                     date_parse(db_execution.started_at).timestamp() * 1000
                 )
@@ -199,13 +235,18 @@ async def list_(  # pylint: disable=too-many-locals
                 )
                 if db_execution
                 else job_item.get("lastEventTimestamp", 0),
-                status=jobs_details[job_id]["status"],
+                status=jobs_details_from_batch[job_id]["status"],
                 vulnerabilities=vulns_summary,
             )
         )
-
+    job_items.extend(
+        _get_jobs_that_have_no_logs(
+            jobs_details_from_batch=jobs_details_from_batch,
+            not_allowed_jobs_ids=jobs_listed,
+        )
+    )
     return sorted(
-        jobs,
+        job_items,
         key=lambda job: job.created_at or 0,
         reverse=True,
     )
