@@ -151,13 +151,16 @@ toe_lines_update = retry_on_exceptions(
 )(toe_lines_domain.update)
 
 
-async def update_indicators(finding_id: str, group_name: str) -> None:
+async def update_indicators(
+    finding_id: str, group_name: str, vuln_ids: Tuple[str, ...]
+) -> None:
     await redis_del_by_deps(
         "upload_file", finding_id=finding_id, group_name=group_name
     )
     await update_unreliable_indicators_by_deps(
-        EntityDependency.upload_file,
+        EntityDependency.move_root,
         finding_ids=[finding_id],
+        vulnerability_ids=vuln_ids,
     )
 
 
@@ -168,7 +171,7 @@ async def process_vuln(
     target_finding_id: str,
     target_root_id: str,
     item_subject: str,
-) -> None:
+) -> str:
     state_loader = loaders.vulnerability_historic_state
     treatment_loader = loaders.vulnerability_historic_treatment
     verification_loader = loaders.vulnerability_historic_verification
@@ -211,6 +214,7 @@ async def process_vuln(
         modified_by=item_subject,
         source=Source.ASM,
     )
+    return new_id
 
 
 async def process_finding(
@@ -293,7 +297,7 @@ async def process_finding(
             state=target_approval,
         )
 
-    await collect(
+    target_vuln_ids = await collect(
         tuple(
             process_vuln(
                 loaders=loaders,
@@ -308,8 +312,14 @@ async def process_finding(
     )
     await collect(
         (
-            update_indicators(source_finding_id, source_group_name),
-            update_indicators(target_finding_id, target_group_name),
+            update_indicators(
+                source_finding_id,
+                source_group_name,
+                tuple(vuln.id for vuln in vulns),
+            ),
+            update_indicators(
+                target_finding_id, target_group_name, target_vuln_ids
+            ),
         )
     )
 

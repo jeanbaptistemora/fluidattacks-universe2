@@ -87,7 +87,7 @@ async def update_findings_unreliable_indicators(
                 finding_id,
                 attrs_to_update,
             )
-            for finding_id in finding_ids
+            for finding_id in set(finding_ids)
         )
     )
 

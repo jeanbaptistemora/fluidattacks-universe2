@@ -31,13 +31,25 @@ def test_model_entity_attrs_integrity() -> None:
 
 def test_get_entities_to_update_by_dependency() -> None:
     finding_id = "422286126"
+    vulnerability_id = "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     entities_to_update_by_dependency = (
         model.get_entities_to_update_by_dependency(
             EntityDependency.request_vulnerabilities_zero_risk,
             finding_ids=[finding_id],
+            vulnerability_ids=[vulnerability_id],
         )
     )
     expected_output = {
+        Entity.vulnerability: EntityToUpdate(
+            entity_ids={EntityId.ids: [vulnerability_id]},
+            attributes_to_update={
+                EntityAttr.efficacy,
+                EntityAttr.last_reattack_date,
+                EntityAttr.last_reattack_requester,
+                EntityAttr.last_requested_reattack_date,
+                EntityAttr.reattack_cycles,
+            },
+        ),
         Entity.finding: EntityToUpdate(
             entity_ids={EntityId.ids: [finding_id]},
             attributes_to_update={
@@ -50,6 +62,6 @@ def test_get_entities_to_update_by_dependency() -> None:
                 EntityAttr.treatment_summary,
                 EntityAttr.where,
             },
-        )
+        ),
     }
     assert entities_to_update_by_dependency == expected_output

@@ -31,9 +31,11 @@ pytestmark = [
 async def test_update_unreliable_indicators_by_deps() -> None:
     loaders = get_new_context()
     finding_id = "422286126"
+    vulnerability_id = "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     await update_unreliable_indicators_by_deps(
         EntityDependency.reject_vulnerabilities_zero_risk,
         finding_ids=[finding_id],
+        vulnerability_ids=[vulnerability_id],
     )
     finding: Finding = await loaders.finding.load(finding_id)
     expected_output = FindingUnreliableIndicators(
