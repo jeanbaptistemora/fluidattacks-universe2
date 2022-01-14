@@ -726,5 +726,13 @@
     "ES": {
       "title": "401. Insecure service configuration - AKV Secret Expiration"
     }
+  },
+  "F402": {
+    "EN": {
+      "title": "402. Tracebility Loss - Azure"
+    },
+    "ES": {
+      "title": "402. Tracebility Loss - Azure"
+    }
   }
 }
