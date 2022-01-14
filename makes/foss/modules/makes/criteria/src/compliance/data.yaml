@@ -3862,3 +3862,15 @@
       title: Unauthorised re‑identification of anonymised information
       link: https://sso.agc.gov.sg/Act/PDPA2012
   metadata: {}
+"031":
+  title: South Africa POPIA Compliance and Cybersecurity
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "3A_11":
+      title: Processing of personal information in general – Consent, justification and objection
+      link: https://popia.co.za/
+  metadata: {}
