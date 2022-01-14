@@ -9,6 +9,52 @@ from typing import (
     TypeVar,
 )
 
+
+def _utf8_lead_byte(byte: int) -> bool:
+    """A UTF-8 intermediate byte starts with the bits 10xxxxxx."""
+    return (byte & 0b11000000) == 0b10000000
+
+
+def _lead_bytes_of(byte: int) -> int:
+    """UTF-8 lead bytes of char given byte 1"""
+    if (byte & 0b10000000) == 0:
+        return 0
+    if (byte & 0b11100000) == 11000000:
+        return 1
+    if (byte & 0b11110000) == 11100000:
+        return 2
+    if (byte & 0b11111000) == 0b11110000:
+        return 3
+    raise Exception("Not a UTF-8")
+
+
+def _search_last_not_lead_byte(raw: bytes) -> int:
+    last = len(raw) - 1
+    for i in range(len(raw)):
+        if not _utf8_lead_byte(raw[last - i]):
+            return last - i
+    raise Exception("Unexpected: not lead byte not found")
+
+
+def utf8_byte_truncate(text: str, max_bytes: int) -> str:
+    if max_bytes < 0:
+        raise Exception("max_bytes must be >= 0")
+    if max_bytes == 0:
+        return ""
+    utf8 = text.encode("utf8")
+    if len(utf8) <= max_bytes:
+        return utf8.decode("utf8")
+    truncated = utf8[:max_bytes]
+    last_not_lead_index = _search_last_not_lead_byte(truncated)
+    last_lead_bytes = max_bytes - 1 - last_not_lead_index
+    last_not_lead_byte = truncated[last_not_lead_index]
+    if _lead_bytes_of(last_not_lead_byte) == last_lead_bytes:
+        # char bytes fits in the truncation
+        return truncated.decode("utf8")
+    # discard incomplete char
+    return truncated[:last_not_lead_index].decode("utf8")
+
+
 _L = TypeVar("_L", Literal[64], Literal[256], Literal[4096])
 
 
@@ -25,5 +71,5 @@ class TruncatedStr(_TruncatedStr[_L]):
 
 
 def truncate(raw: str, limit: _L) -> TruncatedStr[_L]:
-    draft = _TruncatedStr(limit, raw.encode()[:limit].decode())
+    draft = _TruncatedStr(limit, utf8_byte_truncate(raw, limit))
     return TruncatedStr(draft)
