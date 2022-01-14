@@ -655,8 +655,88 @@ async def get_source(
     return historic[0].source
 
 
-async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
-    loaders: Any,
+def _get_effective_reattacks(
+    vulns: Tuple[Vulnerability, ...],
+    min_date: datetime,
+) -> int:
+    """Get count for closed and remediated vulns since the given date."""
+    vulns_effective_reattack = [
+        vuln
+        for vuln in vulns
+        if vuln.verification
+        and vuln.verification.status
+        == VulnerabilityVerificationStatus.VERIFIED
+        and datetime.fromisoformat(vuln.verification.modified_date) >= min_date
+        and vuln.state.status == VulnerabilityStateStatus.CLOSED
+    ]
+    return len(vulns_effective_reattack)
+
+
+def _get_reattacks_requested(
+    vulns: Tuple[Vulnerability, ...],
+    min_date: datetime,
+) -> int:
+    """Get count for vulns with reattacks requested since the given date."""
+    vulns_reattack_requested = [
+        vuln
+        for vuln in vulns
+        if vuln.verification
+        and vuln.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+        and datetime.fromisoformat(vuln.verification.modified_date) >= min_date
+    ]
+    return len(vulns_reattack_requested)
+
+
+def _get_last_reattack_requested_date(
+    vulns: Tuple[Vulnerability, ...],
+) -> str:
+    """Get the most recent reattack request date for these vulns."""
+    dates_reattack_requested = [
+        datetime_utils.convert_from_iso_str(vuln.verification.modified_date)
+        for vuln in vulns
+        if vuln.verification
+        and vuln.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
+    ]
+    if not dates_reattack_requested:
+        return ""
+    return max(dates_reattack_requested)
+
+
+def _get_reattacks_executed(
+    vulns: Tuple[Vulnerability, ...],
+    min_date: datetime,
+) -> int:
+    """Get count for vulns with reattacks executed since the given date."""
+    vulns_reattack_executed = [
+        vuln
+        for vuln in vulns
+        if vuln.verification
+        and vuln.verification.status
+        == VulnerabilityVerificationStatus.VERIFIED
+        and datetime.fromisoformat(vuln.verification.modified_date) >= min_date
+    ]
+    return len(vulns_reattack_executed)
+
+
+def _get_last_reattack_executed_date(
+    vulns: Tuple[Vulnerability, ...],
+) -> str:
+    """Get the most recent reattack/verification date for these vulns."""
+    dates_reattack_executed = [
+        datetime_utils.convert_from_iso_str(vuln.verification.modified_date)
+        for vuln in vulns
+        if vuln.verification
+        and vuln.verification.status
+        == VulnerabilityVerificationStatus.VERIFIED
+    ]
+    if not dates_reattack_executed:
+        return ""
+    return max(dates_reattack_executed)
+
+
+async def get_total_reattacks_stats(
     vulns: Tuple[Vulnerability, ...],
     min_date: datetime,
 ) -> Dict[str, Union[int, str]]:
@@ -664,58 +744,19 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     default_date: datetime = datetime_utils.get_from_str(
         datetime_utils.DEFAULT_STR
     )
-    reattacks_requested: int = 0
-    reattacks_executed: int = 0
-    reattacks_executed_total: int = 0  # No filtered by date
-    pending_attacks: int = 0
-    effective_reattacks: int = 0
-    effective_reattacks_total: int = 0  # No filtered by date
-    min_requested_date: datetime = default_date
-    min_executed_date: datetime = default_date
-
-    for vuln in vulns:
-        request_date = await get_last_requested_reattack_date(loaders, vuln)
-        if request_date:
-            last_requested_reattack_date = datetime.fromisoformat(request_date)
-            # Get oldest reattack request date
-            min_requested_date = max(
-                min_requested_date, last_requested_reattack_date
-            )
-            if min_date and last_requested_reattack_date >= min_date:
-                reattacks_requested += 1
-        verified_date = await get_last_reattack_date(loaders, vuln)
-        if verified_date:
-            # Increment totals, no date filtered
-            reattacks_executed_total += 1
-            if vuln.state.status == VulnerabilityStateStatus.CLOSED:
-                effective_reattacks_total += 1
-            # Get oldest executed reattack date
-            last_reattack_date = datetime.fromisoformat(verified_date)
-            min_executed_date = max(min_executed_date, last_reattack_date)
-            if min_date and last_reattack_date >= min_date:
-                reattacks_executed += 1
-                if vuln.state.status == VulnerabilityStateStatus.CLOSED:
-                    effective_reattacks += 1
-        if (
-            vuln.verification
-            and vuln.verification.status
-            == VulnerabilityVerificationStatus.REQUESTED
-        ):
-            pending_attacks += 1
-
     return {
-        "effective_reattacks": effective_reattacks,
-        "effective_reattacks_total": effective_reattacks_total,
-        "reattacks_requested": reattacks_requested,
-        "last_requested_date": datetime_utils.get_as_str(min_requested_date)
-        if min_requested_date != default_date
-        else "",
-        "reattacks_executed": reattacks_executed,
-        "reattacks_executed_total": reattacks_executed_total,
-        "last_executed_date": datetime_utils.get_as_str(min_executed_date)
-        if min_executed_date != default_date
-        else "",
-        "pending_attacks": pending_attacks,
+        "effective_reattacks": _get_effective_reattacks(vulns, min_date),
+        "effective_reattacks_total": _get_effective_reattacks(
+            vulns, default_date
+        ),
+        "reattacks_requested": _get_reattacks_requested(vulns, min_date),
+        "last_requested_date": _get_last_reattack_requested_date(vulns),
+        "reattacks_executed": _get_reattacks_executed(vulns, min_date),
+        "reattacks_executed_total": _get_reattacks_executed(
+            vulns, default_date
+        ),
+        "last_executed_date": _get_last_reattack_executed_date(vulns),
+        "pending_attacks": _get_reattacks_requested(vulns, default_date),
     }
 
 
