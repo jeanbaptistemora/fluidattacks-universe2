@@ -23,10 +23,8 @@ from training.constants import (
 )
 from training.training_script.utils import (
     get_best_combination,
-    get_previous_training_results,
     load_training_data,
     save_model_to_s3,
-    set_sagemaker_extra_envs,
     split_training_data,
     train_combination,
     update_results_csv,
@@ -105,24 +103,13 @@ def save_model(
 def train_model(
     model_class: ModelType,
     training_dir: str,
-    previous_results: List[List[str]],
 ) -> List[List[str]]:
     all_combinations = get_features_combinations(list(FEATURES_DICTS.keys()))
     training_data: DataFrame = load_training_data(training_dir)
-    training_output: List[List[str]] = (
-        previous_results if previous_results else [RESULT_HEADERS]
-    )
-
-    # Get previously tried features combinations for model_class model
-    tried_combinations = get_tried_combinations(previous_results)
-    valid_combinations: List[Tuple[str, ...]] = [
-        combination
-        for combination in all_combinations
-        if combination not in tried_combinations
-    ]
+    training_output: List[List[str]] = [RESULT_HEADERS]
 
     # Train the model
-    for combination in valid_combinations:
+    for combination in all_combinations:
         model = get_model_instance(model_class)
         training_combination_output: List[str] = train_combination(
             model, training_data, combination
@@ -149,9 +136,6 @@ def cli() -> argparse.Namespace:
     # Model to train sent as a hyperparamenter
     parser.add_argument("--model", type=str, default="")
 
-    # Extra args that SageMaker excution may need (fex. ENVS)
-    parser.add_argument("--envs", type=str, default="")
-
     return parser.parse_args()
 
 
@@ -161,16 +145,10 @@ def main() -> None:
     model_name: str = args.model
     model_class: ModelType = MODELS[model_name]
 
-    # Set necessary env vars that SageMaker environment needs
-    set_sagemaker_extra_envs(args.envs)
-
     # Start training process
     if model_class:
         results_filename: str = f"{model_name}_train_results.csv"
-        previous_results = get_previous_training_results(results_filename)
-        training_output = train_model(
-            model_class, args.train, previous_results
-        )
+        training_output = train_model(model_class, args.train)
         update_results_csv(results_filename, training_output)
         save_model(model_class, args.train, training_output)
 

@@ -27,9 +27,6 @@ from training.constants import (
 from training.evaluate_results import (
     get_best_model_name,
 )
-from training.redshift import (
-    db as redshift,
-)
 from typing import (
     Dict,
     List,
@@ -211,7 +208,6 @@ def train_combination(
         training_time=training_time,
     )
     training_output = list(combination_train_results.values())
-    redshift.insert("training", combination_train_results)
 
     return training_output
 
