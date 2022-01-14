@@ -107,6 +107,19 @@ def format_unreliable_indicators(
     item: Item,
 ) -> VulnerabilityUnreliableIndicators:
     return VulnerabilityUnreliableIndicators(
+        unreliable_efficacy=item.get("unreliable_efficacy", None),
+        unreliable_last_reattack_date=item.get(
+            "unreliable_last_reattack_date", None
+        ),
+        unreliable_last_reattack_requester=item.get(
+            "unreliable_last_reattack_requester", None
+        ),
+        unreliable_last_requested_reattack_date=item.get(
+            "unreliable_last_requested_reattack_date", None
+        ),
+        unreliable_reattack_cycles=None
+        if item.get("unreliable_reattack_cycles", None) is None
+        else int(item["unreliable_reattack_cycles"]),
         unreliable_report_date=item.get("unreliable_report_date", None),
         unreliable_source=None
         if item.get("unreliable_source", None) is None

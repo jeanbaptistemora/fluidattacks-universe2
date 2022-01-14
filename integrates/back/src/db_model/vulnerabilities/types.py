@@ -10,6 +10,9 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     List,
     NamedTuple,
@@ -38,6 +41,11 @@ class VulnerabilityTreatment(NamedTuple):
 
 
 class VulnerabilityUnreliableIndicators(NamedTuple):
+    unreliable_efficacy: Optional[Decimal] = None
+    unreliable_last_reattack_date: Optional[str] = None
+    unreliable_last_reattack_requester: Optional[str] = None
+    unreliable_last_requested_reattack_date: Optional[str] = None
+    unreliable_reattack_cycles: Optional[int] = None
     unreliable_report_date: Optional[str] = None
     unreliable_source: Optional[Source] = None
 
@@ -108,4 +116,8 @@ VulnerabilityHistoricEntry = Union[
 
 
 class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_report_date: Optional[str] = None
+    unreliable_efficacy: Optional[Decimal] = None
+    unreliable_last_reattack_date: Optional[str] = None
+    unreliable_last_reattack_requester: Optional[str] = None
+    unreliable_last_requested_reattack_date: Optional[str] = None
+    unreliable_reattack_cycles: Optional[int] = None
