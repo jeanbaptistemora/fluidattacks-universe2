@@ -4,15 +4,11 @@ title: Effective Vulnerability Triage
 date: 2020-04-21
 subtitle: BDSA and various data points for prioritization
 category: opinions
-tags: cybersecurity, vulnerability, standard, information, software,
-  application
+tags: cybersecurity, vulnerability, standard, information, software, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331220/blog/vulns-triage-synopsys/cover_iesvfh.webp
 alt: Photo by Jeremy Thomas on Unsplash
-description: This post is based on the webinar 'Effective Vulnerability
-  Remediation Requires More than One Data Point' by Jeff Michael
-  and Chris Fearon from Synopsys.
-keywords: Cybersecurity, Vulnerability, Triage, Standard, Information,
-  Software, Application, Ethical Hacking, Pentesting
+description: This post is based on the webinar 'Effective Vulnerability Remediation Requires More than One Data Point' by Jeff Michael and Chris Fearon from Synopsys.
+keywords: Cybersecurity, Vulnerability, Triage, Standard, Information, Software, Application, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz
@@ -25,16 +21,16 @@ webinar](https://www.brighttalk.com/webcast/13983/382758).
 
 As Dale Gardner pointed out in November of last year: "Open-source
 software is increasingly used by development teams to support their
-applications." Also, Gardner expressed later: "In most modern `DevOps`
+applications." Also, Gardner expressed later: "In most modern DevOps
 development projects, the majority of code used in an application is
 made up of open source —with the remaining code largely serving as
 'glue' to assemble and invoke the various functions."
 
 The presence of open source components in modern apps has grown
 enormously. Thus, the number of customers and the number of developers
-using Open Source Software (`OSS`) has increased. However, these
+using Open Source Software (OSS) has increased. However, these
 increases have gone hand in hand with the growth of certain concerns.
-The more `OSS` is used, the more vulnerabilities are discovered and
+The more OSS is used, the more vulnerabilities are discovered and
 reported.
 
 The reported vulnerabilities, as Jeff Michael told us, have increased

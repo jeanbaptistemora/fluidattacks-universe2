@@ -6,13 +6,9 @@ category: programming
 subtitle: Functional coding in Python
 tags: application, functional, python, multiparadigm
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331067/blog/road-to-functional-python/cover_amvdni.webp
-alt: Swiss army knive
-description: Here is an intro to the essential aspects of functional
-  programming in Python, its benefits, how to start the migration,
-  the most used libraries, and more.
-keywords: Functional Paradigm, Object-oriented, Stateless,
-  Multiparadigm Application, Python, Programming Future,
-  Ethical Hacking, Pentesting
+alt: Photo by Nick ter Haar on Unsplash
+description: Here is an intro to the essential aspects of functional programming in Python, its benefits, how to start the migration, the most used libraries, and more.
+keywords: Functional Paradigm, Object-oriented, Stateless, Multiparadigm Application, Python, Programming Future, Ethical Hacking, Pentesting
 author: Oswaldo Parada
 writer: oparada
 name: Oswaldo José Parada Cuadros

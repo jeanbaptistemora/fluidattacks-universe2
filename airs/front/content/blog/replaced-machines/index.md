@@ -7,11 +7,8 @@ subtitle: Automatic detection vs. manual detection
 tags: application, detect, vulnerability, scanner
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/replaced-machines/cover_yfml2t.webp
 alt: Data has a better idea sign
-description: Vulnerability detection by an automated tool is not enough
-  to conclude that an app is secure. The knowledge and experience of
-  a person are still necessary.
-keywords: Vulnerability Detection, Manual Detection, Automatic Detection,
-  Security, Web Application, Automated Tools, Ethical Hacking, Pentesting
+description: Vulnerability detection by an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary.
+keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools, Ethical Hacking, Pentesting
 author: Andres Cuberos
 writer: cuberos
 name: Andrés Cuberos Lopera

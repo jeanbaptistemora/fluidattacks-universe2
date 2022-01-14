@@ -7,21 +7,17 @@ subtitle: Deep Learning for vulnerability disclosure
 tags: machine-learning, detect, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnerabilities-in-deep/cover_ihaxpf.webp
 alt: Photo by Franki Chamaki on Unsplash
-description: In this blog post, we discuss an article from Boston University
-  that presents new applications of Artificial Intelligence
-  in the security field.
-keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI,
-  Ethical Hacking, Pentesting
+description: In this blog post, we discuss an article from Boston University that presents new applications of Artificial Intelligence in the security field.
+keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI, Ethical Hacking, Pentesting
 author: Oscar Uribe
 writer: ouribe
 name: Oscar Uribe
 about1: Software and Computer Engineering undergrad student
-about2: '"Behind every successful Coder there is an even more successful
-  De-coder to understand that code." Anonymous'
+about2: '"Behind every successful Coder there is an even more successful De-coder to understand that code." Anonymous'
 source: https://unsplash.com/photos/z4H9MYmWIMA
 ---
 
-Currently, data scientists have begun using `AI` (Artificial
+Currently, data scientists have begun using AI (Artificial
 Intelligence) algorithms to solve problems from the data perspective.
 Data scientists have been working on problems related to areas like
 medicine, data mining, robotics, etc.

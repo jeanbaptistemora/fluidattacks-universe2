@@ -6,16 +6,13 @@ subtitle: Understanding the BEAST
 category: attacks
 tags: tls, cbc, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
-alt: Release the beast
-description: How does a theorized attack become practical after more
-  than 10 years? Find out here.
-keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA,
-  Ethical Hacking, Pentesting
+alt: Photo by Philipp Pilz on Unsplash
+description: How does a theorized attack become practical after more than 10 years? Find out here.
+keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
 author: Daniel Yepes
 writer: cestmoi
 name: Daniel Yepes
-about2: '"If the doors of perception were cleansed everything would appear
-  to man as it is, Infinite." William Blake.'
+about2: '"If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.'
 source: https://unsplash.com/photos/QZ2EQuPpQJs
 ---
 

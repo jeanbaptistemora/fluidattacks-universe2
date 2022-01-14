@@ -7,11 +7,8 @@ category: techniques
 tags: revert, software, engineering, security, vulnerability, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reverse-engineering/cover_nsktcf.webp
 alt: Photo by Erda Estremera on Unsplash
-description: Here we review some basic concepts of reverse engineering within
-  information technology and through what tools it can be used for ethical
-  and malicious hacking.
-keywords: Revert, Software, Reverse Engineering, Security, Vulnerability,
-  Hacking, Ethical Hacking, Pentesting
+description: Here we review some basic concepts of reverse engineering within information technology and through what tools it can be used for ethical and malicious hacking.
+keywords: Revert, Software, Reverse Engineering, Security, Vulnerability, Hacking, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

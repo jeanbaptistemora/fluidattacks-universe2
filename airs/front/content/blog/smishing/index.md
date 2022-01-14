@@ -7,15 +7,13 @@ category: techniques
 tags: cybersecurity, social-engineering, android, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp
 alt: Photo by Ian Tuck on Unsplash
-description: In this blog, you will learn how and why is smishing growing
-  as one of the most popular forms of cyber-scam.
-keywords: Smishing, Scam, Phones, Cybersecurity, Social Engineering,
-  Ethical Hacking, SMS, Pentesting
+description: In this blog, you will learn how and why is smishing growing as one of the most popular forms of cyber-scam.
+keywords: Smishing, Scam, Phones, Cybersecurity, Social Engineering, Ethical Hacking, SMS, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate
 about1: Cybersecurity Editor
-source: smbs-bankruptcy/https://unsplash.com/photos/7fNKdT8eRF0
+source: https://unsplash.com/photos/7fNKdT8eRF0
 ---
 
 *You just won a car\! Claim it here\!* Probably it is not the first time

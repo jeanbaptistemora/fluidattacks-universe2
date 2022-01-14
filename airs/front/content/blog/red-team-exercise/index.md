@@ -6,13 +6,9 @@ category: documentation
 subtitle: What is a Red Team exercise?
 tags: security, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/red-team-exercise/cover_kmvlzc.webp
-alt: 'Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash:
-  https://unsplash.com/photos/va-B5dBbpr4'
-description: Here we give the reader a general context about what a
-  Red Team does and the main strategy used during a Red Team exercise
-  and its benefits for customers.
-keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Business,
-  Ethical Hacking, Pentesting
+alt: Photo by Stefan Steinbauer on Unsplash
+description: Here we give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise and its benefits for customers.
+keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Business, Ethical Hacking, Pentesting
 author: Anderson Taguada
 writer: anders2d
 name: Anderson Taguada

@@ -6,13 +6,9 @@ subtitle: Cybersecurity risks in technology trends
 category: techniques
 tags: cybersecurity, business, trends
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
-alt: 'Screen showing performance stats. Photo by Stephen Dawson on Unsplash:
-  https://unsplash.com/photos/qwtCeJ5cLYs'
-description: In this article, we discuss the main cybersecurity trends for 2019,
-  how to keep your company secured, and how Fluid Attacks deals
-  with these kinds of threats.
-keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques,
-  Attacks, Ethical Hacking, Pentesting
+alt: Photo by Stephen Dawson on Unsplash
+description: In this article, we discuss the main cybersecurity trends for 2019, how to keep your company secured, and how Fluid Attacks deals with these kinds of threats.
+keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques, Attacks, Ethical Hacking, Pentesting
 author: Oscar Prado
 writer: oprado
 name: Oscar Prado

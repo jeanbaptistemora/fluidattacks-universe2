@@ -7,10 +7,8 @@ category: opinions
 tags: security-testing, vulnerability, hacking, software, company, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330975/blog/ptaas-netspi/cover_jcdtpa.webp
 alt: Photo by Terry Vlisidis on Unsplash
-description: This blog post is based on the webinar 'Scaling Your Security
-  Program with Penetration Testing as a Service' by Jake Reynolds from NetSPI.
-keywords: Security Testing, PTaaS, Vulnerability, Hacking, Software, Company,
-  Business, Ethical Hacking, Pentesting
+description: This blog post is based on the webinar 'Scaling Your Security Program with Penetration Testing as a Service' by Jake Reynolds from NetSPI.
+keywords: Security Testing, PTaaS, Vulnerability, Hacking, Software, Company, Business, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

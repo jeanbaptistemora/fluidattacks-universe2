@@ -7,11 +7,8 @@ category: attacks
 tags: software, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/parse-conquer/cover_avf8fy.webp
 alt: Photo by Markus Spiske on Unsplash
-description: 'For this blog post, we rely on the following question:
-  Why does Asserts use parser combinators as
-  its main static code analysis tool?'
-keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing,
-  Ethical Hacking, Pentesting
+description: 'For this blog post, we rely on the following question: Why does Asserts use parser combinators as its main static code analysis tool?'
+keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

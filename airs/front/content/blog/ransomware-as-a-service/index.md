@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, company, trends, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1622639187/blog/raas/cover_pt6ovb.webp
 alt: Photo by Raphael Lovaski on Unsplash
-description: DarkSide ransomware attack against Colonial Pipeline lay the cards
-  on the table. Ransomware as a Service is at the forefront
-  and here is what we know about it.
-keywords: Ransomware, Service, Raas, Vulnerability, Software, Cybersecurity,
-  Ethical Hacking, Processor, Pentesting
+description: DarkSide ransomware attack against Colonial Pipeline lay the cards on the table. Ransomware as a Service is at the forefront and here is what we know about it.
+keywords: Ransomware, Service, Raas, Vulnerability, Software, Cybersecurity, Ethical Hacking, Processor, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

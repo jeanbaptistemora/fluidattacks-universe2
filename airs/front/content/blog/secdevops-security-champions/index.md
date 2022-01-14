@@ -7,11 +7,8 @@ category: philosophy
 tags: security, devops, software, information, web, cloud
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secdevops-security-champions/cover_nkri6h.webp
 alt: Photo by Ingo Stiller on Unsplash
-description: Here you'll learn about Security Champions. But first, we give
-  you five recommendations if you're considering the implementation
-  of security in your business.
-keywords: Security, Champions, Devops, Secdevops, Software, Information, Web,
-  Cloud, Ethical Hacking, Pentesting, Devsecops
+description: Here you'll learn about Security Champions. But first, we give you five recommendations if you're considering the implementation of security in your business.
+keywords: Security, Champions, Devops, Secdevops, Devsecops, Software, Information, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 :name: Felipe Ruiz

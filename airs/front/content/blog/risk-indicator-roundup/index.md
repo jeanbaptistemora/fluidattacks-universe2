@@ -6,13 +6,9 @@ subtitle: A matter of taste
 category: philosophy
 tags: business, ethical-hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/risk-indicator-roundup/cover_azhwyk.webp
-alt: 'Choices. Photo by Nathan Dumlao on Unsplash:
-  https://unsplash.com/photos/pMW4jzELQCw'
-description: Here we compare risk indicators used in quantitative finance,
-  giving their pros and cons. Most of them we have discussed earlier,
-  but here we introduce the ALE.
-keywords: Risk, Probability, Choice, Measure, Quantify, Indicator,
-  Ethical Hacking, Pentesting
+alt: Photo by Nathan Dumlao on Unsplash
+description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.
+keywords: Risk, Probability, Choice, Measure, Quantify, Indicator, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

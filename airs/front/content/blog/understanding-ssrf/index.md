@@ -6,19 +6,16 @@ category: attacks
 subtitle: Attacking a web server using SSRF
 tags: security, web, vulnerability, ethical-hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understanding-ssrf/cover_srzscf.webp
-alt: 'Blacksmith. Photo by Hannah Gibbs on Unsplash: https://unsplash.com/photos/BINLgyrG_fI'
-description: Here we will see what a Server Side Request Forgery is,
-  how hackers can exploit it, and what are the best ways to protect
-  against this attack.
-keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation,
-  Ethical Hacking, Pentesting
+alt: Photo by Hannah Gibbs on Unsplash
+description: Here we will see what a Server Side Request Forgery is, how hackers can exploit it, and what are the best ways to protect against this attack.
+keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas
 about1: Systems Engineer, OSCP - Security+
 about2: '"Be formless, shapeless like water" Bruce Lee'
 source: https://unsplash.com/photos/BINLgyrG_fI
----devsecops-concept/
+---
 
 Many web applications request outside services for data, configurations,
 updates, among others. This is beneficial for the developers and
@@ -28,7 +25,7 @@ it is done right, these applications are easier to maintain and to add
 features to, but there are some intrinsic risks in getting information
 through the internet using web services.
 
-`Server Side Request Forgery`, `SSRF`, occurs when an attacker can
+Server Side Request Forgery (SSRF) occurs when an attacker can
 create requests from the vulnerable server to the internet/intranet.
 Typically, the vulnerable server has a functionality that reads data
 from a URL, publishes data to a URL, or imports data from a URL. An

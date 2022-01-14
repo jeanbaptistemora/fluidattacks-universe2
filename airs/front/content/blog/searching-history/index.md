@@ -7,11 +7,8 @@ subtitle: Searching for credentials in a repository
 tags: security, git, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331090/blog/searching-history/cover_qkuncf.webp
 alt: Photo by Mick Haupt on Unsplash
-description: As everyone knows in our context, production credentials should
-  be protected. In this post, we explain how to extract old credentials
-  and how to protect them.
-keywords: Git, Security, Vulnerability, Hacking, Repository, Credentials,
-  Ethical Hacking, Pentesting
+description: As everyone knows in our context, production credentials should be protected. In this post, we explain how to extract old credentials and how to protect them.
+keywords: Git, Security, Vulnerability, Hacking, Repository, Credentials, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

@@ -7,11 +7,8 @@ category: techniques
 tags: cybersecurity, trends, mistake, technology, economics, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331127/blog/trends-2020-ii/cover_eek8mj.webp
 alt: Photo by Matthew Henry on Unsplash
-description: Earlier, we criticized some 'trends' in cybersecurity. Now, we
-  discuss why some cybersecurity predictions for 2020 seem plausible
-  and others undeniably real.
-keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information,
-  Ethical Hacking, Pentesting
+description: Earlier, we criticized some 'trends' in cybersecurity. Now, we discuss why some cybersecurity predictions for 2020 seem plausible and others undeniably real.
+keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango
@@ -27,7 +24,7 @@ post, we bring to the table other predictions with better support and
 evidence for 2020.
 
 There seems to be consensus in four predictions for the current year.
-The growth of artificial intelligence (`AI`) and machine learning (`ML`)
+The growth of artificial intelligence (AI) and machine learning (ML)
 in cybersecurity is evident. [Ransomware](../ransomware/) is predicted
 to keep causing harm worldwide, and their impact is scary. The scarce
 talent in cybersecurity hasn’t gone down in the previous years. And

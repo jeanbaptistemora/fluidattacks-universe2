@@ -6,12 +6,9 @@ subtitle: A chat with Ricardo Yepes. Part 1.
 category: interview
 tags: devops, training, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/training-basic/cover_adnkzv.webp
-alt: Bookshelf with some books
-description: We spoke to the DevOps engineer Ricardo Yepes recently,
-  and he shared his current vision of cybersecurity. Here is the first
-  part of our conversation.
-keywords: Interview, DevOps, Security, Machine Learning, Philosophy, Training,
-  Ethical Hacking, Pentesting
+alt: Photo by NeONBRAND on Unsplash
+description: We spoke to the DevOps engineer Ricardo Yepes recently, and he shared his current vision of cybersecurity. Here is the first part of our conversation.
+keywords: Interview, DevOps, Security, Machine Learning, Philosophy, Training, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango
@@ -20,16 +17,16 @@ about2: Data scientist in training.
 source: https://unsplash.com/photos/uEcSKKDB1pg
 ---
 
-Ricardo is a `DevOps` engineer in Australia. Previously, he worked for
+Ricardo is a DevOps engineer in Australia. Previously, he worked for
 `Fluid Attacks` as a security analyst and instructor. He also spent a
 couple of years developing and maintaining an educational platform
 focused on coding and security, where students learned by solving
 programming challenges. He also had his feet in academia for a while: he
-holds an `MSc` in Engineering and finished his dissertation in Germany.
+holds an MSc in Engineering and finished his dissertation in Germany.
 As with previous interviewees, we reached him out to discuss
 cybersecurity.
 
-At first, he shared a bit of his experience in doing his `MSc`. To our
+At first, he shared a bit of his experience in doing his MSc. To our
 surprise, he wasn’t that enthusiastic.
 
 <div class="blog-questions">

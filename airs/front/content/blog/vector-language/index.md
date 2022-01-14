@@ -6,12 +6,9 @@ subtitle: Distributed representations of natural language
 category: machine-learning
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331138/blog/vector-language/cover_qccpkg.webp
-alt: 'Photo by Franck V. on Unsplash: https://unsplash.com/photos/_E1PQXKUkMw'
-description: This post is an overview of word2vec, a method for obtaining
-  vectors that represent natural language in a way that is suitable
-  for machine learning algorithms.
-keywords: Machine Learning, Neural Network, Word2vec, Encoding, Parsing,
-  Classifier, Vulnerability, Ethical Hacking, Pentesting
+alt: Photo by Possessed Photography on Unsplash
+description: This post is an overview of word2vec, a method for obtaining vectors that represent natural language in a way that is suitable for machine learning algorithms.
+keywords: Machine Learning, Neural Network, Word2vec, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

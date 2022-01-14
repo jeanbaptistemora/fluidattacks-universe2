@@ -4,15 +4,11 @@ title: Have You Noticed the PII Leakage?
 date: 2020-04-03
 subtitle: 'WhiteHat: the more you collect, the higher the risk'
 category: opinions
-tags: vulnerability, application, software, information,
-  cybersecurity, business
+tags: vulnerability, application, software, information, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/pii-leakage-whitehat/cover_dupvh1.webp
 alt: Photo by Tyler Nix on Unsplash
-description: 'This blog post is based on the webinar ''Mobile Security
-  App-titude: Best Practices for Secure App Design and Data Privacy''
-  by Eduardo Cervantes from WhiteHat.'
-keywords: Vulnerability, Mobile, Application, Software, Information,
-  Cybersecurity, Business, Ethical Hacking, Pentesting
+description: 'This blog post is based on the webinar ''Mobile Security App-titude: Best Practices for Secure App Design and Data Privacy'' by Eduardo Cervantes from WhiteHat.'
+keywords: Vulnerability, Mobile, Application, Software, Information, Cybersecurity, Business, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

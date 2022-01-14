@@ -7,10 +7,8 @@ category: attacks
 tags: cybersecurity, company, trends, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627305052/blog/pegasus-spyware-cyberthreat/cover-pegasus_blxx6i.webp
 alt: Photo by Roi Dimor on Unsplash
-description: 'In this post, we will look at the software everyone
-  is talking about: Pegasus.'
-keywords: Malware, Attack, Vulnerability, NSO, Cybersecurity, Ethical Hacking,
-  Pegasus, Pentesting
+description: 'In this post, we will look at the software everyone is talking about: Pegasus.'
+keywords: Malware, Attack, Vulnerability, NSO, Cybersecurity, Ethical Hacking, Pegasus, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

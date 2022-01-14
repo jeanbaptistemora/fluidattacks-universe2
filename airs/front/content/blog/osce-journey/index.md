@@ -7,10 +7,8 @@ subtitle: A personal OSCE experience
 tags: osce, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330965/blog/osce-journey/cover_swxqa7.webp
 alt: Photo by Joshua Earle on Unsplash
-description: This post will describe the journey that I took to earn
-  the OSCE certification.
-keywords: Business, Information, Security, Protection, Hacking,
-  Vulnerability, Exploit, OSCE
+description: This post will describe the journey that I took to earn the OSCE certification.
+keywords: Business, Information, Security, Protection, Ethical Hacking, Vulnerability, Exploit, OSCE, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

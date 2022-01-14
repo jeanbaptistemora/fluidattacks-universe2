@@ -4,15 +4,11 @@ title: Tribe of Hackers Red Team 2.0
 date: 2020-11-27
 subtitle: Learning from the red team expert Benjamin Donnelly
 category: opinions
-tags: cybersecurity, red-team, hacking, pentesting,
-  ethical-hacking, blue-team
+tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331132/blog/tribe-of-hackers-2/cover_tdklcz.webp
 alt: Photo by Manyu Varma on Unsplash
-description: This post is based on the book 'Tribe of Hackers Red Team'
-  by Carey and Jin. Here we share content from the interview
-  with Benjamin Donnelly.
-keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking,
-  Blue Team, Knowledge, Tribe
+description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Benjamin Donnelly.
+keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

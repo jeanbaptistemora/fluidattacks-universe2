@@ -7,11 +7,8 @@ category: opinions
 tags: security, company, business, protect, information, healthcare
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/remote-work/cover_sszd41.webp
 alt: Photo by Charles Deluvio on Unsplash
-description: Here is an overview of what our technological architecture
-  and our way of operation are, which allow us to have the capacity
-  to work 100% remotely and safely.
-keywords: Remote Work, Security, Company, Business, Protect, Information,
-  Healthcare, Ethical Hacking, Pentesting
+description: Here is an overview of what our technological architecture and our way of operation are, which allow us to have the capacity to work 100% remotely and safely.
+keywords: Remote Work, Security, Company, Business, Protect, Information, Healthcare, Ethical Hacking, Pentesting
 author: Rafael Alvarez
 writer: ralvarez
 name: Rafael Alvarez

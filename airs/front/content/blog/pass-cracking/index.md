@@ -7,11 +7,8 @@ category: attacks
 tags: password, security, vulnerability, hacking, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330973/blog/pass-cracking/cover_wslpjd.webp
 alt: Photo by Arteum.ro on Unsplash
-description: After I wrote this post, I decided to change some of my most
-  important passwords, and after you read it, we think you might want
-  to modify your passwords too.
-keywords: Password, Cracking, Security, Vulnerability, Hacking, Dictionary,
-  Brute Force, Ethical Hacking, Pentesting
+description: After I wrote this post, I decided to change some of my most important passwords, and after you read it, we think you might want to modify your passwords too.
+keywords: Password, Cracking, Security, Vulnerability, Hacking, Dictionary, Brute Force, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

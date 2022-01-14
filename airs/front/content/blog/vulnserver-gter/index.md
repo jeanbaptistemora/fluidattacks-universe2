@@ -7,10 +7,8 @@ subtitle: Hunting eggs
 tags: osce, vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter/cover_prsww3.webp
 alt: Photo by Annie Spratt on Unsplash
-description: This post will describe the steps taken to exploit the Vulnserver
-  GTER command, using a technique called 'Egghunting.'
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSCE, Ethical Hacking, Pentesting
+description: This post will describe the steps taken to exploit the Vulnserver GTER command, using a technique called 'Egghunting.'
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

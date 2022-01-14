@@ -7,11 +7,8 @@ subtitle: Let's protect the stack
 tags: osee, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/cover_infp8m.webp
 alt: Photo by Chris Panas on Unsplash
-description: This post will show how the Data Execution Prevention (DEP)
-  security mechanism works and what are the implication
-  for exploit development.
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSEE, Ethical Hacking, Pentesting
+description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

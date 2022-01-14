@@ -7,11 +7,8 @@ category: techniques
 tags: software, vulnerability, testing, application, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/owasp-benchmark-fluid-attacks/cover_lm2zfy.webp
 alt: Photo by Silvan Arnet on Unsplash
-description: This post shows you Fluid Attacks' most recent achievement
-  with its SAST tool, which reached a perfect accuracy score running
-  the OWASP Benchmark Project code.
-keywords: OWASP, Benchmark, Vulnerability, SAST, Tool, Vulnerability,
-  Accuracy, Ethical Hacking, Pentesting
+description: This post shows you Fluid Attacks' most recent achievement with its SAST tool, which reached a perfect accuracy score running the OWASP Benchmark Project code.
+keywords: OWASP, Benchmark, Vulnerability, SAST, Tool, Vulnerability, Accuracy, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

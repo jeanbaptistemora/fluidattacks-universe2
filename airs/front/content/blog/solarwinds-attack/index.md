@@ -7,10 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, hacking, application, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/solarwinds-attack/cover_bvibqb.webp
 alt: Photo by Daniel Joshua on Unsplash
-description: This post outlines the SolarWinds supply chain attack that
-  has affected multiple companies and federal agencies in recent months.
-keywords: Malware, SolarWinds, Supply Chain Attack, Network, Update,
-  Cybersecurity, Hacking, Ethical Hacking, Pentesting
+description: This post outlines the SolarWinds supply chain attack that has affected multiple companies and federal agencies in recent months.
+keywords: Malware, SolarWinds, Supply Chain Attack, Network, Update, Cybersecurity, Hacking, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

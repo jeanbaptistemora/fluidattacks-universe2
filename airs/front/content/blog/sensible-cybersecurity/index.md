@@ -6,12 +6,9 @@ subtitle: An interview with Nicolás A. CISO at Corona. Part II.
 category: interview
 tags: interview, risk, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331095/blog/sensible-cybersecurity/cover_uej0zj.webp
-alt: Nicolás Acosta, CISO at Corona
-description: In the second part of our interview with Nicolás Acosta, he shared
-  his perspective on risk management, setbacks, and truths and falsehoods
-  about cybersecurity.
-keywords: CISO, Cybersecurity, Expected Loss, Hacking, Risk Management,
-  Strategy, Ethical Hacking, Pentesting
+alt: Photo by Jeff Hardi on Unsplash
+description: In the second part of our interview with Nicolás Acosta, he shared his perspective on risk management, setbacks, and truths and falsehoods about cybersecurity.
+keywords: CISO, Cybersecurity, Expected Loss, Hacking, Risk Management, Strategy, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

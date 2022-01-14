@@ -6,11 +6,9 @@ subtitle: How Bayes Rule affects risk
 category: philosophy
 tags: business, ethical-hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331139/blog/updating-belief/cover_yassyb.webp
-alt: 'New information. Photo by M. Parzuchowski on Unsplash: https://unsplash.com/photos/GikVY_KS9vQ'
-description: Here you can find how to use Bayes rule and basic probability
-  theory to reduce uncertainty, refining initial estimates through evidence.
-keywords: Risk, Probability, Impact, Measure, Quantify, Security,
-  Ethical Hacking, Pentesting
+alt: Photo by Michał Parzuchowski on Unsplash
+description: Here you can find how to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence.
+keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

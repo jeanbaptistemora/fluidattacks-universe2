@@ -6,13 +6,9 @@ subtitle: Prioritize code auditing via ML
 category: machine-learning
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/cover_qqfqe2.webp
-alt: 'Photo by camilo jimenez on Unsplash:
-  https://unsplash.com/photos/vGu08RYjO-s'
-description: This post is a high-level review of our previous discussion
-  concerning machine learning techniques applied to vulnerability discovery
-  and exploitation.
-keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier,
-  Vulnerability, Ethical Hacking, Pentesting
+alt: Photo by camilo jimenez on Unsplash
+description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.
+keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas
@@ -22,7 +18,7 @@ source: https://unsplash.com/photos/vGu08RYjO-s
 ---
 
 Based upon our [last experiment](../vulnerability-classifier), in this
-article, I will provide a global vision of how our `ML` for
+article, I will provide a global vision of how our ML for
 vulnerability discovery approach should work.
 
 First, what problem would this solve? I am repeating myself here but

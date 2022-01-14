@@ -7,10 +7,8 @@ category: techniques
 tags: social-engineering, information, web, software, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/phishing/cover_tl6uyf.webp
 alt: Photo by Glen Hooper on Unsplash
-description: In this post, we give some general ideas about phishing, hoping
-  to contribute to its prevention.
-keywords: Phishing, Social Engineering, Information, Web, Software,
-  Cybersecurity, Business, Ethical Hacking, Pentesting
+description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.
+keywords: Phishing, Social Engineering, Information, Web, Software, Cybersecurity, Business, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

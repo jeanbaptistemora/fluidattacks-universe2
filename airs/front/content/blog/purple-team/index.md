@@ -6,12 +6,9 @@ category: politics
 subtitle: Understanding Purple Teams
 tags: security, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/purple-team/cover_ohgfsv.webp
-alt: 'Multicolored hallway. Photo by Efe Kurnaz on Unsplash:
-  https://unsplash.com/photos/RnCPiXixooY'
-description: In this blog, we discuss the fundamentals of Purple Teams
-  and possible ways to implement them in an organization successfully.
-keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking,
-  Organization, Ethical Hacking, Pentesting
+alt: Photo by Efe Kurnaz on Unsplash
+description: In this blog, we discuss the fundamentals of Purple Teams and possible ways to implement them in an organization successfully.
+keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization, Ethical Hacking, Pentesting
 author: Alejandro Herrera
 writer: alejandrohg7
 name: Alejandro Herrera

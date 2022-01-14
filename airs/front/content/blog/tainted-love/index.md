@@ -6,11 +6,9 @@ subtitle: It's all about sanitization
 category: attacks
 tags: vulnerability, code, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/tainted-love/cover_pkrmla.webp
-alt: Person using a Syringe filled with bad stuff
-description: This blog post provides a brief description of static and dynamic
-  taint analysis or taint checking.
-keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow,
-  Ethical Hacking, Pentesting
+alt: Photo by Sara Kurfeß on Unsplash
+description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
+keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

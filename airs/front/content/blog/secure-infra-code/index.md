@@ -6,12 +6,9 @@ category: programming
 subtitle: The weakest link in security is not the technology.
 tags: protect, information, business, cloud, security, flaw
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secure-infra-code/cover_fmeyzr.webp
-alt: Lock on a fence
-description: Here we want to help you secure your deployments and avoid
-  common mistakes. Infrastructure as code is one of the easiest ways
-  to leverage cloud computing.
-keywords: Cloud, Information, Security, Protection, Hacking, Best Practices,
-  Ethical Hacking, Pentesting
+alt: Photo by Kushagra Kevat on Unsplash
+description: Here we want to help you secure your deployments and avoid common mistakes. Infrastructure as code is one of the easiest ways to leverage cloud computing.
+keywords: Cloud, Information, Security, Protection, Hacking, Best Practices, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

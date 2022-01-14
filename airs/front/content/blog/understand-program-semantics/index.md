@@ -6,12 +6,9 @@ subtitle: With symbolic execution
 category: machine-learning
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understand-program-semantics/cover_pb9jml.webp
-alt: Rubber duckies
-description: Here's a reflection on the need to represent code before actually
-  feeding it into neural network based encoders, such as code2vec, word2vec,
-  and code2seq.
-keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier,
-  Vulnerability, Ethical Hacking, Pentesting
+alt: Photo by Fern M. Lomibao on Unsplash
+description: Here's a reflection on the need to represent code before actually feeding it into neural network based encoders, such as code2vec, word2vec, and code2seq.
+keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

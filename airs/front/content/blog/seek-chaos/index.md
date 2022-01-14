@@ -6,12 +6,9 @@ subtitle: The Antifragile philosophy
 category: philosophy
 tags: business, security, risk, experiment
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/cover_bvvxp3.webp
-alt: 'multicolor abstract paint on Unsplash: https://unsplash.com/photos/YQrUzrsRNes'
-description: In this article, we examine how the Antifragility concept
-  can inform design decisions, change the mindset of cybersecurity teams,
-  and affect your business.
-keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos,
-  Ethical Hacking, Pentesting
+alt: Photo by Daniele Levis Pelusi on Unsplash
+description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.
+keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

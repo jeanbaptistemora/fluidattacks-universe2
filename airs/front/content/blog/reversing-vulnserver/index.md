@@ -7,10 +7,8 @@ subtitle: The devil is in the details
 tags: osce, vulnserver, training, vulnerability, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/cover_u4n10o.webp
 alt: Photo by Pierre Binet on Unsplash
-description: This post will show how use reverse engineering techniques
-  and tools to find vulnerabilities on Vulnserver.
-keywords: Business, Information, Security, Protection, Hacking,
-  Exploit, OSCE
+description: This post will show how use reverse engineering techniques and tools to find vulnerabilities on Vulnserver.
+keywords: Business, Information, Security, Protection, Ethical Hacking, Exploit, OSCE, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

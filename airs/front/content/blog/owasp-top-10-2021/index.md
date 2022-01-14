@@ -7,11 +7,8 @@ category: philosophy
 tags: risk, web, application, trends, security, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1633374808/blog/owasp-top-10-2021/cover_owasp.webp
 alt: Photo by Mathew Schwartz on Unsplash
-description: The OWASP Top 10 ranks the most critical security risks
-    to web applications. The 2021 installment comes with new categories,
-    name changes and a new order.
-keywords: Owasp, Top, Ten, Compliance, Web, App, Security,
-    Ethical Hacking, Pentesting
+description: The OWASP Top 10 ranks the most critical security risks to web applications. The 2021 installment comes with new categories, name changes and a new order.
+keywords: Owasp, Top, Ten, Compliance, Web, App, Security, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

@@ -6,11 +6,9 @@ subtitle: Trapdoor functions and their importance in security
 category: math
 tags: encryption, math, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331107/blog/trapdoors/cover_p6rsfq.webp
-alt: Cats in a forest
-description: This blog post is an overview of the mathematical
-  concept 'Trapdoor,' the basis of information security.
-keywords: Trapdoor, AES, Asymmetric, Encryption, Math, Symmetric, RSA,
-  Ethical Hacking, Pentesting
+alt: Photo by Sepehr on Unsplash
+description: This blog post is an overview of the mathematical concept 'Trapdoor,' the basis of information security.
+keywords: Trapdoor, AES, Asymmetric, Encryption, Math, Symmetric, RSA, Ethical Hacking, Pentesting
 author: Sebastian Villalobos
 writer: sevilla
 name: Sebastian Villalobos

@@ -6,12 +6,9 @@ subtitle: Prepare for the worst risk
 category: philosophy
 tags: business, security, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/para-bellum/cover_gejzbf.webp
-alt: 'Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash:
-    https://unsplash.com/photos/XG_wi3W4-m8'
-description: This blog post is focused on Value at Risk (VaR), a measure
-    of the risk of loss in the context of uncertainty, v.g., for investment.
-keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security,
-    Ethical Hacking, Pentesting
+alt: Photo by Tommaso Pecchioli on Unsplash
+description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.
+keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

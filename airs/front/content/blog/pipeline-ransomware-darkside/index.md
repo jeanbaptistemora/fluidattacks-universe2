@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, hacking, social-engineering, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1621039654/blog/pipeline-ransomware-darkside/cover_cyypaa.webp
 alt: Photo by Tommy van Kessel on Unsplash
-description: America is talking about the DarkSide ransomware attack against
-  Colonial Pipeline, one of the largest USA pipeline companies.
-  Here is what we know about it.
-keywords: Ransomware, Cybersecurity, Vulnerability, Software, Darkside,
-  Colonial Pipeline, Ethical Hacking, Pentesting
+description: America is talking about the DarkSide ransomware attack against Colonial Pipeline, one of the largest USA pipeline companies. Here is what we know about it.
+keywords: Ransomware, Cybersecurity, Vulnerability, Software, Darkside, Colonial Pipeline, Ethical Hacking, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

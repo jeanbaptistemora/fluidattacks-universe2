@@ -7,11 +7,8 @@ category: philosophy
 tags: hacking, ethical-hacking, cybersecurity, exploit, red-team, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1631323179/blog/thinking-like-hacker/cover_hacker.webp
 alt: Photo by Giorgio Trovato on Unsplash
-description: This blog post is based primarily on a study of hackers'
-  attitudes and behaviors. These insights may help a bit in preventing
-  attacks by threat actors.
-keywords: Hacker, Thinking, Access, System, Vulnerability, Attack, Pentesting,
-  Ethical Hacking
+description: This blog post is based primarily on a study of hackers' attitudes and behaviors. These insights may help a bit in preventing attacks by threat actors.
+keywords: Hacker, Thinking, Access, System, Vulnerability, Attack, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

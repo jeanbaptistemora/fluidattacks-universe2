@@ -7,10 +7,8 @@ category: attacks
 tags: cybersecurity, exploit, mistake, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627388863/blog/spectre/cover-spectre_ldoml1.webp
 alt: Photo by Sammy Williams on Unsplash
-description: Spectre has reappeared! It has returned full of surprises and can transform
-  the way processors are made. Here is what we know about it.
-keywords: Spectre, Vulnerability, Software, Cybersecurity, Speculative Execution,
-  Ethical Hacking, Processor, Pentesting, CPU
+description: Spectre has reappeared! It has returned full of surprises and can transform the way processors are made. Here is what we know about it.
+keywords: Spectre, Vulnerability, Software, Cybersecurity, Speculative Execution, Ethical Hacking, Processor, Pentesting, CPU
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

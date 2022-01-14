@@ -6,13 +6,9 @@ subtitle: Risk management with Python
 category: philosophy
 tags: business, security, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330978/blog/quantitative-python/cover_budpkw.webp
-alt: 'Finance simulation. Photo by M. B. M. on Unsplash:
-    https://unsplash.com/photos/ZzOa5G8hSPI'
-description: Learn how to implement risk management tools and ideas like the
-    loss exceedance curve and value-at-risk in Python using numerical
-    and data analysis ecosystem.
-keywords: Risk, Probability, Impact, Measure, Quantify, Security,
-    Ethical Hacking, Pentesting
+alt: Photo by M. B. M. on Unsplash
+description: Learn how to implement risk management tools and ideas like the loss exceedance curve and value-at-risk in Python using numerical and data analysis ecosystem.
+keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

@@ -7,11 +7,8 @@ category: philosophy
 tags: cloud, information, cybersecurity, security, mistake, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/shared-responsibility-model/cover_musv3h.webp
 alt: Photo by Charles Deluvio on Unsplash
-description: Do you know what is happening with those who don't understand
-  the cloud security shared responsibility model? Find out here and get
-  some recommendations.
-keywords: Cloud, Security, Shared Responsibility Model, SRM, CSP, Confusion,
-  Ethical Hacking, Pentesting
+description: Do you know what is happening with those who don't understand the cloud security shared responsibility model? Find out here and get some recommendations.
+keywords: Cloud, Security, Shared Responsibility Model, SRM, CSP, Confusion, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

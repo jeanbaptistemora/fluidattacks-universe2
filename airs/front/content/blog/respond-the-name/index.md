@@ -6,12 +6,9 @@ category: attacks
 subtitle: Attacking a network using Responder
 tags: security, windows, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331057/blog/respond-the-name/cover_uuwp7r.webp
-alt: Red wooden mailbox near green leaf plan. Photo by Bundo Kim on Unsplash.
-description: Windows hosts use LLMNR and NBT-NS for name resolution on
-  the local network. These protocols do not verify addresses,
-  and here we detail how to exploit this.
-keywords: Windows, LLMNR, NBT-NS, Security, Vulnerability, Hacking, Network,
-  Cracking, Ethical Hacking, Pentesting
+alt: Photo by Bundo Kim on Unsplash
+description: Windows hosts use LLMNR and NBT-NS for name resolution on the local network. These protocols do not verify addresses, and here we detail how to exploit this.
+keywords: Windows, LLMNR, NBT-NS, Security, Vulnerability, Network, Cracking, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

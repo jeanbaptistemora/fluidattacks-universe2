@@ -7,11 +7,8 @@ category: attacks
 tags: software, security, vulnerability, hacking, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cover_c0iozv.webp
 alt: Photo by Sharon McCutcheon on Unsplash
-description: Everyone could be a target for ransomware attacks. Here we give
-  an introduction to this topic and tips that could help
-  you prevent being a victim.
-keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake,
-  Information, Ethical Hacking, Pentesting
+description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.
+keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake, Information, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

@@ -7,11 +7,8 @@ category: techniques
 tags: cybersecurity, trends, mistake, technology, economics, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cover_hrcoli.webp
 alt: Photo by Oleg Laptev on Unsplash
-description: In this post, we review some cybersecurity trends
-  published online. We discuss why it is a good idea to be wary
-  of many of these predictions.
-keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information,
-  Ethical Hacking, Pentesting
+description: In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
+keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

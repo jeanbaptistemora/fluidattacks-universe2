@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, social-engineering, mistake, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620857985/blog/spoofing/cover_tpi466.webp
 alt: Photo by Lia Panidara on Unsplash
-description: Last April, if you googled for "spoofing," you could find the word
-  Pokémon in the top trends. Here's what that has to do with your company's
-  vulnerabilities.
-keywords: Spoofing, Vulnerability, Software, Cybersecurity, Social Engineering,
-  Ethical Hacking, GPS, Pentesting
+description: Last April, if you googled for "spoofing," you could find the word Pokémon in the top trends. Here's what that has to do with your company's vulnerabilities.
+keywords: Spoofing, Vulnerability, Software, Cybersecurity, Social Engineering, Ethical Hacking, GPS, Pentesting
 author: Felipe Zárate
 writer: fzarate
 name: Felipe Zárate

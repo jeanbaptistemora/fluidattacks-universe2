@@ -6,11 +6,9 @@ category: attacks
 subtitle: What it is and how it works
 tags: security, test, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/symbolic-execution-mortals/cover_wgcfrh.webp
-alt: Person using a magnifying glass in keyboard
-description: In this article, we intend to explain an approach to symbolic
-  execution, which is very useful when dealing with software assessment.
-keywords: Symbolic, Execution, Security, Software, Test, Assestment,
-  Ethical Hacking, Pentesting
+alt: Photo by Agence Olloweb on Unsplash
+description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.
+keywords: Symbolic, Execution, Security, Software, Test, Assessment, Ethical Hacking, Pentesting
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González

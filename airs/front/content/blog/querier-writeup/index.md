@@ -7,11 +7,8 @@ subtitle: How to solve HTB Querier
 tags: security, htb, pwn, web, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331039/blog/querier-writeup/cover_tthq17.webp
 alt: New York City Skyline
-description: Here we explain how to use Querier's insecure configurations to
-  gain system access, and how to escalate to administrator privileges
-  with pentesting tools.
-keywords: HTB, Querier, Security, Web, Writeup, Bounty, Windows,
-  Ethical Hacking, Pentesting
+description: Here we explain how to use Querier's insecure configurations to gain system access, and how to escalate to administrator privileges with pentesting tools.
+keywords: HTB, Querier, Security, Web, Writeup, Bounty, Windows, Ethical Hacking, Pentesting
 author: Andrés Tirado
 writer: atirado
 name: Andrés Tirado

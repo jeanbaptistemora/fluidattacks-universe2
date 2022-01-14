@@ -7,10 +7,8 @@ category: attacks
 tags: detect, injection, scanner
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/pars-orationis-secura/cover_gvmczz.webp
 alt: Person holding sticky note
-description: Learn here how to use Python and pyparsing to parse application
-  code in order to find SQL injections in bWAPP.
-keywords: Attack, Detection, Parser, Python, Injection, SQL, BWAPP,
-  Ethical Hacking, Pentesting
+description: Learn here how to use Python and pyparsing to parse application code in order to find SQL injections in bWAPP.
+keywords: Attack, Detection, Parser, Python, Injection, SQL, BWAPP, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

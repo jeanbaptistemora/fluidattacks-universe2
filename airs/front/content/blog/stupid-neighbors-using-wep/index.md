@@ -6,11 +6,9 @@ category: attacks
 subtitle: Solving Yashira WEP Security challenge
 tags: wep, wifi, encryption, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331104/blog/stupid-neighbors-using-wep/cover_zfucpe.webp
-alt: Free wifi sign
-description: In this article, we explain how to crack a Wired Equivalent
-  Privacy (WEP) algorithm by analyzing its traffic.
-keywords: Security, WEP, Wifi, Password, Encription, Network,
-  Ethical Hacking, Pentesting
+alt: Photo by Bernard Hermant on Unsplash
+description: In this article, we explain how to crack a Wired Equivalent Privacy (WEP) algorithm by analyzing its traffic.
+keywords: Security, WEP, Wifi, Password, Encription, Network, Ethical Hacking, Pentesting
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González

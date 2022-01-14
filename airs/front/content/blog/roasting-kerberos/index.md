@@ -6,13 +6,9 @@ category: attacks
 subtitle: Attacking a DC using kerberoast
 tags: security, windows, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/roasting-kerberos/cover_ddb50u.webp
-alt: 'Toasting Marshmallow. Photo by hcmorr on Unsplash:
-  https://unsplash.com/photos/qlHRuDvaxL8'
-description: Windows Active Directory works using the Kerberos protocol,
-  and in this blog post, we detail how we can exploit its functionality
-  to obtain user hashes.
-keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking,
-  Ethical Hacking, Pentesting
+alt: Photo by hcmorr on Unsplash
+description: Windows Active Directory works using the Kerberos protocol, and in this blog post, we detail how we can exploit its functionality to obtain user hashes.
+keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking, Ethical Hacking, Pentesting
 author: Jonathan Armas
 writer: johna
 name: Jonathan Armas

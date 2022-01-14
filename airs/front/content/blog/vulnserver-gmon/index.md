@@ -7,10 +7,8 @@ subtitle: Exceptions are good
 tags: osce, vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gmon/cover_yohcmp.webp
 alt: Photo by Roberto Gomez Angel on Unsplash
-description: This post will show how to exploit the Vulnserver GMON command
-  using Structured Exception Handling (SEH) overwrite.
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSCE, Ethical Hacking, Pentesting
+description: This post will show how to exploit the Vulnserver GMON command using Structured Exception Handling (SEH) overwrite.
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

@@ -6,15 +6,13 @@ subtitle: How does the SSL fallback's works
 category: attacks
 tags: ssl, flaw, cbc
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cover_x0hhns.webp
-alt: Unknown person below lights
-description: Here we discuss the exploitation of an SSL/TLS flaw that creates
-  a fallback on TLS usage to SSL 3.0.
+alt: Photo by Luis Villasmil on Unsplash
+description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.
 keywords: SSL, CBC, MAC, Padding, Flaw, Exploit, Ethical Hacking, Pentesting
 author: Daniel Yepes
 writer: cestmoi
 name: Daniel Yepes
-about1: '"If the doors of perception were cleansed everything would appear
-  to man as it is, Infinite." William Blake.'
+about1: '"If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.'
 source: https://unsplash.com/photos/S2qA7JhjI6Y
 ---
 

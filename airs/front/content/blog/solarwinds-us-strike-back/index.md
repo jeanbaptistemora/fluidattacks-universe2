@@ -7,11 +7,8 @@ category: attacks
 tags: cybersecurity, software, vulnerability, hacking, application, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331099/blog/solarwinds-us-strike-back/cover_dl2om5.webp
 alt: Photo by Christopher Skor on Unsplash
-description: Here you can find experts' opinions about the SolarWinds attack
-  and some suggestions that could mean cyberwar between the U.S.
-  and Russia if implemented.
-keywords: Malware, Solarwinds, Supply Chain Attack, U S, Russia, Cyberwar,
-  Hacking, Ethical Hacking, Pentesting
+description: Here you can find experts' opinions about the SolarWinds attack and some suggestions that could mean cyberwar between the U.S. and Russia if implemented.
+keywords: Malware, Solarwinds, Supply Chain Attack, U S, Russia, Cyberwar, Hacking, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

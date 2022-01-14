@@ -7,10 +7,8 @@ category: techniques
 tags: credential, password, web, application, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/relleno-credenciales/cover_cwi8if.webp
 alt: Photo by Cookie the Pom on Unsplash
-description: He escrito este post para dar una visión general del ataque
-  Credential Stuffing y algunas breves recomendaciones para su prevención.
-keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website,
-  Aplicación, Ethical Hacking, Pentesting
+description: He escrito este post para dar una visión general del ataque Credential Stuffing y algunas breves recomendaciones para su prevención.
+keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website, Aplicación, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 spanish: yes

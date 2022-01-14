@@ -7,9 +7,8 @@ category: politics
 tags: policies, cybersecurity, social, information, mistake, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/schrems-shield/cover_tv5m8p.webp
 alt: Photo by James Pond on Unsplash
-description: This blog post might give you a better understanding of what has
-  been achieved by Max Schrems against the EU-US Privacy Shield agreement.
-keywords: Schrems, Max, Privacy, Shield, Policy, Cybersecurity, Social Network
+description: This blog post might give you a better understanding of what has been achieved by Max Schrems against the EU-US Privacy Shield agreement.
+keywords: Schrems, Max, Privacy, Shield, Policy, Cybersecurity, Social Network, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

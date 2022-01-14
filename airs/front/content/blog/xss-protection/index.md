@@ -6,11 +6,9 @@ category: challenges
 subtitle: 'Solving Halls of Valhalla Challenge: XSS4'
 tags: xss, web, protect, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331241/blog/xss-protection/cover_hihzge.webp
-alt: Computer with four padlocks, one unlocked
-description: 'Web security nowadays is a matter of concern. In this article,
-  we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).'
-keywords: Security, Input, Cross Site Scripting, XSS, Web, Risks,
-  Ethical Hacking, Pentesting
+alt: Photo by Thom Milkovic on Unsplash
+description: 'Web security nowadays is a matter of concern. In this article, we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).'
+keywords: Security, Input, Cross Site Scripting, XSS, Web, Risks, Ethical Hacking, Pentesting
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González

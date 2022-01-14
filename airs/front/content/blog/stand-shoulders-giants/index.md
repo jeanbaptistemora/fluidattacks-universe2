@@ -6,12 +6,9 @@ category: attacks
 subtitle: About software composition analysis
 tags: testing, dependency, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
-alt: Man standing in mountain
-description: 'Here we mainly develop a discussion on ''A9'' of the OWASP
-  Top 10: Using components with known vulnerabilities, in particular
-  free and open software libraries.'
-keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP,
-  Linux, Foss, Ethical Hacking, Pentesting
+alt: Photo by Vincent Riszdorfer on Unsplash
+description: 'Here we mainly develop a discussion on ''A9'' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.'
+keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

@@ -6,12 +6,9 @@ category: attacks
 subtitle: Solving Yoire crackme average challenge
 tags: revert, challenge, engineering
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/cover_reckpt.webp
-alt: Wrong red piece in white puzzle
-description: In this article, we provide a first approach to reverse
-  engineering by solving a simple but educational cracking challenge
-  using OllyDBG.
-keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking,
-  Assembler, Ethical Hacking, Pentesting
+alt: Photo by Ryoji Iwata on Unsplash
+description: In this article, we provide a first approach to reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
+keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler, Ethical Hacking, Pentesting
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González

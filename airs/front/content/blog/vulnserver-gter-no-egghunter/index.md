@@ -7,10 +7,8 @@ subtitle: Every byte counts
 tags: osce, vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/cover_tsjvux.webp
 alt: Photo by Florian Klauer on Unsplash
-description: In this post, we will use an alternative way of exploiting
-  Vulnserver GTER command.
-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE,
-  Ethical Hacking, Pentesting
+description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

@@ -7,11 +7,8 @@ category: opinions
 tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331129/blog/tribe-of-hackers-1/cover_yosoni.webp
 alt: Photo by Lucas Benjamin on Unsplash
-description: This post is based on the book 'Tribe of Hackers Red Team'
-  by Carey and Jin. Here we share an introduction and some
-  of the highlights of the first interview.
-keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking,
-  Blue Team, Knowledge, Tribe
+description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share an introduction and some of the highlights of the first interview.
+keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

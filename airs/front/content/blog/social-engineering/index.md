@@ -7,11 +7,8 @@ category: social-engineering
 tags: social-engineering, cybersecurity, flaw, training, company, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1632164071/blog/social-engineering/cover_social-engineering.webp
 alt: Photo by Marco Bianchetti on Unsplash
-description: Read this post to learn the psychological tactics used
-  in cyberattacks and what personality traits make targets more (or less)
-  susceptible to fall for them.
-keywords: Social Engineering, Weapons, Influence, Personality, Osint,
-  Information, Cyberattack, Ethical Hacking, Pentesting
+description: Read this post to learn the psychological tactics used in cyberattacks and what personality traits make targets more (or less) susceptible to fall for them.
+keywords: Social Engineering, Weapons, Influence, Personality, Osint, Information, Cyberattack, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría

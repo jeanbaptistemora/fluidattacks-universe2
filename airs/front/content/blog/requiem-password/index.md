@@ -6,11 +6,9 @@ subtitle: Why passphrases are better than passwords
 category: identity
 tags: password, credential, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
-alt: Rusty lock
-description: In this blog post, we mainly make a comparison between having weak
-  or complicated passwords versus having a single strong passphrase.
-keywords: Passphrase, Password, Security, Cracking, Policy, Diceware,
-  Ethical Hacking, Pentesting
+alt: Photo by Ben Lambert on Unsplash
+description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.
+keywords: Passphrase, Password, Security, Cracking, Policy, Diceware, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

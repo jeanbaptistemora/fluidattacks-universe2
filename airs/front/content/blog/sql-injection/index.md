@@ -7,11 +7,8 @@ category: attacks
 tags: sql, injection, hacking, web, application, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1628541914/blog/sql-injection/cover_sql_rpw56v.webp
 alt: Photo by National Cancer Institute on Unsplash
-description: Thanks to this post, you'll understand the injection attacks
-  in general terms, especially the SQL Injection. You'll also have some
-  prevention ideas at hand.
-keywords: SQL, Injection, SQLi, Application, RDBMS, Input, Attack,
-  Pentesting, Ethical Hacking
+description: Thanks to this post, you'll understand the injection attacks in general terms, especially the SQL Injection. You'll also have some prevention ideas at hand.
+keywords: SQL, Injection, SQLi, Application, RDBMS, Input, Attack, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

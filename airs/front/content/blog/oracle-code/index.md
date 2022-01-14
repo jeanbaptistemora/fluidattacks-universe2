@@ -7,10 +7,8 @@ category: attacks
 tags: testing, application, detect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330963/blog/oracle-code/cover_fqvnfc.webp
 alt: Code on a screen
-description: This blog post is a description of the code-as-data approach
-  to source code analysis.
-keywords: Testing, Database, Code, Query Language, Semmle, Data,
-  Ethical Hacking, Pentesting
+description: This blog post is a description of the code-as-data approach to source code analysis.
+keywords: Testing, Database, Code, Query Language, Semmle, Data, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
 name: Rafael Ballestas

@@ -7,10 +7,8 @@ subtitle: Exploiting Vulnserver with ROP
 tags: osee, training, exploit, vulnserver
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/cover_fyj5gk.webp
 alt: Photo by Syed Ali on Unsplash
-description: This post will show how to create a complete, functional exploit
-  creating a complex shellcode using ROP
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSEE, Ethical Hacking, Pentesting
+description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP.
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

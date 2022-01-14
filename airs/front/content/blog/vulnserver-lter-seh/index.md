@@ -7,10 +7,8 @@ subtitle: Bad chars everywhere
 tags: osce, vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/cover_basr0i.webp
 alt: Photo by Kevin Ku on Unsplash
-description: This post will show how to exploit the Vulnserver LTER
-  command on where we will need to bypass bad chars restrictions.
-keywords: Business, Information, Security, Protection, Hacking, Exploit,
-  OSCE, Ethical Hacking, Pentesting
+description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
+keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

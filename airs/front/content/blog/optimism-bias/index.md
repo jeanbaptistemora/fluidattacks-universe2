@@ -7,10 +7,8 @@ category: philosophy
 tags: cybersecurity, mistake, risk, business, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330962/blog/optimism-bias/cover_or7kk2.webp
 alt: Photo by Charles Deluvio on Unsplash
-description: In cybersecurity, optimism bias and overconfidence can have
-  pervasive consequences. I discuss them in this post.
-keywords: Cybersecurity, Mistake, Risk, Optimism, Bias, Overconfidence,
-  Ethical Hacking, Pentesting
+description: In cybersecurity, optimism bias and overconfidence can have pervasive consequences. I discuss them in this post.
+keywords: Cybersecurity, Mistake, Risk, Optimism, Bias, Overconfidence, Ethical Hacking, Pentesting
 author: Julian Arango
 writer: jarango
 name: Julian Arango

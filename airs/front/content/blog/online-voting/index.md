@@ -7,10 +7,8 @@ category: politics
 tags: security, cybersecurity, software, web, vulnerability, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330960/blog/online-voting/cover_hrlrgj.webp
 alt: Photo by visuals on Unsplash
-description: In this post, we show you the exposed vulnerabilities of one of
-  the many online voting options likely to be used
-  in the upcoming presidential election.
-keywords: Security, Cybersecurity, Software, Web, Vulnerability, Risk
+description: In this post, we show you the exposed vulnerabilities of one of the many online voting options likely to be used in the upcoming presidential election.
+keywords: Security, Cybersecurity, Software, Web, Vulnerability, Risk, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz

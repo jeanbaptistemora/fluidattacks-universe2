@@ -6,11 +6,9 @@ category: programming
 subtitle: Functional vs Imperative
 tags: application, functional, imperative, stateless
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
-alt: Piece of code with a function
-description: In this blog post, we show an analysis of why it is necessary
-  to go functional even with non-functional languages.
-keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm
-  Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
+alt: Photo by Shahadat Rahman on Unsplash
+description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
+keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
 author: Oswaldo Parada
 writer: oparada
 name: Oswaldo José Parada Cuadros
