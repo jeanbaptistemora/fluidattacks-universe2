@@ -1,0 +1,5 @@
+lib_apk.analyze_bytecodes.webview_caches_javascript:
+  en: The given APK has WebView that caches JavaScript data and code.
+  es: >
+    El APK dado tiene WebView que almacena en caché los datos
+    y el código de JavaScript.
