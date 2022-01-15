@@ -8,7 +8,6 @@ export const GET_GROUP_DATA: DocumentNode = gql`
       name
       organization
       serviceAttributes
-      userDeletion
     }
   }
 `;
