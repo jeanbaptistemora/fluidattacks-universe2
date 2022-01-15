@@ -49,6 +49,7 @@ from lib_path import (
     f380,
     f396,
     f401,
+    f402,
 )
 from model import (
     core_model,
@@ -133,6 +134,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F393, f011_npm_package_lock_json.analyze(**DEV)),
     (core_model.FindingEnum.F396, f396.analyze),
     (core_model.FindingEnum.F401, f401.analyze),
+    (core_model.FindingEnum.F402, f402.analyze),
 )
 
 

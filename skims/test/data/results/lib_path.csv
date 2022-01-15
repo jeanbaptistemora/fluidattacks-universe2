@@ -27120,6 +27120,47 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 ",c_sharp.conflicting_annotations
+F402,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,778,skims,402. Tracebility Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
+ in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf","
+>  1 | resource ""azurerm_storage_account"" ""example"" {
+   2 |   name                     = ""storageaccountname""
+   3 |   resource_group_name      = azurerm_resource_group.example.name
+   4 |   location                 = azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+   7 |   min_tls_version          = ""TLS1_0""
+   8 |
+   9 |   tags = {
+  10 |     environment = ""staging""
+  11 |   }
+  12 | }
+     ^ Col 0
+",f402._tfm_azure_storage_logging_disabled
+F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,28,778,skims,402. Tracebility Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
+ in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf","
+  15 |     }
+  16 |   }
+  17 | }
+  18 |
+  19 |
+  20 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  21 |   name                     = ""example""
+  22 |   resource_group_name      = data.azurerm_resource_group.example.name
+  23 |   location                 = data.azurerm_resource_group.example.location
+  24 |   account_tier             = ""Standard""
+  25 |   account_replication_type = ""GRS""
+  26 |   min_tls_version          = ""TLS1_2""
+  27 |   queue_properties {
+> 28 |     logging {
+  29 |       delete                = false
+  30 |       read                  = false
+  31 |       version               = ""1.0""
+  32 |       retention_policy_days = 10
+  33 |     }
+  34 |   }
+  35 | }
+     ^ Col 0
+",f402._tfm_azure_storage_logging_disabled
 F200,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,778,skims,200. Traceability loss,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    1 | Resources:
    2 |   distribution1:

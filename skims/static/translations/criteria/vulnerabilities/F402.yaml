@@ -1,0 +1,6 @@
+lib_path.f402.tfm_azure_storage_logging_disabled:
+  en: >
+    Ensure storage logging for queue service has read, write, and delete requests enabled
+  es: >
+    Asegúrese de que el registro de almacenamiento para el servicio de cola
+    tenga habilitadas las solicitudes de lectura, escritura y eliminación
