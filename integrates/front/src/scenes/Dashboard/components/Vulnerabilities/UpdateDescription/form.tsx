@@ -228,6 +228,32 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     ],
   });
 
+  const updateAssigned = async (): Promise<void> => {
+    const groupData = await client.query<IGetVulnsGroups>({
+      errorPolicy: "all",
+      fetchPolicy: "network-only",
+      query: GET_VULNS_GROUPS,
+      variables: { groupName },
+    });
+
+    setAllData((current: IGetVulnsGroups[]): IGetVulnsGroups[] =>
+      Array.from(
+        new Set(
+          mergedAssigned(current, [
+            _.isUndefined(groupData.errors) && _.isEmpty(groupData.errors)
+              ? groupData.data
+              : {
+                  group: {
+                    name: _.isUndefined(groupName) ? "" : groupName,
+                    vulnerabilitiesAssigned: [],
+                  },
+                },
+          ])
+        )
+      )
+    );
+  };
+
   const handleUpdateVulnTreatment = async (
     dataTreatment: IUpdateTreatmentVulnerabilityForm,
     isEditPristineP: boolean,
@@ -259,30 +285,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         handleUpdateVulnTreatmentError(updateError);
       } finally {
         setRunning(false);
-
-        const groupData = await client.query<IGetVulnsGroups>({
-          errorPolicy: "all",
-          fetchPolicy: "network-only",
-          query: GET_VULNS_GROUPS,
-          variables: { groupName },
-        });
-
-        setAllData((current: IGetVulnsGroups[]): IGetVulnsGroups[] =>
-          Array.from(
-            new Set(
-              mergedAssigned(current, [
-                _.isUndefined(groupData.errors) && _.isEmpty(groupData.errors)
-                  ? groupData.data
-                  : {
-                      group: {
-                        name: _.isUndefined(groupName) ? "" : groupName,
-                        vulnerabilitiesAssigned: [],
-                      },
-                    },
-              ])
-            )
-          )
-        );
+        if (permissions.can("valid_assigned")) {
+          await updateAssigned();
+        }
       }
     }
   };
@@ -304,14 +309,17 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_VULNS_ZERO_RISK,
     {
-      onCompleted: (
+      onCompleted: async (
         requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
-      ): void => {
+      ): Promise<void> => {
         requestZeroRiskHelper(
           handleClearSelected,
           handleCloseModal,
           requestZeroRiskVulnResult
         );
+        if (permissions.can("valid_assigned")) {
+          await updateAssigned();
+        }
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         handleRequestZeroRiskError(graphQLErrors);

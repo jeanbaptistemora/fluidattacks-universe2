@@ -285,13 +285,14 @@ describe("Update Description component", (): void => {
       },
       ...mocksVulns,
       mocksFindingHeader,
+      mocksVulnGroups,
     ];
     const wrapperRequest: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
             findingId={"422286126"}
-            groupName={""}
+            groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
             vulnerabilities={vulns}
@@ -376,11 +377,14 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapperRequest: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={mocksMutation}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksVulnGroups]}
+      >
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
             findingId={"422286126"}
-            groupName={""}
+            groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
             vulnerabilities={vulns}
