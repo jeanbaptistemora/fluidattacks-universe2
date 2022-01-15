@@ -9,6 +9,7 @@ import { UnsubscribeModal } from "./UnsubscribeModal";
 import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 
 import { Button } from "components/Button";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import {
   ButtonToolbar,
   Col40,
@@ -43,6 +44,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
           msgError(t("groupAlerts.errorTextsad"));
         });
       },
+      refetchQueries: [GET_USER_ORGANIZATIONS_GROUPS],
       variables: {
         groupName,
       },

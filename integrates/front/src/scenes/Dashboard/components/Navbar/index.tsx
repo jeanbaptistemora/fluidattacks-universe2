@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -6,20 +7,51 @@ import { HelpWidget } from "./HelpWidget";
 import { NewsWidget } from "./NewsWidget";
 import { Searchbar } from "./Searchbar";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
+import { TaskInfo } from "./Tasks";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
+import type {
+  IAction,
+  IGroupAction,
+} from "scenes/Dashboard/containers/Tasks/types";
+import type {
+  IGetUserOrganizationsGroups,
+  IOrganizationGroups,
+} from "scenes/Dashboard/types";
 import { Can } from "utils/authz/Can";
 
 interface INavbarProps {
+  taskState: boolean;
   userRole: string | undefined;
+  userData: IGetUserOrganizationsGroups | undefined;
 }
 
 export const Navbar: React.FC<INavbarProps> = ({
   userRole,
+  userData,
+  taskState,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
+  const groups: IGroupAction[] =
+    userData === undefined || _.isEmpty(userData)
+      ? []
+      : _.flatten(
+          userData.me.organizations.map(
+            (organization: IOrganizationGroups): IGroupAction[] =>
+              organization.groups.map(
+                (group: IOrganizationGroups["groups"][0]): IGroupAction => ({
+                  actions: group.permissions.map(
+                    (action: string): IAction => ({
+                      action,
+                    })
+                  ),
+                  groupName: group.name,
+                })
+              )
+          )
+        );
 
   return (
     <React.StrictMode>
@@ -41,6 +73,13 @@ export const Navbar: React.FC<INavbarProps> = ({
               <NewsWidget />
             </TooltipWrapper>
           </li>
+          {groups.length <= 0 ? (
+            <li />
+          ) : (
+            <li>
+              <TaskInfo groups={groups} taskState={taskState} />
+            </li>
+          )}
           <li>
             <HelpWidget />
           </li>

@@ -56,7 +56,11 @@ describe("Navbar", (): void => {
           <authContext.Provider
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
-            <Navbar userRole={"customer"} />
+            <Navbar
+              taskState={false}
+              userData={undefined}
+              userRole={"customer"}
+            />
           </authContext.Provider>
         </MockedProvider>
       </MemoryRouter>,
@@ -129,7 +133,11 @@ describe("Navbar", (): void => {
           <authContext.Provider
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
-            <Navbar userRole={"customer"} />
+            <Navbar
+              taskState={false}
+              userData={undefined}
+              userRole={"customer"}
+            />
           </authContext.Provider>
         </MockedProvider>
       </MemoryRouter>,
@@ -208,7 +216,11 @@ describe("Navbar", (): void => {
           <authContext.Provider
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
-            <Navbar userRole={"customer"} />
+            <Navbar
+              taskState={false}
+              userData={undefined}
+              userRole={"customer"}
+            />
           </authContext.Provider>
         </MockedProvider>
       </MemoryRouter>,

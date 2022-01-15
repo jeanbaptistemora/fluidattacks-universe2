@@ -20,6 +20,7 @@ import type {
   IGetVulnsGroups,
   IOrganizationGroups,
 } from "scenes/Dashboard/types";
+import globalStyle from "styles/global.css";
 import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
@@ -160,31 +161,33 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   return (
     <React.StrictMode>
-      <Col100>
-        <VulnComponent
-          canDisplayHacker={canRetrieveHacker}
-          changePermissions={changePermissions}
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          extraButtons={
-            <Button onClick={refreshAssigned}>
-              <FontAwesomeIcon icon={faSyncAlt} />
-            </Button>
-          }
-          findingState={"open"}
-          hideSelectVulnerability={true}
-          isEditing={false}
-          isFindingReleased={true}
-          isRequestingReattack={false}
-          isVerifyingRequest={false}
-          onVulnSelect={openRemediationModal}
-          vulnerabilities={filterSearchTextVulnerabilities}
-        />
-      </Col100>
+      <div className={globalStyle.tabContent}>
+        <Col100>
+          <VulnComponent
+            canDisplayHacker={canRetrieveHacker}
+            changePermissions={changePermissions}
+            customSearch={{
+              customSearchDefault: searchTextFilter,
+              isCustomSearchEnabled: true,
+              onUpdateCustomSearch: onSearchTextChange,
+              position: "right",
+            }}
+            extraButtons={
+              <Button id={"refresh-assigned"} onClick={refreshAssigned}>
+                <FontAwesomeIcon icon={faSyncAlt} />
+              </Button>
+            }
+            findingState={"open"}
+            hideSelectVulnerability={true}
+            isEditing={false}
+            isFindingReleased={true}
+            isRequestingReattack={false}
+            isVerifyingRequest={false}
+            onVulnSelect={openRemediationModal}
+            vulnerabilities={filterSearchTextVulnerabilities}
+          />
+        </Col100>
+      </div>
     </React.StrictMode>
   );
 };
