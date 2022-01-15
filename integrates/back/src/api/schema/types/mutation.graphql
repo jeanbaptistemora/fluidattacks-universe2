@@ -17,6 +17,20 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
+  "Add a payment method to an organization"
+  addBillingPaymentMethod(
+    "Organization name"
+    organizationId: String!
+    "Card number"
+    cardNumber: String!
+    "Card expiration month"
+    cardExpirationMonth: Int!
+    "Card expiration year"
+    cardExpirationYear: Int!
+    "Card CVC code"
+    cardCvc: String!
+  ): SimplePayload!
+
   "Returns a checkout URL for purchasing a subscription for a group"
   addBillingSubscription(
     "Group name"

@@ -318,6 +318,47 @@ async def _report_subscription_usage(
     )
 
 
+async def create_payment_method(
+    *,
+    org_billing_customer: Optional[str],
+    org_id: str,
+    org_name: str,
+    user_email: str,
+    card_number: str,
+    card_expiration_month: int,
+    card_expiration_year: int,
+    card_cvc: str,
+) -> bool:
+    """Create a payment method and associate it to the customer"""
+    # Create customer if it does not exist
+    if org_billing_customer is None:
+        customer: Customer = await _create_customer(
+            org_id=org_id,
+            org_name=org_name,
+            user_email=user_email,
+        )
+        org_billing_customer = customer.id
+
+    # Create payment method
+    payment_method = stripe.PaymentMethod.create(
+        type="card",
+        card={
+            "number": card_number,
+            "exp_month": card_expiration_month,
+            "exp_year": card_expiration_year,
+            "cvc": card_cvc,
+        },
+    )
+
+    # Attach payment method to customer
+    attachment = stripe.PaymentMethod.attach(
+        payment_method.id,
+        customer=org_billing_customer,
+    )
+
+    return isinstance(attachment.created, int)
+
+
 async def create_subscription(
     *,
     subscription: str,
