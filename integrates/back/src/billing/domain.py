@@ -1,8 +1,5 @@
-from aioextensions import (
-    collect,
-)
-from bill import (
-    domain as bill_domain,
+from billing import (
+    dal,
 )
 from billing.types import (
     Customer,
@@ -15,7 +12,6 @@ from billing.types import (
 )
 from context import (
     BASE_URL,
-    FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
@@ -24,13 +20,9 @@ from custom_exceptions import (
     BillingGroupWithoutSubscription,
     BillingSubscriptionSameActive,
     InvalidBillingCustomer,
-    InvalidBillingPrice,
 )
 from dataloaders import (
     get_new_context,
-)
-from datetime import (
-    datetime,
 )
 from groups import (
     domain as groups_domain,
@@ -39,9 +31,6 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from settings import (
     LOGGING,
@@ -53,7 +42,6 @@ from starlette.responses import (
     JSONResponse,
 )
 import stripe
-import time
 from typing import (
     Any,
     Dict,
@@ -64,49 +52,6 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
-stripe.api_key = FI_STRIPE_API_KEY
-
-
-async def _get_price(
-    *,
-    subscription: str,
-    active: bool = True,
-) -> Price:
-    """Return a subscription price"""
-    prices = stripe.Price.list(
-        lookup_keys=[subscription],
-        active=active,
-    ).data
-    if len(prices) > 0:
-        return Price(
-            id=prices[0].id,
-            subscription=prices[0].lookup_key,
-        )
-    raise InvalidBillingPrice()
-
-
-async def _collect_subscription_prices(
-    *,
-    subscription: str,
-) -> List[Price]:
-    # Collect stripe prices
-    prices = [
-        _get_price(
-            subscription=subscription,
-            active=True,
-        )
-    ]
-
-    # Add machine base price if subscription is squad
-    if subscription == "squad":
-        prices.append(
-            _get_price(
-                subscription="machine",
-                active=True,
-            )
-        )
-    return await collect(prices)
-
 
 async def _format_create_subscription_data(
     *,
@@ -116,7 +61,7 @@ async def _format_create_subscription_data(
     group_name: str,
 ) -> Dict[str, Any]:
     """Format create subscription session data according to stripe API"""
-    prices: List[Price] = await _collect_subscription_prices(
+    prices: List[Price] = await dal.get_subscription_prices(
         subscription=subscription,
     )
     items: List[Dict[str, Any]] = []
@@ -158,10 +103,10 @@ async def _format_update_subscription_data(
     current_items: List[SubscriptionItem],
 ) -> Dict[str, Any]:
     """Format update subscription session data according to stripe API"""
-    prices: List[Price] = await _collect_subscription_prices(
+    prices: List[Price] = await dal.get_subscription_prices(
         subscription=subscription,
     )
-    proration_date: int = int(time.time())
+    proration_date: int = int(datetime_utils.get_utc_timestamp())
     items: List[Dict[str, Any]] = []
 
     if subscription == "machine":
@@ -195,46 +140,13 @@ async def _format_update_subscription_data(
     }
 
 
-async def _get_group_subscription(
-    *,
-    group_name: str,
-    org_billing_customer: str,
-    limit: int = 1000,
-    status: str = "all",
-) -> Optional[Subscription]:
-    """Return subscription for a group"""
-    subs = stripe.Subscription.list(
-        customer=org_billing_customer,
-        limit=limit,
-        status=status,
-    ).data
-    filtered = [sub for sub in subs if sub.metadata.group == group_name]
-    if len(filtered) > 0:
-        sub_items: List[SubscriptionItem] = [
-            SubscriptionItem(
-                id=item["id"],
-                type=item["price"]["lookup_key"],
-            )
-            for item in filtered[0]["items"]["data"]
-        ]
-        return Subscription(
-            id=filtered[0].id,
-            group=filtered[0].metadata.group,
-            org_billing_customer=filtered[0].customer,
-            organization=filtered[0].metadata.organization,
-            type=filtered[0].metadata.subscription,
-            items=sub_items,
-        )
-    return None
-
-
 async def _group_has_active_subscription(
     *,
     group_name: str,
     org_billing_customer: str,
 ) -> bool:
     """True if group has active subscription"""
-    sub: Optional[Subscription] = await _get_group_subscription(
+    sub: Optional[Subscription] = await dal.get_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -247,109 +159,21 @@ async def _customer_has_payment_method(
     *,
     org_billing_customer: str,
 ) -> bool:
-    customer: Customer = await _get_customer(
+    customer: Customer = await dal.get_customer(
         org_billing_customer=org_billing_customer,
     )
     print(customer.default_payment_method)
     return customer.default_payment_method is not None
 
 
-async def _create_customer(
-    *,
-    org_id: str,
-    org_name: str,
-    user_email: str,
-) -> Customer:
-    """Create Stripe customer"""
-    # Create customer in stripe
-    stripe_customer = stripe.Customer.create(
-        name=org_name,
-        email=user_email,
-    )
-    customer: Customer = Customer(
-        id=stripe_customer.id,
-        name=stripe_customer.name,
-        email=stripe_customer.email,
-        default_payment_method=None,
-    )
-
-    # Assign customer to org
-    await orgs_domain.update_billing_customer(
-        org_id=org_id,
-        org_name=org_name,
-        org_billing_customer=customer.id,
-    )
-
-    return customer
-
-
-async def _get_customer(
-    *,
-    org_billing_customer: str,
-) -> Customer:
-    """Retrieve Stripe customer"""
-    stripe_customer = stripe.Customer.retrieve(
-        org_billing_customer,
-    )
-    default_payment_method: Optional[
-        str
-    ] = stripe_customer.invoice_settings.default_payment_method
-    return Customer(
-        id=stripe_customer.id,
-        name=stripe_customer.name,
-        email=stripe_customer.email,
-        default_payment_method=default_payment_method,
-    )
-
-
-async def _report_subscription_usage(
-    *,
-    subscription: Subscription,
-) -> None:
-    """Report group squad usage to Stripe"""
-    timestamp: int = int(time.time())
-    date: datetime = datetime_utils.get_now()
-    authors: int = len(
-        await bill_domain.get_authors_data(
-            date=date,
-            group=subscription.group,
-        )
-    )
-    sub_item_id: str = [
-        item.id for item in subscription.items if item.type == "squad"
-    ][0]
-
-    stripe.SubscriptionItem.create_usage_record(
-        sub_item_id,
-        quantity=authors,
-        timestamp=timestamp,
-        action="set",
-    )
-
-
 async def customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
 ) -> List[PaymentMethod]:
     """Return list of customer's payment methods"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    payment_methods = stripe.Customer.list_payment_methods(
-        org_billing_customer,
-        type="card",
+    return await dal.get_customer_payment_methods(
+        org_billing_customer=org_billing_customer,
         limit=limit,
-    ).data
-    return [
-        PaymentMethod(
-            id=payment_method.id,
-            last_four_digits=payment_method.card.last4,
-            expiration_month=str(payment_method.card.exp_month),
-            expiration_year=str(payment_method.card.exp_year),
-            brand=payment_method.card.brand,
-        )
-        for payment_method in payment_methods
-    ]
+    )
 
 
 async def create_payment_method(
@@ -368,13 +192,13 @@ async def create_payment_method(
     # Create customer if it does not exist
     customer: Optional[Customer] = None
     if org_billing_customer is None:
-        customer = await _create_customer(
+        customer = await dal.create_customer(
             org_id=org_id,
             org_name=org_name,
             user_email=user_email,
         )
     else:
-        customer = await _get_customer(
+        customer = await dal.get_customer(
             org_billing_customer=org_billing_customer,
         )
 
@@ -413,7 +237,7 @@ async def create_subscription(
     org_name: str,
     group_name: str,
 ) -> bool:
-    """Create Stripe checkout session"""
+    """Create Stripe subscription"""
     # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
@@ -477,7 +301,7 @@ async def update_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    sub: Optional[Subscription] = await _get_group_subscription(
+    sub: Optional[Subscription] = await dal.get_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -494,7 +318,7 @@ async def update_subscription(
 
     # Report latest usage if subscription is squad
     if sub.type == "squad":
-        await _report_subscription_usage(
+        await dal.report_subscription_usage(
             subscription=sub,
         )
 
@@ -536,7 +360,7 @@ async def remove_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    sub: Optional[Subscription] = await _get_group_subscription(
+    sub: Optional[Subscription] = await dal.get_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -550,7 +374,7 @@ async def remove_subscription(
     # Report usage if subscription is squad
     invoice_now: bool = False
     if sub.type == "squad":
-        await _report_subscription_usage(
+        await dal.report_subscription_usage(
             subscription=sub,
         )
         invoice_now = True
