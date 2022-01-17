@@ -291,24 +291,24 @@ export const Dashboard: React.FC = (): JSX.Element => {
             </AssignedVulnerabilitiesContext.Provider>
           </DashboardContent>
           <ScrollUpButton visibleAt={400} />
+          <ConcurrentSessionNotice
+            onClick={handleConcurrent}
+            open={isCtSessionModalOpen}
+          />
+          <Modal
+            headerTitle={translate.t("validations.inactiveSessionModal")}
+            open={idleWarning}
+          >
+            <div>
+              <p>{translate.t("validations.inactiveSession")}</p>
+            </div>
+            <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
+              {translate.t("validations.inactiveSessionDismiss")}
+            </Button>
+          </Modal>
         </React.Fragment>
       )}
-      <ConcurrentSessionNotice
-        onClick={handleConcurrent}
-        open={isCtSessionModalOpen}
-      />
       <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
-      <Modal
-        headerTitle={translate.t("validations.inactiveSessionModal")}
-        open={idleWarning}
-      >
-        <div>
-          <p>{translate.t("validations.inactiveSession")}</p>
-        </div>
-        <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
-          {translate.t("validations.inactiveSessionDismiss")}
-        </Button>
-      </Modal>
     </DashboardContainer>
   );
 };
