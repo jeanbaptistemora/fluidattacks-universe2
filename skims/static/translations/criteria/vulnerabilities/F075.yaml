@@ -3,4 +3,4 @@ lib_apk.analyze_bytecodes.exported:
   es: provider/{desc_authority}/android:exported habilitado
 lib_apk.analyze_bytecodes.grants_uri_permissions:
   en: provider/{desc_authority}/android:grantUriPermissions enabled
-  es: provider/.../android:grantUriPermissions habilitado
+  es: provider/{desc_authority}/android
