@@ -4,4 +4,4 @@ src.lib_path.f346.dangerous_permission:
     that can be abused by an attacker.
   es: >
     La aplicación define permisos peligrosos
-    que un atacante puede abusar.
+    que pueden ser explotados por un atacante.
