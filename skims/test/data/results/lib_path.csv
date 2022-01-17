@@ -29349,6 +29349,21 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Se
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
 ",javascript.client_storage
+F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
+>  1 | resource ""azurerm_storage_account"" ""example"" {
+   2 |   name                     = ""storageaccountname""
+   3 |   resource_group_name      = azurerm_resource_group.example.name
+   4 |   location                 = azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+   7 |   min_tls_version          = ""TLS1_0""
+   8 |
+   9 |   tags = {
+  10 |     environment = ""staging""
+  11 |   }
+  12 | }
+     ^ Col 0
+",f157._tfm_azure_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
@@ -29358,6 +29373,102 @@ F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,
   6 | }
     ^ Col 0
 ",f157._tfm_azure_unrestricted_access_network_segments
+F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,37,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
+  27 |       read   = true
+  28 |       write  = true
+  29 |     }
+  30 |   }
+  31 | }
+  32 |
+  33 | resource ""azurerm_storage_account_network_rules"" ""vulnerable"" {
+  34 |   resource_group_name  = azurerm_resource_group.test.name
+  35 |   storage_account_name = azurerm_storage_account.test.name
+  36 |
+> 37 |   default_action = ""Allow""
+  38 | }
+  39 |
+  40 |
+  41 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  42 |   name                = var.watcher
+  43 |   resource_group_name = azurerm_resource_group.test.name
+  44 |   location            = azurerm_resource_group.test.location
+  45 |
+  46 |   network_rules {
+  47 |     default_action = ""Allow""
+     ^ Col 0
+",f157._tfm_azure_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,47,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
+  37 |   default_action = ""Allow""
+  38 | }
+  39 |
+  40 |
+  41 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  42 |   name                = var.watcher
+  43 |   resource_group_name = azurerm_resource_group.test.name
+  44 |   location            = azurerm_resource_group.test.location
+  45 |
+  46 |   network_rules {
+> 47 |     default_action = ""Allow""
+  48 |   }
+  49 |
+  50 |   account_tier              = ""Standard""
+  51 |   account_kind              = ""StorageV2""
+  52 |   account_replication_type  = ""LRS""
+  53 |   enable_https_traffic_only = true
+  54 |   min_tls_version           = ""TLS1_2""
+  55 |
+  56 |   queue_properties {
+  57 |     logging {
+     ^ Col 0
+",f157._tfm_azure_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,20,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
+  10 |       delete                = true
+  11 |       read                  = true
+  12 |       write                 = true
+  13 |       version               = ""1.0""
+  14 |       retention_policy_days = 10
+  15 |     }
+  16 |   }
+  17 | }
+  18 |
+  19 |
+> 20 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  21 |   name                     = ""example""
+  22 |   resource_group_name      = data.azurerm_resource_group.example.name
+  23 |   location                 = data.azurerm_resource_group.example.location
+  24 |   account_tier             = ""Standard""
+  25 |   account_replication_type = ""GRS""
+  26 |   min_tls_version          = ""TLS1_2""
+  27 |   queue_properties {
+  28 |     logging {
+  29 |       delete                = false
+  30 |       read                  = false
+     ^ Col 0
+",f157._tfm_azure_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,1,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
+>  1 | resource ""azurerm_storage_account"" ""not_vulnerable"" {
+   2 |   name                     = ""example""
+   3 |   resource_group_name      = data.azurerm_resource_group.example.name
+   4 |   location                 = data.azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+   7 |   min_tls_version          = ""TLS1_2""
+   8 |   queue_properties {
+   9 |     logging {
+  10 |       delete                = true
+  11 |       read                  = true
+  12 |       write                 = true
+  13 |       version               = ""1.0""
+  14 |       retention_policy_days = 10
+  15 |     }
+  16 |   }
+  17 | }
+  18 |
+  19 |
+  20 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  21 |   name                     = ""example""
+     ^ Col 0
+",f157._tfm_azure_default_network_access
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (@angular/core v11.0.4) [SNYK-JS-ANGULARCORE-1070902],4,937,skims,011. Use of software with known vulnerabilities,Use of @angular/core at version 11.0.4 with SNYK-JS-ANGULARCORE-1070902 in namespace/skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
