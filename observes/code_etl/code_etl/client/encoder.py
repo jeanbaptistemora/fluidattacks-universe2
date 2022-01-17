@@ -1,5 +1,9 @@
 # pylint: skip-file
 
+from __future__ import (
+    annotations,
+)
+
 from code_etl.client._assert import (
     assert_opt_type,
     assert_type,
@@ -27,8 +31,14 @@ from datetime import (
 from returns.functions import (
     raise_exception,
 )
+from returns.interfaces.unwrappable import (
+    Unwrappable,
+)
 from returns.maybe import (
     Maybe,
+)
+from returns.primitives.exceptions import (
+    UnwrapFailedError,
 )
 from returns.result import (
     Failure,
@@ -37,9 +47,11 @@ from returns.result import (
 )
 from typing import (
     Any,
+    cast,
     Dict,
     Literal,
     Optional,
+    TypeVar,
     Union,
 )
 
@@ -116,55 +128,40 @@ def from_objs(
 def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
     try:
         row = CommitTableRow(
-            assert_opt_type(raw.author_name, str)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.author_email, str)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.authored_at, datetime)
+            assert_opt_type(cast(str, raw.author_name), str).unwrap(),
+            assert_opt_type(cast(str, raw.author_email), str).unwrap(),
+            assert_opt_type(cast(datetime, raw.authored_at), datetime)
             .map(lambda d: to_utc(d) if d is not None else d)
-            .alt(raise_exception)
             .unwrap(),
-            assert_opt_type(raw.committer_name, str)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.committer_email, str)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.committed_at, datetime)
+            assert_opt_type(cast(str, raw.committer_name), str).unwrap(),
+            assert_opt_type(cast(str, raw.committer_email), str).unwrap(),
+            assert_opt_type(cast(datetime, raw.committed_at), datetime)
             .map(lambda d: to_utc(d) if d is not None else d)
-            .alt(raise_exception)
             .unwrap(),
-            assert_opt_type(raw.message, str).alt(raise_exception).unwrap(),
-            assert_opt_type(raw.summary, str)
+            assert_opt_type(cast(str, raw.message), str).unwrap(),
+            assert_opt_type(cast(str, raw.summary), str)
             .map(lambda s: truncate(s, 256) if s is not None else s)
-            .alt(raise_exception)
             .unwrap(),
-            assert_opt_type(raw.total_insertions, int)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.total_deletions, int)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.total_lines, int)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_opt_type(raw.total_files, int)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_type(raw.namespace, str).alt(raise_exception).unwrap(),
-            assert_type(raw.repository, str).alt(raise_exception).unwrap(),
-            assert_type(raw.hash, str).alt(raise_exception).unwrap(),
-            assert_opt_type(raw.fa_hash, str).alt(raise_exception).unwrap(),
-            assert_type(raw.seen_at, datetime)
+            assert_opt_type(cast(int, raw.total_insertions), int).unwrap(),
+            assert_opt_type(cast(int, raw.total_deletions), int).unwrap(),
+            assert_opt_type(cast(int, raw.total_lines), int).unwrap(),
+            assert_opt_type(cast(int, raw.total_files), int).unwrap(),
+            assert_type(cast(str, raw.namespace), str).unwrap(),
+            assert_type(cast(str, raw.repository), str).unwrap(),
+            assert_type(cast(str, raw.hash), str).unwrap(),
+            assert_opt_type(cast(str, raw.fa_hash), str).unwrap(),
+            assert_type(cast(datetime, raw.seen_at), datetime)
             .map(to_utc)
-            .alt(raise_exception)
             .unwrap(),
         )
         return Success(row)
-    except TypeError as err:
-        return Failure(err)
+    except UnwrapFailedError as err:
+        return Failure(
+            cast(
+                Unwrappable[Union[str, int, datetime], Exception],
+                err.halted_container,
+            ).failure()
+        )
 
 
 def from_stamp(stamp: CommitStamp) -> CommitTableRow:
@@ -181,16 +178,19 @@ def from_row_obj(item: Union[CommitStamp, RepoRegistration]) -> CommitTableRow:
     return from_stamp(item)
 
 
+_T = TypeVar("_T")
+
+
+def _from_opt(val: Optional[_T]) -> Maybe[_T]:
+    return Maybe.from_optional(val)
+
+
 def _encode_opt_datetime(date: Optional[DatetimeUTC]) -> Optional[str]:
-    return (
-        Maybe.from_optional(date)
-        .map(lambda i: i.time.isoformat())
-        .value_or(None)
-    )
+    return _from_opt(date).map(lambda i: i.time.isoformat()).value_or(None)
 
 
 def _encode_opt_int(num: Optional[int]) -> Optional[str]:
-    return Maybe.from_optional(num).map(lambda i: str(i)).value_or(None)
+    return _from_opt(num).map(lambda i: str(i)).value_or(None)
 
 
 def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
