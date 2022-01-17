@@ -1,0 +1,13 @@
+"BillingPaymentMethod type definition"
+type BillingPaymentMethod {
+  "Mastercard, Visa, or any other brand"
+  brand: String!
+  "Expiration month"
+  expirationMonth: String!
+  "Expiration year"
+  expirationYear: String!
+  "Payment method Stripe ID"
+  id: ID!
+  "Last four digits"
+  lastFourDigits: String!
+}

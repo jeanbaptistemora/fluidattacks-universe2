@@ -24,9 +24,9 @@ type Mutation {
     "Card number"
     cardNumber: String!
     "Card expiration month"
-    cardExpirationMonth: Int!
+    cardExpirationMonth: String!
     "Card expiration year"
-    cardExpirationYear: Int!
+    cardExpirationYear: String!
     "Card CVC code"
     cardCvc: String!
   ): SimplePayload!

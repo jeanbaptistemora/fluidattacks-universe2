@@ -18,6 +18,14 @@ class Customer(NamedTuple):
     email: str
 
 
+class PaymentMethod(NamedTuple):
+    id: str
+    last_four_digits: str
+    expiration_month: str
+    expiration_year: str
+    brand: str
+
+
 class Price(NamedTuple):
     id: str
     subscription: str

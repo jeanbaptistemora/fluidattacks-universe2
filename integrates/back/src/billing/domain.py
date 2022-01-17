@@ -7,6 +7,7 @@ from bill import (
 from billing.types import (
     AddBillingSubscriptionPayload,
     Customer,
+    PaymentMethod,
     Portal,
     Price,
     Subscription,
@@ -318,6 +319,31 @@ async def _report_subscription_usage(
     )
 
 
+async def customer_payment_methods(
+    *, org_billing_customer: str, limit: int = 100
+) -> List[PaymentMethod]:
+    """Return list of customer's payment methods"""
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    payment_methods = stripe.Customer.list_payment_methods(
+        org_billing_customer,
+        type="card",
+        limit=limit,
+    ).data
+    return [
+        PaymentMethod(
+            id=payment_method.id,
+            last_four_digits=payment_method.card.last4,
+            expiration_month=str(payment_method.card.exp_month),
+            expiration_year=str(payment_method.card.exp_year),
+            brand=payment_method.card.brand,
+        )
+        for payment_method in payment_methods
+    ]
+
+
 async def create_payment_method(
     *,
     org_billing_customer: Optional[str],
@@ -325,8 +351,8 @@ async def create_payment_method(
     org_name: str,
     user_email: str,
     card_number: str,
-    card_expiration_month: int,
-    card_expiration_year: int,
+    card_expiration_month: str,
+    card_expiration_year: str,
     card_cvc: str,
 ) -> bool:
     """Create a payment method and associate it to the customer"""
@@ -344,8 +370,8 @@ async def create_payment_method(
         type="card",
         card={
             "number": card_number,
-            "exp_month": card_expiration_month,
-            "exp_year": card_expiration_year,
+            "exp_month": int(card_expiration_month),
+            "exp_year": int(card_expiration_year),
             "cvc": card_cvc,
         },
     )
@@ -370,7 +396,6 @@ async def create_subscription(
     user_email: str,
 ) -> AddBillingSubscriptionPayload:
     """Create Stripe checkout session"""
-
     # Create customer if it does not exist
     if org_billing_customer is None:
         customer: Customer = await _create_customer(

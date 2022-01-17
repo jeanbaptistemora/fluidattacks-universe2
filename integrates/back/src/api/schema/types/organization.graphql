@@ -7,6 +7,8 @@ type Organization {
     "Analytics chart type"
     documentType: String!
   ): GenericScalar
+  "Payment methods belonging to the organization"
+  billingPaymentMethods: [BillingPaymentMethod]
   "Portal URL for managing group tiers"
   billingPortal: BillingPortal
   "Enacted and pending Finding policies within the organization"
