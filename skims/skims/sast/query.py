@@ -243,15 +243,7 @@ def analyze(
     return tuple(chain.from_iterable(analyze_lazy(graph_db, finding)))
 
 
-def query_f001_java_sql(
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(graph_db, core_model.FindingEnum.F112)
-
-
-def query_f001_c_sharp_sql(
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
+def query_f001(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F001)
 
 
@@ -283,11 +275,11 @@ def query_f052(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F052)
 
 
-def query_f063_pt(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+def query_f063(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F063)
 
 
-def query_f063_tb(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+def query_f089(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F089)
 
 
@@ -303,7 +295,11 @@ def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F107)
 
 
-def query_f127_tc(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+def query_f112(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F112)
+
+
+def query_f127(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F127)
 
 
@@ -312,18 +308,18 @@ def query_f320(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 QUERIES: graph_model.Queries = (
-    (core_model.FindingEnum.F112, query_f001_java_sql),
-    (core_model.FindingEnum.F001, query_f001_c_sharp_sql),
+    (core_model.FindingEnum.F001, query_f001),
     (core_model.FindingEnum.F004, query_f004),
     (core_model.FindingEnum.F008, query_f008),
     (core_model.FindingEnum.F021, query_f021),
     (core_model.FindingEnum.F034, query_f034),
     (core_model.FindingEnum.F042, query_f042),
     (core_model.FindingEnum.F052, query_f052),
-    (core_model.FindingEnum.F063, query_f063_pt),
-    (core_model.FindingEnum.F089, query_f063_tb),
+    (core_model.FindingEnum.F063, query_f063),
+    (core_model.FindingEnum.F089, query_f089),
     (core_model.FindingEnum.F100, query_f100),
     (core_model.FindingEnum.F107, query_f107),
-    (core_model.FindingEnum.F127, query_f127_tc),
+    (core_model.FindingEnum.F112, query_f112),
+    (core_model.FindingEnum.F127, query_f127),
     (core_model.FindingEnum.F320, query_f320),
 )
