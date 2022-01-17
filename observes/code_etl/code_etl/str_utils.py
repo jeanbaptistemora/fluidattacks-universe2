@@ -1,8 +1,18 @@
+# pylint: skip-file
+
 from dataclasses import (
     dataclass,
 )
+from returns.functions import (
+    raise_exception,
+)
 from returns.primitives.hkt import (
     SupportsKind1,
+)
+from returns.result import (
+    Failure,
+    ResultE,
+    Success,
 )
 from typing import (
     Literal,
@@ -15,17 +25,25 @@ def _utf8_lead_byte(byte: int) -> bool:
     return (byte & 0b11000000) == 0b10000000
 
 
-def _lead_bytes_of(byte: int) -> int:
+class NotUTF8(Exception):
+    pass
+
+
+class TruncationError(Exception):
+    pass
+
+
+def _lead_bytes_of(byte: int) -> ResultE[int]:
     """UTF-8 lead bytes of char given byte 1"""
     if (byte & 0b10000000) == 0:
-        return 0
+        return Success(0)
     if (byte & 0b11100000) == 11000000:
-        return 1
+        return Success(1)
     if (byte & 0b11110000) == 11100000:
-        return 2
+        return Success(2)
     if (byte & 0b11111000) == 0b11110000:
-        return 3
-    raise Exception("Not a UTF-8")
+        return Success(3)
+    return Failure(NotUTF8(f"byte: {byte}"))
 
 
 def _search_last_not_lead_byte(raw: bytes) -> int:
@@ -44,15 +62,26 @@ def utf8_byte_truncate(text: str, max_bytes: int) -> str:
     utf8 = text.encode("utf8")
     if len(utf8) <= max_bytes:
         return utf8.decode("utf8")
-    truncated = utf8[:max_bytes]
-    last_not_lead_index = _search_last_not_lead_byte(truncated)
+    pre_truncated = utf8[:max_bytes]
+    last_not_lead_index = _search_last_not_lead_byte(pre_truncated)
     last_lead_bytes = max_bytes - 1 - last_not_lead_index
-    last_not_lead_byte = truncated[last_not_lead_index]
-    if _lead_bytes_of(last_not_lead_byte) == last_lead_bytes:
-        # char bytes fits in the truncation
-        return truncated.decode("utf8")
-    # discard incomplete char
-    return truncated[:last_not_lead_index].decode("utf8")
+    last_not_lead_byte = pre_truncated[last_not_lead_index]
+    try:
+        if (
+            _lead_bytes_of(last_not_lead_byte).alt(raise_exception).unwrap()
+            == last_lead_bytes
+        ):
+            # char bytes fits in the truncation
+            return pre_truncated.decode("utf8")
+        # discard incomplete char
+        return pre_truncated[:last_not_lead_index].decode("utf8")
+    except NotUTF8 as err:
+        raise TruncationError(
+            "utf8_byte_truncate(text, max_bytes)"
+            f"\ntext={text}\nmax_bytes={max_bytes}"
+            f"\npre_truncated={str(pre_truncated)}"
+            f"\nlast_not_lead_byte={last_not_lead_byte}"
+        ) from err
 
 
 _L = TypeVar("_L", Literal[64], Literal[256], Literal[4096])
