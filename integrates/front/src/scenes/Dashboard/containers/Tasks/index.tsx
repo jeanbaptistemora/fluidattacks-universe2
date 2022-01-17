@@ -27,6 +27,7 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,
   setTaskState,
+  setUserRole,
   taskState,
 }: ITasksContent): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -75,6 +76,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const onGroupChange: () => void = (): void => {
     attributesContext.update([]);
     permissionsContext.update([]);
+    setUserRole(undefined);
     if (userData !== undefined) {
       const currentPermissions: IAction[][] = _.flatten(
         userData.me.organizations.map(
@@ -110,7 +112,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
     }
   };
 
-  useEffect(onGroupChange, [attributesContext, permissionsContext, userData]);
+  useEffect(onGroupChange, [
+    attributesContext,
+    permissionsContext,
+    userData,
+    setUserRole,
+  ]);
 
   const [, setRemediationModalConfig] = useState<{
     vulnerabilities: IVulnRowAttr[];

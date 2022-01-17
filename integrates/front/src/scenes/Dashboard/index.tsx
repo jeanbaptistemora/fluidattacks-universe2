@@ -146,6 +146,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
   });
 
   useQuery<IGetUserOrganizationsGroups>(GET_USER_ORGANIZATIONS_GROUPS, {
+    fetchPolicy: "cache-first",
     onCompleted: (result: IGetUserOrganizationsGroups): void => {
       setUserData(result);
     },
@@ -274,6 +275,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
                     >
                       <TasksContent
                         setTaskState={setTaskState}
+                        setUserRole={setUserRole}
                         taskState={taskState}
                         userData={userData}
                       />

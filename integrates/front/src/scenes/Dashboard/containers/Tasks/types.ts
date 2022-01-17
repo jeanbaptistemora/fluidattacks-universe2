@@ -3,6 +3,7 @@ import type { IGetUserOrganizationsGroups } from "scenes/Dashboard/types";
 interface ITasksContent {
   userData: IGetUserOrganizationsGroups | undefined;
   setTaskState: (taskState: boolean) => void;
+  setUserRole: (userRole: string | undefined) => void;
   taskState: boolean;
 }
 
