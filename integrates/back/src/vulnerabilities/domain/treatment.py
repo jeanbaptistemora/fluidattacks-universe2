@@ -225,6 +225,21 @@ def get_treatment_change(
     return None
 
 
+async def get_treatment_changes(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> int:
+    historic: Tuple[
+        VulnerabilityTreatment, ...
+    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
+    first_treatment = historic[0]
+    return (
+        len(historic) - 1
+        if first_treatment.status == VulnerabilityTreatmentStatus.NEW
+        else len(historic)
+    )
+
+
 async def _handle_vulnerability_acceptance(
     *,
     finding_id: str,
