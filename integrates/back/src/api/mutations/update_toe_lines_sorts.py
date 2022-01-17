@@ -76,7 +76,7 @@ async def mutate(
             group_name
         )
         root_id = roots_domain.get_root_id_by_nickname(
-            root_nickname, roots, is_git_root=True
+            root_nickname, roots, only_git_roots=True
         )
         toe_lines: ToeLines = await loaders.toe_lines.load(
             ToeLinesRequest(

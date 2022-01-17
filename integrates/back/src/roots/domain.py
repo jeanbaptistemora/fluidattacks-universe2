@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 import authz
 import base64
 import boto3
@@ -72,6 +74,7 @@ from settings.various import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Tuple,
@@ -772,22 +775,47 @@ async def update_root_state(
 
 
 def get_root_id_by_nickname(
-    nickname: str, group_roots: Tuple[RootItem, ...], is_git_root: bool = False
+    nickname: str,
+    group_roots: Tuple[RootItem, ...],
+    only_git_roots: bool = False,
 ) -> str:
+    root_ids_by_nicknames = get_root_ids_by_nicknames(
+        group_roots=group_roots, only_git_roots=only_git_roots
+    )
+    return get_root_id_by_nicknames(
+        nickname=nickname, root_ids_by_nicknames=root_ids_by_nicknames
+    )
+
+
+def get_root_id_by_nicknames(
+    nickname: str,
+    root_ids_by_nicknames: Dict[str, str],
+) -> str:
+    try:
+        root_id = root_ids_by_nicknames[nickname]
+    except KeyError as exc:
+        raise RootNotFound() from exc
+
+    return root_id
+
+
+def get_root_ids_by_nicknames(
+    group_roots: Tuple[RootItem, ...], only_git_roots: bool = False
+) -> Dict[str, str]:
+    # Get a dict that have the relation between nickname and id for roots
     # There are roots with the same nickname
     # then It is going to take the last modified root
     sorted_roots = sorted(
         group_roots,
         key=lambda root: datetime.fromisoformat(root.state.modified_date),
-        reverse=True,
+        reverse=False,
     )
+    root_ids: Dict[str, str] = {}
     for root in sorted_roots:
-        if (
-            not is_git_root or isinstance(root, GitRootItem)
-        ) and root.state.nickname == nickname:
-            return root.id
+        if not only_git_roots or isinstance(root, GitRootItem):
+            root_ids[root.state.nickname] = root.id
 
-    raise RootNotFound()
+    return root_ids
 
 
 @newrelic.agent.function_trace()

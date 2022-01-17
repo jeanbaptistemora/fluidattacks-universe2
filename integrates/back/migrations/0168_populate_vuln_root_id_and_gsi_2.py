@@ -91,7 +91,7 @@ async def populate_root_id_by_vuln(
             roots_domain.get_root_id_by_nickname(
                 nickname=current_item["repo"],
                 group_roots=group_roots,
-                is_git_root=False,
+                only_git_roots=False,
             )
             if current_item.get("repo")
             else None

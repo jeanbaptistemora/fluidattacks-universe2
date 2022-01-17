@@ -631,7 +631,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
 
     # In the off case there are multiple roots with the same nickname
     root_id = roots_domain.get_root_id_by_nickname(
-        nickname=root_nickname, group_roots=group_roots, is_git_root=True
+        nickname=root_nickname, group_roots=group_roots, only_git_roots=True
     )
     root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
     root_cred: RootCredentialItem = next(

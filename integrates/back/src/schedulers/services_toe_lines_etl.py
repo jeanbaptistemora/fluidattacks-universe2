@@ -163,7 +163,7 @@ def _get_group_toe_lines_from_cvs(
                 ] = roots_domain.get_root_id_by_nickname(
                     new_toe_lines["root_nickname"],
                     group_roots,
-                    is_git_root=True,
+                    only_git_roots=True,
                 )
             except RootNotFound as ex:
                 LOGGER.exception(ex, extra={"extra": locals()})
