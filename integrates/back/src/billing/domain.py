@@ -282,6 +282,7 @@ async def _create_customer(
         id=stripe_customer.id,
         name=stripe_customer.name,
         email=stripe_customer.email,
+        default_payment_method=None,
     )
 
     # Assign customer to org
@@ -292,6 +293,25 @@ async def _create_customer(
     )
 
     return customer
+
+
+async def _get_customer(
+    *,
+    org_billing_customer: str,
+) -> Customer:
+    """Retrieve Stripe customer"""
+    stripe_customer = stripe.Customer.retrieve(
+        org_billing_customer,
+    )
+    default_payment_method: Optional[
+        str
+    ] = stripe_customer.invoice_settings.default_payment_method
+    return Customer(
+        id=stripe_customer.id,
+        name=stripe_customer.name,
+        email=stripe_customer.email,
+        default_payment_method=default_payment_method,
+    )
 
 
 async def _report_subscription_usage(
@@ -354,16 +374,21 @@ async def create_payment_method(
     card_expiration_month: str,
     card_expiration_year: str,
     card_cvc: str,
+    make_default: bool,
 ) -> bool:
     """Create a payment method and associate it to the customer"""
     # Create customer if it does not exist
+    customer: Optional[Customer] = None
     if org_billing_customer is None:
-        customer: Customer = await _create_customer(
+        customer = await _create_customer(
             org_id=org_id,
             org_name=org_name,
             user_email=user_email,
         )
-        org_billing_customer = customer.id
+    else:
+        customer = await _get_customer(
+            org_billing_customer=org_billing_customer,
+        )
 
     # Create payment method
     payment_method = stripe.PaymentMethod.create(
@@ -379,8 +404,16 @@ async def create_payment_method(
     # Attach payment method to customer
     attachment = stripe.PaymentMethod.attach(
         payment_method.id,
-        customer=org_billing_customer,
+        customer=customer.id,
     )
+
+    # If payment method is the first one registered or selected as default,
+    # then make it default
+    if not customer.default_payment_method or make_default:
+        stripe.Customer.modify(
+            customer.id,
+            invoice_settings={"default_payment_method": payment_method.id},
+        )
 
     return isinstance(attachment.created, int)
 

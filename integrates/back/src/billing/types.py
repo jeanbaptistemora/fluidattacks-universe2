@@ -1,6 +1,7 @@
 from typing import (
     List,
     NamedTuple,
+    Optional,
 )
 
 
@@ -16,6 +17,7 @@ class Customer(NamedTuple):
     id: str
     name: str
     email: str
+    default_payment_method: Optional[str]
 
 
 class PaymentMethod(NamedTuple):

@@ -29,6 +29,8 @@ type Mutation {
     cardExpirationYear: String!
     "Card CVC code"
     cardCvc: String!
+    "Make payment method the default one for the customer"
+    makeDefault: Boolean!
   ): SimplePayload!
 
   "Returns a checkout URL for purchasing a subscription for a group"
