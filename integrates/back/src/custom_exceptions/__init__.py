@@ -1093,6 +1093,15 @@ class BillingSubscriptionSameActive(CustomBaseException):
         super(BillingSubscriptionSameActive, self).__init__(msg)
 
 
+class BillingCustomerHasNoPaymentMethod(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Invalid customer. "
+            "Provided customer does not have a payment method."
+        )
+        super(BillingCustomerHasNoPaymentMethod, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

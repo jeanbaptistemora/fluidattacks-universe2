@@ -5,7 +5,6 @@ from bill import (
     domain as bill_domain,
 )
 from billing.types import (
-    AddBillingSubscriptionPayload,
     Customer,
     PaymentMethod,
     Portal,
@@ -20,6 +19,7 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
+    BillingCustomerHasNoPaymentMethod,
     BillingGroupActiveSubscription,
     BillingGroupWithoutSubscription,
     BillingSubscriptionSameActive,
@@ -65,23 +65,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 stripe.api_key = FI_STRIPE_API_KEY
-
-
-async def _expire_checkout(
-    *,
-    checkout_id: str,
-) -> bool:
-    checkout = stripe.checkout.Session.retrieve(
-        checkout_id,
-    )
-    if checkout.status == "open":
-        return (
-            stripe.checkout.Session.expire(
-                checkout_id,
-            ).status
-            == "expired"
-        )
-    return True
 
 
 async def _get_price(
@@ -136,40 +119,34 @@ async def _format_create_subscription_data(
     prices: List[Price] = await _collect_subscription_prices(
         subscription=subscription,
     )
-    line_items: List[Dict[str, Any]] = []
+    items: List[Dict[str, Any]] = []
     for price in prices:
         if price.subscription == "machine":
-            line_items.append(
+            items.append(
                 {
                     "price": price.id,
                     "quantity": 1,
                 }
             )
         else:
-            line_items.append(
+            items.append(
                 {
                     "price": price.id,
                 }
             )
+    billing_cycle_anchor: int = int(
+        datetime_utils.get_first_day_next_month_timestamp()
+    )
 
     return {
         "customer": org_billing_customer,
-        "line_items": line_items,
+        "items": items,
         "metadata": {
             "group": group_name,
             "organization": org_name,
             "subscription": subscription,
         },
-        "subscription_data": {
-            "metadata": {
-                "group": group_name,
-                "organization": org_name,
-                "subscription": subscription,
-            },
-        },
-        "mode": "subscription",
-        "success_url": f"{BASE_URL}/orgs/{org_name}/billing",
-        "cancel_url": f"{BASE_URL}/orgs/{org_name}/billing",
+        "billing_cycle_anchor": billing_cycle_anchor,
     }
 
 
@@ -264,6 +241,17 @@ async def _group_has_active_subscription(
         limit=1000,
     )
     return sub is not None
+
+
+async def _customer_has_payment_method(
+    *,
+    org_billing_customer: str,
+) -> bool:
+    customer: Customer = await _get_customer(
+        org_billing_customer=org_billing_customer,
+    )
+    print(customer.default_payment_method)
+    return customer.default_payment_method is not None
 
 
 async def _create_customer(
@@ -421,22 +409,14 @@ async def create_payment_method(
 async def create_subscription(
     *,
     subscription: str,
-    org_billing_customer: Optional[str],
-    org_id: str,
+    org_billing_customer: str,
     org_name: str,
     group_name: str,
-    previous_checkout_id: Optional[str],
-    user_email: str,
-) -> AddBillingSubscriptionPayload:
+) -> bool:
     """Create Stripe checkout session"""
-    # Create customer if it does not exist
+    # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
-        customer: Customer = await _create_customer(
-            org_id=org_id,
-            org_name=org_name,
-            user_email=user_email,
-        )
-        org_billing_customer = customer.id
+        raise InvalidBillingCustomer()
 
     # Raise exception if group already has an active subscription
     if await _group_has_active_subscription(
@@ -445,11 +425,11 @@ async def create_subscription(
     ):
         raise BillingGroupActiveSubscription()
 
-    # Expire previous checkout if it is still open
-    if previous_checkout_id is not None:
-        await _expire_checkout(
-            checkout_id=previous_checkout_id,
-        )
+    # Raise exception if customer does not have a payment method
+    if not await _customer_has_payment_method(
+        org_billing_customer=org_billing_customer,
+    ):
+        raise BillingCustomerHasNoPaymentMethod()
 
     # Format subscription creation data
     data: Dict[str, Any] = await _format_create_subscription_data(
@@ -459,22 +439,8 @@ async def create_subscription(
         group_name=group_name,
     )
 
-    session = stripe.checkout.Session.create(**data)
-    checkout = AddBillingSubscriptionPayload(
-        id=session.id,
-        cancel_url=session.cancel_url,
-        success=True,
-        success_url=session.success_url,
-        payment_url=session.url,
-    )
-
-    # Update group with new billing checkout id
-    await groups_domain.update_billing_checkout_id(
-        group_name,
-        checkout.id,
-    )
-
-    return checkout
+    sub = stripe.Subscription.create(**data)
+    return isinstance(sub.created, int)
 
 
 async def create_portal(

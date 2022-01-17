@@ -41,7 +41,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
 
     # Create payment method
-    result = await billing_domain.create_payment_method(
+    result: bool = await billing_domain.create_payment_method(
         org_billing_customer=org["billing_customer"],
         org_id=org["id"],
         org_name=org["name"],

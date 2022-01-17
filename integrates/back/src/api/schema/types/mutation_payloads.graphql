@@ -17,18 +17,6 @@ type SimplePayloadMessage implements Payload {
   success: Boolean!
 }
 
-"Add billing subscription payload definition"
-type AddBillingSubscriptionPayload implements Payload {
-  "Redirect url when subscription checkout is cancelled"
-  cancelUrl: String!
-  "Stripe payment url"
-  paymentUrl: String!
-  "Did the query succeed?"
-  success: Boolean!
-  "Redirect url when subscription checkout is successful"
-  successUrl: String!
-}
-
 "Update billing subscription payload definition"
 type UpdateBillingSubscriptionPayload implements Payload {
   "Amount due after updating subscription"

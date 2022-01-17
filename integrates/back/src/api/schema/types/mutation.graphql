@@ -39,7 +39,7 @@ type Mutation {
     groupName: String!
     "Group subscription (Machine or Squad)"
     subscription: BillingSubscriptionType!
-  ): AddBillingSubscriptionPayload!
+  ): SimplePayload!
 
   "Adds a new draft Finding to the specified Group"
   addDraft(

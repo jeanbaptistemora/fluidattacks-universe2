@@ -5,14 +5,6 @@ from typing import (
 )
 
 
-class AddBillingSubscriptionPayload(NamedTuple):
-    id: str
-    cancel_url: str
-    success: bool
-    success_url: str
-    payment_url: str
-
-
 class Customer(NamedTuple):
     id: str
     name: str

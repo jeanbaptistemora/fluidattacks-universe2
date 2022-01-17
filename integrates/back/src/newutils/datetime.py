@@ -5,6 +5,9 @@ from datetime import (
     timedelta,
     timezone,
 )
+from dateutil.relativedelta import (  # type: ignore
+    relativedelta,
+)
 import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
@@ -201,3 +204,9 @@ def convert_to_iso_str(date_str: str) -> str:
 def convert_from_iso_str(iso8601utc_str: str) -> str:
     iso8601utc = datetime.fromisoformat(iso8601utc_str)
     return get_as_str(iso8601utc)
+
+
+def get_first_day_next_month_timestamp() -> float:
+    return (
+        get_utc_now().replace(day=1) + relativedelta(months=+1)
+    ).timestamp()

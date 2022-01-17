@@ -1466,15 +1466,6 @@ async def update_tags(
     return success
 
 
-async def update_billing_checkout_id(
-    group_name: str, checkout_id: str
-) -> bool:
-    return await update(
-        group_name,
-        {"billing_checkout_id": checkout_id},
-    )
-
-
 def validate_group_services_config(
     has_machine: bool,
     has_squad: bool,
