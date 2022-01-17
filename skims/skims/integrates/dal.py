@@ -38,7 +38,6 @@ from utils.function import (
     StopRetrying,
 )
 from utils.limits import (
-    INTEGRATES_DEFAULT as DEFAULT_RATE_LIMIT,
     INTEGRATES_DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
 from utils.logs import (
@@ -82,7 +81,6 @@ async def raise_errors(
         pass
 
 
-@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _execute(
     *,
     query: str,
@@ -135,6 +133,7 @@ async def _execute(
 async def get_group_level_role(
     *,
     group: str,
+    client: Optional[GraphQLClient] = None,
 ) -> str:
     result = await _execute(
         query="""
@@ -150,6 +149,7 @@ async def get_group_level_role(
         variables=dict(
             group=group,
         ),
+        client=client,
     )
 
     role: str = result.get("data", {}).get("group", {}).get("userRole", "none")
@@ -172,6 +172,7 @@ async def get_group_finding_ids(group: str) -> Tuple[str, ...]:
 async def get_group_findings(
     *,
     group: str,
+    client: Optional[GraphQLClient] = None,
 ) -> Tuple[ResultGetGroupFindings, ...]:
     result = await _execute(
         query="""
@@ -194,6 +195,7 @@ async def get_group_findings(
         variables=dict(
             group=group,
         ),
+        client=client,
     )
 
     findings: List[ResultGetGroupFindings] = [
@@ -216,7 +218,10 @@ async def get_group_findings(
 
 
 @SHIELD
-async def get_group_language(group: str) -> core_model.LocalesEnum:
+async def get_group_language(
+    group: str,
+    client: Optional[GraphQLClient] = None,
+) -> core_model.LocalesEnum:
     result = await _execute(
         query="""
             query SkimsGetGroupLanguage($group: String!) {
@@ -227,13 +232,17 @@ async def get_group_language(group: str) -> core_model.LocalesEnum:
         """,
         operation="SkimsGetGroupLanguage",
         variables=dict(group=group),
+        client=client,
     )
 
     return core_model.LocalesEnum(result["data"]["group"]["language"])
 
 
 @SHIELD
-async def get_group_open_severity(group: str) -> float:
+async def get_group_open_severity(
+    group: str,
+    client: Optional[GraphQLClient] = None,
+) -> float:
     result = await _execute(
         query="""
             query SkimsGetGroupOpenSeverity($group: String!) {
@@ -247,6 +256,7 @@ async def get_group_open_severity(group: str) -> float:
         """,
         operation="SkimsGetGroupOpenSeverity",
         variables=dict(group=group),
+        client=client,
     )
 
     return sum(
@@ -266,6 +276,7 @@ class ResultGetGroupRoots(NamedTuple):
 async def get_group_roots(
     *,
     group: str,
+    client: Optional[GraphQLClient] = None,
 ) -> Tuple[ResultGetGroupRoots, ...]:
     result = await _execute(
         query="""
@@ -286,6 +297,7 @@ async def get_group_roots(
         variables=dict(
             group=group,
         ),
+        client=client,
     )
 
     return tuple(
@@ -301,6 +313,7 @@ async def get_group_roots(
 async def get_finding_current_release_status(
     *,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> core_model.FindingReleaseStatusEnum:
     result = await _execute(
         query="""
@@ -316,6 +329,7 @@ async def get_finding_current_release_status(
         variables=dict(
             finding_id=finding_id,
         ),
+        client=client,
     )
 
     return (
@@ -332,6 +346,7 @@ async def get_finding_vulnerabilities(
     *,
     finding: core_model.FindingEnum,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> EphemeralStore:
     result = await _execute(
         query="""
@@ -358,6 +373,7 @@ async def get_finding_vulnerabilities(
         variables=dict(
             finding_id=finding_id,
         ),
+        client=client,
     )
 
     store: EphemeralStore = get_ephemeral_store()
@@ -424,6 +440,7 @@ async def do_add_git_root(
     includes_health_check: bool = False,
     nickname: str,
     url: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     result = await _execute(
         query="""
@@ -459,6 +476,7 @@ async def do_add_git_root(
             nickname=nickname,
             url=url,
         ),
+        client=client,
     )
 
     success: bool = (
@@ -476,6 +494,7 @@ async def do_create_draft(
     *,
     finding: core_model.FindingEnum,
     group: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     try:
         result = await _execute(
@@ -515,6 +534,7 @@ async def do_create_draft(
                 threat=t(finding.value.threat),
                 title=t(finding.value.title),
             ),
+            client=client,
         )
 
         success: bool = (
@@ -532,6 +552,7 @@ async def do_create_draft(
 async def do_delete_finding(
     *,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     await log("warn", "Deleting finding: %s", finding_id)
 
@@ -552,6 +573,7 @@ async def do_delete_finding(
         variables=dict(
             finding_id=finding_id,
         ),
+        client=client,
     )
 
     success: bool = (
@@ -570,6 +592,7 @@ async def do_delete_finding(
 async def do_approve_draft(
     *,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     try:
         result = await _execute(
@@ -588,6 +611,7 @@ async def do_approve_draft(
             variables=dict(
                 finding_id=finding_id,
             ),
+            client=client,
         )
 
         success: bool = (
@@ -609,6 +633,7 @@ async def do_approve_draft(
 async def do_submit_draft(
     *,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     try:
         result = await _execute(
@@ -627,6 +652,7 @@ async def do_submit_draft(
             variables=dict(
                 finding_id=finding_id,
             ),
+            client=client,
         )
 
         success: bool = (
@@ -649,6 +675,7 @@ async def do_update_finding_severity(
     *,
     finding_id: str,
     severity: Dict[str, float],
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     try:
         result = await _execute(
@@ -716,6 +743,7 @@ async def do_update_finding_severity(
             variables=dict(
                 cvssVersion="3.1", findingId=finding_id, **severity
             ),
+            client=client,
         )
 
         success: bool = (
@@ -739,6 +767,7 @@ async def do_update_evidence(
     evidence_id: core_model.FindingEvidenceIDEnum,
     evidence_stream: bytes,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     evidence_buffer = BytesIO(evidence_stream)
 
@@ -764,6 +793,7 @@ async def do_update_evidence(
             evidence_buffer=evidence_buffer,
             finding_id=finding_id,
         ),
+        client=client,
     )
 
     success: bool = (
@@ -782,6 +812,7 @@ async def do_update_evidence_description(
     evidence_description: str,
     evidence_description_id: core_model.FindingEvidenceDescriptionIDEnum,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     result = await _execute(
         query="""
@@ -805,6 +836,7 @@ async def do_update_evidence_description(
             evidence_description_id=evidence_description_id.value,
             finding_id=finding_id,
         ),
+        client=client,
     )
 
     success: bool = (
@@ -875,6 +907,7 @@ async def do_upload_vulnerabilities(
     *,
     finding_id: str,
     stream: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     await log(
         "debug",
@@ -902,6 +935,7 @@ async def do_upload_vulnerabilities(
                 file_handle=to_in_memory_file(stream),
                 finding_id=finding_id,
             ),
+            client=client,
         )
 
         success: bool = (
@@ -923,6 +957,7 @@ async def do_verify_request_vuln(
     finding_id: str,
     justification: str,
     open_vulnerabilities: Tuple[str, ...],
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     result = await _execute(
         query="""
@@ -949,6 +984,7 @@ async def do_verify_request_vuln(
             justification=justification,
             open_vulnerabilities=open_vulnerabilities,
         ),
+        client=client,
     )
 
     success: bool = (
@@ -974,6 +1010,7 @@ async def do_add_execution(
     end_date: str,
     findings_executed: Tuple[Dict[str, Union[int, str]], ...],
     commit_hash: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     result = await _execute(
         query="""
@@ -1009,6 +1046,7 @@ async def do_add_execution(
             findings_executed=findings_executed,
             commit_hash=commit_hash,
         ),
+        client=client,
     )
 
     success: bool = (
