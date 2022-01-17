@@ -5,6 +5,7 @@ from dateutil.parser import (  # type: ignore
 from dateutil.parser._parser import (  # type: ignore
     ParserError,
 )
+import hashlib
 import io
 from json import (
     dumps,
@@ -28,6 +29,10 @@ from typing import (
     Any,
     Callable,
     List,
+    Union,
+)
+from typing_extensions import (
+    TypeGuard,
 )
 import utils_logger
 
@@ -56,6 +61,7 @@ primitives = (
     bool,
     float,
 )
+Primitive = Union[str, int, bool, float]
 
 
 def emit(msg: str) -> None:
@@ -64,6 +70,10 @@ def emit(msg: str) -> None:
 
 def is_base(stru: STRU) -> bool:
     return isinstance(stru, primitives)
+
+
+def is_primitive(stru: STRU) -> TypeGuard[Primitive]:
+    return is_base(stru)
 
 
 def is_stru(stru: STRU) -> bool:
@@ -212,6 +222,27 @@ def linearize__simplify(stru: STRU) -> STRU:
     return None
 
 
+def struct_hash(stru: STRU) -> str:
+    hash_id = hashlib.sha256()
+    if is_primitive(stru):
+        hash_id.update(bytes(str(stru), "utf-8"))
+        return hash_id.hexdigest()
+    if isinstance(stru, list):
+        for item in stru:
+            hash_id.update(bytes(struct_hash(item), "utf-8"))
+        return hash_id.hexdigest()
+    if isinstance(stru, dict):
+        for key, val in sorted(stru.items()):
+            hash_id.update(bytes(struct_hash(key), "utf-8"))
+            hash_id.update(bytes(struct_hash(val), "utf-8"))
+        return hash_id.hexdigest()
+    raise Exception(f"Unexpected type {type(stru)}")
+
+
+def nested_id(items: List[Any]) -> str:
+    return struct_hash(items)
+
+
 def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
     """Break a Structura into records of a relational data-structure."""
     if is_base(stru):
@@ -232,7 +263,7 @@ def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
             if is_base(nstru):
                 record[nkey] = nstru
             elif isinstance(nstru, list):
-                nid = os.urandom(256).hex()
+                nid = nested_id(nstru)
                 ntable = f"{table}{TABLE_SEP}{nkey}"
                 ntable_ids = [nid] if ids is None else ids + [nid]
                 record[ntable] = nid
