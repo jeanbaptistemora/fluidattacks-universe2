@@ -67,6 +67,12 @@ def is_valid_git_branch(branch_name: str) -> bool:
         return False
 
 
+def is_active_git_root(root: GitRootItem) -> bool:
+    if not isinstance(root, GitRootItem) or root.state.status != "ACTIVE":
+        return False
+    return True
+
+
 def validate_nickname_is_unique(
     nickname: str, roots: Tuple[RootItem, ...], old_nickname: str = ""
 ) -> None:
