@@ -846,7 +846,7 @@ async def update_metadata_and_state(
     new_metadata: VulnerabilityMetadataToUpdate,
     new_state: VulnerabilityState,
     finding_policy: Optional[OrgFindingPolicyItem] = None,
-) -> bool:
+) -> str:
     """Update vulnerability metadata and historics."""
     if (
         vulnerability.state.source != new_state.source
@@ -889,7 +889,7 @@ async def update_metadata_and_state(
         vulnerability_id=vulnerability.id,
         metadata=new_metadata,
     )
-    return True
+    return vulnerability.id
 
 
 async def verify(

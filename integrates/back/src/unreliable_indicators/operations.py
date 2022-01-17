@@ -13,6 +13,7 @@ from dataloaders import (
 )
 from db_model import (
     findings as findings_model,
+    vulnerabilities as vulns_model,
 )
 from db_model.findings.enums import (
     FindingStatus,
@@ -22,6 +23,10 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityUnreliableIndicatorsToUpdate,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -30,6 +35,9 @@ from dynamodb.exceptions import (
 )
 from findings import (
     domain as findings_domain,
+)
+from newutils import (
+    vulnerabilities as vulns_utils,
 )
 from typing import (
     List,
@@ -41,6 +49,9 @@ from unreliable_indicators.enums import (
     EntityAttr,
     EntityDependency,
     EntityId,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
 )
 from vulnerabilities.types import (
     Treatments,
@@ -190,6 +201,96 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     )
 
 
+@retry_on_exceptions(
+    exceptions=(IndicatorAlreadyUpdated,),
+    max_attempts=20,
+    sleep_seconds=0,
+)
+async def update_vulnerabilities_unreliable_indicators(
+    vulnerability_ids: List[str],
+    attrs_to_update: Set[EntityAttr],
+) -> None:
+    loaders: Dataloaders = get_new_context()
+    await collect(
+        tuple(
+            update_vulnerability_unreliable_indicators(
+                loaders,
+                vulnerability_id,
+                attrs_to_update,
+            )
+            for vulnerability_id in vulnerability_ids
+        )
+    )
+
+
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    max_attempts=20,
+    sleep_seconds=0,
+)
+async def update_vulnerability_unreliable_indicators(
+    loaders: Dataloaders,
+    vulnerability_id: str,
+    attrs_to_update: Set[EntityAttr],
+) -> None:
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        vulnerability_id
+    )
+    indicators = {}
+
+    if EntityAttr.efficacy in attrs_to_update:
+        indicators[EntityAttr.efficacy] = vulns_domain.get_efficacy(
+            loaders, vulnerability
+        )
+
+    if EntityAttr.last_reattack_date in attrs_to_update:
+        indicators[
+            EntityAttr.last_reattack_date
+        ] = vulns_utils.get_last_reattack_date(loaders, vulnerability)
+
+    if EntityAttr.last_reattack_requester in attrs_to_update:
+        indicators[
+            EntityAttr.last_reattack_requester
+        ] = vulns_utils.get_reattack_requester(loaders, vulnerability)
+
+    if EntityAttr.last_requested_reattack_date in attrs_to_update:
+        indicators[
+            EntityAttr.last_requested_reattack_date
+        ] = vulns_utils.get_last_requested_reattack_date(
+            loaders, vulnerability
+        )
+
+    if EntityAttr.reattack_cycles in attrs_to_update:
+        indicators[
+            EntityAttr.reattack_cycles
+        ] = vulns_domain.get_reattack_cycles(loaders, vulnerability)
+
+    if EntityAttr.treatment_changes in attrs_to_update:
+        indicators[
+            EntityAttr.treatment_changes
+        ] = vulns_domain.get_treatment_changes(loaders, vulnerability)
+
+    result = dict(zip(indicators.keys(), await collect(indicators.values())))
+    indicators = VulnerabilityUnreliableIndicatorsToUpdate(
+        unreliable_efficacy=result.get(EntityAttr.efficacy),
+        unreliable_last_reattack_date=result.get(
+            EntityAttr.last_reattack_date
+        ),
+        unreliable_last_reattack_requester=result.get(
+            EntityAttr.last_reattack_requester
+        ),
+        unreliable_last_requested_reattack_date=result.get(
+            EntityAttr.last_requested_reattack_date
+        ),
+        unreliable_reattack_cycles=result.get(EntityAttr.reattack_cycles),
+        unreliable_treatment_changes=result.get(EntityAttr.treatment_changes),
+    )
+    await vulns_model.update_unreliable_indicators(
+        current_value=vulnerability,
+        indicators=indicators,
+    )
+
+
 async def update_unreliable_indicators_by_deps(
     dependency: EntityDependency, **args: str
 ) -> None:
@@ -205,6 +306,16 @@ async def update_unreliable_indicators_by_deps(
             update_findings_unreliable_indicators(
                 entities_to_update[Entity.finding].entity_ids[EntityId.ids],
                 entities_to_update[Entity.finding].attributes_to_update,
+            )
+        )
+
+    if Entity.vulnerability in entities_to_update:
+        updations.append(
+            update_vulnerabilities_unreliable_indicators(
+                entities_to_update[Entity.vulnerability].entity_ids[
+                    EntityId.ids
+                ],
+                entities_to_update[Entity.vulnerability].attributes_to_update,
             )
         )
 

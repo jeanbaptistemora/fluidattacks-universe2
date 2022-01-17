@@ -468,7 +468,7 @@ async def _get_wheres(
         finding_id
     )
     open_vulns = vulns_utils.filter_open_vulns(finding_vulns)
-    wheres: List[str] = sorted(set(vuln.where for vuln in open_vulns))
+    wheres: List[str] = list(set(vuln.where for vuln in open_vulns))
     if limit:
         wheres = wheres[:limit]
     return wheres
