@@ -228,63 +228,69 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   return (
     <DashboardContainer>
-      <Sidebar />
-      <DashboardContent id={"dashboard"}>
-        <AssignedVulnerabilitiesContext.Provider value={value}>
-          <DashboardHeader>
-            <Navbar
-              taskState={taskState}
-              userData={userData}
-              userRole={userRole}
-            />
-          </DashboardHeader>
-          <main>
-            <Switch>
-              <Route exact={true} path={"/home"}>
-                <HomeView />
-              </Route>
-              <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
-                <authzGroupContext.Provider value={groupAttributes}>
-                  <authzPermissionsContext.Provider
-                    value={groupLevelPermissions}
-                  >
-                    <GroupRoute setUserRole={setUserRole} />
-                  </authzPermissionsContext.Provider>
-                </authzGroupContext.Provider>
-              </Route>
-              <Route
-                component={TagContent}
-                path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
-              />
-              <Route path={`/orgs/${orgRegex}`}>
-                <authzPermissionsContext.Provider
-                  value={organizationLevelPermissions}
-                >
-                  <OrganizationContent setUserRole={setUserRole} />
-                </authzPermissionsContext.Provider>
-              </Route>
-              <Route path={`/portfolios/${tagRegex}`}>
-                <OrganizationRedirect type={"portfolios"} />
-              </Route>
-              <Route exact={true} path={"/todos"}>
-                <authzPermissionsContext.Provider value={groupLevelPermissions}>
-                  <TasksContent
-                    setTaskState={setTaskState}
-                    taskState={taskState}
-                    userData={userData}
+      {isLegalModalOpen ? undefined : (
+        <React.Fragment>
+          <Sidebar />
+          <DashboardContent id={"dashboard"}>
+            <AssignedVulnerabilitiesContext.Provider value={value}>
+              <DashboardHeader>
+                <Navbar
+                  taskState={taskState}
+                  userData={userData}
+                  userRole={userRole}
+                />
+              </DashboardHeader>
+              <main>
+                <Switch>
+                  <Route exact={true} path={"/home"}>
+                    <HomeView />
+                  </Route>
+                  <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
+                    <authzGroupContext.Provider value={groupAttributes}>
+                      <authzPermissionsContext.Provider
+                        value={groupLevelPermissions}
+                      >
+                        <GroupRoute setUserRole={setUserRole} />
+                      </authzPermissionsContext.Provider>
+                    </authzGroupContext.Provider>
+                  </Route>
+                  <Route
+                    component={TagContent}
+                    path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
                   />
-                </authzPermissionsContext.Provider>
-              </Route>
-              {/* Necessary to support old group URLs */}
-              <Route path={`/groups/${groupRegex}`}>
-                <OrganizationRedirect type={"groups"} />
-              </Route>
-              <Redirect to={"/home"} />
-            </Switch>
-          </main>
-        </AssignedVulnerabilitiesContext.Provider>
-      </DashboardContent>
-      <ScrollUpButton visibleAt={400} />
+                  <Route path={`/orgs/${orgRegex}`}>
+                    <authzPermissionsContext.Provider
+                      value={organizationLevelPermissions}
+                    >
+                      <OrganizationContent setUserRole={setUserRole} />
+                    </authzPermissionsContext.Provider>
+                  </Route>
+                  <Route path={`/portfolios/${tagRegex}`}>
+                    <OrganizationRedirect type={"portfolios"} />
+                  </Route>
+                  <Route exact={true} path={"/todos"}>
+                    <authzPermissionsContext.Provider
+                      value={groupLevelPermissions}
+                    >
+                      <TasksContent
+                        setTaskState={setTaskState}
+                        taskState={taskState}
+                        userData={userData}
+                      />
+                    </authzPermissionsContext.Provider>
+                  </Route>
+                  {/* Necessary to support old group URLs */}
+                  <Route path={`/groups/${groupRegex}`}>
+                    <OrganizationRedirect type={"groups"} />
+                  </Route>
+                  <Redirect to={"/home"} />
+                </Switch>
+              </main>
+            </AssignedVulnerabilitiesContext.Provider>
+          </DashboardContent>
+          <ScrollUpButton visibleAt={400} />
+        </React.Fragment>
+      )}
       <ConcurrentSessionNotice
         onClick={handleConcurrent}
         open={isCtSessionModalOpen}
