@@ -10,6 +10,15 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
 )
+from db_model.vulnerabilities.types import (
+    VulnerabilityUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
+)
+from decorators import (
+    Vulnerability,
+)
 from freezegun.api import (  # type: ignore
     freeze_time,
 )
@@ -31,14 +40,14 @@ pytestmark = [
 async def test_update_unreliable_indicators_by_deps() -> None:
     loaders = get_new_context()
     finding_id = "422286126"
-    vulnerability_id = "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+    vulnerability_id = "15375781-31f2-4953-ac77-f31134225747"
     await update_unreliable_indicators_by_deps(
-        EntityDependency.reject_vulnerabilities_zero_risk,
+        EntityDependency.upload_file,
         finding_ids=[finding_id],
         vulnerability_ids=[vulnerability_id],
     )
     finding: Finding = await loaders.finding.load(finding_id)
-    expected_output = FindingUnreliableIndicators(
+    expected_finding_output = FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=0,
         unreliable_is_verified=True,
         unreliable_open_vulnerabilities=1,
@@ -54,4 +63,18 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         ),
         unreliable_where="test/data/lib_path/f060/csharp.cs",
     )
-    assert finding.unreliable_indicators == expected_output
+    assert finding.unreliable_indicators == expected_finding_output
+    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+        vulnerability_id
+    )
+    expected_vulnerability_output = VulnerabilityUnreliableIndicators(
+        unreliable_efficacy=Decimal("0"),
+        unreliable_last_reattack_date="2020-02-19T15:41:04+00:00",
+        unreliable_last_reattack_requester="integratesuser@gmail.com",
+        unreliable_last_requested_reattack_date="2020-02-18T15:41:04+00:00",
+        unreliable_reattack_cycles=1,
+        unreliable_report_date=None,
+        unreliable_source=None,
+        unreliable_treatment_changes=0,
+    )
+    assert vulnerability.unreliable_indicators == expected_vulnerability_output

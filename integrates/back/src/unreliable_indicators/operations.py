@@ -218,7 +218,7 @@ async def update_vulnerabilities_unreliable_indicators(
                 vulnerability_id,
                 attrs_to_update,
             )
-            for vulnerability_id in vulnerability_ids
+            for vulnerability_id in set(vulnerability_ids)
         )
     )
 
