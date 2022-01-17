@@ -1,3 +1,6 @@
+from aiogqlc.client import (
+    GraphQLClient,
+)
 from datetime import (
     datetime,
 )
@@ -103,10 +106,11 @@ async def get_closest_finding_ids(
     finding: core_model.FindingEnum,
     group: str,
     locale: Optional[core_model.LocalesEnum] = None,
+    client: Optional[GraphQLClient] = None,
 ) -> Tuple[str, ...]:
     existing_findings: Tuple[
         ResultGetGroupFindings, ...
-    ] = await get_group_findings(group=group)
+    ] = await get_group_findings(group=group, client=client)
 
     return tuple(
         existing_finding.identifier
@@ -121,19 +125,19 @@ async def get_closest_finding_id(
     finding: core_model.FindingEnum,
     group: str,
     recreate_if_draft: bool = False,
+    client: Optional[GraphQLClient] = None,
 ) -> str:
     finding_ids: Tuple[str, ...] = await get_closest_finding_ids(
         finding=finding,
         group=group,
+        client=client,
     )
     finding_id: str = finding_ids[0] if finding_ids else ""
 
     if (
         finding_id
         and recreate_if_draft
-        and await do_delete_if_draft(
-            finding_id=finding_id,
-        )
+        and await do_delete_if_draft(finding_id=finding_id, client=client)
     ):
         finding_id = ""
 
@@ -143,18 +147,21 @@ async def get_closest_finding_id(
         and await do_create_draft(
             finding=finding,
             group=group,
+            client=client,
         )
     ):
         finding_id = await get_closest_finding_id(
             create_if_missing=False,
             finding=finding,
             group=group,
+            client=client,
         )
 
         if finding_id:
             await do_update_finding_severity(
                 finding_id=finding_id,
                 severity=finding.value.score.as_dict(),
+                client=client,
             )
         else:
             finding_id = ""
@@ -191,6 +198,7 @@ async def do_build_and_upload_vulnerabilities(
     batch_size: int = 50,
     finding_id: str,
     store: EphemeralStore,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     successes: List[bool] = []
     msg: str = "Uploading vulnerabilities to %s, batch %s of size %s"
@@ -203,6 +211,7 @@ async def do_build_and_upload_vulnerabilities(
                 stream=await build_vulnerabilities_stream(
                     results=tuple(batch),
                 ),
+                client=client,
             ),
         )
         batch.clear()
@@ -225,17 +234,22 @@ async def do_build_and_upload_vulnerabilities(
 async def do_delete_if_draft(
     *,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     was_deleted: bool = False
     release_status: core_model.FindingReleaseStatusEnum = (
-        await get_finding_current_release_status(finding_id=finding_id)
+        await get_finding_current_release_status(
+            finding_id=finding_id, client=client
+        )
     )
 
     if release_status == core_model.FindingReleaseStatusEnum.APPROVED:
         # Already released so it's not a draft
         was_deleted = False
     else:
-        was_deleted = await do_delete_finding(finding_id=finding_id)
+        was_deleted = await do_delete_finding(
+            finding_id=finding_id, client=client
+        )
 
     return was_deleted
 
@@ -244,6 +258,7 @@ async def do_release_finding(
     *,
     auto_approve: bool,
     finding_id: str,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     """Release a finding to the approver and optionally the client.
 
@@ -255,7 +270,10 @@ async def do_release_finding(
     """
     success: bool = False
     release_status: core_model.FindingReleaseStatusEnum = (
-        await get_finding_current_release_status(finding_id=finding_id)
+        await get_finding_current_release_status(
+            finding_id=finding_id,
+            client=client,
+        )
     )
 
     if release_status == core_model.FindingReleaseStatusEnum.APPROVED:
@@ -267,11 +285,16 @@ async def do_release_finding(
             success = True
         else:
             # Submit it
-            success = await do_submit_draft(finding_id=finding_id)
+            success = await do_submit_draft(
+                finding_id=finding_id,
+                client=client,
+            )
 
         if auto_approve:
             # Approve it
-            success = success and await do_approve_draft(finding_id=finding_id)
+            success = success and await do_approve_draft(
+                finding_id=finding_id, client=client
+            )
 
     return success
 

@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from aiogqlc.client import (
+    GraphQLClient,
+)
 from integrates.dal import (
     do_update_evidence,
     do_update_evidence_description,
@@ -15,6 +18,7 @@ from integrates.domain import (
     get_closest_finding_id,
 )
 from integrates.graphql import (
+    client as graphql_client,
     create_session,
 )
 from io import (
@@ -49,6 +53,7 @@ async def upload_evidences(
     *,
     finding_id: str,
     store: EphemeralStore,
+    client: Optional[GraphQLClient] = None,
 ) -> bool:
     evidence_ids: Tuple[
         Tuple[
@@ -89,6 +94,7 @@ async def upload_evidences(
                         evidence_id=evidence_id,
                         evidence_stream=evidence_stream.read(),
                         finding_id=finding_id,
+                        client=client,
                     )
                     for (evidence_id, _), evidence_stream in zip(
                         evidence_ids,
@@ -102,6 +108,7 @@ async def upload_evidences(
                         evidence_description_id=evidence_description_id,
                         evidence_description=evidence_description,
                         finding_id=finding_id,
+                        client=client,
                     )
                     for (
                         _,
@@ -202,6 +209,7 @@ async def persist_finding(
     finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
+    client: Optional[GraphQLClient] = None,
 ) -> core_model.PersistResult:
     """Persist a finding to Integrates
 
@@ -226,6 +234,7 @@ async def persist_finding(
         finding=finding,
         group=group,
         recreate_if_draft=has_results,
+        client=client,
     )
 
     # Even if there are no results to persist we must give Skims the
@@ -235,16 +244,14 @@ async def persist_finding(
 
         diff_store = await diff_results(
             integrates_store=await get_finding_vulnerabilities(
-                finding=finding,
-                finding_id=finding_id,
+                finding=finding, finding_id=finding_id, client=client
             ),
             skims_store=store,
             namespace=CTX.config.namespace,
         )
 
         success = await do_build_and_upload_vulnerabilities(
-            finding_id=finding_id,
-            store=diff_store,
+            finding_id=finding_id, store=diff_store, client=client
         )
 
         # Evidences and draft submit only make sense if there are results
@@ -252,10 +259,10 @@ async def persist_finding(
             success_release = await do_release_finding(
                 auto_approve=finding.value.auto_approve,
                 finding_id=finding_id,
+                client=client,
             )
             success_upload_evidence = await upload_evidences(
-                finding_id=finding_id,
-                store=store,
+                finding_id=finding_id, store=store, client=client
             )
             success = success and success_release and success_upload_evidence
 
@@ -284,7 +291,7 @@ async def persist_finding(
         "info",
         "Current %s's CVSSF: %s",
         group,
-        await get_group_open_severity(group),
+        await get_group_open_severity(group, client=client),
     )
 
     return core_model.PersistResult(success=success, diff_result=diff_store)
@@ -295,11 +302,13 @@ async def _persist_finding(
     finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
+    client: Optional[GraphQLClient] = None,
 ) -> Tuple[core_model.FindingEnum, core_model.PersistResult]:
     result = await persist_finding(
         finding=finding,
         group=group,
         store=store,
+        client=client,
     )
     return (finding, result)
 
@@ -325,18 +334,21 @@ async def persist(
 
     await verify_permissions(group=group)
 
-    result = await collect(
-        tuple(
-            _persist_finding(
-                finding=finding,
-                group=group,
-                store=stores[finding],
+    async with graphql_client() as client:
+        result = await collect(
+            tuple(
+                _persist_finding(
+                    finding=finding,
+                    group=group,
+                    store=stores[finding],
+                    client=client,
+                )
+                for finding in core_model.FindingEnum
+                if finding in CTX.config.checks
+                and not stores[finding].has_errors
             )
-            for finding in core_model.FindingEnum
-            if finding in CTX.config.checks and not stores[finding].has_errors
         )
-    )
-    return dict(result)
+        return dict(result)
 
 
 async def verify_permissions(*, group: str) -> bool:
