@@ -557,6 +557,17 @@ class InvalidMarkdown(CustomBaseException):
         super(InvalidMarkdown, self).__init__(msg)
 
 
+class InvalidNotificationRequest(CustomBaseException):
+    """Exception to control invalid email notification requests"""
+
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = f"Exception - Invalid email notification request: {expr}"
+        else:
+            msg = "Exception - Invalid email notification request"
+        super(InvalidNotificationRequest, self).__init__(msg)
+
+
 class InvalidNumberAcceptances(CustomBaseException):
     def __init__(self, expr: str = "") -> None:
         if expr:

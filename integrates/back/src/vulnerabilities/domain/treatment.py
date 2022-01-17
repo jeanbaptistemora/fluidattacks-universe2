@@ -14,6 +14,7 @@ import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
+    InvalidNotificationRequest,
     InvalidNumberAcceptances,
     SameValues,
     VulnNotFound,
@@ -23,6 +24,10 @@ from custom_types import (
 )
 from datetime import (
     datetime,
+    timedelta,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -35,6 +40,9 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+from mailer import (
+    findings,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
@@ -43,6 +51,7 @@ from newutils import (
 )
 from newutils.datetime import (
     convert_to_iso_str,
+    get_date_from_iso_str,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -465,3 +474,52 @@ async def update_vulnerabilities_treatment(
         vuln=vulnerability,
         user_email=user_email,
     )
+
+
+async def validate_and_send_notification_request(
+    loaders: Any,
+    assigned: str,
+    finding: Finding,
+    vulnerabilities: List[str],
+    user_email: str,
+) -> bool:
+    # Validate assigned
+    role: str = await authz.get_group_level_role(assigned, finding.group_name)
+    assigned = await get_valid_assigned(
+        assigned=assigned,
+        is_customer_admin=role
+        in {"customeradmin", "system_owner", "group_manager"},
+        user_email=user_email,
+        group_name=finding.group_name,
+    )
+    # Validate finding with vulns in group
+    finding_vulns: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulns_all_typed.load(finding.id)
+    assigned_vulns = list(
+        vuln
+        for vuln in finding_vulns
+        for vulnerability_id in vulnerabilities
+        if vuln.id == vulnerability_id
+    )
+    if len(assigned_vulns) != len(vulnerabilities):
+        raise InvalidNotificationRequest()
+    # Validate recent changes in treatment
+    for vuln in assigned_vulns:
+        if not (
+            timedelta(minutes=5)
+            > datetime.utcnow()
+            - get_date_from_iso_str(vuln.treatment.modified_date)
+            and vuln.treatment.assigned == assigned
+        ):
+            raise InvalidNotificationRequest()
+    await findings.send_mail_assigned_vulnerability(
+        loaders=loaders,
+        email_to=[assigned],
+        is_finding_released=bool(finding.approval),
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        finding_title=finding["title"],
+        where=list(vuln.where for vuln in assigned_vulns),
+    )
+    return True
