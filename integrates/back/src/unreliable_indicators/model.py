@@ -176,6 +176,19 @@ ENTITIES = {
                     EntityDependency.verify_vulnerabilities_request,
                 }
             ),
+            EntityAttr.treatment_changes: dict(
+                dependencies={
+                    EntityDependency.approve_draft,
+                    EntityDependency.handle_vulnerabilities_acceptance,
+                    EntityDependency.handle_finding_policy,
+                    EntityDependency.move_root,
+                    EntityDependency.request_vulnerabilities_zero_risk,
+                    EntityDependency.reset_expired_accepted_findings,
+                    EntityDependency.upload_file,
+                    EntityDependency.update_vulnerabilities_treatment,
+                    EntityDependency.verify_vulnerabilities_request,
+                }
+            ),
         },
     ),
 }

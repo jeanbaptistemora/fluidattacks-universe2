@@ -48,6 +48,7 @@ def test_get_entities_to_update_by_dependency() -> None:
                 EntityAttr.last_reattack_requester,
                 EntityAttr.last_requested_reattack_date,
                 EntityAttr.reattack_cycles,
+                EntityAttr.treatment_changes,
             },
         ),
         Entity.finding: EntityToUpdate(

@@ -205,7 +205,7 @@ async def update_finding_policy_in_groups(
     status: str,
     user_email: str,
     tags: Set[str],
-) -> None:
+) -> Tuple[List[str], List[str]]:
     group_drafts: Tuple[
         Tuple[Finding, ...], ...
     ] = await loaders.group_drafts.load_many(groups)
@@ -220,7 +220,7 @@ async def update_finding_policy_in_groups(
     ]
 
     if not findings_ids:
-        return
+        return [], []
     vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulns_nzr_typed.load_many_chained(findings_ids)
@@ -232,6 +232,7 @@ async def update_finding_policy_in_groups(
         user_email=user_email,
         tags=tags,
     )
+    return findings_ids, [vuln.id for vuln in vulns]
 
 
 async def _apply_finding_policy(

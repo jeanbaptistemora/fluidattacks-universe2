@@ -89,6 +89,7 @@ async def mutate(
             await update_unreliable_indicators_by_deps(
                 EntityDependency.update_vulnerabilities_treatment,
                 finding_ids=[finding_id],
+                vulnerability_ids=[vulnerability_id],
             )
             logs_utils.cloudwatch_log(
                 info.context,

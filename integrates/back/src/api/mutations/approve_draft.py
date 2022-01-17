@@ -10,6 +10,9 @@ from custom_types import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -34,6 +37,15 @@ from newutils.datetime import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from typing import (
+    Tuple,
+)
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -50,6 +62,9 @@ async def mutate(
     try:
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
+        vulnerabilities: Tuple[
+            Vulnerability, ...
+        ] = await info.context.loaders.finding_vulns_all_typed.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(
@@ -64,6 +79,11 @@ async def mutate(
             info.context,
             f"Security: Approved draft {finding_id} in {finding.group_name} "
             "group successfully",
+        )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.approve_draft,
+            finding_ids=[finding_id],
+            vulnerability_ids=[vuln.id for vuln in vulnerabilities],
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(

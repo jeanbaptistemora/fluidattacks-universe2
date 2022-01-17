@@ -124,6 +124,9 @@ def format_unreliable_indicators(
         unreliable_source=None
         if item.get("unreliable_source", None) is None
         else Source[item["unreliable_source"]],
+        unreliable_treatment_changes=None
+        if item.get("unreliable_treatment_changes", None) is None
+        else int(item["unreliable_treatment_changes"]),
     )
 
 

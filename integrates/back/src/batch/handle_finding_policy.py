@@ -30,6 +30,12 @@ from settings import (
 from typing import (
     List,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -86,13 +92,21 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         )
         groups_filtered = groups_domain.filter_active_groups(groups)
         finding_name: str = finding_policy.metadata.name.lower()
-        await update_finding_policy_in_groups(
+        (
+            updated_finding_ids,
+            updated_vuln_ids,
+        ) = await update_finding_policy_in_groups(
             finding_name=finding_name,
             loaders=loader,
             groups=[group["name"] for group in groups_filtered],
             status=finding_policy.state.status,
             user_email=item.subject,
             tags=finding_policy.metadata.tags,
+        )
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.handle_finding_policy,
+            finding_ids=updated_finding_ids,
+            vulnerability_ids=updated_vuln_ids,
         )
 
     await delete_action(

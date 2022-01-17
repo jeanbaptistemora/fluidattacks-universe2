@@ -28,15 +28,18 @@ class EntityAttr(Enum):
     open_vulnerabilities: str = "open_vulnerabilities"
     reattack_cycles: str = "reattack_cycles"
     status: str = "status"
+    treatment_changes: str = "treatment_changes"
     treatment_summary: str = "treatment_summary"
     where: str = "where"
 
 
 class EntityDependency(Enum):
+    approve_draft: str = "approve_draft"
     deactivate_root: str = "deactivate_root"
     handle_vulnerabilities_acceptance: str = (
         "handle_vulnerabilities_acceptance"
     )
+    handle_finding_policy: str = "handle_finding_policy"
     move_root: str = "move_root"
     reject_vulnerabilities_zero_risk: str = "reject_vulnerabilities_zero_risk"
     remove_vulnerability: str = "remove_vulnerability"

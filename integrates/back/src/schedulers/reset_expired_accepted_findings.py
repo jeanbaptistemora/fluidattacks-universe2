@@ -45,7 +45,8 @@ async def reset_group_expired_accepted_findings(
     vulns = await loaders.finding_vulns_typed.load_many_chained(
         [finding.id for finding in group_findings]
     )
-    findings_to_update: Set[str] = set()
+    updated_finding_ids: Set[str] = set()
+    updated_vuln_ids: Set[str] = set()
 
     for vuln in vulns:
         finding_id = vuln.finding_id
@@ -67,7 +68,6 @@ async def reset_group_expired_accepted_findings(
             <= today
         )
         if is_accepted_expired or is_undefined_accepted_expired:
-            findings_to_update.add(finding_id)
             updated_values = {"treatment": "NEW"}
             await vulns_domain.add_vulnerability_treatment(
                 finding_id=finding_id,
@@ -75,15 +75,13 @@ async def reset_group_expired_accepted_findings(
                 vuln=vuln,
                 user_email=vuln.treatment.modified_by,
             )
+            updated_finding_ids.add(finding_id)
+            updated_vuln_ids.add(vuln.id)
 
-    await collect(
-        [
-            update_unreliable_indicators_by_deps(
-                EntityDependency.reset_expired_accepted_findings,
-                finding_ids=[finding_id],
-            )
-            for finding_id in findings_to_update
-        ]
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.reset_expired_accepted_findings,
+        finding_ids=updated_finding_ids,
+        vulnerability_ids=updated_vuln_ids,
     )
 
 
