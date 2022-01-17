@@ -4,9 +4,7 @@ import asyncio
 import click
 from code_etl import (
     amend as amend_v2,
-    amend_authors as amend,
     compute_bills as bills,
-    upload,
     upload_repo,
 )
 from code_etl.mailmap import (
