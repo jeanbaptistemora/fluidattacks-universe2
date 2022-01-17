@@ -72,7 +72,7 @@ async def mutate(
             finding_name=finding.title.lower(),
         )
         if file_input and allowed_mime_type:
-            verified_vulnerabilities = await vuln_files_domain.upload_file(
+            processed_vulnerabilities = await vuln_files_domain.upload_file(
                 info,
                 file_input,
                 finding_id,
@@ -89,7 +89,7 @@ async def mutate(
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
             finding_ids=[finding_id],
-            vulnerability_ids=verified_vulnerabilities,
+            vulnerability_ids=processed_vulnerabilities,
         )
         logs_utils.cloudwatch_log(
             info.context,
