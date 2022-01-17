@@ -10905,7 +10905,7 @@
       - Extract information from the server
       without proper consent.
 
-      - Creating holes to gain remote access.
+      - Create holes to gain remote access.
     recommendation: >
       Securely configure the vulnerable service by
       explicitly defining the Security Groups.
@@ -11059,7 +11059,7 @@
       enviar correos electrónicos utilizando
       el servidor web.
     impact: >
-      Envíe correos electrónicos como cualquier
+      Enviar correos electrónicos como cualquier
       persona utilizando los servidores de Fluid.
     recommendation: >
       Cierre los puertos no utilizados para
@@ -11091,28 +11091,28 @@
     description: >
       The DynamoDB service has insecure configurations.
     impact: >
-      Unauthorized Internet user with credentials.
+      Access to the database and exploit
+      vulnerabilities in the system configuration to
+      affect the service and have access to stored information.
     recommendation: >
       Set correct configurations and in line with
       AWS best security practices.
     threat: >
-      An attacker can access the database and exploit
-      vulnerabilities in the system configuration to
-      affect the service and have access to stored information.
+      Unauthorized Internet user with credentials.
   es:
     title: Insecure service configuration - DynamoDB
     description: >
       El servicio DynamoDB tiene configuraciones inseguras.
     impact: >
-      Usuario de Internet no autorizado con credenciales.
+      Acceder a la base de datos y explotar las
+      vulnerabilidades en la configuración del
+      sistema para afectar al servicio y tener
+      acceso a la información almacenada.
     recommendation: >
       Establecer configuraciones correctas y en
       línea con las mejores prácticas de seguridad de AWS.
     threat: >
-      Un atacante puede acceder a la base de datos y
-      explotar las vulnerabilidades en la configuración
-      del sistema para afectar al servicio y tener acceso
-      a la información almacenada.
+      Usuario de Internet no autorizado con credenciales.
   category: Abuse Functionality
   score:
     base:
