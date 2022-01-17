@@ -304,12 +304,10 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     if finding.state.status != FindingStateStatus.APPROVED:
         return True
 
-    schedule(
-        _send_to_redshift(
-            loaders=loaders,
-            vulnerability=vulnerability,
-            state_to_append=removal_state,
-        )
+    await _send_to_redshift(
+        loaders=loaders,
+        vulnerability=vulnerability,
+        state_to_append=removal_state,
     )
     return True
 
@@ -598,11 +596,9 @@ async def mask_vulnerability(
         if finding.state.status != FindingStateStatus.APPROVED:
             return True
 
-    schedule(
-        _send_to_redshift(
-            loaders=loaders,
-            vulnerability=vulnerability,
-        )
+    await _send_to_redshift(
+        loaders=loaders,
+        vulnerability=vulnerability,
     )
     return True
 
