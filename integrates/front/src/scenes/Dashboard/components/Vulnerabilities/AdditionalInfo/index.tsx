@@ -107,6 +107,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const { data } = useQuery<IGetVulnAdditionalInfoAttr>(
     GET_VULN_ADDITIONAL_INFO,
     {
+      fetchPolicy: "cache-first",
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(t("groupAlerts.errorTextsad"));

@@ -34,6 +34,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
   const { t } = useTranslation();
 
   const { data } = useQuery<IGetVulnTreatmentAttr>(GET_VULN_TREATMENT, {
+    fetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(t("groupAlerts.errorTextsad"));
