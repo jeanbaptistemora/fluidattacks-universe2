@@ -72,8 +72,6 @@ def tfm_azure_default_network_access_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
-        for elem in resource.data:
-            print(elem)
         if isinstance(resource, AzurermStorageAccount):
             if network_rules := get_argument(
                 key="network_rules",
