@@ -9989,13 +9989,13 @@
       code and thus better understand the
       logic of the application.
     impact: >
-      - Attacker extracts the apk
+      - Extract the apk
       from the application.
 
-      - Attacker decompiles the
+      - Decompile the
       binaries found in the apk.
 
-      - Attacker can understand the
+      - Understand the
       logic of the application and
       increases the attack surface.
     recommendation: >
@@ -10015,13 +10015,13 @@
       de tener acceso a el código fuente y así
       entender mejor la lógica de la aplicación.
     impact: >
-      - Atacante extrae el apk de la
+      - Extraer el apk de la
       aplicación.
 
-      - Atacante descompila los binarios
+      - Descompilar los binarios
       encontrados en el apk.
 
-      - Atacante puede entender la lógica
+      - Entender la lógica
       de la aplicación y aumenta la
       superficie de ataque.
     recommendation: >
@@ -10296,12 +10296,13 @@
       Attackers could use this data to bruteforce the
       password hash for the legitimate network.
     impact: >
-      - Business services can be spoofed, corrupting
-      the trust that a valid certificate provides, so
-      sensitive communications can be decrypted.
+      - Falsify business services, corrupting
+      the trust provided by a valid certificate,
+      so that sensitive communications can
+      be decrypted.
 
-      - Unsecured or lightly protected wireless access
-      points are often exploited for entry.
+      - Exploit for entry due to unsecured or
+      lightly protected wireless access.
     recommendation: >
       Install correct certificates on servers, revoke
       vulnerable ones and validate new keys and
@@ -10323,13 +10324,13 @@
       Los atacantes podrían utilizar estos datos para
       forzar el hash de la contraseña de la red legítima.
     impact: >
-      - Los servicios empresariales pueden ser
-      falsificados, corrompiendo la confianza que
-      proporciona un certificado válido, por lo que
-      las comunicaciones sensibles pueden ser descifradas.
+      - Falsificar servicios empresariales, corrompiendo
+      la confianza que proporciona un certificado válido,
+      por lo que las comunicaciones sensibles pueden
+      ser descifradas.
 
-      - Los puntos de acceso inalámbricos inseguros o poco
-      protegidos suelen ser aprovechados para entrar.
+      - Explotación de la entrada debido a un acceso
+      inalámbrico no seguro o poco protegido.
     recommendation: >
       Instalar los certificados correctos en los servidores,
       revocar los vulnerables y validar que las nuevas claves
@@ -10580,7 +10581,7 @@
       hosted has port 8080 open running
       the http-proxy service.
     impact: >
-      Anonymous user from the Internet establishes
+      Establish, from the Internet,
       a connection with the port open.
     recommendation: >
       Securely configure the vulnerable service,
@@ -10599,8 +10600,8 @@
       tiene abierto el puerto 8080 corriendo el
       servicio http-proxy.
     impact: >
-      Usuario anónimo desde internet establece una
-      conexión con el puerto abierto.
+      Establecer, desde Internet, una conexión
+      con un puerto abierto.
     recommendation: >
       Configurar de manera segura el servicio
       vulnerable permitiendo así que solo sea
@@ -10807,7 +10808,7 @@
       attack through it and cause another
       server to crash.
     impact: >
-      Realizar ataques de amplificación para causar DDos.
+      Perform amplification attacks to cause DDos.
     recommendation: >
       Disable recursive DNS functionality on the server.
     threat: >
