@@ -88,7 +88,7 @@ class CommitTableRow:
     committer_name: Optional[str]
     committer_email: Optional[str]
     committed_at: Optional[DatetimeUTC]
-    message: Optional[str]
+    message: Optional[TruncatedStr[Literal[4096]]]
     summary: Optional[TruncatedStr[Literal[256]]]
     total_insertions: Optional[int]
     total_deletions: Optional[int]
@@ -138,7 +138,9 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             assert_opt_type(cast(datetime, raw.committed_at), datetime)
             .map(lambda d: to_utc(d) if d is not None else d)
             .unwrap(),
-            assert_opt_type(cast(str, raw.message), str).unwrap(),
+            assert_opt_type(cast(str, raw.message), str)
+            .map(lambda s: truncate(s, 4096) if s is not None else s)
+            .unwrap(),
             assert_opt_type(cast(str, raw.summary), str)
             .map(lambda s: truncate(s, 256) if s is not None else s)
             .unwrap(),
@@ -201,7 +203,7 @@ def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
         "committer_email": row.committer_email,
         "committer_name": row.committer_name,
         "committed_at": _encode_opt_datetime(row.committed_at),
-        "message": row.message,
+        "message": row.message.msg if row.message else None,
         "summary": row.summary.msg if row.summary else None,
         "total_insertions": _encode_opt_int(row.total_insertions),
         "total_deletions": _encode_opt_int(row.total_deletions),

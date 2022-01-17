@@ -31,7 +31,7 @@ def gen_fa_hash_2(commit: CommitData) -> str:
     fa_hash.update(bytes(commit.author.email, "utf-8"))
     fa_hash.update(bytes(commit.authored_at.time.isoformat(), "utf-8"))
 
-    fa_hash.update(bytes(commit.message, "utf-8"))
+    fa_hash.update(bytes(commit.message.msg, "utf-8"))
 
     fa_hash.update(bytes(str(commit.deltas.total_insertions), "utf-8"))
     fa_hash.update(bytes(str(commit.deltas.total_deletions), "utf-8"))
@@ -63,7 +63,7 @@ class CommitDataFactory:
             to_utc(commit.authored_datetime),
             commiter,
             to_utc(commit.committed_datetime),
-            str(commit.message),
+            truncate(str(commit.message), 4096),
             truncate(str(commit.summary), 256),
             deltas,
         )

@@ -50,7 +50,7 @@ class CommitData:
     authored_at: DatetimeUTC
     committer: User
     committed_at: DatetimeUTC
-    message: str
+    message: TruncatedStr[Literal[4096]]
     summary: TruncatedStr[Literal[256]]
     deltas: Deltas
 

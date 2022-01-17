@@ -81,7 +81,10 @@ def decode_commit_data(
             .map(to_utc)
             .alt(raise_exception)
             .unwrap(),
-            assert_type(raw[6], str).alt(raise_exception).unwrap(),
+            assert_type(raw[6], str)
+            .map(lambda s: truncate(s, 4096))
+            .alt(raise_exception)
+            .unwrap(),
             assert_type(raw[7], str)
             .map(lambda s: truncate(s, 256))
             .alt(raise_exception)
