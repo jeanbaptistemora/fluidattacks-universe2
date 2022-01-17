@@ -160,43 +160,54 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
 
   return (
     <BreadcrumbContainer>
-      <li>
-        <NavSplitButtonContainer>
-          <SplitButton
-            content={
-              <div className={"splitItems"}>
-                <Can do={"api_mutations_add_organization_mutate"}>
-                  <MenuItem
-                    eventKey={""}
-                    itemContent={t("sidebar.newOrganization.text")}
-                    onClick={openOrganizationModal}
-                  />
-                  {isOrganizationModalOpen ? (
-                    <AddOrganizationModal
-                      onClose={closeOrganizationModal}
-                      open={true}
-                    />
-                  ) : undefined}
-                </Can>
-                {organizationList.map(
-                  (organization: { name: string }): JSX.Element => (
+      {path === "/todos" ? (
+        <React.Fragment>
+          <li>
+            <Link to={"/home"}>{t("navbar.home.text")}</Link>
+          </li>
+          <li>
+            <Link to={"/todos"}>{t("navbar.task.text")}</Link>
+          </li>
+        </React.Fragment>
+      ) : (
+        <li>
+          <NavSplitButtonContainer>
+            <SplitButton
+              content={
+                <div className={"splitItems"}>
+                  <Can do={"api_mutations_add_organization_mutate"}>
                     <MenuItem
-                      eventKey={organization.name}
-                      itemContent={organization.name}
-                      key={organization.name}
-                      onClick={handleOrganizationChange}
+                      eventKey={""}
+                      itemContent={t("sidebar.newOrganization.text")}
+                      onClick={openOrganizationModal}
                     />
-                  )
-                )}
-              </div>
-            }
-            id={"organizationList"}
-            onClick={handleOrganizationClick}
-            onClickIcon={showItems}
-            title={pathOrganization}
-          />
-        </NavSplitButtonContainer>
-      </li>
+                    {isOrganizationModalOpen ? (
+                      <AddOrganizationModal
+                        onClose={closeOrganizationModal}
+                        open={true}
+                      />
+                    ) : undefined}
+                  </Can>
+                  {organizationList.map(
+                    (organization: { name: string }): JSX.Element => (
+                      <MenuItem
+                        eventKey={organization.name}
+                        itemContent={organization.name}
+                        key={organization.name}
+                        onClick={handleOrganizationChange}
+                      />
+                    )
+                  )}
+                </div>
+              }
+              id={"organizationList"}
+              onClick={handleOrganizationClick}
+              onClickIcon={showItems}
+              title={pathOrganization}
+            />
+          </NavSplitButtonContainer>
+        </li>
+      )}
       {breadcrumbItems}
     </BreadcrumbContainer>
   );

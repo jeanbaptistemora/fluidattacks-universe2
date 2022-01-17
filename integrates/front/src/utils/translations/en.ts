@@ -985,6 +985,9 @@ export const enTranslations: ResourceKey = {
       chat: "Live Chat",
       expert: "Talk to an expert",
     },
+    home: {
+      text: "Home",
+    },
     logout: {
       text: "Log out",
       tooltip: "Log out of ASM",
@@ -993,6 +996,7 @@ export const enTranslations: ResourceKey = {
     role: "Role:",
     searchPlaceholder: "Search Group Name",
     task: {
+      text: "Todos",
       tooltip: "To-Do List",
     },
     token: {
