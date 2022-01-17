@@ -9193,7 +9193,7 @@
       confidential information can be
       captured in plain text.
     impact: >
-      Obtaining Telnet credentials
+      Obtain Telnet credentials
       after a MitM attack.
     recommendation: >
       Deploy the application over an
@@ -9365,7 +9365,7 @@
       some information and determine if a vulnerability is
       present to exploit it.
     impact: >
-      - Allows an attacker to interfere with the queries
+      - Allow an attacker to interfere with the queries
       that an application makes to its database.
 
       - Retrieve information from the database
@@ -9394,7 +9394,7 @@
       temporal, es posible deducir cierta información y
       determinar si existe una vulnerabilidad para explotarla.
     impact: >
-      - Permite a un atacante interferir con las
+      - Permitir a un atacante interferir con las
       consultas que una aplicación hace a su base de datos.
 
       - Recuperar información de la base de
@@ -9554,7 +9554,7 @@
       access database servers from
       the Internet.
     impact: >
-      Internet user with credentials.
+      Obtain unauthorized access to network traffic.
     recommendation: >
       Segment the corporate network
       using the principle of least
@@ -9574,7 +9574,7 @@
       desde internet puede acceder
       a servidores de bases de datos.
     impact: >
-      Usuario de Internet con credenciales.
+      Obtener acceso no autorizado al tráfico de la red.
     recommendation: >
       Segmentar la red corporativa
       utilizando el principio de
@@ -9617,7 +9617,7 @@
       well as the credentials to use it
       were found in the application code.
     impact: >
-      - Access confidential information
+      - Access to confidential information
       from any computer on the Internet.
 
       - Edit information from any
