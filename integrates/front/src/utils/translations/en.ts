@@ -943,12 +943,14 @@ export const enTranslations: ResourceKey = {
         "to use such information for documentation purposes and without disclosing " +
         "its content to third parties because it may contain ideas, concepts, prices " +
         "and/or structures property of Fluid Attacks. Its 'proprietary' " +
-        "classification means that this information will only be used by those for " +
-        "whom it was meant. In case of requiring total or partial reproductions they " +
+        "classification means that this information is only to be used by those for " +
+        "whom it was meant. In case of requiring its total or partial reproduction, this " +
         "must be done with express and written authorization of Fluid Attacks. " +
-        "The rules that fundament the classification of information are " +
-        "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
-        "and articles 16 and its following ones from 256 law of 1.996.",
+        "The regulations that limit the use and disclosure of this information are " +
+        "article 72 and subsequent articles of Chapter IV of Decision 344 of the " +
+        "Cartagena Agreement of 1993, article 270 and subsequent articles " +
+        "of Title VIII of the Colombian Penal Code, and article 16 " +
+        "and subsequent articles of Law 256 of 1996.",
       privacy:
         "By using the Fluid Attacks' Attack Surface Manager, you agree to our ",
       privacyLinkText: "Privacy Policy",
