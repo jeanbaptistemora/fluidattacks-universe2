@@ -58,7 +58,6 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
-    VulnerabilityTreatment,
 )
 from decimal import (
     Decimal,
@@ -1590,11 +1589,6 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
 
     content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
-    treatment_historics: Tuple[
-        Tuple[VulnerabilityTreatment, ...], ...
-    ] = await loaders.vulnerability_historic_treatment.load_many(
-        [vuln.id for vuln in group_vulns]
-    )
 
     oldest_finding = await get_oldest_no_treatment(loaders, findings)
     if oldest_finding:
@@ -1627,9 +1621,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     )
     group_age = (datetime_utils.get_now() - historic_config_date).days
     content["main"]["group_age"] = group_age
-    treatments = vulns_utils.get_total_treatment_date(
-        treatment_historics, last_day
-    )
+    treatments = vulns_utils.get_total_treatment_date(group_vulns, last_day)
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
     content["treatments"]["permanent_requested"] = treatments.get(
         "accepted_undefined_submitted", 0

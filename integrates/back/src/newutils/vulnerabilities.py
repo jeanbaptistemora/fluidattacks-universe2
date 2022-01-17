@@ -241,20 +241,6 @@ def filter_remediated(
     )
 
 
-def filter_historic_date(
-    historic: Tuple[VulnerabilityTreatment, ...],
-    min_date: datetime,
-) -> Tuple[VulnerabilityTreatment, ...]:
-    """Filter historics since a given date."""
-    return tuple(
-        entry
-        for entry in historic
-        if min_date
-        and datetime_utils.get_date_from_iso_str(entry.modified_date)
-        >= min_date.date()
-    )
-
-
 def format_vulnerabilities(
     vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, str]]]:
@@ -581,16 +567,17 @@ def get_treatment_from_org_finding_policy(
 
 
 def get_total_treatment_date(
-    historics: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
+    vulns: Tuple[Vulnerability, ...],
     min_date: datetime,
 ) -> Dict[str, int]:
-    """Get the total treatment of all the vulns filtered by date"""
+    """Get the total treatment of all the vulns filtered by date."""
     status_count: Counter[VulnerabilityTreatmentStatus] = Counter()
     acceptance_count: Counter[VulnerabilityAcceptanceStatus] = Counter()
     treatments = tuple(
-        treatment
-        for historic in historics
-        for treatment in filter_historic_date(historic, min_date)
+        vuln.treatment
+        for vuln in vulns
+        if vuln.treatment
+        and datetime.fromisoformat(vuln.treatment.modified_date) >= min_date
     )
 
     for treatment in treatments:
