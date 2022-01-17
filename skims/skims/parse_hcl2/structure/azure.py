@@ -6,6 +6,7 @@ from azure.model import (
     AzurermKeyVaultSecret,
     AzurermLinuxVirtualMachine,
     AzurermStorageAccount,
+    AzurermStorageAccountNetworkRules,
     AzurermVirtualMachine,
 )
 from parse_hcl2.common import (
@@ -93,6 +94,18 @@ def iter_azurerm_function_app(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "azurerm_function_app")
     for bucket in iterator:
         yield AzurermFunctionApp(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_azurerm_storage_account_network_rules(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "azurerm_storage_account_network_rules"
+    )
+    for bucket in iterator:
+        yield AzurermStorageAccountNetworkRules(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

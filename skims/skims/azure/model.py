@@ -51,3 +51,9 @@ class AzurermFunctionApp(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AzurermStorageAccountNetworkRules(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
