@@ -184,13 +184,15 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
-                <ContentTab
-                  icon={"icon pe-7s-cash"}
-                  id={"billingTab"}
-                  link={`${url}/billing`}
-                  title={translate.t("organization.tabs.billing.text")}
-                  tooltip={translate.t("organization.tabs.billing.tooltip")}
-                />
+                <Can do={"api_resolvers_organization_billing_portal_resolve"}>
+                  <ContentTab
+                    icon={"icon pe-7s-cash"}
+                    id={"billingTab"}
+                    link={`${url}/billing`}
+                    title={translate.t("organization.tabs.billing.text")}
+                    tooltip={translate.t("organization.tabs.billing.tooltip")}
+                  />
+                </Can>
               </TabsContainer>
             </StickyContainer>
             <div className={globalStyle.tabContent}>

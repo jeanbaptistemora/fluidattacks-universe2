@@ -647,7 +647,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *GROUP_LEVEL_ROLES["admin"]["actions"],
-            "api_mutations_add_billing_payment_method_mutate",
             "api_mutations_add_billing_subscription_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_remove_billing_subscription_mutate",
@@ -655,7 +654,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_billing_subscription_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
-            "api_resolvers_organization_billing_portal_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -1023,6 +1021,8 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     admin=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["admin"]["actions"],
+            "api_mutations_add_billing_payment_method_mutate",
+            "api_resolvers_organization_billing_portal_resolve",
             "grant_organization_level_role:system_owner",
         },
         tags={
