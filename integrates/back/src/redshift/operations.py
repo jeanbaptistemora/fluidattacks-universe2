@@ -15,6 +15,9 @@ from contextlib import (
 import logging
 import logging.config
 import psycopg2
+from psycopg2 import (
+    extras,
+)
 from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
@@ -84,3 +87,12 @@ async def execute_many(
     if FI_ENVIRONMENT == "production":
         with db_cursor() as cursor:
             await in_thread(cursor.executemany, sql_query, sql_vars)
+
+
+async def execute_batch(
+    sql_query: str,
+    sql_vars: Optional[List[Dict[str, Any]]] = None,
+) -> None:
+    if FI_ENVIRONMENT == "production":
+        with db_cursor() as cursor:
+            extras.execute_batch(cursor, sql_query, sql_vars)

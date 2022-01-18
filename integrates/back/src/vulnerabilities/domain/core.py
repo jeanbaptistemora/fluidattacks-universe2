@@ -71,9 +71,7 @@ from notifications import (
 from operator import (
     attrgetter,
 )
-from redshift import (
-    vulnerabilities as redshift_vulns,
-)
+import redshift.vulnerabilities as redshift_vulns
 from settings import (
     LOGGING,
     NOEXTRA,

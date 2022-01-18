@@ -1,8 +1,5 @@
-from .operations import (
-    execute,
-    execute_many,
-    initialize_schema,
-    SCHEMA_NAME,
+from .utils import (
+    format_vulnerability_metadata,
 )
 from aioextensions import (
     collect,
@@ -23,6 +20,13 @@ from db_model.vulnerabilities.types import (
 )
 import logging
 import logging.config
+from redshift.operations import (
+    execute,
+    execute_batch,
+    execute_many,
+    initialize_schema,
+    SCHEMA_NAME,
+)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -99,14 +103,29 @@ async def _insert_metadata(
     vulnerability: Vulnerability,
 ) -> None:
     _fields, values = _format_query_fields(MetadataTableRow)
-    sql_values = dict(
-        id=vulnerability.id,
-        custom_severity=vulnerability.custom_severity,
-        finding_id=vulnerability.finding_id,
-        skims_method=vulnerability.skims_method,
-        type=vulnerability.type.value,
-    )
+    sql_values = format_vulnerability_metadata(vulnerability)
     await execute(  # nosec
+        f"""
+            INSERT INTO {METADATA_TABLE} ({_fields}) SELECT {values}
+            WHERE NOT EXISTS (
+                SELECT id
+                FROM {METADATA_TABLE}
+                WHERE id = %(id)s
+            )
+         """,
+        sql_values,
+    )
+
+
+async def insert_batch_metadata(
+    *,
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> None:
+    _fields, values = _format_query_fields(MetadataTableRow)
+    sql_values = [
+        format_vulnerability_metadata(vuln) for vuln in vulnerabilities
+    ]
+    await execute_batch(  # nosec
         f"""
             INSERT INTO {METADATA_TABLE} ({_fields}) SELECT {values}
             WHERE NOT EXISTS (
