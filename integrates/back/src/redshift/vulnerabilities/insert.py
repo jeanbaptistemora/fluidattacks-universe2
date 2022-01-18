@@ -13,13 +13,14 @@ from .types import (
     ZeroRiskTableRow,
 )
 from .utils import (
-    format_vulnerability_metadata,
+    format_row_metadata,
+    format_row_state,
+    format_row_treatment,
+    format_row_verification,
+    format_row_zero_risk,
 )
 from aioextensions import (
     collect,
-)
-from datetime import (
-    datetime,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -54,13 +55,24 @@ SQL_INSERT_METADATA = Template(
     """
 )
 
+SQL_INSERT_HISTORIC = Template(
+    """
+    INSERT INTO ${table} (${fields}) SELECT ${values}
+    WHERE NOT EXISTS (
+        SELECT id, modified_date
+        FROM ${table}
+        WHERE id = %(id)s and modified_date = %(modified_date)s
+    )
+    """
+)
+
 
 async def _insert_metadata(
     *,
     vulnerability: Vulnerability,
 ) -> None:
     _fields, values = format_query_fields(MetadataTableRow)
-    sql_values = format_vulnerability_metadata(vulnerability)
+    sql_values = format_row_metadata(vulnerability)
     await execute(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
@@ -76,9 +88,7 @@ async def insert_batch_metadata(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> None:
     _fields, values = format_query_fields(MetadataTableRow)
-    sql_values = [
-        format_vulnerability_metadata(vuln) for vuln in vulnerabilities
-    ]
+    sql_values = [format_row_metadata(vuln) for vuln in vulnerabilities]
     await execute_batch(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
@@ -96,23 +106,14 @@ async def _insert_historic_state(
 ) -> None:
     _fields, values = format_query_fields(StateTableRow)
     sql_values = [
-        dict(
-            id=vulnerability_id,
-            modified_date=datetime.fromisoformat(state.modified_date),
-            source=state.source.value,
-            status=state.status.value,
-        )
-        for state in historic_state
+        format_row_state(vulnerability_id, state) for state in historic_state
     ]
     await execute_many(  # nosec
-        f"""
-            INSERT INTO {STATE_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id, modified_date
-                FROM {STATE_TABLE}
-                WHERE id = %(id)s and modified_date = %(modified_date)s
-            )
-         """,
+        SQL_INSERT_HISTORIC.substitute(
+            table=STATE_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
@@ -124,28 +125,15 @@ async def _insert_historic_treatment(
 ) -> None:
     _fields, values = format_query_fields(TreatmentTableRow)
     sql_values = [
-        dict(
-            id=vulnerability_id,
-            modified_date=datetime.fromisoformat(treatment.modified_date),
-            status=treatment.status.value,
-            accepted_until=datetime.fromisoformat(treatment.accepted_until)
-            if treatment.accepted_until
-            else None,
-            acceptance_status=treatment.acceptance_status.value
-            if treatment.acceptance_status
-            else None,
-        )
+        format_row_treatment(vulnerability_id, treatment)
         for treatment in historic_treatment
     ]
     await execute_many(  # nosec
-        f"""
-            INSERT INTO {TREATMENT_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id, modified_date
-                FROM {TREATMENT_TABLE}
-                WHERE id = %(id)s and modified_date = %(modified_date)s
-            )
-         """,
+        SQL_INSERT_HISTORIC.substitute(
+            table=TREATMENT_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
@@ -157,22 +145,15 @@ async def _insert_historic_verification(
 ) -> None:
     _fields, values = format_query_fields(VerificationTableRow)
     sql_values = [
-        dict(
-            id=vulnerability_id,
-            modified_date=datetime.fromisoformat(verification.modified_date),
-            status=verification.status.value,
-        )
+        format_row_verification(vulnerability_id, verification)
         for verification in historic_verification
     ]
     await execute_many(  # nosec
-        f"""
-            INSERT INTO {VERIFICATION_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id, modified_date
-                FROM {VERIFICATION_TABLE}
-                WHERE id = %(id)s and modified_date = %(modified_date)s
-            )
-         """,
+        SQL_INSERT_HISTORIC.substitute(
+            table=VERIFICATION_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
@@ -184,22 +165,15 @@ async def _insert_historic_zero_risk(
 ) -> None:
     _fields, values = format_query_fields(ZeroRiskTableRow)
     sql_values = [
-        dict(
-            id=vulnerability_id,
-            modified_date=datetime.fromisoformat(zero_risk.modified_date),
-            status=zero_risk.status.value,
-        )
+        format_row_zero_risk(vulnerability_id, zero_risk)
         for zero_risk in historic_zero_risk
     ]
     await execute_many(  # nosec
-        f"""
-            INSERT INTO {ZERO_RISK_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id, modified_date
-                FROM {ZERO_RISK_TABLE}
-                WHERE id = %(id)s and modified_date = %(modified_date)s
-            )
-         """,
+        SQL_INSERT_HISTORIC.substitute(
+            table=ZERO_RISK_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
