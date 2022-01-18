@@ -6,7 +6,7 @@ writer: ouribe
 codename: gilmour
 product: PHP Server Monitor v3.5.2
 date: 2022-01-11 15:00 COT
-cveid: Pending
+cveid: CVE-2022-23044
 description: PHP Server Monitor v3.5.2 - Stored XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, PHP Server Monitor
 banner: advisories-bg
@@ -16,13 +16,13 @@ template: advisory
 
 ## Summary
 
-|                    |                                                        |
-|--------------------|--------------------------------------------------------|
-| **Name**           | PHP Server Monitor v3.5.2 - Stored XSS                 |
-| **Code name**      | [Gilmour](https://en.wikipedia.org/wiki/David_Gilmour) |
-| **Product**        | PHP Server Monitor                                     |
-| **Versions**       | v3.5.2                                                 |
-| **State**          | Unpublished/Contacted Vendor                           |
+|                             |                                                        |
+|-----------------------------|--------------------------------------------------------|
+| **Name**                    | PHP Server Monitor v3.5.2 - Stored XSS                 |
+| **Code name**               | [Gilmour](https://en.wikipedia.org/wiki/David_Gilmour) |
+| **Product**                 | PHP Server Monitor                                     |
+| **Affected versions**       | v3.5.2                                                 |
+| **State**                   | Unpublished/Contacted Vendor                           |
 
 ## Vulnerability
 
@@ -34,7 +34,7 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
 | **CVSSv3 Base Score** | 4.8                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | Pending                                                          |
+| **CVE ID(s)**         | [CVE-2022-23044](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23044)                                                 |
 
 ## Description
 
@@ -73,3 +73,5 @@ Team of  `Fluid Attacks`.
 - 2022-01-11: Vulnerability discovered.
 
 - 2022-01-11: Vendor contacted.
+
+- 2022-01-17: Vendor replied acknowledging the report.

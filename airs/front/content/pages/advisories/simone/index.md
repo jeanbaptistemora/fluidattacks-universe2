@@ -16,13 +16,13 @@ template: advisory
 
 ## Summary
 
-|                    |                                                            |
-|--------------------|------------------------------------------------------------|
-| **Name**           | Zenario CMS 9.2 - Insecure file upload (RCE)               |
-| **Code name**      | [Nina Simone](https://en.wikipedia.org/wiki/Nina_Simone)   |
-| **Product**        | Zenario CMS                                                |
-| **Versions**       | 9.2                                                        |
-| **State**          | Unpublished/Contacted Vendor                               |
+|                             |                                                            |
+|-----------------------------|------------------------------------------------------------|
+| **Name**                    | Zenario CMS 9.2 - Insecure file upload (RCE)               |
+| **Code name**               | [Simone](https://en.wikipedia.org/wiki/Nina_Simone)        |
+| **Product**                 | Zenario CMS                                                |
+| **Affected versions**       | 9.2                                                        |
+| **State**                   | Unpublished/Contacted Vendor                               |
 
 ## Vulnerability
 

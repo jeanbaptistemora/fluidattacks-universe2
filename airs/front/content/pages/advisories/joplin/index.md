@@ -22,7 +22,8 @@ template: advisory
 | **Code name**      | [Joplin](https://en.wikipedia.org/wiki/Janis_Joplin)|
 | **Product**        | PartKeepr                                           |
 | **Versions**       | v1.4.0                                              |
-| **State**          | Unpublished/Contacted Vendor                        |
+| **State**          | Public                                              |
+| **Release date**   | 2022-01-09                                          |
 
 ## Vulnerability
 
@@ -78,3 +79,5 @@ Team of  `Fluid Attacks`.
 - 2022-01-03: Vulnerability discovered.
 
 - 2022-01-04: Vendor contacted.
+
+- 2022-01-09: Public Disclosure.

@@ -16,13 +16,14 @@ template: advisory
 
 ## Summary
 
-|                    |                                                      |
-|--------------------|------------------------------------------------------|
-| **Name**           | PartKeepr v1.4.0 url attachment 'add parts' - LFI    |
-| **Code name**      | [Hendrix](https://en.wikipedia.org/wiki/Jimi_Hendrix)|
-| **Product**        | PartKeepr                                            |
-| **Versions**       | v1.4.0                                               |
-| **State**          | Unpublished/Contacted Vendor                         |
+|                             |                                                      |
+|-----------------------------|------------------------------------------------------|
+| **Name**                    | PartKeepr v1.4.0 url attachment 'add parts' - LFI    |
+| **Code name**               | [Hendrix](https://en.wikipedia.org/wiki/Jimi_Hendrix)|
+| **Product**                 | PartKeepr                                            |
+| **Affected versions**       | v1.4.0                                               |
+| **State**                   | Public                                               |
+| **Release date**            | 2022-01-09                                           |
 
 ## Vulnerability
 
@@ -78,3 +79,5 @@ Team of  `Fluid Attacks`.
 - 2022-01-03: Vulnerability discovered.
 
 - 2022-01-04: Vendor contacted.
+
+- 2022-01-09: Public Disclosure.
