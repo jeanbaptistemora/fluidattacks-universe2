@@ -83,22 +83,6 @@ async def _insert_metadata(
     )
 
 
-async def insert_batch_metadata(
-    *,
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> None:
-    _fields, values = format_query_fields(MetadataTableRow)
-    sql_values = [format_row_metadata(vuln) for vuln in vulnerabilities]
-    await execute_batch(  # nosec
-        SQL_INSERT_METADATA.substitute(
-            table=METADATA_TABLE,
-            fields=_fields,
-            values=values,
-        ),
-        sql_values,
-    )
-
-
 async def _insert_historic_state(
     *,
     vulnerability_id: str,
@@ -206,4 +190,43 @@ async def insert_vulnerability(
                 historic_zero_risk=historic_zero_risk,
             ),
         )
+    )
+
+
+async def insert_batch_metadata(
+    *,
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> None:
+    _fields, values = format_query_fields(MetadataTableRow)
+    sql_values = [format_row_metadata(vuln) for vuln in vulnerabilities]
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_state(
+    *,
+    vulnerability_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[VulnerabilityState, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(StateTableRow)
+    sql_values = [
+        format_row_state(vulnerability_id, state)
+        for vulnerability_id, historic_state in zip(
+            vulnerability_ids, historics
+        )
+        for state in historic_state
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=STATE_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
     )
