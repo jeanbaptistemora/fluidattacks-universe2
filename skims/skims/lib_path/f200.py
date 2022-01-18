@@ -4,7 +4,6 @@ from aioextensions import (
 from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
-    AWSElb,
     AWSElbV2,
 )
 from lib_path.common import (
@@ -29,7 +28,6 @@ from parse_cfn.structure import (
     iter_cloudfront_distributions,
     iter_cloudtrail_trail,
     iter_elb2_load_balancers,
-    iter_elb_load_balancers,
 )
 from parse_hcl2.common import (
     get_argument,
@@ -75,22 +73,6 @@ def _cfn_trails_not_multiregion_iterate_vulnerabilities(
             )
         elif multi_reg.raw in FALSE_OPTIONS:
             yield multi_reg
-
-
-def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
-    file_ext: str,
-    load_balancers_iterator: Iterator[Union[AWSElb, Node]],
-) -> Iterator[Union[AWSElb, Node]]:
-    for elb in load_balancers_iterator:
-        access_log = get_node_by_keys(elb, ["AccessLoggingPolicy", "Enabled"])
-        if not isinstance(access_log, Node):
-            yield AWSElb(
-                column=elb.start_column,
-                data=elb.data,
-                line=get_line_by_extension(elb.start_line, file_ext),
-            )
-        elif access_log.raw in FALSE_OPTIONS:
-            yield access_log
 
 
 def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
@@ -216,29 +198,6 @@ def _cfn_trails_not_multiregion(
     )
 
 
-def _cfn_elb_has_access_logging_disabled(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F200_CWE},
-        description_key="src.lib_path.f200.elb_has_access_logging_disabled",
-        finding=_FINDING_F200,
-        iterator=get_cloud_iterator(
-            _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
-                file_ext=file_ext,
-                load_balancers_iterator=iter_elb_load_balancers(
-                    template=template
-                ),
-            )
-        ),
-        path=path,
-    )
-
-
 def _cfn_elb2_has_access_logs_s3_disabled(
     content: str,
     file_ext: str,
@@ -317,24 +276,6 @@ async def cfn_trails_not_multiregion(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def cfn_elb_has_access_logging_disabled(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_elb_has_access_logging_disabled,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
 async def cfn_elb2_has_access_logs_s3_disabled(
     content: str,
     file_ext: str,
@@ -373,14 +314,6 @@ async def analyze(
             )
             coroutines.append(
                 cfn_trails_not_multiregion(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_elb_has_access_logging_disabled(
                     content=content,
                     file_ext=file_extension,
                     path=path,
