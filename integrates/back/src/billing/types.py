@@ -43,10 +43,3 @@ class Subscription(NamedTuple):
     organization: str
     type: str
     items: List[SubscriptionItem]
-
-
-class UpdateBillingSubscriptionPayload(NamedTuple):
-    amount_due: int
-    amount_paid: int
-    amount_remaining: int
-    success: bool

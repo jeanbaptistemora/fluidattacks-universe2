@@ -15,6 +15,7 @@ from billing.types import (
 from context import (
     BASE_URL,
     FI_STRIPE_API_KEY,
+    FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
     InvalidBillingCustomer,
@@ -28,6 +29,9 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
+)
+from starlette.requests import (
+    Request,
 )
 import stripe
 from typing import (
@@ -93,6 +97,17 @@ async def attach_payment_method(
         customer=org_billing_customer,
     )
     return isinstance(data.created, int)
+
+
+async def create_webhook_event(
+    *,
+    request: Request,
+) -> Any:
+    return stripe.Webhook.construct_event(
+        await request.body(),
+        request.headers.get("stripe-signature"),
+        FI_STRIPE_WEBHOOK_KEY,
+    )
 
 
 async def create_customer(

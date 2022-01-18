@@ -671,9 +671,7 @@ type Mutation {
     groupName: String!
     "Group subscription (Machine or Squad)"
     subscription: BillingSubscriptionType!
-    "Preview invoice information without updating the group subscription"
-    preview: Boolean!
-  ): UpdateBillingSubscriptionPayload!
+  ): SimplePayload!
 
   "Updates a Finding's description"
   updateDescription(

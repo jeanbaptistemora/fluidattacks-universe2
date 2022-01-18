@@ -4,8 +4,8 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from billing.types import (
-    UpdateBillingSubscriptionPayload,
+from custom_types import (
+    SimplePayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -29,14 +29,16 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> UpdateBillingSubscriptionPayload:
+) -> SimplePayload:
     group = await info.context.loaders.group.load(kwargs["group_name"])
     org = await info.context.loaders.organization.load(group["organization"])
 
     # Update subscription
-    return await billing_domain.update_subscription(
+    result: bool = await billing_domain.update_subscription(
         subscription=kwargs["subscription"],
         org_billing_customer=org["billing_customer"],
+        org_name=org["name"],
         group_name=group["name"],
-        preview=kwargs["preview"],
     )
+
+    return SimplePayload(success=result)

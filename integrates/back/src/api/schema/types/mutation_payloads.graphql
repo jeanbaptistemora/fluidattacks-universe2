@@ -17,18 +17,6 @@ type SimplePayloadMessage implements Payload {
   success: Boolean!
 }
 
-"Update billing subscription payload definition"
-type UpdateBillingSubscriptionPayload implements Payload {
-  "Amount due after updating subscription"
-  amountDue: Int!
-  "Amount paid after updating subscription"
-  amountPaid: Int!
-  "Amount remaining after updating subscription"
-  amountRemaining: Int!
-  "Did the query succeed?"
-  success: Boolean!
-}
-
 "Simple Payload type definition"
 type AddOrganizationPayload implements Payload {
   "Newly added Organization"

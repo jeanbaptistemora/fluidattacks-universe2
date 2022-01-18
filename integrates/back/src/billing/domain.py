@@ -8,10 +8,6 @@ from billing.types import (
     Price,
     Subscription,
     SubscriptionItem,
-    UpdateBillingSubscriptionPayload,
-)
-from context import (
-    FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
     BillingCustomerHasNoPaymentMethod,
@@ -237,9 +233,9 @@ async def update_subscription(
     *,
     subscription: str,
     org_billing_customer: str,
+    org_name: str,
     group_name: str,
-    preview: bool,
-) -> UpdateBillingSubscriptionPayload:
+) -> bool:
     """Preview a subscription update"""
     # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
@@ -260,37 +256,14 @@ async def update_subscription(
     if sub.type == subscription:
         raise BillingSubscriptionSameActive()
 
-    # Report latest usage if subscription is squad
-    if sub.type == "squad":
-        await dal.report_subscription_usage(
-            subscription=sub,
-        )
-
-    # Format subscription update data
-    data = await _format_update_subscription_data(
+    return await remove_subscription(
+        group_name=group_name,
         org_billing_customer=org_billing_customer,
-        subscription_id=sub.id,
+    ) and await create_subscription(
         subscription=subscription,
-        current_items=sub.items,
-    )
-
-    invoice = stripe.Invoice.upcoming(**data)
-
-    # Update subscription if not a preview
-    if not preview:
-        stripe.Subscription.modify(
-            sub.id,
-            cancel_at_period_end=False,
-            proration_behavior="create_prorations",
-            items=data["subscription_items"],
-            metadata={"subscription": subscription},
-        )
-
-    return UpdateBillingSubscriptionPayload(
-        amount_due=invoice.amount_due,
-        amount_paid=invoice.amount_paid,
-        amount_remaining=invoice.amount_remaining,
-        success=True,
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
+        group_name=group_name,
     )
 
 
@@ -335,17 +308,16 @@ async def remove_subscription(
 
 async def webhook(request: Request) -> JSONResponse:
     """Parse Stripe webhook request and execute event"""
-    body: Optional[bytes] = await request.body()
-    signature: Optional[str] = request.headers.get("stripe-signature")
     message: str = ""
     status: str = "success"
+
     try:
-        event = stripe.Webhook.construct_event(
-            body,
-            signature,
-            FI_STRIPE_WEBHOOK_KEY,
+        # Create stripe webhook event
+        event = await dal.create_webhook_event(
+            request=request,
         )
 
+        # Main logic
         if event.type in (
             "customer.subscription.created",
             "customer.subscription.updated",
