@@ -11141,16 +11141,16 @@
       anyone to send mails on behalf of the
       bank with arbitrary content.
     impact: >
-      Anonymous Internet attacker can send
-      mail using the sendEmail endpoint.
+      Use the sendEmail endpoint to send
+      emails from a business address,
+      which could impersonate users
+      and perform phishing attacks.
     recommendation: >
       Configure the sendEmail endpoint to
       disallow anonymous connection.
     threat: >
-      An attacker can use the sendEmail
-      endpoint to send emails from a business
-      address, which could impersonate users
-      and perform phishing attacks.
+      Anonymous Internet attacker can send
+      mail using the sendEmail endpoint.
   es:
     title: Email spoofing
     description: >
@@ -11159,16 +11159,16 @@
       a cualquiera enviar correos a nombre del
       banco con contenido arbitrario.
     impact: >
-      Atacante anónimo en internet puede enviar
-      correos utilizando el endpoint sendEmail.
+      Utilizar el endpoint sendEmail para
+      enviar correos electrónicos desde
+      una dirección comercial, lo que
+      podría suplantar a los usuarios
+      y realizar ataques de phishing.
     recommendation: >
       Configurar el endpoint sendEmail para
       que no permita una conexión anónima.
     threat: >
-      Un atacatante puede utilizar el endpoint
-      sendEmail para enviar correos electrónicos
-      desde una dirección empresarial, con lo cual
-      podría suplantar usuarios y realizar ataques de phishing.
+      Un atacante anónimo de Internet puede enviar correo utilizando el punto final sendEmail.
   category: Deceptive Interactions
   score:
     base:
@@ -11491,7 +11491,7 @@
       buffer overflows, integer overflows, array
       index errors, and memory corruption.
 
-      - An attacker could provide unexpected
+      - Provide unexpected
       values and cause a program crash.
     recommendation: >
       - Manipulate the DOM (i.e., add, modify, and
@@ -11517,8 +11517,8 @@
       desbordamientos de enteros, errores de índice
       de matriz y corrupción de memoria.
 
-      - Un atacante podría proporcionar valores
-      inesperados y causar una caída del programa
+      - Proporcionar valores inesperados y
+      causar una caída del programa.
     recommendation: >
       - Manipular el DOM (es decir, añadir, modificar
       y eliminar elementos) de forma eficiente y eficaz.
@@ -11925,8 +11925,8 @@
       server does not validate and process as
       valid requests.
     impact: >
-      It is possible to generate the history of
-      all movements associated with a product number.
+      Generate the history of all movements
+      associated with a product number.
     recommendation: >
       Validate on the server side the data that is
       entered before processing the received request.
@@ -11944,8 +11944,8 @@
       ignorarlas y enviar peticiones que el servidor no
       valida y procesa como peticiones válidas.
     impact: >
-      Es posible generar el histórico de todos los
-      movimientos asociados a un numero de producto.
+      Generar el histórico de todos los movimientos
+      asociados a un numero de producto.
     recommendation: >
       Validar en el lado del servidor los datos que se
       ingresan antes de procesar la petición recibida.
@@ -11981,7 +11981,7 @@
       break the current business logic and
       negatively impact the business.
     impact: >
-      Carrying out transactions with a lower
+      Carry out transactions with a lower
       value than it should be.
     recommendation: >
       Validate that the values of the transaction
