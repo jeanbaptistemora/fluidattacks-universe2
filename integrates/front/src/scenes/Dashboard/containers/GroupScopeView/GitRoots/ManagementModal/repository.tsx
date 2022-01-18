@@ -142,7 +142,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <br />
                   </React.Fragment>
                 ) : undefined}
-                {_.endsWith(user.userEmail, "@fluidattacks.com") ? (
+                {_.endsWith(user.userEmail, "@fluidattacks.com") &&
+                !isEditing ? (
                   <React.Fragment>
                     <div className={"flex"}>
                       <div className={"w-70 mr3"}>
