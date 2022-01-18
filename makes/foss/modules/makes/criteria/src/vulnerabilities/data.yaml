@@ -12454,10 +12454,10 @@
       protections, allowing tools such as Frida
       to work in its execution.
     impact: >
-      - Evading security controls
+      - Evade security controls
       such as SSL pinning.
 
-      - Intercepting function calls and
+      - Intercept function calls and
       messages to alter the behavior of
       the application.
     recommendation: >
@@ -12568,9 +12568,9 @@
       so that protection settings against
       various attacks are disabled.
     impact: >
-      - Disabling antivirus and DLP policies.
+      - Disable antivirus and DLP policies.
 
-      - Accessing and modifying system
+      - Access and modifying system
       information and configurations.
     recommendation: >
       Implement mechanisms to avoid modifying
@@ -12912,8 +12912,8 @@
       - Attempt to compromise the account that
       the credentials leaked from.
 
-      - Attackers can leverage credentials from one
-      application to compromise additional ones.
+      - Leverage credentials from one application
+      to compromise additional ones.
     recommendation: >
       - Enable multi-factor authentication on business
       accounts to add an extra layer of security.
@@ -12941,8 +12941,8 @@
       - Intentar comprometer la cuenta desde la
       que se filtraron las credenciales.
 
-      - Los atacantes pueden aprovechar las credenciales
-      de una aplicación para comprometer otras.
+      - Aprovechar las credenciales de una
+      aplicación para comprometer otras.
     recommendation: >
       - Habilite la autenticación de factor múltiple
       en las cuentas empresariales para añadir una
@@ -13039,7 +13039,7 @@
 
       - Customer information.
     impact: >
-      Obtaining business information to
+      Obtain business information to
       generate new attack vectors.
     recommendation: >
       According to the classification of the
@@ -13167,8 +13167,8 @@
       Different network units are used to identify
       the vulnerabilities present in the organization’s network.
     impact: >
-      - Breaches or security bottlenecks and there
-      is leakage of information.
+      - Leverage breaches or security bottlenecks
+      to cause a leakage of information.
 
       - Collect security event logs from the internal network.
     recommendation: >
@@ -13187,8 +13187,9 @@
       para identificar las vulnerabilidades presentes
       en la red de la organización.
     impact: >
-      - Brechas o cuellos de botella de seguridad
-      y hay fuga de información.
+      - Aprovechar las brechas o los cuellos
+      de botella de seguridad para provocar
+      una fuga de información.
 
       - Recoge los registros de eventos de seguridad
       de la red interna.
