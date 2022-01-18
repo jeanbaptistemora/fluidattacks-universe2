@@ -1,3 +1,10 @@
+from .initialize import (
+    METADATA_TABLE,
+    STATE_TABLE,
+    TREATMENT_TABLE,
+    VERIFICATION_TABLE,
+    ZERO_RISK_TABLE,
+)
 from .utils import (
     format_vulnerability_metadata,
 )
@@ -6,7 +13,6 @@ from aioextensions import (
 )
 from dataclasses import (
     dataclass,
-    fields,
 )
 from datetime import (
     datetime,
@@ -18,33 +24,18 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-import logging
-import logging.config
 from redshift.operations import (
     execute,
     execute_batch,
     execute_many,
-    initialize_schema,
-    SCHEMA_NAME,
 )
-from settings import (
-    LOGGING,
-    NOEXTRA,
+from redshift.utils import (
+    format_query_fields,
 )
 from typing import (
-    Any,
     Optional,
     Tuple,
 )
-
-logging.config.dictConfig(LOGGING)
-
-LOGGER = logging.getLogger(__name__)
-METADATA_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_metadata"
-STATE_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_state"
-TREATMENT_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_treatment"
-VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_verification"
-ZERO_RISK_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_zero_risk"
 
 
 @dataclass(frozen=True)
@@ -92,17 +83,11 @@ class ZeroRiskTableRow:
     status: str
 
 
-def _format_query_fields(table_row_class: Any) -> Tuple[str, str]:
-    _fields = ",".join(tuple(f.name for f in fields(table_row_class)))
-    values = ",".join(tuple(f"%({f.name})s" for f in fields(table_row_class)))
-    return _fields, values
-
-
 async def _insert_metadata(
     *,
     vulnerability: Vulnerability,
 ) -> None:
-    _fields, values = _format_query_fields(MetadataTableRow)
+    _fields, values = format_query_fields(MetadataTableRow)
     sql_values = format_vulnerability_metadata(vulnerability)
     await execute(  # nosec
         f"""
@@ -121,7 +106,7 @@ async def insert_batch_metadata(
     *,
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> None:
-    _fields, values = _format_query_fields(MetadataTableRow)
+    _fields, values = format_query_fields(MetadataTableRow)
     sql_values = [
         format_vulnerability_metadata(vuln) for vuln in vulnerabilities
     ]
@@ -143,7 +128,7 @@ async def _insert_historic_state(
     vulnerability_id: str,
     historic_state: Tuple[VulnerabilityState, ...],
 ) -> None:
-    _fields, values = _format_query_fields(StateTableRow)
+    _fields, values = format_query_fields(StateTableRow)
     sql_values = [
         dict(
             id=vulnerability_id,
@@ -171,7 +156,7 @@ async def _insert_historic_treatment(
     vulnerability_id: str,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
 ) -> None:
-    _fields, values = _format_query_fields(TreatmentTableRow)
+    _fields, values = format_query_fields(TreatmentTableRow)
     sql_values = [
         dict(
             id=vulnerability_id,
@@ -204,7 +189,7 @@ async def _insert_historic_verification(
     vulnerability_id: str,
     historic_verification: Tuple[VulnerabilityVerification, ...],
 ) -> None:
-    _fields, values = _format_query_fields(VerificationTableRow)
+    _fields, values = format_query_fields(VerificationTableRow)
     sql_values = [
         dict(
             id=vulnerability_id,
@@ -231,7 +216,7 @@ async def _insert_historic_zero_risk(
     vulnerability_id: str,
     historic_zero_risk: Tuple[VulnerabilityZeroRisk, ...],
 ) -> None:
-    _fields, values = _format_query_fields(ZeroRiskTableRow)
+    _fields, values = format_query_fields(ZeroRiskTableRow)
     sql_values = [
         dict(
             id=vulnerability_id,
@@ -280,123 +265,5 @@ async def insert_vulnerability(
                 vulnerability_id=vulnerability.id,
                 historic_zero_risk=historic_zero_risk,
             ),
-        )
-    )
-
-
-async def _initialize_metadata_table() -> None:
-    LOGGER.info(f"Ensuring {METADATA_TABLE} table exists...", **NOEXTRA)
-    await execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
-                id VARCHAR,
-                custom_severity INTEGER,
-                finding_id VARCHAR NOT NULL,
-                skims_method VARCHAR,
-                type VARCHAR NOT NULL,
-
-                UNIQUE (
-                    id
-                ),
-                PRIMARY KEY (
-                    id
-                )
-            )
-        """,
-    )
-
-
-async def _initialize_state_table() -> None:
-    LOGGER.info(f"Ensuring {STATE_TABLE} table exists...", **NOEXTRA)
-    await execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
-                id VARCHAR,
-                modified_date TIMESTAMPTZ NOT NULL,
-                source VARCHAR NOT NULL,
-                status VARCHAR NOT NULL,
-
-                PRIMARY KEY (
-                    id,
-                    modified_date
-                ),
-                FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
-            )
-        """,
-    )
-
-
-async def _initialize_treatment_table() -> None:
-    LOGGER.info(f"Ensuring {TREATMENT_TABLE} table exists...", **NOEXTRA)
-    await execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {TREATMENT_TABLE} (
-                id VARCHAR,
-                modified_date TIMESTAMPTZ NOT NULL,
-                accepted_until TIMESTAMPTZ,
-                acceptance_status VARCHAR,
-                status VARCHAR NOT NULL,
-
-                PRIMARY KEY (
-                    id,
-                    modified_date
-                ),
-                FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
-            )
-        """,
-    )
-
-
-async def _initialize_verification_table() -> None:
-    LOGGER.info(f"Ensuring {VERIFICATION_TABLE} table exists...", **NOEXTRA)
-    await execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {VERIFICATION_TABLE} (
-                id VARCHAR,
-                modified_date TIMESTAMPTZ NOT NULL,
-                status VARCHAR NOT NULL,
-
-                PRIMARY KEY (
-                    id,
-                    modified_date
-                ),
-                FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
-            )
-        """,
-    )
-
-
-async def _initialize_zero_risk_table() -> None:
-    LOGGER.info(f"Ensuring {ZERO_RISK_TABLE} table exists...", **NOEXTRA)
-    await execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {ZERO_RISK_TABLE} (
-                id VARCHAR,
-                modified_date TIMESTAMPTZ NOT NULL,
-                status VARCHAR NOT NULL,
-
-                PRIMARY KEY (
-                    id,
-                    modified_date
-                ),
-                FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
-            )
-        """,
-    )
-
-
-async def initialize_tables() -> None:
-    await initialize_schema()
-    await _initialize_metadata_table()
-    await collect(
-        (
-            _initialize_state_table(),
-            _initialize_treatment_table(),
-            _initialize_verification_table(),
-            _initialize_zero_risk_table(),
         )
     )
