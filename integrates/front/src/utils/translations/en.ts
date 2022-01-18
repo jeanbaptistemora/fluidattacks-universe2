@@ -2344,6 +2344,7 @@ export const enTranslations: ResourceKey = {
       verified: "Verified",
       vulnTable: {
         assigned: "Assigned",
+        closingDate: "Closing date",
         currentTreatment: "Current",
         cycles: "Cycles",
         dateTooltip: "Filter vulnerabilities based on the report date",

@@ -188,7 +188,13 @@ describe("Update access token modal", (): void => {
       wrapper.update();
     });
 
-    expect(revealButton.prop("disabled")).toBe(false);
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(revealButton.prop("disabled")).toBe(false);
+      });
+    });
 
     const copyButton: ReactWrapper = wrapper
       .find("button")
