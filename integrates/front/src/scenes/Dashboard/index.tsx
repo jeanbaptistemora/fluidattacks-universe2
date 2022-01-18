@@ -229,86 +229,90 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   return (
     <DashboardContainer>
+      <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
       {isLegalModalOpen ? undefined : (
         <React.Fragment>
-          <Sidebar />
-          <DashboardContent id={"dashboard"}>
-            <AssignedVulnerabilitiesContext.Provider value={value}>
-              <DashboardHeader>
-                <Navbar
-                  taskState={taskState}
-                  userData={userData}
-                  userRole={userRole}
-                />
-              </DashboardHeader>
-              <main>
-                <Switch>
-                  <Route exact={true} path={"/home"}>
-                    <HomeView />
-                  </Route>
-                  <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
-                    <authzGroupContext.Provider value={groupAttributes}>
-                      <authzPermissionsContext.Provider
-                        value={groupLevelPermissions}
-                      >
-                        <GroupRoute setUserRole={setUserRole} />
-                      </authzPermissionsContext.Provider>
-                    </authzGroupContext.Provider>
-                  </Route>
-                  <Route
-                    component={TagContent}
-                    path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
-                  />
-                  <Route path={`/orgs/${orgRegex}`}>
-                    <authzPermissionsContext.Provider
-                      value={organizationLevelPermissions}
-                    >
-                      <OrganizationContent setUserRole={setUserRole} />
-                    </authzPermissionsContext.Provider>
-                  </Route>
-                  <Route path={`/portfolios/${tagRegex}`}>
-                    <OrganizationRedirect type={"portfolios"} />
-                  </Route>
-                  <Route exact={true} path={"/todos"}>
-                    <authzPermissionsContext.Provider
-                      value={groupLevelPermissions}
-                    >
-                      <TasksContent
-                        setTaskState={setTaskState}
-                        setUserRole={setUserRole}
-                        taskState={taskState}
-                        userData={userData}
-                      />
-                    </authzPermissionsContext.Provider>
-                  </Route>
-                  {/* Necessary to support old group URLs */}
-                  <Route path={`/groups/${groupRegex}`}>
-                    <OrganizationRedirect type={"groups"} />
-                  </Route>
-                  <Redirect to={"/home"} />
-                </Switch>
-              </main>
-            </AssignedVulnerabilitiesContext.Provider>
-          </DashboardContent>
-          <ScrollUpButton visibleAt={400} />
           <ConcurrentSessionNotice
             onClick={handleConcurrent}
             open={isCtSessionModalOpen}
           />
-          <Modal
-            headerTitle={translate.t("validations.inactiveSessionModal")}
-            open={idleWarning}
-          >
-            <div>
-              <p>{translate.t("validations.inactiveSession")}</p>
-            </div>
-            <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
-              {translate.t("validations.inactiveSessionDismiss")}
-            </Button>
-          </Modal>
+          {isCtSessionModalOpen ? undefined : (
+            <React.Fragment>
+              <Sidebar />
+              <DashboardContent id={"dashboard"}>
+                <AssignedVulnerabilitiesContext.Provider value={value}>
+                  <DashboardHeader>
+                    <Navbar
+                      taskState={taskState}
+                      userData={userData}
+                      userRole={userRole}
+                    />
+                  </DashboardHeader>
+                  <main>
+                    <Switch>
+                      <Route exact={true} path={"/home"}>
+                        <HomeView />
+                      </Route>
+                      <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
+                        <authzGroupContext.Provider value={groupAttributes}>
+                          <authzPermissionsContext.Provider
+                            value={groupLevelPermissions}
+                          >
+                            <GroupRoute setUserRole={setUserRole} />
+                          </authzPermissionsContext.Provider>
+                        </authzGroupContext.Provider>
+                      </Route>
+                      <Route
+                        component={TagContent}
+                        path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
+                      />
+                      <Route path={`/orgs/${orgRegex}`}>
+                        <authzPermissionsContext.Provider
+                          value={organizationLevelPermissions}
+                        >
+                          <OrganizationContent setUserRole={setUserRole} />
+                        </authzPermissionsContext.Provider>
+                      </Route>
+                      <Route path={`/portfolios/${tagRegex}`}>
+                        <OrganizationRedirect type={"portfolios"} />
+                      </Route>
+                      <Route exact={true} path={"/todos"}>
+                        <authzPermissionsContext.Provider
+                          value={groupLevelPermissions}
+                        >
+                          <TasksContent
+                            setTaskState={setTaskState}
+                            setUserRole={setUserRole}
+                            taskState={taskState}
+                            userData={userData}
+                          />
+                        </authzPermissionsContext.Provider>
+                      </Route>
+                      {/* Necessary to support old group URLs */}
+                      <Route path={`/groups/${groupRegex}`}>
+                        <OrganizationRedirect type={"groups"} />
+                      </Route>
+                      <Redirect to={"/home"} />
+                    </Switch>
+                  </main>
+                </AssignedVulnerabilitiesContext.Provider>
+              </DashboardContent>
+              <ScrollUpButton visibleAt={400} />
+              <Modal
+                headerTitle={translate.t("validations.inactiveSessionModal")}
+                open={idleWarning}
+              >
+                <div>
+                  <p>{translate.t("validations.inactiveSession")}</p>
+                </div>
+                <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
+                  {translate.t("validations.inactiveSessionDismiss")}
+                </Button>
+              </Modal>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
-      <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
     </DashboardContainer>
   );
 };
