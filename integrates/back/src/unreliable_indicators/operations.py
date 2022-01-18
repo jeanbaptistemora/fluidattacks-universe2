@@ -81,20 +81,13 @@ def _format_unreliable_treatment_summary(
     return unreliable_treatment_summary
 
 
-@retry_on_exceptions(
-    exceptions=(IndicatorAlreadyUpdated,),
-    max_attempts=20,
-    sleep_seconds=0,
-)
 async def update_findings_unreliable_indicators(
     finding_ids: List[str],
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    loaders: Dataloaders = get_new_context()
     await collect(
         tuple(
             update_finding_unreliable_indicators(
-                loaders,
                 finding_id,
                 attrs_to_update,
             )
@@ -104,15 +97,18 @@ async def update_findings_unreliable_indicators(
 
 
 @retry_on_exceptions(
-    exceptions=(UnavailabilityError,),
+    exceptions=(
+        IndicatorAlreadyUpdated,
+        UnavailabilityError,
+    ),
     max_attempts=20,
     sleep_seconds=0,
 )
 async def update_finding_unreliable_indicators(  # noqa: C901
-    loaders: Dataloaders,
     finding_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     indicators = {}
 
@@ -210,6 +206,8 @@ async def update_vulnerabilities_unreliable_indicators(
     vulnerability_ids: List[str],
     attrs_to_update: Set[EntityAttr],
 ) -> None:
+    # Placed the loader here since the same finding_historic_verification is
+    # shared by many vulnerabilities
     loaders: Dataloaders = get_new_context()
     await collect(
         tuple(
@@ -292,7 +290,7 @@ async def update_vulnerability_unreliable_indicators(
 
 
 async def update_unreliable_indicators_by_deps(
-    dependency: EntityDependency, **args: str
+    dependency: EntityDependency, **args: List[str]
 ) -> None:
     entities_to_update = (
         unreliable_indicators_model.get_entities_to_update_by_dependency(

@@ -1,6 +1,7 @@
 from typing import (
     cast,
     Dict,
+    List,
 )
 from unreliable_indicators.enums import (
     Entity,
@@ -195,7 +196,7 @@ ENTITIES = {
 
 
 def get_entities_to_update_by_dependency(
-    dependency: EntityDependency, **args: str
+    dependency: EntityDependency, **args: List[str]
 ) -> Dict[Entity, EntityToUpdate]:
     entities_to_update = {}
     for name, value in ENTITIES.items():
