@@ -9,7 +9,10 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
+import { ClosingDateField } from "./components/ClosingDateField";
+import type { IClosingDateFieldProps } from "./components/ClosingDateField/types";
 import { Label } from "./styles";
+import { Value } from "./value";
 
 import type { IVulnRowAttr } from "../types";
 import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
@@ -20,8 +23,8 @@ describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
     assigned: "assigned-user-4",
-    currentState: "open",
-    currentStateCapitalized: "Open",
+    currentState: "closed",
+    currentStateCapitalized: "Closed",
     externalBugTrackingSystem: null,
     findingId: "438679960",
     groupName: "test",
@@ -84,6 +87,7 @@ describe("AdditionalInfo", (): void => {
           ],
           lastReattackRequester: "",
           lastRequestedReattackDate: null,
+          lastStateDate: "2020-09-05 03:23:23",
           reportDate: "",
           severity: "1",
           stream: null,
@@ -132,5 +136,15 @@ describe("AdditionalInfo", (): void => {
     expect(wrapper.find(Label).first().find("span").text()).toContain(
       t("searchFindings.tabVuln.vulnTable.vulnerabilityType.lines")
     );
+
+    const closingDateField: ReactWrapper<IClosingDateFieldProps> =
+      wrapper.find(ClosingDateField);
+    const closingDateFieldLabel = closingDateField.find(Label);
+    const closingDateFieldValue = closingDateField.find(Value);
+
+    expect(closingDateFieldLabel.text()).toStrictEqual(
+      t("searchFindings.tabVuln.vulnTable.closingDate")
+    );
+    expect(closingDateFieldValue.text()).toStrictEqual("2020-09-05");
   });
 });
