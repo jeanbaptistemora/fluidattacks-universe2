@@ -4,10 +4,15 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import type { IFilterProps } from "components/DataTableNext/types";
-import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import {
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/DataTableNext/utils";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
@@ -37,12 +42,14 @@ export const TasksContent: React.FC<ITasksContent> = ({
   setUserRole,
   taskState,
 }: ITasksContent): JSX.Element => {
+  const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveHacker: boolean = permissions.can(
     "api_resolvers_vulnerability_hacker_resolve"
   );
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [searchGroupName, setSearchGroupName] = useState("");
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("todosLocationsCustomFilters", false);
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
@@ -191,6 +198,13 @@ export const TasksContent: React.FC<ITasksContent> = ({
     );
   };
 
+  const onSearchGroupNameChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setSearchGroupName(event.target.value);
+  };
+
   const onTreatmentStatusChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
@@ -229,6 +243,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
     filterVulnerabilitiesTable.treatment
   );
 
+  const filterGroupNameVulnerabilities: IVulnRowAttr[] = filterSelect(
+    vulnerabilities,
+    searchGroupName,
+    "groupName"
+  );
+
   const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
     filterTreatmentCurrentStatus(
       vulnerabilities,
@@ -244,13 +264,25 @@ export const TasksContent: React.FC<ITasksContent> = ({
       })
     );
     setSearchTextFilter("");
+    setSearchGroupName("");
   }
 
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
     filterSearchTextVulnerabilities,
     filterTagVulnerabilities,
     filterTreatmentVulnerabilities,
-    filterTreatmentCurrentStatusVulnerabilities
+    filterTreatmentCurrentStatusVulnerabilities,
+    filterGroupNameVulnerabilities
+  );
+
+  const vulnerabilitiesGroupNameArray = vulnerabilities.map(
+    (vulnerability: IVulnRowAttr): string[] => [
+      vulnerability.groupName,
+      vulnerability.groupName,
+    ]
+  );
+  const groupNameOptions = Object.fromEntries(
+    _.sortBy(vulnerabilitiesGroupNameArray, (arr): string => arr[0])
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -290,6 +322,15 @@ export const TasksContent: React.FC<ITasksContent> = ({
       tooltipId: "searchFindings.tabVuln.tagTooltip.id",
       tooltipMessage: "searchFindings.tabVuln.tagTooltip",
       type: "text",
+    },
+    {
+      defaultValue: searchGroupName,
+      onChangeSelect: onSearchGroupNameChange,
+      placeholder: t("taskContainer.filters.groupName.placeholder"),
+      selectOptions: groupNameOptions,
+      tooltipId: "taskContainer.filters.groupName.tooltip.id",
+      tooltipMessage: "taskContainer.filters.groupName.tooltip",
+      type: "select",
     },
   ];
   const handleUpdateCustomFilter: () => void = useCallback((): void => {

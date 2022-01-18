@@ -2431,6 +2431,14 @@ export const enTranslations: ResourceKey = {
     vulnerabilitiesByType: "Vulnerabilities by source",
     vulnsGroups: "Vulnerabilities by group",
   },
+  taskContainer: {
+    filters: {
+      groupName: {
+        placeholder: "Group Name",
+        tooltip: "Filter vulnerabilities based on group name",
+      },
+    },
+  },
   updateAccessToken: {
     accessToken: "Personal Access Token",
     close: "Close",
