@@ -87,6 +87,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   } = tableProps;
   const {
     customFiltersProps,
+    hideResults,
     isCustomFilterEnabled,
     oneRowMessage = false,
     onUpdateEnableCustomFilter,
@@ -100,6 +101,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   } = customSearch ?? {};
   const searchPosition: ICustomSearchProps["position"] =
     position === undefined || position === "left" ? "left" : "right";
+  const shoulShowResults: boolean = hideResults === undefined || !hideResults;
   const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
@@ -530,7 +532,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
-      {resultSize && (
+      {resultSize && shoulShowResults && (
         <p>{`${t("dataTableNext.results", {
           matches: resultSize.current,
           total: resultSize.total,

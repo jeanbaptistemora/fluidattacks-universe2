@@ -45,6 +45,7 @@ interface ICustomSearchProps {
 
 interface ICustomFiltersProps {
   customFiltersProps: IFilterProps[];
+  hideResults?: boolean;
   isCustomFilterEnabled: boolean;
   onUpdateEnableCustomFilter: () => void;
   oneRowMessage?: boolean;
