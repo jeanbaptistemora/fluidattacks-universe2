@@ -12,6 +12,7 @@ from typing import (
     Callable,
     Generic,
     Literal,
+    NoReturn,
     overload,
     TypeVar,
     Union,
@@ -87,15 +88,25 @@ class Result(Generic[_S, _F]):
             return self._value.value
         return default
 
+    def or_else_call(self, function: Callable[[], _T]) -> Union[_S, _T]:
+        # lazy version of `value_or`
+        if isinstance(self._value, _Success):
+            return self._value.value
+        return function()
+
     @overload
-    def unwrap(self, r_type: Literal[RTypes.SUCCESS] = RTypes.SUCCESS) -> _S:
+    def unwrap(
+        self, r_type: Literal[RTypes.SUCCESS] = RTypes.SUCCESS
+    ) -> Union[_S, NoReturn]:
         pass
 
     @overload
-    def unwrap(self, r_type: Literal[RTypes.FAILURE]) -> _F:
+    def unwrap(self, r_type: Literal[RTypes.FAILURE]) -> Union[_F, NoReturn]:
         pass
 
-    def unwrap(self, r_type: RTypes = RTypes.SUCCESS) -> Union[_S, _F]:
+    def unwrap(
+        self, r_type: RTypes = RTypes.SUCCESS
+    ) -> Union[_S, _F, NoReturn]:
         if r_type == RTypes.SUCCESS and isinstance(self._value, _Success):
             return self._value.value
         elif isinstance(self._value, _Failure):
