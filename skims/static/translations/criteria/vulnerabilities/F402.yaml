@@ -4,3 +4,8 @@ lib_path.f402.tfm_azure_storage_logging_disabled:
   es: >
     Asegúrese de que el registro de almacenamiento para el servicio de cola
     tenga habilitadas las solicitudes de lectura, escritura y eliminación
+lib_path.f402.tfm_azure_failed_request_tracing_disabled:
+  en: >
+    Ensure app service enables failed request tracing
+  es: >
+    Asegúrese de que app service tenga habilitiado el seguimiento de solicitudes fallidas

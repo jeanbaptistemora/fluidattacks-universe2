@@ -149,7 +149,7 @@ async def tfm_azure_unrestricted_access_network_segments(
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
 async def tfm_azure_default_network_access(

@@ -19,6 +19,7 @@ from parse_hcl2.loader import (
     load as load_terraform,
 )
 from parse_hcl2.structure.azure import (
+    iter_azurerm_app_service,
     iter_azurerm_storage_account,
 )
 from state.cache import (
@@ -60,6 +61,23 @@ def tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
+def tfm_azure_failed_request_tracing_disabled_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if network_rules := get_argument(
+            key="logs",
+            body=resource.data,
+        ):
+            default_action = get_block_attribute(
+                block=network_rules, key="failed_request_tracing_enabled"
+            )
+            if not default_action or default_action.val is False:
+                yield network_rules
+        else:
+            yield resource
+
+
 def _tfm_azure_storage_logging_disabled(
     content: str,
     path: str,
@@ -73,6 +91,27 @@ def _tfm_azure_storage_logging_disabled(
         iterator=get_cloud_iterator(
             tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_storage_account(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_azure_failed_request_tracing_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F402_CWE},
+        description_key=(
+            "lib_path.f402.tfm_azure_failed_request_tracing_disabled"
+        ),
+        finding=_FINDING_F402,
+        iterator=get_cloud_iterator(
+            tfm_azure_failed_request_tracing_disabled_iterate_vulnerabilities(
+                resource_iterator=iter_azurerm_app_service(model=model)
             )
         ),
         path=path,
@@ -95,6 +134,22 @@ async def tfm_azure_storage_logging_disabled(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_failed_request_tracing_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_failed_request_tracing_disabled,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -108,6 +163,13 @@ async def analyze(
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             tfm_azure_storage_logging_disabled(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_azure_failed_request_tracing_disabled(
                 content=content,
                 path=path,
                 model=model,
