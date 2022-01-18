@@ -222,7 +222,7 @@ async def send_mail_assigned_vulnerability(
             f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
             "locations"
         ),
-        "where": where,
+        "where": where.splitlines(),
     }
     await send_mails_async(
         email_to=email_to,

@@ -603,6 +603,16 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Helper mutation to send a notification to the assigned hacker"
+  sendAssignedNotification(
+    "Email of the assigned hacker/analyst"
+    assigned: String!
+    "Identifier of the Finding where the vulnerabilities are"
+    findingId: String!
+    "Identifier of the assigned vulnerabilities"
+    vulnerabilities: [String]!
+  ): SimplePayload!
+
   "Signs an user in"
   signIn(
     "OAuth token"
