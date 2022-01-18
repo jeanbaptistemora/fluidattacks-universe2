@@ -2434,8 +2434,6 @@
     "SNYK-JS-LODASH-73639": "<4.17.11"
   },
   "lodash.merge": {
-    "CVE-2018-16487": "<4.17.11",
-    "CVE-2018-3721": "<4.17.5",
     "SNYK-JS-LODASHMERGE-173732": "<4.6.2",
     "SNYK-JS-LODASHMERGE-173733": "<4.6.2"
   },
