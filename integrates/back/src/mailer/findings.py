@@ -210,7 +210,7 @@ async def send_mail_assigned_vulnerability(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
-    where: List[str],
+    where: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
 

@@ -24,6 +24,7 @@ from newutils import (
 from typing import (
     Any,
     Dict,
+    List,
     Set,
     Tuple,
 )
@@ -132,3 +133,10 @@ async def get_root_nicknames_for_skims(
         )
 
     return root_nicknames
+
+
+def format_vulnerability_locations(where: List[str]) -> str:
+    location_str: str = ""
+    for location in where:
+        location_str += f"- {location}\n"
+    return location_str

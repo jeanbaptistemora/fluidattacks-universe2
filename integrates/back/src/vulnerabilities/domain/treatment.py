@@ -3,6 +3,7 @@ from .core import (
 )
 from .utils import (
     compare_historic_treatments,
+    format_vulnerability_locations,
     get_valid_assigned,
     validate_acceptance,
 )
@@ -48,10 +49,6 @@ from newutils import (
     findings as finding_utils,
     validations,
     vulnerabilities as vulns_utils,
-)
-from newutils.datetime import (
-    convert_to_iso_str,
-    get_date_from_iso_str,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -199,7 +196,9 @@ async def add_vulnerability_treatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         else None,
-        accepted_until=convert_to_iso_str(updated_values["acceptance_date"])
+        accepted_until=datetime_utils.convert_to_iso_str(
+            updated_values["acceptance_date"]
+        )
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED
         else None,
         justification=updated_values.get("justification"),
@@ -508,18 +507,21 @@ async def validate_and_send_notification_request(
     for vuln in assigned_vulns:
         if not (
             timedelta(minutes=5)
-            > datetime.utcnow()
-            - get_date_from_iso_str(vuln.treatment.modified_date)
+            > datetime_utils.get_now()
+            - datetime.fromisoformat(vuln.treatment.modified_date)
             and vuln.treatment.assigned == assigned
         ):
             raise InvalidNotificationRequest()
+    where_str = format_vulnerability_locations(
+        list(vuln.where for vuln in assigned_vulns)
+    )
     await findings.send_mail_assigned_vulnerability(
         loaders=loaders,
         email_to=[assigned],
         is_finding_released=bool(finding.approval),
         group_name=finding.group_name,
         finding_id=finding.id,
-        finding_title=finding["title"],
-        where=list(vuln.where for vuln in assigned_vulns),
+        finding_title=finding.title,
+        where=where_str,
     )
     return True
