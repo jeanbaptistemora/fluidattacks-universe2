@@ -2,11 +2,15 @@ from aioextensions import (
     in_process,
 )
 from aws.model import (
+    AWSCloudfrontDistribution,
+    AWSCTrail,
     AWSElb,
+    AWSElbV2,
     AWSS3Bucket,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
@@ -23,8 +27,21 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_cloudfront_distributions,
+    iter_cloudtrail_trail,
+    iter_elb2_load_balancers,
     iter_elb_load_balancers,
     iter_s3_buckets,
+)
+from parse_hcl2.common import (
+    get_argument,
+    iterate_block_attributes,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure.aws import (
+    iter_aws_elb,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -76,6 +93,82 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
             yield access_log
 
 
+def _cfn_trails_not_multiregion_iterate_vulnerabilities(
+    file_ext: str,
+    trails_iterator: Iterator[Union[AWSCTrail, Node]],
+) -> Iterator[Union[AWSCTrail, Node]]:
+    for trail in trails_iterator:
+        multi_reg = trail.inner.get("IsMultiRegionTrail")
+        if not isinstance(multi_reg, Node):
+            yield AWSCTrail(
+                column=trail.start_column,
+                data=trail.data,
+                line=get_line_by_extension(trail.start_line, file_ext),
+            )
+        elif multi_reg.raw in FALSE_OPTIONS:
+            yield multi_reg
+
+
+def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    load_balancers_iterator: Iterator[Union[AWSElbV2, Node]],
+) -> Iterator[Union[AWSElbV2, Node]]:
+    for elb in load_balancers_iterator:
+        attrs = elb.inner.get("LoadBalancerAttributes")
+        if not isinstance(attrs, Node):
+            yield AWSElbV2(
+                column=elb.start_column,
+                data=elb.data,
+                line=get_line_by_extension(elb.start_line, file_ext),
+            )
+        else:
+            key_vals = [
+                attr
+                for attr in attrs.data
+                if attr.raw["Key"] == "access_logs.s3.enabled"
+            ]
+            if key_vals:
+                key = key_vals[0]
+                if key.raw["Value"] in FALSE_OPTIONS:
+                    yield key.inner["Value"]
+            else:
+                yield AWSElbV2(
+                    column=attrs.start_column,
+                    data=attrs.data,
+                    line=get_line_by_extension(attrs.start_line, file_ext),
+                )
+
+
+def _cf_distribution_has_logging_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    distributions_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]],
+) -> Iterator[Union[AWSCloudfrontDistribution, Node]]:
+    for dist in distributions_iterator:
+        dist_config = dist.inner["DistributionConfig"]
+        if isinstance(dist_config, Node):
+            logging = dist_config.inner.get("Logging")
+            if not isinstance(logging, Node):
+                yield AWSCloudfrontDistribution(
+                    column=dist_config.start_column,
+                    data=dist_config.data,
+                    line=get_line_by_extension(
+                        dist_config.start_line, file_ext
+                    ),
+                )
+
+
+def tfm_elb_logging_disabled_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for resource in resource_iterator:
+        if access_logs := get_argument(body=resource.data, key="access_logs"):
+            for elem in iterate_block_attributes(access_logs):
+                if elem.key == "enabled" and elem.val is False:
+                    yield elem
+        else:
+            yield resource
+
+
 def _cfn_bucket_has_logging_conf_disabled(
     content: str,
     file_ext: str,
@@ -120,6 +213,92 @@ def _cfn_elb_has_access_logging_disabled(
     )
 
 
+def _tfm_elb_logging_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F400_CWE},
+        description_key="src.lib_path.f400.has_logging_disabled",
+        finding=_FINDING_F400,
+        iterator=get_cloud_iterator(
+            tfm_elb_logging_disabled_iterate_vulnerabilities(
+                resource_iterator=iter_aws_elb(model=model)
+            )
+        ),
+        path=path,
+    )
+
+
+def _cfn_cf_distribution_has_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F400_CWE},
+        description_key="src.lib_path.f400.has_logging_disabled",
+        finding=_FINDING_F400,
+        iterator=get_cloud_iterator(
+            _cf_distribution_has_logging_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                distributions_iterator=iter_cloudfront_distributions(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
+def _cfn_trails_not_multiregion(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F400_CWE},
+        description_key="src.lib_path.f400.trails_not_multiregion",
+        finding=_FINDING_F400,
+        iterator=get_cloud_iterator(
+            _cfn_trails_not_multiregion_iterate_vulnerabilities(
+                file_ext=file_ext,
+                trails_iterator=iter_cloudtrail_trail(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
+def _cfn_elb2_has_access_logs_s3_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F400_CWE},
+        description_key="src.lib_path.f400.elb2_has_access_logs_s3_disabled",
+        finding=_FINDING_F400,
+        iterator=get_cloud_iterator(
+            _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                load_balancers_iterator=iter_elb2_load_balancers(
+                    template=template
+                ),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -156,6 +335,76 @@ async def cfn_elb_has_access_logging_disabled(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_elb_logging_disabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_elb_logging_disabled,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_cf_distribution_has_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_cf_distribution_has_logging_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_trails_not_multiregion(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_trails_not_multiregion,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_elb2_has_access_logs_s3_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_elb2_has_access_logs_s3_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -185,5 +434,39 @@ async def analyze(
                     template=template,
                 )
             )
+            coroutines.append(
+                cfn_cf_distribution_has_logging_disabled(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_trails_not_multiregion(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_elb2_has_access_logs_s3_disabled(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+    if file_extension in EXTENSIONS_TERRAFORM:
+        content = content_generator()
+        model = await load_terraform(stream=content, default=[])
+        coroutines.append(
+            tfm_elb_logging_disabled(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
 
     return coroutines

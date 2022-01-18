@@ -1,0 +1,25 @@
+Resources:
+  distribution1:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          TargetOriginId: def1
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: all
+        Logging:
+          Bucket: bucket1
+  distribution2:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          TargetOriginId: def2
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: all
