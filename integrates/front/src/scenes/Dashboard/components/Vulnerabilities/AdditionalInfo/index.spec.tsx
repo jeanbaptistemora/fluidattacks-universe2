@@ -9,11 +9,10 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
+import { Label } from "./styles";
+
 import type { IVulnRowAttr } from "../types";
-import {
-  AdditionalInfo,
-  Label,
-} from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
+import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
 
