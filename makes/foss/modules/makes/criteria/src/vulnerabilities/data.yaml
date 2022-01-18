@@ -12033,7 +12033,7 @@
       restrictions by using absolute paths to
       these functionalities.
     impact: >
-      Accessing the employee management panel
+      Access the employee management panel
       from an unauthorized domain.
     recommendation: >
       Verify that domains that have restricted
@@ -12196,7 +12196,7 @@
     impact: >
       - Access the Sharepoint administrative center.
 
-      - Accessing files without authorization.
+      - Access files without authorization.
     recommendation: >
       Validate on the server side the types of data
       that are entered into different types of fields
@@ -12252,7 +12252,7 @@
       The debug APK is available to anyone
       on the Internet.
     impact: >
-      APK hosted in AWS.
+      Host an APK in AWS.
     recommendation: >
       Protect the APK behind some kind of authentication.
     threat: >
@@ -12265,7 +12265,7 @@
       La APK de depuración está disponible
       para cualquiera en internet.
     impact: >
-      APK hosteada en AWS.
+      Hostear una APK en AWS.
     recommendation: >
       Proteger la apk detrás de algún
       tipo de autenticación.
