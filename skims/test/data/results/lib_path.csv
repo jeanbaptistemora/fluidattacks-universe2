@@ -20883,88 +20883,6 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.
   21 |   }
      ^ Col 0
 ",f080._terraform_unencrypted_buckets
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,9,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,"
-   1 | Resources:
-   2 |   S3Bucket1:
-   3 |     Type: AWS::S3::Bucket
-   4 |     Properties:
-   5 |       AccessControl: bucket1
-   6 |       BucketName: bk1
-   7 |   S3Bucket2:
-   8 |     Type: AWS::S3::Bucket
->  9 |     Properties:
-  10 |       AccessControl: PublicReadWrite
-  11 |       BucketName: bucket2
-  12 |       LoggingConfiguration:
-  13 |         DestinationBucketName: bucket_destination
-  14 |         LogFilePrefix: log_prefix
-     ^ Col 0
-",f080._cfn_unencrypted_buckets
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,4,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,"
-   1 | Resources:
-   2 |   S3Bucket1:
-   3 |     Type: AWS::S3::Bucket
->  4 |     Properties:
-   5 |       AccessControl: bucket1
-   6 |       BucketName: bk1
-   7 |   S3Bucket2:
-   8 |     Type: AWS::S3::Bucket
-   9 |     Properties:
-  10 |       AccessControl: PublicReadWrite
-  11 |       BucketName: bucket2
-  12 |       LoggingConfiguration:
-  13 |         DestinationBucketName: bucket_destination
-  14 |         LogFilePrefix: log_prefix
-     ^ Col 0
-",f080._cfn_unencrypted_buckets
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,5,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""S3Bucket1"": {
-   4 |       ""Type"": ""AWS::S3::Bucket"",
->  5 |       ""Properties"": {
-   6 |         ""AccessControl"": ""bucket1"",
-   7 |         ""BucketName"": ""bk1""
-   8 |       }
-   9 |     },
-  10 |     ""S3Bucket2"": {
-  11 |       ""Type"": ""AWS::S3::Bucket"",
-  12 |       ""Properties"": {
-  13 |         ""AccessControl"": ""PublicReadWrite"",
-  14 |         ""BucketName"": ""bucket2"",
-  15 |         ""LoggingConfiguration"": {
-  16 |           ""DestinationBucketName"": ""bucket_destination"",
-  17 |           ""LogFilePrefix"": ""log_prefix""
-  18 |         }
-  19 |       }
-  20 |     }
-  21 |   }
-     ^ Col 0
-",f080._cfn_unencrypted_buckets
-F080,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,12,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,"
-   2 |   ""Resources"": {
-   3 |     ""S3Bucket1"": {
-   4 |       ""Type"": ""AWS::S3::Bucket"",
-   5 |       ""Properties"": {
-   6 |         ""AccessControl"": ""bucket1"",
-   7 |         ""BucketName"": ""bk1""
-   8 |       }
-   9 |     },
-  10 |     ""S3Bucket2"": {
-  11 |       ""Type"": ""AWS::S3::Bucket"",
-> 12 |       ""Properties"": {
-  13 |         ""AccessControl"": ""PublicReadWrite"",
-  14 |         ""BucketName"": ""bucket2"",
-  15 |         ""LoggingConfiguration"": {
-  16 |           ""DestinationBucketName"": ""bucket_destination"",
-  17 |           ""LogFilePrefix"": ""log_prefix""
-  18 |         }
-  19 |       }
-  20 |     }
-  21 |   }
-  22 | }
-     ^ Col 0
-",f080._cfn_unencrypted_buckets
 F080,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,14,311,skims,080. Business information leak - Customers or providers,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read""
@@ -29081,47 +28999,6 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,
   21 |
      ^ Col 0
 ",f335._tfm_s3_not_private_access
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,10,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml,"
-   1 | Resources:
-   2 |   S3Bucket1:
-   3 |     Type: AWS::S3::Bucket
-   4 |     Properties:
-   5 |       AccessControl: bucket1
-   6 |       BucketName: bk1
-   7 |   S3Bucket2:
-   8 |     Type: AWS::S3::Bucket
-   9 |     Properties:
-> 10 |       AccessControl: PublicReadWrite
-  11 |       BucketName: bucket2
-  12 |       LoggingConfiguration:
-  13 |         DestinationBucketName: bucket_destination
-  14 |         LogFilePrefix: log_prefix
-     ^ Col 0
-",f335._cfn_public_buckets
-F335,lines,namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,13,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f200/cfn_bucket_has_logging_disabled.yaml.json,"
-   2 |   ""Resources"": {
-   3 |     ""S3Bucket1"": {
-   4 |       ""Type"": ""AWS::S3::Bucket"",
-   5 |       ""Properties"": {
-   6 |         ""AccessControl"": ""bucket1"",
-   7 |         ""BucketName"": ""bk1""
-   8 |       }
-   9 |     },
-  10 |     ""S3Bucket2"": {
-  11 |       ""Type"": ""AWS::S3::Bucket"",
-  12 |       ""Properties"": {
-> 13 |         ""AccessControl"": ""PublicReadWrite"",
-  14 |         ""BucketName"": ""bucket2"",
-  15 |         ""LoggingConfiguration"": {
-  16 |           ""DestinationBucketName"": ""bucket_destination"",
-  17 |           ""LogFilePrefix"": ""log_prefix""
-  18 |         }
-  19 |       }
-  20 |     }
-  21 |   }
-  22 | }
-     ^ Col 0
-",f335._cfn_public_buckets
 F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
    1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
