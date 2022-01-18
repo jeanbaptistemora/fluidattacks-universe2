@@ -21,8 +21,29 @@ Terms.
 ### Intellectual Property Rights
 
 `Fluid Attacks` and/or its licensors own all rights to the intellectual
-property and material contained in this Website, and all such rights are
+property and material contained on this Website, and all such rights are
 reserved.
+The client is only allowed to use the information on this Website
+for documentation purposes
+and without disclosing its content to third parties
+because it may contain ideas,
+concepts,
+prices and/or structures
+that are property of `Fluid Attacks`.
+Its 'proprietary' classification means
+that information on this Website is only to be used
+by those for whom it is meant.
+In case of requiring its total or partial reproduction,
+this must be done with express and written authorization from `Fluid Attacks`.
+The regulations
+that limit the use and disclosure of information on this Website
+are article 72
+and subsequent articles of Chapter IV of Decision 344
+of the Cartagena Agreement of 1993,
+article 270
+and subsequent articles of Title VIII
+of the Colombian Penal Code,
+and article 16 and subsequent articles of Law 256 of 1996.
 
 Any opinions contained in this Website are exclusive of its author and
 not necessarily represent the official position of `Fluid Attacks` or of
@@ -56,6 +77,11 @@ Certain areas of this Website are restricted from access by you and
 Website, at any time, in its sole and absolute discretion. Any user ID
 and password you may have for this Website are confidential and you must
 maintain confidentiality of such information.
+
+### Acceptance of our Privacy Policy
+
+By using the Website or its Services,
+you agree to our [Privacy Policy](../privacy/).
 
 ### Your Content
 

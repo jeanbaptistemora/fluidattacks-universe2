@@ -9,7 +9,7 @@ description: This Privacy Policy describes the manner in which Fluid Attacks
 keywords: Fluid Attacks, Privacy, Policy, Information, Website, Right.
 ---
 
-#### *This document was last updated on June 18, 2020*
+#### *This document was last updated on January 18, 2022*
 
 This privacy policy ("Policy") describes how `Fluid Attacks` ("Fluid
 Attacks", "we", "us" or "our") collects, protects and uses the
@@ -27,7 +27,7 @@ own or control, or to individuals that we do not employ or manage.
 
 When you visit the Website our servers automatically record information
 that your browser sends. This data may include information such as your
-device’s `IP` address, browser type and version, operating system type
+device's IP address, browser type and version, operating system type
 and version, language preferences or the webpage you were visiting
 before you came to our Website, pages of our Website that you visit, the
 time spent on those pages, information you search for on our Website,
@@ -43,8 +43,8 @@ a way that would identify any particular user of the system.
 You can visit the Website without telling us who you are or revealing
 any information by which someone could identify you as a specific,
 identifiable individual. If, however, you wish to use some of the
-Website’s features, you may be asked to provide certain Personal
-Information (for example, your name and e-mail address). We receive and
+Website's features, you may be asked to provide certain Personal
+Information (for example, your name and email address). We receive and
 store any information you knowingly provide to us when you create an
 account, publish content, make a purchase, or fill any online forms on
 the Website. When required, this information may include the following:
@@ -53,15 +53,15 @@ the Website. When required, this information may include the following:
 
 - Contact information such as email address, address, etc.
 
-- Account details such as user name, unique user `ID`, password, etc.
+- Account details such as user name, unique user ID, password, etc.
 
 - Any other materials you willingly submit to us such as articles,
   images, feedback, etc.
 
 You can choose not to provide us with your Personal Information, but
-then you may not be able to take advantage of some of the Website’s
+then you may not be able to take advantage of some of the Website's
 features. Users who are uncertain about what information is mandatory
-are welcome to contact us.
+are welcome to contact us at help@fluidattacks.com.
 
 ### Use and processing of collected information
 
@@ -146,7 +146,7 @@ maintain a copy of the unrevised Personal Information in our records for
 the duration necessary to comply with our obligations to our affiliates
 and partners, and for the purposes described below. If you would like to
 delete your Personal Information or permanently delete your account, you
-can do so by contacting us.
+can do so by contacting us at help@fluidattacks.com.
 
 ### Disclosure of information
 
@@ -197,7 +197,7 @@ storing your information in a country other than your own. You are
 entitled to learn about the legal basis of information transfers to a
 country outside the European Union or to any international organization
 governed by public international law or set up by two or more countries,
-such as the `UN`, and about the security measures taken by us to
+such as the UN, and about the security measures taken by us to
 safeguard your information. If any such transfer takes place, you can
 find out more by checking the relevant sections of this Privacy Policy
 or inquire with us using the information provided in the contact
@@ -242,12 +242,13 @@ document.
 
 ### Data protection rights under GDPR
 
-If you are a resident of the European Economic Area (`EEA`), you have
+If you are a resident of the European Economic Area (EEA), you have
 certain data protection rights. `Fluid Attacks` aims to take reasonable
 steps to allow you to correct, amend, delete, or limit the use of your
 Personal Information. If you wish to be informed what Personal
 Information we hold about you and if you want it to be removed from our
-systems, please contact us. In certain circumstances, you have the
+systems, please contact us at help@fluidattacks.com.
+In certain circumstances, you have the
 following data protection rights:
 
 - You have the right to request access to your Personal Information
@@ -281,7 +282,7 @@ following data protection rights:
 You have the right to complain to a Data Protection Authority about our
 collection and use of your Personal Information. For more information,
 please contact your local data protection authority in the European
-Economic Area (`EEA`).
+Economic Area (EEA).
 
 ### California privacy rights
 
@@ -295,7 +296,8 @@ information would include the categories of Personal Information and the
 names and addresses of those businesses with which we shared such
 personal information for the immediately prior calendar year (e.g.,
 requests made in the current year will receive information about the
-prior year). To obtain this information please contact us.
+prior year).
+To obtain this information please contact us at help@fluidattacks.com.
 
 ### How to exercise these rights
 
@@ -316,12 +318,13 @@ to you.
 We do not knowingly collect any Personal Information from children under
 the age of 18. If you are under the age of 18, please do not submit any
 Personal Information through our Website or Service. We encourage
-parents and legal guardians to monitor their children’s Internet usage
+parents and legal guardians to monitor their children's Internet usage
 and to help enforce this Policy by instructing their children never to
 provide Personal Information through our Website or Service without
 their permission. If you have reason to believe that a child under the
 age of 18 has provided Personal Information to us through our Website or
-Service, please contact us. You must also be at least 16 years of age to
+Service, please contact us at help@fluidattacks.com.
+You must also be at least 16 years of age to
 consent to the processing of your Personal Information in your country
 (in some countries we may allow your parent or guardian to do so on your
 behalf).
@@ -365,19 +368,20 @@ deliver ads that might place cookies and otherwise track user behavior.
 ### Email marketing
 
 We offer electronic newsletters to which you may voluntarily subscribe
-at any time. We are committed to keeping your e-mail address
+at any time. We are committed to keeping your email address
 confidential and will not disclose your email address to any third
 parties except as allowed in the information use and processing section
 or for the purposes of utilizing a third party provider to send such
-emails. We will maintain the information sent via e-mail in accordance
+emails. We will maintain the information sent via email in accordance
 with applicable laws and regulations.
 
-In compliance with the `CAN-SPAM Act`, all e-mails sent from us will
-clearly state who the e-mail is from and provide clear information on
+In compliance with the CAN-SPAM Act, all emails sent from us will
+clearly state who the email is from and provide clear information on
 how to contact the sender. You may choose to stop receiving our
 newsletter or marketing emails by following the unsubscribe instructions
-included in these emails or by contacting us. However, you will continue
-to receive essential transactional emails.
+included in these emails or by contacting us at help@fluidattacks.com.
+However,
+you will continue to receive essential transactional emails.
 
 ### Links to other websites
 
@@ -434,22 +438,22 @@ changes. However, we will not, without your consent, use your Personal
 Information in a manner materially different than what was stated at the
 time your Personal Information was collected.
 
-### Acceptance of this policy
+### Acceptance of this Policy
 
-You acknowledge that you have read this Policy and agree to all its
-terms and conditions. By using the Website or its Services you agree to
-be bound by this Policy. If you do not agree to abide by the terms of
-this Policy, you are not authorized to use or access the Website and its
-Services.
+By using the Website or its Services,
+you acknowledge that you have read this Policy
+and agree to all its terms and conditions.
+If you do not agree to abide by the terms of this Policy,
+you are not authorized to use or access the Website and its Services.
+
+### Acceptance of the Website's Terms of Use
+
+By using the Website or its Services,
+you accept the Website's [Terms of Use](../terms-use/).
 
 ### Contacting us
 
 If you would like to contact us to understand more about this Policy or
 wish to contact us concerning any matter relating to individual rights
-and your Personal Information, you may send an email to
-
-<div class="imgblock">
-
-![Help](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp)
-
-</div>
+and your Personal Information,
+you may send an email to help@fluidattacks.com.
