@@ -43,6 +43,7 @@ from parse_hcl2.structure.aws import (
 from parse_hcl2.structure.azure import (
     iter_azurerm_app_service,
     iter_azurerm_function_app,
+    iter_azurerm_storage_account,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -147,7 +148,7 @@ def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
                 )
 
 
-def tfm_azure_kv_only_accessible_over_httpsp_iterate_vulnerabilities(
+def tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
@@ -156,6 +157,17 @@ def tfm_azure_kv_only_accessible_over_httpsp_iterate_vulnerabilities(
                 yield https
         else:
             yield resource
+
+
+def tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for resource in resource_iterator:
+        if https := get_attribute(
+            body=resource.data, key="enable_https_traffic_only"
+        ):
+            if https.val is False:
+                yield https
 
 
 def _cfn_serves_content_over_http(
@@ -232,11 +244,32 @@ def _tfm_azure_kv_only_accessible_over_https(
         description_key="lib_path.f372.azure_only_accessible_over_http",
         finding=_FINDING_F372,
         iterator=get_cloud_iterator(
-            tfm_azure_kv_only_accessible_over_httpsp_iterate_vulnerabilities(
+            tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
                 resource_iterator=chain(
                     iter_azurerm_app_service(model=model),
                     iter_azurerm_function_app(model=model),
                 )
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_azure_sa_insecure_transfer(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F372_CWE},
+        description_key=(
+            "lib_path.f372.tfm_azure_storage_account_insecure_transfer"
+        ),
+        finding=_FINDING_F372,
+        iterator=get_cloud_iterator(
+            tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
+                resource_iterator=iter_azurerm_storage_account(model=model),
             )
         ),
         path=path,
@@ -309,6 +342,22 @@ async def cfn_elb2_uses_insecure_protocol(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_sa_insecure_transfer(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_sa_insecure_transfer,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], str],
@@ -349,6 +398,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_azure_kv_only_accessible_over_https(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_azure_sa_insecure_transfer(
                 content=content,
                 path=path,
                 model=model,

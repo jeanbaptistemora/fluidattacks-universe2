@@ -24990,6 +24990,30 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",f372._tfm_azure_kv_only_accessible_over_https
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,30,650,skims,372. Use of an insecure channel - HTTP,Ensure secure transfer required is enabled in namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,"
+  20 | }
+  21 |
+  22 |
+  23 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  24 |   name                      = ""storageaccountname""
+  25 |   resource_group_name       = azurerm_resource_group.example.name
+  26 |   location                  = azurerm_resource_group.example.location
+  27 |   account_tier              = ""Standard""
+  28 |   account_replication_type  = ""GRS""
+  29 |   min_tls_version           = ""TLS1_2""
+> 30 |   enable_https_traffic_only = false
+  31 |   queue_properties {
+  32 |     logging {
+  33 |       delete                = true
+  34 |       read                  = true
+  35 |       write                 = true
+  36 |       version               = ""1.0""
+  37 |       retention_policy_days = 10
+  38 |     }
+  39 |   }
+  40 |   network_rules {
+     ^ Col 0
+",f372._tfm_azure_sa_insecure_transfer
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,4,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    1 | Resources:
    2 |   ELBv2targetGroup1:

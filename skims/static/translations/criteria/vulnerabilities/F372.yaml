@@ -7,3 +7,6 @@ src.lib_path.f372.elb2_uses_insecure_protocol:
 src.lib_path.f372.serves_content_over_http:
   en: The application is serving content over HTTP
   es: La aplicación ofrece contenido a través de HTTP
+lib_path.f372.tfm_azure_storage_account_insecure_transfer:
+  en: Ensure secure transfer required is enabled
+  es: Asegúrese de que la transferencia segura requerida esté habilitada
