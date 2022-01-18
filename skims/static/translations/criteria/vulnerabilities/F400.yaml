@@ -1,0 +1,3 @@
+src.lib_path.f400.bucket_has_logging_conf_disabled:
+  en: Missing LoggingConfiguration property to make traceability
+  es: Falta la propiedad LoggingConfiguration para hacer trazabilidad
