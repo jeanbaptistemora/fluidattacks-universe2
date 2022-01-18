@@ -440,7 +440,7 @@ def _webview_caches_javascript(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F103,
+        finding=core_model.FindingEnum.F268,
         locations=locations,
     )
 
@@ -568,5 +568,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F103: _apk_unsigned,
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
+    core_model.FindingEnum.F268: _webview_caches_javascript,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }
