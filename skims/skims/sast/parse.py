@@ -1,3 +1,7 @@
+from concurrent.futures import (
+    ProcessPoolExecutor,
+    ThreadPoolExecutor,
+)
 from functools import (
     partial,
 )
@@ -272,12 +276,17 @@ def _parse_one_cached(
     language: GraphShardMetadataLanguage,
     _: int,
     syntax_graph_enabled: bool = False,
-) -> GraphShardCacheable:
+) -> Optional[GraphShardCacheable]:
     raw_tree: Tree = parse_content(content, language)
     node: Node = raw_tree.root_node
 
     counter = map(str, count(1))
-    graph: Graph = _build_ast_graph(content, language, node, counter, Graph())
+    try:
+        graph: Graph = _build_ast_graph(
+            content, language, node, counter, Graph()
+        )
+    except ParsingError:
+        return None
 
     if syntax_graph_enabled:
         if syntax_graph := build_syntax_graph(language, graph):
@@ -340,26 +349,21 @@ def _label_calls_to_declaration(graph: Graph) -> None:
 
 
 def parse_one(
-    *,
-    language: GraphShardMetadataLanguage,
     path: str,
+    language: GraphShardMetadataLanguage,
+    content: Optional[bytes] = None,
     version: int = 20,
 ) -> Optional[GraphShard]:
+    if not content:
+        return None
     try:
         full_path = os.path.join(CTX.config.working_dir, path)
-        content = sync_get_file_raw_content(full_path)
-
+        content = content or sync_get_file_raw_content(full_path)
         graph = _parse_one_cached(
             content=content,
             language=language,
             _=version,
         )
-    except FileTooLarge:
-        log_blocking("warning", "File too large: %s, ignoring", path)
-        return None
-    except ParsingError:
-        log_blocking("warning", "Grammar error: %s, ignoring", path)
-        return None
     except (
         ArithmeticError,
         AttributeError,
@@ -374,8 +378,12 @@ def parse_one(
         SystemError,
         TypeError,
         ValueError,
+        ParsingError,
     ):
         log_blocking("warning", "Error while parsing: %s, ignoring", path)
+        return None
+
+    if not graph:
         return None
 
     if CTX.debug:
@@ -393,19 +401,41 @@ def parse_one(
     )
 
 
+def _get_content(path: str) -> Tuple[str, Optional[bytes]]:
+    full_path = os.path.join(CTX.config.working_dir, path)
+    content = None
+    try:
+        content = sync_get_file_raw_content(full_path)
+    except FileTooLarge:
+        log_blocking("warning", "File too large: %s, ignoring", path)
+    except ParsingError:
+        log_blocking("warning", "Grammar error: %s, ignoring", path)
+    return (path, content)
+
+
 def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
-    paths_and_languages = tuple(
+    paths_and_languages = [
         (path, language)
         for path in paths
         for language in [decide_language(path)]
         if language != GraphShardMetadataLanguage.NOT_SUPPORTED
-    )
+    ]
 
     log_blocking("info", "Total shards: %s", len(paths_and_languages))
-    for index, (path, language) in enumerate(paths_and_languages, start=1):
-        log_blocking("info", "Generating shard %s: %s", index, path)
-        if graph_shard := parse_one(language=language, path=path):
-            yield graph_shard
+    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+        files_content = dict(
+            executor.map(_get_content, [x[0] for x in paths_and_languages])
+        )
+
+    with ProcessPoolExecutor(max_workers=os.cpu_count()) as worker:
+        for parsed in worker.map(
+            parse_one,
+            [x[0] for x in paths_and_languages],
+            [x[1] for x in paths_and_languages],
+            [files_content[x[0]] for x in paths_and_languages],
+        ):
+            if parsed:
+                yield parsed
 
 
 def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
