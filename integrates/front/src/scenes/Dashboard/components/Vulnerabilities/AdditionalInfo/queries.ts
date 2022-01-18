@@ -16,6 +16,7 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
       }
       lastReattackRequester
       lastRequestedReattackDate
+      lastStateDate
       reportDate
       severity
       stream

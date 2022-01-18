@@ -8,6 +8,7 @@ interface IVulnInfoAttr {
   historicTreatment: IHistoricTreatment[];
   lastReattackRequester: string;
   lastRequestedReattackDate: string | null;
+  lastStateDate: string;
   reportDate: string;
   severity: string | null;
   stream: string | null;
@@ -20,4 +21,4 @@ interface IGetVulnAdditionalInfoAttr {
   vulnerability: IVulnInfoAttr;
 }
 
-export { IGetVulnAdditionalInfoAttr };
+export { IGetVulnAdditionalInfoAttr, IVulnInfoAttr };
