@@ -5,7 +5,8 @@ resource "azurerm_app_service" "not_vulnerable" {
   app_service_plan_id = azurerm_app_service_plan.example.id
   https_only          = true
   logs {
-    failed_request_tracing_enabled = true
+    failed_request_tracing_enabled  = true
+    detailed_error_messages_enabled = true
   }
   auth_settings {
     enabled = true

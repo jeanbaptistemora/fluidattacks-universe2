@@ -61,19 +61,24 @@ def tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
-def tfm_azure_failed_request_tracing_disabled_iterate_vulnerabilities(
+def tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
-        if network_rules := get_argument(
+        if logs := get_argument(
             key="logs",
             body=resource.data,
         ):
-            default_action = get_block_attribute(
-                block=network_rules, key="failed_request_tracing_enabled"
+            failed_request = get_block_attribute(
+                block=logs, key="failed_request_tracing_enabled"
             )
-            if not default_action or default_action.val is False:
-                yield network_rules
+            detailed_error = get_block_attribute(
+                block=logs, key="detailed_error_messages_enabled"
+            )
+            if (not failed_request or failed_request.val is False) or (
+                not detailed_error or detailed_error.val is False
+            ):
+                yield logs
         else:
             yield resource
 
@@ -97,7 +102,7 @@ def _tfm_azure_storage_logging_disabled(
     )
 
 
-def _tfm_azure_failed_request_tracing_disabled(
+def _tfm_azure_app_service_logging_disabled(
     content: str,
     path: str,
     model: Any,
@@ -110,7 +115,7 @@ def _tfm_azure_failed_request_tracing_disabled(
         ),
         finding=_FINDING_F402,
         iterator=get_cloud_iterator(
-            tfm_azure_failed_request_tracing_disabled_iterate_vulnerabilities(
+            tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_app_service(model=model)
             )
         ),
@@ -137,13 +142,13 @@ async def tfm_azure_storage_logging_disabled(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def tfm_azure_failed_request_tracing_disabled(
+async def tfm_azure_app_service_logging_disabled(
     content: str,
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _tfm_azure_failed_request_tracing_disabled,
+        _tfm_azure_app_service_logging_disabled,
         content=content,
         path=path,
         model=model,
@@ -169,7 +174,7 @@ async def analyze(
             )
         )
         coroutines.append(
-            tfm_azure_failed_request_tracing_disabled(
+            tfm_azure_app_service_logging_disabled(
                 content=content,
                 path=path,
                 model=model,
