@@ -5,6 +5,7 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { ClosingDateField } from "./components/ClosingDateField";
 import {
   Col100,
   Col50,
@@ -269,6 +270,10 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Value value={data.vulnerability.reportDate.split(" ")[0]} />
               </InfoField>
             </Row>
+            <ClosingDateField
+              vulnerability={vulnerability}
+              vulnerabilityAdditionalInfo={data.vulnerability}
+            />
             {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
               <Row>
                 <LabelField>
