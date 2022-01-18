@@ -37,9 +37,9 @@ def _lead_bytes_of(byte: int) -> ResultE[int]:
     """UTF-8 lead bytes of char given byte 1"""
     if (byte & 0b10000000) == 0:
         return Success(0)
-    if (byte & 0b11100000) == 11000000:
+    if (byte & 0b11100000) == 0b11000000:
         return Success(1)
-    if (byte & 0b11110000) == 11100000:
+    if (byte & 0b11110000) == 0b11100000:
         return Success(2)
     if (byte & 0b11111000) == 0b11110000:
         return Success(3)
