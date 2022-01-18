@@ -17,6 +17,8 @@ interface IGroupAction {
 
 interface IFilterTodosSet {
   tag: string;
+  treatment: string;
+  treatmentCurrentStatus: string;
 }
 
 export { IAction, IFilterTodosSet, IGroupAction, ITasksContent };

@@ -10,7 +10,11 @@ import type { IFilterProps } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { formatVulnerabilitiesTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import {
+  filterTreatment,
+  filterTreatmentCurrentStatus,
+  formatVulnerabilitiesTreatment,
+} from "scenes/Dashboard/components/Vulnerabilities/utils";
 import type {
   IAction,
   IFilterTodosSet,
@@ -46,6 +50,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
       "filterTodosVulnerabilitiesSet",
       {
         tag: "",
+        treatment: "",
+        treatmentCurrentStatus: "",
       },
       localStorage
     );
@@ -173,6 +179,30 @@ export const TasksContent: React.FC<ITasksContent> = ({
     )
   );
 
+  const onTreatmentChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        treatment: event.target.value,
+      })
+    );
+  };
+
+  const onTreatmentStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        treatmentCurrentStatus: event.target.value,
+      })
+    );
+  };
+
   const onTagChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.persist();
     setFilterVulnerabilitiesTable(
@@ -194,10 +224,23 @@ export const TasksContent: React.FC<ITasksContent> = ({
     "tag"
   );
 
+  const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
+    vulnerabilities,
+    filterVulnerabilitiesTable.treatment
+  );
+
+  const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
+    filterTreatmentCurrentStatus(
+      vulnerabilities,
+      filterVulnerabilitiesTable.treatmentCurrentStatus
+    );
+
   function clearFilters(): void {
     setFilterVulnerabilitiesTable(
       (): IFilterTodosSet => ({
         tag: "",
+        treatment: "",
+        treatmentCurrentStatus: "",
       })
     );
     setSearchTextFilter("");
@@ -205,10 +248,41 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
     filterSearchTextVulnerabilities,
-    filterTagVulnerabilities
+    filterTagVulnerabilities,
+    filterTreatmentVulnerabilities,
+    filterTreatmentCurrentStatusVulnerabilities
   );
 
   const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: filterVulnerabilitiesTable.treatment,
+      onChangeSelect: onTreatmentChange,
+      placeholder: "Treatment",
+      /* eslint-disable sort-keys */
+      selectOptions: {
+        NEW: "searchFindings.tabDescription.treatment.new",
+        IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
+        ACCEPTED: "searchFindings.tabDescription.treatment.accepted",
+        ACCEPTED_UNDEFINED:
+          "searchFindings.tabDescription.treatment.acceptedUndefined",
+      },
+      /* eslint-enable sort-keys */
+      tooltipId: "searchFindings.tabVuln.vulnTable.treatmentsTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.treatmentsTooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterVulnerabilitiesTable.treatmentCurrentStatus,
+      onChangeSelect: onTreatmentStatusChange,
+      placeholder: "Treatment Acceptance",
+      selectOptions: {
+        false: "Accepted",
+        true: "Pending",
+      },
+      tooltipId: "searchFindings.tabVuln.treatmentStatus.id",
+      tooltipMessage: "searchFindings.tabVuln.treatmentStatus",
+      type: "select",
+    },
     {
       defaultValue: filterVulnerabilitiesTable.tag,
       onChangeInput: onTagChange,
