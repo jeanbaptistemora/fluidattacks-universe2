@@ -6,12 +6,14 @@ import _ from "lodash";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { Button } from "components/Button";
-import { filterSearchText } from "components/DataTableNext/utils";
+import type { IFilterProps } from "components/DataTableNext/types";
+import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { formatVulnerabilitiesTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import type {
   IAction,
+  IFilterTodosSet,
   IGroupAction,
   ITasksContent,
 } from "scenes/Dashboard/containers/Tasks/types";
@@ -23,6 +25,7 @@ import type {
 import globalStyle from "styles/global.css";
 import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,
@@ -36,6 +39,16 @@ export const TasksContent: React.FC<ITasksContent> = ({
   );
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("todosLocationsCustomFilters", false);
+  const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
+    useStoredState(
+      "filterTodosVulnerabilitiesSet",
+      {
+        tag: "",
+      },
+      localStorage
+    );
   const attributesContext: PureAbility<string> = useContext(authzGroupContext);
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
@@ -141,30 +154,77 @@ export const TasksContent: React.FC<ITasksContent> = ({
     setTaskState(!taskState);
   }, [setTaskState, taskState]);
 
-  if (_.isUndefined(userData) || _.isEmpty(userData)) {
-    return <div />;
-  }
-
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
-    formatVulnerabilitiesTreatment(
-      _.flatten(
-        allData.map((group: IGetVulnsGroups): IVulnRowAttr[] =>
-          group.group.vulnerabilitiesAssigned.map(
-            (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
-              ...vulnerability,
-              groupName: group.group.name,
-            })
-          )
+
+  const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
+    _.flatten(
+      allData.map((group: IGetVulnsGroups): IVulnRowAttr[] =>
+        group.group.vulnerabilitiesAssigned.map(
+          (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
+            ...vulnerability,
+            groupName: group.group.name,
+          })
         )
       )
-    ),
+    )
+  );
+
+  const onTagChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        tag: event.target.value,
+      })
+    );
+  };
+
+  const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
+    vulnerabilities,
     searchTextFilter
   );
+
+  const filterTagVulnerabilities: IVulnRowAttr[] = filterText(
+    vulnerabilities,
+    filterVulnerabilitiesTable.tag,
+    "tag"
+  );
+
+  function clearFilters(): void {
+    setFilterVulnerabilitiesTable(
+      (): IFilterTodosSet => ({
+        tag: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
+  const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterSearchTextVulnerabilities,
+    filterTagVulnerabilities
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: filterVulnerabilitiesTable.tag,
+      onChangeInput: onTagChange,
+      placeholder: "searchFindings.tabVuln.searchTag",
+      tooltipId: "searchFindings.tabVuln.tagTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.tagTooltip",
+      type: "text",
+    },
+  ];
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
+
+  if (_.isUndefined(userData) || _.isEmpty(userData)) {
+    return <div />;
+  }
 
   return (
     <React.StrictMode>
@@ -173,6 +233,18 @@ export const TasksContent: React.FC<ITasksContent> = ({
           <VulnComponent
             canDisplayHacker={canRetrieveHacker}
             changePermissions={changePermissions}
+            clearFiltersButton={clearFilters}
+            customFilters={{
+              customFiltersProps,
+              hideResults: true,
+              isCustomFilterEnabled,
+              onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+              oneRowMessage: true,
+              resultSize: {
+                current: resultVulnerabilities.length,
+                total: vulnerabilities.length,
+              },
+            }}
             customSearch={{
               customSearchDefault: searchTextFilter,
               isCustomSearchEnabled: true,
@@ -191,7 +263,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
             isRequestingReattack={false}
             isVerifyingRequest={false}
             onVulnSelect={openRemediationModal}
-            vulnerabilities={filterSearchTextVulnerabilities}
+            vulnerabilities={resultVulnerabilities}
           />
         </Col100>
       </div>

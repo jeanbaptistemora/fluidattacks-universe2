@@ -15,4 +15,8 @@ interface IGroupAction {
   actions: IAction[];
 }
 
-export { IAction, IGroupAction, ITasksContent };
+interface IFilterTodosSet {
+  tag: string;
+}
+
+export { IAction, IFilterTodosSet, IGroupAction, ITasksContent };
