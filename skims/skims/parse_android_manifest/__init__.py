@@ -134,7 +134,7 @@ def _get_caseless_attr(tag: bs4.Tag, key: str, default: str) -> str:
     key = key.lower()
     for attr, value in tag.attrs.items():
         if attr.lower() == key:
-            return str(value)
+            return value
     return default
 
 

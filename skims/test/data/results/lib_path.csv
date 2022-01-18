@@ -18767,7 +18767,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",f300._tfm_azure_app_authentication_off
-F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provider/com.andriod.databasetest.contentprovider/android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.andriod.databasetest.contentprovider/android:exported enabled,"
+F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),application.android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:exported enabled,"
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
    2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
@@ -18788,7 +18788,7 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provid
   16 | </manifest>
      ^ Col 0
 ",__init__._apk_exported_cp
-F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),provider/com.andriod.databasetest.contentprovider/android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.andriod.databasetest.contentprovider/android:grantUriPermissions enabled,"
+F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),application.android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
    2 |  <uses-permission android:name=""android.permission.SEND_SMS"">

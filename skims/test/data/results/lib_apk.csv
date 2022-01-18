@@ -5454,31 +5454,7 @@ F048,inputs,examples/tests/urzip-#U03c0#U00c7#U00c7#U03c0#U00c7#U00c7#U73b0#U4ee
      | Of', 'write']
      ^ Col 0
 ",analyze_bytecodes._no_root_check
-F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),provider/com.android.server.heapdump/android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.android.server.heapdump/android:grantUriPermissions enabled,"
-  1644 |   <activity android:configchanges=""0x000000A0"" android:name=""com.android.internal.app.PlatLogoActivity"" android:process=
-       | "":ui"" android:theme=""@android:01030060"">
-  1645 |   </activity>
-  1646 |   <activity android:excludefromrecents=""true"" android:name=""com.android.internal.app.DisableCarModeActivity"" android:pro
-       | cess="":ui"" android:theme=""@android:01030055"">
-  1647 |   </activity>
-  1648 |   <activity android:excludefromrecents=""true"" android:finishonclosesystemdialogs=""true"" android:label=""@android:0104043E
-       | "" android:name=""com.android.internal.app.DumpHeapActivity"" android:nohistory=""true"" android:process="":ui"" android:theme=
-       | ""@android:01030010"">
-  1649 |   </activity>
-> 1650 |   <provider android:authorities=""com.android.server.heapdump"" android:granturipermissions=""true"" android:multiprocess=""f
-       | alse"" android:name=""com.android.server.am.DumpHeapProvider"" android:singleuser=""true"">
-  1651 |   </provider>
-  1652 |   <activity android:excludefromrecents=""true"" android:exported=""true"" android:label=""@android:0104051C"" android:name=""an
-       | droid.accounts.ChooseAccountActivity"" android:process="":ui"" android:theme=""@android:01030132"">
-  1653 |   </activity>
-  1654 |   <activity android:excludefromrecents=""true"" android:exported=""true"" android:label=""@android:0104051C"" android:name=""an
-       | droid.accounts.ChooseTypeAndAccountActivity"" android:process="":ui"" android:theme=""@android:01030132"">
-  1655 |   </activity>
-  1656 |   <activity android:excludefromrecents=""true"" android:label=""@android:0104051C"" android:name=""android.accounts.ChooseAcc
-       | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
-       ^ Col 0
-",__init__._apk_exported_cp
-F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),provider/com.example.android.tvleanback/android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,provider/com.example.android.tvleanback/android:exported enabled,"
+F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),application.android:exported enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:exported enabled,"
   51 |   <activity android:configchanges=""0x00002D80"" android:launchmode=""2"" android:name=""com.example.android.tvleanback.ui.Pl
      | aybackActivity"" android:resizeableactivity=""true"">
   52 |   </activity>
@@ -5501,6 +5477,30 @@ F075,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),provid
   66 |     </action>
   67 |    </intent-filter>
      ^ Col 0
+",__init__._apk_exported_cp
+F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),application.android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
+  1644 |   <activity android:configchanges=""0x000000A0"" android:name=""com.android.internal.app.PlatLogoActivity"" android:process=
+       | "":ui"" android:theme=""@android:01030060"">
+  1645 |   </activity>
+  1646 |   <activity android:excludefromrecents=""true"" android:name=""com.android.internal.app.DisableCarModeActivity"" android:pro
+       | cess="":ui"" android:theme=""@android:01030055"">
+  1647 |   </activity>
+  1648 |   <activity android:excludefromrecents=""true"" android:finishonclosesystemdialogs=""true"" android:label=""@android:0104043E
+       | "" android:name=""com.android.internal.app.DumpHeapActivity"" android:nohistory=""true"" android:process="":ui"" android:theme=
+       | ""@android:01030010"">
+  1649 |   </activity>
+> 1650 |   <provider android:authorities=""com.android.server.heapdump"" android:granturipermissions=""true"" android:multiprocess=""f
+       | alse"" android:name=""com.android.server.am.DumpHeapProvider"" android:singleuser=""true"">
+  1651 |   </provider>
+  1652 |   <activity android:excludefromrecents=""true"" android:exported=""true"" android:label=""@android:0104051C"" android:name=""an
+       | droid.accounts.ChooseAccountActivity"" android:process="":ui"" android:theme=""@android:01030132"">
+  1653 |   </activity>
+  1654 |   <activity android:excludefromrecents=""true"" android:exported=""true"" android:label=""@android:0104051C"" android:name=""an
+       | droid.accounts.ChooseTypeAndAccountActivity"" android:process="":ui"" android:theme=""@android:01030132"">
+  1655 |   </activity>
+  1656 |   <activity android:excludefromrecents=""true"" android:label=""@android:0104051C"" android:name=""android.accounts.ChooseAcc
+       | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
+       ^ Col 0
 ",__init__._apk_exported_cp
 F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
