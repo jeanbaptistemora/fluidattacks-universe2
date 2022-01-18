@@ -11,7 +11,6 @@ from billing.types import (
     UpdateBillingSubscriptionPayload,
 )
 from context import (
-    BASE_URL,
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
@@ -51,48 +50,6 @@ from typing import (
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-
-
-async def _format_create_subscription_data(
-    *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-) -> Dict[str, Any]:
-    """Format create subscription session data according to stripe API"""
-    prices: List[Price] = await dal.get_subscription_prices(
-        subscription=subscription,
-    )
-    items: List[Dict[str, Any]] = []
-    for price in prices:
-        if price.subscription == "machine":
-            items.append(
-                {
-                    "price": price.id,
-                    "quantity": 1,
-                }
-            )
-        else:
-            items.append(
-                {
-                    "price": price.id,
-                }
-            )
-    billing_cycle_anchor: int = int(
-        datetime_utils.get_first_day_next_month_timestamp()
-    )
-
-    return {
-        "customer": org_billing_customer,
-        "items": items,
-        "metadata": {
-            "group": group_name,
-            "organization": org_name,
-            "subscription": subscription,
-        },
-        "billing_cycle_anchor": billing_cycle_anchor,
-    }
 
 
 async def _format_update_subscription_data(
@@ -203,31 +160,28 @@ async def create_payment_method(
         )
 
     # Create payment method
-    payment_method = stripe.PaymentMethod.create(
-        type="card",
-        card={
-            "number": card_number,
-            "exp_month": int(card_expiration_month),
-            "exp_year": int(card_expiration_year),
-            "cvc": card_cvc,
-        },
+    payment_method: PaymentMethod = await dal.create_payment_method(
+        card_number=card_number,
+        card_expiration_month=card_expiration_month,
+        card_expiration_year=card_expiration_year,
+        card_cvc=card_cvc,
     )
 
     # Attach payment method to customer
-    attachment = stripe.PaymentMethod.attach(
-        payment_method.id,
-        customer=customer.id,
+    result: bool = await dal.attach_payment_method(
+        payment_method_id=payment_method.id,
+        org_billing_customer=customer.id,
     )
 
     # If payment method is the first one registered or selected as default,
     # then make it default
     if not customer.default_payment_method or make_default:
-        stripe.Customer.modify(
-            customer.id,
-            invoice_settings={"default_payment_method": payment_method.id},
+        await dal.set_default_payment_method(
+            payment_method_id=payment_method.id,
+            org_billing_customer=customer.id,
         )
 
-    return isinstance(attachment.created, int)
+    return result
 
 
 async def create_subscription(
@@ -255,16 +209,12 @@ async def create_subscription(
     ):
         raise BillingCustomerHasNoPaymentMethod()
 
-    # Format subscription creation data
-    data: Dict[str, Any] = await _format_create_subscription_data(
+    return await dal.create_subscription(
         subscription=subscription,
         org_billing_customer=org_billing_customer,
         org_name=org_name,
         group_name=group_name,
     )
-
-    sub = stripe.Subscription.create(**data)
-    return isinstance(sub.created, int)
 
 
 async def create_portal(
@@ -277,15 +227,9 @@ async def create_portal(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    session = stripe.billing_portal.Session.create(
-        customer=org_billing_customer,
-        return_url=f"{BASE_URL}/orgs/{org_name}/billing",
-    )
-
-    return Portal(
-        organization=org_name,
-        portal_url=session.url,
-        return_url=session.return_url,
+    return await dal.create_portal(
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
     )
 
 

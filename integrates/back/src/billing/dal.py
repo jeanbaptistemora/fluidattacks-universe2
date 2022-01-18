@@ -7,11 +7,13 @@ from bill import (
 from billing.types import (
     Customer,
     PaymentMethod,
+    Portal,
     Price,
     Subscription,
     SubscriptionItem,
 )
 from context import (
+    BASE_URL,
     FI_STRIPE_API_KEY,
 )
 from custom_exceptions import (
@@ -29,11 +31,68 @@ from organizations import (
 )
 import stripe
 from typing import (
+    Any,
+    Dict,
     List,
     Optional,
 )
 
 stripe.api_key = FI_STRIPE_API_KEY
+
+
+async def _format_create_subscription_data(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> Dict[str, Any]:
+    """Format create subscription session data according to stripe API"""
+    prices: List[Price] = await get_subscription_prices(
+        subscription=subscription,
+    )
+    items: List[Dict[str, Any]] = []
+    for price in prices:
+        if price.subscription == "machine":
+            items.append(
+                {
+                    "price": price.id,
+                    "quantity": 1,
+                }
+            )
+        else:
+            items.append(
+                {
+                    "price": price.id,
+                }
+            )
+    billing_cycle_anchor: int = int(
+        datetime_utils.get_first_day_next_month_timestamp()
+    )
+
+    return {
+        "customer": org_billing_customer,
+        "items": items,
+        "metadata": {
+            "group": group_name,
+            "organization": org_name,
+            "subscription": subscription,
+        },
+        "billing_cycle_anchor": billing_cycle_anchor,
+    }
+
+
+async def attach_payment_method(
+    *,
+    payment_method_id: str,
+    org_billing_customer: str,
+) -> bool:
+    """Attach a payment method to a Stripe customer"""
+    data = stripe.PaymentMethod.attach(
+        payment_method_id,
+        customer=org_billing_customer,
+    )
+    return isinstance(data.created, int)
 
 
 async def create_customer(
@@ -65,20 +124,81 @@ async def create_customer(
     return customer
 
 
+async def create_payment_method(
+    *,
+    card_number: str,
+    card_expiration_month: str,
+    card_expiration_year: str,
+    card_cvc: str,
+) -> PaymentMethod:
+    """Create a Stripe payment method"""
+    data = stripe.PaymentMethod.create(
+        type="card",
+        card={
+            "number": card_number,
+            "exp_month": int(card_expiration_month),
+            "exp_year": int(card_expiration_year),
+            "cvc": card_cvc,
+        },
+    )
+    return PaymentMethod(
+        id=data.id,
+        last_four_digits=data.card.last4,
+        expiration_month=str(data.card.exp_month),
+        expiration_year=str(data.card.exp_year),
+        brand=data.card.brand,
+    )
+
+
+async def create_subscription(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> bool:
+    """Create stripe subscription"""
+    data: Dict[str, Any] = await _format_create_subscription_data(
+        subscription=subscription,
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
+        group_name=group_name,
+    )
+    sub = stripe.Subscription.create(**data)
+    return isinstance(sub.created, int)
+
+
+async def create_portal(
+    *,
+    org_billing_customer: str,
+    org_name: str,
+) -> Portal:
+    """Create Stripe portal session"""
+    data = stripe.billing_portal.Session.create(
+        customer=org_billing_customer,
+        return_url=f"{BASE_URL}/orgs/{org_name}/billing",
+    )
+    return Portal(
+        organization=org_name,
+        portal_url=data.url,
+        return_url=data.return_url,
+    )
+
+
 async def get_price(
     *,
     subscription: str,
     active: bool = True,
 ) -> Price:
     """Return a subscription price"""
-    prices = stripe.Price.list(
+    data = stripe.Price.list(
         lookup_keys=[subscription],
         active=active,
     ).data
-    if len(prices) > 0:
+    if len(data) > 0:
         return Price(
-            id=prices[0].id,
-            subscription=prices[0].lookup_key,
+            id=data[0].id,
+            subscription=data[0].lookup_key,
         )
     raise InvalidBillingPrice()
 
@@ -181,6 +301,19 @@ async def get_subscription_prices(
             )
         )
     return await collect(prices)
+
+
+async def set_default_payment_method(
+    *,
+    payment_method_id: str,
+    org_billing_customer: str,
+) -> bool:
+    """Make a payment method default for a customer"""
+    data = stripe.Customer.modify(
+        org_billing_customer,
+        invoice_settings={"default_payment_method": payment_method_id},
+    )
+    return data.invoice_settings.default_payment_method == payment_method_id
 
 
 async def report_subscription_usage(
