@@ -204,7 +204,7 @@ async def analyze(
         # No findings will be executed, early abort
         return
 
-    unique_paths, unique_nu_paths, unique_nv_paths = await resolve_paths(
+    unique_paths, unique_nu_paths, unique_nv_paths = resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )

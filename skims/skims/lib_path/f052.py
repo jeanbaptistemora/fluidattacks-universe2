@@ -108,7 +108,7 @@ async def java_properties_weak_cipher_suite(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,
@@ -118,13 +118,13 @@ async def analyze(
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_missing_ssl(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )
         coroutines.append(
             java_properties_weak_cipher_suite(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )

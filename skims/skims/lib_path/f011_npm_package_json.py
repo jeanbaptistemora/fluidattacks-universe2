@@ -76,7 +76,7 @@ async def check(
 def analyze(include_dev: bool, include_prod: bool) -> Any:
     @SHIELD
     async def _analyze(
-        content_generator: Callable[[], Awaitable[str]],
+        content_generator: Callable[[], str],
         finding: core_model.FindingEnum,
         file_name: str,
         file_extension: str,
@@ -86,7 +86,7 @@ def analyze(include_dev: bool, include_prod: bool) -> Any:
         if (file_name, file_extension) == ("package", "json"):
             return [
                 check(
-                    content=await content_generator(),
+                    content=content_generator(),
                     finding=finding,
                     include_dev=include_dev,
                     include_prod=include_prod,

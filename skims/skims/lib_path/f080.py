@@ -277,7 +277,7 @@ async def terraform_public_buckets(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,
@@ -285,7 +285,7 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = await content_generator()
+        content = content_generator()
         async for template in load_templates(
             content=content, fmt=file_extension
         ):
@@ -305,7 +305,7 @@ async def analyze(
                 )
             )
     elif file_extension in EXTENSIONS_TERRAFORM:
-        content = await content_generator()
+        content = content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             terraform_unencrypted_buckets(

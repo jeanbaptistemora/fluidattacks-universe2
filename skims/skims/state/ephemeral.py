@@ -70,13 +70,13 @@ def get_ephemeral_store() -> EphemeralStore:
         await in_thread(rmtree, folder)
 
     async def length() -> int:
-        return len(await recurse_dir(folder))
+        return len(recurse_dir(folder))
 
     async def store(obj: Any) -> None:
         await in_thread(store_object, folder, obj, obj)
 
     async def iterate() -> AsyncIterator[Any]:
-        for object_key in await recurse_dir(folder):
+        for object_key in recurse_dir(folder):
             # Exception: WF(AsyncIterator is subtype of iterator)
             yield await in_thread(read_blob, object_key)  # NOSONAR
 

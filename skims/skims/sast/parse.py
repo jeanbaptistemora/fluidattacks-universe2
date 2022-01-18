@@ -402,7 +402,6 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
     )
 
     log_blocking("info", "Total shards: %s", len(paths_and_languages))
-
     for index, (path, language) in enumerate(paths_and_languages, start=1):
         log_blocking("info", "Generating shard %s: %s", index, path)
         if graph_shard := parse_one(language=language, path=path):

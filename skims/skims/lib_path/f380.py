@@ -65,7 +65,7 @@ async def unpinned_docker_image(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,
     path: str,
@@ -79,7 +79,7 @@ async def analyze(
     ):
         coroutines.append(
             unpinned_docker_image(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )

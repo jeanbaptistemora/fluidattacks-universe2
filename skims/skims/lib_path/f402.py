@@ -157,14 +157,14 @@ async def tfm_azure_app_service_logging_disabled(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
     if file_extension in EXTENSIONS_TERRAFORM:
-        content = await content_generator()
+        content = content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(
             tfm_azure_storage_logging_disabled(

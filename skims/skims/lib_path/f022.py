@@ -76,7 +76,7 @@ async def java_properties_unencrypted_transport(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,
@@ -86,7 +86,7 @@ async def analyze(
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_unencrypted_transport(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )

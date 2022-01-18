@@ -66,7 +66,7 @@ async def analyze_one(
 async def get_apk_contexts() -> Set[APKContext]:
     apk_contexts: Set[APKContext] = set()
 
-    unique_paths, unique_nu_paths, unique_nv_paths = await resolve_paths(
+    unique_paths, unique_nu_paths, unique_nv_paths = resolve_paths(
         exclude=CTX.config.apk.exclude,
         include=CTX.config.apk.include,
     )

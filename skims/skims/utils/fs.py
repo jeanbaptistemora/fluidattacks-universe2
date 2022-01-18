@@ -1,8 +1,10 @@
 from aioextensions import (
-    collect,
     in_thread,
 )
 import aiofiles  # type: ignore
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
 from fnmatch import (
     fnmatch as matches_glob,
 )
@@ -14,6 +16,12 @@ from itertools import (
 )
 from model.graph_model import (
     GraphShardMetadataLanguage,
+)
+from more_itertools import (
+    collapse,
+)
+from multiprocessing import (
+    cpu_count,
 )
 from operator import (
     attrgetter,
@@ -32,11 +40,8 @@ from typing import (
     Set,
     Tuple,
 )
-from utils.concurrency import (
-    never_concurrent,
-)
 from utils.logs import (
-    log,
+    log_blocking,
 )
 
 MAX_FILE_SIZE: int = 102400  # 100KiB
@@ -72,13 +77,12 @@ def generate_file_content(
     path: str,
     encoding: str = "latin-1",
     size: int = -1,
-) -> Callable[[], Awaitable[str]]:
+) -> Callable[[], str]:
     data: Dict[str, str] = {}
 
-    @never_concurrent
-    async def get_one() -> str:
+    def get_one() -> str:
         if not data:
-            data["file_contents"] = await get_file_content(
+            data["file_contents"] = get_file_content_block(
                 path=path,
                 encoding=encoding,
                 size=size,
@@ -94,7 +98,6 @@ def generate_file_raw_content(
 ) -> Callable[[], Awaitable[bytes]]:
     data: Dict[str, bytes] = {}
 
-    @never_concurrent
     async def get_one() -> bytes:
         if not data:
             data["file_raw_content"] = await get_file_raw_content(path, size)
@@ -114,6 +117,21 @@ async def get_file_content(
         encoding=encoding,
     ) as file_handle:
         file_contents: str = await file_handle.read(size)
+
+        return file_contents
+
+
+def get_file_content_block(
+    path: str,
+    encoding: str = "latin-1",
+    size: int = -1,
+) -> str:
+    with open(
+        path,
+        mode="r",
+        encoding=encoding,
+    ) as file_handle:
+        file_contents: str = file_handle.read(size)
 
         return file_contents
 
@@ -145,7 +163,7 @@ def sync_get_file_raw_content(path: str, size: int = MAX_FILE_SIZE) -> bytes:
     return content
 
 
-async def check_dependency_code(path: str) -> bool:
+def check_dependency_code(path: str) -> bool:
     language: GraphShardMetadataLanguage = decide_language(path)
 
     if language == GraphShardMetadataLanguage.JAVASCRIPT:
@@ -158,7 +176,7 @@ async def check_dependency_code(path: str) -> bool:
         return False
 
     file_content = generate_file_content(path, size=200)
-    raw_content = await file_content()
+    raw_content = file_content()
     content = raw_content.replace("\n", " ")
 
     for regex in regex_exp:
@@ -167,7 +185,7 @@ async def check_dependency_code(path: str) -> bool:
     return False
 
 
-async def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
+def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
     nu_paths: Set[str] = set()
 
     intellisense_refs = {
@@ -198,7 +216,7 @@ async def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
                     "*/wwwroot/lib*",
                 )
             )
-            or await check_dependency_code(path)
+            or check_dependency_code(path)
         ):
             nu_paths.add(path)
 
@@ -263,30 +281,34 @@ async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
     return await in_thread(os.makedirs, name, mode=mode, exist_ok=exist_ok)
 
 
-async def recurse_dir(path: str) -> Tuple[str, ...]:
+def recurse_dir(path: str) -> Tuple[str, ...]:
     try:
         scanner = tuple(os.scandir(path))
     except FileNotFoundError:
         scanner = tuple()
 
-    dirs = map(attrgetter("path"), filter(methodcaller("is_dir"), scanner))
-    files = map(attrgetter("path"), filter(methodcaller("is_file"), scanner))
-
-    tree: Tuple[str, ...] = tuple(
-        chain(
-            files,
-            *await collect(map(recurse_dir, dirs)),
-        )
+    dirs = tuple(
+        map(attrgetter("path"), filter(methodcaller("is_dir"), scanner))
     )
+    files = tuple(
+        map(attrgetter("path"), filter(methodcaller("is_file"), scanner))
+    )
+    with ThreadPoolExecutor(max_workers=cpu_count()) as _worker:
+        tree = tuple(
+            chain(
+                files,
+                _worker.map(recurse_dir, dirs),
+            )
+        )
 
     return tree
 
 
-async def recurse(path: str) -> Tuple[str, ...]:
-    return (path,) if os.path.isfile(path) else await recurse_dir(path)
+def recurse(path: str) -> Tuple[str, ...]:
+    return (path,) if os.path.isfile(path) else recurse_dir(path)
 
 
-async def resolve_paths(
+def resolve_paths(
     *,
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
@@ -301,36 +323,29 @@ async def resolve_paths(
             yield path
 
     try:
-        unique_paths: Set[str] = set(
-            map(
-                normpath,
-                chain.from_iterable(
-                    await collect(
-                        map(
-                            recurse,
-                            chain.from_iterable(map(evaluate, include)),
-                        )
+        with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+            unique_paths: Set[str] = {
+                normpath(x)
+                for x in collapse(
+                    worker.map(
+                        recurse,
+                        chain.from_iterable((evaluate(y) for y in include)),
                     ),
-                ),
-            )
-        ) - set(
-            map(
-                normpath,
-                chain.from_iterable(
-                    await collect(
-                        map(
-                            recurse,
-                            chain.from_iterable(map(evaluate, exclude)),
-                        )
+                    base_type=str,
+                )
+            } - {
+                normpath(x)
+                for x in collapse(
+                    worker.map(
+                        recurse,
+                        chain.from_iterable(map(evaluate, exclude)),
                     ),
-                ),
-            )
-        )
+                    base_type=str,
+                )
+            }
 
         # Exclude non-upgradable paths
-        unique_nu_paths: Set[str] = await get_non_upgradable_paths(
-            unique_paths
-        )
+        unique_nu_paths: Set[str] = get_non_upgradable_paths(unique_paths)
         unique_paths.symmetric_difference_update(unique_nu_paths)
 
         # Exclude non-verifiable paths
@@ -339,6 +354,6 @@ async def resolve_paths(
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
     else:
-        await log("info", "Files to be tested: %s", len(unique_paths))
+        log_blocking("info", "Files to be tested: %s", len(unique_paths))
 
     return unique_paths, unique_nu_paths, unique_nv_paths

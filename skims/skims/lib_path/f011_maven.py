@@ -227,7 +227,7 @@ async def check_maven_sbt(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_name: str,
     file_extension: str,
     finding: core_model.FindingEnum,
@@ -237,7 +237,7 @@ async def analyze(
     if (file_name, file_extension) == ("pom", "xml"):
         return [
             check_maven_pom_xml(
-                content=await content_generator(),
+                content=content_generator(),
                 finding=finding,
                 path=path,
             )
@@ -245,7 +245,7 @@ async def analyze(
     if file_extension == "gradle":
         return [
             check_maven_gradle(
-                content=await content_generator(),
+                content=content_generator(),
                 finding=finding,
                 path=path,
             )
@@ -253,7 +253,7 @@ async def analyze(
     if (file_name, file_extension) == ("build", "sbt"):
         return [
             check_maven_sbt(
-                content=await content_generator(),
+                content=content_generator(),
                 finding=finding,
                 path=path,
             )

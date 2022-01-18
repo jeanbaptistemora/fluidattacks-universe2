@@ -99,7 +99,7 @@ async def has_dangerous_permissions(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,
     path: str,
@@ -110,7 +110,7 @@ async def analyze(
     if (file_name, file_extension) == ("AndroidManifest", "xml"):
         coroutines.append(
             has_dangerous_permissions(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )

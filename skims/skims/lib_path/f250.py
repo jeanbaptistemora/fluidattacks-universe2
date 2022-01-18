@@ -98,14 +98,14 @@ async def cfn_fsx_has_unencrypted_volumes(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
     if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = await content_generator()
+        content = content_generator()
         async for template in load_templates(
             content=content, fmt=file_extension
         ):

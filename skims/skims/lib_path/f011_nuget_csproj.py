@@ -63,7 +63,7 @@ async def check(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     finding: core_model.FindingEnum,
     path: str,
@@ -72,7 +72,7 @@ async def analyze(
     if file_extension == "csproj":
         return [
             check(
-                content=await content_generator(),
+                content=content_generator(),
                 finding=finding,
                 path=path,
             )

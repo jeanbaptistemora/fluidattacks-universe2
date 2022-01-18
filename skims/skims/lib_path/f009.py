@@ -492,7 +492,7 @@ async def web_config_db_connection(
 
 @SHIELD
 async def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,
     path: str,
@@ -516,19 +516,19 @@ async def analyze(
     }:
         coroutines.append(
             aws_credentials(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )
     if file_name in NAMES_DOCKERFILE:
         coroutines.append(
             dockerfile_env_secrets(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )
     elif file_name == "docker-compose" and file_extension in EXTENSIONS_YAML:
-        content = await content_generator()
+        content = content_generator()
         async for template in load_templates(
             content=content, fmt=file_extension
         ):
@@ -540,19 +540,19 @@ async def analyze(
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_sensitive_data(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )
     elif file_extension in {"json"}:
         coroutines.append(
             sensitive_key_in_json(
-                content=await content_generator(),
+                content=content_generator(),
                 path=path,
             )
         )
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
-        content = await content_generator()
+        content = content_generator()
         coroutines.append(web_config_user_pass(content=content, path=path))
         coroutines.append(web_config_db_connection(content=content, path=path))
 
