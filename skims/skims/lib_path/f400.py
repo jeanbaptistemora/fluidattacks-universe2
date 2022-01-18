@@ -2,10 +2,12 @@ from aioextensions import (
     in_process,
 )
 from aws.model import (
+    AWSElb,
     AWSS3Bucket,
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
@@ -21,6 +23,7 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
+    iter_elb_load_balancers,
     iter_s3_buckets,
 )
 from state.cache import (
@@ -35,6 +38,7 @@ from typing import (
     Union,
 )
 from utils.function import (
+    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -56,6 +60,22 @@ def _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
             )
 
 
+def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
+    file_ext: str,
+    load_balancers_iterator: Iterator[Union[AWSElb, Node]],
+) -> Iterator[Union[AWSElb, Node]]:
+    for elb in load_balancers_iterator:
+        access_log = get_node_by_keys(elb, ["AccessLoggingPolicy", "Enabled"])
+        if not isinstance(access_log, Node):
+            yield AWSElb(
+                column=elb.start_column,
+                data=elb.data,
+                line=get_line_by_extension(elb.start_line, file_ext),
+            )
+        elif access_log.raw in FALSE_OPTIONS:
+            yield access_log
+
+
 def _cfn_bucket_has_logging_conf_disabled(
     content: str,
     file_ext: str,
@@ -71,6 +91,29 @@ def _cfn_bucket_has_logging_conf_disabled(
             _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
                 buckets_iterator=iter_s3_buckets(template=template),
+            )
+        ),
+        path=path,
+    )
+
+
+def _cfn_elb_has_access_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F400_CWE},
+        description_key="src.lib_path.f400.elb_has_access_logging_disabled",
+        finding=_FINDING_F400,
+        iterator=get_cloud_iterator(
+            _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
+                file_ext=file_ext,
+                load_balancers_iterator=iter_elb_load_balancers(
+                    template=template
+                ),
             )
         ),
         path=path,
@@ -95,6 +138,24 @@ async def cfn_bucket_has_logging_conf_disabled(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def cfn_elb_has_access_logging_disabled(
+    content: str,
+    file_ext: str,
+    path: str,
+    template: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _cfn_elb_has_access_logging_disabled,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -110,6 +171,14 @@ async def analyze(
         ):
             coroutines.append(
                 cfn_bucket_has_logging_conf_disabled(
+                    content=content,
+                    file_ext=file_extension,
+                    path=path,
+                    template=template,
+                )
+            )
+            coroutines.append(
+                cfn_elb_has_access_logging_disabled(
                     content=content,
                     file_ext=file_extension,
                     path=path,

@@ -1,3 +1,6 @@
 src.lib_path.f400.bucket_has_logging_conf_disabled:
   en: Missing LoggingConfiguration property to make traceability
   es: Falta la propiedad LoggingConfiguration para hacer trazabilidad
+src.lib_path.f400.elb_has_access_logging_disabled:
+  en: The AccessLoggingPolicy property must be enabled
+  es: La propiedad AccessLoggingPolicy debe estar habilitada
