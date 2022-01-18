@@ -55,7 +55,7 @@ Steps to reproduce
 5. Click on "Actions" and go to "Subnet Mapping".
 6. Scroll down to "Map new subnet".
 7. Insert an SQL Injection sentence inside the search var,
-   for example: " union select @@version,2,user(),4 -- -.
+   for example: `" union select @@version,2,user(),4 -- -`.
 
 System Information
 

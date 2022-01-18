@@ -41,7 +41,7 @@ template: advisory
 ## Description
 
 PhpIPAM **v1.4.4** allows an authenticated admin user to inject
-javascript code inside the "Site title" parameter while updating
+persistent javascript code inside the "Site title" parameter while updating
 the site settings. The "Site title" setting is injected in several
 locations which triggers the XSS.
 
@@ -51,17 +51,17 @@ Steps to reproduce:
 
 XSS:
 
-1. Go to "http://192.168.1.5/phpipam/index.php?page=administration&section=settings".
-2. Update the "Site Title" parameter with " autofocus onfocus=alert(1)>.
+1. Go to `"http://192.168.1.5/phpipam/index.php?page=administration&section=settings"`.
+2. Update the "Site Title" parameter with `" autofocus onfocus=alert(1)>`.
 3. Click on 'Save'.
 4. If a user visits the setting page the javascript code will be rendered.
 
 Open redirect:
 
-1. Go to "http://192.168.1.5/phpipam/index.php?page=administration&section=settings".
-2. Update the "Site Title" parameter with 0;url=https://google.com" http-equiv="refresh".
+1. Go to `"http://192.168.1.5/phpipam/index.php?page=administration&section=settings"`.
+2. Update the "Site Title" parameter with `0;url=https://google.com" http-equiv="refresh"`.
 3. Click on 'Save'.
-4. If a user reloads the page will be redirected to https://google.com.
+4. If a user reloads the page will be redirected to `https://google.com`.
 
 System Information
 
