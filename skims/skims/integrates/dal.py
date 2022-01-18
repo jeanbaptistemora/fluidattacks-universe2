@@ -154,7 +154,7 @@ async def get_group_level_role(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         role: str = result["data"]["group"]["userRole"]
         return role
 
@@ -205,9 +205,9 @@ async def get_group_findings(
     _findings = []
     _drafts = []
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         _findings = result["data"]["group"]["findings"]
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         _drafts = result["data"]["group"]["drafts"]
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
@@ -243,7 +243,7 @@ async def get_group_language(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return core_model.LocalesEnum(result["data"]["group"]["language"])
 
     return None
@@ -270,7 +270,7 @@ async def get_group_open_severity(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return sum(
             finding["openVulnerabilities"]
             * (4 ** (finding["severityScore"] - 4))
@@ -348,7 +348,7 @@ async def get_finding_current_release_status(
         ),
         client=client,
     )
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return core_model.FindingReleaseStatusEnum(
             result["data"]["finding"]["currentState"]
         )
@@ -392,7 +392,7 @@ async def get_finding_vulnerabilities(
 
     store: EphemeralStore = get_ephemeral_store()
     vulnerabilities = []
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         vulnerabilities = result["data"]["finding"]["vulnerabilities"]
     for vulnerability in vulnerabilities:
         kind = core_model.VulnerabilityKindEnum(
@@ -546,7 +546,7 @@ async def do_create_draft(
             ),
             client=client,
         )
-        with suppress(AttributeError, KeyError):
+        with suppress(AttributeError, KeyError, TypeError):
             return result["data"]["addDraft"]["success"]
 
     except SkimsCanNotOperate:
@@ -583,7 +583,7 @@ async def do_delete_finding(
         client=client,
     )
     success: bool = False
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         success = result["data"]["removeFinding"]["success"]
 
     await log("warn", "Removing finding: %s, success: %s", finding_id, success)
@@ -617,7 +617,7 @@ async def do_approve_draft(
             client=client,
         )
 
-        with suppress(AttributeError, KeyError):
+        with suppress(AttributeError, KeyError, TypeError):
             return result["data"]["approveDraft"]["success"]
 
     except SkimsCanNotOperate:
@@ -652,7 +652,7 @@ async def do_submit_draft(
             client=client,
         )
 
-        with suppress(AttributeError, KeyError):
+        with suppress(AttributeError, KeyError, TypeError):
             return result["data"]["submitDraft"]["success"]
 
     except SkimsCanNotOperate:
@@ -737,7 +737,7 @@ async def do_update_finding_severity(
             client=client,
         )
 
-        with suppress(AttributeError, KeyError):
+        with suppress(AttributeError, KeyError, TypeError):
             return result["data"]["updateSeverity"]["success"]
     except SkimsCanNotOperate:
         return False
@@ -780,7 +780,7 @@ async def do_update_evidence(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return result["data"]["updateEvidence"]["success"]
 
     return False
@@ -819,7 +819,7 @@ async def do_update_evidence_description(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return result["data"]["updateEvidenceDescription"]["success"]
 
     return False
@@ -863,7 +863,7 @@ async def do_update_vulnerability_commit(
     if "errors" in result:
         return False
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return result["data"]["updateVulnerabilityCommit"]["success"]
 
     return False
@@ -905,7 +905,7 @@ async def do_upload_vulnerabilities(
             client=client,
         )
 
-        with suppress(AttributeError, KeyError):
+        with suppress(AttributeError, KeyError, TypeError):
             return result["data"]["uploadFile"]["success"]
 
     except SkimsCanNotOperate:
@@ -951,7 +951,7 @@ async def do_verify_request_vuln(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return result["data"]["verifyVulnerabilitiesRequest"]["success"]
     return False
 
@@ -1005,7 +1005,7 @@ async def do_add_execution(
         client=client,
     )
 
-    with suppress(AttributeError, KeyError):
+    with suppress(AttributeError, KeyError, TypeError):
         return result["data"]["addMachineExecution"]["success"]
 
     return False
