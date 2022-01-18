@@ -5,14 +5,18 @@ from .initialize import (
     VERIFICATION_TABLE,
     ZERO_RISK_TABLE,
 )
+from .types import (
+    MetadataTableRow,
+    StateTableRow,
+    TreatmentTableRow,
+    VerificationTableRow,
+    ZeroRiskTableRow,
+)
 from .utils import (
     format_vulnerability_metadata,
 )
 from aioextensions import (
     collect,
-)
-from dataclasses import (
-    dataclass,
 )
 from datetime import (
     datetime,
@@ -32,55 +36,23 @@ from redshift.operations import (
 from redshift.utils import (
     format_query_fields,
 )
+from string import (
+    Template,
+)
 from typing import (
-    Optional,
     Tuple,
 )
 
-
-@dataclass(frozen=True)
-class MetadataTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    finding_id: str
-    type: str
-    custom_severity: Optional[int]
-    skims_method: Optional[str]
-
-
-@dataclass(frozen=True)
-class StateTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    modified_date: datetime
-    source: str
-    status: str
-
-
-@dataclass(frozen=True)
-class TreatmentTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    modified_date: datetime
-    status: str
-    accepted_until: Optional[datetime]
-    acceptance_status: Optional[str]
-
-
-@dataclass(frozen=True)
-class VerificationTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    modified_date: datetime
-    status: str
-
-
-@dataclass(frozen=True)
-class ZeroRiskTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    modified_date: datetime
-    status: str
+SQL_INSERT_METADATA = Template(
+    """
+    INSERT INTO ${table} (${fields}) SELECT ${values}
+    WHERE NOT EXISTS (
+        SELECT id
+        FROM ${table}
+        WHERE id = %(id)s
+    )
+    """
+)
 
 
 async def _insert_metadata(
@@ -90,14 +62,11 @@ async def _insert_metadata(
     _fields, values = format_query_fields(MetadataTableRow)
     sql_values = format_vulnerability_metadata(vulnerability)
     await execute(  # nosec
-        f"""
-            INSERT INTO {METADATA_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id
-                FROM {METADATA_TABLE}
-                WHERE id = %(id)s
-            )
-         """,
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
@@ -111,14 +80,11 @@ async def insert_batch_metadata(
         format_vulnerability_metadata(vuln) for vuln in vulnerabilities
     ]
     await execute_batch(  # nosec
-        f"""
-            INSERT INTO {METADATA_TABLE} ({_fields}) SELECT {values}
-            WHERE NOT EXISTS (
-                SELECT id
-                FROM {METADATA_TABLE}
-                WHERE id = %(id)s
-            )
-         """,
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
         sql_values,
     )
 
