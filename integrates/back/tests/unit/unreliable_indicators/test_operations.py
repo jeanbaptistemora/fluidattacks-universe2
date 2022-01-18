@@ -10,15 +10,6 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
 )
-from db_model.vulnerabilities.types import (
-    VulnerabilityUnreliableIndicators,
-)
-from decimal import (
-    Decimal,
-)
-from decorators import (
-    Vulnerability,
-)
 from freezegun.api import (  # type: ignore
     freeze_time,
 )
@@ -64,17 +55,3 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         unreliable_where="test/data/lib_path/f060/csharp.cs",
     )
     assert finding.unreliable_indicators == expected_finding_output
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
-        vulnerability_id
-    )
-    expected_vulnerability_output = VulnerabilityUnreliableIndicators(
-        unreliable_efficacy=Decimal("0"),
-        unreliable_last_reattack_date="2020-02-19T15:41:04+00:00",
-        unreliable_last_reattack_requester="integratesuser@gmail.com",
-        unreliable_last_requested_reattack_date="2020-02-18T15:41:04+00:00",
-        unreliable_reattack_cycles=1,
-        unreliable_report_date=None,
-        unreliable_source=None,
-        unreliable_treatment_changes=0,
-    )
-    assert vulnerability.unreliable_indicators == expected_vulnerability_output

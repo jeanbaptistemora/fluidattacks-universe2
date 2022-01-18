@@ -307,14 +307,4 @@ async def update_unreliable_indicators_by_deps(
             )
         )
 
-    if Entity.vulnerability in entities_to_update:
-        updations.append(
-            update_vulnerabilities_unreliable_indicators(
-                entities_to_update[Entity.vulnerability].entity_ids[
-                    EntityId.ids
-                ],
-                entities_to_update[Entity.vulnerability].attributes_to_update,
-            )
-        )
-
     await collect(updations)
