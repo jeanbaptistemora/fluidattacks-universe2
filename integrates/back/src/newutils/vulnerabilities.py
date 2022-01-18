@@ -464,7 +464,11 @@ async def get_report_dates(
             "Vulnerability with empty historic state",
             extra={"extra": {"vulnerabilities": vulns_ids}},
         )
-        return tuple()
+        LOGGER.exception(
+            "Vulnerability with empty historic state",
+            extra={"extra": {"vulnerabilities": vulns_ids}},
+        )
+        raise
 
 
 def get_specific(value: Dict[str, str]) -> int:
