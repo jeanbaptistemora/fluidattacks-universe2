@@ -38,7 +38,9 @@ async def main(
 
     create_session(api_token=token)
 
-    locale: core_model.LocalesEnum = await get_group_language(group)
+    locale: core_model.LocalesEnum = (
+        await get_group_language(group)
+    ) or core_model.LocalesEnum.EN
     finding_ids: Tuple[str, ...] = await get_closest_finding_ids(
         finding=core_model.FINDING_ENUM_FROM_STR[finding_code],
         group=group,

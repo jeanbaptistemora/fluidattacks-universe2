@@ -3,6 +3,9 @@ from aiogqlc import (
     GraphQLClient,
 )
 import aiohttp
+from contextlib import (
+    suppress,
+)
 from integrates.graphql import (
     client as graphql_client,
 )
@@ -32,7 +35,6 @@ from typing import (
 )
 from utils.function import (
     rate_limited,
-    RetryAndFinallyReturn,
     shield,
     SkimsCanNotOperate,
     StopRetrying,
@@ -134,7 +136,7 @@ async def get_group_level_role(
     *,
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> str:
+) -> Optional[str]:
     result = await _execute(
         query="""
             query SkimsGetGroupLevelRole(
@@ -152,9 +154,11 @@ async def get_group_level_role(
         client=client,
     )
 
-    role: str = result.get("data", {}).get("group", {}).get("userRole", "none")
+    with suppress(AttributeError, KeyError):
+        role: str = result["data"]["group"]["userRole"]
+        return role
 
-    return role
+    return None
 
 
 class ResultGetGroupFindings(NamedTuple):
@@ -198,15 +202,19 @@ async def get_group_findings(
         client=client,
     )
 
+    _findings = []
+    _drafts = []
+
+    with suppress(AttributeError, KeyError):
+        _findings = result["data"]["group"]["findings"]
+    with suppress(AttributeError, KeyError):
+        _drafts = result["data"]["group"]["drafts"]
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
             identifier=finding["id"],
             title=finding["title"],
         )
-        for finding in (
-            result.get("data", {}).get("group", {}).get("findings", [])
-            + result.get("data", {}).get("group", {}).get("drafts", [])
-        )
+        for finding in (_findings + _drafts)
     ]
 
     findings = sorted(
@@ -221,7 +229,7 @@ async def get_group_findings(
 async def get_group_language(
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> core_model.LocalesEnum:
+) -> Optional[core_model.LocalesEnum]:
     result = await _execute(
         query="""
             query SkimsGetGroupLanguage($group: String!) {
@@ -235,14 +243,17 @@ async def get_group_language(
         client=client,
     )
 
-    return core_model.LocalesEnum(result["data"]["group"]["language"])
+    with suppress(AttributeError, KeyError):
+        return core_model.LocalesEnum(result["data"]["group"]["language"])
+
+    return None
 
 
 @SHIELD
 async def get_group_open_severity(
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> float:
+) -> Optional[float]:
     result = await _execute(
         query="""
             query SkimsGetGroupOpenSeverity($group: String!) {
@@ -259,12 +270,14 @@ async def get_group_open_severity(
         client=client,
     )
 
-    return sum(
-        finding["openVulnerabilities"] * (4 ** (finding["severityScore"] - 4))
-        for finding in result.get("data", {})
-        .get("group", {})
-        .get("findings", [])
-    )
+    with suppress(AttributeError, KeyError):
+        return sum(
+            finding["openVulnerabilities"]
+            * (4 ** (finding["severityScore"] - 4))
+            for finding in result["data"]["group"]["findings"]
+        )
+
+    return None
 
 
 class ResultGetGroupRoots(NamedTuple):
@@ -277,7 +290,7 @@ async def get_group_roots(
     *,
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> Tuple[ResultGetGroupRoots, ...]:
+) -> Optional[Tuple[ResultGetGroupRoots, ...]]:
     result = await _execute(
         query="""
             query SkimsGetGroupRoots(
@@ -300,13 +313,17 @@ async def get_group_roots(
         client=client,
     )
 
-    return tuple(
-        ResultGetGroupRoots(
-            environment_urls=root["environmentUrls"],
-            nickname=root["nickname"],
+    try:
+
+        return tuple(
+            ResultGetGroupRoots(
+                environment_urls=root["environmentUrls"],
+                nickname=root["nickname"],
+            )
+            for root in result["data"]["group"]["roots"]
         )
-        for root in result.get("data", {}).get("group", {}).get("roots", [])
-    )
+    except AttributeError:
+        return None
 
 
 @SHIELD
@@ -331,14 +348,11 @@ async def get_finding_current_release_status(
         ),
         client=client,
     )
-
-    return (
-        core_model.FindingReleaseStatusEnum(
-            result.get("data", {}).get("finding", {}).get("currentState")
+    with suppress(AttributeError, KeyError):
+        return core_model.FindingReleaseStatusEnum(
+            result["data"]["finding"]["currentState"]
         )
-        if result.get("data", {}).get("finding", {}).get("currentState")
-        else core_model.FindingReleaseStatusEnum.APPROVED
-    )
+    return core_model.FindingReleaseStatusEnum.APPROVED
 
 
 @SHIELD
@@ -377,9 +391,10 @@ async def get_finding_vulnerabilities(
     )
 
     store: EphemeralStore = get_ephemeral_store()
-    for vulnerability in (
-        result.get("data", {}).get("finding", {}).get("vulnerabilities", [])
-    ):
+    vulnerabilities = []
+    with suppress(AttributeError, KeyError):
+        vulnerabilities = result["data"]["finding"]["vulnerabilities"]
+    for vulnerability in vulnerabilities:
         kind = core_model.VulnerabilityKindEnum(
             vulnerability["vulnerabilityType"]
         )
@@ -479,14 +494,9 @@ async def do_add_git_root(
         client=client,
     )
 
-    success: bool = (
-        (result or {}).get("data", {}).get("addGitRoot", {}).get("success")
-    )
-
-    if success is None:
-        raise RetryAndFinallyReturn(success)
-
-    return success
+    with suppress(ArithmeticError):
+        return result["data"]["addGitRoot"]["success"]
+    return False
 
 
 @SHIELD
@@ -536,16 +546,13 @@ async def do_create_draft(
             ),
             client=client,
         )
+        with suppress(AttributeError, KeyError):
+            return result["data"]["addDraft"]["success"]
 
-        success: bool = (
-            (result or {}).get("data", {}).get("addDraft", {}).get("success")
-        )
-        if success is None:
-            raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
 
-    return success
+    return False
 
 
 @SHIELD
@@ -575,15 +582,11 @@ async def do_delete_finding(
         ),
         client=client,
     )
-
-    success: bool = (
-        (result or {}).get("data", {}).get("removeFinding", {}).get("success")
-    )
+    success: bool = False
+    with suppress(AttributeError, KeyError):
+        success = result["data"]["removeFinding"]["success"]
 
     await log("warn", "Removing finding: %s, success: %s", finding_id, success)
-
-    if success is None:
-        raise RetryAndFinallyReturn(success)
 
     return success
 
@@ -614,19 +617,13 @@ async def do_approve_draft(
             client=client,
         )
 
-        success: bool = (
-            (result or {})
-            .get("data", {})
-            .get("approveDraft", {})
-            .get("success")
-        )
+        with suppress(AttributeError, KeyError):
+            return result["data"]["approveDraft"]["success"]
 
-        if success is None:
-            raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
 
-    return success
+    return False
 
 
 @SHIELD
@@ -655,19 +652,13 @@ async def do_submit_draft(
             client=client,
         )
 
-        success: bool = (
-            (result or {})
-            .get("data", {})
-            .get("submitDraft", {})
-            .get("success")
-        )
+        with suppress(AttributeError, KeyError):
+            return result["data"]["submitDraft"]["success"]
 
-        if success is None:
-            raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
 
-    return success
+    return False
 
 
 @SHIELD
@@ -746,18 +737,11 @@ async def do_update_finding_severity(
             client=client,
         )
 
-        success: bool = (
-            (result or {})
-            .get("data", {})
-            .get("updateSeverity", {})
-            .get("success")
-        )
-
-        if success is None:
-            raise RetryAndFinallyReturn(success)
+        with suppress(AttributeError, KeyError):
+            return result["data"]["updateSeverity"]["success"]
     except SkimsCanNotOperate:
         return False
-    return success
+    return False
 
 
 @rate_limited(rpm=DO_UPDATE_EVIDENCE_RATE_LIMIT)
@@ -796,14 +780,10 @@ async def do_update_evidence(
         client=client,
     )
 
-    success: bool = (
-        (result or {}).get("data", {}).get("updateEvidence", {}).get("success")
-    )
+    with suppress(AttributeError, KeyError):
+        return result["data"]["updateEvidence"]["success"]
 
-    if success is None:
-        raise RetryAndFinallyReturn(success)
-
-    return success
+    return False
 
 
 @SHIELD
@@ -839,17 +819,10 @@ async def do_update_evidence_description(
         client=client,
     )
 
-    success: bool = (
-        (result or {})
-        .get("data", {})
-        .get("updateEvidenceDescription", {})
-        .get("success")
-    )
+    with suppress(AttributeError, KeyError):
+        return result["data"]["updateEvidenceDescription"]["success"]
 
-    if success is None:
-        raise RetryAndFinallyReturn(success)
-
-    return success
+    return False
 
 
 async def do_update_vulnerability_commit(
@@ -890,16 +863,10 @@ async def do_update_vulnerability_commit(
     if "errors" in result:
         return False
 
-    success: bool = (
-        (result or {})
-        .get("data", {})
-        .get("updateVulnerabilityCommit", {})
-        .get("success")
-        if result["data"]
-        else False
-    )
+    with suppress(AttributeError, KeyError):
+        return result["data"]["updateVulnerabilityCommit"]["success"]
 
-    return success
+    return False
 
 
 @SHIELD
@@ -938,16 +905,13 @@ async def do_upload_vulnerabilities(
             client=client,
         )
 
-        success: bool = (
-            (result or {}).get("data", {}).get("uploadFile", {}).get("success")
-        )
+        with suppress(AttributeError, KeyError):
+            return result["data"]["uploadFile"]["success"]
 
-        if success is None:
-            raise RetryAndFinallyReturn(success)
     except SkimsCanNotOperate:
         return False
 
-    return success
+    return False
 
 
 @SHIELD
@@ -987,17 +951,9 @@ async def do_verify_request_vuln(
         client=client,
     )
 
-    success: bool = (
-        (result or {})
-        .get("data", {})
-        .get("verifyVulnerabilitiesRequest", {})
-        .get("success")
-    )
-
-    if success is None:
-        raise RetryAndFinallyReturn(success)
-
-    return success
+    with suppress(AttributeError, KeyError):
+        return result["data"]["verifyVulnerabilitiesRequest"]["success"]
+    return False
 
 
 @SHIELD
@@ -1049,14 +1005,7 @@ async def do_add_execution(
         client=client,
     )
 
-    success: bool = (
-        (result or {})
-        .get("data", {})
-        .get("addMachineExecution", {})
-        .get("success")
-    )
+    with suppress(AttributeError, KeyError):
+        return result["data"]["addMachineExecution"]["success"]
 
-    if success is None:
-        raise RetryAndFinallyReturn(success)
-
-    return success
+    return False

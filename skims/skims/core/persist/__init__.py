@@ -355,7 +355,9 @@ async def verify_permissions(*, group: str) -> bool:
     success: bool = False
 
     try:
-        role: str = await get_group_level_role(group=group)
+        role: Optional[str] = await get_group_level_role(group=group)
+        if not role:
+            return False
         await get_group_findings(group=group)
     except PermissionError as exc:
         await log("critical", "%s: %s", type(exc).__name__, str(exc))
