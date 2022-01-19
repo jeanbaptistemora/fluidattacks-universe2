@@ -69,6 +69,7 @@ const GET_USER_ORGANIZATIONS_GROUPS: DocumentNode = gql`
         groups {
           name
           permissions
+          serviceAttributes
         }
         name
       }

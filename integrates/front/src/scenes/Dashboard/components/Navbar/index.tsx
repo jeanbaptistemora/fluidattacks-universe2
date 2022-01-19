@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -34,24 +33,29 @@ export const Navbar: React.FC<INavbarProps> = ({
   taskState,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
-  const groups: IGroupAction[] =
-    userData === undefined || _.isEmpty(userData)
+  const groups =
+    userData === undefined
       ? []
-      : _.flatten(
-          userData.me.organizations.map(
-            (organization: IOrganizationGroups): IGroupAction[] =>
-              organization.groups.map(
-                (group: IOrganizationGroups["groups"][0]): IGroupAction => ({
-                  actions: group.permissions.map(
-                    (action: string): IAction => ({
-                      action,
-                    })
-                  ),
-                  groupName: group.name,
-                })
-              )
-          )
+      : userData.me.organizations.reduce(
+          (
+            previousValue: IOrganizationGroups["groups"],
+            currentValue
+          ): IOrganizationGroups["groups"] => [
+            ...previousValue,
+            ...currentValue.groups,
+          ],
+          []
         );
+  const groupActions = groups.map(
+    (group): IGroupAction => ({
+      actions: group.permissions.map(
+        (action: string): IAction => ({
+          action,
+        })
+      ),
+      groupName: group.name,
+    })
+  );
 
   return (
     <React.StrictMode>
@@ -77,11 +81,11 @@ export const Navbar: React.FC<INavbarProps> = ({
             <li />
           ) : (
             <li>
-              <TaskInfo groups={groups} taskState={taskState} />
+              <TaskInfo groups={groupActions} taskState={taskState} />
             </li>
           )}
           <li>
-            <HelpWidget />
+            <HelpWidget groups={groups} />
           </li>
           <li>
             <TechnicalInfo />

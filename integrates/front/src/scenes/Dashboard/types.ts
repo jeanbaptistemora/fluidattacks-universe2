@@ -22,6 +22,7 @@ interface IOrganizationGroups {
   groups: {
     name: string;
     permissions: string[];
+    serviceAttributes: string[];
   }[];
   name: string;
 }

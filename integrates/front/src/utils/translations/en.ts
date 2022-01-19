@@ -2480,6 +2480,11 @@ export const enTranslations: ResourceKey = {
     title: "Manage DevSecOps token",
     tokenNoExists: "A token could not be found for the group",
   },
+  upgrade: {
+    close: "Close",
+    text: "This functionality is only available for Squad subscriptions",
+    title: "Subscription upgrade",
+  },
   userModal: {
     emailPlaceholder: "someone@domain.com",
     emailText:

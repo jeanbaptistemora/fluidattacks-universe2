@@ -14,10 +14,13 @@ import { openPopupWidget } from "react-calendly";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
+import { UpgradeSubscriptionModal } from "./UpgradeSubscriptionModal";
+
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddFilesBasicModal } from "scenes/Dashboard/components/AddFilesBasicModal";
 import { SIGN_POST_URL_REQUESTER_MUTATION } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -38,7 +41,13 @@ interface IAddFiles {
   };
 }
 
-export const HelpWidget: React.FC = (): JSX.Element => {
+interface IHelpWidgetProps {
+  groups: IOrganizationGroups["groups"];
+}
+
+export const HelpWidget: React.FC<IHelpWidgetProps> = ({
+  groups,
+}: IHelpWidgetProps): JSX.Element => {
   const { t } = useTranslation();
   const { userEmail, userName } = useContext(authContext);
 
@@ -52,11 +61,24 @@ export const HelpWidget: React.FC = (): JSX.Element => {
     },
   });
 
-  const openCalendly = useCallback((): void => {
-    openPopupWidget({
-      url: "https://calendly.com/fluidattacks/talk-to-an-expert",
-    });
+  const [isUpgradeOpen, setUpgradeOpen] = useState(false);
+  const closeUpgradeModal = useCallback((): void => {
+    setUpgradeOpen(false);
   }, []);
+
+  const openCalendly = useCallback((): void => {
+    const squadGroups = groups.filter((group): boolean =>
+      group.serviceAttributes.includes("has_squad")
+    );
+
+    if (squadGroups.length > 0) {
+      openPopupWidget({
+        url: "https://calendly.com/fluidattacks/talk-to-an-expert",
+      });
+    } else {
+      setUpgradeOpen(true);
+    }
+  }, [groups]);
 
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {
@@ -149,12 +171,17 @@ export const HelpWidget: React.FC = (): JSX.Element => {
               &nbsp;{t("navbar.help.chat")}
             </DropdownButton>
           </li>
-          <li>
-            <DropdownButton onClick={openCalendly}>
-              <FontAwesomeIcon icon={faHeadset} />
-              &nbsp;{t("navbar.help.expert")}
-            </DropdownButton>
-          </li>
+          {groups.length > 0 ? (
+            <li>
+              <DropdownButton onClick={openCalendly}>
+                <FontAwesomeIcon icon={faHeadset} />
+                &nbsp;{t("navbar.help.expert")}
+              </DropdownButton>
+              {isUpgradeOpen ? (
+                <UpgradeSubscriptionModal onClose={closeUpgradeModal} />
+              ) : undefined}
+            </li>
+          ) : undefined}
           <Can do={"api_mutations_sign_post_url_requester_mutate"}>
             <li>
               <TooltipWrapper

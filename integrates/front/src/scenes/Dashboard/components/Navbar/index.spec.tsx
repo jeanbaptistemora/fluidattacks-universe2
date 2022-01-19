@@ -110,7 +110,11 @@ describe("Navbar", (): void => {
                   organizations: [
                     {
                       groups: [
-                        { name: "testgroup", permissions: ["valid_assigned"] },
+                        {
+                          name: "testgroup",
+                          permissions: ["valid_assigned"],
+                          serviceAttributes: [],
+                        },
                       ],
                       name: "okada",
                     },
