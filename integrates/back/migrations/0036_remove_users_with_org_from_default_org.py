@@ -16,6 +16,9 @@ import csv
 from custom_exceptions import (
     UserNotInOrganization,
 )
+from dataloaders import (
+    get_new_context,
+)
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
@@ -32,7 +35,10 @@ STAGE: str = os.environ["STAGE"]
 
 async def remove_user_from_imamura(user: str, org_id: str) -> bool:
     try:
-        success: bool = cast(bool, await orgs_domain.remove_user(org_id, user))
+        success: bool = cast(
+            bool,
+            await orgs_domain.remove_user(get_new_context(), org_id, user),
+        )
         if success:
             print(f"[INFO] User {user} removed from imamura")
         else:

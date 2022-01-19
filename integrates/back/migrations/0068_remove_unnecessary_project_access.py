@@ -14,6 +14,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from dataloaders import (
+    get_new_context,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -39,6 +42,7 @@ async def main() -> None:
         await collect(
             [
                 group_access_domain.remove_access(
+                    get_new_context(),
                     project_access["user_email"],
                     project_access["project_name"],
                 )

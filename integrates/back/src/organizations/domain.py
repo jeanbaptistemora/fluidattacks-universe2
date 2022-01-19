@@ -361,7 +361,7 @@ async def remove_group(group_name: str, organization_id: str) -> bool:
     return await orgs_dal.update_group(organization_id, group_name, values)
 
 
-async def remove_user(organization_id: str, email: str) -> bool:
+async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 
@@ -373,7 +373,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
     org_groups = await get_groups(organization_id)
     groups_removed = all(
         await collect(
-            group_access_domain.remove_access(email, group)
+            group_access_domain.remove_access(loaders, email, group)
             for group in org_groups
         )
     )

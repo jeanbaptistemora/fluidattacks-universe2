@@ -75,7 +75,8 @@ async def delete_organization(
 ) -> bool:
     users = await orgs_domain.get_users(organization_id)
     users_removed = await collect(
-        orgs_domain.remove_user(organization_id, user) for user in users
+        orgs_domain.remove_user(loaders, organization_id, user)
+        for user in users
     )
     success = all(users_removed) if users else True
 

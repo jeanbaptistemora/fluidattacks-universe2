@@ -7,6 +7,9 @@ from context import (
 from custom_exceptions import (
     InvalidPushToken,
 )
+from dataloaders import (
+    get_new_context,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -99,7 +102,7 @@ async def test_remove_user() -> None:
         >= 1
     )
 
-    await remove_user_all_organizations(email=email)
+    await remove_user_all_organizations(loaders=get_new_context(), email=email)
 
     assert await users_domain.get_data(email, "email") == ""
     assert await get_user_organizations(email) == []

@@ -9,16 +9,19 @@ from subscriptions.domain import (
     get_user_subscriptions,
     unsubscribe_user_to_entity_report,
 )
+from typing import (
+    Any,
+)
 from users.domain import (
     delete,
 )
 
 
-async def remove_user_all_organizations(*, email: str) -> None:
+async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
     organizations_ids = await get_user_organizations(email)
     await collect(
         tuple(
-            remove_user(organization_id, email)
+            remove_user(loaders, organization_id, email)
             for organization_id in organizations_ids
         )
     )

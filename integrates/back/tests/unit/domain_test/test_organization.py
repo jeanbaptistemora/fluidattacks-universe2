@@ -244,14 +244,16 @@ async def test_remove_user() -> None:
     assert await authz.get_group_level_role(user, group) == "customer"
     assert await authz.get_organization_level_role(user, org_id) == "customer"
 
-    assert await orgs_domain.remove_user(org_id, user)
+    assert await orgs_domain.remove_user(get_new_context(), org_id, user)
     updated_group_users = await group_access_domain.get_group_users(group)
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ""
     assert await authz.get_organization_level_role(user, org_id) == ""
 
     with pytest.raises(UserNotInOrganization):
-        await orgs_domain.remove_user(org_id, "madeupuser@gmail.com")
+        await orgs_domain.remove_user(
+            get_new_context(), org_id, "madeupuser@gmail.com"
+        )
 
 
 @pytest.mark.changes_db

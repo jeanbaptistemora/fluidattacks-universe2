@@ -38,6 +38,9 @@ from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
+from dataloaders import (
+    get_new_context,
+)
 from decorators import (
     authenticate_session,
 )
@@ -141,7 +144,11 @@ async def confirm_access(request: Request) -> HTMLResponse:
                 response = await templates.valid_invitation(
                     request, group_access
                 )
-                schedule(groups_domain.after_complete_register(group_access))
+                schedule(
+                    groups_domain.after_complete_register(
+                        get_new_context(), group_access
+                    )
+                )
             else:
                 response = templates.invalid_invitation(
                     request,
@@ -168,7 +175,7 @@ async def reject_access(request: Request) -> HTMLResponse:
         )
         if group_access:
             success = await groups_domain.reject_register_for_group_invitation(
-                group_access
+                get_new_context(), group_access
             )
             if success:
                 response = await templates.reject_invitation(

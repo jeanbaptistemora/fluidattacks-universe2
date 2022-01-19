@@ -13,6 +13,15 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.findings.types import (
+    Finding,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
+from db_model.vulnerabilities.update import (
+    update_assigned_index,
+)
 from decimal import (
     Decimal,
 )
@@ -25,9 +34,12 @@ from newutils.datetime import (
     get_now,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
+    Set,
+    Tuple,
 )
 
 
@@ -121,7 +133,9 @@ async def list_internal_owners(group_name: str) -> List[str]:
     return internal_managers
 
 
-async def remove_access(user_email: str, group_name: str) -> bool:
+async def remove_access(
+    loaders: Any, user_email: str, group_name: str
+) -> bool:
     success: bool = all(
         await collect(
             [
@@ -130,6 +144,34 @@ async def remove_access(user_email: str, group_name: str) -> bool:
             ]
         )
     )
+    if not success:
+        return success
+
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.me_vulnerabilities.load(user_email)
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
+
+    findings_ids: Set[str] = {finding.id for finding in group_findings}
+    group_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        vulnerability
+        for vulnerability in vulnerabilities
+        if vulnerability.finding_id in findings_ids
+    )
+
+    await collect(
+        tuple(
+            update_assigned_index(
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=None,
+            )
+            for vulnerability in group_vulnerabilities
+        )
+    )
+
     return success
 
 

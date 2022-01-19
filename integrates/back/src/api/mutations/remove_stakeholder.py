@@ -42,7 +42,9 @@ async def mutate(_: Any, info: GraphQLResolveInfo) -> SimplePayloadType:
         stakeholder_email
     )
     stakeholder_groups = await get_groups_by_user(stakeholder_email)
-    await remove_user_all_organizations(email=stakeholder_email)
+    await remove_user_all_organizations(
+        loaders=info.context.loaders, email=stakeholder_email
+    )
 
     await collect(
         tuple(

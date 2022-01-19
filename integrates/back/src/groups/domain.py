@@ -490,6 +490,7 @@ async def complete_register_for_group_invitation(
 
 
 async def reject_register_for_group_invitation(
+    loaders: Any,
     group_access: GroupAccessType,
 ) -> bool:
     success: bool = False
@@ -499,7 +500,9 @@ async def reject_register_for_group_invitation(
 
     group_name = cast(str, get_key_or_fallback(group_access))
     user_email = cast(str, group_access["user_email"])
-    success = await group_access_domain.remove_access(user_email, group_name)
+    success = await group_access_domain.remove_access(
+        loaders, user_email, group_name
+    )
 
     return success
 
@@ -1414,7 +1417,9 @@ async def remove_user(
     loaders: Any, group_name: str, email: str, check_org_access: bool = True
 ) -> bool:
     """Remove user access to group"""
-    success: bool = await group_access_domain.remove_access(email, group_name)
+    success: bool = await group_access_domain.remove_access(
+        loaders, email, group_name
+    )
     if success and check_org_access:
         group_loader = loaders.group
         group = await group_loader.load(group_name)
@@ -1428,7 +1433,9 @@ async def remove_user(
         groups_filtered = filter_active_groups(groups)
         has_groups_in_org = bool(groups_filtered)
         if has_org_access and not has_groups_in_org:
-            success = success and await orgs_domain.remove_user(org_id, email)
+            success = success and await orgs_domain.remove_user(
+                loaders, org_id, email
+            )
 
         user_groups = await get_groups_by_user(email, organization_id=org_id)
         groups = await loaders.group.load_many(user_groups)
@@ -1490,7 +1497,9 @@ async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
     return [tag for tag in tags if pattern.match(tag)]
 
 
-async def after_complete_register(group_access: GroupAccessType) -> None:
+async def after_complete_register(
+    loaders: Any, group_access: GroupAccessType
+) -> None:
     group_name: str = str(get_key_or_fallback(group_access))
     user_email: str = str(group_access["user_email"])
     enforcer = await authz.get_user_level_enforcer(user_email)
@@ -1503,7 +1512,7 @@ async def after_complete_register(group_access: GroupAccessType) -> None:
         organization_id != default_org_id
         and await orgs_domain.has_user_access(default_org_id, user_email)
     ):
-        await orgs_domain.remove_user(default_org_id, user_email)
+        await orgs_domain.remove_user(loaders, default_org_id, user_email)
 
 
 def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:

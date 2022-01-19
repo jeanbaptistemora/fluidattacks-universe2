@@ -114,8 +114,9 @@ def test_validate_group_services_config() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_access() -> None:
-    assert await remove_access("unittest", "unittesting")
-    assert not await remove_access("", "")
+    loaders = get_new_context()
+    assert await remove_access(loaders, "unittest", "unittesting")
+    assert not await remove_access(loaders, "", "")
 
 
 async def test_validate_tags() -> None:

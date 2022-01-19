@@ -18,6 +18,9 @@ from boto3.dynamodb.conditions import (
 from context import (
     FI_DEFAULT_ORG,
 )
+from dataloaders import (
+    get_new_context,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -61,7 +64,9 @@ async def remove_default_org_access(
         )
         if groups:
             print(f"User {email} has access to more orgs than the default")
-            return await orgs_domain.remove_user(default_org_id, email)
+            return await orgs_domain.remove_user(
+                get_new_context(), default_org_id, email
+            )
 
     return True
 
