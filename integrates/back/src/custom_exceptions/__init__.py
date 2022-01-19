@@ -863,10 +863,10 @@ class RequestedReportError(CustomBaseException):
         super(RequestedReportError, self).__init__(msg)
 
 
-class RootCredentialNotFound(CustomBaseException):
+class CredentialNotFound(CustomBaseException):
     def __init__(self) -> None:
-        msg = "Exception - Access denied or root credential not found"
-        super(RootCredentialNotFound, self).__init__(msg)
+        msg = "Exception - Access denied or credential not found"
+        super(CredentialNotFound, self).__init__(msg)
 
 
 class RootNotFound(CustomBaseException):

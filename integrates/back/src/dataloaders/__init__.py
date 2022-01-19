@@ -28,6 +28,10 @@ from .organization_tags import (
 from collections import (
     defaultdict,
 )
+from db_model.credentials.get import (
+    CredentialLoader,
+    GroupCredentialsLoader,
+)
 from db_model.findings.get import (
     FindingHistoricStateLoader,
     FindingHistoricVerificationLoader,
@@ -36,10 +40,6 @@ from db_model.findings.get import (
     GroupDraftsLoader,
     GroupFindingsLoader,
     GroupRemovedFindingsLoader,
-)
-from db_model.root_credentials.get import (
-    GroupRootCredentialsLoader,
-    RootCredentialLoader,
 )
 from db_model.roots.get import (
     GroupRootsLoader,
@@ -80,6 +80,7 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
+    credential: CredentialLoader
     event: EventLoader
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
@@ -89,11 +90,11 @@ class Dataloaders(NamedTuple):
     finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader
     finding_vulns_zr_typed: FindingVulnsOnlyZeroRiskTypedLoader
     group: GroupLoader
+    group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
     group_removed_findings: GroupRemovedFindingsLoader
-    group_root_credentials: GroupRootCredentialsLoader
     group_roots: GroupRootsLoader
     group_services_toe_lines: GroupServicesToeLinesLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -104,7 +105,6 @@ class Dataloaders(NamedTuple):
     organization_tags: OrganizationTagsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     root: RootLoader
-    root_credential: RootCredentialLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
@@ -147,6 +147,7 @@ def get_new_context() -> Dataloaders:
     )
 
     return Dataloaders(
+        credential=CredentialLoader(),
         event=EventLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
@@ -156,11 +157,11 @@ def get_new_context() -> Dataloaders:
         finding_vulns_nzr_typed=finding_vulns_nzr_typed_loader,
         finding_vulns_zr_typed=finding_vulns_zr_typed_loader,
         group=GroupLoader(),
+        group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
         group_removed_findings=GroupRemovedFindingsLoader(),
-        group_root_credentials=GroupRootCredentialsLoader(),
         group_roots=GroupRootsLoader(),
         group_services_toe_lines=GroupServicesToeLinesLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
@@ -171,7 +172,6 @@ def get_new_context() -> Dataloaders:
         organization_tags=OrganizationTagsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         root=RootLoader(),
-        root_credential=RootCredentialLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),

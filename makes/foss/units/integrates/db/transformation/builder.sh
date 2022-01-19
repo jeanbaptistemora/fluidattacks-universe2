@@ -4,6 +4,9 @@ function main {
   local email="" # Place your email here to become an admin
   local i=0
   local included_facets=(
+    credentials_metadata
+    credentials_historic_state
+    credentials_state
     git_root_metadata
     git_root_state
     git_root_historic_state
@@ -13,9 +16,6 @@ function main {
     ip_root_state
     ip_root_historic_state
     machine_git_root_execution
-    root_credentials_metadata
-    root_credentials_historic_state
-    root_credentials_state
     root_services_toe_lines
     toe_input_metadata
     toe_lines_metadata

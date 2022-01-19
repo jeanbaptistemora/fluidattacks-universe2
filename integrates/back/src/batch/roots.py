@@ -26,6 +26,9 @@ from dataloaders import (
 from db_model import (
     findings as findings_model,
 )
+from db_model.credentials.types import (
+    CredentialItem,
+)
 from db_model.enums import (
     Source,
 )
@@ -35,9 +38,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
     FindingState,
-)
-from db_model.root_credentials.types import (
-    RootCredentialItem,
 )
 from db_model.roots.types import (
     GitRootItem,
@@ -579,7 +579,7 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
     return success
 
 
-async def _ssh_clone_root(root: RootItem, cred: RootCredentialItem) -> bool:
+async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> bool:
     success: bool = False
     group_name: str = root.group_name
     root_url: str = root.state.url
@@ -624,7 +624,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
     root_nickname: str = item.additional_info
 
     dataloaders: Dataloaders = get_new_context()
-    group_root_creds_loader = dataloaders.group_root_credentials
+    group_root_creds_loader = dataloaders.group_credentials
     group_roots_loader = dataloaders.group_roots
     group_creds = await group_root_creds_loader.load(group_name)
     group_roots = await group_roots_loader.load(group_name)
@@ -634,7 +634,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
         nickname=root_nickname, group_roots=group_roots, only_git_roots=True
     )
     root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
-    root_cred: RootCredentialItem = next(
+    root_cred: CredentialItem = next(
         filter(lambda x: root_nickname in x.state.roots, group_creds), None
     )
 

@@ -11,18 +11,18 @@ from collections import (
     defaultdict,
 )
 from custom_exceptions import (
-    RootCredentialNotFound,
+    CredentialNotFound,
 )
 from db_model import (
     TABLE,
 )
-from db_model.enums import (
-    GitCredentialType,
+from db_model.credentials.types import (
+    CredentialItem,
+    CredentialMetadata,
+    CredentialState,
 )
-from db_model.root_credentials.types import (
-    RootCredentialItem,
-    RootCredentialMetadata,
-    RootCredentialState,
+from db_model.enums import (
+    CredentialType,
 )
 from dynamodb import (
     historics,
@@ -39,13 +39,13 @@ from typing import (
 )
 
 
-def _build_root_credential(
+def _build_credential(
     *,
     group_name: str,
     item_id: str,
     key_structure: PrimaryKey,
     raw_items: Tuple[Item, ...],
-) -> RootCredentialItem:
+) -> CredentialItem:
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
@@ -56,13 +56,13 @@ def _build_root_credential(
         raw_items=raw_items,
     )
 
-    return RootCredentialItem(
+    return CredentialItem(
         group_name=group_name,
         id=item_id,
-        metadata=RootCredentialMetadata(
-            type=GitCredentialType(metadata["type"]),
+        metadata=CredentialMetadata(
+            type=CredentialType(metadata["type"]),
         ),
-        state=RootCredentialState(
+        state=CredentialState(
             key=state["key"],
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
@@ -72,14 +72,14 @@ def _build_root_credential(
     )
 
 
-async def _get_root_credential(
+async def _get_credential(
     *,
     group_name: str,
-    root_credential_id: str,
-) -> RootCredentialItem:
+    credential_id: str,
+) -> CredentialItem:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_credentials_metadata"],
-        values={"name": group_name, "uuid": root_credential_id},
+        facet=TABLE.facets["credentials_metadata"],
+        values={"name": group_name, "uuid": credential_id},
     )
 
     index = TABLE.indexes["inverted_index"]
@@ -92,43 +92,39 @@ async def _get_root_credential(
             )
         ),
         facets=(
-            TABLE.facets["root_credentials_historic_state"],
-            TABLE.facets["root_credentials_metadata"],
-            TABLE.facets["root_credentials_state"],
+            TABLE.facets["credentials_historic_state"],
+            TABLE.facets["credentials_metadata"],
+            TABLE.facets["credentials_state"],
         ),
         index=index,
         table=TABLE,
     )
 
     if response.items:
-        return _build_root_credential(
+        return _build_credential(
             group_name=group_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
             raw_items=response.items,
         )
 
-    raise RootCredentialNotFound()
+    raise CredentialNotFound()
 
 
-class RootCredentialLoader(DataLoader):
+class CredentialLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_credential_ids: List[Tuple[str, str]]
-    ) -> Tuple[RootCredentialItem, ...]:
+        self, credential_ids: List[Tuple[str, str]]
+    ) -> Tuple[CredentialItem, ...]:
         return await collect(
-            _get_root_credential(
-                group_name=group_name, root_credential_id=root_credential_id
-            )
-            for group_name, root_credential_id in root_credential_ids
+            _get_credential(group_name=group_name, credential_id=credential_id)
+            for group_name, credential_id in credential_ids
         )
 
 
-async def _get_roots_credentials(
-    *, group_name: str
-) -> Tuple[RootCredentialItem, ...]:
+async def _get_credentials(*, group_name: str) -> Tuple[CredentialItem, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_credentials_metadata"],
+        facet=TABLE.facets["credentials_metadata"],
         values={"name": group_name},
     )
 
@@ -142,49 +138,47 @@ async def _get_roots_credentials(
             )
         ),
         facets=(
-            TABLE.facets["root_credentials_historic_state"],
-            TABLE.facets["root_credentials_metadata"],
-            TABLE.facets["root_credentials_state"],
+            TABLE.facets["credentials_historic_state"],
+            TABLE.facets["credentials_metadata"],
+            TABLE.facets["credentials_state"],
         ),
         index=index,
         table=TABLE,
     )
 
-    root_credential_items = defaultdict(list)
+    credential_items = defaultdict(list)
     for item in response.items:
-        root_credential_id = "#".join(
-            item[key_structure.sort_key].split("#")[:2]
-        )
-        root_credential_items[root_credential_id].append(item)
+        credential_id = "#".join(item[key_structure.sort_key].split("#")[:2])
+        credential_items[credential_id].append(item)
 
     return tuple(
-        _build_root_credential(
+        _build_credential(
             group_name=group_name,
-            item_id=root_credential_id,
+            item_id=credential_id,
             key_structure=key_structure,
             raw_items=tuple(items),
         )
-        for root_credential_id, items in root_credential_items.items()
+        for credential_id, items in credential_items.items()
     )
 
 
-class GroupRootCredentialsLoader(DataLoader):
+class GroupCredentialsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
-    ) -> Tuple[Tuple[RootCredentialItem, ...], ...]:
+    ) -> Tuple[Tuple[CredentialItem, ...], ...]:
         return await collect(
-            _get_roots_credentials(group_name=group_name)
+            _get_credentials(group_name=group_name)
             for group_name in group_names
         )
 
 
 async def _get_historic_state(
-    *, root_credential_id: str
-) -> Tuple[RootCredentialState, ...]:
+    *, credential_id: str
+) -> Tuple[CredentialState, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["root_credentials_historic_state"],
-        values={"uuid": root_credential_id},
+        facet=TABLE.facets["credentials_historic_state"],
+        values={"uuid": credential_id},
     )
 
     key_structure = TABLE.primary_key
@@ -193,12 +187,12 @@ async def _get_historic_state(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
-        facets=(TABLE.facets["root_credentials_historic_state"],),
+        facets=(TABLE.facets["credentials_historic_state"],),
         table=TABLE,
     )
 
     return tuple(
-        RootCredentialState(
+        CredentialState(
             key=state["key"],
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
@@ -209,12 +203,12 @@ async def _get_historic_state(
     )
 
 
-class RootCredentialStatesLoader(DataLoader):
+class CredentialStatesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_credential_ids: List[str]
-    ) -> Tuple[Tuple[RootCredentialState, ...], ...]:
+        self, credential_ids: List[str]
+    ) -> Tuple[Tuple[CredentialState, ...], ...]:
         return await collect(
-            _get_historic_state(root_credential_id=root_credential_id)
-            for root_credential_id in root_credential_ids
+            _get_historic_state(credential_id=credential_id)
+            for credential_id in credential_ids
         )

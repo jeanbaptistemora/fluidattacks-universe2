@@ -18,5 +18,5 @@ class StateRemovalJustification(str, Enum):
     REPORTING_ERROR: str = "REPORTING_ERROR"
 
 
-class GitCredentialType(str, Enum):
+class CredentialType(str, Enum):
     SSH: str = "SSH"

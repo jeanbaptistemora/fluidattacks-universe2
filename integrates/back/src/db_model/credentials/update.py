@@ -4,8 +4,8 @@ from boto3.dynamodb.conditions import (
 from db_model import (
     TABLE,
 )
-from db_model.root_credentials.types import (
-    RootCredentialState,
+from db_model.credentials.types import (
+    CredentialState,
 )
 from dynamodb import (
     historics,
@@ -14,17 +14,17 @@ from dynamodb import (
 import simplejson as json  # type: ignore
 
 
-async def update_root_credential_state(
+async def update_credential_state(
     *,
-    current_value: RootCredentialState,
+    current_value: CredentialState,
     group_name: str,
-    root_credential_id: str,
-    state: RootCredentialState,
+    credential_id: str,
+    state: CredentialState,
 ) -> None:
     key_structure = TABLE.primary_key
     latest_facet, historic_facet = (
-        TABLE.facets["root_credentials_state"],
-        TABLE.facets["root_credentials_historic_state"],
+        TABLE.facets["credentials_state"],
+        TABLE.facets["credentials_historic_state"],
     )
     latest, historic = historics.build_historic(
         attributes=json.loads(json.dumps(state)),
@@ -33,7 +33,7 @@ async def update_root_credential_state(
         key_values={
             "iso8601utc": state.modified_date,
             "name": group_name,
-            "uuid": root_credential_id,
+            "uuid": credential_id,
         },
         latest_facet=latest_facet,
     )

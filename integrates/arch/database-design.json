@@ -1738,7 +1738,7 @@
           ]
         },
         {
-          "FacetName": "root_credentials_metadata",
+          "FacetName": "credentials_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#uuid",
             "SortKeyAlias": "GROUP#name"
@@ -1761,7 +1761,7 @@
           ]
         },
         {
-          "FacetName": "root_credentials_state",
+          "FacetName": "credentials_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#uuid#STATE",
             "SortKeyAlias": "GROUP#name"
@@ -1789,10 +1789,10 @@
               "roots": {
                 "L": [
                   {
-                    "S": "product"
+                    "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
                   },
                   {
-                    "S": "integrates_1"
+                    "S": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
                   }
                 ]
               }
@@ -1807,7 +1807,7 @@
           ]
         },
         {
-          "FacetName": "root_credentials_historic_state",
+          "FacetName": "credentials_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#uuid",
             "SortKeyAlias": "STATE#iso8601utc"
