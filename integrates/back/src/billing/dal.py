@@ -331,6 +331,23 @@ async def set_default_payment_method(
     return data.invoice_settings.default_payment_method == payment_method_id
 
 
+async def remove_subscription(
+    *,
+    subscription_id: str,
+    invoice_now: bool,
+    prorate: bool,
+) -> bool:
+    """Remove a stripe subscription"""
+    return (
+        stripe.Subscription.delete(
+            subscription_id,
+            invoice_now=invoice_now,
+            prorate=prorate,
+        ).status
+        == "canceled"
+    )
+
+
 async def report_subscription_usage(
     *,
     subscription: Subscription,

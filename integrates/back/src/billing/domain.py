@@ -5,9 +5,7 @@ from billing.types import (
     Customer,
     PaymentMethod,
     Portal,
-    Price,
     Subscription,
-    SubscriptionItem,
 )
 from custom_exceptions import (
     BillingCustomerHasNoPaymentMethod,
@@ -24,9 +22,6 @@ from groups import (
 )
 import logging
 import logging.config
-from newutils import (
-    datetime as datetime_utils,
-)
 from settings import (
     LOGGING,
 )
@@ -36,61 +31,16 @@ from starlette.requests import (
 from starlette.responses import (
     JSONResponse,
 )
-import stripe
+from stripe.error import (
+    SignatureVerificationError,
+)
 from typing import (
-    Any,
-    Dict,
     List,
     Optional,
 )
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-
-
-async def _format_update_subscription_data(
-    *,
-    org_billing_customer: str,
-    subscription_id: str,
-    subscription: str,
-    current_items: List[SubscriptionItem],
-) -> Dict[str, Any]:
-    """Format update subscription session data according to stripe API"""
-    prices: List[Price] = await dal.get_subscription_prices(
-        subscription=subscription,
-    )
-    proration_date: int = int(datetime_utils.get_utc_timestamp())
-    items: List[Dict[str, Any]] = []
-
-    if subscription == "machine":
-        items = [
-            {
-                "id": current_items[0].id,
-                "price": prices[0].id,
-            },
-            {
-                "id": current_items[1].id,
-                "deleted": True,
-                "clear_usage": True,
-            },
-        ]
-    else:
-        items = [
-            {
-                "id": current_items[0].id,
-                "price": prices[0].id,
-            },
-            {
-                "price": prices[1].id,
-            },
-        ]
-
-    return {
-        "customer": org_billing_customer,
-        "subscription": subscription_id,
-        "subscription_items": items,
-        "subscription_proration_date": proration_date,
-    }
 
 
 async def _group_has_active_subscription(
@@ -296,13 +246,10 @@ async def remove_subscription(
         )
         invoice_now = True
 
-    return (
-        stripe.Subscription.delete(
-            sub.id,
-            invoice_now=invoice_now,
-            prorate=True,
-        ).status
-        == "canceled"
+    return await dal.remove_subscription(
+        subscription_id=sub.id,
+        invoice_now=invoice_now,
+        prorate=True,
     )
 
 
@@ -347,7 +294,7 @@ async def webhook(request: Request) -> JSONResponse:
         message = "Invalid payload"
         status = "failed"
         LOGGER.exception(ex, extra=dict(extra=locals()))
-    except stripe.error.SignatureVerificationError as ex:
+    except SignatureVerificationError as ex:
         message = "Invalid signature"
         status = "failed"
         LOGGER.exception(ex, extra=dict(extra=locals()))
