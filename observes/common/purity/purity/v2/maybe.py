@@ -37,7 +37,7 @@ class Maybe(Generic[_A]):
         return Maybe(result)
 
     @staticmethod
-    def empty(_type: Type[_A]) -> Maybe[_A]:
+    def empty(_type: Optional[Type[_A]] = None) -> Maybe[_A]:
         return Maybe.from_optional(None)
 
     def to_result(self) -> Result[_A, None]:
