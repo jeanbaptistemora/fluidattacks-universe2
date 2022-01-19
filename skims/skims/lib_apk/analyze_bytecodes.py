@@ -503,7 +503,7 @@ def _webview_allows_resource_access(
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F103,
+        finding=core_model.FindingEnum.F268,
         locations=locations,
     )
 
@@ -569,5 +569,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
     core_model.FindingEnum.F268: _webview_caches_javascript,
+    core_model.FindingEnum.F268: _webview_allows_resource_access,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }
