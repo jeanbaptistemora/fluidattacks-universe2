@@ -1,3 +1,6 @@
+from dataclasses import (
+    dataclass,
+)
 from purity.v2.maybe import (
     Maybe,
 )
@@ -44,3 +47,35 @@ def to_returns(
             .unwrap()
         )
     return LegacyMaybe.from_optional(item.value_or(None))
+
+
+@dataclass(frozen=True)
+class NoValue:
+    pass
+
+
+@overload
+def from_returns(item: LegacyMaybe[_T]) -> Maybe[_T]:
+    # overloaded signature 1
+    pass
+
+
+@overload
+def from_returns(item: LegacyResult[_S, _F]) -> Result[_S, _F]:  # type: ignore
+    # False positive due to env conf: Overloaded function signature 2 will never be matched
+    pass
+
+
+def from_returns(
+    item: Union[LegacyResult[_S, _F], LegacyMaybe[_T]]
+) -> Union[Result[_S, _F], Maybe[_T]]:
+    if isinstance(item, LegacyResult):
+        success = item.value_or(NoValue())
+        fail = item.swap().value_or(NoValue())
+        if not isinstance(success, NoValue):
+            return Result.success(success)
+        elif not isinstance(fail, NoValue):
+            return Result.failure(fail)
+        raise Exception("Unexpected Result with no value")
+    val = item.value_or(None)
+    return Maybe.from_optional(val)
