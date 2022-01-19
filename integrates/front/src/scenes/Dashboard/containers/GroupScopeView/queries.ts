@@ -12,6 +12,11 @@ const GET_ROOTS: DocumentNode = gql`
             message
             status
           }
+          credentials {
+            id
+            name
+            type
+          }
           environment
           environmentUrls
           gitignore

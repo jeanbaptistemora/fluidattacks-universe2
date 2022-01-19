@@ -1,8 +1,17 @@
+from db_model.enums import (
+    CredentialType,
+)
 from typing import (
     List,
     NamedTuple,
     Union,
 )
+
+
+class Credential(NamedTuple):
+    id: str
+    name: str
+    type: CredentialType
 
 
 class GitRootCloningStatus(NamedTuple):

@@ -22,12 +22,24 @@ type GitEnvironmentUrl {
   url: String!
 }
 
+"Credentials associated to a root"
+type Credentials {
+  "ID of the credential"
+  id: String!
+  "Name of the credential"
+  name: String!
+  "Type of authentication of the credential"
+  type: String!
+}
+
 "Git Root type definition"
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!
   "Cloning status of GitRoot"
   cloningStatus: GitRootCloningStatus!
+  "Credentials used to clone the repository"
+  credentials: Credentials
   "Kind of environment to test. E.g. production, QA, etc."
   environment: String!
   "URLs to access the environment"

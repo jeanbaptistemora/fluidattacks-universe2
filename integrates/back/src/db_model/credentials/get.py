@@ -58,7 +58,7 @@ def _build_credential(
 
     return CredentialItem(
         group_name=group_name,
-        id=item_id,
+        id=item_id.split("#")[-1],
         metadata=CredentialMetadata(
             type=CredentialType(metadata["type"]),
         ),
