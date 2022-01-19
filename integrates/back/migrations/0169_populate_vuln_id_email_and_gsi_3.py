@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Populate the email in gsi_3 in vulnerabilities.
+
+Execution Time:    2022-01-19 at 20:19:53 UTC
+Finalization Time: 2022-01-19 at 22:37:38 UTC
 """
 
 from aioextensions import (
