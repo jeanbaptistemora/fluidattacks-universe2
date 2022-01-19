@@ -3,3 +3,7 @@ lib_apk.analyze_bytecodes.webview_caches_javascript:
   es: >
     El APK dado tiene WebView que almacena en caché los datos
     y el código de JavaScript.
+lib_apk.analyze_bytecodes.webview_allows_resource_access:
+  en: The given APK has WebView that allows resource access.
+  es: >
+    El APK dado tiene WebView que permite el acceso a los recursos.
