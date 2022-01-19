@@ -351,6 +351,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_user_level_role:customer",
             "update_git_root_filter",
             "valid_assigned",
+            "request_group_upgrade",
         },
         tags=set(),
     ),

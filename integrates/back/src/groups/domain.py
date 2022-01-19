@@ -26,6 +26,8 @@ from contextlib import (
 )
 from custom_exceptions import (
     AlreadyPendingDeletion,
+    BillingSubscriptionSameActive,
+    GroupNotFound,
     HasActiveRoots,
     InvalidGroupName,
     InvalidGroupServicesConfig,
@@ -1732,3 +1734,29 @@ def process_user_digest_stats(
     )[:10]
 
     return total
+
+
+async def request_upgrade(
+    loaders: Any, group_names: List[str], user_email: str
+) -> None:
+    """
+    Lead the user towards a subscription upgrade managed by our team
+    This is meant to be a temporary flow while the billing module gets ready
+    """
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if not all(
+        enforcer(group_name, "request_group_upgrade")
+        for group_name in group_names
+    ):
+        raise GroupNotFound()
+
+    groups: List[Dict[str, Any]] = await loaders.group.load_many(group_names)
+    if any(group["has_squad"] for group in groups):
+        raise BillingSubscriptionSameActive()
+
+    # Needed at the moment since group["organization"] is the org id
+    # Would be great to have the org name directly in a future db migration
+    orgs: List[Dict[str, Any]] = await loaders.organization.load_many(
+        [group["organization"] for group in groups]
+    )
+    await notifications_domain.request_groups_upgrade(user_email, orgs, groups)

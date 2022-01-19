@@ -565,6 +565,12 @@ type Mutation {
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 
+  "Request an upgrade of your subscriptions"
+  requestGroupsUpgrade(
+    "Groups intended to upgrade"
+    groupNames: [String!]!
+  ): SimplePayload!
+
   "Requests a reattack on the provided Vulnerabilities"
   requestVulnerabilitiesVerification(
     "Identifier of Finding containing the vulnerabilities"

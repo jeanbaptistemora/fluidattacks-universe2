@@ -53,6 +53,7 @@ from api.mutations import (
     remove_stakeholder_organization_access,
     remove_vulnerability,
     remove_vulnerability_tags,
+    request_groups_upgrade,
     request_vulnerabilities_verification,
     request_vulnerabilities_zero_risk,
     sign_in,
@@ -246,6 +247,7 @@ MUTATION.set_field(
     "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
 )
 MUTATION.set_field("uploadFile", upload_file.mutate)
+MUTATION.set_field("requestGroupsUpgrade", request_groups_upgrade.mutate)
 MUTATION.set_field(
     "verifyVulnerabilitiesRequest",
     verify_vulnerabilities_request.mutate,

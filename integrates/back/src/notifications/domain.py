@@ -15,6 +15,7 @@ from exponent_server_sdk import (
     DeviceNotRegisteredError,
 )
 import html
+import itertools
 from mailer import (
     groups as groups_mail,
 )
@@ -314,3 +315,35 @@ async def send_push_notification(
             )
         except DeviceNotRegisteredError:
             await users_domain.remove_push_token(user_email, token)
+
+
+async def request_groups_upgrade(
+    user_email: str, orgs: List[Dict[str, Any]], groups: List[Dict[str, Any]]
+) -> None:
+    org_names_by_id = {org["id"]: org["name"] for org in orgs}
+
+    def keyfunc(group: Dict[str, Any]) -> str:
+        return group["organization"]
+
+    orgs_message = "".join(
+        f"""
+            - Organization {org_names_by_id[org_id]}:
+                {', '.join(group['name'] for group in org_groups)}
+        """
+        for org_id, org_groups in itertools.groupby(
+            sorted(groups, key=keyfunc), keyfunc
+        )
+    )
+
+    await in_thread(
+        notifications_dal.create_ticket,
+        subject="[ASM] Subscription upgrade requested",
+        description=f"""
+            You are receiving this email because you have requested an upgrade
+            to the Squad plan for the following groups:
+            {orgs_message}
+            If you require any further information,
+            do not hesitate to contact us.
+        """,
+        requester_email=user_email,
+    )
