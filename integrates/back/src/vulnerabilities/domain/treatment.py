@@ -42,7 +42,7 @@ from decimal import (
     Decimal,
 )
 from mailer import (
-    findings,
+    vulnerabilities as vulns_mailer,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -518,7 +518,7 @@ async def validate_and_send_notification_request(
     where_str = format_vulnerability_locations(
         list(vuln.where for vuln in assigned_vulns)
     )
-    await findings.send_mail_assigned_vulnerability(
+    await vulns_mailer.send_mail_assigned_vulnerability(
         loaders=loaders,
         email_to=[assigned],
         is_finding_released=bool(finding.approval),
