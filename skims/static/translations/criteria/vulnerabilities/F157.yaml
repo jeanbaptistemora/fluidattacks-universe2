@@ -1,3 +1,6 @@
 lib_path.f157.etl_visible_to_the_public_network:
   en: The ETL is visible to the public network
   es: El ETL es visible para la red pública
+lib_path.f157.tfm_azure_default_network_access:
+  en: Ensure Azure Storage Account default network access is set to Deny
+  es: Asegúrese de que el acceso predeterminado a la red de la cuenta de Azure Storage esté establecido en Deny

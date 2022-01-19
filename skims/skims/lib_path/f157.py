@@ -119,7 +119,7 @@ def _tfm_azure_default_network_access(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F157_CWE},
-        description_key=("lib_path.f157.etl_visible_to_the_public_network"),
+        description_key=("lib_path.f157.tfm_azure_default_network_access"),
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
             tfm_azure_default_network_access_iterate_vulns(
