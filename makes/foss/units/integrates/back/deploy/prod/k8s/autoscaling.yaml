@@ -9,5 +9,5 @@ spec:
     kind: Deployment
     name: integrates-master
   minReplicas: 5
-  maxReplicas: 100
+  maxReplicas: 75
   targetCPUUtilizationPercentage: 60
