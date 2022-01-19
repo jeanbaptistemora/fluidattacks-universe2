@@ -1,6 +1,10 @@
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    ToeInputAlreadyUpdated,
+    ToeLinesAlreadyUpdated,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -20,6 +24,12 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from groups import (
     domain as groups_domain,
@@ -64,6 +74,9 @@ def _strip_first_dir(where: str) -> Tuple[str, str]:
     return (where[0 : where.find("/")], where[where.find("/") + 1 :])
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+)
 async def update_toe_input(
     current_value: ToeInput, attributes: ToeInputAttributesToUpdate
 ) -> None:
@@ -77,6 +90,9 @@ async def update_toe_input(
     await toe_inputs_domain.update(current_value, attributes)
 
 
+@retry_on_exceptions(
+    exceptions=(ToeInputAlreadyUpdated,),
+)
 async def process_toe_inputs(
     group_name: str, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> None:
@@ -109,6 +125,9 @@ async def process_toe_inputs(
     await collect(tuple(updations))
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+)
 async def update_toe_lines(
     current_value: ToeLines, attributes: ToeInputAttributesToUpdate
 ) -> None:
@@ -122,6 +141,9 @@ async def update_toe_lines(
     await toe_lines_domain.update(current_value, attributes)
 
 
+@retry_on_exceptions(
+    exceptions=(ToeLinesAlreadyUpdated,),
+)
 async def process_toe_lines(
     group_name: str,
     vulnerabilities: Tuple[Vulnerability, ...],
