@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 18, 2022, 09:24 PM",
+    "DateLastModified": "Jan 19, 2022, 06:31 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8430,6 +8430,12 @@
               },
               "sk_2": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              },
+              "pk_3": {
+                "S": "USER#integratescustomer@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
               }
             },
             {
@@ -8504,6 +8510,12 @@
               },
               "sk_2": {
                 "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
               }
             },
             {
@@ -8563,6 +8575,12 @@
                     "S": "VERIFIED"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
               }
             },
             {
@@ -8611,6 +8629,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
               }
             },
@@ -8667,6 +8691,12 @@
               },
               "sk_2": {
                 "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
               }
             },
             {
@@ -8715,6 +8745,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
               }
             },
@@ -8765,6 +8801,12 @@
               },
               "sk_2": {
                 "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
               }
             },
             {
@@ -8814,6 +8856,12 @@
               },
               "sk_2": {
                 "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
               }
             },
             {
@@ -8862,6 +8910,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
               }
             },
@@ -8922,6 +8976,12 @@
                     "S": "REQUESTED"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
               }
             },
             {
@@ -8970,6 +9030,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
               }
             },
@@ -9020,6 +9086,12 @@
               },
               "sk_2": {
                 "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
               }
             },
             {
@@ -9068,6 +9140,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
               }
             },
@@ -9118,6 +9196,12 @@
               },
               "sk_2": {
                 "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
               }
             },
             {
@@ -9166,6 +9250,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
               }
             },
@@ -9216,6 +9306,12 @@
               },
               "sk_2": {
                 "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
               }
             },
             {
@@ -9264,6 +9360,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
               }
             },
@@ -9314,6 +9416,12 @@
               },
               "sk_2": {
                 "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
               }
             },
             {
@@ -9362,6 +9470,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
               }
             },
@@ -9412,6 +9526,12 @@
               },
               "sk_2": {
                 "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
               }
             },
             {
@@ -9460,6 +9580,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
               }
             },
@@ -9510,6 +9636,12 @@
               },
               "sk_2": {
                 "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
               }
             },
             {
@@ -9558,6 +9690,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
               }
             },
@@ -9608,6 +9746,12 @@
               },
               "sk_2": {
                 "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
               }
             },
             {
@@ -9656,6 +9800,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
               }
             },
@@ -9706,6 +9856,12 @@
               },
               "sk_2": {
                 "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
               }
             },
             {
@@ -9754,6 +9910,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
               }
             },
@@ -9804,6 +9966,12 @@
               },
               "sk_2": {
                 "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
               }
             },
             {
@@ -9852,6 +10020,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
               }
             },
@@ -9902,6 +10076,12 @@
               },
               "sk_2": {
                 "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
               }
             },
             {
@@ -9950,6 +10130,12 @@
                 "S": "INPUTS"
               },
               "sk_2": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
               }
             },
@@ -10000,6 +10186,12 @@
               },
               "sk_2": {
                 "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
               }
             },
             {
@@ -10048,6 +10240,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
               }
             },
@@ -10110,6 +10308,12 @@
               },
               "sk_2": {
                 "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
               }
             },
             {
@@ -10171,6 +10375,12 @@
               },
               "sk_2": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
               }
             },
             {
@@ -10219,6 +10429,12 @@
                 "S": "LINES"
               },
               "sk_2": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
               }
             },
@@ -10295,6 +10511,12 @@
                     "S": "REQUESTED"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
               }
             },
             {
@@ -10382,6 +10604,12 @@
                     "S": "test2"
                   }
                 ]
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
               }
             },
             {
@@ -10464,6 +10692,12 @@
                 "S": "LINES"
               },
               "sk_2": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
                 "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
               }
             },
@@ -10552,6 +10786,12 @@
                     "S": "REQUESTED"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER#integratescustomer@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
               }
             },
             {
@@ -10617,6 +10857,12 @@
               },
               "sk_2": {
                 "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
               }
             },
             {
@@ -10666,6 +10912,12 @@
               },
               "sk_2": {
                 "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
               }
             },
             {
@@ -10714,6 +10966,12 @@
                 "S": "LINES"
               },
               "sk_2": {
+                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
                 "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
               }
             },
@@ -10774,6 +11032,12 @@
                     "S": "VERIFIED"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
               }
             },
             {
@@ -10835,6 +11099,12 @@
               },
               "sk_2": {
                 "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
               }
             },
             {
@@ -10895,6 +11165,12 @@
                 "S": "PORTS"
               },
               "sk_2": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
+              },
+              "pk_3": {
+                "S": "USER#integratescustomer@gmail.com"
+              },
+              "sk_3": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               }
             }
