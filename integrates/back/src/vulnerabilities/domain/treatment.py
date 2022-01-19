@@ -477,20 +477,9 @@ async def update_vulnerabilities_treatment(
 
 async def validate_and_send_notification_request(
     loaders: Any,
-    assigned: str,
     finding: Finding,
     vulnerabilities: List[str],
-    user_email: str,
 ) -> bool:
-    # Validate assigned
-    role: str = await authz.get_group_level_role(assigned, finding.group_name)
-    assigned = await get_valid_assigned(
-        assigned=assigned,
-        is_customer_admin=role
-        in {"customeradmin", "system_owner", "group_manager"},
-        user_email=user_email,
-        group_name=finding.group_name,
-    )
     # Validate finding with vulns in group
     finding_vulns: Tuple[
         Vulnerability, ...
@@ -502,16 +491,30 @@ async def validate_and_send_notification_request(
         if vuln.id == vulnerability_id
     )
     if len(assigned_vulns) != len(vulnerabilities):
-        raise InvalidNotificationRequest()
+        raise InvalidNotificationRequest(
+            "Some of the provided vulns ids don't match existing vulns"
+        )
+    # Validate assigned
+    assigned: str = assigned_vulns[0].treatment.assigned
+    if assigned is None:
+        raise InvalidNotificationRequest(
+            "Some of the provided vulns don't have any assigned hackers"
+        )
     # Validate recent changes in treatment
     for vuln in assigned_vulns:
         if not (
-            timedelta(minutes=5)
+            timedelta(minutes=10)
             > datetime_utils.get_now()
             - datetime.fromisoformat(vuln.treatment.modified_date)
             and vuln.treatment.assigned == assigned
         ):
-            raise InvalidNotificationRequest()
+            raise InvalidNotificationRequest(
+                "Too much time has passed to notify some of these changes"
+            )
+        if vuln.treatment.assigned != assigned:
+            raise InvalidNotificationRequest(
+                "Not all of the vulns provided have the same assigned hacker"
+            )
     where_str = format_vulnerability_locations(
         list(vuln.where for vuln in assigned_vulns)
     )

@@ -21,7 +21,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
 )
 from typing import (
     List,
@@ -40,21 +39,16 @@ from vulnerabilities.domain.treatment import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    assigned: str,
     finding_id: str,
     vulnerabilities: List[str],
     **_parameters: str,
 ) -> SimplePayload:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
-        user_email: str = user_info["user_email"]
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         success: bool = await validate_and_send_notification_request(
             loaders=info.context.loaders,
-            assigned=assigned,
             finding=finding,
-            user_email=user_email,
             vulnerabilities=vulnerabilities,
         )
         if success:
