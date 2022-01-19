@@ -27,6 +27,7 @@ from parse_hcl2.loader import (
 )
 from parse_hcl2.structure.azure import (
     iter_azurerm_data_factory,
+    iter_azurerm_key_vault,
     iter_azurerm_storage_account,
     iter_azurerm_storage_account_network_rules,
 )
@@ -68,7 +69,7 @@ def tfm_azure_unrestricted_access_network_segments_iterate(
             yield resource
 
 
-def tfm_azure_default_network_access_iterate_vulns(
+def tfm_azure_sa_default_network_access_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -92,6 +93,23 @@ def tfm_azure_default_network_access_iterate_vulns(
                 yield default_action
 
 
+def tfm_azure_kv_default_network_access_iterate_vulns(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if network_acls := get_argument(
+            key="network_acls",
+            body=resource.data,
+        ):
+            default_action = get_block_attribute(
+                block=network_acls, key="default_action"
+            )
+            if default_action and default_action.val.lower() != "deny":
+                yield default_action
+        else:
+            yield resource
+
+
 def _tfm_azure_unrestricted_access_network_segments(
     content: str,
     path: str,
@@ -111,7 +129,7 @@ def _tfm_azure_unrestricted_access_network_segments(
     )
 
 
-def _tfm_azure_default_network_access(
+def _tfm_azure_sa_default_network_access(
     content: str,
     path: str,
     model: Any,
@@ -119,14 +137,33 @@ def _tfm_azure_default_network_access(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F157_CWE},
-        description_key=("lib_path.f157.tfm_azure_default_network_access"),
+        description_key=("lib_path.f157.tfm_azure_sa_default_network_access"),
         finding=_FINDING_F157,
         iterator=get_cloud_iterator(
-            tfm_azure_default_network_access_iterate_vulns(
+            tfm_azure_sa_default_network_access_iterate_vulns(
                 resource_iterator=chain(
                     iter_azurerm_storage_account(model=model),
                     iter_azurerm_storage_account_network_rules(model=model),
                 )
+            )
+        ),
+        path=path,
+    )
+
+
+def _tfm_azure_kv_default_network_access(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F157_CWE},
+        description_key=("lib_path.f157.tfm_azure_kv_default_network_access"),
+        finding=_FINDING_F157,
+        iterator=get_cloud_iterator(
+            tfm_azure_kv_default_network_access_iterate_vulns(
+                resource_iterator=iter_azurerm_key_vault(model=model),
             )
         ),
         path=path,
@@ -152,13 +189,29 @@ async def tfm_azure_unrestricted_access_network_segments(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def tfm_azure_default_network_access(
+async def tfm_azure_sa_default_network_access(
     content: str,
     path: str,
     model: Any,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _tfm_azure_default_network_access,
+        _tfm_azure_sa_default_network_access,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_kv_default_network_access(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_kv_default_network_access,
         content=content,
         path=path,
         model=model,
@@ -184,7 +237,14 @@ async def analyze(
             )
         )
         coroutines.append(
-            tfm_azure_default_network_access(
+            tfm_azure_sa_default_network_access(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_azure_kv_default_network_access(
                 content=content,
                 path=path,
                 model=model,

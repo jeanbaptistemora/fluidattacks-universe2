@@ -29649,6 +29649,70 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Se
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
 ",javascript.client_storage
+F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
+   1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+>  9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",f157._tfm_azure_kv_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
+>  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+   9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",f157._tfm_azure_kv_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_access.tf,24,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_access.tf,"
+   7 |   soft_delete_enabled        = true
+   8 |   purge_protection_enabled   = true
+   9 |   network_acls {
+  10 |     default_action = ""Deny""
+  11 |     bypass         = ""AzureServices""
+  12 |   }
+  13 | }
+  14 |
+  15 | resource ""azurerm_key_vault"" ""vulnerable"" {
+  16 |   name                       = ""examplekeyvault""
+  17 |   location                   = azurerm_resource_group.example.location
+  18 |   resource_group_name        = azurerm_resource_group.example.name
+  19 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  20 |   soft_delete_retention_days = 7
+  21 |   soft_delete_enabled        = true
+  22 |   purge_protection_enabled   = true
+  23 |   network_acls {
+> 24 |     default_action = ""Allow""
+  25 |     bypass         = ""AzureServices""
+  26 |   }
+  27 | }
+     ^ Col 0
+",f157._tfm_azure_kv_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
 >  1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""
@@ -29663,7 +29727,7 @@ F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.
   11 |   }
   12 | }
      ^ Col 0
-",f157._tfm_azure_default_network_access
+",f157._tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,37,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
   27 |       read   = true
   28 |       write  = true
@@ -29687,7 +29751,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_acc
   46 |   network_rules {
   47 |     default_action = ""Allow""
      ^ Col 0
-",f157._tfm_azure_default_network_access
+",f157._tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,47,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
   37 |   default_action = ""Allow""
   38 | }
@@ -29711,7 +29775,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_acc
   56 |   queue_properties {
   57 |     logging {
      ^ Col 0
-",f157._tfm_azure_default_network_access
+",f157._tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,20,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
   10 |       delete                = true
   11 |       read                  = true
@@ -29735,7 +29799,7 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   29 |       delete                = false
   30 |       read                  = false
      ^ Col 0
-",f157._tfm_azure_default_network_access
+",f157._tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
 >  1 | resource ""azurerm_storage_account"" ""not_vulnerable"" {
    2 |   name                     = ""example""
@@ -29759,7 +29823,7 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   20 | resource ""azurerm_storage_account"" ""vulnerable"" {
   21 |   name                     = ""example""
      ^ Col 0
-",f157._tfm_azure_default_network_access
+",f157._tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
