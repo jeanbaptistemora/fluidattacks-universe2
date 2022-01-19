@@ -37,6 +37,20 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   }
 `;
 
+const SEND_ASSIGNED_NOTIFICATION: DocumentNode = gql`
+  mutation SendAssignedNotification(
+    $findingId: String!
+    $vulnerabilities: [String]!
+  ) {
+    sendAssignedNotification(
+      findingId: $findingId
+      vulnerabilities: $vulnerabilities
+    ) {
+      success
+    }
+  }
+`;
+
 const REMOVE_TAGS_MUTATION: DocumentNode = gql`
   mutation RemoveTagsVuln(
     $findingId: String!
@@ -73,4 +87,5 @@ export {
   REMOVE_TAGS_MUTATION,
   REQUEST_VULNS_ZERO_RISK,
   UPDATE_DESCRIPTION_MUTATION,
+  SEND_ASSIGNED_NOTIFICATION,
 };

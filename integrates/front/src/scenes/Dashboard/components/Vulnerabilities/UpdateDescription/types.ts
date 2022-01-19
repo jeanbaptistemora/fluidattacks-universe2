@@ -13,6 +13,12 @@ interface IUpdateDescriptionProps {
   handleCloseModal: () => void;
 }
 
+interface ISendNotificationResultAttr {
+  sendAssignedNotification: {
+    success: boolean;
+  };
+}
+
 interface IUpdateTreatmentModalProps extends IUpdateDescriptionProps {
   setConfigFn: (
     requestZeroRisk: (
@@ -72,6 +78,7 @@ export {
   IGroupUsersAttr,
   IRequestVulnZeroRiskResultAttr,
   IStakeholderAttr,
+  ISendNotificationResultAttr,
   IUpdateDescriptionProps,
   IUpdateTreatmentModalProps,
   IUpdateVulnDescriptionResultAttr,

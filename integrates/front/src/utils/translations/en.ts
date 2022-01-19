@@ -1505,6 +1505,12 @@ export const enTranslations: ResourceKey = {
       },
       markVerifiedFinding: "Verify finding",
       new: "New",
+      notification: {
+        emailNotificationError:
+          "There was an error sending the email notification to the assigned",
+        emailNotificationText: "Assigned email notification sent successfully",
+        emailNotificationTitle: "Notification Status",
+      },
       old: "Old",
       path: "Path",
       port: "Port",

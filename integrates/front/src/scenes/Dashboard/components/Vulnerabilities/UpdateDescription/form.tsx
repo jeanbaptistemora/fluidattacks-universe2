@@ -43,6 +43,7 @@ import type {
 import {
   REMOVE_TAGS_MUTATION,
   REQUEST_VULNS_ZERO_RISK,
+  SEND_ASSIGNED_NOTIFICATION,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type {
@@ -50,6 +51,7 @@ import type {
   IRemoveTagAttr,
   IRemoveTagResultAttr,
   IRequestVulnZeroRiskResultAttr,
+  ISendNotificationResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,
   IUpdateVulnDescriptionResultAttr,
@@ -72,7 +74,7 @@ import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 function usePreviousPristine(value: boolean): boolean {
@@ -176,6 +178,36 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         },
       ],
     });
+
+  const [sendNotification] = useMutation<ISendNotificationResultAttr>(
+    SEND_ASSIGNED_NOTIFICATION,
+    {
+      onCompleted: ({
+        sendAssignedNotification,
+      }: ISendNotificationResultAttr): void => {
+        if (sendAssignedNotification.success) {
+          msgSuccess(
+            translate.t(
+              "searchFindings.tabDescription.notification.emailNotificationText"
+            ),
+            translate.t(
+              "searchFindings.tabDescription.notification.emailNotificationTitle"
+            )
+          );
+        }
+      },
+      onError: (updateError: ApolloError): void => {
+        updateError.graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(
+            translate.t(
+              "searchFindings.tabDescription.notification.emailNotificationError"
+            )
+          );
+          Logger.warning("An error occurred sending the notification", error);
+        });
+      },
+    }
+  );
 
   const numberOfGroups: number = Array.from(
     new Set(
@@ -281,6 +313,15 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           areAllMutationValid,
           vulnerabilities
         );
+
+        if (!isTreatmentPristineP) {
+          await sendNotification({
+            variables: {
+              findingId,
+              vulnerabilities: vulnerabilities.map(({ id }): string => id),
+            },
+          });
+        }
       } catch (updateError: unknown) {
         handleUpdateVulnTreatmentError(updateError);
       } finally {
