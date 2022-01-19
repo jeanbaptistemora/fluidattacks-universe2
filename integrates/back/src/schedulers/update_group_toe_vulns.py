@@ -80,13 +80,6 @@ def _strip_first_dir(where: str) -> Tuple[str, str]:
 async def update_toe_input(
     current_value: ToeInput, attributes: ToeInputAttributesToUpdate
 ) -> None:
-    _log(
-        "  updating toe_input",
-        group_name=current_value.group_name,
-        has_vulnerabilities=attributes.has_vulnerabilities,
-        where=current_value.component,
-        specific=current_value.entry_point,
-    )
     await toe_inputs_domain.update(current_value, attributes)
 
 
@@ -131,13 +124,6 @@ async def process_toe_inputs(
 async def update_toe_lines(
     current_value: ToeLines, attributes: ToeInputAttributesToUpdate
 ) -> None:
-    _log(
-        "  updating toe_line",
-        group_name=current_value.group_name,
-        filename=current_value.filename,
-        has_vulnerabilities=attributes.has_vulnerabilities,
-        root_id=current_value.root_id,
-    )
     await toe_lines_domain.update(current_value, attributes)
 
 

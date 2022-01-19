@@ -157,11 +157,12 @@ async def update(
         else attributes.be_present
     )
     has_vulnerabilities = (
-        None
-        if attributes.has_vulnerabilities is None
-        else get_has_vulnerabilities(
+        get_has_vulnerabilities(
             current_be_present, attributes.has_vulnerabilities
         )
+        if attributes.has_vulnerabilities is not None
+        or attributes.be_present is not None
+        else None
     )
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
