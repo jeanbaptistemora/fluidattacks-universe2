@@ -127,6 +127,12 @@ class GroupToeLinesLoader(DataLoader):
     ) -> Tuple[ToeLinesConnection, ...]:
         return await collect(tuple(map(_get_toe_lines_by_group, requests)))
 
+    async def load_nodes(
+        self, request: GroupToeLinesRequest
+    ) -> Tuple[ToeLines, ...]:
+        connection: ToeLinesConnection = await self.load(request)
+        return tuple(edge.node for edge in connection.edges)
+
 
 async def _get_toe_lines_by_root(
     request: RootToeLinesRequest,
