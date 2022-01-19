@@ -153,7 +153,7 @@ async def get_group_data(
     findings_vulns_summary: List[List[Tuple[str, str]]] = []
     for vulnerabilities in findings_vulns:
         findings_vulns_summary.append([])
-        async for vulnerability in vulnerabilities.iterate():
+        for vulnerability in vulnerabilities.iterate():
             if vulnerability.state is core_model.VulnerabilityStateEnum.OPEN:
                 findings_vulns_summary[-1].append(
                     (

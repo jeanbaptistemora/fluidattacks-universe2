@@ -218,7 +218,7 @@ async def do_build_and_upload_vulnerabilities(
 
     batch = []
     batch_id = -1
-    async for result in store.iterate():
+    for result in store.iterate():
         batch.append(result)
         if len(batch) == batch_size:
             batch_id += 1

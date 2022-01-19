@@ -1,7 +1,11 @@
 from aioextensions import (
     in_thread,
 )
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from os import (
+    cpu_count,
     makedirs,
 )
 from os.path import (
@@ -19,9 +23,9 @@ from tempfile import (
 )
 from typing import (
     Any,
-    AsyncIterator,
     Awaitable,
     Callable,
+    Iterator,
     NamedTuple,
     Optional,
     Tuple,
@@ -43,7 +47,7 @@ ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], None]
 LengthFunction = Callable[[], Awaitable[int]]
-IteratorFunction = Callable[[], AsyncIterator[Any]]
+IteratorFunction = Callable[[], Iterator[Any]]
 
 # Side effects
 makedirs(EPHEMERAL, mode=0o700, exist_ok=True)
@@ -75,14 +79,13 @@ def get_ephemeral_store() -> EphemeralStore:
     def store(obj: Any) -> None:
         store_object(folder, obj, obj)
 
-    async def iterate() -> AsyncIterator[Any]:
-        for object_key in recurse_dir(folder):
-            # Exception: WF(AsyncIterator is subtype of iterator)
-            yield await in_thread(read_blob, object_key)  # NOSONAR
+    def iterate() -> Iterator[Any]:
+        with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+            yield from worker.map(read_blob, recurse_dir(folder))
 
     async def get_a_few(count: int) -> Tuple[Any, ...]:
         results = []
-        async for obj in iterate():
+        for obj in iterate():
             results.append(obj)
             if len(results) == count:
                 break

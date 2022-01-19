@@ -151,7 +151,7 @@ async def notify_findings_as_snippets(
 ) -> None:
     """Print user-friendly messages about the results found."""
     for store in stores.values():
-        async for result in store.iterate():
+        for result in store.iterate():
             if result.skims_metadata:
                 title = t(result.finding.value.title)
                 what = result.what_on_integrates
@@ -190,7 +190,7 @@ async def notify_findings_as_csv(
             where=result.where,
         )
         for store in stores.values()
-        async for result in store.iterate()
+        for result in store.iterate()
         for snippet in [result.skims_metadata.snippet.replace("\x00", "")]
         if result.skims_metadata
     ]

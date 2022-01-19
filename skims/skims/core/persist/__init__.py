@@ -4,6 +4,9 @@ from aioextensions import (
 from aiogqlc.client import (
     GraphQLClient,
 )
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from integrates.dal import (
     do_update_evidence,
     do_update_evidence_description,
@@ -26,6 +29,9 @@ from io import (
 )
 from model import (
     core_model,
+)
+from os import (
+    cpu_count,
 )
 import random
 from state.ephemeral import (
@@ -165,7 +171,7 @@ async def diff_results(
     # The current state at Integrates
     integrates_hashes: Dict[int, core_model.VulnerabilityStateEnum] = {
         result.digest: result.state
-        async for result in integrates_store.iterate()
+        for result in integrates_store.iterate()
         # Filter integrates results
         # That are within the same namespace
         if result.namespace == namespace
@@ -179,27 +185,42 @@ async def diff_results(
     skims_hashes: Dict[int, core_model.VulnerabilityStateEnum] = {}
 
     # Walk all Skims results
-    async for result in skims_store.iterate():
+    results_skims = tuple(skims_store.iterate())
+    for result in results_skims:
         # All skims results are part of the new generation
         skims_hashes[result.digest] = result.state
 
-        store.store(prepare_result(result=result, state=result.state))
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        worker.map(
+            store.store,
+            (
+                prepare_result(result=result, state=result.state)
+                for result in results_skims
+            ),
+        )
 
     # Walk all integrates results
-    async for result in integrates_store.iterate():
+    results_integrates = list(
+        result
+        for result in integrates_store.iterate()
         if (
             # Ensure this is part of the old generation
             result.digest in integrates_hashes
             # And his result was not found by Skims
             and result.digest not in skims_hashes
-        ):
-            # This result must be CLOSED and persisted to Integrates
-            store.store(
+        )
+    )
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        worker.map(
+            store.store,
+            (
                 prepare_result(
                     result=result,
                     state=core_model.VulnerabilityStateEnum.CLOSED,
                 )
-            )
+                for result in results_integrates
+            ),
+        )
 
     return store
 

@@ -56,7 +56,7 @@ async def main(
             finding=core_model.FindingEnum.F004,
             finding_id=finding_id,
         )
-        async for vulnerability in vulnerabilities_store.iterate():
+        for vulnerability in vulnerabilities_store.iterate():
             verification = vulnerability.integrates_metadata.verification
             verification_date: Optional[datetime] = None
             if (

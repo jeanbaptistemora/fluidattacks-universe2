@@ -57,7 +57,7 @@ async def iterate_vulnerabilities_to_rebase(
         )
 
         vulnerability: Vulnerability
-        async for vulnerability in store.iterate():
+        for vulnerability in store.iterate():
             # The vulnerability must be for the namespace we are interested in
             # and have commit_hash.
             #

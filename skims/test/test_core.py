@@ -151,7 +151,7 @@ async def test_diff_results() -> None:
         namespace=namespace,
     )
 
-    assert sorted([(x.what, x.state) async for x in diff_store.iterate()]) == [
+    assert sorted([(x.what, x.state) for x in diff_store.iterate()]) == [
         ("1", core_model.VulnerabilityStateEnum.OPEN),
         ("2", core_model.VulnerabilityStateEnum.CLOSED),
         ("3", core_model.VulnerabilityStateEnum.OPEN),
