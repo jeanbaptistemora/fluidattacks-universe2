@@ -23614,39 +23614,68 @@
   en:
     title: Insecure service configuration - usesCleartextTraffic
     description: >
-      __empty__
+      The application has
+      android:usesCleartextTraffic set to
+      true, which allows it to access resources
+      that do not use encryption, a situation
+      that could be exploited by an attacker
+      to perform MITM attacks and compromise
+      the confidentiality and integrity
+      of the application.
     impact: >
-      __empty__
+      - Obtain sensitive information
+      through MITM attacks.
+
+      - Modify intercepted information with
+      the aim of deceiving an application user.
     recommendation: >
-      __empty__
+      The android:usesCleartextTraffic
+      must be set to false.
     threat: >
-      __empty__
+      Attacker without credentials from
+      the same network segment as an
+      application user.
   category: Abuse Functionality
   es:
-    title: Tracebility Loss - Azure
+    title: Insecure service configuration - usesCleartextTraffic
     description: >
-      __empty__
+      La aplicación tiene configurado
+      android:usesCleartextTraffic en
+      true, lo que permite que esta acceda
+      a recursos que no usan cifrado,
+      situación que podría ser aprovechada
+      por un atacante para realizar ataques
+      tipo MITM y comprometer la confidencialidad
+      e integridad de la aplicación.
     impact: >
-      __empty__
+      - Obtener información sensible
+      mediante ataques MITM.
+
+      - Modificar la información
+      interceptada con el objetivo de engañar
+      a un usuario de la aplicación.
     recommendation: >
-      __empty__
+      El android:usesCleartextTraffic
+      debe ser configurado en false.
     threat: >
-      __empty__
+      Atacante sin credenciales desde el
+      mismo segmento de red de un usuario
+      de la aplicación.
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "H"
-      privileges_required: "L"
-      user_interaction: "N"
+      privileges_required: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "R"
-  requirements: ["075","376","377","378"]
+      report_confidence: "C"
+  requirements: ["130", "138", "140"]
   metadata:
     en:
       details: __empty__
