@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -24,6 +27,9 @@ from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
+)
+from db_model.vulnerabilities.update import (
+    update_assigned_index,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -302,10 +308,19 @@ async def update_treatment(
         vulnerability_id=vulnerability_id,
     )
     item = format_vulnerability_treatment_item(treatment)
-    await _append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={"historic_treatment": (item,)},
+    await collect(
+        (
+            _append(
+                finding_id=finding_id,
+                vulnerability_id=vulnerability_id,
+                elements={"historic_treatment": (item,)},
+            ),
+            update_assigned_index(
+                finding_id=finding_id,
+                vulnerability_id=vulnerability_id,
+                entry=treatment,
+            ),
+        )
     )
 
 
