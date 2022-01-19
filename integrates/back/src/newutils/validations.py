@@ -157,6 +157,7 @@ def validate_markdown(text: str) -> str:
         tags=allowed_tags,
         attributes=allowed_attrs,
     )
+    cleaned = cleaned.replace("&amp;", "&")
     if text != cleaned:
         raise InvalidMarkdown()
 
