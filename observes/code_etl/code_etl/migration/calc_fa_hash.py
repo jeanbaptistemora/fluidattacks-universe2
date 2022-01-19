@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.client import (
     all_data_count,
     insert_rows,
@@ -43,24 +41,25 @@ from purity.v1 import (
     Flattener,
 )
 from purity.v2.adapters import (
+    from_returns,
     to_returns,
 )
+from purity.v2.frozen import (
+    FrozenList,
+)
+from purity.v2.pure_iter.transform.io import (
+    consume,
+)
 from purity.v2.result import (
+    Result,
     ResultE,
+    UnwrapError,
 )
 from purity.v2.union import (
     inl,
 )
 from returns.io import (
     IO,
-)
-from returns.primitives.exceptions import (
-    UnwrapFailedError,
-)
-from returns.result import (
-    Failure,
-    ResultE as LegacyResultE,
-    Success,
 )
 from typing import (
     Any,
@@ -109,7 +108,8 @@ def migration(
     source: TableID,
     target: TableID,
     namespace: str,
-) -> IO[LegacyResultE[None]]:
+) -> IO[ResultE[None]]:
+    # pylint: disable=unnecessary-lambda
     data = (
         namespace_data(client, source, namespace)
         .map(
@@ -130,21 +130,28 @@ def migration(
         )
     )
     try:
-        count = IO(0)
+        counter = IO(0)
         total = all_data_count(client_2, source).map(lambda i: i.unwrap())
         total.bind(lambda t: _log_info("Total rows: %s", t))
-        for items in data:
+
+        def _emit(
+            items: IO[Result[FrozenList[CommitTableRow], Exception]]
+        ) -> IO[None]:
             _items = items.map(lambda i: i.unwrap())
             pkg_len = _items.map(lambda i: len(i))
-            count = count.bind(lambda c: pkg_len.map(lambda l: c + l))
-            _items.bind(lambda i: insert_rows(client_2, target, i)).bind(
+            count = counter.bind(lambda c: pkg_len.map(lambda l: c + l))
+            return _items.bind(
+                lambda i: insert_rows(client_2, target, i)
+            ).bind(
                 lambda _: count.bind(
-                    lambda c: total.map(lambda t: _progress(c, t))
+                    lambda c: total.bind(lambda t: _progress(c, t))
                 )
             )
-        return IO(Success(None))
-    except UnwrapFailedError as err:
-        return IO(Failure(err.halted_container.failure()))
+
+        consume(data.map(lambda x: _emit(x.map(from_returns))))
+        return IO(Result.success(None))
+    except UnwrapError[Any, Exception] as err:
+        return IO(Result.failure(err.container.unwrap_fail()))
 
 
 def start(

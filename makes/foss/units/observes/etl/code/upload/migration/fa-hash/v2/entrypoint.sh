@@ -15,7 +15,7 @@ function migration {
     && code-etl \
       --db-id "${db}" \
       --creds "${creds}" \
-      migration calculate-fa-hash-2 \
+      migration calculate-fa-hash \
       "${namespace}" \
       --source "code" "commits" \
       --target "code" "migrated"
