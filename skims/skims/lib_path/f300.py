@@ -15,6 +15,7 @@ from model import (
 )
 from parse_hcl2.common import (
     get_argument,
+    get_attribute,
     get_block_attribute,
 )
 from parse_hcl2.loader import (
@@ -59,6 +60,17 @@ def tfm_azure_app_authentication_off_iterate_vulnerabilities(
             yield resource
 
 
+def tfm_azure_as_client_certificates_enabled_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if auth_enabled := get_attribute(resource.data, "client_cert_enabled"):
+            if auth_enabled.val is False:
+                yield auth_enabled
+        else:
+            yield resource
+
+
 def _tfm_azure_app_authentication_off(
     content: str,
     path: str,
@@ -81,6 +93,25 @@ def _tfm_azure_app_authentication_off(
     )
 
 
+def _tfm_azure_as_client_certificates_enabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F300_CWE},
+        description_key="lib_path.f300.azure_app_authentication_is_off",
+        finding=_FINDING_F300,
+        iterator=get_cloud_iterator(
+            tfm_azure_as_client_certificates_enabled_iterate_vulnerabilities(
+                resource_iterator=iter_azurerm_app_service(model=model),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -91,6 +122,22 @@ async def tfm_azure_app_authentication_off(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _tfm_azure_app_authentication_off,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_as_client_certificates_enabled(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_as_client_certificates_enabled,
         content=content,
         path=path,
         model=model,
@@ -115,5 +162,11 @@ async def analyze(
                 model=model,
             )
         )
-
+        coroutines.append(
+            tfm_azure_as_client_certificates_enabled(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
     return coroutines

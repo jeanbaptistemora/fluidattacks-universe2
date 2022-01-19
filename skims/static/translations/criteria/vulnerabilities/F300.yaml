@@ -3,3 +3,8 @@ lib_path.f300.azure_app_authentication_is_off:
     Ensure Azure app authentication is on
   es: >
     Asegúrese de que la autenticación de la aplicación de Azure esté activada
+lib_path.f300.tfm_azure_as_client_certificates_enabled:
+  en: >
+    Ensure Azure app has incoming client certificates enabled
+  es: >
+    Asegúrese de que la aplicación de Azure tenga habilitados los certificados de cliente entrantes
