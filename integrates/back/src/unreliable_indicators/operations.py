@@ -36,6 +36,7 @@ from dynamodb.exceptions import (
 from findings import (
     domain as findings_domain,
 )
+import newrelic.agent
 from newutils import (
     vulnerabilities as vulns_utils,
 )
@@ -81,6 +82,7 @@ def _format_unreliable_treatment_summary(
     return unreliable_treatment_summary
 
 
+@newrelic.agent.function_trace()
 async def update_findings_unreliable_indicators(
     finding_ids: List[str],
     attrs_to_update: Set[EntityAttr],
@@ -202,6 +204,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     max_attempts=20,
     sleep_seconds=0,
 )
+@newrelic.agent.function_trace()
 async def update_vulnerabilities_unreliable_indicators(
     vulnerability_ids: List[str],
     attrs_to_update: Set[EntityAttr],
