@@ -2,7 +2,6 @@
 
 from code_etl.client import (
     all_data_count,
-    all_data_raw,
     insert_rows,
     namespace_data,
 )
@@ -46,6 +45,9 @@ from purity.v1 import (
 from purity.v2.adapters import (
     to_returns,
 )
+from purity.v2.result import (
+    ResultE,
+)
 from purity.v2.union import (
     inl,
 )
@@ -57,7 +59,7 @@ from returns.primitives.exceptions import (
 )
 from returns.result import (
     Failure,
-    ResultE,
+    ResultE as LegacyResultE,
     Success,
 )
 from typing import (
@@ -83,17 +85,17 @@ def migrate_commit(
             CommitId(raw.hash, gen_fa_hash_2(cd)),
         )
     )
-    commit = to_returns(data.bind(lambda d: _id.map(lambda i: Commit(i, d))))
+    commit = data.bind(lambda d: _id.map(lambda i: Commit(i, d)))
     return commit.map(lambda c: CommitStamp(c, raw.seen_at))
 
 
 def migrate_row(
     row: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
-    reg: ResultE[Union[CommitStamp, RepoRegistration]] = to_returns(
-        decode_repo_registration(row).map(lambda x: inl(x))
-    )
-    return reg.lash(lambda _: migrate_commit(row))
+    reg: ResultE[
+        Union[CommitStamp, RepoRegistration]
+    ] = decode_repo_registration(row).map(inl)
+    return reg.lash(lambda _: migrate_commit(row).map(inl))
 
 
 def _progress(count: int, total: int) -> IO[None]:
@@ -107,10 +109,14 @@ def migration(
     source: TableID,
     target: TableID,
     namespace: str,
-) -> IO[ResultE[None]]:
+) -> IO[LegacyResultE[None]]:
     data = (
         namespace_data(client, source, namespace)
-        .map(lambda i: i.map(lambda r: r.bind(migrate_row)))
+        .map(
+            lambda i: i.map(
+                lambda r: r.bind(lambda x: to_returns(migrate_row(x)))
+            )
+        )
         .chunked(2000)
         .map(
             lambda i: Flattener.list_io(tuple(i)).map(

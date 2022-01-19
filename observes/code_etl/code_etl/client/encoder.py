@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from __future__ import (
     annotations,
 )
@@ -28,22 +26,13 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from returns.functions import (
-    raise_exception,
-)
-from returns.interfaces.unwrappable import (
-    Unwrappable,
-)
-from returns.maybe import (
+from purity.v2.maybe import (
     Maybe,
 )
-from returns.primitives.exceptions import (
-    UnwrapFailedError,
-)
-from returns.result import (
-    Failure,
+from purity.v2.result import (
+    Result,
     ResultE,
-    Success,
+    UnwrapError,
 )
 from typing import (
     Any,
@@ -156,14 +145,9 @@ def from_raw(raw: RawRow) -> ResultE[CommitTableRow]:
             .map(to_utc)
             .unwrap(),
         )
-        return Success(row)
-    except UnwrapFailedError as err:
-        return Failure(
-            cast(
-                Unwrappable[Union[str, int, datetime], Exception],
-                err.halted_container,
-            ).failure()
-        )
+        return Result.success(row)
+    except UnwrapError[Any, Exception] as err:
+        return Result.failure(err.container.unwrap_fail())
 
 
 def from_stamp(stamp: CommitStamp) -> CommitTableRow:
@@ -192,7 +176,7 @@ def _encode_opt_datetime(date: Optional[DatetimeUTC]) -> Optional[str]:
 
 
 def _encode_opt_int(num: Optional[int]) -> Optional[str]:
-    return _from_opt(num).map(lambda i: str(i)).value_or(None)
+    return _from_opt(num).map(str).value_or(None)
 
 
 def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:

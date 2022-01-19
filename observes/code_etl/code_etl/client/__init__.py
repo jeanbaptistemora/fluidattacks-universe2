@@ -91,7 +91,9 @@ def _fetch(
     try:
         return client.cursor.fetch_many(chunk).map(
             lambda rows: Maybe.from_optional(
-                tuple(from_raw(RawRow(*r)) for r in rows) if rows else None
+                tuple(to_returns(from_raw(RawRow(*r))) for r in rows)
+                if rows
+                else None
             )
         )
     except psycopg2.ProgrammingError:
