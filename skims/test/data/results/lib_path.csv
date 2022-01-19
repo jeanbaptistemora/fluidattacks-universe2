@@ -31808,7 +31808,7 @@ F393,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   20 |       },
   21 |       ""dev"": true,
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F393,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.3) [npm:hoek:20180212],5,937,skims,393. Use of software with known vulnerabilities in development,Use of hoek at version 5.0.0.3 with npm:hoek:20180212 in namespace/skims/test/data/lib_path/f011/package-lock.json,"
    1 | {
    2 |   ""dependencies"": {
@@ -31832,7 +31832,7 @@ F393,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   20 |       },
   21 |       ""dev"": true,
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.6) [CVE-2018-3728],28,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0.6 with CVE-2018-3728 in namespace/skims/test/data/lib_path/f011/package-lock.json,"
   18 |           ""version"": ""5.0.0.3""
   19 |         }
