@@ -13346,16 +13346,16 @@
 
       - List of valid users.
     impact: >
-      Internal attacker with access to the code.
+      Access to the code to identify that
+      there is insufficiently
+      protected business information.
     recommendation: >
       According to the classification of the
       information found, establish the necessary
       controls so that the information is accessible
       only to the indicated persons.
     threat: >
-      An unauthorized user with access to the code
-      can identify that there is insufficiently
-      protected business information.
+      Internal attacker with access to the code.
   es:
     title: Business information leak - Users
     description: >
@@ -13363,16 +13363,16 @@
 
       - Lista de usuarios válidos.
     impact: >
-      Atacante interno con acceso al código.
+      Acceso al código para identificar que hay
+      información empresarial insuficientemente
+      protegida.
     recommendation: >
       De acuerdo a la clasificación de la información
       encontrada, establecer los controles necesarios
       para que la información sea accesible sólo a las
       personas indicadas.
     threat: >
-      Un usuario no autorizado con acceso al código
-      puede identificar que hay información de negocio
-      sin la protección suficiente.
+      Atacante interno con acceso al código.
   category: Collect Information
   score:
     base:
@@ -13507,7 +13507,9 @@
       in the code, such as access credentials to
       the Active directory.
     impact: >
-      External attacker.
+      Use the collected information for further
+      attacks, such as AD information to
+      access organizational information.
     recommendation: >
       - According to the classification of the
       information found, establish the necessary
@@ -13517,9 +13519,7 @@
       - Sensitive information should not be stored
       in binaries or source code.
     threat: >
-      An attacker can use the collected information
-      for further attacks, such as AD information to
-      access organizational information.
+      External attacker with access to business information.
   es:
     title: Business information leak - JFROG
     description: >
@@ -13531,7 +13531,10 @@
       en el código, como credenciales de acceso
       al directorio Activo.
     impact: >
-      Atacante externo.
+      Utilizar la información recopilada para
+      otros ataques, como la información de
+      AD para acceder a la información de la
+      organización.
     recommendation: >
       -  De acuerdo a la clasificación de la
       información encontrada, establecer los
@@ -13541,10 +13544,8 @@
       - No se debe almacenar información sensible
       en binarios o código fuente.
     threat: >
-      Un atacante puede usar la información
-      recolectada para posteriores ataques,
-      como por ejemplo información del AD para
-      acceder a información de la organización.
+      Atacante externo con acceso a
+      la información empresarial.
   category: Collect Information
   score:
     base:
@@ -13579,16 +13580,16 @@
       - Customer information Through the use of AWS
       credentials found in plain text in the source code.
     impact: >
-      Attacker with access to the code.
+      Gain access to cloud repositories
+      will be able to gain access to
+      sensitive information.
     recommendation: >
       According to the classification of the
       information found, establish the necessary
       controls so that the information is
       accessible only to the indicated persons.
     threat: >
-      An attacker gaining access to cloud
-      repositories will be able to gain
-      access to sensitive information.
+      Attacker with access to the code.
   es:
     title: Business information leak - AWS
     description: >
@@ -13605,15 +13606,16 @@
       - Mediante el uso de credenciales de AWS que se
       encuentran en texto plano en el código fuente.
     impact: >
-      Atacante con acceso a código.
+      Conseguir acceso a los repositorios en
+      la nube podrá obtener acceso a
+      información sensible.
     recommendation: >
       De acuerdo a la clasificación de la
       información encontrada, establecer los
       controles necesarios para que la información
       sea accesible sólo a las personas indicadas.
     threat: >
-      Un atacante que consiga acceso a los repositorios
-      en la nube podrá obtener acceso a información sensible.
+      Atacante con acceso a código.
   category: Collect Information
   score:
     base:
@@ -13642,7 +13644,7 @@
       This vulnerability could allow users to
       access other customers information in the platform.
     impact: >
-      - Could lead to compromise the Kubernetes clusters,
+      - Lead to compromise the Kubernetes clusters,
       thus providing attackers with full control over
       other Azure customers’ containers.
 
@@ -13666,7 +13668,7 @@
       Esta vulnerabilidad podía permitir a los usuarios
       acceder a la información de otros clientes en la plataforma.
     impact: >
-      - Podría llevar a comprometer los clusters de
+      - Llevar a comprometer los clusters de
       Kubernetes, proporcionando así a los atacantes
       un control total sobre los contenedores de
       otros clientes de Azure.
