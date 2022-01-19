@@ -23,7 +23,7 @@ Terms.
 `Fluid Attacks` and/or its licensors own all rights to the intellectual
 property and material contained on this Website, and all such rights are
 reserved.
-The client is only allowed to use the information on this Website
+You are only allowed to use the information on this Website
 for documentation purposes
 and without disclosing its content to third parties
 because it may contain ideas,
@@ -46,7 +46,7 @@ of the Colombian Penal Code,
 and article 16 and subsequent articles of Law 256 of 1996.
 
 Any opinions contained in this Website are exclusive of its author and
-not necessarily represent the official position of `Fluid Attacks` or of
+do not necessarily represent the official position of `Fluid Attacks` or of
 its authorities.
 
 ### Restrictions
