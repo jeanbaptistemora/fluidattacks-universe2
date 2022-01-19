@@ -14,6 +14,7 @@ from typing import (
     Generic,
     NoReturn,
     Optional,
+    Type,
     TypeVar,
     Union,
 )
@@ -35,6 +36,10 @@ class Maybe(Generic[_A]):
     @staticmethod
     def from_result(result: Result[_A, None]) -> Maybe[_A]:
         return Maybe(result)
+
+    @staticmethod
+    def empty(_type: Type[_A]) -> Maybe[_A]:
+        return Maybe.from_optional(None)
 
     def to_result(self) -> Result[_A, None]:
         return self._value
