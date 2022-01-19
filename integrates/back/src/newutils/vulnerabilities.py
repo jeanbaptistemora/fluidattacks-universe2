@@ -56,6 +56,7 @@ from dynamodb.types import (
 import html
 import itertools
 import logging
+import logging.config
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
