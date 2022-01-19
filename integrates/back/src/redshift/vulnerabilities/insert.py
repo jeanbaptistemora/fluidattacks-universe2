@@ -216,15 +216,76 @@ async def insert_batch_state(
 ) -> None:
     _fields, values = format_query_fields(StateTableRow)
     sql_values = [
-        format_row_state(vulnerability_id, state)
-        for vulnerability_id, historic_state in zip(
-            vulnerability_ids, historics
-        )
-        for state in historic_state
+        format_row_state(vulnerability_id, historic_entry)
+        for vulnerability_id, historic in zip(vulnerability_ids, historics)
+        for historic_entry in historic
     ]
     await execute_batch(  # nosec
         SQL_INSERT_HISTORIC.substitute(
             table=STATE_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_treatment(
+    *,
+    vulnerability_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(TreatmentTableRow)
+    sql_values = [
+        format_row_treatment(vulnerability_id, historic_entry)
+        for vulnerability_id, historic in zip(vulnerability_ids, historics)
+        for historic_entry in historic
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=TREATMENT_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_verification(
+    *,
+    vulnerability_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[VulnerabilityVerification, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(VerificationTableRow)
+    sql_values = [
+        format_row_verification(vulnerability_id, historic_entry)
+        for vulnerability_id, historic in zip(vulnerability_ids, historics)
+        for historic_entry in historic
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=VERIFICATION_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_zero_risk(
+    *,
+    vulnerability_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[VulnerabilityZeroRisk, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(ZeroRiskTableRow)
+    sql_values = [
+        format_row_zero_risk(vulnerability_id, historic_entry)
+        for vulnerability_id, historic in zip(vulnerability_ids, historics)
+        for historic_entry in historic
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=ZERO_RISK_TABLE,
             fields=_fields,
             values=values,
         ),
