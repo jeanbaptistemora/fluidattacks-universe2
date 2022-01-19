@@ -15,6 +15,9 @@ from toe.inputs.types import (
     ToeInputAttributesToAdd,
     ToeInputAttributesToUpdate,
 )
+from toe.utils import (
+    get_has_vulnerabilities,
+)
 from typing import (
     Optional,
 )
@@ -33,6 +36,9 @@ async def add(
     attributes: ToeInputAttributesToAdd,
 ) -> None:
     be_present_until = _get_optional_be_present_until(attributes.be_present)
+    has_vulnerabilities = get_has_vulnerabilities(
+        attributes.be_present, attributes.has_vulnerabilities
+    )
     toe_input = ToeInput(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -42,7 +48,7 @@ async def add(
         entry_point=entry_point,
         first_attack_at=attributes.first_attack_at,
         group_name=group_name,
-        has_vulnerabilities=attributes.has_vulnerabilities,
+        has_vulnerabilities=has_vulnerabilities,
         seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
@@ -65,13 +71,25 @@ async def update(
         if attributes.be_present is None
         else _get_optional_be_present_until(attributes.be_present)
     )
+    current_be_present = (
+        current_value.be_present
+        if attributes.be_present is None
+        else attributes.be_present
+    )
+    has_vulnerabilities = (
+        None
+        if attributes.has_vulnerabilities is None
+        else get_has_vulnerabilities(
+            current_be_present, attributes.has_vulnerabilities
+        )
+    )
     metadata = ToeInputMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,
         be_present_until=be_present_until,
         first_attack_at=attributes.first_attack_at,
-        has_vulnerabilities=attributes.has_vulnerabilities,
+        has_vulnerabilities=has_vulnerabilities,
         seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,

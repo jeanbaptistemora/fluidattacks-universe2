@@ -23,6 +23,9 @@ from newutils import (
 from newutils.validations import (
     validate_field_length,
 )
+from toe.utils import (
+    get_has_vulnerabilities,
+)
 from typing import (
     Optional,
 )
@@ -52,6 +55,9 @@ async def add(
         or _get_optional_be_present_until(attributes.be_present)
     )
     first_attack_at = attributes.first_attack_at or attributes.attacked_at
+    has_vulnerabilities = get_has_vulnerabilities(
+        attributes.be_present, attributes.has_vulnerabilities
+    )
     toe_lines = ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -62,7 +68,7 @@ async def add(
         commit_author=attributes.commit_author,
         filename=filename,
         first_attack_at=first_attack_at,
-        has_vulnerabilities=attributes.has_vulnerabilities,
+        has_vulnerabilities=has_vulnerabilities,
         group_name=group_name,
         last_author=attributes.commit_author,
         last_commit=attributes.modified_commit,
@@ -145,6 +151,18 @@ async def update(
         if attributes.be_present is None
         else _get_optional_be_present_until(attributes.be_present)
     )
+    current_be_present = (
+        current_value.be_present
+        if attributes.be_present is None
+        else attributes.be_present
+    )
+    has_vulnerabilities = (
+        None
+        if attributes.has_vulnerabilities is None
+        else get_has_vulnerabilities(
+            current_be_present, attributes.has_vulnerabilities
+        )
+    )
     metadata = ToeLinesMetadataToUpdate(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -154,7 +172,7 @@ async def update(
         comments=attributes.comments,
         commit_author=attributes.commit_author,
         first_attack_at=first_attack_at,
-        has_vulnerabilities=attributes.has_vulnerabilities,
+        has_vulnerabilities=has_vulnerabilities,
         loc=attributes.loc,
         modified_commit=attributes.modified_commit,
         modified_date=attributes.modified_date,
