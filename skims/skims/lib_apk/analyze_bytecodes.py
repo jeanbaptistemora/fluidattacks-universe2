@@ -424,27 +424,6 @@ def _add_webview_caches_javascript_location(
     )
 
 
-def _webview_caches_javascript(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
-    locations: Locations = Locations([])
-
-    if ctx.apk_ctx.analysis is not None:
-        act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
-
-        is_vulnerable: bool = (
-            "setJavaScriptEnabled" in act_source
-            and "clearCache" not in act_source
-        )
-
-        if is_vulnerable:
-            _add_webview_caches_javascript_location(ctx, locations, act_source)
-
-    return _create_vulns(
-        ctx=ctx,
-        finding=core_model.FindingEnum.F268,
-        locations=locations,
-    )
-
-
 def _add_webview_allows_resource_access(
     ctx: APKCheckCtx,
     locations: Locations,
@@ -475,9 +454,7 @@ def _add_webview_allows_resource_access(
     )
 
 
-def _webview_allows_resource_access(
-    ctx: APKCheckCtx,
-) -> core_model.Vulnerabilities:
+def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     dangerous_allows = {
@@ -486,10 +463,15 @@ def _webview_allows_resource_access(
         "setAllowFileAccessFromFileURLs",
         "setAllowUniversalAccessFromFileURLs",
     }
+
     if ctx.apk_ctx.analysis is not None:
         act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
-
         effective_dangerous: List[str] = []
+
+        is_vulnerable: bool = (
+            "setJavaScriptEnabled" in act_source
+            and "clearCache" not in act_source
+        )
 
         if "setJavaScriptEnabled" in act_source:
             effective_dangerous = list(
@@ -500,6 +482,9 @@ def _webview_allows_resource_access(
 
         if has_dangerous_permissions:
             _add_webview_allows_resource_access(ctx, locations, act_source)
+
+        if is_vulnerable:
+            _add_webview_caches_javascript_location(ctx, locations, act_source)
 
     return _create_vulns(
         ctx=ctx,
@@ -568,6 +553,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F103: _apk_unsigned,
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
-    core_model.FindingEnum.F268: _webview_caches_javascript,
+    core_model.FindingEnum.F268: _webview_vulnerabilities,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }
