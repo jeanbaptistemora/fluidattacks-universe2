@@ -1,32 +1,24 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     DependencyType,
-    SHIELD,
     translate_dependencies_to_vulnerabilities,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    FindingEnum,
+    Platform,
+    Vulnerabilities,
 )
 from more_itertools import (
     windowed,
 )
 from typing import (
-    Awaitable,
-    Callable,
     Iterator,
-    List,
     Tuple,
 )
 
 
-def _check_npm_yarn_lock(
-    content: str,
-    finding: core_model.FindingEnum,
-    path: str,
-    platform: core_model.Platform,
-) -> core_model.Vulnerabilities:
+def npm_yarn_lock(
+    content: str, finding: FindingEnum, path: str, platform: Platform
+) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
             Tuple[Tuple[int, str], Tuple[int, str]],
@@ -66,39 +58,3 @@ def _check_npm_yarn_lock(
         path=path,
         platform=platform,
     )
-
-
-@SHIELD
-async def check(
-    content: str,
-    finding: core_model.FindingEnum,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _check_npm_yarn_lock,
-        content=content,
-        finding=finding,
-        path=path,
-        platform=core_model.Platform.NPM,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_name: str,
-    file_extension: str,
-    finding: core_model.FindingEnum,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    if (file_name, file_extension) == ("yarn", "lock"):
-        return [
-            check(
-                content=content_generator(),
-                finding=finding,
-                path=path,
-            )
-        ]
-
-    return []

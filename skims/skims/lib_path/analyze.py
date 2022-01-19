@@ -4,12 +4,7 @@ from aioextensions import (
 )
 from lib_path import (
     f009,
-    f011_maven,
-    f011_npm_package_json,
-    f011_npm_package_lock_json,
-    f011_npm_yarn_lock,
-    f011_nuget_csproj,
-    f011_nuget_packages_config,
+    f011,
     f015,
     f016,
     f022,
@@ -46,6 +41,8 @@ from lib_path import (
     f363,
     f372,
     f380,
+    f393_npm_package_json,
+    f393_npm_package_lock_json,
     f396,
     f400,
     f401,
@@ -83,16 +80,10 @@ from utils.logs import (
 MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
 DEV: Dict[str, bool] = dict(include_dev=True, include_prod=False)
-PROD: Dict[str, bool] = dict(include_dev=False, include_prod=True)
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
-    (core_model.FindingEnum.F011, f011_maven.analyze),
-    (core_model.FindingEnum.F011, f011_npm_package_json.analyze(**PROD)),
-    (core_model.FindingEnum.F011, f011_npm_package_lock_json.analyze(**PROD)),
-    (core_model.FindingEnum.F011, f011_npm_yarn_lock.analyze),
-    (core_model.FindingEnum.F011, f011_nuget_csproj.analyze),
-    (core_model.FindingEnum.F011, f011_nuget_packages_config.analyze),
+    (core_model.FindingEnum.F011, f011.analyze),
     (core_model.FindingEnum.F015, f015.analyze),
     (core_model.FindingEnum.F016, f016.analyze),
     (core_model.FindingEnum.F022, f022.analyze),
@@ -129,8 +120,8 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F363, f363.analyze),
     (core_model.FindingEnum.F372, f372.analyze),
     (core_model.FindingEnum.F380, f380.analyze),
-    (core_model.FindingEnum.F393, f011_npm_package_json.analyze(**DEV)),
-    (core_model.FindingEnum.F393, f011_npm_package_lock_json.analyze(**DEV)),
+    (core_model.FindingEnum.F393, f393_npm_package_json.analyze(**DEV)),
+    (core_model.FindingEnum.F393, f393_npm_package_lock_json.analyze(**DEV)),
     (core_model.FindingEnum.F396, f396.analyze),
     (core_model.FindingEnum.F400, f400.analyze),
     (core_model.FindingEnum.F401, f401.analyze),
