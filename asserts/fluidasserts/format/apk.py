@@ -105,47 +105,6 @@ def get_http_urls(dex):
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def webview_allows_resource_access(apk_file: str) -> tuple:
-    """
-    Check if the given APK has WebView that allows resource access.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK has *setAllowContentAccess*,
-                *setAllowFileAccess*, *setAllowFileAccessFromFileURLs*,
-                *setAllowUniversalAccessFromFileURLs* activities.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    dangerous_allows = {
-        "setAllowContentAccess",
-        "setAllowFileAccess",
-        "setAllowFileAccessFromFileURLs",
-        "setAllowUniversalAccessFromFileURLs",
-    }
-
-    _, dvms, _ = analyze_apk(apk_file)
-    act_source = get_activities_source(dvms)
-
-    effective_dangerous: List[str] = []
-    if "setJavaScriptEnabled" in act_source:
-        effective_dangerous = list(
-            filter(act_source.__contains__, dangerous_allows)
-        )
-
-    has_dangerous_permissions: bool = bool(effective_dangerous)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open=f"WebView allows resource access",
-        msg_closed="WebView does not allow resource access",
-        open_if=has_dangerous_permissions,
-        fingerprint={"Dangerous permissions": effective_dangerous},
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def not_verifies_ssl_hostname(apk_file: str) -> tuple:
     """
     Check if the given APK doesn't verify the SSLSocket hostname.

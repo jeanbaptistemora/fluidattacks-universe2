@@ -40,11 +40,6 @@ def test_permissions_open():
     assert apk.uses_dangerous_perms(SIGNED_APK)
 
 
-def test_webview_resources_open():
-    """Test if APK webviews allows resource access."""
-    assert apk.webview_allows_resource_access(JS_APK)
-
-
 def test_forces_update_open():
     """Test if APK forces update."""
     assert apk.not_forces_updates(SIGNED_APK)
@@ -78,11 +73,6 @@ def test_unsafe_http_open():
 def test_permissions_close():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NO_ROOT_APK)
-
-
-def test_webview_resources_close():
-    """Test if APK webviews allows resource access."""
-    assert not apk.webview_allows_resource_access(SIGNED_APK)
 
 
 def test_forces_update_close():
@@ -133,11 +123,6 @@ def test_getinsecure_close():
 def test_permissions_unknown():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NOT_EXISTS_APK)
-
-
-def test_webview_resources_unknown():
-    """Test if APK webviews allows resource access."""
-    assert not apk.webview_allows_resource_access(NOT_EXISTS_APK)
 
 
 def test_forces_update_unknown():
