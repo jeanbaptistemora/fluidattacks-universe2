@@ -5,15 +5,12 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-from enum import (
-    Enum,
-)
 from typing import (
     Callable,
     Generic,
-    Literal,
     NoReturn,
-    overload,
+    Optional,
+    Type,
     TypeVar,
     Union,
 )
@@ -38,21 +35,16 @@ class _Failure(Generic[_T]):
     value: _T
 
 
-class RTypes(Enum):
-    SUCCESS = True
-    FAILURE = False
-
-
 @dataclass(frozen=True)
 class Result(Generic[_S, _F]):
     _value: Union[_Success[_S], _Failure[_F]]
 
     @staticmethod
-    def success(val: _S) -> Result[_S, _F]:
+    def success(val: _S, _type: Optional[Type[_F]] = None) -> Result[_S, _F]:
         return Result(_Success(val))
 
     @staticmethod
-    def failure(val: _F) -> Result[_S, _F]:
+    def failure(val: _F, _type: Optional[Type[_S]] = None) -> Result[_S, _F]:
         return Result(_Failure(val))
 
     def map(self, function: Callable[[_S], _T]) -> Result[_T, _F]:
@@ -94,22 +86,16 @@ class Result(Generic[_S, _F]):
             return self._value.value
         return function()
 
-    @overload
-    def unwrap(
-        self, r_type: Literal[RTypes.SUCCESS] = RTypes.SUCCESS
-    ) -> Union[_S, NoReturn]:
-        pass
+    def to_union(self) -> Union[_S, _F]:
+        return self._value.value
 
-    @overload
-    def unwrap(self, r_type: Literal[RTypes.FAILURE]) -> Union[_F, NoReturn]:
-        pass
-
-    def unwrap(
-        self, r_type: RTypes = RTypes.SUCCESS
-    ) -> Union[_S, _F, NoReturn]:
-        if r_type == RTypes.SUCCESS and isinstance(self._value, _Success):
+    def unwrap(self) -> Union[_S, NoReturn]:
+        if isinstance(self._value, _Success):
             return self._value.value
-        elif isinstance(self._value, _Failure):
+        raise UnwrapError(self)
+
+    def unwrap_fail(self) -> Union[_F, NoReturn]:
+        if isinstance(self._value, _Failure):
             return self._value.value
         raise UnwrapError(self)
 

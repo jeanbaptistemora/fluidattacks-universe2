@@ -7,7 +7,6 @@ from dataclasses import (
 )
 from purity.v2.result import (
     Result,
-    RTypes,
 )
 from typing import (
     Callable,
@@ -62,7 +61,7 @@ class Maybe(Generic[_A]):
         return self._value.unwrap()
 
     def failure(self) -> Union[None, NoReturn]:
-        return self._value.unwrap(RTypes.FAILURE)
+        return self._value.unwrap_fail()
 
     def value_or(self, default: _B) -> Union[_A, _B]:
         return self._value.value_or(default)
