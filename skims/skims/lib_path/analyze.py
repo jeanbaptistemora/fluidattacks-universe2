@@ -41,8 +41,7 @@ from lib_path import (
     f363,
     f372,
     f380,
-    f393_npm_package_json,
-    f393_npm_package_lock_json,
+    f393,
     f396,
     f400,
     f401,
@@ -79,7 +78,6 @@ from utils.logs import (
 # Constants
 MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
-DEV: Dict[str, bool] = dict(include_dev=True, include_prod=False)
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
@@ -120,8 +118,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F363, f363.analyze),
     (core_model.FindingEnum.F372, f372.analyze),
     (core_model.FindingEnum.F380, f380.analyze),
-    (core_model.FindingEnum.F393, f393_npm_package_json.analyze(**DEV)),
-    (core_model.FindingEnum.F393, f393_npm_package_lock_json.analyze(**DEV)),
+    (core_model.FindingEnum.F393, f393.analyze),
     (core_model.FindingEnum.F396, f396.analyze),
     (core_model.FindingEnum.F400, f400.analyze),
     (core_model.FindingEnum.F401, f401.analyze),
