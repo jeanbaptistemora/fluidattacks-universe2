@@ -23610,3 +23610,43 @@
     en:
       details: >
         https://docs.bridgecrew.io/docs/enable-requests-on-storage-logging-for-queue-service
+"403":
+  en:
+    title: Insecure service configuration - usesCleartextTraffic
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Tracebility Loss - Azure
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["075","376","377","378"]
+  metadata:
+    en:
+      details: __empty__
