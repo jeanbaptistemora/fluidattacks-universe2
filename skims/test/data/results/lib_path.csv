@@ -28719,7 +28719,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,0
   18 | wt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyf
   19 | onfuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 1
-",f009._aws_credentials
+",aws_credentials.aws_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | mbda.credentials2.key       = AKIA0000000000000000
 >  2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28741,7 +28741,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._aws_credentials
+",aws_credentials.aws_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
 >  1 | mbda.credentials2.key       = AKIA0000000000000000
    2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28763,15 +28763,15 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._aws_credentials
+",aws_credentials.aws_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/secrets.yaml,"
 > 1 | AKIA0000000000000000
     ^ Col 0
-",f009._aws_credentials
+",aws_credentials.aws_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml.json,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/secrets.yaml.json,"
 > 1 | ""AKIA0000000000000000""
     ^ Col 0
-",f009._aws_credentials
+",aws_credentials.aws_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -28848,7 +28848,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798,skims,009. S
   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
     ^ Col 0
-",f009._dockerfile_env_secrets
+",dockerfile_env_secrets.dockerfile_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
 > 1 | ENV API_KEY '123'
   2 | ENV API_KEY='123'
@@ -28859,7 +28859,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798,skims,009. S
   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
     ^ Col 0
-",f009._dockerfile_env_secrets
+",dockerfile_env_secrets.dockerfile_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,14,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    4 |     build: .
    5 |     ports:
@@ -28883,7 +28883,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,14,798,ski
   23 |     environment:
   24 |     - API_PASSWORD=pass
      ^ Col 0
-",f009._docker_compose_env_secrets
+",docker_compose_env_secrets.docker_compose_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,24,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    6 |       - ""5000:5000""
    7 |     volumes:
@@ -28907,7 +28907,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,24,798,ski
   25 | volumes:
   26 |   logvolume01: {}
      ^ Col 0
-",f009._docker_compose_env_secrets
+",docker_compose_env_secrets.docker_compose_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,8,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | mbda.credentials2.key       = AKIA0000000000000000
    2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28929,7 +28929,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,8,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._java_properties_sensitive_data
+",java_properties_sensitive_data.java_properties_sensitive_data
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | mbda.credentials2.key       = AKIA0000000000000000
    2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28951,7 +28951,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._java_properties_sensitive_data
+",java_properties_sensitive_data.java_properties_sensitive_data
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | mbda.credentials2.key       = AKIA0000000000000000
 >  2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28973,7 +28973,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._java_properties_sensitive_data
+",java_properties_sensitive_data.java_properties_sensitive_data
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
 >  1 | mbda.credentials2.key       = AKIA0000000000000000
    2 | azon.aws.accesskey          = AKIA0000000000000000
@@ -28995,7 +28995,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,0
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
-",f009._java_properties_sensitive_data
+",java_properties_sensitive_data.java_properties_sensitive_data
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
    1 | package f127
