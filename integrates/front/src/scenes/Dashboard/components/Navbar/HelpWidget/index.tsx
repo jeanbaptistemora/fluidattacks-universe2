@@ -176,7 +176,10 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
                 &nbsp;{t("navbar.help.expert")}
               </DropdownButton>
               {isUpgradeOpen ? (
-                <UpgradeGroupsModal onClose={closeUpgradeModal} />
+                <UpgradeGroupsModal
+                  groups={groups}
+                  onClose={closeUpgradeModal}
+                />
               ) : undefined}
             </li>
           ) : undefined}

@@ -117,6 +117,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:system_owner",
             "post_finding_observation",
             "update_git_root_filter",
+            "request_group_upgrade",
         },
         tags=set(),
     ),
