@@ -28,6 +28,7 @@ from db_model import (
     TABLE,
 )
 from db_model.vulnerabilities.constants import (
+    ASSIGNED_INDEX_METADATA,
     ROOT_INDEX_METADATA,
 )
 from dynamodb import (
@@ -189,6 +190,29 @@ async def _get_root_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
+async def _get_assigned_vulnerabilities(
+    *, user_email: str
+) -> Tuple[Vulnerability, ...]:
+    primary_key = keys.build_key(
+        facet=ASSIGNED_INDEX_METADATA,
+        values={"email": user_email},
+    )
+
+    index = TABLE.indexes["gsi_3"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(ASSIGNED_INDEX_METADATA,),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_vulnerability(item) for item in response.items)
+
+
 class RootVulnsNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -264,4 +288,17 @@ class VulnHistoricZeroRiskNewLoader(DataLoader):
     ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
             _get_historic_zero_risk(vulnerability_id=id) for id in ids
+        )
+
+
+class AssignedVulnerabilitiesLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, emails: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await collect(
+            tuple(
+                _get_assigned_vulnerabilities(user_email=user_email)
+                for user_email in emails
+            )
         )

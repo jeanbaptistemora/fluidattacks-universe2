@@ -30,6 +30,7 @@ from dynamodb.types import (
 )
 from typing import (
     cast,
+    Optional,
 )
 
 
@@ -176,3 +177,10 @@ def adjust_historic_dates(
             ).isoformat()
         new_historic.append(entry._replace(modified_date=comparison_date))
     return cast(VulnerabilityHistoric, tuple(new_historic))
+
+
+def get_assigned(*, treatment: Optional[VulnerabilityTreatment]) -> str:
+    if treatment is None or treatment.assigned is None:
+        return ""
+
+    return treatment.assigned

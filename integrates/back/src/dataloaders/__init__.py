@@ -61,6 +61,7 @@ from db_model.toe_lines.get import (
     ToeLinesLoader,
 )
 from db_model.vulnerabilities.get import (
+    AssignedVulnerabilitiesLoader,
     FindingVulnsNewLoader,
     RootVulnsNewLoader,
     VulnHistoricStateNewLoader,
@@ -101,6 +102,7 @@ class Dataloaders(NamedTuple):
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
+    me_vulnerabilities: AssignedVulnerabilitiesLoader
     root: RootLoader
     root_credential: RootCredentialLoader
     root_machine_executions: RootMachineExecutionsLoader
@@ -167,6 +169,7 @@ def get_new_context() -> Dataloaders:
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
+        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         root=RootLoader(),
         root_credential=RootCredentialLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
