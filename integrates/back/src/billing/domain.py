@@ -264,6 +264,13 @@ async def update_subscription(
     ):
         raise BillingSubscriptionSameActive()
 
+    # Report usage if subscription is squad
+    report: bool = True
+    if "squad" in subs.keys():
+        report = await dal.report_subscription_usage(
+            subscription=subs["squad"],
+        )
+
     if subscription == "squad":
         data: Dict[str, Any] = await _format_create_subscription_data(
             subscription=subscription,
@@ -271,8 +278,9 @@ async def update_subscription(
             org_name=org_name,
             group_name=group_name,
         )
-        return await dal.create_subscription(**data)
-    return await dal.remove_subscription(
+        return report and await dal.create_subscription(**data)
+
+    return report and await dal.remove_subscription(
         subscription_id=subs["squad"].id,
         invoice_now=True,
         prorate=True,
