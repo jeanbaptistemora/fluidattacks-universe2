@@ -2488,8 +2488,13 @@ export const enTranslations: ResourceKey = {
   },
   upgrade: {
     close: "Close",
+    success: {
+      text: "You'll receive an email shortly",
+      title: "Upgrade requested successfully",
+    },
     text: "This functionality is only available for Squad subscriptions",
     title: "Subscription upgrade",
+    upgrade: "Upgrade",
   },
   userModal: {
     emailPlaceholder: "someone@domain.com",

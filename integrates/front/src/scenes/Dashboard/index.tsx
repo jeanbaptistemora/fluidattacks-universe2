@@ -85,9 +85,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
   const [taskState, setTaskState] = useState<boolean>(true);
-  const [userData, setUserData] = useState<
-    IGetUserOrganizationsGroups | undefined
-  >(undefined);
   const [assigedVulnerabilities, setAssigedVulnerabilities] = useState<
     IGetVulnsGroups[]
   >([]);
@@ -145,20 +142,20 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
   });
 
-  useQuery<IGetUserOrganizationsGroups>(GET_USER_ORGANIZATIONS_GROUPS, {
-    fetchPolicy: "cache-first",
-    onCompleted: (result: IGetUserOrganizationsGroups): void => {
-      setUserData(result);
-    },
-    onError: ({ graphQLErrors }): void => {
-      graphQLErrors.forEach((error): void => {
-        Logger.warning(
-          "An error occurred fetching groups from dashboard",
-          error
-        );
-      });
-    },
-  });
+  const { data: userData } = useQuery<IGetUserOrganizationsGroups>(
+    GET_USER_ORGANIZATIONS_GROUPS,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          Logger.warning(
+            "An error occurred fetching groups from dashboard",
+            error
+          );
+        });
+      },
+    }
+  );
 
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {

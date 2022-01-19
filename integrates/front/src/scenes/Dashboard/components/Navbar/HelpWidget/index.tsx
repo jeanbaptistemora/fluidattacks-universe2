@@ -14,7 +14,7 @@ import { openPopupWidget } from "react-calendly";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
-import { UpgradeSubscriptionModal } from "./UpgradeSubscriptionModal";
+import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -110,9 +110,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
     setAddModalOpen(false);
   }, []);
 
-  const handleUpload: (values: { file: FileList }) => void = async (values: {
-    file: FileList;
-  }): Promise<void> => {
+  async function handleUpload(values: { file: FileList }): Promise<void> {
     disableButton();
     const results = await uploadFile({
       variables: {
@@ -154,7 +152,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
     }
     enableButton();
     closeAddModal();
-  };
+  }
 
   return (
     <div ref={ref}>
@@ -178,7 +176,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
                 &nbsp;{t("navbar.help.expert")}
               </DropdownButton>
               {isUpgradeOpen ? (
-                <UpgradeSubscriptionModal onClose={closeUpgradeModal} />
+                <UpgradeGroupsModal onClose={closeUpgradeModal} />
               ) : undefined}
             </li>
           ) : undefined}
@@ -196,7 +194,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
                   isOpen={isAddModalOpen}
                   isUploading={isButtonEnabled}
                   onClose={closeAddModal}
-                  onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
+                  onSubmit={handleUpload}
                 />
               </TooltipWrapper>
             </li>

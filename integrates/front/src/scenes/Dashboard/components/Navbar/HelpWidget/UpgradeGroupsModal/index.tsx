@@ -5,13 +5,13 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 
-interface IUpgradeSubscriptionModalProps {
+interface IUpgradeGroupsModalProps {
   onClose: () => void;
 }
 
-const UpgradeSubscriptionModal: React.FC<IUpgradeSubscriptionModalProps> = ({
+const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
   onClose,
-}: IUpgradeSubscriptionModalProps): JSX.Element => {
+}: IUpgradeGroupsModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -29,4 +29,4 @@ const UpgradeSubscriptionModal: React.FC<IUpgradeSubscriptionModalProps> = ({
   );
 };
 
-export { UpgradeSubscriptionModal };
+export { UpgradeGroupsModal };
