@@ -26,6 +26,7 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
+import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
@@ -281,32 +282,23 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     ):
         raise InvalidRemovalVulnState.new()
 
-    removal_state = VulnerabilityState(
-        modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date_no_fractional(),
-        source=source,
-        status=VulnerabilityStateStatus.DELETED,
-        justification=justification,
-    )
-    await vulns_dal.update_state(
-        current_value=vulnerability.state,
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        state=removal_state,
-    )
-
-    if user_email.endswith("@fluidattacks.com"):
-        return True
-
     finding: Finding = await loaders.finding.load(finding_id)
-    if finding.state.status != FindingStateStatus.APPROVED:
-        return True
-
-    await _send_to_redshift(
-        loaders=loaders,
-        vulnerability=vulnerability,
-        state_to_append=removal_state,
-    )
+    if (
+        not user_email.endswith("@fluidattacks.com")
+        and finding.state.status == FindingStateStatus.APPROVED
+    ):
+        await _send_to_redshift(
+            loaders=loaders,
+            vulnerability=vulnerability,
+            state_to_append=VulnerabilityState(
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                source=source,
+                status=VulnerabilityStateStatus.DELETED,
+                justification=justification,
+            ),
+        )
+    await vulns_model.remove(vulnerability_id=vulnerability_id)
     return True
 
 
