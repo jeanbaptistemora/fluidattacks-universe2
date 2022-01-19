@@ -3912,3 +3912,15 @@
       title: Transfers of personal information outside Republic
       link: https://popia.co.za/
   metadata: {}
+"032":
+  title: Hong Kong PDPO Compliance and Cybersecurity
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "5_18":
+      title: Data access request
+      link: https://www.pcpd.org.hk/english/data_privacy_law/ordinance_at_a_Glance/ordinance.html
+  metadata: {}
