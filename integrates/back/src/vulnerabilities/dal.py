@@ -1,7 +1,4 @@
 import aioboto3
-from aioextensions import (
-    collect,
-)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -28,21 +25,11 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-from db_model.vulnerabilities.update import (
-    update_assigned_index,
-)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
-from newutils.vulnerabilities import (
-    format_vulnerability_item,
-    format_vulnerability_metadata_item,
-    format_vulnerability_state_item,
-    format_vulnerability_treatment_item,
-    format_vulnerability_verification_item,
-    format_vulnerability_zero_risk_item,
-)
+import logging.config
 from s3 import (
     operations as s3_ops,
 )
@@ -69,15 +56,7 @@ TABLE_NAME: str = "FI_vulnerabilities"
 
 async def add(vulnerability: Vulnerability) -> None:
     """Add vulnerability."""
-    if vulnerability.state.status != VulnerabilityStateStatus.DELETED:
-        await vulns_model.add(vulnerability=vulnerability)
-
-    item = format_vulnerability_item(vulnerability)
-    try:
-        await dynamodb_ops.put_item(TABLE_NAME, item)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-        raise UnavailabilityError() from ex
+    await vulns_model.add(vulnerability=vulnerability)
 
 
 async def get_by_finding(
@@ -143,7 +122,7 @@ async def sign_url(vuln_file_name: str) -> str:
     return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
 
 
-async def _update(finding_id: str, vuln_id: str, data: Dict[str, Any]) -> bool:
+async def update(finding_id: str, vuln_id: str, data: Dict[str, Any]) -> bool:
     set_expression = ""
     remove_expression = ""
     expression_names = {}
@@ -180,7 +159,7 @@ async def _update(finding_id: str, vuln_id: str, data: Dict[str, Any]) -> bool:
         raise UnavailabilityError() from ex
 
 
-async def _append(
+async def append(
     *,
     finding_id: str,
     vulnerability_id: str,
@@ -235,13 +214,6 @@ async def update_metadata(
             metadata=metadata,
             vulnerability_id=vulnerability_id,
         )
-    item = format_vulnerability_metadata_item(metadata)
-    if item:
-        await _update(
-            finding_id=finding_id,
-            vuln_id=vulnerability_id,
-            data=item,
-        )
 
 
 async def update_state(
@@ -263,12 +235,6 @@ async def update_state(
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
         )
-    item = format_vulnerability_state_item(state)
-    await _append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={"historic_state": (item,)},
-    )
 
 
 async def update_historic_state(
@@ -281,16 +247,6 @@ async def update_historic_state(
         finding_id=finding_id,
         historic=historic_state,
         vulnerability_id=vulnerability_id,
-    )
-    await _update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_state": [
-                format_vulnerability_state_item(state)
-                for state in historic_state
-            ]
-        },
     )
 
 
@@ -307,20 +263,10 @@ async def update_treatment(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
     )
-    item = format_vulnerability_treatment_item(treatment)
-    await collect(
-        (
-            _append(
-                finding_id=finding_id,
-                vulnerability_id=vulnerability_id,
-                elements={"historic_treatment": (item,)},
-            ),
-            update_assigned_index(
-                finding_id=finding_id,
-                vulnerability_id=vulnerability_id,
-                entry=treatment,
-            ),
-        )
+    await vulns_model.update_assigned_index(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        entry=treatment,
     )
 
 
@@ -337,16 +283,6 @@ async def update_historic_treatment(
             historic=historic_treatment,
             vulnerability_id=vulnerability_id,
         )
-    await _update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_treatment": [
-                format_vulnerability_treatment_item(treatment)
-                for treatment in historic_treatment
-            ]
-        },
-    )
 
 
 async def update_verification(
@@ -362,12 +298,6 @@ async def update_verification(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
     )
-    item = format_vulnerability_verification_item(verification)
-    await _append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={"historic_verification": (item,)},
-    )
 
 
 async def update_historic_verification(
@@ -380,16 +310,6 @@ async def update_historic_verification(
         finding_id=finding_id,
         historic=historic_verification,
         vulnerability_id=vulnerability_id,
-    )
-    await _update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_verification": [
-                format_vulnerability_verification_item(verification)
-                for verification in historic_verification
-            ]
-        },
     )
 
 
@@ -406,12 +326,6 @@ async def update_zero_risk(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
     )
-    item = format_vulnerability_zero_risk_item(zero_risk)
-    await _append(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        elements={"historic_zero_risk": (item,)},
-    )
 
 
 async def update_historic_zero_risk(
@@ -424,14 +338,4 @@ async def update_historic_zero_risk(
         finding_id=finding_id,
         historic=historic_zero_risk,
         vulnerability_id=vulnerability_id,
-    )
-    await _update(
-        finding_id=finding_id,
-        vuln_id=vulnerability_id,
-        data={
-            "historic_zero_risk": [
-                format_vulnerability_zero_risk_item(zero_risk)
-                for zero_risk in historic_zero_risk
-            ]
-        },
     )

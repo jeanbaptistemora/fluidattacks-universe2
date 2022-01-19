@@ -5,6 +5,7 @@ from .remove import (
     remove,
 )
 from .update import (
+    update_assigned_index,
     update_historic,
     update_historic_entry,
     update_metadata,
@@ -14,6 +15,7 @@ from .update import (
 __all__ = [
     "add",
     "remove",
+    "update_assigned_index",
     "update_historic",
     "update_historic_entry",
     "update_metadata",
