@@ -9,7 +9,6 @@ from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
-    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
 )
@@ -23,11 +22,9 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
-    iter_s3_buckets,
     iterate_resources,
 )
 from parse_hcl2.common import (
-    get_argument,
     get_attribute,
 )
 from parse_hcl2.loader import (
@@ -48,7 +45,6 @@ from typing import (
     Union,
 )
 from utils.function import (
-    get_node_by_keys,
     TIMEOUT_1MIN,
 )
 
@@ -97,34 +93,6 @@ def _public_buckets_iterate_vulnerabilities(
                 )
 
 
-def _unencrypted_buckets_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
-) -> Iterator[Union[AWSS3Bucket, Node]]:
-    for bucket in buckets_iterator:
-        if isinstance(bucket, Node):
-            if not bucket.raw.get("BucketEncryption", None):
-                yield bucket
-        elif isinstance(bucket, AWSS3Bucket) and not get_argument(
-            key="server_side_encryption_configuration",
-            body=bucket.data,
-        ):
-            yield bucket
-
-
-def _cfn_unencrypted_buckets_iterate_vulnerabilities(
-    file_ext: str,
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]],
-) -> Iterator[Union[AWSS3Bucket, Node]]:
-    for bucket in buckets_iterator:
-        logging = get_node_by_keys(bucket, ["BucketEncryption"])
-        if not isinstance(logging, Node):
-            yield AWSS3Bucket(
-                column=bucket.start_column,
-                data=bucket.data,
-                line=get_line_by_extension(bucket.start_line, file_ext),
-            )
-
-
 def _cfn_unencrypted_volumes(
     content: str,
     path: str,
@@ -138,46 +106,6 @@ def _cfn_unencrypted_volumes(
         iterator=get_cloud_iterator(
             _unencrypted_volume_iterate_vulnerabilities(
                 volumes_iterator=_iter_ec2_volumes(template=template)
-            )
-        ),
-        path=path,
-    )
-
-
-def _cfn_unencrypted_buckets(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F080_CWE},
-        description_key="src.lib_path.f080_aws.unencrypted_buckets",
-        finding=_FINDING_F080,
-        iterator=get_cloud_iterator(
-            _cfn_unencrypted_buckets_iterate_vulnerabilities(
-                file_ext=file_ext,
-                buckets_iterator=iter_s3_buckets(template=template),
-            )
-        ),
-        path=path,
-    )
-
-
-def _terraform_unencrypted_buckets(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F080_CWE},
-        description_key="src.lib_path.f080_aws.unencrypted_buckets",
-        finding=_FINDING_F080,
-        iterator=get_cloud_iterator(
-            _unencrypted_buckets_iterate_vulnerabilities(
-                buckets_iterator=terraform_iter_s3_buckets(model=model)
             )
         ),
         path=path,
@@ -206,25 +134,6 @@ def _terraform_public_buckets(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def cfn_unencrypted_buckets(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    # cfn_nag W41 S3 Bucket should have encryption option set
-    return await in_process(
-        _cfn_unencrypted_buckets,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
 async def cfn_unencrypted_volumes(
     content: str,
     path: str,
@@ -237,23 +146,6 @@ async def cfn_unencrypted_volumes(
         content=content,
         path=path,
         template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def terraform_unencrypted_buckets(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    # cfn_nag W41 S3 Bucket should have encryption option set
-    return await in_process(
-        _terraform_unencrypted_buckets,
-        content=content,
-        path=path,
-        model=model,
     )
 
 
@@ -290,14 +182,6 @@ async def analyze(
             content=content, fmt=file_extension
         ):
             coroutines.append(
-                cfn_unencrypted_buckets(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
                 cfn_unencrypted_volumes(
                     content=content,
                     path=path,
@@ -307,13 +191,6 @@ async def analyze(
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = await load_terraform(stream=content, default=[])
-        coroutines.append(
-            terraform_unencrypted_buckets(
-                content=content,
-                path=path,
-                model=model,
-            )
-        )
         coroutines.append(
             terraform_public_buckets(
                 content=content,
