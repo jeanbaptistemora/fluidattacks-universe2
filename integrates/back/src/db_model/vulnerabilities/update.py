@@ -260,14 +260,14 @@ async def update_unreliable_indicators(
         },
     )
     unreliable_indicators = {
-        f"unreliable_indicators.{key}": Decimal(value)
+        f"unreliable_indicators.{key}": Decimal(str(value))
         if isinstance(value, float)
         else value
         for key, value in json.loads(json.dumps(indicators)).items()
         if value is not None
     }
     current_value_item = {
-        f"unreliable_indicators.{key}": Decimal(value)
+        f"unreliable_indicators.{key}": Decimal(str(value))
         if isinstance(value, float)
         else value
         for key, value in json.loads(
