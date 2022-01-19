@@ -43,8 +43,10 @@ type Mutation {
 
   "Adds a new draft Finding to the specified Group"
   addDraft(
-    """Measure of the effort and resources needed for an attacker to put
-    in to successfully breach the system"""
+    """
+    Measure of the effort and resources needed for an attacker to put
+    in to successfully breach the system
+    """
     attackComplexity: String
     "Level of access needed for an attack to succeed"
     attackVector: String
@@ -52,22 +54,30 @@ type Mutation {
     attackVectorDesc: String
     "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
-    """Hypothetical impact on resource (webpages, content etc...) availability
-    and possibility of service denial"""
+    """
+    Hypothetical impact on resource (webpages, content etc...) availability
+    and possibility of service denial
+    """
     availabilityImpact: String
-    """Measure of the sensible/restricted information (e.g. password,
-    encryption keys) the attacker could gather from the breached component"""
+    """
+    Measure of the sensible/restricted information (e.g. password,
+    encryption keys) the attacker could gather from the breached component
+    """
     confidentialityImpact: String
     "Brief explanation of the vulnerability and how it works"
     description: String
-    """Measure of the availability of resources and details, both theoretical
+    """
+    Measure of the availability of resources and details, both theoretical
     and practical, available for a malicious actor to build and/or automate an
-    attack"""
+    attack
+    """
     exploitability: String
     "Name of the Group where the new draft will be in"
     groupName: String!
-    """How vulnerable for malicious modification are the files in the impacted
-    components"""
+    """
+    How vulnerable for malicious modification are the files in the impacted
+    components
+    """
     integrityImpact: String
     "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: String
@@ -177,8 +187,10 @@ type Mutation {
     kind: String
     "Forces execution log"
     log: Upload
-    """Minimum CVSS score of an `open` vulnerability for DevSecOps to break the
-    build in strict mode"""
+    """
+    Minimum CVSS score of an `open` vulnerability for DevSecOps to break the
+    build in strict mode
+    """
     severityThreshold: Float
     "Execution mode"
     strictness: String!
@@ -186,7 +198,9 @@ type Mutation {
     vulnerabilities: ExecutionVulnerabilitiesInput!
   ): SimplePayload!
 
-  """Adds a new root to be analyzed and tested"""
+  """
+  Adds a new root to be analyzed and tested
+  """
   addGitRoot(
     "Repository branch to be tested"
     branch: String!
@@ -276,7 +290,7 @@ type Mutation {
     findingsExecuted: [MachineFindingResultInput]
     "Full SHA-1 hash of the tested commit"
     gitCommit: String
-  ):SimplePayload!
+  ): SimplePayload!
 
   "Adds a new Organization"
   addOrganization(
@@ -284,8 +298,10 @@ type Mutation {
     name: String!
   ): AddOrganizationPayload!
 
-  """Adds a Finding policy to the Organization. Approval is still needed for
-  enactment"""
+  """
+  Adds a Finding policy to the Organization. Approval is still needed for
+  enactment
+  """
   addOrganizationFindingPolicy(
     "Name of the Finding to be associated with the policy"
     findingName: String!
@@ -296,10 +312,7 @@ type Mutation {
   ): SimplePayload!
 
   "Authenticates an user from the mobile ASM app"
-  addPushToken(
-    "Expo login token to be added"
-    token: String!
-  ): SimplePayload
+  addPushToken("Expo login token to be added" token: String!): SimplePayload
 
   "Adds a new Stakeholder to the default ASM organization"
   addStakeholder(
@@ -412,7 +425,7 @@ type Mutation {
   ): SimplePayload!
 
   "Handles acceptance and rejection of Vulnerabilities"
-   handleVulnerabilitiesAcceptance(
+  handleVulnerabilitiesAcceptance(
     "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulnerabilities: [String]!
     "Identifier of the Finding that contains the vulnerabilities"
@@ -427,10 +440,7 @@ type Mutation {
   invalidateAccessToken: SimplePayload!
 
   "Ditches a section of the cache and forces a refresh"
-  invalidateCache(
-    "Cache pattern to ditch"
-    pattern: String!
-  ): SimplePayload!
+  invalidateCache("Cache pattern to ditch" pattern: String!): SimplePayload!
 
   "Moves a root and its associations to another group"
   moveRoot(
@@ -465,10 +475,7 @@ type Mutation {
   ): SimplePayload!
 
   "Remove a subscription for a group and make it free"
-  removeBillingSubscription(
-    "Group name"
-    groupName: String!
-  ): SimplePayload!
+  removeBillingSubscription("Group name" groupName: String!): SimplePayload!
 
   "Removes evidence from an Event"
   removeEventEvidence(
@@ -504,8 +511,10 @@ type Mutation {
     justification: RemoveFindingJustification!
   ): SimplePayload!
 
-  """Removes/deletes a group from ASM. Once successful this action cannot be
-  undone"""
+  """
+  Removes/deletes a group from ASM. Once successful this action cannot be
+  undone
+  """
   removeGroup(
     "Name of the group to be deleted"
     groupName: String!
@@ -520,7 +529,6 @@ type Mutation {
     "Tag to remove"
     tag: String!
   ): SimpleGroupPayload!
-
 
   "Removes/deletes your access to ASM"
   removeStakeholder: SimplePayload!
@@ -537,8 +545,10 @@ type Mutation {
 
   "Removes a stakeholder's access from an Organization"
   removeStakeholderOrganizationAccess(
-    """Identifier of the organization where the stakeholder should be removed
-    from"""
+    """
+    Identifier of the organization where the stakeholder should be removed
+    from
+    """
     organizationId: String!
     "Email address of the stakeholder to remove"
     userEmail: String!
@@ -548,8 +558,10 @@ type Mutation {
   removeTags(
     "Identifier of the finding containing the vulnerabilities"
     findingId: String!
-    """List of identifiers of the vulnerabilities where the tag should be
-    removed from"""
+    """
+    List of identifiers of the vulnerabilities where the tag should be
+    removed from
+    """
     vulnerabilities: [String]!
     "Tag to remove"
     tag: String
@@ -594,7 +606,7 @@ type Mutation {
   "Signs an user in"
   signIn(
     "OAuth token"
-    authToken: String!,
+    authToken: String!
     "OAuth provider"
     provider: AuthProvider!
   ): SignInPayload!
@@ -607,7 +619,7 @@ type Mutation {
     groupName: String!
   ): SignPostUrlsPayload!
 
-    "Signs a POST URL to upload files to a Group's resources bucket"
+  "Signs a POST URL to upload files to a Group's resources bucket"
   signPostUrlRequester(
     "A JSON with description and fileName keys"
     filesData: JSONString!
@@ -633,15 +645,19 @@ type Mutation {
 
   "Queues a job to execute Machine (Skims) on the provided root"
   submitMachineJob(
-    """Identifier of the Finding where the results should be reported. Also
-    sets the Vulnerability type to check for"""
+    """
+    Identifier of the Finding where the results should be reported. Also
+    sets the Vulnerability type to check for
+    """
     findingId: String!
     "Nickname of the roots to run Machine on"
     rootNicknames: [String!]!
   ): SimplePayloadMessage!
 
-  """Submits a Finding policy for the Organization, pending approval of a
-  Stakeholder"""
+  """
+  Submits a Finding policy for the Organization, pending approval of a
+  Stakeholder
+  """
   submitOrganizationFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!
@@ -691,8 +707,10 @@ type Mutation {
     findingId: String!
     "Recommended course of action to close the vulnerabilities"
     recommendation: String!
-    """Information that will be compromised or disclosed by exploiting the
-    vulnerability"""
+    """
+    Information that will be compromised or disclosed by exploiting the
+    vulnerability
+    """
     records: String
     "Did Sorts guide you to the file where the vulnerability was found?"
     sorts: Sorts
@@ -776,8 +794,10 @@ type Mutation {
     description: String
     "Name of the group to be updated"
     groupName: String!
-    """Whether to keep using ASM services. Caution: Setting this to False
-    **will** remove the group from it!"""
+    """
+    Whether to keep using ASM services. Caution: Setting this to False
+    **will** remove the group from it!
+    """
     hasAsm: Boolean!
     "Whether to keep the Machine plan enabled within the group"
     hasMachine: Boolean!
@@ -843,15 +863,19 @@ type Mutation {
     maxNumberAcceptances: Int
     "Minimum CVSS 3.1 score in which a finding can be temporally accepted"
     minAcceptanceSeverity: Float
-    """Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to break
-     the build in strict mode"""
+    """
+    Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to break
+    the build in strict mode
+    """
     minBreakingSeverity: Float
     "Identifier of the Organization whose policies are to be updated"
     organizationId: String!
     "Name of the Organization whose policies are to be updated"
     organizationName: String!
-    """Grace period in days where newly reported vulnerabilities won't break
-    the build (DevSecOps only)"""
+    """
+    Grace period in days where newly reported vulnerabilities won't break
+    the build (DevSecOps only)
+    """
     vulnerabilityGracePeriod: Int
   ): SimplePayload!
 
@@ -881,29 +905,39 @@ type Mutation {
   updateSeverity(
     "Identifier of the finding in which the new severity will be calculated"
     findingId: String!
-    """Measure of the effort and resources needed for an attacker to put
-    in to successfully breach the system"""
+    """
+    Measure of the effort and resources needed for an attacker to put
+    in to successfully breach the system
+    """
     attackComplexity: String!
     "Level of access needed for an attack to succeed"
     attackVector: String!
-    """Hypothetical impact on resource (webpages, content etc...) availability
-    and possibility of service denial"""
+    """
+    Hypothetical impact on resource (webpages, content etc...) availability
+    and possibility of service denial
+    """
     availabilityImpact: String!
     "Availability requirement for the impacted systems"
     availabilityRequirement: String!
-    """Measure of the sensible/restricted information (e.g. password,
-    encryption keys) the attacker could gather from the breached component"""
+    """
+    Measure of the sensible/restricted information (e.g. password,
+    encryption keys) the attacker could gather from the breached component
+    """
     confidentialityImpact: String!
     "Confidentiality requirement for the impacted systems"
     confidentialityRequirement: String!
     "Common Vulnerability Scoring System version"
     cvssVersion: String!
-    """Measure of the availability of resources and details, both theoretical
+    """
+    Measure of the availability of resources and details, both theoretical
     and practical, available for a malicious actor to build and/or automate an
-    attack"""
+    attack
+    """
     exploitability: String!
-    """How vulnerable for malicious modification are the files in the impacted
-    components"""
+    """
+    How vulnerable for malicious modification are the files in the impacted
+    components
+    """
     integrityImpact: String!
     "Integrity requirement for the impacted systems"
     integrityRequirement: String!
@@ -937,7 +971,9 @@ type Mutation {
     userInteraction: String!
   ): SimpleFindingPayload!
 
-  """Updates the attacked lines for one or more ToE Lines of a concrete root"""
+  """
+  Updates the attacked lines for one or more ToE Lines of a concrete root
+  """
   updateToeLinesAttackedLines(
     "Where source code has been attacked"
     filenames: [String!]!
@@ -953,15 +989,17 @@ type Mutation {
     comments: String
   ): SimplePayload!
 
-  """Updates the sorts_risk_level attribute in one or more ToEs of a concrete
-  group"""
+  """
+  Updates the sorts_risk_level attribute in one or more ToEs of a concrete
+  group
+  """
   updateToeLinesSorts(
     "Where source code has been reviewed by Sorts"
-    filename: String,
+    filename: String
     "Name of the Group containing the ToE lines to be updated"
-    groupName: String,
+    groupName: String
     "Nickname of the root to update the ToE lines "
-    rootNickname: String,
+    rootNickname: String
     "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
   ): SimplePayload!
@@ -992,8 +1030,10 @@ type Mutation {
     vulnerabilityId: String!
     "General location of the Vulnerability, can be a file, an URL or an IP"
     vulnerabilityWhere: String!
-    """Specific location of the Vulnerability, can be a line of code,
-    a field or a port"""
+    """
+    Specific location of the Vulnerability, can be a line of code,
+    a field or a port
+    """
     vulnerabilitySpecific: String!
   ): SimplePayload!
 
