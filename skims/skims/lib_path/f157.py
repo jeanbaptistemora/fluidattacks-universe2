@@ -110,6 +110,26 @@ def tfm_azure_kv_default_network_access_iterate_vulns(
             yield resource
 
 
+def tfm_azure_kv_danger_bypass_iterate_vulns(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if network_acls := get_argument(
+            key="network_acls",
+            body=resource.data,
+        ):
+            default_action = get_block_attribute(
+                block=network_acls, key="bypass"
+            )
+            if (
+                default_action
+                and default_action.val.lower() != "azureservices"
+            ):
+                yield default_action
+        else:
+            yield resource
+
+
 def _tfm_azure_unrestricted_access_network_segments(
     content: str,
     path: str,
@@ -170,6 +190,25 @@ def _tfm_azure_kv_default_network_access(
     )
 
 
+def _tfm_azure_kv_danger_bypass(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        cwe={_FINDING_F157_CWE},
+        description_key=("lib_path.f157.tfm_azure_kv_danger_bypass"),
+        finding=_FINDING_F157,
+        iterator=get_cloud_iterator(
+            tfm_azure_kv_danger_bypass_iterate_vulns(
+                resource_iterator=iter_azurerm_key_vault(model=model),
+            )
+        ),
+        path=path,
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
@@ -218,6 +257,22 @@ async def tfm_azure_kv_default_network_access(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def tfm_azure_kv_danger_bypass(
+    content: str,
+    path: str,
+    model: Any,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _tfm_azure_kv_danger_bypass,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], str],
@@ -245,6 +300,13 @@ async def analyze(
         )
         coroutines.append(
             tfm_azure_kv_default_network_access(
+                content=content,
+                path=path,
+                model=model,
+            )
+        )
+        coroutines.append(
+            tfm_azure_kv_danger_bypass(
                 content=content,
                 path=path,
                 model=model,

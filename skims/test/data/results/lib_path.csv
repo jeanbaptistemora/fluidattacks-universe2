@@ -29824,6 +29824,70 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   21 |   name                     = ""example""
      ^ Col 0
 ",f157._tfm_azure_sa_default_network_access
+F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
+   1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+>  9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",f157._tfm_azure_kv_danger_bypass
+F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
+>  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+   9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",f157._tfm_azure_kv_danger_bypass
+F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_danger_bypass.tf,25,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f157/tfm_azure_kv_danger_bypass.tf,"
+   7 |   soft_delete_enabled        = true
+   8 |   purge_protection_enabled   = true
+   9 |   network_acls {
+  10 |     default_action = ""Deny""
+  11 |     bypass         = ""AzureServices""
+  12 |   }
+  13 | }
+  14 |
+  15 | resource ""azurerm_key_vault"" ""vulnerable"" {
+  16 |   name                       = ""examplekeyvault""
+  17 |   location                   = azurerm_resource_group.example.location
+  18 |   resource_group_name        = azurerm_resource_group.example.name
+  19 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  20 |   soft_delete_retention_days = 7
+  21 |   soft_delete_enabled        = true
+  22 |   purge_protection_enabled   = true
+  23 |   network_acls {
+  24 |     default_action = ""Deny""
+> 25 |     bypass         = ""None""
+  26 |   }
+  27 | }
+     ^ Col 0
+",f157._tfm_azure_kv_danger_bypass
 F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
