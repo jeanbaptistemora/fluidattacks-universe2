@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from bill import (
     domain as bill_domain,
 )
@@ -10,7 +7,6 @@ from billing.types import (
     Portal,
     Price,
     Subscription,
-    SubscriptionItem,
 )
 from context import (
     BASE_URL,
@@ -42,48 +38,6 @@ from typing import (
 )
 
 stripe.api_key = FI_STRIPE_API_KEY
-
-
-async def _format_create_subscription_data(
-    *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-) -> Dict[str, Any]:
-    """Format create subscription session data according to stripe API"""
-    prices: List[Price] = await get_subscription_prices(
-        subscription=subscription,
-    )
-    items: List[Dict[str, Any]] = []
-    for price in prices:
-        if price.subscription == "machine":
-            items.append(
-                {
-                    "price": price.id,
-                    "quantity": 1,
-                }
-            )
-        else:
-            items.append(
-                {
-                    "price": price.id,
-                }
-            )
-    billing_cycle_anchor: int = int(
-        datetime_utils.get_first_day_next_month_timestamp()
-    )
-
-    return {
-        "customer": org_billing_customer,
-        "items": items,
-        "metadata": {
-            "group": group_name,
-            "organization": org_name,
-            "subscription": subscription,
-        },
-        "billing_cycle_anchor": billing_cycle_anchor,
-    }
 
 
 async def attach_payment_method(
@@ -167,19 +121,18 @@ async def create_payment_method(
 
 async def create_subscription(
     *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
+    customer: str,
+    items: List[Dict[str, Any]],
+    metadata: Dict[str, str],
+    billing_cycle_anchor: int,
 ) -> bool:
     """Create stripe subscription"""
-    data: Dict[str, Any] = await _format_create_subscription_data(
-        subscription=subscription,
-        org_billing_customer=org_billing_customer,
-        org_name=org_name,
-        group_name=group_name,
+    sub = stripe.Subscription.create(
+        customer=customer,
+        items=items,
+        metadata=metadata,
+        billing_cycle_anchor=billing_cycle_anchor,
     )
-    sub = stripe.Subscription.create(**data)
     return isinstance(sub.created, int)
 
 
@@ -218,37 +171,31 @@ async def get_price(
     raise InvalidBillingPrice()
 
 
-async def get_subscription(
+async def get_subscriptions(
     *,
     group_name: str,
     org_billing_customer: str,
     limit: int = 1000,
-    status: str = "all",
-) -> Optional[Subscription]:
-    """Return subscription for a group"""
+    status: str = "active",
+) -> Dict[str, Subscription]:
+    """Return subscriptions for a group"""
     subs = stripe.Subscription.list(
         customer=org_billing_customer,
         limit=limit,
         status=status,
     ).data
     filtered = [sub for sub in subs if sub.metadata.group == group_name]
-    if len(filtered) > 0:
-        sub_items: List[SubscriptionItem] = [
-            SubscriptionItem(
-                id=item["id"],
-                type=item["price"]["lookup_key"],
-            )
-            for item in filtered[0]["items"]["data"]
-        ]
-        return Subscription(
-            id=filtered[0].id,
-            group=filtered[0].metadata.group,
-            org_billing_customer=filtered[0].customer,
-            organization=filtered[0].metadata.organization,
-            type=filtered[0].metadata.subscription,
-            items=sub_items,
+    return {
+        sub.metadata.subscription: Subscription(
+            id=sub.id,
+            group=sub.metadata.group,
+            org_billing_customer=sub.customer,
+            organization=sub.metadata.organization,
+            type=sub.metadata.subscription,
+            item=sub["items"]["data"][0]["id"],
         )
-    return None
+        for sub in filtered
+    }
 
 
 async def get_customer(
@@ -295,29 +242,6 @@ async def get_customer_payment_methods(
     ]
 
 
-async def get_subscription_prices(
-    *,
-    subscription: str,
-) -> List[Price]:
-    # Collect stripe prices
-    prices = [
-        get_price(
-            subscription=subscription,
-            active=True,
-        )
-    ]
-
-    # Add machine base price if subscription is squad
-    if subscription == "squad":
-        prices.append(
-            get_price(
-                subscription="machine",
-                active=True,
-            )
-        )
-    return await collect(prices)
-
-
 async def set_default_payment_method(
     *,
     payment_method_id: str,
@@ -351,7 +275,7 @@ async def remove_subscription(
 async def report_subscription_usage(
     *,
     subscription: Subscription,
-) -> None:
+) -> bool:
     """Report group squad usage to Stripe"""
     timestamp: int = int(datetime_utils.get_utc_timestamp())
     date: datetime = datetime_utils.get_utc_now()
@@ -361,13 +285,10 @@ async def report_subscription_usage(
             group=subscription.group,
         )
     )
-    sub_item_id: str = [
-        item.id for item in subscription.items if item.type == "squad"
-    ][0]
-
-    stripe.SubscriptionItem.create_usage_record(
-        sub_item_id,
+    result = stripe.SubscriptionItem.create_usage_record(
+        subscription.item,
         quantity=authors,
         timestamp=timestamp,
         action="set",
     )
+    return isinstance(result.id, str)

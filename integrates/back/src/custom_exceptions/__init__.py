@@ -1063,7 +1063,7 @@ class InvalidBillingCustomer(CustomBaseException):
         msg = (
             "Exception - Cannot perform action. "
             "The organization does not have a billing customer yet. "
-            "Please get at least one subscription for a group."
+            "Please add a valid payment method first."
         )
         super(InvalidBillingCustomer, self).__init__(msg)
 

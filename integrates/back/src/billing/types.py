@@ -1,5 +1,4 @@
 from typing import (
-    List,
     NamedTuple,
     Optional,
 )
@@ -31,15 +30,10 @@ class Portal(NamedTuple):
     return_url: str
 
 
-class SubscriptionItem(NamedTuple):
-    id: str
-    type: str
-
-
 class Subscription(NamedTuple):
     id: str
     group: str
     org_billing_customer: str
     organization: str
     type: str
-    items: List[SubscriptionItem]
+    item: str

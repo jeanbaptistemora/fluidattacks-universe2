@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from billing import (
     dal,
 )
@@ -22,6 +25,9 @@ from groups import (
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from settings import (
     LOGGING,
 )
@@ -35,6 +41,8 @@ from stripe.error import (
     SignatureVerificationError,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Optional,
 )
@@ -49,13 +57,13 @@ async def _group_has_active_subscription(
     org_billing_customer: str,
 ) -> bool:
     """True if group has active subscription"""
-    sub: Optional[Subscription] = await dal.get_subscription(
+    subs: Dict[str, Subscription] = await dal.get_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
         limit=1000,
     )
-    return sub is not None
+    return len(subs) > 0
 
 
 async def _customer_has_payment_method(
@@ -67,6 +75,42 @@ async def _customer_has_payment_method(
     )
     print(customer.default_payment_method)
     return customer.default_payment_method is not None
+
+
+async def _format_create_subscription_data(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> Dict[str, Any]:
+    """Format create subscription session data according to stripe API"""
+    billing_cycle_anchor: int = int(
+        datetime_utils.get_first_day_next_month_timestamp()
+    )
+    items: List[Dict[str, Any]] = [
+        {
+            "price": (
+                await dal.get_price(
+                    subscription=subscription,
+                    active=True,
+                )
+            ).id,
+        },
+    ]
+    if subscription == "machine":
+        items[0]["quantity"] = 1
+
+    return {
+        "customer": org_billing_customer,
+        "items": items,
+        "metadata": {
+            "group": group_name,
+            "organization": org_name,
+            "subscription": subscription,
+        },
+        "billing_cycle_anchor": billing_cycle_anchor,
+    }
 
 
 async def customer_payment_methods(
@@ -155,12 +199,24 @@ async def create_subscription(
     ):
         raise BillingCustomerHasNoPaymentMethod()
 
-    return await dal.create_subscription(
-        subscription=subscription,
-        org_billing_customer=org_billing_customer,
-        org_name=org_name,
-        group_name=group_name,
+    # machine+squad if subscription is squad
+    subs: List[str] = [subscription]
+    if subscription == "squad":
+        subs.append("machine")
+
+    data: List[Dict[str, Any]] = await collect(
+        [
+            _format_create_subscription_data(
+                subscription=sub,
+                org_billing_customer=org_billing_customer,
+                org_name=org_name,
+                group_name=group_name,
+            )
+            for sub in subs
+        ]
     )
+
+    return all(await collect([dal.create_subscription(**sub) for sub in data]))
 
 
 async def create_portal(
@@ -191,7 +247,7 @@ async def update_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    sub: Optional[Subscription] = await dal.get_subscription(
+    subs: Dict[str, Subscription] = await dal.get_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -199,21 +255,27 @@ async def update_subscription(
     )
 
     # Raise exception if group does not have an active subscription
-    if sub is None:
+    if len(subs) == 0:
         raise BillingGroupWithoutSubscription()
 
     # Raise exception if group already has the same subscription active
-    if sub.type == subscription:
+    if (subscription == "machine" and "squad" not in subs.keys()) or (
+        subscription == "squad" and "squad" in subs.keys()
+    ):
         raise BillingSubscriptionSameActive()
 
-    return await remove_subscription(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-    ) and await create_subscription(
-        subscription=subscription,
-        org_billing_customer=org_billing_customer,
-        org_name=org_name,
-        group_name=group_name,
+    if subscription == "squad":
+        data: Dict[str, Any] = await _format_create_subscription_data(
+            subscription=subscription,
+            org_billing_customer=org_billing_customer,
+            org_name=org_name,
+            group_name=group_name,
+        )
+        return await dal.create_subscription(**data)
+    return await dal.remove_subscription(
+        subscription_id=subs["squad"].id,
+        invoice_now=True,
+        prorate=True,
     )
 
 
@@ -227,7 +289,7 @@ async def remove_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    sub: Optional[Subscription] = await dal.get_subscription(
+    subs: Dict[str, Subscription] = await dal.get_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -235,21 +297,27 @@ async def remove_subscription(
     )
 
     # Raise exception if group does not have an active subscription
-    if sub is None:
+    if len(subs) == 0:
         raise BillingGroupWithoutSubscription()
 
     # Report usage if subscription is squad
-    invoice_now: bool = False
-    if sub.type == "squad":
-        await dal.report_subscription_usage(
-            subscription=sub,
+    report: bool = True
+    if "squad" in subs.keys():
+        report = await dal.report_subscription_usage(
+            subscription=subs["squad"],
         )
-        invoice_now = True
 
-    return await dal.remove_subscription(
-        subscription_id=sub.id,
-        invoice_now=invoice_now,
-        prorate=True,
+    return report and all(
+        await collect(
+            [
+                dal.remove_subscription(
+                    subscription_id=sub.id,
+                    invoice_now=sub.type == "squad",
+                    prorate=True,
+                )
+                for sub in subs.values()
+            ]
+        )
     )
 
 
