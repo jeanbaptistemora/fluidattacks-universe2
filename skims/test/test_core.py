@@ -30,7 +30,7 @@ async def test_diff_results() -> None:
     common_where = "file"
 
     # Something that Skims does not manage
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
@@ -45,7 +45,7 @@ async def test_diff_results() -> None:
     )
 
     # Something was open at Integrates and was found open by Skims
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -56,7 +56,7 @@ async def test_diff_results() -> None:
             where=common_where,
         )
     )
-    await skims_store.store(
+    skims_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -69,7 +69,7 @@ async def test_diff_results() -> None:
     )
 
     # Something was open at Integrates and not found open by Skims
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -82,7 +82,7 @@ async def test_diff_results() -> None:
     )
 
     # Something was closed at Integrates and found open by Skims
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -93,7 +93,7 @@ async def test_diff_results() -> None:
             where=common_where,
         )
     )
-    await skims_store.store(
+    skims_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -106,7 +106,7 @@ async def test_diff_results() -> None:
     )
 
     # Something was closed at Integrates and not found open by Skims
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -120,7 +120,7 @@ async def test_diff_results() -> None:
 
     # Something was open on integrates in other namespace and not
     # found open by skims
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
@@ -133,7 +133,7 @@ async def test_diff_results() -> None:
     )
 
     # Something was open on integrates but follows a weird format
-    await integrates_store.store(
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,

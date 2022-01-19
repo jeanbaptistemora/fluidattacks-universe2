@@ -193,7 +193,7 @@ async def analyze_one_path(  # pylint: disable=too-many-locals
             raw_content_generator=file_raw_content_generator,
         ):
             for vulnerability in await vulnerabilities:
-                await stores[finding].store(vulnerability)
+                stores[finding].store(vulnerability)
 
 
 async def analyze(

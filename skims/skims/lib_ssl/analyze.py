@@ -60,9 +60,7 @@ async def analyze_one(
             if finding in CTX.config.checks:
                 for check in check_list:
                     for vulnerability in check(ssl_ctx):
-                        await stores[vulnerability.finding].store(
-                            vulnerability
-                        )
+                        stores[vulnerability.finding].store(vulnerability)
 
 
 async def get_ssl_contexts() -> Set[SSLContext]:

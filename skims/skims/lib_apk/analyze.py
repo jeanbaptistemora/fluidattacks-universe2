@@ -60,7 +60,7 @@ async def analyze_one(
         for finding, check in checks.items():
             if finding in CTX.config.checks:
                 for vulnerability in check(get_check_ctx(apk_ctx)):
-                    await stores[vulnerability.finding].store(vulnerability)
+                    stores[vulnerability.finding].store(vulnerability)
 
 
 async def get_apk_contexts() -> Set[APKContext]:

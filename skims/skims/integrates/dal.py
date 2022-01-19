@@ -424,7 +424,7 @@ async def get_finding_vulnerabilities(
         if stream is not None:
             stream = stream.replace(" > ", ",")
 
-        await store.store(
+        store.store(
             core_model.Vulnerability(
                 finding=finding,
                 integrates_metadata=core_model.IntegratesVulnerabilityMetadata(

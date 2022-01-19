@@ -183,7 +183,7 @@ async def diff_results(
         # All skims results are part of the new generation
         skims_hashes[result.digest] = result.state
 
-        await store.store(prepare_result(result=result, state=result.state))
+        store.store(prepare_result(result=result, state=result.state))
 
     # Walk all integrates results
     async for result in integrates_store.iterate():
@@ -194,7 +194,7 @@ async def diff_results(
             and result.digest not in skims_hashes
         ):
             # This result must be CLOSED and persisted to Integrates
-            await store.store(
+            store.store(
                 prepare_result(
                     result=result,
                     state=core_model.VulnerabilityStateEnum.CLOSED,

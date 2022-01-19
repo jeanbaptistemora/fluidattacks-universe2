@@ -88,7 +88,7 @@ async def analyze_one(
             if finding in CTX.config.checks:
                 for check in check_list:
                     for vuln in check(get_check_ctx(url)):
-                        await stores[vuln.finding].store(vuln)
+                        stores[vuln.finding].store(vuln)
 
 
 @rate_limited(rpm=LIB_HTTP_DEFAULT)

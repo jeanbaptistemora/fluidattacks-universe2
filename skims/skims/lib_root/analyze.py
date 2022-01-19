@@ -1,6 +1,9 @@
 from aioextensions import (
     in_thread,
 )
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from lib_root import (
     f001,
     f009,
@@ -25,6 +28,9 @@ from lib_root import (
 from model import (
     core_model,
     graph_model,
+)
+from os import (
+    cpu_count,
 )
 from sast import (
     parse,
@@ -133,5 +139,10 @@ async def analyze(
             )
             stores[finding]._replace(has_errors=True)
         else:
-            for vulnerability in vulnerabilities:
-                await stores[vulnerability.finding].store(vulnerability)
+            with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+                worker.map(
+                    lambda x: stores[  # pylint: disable=unnecessary-lambda
+                        x.finding
+                    ].store(x),
+                    vulnerabilities,
+                )

@@ -41,7 +41,7 @@ from uuid import (
 EPHEMERAL: str = join(STATE_FOLDER, "ephemeral", uuid().hex)
 ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
-StoreFunction = Callable[[Any], Awaitable[None]]
+StoreFunction = Callable[[Any], None]
 LengthFunction = Callable[[], Awaitable[int]]
 IteratorFunction = Callable[[], AsyncIterator[Any]]
 
@@ -72,8 +72,8 @@ def get_ephemeral_store() -> EphemeralStore:
     async def length() -> int:
         return len(recurse_dir(folder))
 
-    async def store(obj: Any) -> None:
-        await in_thread(store_object, folder, obj, obj)
+    def store(obj: Any) -> None:
+        store_object(folder, obj, obj)
 
     async def iterate() -> AsyncIterator[Any]:
         for object_key in recurse_dir(folder):
