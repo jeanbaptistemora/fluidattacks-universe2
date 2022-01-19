@@ -91,7 +91,7 @@ def migrate_row(
     row: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
     reg: ResultE[Union[CommitStamp, RepoRegistration]] = to_returns(
-        decode_repo_registration(row).map(lambda x: inl(CommitStamp, x))
+        decode_repo_registration(row).map(lambda x: inl(x))
     )
     return reg.lash(lambda _: migrate_commit(row))
 

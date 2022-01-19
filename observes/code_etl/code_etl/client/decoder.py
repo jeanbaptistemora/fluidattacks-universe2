@@ -127,7 +127,5 @@ def decode_repo_registration(
 def decode_commit_table_row(
     raw: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
-    reg = decode_repo_registration(raw).map(lambda v: inr(CommitStamp, v))
-    return reg.lash(
-        lambda _: decode_commit_stamp(raw).map(lambda v: inl(CommitStamp, v))
-    )
+    reg = decode_repo_registration(raw).map(lambda x: inr(x, CommitStamp))
+    return reg.lash(lambda _: decode_commit_stamp(raw).map(inl))

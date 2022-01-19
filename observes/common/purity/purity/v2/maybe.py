@@ -27,6 +27,10 @@ class Maybe(Generic[_A]):
     _value: Result[_A, None]
 
     @staticmethod
+    def from_value(value: _A) -> Maybe[_A]:
+        return Maybe(Result.success(value))
+
+    @staticmethod
     def from_optional(value: Optional[_A]) -> Maybe[_A]:
         if value is None:
             return Maybe(Result.failure(value))
