@@ -8,7 +8,11 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Execution } from "./execution";
-import { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB } from "./queries";
+import {
+  GET_FINDING_MACHINE_JOBS,
+  GET_ROOTS,
+  SUBMIT_MACHINE_JOB,
+} from "./queries";
 import { Queue } from "./queue";
 import type {
   IExecution,
@@ -82,7 +86,7 @@ const MachineView: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred loading machine jobs", error);
       });
     },
-    variables: { findingId, groupName },
+    variables: { findingId },
   });
   const handleOnSuccess = (result: ISubmitMachineJobResult): void => {
     if (!_.isUndefined(result)) {
@@ -102,6 +106,18 @@ const MachineView: React.FC = (): JSX.Element => {
       }
     }
   };
+  const { data: dataRoots } = useQuery<IFindingMachineJobs>(GET_ROOTS, {
+    fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading roots", error);
+      });
+    },
+    variables: { groupName },
+  });
+
   const handleOnError: ({ graphQLErrors }: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -126,13 +142,21 @@ const MachineView: React.FC = (): JSX.Element => {
     setQueueModalOpen(true);
   }
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
+  const isLoading: boolean =
+    submittingMachineJob || dataNS === NetworkStatus.refetch;
+
+  if (
+    (_.isUndefined(data) || _.isEmpty(data)) &&
+    (_.isUndefined(dataRoots) || _.isEmpty(dataRoots))
+  ) {
     return <div />;
   }
 
-  const rootNicknamesSorted: IGroupRoot[] = _.sortBy(data.group.roots, [
-    (root: IGroupRoot): string => root.nickname.toLowerCase(),
-  ]);
+  const rootNicknamesSorted: IGroupRoot[] = _.isUndefined(dataRoots)
+    ? []
+    : _.sortBy(dataRoots.group.roots, [
+        (root: IGroupRoot): string => root.nickname.toLowerCase(),
+      ]);
   const rootNicknames: string[] = rootNicknamesSorted
     .filter((root: IGroupRoot): boolean => root.state === "ACTIVE")
     .map((root: IGroupRoot): string => root.nickname);
@@ -172,27 +196,28 @@ const MachineView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const tableDataset: IExecution[] = _.isUndefined(data.finding.machineJobs)
-    ? []
-    : data.finding.machineJobs.map(
-        (job: IFindingMachineJob): IExecution => ({
-          ...job,
-          duration:
-            job.startedAt === null || job.stoppedAt === null
+  const tableDataset: IExecution[] =
+    _.isUndefined(data) || _.isUndefined(data.finding.machineJobs)
+      ? []
+      : data.finding.machineJobs.map(
+          (job: IFindingMachineJob): IExecution => ({
+            ...job,
+            duration:
+              job.startedAt === null || job.stoppedAt === null
+                ? -1
+                : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
+            jobId: job.id,
+            priority: job.queue.endsWith("_soon")
+              ? translate.t("searchFindings.tabMachine.priorityHigh")
+              : translate.t("searchFindings.tabMachine.priorityNormal"),
+            rootId: job.rootNickname,
+            rootNickname: job.rootNickname,
+            startedAt: (job.startedAt === null
               ? -1
-              : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
-          jobId: job.id,
-          priority: job.queue.endsWith("_soon")
-            ? translate.t("searchFindings.tabMachine.priorityHigh")
-            : translate.t("searchFindings.tabMachine.priorityNormal"),
-          rootId: job.rootNickname,
-          rootNickname: job.rootNickname,
-          startedAt: (job.startedAt === null
-            ? -1
-            : parseFloat(job.startedAt)
-          ).toString(),
-        })
-      );
+              : parseFloat(job.startedAt)
+            ).toString(),
+          })
+        );
 
   async function submitJobOnClick(
     roots: string[]
@@ -202,73 +227,87 @@ const MachineView: React.FC = (): JSX.Element => {
     });
   }
 
-  const isLoading: boolean =
-    submittingMachineJob || dataNS === NetworkStatus.refetch;
-
   return (
     <React.StrictMode>
-      <ButtonToolbarCenter>
-        <Button disabled={isLoading} id={"submitJob"} onClick={openQueueModal}>
-          <div className={"tc w5"}>
-            <FontAwesomeIcon icon={isLoading ? faClock : faRocket} />
-            &nbsp;
-            {translate.t("searchFindings.tabMachine.submitJob")}
-          </div>
-        </Button>
-      </ButtonToolbarCenter>
-
-      <DataTableNext
-        bordered={false}
-        dataset={tableDataset}
-        exportCsv={false}
-        headers={headers}
-        id={"tblMachineJobs"}
-        pageSize={1000}
-        rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-        search={false}
-      />
-      <Modal
-        headerTitle={translate.t("group.machine.executionDetailsModal.title")}
-        onEsc={closeSeeExecutionDetailsModal}
-        open={isExecutionDetailsModalOpen}
-        size={"largeModal"}
-      >
-        <Execution
-          createdAt={currentRow.createdAt}
-          duration={currentRow.duration}
-          jobId={currentRow.jobId}
-          name={currentRow.name}
-          priority={currentRow.priority}
-          queue={currentRow.queue}
-          rootId={currentRow.rootId}
-          rootNickname={currentRow.rootNickname}
-          startedAt={currentRow.startedAt}
-          status={currentRow.status}
-          stoppedAt={currentRow.stoppedAt}
-          vulnerabilities={currentRow.vulnerabilities}
-        />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button onClick={closeSeeExecutionDetailsModal}>
-                {translate.t("group.forces.executionDetailsModal.close")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
-      </Modal>
-      <Modal
-        headerTitle={"Queue Job"}
-        onEsc={closeQueueModal}
-        open={isQueueModalOpen}
-        size={"mediumModal"}
-      >
-        <Queue
-          onClose={closeQueueModal}
-          onSubmit={submitJobOnClick}
-          rootNicknames={rootNicknames}
-        />
-      </Modal>
+      {_.isUndefined(dataRoots) || _.isEmpty(dataRoots) ? (
+        <div />
+      ) : (
+        <React.StrictMode>
+          <ButtonToolbarCenter>
+            <Button
+              disabled={isLoading}
+              id={"submitJob"}
+              onClick={openQueueModal}
+            >
+              <div className={"tc w5"}>
+                <FontAwesomeIcon icon={isLoading ? faClock : faRocket} />
+                &nbsp;
+                {translate.t("searchFindings.tabMachine.submitJob")}
+              </div>
+            </Button>
+          </ButtonToolbarCenter>
+          <Modal
+            headerTitle={"Queue Job"}
+            onEsc={closeQueueModal}
+            open={isQueueModalOpen}
+            size={"mediumModal"}
+          >
+            <Queue
+              onClose={closeQueueModal}
+              onSubmit={submitJobOnClick}
+              rootNicknames={rootNicknames}
+            />
+          </Modal>
+        </React.StrictMode>
+      )}
+      {_.isUndefined(data) || _.isEmpty(data) ? (
+        <div />
+      ) : (
+        <React.StrictMode>
+          <DataTableNext
+            bordered={false}
+            dataset={tableDataset}
+            exportCsv={false}
+            headers={headers}
+            id={"tblMachineJobs"}
+            pageSize={1000}
+            rowEvents={{ onClick: openSeeExecutionDetailsModal }}
+            search={false}
+          />
+          <Modal
+            headerTitle={translate.t(
+              "group.machine.executionDetailsModal.title"
+            )}
+            onEsc={closeSeeExecutionDetailsModal}
+            open={isExecutionDetailsModalOpen}
+            size={"largeModal"}
+          >
+            <Execution
+              createdAt={currentRow.createdAt}
+              duration={currentRow.duration}
+              jobId={currentRow.jobId}
+              name={currentRow.name}
+              priority={currentRow.priority}
+              queue={currentRow.queue}
+              rootId={currentRow.rootId}
+              rootNickname={currentRow.rootNickname}
+              startedAt={currentRow.startedAt}
+              status={currentRow.status}
+              stoppedAt={currentRow.stoppedAt}
+              vulnerabilities={currentRow.vulnerabilities}
+            />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={closeSeeExecutionDetailsModal}>
+                    {translate.t("group.forces.executionDetailsModal.close")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </Modal>
+        </React.StrictMode>
+      )}
     </React.StrictMode>
   );
 };

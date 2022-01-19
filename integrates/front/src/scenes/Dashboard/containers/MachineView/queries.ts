@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
-  query GetFindingMachineJobs($findingId: String!, $groupName: String!) {
+  query GetFindingMachineJobs($findingId: String!) {
     finding(identifier: $findingId) {
       machineJobs {
         createdAt
@@ -21,6 +21,10 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
         }
       }
     }
+  }
+`;
+const GET_ROOTS: DocumentNode = gql`
+  query GetRoots($groupName: String!) {
     group(groupName: $groupName) {
       name
       roots {
@@ -42,4 +46,4 @@ const SUBMIT_MACHINE_JOB: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB };
+export { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB, GET_ROOTS };
