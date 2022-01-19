@@ -497,7 +497,6 @@ def is_deleted(finding: Finding) -> bool:
 async def mask_finding(  # pylint: disable=too-many-locals
     loaders: Any, finding: Finding
 ) -> bool:
-    mask_finding_coroutines = []
     mask_new_finding_coroutines = []
     new_evidences = finding.evidences._replace(
         **{
@@ -550,6 +549,8 @@ async def mask_finding(  # pylint: disable=too-many-locals
         for file_name in list_evidences_files
     ]
     mask_new_finding_coroutines.extend(evidence_s3_coroutines)
+    await collect(mask_new_finding_coroutines)
+
     comments_and_observations = await comments_domain.get(
         "comment", finding.id
     ) + await comments_domain.get("observation", finding.id)
@@ -557,7 +558,8 @@ async def mask_finding(  # pylint: disable=too-many-locals
         comments_domain.delete(comment["comment_id"], finding.id)
         for comment in comments_and_observations
     ]
-    mask_finding_coroutines.extend(comments_coroutines)
+    are_comments_masked = all(await collect(comments_coroutines))
+
     finding_all_vulns_loader = loaders.finding_vulns_all_typed
     vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
@@ -570,9 +572,14 @@ async def mask_finding(  # pylint: disable=too-many-locals
         )
         for vuln in vulns
     ]
-    mask_finding_coroutines.extend(mask_vulns_coroutines)
-    await collect(mask_new_finding_coroutines)
-    success = all(await collect(mask_finding_coroutines))
+    are_vulns_masked = all(await collect(mask_vulns_coroutines, workers=4))
+
+    success = all(
+        [
+            are_comments_masked,
+            are_vulns_masked,
+        ]
+    )
     if success:
         LOGGER_CONSOLE.info(
             "Finding masked",

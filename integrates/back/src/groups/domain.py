@@ -1394,8 +1394,11 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
     ] = await loaders.group_removed_findings.load(group_name)
     are_findings_masked = all(
         await collect(
-            findings_domain.mask_finding(loaders, finding)
-            for finding in (*drafts, *findings, *removed_findings)
+            tuple(
+                findings_domain.mask_finding(loaders, finding)
+                for finding in (*drafts, *findings, *removed_findings)
+            ),
+            workers=4,
         )
     )
     events = await events_domain.list_group_events(group_name)
