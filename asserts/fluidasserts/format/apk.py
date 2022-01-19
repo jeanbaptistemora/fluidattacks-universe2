@@ -105,33 +105,6 @@ def get_http_urls(dex):
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def webview_caches_javascript(apk_file: str) -> tuple:
-    """
-    Check if the given APK has WebView that caches JavaScript data and code.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK has WebView that caches JavaScript.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    _, dvms, _ = analyze_apk(apk_file)
-    act_source = get_activities_source(dvms)
-
-    is_vulnerable: bool = (
-        "setJavaScriptEnabled" in act_source and "clearCache" not in act_source
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="WebView does not clear JavaScript cache",
-        msg_closed="WebView has JavaScript not enabled or clears cache",
-        open_if=is_vulnerable,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def webview_allows_resource_access(apk_file: str) -> tuple:
     """
     Check if the given APK has WebView that allows resource access.

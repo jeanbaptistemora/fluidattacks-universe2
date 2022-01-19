@@ -1109,7 +1109,6 @@ def exec_apk_package(apks):
         template += textwrap.dedent(
             """
             apk.uses_dangerous_perms('{apk}')
-            apk.webview_caches_javascript('{apk}')
             apk.webview_allows_resource_access('{apk}')
             apk.not_forces_updates('{apk}')
             apk.not_verifies_ssl_hostname('{apk}')
