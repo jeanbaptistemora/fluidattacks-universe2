@@ -35,12 +35,7 @@ RE_GRADLE_B: Pattern[str] = re.compile(
 )
 
 
-def maven_gradle(
-    content: str,
-    finding: FindingEnum,
-    path: str,
-    platform: Platform,
-) -> Vulnerabilities:
+def maven_gradle(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):
             if match := RE_GRADLE_A.match(line):
@@ -72,7 +67,7 @@ def maven_gradle(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=finding,
+        finding=FindingEnum.F011,
         path=path,
-        platform=platform,
+        platform=Platform.MAVEN,
     )

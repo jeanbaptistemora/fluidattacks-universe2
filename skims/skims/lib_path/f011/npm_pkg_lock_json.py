@@ -18,9 +18,7 @@ from typing import (
 )
 
 
-def npm_package_lock_json(
-    content: str, finding: FindingEnum, path: str, platform: Platform
-) -> Vulnerabilities:
+def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies(
         obj: frozendict, direct_deps: bool = True
     ) -> Iterator[DependencyType]:
@@ -60,7 +58,7 @@ def npm_package_lock_json(
         dependencies=resolve_dependencies(
             obj=json_loads_blocking(content, default={}),
         ),
-        finding=finding,
+        finding=FindingEnum.F011,
         path=path,
-        platform=platform,
+        platform=Platform.NPM,
     )

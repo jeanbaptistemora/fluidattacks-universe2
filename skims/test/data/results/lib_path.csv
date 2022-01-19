@@ -29665,7 +29665,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0)
 > 32 |   <package id=""Wire"" version=""1.0.0"" targetFramework=""net472"" />
   33 | </packages>
      ^ Col 0
-",nuget_packages_config.nuget_packages_config
+",nuget_pkgs_config.nuget_pkgs_config
 F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with CVE-2021-29508 in namespace/skims/test/data/lib_path/f011/project.csproj,"
    7 |   <ItemGroup>
    8 |     <Compile Remove=""test\**"" />
@@ -29713,7 +29713,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0)
 > 32 |   <package id=""Wire"" version=""1.0.0"" targetFramework=""net472"" />
   33 | </packages>
      ^ Col 0
-",nuget_packages_config.nuget_packages_config
+",nuget_pkgs_config.nuget_pkgs_config
 F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [GHSA-hpw7-3vq3-mmv6],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with GHSA-hpw7-3vq3-mmv6 in namespace/skims/test/data/lib_path/f011/project.csproj,"
    7 |   <ItemGroup>
    8 |     <Compile Remove=""test\**"" />
@@ -31705,7 +31705,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   37 |             }
   38 |           },
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.6) [npm:hoek:20180212],28,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0.6 with npm:hoek:20180212 in namespace/skims/test/data/lib_path/f011/package-lock.json,"
   18 |           ""version"": ""5.0.0.3""
   19 |         }
@@ -31729,7 +31729,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   37 |             }
   38 |           },
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.7) [CVE-2018-3728],26,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0.7 with CVE-2018-3728 in namespace/skims/test/data/lib_path/f011/package-lock.json,"
   16 |             }
   17 |           },
@@ -31753,7 +31753,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   35 |               ""dev"": false,
   36 |               ""version"": ""5.0.0.6""
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.7) [npm:hoek:20180212],26,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0.7 with npm:hoek:20180212 in namespace/skims/test/data/lib_path/f011/package-lock.json,"
   16 |             }
   17 |           },
@@ -31777,7 +31777,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.
   35 |               ""dev"": false,
   36 |               ""version"": ""5.0.0.6""
      ^ Col 0
-",npm_package_lock_json.npm_package_lock_json
+",npm_pkg_lock_json.npm_pkg_lock_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (hosted-git-info v2.8.5) [CVE-2021-23362],49,937,skims,011. Use of software with known vulnerabilities,Use of hosted-git-info at version 2.8.5 with CVE-2021-23362 in namespace/skims/test/data/lib_path/f011/package.json,"
    39 |     ""find-process"": ""1.4.4"",
    40 |     ""flat"": ""2.0.0"",
@@ -32209,7 +32209,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (jQuery v3.4.
   20 |   <package id=""Newtonsoft.Json"" version=""12.0.3"" targetFramework=""net472"" />
   21 |   <package id=""System.Diagnostics.DiagnosticSource"" version=""4.5.1"" targetFramework=""net472"" />
      ^ Col 0
-",nuget_packages_config.nuget_packages_config
+",nuget_pkgs_config.nuget_pkgs_config
 F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (jQuery v3.4.1) [CVE-2020-11023],9,937,skims,011. Use of software with known vulnerabilities,Use of jQuery at version 3.4.1 with CVE-2020-11023 in namespace/skims/test/data/lib_path/f011/packages.config,"
    1 | <?xml version=""1.0"" encoding=""utf-8""?>
    2 | <packages>
@@ -32233,7 +32233,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (jQuery v3.4.
   20 |   <package id=""Newtonsoft.Json"" version=""12.0.3"" targetFramework=""net472"" />
   21 |   <package id=""System.Diagnostics.DiagnosticSource"" version=""4.5.1"" targetFramework=""net472"" />
      ^ Col 0
-",nuget_packages_config.nuget_packages_config
+",nuget_pkgs_config.nuget_pkgs_config
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (jasmine-core v2.99.1) [npm:jasmine-core:20180216],62,937,skims,011. Use of software with known vulnerabilities,Use of jasmine-core at version 2.99.1 with npm:jasmine-core:20180216 in namespace/skims/test/data/lib_path/f011/package.json,"
    52 |     ""http-auth"": ""3.1.3"",
    53 |     ""http-proxy"": ""1.17.0"",

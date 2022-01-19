@@ -16,9 +16,7 @@ from typing import (
 )
 
 
-def npm_yarn_lock(
-    content: str, finding: FindingEnum, path: str, platform: Platform
-) -> Vulnerabilities:
+def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         windower: Iterator[
             Tuple[Tuple[int, str], Tuple[int, str]],
@@ -54,7 +52,7 @@ def npm_yarn_lock(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=finding,
+        finding=FindingEnum.F011,
         path=path,
-        platform=platform,
+        platform=Platform.NPM,
     )

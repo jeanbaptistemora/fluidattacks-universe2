@@ -13,9 +13,7 @@ from typing import (
 )
 
 
-def nuget_packages_config(
-    content: str, finding: FindingEnum, path: str, platform: Platform
-) -> Vulnerabilities:
+def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
 
@@ -32,7 +30,7 @@ def nuget_packages_config(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=finding,
+        finding=FindingEnum.F011,
         path=path,
-        platform=platform,
+        platform=Platform.NUGET,
     )

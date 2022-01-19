@@ -15,10 +15,7 @@ from typing import (
 )
 
 
-def npm_package_json(
-    content: str, finding: FindingEnum, path: str, platform: Platform
-) -> Vulnerabilities:
-
+def npm_package_json(content: str, path: str) -> Vulnerabilities:
     content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
@@ -31,7 +28,7 @@ def npm_package_json(
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        finding=finding,
+        finding=FindingEnum.F011,
         path=path,
-        platform=platform,
+        platform=Platform.NPM,
     )
