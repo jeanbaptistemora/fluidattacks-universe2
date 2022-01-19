@@ -1,12 +1,9 @@
-# pylint: skip-file
-
 from purity.v1 import (
     FrozenList,
 )
-from returns.result import (
-    Failure,
+from purity.v2.result import (
+    Result,
     ResultE,
-    Success,
 )
 from typing import (
     Optional,
@@ -20,28 +17,28 @@ _A = TypeVar("_A")
 
 def assert_type(raw: _A, _type: Type[_T]) -> ResultE[_T]:
     if isinstance(raw, _type):
-        return Success(raw)
-    return Failure(TypeError(f"Not a {_type} obj"))
+        return Result.success(raw)
+    return Result.failure(TypeError(f"Not a {_type} obj"))
 
 
 def assert_opt_type(
     raw: Optional[_A], _type: Type[_T]
 ) -> ResultE[Optional[_T]]:
     if raw is None:
-        return Success(raw)
+        return Result.success(raw)
     return assert_type(raw, _type)
 
 
 def assert_not_none(obj: Optional[_T]) -> ResultE[_T]:
     if obj is not None:
-        return Success(obj)
-    return Failure(TypeError(f"Expected not None obj"))
+        return Result.success(obj)
+    return Result.failure(TypeError("Expected not None obj"))
 
 
 def assert_key(raw: FrozenList[_T], key: int) -> ResultE[_T]:
     try:
-        return Success(raw[key])
+        return Result.success(raw[key])
     except KeyError as err:
-        return Failure(err)
+        return Result.failure(err)
     except IndexError as i_err:
-        return Failure(i_err)
+        return Result.failure(i_err)

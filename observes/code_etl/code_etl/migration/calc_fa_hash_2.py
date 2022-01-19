@@ -43,6 +43,12 @@ from postgres_client.ids import (
 from purity.v1 import (
     Flattener,
 )
+from purity.v2.adapters import (
+    to_returns,
+)
+from purity.v2.union import (
+    inl,
+)
 from returns.io import (
     IO,
 )
@@ -77,16 +83,16 @@ def migrate_commit(
             CommitId(raw.hash, gen_fa_hash_2(cd)),
         )
     )
-    commit = data.bind(lambda d: _id.map(lambda i: Commit(i, d)))
+    commit = to_returns(data.bind(lambda d: _id.map(lambda i: Commit(i, d))))
     return commit.map(lambda c: CommitStamp(c, raw.seen_at))
 
 
 def migrate_row(
     row: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
-    reg: ResultE[
-        Union[CommitStamp, RepoRegistration]
-    ] = decode_repo_registration(row)
+    reg: ResultE[Union[CommitStamp, RepoRegistration]] = to_returns(
+        decode_repo_registration(row).map(lambda x: inl(CommitStamp, x))
+    )
     return reg.lash(lambda _: migrate_commit(row))
 
 

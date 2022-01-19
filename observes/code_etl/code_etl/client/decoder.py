@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.client._assert import (
     assert_not_none,
     assert_type,
@@ -33,13 +31,16 @@ from datetime import (
 from purity.v1 import (
     FrozenList,
 )
+from purity.v2.result import (
+    Result,
+    ResultE,
+)
+from purity.v2.union import (
+    inl,
+    inr,
+)
 from returns.functions import (
     raise_exception,
-)
-from returns.result import (
-    Failure,
-    ResultE,
-    Success,
 )
 from typing import (
     Any,
@@ -96,11 +97,11 @@ def decode_commit_data(
                 assert_type(raw[11], int).alt(raise_exception).unwrap(),
             ),
         )
-        return Success(data)
+        return Result.success(data)
     except KeyError as err:
-        return Failure(err)
+        return Result.failure(err)
     except TypeError as err:
-        return Failure(err)
+        return Result.failure(err)
 
 
 def _decode_user(name: Optional[str], email: Optional[str]) -> ResultE[User]:
@@ -170,8 +171,8 @@ def decode_repo_registration(
     raw: CommitTableRow,
 ) -> ResultE[RepoRegistration]:
     if raw.hash != COMMIT_HASH_SENTINEL:
-        return Failure(TypeError("Not a RepoRegistration object"))
-    return Success(
+        return Result.failure(TypeError("Not a RepoRegistration object"))
+    return Result.success(
         RepoRegistration(
             CommitDataId(
                 RepoId(raw.namespace, raw.repository),
@@ -185,7 +186,7 @@ def decode_repo_registration(
 def decode_commit_table_row(
     raw: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
-    reg: ResultE[
-        Union[CommitStamp, RepoRegistration]
-    ] = decode_repo_registration(raw)
-    return reg.lash(lambda _: decode_commit_stamp(raw))
+    reg = decode_repo_registration(raw).map(lambda v: inr(CommitStamp, v))
+    return reg.lash(
+        lambda _: decode_commit_stamp(raw).map(lambda v: inl(CommitStamp, v))
+    )

@@ -28,6 +28,9 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
+from purity.v2.adapters import (
+    to_returns,
+)
 from returns.functions import (
     raise_exception,
 )
@@ -49,7 +52,11 @@ def amend_users(
 ) -> IO[None]:
     LOG.info("Getting data stream...")
     data = namespace_data(client, table, namespace).map(
-        lambda i: i.map(lambda r: r.bind(decoder.decode_commit_table_row))
+        lambda i: i.map(
+            lambda r: r.bind(
+                lambda x: to_returns(decoder.decode_commit_table_row(x))
+            )
+        )
     )
     LOG.info("Mutation started")
     for io_r in data:

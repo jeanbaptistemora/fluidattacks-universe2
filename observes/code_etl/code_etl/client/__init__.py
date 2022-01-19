@@ -46,6 +46,9 @@ from purity.v1.pure_iter.transform.io import (
     chain,
     until_empty,
 )
+from purity.v2.adapters import (
+    to_returns,
+)
 from purity.v2.frozen import (
     FrozenList,
 )
@@ -71,10 +74,14 @@ _T = TypeVar("_T")
 
 
 def all_data_count(client: Client, table: TableID) -> IO[ResultE[int]]:
-    return client.cursor.execute_query(query.all_data_count(table)).bind(
-        lambda _: client.cursor.fetch_one().map(
-            lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
+    return (
+        client.cursor.execute_query(query.all_data_count(table))
+        .bind(
+            lambda _: client.cursor.fetch_one().map(
+                lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
+            )
         )
+        .map(to_returns)
     )
 
 
@@ -138,6 +145,7 @@ def _fetch_one(client: Client, d_type: Type[_T]) -> IO[ResultE[_T]]:
         client.cursor.fetch_one()
         .map(lambda l: assert_key(l, 0))
         .map(lambda v: v.bind(lambda i: assert_type(i, d_type)))
+        .map(to_returns)
     )
 
 
