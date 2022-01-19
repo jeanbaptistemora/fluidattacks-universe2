@@ -120,7 +120,7 @@ describe("Organization users view", (): void => {
     const RENDER_TEST_AT4 = 4;
 
     expect(user1Cells.at(1).text()).toBe("testuser1@gmail.com");
-    expect(user1Cells.at(2).text()).toBe("System Owner");
+    expect(user1Cells.at(2).text()).toBe("Customer Manager");
     expect(user1Cells.at(RENDER_TEST_AT3).text()).toBe("2020-06-01");
     expect(user1Cells.at(RENDER_TEST_AT4).text()).toBe(
       moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow()

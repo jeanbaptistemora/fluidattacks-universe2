@@ -162,7 +162,7 @@ describe("Organization groups view", (): void => {
 
     expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
     expect(pendingGroupRow.text()).toContain("Continuous");
-    expect(pendingGroupRow.text()).toContain("System Owner");
+    expect(pendingGroupRow.text()).toContain("Customer Manager");
     expect(
       pendingGroupRow
         .find({ className: "v-mid" })

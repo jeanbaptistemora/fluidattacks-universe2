@@ -275,9 +275,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
    * removed as soon as the old role values are migrated
    */
   const mapRoles = (role: string): string => {
-    if (role === "group_manager") {
-      return "system_owner";
-    } else if (role === "analyst") {
+    if (role === "analyst") {
       return "hacker";
     } else if (role === "closer") {
       return "reattacker";
@@ -385,7 +383,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         resourcer: "Resourcer",
         reviewer: "Reviewer",
         // eslint-disable-next-line camelcase
-        system_owner: "System Owner",
+        system_owner: "Customer Manager",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",
