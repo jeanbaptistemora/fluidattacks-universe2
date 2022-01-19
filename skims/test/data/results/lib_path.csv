@@ -22395,6 +22395,203 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volum
    70 |           {
       ^ Col 0
 ",f250._cfn_fsx_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,5,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+>  5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,6,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f250/hcl2_unencrypted_buckets.tf,1,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f250/hcl2_unencrypted_buckets.tf,"
+>  1 | resource ""aws_s3_bucket"" ""bucket"" {
+   2 |   bucket = ""fluidattacks.com""
+   3 |   acl    = ""private""
+   4 |   region = var.region
+   5 | }
+   6 |
+   7 | resource ""aws_kms_key"" ""mykey"" {
+   8 |   description             = ""This key is used to encrypt bucket objects""
+   9 |   deletion_window_in_days = 10
+  10 | }
+  11 |
+  12 | resource ""aws_s3_bucket"" ""mybucket"" {
+  13 |   bucket = ""mybucket""
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
+     ^ Col 0
+",f250._tfm_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,14,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+> 14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+  22 | }
+     ^ Col 0
+",f250._tfm_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,1,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
+>  1 | resource ""aws_s3_bucket"" ""example"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+     ^ Col 0
+",f250._tfm_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+   1 | Resources:
+   2 |   S3Bucket1:
+   3 |     Type: AWS::S3::Bucket
+   4 |     Properties:
+   5 |       AccessControl: bucket1
+   6 |       BucketName: bk1
+   7 |   S3Bucket2:
+   8 |     Type: AWS::S3::Bucket
+>  9 |     Properties:
+  10 |       AccessControl: PublicReadWrite
+  11 |       BucketName: bucket2
+  12 |       LoggingConfiguration:
+  13 |         DestinationBucketName: bucket_destination
+  14 |         LogFilePrefix: log_prefix
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+   1 | Resources:
+   2 |   S3Bucket1:
+   3 |     Type: AWS::S3::Bucket
+>  4 |     Properties:
+   5 |       AccessControl: bucket1
+   6 |       BucketName: bk1
+   7 |   S3Bucket2:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       AccessControl: PublicReadWrite
+  11 |       BucketName: bucket2
+  12 |       LoggingConfiguration:
+  13 |         DestinationBucketName: bucket_destination
+  14 |         LogFilePrefix: log_prefix
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket1"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+>  5 |       ""Properties"": {
+   6 |         ""AccessControl"": ""bucket1"",
+   7 |         ""BucketName"": ""bk1""
+   8 |       }
+   9 |     },
+  10 |     ""S3Bucket2"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""AccessControl"": ""PublicReadWrite"",
+  14 |         ""BucketName"": ""bucket2"",
+  15 |         ""LoggingConfiguration"": {
+  16 |           ""DestinationBucketName"": ""bucket_destination"",
+  17 |           ""LogFilePrefix"": ""log_prefix""
+  18 |         }
+  19 |       }
+  20 |     }
+  21 |   }
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
+F250,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,12,313,skims,250. Non-encrypted hard drives,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket1"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""Properties"": {
+   6 |         ""AccessControl"": ""bucket1"",
+   7 |         ""BucketName"": ""bk1""
+   8 |       }
+   9 |     },
+  10 |     ""S3Bucket2"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+> 12 |       ""Properties"": {
+  13 |         ""AccessControl"": ""PublicReadWrite"",
+  14 |         ""BucketName"": ""bucket2"",
+  15 |         ""LoggingConfiguration"": {
+  16 |           ""DestinationBucketName"": ""bucket_destination"",
+  17 |           ""LogFilePrefix"": ""log_prefix""
+  18 |         }
+  19 |       }
+  20 |     }
+  21 |   }
+  22 | }
+     ^ Col 0
+",f250._cfn_unencrypted_buckets
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | using System;
@@ -27670,6 +27867,92 @@ F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.j
   49 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   50 |               }
   51 |             }
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,9,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+   5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+>  9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+>  5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,12,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+   6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+> 12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+  22 |           ]
      ^ Col 0
 ",f400._cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
