@@ -98,16 +98,6 @@ in
       ];
     };
 
-    observesCodeEtlMigration = sharedConfiguration // {
-      attempts = 1;
-      attemptDurationSeconds = 86400;
-      command = [ "m" "f" "/observes/etl/code/upload/migration/fa-hash" ];
-      environment = [
-        "PRODUCT_API_TOKEN"
-        "SERVICES_API_TOKEN"
-      ];
-    };
-
     observesCodeEtlMigration2 = sharedConfiguration // {
       queue = "dedicated_later";
       attempts = 1;

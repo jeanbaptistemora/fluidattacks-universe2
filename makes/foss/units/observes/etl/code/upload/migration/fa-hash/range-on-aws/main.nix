@@ -3,7 +3,7 @@
 , ...
 }:
 let
-  migrate = outputs."/computeOnAwsBatch/observesCodeEtlMigration";
+  migrate = outputs."/computeOnAwsBatch/observesCodeEtlMigration2";
 in
 makeScript {
   searchPaths = {

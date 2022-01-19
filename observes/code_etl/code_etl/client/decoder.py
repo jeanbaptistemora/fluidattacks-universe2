@@ -1,6 +1,5 @@
 from code_etl.client._assert import (
     assert_not_none,
-    assert_type,
 )
 from code_etl.client.encoder import (
     CommitTableRow,
@@ -16,20 +15,8 @@ from code_etl.objs import (
     RepoRegistration,
     User,
 )
-from code_etl.str_utils import (
-    truncate,
-)
-from code_etl.time_utils import (
-    to_utc,
-)
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
-)
-from datetime import (
-    datetime,
-)
-from purity.v1 import (
-    FrozenList,
 )
 from purity.v2.result import (
     Result,
@@ -38,9 +25,6 @@ from purity.v2.result import (
 from purity.v2.union import (
     inl,
     inr,
-)
-from returns.functions import (
-    raise_exception,
 )
 from typing import (
     Any,
@@ -59,49 +43,6 @@ class RawDecodeError(Exception):
             f"TypeError when trying to build `{target}` "
             f"from raw obj `{str(raw)}`"
         )
-
-
-def decode_commit_data(
-    raw: FrozenList[Any],
-) -> ResultE[CommitData]:
-    try:
-        data = CommitData(
-            User(
-                assert_type(raw[0], str).alt(raise_exception).unwrap(),
-                assert_type(raw[1], str).alt(raise_exception).unwrap(),
-            ),
-            assert_type(raw[2], datetime)
-            .map(to_utc)
-            .alt(raise_exception)
-            .unwrap(),
-            User(
-                assert_type(raw[3], str).alt(raise_exception).unwrap(),
-                assert_type(raw[4], str).alt(raise_exception).unwrap(),
-            ),
-            assert_type(raw[5], datetime)
-            .map(to_utc)
-            .alt(raise_exception)
-            .unwrap(),
-            assert_type(raw[6], str)
-            .map(lambda s: truncate(s, 4096))
-            .alt(raise_exception)
-            .unwrap(),
-            assert_type(raw[7], str)
-            .map(lambda s: truncate(s, 256))
-            .alt(raise_exception)
-            .unwrap(),
-            Deltas(
-                assert_type(raw[8], int).alt(raise_exception).unwrap(),
-                assert_type(raw[9], int).alt(raise_exception).unwrap(),
-                assert_type(raw[10], int).alt(raise_exception).unwrap(),
-                assert_type(raw[11], int).alt(raise_exception).unwrap(),
-            ),
-        )
-        return Result.success(data)
-    except KeyError as err:
-        return Result.failure(err)
-    except TypeError as err:
-        return Result.failure(err)
 
 
 def _decode_user(name: Optional[str], email: Optional[str]) -> ResultE[User]:

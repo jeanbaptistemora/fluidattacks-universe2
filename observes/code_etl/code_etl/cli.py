@@ -12,7 +12,6 @@ from code_etl.mailmap import (
     MailmapFactory,
 )
 from code_etl.migration import (
-    calc_fa_hash,
     calc_fa_hash_2,
 )
 from dataclasses import (
@@ -142,21 +141,6 @@ def upload_code(
 
 @click.command()
 @click.argument("namespace", type=str)
-@click.option("--schema", type=str, required=True)
-@pass_ctx
-def calculate_fa_hash(
-    ctx: CmdContext, namespace: str, schema: str
-) -> IO[None]:
-    return calc_fa_hash.start(
-        ctx.db_id,
-        ctx.creds,
-        SchemaID(schema),
-        namespace,
-    )
-
-
-@click.command()
-@click.argument("namespace", type=str)
 @click.option("--source", type=(str, str), help="schema-table pair")
 @click.option("--target", type=(str, str), help="schema-table pair")
 @pass_ctx
@@ -177,7 +161,6 @@ def migration() -> None:
     pass
 
 
-migration.add_command(calculate_fa_hash)
 migration.add_command(calculate_fa_hash_2)
 
 
