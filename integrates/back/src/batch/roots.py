@@ -659,7 +659,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
         )
         await queue_all_checks_new(
             group=group_name,
-            roots=tuple(root.state.nickname),
+            roots=(root.state.nickname,),
             finding_codes=findings,
             queue=SkimsBatchQueue.HIGH,
         )
