@@ -119,6 +119,7 @@ in
           };
         })
         [
+          "0170_populate_vuln_indicators.py"
         ])
         ++ (builtins.map
         (name: {

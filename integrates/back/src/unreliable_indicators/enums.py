@@ -27,6 +27,8 @@ class EntityAttr(Enum):
     oldest_vulnerability_report_date: str = "oldest_vulnerability_report_date"
     open_vulnerabilities: str = "open_vulnerabilities"
     reattack_cycles: str = "reattack_cycles"
+    report_date: str = "report_date"
+    source: str = "source"
     status: str = "status"
     treatment_changes: str = "treatment_changes"
     treatment_summary: str = "treatment_summary"
