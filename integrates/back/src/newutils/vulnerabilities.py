@@ -87,6 +87,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def adjust_historic_dates(
@@ -461,15 +462,11 @@ async def get_report_dates(
             for historic in vulns_historic_state
         )
     except IndexError:
-        LOGGER.error(
+        LOGGER_CONSOLE.warning(
             "Vulnerability with empty historic state",
             extra={"extra": {"vulnerabilities": vulns_ids}},
         )
-        LOGGER.exception(
-            "Vulnerability with empty historic state",
-            extra={"extra": {"vulnerabilities": vulns_ids}},
-        )
-        raise
+        return tuple()
 
 
 def get_specific(value: Dict[str, str]) -> int:
