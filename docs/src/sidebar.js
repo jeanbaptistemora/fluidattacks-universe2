@@ -595,6 +595,7 @@ const Squad = [
   'squad/reattacks',
   'squad/consulting',
   'squad/false-negatives',
+  'squad/weapons',
 ]
 
 module.exports = {
