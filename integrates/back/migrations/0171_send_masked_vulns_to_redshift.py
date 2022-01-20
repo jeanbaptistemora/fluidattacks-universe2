@@ -1,12 +1,12 @@
 # pylint: disable=invalid-name
 """
-Search for vulns in vms that belong to already removed groups. This vulns
+Search for vulns in vms that belong to already removed groups. These vulns
 were "masked" while redshift storage was not in place.
 
 Store them in redshift and remove them from vms.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-01-20 at 22:02:39 UTC
+Finalization Time:  2022-01-20 at 22:18:51 UTC
 """
 
 from aioextensions import (
