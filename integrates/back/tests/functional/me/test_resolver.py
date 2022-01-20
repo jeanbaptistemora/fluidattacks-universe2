@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    get_vulnerabilities,
 )
 import pytest
 from typing import (
@@ -55,3 +56,24 @@ async def test_get_me(
     assert result["data"]["me"]["subscriptionsToEntityReport"] == []
     assert result["data"]["me"]["tags"] == []
     assert result["data"]["me"]["__typename"] == "Me"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("me")
+@pytest.mark.parametrize(
+    ["email", "length"],
+    [
+        ["customer@gmail.com", 1],
+        ["customeradmin@gmail.com", 1],
+    ],
+)
+async def test_get_me_assigned(
+    populate: bool, email: str, length: int
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_vulnerabilities(
+        user=email, group=group_name
+    )
+    assert "errors" not in result
+    assert len(result["data"]["me"]["vulnerabilitiesAssigned"]) == length
