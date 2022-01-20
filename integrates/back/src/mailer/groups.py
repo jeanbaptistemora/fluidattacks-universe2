@@ -19,6 +19,7 @@ from newutils import (
 )
 from typing import (
     Any,
+    Dict,
     List,
 )
 
@@ -97,16 +98,16 @@ async def send_mail_deactivated_root(
     email_to: List[str],
     group_name: str,
     root_nickname: str,
-    sast_vulns: str,
-    dast_vulns: str,
+    **kwargs: Dict[str, str],
 ) -> None:
     await send_mails_async(
         email_to=email_to,
         context={
             "group": group_name,
             "root_nickname": root_nickname,
-            "sast_vulns": sast_vulns,
-            "dast_vulns": dast_vulns,
+            "sast_vulns": kwargs["sast_vulns"],
+            "dast_vulns": kwargs["dast_vulns"],
+            "responsible": kwargs["responsible"],
         },
         tags=GENERAL_TAG,
         subject=("Root deactivated"),

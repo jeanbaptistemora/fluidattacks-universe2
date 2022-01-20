@@ -143,6 +143,7 @@ async def deactivate_root(
         root_nickname=root.state.nickname,
         sast_vulns=len(sast_vulns),
         dast_vulns=len(dast_vulns),
+        responsible=user_email,
     )
 
 
