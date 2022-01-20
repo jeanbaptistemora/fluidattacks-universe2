@@ -10,7 +10,7 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "en", "es", "category", "references", "metadata" ],
+      "required": [ "en", "es", "category", "tested_in", "references", "metadata" ],
       "properties": {
         "en": { "$ref": "#/definitions/language" },
         "es": { "$ref": "#/definitions/language" },
@@ -38,12 +38,6 @@
             { "type": "string", "pattern": "^Social$" }
           ]
         },
-        "references": {
-          "uniqueItems": true,
-          "type": "array",
-          "items": { "type": "string", "pattern": "^[0-9]+\\.[-_:a-zA-Z0-9]+$" }
-        },
-        "metadata": { "type": "object" },
         "tested_in": {
           "type": "object",
           "additionalProperties": false,
@@ -53,7 +47,13 @@
             "squad": { "type": "boolean" },
             "oneshot": { "type": "boolean" }
          }
-       }
+       },
+        "references": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[0-9]+\\.[-_:a-zA-Z0-9]+$" }
+        },
+        "metadata": { "type": "object" }
       }
     }
   },
