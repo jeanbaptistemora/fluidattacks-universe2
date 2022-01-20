@@ -2,6 +2,9 @@ from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
 )
+from lib_path.f009.utils import (
+    is_key_sensitive,
+)
 from metaloaders.model import (
     Node,
     Type,
@@ -18,20 +21,7 @@ from typing import (
 )
 
 
-def _is_key_sensitive(key: str) -> bool:
-    return any(
-        key.lower().endswith(suffix)
-        for suffix in [
-            "key",
-            "pass",
-            "passwd",
-            "user",
-            "username",
-        ]
-    )
-
-
-def iterate_docker_c_envs(template: Node) -> Iterator[Node]:
+def _iterate_docker_c_envs(template: Node) -> Iterator[Node]:
     if not isinstance(template, Node):
         return
     if template.data_type != Type.OBJECT:
@@ -66,7 +56,7 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
         if (
             (
                 any(smell in secret for smell in secret_smells)
-                or _is_key_sensitive(secret)
+                or is_key_sensitive(secret)
             )
             and value
             and not (value.startswith("${") and value.endswith("}"))
@@ -86,7 +76,7 @@ def docker_compose_env_secrets(
         finding=FindingEnum.F009,
         iterator=get_cloud_iterator(
             _docker_compose_env_secrets_iterate_vulnerabilities(
-                env_vars_iterator=iterate_docker_c_envs(template),
+                env_vars_iterator=_iterate_docker_c_envs(template),
             )
         ),
         path=path,

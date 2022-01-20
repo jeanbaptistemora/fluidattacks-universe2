@@ -1,6 +1,9 @@
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
+from lib_path.f009.utils import (
+    is_key_sensitive,
+)
 from model.core_model import (
     FindingEnum,
     Vulnerabilities,
@@ -19,19 +22,6 @@ WSM = r"\s+"
 DOCKERFILE_ENV: Pattern[str] = re.compile(
     fr"^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>.+?){WS}$",
 )
-
-
-def _is_key_sensitive(key: str) -> bool:
-    return any(
-        key.lower().endswith(suffix)
-        for suffix in [
-            "key",
-            "pass",
-            "passwd",
-            "user",
-            "username",
-        ]
-    )
 
 
 def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
@@ -54,7 +44,7 @@ def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
                     and not value.endswith("}#")
                     and (
                         any(smell in secret for smell in secret_smells)
-                        or _is_key_sensitive(secret)
+                        or is_key_sensitive(secret)
                     )
                 ):
                     column: int = match.start("value")
