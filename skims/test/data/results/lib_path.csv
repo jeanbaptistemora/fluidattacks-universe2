@@ -20990,7 +20990,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   52 |         Ref: RDSCluster
   53 |       DBInstanceClass: db.r3.xlarge
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,60,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   50 |           - AvailabilityZone
   51 |       DBClusterIdentifier:
@@ -21014,7 +21014,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   69 |       MasterUserPassword:
   70 |         Ref: password
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,63,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   53 |       DBInstanceClass: db.r3.xlarge
   54 |       DBParameterGroupName:
@@ -21038,7 +21038,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   72 |         Ref: username
   73 |     Type: ""AWS::RDS::DBCluster""
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,75,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   65 |         Ref: RDSDBClusterParameterGroup
   66 |       DBSubnetGroupName:
@@ -21062,7 +21062,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   84 |         Ref: RDSDBParameterGroup
   85 |       DBSubnetGroupName:
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
    51 |         ""DBSubnetGroupName"": {
    52 |           ""Ref"": ""DBSubnetGroup""
@@ -21086,7 +21086,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    70 |             ""AvailabilityZone""
    71 |           ]
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
    75 |         },
    76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
@@ -21110,7 +21110,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    94 |         ""DBSubnetGroupName"": {
    95 |           ""Ref"": ""DBSubnetGroup""
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
    80 |         ""DBSubnetGroupName"": {
    81 |           ""Ref"": ""DBSubnetGroup""
@@ -21134,7 +21134,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    99 |           ""Ref"": ""password""
   100 |         },
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
    98 |         ""MasterUserPassword"": {
    99 |           ""Ref"": ""password""
@@ -21158,7 +21158,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   117 |         },
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = true
@@ -21182,7 +21182,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,31
   20 |   instance_class      = ""db.r4.large""
   21 |   engine              = aws_rds_cluster.default.engine
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
   12 |   skip_final_snapshot  = true
   13 | }
@@ -21206,7 +21206,7 @@ F246,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,3
   31 |   master_password     = ""barbut8chars""
   32 | }
      ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
+",tfm_rds_has_unencrypted_storage.tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = false
@@ -21230,7 +21230,7 @@ F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,311,skims,24
   20 |   engine             = aws_rds_cluster.default.engine
   21 |   engine_version     = aws_rds_cluster.default.engine_version
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
    2 |   publicly_accessible  = false
    3 |   allocated_storage    = 10
@@ -21254,7 +21254,7 @@ F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,311,skims,2
   21 |   engine_version     = aws_rds_cluster.default.engine_version
   22 | }
      ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
+",tfm_rds_has_unencrypted_storage.tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
@@ -21278,7 +21278,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   52 |         Ref: RDSCluster
   53 |       DBInstanceClass: db.r3.xlarge
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,60,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   50 |           - AvailabilityZone
   51 |       DBClusterIdentifier:
@@ -21302,7 +21302,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   69 |       MasterUserPassword:
   70 |         Ref: password
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,63,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   53 |       DBInstanceClass: db.r3.xlarge
   54 |       DBParameterGroupName:
@@ -21326,7 +21326,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   72 |         Ref: username
   73 |     Type: ""AWS::RDS::DBCluster""
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,75,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
   65 |         Ref: RDSDBClusterParameterGroup
   66 |       DBSubnetGroupName:
@@ -21350,7 +21350,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   84 |         Ref: RDSDBParameterGroup
   85 |       DBSubnetGroupName:
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    51 |         ""DBSubnetGroupName"": {
    52 |           ""Ref"": ""DBSubnetGroup""
@@ -21374,7 +21374,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
    70 |             ""AvailabilityZone""
    71 |           ]
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    75 |         },
    76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
@@ -21398,7 +21398,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
    94 |         ""DBSubnetGroupName"": {
    95 |           ""Ref"": ""DBSubnetGroup""
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    80 |         ""DBSubnetGroupName"": {
    81 |           ""Ref"": ""DBSubnetGroup""
@@ -21422,7 +21422,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
    99 |           ""Ref"": ""password""
   100 |         },
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    98 |         ""MasterUserPassword"": {
    99 |           ""Ref"": ""password""
@@ -21446,7 +21446,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   117 |         },
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
@@ -21470,7 +21470,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. 
   20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
   21 |   database_name           = ""mydb""
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
    7 |   name                    = ""mydb""
    8 |   username                = ""foo""
@@ -21494,7 +21494,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246.
   26 |   preferred_backup_window = ""07:00-09:00""
   27 | }
      ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
+",tfm_rds_has_unencrypted_storage.tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,46,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   36 |       BackupRetentionPeriod: 0
   37 |       DBClusterParameterGroupName:
@@ -21518,7 +21518,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   55 |       DBClusterIdentifier:
   56 |         Ref: RDSCluster
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   54 |           - AvailabilityZone
   55 |       DBClusterIdentifier:
@@ -21542,7 +21542,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   73 |       MasterUserPassword:
   74 |         Ref: password
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,67,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   57 |       DBInstanceClass: db.r3.xlarge
   58 |       DBParameterGroupName:
@@ -21566,7 +21566,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   76 |         Ref: username
   77 |     Type: ""AWS::RDS::DBCluster""
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,79,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   69 |         Ref: RDSDBClusterParameterGroup
   70 |       DBSubnetGroupName:
@@ -21590,7 +21590,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   88 |         Ref: RDSDBParameterGroup
   89 |       DBSubnetGroupName:
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    54 |         ""DBSubnetGroupName"": {
    55 |           ""Ref"": ""DBSubnetGroup""
@@ -21614,7 +21614,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    73 |             ""Subnet1"",
    74 |             ""AvailabilityZone""
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,89,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    79 |         },
    80 |         ""DBInstanceClass"": ""db.r3.xlarge"",
@@ -21638,7 +21638,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    98 |         ""DBSubnetGroupName"": {
    99 |           ""Ref"": ""DBSubnetGroup""
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,94,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    84 |         ""DBSubnetGroupName"": {
    85 |           ""Ref"": ""DBSubnetGroup""
@@ -21662,7 +21662,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   103 |           ""Ref"": ""password""
   104 |         },
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,112,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
   102 |         ""MasterUserPassword"": {
   103 |           ""Ref"": ""password""
@@ -21686,7 +21686,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   121 |         },
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,46,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
   36 |       DBClusterParameterGroupName:
   37 |         Ref: RDSDBClusterParameterGroup
@@ -21710,7 +21710,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   55 |         Ref: RDSCluster
   56 |       DBInstanceClass: db.r3.xlarge
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
   54 |       DBClusterIdentifier:
   55 |         Ref: RDSCluster
@@ -21734,7 +21734,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   73 |       MasterUserPassword:
   74 |         Ref: password
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,67,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
   57 |       DBParameterGroupName:
   58 |         Ref: RDSDBParameterGroup
@@ -21758,7 +21758,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   76 |         Ref: username
   77 |     Type: ""AWS::RDS::DBCluster""
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,79,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
   69 |         Ref: RDSDBClusterParameterGroup
   70 |       DBSubnetGroupName:
@@ -21782,7 +21782,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   88 |         Ref: RDSDBParameterGroup
   89 |       DBSubnetGroupName:
      ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    54 |           ""Ref"": ""DBSubnetGroup""
    55 |         },
@@ -21806,7 +21806,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    73 |             ""AvailabilityZone""
    74 |           ]
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,89,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    79 |         ""DBInstanceClass"": ""db.r3.xlarge"",
    80 |         ""DBParameterGroupName"": {
@@ -21830,7 +21830,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    98 |         ""DBSubnetGroupName"": {
    99 |           ""Ref"": ""DBSubnetGroup""
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,94,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    84 |           ""Ref"": ""DBSubnetGroup""
    85 |         },
@@ -21854,7 +21854,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   103 |           ""Ref"": ""password""
   104 |         },
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,112,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
   102 |         ""MasterUserPassword"": {
   103 |           ""Ref"": ""password""
@@ -21878,7 +21878,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   121 |         },
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
-",f246._cfn_rds_has_unencrypted_storage
+",cfn_rds_has_unencrypted_storage.cfn_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
    4 |   engine               = ""mysql""
    5 |   engine_version       = ""5.7""
@@ -21902,7 +21902,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,311,sk
   23 |   skip_final_snapshot  = true
   24 | }
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage    = 10
@@ -21926,7 +21926,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,311,ski
   20 |   username             = ""user""
   21 |   password             = ""useradmin""
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
@@ -21942,7 +21942,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,311,sk
   12 |   skip_final_snapshot     = true
   13 | }
      ^ Col 0
-",f246._tfm_db_has_unencrypted_storage
+",tfm_db_has_unencrypted_storage.tfm_db_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,"
 > 1 | resource ""aws_rds_cluster"" ""example"" {
   2 |   cluster_identifier   = ""example""
@@ -21954,7 +21954,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,1,311,ski
   8 |   skip_final_snapshot  = true
   9 | }
     ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
+",tfm_rds_has_unencrypted_storage.tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
 > 1 | resource ""aws_rds_cluster"" ""default"" {
   2 |   cluster_identifier      = ""aurora-cluster-demo""
@@ -21966,7 +21966,7 @@ F246,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,311,s
   8 |   preferred_backup_window = ""07:00-09:00""
   9 | }
     ^ Col 0
-",f246._tfm_rds_has_unencrypted_storage
+",tfm_rds_has_unencrypted_storage.tfm_rds_has_unencrypted_storage
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,16,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    6 |       Name: MyTargets
    7 |       Port: 443
