@@ -2,6 +2,7 @@
 
 import authz
 import base64
+import binascii
 import boto3
 from custom_exceptions import (
     HasVulns,
@@ -411,7 +412,11 @@ def _format_root_credential(
         raise InvalidParameter()
 
     if credential_type == "SSH":
-        raw_key: str = base64.b64decode(credential_key).decode()
+        try:
+            raw_key: str = base64.b64decode(credential_key).decode()
+        except binascii.Error as exc:
+            raise InvalidParameter() from exc
+
         if not raw_key.endswith("\n"):
             raw_key += "\n"
             credential_key = base64.b64encode(raw_key.encode()).decode()
@@ -474,21 +479,17 @@ async def update_git_environments(
 
 async def update_git_root(
     loaders: Any, user_email: str, **kwargs: Any
-) -> None:
+) -> RootItem:
     root_id: str = kwargs["id"]
     group_name: str = kwargs["group_name"]
     root: RootItem = await loaders.root.load((group_name, root_id))
 
-    if not isinstance(root, GitRootItem):
-        raise InvalidParameter()
-
-    if root.state.status != "ACTIVE":
-        raise InvalidParameter()
-
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     if not (
-        validations.is_valid_url(url)
+        isinstance(root, GitRootItem)
+        and root.state.status == "ACTIVE"
+        and validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
@@ -516,28 +517,36 @@ async def update_git_root(
     if not validations.is_exclude_valid(gitignore, root.state.url):
         raise InvalidRootExclusion()
 
+    credentials = kwargs.get("credentials")
+    if credentials:
+        credential = _format_root_credential(
+            credentials, group_name, user_email, root.id
+        )
+        await validations.validate_git_credentials(url, credential)
+        await creds_model.add(credential=credential)
+
+    new_state = GitRootState(
+        branch=branch,
+        environment=kwargs["environment"],
+        environment_urls=root.state.environment_urls,
+        git_environment_urls=[
+            GitEnvironmentUrl(url=item) for item in root.state.environment_urls
+        ],
+        gitignore=gitignore,
+        includes_health_check=kwargs["includes_health_check"],
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        nickname=root.state.nickname,
+        other=None,
+        reason=None,
+        status=root.state.status,
+        url=url,
+    )
     await roots_model.update_root_state(
         current_value=root.state,
         group_name=group_name,
         root_id=root_id,
-        state=GitRootState(
-            branch=branch,
-            environment=kwargs["environment"],
-            environment_urls=root.state.environment_urls,
-            git_environment_urls=[
-                GitEnvironmentUrl(url=item)
-                for item in root.state.environment_urls
-            ],
-            gitignore=gitignore,
-            includes_health_check=kwargs["includes_health_check"],
-            modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
-            nickname=root.state.nickname,
-            other=None,
-            reason=None,
-            status=root.state.status,
-            url=url,
-        ),
+        state=new_state,
     )
 
     health_check_changed: bool = (
@@ -550,6 +559,15 @@ async def update_git_root(
             root=root,
             user_email=user_email,
         )
+
+    return GitRootItem(
+        cloning=root.cloning,
+        group_name=root.group_name,
+        id=root.group_name,
+        metadata=root.metadata,
+        state=new_state,
+        machine_execution=root.machine_execution,
+    )
 
 
 async def update_root_cloning_status(

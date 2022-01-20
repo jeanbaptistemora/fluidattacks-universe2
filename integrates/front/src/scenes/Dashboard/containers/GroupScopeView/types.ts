@@ -6,6 +6,7 @@ interface IGitRootAttr {
     status: "FAIL" | "OK" | "UNKNOWN";
   };
   credentials: {
+    id: string;
     key: string;
     name: string;
     type: "" | "SSH";

@@ -277,6 +277,11 @@ describe("GroupScopeView", (): void => {
                   message: "root created",
                   status: "UNKNOWN",
                 },
+                credentials: {
+                  id: "",
+                  name: "",
+                  type: "",
+                },
                 environment: "production",
                 environmentUrls: [],
                 gitignore: ["bower_components/*"],
@@ -297,6 +302,7 @@ describe("GroupScopeView", (): void => {
       request: {
         query: UPDATE_GIT_ROOT,
         variables: {
+          credentials: null,
           environment: "staging",
           gitignore: ["node_modules/*"],
           groupName: "unittesting",

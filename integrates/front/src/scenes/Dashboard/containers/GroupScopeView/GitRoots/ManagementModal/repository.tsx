@@ -59,6 +59,7 @@ const Repository: React.FC<IRepositoryProps> = ({
     return nicknames.includes(repoName) && initialNickname !== repoName;
   };
 
+  const credExists: boolean = initialValues.credentials.id !== "";
   const user: IAuthContext = useContext(authContext);
 
   const requireNickname: FieldValidator = useCallback(
@@ -143,7 +144,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                   </React.Fragment>
                 ) : undefined}
                 {_.endsWith(user.userEmail, "@fluidattacks.com") &&
-                !isEditing ? (
+                !credExists ? (
                   <React.Fragment>
                     <div className={"flex"}>
                       <div className={"w-70 mr3"}>

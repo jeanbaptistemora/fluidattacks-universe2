@@ -39,7 +39,7 @@ type GitRoot implements IRoot {
   "Cloning status of GitRoot"
   cloningStatus: GitRootCloningStatus!
   "Credentials used to clone the repository"
-  credentials: Credentials
+  credentials: Credentials!
   "Kind of environment to test. E.g. production, QA, etc."
   environment: String!
   "URLs to access the environment"

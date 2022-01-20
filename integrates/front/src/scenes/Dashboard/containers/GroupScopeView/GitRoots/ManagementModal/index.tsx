@@ -29,6 +29,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       status: "UNKNOWN",
     },
     credentials: {
+      id: "",
       key: "",
       name: "",
       type: "",

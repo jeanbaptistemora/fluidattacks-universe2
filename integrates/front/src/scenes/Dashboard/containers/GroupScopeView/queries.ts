@@ -94,6 +94,7 @@ const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $branch: String!
+    $credentials: CredentialsInput
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
@@ -103,6 +104,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   ) {
     updateGitRoot(
       branch: $branch
+      credentials: $credentials
       environment: $environment
       gitignore: $gitignore
       groupName: $groupName

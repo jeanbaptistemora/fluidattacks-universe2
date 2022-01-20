@@ -776,6 +776,8 @@ type Mutation {
   updateGitRoot(
     "Repository branch to be tested"
     branch: String!
+    "Credentials used to clone the repository"
+    credentials: CredentialsInput
     "Kind of environment to test. E.g. Production, QA, Dev, etc..."
     environment: String!
     "Repository paths to be ignored"

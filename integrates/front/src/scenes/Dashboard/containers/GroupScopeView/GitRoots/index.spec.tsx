@@ -127,6 +127,7 @@ describe("GitRoots", (): void => {
         status: "UNKNOWN",
       },
       credentials: {
+        id: "",
         key: "",
         name: "",
         type: "",

@@ -120,6 +120,9 @@ const handleUpdateError = (
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
+      case "Exception - Git repository was not accessible with given credentials":
+        msgError(translate.t("group.scope.git.errors.invalidGitCredentials"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error(`Couldn't update git ${scope}`, error);
@@ -193,8 +196,9 @@ function useGitSubmit(
                 credentials.key === ""
                   ? null
                   : {
-                      ...credentials,
                       key: Buffer.from(credentials.key).toString("base64"),
+                      name: credentials.name,
+                      type: credentials.type,
                     },
               environment,
               gitignore,
@@ -209,6 +213,13 @@ function useGitSubmit(
           await updateGitRoot({
             variables: {
               branch,
+              credentials: _.isUndefined(credentials.key)
+                ? null
+                : {
+                    key: Buffer.from(credentials.key).toString("base64"),
+                    name: credentials.name,
+                    type: credentials.type,
+                  },
               environment,
               gitignore,
               groupName,
