@@ -222,6 +222,7 @@ async def remove_vulnerabilities(
     )
 
 
+@newrelic.agent.function_trace()
 async def get_closed_vulnerabilities(
     loaders: Any,
     finding_id: str,
@@ -277,6 +278,7 @@ async def get_last_closed_vulnerability_info(
     return last_closed_days, last_closed_vuln
 
 
+@newrelic.agent.function_trace()
 async def get_is_verified(loaders: Any, finding_id: str) -> bool:
     return len(await get_vulnerabilities_to_reattack(loaders, finding_id)) == 0
 
@@ -308,6 +310,7 @@ async def get_max_open_severity(
     return max_severity, max_severity_finding
 
 
+@newrelic.agent.function_trace()
 async def get_newest_vulnerability_report_date(
     loaders: Any, finding_id: str
 ) -> str:
@@ -321,6 +324,7 @@ async def get_newest_vulnerability_report_date(
     return ""
 
 
+@newrelic.agent.function_trace()
 async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
@@ -373,6 +377,7 @@ def get_severity_score(
     return cvss_new.get_cvss2_temporal(severity, base_score)
 
 
+@newrelic.agent.function_trace()
 async def get_status(loaders: Any, finding_id: str) -> str:
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
@@ -450,6 +455,7 @@ def get_tracking_vulnerabilities(
     ]
 
 
+@newrelic.agent.function_trace()
 async def get_treatment_summary(
     loaders: Any,
     finding_id: str,
@@ -474,6 +480,7 @@ async def _get_wheres(
     return wheres
 
 
+@newrelic.agent.function_trace()
 async def get_where(loaders: Any, finding_id: str) -> str:
     """
     General locations of the Vulnerabilities. It is limited to 20 locations.
@@ -835,6 +842,7 @@ async def get_oldest_no_treatment(
     }
 
 
+@newrelic.agent.function_trace()
 async def get_oldest_open_vulnerability_report_date(
     loaders: Any,
     finding_id: str,
@@ -850,6 +858,7 @@ async def get_oldest_open_vulnerability_report_date(
     return ""
 
 
+@newrelic.agent.function_trace()
 async def get_oldest_vulnerability_report_date(
     loaders: Any,
     finding_id: str,

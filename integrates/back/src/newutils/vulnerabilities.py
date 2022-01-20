@@ -57,6 +57,7 @@ import html
 import itertools
 import logging
 import logging.config
+import newrelic.agent
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
@@ -428,6 +429,7 @@ def get_ranges(numberlist: List[int]) -> str:
     return range_str
 
 
+@newrelic.agent.function_trace()
 async def get_reattack_requester(
     loaders: Any,
     vuln: Vulnerability,
@@ -599,6 +601,7 @@ def get_total_treatment_date(
     }
 
 
+@newrelic.agent.function_trace()
 async def get_last_requested_reattack_date(
     loaders: Any,
     vuln: Vulnerability,
@@ -617,6 +620,7 @@ async def get_last_requested_reattack_date(
     )
 
 
+@newrelic.agent.function_trace()
 async def get_last_reattack_date(
     loaders: Any,
     vuln: Vulnerability,

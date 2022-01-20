@@ -9,12 +9,14 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+import newrelic.agent
 from typing import (
     Any,
     Tuple,
 )
 
 
+@newrelic.agent.function_trace()
 async def get_efficacy(
     loaders: Any,
     vuln: Vulnerability,
@@ -25,6 +27,7 @@ async def get_efficacy(
     return Decimal(0)
 
 
+@newrelic.agent.function_trace()
 async def get_reattack_cycles(
     loaders: Any,
     vuln: Vulnerability,
