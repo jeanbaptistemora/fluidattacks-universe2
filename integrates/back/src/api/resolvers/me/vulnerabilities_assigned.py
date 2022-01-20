@@ -11,6 +11,7 @@ from newutils.token import (
     get_jwt_content,
 )
 from newutils.vulnerabilities import (
+    filter_non_zero_risk,
     filter_open_vulns,
 )
 from typing import (
@@ -28,4 +29,4 @@ async def resolve(
         user_data["user_email"]
     )
 
-    return filter_open_vulns(vulnerabilities)
+    return filter_non_zero_risk(filter_open_vulns(vulnerabilities))
