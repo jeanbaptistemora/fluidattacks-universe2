@@ -2,7 +2,10 @@ src.lib_path.f250.fsx_has_unencrypted_volumes:
   en: >
     FileSystem must be encrypted with a KmsKeyId
   es: >
-    Las entidades de FileSystem deben estar encryptadas con KmsKeyId 
+    Las entidades de FileSystem deben estar encryptadas con KmsKeyId
 src.lib_path.f250.unencrypted_buckets:
   en: S3 buckets do not use server-side encryption
   es: Los buckets S3 no usan cifrado del lado del servidor
+src.lib_path.f250.ec2_has_unencrypted_volumes:
+  en: Encrypted property should be enabled
+  es: La propiedad Encrypted debería habilitada
