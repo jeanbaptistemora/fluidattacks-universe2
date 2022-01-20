@@ -3422,45 +3422,81 @@
   en:
     title: Asymmetric denial of service - Content length
     description: >
-      Opening temporary files without
-      appropriate measures or controls can
-      leave the file, its contents and any
-      functions that consume it vulnerable
-      to attack.
+      The Content-Length field specifies the
+      size of the transmitted form of data
+      after the request header.
+      In an attack, the Content-Length
+      field contains a very high value,
+      meaning the server will expect to
+      receive a large amount of data.
+      The header of the spoofed request
+      is then validly terminated, then
+      an attacker waits and sends another
+      small piece of data before the
+      connection termination timer expires.
+      In this way, the connection keeps
+      dangerously active.
     impact: >
-      - Get access to the temporary files
-      created.
+      - Lead to exhauste all available
+      server resources.
 
-      - Manipulate the data contained
-      in the temporary files.
+      - Use technique to exhaust all
+      available server resources.
+
+      - Exhaust the victim’s network
+      and hardware resources when
+      requesting large amounts of data.
     recommendation: >
-      Create the temporary files in a
-      different directory than the one
-      provided by default in the operating
-      system and ensure that they have a
-      permission mask of 0600.
+      - Set the header and message body
+      to a maximum reasonable length.
+
+      - Define a minimum incoming data
+      rate, and drop those that are slower.
+
+      - Set an absolute connection timeout.
     threat: >
       Anonymous attacker with local access.
   es:
     title: Asymmetric denial of service - Content length
     description: >
-      Abrir archivos temporales sin las
-      medidas o controles adecuados puede
-      dejar el archivo, su contenido y
-      cualquier función que lo consuma
-      vulnerable a ataques.
+      El campo Content-Length especifica
+      el tamaño de la forma de datos
+      transmitida después de la cabecera
+      de la solicitud.
+      En un ataque, el campo Content-Length
+      contiene un valor muy alto, lo que
+      significa que el servidor espera
+      recibir una gran cantidad de datos.
+      La cabecera de la petición falsa se
+      termina de forma válida, entonces
+      el atacante espera y envía otro
+      pequeño trozo de datos antes de
+      que expire el temporizador de
+      terminación de la conexión.
+      De este modo, la conexión se
+      mantiene peligrosamente activa.
     impact: >
-      - Obtener acceso a los archivos temporales
-      creados.
+      - Llevar a agotar todos los recursos
+      disponibles del servidor.
 
-      - Manipular los datos contenidos en los
-      archivos temporales.
+      - Utilizar la técnica para agotar
+      todos los recursos disponibles
+      del servidor.
+
+      - Agotar los recursos de red y
+      hardware de la víctima al solicitar
+      grandes cantidades de datos.
     recommendation: >
-      Crear los archivos temporales en un
-      directorio diferente al provisto por
-      defecto en el sistema operativo y
-      asegurarque estos tienen una máscara
-      de permisos 0600.
+      - Establezca la cabecera y el
+      cuerpo del mensaje con una longitud
+      máxima razonable.
+
+      - Defina una velocidad mínima de
+      entrada de datos, y elimine los
+      que sean más lentos.
+
+      - Establezca un tiempo de espera
+      de conexión absoluto.
     threat: >
       Atacante anónimo con acceso local.
   category: Subvert Access
