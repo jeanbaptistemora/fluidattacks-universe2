@@ -42,6 +42,9 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
       type={"text"}
       validate={isTreatmentPristine ? undefined : required}
     >
+      <option value={""}>
+        {translate.t("searchFindings.tabDescription.treatment.new")}
+      </option>
       {canUpdateVulnsTreatment ? (
         <React.Fragment>
           <option value={"IN_PROGRESS"}>
