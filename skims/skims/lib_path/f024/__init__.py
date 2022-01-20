@@ -6,40 +6,20 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from lib_path.f024.cfn_allows_anyone_to_admin_ports import (
+from lib_path.f024.cloudformation import (
     cfn_allows_anyone_to_admin_ports,
-)
-from lib_path.f024.cfn_ec2_has_security_groups_ip_ranges_in_rfc1918 import (
     cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
-)
-from lib_path.f024.cfn_ec2_has_unrestricted_ports import (
     cfn_ec2_has_unrestricted_ports,
-)
-from lib_path.f024.cfn_groups_without_egress import (
     cfn_groups_without_egress,
-)
-from lib_path.f024.cfn_instances_without_profile import (
     cfn_instances_without_profile,
-)
-from lib_path.f024.cfn_unrestricted_cidrs import (
     cfn_unrestricted_cidrs,
-)
-from lib_path.f024.cfn_unrestricted_ip_protocols import (
     cfn_unrestricted_ip_protocols,
-)
-from lib_path.f024.cfn_unrestricted_ports import (
     cfn_unrestricted_ports,
 )
-from lib_path.f024.tfm_aws_ec2_allows_all_outbound_traffic import (
+from lib_path.f024.terraform import (
     tfm_aws_ec2_allows_all_outbound_traffic,
-)
-from lib_path.f024.tfm_aws_ec2_cfn_unrestricted_ip_protocols import (
     tfm_aws_ec2_cfn_unrestricted_ip_protocols,
-)
-from lib_path.f024.tfm_aws_ec2_unrestricted_cidrs import (
     tfm_aws_ec2_unrestricted_cidrs,
-)
-from lib_path.f024.tfm_ec2_has_unrestricted_ports import (
     tfm_ec2_has_unrestricted_ports,
 )
 from model.core_model import (
