@@ -29,6 +29,7 @@ _R = TypeVar("_R")
 class _PureIter(
     Generic[_T],
 ):
+    # In this case Cmd models mutation not side effects
     _new_iter: Cmd[Iterable[_T]]
 
 
@@ -51,7 +52,10 @@ class PureIter(_PureIter[_T]):
         return PureIter(draft)
 
     def to_list(self) -> FrozenList[_T]:
-        # In this case Cmd models mutation not side effects
         # all cmds will result in same output
         cmd = self._new_iter.map(lambda x: tuple(x))
         return unsafe_unwrap(cmd)
+
+    def __iter__(self) -> Iterator[_T]:
+        # all cmds will result in an equivalent new iterator
+        return iter(unsafe_unwrap(self._new_iter))
