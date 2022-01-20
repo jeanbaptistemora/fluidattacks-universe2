@@ -570,9 +570,11 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
         env={**os.environ.copy()},
     )
     _, stderr = await proc.communicate()
-    if proc.returncode != 0 or stderr:
+    if proc.returncode != 0:
         LOGGER.error(
-            "Uploading cloned root to S3 failed", extra=dict(extra=locals())
+            "Uploading root to S3 failed with error: %s",
+            stderr.decode(),
+            extra=dict(extra=locals()),
         )
     else:
         success = True
@@ -612,8 +614,12 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> bool:
         _, stderr = await proc.communicate()
 
         os.remove(ssh_file_name)
-        if proc.returncode != 0 or stderr:
-            LOGGER.error("Root SSH cloning failed", extra=dict(extra=locals()))
+        if proc.returncode != 0:
+            LOGGER.error(
+                "Root SSH cloning failed with error: %s",
+                stderr.decode(),
+                extra=dict(extra=locals()),
+            )
         else:
             success = await _upload_cloned_repo_to_s3(temp_dir, group_name)
     return success
@@ -635,7 +641,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
     )
     root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
     root_cred: CredentialItem = next(
-        filter(lambda x: root_nickname in x.state.roots, group_creds), None
+        filter(lambda x: root.id in x.state.roots, group_creds), None
     )
 
     root_cloned: bool = False
