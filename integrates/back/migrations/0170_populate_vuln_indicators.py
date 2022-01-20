@@ -7,6 +7,9 @@ from aioextensions import (
     collect,
     run,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
 from botocore.exceptions import (
     HTTPClientError,
 )
@@ -156,8 +159,11 @@ async def populate_indicators_by_finding(finding: Finding) -> None:
 
 
 @retry_on_exceptions(
-    exceptions=(HTTPClientError,),
-    sleep_seconds=5,
+    exceptions=(
+        HTTPClientError,
+        ClientConnectorError,
+    ),
+    sleep_seconds=10,
 )
 async def populate_indicators_by_group(
     loaders: Dataloaders, group_name: str, progress: float
@@ -197,7 +203,7 @@ async def main() -> None:
             )
             for count, group in enumerate(groups)
         ),
-        workers=5,
+        workers=4,
     )
 
 
