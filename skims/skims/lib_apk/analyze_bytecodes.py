@@ -541,6 +541,57 @@ def _has_frida(
     )
 
 
+def _add_not_verifies_ssl_hostname(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    source: str,
+) -> None:
+    locations.append(
+        desc="not_verifies_ssl_hostname",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse APK and all Dalvik Executables (classes*.dex)
+                >>> # in the APK
+                >>> _, dex, _ = AnalyzeAPK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                >>> {repr(source)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=12, wrap=True),
+        ),
+    )
+
+
+def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
+        is_vulnerable: bool = False
+
+        if "SSLSocket" in act_source:
+            if "getDefaultHostnameVerifier" not in act_source:
+                is_vulnerable = True
+
+        if is_vulnerable:
+            _add_not_verifies_ssl_hostname(ctx, locations, act_source)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F268,
+        locations=locations,
+    )
+
+
 CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
