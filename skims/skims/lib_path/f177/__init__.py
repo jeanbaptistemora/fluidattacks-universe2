@@ -6,19 +6,13 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from lib_path.f177.cfn_ec2_has_open_all_ports_to_the_public import (
+from lib_path.f177.cloudformation import (
     cfn_ec2_has_open_all_ports_to_the_public,
-)
-from lib_path.f177.cfn_ec2_has_unrestricted_dns_access import (
     cfn_ec2_has_unrestricted_dns_access,
-)
-from lib_path.f177.cfn_ec2_has_unrestricted_ftp_access import (
     cfn_ec2_has_unrestricted_ftp_access,
-)
-from lib_path.f177.cfn_ec2_sg_allows_anyone_to_admin_ports import (
     cfn_ec2_sg_allows_anyone_to_admin_ports,
 )
-from lib_path.f177.ec2_use_default_security_group import (
+from lib_path.f177.terraform import (
     ec2_use_default_security_group,
 )
 from model.core_model import (
