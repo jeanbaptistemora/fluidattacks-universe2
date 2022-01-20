@@ -30,4 +30,6 @@ type Me {
   userEmail: String!
   "Current user name"
   userName: String!
+  "Assigned vulnerabilities of the current user"
+  vulnerabilitiesAssigned: [Vulnerability!]
 }

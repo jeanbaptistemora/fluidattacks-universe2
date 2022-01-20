@@ -11,6 +11,7 @@ from api.resolvers.me import (
     role,
     subscriptions_to_entity_report,
     tags,
+    vulnerabilities_assigned,
 )
 from ariadne import (
     ObjectType,
@@ -28,3 +29,4 @@ ME.set_field(
     "subscriptionsToEntityReport", subscriptions_to_entity_report.resolve
 )
 ME.set_field("tags", tags.resolve)
+ME.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
