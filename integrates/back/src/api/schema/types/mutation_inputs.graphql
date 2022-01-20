@@ -34,8 +34,10 @@ input MachineFindingResultInput {
 
 "Credentials definition"
 input CredentialsInput {
+  "ID of an existing credential"
+  id: String
   "SSH key"
-  key: String!
+  key: String
   "Name of the credential"
   name: String!
   "Type of authentication"

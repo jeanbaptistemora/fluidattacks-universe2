@@ -477,6 +477,51 @@ async def update_git_environments(
     )
 
 
+async def update_root_credentials(  # pylint: disable=too-many-arguments
+    loaders: Any,
+    credentials: Dict[str, str],
+    group_name: str,
+    user_email: str,
+    root_id: str,
+    url: str,
+) -> None:
+    existing_credential: Optional[CredentialItem] = None
+    credential_id: Optional[str] = credentials.get("id")
+    if credential_id:
+        existing_credential = await loaders.credential.load(
+            (group_name, credential_id)
+        )
+    if credentials.get("key"):
+        credential = _format_root_credential(
+            credentials, group_name, user_email, root_id
+        )
+        await validations.validate_git_credentials(url, credential)
+        await creds_model.add(credential=credential)
+        if existing_credential:
+            await creds_model.remove(
+                credential_id=existing_credential.id,
+                group_name=existing_credential.group_name,
+            )
+    elif existing_credential:
+        new_credential_name = credentials["name"]
+        if (
+            new_credential_name
+            and new_credential_name != existing_credential.state.name
+        ):
+            await creds_model.update_credential_state(
+                current_value=existing_credential.state,
+                group_name=group_name,
+                credential_id=existing_credential.id,
+                state=CredentialState(
+                    key=existing_credential.state.key,
+                    modified_by=user_email,
+                    modified_date=datetime_utils.get_iso_date(),
+                    name=new_credential_name,
+                    roots=existing_credential.state.roots,
+                ),
+            )
+
+
 async def update_git_root(
     loaders: Any, user_email: str, **kwargs: Any
 ) -> RootItem:
@@ -519,11 +564,9 @@ async def update_git_root(
 
     credentials = kwargs.get("credentials")
     if credentials:
-        credential = _format_root_credential(
-            credentials, group_name, user_email, root.id
+        await update_root_credentials(
+            loaders, credentials, group_name, user_email, root_id, url
         )
-        await validations.validate_git_credentials(url, credential)
-        await creds_model.add(credential=credential)
 
     new_state = GitRootState(
         branch=branch,

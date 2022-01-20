@@ -213,13 +213,27 @@ function useGitSubmit(
           await updateGitRoot({
             variables: {
               branch,
-              credentials: _.isUndefined(credentials.key)
-                ? null
-                : {
-                    key: Buffer.from(credentials.key).toString("base64"),
-                    name: credentials.name,
-                    type: credentials.type,
-                  },
+              credentials:
+                credentials.id === ""
+                  ? _.isUndefined(credentials.key)
+                    ? null
+                    : {
+                        key: Buffer.from(credentials.key).toString("base64"),
+                        name: credentials.name,
+                        type: credentials.type,
+                      }
+                  : _.isUndefined(credentials.key)
+                  ? {
+                      id: credentials.id,
+                      name: credentials.name,
+                      type: credentials.type,
+                    }
+                  : {
+                      id: credentials.id,
+                      key: Buffer.from(credentials.key).toString("base64"),
+                      name: credentials.name,
+                      type: credentials.type,
+                    },
               environment,
               gitignore,
               groupName,

@@ -1,4 +1,7 @@
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faQuestionCircle,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
@@ -59,8 +62,14 @@ const Repository: React.FC<IRepositoryProps> = ({
     return nicknames.includes(repoName) && initialNickname !== repoName;
   };
 
-  const credExists: boolean = initialValues.credentials.id !== "";
   const user: IAuthContext = useContext(authContext);
+  const [credExists, deleteExistingCred] = useState(
+    initialValues.credentials.id !== ""
+  );
+
+  const deleteCredential: () => void = useCallback((): void => {
+    deleteExistingCred(false);
+  }, []);
 
   const requireNickname: FieldValidator = useCallback(
     (field: string): string | undefined => {
@@ -143,8 +152,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <br />
                   </React.Fragment>
                 ) : undefined}
-                {_.endsWith(user.userEmail, "@fluidattacks.com") &&
-                !credExists ? (
+                {_.endsWith(user.userEmail, "@fluidattacks.com") ? (
                   <React.Fragment>
                     <div className={"flex"}>
                       <div className={"w-70 mr3"}>
@@ -164,22 +172,46 @@ const Repository: React.FC<IRepositoryProps> = ({
                         <ControlLabel>
                           {t("group.scope.git.repo.credentials.type")}
                         </ControlLabel>
-                        <Field
-                          component={FormikDropdown}
-                          name={"credentials.type"}
-                        >
-                          <option value={""}>{""}</option>
-                          <option value={"SSH"}>
-                            {t("group.scope.git.repo.credentials.ssh")}
-                          </option>
-                        </Field>
+                        {credExists ? (
+                          <div className={"flex w-100"}>
+                            <div className={"w-50"}>
+                              <Field
+                                component={FormikText}
+                                disabled={true}
+                                name={"credentials.type"}
+                                value={values.credentials.type}
+                              />
+                            </div>
+                            <div className={"mt1 tr w-50"}>
+                              <Button
+                                id={"git-root-add"}
+                                onClick={deleteCredential}
+                              >
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Field
+                            component={FormikDropdown}
+                            name={"credentials.type"}
+                          >
+                            <option value={""}>{""}</option>
+                            <option value={"SSH"}>
+                              {t("group.scope.git.repo.credentials.ssh")}
+                            </option>
+                          </Field>
+                        )}
                       </div>
                     </div>
                     <br />
-                    {values.credentials.type === "SSH" ? (
+                    {values.credentials.type === "SSH" && !credExists ? (
                       <React.Fragment>
                         <div className={"flex"}>
                           <div className={"w-100"}>
+                            <ControlLabel>
+                              {t("group.scope.git.repo.credentials.sshKey")}
+                            </ControlLabel>
                             <Field
                               component={FormikTextArea}
                               name={"credentials.key"}
