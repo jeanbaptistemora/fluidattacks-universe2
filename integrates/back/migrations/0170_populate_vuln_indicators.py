@@ -180,7 +180,7 @@ async def populate_indicators_by_finding(finding: Finding) -> None:
             )
             for vulnerability in vulnerabilities
         ),
-        workers=500,
+        workers=200,
     )
 
 
@@ -203,7 +203,7 @@ async def populate_indicators_by_group(
             populate_indicators_by_finding(finding=finding)
             for finding in all_findings
         ),
-        workers=10,
+        workers=5,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
