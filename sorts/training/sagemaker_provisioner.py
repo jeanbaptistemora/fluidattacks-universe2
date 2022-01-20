@@ -26,6 +26,8 @@ from typing import (
     List,
 )
 
+JOB_CREATION_DELAY_MULTIPLIER: int = 30
+
 
 def get_estimator(
     model: str,
@@ -61,7 +63,9 @@ def get_estimator(
 def deploy_training_job(model: str, delay: int) -> None:
     # Incremental delay since SageMaker does not seem to process some
     # training jobs when requested near the same time.
-    time.sleep(delay)
+    # Additionally, it may fail to create jobs if requested in
+    # too short an interval
+    time.sleep(delay * JOB_CREATION_DELAY_MULTIPLIER)
 
     print(f"Deploying training job for {model}...")
     sklearn_estimator: SKLearnEstimator = get_estimator(model)

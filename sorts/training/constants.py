@@ -93,7 +93,8 @@ MODELS_DEFAULTS: Dict[ModelType, Dict[str, Union[str, int, float]]] = {
         "learning_rate": 0.05,
         "max_depth": 3,
     },
-    LogisticRegression: {"max_iter": 800},
+    LinearSVC: {"dual": False},
+    LogisticRegression: {"max_iter": 2000},
     MLPClassifier: {"max_iter": 500},
 }
 

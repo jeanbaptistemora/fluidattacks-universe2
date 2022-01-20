@@ -18,7 +18,6 @@ from training.training_script.utils import (
     get_previous_training_results,
     load_training_data,
     save_model_to_s3,
-    set_sagemaker_extra_envs,
     train_combination,
     update_results_csv,
 )
@@ -115,9 +114,6 @@ def cli() -> argparse.Namespace:
     parser.add_argument("--n_estimators", type=int, default=100)
     parser.add_argument("--learning_rate", type=float, default=0.1)
 
-    # Extra args that SageMaker excution may need (fex. ENVS)
-    parser.add_argument("--envs", type=str, default="")
-
     return parser.parse_args()
 
 
@@ -126,9 +122,6 @@ def main() -> None:
 
     model_name: str = args.model.split("-")[0]
     model_features: Tuple[str, ...] = get_current_model_features()
-
-    # Set necessary env vars that SageMaker environment needs
-    set_sagemaker_extra_envs(args.envs)
 
     hyperparameters_to_tune: Dict[str, str] = get_model_hyperparameters(
         model_name,
