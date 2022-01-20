@@ -23,6 +23,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
+import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -94,15 +95,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   const roleToUrl = (role: string, anchor: string): JSX.Element => {
     return (
-      <a
-        href={`${baseRolesUrl}${anchor}`}
-        rel={"noopener noreferrer"}
-        target={"_blank"}
-      >
+      <ExternalLink href={`${baseRolesUrl}${anchor}`}>
         {translate.t(`userModal.roles.${_.camelCase(role)}`, {
           defaultValue: "-",
         })}
-      </a>
+      </ExternalLink>
     );
   };
 

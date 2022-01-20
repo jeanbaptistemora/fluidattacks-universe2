@@ -3,6 +3,7 @@ import _ from "lodash";
 import React, { useCallback, useContext } from "react";
 import Linkify from "react-linkify";
 
+import { ExternalLink } from "components/ExternalLink";
 import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type {
@@ -57,9 +58,9 @@ const NestedComment: React.FC<INestedCommentProps> = (
   const formatLinks = useCallback(
     (href: string, text: string, key: number): React.ReactNode => {
       return (
-        <a href={href} key={key} rel={"noopener noreferrer"} target={"_blank"}>
+        <ExternalLink href={href} key={key}>
           {text}
-        </a>
+        </ExternalLink>
       );
     },
     []

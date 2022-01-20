@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import type { IServicesProps } from "../Services/types";
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
   ButtonToolbar,
@@ -35,13 +36,11 @@ const AgentToken: React.FC<IServicesProps> = (
         </GroupScopeText>
         <Col40>
           <ButtonToolbar>
-            <a
+            <ExternalLink
               href={"https://docs.fluidattacks.com/machine/agent/installation/"}
-              rel={"noopener noreferrer"}
-              target={"_blank"}
             >
               <Button>{t("searchFindings.agentTokenSection.install")}</Button>
-            </a>
+            </ExternalLink>
             <Button onClick={handleChange}>
               {t("searchFindings.agentTokenSection.generate")}
             </Button>

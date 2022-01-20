@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
@@ -147,12 +148,10 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                   </p>
                 </Trans>
                 <p>
-                  <a
+                  <ExternalLink
                     href={
                       "https://apps.apple.com/us/app/integrates/id1470450298"
                     }
-                    rel={"nofollow noopener noreferrer"}
-                    target={"_blank"}
                   >
                     <img
                       alt={"App Store"}
@@ -160,13 +159,11 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       src={AppstoreBadge}
                       width={"140"}
                     />
-                  </a>
-                  <a
+                  </ExternalLink>
+                  <ExternalLink
                     href={
                       "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
                     }
-                    rel={"nofollow noopener noreferrer"}
-                    target={"_blank"}
                   >
                     <img
                       alt={"Google Play"}
@@ -174,7 +171,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       src={GoogleplayBadge}
                       width={"140"}
                     />
-                  </a>
+                  </ExternalLink>
                 </p>
               </React.Fragment>
             )}

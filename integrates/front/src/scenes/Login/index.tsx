@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 import { LoginButton, LoginContainer, LoginGrid } from "./components";
 
+import { ExternalLink } from "components/ExternalLink";
 import logo from "resources/asm.svg";
 import style from "scenes/Login/index.css";
 import {
@@ -89,15 +90,13 @@ export const Login: React.FC = (): JSX.Element => {
             {t("info.deploymentDate")}&nbsp;
             {ASM_DEPLOYMENT_DATE}
           </p>
-          <a
+          <ExternalLink
             className={style["link-default"]}
             href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-            rel={"noreferrer"}
-            target={"_blank"}
           >
             {t("info.commit")}&nbsp;
             {CI_COMMIT_SHORT_SHA}
-          </a>
+          </ExternalLink>
         </div>
       </LoginGrid>
     </LoginContainer>

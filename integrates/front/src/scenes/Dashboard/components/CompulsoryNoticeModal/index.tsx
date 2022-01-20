@@ -2,6 +2,7 @@ import { Field, Form, Formik } from "formik";
 import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
@@ -37,13 +38,9 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
           <p>{translate.t("legalNotice.description.legal", { currentYear })}</p>
           <p>
             {translate.t("legalNotice.description.privacy")}
-            <a
-              href={"https://fluidattacks.com/privacy/"}
-              rel={"noopener noreferrer"}
-              target={"_blank"}
-            >
+            <ExternalLink href={"https://fluidattacks.com/privacy/"}>
               {translate.t("legalNotice.description.privacyLinkText")}
-            </a>
+            </ExternalLink>
           </p>
           <Field
             component={FormikCheckbox}

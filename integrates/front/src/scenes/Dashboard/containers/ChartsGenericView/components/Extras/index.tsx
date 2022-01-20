@@ -19,6 +19,7 @@ import {
 
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
+import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
@@ -150,7 +151,8 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                 <div className={styles.toolbarWrapper}>
                   <div className={styles.toolbarCentered}>
                     <ButtonToolbarCenter>
-                      <a
+                      <ExternalLink
+                        // eslint-disable-next-line react/forbid-component-props
                         className={"mr2"}
                         download={`charts-${entity}-${subject}.png`}
                         href={downloadPngUrl.toString()}
@@ -160,7 +162,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                           <FontAwesomeIcon icon={faDownload} />
                           {translate.t("analytics.sections.extras.download")}
                         </Button>
-                      </a>
+                      </ExternalLink>
                       <DropdownButton
                         content={
                           <div className={"tc"}>

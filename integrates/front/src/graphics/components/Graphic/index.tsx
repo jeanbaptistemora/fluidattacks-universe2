@@ -25,6 +25,7 @@ import React, {
   useState,
 } from "react";
 
+import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
 import type { IDocumentValues } from "graphics/components/Graphic/ctx";
 import {
@@ -385,21 +386,19 @@ export const Graphic: React.FC<IGraphicProps> = (
                 />
                 {!_.isUndefined(infoLink) && (
                   <GraphicButton>
-                    <a
+                    <ExternalLink
                       className={"g-a"}
                       href={
                         infoLink +
                         getAdditionalInfoLink(documentName, documentType)
                       }
-                      rel={"noopener noreferrer"}
-                      target={"_blank"}
                     >
                       <FontAwesomeIcon icon={faInfoCircle} />
-                    </a>
+                    </ExternalLink>
                   </GraphicButton>
                 )}
                 <GraphicButton>
-                  <a
+                  <ExternalLink
                     className={"g-a"}
                     download={buildFileName(modalSize)}
                     href={buildUrl(
@@ -413,11 +412,9 @@ export const Graphic: React.FC<IGraphicProps> = (
                       currentDocumentName
                     )}
                     onClick={track}
-                    rel={"noopener noreferrer"}
-                    target={"_blank"}
                   >
                     <FontAwesomeIcon icon={faDownload} />
-                  </a>
+                  </ExternalLink>
                 </GraphicButton>
                 <GraphicButton onClick={modalFrameOnRefresh}>
                   <FontAwesomeIcon icon={faSyncAlt} />
@@ -500,7 +497,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                         />
                         {!_.isUndefined(infoLink) && (
                           <GraphicButton>
-                            <a
+                            <ExternalLink
                               className={"g-a"}
                               href={
                                 infoLink +
@@ -509,15 +506,13 @@ export const Graphic: React.FC<IGraphicProps> = (
                                   documentType
                                 )
                               }
-                              rel={"noopener noreferrer"}
-                              target={"_blank"}
                             >
                               <FontAwesomeIcon icon={faInfoCircle} />
-                            </a>
+                            </ExternalLink>
                           </GraphicButton>
                         )}
                         <GraphicButton>
-                          <a
+                          <ExternalLink
                             className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
                             href={buildUrl(
@@ -531,11 +526,9 @@ export const Graphic: React.FC<IGraphicProps> = (
                               currentDocumentName
                             )}
                             onClick={track}
-                            rel={"noopener noreferrer"}
-                            target={"_blank"}
                           >
                             <FontAwesomeIcon icon={faDownload} />
-                          </a>
+                          </ExternalLink>
                         </GraphicButton>
                         <GraphicButton onClick={frameOnRefresh}>
                           <FontAwesomeIcon icon={faSyncAlt} />

@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import type { ConfigurableValidator } from "revalidate";
 
+import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import type {
@@ -288,17 +289,15 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     <p className={"ws-pre-wrap"}>
                       {reqsList.map((req: string): ReactElement => {
                         return (
-                          <a
+                          <ExternalLink
                             href={`${baseCriteriaUrl}requirements/${req.slice(
                               0,
                               criteriaIdSlice
                             )}`}
                             key={req}
-                            rel={"noopener noreferrer"}
-                            target={"_blank"}
                           >
                             {req}
-                          </a>
+                          </ExternalLink>
                         );
                       })}
                     </p>

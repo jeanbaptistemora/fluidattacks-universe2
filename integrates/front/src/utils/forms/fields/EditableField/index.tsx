@@ -3,6 +3,7 @@ import { Field } from "formik";
 import _ from "lodash";
 import React from "react";
 
+import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Col50,
@@ -37,9 +38,7 @@ const renderCurrentValue: (value: string) => JSX.Element = (
   const isUrl: boolean = _.startsWith(value, "https://");
 
   return isUrl ? (
-    <a href={value} rel={"noopener noreferrer"} target={"_blank"}>
-      {value}
-    </a>
+    <ExternalLink href={value}>{value}</ExternalLink>
   ) : (
     <EditableFieldNotUrl>{value}</EditableFieldNotUrl>
   );
@@ -159,9 +158,7 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
           <br />
           {renderCurrentValue(currentValue)}
           {infoLink ? (
-            <a href={infoLink} rel={"noopener noreferrer"} target={"_blank"}>
-              {infoLinkText}
-            </a>
+            <ExternalLink href={infoLink}>{infoLinkText}</ExternalLink>
           ) : undefined}
         </React.Fragment>
       )}

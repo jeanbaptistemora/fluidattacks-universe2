@@ -5,6 +5,7 @@ import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { ExternalLink } from "components/ExternalLink";
 import {
   ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
@@ -37,13 +38,11 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
             <DropdownButton>
               <div>
                 {t("info.commit")}&nbsp;
-                <a
+                <ExternalLink
                   href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-                  rel={"noopener noreferrer"}
-                  target={"_blank"}
                 >
                   {CI_COMMIT_SHORT_SHA}
-                </a>
+                </ExternalLink>
               </div>
               <small>
                 {t("info.deploymentDate")}&nbsp;
