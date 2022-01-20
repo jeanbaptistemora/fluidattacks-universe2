@@ -13,7 +13,6 @@ from itertools import (
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
@@ -30,7 +29,6 @@ from parse_cfn.loader import (
 )
 from parse_cfn.structure import (
     iter_ec2_instances,
-    iter_ec2_volumes,
     iterate_iam_policy_documents,
 )
 from parse_hcl2.common import (
@@ -96,23 +94,6 @@ def ec2_has_not_termination_protection_iterate_vulnerabilities(
                     yield elem
         if not protection_attr:
             yield resource
-
-
-def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
-    file_ext: str,
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
-) -> Iterator[Union[AWSEC2, Node]]:
-    for ec2_res in ec2_iterator:
-        if "Encrypted" not in ec2_res.raw:
-            yield AWSEC2(
-                column=ec2_res.start_column,
-                data=ec2_res.data,
-                line=get_line_by_extension(ec2_res.start_line, file_ext),
-            )
-        else:
-            vol_encryption = ec2_res.inner.get("Encrypted")
-            if vol_encryption.raw in FALSE_OPTIONS:
-                yield vol_encryption
 
 
 def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
@@ -213,27 +194,6 @@ def _ec2_has_not_termination_protection(
         iterator=get_cloud_iterator(
             ec2_has_not_termination_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)
-            )
-        ),
-        path=path,
-    )
-
-
-def _cfn_ec2_has_unencrypted_volumes(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F333_CWE},
-        description_key="src.lib_path.f333.ec2_has_unencrypted_volumes",
-        finding=_FINDING_F333,
-        iterator=get_cloud_iterator(
-            _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
-                file_ext=file_ext,
-                ec2_iterator=iter_ec2_volumes(template=template),
             )
         ),
         path=path,
@@ -360,24 +320,6 @@ async def ec2_has_not_termination_protection(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def cfn_ec2_has_unencrypted_volumes(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_ec2_has_unencrypted_volumes,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
 async def cfn_ec2_has_not_an_iam_instance_profile(
     content: str,
     file_ext: str,
@@ -454,14 +396,6 @@ async def analyze(
         async for template in load_templates(
             content=content, fmt=file_extension
         ):
-            coroutines.append(
-                cfn_ec2_has_unencrypted_volumes(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
             coroutines.append(
                 cfn_ec2_has_not_an_iam_instance_profile(
                     content=content,

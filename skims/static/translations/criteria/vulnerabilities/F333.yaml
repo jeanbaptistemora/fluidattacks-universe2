@@ -4,9 +4,6 @@ src.lib_path.f333.ec2_has_not_an_iam_instance_profile:
 src.lib_path.f333.iam_has_full_access_to_ssm:
   en: There are policy documents that allow full access to ssm agent
   es: Hay documentos de políticas que permiten el acceso completo al agente ssm
-src.lib_path.f333.ec2_has_unencrypted_volumes:
-  en: Encrypted property should enabled
-  es: La propiedad Encrypted debería habilitada
 lib_path.f333.ec2_allows_shutdown_command:
   en: EC2 Launch Templates allows the shutdown command to terminate the instance
   es: Las plantillas de lanzamiento de EC2 permiten que el comando de apagado termine la instancia
