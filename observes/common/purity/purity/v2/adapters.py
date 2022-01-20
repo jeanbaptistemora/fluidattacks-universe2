@@ -16,7 +16,6 @@ from returns.result import (
     Success,
 )
 from typing import (
-    Any,
     overload,
     TypeVar,
     Union,
@@ -29,11 +28,13 @@ _T = TypeVar("_T")
 
 @overload
 def to_returns(item: Maybe[_T]) -> LegacyMaybe[_T]:
+    # overloaded signature 1
     pass
 
 
 @overload
 def to_returns(item: Result[_S, _F]) -> LegacyResult[_S, _F]:
+    # overloaded signature 2
     pass
 
 
