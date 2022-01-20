@@ -26,6 +26,7 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
+    validations,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -64,6 +65,16 @@ async def mutate(
         )
         closed_vulns_ids = get_key_or_fallback(
             kwargs, "closed_vulnerabilities", "closed_vulns", []
+        )
+        validations.validate_field_length(
+            kwargs.get("justification", ""),
+            limit=10,
+            is_greater_than_limit=True,
+        )
+        validations.validate_field_length(
+            kwargs.get("justification", ""),
+            limit=400,
+            is_greater_than_limit=False,
         )
         success = await findings_domain.verify_vulnerabilities(
             context=info.context,

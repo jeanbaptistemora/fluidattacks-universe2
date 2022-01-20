@@ -230,6 +230,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         }
         isLoading={submittingRequest || submittingVerify}
         isOpen={true}
+        maxJustificationLength={400}
         message={
           isReattacking
             ? translate.t(
