@@ -245,28 +245,13 @@ async def add_git_root(
         ),
     )
 
-    root_credential_type: Optional[str] = kwargs.get("credential_type")
-    if root_credential_type:
-        credential: str = kwargs["credential"]
-        credential = _format_root_credential(root_credential_type, credential)
-        await validations.validate_git_credentials(
-            url, root_credential_type, credential
+    credentials = kwargs.get("credentials")
+    if credentials:
+        credential = _format_root_credential(
+            credentials, group_name, user_email, root.id
         )
-        root_credential = CredentialItem(
-            group_name=group_name,
-            id=str(uuid4()),
-            metadata=CredentialMetadata(
-                type=CredentialType(root_credential_type)
-            ),
-            state=CredentialState(
-                key=credential,
-                modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date(),
-                name=kwargs["credential_name"],
-                roots=[root.id],
-            ),
-        )
-        await creds_model.add(credential=root_credential)
+        await validations.validate_git_credentials(url, credential)
+        await creds_model.add(credential=credential)
 
     await roots_model.add(root=root)
 
@@ -415,13 +400,34 @@ def _format_root_nickname(nickname: str, url: str) -> str:
     return nick
 
 
-def _format_root_credential(credential_type: str, credential: str) -> str:
+def _format_root_credential(
+    credentials: Dict[str, str], group_name: str, user_email: str, root_id: str
+) -> CredentialItem:
+    credential_key = credentials["key"]
+    credential_name = credentials["name"]
+    credential_type = credentials["type"]
+
+    if not credential_name or not hasattr(CredentialType, credential_type):
+        raise InvalidParameter()
+
     if credential_type == "SSH":
-        raw_key: str = base64.b64decode(credential).decode()
+        raw_key: str = base64.b64decode(credential_key).decode()
         if not raw_key.endswith("\n"):
             raw_key += "\n"
-            credential = base64.b64encode(raw_key.encode()).decode()
-    return credential
+            credential_key = base64.b64encode(raw_key.encode()).decode()
+
+    return CredentialItem(
+        group_name=group_name,
+        id=str(uuid4()),
+        metadata=CredentialMetadata(type=CredentialType(credential_type)),
+        state=CredentialState(
+            key=credential_key,
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            name=credential_name,
+            roots=[root_id],
+        ),
+    )
 
 
 async def update_git_environments(

@@ -46,7 +46,7 @@ async def mutate(
     root: GitRootItem = await roots_domain.add_git_root(
         info.context.loaders, user_email, **kwargs
     )
-    if kwargs.get("credential_type"):
+    if kwargs.get("credentials"):
         await batch_dal.put_action(
             action_name="clone_root",
             entity=root.group_name,

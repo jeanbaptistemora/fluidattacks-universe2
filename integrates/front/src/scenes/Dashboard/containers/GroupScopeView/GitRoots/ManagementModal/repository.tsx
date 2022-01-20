@@ -152,7 +152,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         </ControlLabel>
                         <Field
                           component={FormikText}
-                          name={"credentialName"}
+                          name={"credentials.name"}
                           placeholder={t(
                             "group.scope.git.repo.credentials.nameHint"
                           )}
@@ -165,7 +165,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         </ControlLabel>
                         <Field
                           component={FormikDropdown}
-                          name={"credentialType"}
+                          name={"credentials.type"}
                         >
                           <option value={""}>{""}</option>
                           <option value={"SSH"}>
@@ -175,13 +175,13 @@ const Repository: React.FC<IRepositoryProps> = ({
                       </div>
                     </div>
                     <br />
-                    {values.credentialType === "SSH" ? (
+                    {values.credentials.type === "SSH" ? (
                       <React.Fragment>
                         <div className={"flex"}>
                           <div className={"w-100"}>
                             <Field
                               component={FormikTextArea}
-                              name={"credential"}
+                              name={"credentials.key"}
                               type={"text"}
                               validate={required}
                             />

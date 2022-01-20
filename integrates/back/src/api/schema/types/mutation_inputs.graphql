@@ -31,3 +31,13 @@ input MachineFindingResultInput {
   "Vulnerabilities found for finding"
   open: Int!
 }
+
+"Credentials definition"
+input CredentialsInput {
+  "SSH key"
+  key: String!
+  "Name of the credential"
+  name: String!
+  "Type of authentication"
+  type: CredentialType!
+}

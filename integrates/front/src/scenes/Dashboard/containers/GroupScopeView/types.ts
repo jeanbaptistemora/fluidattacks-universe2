@@ -5,9 +5,11 @@ interface IGitRootAttr {
     message: string;
     status: "FAIL" | "OK" | "UNKNOWN";
   };
-  credential: string;
-  credentialName: string;
-  credentialType: "" | "SSH";
+  credentials: {
+    key: string;
+    name: string;
+    type: "" | "SSH";
+  };
   environment: string;
   environmentUrls: string[];
   gitignore: string[];

@@ -164,9 +164,7 @@ function useGitSubmit(
   ) => Promise<FetchResult<unknown>>
 ): ({
   branch,
-  credential,
-  credentialName,
-  credentialType,
+  credentials,
   environment,
   gitignore,
   id,
@@ -177,9 +175,7 @@ function useGitSubmit(
   return useCallback(
     async ({
       branch,
-      credential,
-      credentialName,
-      credentialType,
+      credentials,
       environment,
       gitignore,
       id,
@@ -193,12 +189,13 @@ function useGitSubmit(
           await addGitRoot({
             variables: {
               branch: branch.trim(),
-              credential:
-                credential === ""
-                  ? credential
-                  : Buffer.from(credential).toString("base64"),
-              credentialName,
-              credentialType: credentialType === "" ? null : credentialType,
+              credentials:
+                credentials.key === ""
+                  ? null
+                  : {
+                      ...credentials,
+                      key: Buffer.from(credentials.key).toString("base64"),
+                    },
               environment,
               gitignore,
               groupName,

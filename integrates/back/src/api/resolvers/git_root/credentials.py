@@ -24,4 +24,4 @@ async def resolve(
             name=root_cred.state.name,
             type=root_cred.metadata.type,
         )
-    return None
+    return Credential(id="", name="", type="")
