@@ -156,6 +156,4 @@ def map_roles(
         return "hacker"
     if role == "closer":
         return "reattacker"
-    if role == "group_manager":
-        return "system_owner"
     return role

@@ -587,7 +587,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                 # Admins are not granted access to the group
                 # they are omnipresent
                 if not is_user_admin:
-                    # Only Fluid staff can be system owners
+                    # Only Fluid staff can be customer managers
                     # Customers are granted the user manager role
                     role: str = (
                         "system_owner"

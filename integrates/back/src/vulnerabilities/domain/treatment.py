@@ -441,7 +441,7 @@ async def update_vulnerabilities_treatment(
         updated_values["assigned"] = await get_valid_assigned(
             assigned=updated_values["assigned"],
             is_customer_admin=role
-            in {"customeradmin", "system_owner", "group_manager"},
+            in {"customeradmin", "system_owner", "customer_manager"},
             user_email=user_email,
             group_name=group_name,
         )

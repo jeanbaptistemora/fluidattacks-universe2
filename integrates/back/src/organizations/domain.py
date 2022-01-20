@@ -169,21 +169,21 @@ async def add_group(organization_id: str, group: str) -> bool:
                     user, group, "system_owner"
                 )
                 for user, user_role in zip(users, users_roles)
-                if user_role in {"system_owner", "group_manager"}
+                if user_role in {"customer_manager", "system_owner"}
             )
         )
     return success
 
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
-    # Check for system owner granting requirements
+    # Check for customer manager granting requirements
     validate_role_fluid_reqs(email, role)
     success = await orgs_dal.add_user(
         organization_id, email
     ) and await authz.grant_organization_level_role(
         email, organization_id, role
     )
-    if success and role in {"system_owner", "group_manager"}:
+    if success and role in {"system_owner", "customer_manager"}:
         groups = await get_groups(organization_id)
         success = success and all(
             await collect(
