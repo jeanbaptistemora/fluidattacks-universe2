@@ -22109,13 +22109,13 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247.
   16 |   }
   17 | }
      ^ Col 0
-",f247._tfm_ebs_unencrypted_volumes
+",terraform.tfm_ebs_unencrypted_volumes
 F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,2,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ebs_encryption_by_default.tf,"
   1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
 > 2 |   enabled = false
   3 | }
     ^ Col 0
-",f247._tfm_ebs_unencrypted_by_default
+",terraform.tfm_ebs_unencrypted_by_default
 F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,14,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
    4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
    5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
@@ -22139,7 +22139,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,14,311,skims,247.
   23 |     iops                  = 150
   24 |     volume_size           = 50
      ^ Col 0
-",f247._tfm_ec2_unencrypted_volumes
+",terraform.tfm_ec2_unencrypted_volumes
 F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
    8 |
    9 |   vpc_security_group_ids = [
@@ -22163,7 +22163,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,21,311,skims,247.
   27 |
   28 | }
      ^ Col 0
-",f247._tfm_ec2_unencrypted_volumes
+",terraform.tfm_ec2_unencrypted_volumes
 F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_fsx.tf,"
 >  1 | resource ""aws_fsx_windows_file_system"" ""example"" {
    2 |
@@ -22179,7 +22179,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. 
   12 |   }
   13 | }
      ^ Col 0
-",f247._tfm_fsx_unencrypted_volumes
+",terraform.tfm_fsx_unencrypted_volumes
 F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
    1 | Resources:
    2 |   NewVolume1:
