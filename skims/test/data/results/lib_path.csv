@@ -1954,7 +1954,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skim
   13 |   }
   14 | }
      ^ Col 0
-",f177._ec2_use_default_security_group
+",ec2_use_default_security_group.ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,1,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf","
 >  1 | resource ""aws_launch_template"" ""foo"" {
@@ -1979,7 +1979,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,1,
   20 |
   21 |   credit_specification {
      ^ Col 0
-",f177._ec2_use_default_security_group
+",ec2_use_default_security_group.ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf","
   12 |   disable_api_termination = true
@@ -2004,7 +2004,7 @@ F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   31 |
   32 |   disable_api_termination = true
      ^ Col 0
-",f177._ec2_use_default_security_group
+",ec2_use_default_security_group.ec2_use_default_security_group
 F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. Insecure service configuration - EC2,EC2 Launch Templates allows the shutdown command to terminate the instance in namespace/skims/test/data/lib_path/f333/ec2_test.tf,"
   34 |   elastic_inference_accelerator {
   35 |     type = ""eia1.medium""
@@ -2835,7 +2835,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -2860,7 +2860,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -2885,7 +2885,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -2910,7 +2910,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    36 |           {
@@ -2935,7 +2935,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    47 |             ""ToPort"": 65535,
@@ -2960,7 +2960,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
    1 | Resources:
@@ -2985,7 +2985,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3010,7 +3010,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -3035,7 +3035,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -3060,7 +3060,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    22 |             ""ToPort"": 22,
    23 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
    36 |           {
@@ -3085,7 +3085,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
    47 |             ""ToPort"": 21,
@@ -3110,7 +3110,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
    1 | Resources:
@@ -3135,7 +3135,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3160,7 +3160,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -3185,7 +3185,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    22 |             ""ToPort"": 3307,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
    36 |           {
@@ -3210,7 +3210,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_ftp_access
+",cfn_ec2_has_unrestricted_ftp_access.cfn_ec2_has_unrestricted_ftp_access
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,26,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
   16 |           ToPort: 22
@@ -3235,7 +3235,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
    28 |     ""InstanceSecurityGroup2"": {
@@ -3260,7 +3260,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
    47 |             ""ToPort"": 21,
    48 |             ""CidrIp"": ""172.16.0.0/12""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -3285,7 +3285,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3310,7 +3310,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -3335,7 +3335,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -3360,7 +3360,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    36 |           {
@@ -3385,7 +3385,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    47 |             ""ToPort"": 65535,
@@ -3410,7 +3410,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml","
    1 | Resources:
@@ -3435,7 +3435,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3460,7 +3460,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -3485,7 +3485,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -3510,7 +3510,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
    22 |             ""ToPort"": 80,
    23 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json","
    36 |           {
@@ -3535,7 +3535,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_access.yaml.json","
    47 |             ""ToPort"": 60,
@@ -3560,7 +3560,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_dns_
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,26,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
   16 |           ToPort: 22
@@ -3585,7 +3585,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,38,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
    28 |     ""InstanceSecurityGroup2"": {
@@ -3610,7 +3610,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    47 |             ""ToPort"": 21,
    48 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3635,7 +3635,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
    36 |           {
@@ -3660,7 +3660,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_unrestricted_dns_access
+",cfn_ec2_has_unrestricted_dns_access.cfn_ec2_has_unrestricted_dns_access
 F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf","
 >  1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
@@ -3859,7 +3859,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -3884,7 +3884,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -3909,7 +3909,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -3934,7 +3934,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    36 |           {
@@ -3959,7 +3959,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    47 |             ""ToPort"": 65535,
@@ -3984,7 +3984,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -4009,7 +4009,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
    36 |           {
@@ -4034,7 +4034,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_has_open_all_ports_to_the_public
+",cfn_ec2_has_open_all_ports_to_the_public.cfn_ec2_has_open_all_ports_to_the_public
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,15,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
    5 |         GroupDescription: Allow http to client host
@@ -4059,7 +4059,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
   24 |         SecurityGroupIngress:
   25 |         - IpProtocol: tcp
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,82,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
   71 |         - SourceSG
@@ -4084,7 +4084,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
   90 |         - TargetSG
   91 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,21,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
    11 |           {
@@ -4109,7 +4109,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
    30 |       ""Properties"": {
    31 |         ""GroupDescription"": ""Allow http to client host"",
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,119,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json","
   109 |             ""GroupId""
@@ -4134,7 +4134,7 @@ F177,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_i
   128 |           ""Fn::GetAtt"": [
   129 |             ""TargetSG"",
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
    1 | Resources:
@@ -4159,7 +4159,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   20 |   securityGroup3:
   21 |     Properties:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
   15 |     Type: AWS::EC2::SecurityGroup
@@ -4184,7 +4184,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   34 |         Ref: securityGroup2
   35 |       GroupName: securityGroup2
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,32,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
   22 |       GroupDescription: groupDescription1
@@ -4209,7 +4209,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   41 |     Properties:
   42 |       CidrIp:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,9,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
    1 | {
@@ -4234,7 +4234,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   20 |           }
   21 |         ]
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,37,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
   27 |         ""GroupDescription"": ""groupDescription2""
@@ -4259,7 +4259,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   46 |       ""Properties"": {
   47 |         ""CidrIpv6"": ""::/0"",
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,48,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
   38 |             ""IpProtocol"": ""tcp"",
@@ -4284,7 +4284,7 @@ F177,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   57 |       },
   58 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
   15 |     Type: AWS::EC2::SecurityGroup
@@ -4309,7 +4309,7 @@ F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   34 |   securityGroupEgress1:
   35 |     Properties:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,55,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
   45 |       CidrIpv6: ::/0
@@ -4334,7 +4334,7 @@ F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   64 |     Properties:
   65 |       CidrIp:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
    27 |         ""GroupDescription"": ""groupDescription2""
@@ -4359,7 +4359,7 @@ F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    46 |             ""IpProtocol"": ""tcp"",
    47 |             ""ToPort"": 8080
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
    70 |           ""Ref"": ""securityGroup2""
@@ -4384,7 +4384,7 @@ F177,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    89 |       },
    90 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -4409,7 +4409,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -4434,7 +4434,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml,38,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml","
   28 |           CidrIp: 0.0.0.0/0
@@ -4459,7 +4459,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
   47 |         - SourceSG
   48 |         - GroupId
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -4484,7 +4484,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    36 |           {
@@ -4509,7 +4509,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,57,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to_the_public.yaml.json","
    47 |             ""ToPort"": 65535,
@@ -4534,7 +4534,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_open_all_ports_to
    66 |         ""GroupId"": {
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
    1 | Resources:
@@ -4559,7 +4559,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml,15,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml","
    5 |         GroupDescription: Allow http to client host
@@ -4584,7 +4584,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
   24 |         SecurityGroupIngress:
   25 |         - IpProtocol: tcp
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -4609,7 +4609,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    22 |             ""ToPort"": 22,
    23 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json,21,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_access.yaml.json","
    11 |           {
@@ -4634,7 +4634,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_has_unrestricted_ftp_
    30 |       ""Properties"": {
    31 |         ""GroupDescription"": ""Allow http to client host"",
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,10,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
    1 | Resources:
@@ -4659,7 +4659,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   20 |     Properties:
   21 |         GroupDescription: Allow http to client host
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,26,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
   16 |           ToPort: 3307
@@ -4684,7 +4684,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml,31,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml","
   21 |         GroupDescription: Allow http to client host
@@ -4709,7 +4709,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
      ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,13,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
     3 |     ""InstanceSecurityGroup"": {
@@ -4734,7 +4734,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    22 |             ""ToPort"": 3307,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,38,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
    28 |     ""InstanceSecurityGroup2"": {
@@ -4759,7 +4759,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json,46,16,skims,177. Insecure service configuration - Security Groups,"SecurityGroup allows connection from internet to admin services
  in namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_admin_ports.yaml.json","
    36 |           {
@@ -4784,7 +4784,7 @@ F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_sg_allows_anyone_to_a
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
       ^ Col 0
-",f177._cfn_ec2_sg_allows_anyone_to_admin_ports
+",cfn_ec2_sg_allows_anyone_to_admin_ports.cfn_ec2_sg_allows_anyone_to_admin_ports
 F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,16,skims,333. Insecure service configuration - EC2,"The EC2 instance does not define the API termination resource which by default is set to false, allowing it to be terminated or stopped at any time from the AWS console, the client or the API.
  in namespace/skims/test/data/lib_path/f333/ec2_test.tf","
   16 |
