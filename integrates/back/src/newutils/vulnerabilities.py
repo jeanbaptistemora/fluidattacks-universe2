@@ -433,7 +433,7 @@ def get_ranges(numberlist: List[int]) -> str:
 async def get_reattack_requester(
     loaders: Any,
     vuln: Vulnerability,
-) -> str:
+) -> Optional[str]:
     historic_verification: Tuple[
         FindingVerification, ...
     ] = await loaders.finding_historic_verification.load(vuln.finding_id)
@@ -445,7 +445,7 @@ async def get_reattack_requester(
             and vuln.id in verification.vulnerability_ids
         ):
             return verification.modified_by
-    return ""
+    return None
 
 
 async def get_report_dates(
