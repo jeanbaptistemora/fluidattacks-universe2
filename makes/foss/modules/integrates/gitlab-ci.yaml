@@ -162,6 +162,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/authz-matrix:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/deploy/permissions_matrix
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.02
   interruptible: true
   needs: []

@@ -179,7 +179,13 @@ in
         }
         {
           output = "/integrates/back/authz-matrix";
-          gitlabExtra = gitlabDeployAppDev;
+          gitlabExtra = gitlabDeployAppDev // {
+            artifacts = {
+              paths = [ "integrates/deploy/permissions_matrix" ];
+              expire_in = "1 day";
+              when = "on_success";
+            };
+          };
         }
         {
           output = "/integrates/back/deploy/dev";
