@@ -470,6 +470,14 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Remove a payment method for an organization"
+  removeBillingPaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Payment Method id"
+    paymentMethodId: String!
+  ): SimplePayload!
+
   "Remove a subscription for a group and make it free"
   removeBillingSubscription("Group name" groupName: String!): SimplePayload!
 

@@ -255,6 +255,18 @@ async def set_default_payment_method(
     return data.invoice_settings.default_payment_method == payment_method_id
 
 
+async def remove_payment_method(
+    *,
+    payment_method_id: str,
+) -> bool:
+    return (
+        stripe.PaymentMethod.detach(
+            payment_method_id,
+        ).customer
+        is None
+    )
+
+
 async def remove_subscription(
     *,
     subscription_id: str,

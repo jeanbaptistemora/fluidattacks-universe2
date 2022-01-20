@@ -16,6 +16,7 @@ from custom_exceptions import (
     BillingGroupWithoutSubscription,
     BillingSubscriptionSameActive,
     InvalidBillingCustomer,
+    InvalidBillingPaymentMethod,
 )
 from dataloaders import (
     get_new_context,
@@ -265,9 +266,9 @@ async def update_subscription(
         raise BillingSubscriptionSameActive()
 
     # Report usage if subscription is squad
-    report: bool = True
+    result: bool = True
     if "squad" in subs.keys():
-        report = await dal.report_subscription_usage(
+        result = await dal.report_subscription_usage(
             subscription=subs["squad"],
         )
 
@@ -278,12 +279,36 @@ async def update_subscription(
             org_name=org_name,
             group_name=group_name,
         )
-        return report and await dal.create_subscription(**data)
-
-    return report and await dal.remove_subscription(
+        result = result and await dal.create_subscription(**data)
+    result = result and await dal.remove_subscription(
         subscription_id=subs["squad"].id,
         invoice_now=True,
         prorate=True,
+    )
+
+    return result
+
+
+async def remove_payment_method(
+    *,
+    org_billing_customer: str,
+    payment_method_id: str,
+) -> bool:
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    data: List[PaymentMethod] = await customer_payment_methods(
+        org_billing_customer=org_billing_customer,
+        limit=1000,
+    )
+
+    # Raise exception if payment method does not belong to organization
+    if payment_method_id not in [item.id for item in data]:
+        raise InvalidBillingPaymentMethod()
+
+    return await dal.remove_payment_method(
+        payment_method_id=payment_method_id,
     )
 
 
