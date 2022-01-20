@@ -1,8 +1,17 @@
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from lib_apk import (
     analyze_bytecodes,
 )
 from model import (
     core_model,
+)
+from more_itertools.more import (
+    collapse,
+)
+from os import (
+    cpu_count,
 )
 from parse_android_manifest import (
     get_apk_context,
@@ -18,6 +27,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Iterable,
     Set,
     Tuple,
 )
@@ -28,10 +38,7 @@ from utils.fs import (
     resolve_paths,
 )
 from utils.function import (
-    shield,
-)
-from utils.logs import (
-    log,
+    shield_blocking,
 )
 
 CHECKS: Tuple[
@@ -46,39 +53,32 @@ CHECKS: Tuple[
 ] = ((resolve_check_ctx, analyze_bytecodes.CHECKS),)
 
 
-@shield(on_error_return=[])
-async def analyze_one(
-    *,
+@shield_blocking(on_error_return=[])
+def analyze_one(
     apk_ctx: APKContext,
-    index: int,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
-    count: int,
-) -> None:
-    await log("info", "Analyzing APK %s of %s: %s", index, count, apk_ctx.path)
-
-    for get_check_ctx, checks in CHECKS:
-        for finding, check in checks.items():
-            if finding in CTX.config.checks:
-                for vulnerability in check(get_check_ctx(apk_ctx)):
-                    stores[vulnerability.finding].store(vulnerability)
+) -> Tuple[core_model.Vulnerability, ...]:
+    return tuple(
+        vulnerability
+        for get_check_ctx, checks in CHECKS
+        for finding, check in checks.items()
+        if finding in CTX.config.checks and apk_ctx.apk_obj is not None
+        for vulnerability in check(get_check_ctx(apk_ctx))
+    )
 
 
-async def get_apk_contexts() -> Set[APKContext]:
-    apk_contexts: Set[APKContext] = set()
-
+def get_apk_contexts() -> Iterable[APKContext]:
     unique_paths, unique_nu_paths, unique_nv_paths = resolve_paths(
         exclude=CTX.config.apk.exclude,
         include=CTX.config.apk.include,
     )
 
-    for path in unique_paths | unique_nu_paths | unique_nv_paths:
+    paths = list(unique_paths | unique_nu_paths | unique_nv_paths)
+    for result in (get_apk_context(path) for path in paths):
+        if result:
+            yield result
 
-        apk_contexts.add(await get_apk_context(path))
 
-    return apk_contexts
-
-
-async def analyze(
+def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
@@ -89,14 +89,19 @@ async def analyze(
     ):
         return
 
-    unique_apk_contexts: Set[APKContext] = await get_apk_contexts()
-    count: int = len(unique_apk_contexts)
-
-    for index, apk_ctx in enumerate(unique_apk_contexts):
-        # Intentional await-inside-for in order to reduce memory consumption
-        await analyze_one(
-            apk_ctx=apk_ctx,
-            index=index,
-            stores=stores,
-            count=count,
+    unique_apk_contexts: Set[APKContext] = set(get_apk_contexts())
+    vulnerabilities: Tuple[core_model.Vulnerability, ...] = tuple(
+        collapse(
+            (analyze_one(x) for x in unique_apk_contexts),
+            base_type=core_model.Vulnerability,
+        )
+    )
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        list(
+            worker.map(
+                lambda x: stores[  # pylint: disable=unnecessary-lambda
+                    x.finding
+                ].store(x),
+                vulnerabilities,
+            )
         )

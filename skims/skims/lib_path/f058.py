@@ -26,7 +26,7 @@ from typing import (
 async def check(
     path: str,
 ) -> core_model.Vulnerabilities:
-    apk_ctx: APKContext = await get_apk_context(path)
+    apk_ctx: APKContext = get_apk_context(path)
     apk_check_ctx: APKCheckCtx = get_check_ctx(apk_ctx)
     return await in_process(
         _apk_debugging_enabled,

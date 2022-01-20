@@ -97,7 +97,13 @@ async def log_exception(
 def log_to_remote_blocking(
     *,
     msg: Union[
-        str, Exception, Tuple[BaseException, BaseException, TracebackType]
+        str,
+        Exception,
+        Tuple[
+            Optional[Type[BaseException]],
+            Optional[BaseException],
+            Optional[TracebackType],
+        ],
     ],
     severity: str,  # info, error, warning
     **meta_data: str,

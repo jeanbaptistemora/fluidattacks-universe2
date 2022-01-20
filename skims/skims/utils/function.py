@@ -14,6 +14,9 @@ from more_itertools import (
     mark_ends,
 )
 import sys
+from time import (
+    sleep as sleep_blocking,
+)
 import traceback
 from typing import (
     Any,
@@ -30,7 +33,9 @@ from utils.env import (
 )
 from utils.logs import (
     log,
+    log_blocking,
     log_to_remote,
+    log_to_remote_blocking,
 )
 
 # Constants
@@ -142,6 +147,63 @@ def shield(
 
                     await log("info", "retry #%s: %s", number, function_id)
                     await sleep(sleep_between_retries)
+
+        return cast(TFun, wrapper)
+
+    return decorator
+
+
+def shield_blocking(
+    *,
+    on_error_return: Any = RAISE,
+    on_exceptions: Tuple[Type[BaseException], ...] = (
+        BaseException,
+        RetryAndFinallyReturn,
+    ),
+    retries: int = 1,
+    sleep_between_retries: int = 0,
+) -> Callable[[TFun], TFun]:
+    if retries < 1:
+        raise ValueError("retries must be >= 1")
+
+    def decorator(function: TFun) -> TFun:
+        @functools.wraps(function)
+        def wrapper(  # pylint: disable=inconsistent-return-statements
+            *args: Any, **kwargs: Any
+        ) -> Any:
+            function_id = get_id(function)
+
+            for _, is_last, number in mark_ends(range(retries)):
+                try:
+                    return function(*args, **kwargs)
+                except on_exceptions as exc:
+                    exc_type, exc_value, exc_taceback = sys.exc_info()
+                    log_to_remote_blocking(
+                        msg=(exc_type, exc_value, exc_taceback),
+                        severity="error",
+                        function_id=function_id,
+                        retry=number,
+                    )
+
+                    msg: str = "Function: %s, %s: %s\n%s"
+                    log_blocking(
+                        "warning",
+                        msg,
+                        function_id,
+                        type(exc_type).__name__,
+                        exc_value,
+                        traceback.format_exc(),
+                    )
+
+                    if is_last or isinstance(exc, StopRetrying):
+                        if isinstance(exc, RetryAndFinallyReturn):
+                            return exc.args[0]
+                        if on_error_return is RAISE:
+                            raise exc
+                        return on_error_return
+
+                    log_blocking("info", "retry #%s: %s", number, function_id)
+                    sleep_blocking(sleep_between_retries)
 
         return cast(TFun, wrapper)
 

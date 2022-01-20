@@ -78,7 +78,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     }
 
     if CTX.config.apk.include:
-        await analyze_apk(stores=stores)
+        analyze_apk(stores=stores)
     if CTX.config.http.include:
         await analyze_http(stores=stores)
     if CTX.config.path.include:

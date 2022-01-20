@@ -257,7 +257,7 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-async def get_apk_context(path: str) -> APKContext:
+def get_apk_context(path: str) -> APKContext:
     apk_obj: Optional[APK] = None
     apk_manifest: Optional[BeautifulSoup] = None
     analysis: Optional[Analysis] = None
