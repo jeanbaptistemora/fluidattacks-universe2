@@ -43,7 +43,17 @@
           "type": "array",
           "items": { "type": "string", "pattern": "^[0-9]+\\.[-_:a-zA-Z0-9]+$" }
         },
-        "metadata": { "type": "object" }
+        "metadata": { "type": "object" },
+        "tested_in": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [ "machine", "squad", "oneshot" ],
+          "properties": {
+            "machine": { "type": "boolean" },
+            "squad": { "type": "boolean" },
+            "oneshot": { "type": "boolean" }
+         }
+       }
       }
     }
   },
