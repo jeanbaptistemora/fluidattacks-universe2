@@ -116,32 +116,57 @@ async def populate_indicators_by_vuln(
     )
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
-    indicators = VulnerabilityUnreliableIndicatorsToUpdate(
-        unreliable_efficacy=result.get(EntityAttr.efficacy),
-        unreliable_last_reattack_date=result.get(
-            EntityAttr.last_reattack_date
-        ),
-        unreliable_last_reattack_requester=result.get(
-            EntityAttr.last_reattack_requester
-        ),
-        unreliable_last_requested_reattack_date=result.get(
-            EntityAttr.last_requested_reattack_date
-        ),
-        unreliable_reattack_cycles=result.get(EntityAttr.reattack_cycles),
-        unreliable_treatment_changes=result.get(EntityAttr.treatment_changes),
-        unreliable_report_date=_format_datetime_iso_format(
-            result.get(EntityAttr.report_date)
-        ),
-        unreliable_source=result.get(EntityAttr.source),
-    )
-    await vulns_model.update_unreliable_indicators(
-        current_value=vulnerability,
-        indicators=indicators,
-    )
+    current_indicators = vulnerability.unreliable_indicators
+    if (
+        result.get(EntityAttr.efficacy),
+        result.get(EntityAttr.last_reattack_date),
+        result.get(EntityAttr.last_reattack_requester),
+        result.get(EntityAttr.last_requested_reattack_date),
+        result.get(EntityAttr.reattack_cycles),
+        result.get(EntityAttr.treatment_changes),
+        _format_datetime_iso_format(result.get(EntityAttr.report_date)),
+        result.get(EntityAttr.source),
+    ) != (
+        current_indicators.unreliable_efficacy,
+        current_indicators.unreliable_last_reattack_date,
+        current_indicators.unreliable_last_reattack_requester,
+        current_indicators.unreliable_last_requested_reattack_date,
+        current_indicators.unreliable_reattack_cycles,
+        current_indicators.unreliable_treatment_changes,
+        current_indicators.unreliable_report_date,
+        current_indicators.unreliable_source,
+    ):
+        indicators = VulnerabilityUnreliableIndicatorsToUpdate(
+            unreliable_efficacy=result.get(EntityAttr.efficacy),
+            unreliable_last_reattack_date=result.get(
+                EntityAttr.last_reattack_date
+            ),
+            unreliable_last_reattack_requester=result.get(
+                EntityAttr.last_reattack_requester
+            ),
+            unreliable_last_requested_reattack_date=result.get(
+                EntityAttr.last_requested_reattack_date
+            ),
+            unreliable_reattack_cycles=result.get(EntityAttr.reattack_cycles),
+            unreliable_treatment_changes=result.get(
+                EntityAttr.treatment_changes
+            ),
+            unreliable_report_date=_format_datetime_iso_format(
+                result.get(EntityAttr.report_date)
+            ),
+            unreliable_source=result.get(EntityAttr.source),
+        )
+        await vulns_model.update_unreliable_indicators(
+            current_value=vulnerability,
+            indicators=indicators,
+        )
 
 
 @retry_on_exceptions(
-    exceptions=(IndicatorAlreadyUpdated,),
+    exceptions=(
+        IndicatorAlreadyUpdated,
+        ClientConnectorError,
+    ),
 )
 async def populate_indicators_by_finding(finding: Finding) -> None:
     loaders = get_new_context()
@@ -154,15 +179,13 @@ async def populate_indicators_by_finding(finding: Finding) -> None:
                 loaders=loaders, vulnerability=vulnerability
             )
             for vulnerability in vulnerabilities
-        )
+        ),
+        workers=500,
     )
 
 
 @retry_on_exceptions(
-    exceptions=(
-        HTTPClientError,
-        ClientConnectorError,
-    ),
+    exceptions=(HTTPClientError,),
     sleep_seconds=10,
 )
 async def populate_indicators_by_group(
@@ -176,8 +199,11 @@ async def populate_indicators_by_group(
     ] = await loaders.group_removed_findings.load(group_name)
     all_findings = group_drafts_and_findings + group_removed_findings
     await collect(
-        populate_indicators_by_finding(finding=finding)
-        for finding in all_findings
+        tuple(
+            populate_indicators_by_finding(finding=finding)
+            for finding in all_findings
+        ),
+        workers=10,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
