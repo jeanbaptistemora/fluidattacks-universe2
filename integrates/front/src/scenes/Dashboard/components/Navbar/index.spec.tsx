@@ -104,7 +104,12 @@ describe("Navbar", (): void => {
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
             <Navbar
-              taskState={false}
+              meVulnerabilitiesAssigned={{
+                me: {
+                  userEmail: "",
+                  vulnerabilitiesAssigned: [],
+                },
+              }}
               userData={{
                 me: {
                   organizations: [
@@ -197,7 +202,7 @@ describe("Navbar", (): void => {
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
             <Navbar
-              taskState={false}
+              meVulnerabilitiesAssigned={undefined}
               userData={undefined}
               userRole={"customer"}
             />
@@ -280,7 +285,7 @@ describe("Navbar", (): void => {
             value={{ userEmail: "test@fluidattacks.com", userName: "" }}
           >
             <Navbar
-              taskState={false}
+              meVulnerabilitiesAssigned={undefined}
               userData={undefined}
               userRole={"customer"}
             />

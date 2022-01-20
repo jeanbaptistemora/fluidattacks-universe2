@@ -1,10 +1,17 @@
-import type { IGetUserOrganizationsGroups } from "scenes/Dashboard/types";
+import type { ApolloQueryResult } from "@apollo/client";
+
+import type {
+  IGetMeVulnerabilitiesAssigned,
+  IGetUserOrganizationsGroups,
+} from "scenes/Dashboard/types";
 
 interface ITasksContent {
+  meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
   userData: IGetUserOrganizationsGroups | undefined;
-  setTaskState: (taskState: boolean) => void;
+  refetchVulnerabilitiesAssigned: () => Promise<
+    ApolloQueryResult<IGetMeVulnerabilitiesAssigned>
+  >;
   setUserRole: (userRole: string | undefined) => void;
-  taskState: boolean;
 }
 
 interface IAction {

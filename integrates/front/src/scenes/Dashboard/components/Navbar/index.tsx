@@ -12,25 +12,22 @@ import { UserProfile } from "./UserProfile";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type {
-  IAction,
-  IGroupAction,
-} from "scenes/Dashboard/containers/Tasks/types";
-import type {
+  IGetMeVulnerabilitiesAssigned,
   IGetUserOrganizationsGroups,
   IOrganizationGroups,
 } from "scenes/Dashboard/types";
 import { Can } from "utils/authz/Can";
 
 interface INavbarProps {
-  taskState: boolean;
   userRole: string | undefined;
   userData: IGetUserOrganizationsGroups | undefined;
+  meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
 }
 
 export const Navbar: React.FC<INavbarProps> = ({
   userRole,
   userData,
-  taskState,
+  meVulnerabilitiesAssigned,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
   const groups =
@@ -46,16 +43,6 @@ export const Navbar: React.FC<INavbarProps> = ({
           ],
           []
         );
-  const groupActions = groups.map(
-    (group): IGroupAction => ({
-      actions: group.permissions.map(
-        (action: string): IAction => ({
-          action,
-        })
-      ),
-      groupName: group.name,
-    })
-  );
 
   return (
     <React.StrictMode>
@@ -77,13 +64,9 @@ export const Navbar: React.FC<INavbarProps> = ({
               <NewsWidget />
             </TooltipWrapper>
           </li>
-          {groups.length <= 0 ? (
-            <li />
-          ) : (
-            <li>
-              <TaskInfo groups={groupActions} taskState={taskState} />
-            </li>
-          )}
+          <li>
+            <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
+          </li>
           <li>
             <HelpWidget groups={groups} />
           </li>

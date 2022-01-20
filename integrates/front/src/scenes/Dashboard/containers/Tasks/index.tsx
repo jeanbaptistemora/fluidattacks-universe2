@@ -26,11 +26,7 @@ import type {
   IGroupAction,
   ITasksContent,
 } from "scenes/Dashboard/containers/Tasks/types";
-import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
-import type {
-  IGetVulnsGroups,
-  IOrganizationGroups,
-} from "scenes/Dashboard/types";
+import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import globalStyle from "styles/global.css";
 import { Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
@@ -38,9 +34,9 @@ import { useStoredState } from "utils/hooks";
 
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,
-  setTaskState,
+  meVulnerabilitiesAssigned,
   setUserRole,
-  taskState,
+  refetchVulnerabilitiesAssigned,
 }: ITasksContent): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -66,7 +62,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
   );
-  const [allData] = useContext(AssignedVulnerabilitiesContext);
 
   const changePermissions = useCallback(
     (groupName: string): void => {
@@ -163,9 +158,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
     []
   );
 
-  const refreshAssigned: () => void = useCallback((): void => {
-    setTaskState(!taskState);
-  }, [setTaskState, taskState]);
+  const refreshAssigned: () => void = useCallback(async (): Promise<void> => {
+    await refetchVulnerabilitiesAssigned();
+  }, [refetchVulnerabilitiesAssigned]);
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -174,16 +169,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
   }
 
   const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
-    _.flatten(
-      allData.map((group: IGetVulnsGroups): IVulnRowAttr[] =>
-        group.group.vulnerabilitiesAssigned.map(
-          (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
-            ...vulnerability,
-            groupName: group.group.name,
-          })
-        )
-      )
-    )
+    meVulnerabilitiesAssigned === undefined || userData === undefined
+      ? []
+      : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned
   );
 
   const onTreatmentChange = (

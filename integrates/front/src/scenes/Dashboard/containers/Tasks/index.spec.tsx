@@ -30,9 +30,14 @@ describe("VulnerabilitiesView", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route path={"/todos"}>
               <TasksContent
-                setTaskState={jest.fn()}
+                meVulnerabilitiesAssigned={{
+                  me: {
+                    userEmail: "",
+                    vulnerabilitiesAssigned: [],
+                  },
+                }}
+                refetchVulnerabilitiesAssigned={jest.fn()}
                 setUserRole={jest.fn()}
-                taskState={true}
                 userData={{
                   me: {
                     organizations: [{ groups: [], name: "orgtest" }],

@@ -37,11 +37,13 @@ import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
+  GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER,
   GET_USER_ORGANIZATIONS_GROUPS,
 } from "scenes/Dashboard/queries";
 import type {
   IAssignedVulnerabilitiesContext,
+  IGetMeVulnerabilitiesAssigned,
   IGetUserOrganizationsGroups,
   IGetVulnsGroups,
   IUser,
@@ -84,7 +86,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
-  const [taskState, setTaskState] = useState<boolean>(true);
   const [assigedVulnerabilities, setAssigedVulnerabilities] = useState<
     IGetVulnsGroups[]
   >([]);
@@ -156,6 +157,21 @@ export const Dashboard: React.FC = (): JSX.Element => {
       },
     }
   );
+
+  const {
+    data: meVulnerabilitiesAssigned,
+    refetch: refetchVulnerabilitiesAssigned,
+  } = useQuery<IGetMeVulnerabilitiesAssigned>(GET_ME_VULNERABILITIES_ASSIGNED, {
+    fetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        Logger.warning(
+          "An error occurred fetching vulnerabilities assigned from dashboard",
+          error
+        );
+      });
+    },
+  });
 
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -240,7 +256,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 <AssignedVulnerabilitiesContext.Provider value={value}>
                   <DashboardHeader>
                     <Navbar
-                      taskState={taskState}
+                      meVulnerabilitiesAssigned={meVulnerabilitiesAssigned}
                       userData={userData}
                       userRole={userRole}
                     />
@@ -278,9 +294,13 @@ export const Dashboard: React.FC = (): JSX.Element => {
                           value={groupLevelPermissions}
                         >
                           <TasksContent
-                            setTaskState={setTaskState}
+                            meVulnerabilitiesAssigned={
+                              meVulnerabilitiesAssigned
+                            }
+                            refetchVulnerabilitiesAssigned={
+                              refetchVulnerabilitiesAssigned
+                            }
                             setUserRole={setUserRole}
-                            taskState={taskState}
                             userData={userData}
                           />
                         </authzPermissionsContext.Provider>

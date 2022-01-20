@@ -90,10 +90,24 @@ const GET_VULNS_GROUPS: DocumentNode = gql`
   ${VULNS_FRAGMENT}
 `;
 
+const GET_ME_VULNERABILITIES_ASSIGNED: DocumentNode = gql`
+  query GetMeVulnerabilitiesAssigned {
+    me(callerOrigin: "FRONT") {
+      vulnerabilitiesAssigned {
+        groupName
+        ...vulnFields
+      }
+      userEmail
+    }
+  }
+  ${VULNS_FRAGMENT}
+`;
+
 export {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
   ADD_STAKEHOLDER_MUTATION,
+  GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER,
   GET_ORG_LEVEL_PERMISSIONS,
   GET_GROUP_LEVEL_PERMISSIONS,

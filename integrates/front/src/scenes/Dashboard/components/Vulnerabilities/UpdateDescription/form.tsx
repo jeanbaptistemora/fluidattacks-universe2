@@ -1,4 +1,4 @@
-import { useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -34,7 +34,6 @@ import { TreatmentField } from "./TreatmentField";
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { Button } from "components/Button";
-import { mergedAssigned } from "scenes/Dashboard/components/Navbar/Tasks/utils";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateTreatmentVulnerabilityForm,
@@ -66,9 +65,7 @@ import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
-import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
-import type { IGetVulnsGroups } from "scenes/Dashboard/types";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
@@ -114,8 +111,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const [isRunning, setRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
-  const [, setAllData] = useContext(AssignedVulnerabilitiesContext);
-  const client = useApolloClient();
 
   const {
     dirty,
@@ -176,6 +171,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             findingId,
           },
         },
+        GET_ME_VULNERABILITIES_ASSIGNED,
       ],
     });
 
@@ -257,34 +253,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           findingId,
         },
       },
+      GET_ME_VULNERABILITIES_ASSIGNED,
     ],
   });
-
-  const updateAssigned = async (): Promise<void> => {
-    const groupData = await client.query<IGetVulnsGroups>({
-      errorPolicy: "all",
-      fetchPolicy: "network-only",
-      query: GET_VULNS_GROUPS,
-      variables: { groupName },
-    });
-
-    setAllData((current: IGetVulnsGroups[]): IGetVulnsGroups[] =>
-      Array.from(
-        new Set(
-          mergedAssigned(current, [
-            _.isUndefined(groupData.errors) && _.isEmpty(groupData.errors)
-              ? groupData.data
-              : {
-                  group: {
-                    name: _.isUndefined(groupName) ? "" : groupName,
-                    vulnerabilitiesAssigned: [],
-                  },
-                },
-          ])
-        )
-      )
-    );
-  };
 
   const handleUpdateVulnTreatment = async (
     dataTreatment: IUpdateTreatmentVulnerabilityForm,
@@ -326,9 +297,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         handleUpdateVulnTreatmentError(updateError);
       } finally {
         setRunning(false);
-        if (permissions.can("valid_assigned")) {
-          await updateAssigned();
-        }
       }
     }
   };
@@ -350,17 +318,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_VULNS_ZERO_RISK,
     {
-      onCompleted: async (
+      onCompleted: (
         requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
-      ): Promise<void> => {
+      ): void => {
         requestZeroRiskHelper(
           handleClearSelected,
           handleCloseModal,
           requestZeroRiskVulnResult
         );
-        if (permissions.can("valid_assigned")) {
-          await updateAssigned();
-        }
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         handleRequestZeroRiskError(graphQLErrors);
@@ -387,6 +352,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             findingId,
           },
         },
+        GET_ME_VULNERABILITIES_ASSIGNED,
       ],
     }
   );

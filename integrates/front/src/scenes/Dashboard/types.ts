@@ -41,6 +41,13 @@ interface IGetUserOrganizationsGroups {
   };
 }
 
+interface IGetMeVulnerabilitiesAssigned {
+  me: {
+    vulnerabilitiesAssigned: IVulnRowAttr[];
+    userEmail: string;
+  };
+}
+
 interface IAssignedVulnerabilitiesContext
   extends Array<
     IGetVulnsGroups[] | React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>
@@ -52,6 +59,7 @@ interface IAssignedVulnerabilitiesContext
 export {
   IAddStakeholderAttr,
   IAssignedVulnerabilitiesContext,
+  IGetMeVulnerabilitiesAssigned,
   IGetUserOrganizationsGroups,
   IGetVulnsGroups,
   IOrganizationGroups,
