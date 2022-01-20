@@ -266,6 +266,14 @@ async def update_unreliable_indicators(
         for key, value in json.loads(json.dumps(indicators)).items()
         if value is not None
     }
+    if (
+        current_value.unreliable_indicators.unreliable_last_reattack_requester
+        == ""
+        and indicators.unreliable_last_reattack_requester is None
+    ):
+        unreliable_indicators[
+            "unreliable_indicators.unreliable_last_reattack_requester"
+        ] = None
     current_value_item = {
         f"unreliable_indicators.{key}": Decimal(str(value))
         if isinstance(value, float)
