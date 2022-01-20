@@ -6,13 +6,11 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD,
 )
-from lib_path.f246.cfn_rds_has_unencrypted_storage import (
+from lib_path.f246.cloudformation import (
     cfn_rds_has_unencrypted_storage,
 )
-from lib_path.f246.tfm_db_has_unencrypted_storage import (
+from lib_path.f246.terraform import (
     tfm_db_has_unencrypted_storage,
-)
-from lib_path.f246.tfm_rds_has_unencrypted_storage import (
     tfm_rds_has_unencrypted_storage,
 )
 from model.core_model import (
