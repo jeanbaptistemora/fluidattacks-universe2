@@ -41,3 +41,12 @@ class Cmd(Generic[_A]):
     def compute(self) -> NoReturn:
         self._value.unwrap()
         sys.exit(0)
+
+
+def unsafe_unwrap(action: Cmd[_A]) -> _A:
+    # This is an unsafe constructor (type-check cannot ensure its proper use)
+    # Do not use until is strictly necessary
+    #
+    # When all actions (Cmd[_A]) result in the same output instance (_A)
+    # this unwrap can be used
+    return action._value.unwrap()
