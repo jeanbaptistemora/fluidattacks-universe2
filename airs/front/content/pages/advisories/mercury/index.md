@@ -40,7 +40,7 @@ template: advisory
 
 ## Description
 
-PhpIPAM **v1.4.4** allows an authenticated admin user to inject
+phpIPAM **v1.4.4** allows an authenticated admin user to inject
 SQL sentences in the "subnet" parameter while searching a subnet
 via `app/admin/routing/edit-bgp-mapping-search.php`.
 
@@ -54,7 +54,7 @@ Steps to reproduce
 4. Click on the newly created "BGP peer".
 5. Click on "Actions" and go to "Subnet Mapping".
 6. Scroll down to "Map new subnet".
-7. Insert an SQL Injection sentence inside the search var,
+7. Insert an SQL Injection sentence inside the search parameter,
    for example: `" union select @@version,2,user(),4 -- -`.
 
 System Information
@@ -71,7 +71,7 @@ There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-An updated version of PhpIPAM is available at the vendor page.
+An updated version of phpIPAM is available at the vendor page.
 
 ## Credits
 
