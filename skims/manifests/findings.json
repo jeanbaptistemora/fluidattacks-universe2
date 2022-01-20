@@ -695,6 +695,14 @@
       "title": "393. Use of software with known vulnerabilities in development"
     }
   },
+  "F394": {
+    "EN": {
+      "title": "394. Insufficient data authenticity validation - Cloudtrail Logs"
+    },
+    "ES": {
+      "title": "394. Insufficient data authenticity validation - Cloudtrail Logs"
+    }
+  },
   "F396": {
     "EN": {
       "title": "396. Insecure service configuration - KMS"
