@@ -1,0 +1,5 @@
+src.lib_path.f394.cfn_log_files_not_validated:
+  en: >
+    EnableLogFileValidation property is not enabled
+  es: >
+    La propiedad EnableLogFileValidation no está habilitada
