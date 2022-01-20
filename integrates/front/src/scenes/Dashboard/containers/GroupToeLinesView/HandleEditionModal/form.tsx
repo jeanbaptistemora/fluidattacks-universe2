@@ -2,7 +2,7 @@ import { Form, useFormikContext } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { AttackedAtField } from "./AttackedAtField ";
+import { AttackedAtField } from "./AttackedAtField";
 import { AttackedLinesField } from "./AttackedLinesField";
 import { CommentsField } from "./CommentsField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
