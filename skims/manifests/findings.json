@@ -263,6 +263,14 @@
       "title": "080. Business information leak - Customers or providers"
     }
   },
+  "F082": {
+    "EN": {
+      "title": "082. Insecurely deleted files"
+    },
+    "ES": {
+      "title": "082. Insecurely deleted files"
+    }
+  },
   "F085": {
     "EN": {
       "title": "085. Sensitive data stored in client-side storage"
