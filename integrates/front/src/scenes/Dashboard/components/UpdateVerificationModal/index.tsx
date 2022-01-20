@@ -60,6 +60,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     setRequestState,
     setVerifyState,
   } = props;
+  const MAX_JUSTIFICATION_LENGTH = 10000;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayHacker: boolean = permissions.can(
     "api_resolvers_finding_hacker_resolve"
@@ -230,7 +231,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         }
         isLoading={submittingRequest || submittingVerify}
         isOpen={true}
-        maxJustificationLength={400}
+        maxJustificationLength={MAX_JUSTIFICATION_LENGTH}
         message={
           isReattacking
             ? translate.t(

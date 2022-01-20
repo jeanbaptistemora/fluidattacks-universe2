@@ -20,6 +20,7 @@ import {
   maxLength,
   minLength,
   required,
+  validTextField,
 } from "utils/validations";
 
 // ESLint annotations needed in order to avoid the mutations of defaultProps
@@ -53,6 +54,7 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
 
   const justificationValidations: ConfigurableValidator[] = [
     required,
+    validTextField,
     minJustificationLength,
   ];
   if (_.isNumber(maxJustificationLength)) {

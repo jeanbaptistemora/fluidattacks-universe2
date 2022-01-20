@@ -66,6 +66,7 @@ async def mutate(
         closed_vulns_ids = get_key_or_fallback(
             kwargs, "closed_vulnerabilities", "closed_vulns", []
         )
+        # Validate justification length and vet characters in it
         validations.validate_field_length(
             kwargs.get("justification", ""),
             limit=10,
@@ -73,9 +74,11 @@ async def mutate(
         )
         validations.validate_field_length(
             kwargs.get("justification", ""),
-            limit=400,
+            limit=10000,
             is_greater_than_limit=False,
         )
+        validations.validate_fields([kwargs.get("justification", "")])
+
         success = await findings_domain.verify_vulnerabilities(
             context=info.context,
             finding_id=finding_id,
