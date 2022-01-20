@@ -10,9 +10,16 @@ import { array, object } from "yup";
 import { REQUEST_GROUPS_UPGRADE_MUTATION } from "./queries";
 
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
-import { ButtonToolbar, Col100, FormGroup, Row } from "styles/styledComponents";
+import {
+  ButtonToolbar,
+  Col100,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
@@ -34,6 +41,7 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
         group.permissions.includes("request_group_upgrade")
     )
     .map((group): string => group.name);
+  const canUpgrade = upgradableGroups.length > 0;
 
   const [requestGroupsUpgrade] = useMutation(REQUEST_GROUPS_UPGRADE_MUTATION, {
     onCompleted: (): void => {
@@ -62,7 +70,12 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
 
   return (
     <Modal headerTitle={t("upgrade.title")} open={true}>
-      <p>{t("upgrade.text")}</p>
+      <p>
+        {t("upgrade.text")}&nbsp;
+        <ExternalLink href={"https://fluidattacks.com/plans/"}>
+          {t("upgrade.link")}
+        </ExternalLink>
+      </p>
       <Formik
         initialValues={{ groupNames: upgradableGroups }}
         name={"upgradeGroups"}
@@ -71,17 +84,25 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
       >
         <Form>
           <FormGroup>
-            {upgradableGroups.map(
-              (groupName): JSX.Element => (
-                <Field
-                  component={FormikCheckbox}
-                  key={groupName}
-                  label={_.capitalize(groupName)}
-                  name={"groupNames"}
-                  type={"checkbox"}
-                  value={groupName}
-                />
-              )
+            {canUpgrade ? (
+              <React.Fragment>
+                <ControlLabel>{t("upgrade.select")}</ControlLabel>
+                <br />
+                {upgradableGroups.map(
+                  (groupName): JSX.Element => (
+                    <Field
+                      component={FormikCheckbox}
+                      key={groupName}
+                      label={_.capitalize(groupName)}
+                      name={"groupNames"}
+                      type={"checkbox"}
+                      value={groupName}
+                    />
+                  )
+                )}
+              </React.Fragment>
+            ) : (
+              <p>{t("upgrade.unauthorized")}</p>
             )}
           </FormGroup>
           <hr />
@@ -89,7 +110,9 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
             <Col100>
               <ButtonToolbar>
                 <Button onClick={onClose}>{t("upgrade.close")}</Button>
-                <Button type={"submit"}>{t("upgrade.upgrade")}</Button>
+                {canUpgrade ? (
+                  <Button type={"submit"}>{t("upgrade.upgrade")}</Button>
+                ) : undefined}
               </ButtonToolbar>
             </Col100>
           </Row>

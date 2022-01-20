@@ -2489,12 +2489,15 @@ export const enTranslations: ResourceKey = {
   },
   upgrade: {
     close: "Close",
+    link: "Squad subscriptions",
+    select: "Select the groups you would like to upgrade",
     success: {
       text: "You'll receive an email shortly",
       title: "Upgrade requested successfully",
     },
-    text: "This functionality is only available for Squad subscriptions",
+    text: "This functionality is only available for",
     title: "Subscription upgrade",
+    unauthorized: "Contact your manager to request an upgrade",
     upgrade: "Upgrade",
   },
   userModal: {
