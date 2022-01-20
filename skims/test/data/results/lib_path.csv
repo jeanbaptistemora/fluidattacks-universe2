@@ -12654,7 +12654,7 @@ F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,s
   16 |   }
   17 | }
      ^ Col 0
-",f015._tfm_azure_linux_vm_insecure_authentication
+",terraform.tfm_azure_linux_vm_insecure_authentication
 F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
    1 | resource ""azurerm_virtual_machine"" ""vulnerable"" {
    2 |   name                  = ""${var.prefix}-vm""
@@ -12678,7 +12678,7 @@ F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,0
   20 |   os_profile_linux_config {
   21 |     disable_password_authentication = false
      ^ Col 0
-",f015._tfm_azure_virtual_machine_insecure_authentication
+",terraform.tfm_azure_virtual_machine_insecure_authentication
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
