@@ -3916,7 +3916,16 @@
   title: Hong Kong PDPO Compliance and Cybersecurity
   en:
     description: >
-      ...
+      The Hong Kong's Personal Data Privacy
+      Ordinance (PDPO) is the main legislation
+      in Hong Kong which aims to protect
+      the privacy of individuals in relation
+      to personal data, and to regulate the
+      collection, holding, processing, or use
+      of personal data based on a set of data
+      protection principles.
+      The version used in this section is
+      PDPO 2021 update.
   es:
     description: __empty__
   definitions:
