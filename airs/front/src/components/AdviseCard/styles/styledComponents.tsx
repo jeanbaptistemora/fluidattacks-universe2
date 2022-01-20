@@ -14,6 +14,7 @@ const AdvisoriesShadowBoxContainer: StyledComponent<
     mh4
     relative
     bs-btm-h-10
+    h-advisories-card
   `,
 })``;
 const AdvisoriesCardFront: StyledComponent<
@@ -83,6 +84,8 @@ const AdvisoriesCardBackList: StyledComponent<
     list
     ma0
     pa0
+    mb2
+    h-advisories-card-back-list
   `,
 })``;
 const AdvisoriesCardBackItem: StyledComponent<

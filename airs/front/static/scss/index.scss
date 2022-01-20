@@ -160,6 +160,7 @@ $gray-120: rgba(120, 120, 145, 1);
 .h-500 { min-height: 500px; }
 .h-600 { min-height: 600px; }
 .h-700 { min-height: 700px; }
+.h-advisories-card { min-height: 280px; }
 .h-banner { min-height: 350px; }
 .h-blog-card { min-height: 20rem; }
 .h-navbar { min-height: 6.5rem; }
@@ -296,6 +297,8 @@ $gray-120: rgba(120, 120, 145, 1);
 // Smaller screen sizes
 @media screen and (min-width: 350px) and (max-width: 479px) {
   .bg-lightgray-xs { background-color: $light-gray; }
+  .h-advisories-card { min-height: 380px; }
+  .h-advisories-card-back-list { min-height: 252px; }
 }
 
 // Animations
