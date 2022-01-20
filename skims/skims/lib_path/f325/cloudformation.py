@@ -1,6 +1,3 @@
-from aioextensions import (
-    in_process,
-)
 from aws.model import (
     AWSIamManagedPolicy,
     AWSKmsKey,
@@ -9,20 +6,16 @@ from aws.services import (
     ACTIONS,
 )
 from lib_path.common import (
-    EXTENSIONS_CLOUDFORMATION,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
 )
 from metaloaders.model import (
     Node,
 )
-from model import (
-    core_model,
-)
-from parse_cfn.loader import (
-    load_templates,
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
 )
 from parse_cfn.structure import (
     iter_iam_managed_policies_and_mgd_policies,
@@ -31,13 +24,8 @@ from parse_cfn.structure import (
     iter_kms_keys,
 )
 import re
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
-    Awaitable,
-    Callable,
     Iterator,
     List,
     Optional,
@@ -46,14 +34,16 @@ from typing import (
 )
 from utils.function import (
     get_node_by_keys,
-    TIMEOUT_1MIN,
 )
-
-_FINDING_F325 = core_model.FindingEnum.F325
-_FINDING_F325_CWE = _FINDING_F325.value.cwe
 
 WILDCARD_ACTION: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
 WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
+
+
+def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
+    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
+        if pattern.match(act.raw):
+            yield act
 
 
 def _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
@@ -72,20 +62,7 @@ def _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
                 yield principal
 
 
-def resource_all_(resource_node: Node) -> Optional[Node]:
-    """Check if an action is permitted for any resource."""
-    resources = (
-        resource_node.data
-        if isinstance(resource_node.data, list)
-        else [resource_node]
-    )
-    for res in resources:
-        if res.raw == "*":
-            return res
-    return None
-
-
-def policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
+def _policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
     """Check if an action have a privilege."""
     write_actions: dict = ACTIONS
     actions = (
@@ -107,18 +84,31 @@ def policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
     return False
 
 
-def policy_statement_privilege(statements: Node) -> Iterator[Node]:
+def _resource_all(resource_node: Node) -> Optional[Node]:
+    """Check if an action is permitted for any resource."""
+    resources = (
+        resource_node.data
+        if isinstance(resource_node.data, list)
+        else [resource_node]
+    )
+    for res in resources:
+        if res.raw == "*":
+            return res
+    return None
+
+
+def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
     """Check if a statement of a policy allow an action in all resources."""
     for stm in statements.data:
         effect = get_node_by_keys(stm, ["Effect"])
         resource = get_node_by_keys(stm, ["Resource"])
         action = get_node_by_keys(stm, ["Action"])
-        wild_res_node = resource_all_(resource) if resource else None
+        wild_res_node = _resource_all(resource) if resource else None
         if (
             effect.raw == "Allow"
             and wild_res_node
             and action
-            and policy_actions_has_privilege(action, "write")
+            and _policy_actions_has_privilege(action, "write")
         ):
             yield wild_res_node
 
@@ -137,16 +127,49 @@ def _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 policy, ["PolicyDocument", "Statement"]
             )
             if isinstance(statements, Node):
-                yield from policy_statement_privilege(statements)
+                yield from _policy_statement_privilege(statements)
 
 
-def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
-    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
-        if pattern.match(act.raw):
+def _service_is_present_action(
+    action_node: Node, service: str
+) -> Iterator[Node]:
+    actions = (
+        action_node.data
+        if isinstance(action_node.data, list)
+        else [action_node]
+    )
+    for act in actions:
+        if act.raw == "*":
+            yield act
+        elif act.raw.split(":")[0] == service:
             yield act
 
 
-def is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
+def _iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
+    effect = stmt.inner.get("Effect")
+    if effect.raw == "Allow":
+        if action := stmt.inner.get("Action"):
+            yield from _service_is_present_action(action, "iam")
+
+
+def _cfn_iam_has_privileges_over_iam_iter_vulns(
+    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        policies = (
+            iam_res.inner["Policies"].data
+            if "Policies" in iam_res.raw
+            else [iam_res]
+        )
+        for policy in policies:
+            if statements := get_node_by_keys(
+                policy, ["PolicyDocument", "Statement"]
+            ):
+                for stmt in statements.data or []:
+                    yield from _iam_is_present_in_action(stmt)
+
+
+def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
     wildcard_action: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
     wildcard_resource: Pattern = re.compile(r"^(\*)$")
     effect = stmt.inner.get("Effect")
@@ -179,7 +202,7 @@ def _cfn_iam_is_policy_miss_configured_iter_vulns(
         pol_document = iam_res.inner.get("PolicyDocument")
         statements = pol_document.inner.get("Statement")
         for stmt in statements.data:
-            yield from is_statement_miss_configured(file_ext, stmt)
+            yield from _is_statement_miss_configured(file_ext, stmt)
         if users := iam_res.inner.get("Users"):
             yield AWSIamManagedPolicy(
                 column=users.start_column,
@@ -188,51 +211,34 @@ def _cfn_iam_is_policy_miss_configured_iter_vulns(
             )
 
 
-def service_is_present_action(
-    action_node: Node, service: str
+def _check_assume_role_policies(
+    assume_role_policy: Node, file_ext: str
 ) -> Iterator[Node]:
-    actions = (
-        action_node.data
-        if isinstance(action_node.data, list)
-        else [action_node]
-    )
-    for act in actions:
-        if act.raw == "*":
-            yield act
-        elif act.raw.split(":")[0] == service:
-            yield act
+    statements = assume_role_policy.inner.get("Statement")
+    for stmt in statements.data if statements else []:
+        not_princ = stmt.inner.get("NotPrincipal")
+        actions = stmt.inner.get("Action")
+        effect = stmt.inner.get("Effect")
 
+        if effect.raw != "Allow":
+            continue
 
-def iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
-    effect = stmt.inner.get("Effect")
-    if effect.raw == "Allow":
-        if action := stmt.inner.get("Action"):
-            yield from service_is_present_action(action, "iam")
+        if not_actions := stmt.inner.get("NotAction"):
+            yield AWSIamManagedPolicy(
+                column=not_actions.start_column,
+                data=not_actions.data,
+                line=get_line_by_extension(not_actions.start_line, file_ext),
+            ) if isinstance(not_actions.raw, List) else not_actions
 
+        if not_princ := stmt.inner.get("NotPrincipal"):
+            yield AWSIamManagedPolicy(
+                column=not_princ.start_column,
+                data=not_princ.data,
+                line=get_line_by_extension(not_princ.start_line, file_ext),
+            )
 
-def _cfn_iam_has_privileges_over_iam_iter_vulns(
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        policies = (
-            iam_res.inner["Policies"].data
-            if "Policies" in iam_res.raw
-            else [iam_res]
-        )
-        for policy in policies:
-            if statements := get_node_by_keys(
-                policy, ["PolicyDocument", "Statement"]
-            ):
-                for stmt in statements.data or []:
-                    yield from iam_is_present_in_action(stmt)
-
-
-def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
-    if managed_policies:
-        for man_pol in managed_policies.data:
-            # IAM role should not have AdministratorAccess policy
-            if "AdministratorAccess" in man_pol.raw:
-                yield man_pol
+        if actions:
+            yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
 
 def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
@@ -270,34 +276,12 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
                 yield from get_wildcard_nodes(resources, WILDCARD_RESOURCE)
 
 
-def _check_assume_role_policies(
-    assume_role_policy: Node, file_ext: str
-) -> Iterator[Node]:
-    statements = assume_role_policy.inner.get("Statement")
-    for stmt in statements.data if statements else []:
-        not_princ = stmt.inner.get("NotPrincipal")
-        actions = stmt.inner.get("Action")
-        effect = stmt.inner.get("Effect")
-
-        if effect.raw != "Allow":
-            continue
-
-        if not_actions := stmt.inner.get("NotAction"):
-            yield AWSIamManagedPolicy(
-                column=not_actions.start_column,
-                data=not_actions.data,
-                line=get_line_by_extension(not_actions.start_line, file_ext),
-            ) if isinstance(not_actions.raw, List) else not_actions
-
-        if not_princ := stmt.inner.get("NotPrincipal"):
-            yield AWSIamManagedPolicy(
-                column=not_princ.start_column,
-                data=not_princ.data,
-                line=get_line_by_extension(not_princ.start_line, file_ext),
-            )
-
-        if actions:
-            yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
+    if managed_policies:
+        for man_pol in managed_policies.data:
+            # IAM role should not have AdministratorAccess policy
+            if "AdministratorAccess" in man_pol.raw:
+                yield man_pol
 
 
 def _cfn_iam_is_role_over_privileged_iter_vulns(
@@ -317,18 +301,16 @@ def _cfn_iam_is_role_over_privileged_iter_vulns(
             )
 
 
-def _cfn_kms_key_has_master_keys_exposed_to_everyone(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_kms_key_has_master_keys_exposed_to_everyone(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F325_CWE},
+        cwe={FindingEnum.F325.value.cwe},
         description_key=(
             "src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone"
         ),
-        finding=_FINDING_F325,
+        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
                 keys_iterator=iter_kms_keys(template=template),
@@ -338,18 +320,16 @@ def _cfn_kms_key_has_master_keys_exposed_to_everyone(
     )
 
 
-def _cfn_iam_has_wildcard_resource_on_write_action(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_iam_has_wildcard_resource_on_write_action(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F325_CWE},
+        cwe={FindingEnum.F325.value.cwe},
         description_key=(
             "src.lib_path.f325.iam_has_wildcard_resource_on_write_action"
         ),
-        finding=_FINDING_F325,
+        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 iam_iterator=iter_iam_managed_policies_and_roles(
@@ -361,17 +341,14 @@ def _cfn_iam_has_wildcard_resource_on_write_action(
     )
 
 
-def _cfn_iam_is_policy_miss_configured(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_iam_is_policy_miss_configured(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F325_CWE},
+        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_is_policy_miss_configured"),
-        finding=_FINDING_F325,
+        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_is_policy_miss_configured_iter_vulns(
                 file_ext=file_ext,
@@ -384,16 +361,14 @@ def _cfn_iam_is_policy_miss_configured(
     )
 
 
-def _cfn_iam_has_privileges_over_iam(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_iam_has_privileges_over_iam(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F325_CWE},
+        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_has_privileges_over_iam"),
-        finding=_FINDING_F325,
+        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_has_privileges_over_iam_iter_vulns(
                 iam_iterator=iter_iam_managed_policies_and_roles(
@@ -405,17 +380,14 @@ def _cfn_iam_has_privileges_over_iam(
     )
 
 
-def _cfn_iam_is_role_over_privileged(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_iam_is_role_over_privileged(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F325_CWE},
+        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_is_role_over_privileged"),
-        finding=_FINDING_F325,
+        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_is_role_over_privileged_iter_vulns(
                 file_ext=file_ext,
@@ -424,141 +396,3 @@ def _cfn_iam_is_role_over_privileged(
         ),
         path=path,
     )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_kms_key_has_master_keys_exposed_to_everyone(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_kms_key_has_master_keys_exposed_to_everyone,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_iam_has_wildcard_resource_on_write_action(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_iam_has_wildcard_resource_on_write_action,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_iam_is_policy_miss_configured(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_iam_is_policy_miss_configured,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_iam_has_privileges_over_iam(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_iam_has_privileges_over_iam,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_iam_is_role_over_privileged(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_iam_is_role_over_privileged,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_extension: str,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-    if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        async for template in load_templates(
-            content=content, fmt=file_extension
-        ):
-            coroutines.append(
-                cfn_kms_key_has_master_keys_exposed_to_everyone(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_iam_has_wildcard_resource_on_write_action(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_iam_is_policy_miss_configured(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_iam_has_privileges_over_iam(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_iam_is_role_over_privileged(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
-
-    return coroutines
