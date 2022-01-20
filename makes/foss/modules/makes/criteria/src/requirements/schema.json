@@ -46,8 +46,8 @@
             "machine": { "type": "boolean" },
             "squad": { "type": "boolean" },
             "oneshot": { "type": "boolean" }
-         }
-       },
+          }
+        },
         "references": {
           "uniqueItems": true,
           "type": "array",
