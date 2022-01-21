@@ -1379,8 +1379,15 @@
       con la concurrencia máxima esperada
       debe ser de no más de 5 segundos.
     description: >
-      El tiempo de respuesta
-      es una medida relevante
+      El tiempo de respuesta es una medida
+      relevante de la disponibilidad de un
+      sistema y su adaptabilidad al estrés.
+      También es importante cuando se trata
+      de la usabilidad y la fiabilidad.
+      Por estas razones, el tiempo de
+      respuesta no debe superar los 5 segundos
+      cuando el número de usuarios concurrentes
+      alcanza su máximo.
   category: Architecture
   tested_in:
     machine: false
