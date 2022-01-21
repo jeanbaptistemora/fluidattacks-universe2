@@ -14662,7 +14662,7 @@
       An attacker can gain access to the network and see
       communication traffic, whether encrypted or not.
     impact: >
-      Fragil encryption technique in authentication
+      Set a fragil encryption technique in authentication
       become a target for exploitation.
     recommendation: >
       - Select the most secure authentication method
@@ -14680,8 +14680,9 @@
       Un atacante puede acceder a la red y ver el tráfico
       de comunicaciones, ya sea cifrado o no.
     impact: >
-      Una frágil técnica de encriptación en la autenticación
-      se convierte en un objetivo de explotación.
+      Configurar una frágil técnica de encriptación
+      en la autenticación se convierte en un objetivo
+      de explotación.
     recommendation: >
       - Seleccione el método de autenticación más
       seguro que admitan los clientes de su red inalámbrica.
@@ -14774,11 +14775,12 @@
       Therefore, an attacker can access system
       resources by logging into the BIOS.
     impact: >
-      - Accessing disk information through other systems.
+      - Access disk information through other systems.
 
-      - Modifying and disabling machine configurations.
+      - Modify and disabling machine configurations.
 
-      - Deleting all machine information by formatting the disk.
+      - Delete all machine information by
+      formatting the disk.
     recommendation: >
       Put in place for every resource with
       business-critical functionality a strong
@@ -14940,9 +14942,9 @@
       - Expose resources, processes and sensitive
       information that could be compromised.
 
-      - Copy Sensitive Information from S3 Buckets.
+      - Copy sensitive information from S3 Buckets.
 
-      - Remove Sensitive Information from S3 Buckets.
+      - Remove sensitive information from S3 Buckets.
     recommendation: >
       Encrypt all sensitive information that is
       transported or stored within the application
@@ -14958,9 +14960,9 @@
       - Exponer recursos, procesos e información
       sensible que podrían ser comprometidos.
 
-      - Copiar Información sensible de los buckets de S3.
+      - Copiar información sensible de los buckets de S3.
 
-      - Eliminar Información  Sensible de los buckets de S3.
+      - Eliminar información sensible de los buckets de S3.
     recommendation: >
       Cifrar toda información sensible que se
       transporte o se guarde dentro la aplicación
@@ -14993,11 +14995,12 @@
       LDAP service credentials are exposed
       in plain text in the code.
     impact: >
+      - Access the LDAP service.
+
+      - Obtain confidential information.
+    recommendation: >
       Use secure encryption methods to
       encrypt any sensitive information.
-    recommendation: >
-      Usar métodos de cifrado seguro, para
-      cifrar cualquier información sensible.
     threat: >
       An attacker with access to the code from the Internet.
   es:
@@ -15100,7 +15103,7 @@
       armed with tools, to access to a portion of
       the plain text unencrypted.
 
-      - Attacker with physical access to the drive.
+      - Access to the physical drive.
 
       - Access to business sensitive information.
     recommendation: >
@@ -15122,7 +15125,7 @@
       armado con herramientas, acceder a una parte
       del texto plano sin cifrar.
 
-      - Atacante con acceso físico a la unidad.
+      - Acceso físico a la unidad.
 
       - Acceso a información sensible para la empresa.
     recommendation: >
