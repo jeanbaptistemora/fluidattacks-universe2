@@ -21,7 +21,11 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from botocore.exceptions import (
+    ClientError,
     HTTPClientError,
+)
+from custom_exceptions import (
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -146,6 +150,13 @@ async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
     return items
 
 
+@retry_on_exceptions(
+    exceptions=(
+        UnavailabilityError,
+        ClientError,
+    ),
+    sleep_seconds=10,
+)
 async def process_finding(
     *,
     finding: Finding,
