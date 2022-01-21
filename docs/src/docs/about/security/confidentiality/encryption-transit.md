@@ -36,7 +36,7 @@ All our applications and services have industry-standard
 - We possess fully dedicated network channels
   with some of our biggest clients,
   allowing us to isolate all unwanted traffic.
-  This is especially useful
+  This is specially useful
   for running secure dynamic application hacking.
 
 - For the rest of our clients,
