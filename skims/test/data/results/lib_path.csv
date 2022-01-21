@@ -18166,7 +18166,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_
   29 | eleteObject""
   30 | eleteObjectVersion""
      ^ Col 21
-",f099._cfn_bucket_policy_has_server_side_encryption_disabled
+",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
 F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,26,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled in namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,"
    16 |
    17 |
@@ -18190,7 +18190,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_
    35 | :BucketPolicy"",
    36 |
       ^ Col 23
-",f099._cfn_bucket_policy_has_server_side_encryption_disabled
+",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
