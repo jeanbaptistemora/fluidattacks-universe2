@@ -1,4 +1,11 @@
-import androguard.core.analysis.analysis
+import androguard
+from androguard.core.analysis import (
+    analysis,
+)
+from androguard.core.bytecodes import (
+    apk,
+    dvm,
+)
 from androguard.core.bytecodes.dvm import (
     ClassDefItem,
     DalvikVMFormat,
@@ -34,6 +41,34 @@ from utils.string import (
     make_snippet,
     SnippetViewport,
 )
+
+
+def is_method_present(
+    dex: DalvikVMFormat, class_name: str, method: str, descriptor: str
+) -> List[str]:
+    """Search if method is present in decompiled code."""
+    met_ana = dex.get_method_analysis_by_name(
+        class_name=class_name, method_name=method, method_descriptor=descriptor
+    )
+
+    if not met_ana:
+        return []
+
+    used_by = [
+        x.name for x, _, _ in met_ana.get_xref_from() if "Activity" in x.name
+    ]
+
+    return used_by
+
+
+def get_dex(path: str) -> DalvikVMFormat:
+    """Return DEX analysis from APK file."""
+    apk_obj = apk.APK(path)
+    _dex = dvm.DalvikVMFormat(apk_obj.get_dex())
+    dex = analysis.Analysis()
+    dex.add(_dex)
+    dex.create_xref()
+    return dex
 
 
 def get_activities_source(dvms: list) -> str:
@@ -121,20 +156,20 @@ def _add_no_root_check_location(
 
 
 def _get_method_names(
-    analysis: androguard.core.analysis.analysis.Analysis,
+    get_analysis: androguard.core.analysis.analysis.Analysis,
 ) -> List[str]:
     names: List[str] = sorted(
-        set(map(attrgetter("name"), analysis.get_methods()))
+        set(map(attrgetter("name"), get_analysis.get_methods()))
     )
 
     return names
 
 
 def _get_class_names(
-    analysis: androguard.core.analysis.analysis.Analysis,
+    get_analysis: androguard.core.analysis.analysis.Analysis,
 ) -> List[str]:
     names: List[str] = sorted(
-        set(map(attrgetter("name"), analysis.get_classes()))
+        set(map(attrgetter("name"), get_analysis.get_classes()))
     )
 
     return names
@@ -312,10 +347,10 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     }
 
     if ctx.apk_ctx.analysis is not None:
-        dvm: DalvikVMFormat
-        for dvm in ctx.apk_ctx.analysis.vms:
+        dvms: DalvikVMFormat
+        for dvms in ctx.apk_ctx.analysis.vms:
             class_: ClassDefItem
-            for class_ in dvm.get_classes():
+            for class_ in dvms.get_classes():
                 class_name: str = class_.get_name()[1:-1]
                 class_is_interface: bool = 0x200 & class_.get_access_flags()
                 if not class_is_interface and any(
@@ -588,6 +623,56 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     return _create_vulns(
         ctx=ctx,
         finding=core_model.FindingEnum.F268,
+        locations=locations,
+    )
+
+
+def _add_uses_insecure_delete(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    methods: List[str],
+) -> None:
+    locations.append(
+        desc="uses_insecure_delete",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+                >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                 >>> {repr(methods)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
+        ),
+    )
+
+
+def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
+        dex = get_dex(ctx.apk_ctx.path)
+
+        deletes_insecure: List[str] = is_method_present(
+            dex, "Ljava/io/File;", "delete", "()Z"
+        )
+
+        if deletes_insecure:
+            _add_uses_insecure_delete(ctx, locations, method_names)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F082,
         locations=locations,
     )
 
