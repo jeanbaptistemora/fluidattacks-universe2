@@ -35,17 +35,17 @@ const groupLevelRoles: string[] = [
   "architect",
   "customer",
   "customeradmin",
+  "customer_manager",
   "executive",
   "hacker",
   "reattacker",
   "resourcer",
   "reviewer",
-  "system_owner",
 ];
 const organizationLevelRoles: string[] = [
   "customeradmin",
   "customer",
-  "system_owner",
+  "customer_manager",
 ];
 const MAX_RESPONSIBILITY_LENGTH: number = 50;
 

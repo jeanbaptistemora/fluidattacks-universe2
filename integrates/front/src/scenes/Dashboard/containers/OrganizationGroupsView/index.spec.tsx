@@ -97,7 +97,7 @@ describe("Organization groups view", (): void => {
                   name: "pendingGroup",
                   service: "WHITE",
                   subscription: "continuous",
-                  userRole: "system_owner",
+                  userRole: "customer_manager",
                 },
               ],
               name: "okada",

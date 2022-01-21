@@ -272,10 +272,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
    * removed as soon as the old role values are migrated
    */
   const mapRoles = (role: string): string => {
-    if (role === "analyst") {
-      return "hacker";
-    } else if (role === "closer") {
-      return "reattacker";
+    if (role === "system_owner") {
+      return "customer_manager";
     }
 
     return role;
