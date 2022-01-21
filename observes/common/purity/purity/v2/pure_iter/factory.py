@@ -11,7 +11,7 @@ from purity.v2.cmd import (
 from purity.v2.frozen import (
     FrozenList,
 )
-from purity.v2.pure_iter_2.core import (
+from purity.v2.pure_iter.core import (
     _PureIter,
     PureIter,
 )

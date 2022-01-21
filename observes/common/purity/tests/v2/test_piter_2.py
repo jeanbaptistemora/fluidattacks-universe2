@@ -1,7 +1,7 @@
-from purity.v2.pure_iter_2.core import (
+from purity.v2.pure_iter.core import (
     PureIter,
 )
-from purity.v2.pure_iter_2.factory import (
+from purity.v2.pure_iter.factory import (
     from_range,
     infinite_range,
 )
