@@ -20565,243 +20565,6 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_
    36 |
       ^ Col 23
 ",f099._cfn_bucket_policy_has_server_side_encryption_disabled
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
-   1 | Resources:
-   2 |   NewVolume1:
-   3 |     Type: AWS::EC2::Volume
-   4 |     Properties:
-   5 |       Size: 100
->  6 |       Encrypted: false
-   7 |       AvailabilityZone: us-east-1
-   8 |     DeletionPolicy: Snapshot
-   9 |   NewVolume2:
-  10 |     Type: AWS::EC2::Volume
-  11 |     Properties:
-  12 |       Size: 100
-  13 |       AvailabilityZone: us-east-1
-  14 |     DeletionPolicy: Snapshot
-  15 |   NewVolume3:
-  16 |     Type: AWS::EC2::Volume
-  17 |     Properties:
-  18 |       Size: 100
-  19 |       Encrypted: true
-  20 |       AvailabilityZone: us-east-1
-  21 |     DeletionPolicy: Snapshot
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
-   2 |   NewVolume1:
-   3 |     Type: AWS::EC2::Volume
-   4 |     Properties:
-   5 |       Size: 100
-   6 |       Encrypted: false
-   7 |       AvailabilityZone: us-east-1
-   8 |     DeletionPolicy: Snapshot
-   9 |   NewVolume2:
-  10 |     Type: AWS::EC2::Volume
-  11 |     Properties:
-> 12 |       Size: 100
-  13 |       AvailabilityZone: us-east-1
-  14 |     DeletionPolicy: Snapshot
-  15 |   NewVolume3:
-  16 |     Type: AWS::EC2::Volume
-  17 |     Properties:
-  18 |       Size: 100
-  19 |       Encrypted: true
-  20 |       AvailabilityZone: us-east-1
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume4:
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,18,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
-   8 |     DeletionPolicy: Snapshot
-   9 |   NewVolume2:
-  10 |     Type: AWS::EC2::Volume
-  11 |     Properties:
-  12 |       Size: 100
-  13 |       AvailabilityZone: us-east-1
-  14 |     DeletionPolicy: Snapshot
-  15 |   NewVolume3:
-  16 |     Type: AWS::EC2::Volume
-  17 |     Properties:
-> 18 |       Size: 100
-  19 |       Encrypted: true
-  20 |       AvailabilityZone: us-east-1
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume4:
-  23 |     Type: AWS::EC2::Volume
-  24 |     Properties:
-  25 |       Size: 100
-  26 |       Encrypted: true
-  27 |       KmsKeyId: arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias
-  28 |       AvailabilityZone: us-east-1
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""NewVolume1"": {
-   4 |       ""Type"": ""AWS::EC2::Volume"",
-   5 |       ""Properties"": {
-   6 |         ""Size"": 100,
->  7 |         ""Encrypted"": false,
-   8 |         ""AvailabilityZone"": ""us-east-1""
-   9 |       },
-  10 |       ""DeletionPolicy"": ""Snapshot""
-  11 |     },
-  12 |     ""NewVolume2"": {
-  13 |       ""Type"": ""AWS::EC2::Volume"",
-  14 |       ""Properties"": {
-  15 |         ""Size"": 100,
-  16 |         ""AvailabilityZone"": ""us-east-1""
-  17 |       },
-  18 |       ""DeletionPolicy"": ""Snapshot""
-  19 |     },
-  20 |     ""NewVolume3"": {
-  21 |       ""Type"": ""AWS::EC2::Volume"",
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,"
-   4 |       ""Type"": ""AWS::EC2::Volume"",
-   5 |       ""Properties"": {
-   6 |         ""Size"": 100,
-   7 |         ""Encrypted"": false,
-   8 |         ""AvailabilityZone"": ""us-east-1""
-   9 |       },
-  10 |       ""DeletionPolicy"": ""Snapshot""
-  11 |     },
-  12 |     ""NewVolume2"": {
-  13 |       ""Type"": ""AWS::EC2::Volume"",
-> 14 |       ""Properties"": {
-  15 |         ""Size"": 100,
-  16 |         ""AvailabilityZone"": ""us-east-1""
-  17 |       },
-  18 |       ""DeletionPolicy"": ""Snapshot""
-  19 |     },
-  20 |     ""NewVolume3"": {
-  21 |       ""Type"": ""AWS::EC2::Volume"",
-  22 |       ""Properties"": {
-  23 |         ""Size"": 100,
-  24 |         ""Encrypted"": true,
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,22,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,"
-  12 |     ""NewVolume2"": {
-  13 |       ""Type"": ""AWS::EC2::Volume"",
-  14 |       ""Properties"": {
-  15 |         ""Size"": 100,
-  16 |         ""AvailabilityZone"": ""us-east-1""
-  17 |       },
-  18 |       ""DeletionPolicy"": ""Snapshot""
-  19 |     },
-  20 |     ""NewVolume3"": {
-  21 |       ""Type"": ""AWS::EC2::Volume"",
-> 22 |       ""Properties"": {
-  23 |         ""Size"": 100,
-  24 |         ""Encrypted"": true,
-  25 |         ""AvailabilityZone"": ""us-east-1""
-  26 |       },
-  27 |       ""DeletionPolicy"": ""Snapshot""
-  28 |     },
-  29 |     ""NewVolume4"": {
-  30 |       ""Type"": ""AWS::EC2::Volume"",
-  31 |       ""Properties"": {
-  32 |         ""Size"": 100,
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,5,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
-   1 | Resources:
-   2 |   NewVolume:
-   3 |     Type: AWS::EC2::Volume
-   4 |     Properties:
->  5 |       Size: 100
-   6 |       Encrypted: true
-   7 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-   8 |       Tags:
-   9 |         - Key: MyTag
-  10 |           Value: TagValue
-  11 |     DeletionPolicy: Snapshot
-  12 |   NewVolume:
-  13 |     Type: AWS::EC2::Volume
-  14 |     Properties:
-  15 |       Size: 100
-  16 |       Encrypted: false
-  17 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  18 |       Tags:
-  19 |         - Key: MyTag
-  20 |           Value: TagValue
-  21 |     DeletionPolicy: Snapshot
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,16,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
-   6 |       Encrypted: true
-   7 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-   8 |       Tags:
-   9 |         - Key: MyTag
-  10 |           Value: TagValue
-  11 |     DeletionPolicy: Snapshot
-  12 |   NewVolume:
-  13 |     Type: AWS::EC2::Volume
-  14 |     Properties:
-  15 |       Size: 100
-> 16 |       Encrypted: false
-  17 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  18 |       Tags:
-  19 |         - Key: MyTag
-  20 |           Value: TagValue
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume:
-  23 |     Type: AWS::EC2::Volume
-  24 |     Properties:
-  25 |       Size: 100
-  26 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,25,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
-  10 |           Value: TagValue
-  11 |     DeletionPolicy: Snapshot
-  12 |   NewVolume:
-  13 |     Type: AWS::EC2::Volume
-  14 |     Properties:
-  15 |       Size: 100
-  16 |       Encrypted: false
-  17 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  18 |       Tags:
-  19 |         - Key: MyTag
-  20 |           Value: TagValue
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume:
-  23 |     Type: AWS::EC2::Volume
-  24 |     Properties:
-> 25 |       Size: 100
-  26 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  27 |       Tags:
-  28 |         - Key: MyTag
-  29 |           Value: TagValue
-  30 |     DeletionPolicy: Snapshot
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
-F080,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,5,311,skims,080. Business information leak - Customers or providers,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""NewVolume"": {
-   4 |       ""Type"": ""AWS::EC2::Volume"",
->  5 |       ""Properties"": {
-   6 |         ""Size"": 100,
-   7 |         ""AvailabilityZone"": ""Ec2Instance.AvailabilityZone"",
-   8 |         ""Tags"": [
-   9 |           {
-  10 |             ""Key"": ""MyTag"",
-  11 |             ""Value"": ""TagValue""
-  12 |           }
-  13 |         ]
-  14 |       },
-  15 |       ""DeletionPolicy"": ""Snapshot""
-  16 |     }
-  17 |   }
-  18 | }
-     ^ Col 0
-",f080._cfn_unencrypted_volumes
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
@@ -22180,7 +21943,7 @@ F247,lines,namespace/skims/test/data/lib_path/f247/test_fsx.tf,1,311,skims,247. 
   13 | }
      ^ Col 0
 ",terraform.tfm_fsx_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
    1 | Resources:
    2 |   NewVolume1:
    3 |     Type: AWS::EC2::Volume
@@ -22204,7 +21967,7 @@ F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   21 |     DeletionPolicy: Snapshot
      ^ Col 0
 ",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,6,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
    1 | Resources:
    2 |   NewVolume1:
    3 |     Type: AWS::EC2::Volume
@@ -22228,7 +21991,31 @@ F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   21 |     DeletionPolicy: Snapshot
      ^ Col 0
 ",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,17,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
+   7 |       AvailabilityZone: us-east-1
+   8 |     DeletionPolicy: Snapshot
+   9 |   NewVolume2:
+  10 |     Type: AWS::EC2::Volume
+  11 |     Properties:
+  12 |       Size: 100
+  13 |       AvailabilityZone: us-east-1
+  14 |     DeletionPolicy: Snapshot
+  15 |   NewVolume3:
+  16 |     Type: AWS::EC2::Volume
+> 17 |     Properties:
+  18 |       Size: 100
+  19 |       Encrypted: true
+  20 |       AvailabilityZone: us-east-1
+  21 |     DeletionPolicy: Snapshot
+  22 |   NewVolume4:
+  23 |     Type: AWS::EC2::Volume
+  24 |     Properties:
+  25 |       Size: 100
+  26 |       Encrypted: true
+  27 |       KmsKeyId: arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias
+     ^ Col 0
+",f250._cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,7,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""NewVolume1"": {
@@ -22252,7 +22039,7 @@ F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   21 |       ""Type"": ""AWS::EC2::Volume"",
      ^ Col 0
 ",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,14,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,14,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
    4 |       ""Type"": ""AWS::EC2::Volume"",
    5 |       ""Properties"": {
    6 |         ""Size"": 100,
@@ -22276,73 +22063,28 @@ F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.y
   24 |         ""Encrypted"": true,
      ^ Col 0
 ",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,16,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
-   6 |       Encrypted: true
-   7 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-   8 |       Tags:
-   9 |         - Key: MyTag
-  10 |           Value: TagValue
-  11 |     DeletionPolicy: Snapshot
-  12 |   NewVolume:
-  13 |     Type: AWS::EC2::Volume
-  14 |     Properties:
-  15 |       Size: 100
-> 16 |       Encrypted: false
-  17 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  18 |       Tags:
-  19 |         - Key: MyTag
-  20 |           Value: TagValue
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume:
-  23 |     Type: AWS::EC2::Volume
-  24 |     Properties:
-  25 |       Size: 100
-  26 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-     ^ Col 0
-",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,24,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
-  10 |           Value: TagValue
-  11 |     DeletionPolicy: Snapshot
-  12 |   NewVolume:
-  13 |     Type: AWS::EC2::Volume
-  14 |     Properties:
-  15 |       Size: 100
-  16 |       Encrypted: false
-  17 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  18 |       Tags:
-  19 |         - Key: MyTag
-  20 |           Value: TagValue
-  21 |     DeletionPolicy: Snapshot
-  22 |   NewVolume:
-  23 |     Type: AWS::EC2::Volume
-> 24 |     Properties:
-  25 |       Size: 100
-  26 |       AvailabilityZone: Ec2Instance.AvailabilityZone
-  27 |       Tags:
-  28 |         - Key: MyTag
-  29 |           Value: TagValue
-  30 |     DeletionPolicy: Snapshot
-     ^ Col 0
-",f250._cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,5,313,skims,250. Non-encrypted hard drives,Encrypted property should be enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""NewVolume"": {
-   4 |       ""Type"": ""AWS::EC2::Volume"",
->  5 |       ""Properties"": {
-   6 |         ""Size"": 100,
-   7 |         ""AvailabilityZone"": ""Ec2Instance.AvailabilityZone"",
-   8 |         ""Tags"": [
-   9 |           {
-  10 |             ""Key"": ""MyTag"",
-  11 |             ""Value"": ""TagValue""
-  12 |           }
-  13 |         ]
-  14 |       },
-  15 |       ""DeletionPolicy"": ""Snapshot""
-  16 |     }
-  17 |   }
-  18 | }
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,22,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
+  12 |     ""NewVolume2"": {
+  13 |       ""Type"": ""AWS::EC2::Volume"",
+  14 |       ""Properties"": {
+  15 |         ""Size"": 100,
+  16 |         ""AvailabilityZone"": ""us-east-1""
+  17 |       },
+  18 |       ""DeletionPolicy"": ""Snapshot""
+  19 |     },
+  20 |     ""NewVolume3"": {
+  21 |       ""Type"": ""AWS::EC2::Volume"",
+> 22 |       ""Properties"": {
+  23 |         ""Size"": 100,
+  24 |         ""Encrypted"": true,
+  25 |         ""AvailabilityZone"": ""us-east-1""
+  26 |       },
+  27 |       ""DeletionPolicy"": ""Snapshot""
+  28 |     },
+  29 |     ""NewVolume4"": {
+  30 |       ""Type"": ""AWS::EC2::Volume"",
+  31 |       ""Properties"": {
+  32 |         ""Size"": 100,
      ^ Col 0
 ",f250._cfn_ec2_has_unencrypted_volumes
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId

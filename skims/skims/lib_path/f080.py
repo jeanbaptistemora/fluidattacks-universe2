@@ -6,7 +6,6 @@ from aws.model import (
     AWSS3Bucket,
 )
 from lib_path.common import (
-    EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -17,12 +16,6 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
-)
-from parse_cfn.loader import (
-    load_templates,
-)
-from parse_cfn.structure import (
-    iterate_resources,
 )
 from parse_hcl2.common import (
     get_attribute,
@@ -52,30 +45,6 @@ _FINDING_F080 = core_model.FindingEnum.F080
 _FINDING_F080_CWE = _FINDING_F080.value.cwe
 
 
-def _iter_ec2_volumes(template: Node) -> Iterator[Node]:
-    yield from (
-        props
-        for _, _, props in iterate_resources(
-            template,
-            "AWS::EC2::Volume",
-            exact=True,
-        )
-    )
-
-
-def _unencrypted_volume_iterate_vulnerabilities(
-    volumes_iterator: Iterator[Union[Any, Node]],
-) -> Iterator[Union[Any, Node]]:
-    for volume in volumes_iterator:
-        if isinstance(volume, Node):
-            if "Encrypted" not in volume.raw:
-                yield volume
-            elif not volume.raw.get("Encrypted"):
-                yield volume.inner["Encrypted"]
-            elif "KmsKeyId" not in volume.raw:
-                yield volume
-
-
 def _public_buckets_iterate_vulnerabilities(
     buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
 ) -> Iterator[Union[AWSS3Acl, Node]]:
@@ -91,25 +60,6 @@ def _public_buckets_iterate_vulnerabilities(
                     column=acl.column,
                     line=acl.line,
                 )
-
-
-def _cfn_unencrypted_volumes(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={_FINDING_F080_CWE},
-        description_key="src.lib_path.f080_aws.unencrypted_volumes",
-        finding=_FINDING_F080,
-        iterator=get_cloud_iterator(
-            _unencrypted_volume_iterate_vulnerabilities(
-                volumes_iterator=_iter_ec2_volumes(template=template)
-            )
-        ),
-        path=path,
-    )
 
 
 def _terraform_public_buckets(
@@ -128,24 +78,6 @@ def _terraform_public_buckets(
             )
         ),
         path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_unencrypted_volumes(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    # cfn_nag W37 EBS Volume should specify a KmsKeyId value\
-    # cloudconformity EBS-001 EBS Encrypted
-    return await in_process(
-        _cfn_unencrypted_volumes,
-        content=content,
-        path=path,
-        template=template,
     )
 
 
@@ -176,19 +108,7 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        async for template in load_templates(
-            content=content, fmt=file_extension
-        ):
-            coroutines.append(
-                cfn_unencrypted_volumes(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-    elif file_extension in EXTENSIONS_TERRAFORM:
+    if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = await load_terraform(stream=content, default=[])
         coroutines.append(

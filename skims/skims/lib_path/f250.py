@@ -114,6 +114,12 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
             vol_encryption = ec2_res.inner.get("Encrypted")
             if vol_encryption.raw in FALSE_OPTIONS:
                 yield vol_encryption
+            elif "KmsKeyId" not in ec2_res.raw:
+                yield AWSEC2(
+                    column=ec2_res.start_column,
+                    data=ec2_res.data,
+                    line=get_line_by_extension(ec2_res.start_line, file_ext),
+                )
 
 
 def _cfn_fsx_has_unencrypted_volumes(
