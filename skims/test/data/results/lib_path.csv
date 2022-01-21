@@ -20549,7 +20549,7 @@ F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skim
   16 |   purge_protection_enabled   = true
   17 | }
      ^ Col 0
-",f101._tfm_azure_key_vault_not_recoverable
+",terraform.tfm_azure_key_vault_not_recoverable
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
