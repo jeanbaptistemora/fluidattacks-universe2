@@ -6,8 +6,14 @@ from aioextensions import (
     schedule,
 )
 import authz
+from botocore.exceptions import (
+    ClientError,
+)
 from comments import (
     domain as comments_domain,
+)
+from contextlib import (
+    suppress,
 )
 from custom_exceptions import (
     InvalidCommentParent,
@@ -59,6 +65,9 @@ from decimal import (
 from findings import (
     storage as findings_storage,
 )
+from findings.domain.reattack import (
+    clone_roots_in_batch,
+)
 from findings.types import (
     FindingDescriptionToUpdate,
 )
@@ -69,6 +78,10 @@ import logging
 import logging.config
 from machine.availability import (
     operation_can_be_executed,
+)
+from machine.jobs import (
+    get_finding_code_from_title,
+    queue_boto3,
 )
 from mailer import (
     findings as findings_mail,
@@ -607,8 +620,7 @@ async def request_vulnerabilities_verification(
     justification: str,
     vulnerability_ids: Set[str],
 ) -> None:
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
         finding_id,
@@ -624,6 +636,21 @@ async def request_vulnerabilities_verification(
     if not vulnerabilities:
         raise VulnNotFound()
 
+    root_nicknames = {vuln.repo for vuln in vulnerabilities if vuln.repo}
+    if root_nicknames:
+        with suppress(ClientError):
+            clone_job_id = (
+                await clone_roots_in_batch(finding.group_name, *root_nicknames)
+            )["jobId"]
+            if finding_code := get_finding_code_from_title(finding.title):
+                await queue_boto3(
+                    group=finding.group_name,
+                    namespaces=tuple(root_nicknames),
+                    finding_code=finding_code,
+                    dependsOn=[
+                        {"jobId": clone_job_id, "type": "SEQUENTIAL"},
+                    ],
+                )
     comment_id = str(round(time() * 1000))
     user_email: str = user_info["user_email"]
     verification = FindingVerification(

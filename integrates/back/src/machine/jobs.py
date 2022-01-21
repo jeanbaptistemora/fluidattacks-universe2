@@ -292,6 +292,7 @@ async def queue_boto3(
     group: str,
     finding_code: str,
     namespaces: Tuple[str, ...],
+    **kwargs: Any,
 ) -> Dict[str, Any]:
     queue_name = "skims_all_soon"
     job_name = f"skims-process-{group}-{finding_code}"
@@ -367,6 +368,7 @@ async def queue_boto3(
                 "attempts": 1,
             },
             timeout={"attemptDurationSeconds": 86400},
+            **kwargs,
         )
 
 
