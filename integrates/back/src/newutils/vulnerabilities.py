@@ -3,6 +3,7 @@
 from . import (
     datetime as datetime_utils,
 )
+import bugsnag
 from custom_exceptions import (
     AlreadyRequested,
     AlreadyZeroRiskRequested,
@@ -464,6 +465,11 @@ async def get_report_dates(
             for historic in vulns_historic_state
         )
     except IndexError:
+        bugsnag.notify(
+            "Vulnerability with empty historic state",
+            severity="error",
+            metadata={"extra": {"vulnerabilities": vulns_ids}},
+        )
         LOGGER_CONSOLE.warning(
             "Vulnerability with empty historic state",
             extra={"extra": {"vulnerabilities": vulns_ids}},
@@ -647,7 +653,15 @@ async def get_report_date(
     historic: Tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vuln.id)
-    return datetime.fromisoformat(historic[0].modified_date)
+    try:
+        return datetime.fromisoformat(historic[0].modified_date)
+    except IndexError:
+        bugsnag.notify(
+            "Vulnerability with empty historic state",
+            severity="error",
+            metadata={"extra": {"vulnerability": vuln.id}},
+        )
+        raise
 
 
 async def get_source(
