@@ -15421,7 +15421,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   42 |            Host: ""#{host}""
   43 |            Path: ""/#{path}""
      ^ Col 0
-",f070._cfn_elb2_uses_insecure_security_policy
+",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,36,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   26 |            Host: ""#{host}""
   27 |            Path: ""/#{path}""
@@ -15445,7 +15445,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   45 |            StatusCode: ""HTTP_301""
   46 |      LoadBalancerArn: myLoadBalancer
      ^ Col 0
-",f070._cfn_elb2_uses_insecure_security_policy
+",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
   34 |               ""Host"": ""#{host}"",
   35 |               ""Path"": ""/#{path}"",
@@ -15469,7 +15469,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   53 |             ""RedirectConfig"": {
   54 |               ""Protocol"": ""HTTPS"",
      ^ Col 0
-",f070._cfn_elb2_uses_insecure_security_policy
+",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,49,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
   39 |           }
   40 |         ],
@@ -15493,7 +15493,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   58 |               ""Query"": ""#{query}"",
   59 |               ""StatusCode"": ""HTTP_301""
      ^ Col 0
-",f070._cfn_elb2_uses_insecure_security_policy
+",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/lb_test.tf,"
   1 | resource ""aws_lb_target_group"" ""test"" {
   2 |   name     = ""tf-example-lb-tg""
@@ -15502,7 +15502,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. I
   5 |   vpc_id   = aws_vpc.main.id
   6 | }
     ^ Col 0
-",f070._tfm_lb_target_group_insecure_port
+",terraform.tfm_lb_target_group_insecure_port
 F346,lines,namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
