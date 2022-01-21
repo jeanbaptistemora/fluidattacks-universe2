@@ -70,7 +70,7 @@ def _terraform_public_buckets(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={_FINDING_F080_CWE},
-        description_key="src.lib_path.f080_aws.unencrypted_buckets",
+        description_key="src.lib_path.f080_aws.public_buckets",
         finding=_FINDING_F080,
         iterator=get_cloud_iterator(
             _public_buckets_iterate_vulnerabilities(

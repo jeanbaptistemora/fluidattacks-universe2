@@ -18023,6 +18023,30 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,40,310 + 327,skims,
   42 |
      ^ Col 8
 ",java.java_insecure_pass
+F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,311,skims,080. Business information leak - Customers or providers,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
+  14 |       apply_server_side_encryption_by_default {
+  15 |         kms_master_key_id = aws_kms_key.mykey.arn
+  16 |         sse_algorithm     = ""aws:kms""
+  17 |       }
+  18 |     }
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_s3_bucket"" ""public"" {
+  23 |   bucket = ""my-tf-test-bucket""
+> 24 |   acl    = ""public-read-write""
+  25 |
+  26 |   server_side_encryption_configuration {
+  27 |     rule {
+  28 |       apply_server_side_encryption_by_default {
+  29 |         kms_master_key_id = aws_kms_key.mykey.arn
+  30 |         sse_algorithm     = ""aws:kms""
+  31 |       }
+  32 |     }
+  33 |   }
+  34 | }
+     ^ Col 0
+",f080._terraform_public_buckets
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,20,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
   10 |      - 's3:GetObject'
   11 |    Effect: Allow
@@ -25069,6 +25093,150 @@ F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. 
   21 |     healthy_threshold   = 2
      ^ Col 0
 ",f400._tfm_elb_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+>  5 |     Properties:
+   6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+  16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,15,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,"
+   5 |     Properties:
+   6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+> 15 |     Properties:
+  16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+  22 |               KMSMasterKeyID: KMS-KEY-ARN
+  23 |     DeletionPolicy: Delete
+  24 |   PrivateS3Bucket:
+  25 |     Type: AWS::S3::Bucket
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,26,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,"
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+  16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+  22 |               KMSMasterKeyID: KMS-KEY-ARN
+  23 |     DeletionPolicy: Delete
+  24 |   PrivateS3Bucket:
+  25 |     Type: AWS::S3::Bucket
+> 26 |     Properties:
+  27 |       AccessControl: Private
+  28 |       BucketName: SKIMS-PRIVATE-BUCKET
+  29 |       BucketEncryption:
+  30 |         ServerSideEncryptionConfiguration:
+  31 |           - ServerSideEncryptionByDefault:
+  32 |               SSEAlgorithm: aws:kms
+  33 |               KMSMasterKeyID: KMS-KEY-ARN
+  34 |     DeletionPolicy: Delete
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""AccessControl"": ""PublicReadWrite"",
+   8 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET"",
+   9 |         ""BucketEncryption"": {
+  10 |           ""ServerSideEncryptionConfiguration"": [
+  11 |             {
+  12 |               ""ServerSideEncryptionByDefault"": {
+  13 |                 ""SSEAlgorithm"": ""aws:kms"",
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,23,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,"
+  13 |                 ""SSEAlgorithm"": ""aws:kms"",
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+> 23 |       ""Properties"": {
+  24 |         ""AccessControl"": ""PublicReadWrite"",
+  25 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET-2"",
+  26 |         ""BucketEncryption"": {
+  27 |           ""ServerSideEncryptionConfiguration"": [
+  28 |             {
+  29 |               ""ServerSideEncryptionByDefault"": {
+  30 |                 ""SSEAlgorithm"": ""aws:kms"",
+  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  32 |               }
+  33 |             }
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,41,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,"
+  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  32 |               }
+  33 |             }
+  34 |           ]
+  35 |         }
+  36 |       },
+  37 |       ""DeletionPolicy"": ""Delete""
+  38 |     },
+  39 |     ""PrivateS3Bucket"": {
+  40 |       ""Type"": ""AWS::S3::Bucket"",
+> 41 |       ""Properties"": {
+  42 |         ""AccessControl"": ""Private"",
+  43 |         ""BucketName"": ""SKIMS-PRIVATE-BUCKET"",
+  44 |         ""BucketEncryption"": {
+  45 |           ""ServerSideEncryptionConfiguration"": [
+  46 |             {
+  47 |               ""ServerSideEncryptionByDefault"": {
+  48 |                 ""SSEAlgorithm"": ""aws:kms"",
+  49 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  50 |               }
+  51 |             }
+     ^ Col 0
+",f400._cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,9,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -26631,6 +26799,102 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,3,
   21 |
      ^ Col 0
 ",f335._tfm_s3_not_private_access
+F335,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+   5 |     Properties:
+>  6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+  16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+     ^ Col 0
+",f335._cfn_public_buckets
+F335,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,16,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml,"
+   6 |       AccessControl: PublicReadWrite
+   7 |       BucketName: SKIMS-PUBLIC-BUCKET
+   8 |       BucketEncryption:
+   9 |         ServerSideEncryptionConfiguration:
+  10 |           - ServerSideEncryptionByDefault:
+  11 |               SSEAlgorithm: aws:kms
+  12 |               KMSMasterKeyID: KMS-KEY-ARN
+  13 |   S3Bucket1:
+  14 |     Type: AWS::S3::Bucket
+  15 |     Properties:
+> 16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
+  22 |               KMSMasterKeyID: KMS-KEY-ARN
+  23 |     DeletionPolicy: Delete
+  24 |   PrivateS3Bucket:
+  25 |     Type: AWS::S3::Bucket
+  26 |     Properties:
+     ^ Col 0
+",f335._cfn_public_buckets
+F335,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,7,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+   6 |       ""Properties"": {
+>  7 |         ""AccessControl"": ""PublicReadWrite"",
+   8 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET"",
+   9 |         ""BucketEncryption"": {
+  10 |           ""ServerSideEncryptionConfiguration"": [
+  11 |             {
+  12 |               ""ServerSideEncryptionByDefault"": {
+  13 |                 ""SSEAlgorithm"": ""aws:kms"",
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+     ^ Col 0
+",f335._cfn_public_buckets
+F335,lines,namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,24,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f080/cfn_public_buckets.yaml.json,"
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+  23 |       ""Properties"": {
+> 24 |         ""AccessControl"": ""PublicReadWrite"",
+  25 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET-2"",
+  26 |         ""BucketEncryption"": {
+  27 |           ""ServerSideEncryptionConfiguration"": [
+  28 |             {
+  29 |               ""ServerSideEncryptionByDefault"": {
+  30 |                 ""SSEAlgorithm"": ""aws:kms"",
+  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  32 |               }
+  33 |             }
+  34 |           ]
+     ^ Col 0
+",f335._cfn_public_buckets
 F335,lines,namespace/skims/test/data/lib_path/f335/test_s3.tf,3,922,skims,335. Insecure service configuration - Bucket,S3 Bucket has not Private Access Control in namespace/skims/test/data/lib_path/f335/test_s3.tf,"
    1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""

@@ -1,5 +1,3 @@
-src.lib_path.f080_aws.unencrypted_volumes:
-  en: EC2 volumes are not encrypted or do not use customer-managed keys
-  es: >
-    Los volúmenes EC2 no están cifrados o no usan claves administradas por el
-    cliente
+src.lib_path.f080_aws.public_buckets:
+  en: AccessControl should not be PublicReadWrite
+  es: AccessControl no debería ser PublicReadWrite
