@@ -1,3 +1,3 @@
-lib_apk.analyze_bytecodes.not_verifies_ssl_hostname:
+lib_apk.analyze_bytecodes.uses_insecure_delete:
   en: The given APK uses insecure delete of data.
   es: El APK dado usa un borrado de datos inseguro.
