@@ -1,11 +1,17 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v2.cmd import (
+    Cmd,
+)
 from purity.v2.maybe import (
     Maybe,
 )
 from purity.v2.result import (
     Result,
+)
+from returns.io import (
+    IO,
 )
 from returns.maybe import (
     Maybe as LegacyMaybe,
@@ -15,7 +21,11 @@ from returns.result import (
     Result as LegacyResult,
     Success,
 )
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
+    Callable,
     overload,
     TypeVar,
     Union,
@@ -80,3 +90,7 @@ def from_returns(
         raise Exception("Unexpected Result with no value")
     val = item.value_or(None)
     return Maybe.from_optional(val)
+
+
+def to_cmd(action: Callable[[], IO[_T]]) -> Cmd[_T]:
+    return Cmd.from_cmd(lambda: unsafe_perform_io(action()))
