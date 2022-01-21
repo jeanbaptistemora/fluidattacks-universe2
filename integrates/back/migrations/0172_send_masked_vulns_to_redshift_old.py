@@ -52,6 +52,7 @@ from groups import (
 import logging
 import logging.config
 from newutils.vulnerabilities import (
+    adjust_historic_dates,
     format_vulnerability,
     format_vulnerability_state,
     format_vulnerability_treatment,
@@ -149,11 +150,11 @@ async def process_finding(
     *,
     finding: Finding,
 ) -> None:
+    # Only vulns for released findings will be stored
     if finding.state.status not in {
         FindingStateStatus.APPROVED,
         FindingStateStatus.DELETED,
     }:
-        # Only vulns for released findings will be stored
         return
 
     # Retrieve vulns as dict from old table
@@ -171,17 +172,21 @@ async def process_finding(
         format_vulnerability(item=item) for item in vulns_items_to_store
     )
     vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...] = tuple(
-        tuple(
-            format_vulnerability_state(state)
-            for state in vulnerability["historic_state"]
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_state(state)
+                for state in vulnerability["historic_state"]
+            )
         )
         for vulnerability in vulns_items_to_store
     )
     vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...] = tuple(
-        tuple(
-            format_vulnerability_treatment(treatment)
-            for treatment in get_optional(
-                "historic_treatment", vulnerability, tuple()
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_treatment(treatment)
+                for treatment in get_optional(
+                    "historic_treatment", vulnerability, tuple()
+                )
             )
         )
         for vulnerability in vulns_items_to_store
@@ -189,19 +194,23 @@ async def process_finding(
     vulns_verification: Tuple[
         Tuple[VulnerabilityVerification, ...], ...
     ] = tuple(
-        tuple(
-            format_vulnerability_verification(verification)
-            for verification in get_optional(
-                "historic_verification", vulnerability, tuple()
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_verification(verification)
+                for verification in get_optional(
+                    "historic_verification", vulnerability, tuple()
+                )
             )
         )
         for vulnerability in vulns_items_to_store
     )
     vulns_zero_risk: Tuple[Tuple[VulnerabilityZeroRisk, ...], ...] = tuple(
-        tuple(
-            format_vulnerability_zero_risk(zero_risk)
-            for zero_risk in get_optional(
-                "historic_zero_risk", vulnerability, tuple()
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_zero_risk(zero_risk)
+                for zero_risk in get_optional(
+                    "historic_zero_risk", vulnerability, tuple()
+                )
             )
         )
         for vulnerability in vulns_items_to_store
@@ -238,7 +247,7 @@ async def process_group(
     all_findings = group_drafts_and_findings + group_removed_findings
     await collect(
         tuple(process_finding(finding=finding) for finding in all_findings),
-        workers=8,
+        workers=16,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
@@ -284,7 +293,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(removed_groups)
         ),
-        workers=8,
+        workers=16,
     )
 
 
