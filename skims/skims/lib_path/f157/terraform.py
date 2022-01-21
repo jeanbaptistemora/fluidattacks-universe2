@@ -1,6 +1,3 @@
-from aioextensions import (
-    in_process,
-)
 from azure.model import (
     AzurermStorageAccount,
     AzurermStorageAccountNetworkRules,
@@ -9,21 +6,17 @@ from itertools import (
     chain,
 )
 from lib_path.common import (
-    EXTENSIONS_TERRAFORM,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
 )
 from parse_hcl2.common import (
     get_argument,
     get_attribute,
     get_block_attribute,
-)
-from parse_hcl2.loader import (
-    load as load_terraform,
 )
 from parse_hcl2.structure.azure import (
     iter_azurerm_data_factory,
@@ -34,25 +27,13 @@ from parse_hcl2.structure.azure import (
 from parse_hcl2.tokens import (
     Attribute,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
-    Awaitable,
-    Callable,
     Iterator,
-    List,
-)
-from utils.function import (
-    TIMEOUT_1MIN,
 )
 
-_FINDING_F157 = core_model.FindingEnum.F157
-_FINDING_F157_CWE = _FINDING_F157.value.cwe
 
-
-def tfm_azure_unrestricted_access_network_segments_iterate(
+def _tfm_azure_unrestricted_access_network_segments_iterate(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -69,7 +50,7 @@ def tfm_azure_unrestricted_access_network_segments_iterate(
             yield resource
 
 
-def tfm_azure_sa_default_network_access_iterate_vulns(
+def _tfm_azure_sa_default_network_access_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -93,7 +74,7 @@ def tfm_azure_sa_default_network_access_iterate_vulns(
                 yield default_action
 
 
-def tfm_azure_kv_default_network_access_iterate_vulns(
+def _tfm_azure_kv_default_network_access_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -110,7 +91,7 @@ def tfm_azure_kv_default_network_access_iterate_vulns(
             yield resource
 
 
-def tfm_azure_kv_danger_bypass_iterate_vulns(
+def _tfm_azure_kv_danger_bypass_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -130,18 +111,16 @@ def tfm_azure_kv_danger_bypass_iterate_vulns(
             yield resource
 
 
-def _tfm_azure_unrestricted_access_network_segments(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
+def tfm_azure_unrestricted_access_network_segments(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F157_CWE},
+        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.etl_visible_to_the_public_network"),
-        finding=_FINDING_F157,
+        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
-            tfm_azure_unrestricted_access_network_segments_iterate(
+            _tfm_azure_unrestricted_access_network_segments_iterate(
                 resource_iterator=iter_azurerm_data_factory(model=model)
             )
         ),
@@ -149,18 +128,16 @@ def _tfm_azure_unrestricted_access_network_segments(
     )
 
 
-def _tfm_azure_sa_default_network_access(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
+def tfm_azure_sa_default_network_access(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F157_CWE},
+        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_sa_default_network_access"),
-        finding=_FINDING_F157,
+        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
-            tfm_azure_sa_default_network_access_iterate_vulns(
+            _tfm_azure_sa_default_network_access_iterate_vulns(
                 resource_iterator=chain(
                     iter_azurerm_storage_account(model=model),
                     iter_azurerm_storage_account_network_rules(model=model),
@@ -171,18 +148,16 @@ def _tfm_azure_sa_default_network_access(
     )
 
 
-def _tfm_azure_kv_default_network_access(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
+def tfm_azure_kv_default_network_access(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F157_CWE},
+        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_kv_default_network_access"),
-        finding=_FINDING_F157,
+        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
-            tfm_azure_kv_default_network_access_iterate_vulns(
+            _tfm_azure_kv_default_network_access_iterate_vulns(
                 resource_iterator=iter_azurerm_key_vault(model=model),
             )
         ),
@@ -190,126 +165,18 @@ def _tfm_azure_kv_default_network_access(
     )
 
 
-def _tfm_azure_kv_danger_bypass(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
+def tfm_azure_kv_danger_bypass(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F157_CWE},
+        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_kv_danger_bypass"),
-        finding=_FINDING_F157,
+        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
-            tfm_azure_kv_danger_bypass_iterate_vulns(
+            _tfm_azure_kv_danger_bypass_iterate_vulns(
                 resource_iterator=iter_azurerm_key_vault(model=model),
             )
         ),
         path=path,
     )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def tfm_azure_unrestricted_access_network_segments(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _tfm_azure_unrestricted_access_network_segments,
-        content=content,
-        path=path,
-        model=model,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def tfm_azure_sa_default_network_access(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _tfm_azure_sa_default_network_access,
-        content=content,
-        path=path,
-        model=model,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def tfm_azure_kv_default_network_access(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _tfm_azure_kv_default_network_access,
-        content=content,
-        path=path,
-        model=model,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def tfm_azure_kv_danger_bypass(
-    content: str,
-    path: str,
-    model: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _tfm_azure_kv_danger_bypass,
-        content=content,
-        path=path,
-        model=model,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_extension: str,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-    if file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
-        model = await load_terraform(stream=content, default=[])
-        coroutines.append(
-            tfm_azure_unrestricted_access_network_segments(
-                content=content,
-                path=path,
-                model=model,
-            )
-        )
-        coroutines.append(
-            tfm_azure_sa_default_network_access(
-                content=content,
-                path=path,
-                model=model,
-            )
-        )
-        coroutines.append(
-            tfm_azure_kv_default_network_access(
-                content=content,
-                path=path,
-                model=model,
-            )
-        )
-        coroutines.append(
-            tfm_azure_kv_danger_bypass(
-                content=content,
-                path=path,
-                model=model,
-            )
-        )
-    return coroutines

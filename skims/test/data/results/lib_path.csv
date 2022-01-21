@@ -27036,7 +27036,7 @@ F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skim
   16 |   purge_protection_enabled   = true
   17 | }
      ^ Col 0
-",f157._tfm_azure_kv_default_network_access
+",terraform.tfm_azure_kv_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -27056,7 +27056,7 @@ F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skim
   16 |   purge_protection_enabled   = true
   17 | }
      ^ Col 0
-",f157._tfm_azure_kv_default_network_access
+",terraform.tfm_azure_kv_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_access.tf,24,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_access.tf,"
    7 |   soft_delete_enabled        = true
    8 |   purge_protection_enabled   = true
@@ -27080,7 +27080,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_
   26 |   }
   27 | }
      ^ Col 0
-",f157._tfm_azure_kv_default_network_access
+",terraform.tfm_azure_kv_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
 >  1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""
@@ -27095,7 +27095,7 @@ F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.
   11 |   }
   12 | }
      ^ Col 0
-",f157._tfm_azure_sa_default_network_access
+",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,37,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
   27 |       read   = true
   28 |       write  = true
@@ -27119,7 +27119,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_acc
   46 |   network_rules {
   47 |     default_action = ""Allow""
      ^ Col 0
-",f157._tfm_azure_sa_default_network_access
+",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,47,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
   37 |   default_action = ""Allow""
   38 | }
@@ -27143,7 +27143,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_acc
   56 |   queue_properties {
   57 |     logging {
      ^ Col 0
-",f157._tfm_azure_sa_default_network_access
+",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,20,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
   10 |       delete                = true
   11 |       read                  = true
@@ -27167,7 +27167,7 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   29 |       delete                = false
   30 |       read                  = false
      ^ Col 0
-",f157._tfm_azure_sa_default_network_access
+",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to Deny in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,"
 >  1 | resource ""azurerm_storage_account"" ""not_vulnerable"" {
    2 |   name                     = ""example""
@@ -27191,7 +27191,7 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   20 | resource ""azurerm_storage_account"" ""vulnerable"" {
   21 |   name                     = ""example""
      ^ Col 0
-",f157._tfm_azure_sa_default_network_access
+",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
    1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -27211,7 +27211,7 @@ F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skim
   16 |   purge_protection_enabled   = true
   17 | }
      ^ Col 0
-",f157._tfm_azure_kv_danger_bypass
+",terraform.tfm_azure_kv_danger_bypass
 F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -27231,7 +27231,7 @@ F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,923,skim
   16 |   purge_protection_enabled   = true
   17 | }
      ^ Col 0
-",f157._tfm_azure_kv_danger_bypass
+",terraform.tfm_azure_kv_danger_bypass
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_danger_bypass.tf,25,923,skims,157. Unrestricted access between network segments,Ensure only Azure Services can bypass the network rules. in namespace/skims/test/data/lib_path/f157/tfm_azure_kv_danger_bypass.tf,"
    7 |   soft_delete_enabled        = true
    8 |   purge_protection_enabled   = true
@@ -27255,7 +27255,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_danger_bypass.tf
   26 |   }
   27 | }
      ^ Col 0
-",f157._tfm_azure_kv_danger_bypass
+",terraform.tfm_azure_kv_danger_bypass
 F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
@@ -27264,7 +27264,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,
 > 5 |   public_network_enabled = true
   6 | }
     ^ Col 0
-",f157._tfm_azure_unrestricted_access_network_segments
+",terraform.tfm_azure_unrestricted_access_network_segments
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (@angular/core v11.0.4) [SNYK-JS-ANGULARCORE-1070902],4,937,skims,011. Use of software with known vulnerabilities,Use of @angular/core at version 11.0.4 with SNYK-JS-ANGULARCORE-1070902 in namespace/skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
