@@ -53,6 +53,9 @@ import more_itertools
 from more_itertools import (
     chunked,
 )
+from more_itertools.recipes import (
+    flatten,
+)
 from newutils.datetime import (
     get_as_epoch,
     get_now,
@@ -283,11 +286,13 @@ async def list_log_streams(
     async with aioboto3.client(**resource_options) as cloudwatch:
 
         async def _request(
-            _job_id: str, next_token: Optional[str] = None
+            _job_id: Optional[str] = None, next_token: Optional[str] = None
         ) -> List[Dict[str, Any]]:
             _response = await cloudwatch.describe_log_streams(
                 logGroupName="skims",
-                logStreamNamePrefix=f"{group}/{_job_id}/",
+                logStreamNamePrefix=f"{group}/{_job_id}/"
+                if _job_id
+                else f"{group}/",
                 **({"nextToken": next_token} if next_token else {}),
             )
             result: List[Dict[str, Any]] = _response["logStreams"]
@@ -296,27 +301,35 @@ async def list_log_streams(
                 result.extend(await _request(_job_id, next_token=_next_token))
             return result
 
-        return list(
-            more_itertools.flatten(
-                await collect(_request(_job_id) for _job_id in job_ids)
+        if job_ids:
+            return list(
+                more_itertools.flatten(
+                    await collect(_request(_job_id) for _job_id in job_ids)
+                )
             )
-        )
+        return await _request()
 
 
-async def describe_jobs(*job_ids: str) -> List[Dict[str, Any]]:
+async def describe_jobs(*job_ids: str) -> Tuple[Dict[str, Any], ...]:
     resource_options = dict(
         service_name="batch",
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
-    result = []
     async with aioboto3.client(**resource_options) as batch:
-        for _set_jobs in more_itertools.divide(
-            math.ceil(len(job_ids) / 100), job_ids
-        ):
-            response = await batch.describe_jobs(jobs=list(_set_jobs))
-            result.extend(response["jobs"])
-    return result
+        return tuple(
+            flatten(
+                response["jobs"]
+                for response in await collect(
+                    tuple(
+                        batch.describe_jobs(jobs=list(_set_jobs))
+                        for _set_jobs in more_itertools.divide(
+                            math.ceil(len(job_ids) / 100), job_ids
+                        )
+                    )
+                )
+            )
+        )
 
 
 async def _list_queue_jobs(

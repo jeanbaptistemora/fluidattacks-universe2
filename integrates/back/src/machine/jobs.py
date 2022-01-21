@@ -167,35 +167,30 @@ async def list_(  # pylint: disable=too-many-locals
         if finding_code in json.loads(item["container"]["command"][-2])
         and item["status"] in {x.name for x in statuses}
     }
-
-    job_logs_description = await list_log_streams(
-        group_name, *jobs_details_from_batch.keys()
-    )
+    job_logs_description = await list_log_streams(group_name)
 
     job_items = []
     jobs_listed: List[str] = []
 
+    root_machine_executions: Dict[str, Dict[str, RootMachineExecutionItem]] = {
+        job_id: {execution.root_id: execution for execution in executions}
+        for job_id, executions in await collect(
+            _get_machine_executions_by_job_id(
+                job_id=job_id,
+            )
+            for job_id in list_jobs_from_batch.keys()
+        )
+    }
     for job_item in job_logs_description:
         group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
         jobs_listed.append(job_id)
+        if job_id not in jobs_details_from_batch:
+            continue
 
         db_execution: Optional[RootMachineExecutionItem] = None
         vulns_summary: Optional[RootMachineExecutionItem] = None
 
         if git_root_nickname in group_roots:
-            root_machine_executions: Dict[
-                str, Dict[str, RootMachineExecutionItem]
-            ] = {
-                job_id: {
-                    execution.root_id: execution for execution in executions
-                }
-                for job_id, executions in await collect(
-                    _get_machine_executions_by_job_id(
-                        job_id=job_id,
-                    )
-                    for job_id in list_jobs_from_batch.keys()
-                )
-            }
             db_execution = root_machine_executions.get(job_id, {}).get(
                 group_roots[git_root_nickname]
             )
