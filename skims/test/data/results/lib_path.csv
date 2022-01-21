@@ -18046,7 +18046,7 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24
   33 |   }
   34 | }
      ^ Col 0
-",f080._terraform_public_buckets
+",terraform.terraform_public_buckets
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,20,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
   10 |      - 's3:GetObject'
   11 |    Effect: Allow
