@@ -3,7 +3,13 @@ import { useAbility } from "@casl/react";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -13,6 +19,7 @@ import {
   filterSelect,
   filterText,
 } from "components/DataTableNext/utils";
+import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
@@ -20,17 +27,20 @@ import {
   filterTreatmentCurrentStatus,
   formatVulnerabilitiesTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { ReattackVulnerabilities } from "scenes/Dashboard/containers/Tasks/ActionsButtons/ReattackVulnerabilities/index";
 import type {
   IAction,
   IFilterTodosSet,
   IGroupAction,
   ITasksContent,
 } from "scenes/Dashboard/containers/Tasks/types";
+import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/utils";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import globalStyle from "styles/global.css";
-import { Col100 } from "styles/styledComponents";
+import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
+import { msgError } from "utils/notifications";
 
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,
@@ -46,6 +56,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [searchGroupName, setSearchGroupName] = useState("");
+  const [isReattacking, setReattacking] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("todosLocationsCustomFilters", false);
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
@@ -61,6 +73,28 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const attributesContext: PureAbility<string> = useContext(authzGroupContext);
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
+  );
+
+  const vulnerabilities: IVulnRowAttr[] = useMemo(
+    (): IVulnRowAttr[] =>
+      formatVulnerabilitiesTreatment(
+        meVulnerabilitiesAssigned === undefined || userData === undefined
+          ? []
+          : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned
+      ),
+    [meVulnerabilitiesAssigned, userData]
+  );
+
+  const vulnerabilitesGroupName: string[] = useMemo(
+    (): string[] =>
+      Array.from(
+        new Set(
+          vulnerabilities.map((vulnerability: IVulnRowAttr): string =>
+            vulnerability.groupName.toLowerCase()
+          )
+        )
+      ),
+    [vulnerabilities]
   );
 
   const changePermissions = useCallback(
@@ -112,6 +146,34 @@ export const TasksContent: React.FC<ITasksContent> = ({
             )
         )
       );
+      const groups = userData.me.organizations.reduce(
+        (
+          previousValue: IOrganizationGroups["groups"],
+          currentValue
+        ): IOrganizationGroups["groups"] => [
+          ...previousValue,
+          ...currentValue.groups.filter((group): boolean =>
+            vulnerabilitesGroupName.includes(group.name.toLowerCase())
+          ),
+        ],
+        []
+      );
+      const currentAttributes: string[] = Array.from(
+        new Set(
+          groups.reduce(
+            (previous: string[], current): string[] => [
+              ...previous,
+              ...current.serviceAttributes,
+            ],
+            []
+          )
+        )
+      );
+      if (currentAttributes.length > 0) {
+        attributesContext.update(
+          currentAttributes.map((action: string): IAction => ({ action }))
+        );
+      }
       if (currentPermissions.length > 0 && currentPermissions[0].length > 0) {
         permissionsContext.update(
           Array.from(
@@ -137,23 +199,27 @@ export const TasksContent: React.FC<ITasksContent> = ({
     attributesContext,
     permissionsContext,
     userData,
+    vulnerabilitesGroupName,
     setUserRole,
   ]);
 
-  const [, setRemediationModalConfig] = useState<{
-    vulnerabilities: IVulnRowAttr[];
+  const [remediationModalConfig, setRemediationModalConfig] = useState<{
+    vulnerabilitiesToReattack: IVulnRowAttr[];
     clearSelected: () => void;
   }>({
     clearSelected: (): void => undefined,
-    vulnerabilities: [],
+    vulnerabilitiesToReattack: [],
   });
 
   const openRemediationModal: (
-    vulnerabilities: IVulnRowAttr[],
+    vuls: IVulnRowAttr[],
     clearSelected: () => void
   ) => void = useCallback(
-    (vulnerabilities: IVulnRowAttr[], clearSelected: () => void): void => {
-      setRemediationModalConfig({ clearSelected, vulnerabilities });
+    (vulns: IVulnRowAttr[], clearSelected: () => void): void => {
+      setRemediationModalConfig({
+        clearSelected,
+        vulnerabilitiesToReattack: vulns,
+      });
     },
     []
   );
@@ -167,12 +233,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
   ): void {
     setSearchTextFilter(event.target.value);
   }
-
-  const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
-    meVulnerabilitiesAssigned === undefined || userData === undefined
-      ? []
-      : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned
-  );
 
   const onTreatmentChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -329,6 +389,54 @@ export const TasksContent: React.FC<ITasksContent> = ({
     return <div />;
   }
 
+  const groups = userData.me.organizations.reduce(
+    (
+      previousValue: IOrganizationGroups["groups"],
+      currentValue
+    ): IOrganizationGroups["groups"] => [
+      ...previousValue,
+      ...currentValue.groups,
+    ],
+    []
+  );
+
+  function toggleModal(): void {
+    setOpen(true);
+  }
+  function closeRemediationModal(): void {
+    setOpen(false);
+  }
+  function onReattack(): void {
+    if (isReattacking) {
+      setReattacking(!isReattacking);
+    } else {
+      const selectedVulnerabilities: IVulnRowAttr[] =
+        remediationModalConfig.vulnerabilitiesToReattack;
+      const validVulnerabilitiesId: string[] =
+        filteredContinuousVulnerabilitiesOnReattackIds(
+          selectedVulnerabilities,
+          groups
+        );
+      const newValidVulnerabilities: IVulnRowAttr[] = Array.from(
+        new Set(
+          selectedVulnerabilities.filter(
+            (selectedVulnerability: IVulnRowAttr): boolean =>
+              validVulnerabilitiesId.includes(selectedVulnerability.id)
+          )
+        )
+      );
+      if (selectedVulnerabilities.length > newValidVulnerabilities.length) {
+        setReattacking(!isReattacking);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setOpen(true);
+        setReattacking(!isReattacking);
+      } else {
+        setReattacking(!isReattacking);
+      }
+    }
+  }
+
   return (
     <React.StrictMode>
       <div className={globalStyle.tabContent}>
@@ -355,21 +463,64 @@ export const TasksContent: React.FC<ITasksContent> = ({
               position: "right",
             }}
             extraButtons={
-              <Button id={"refresh-assigned"} onClick={refreshAssigned}>
-                <FontAwesomeIcon icon={faSyncAlt} />
-              </Button>
+              <ButtonToolbarRow>
+                <Button id={"refresh-assigned"} onClick={refreshAssigned}>
+                  <FontAwesomeIcon icon={faSyncAlt} />
+                </Button>
+                <ReattackVulnerabilities
+                  areVulnerabilitiesReattacked={
+                    resultVulnerabilities.filter(
+                      (vuln): boolean =>
+                        !vuln.remediated &&
+                        filteredContinuousVulnerabilitiesOnReattackIds(
+                          resultVulnerabilities,
+                          groups
+                        ).includes(vuln.id)
+                    ).length === 0
+                  }
+                  areVulnsSelected={
+                    remediationModalConfig.vulnerabilitiesToReattack.length > 0
+                  }
+                  isEditing={false}
+                  isOpen={isOpen}
+                  isRequestingReattack={isReattacking}
+                  onRequestReattack={onReattack}
+                  openModal={toggleModal}
+                />
+              </ButtonToolbarRow>
             }
             findingState={"open"}
-            hideSelectVulnerability={true}
             isEditing={false}
             isFindingReleased={true}
-            isRequestingReattack={false}
+            isRequestingReattack={isReattacking}
             isVerifyingRequest={false}
+            nonValidOnReattackVulnerabilities={Array.from(
+              new Set(
+                vulnerabilities.filter(
+                  (vulnerability: IVulnRowAttr): boolean =>
+                    !filteredContinuousVulnerabilitiesOnReattackIds(
+                      vulnerabilities,
+                      groups
+                    ).includes(vulnerability.id)
+                )
+              )
+            )}
             onVulnSelect={openRemediationModal}
             vulnerabilities={resultVulnerabilities}
           />
         </Col100>
       </div>
+      {isOpen ? (
+        <UpdateVerificationModal
+          clearSelected={_.get(remediationModalConfig, "clearSelected")}
+          handleCloseModal={closeRemediationModal}
+          isReattacking={isReattacking}
+          isVerifying={false}
+          setRequestState={onReattack}
+          setVerifyState={onReattack}
+          vulns={remediationModalConfig.vulnerabilitiesToReattack}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };
