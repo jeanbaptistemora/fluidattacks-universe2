@@ -66,6 +66,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   isFindingReleased,
   isRequestingReattack,
   isVerifyingRequest,
+  nonValidOnReattackVulnerabilities,
   vulnerabilities,
   onVulnSelect,
 }: IVulnComponentProps): JSX.Element => {
@@ -147,11 +148,20 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     if (!previousIsRequestingReattack && isRequestingReattack) {
       setSelectedVulnerabilities(
         (currentVulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] => {
+          const nonValidIds =
+            nonValidOnReattackVulnerabilities === undefined
+              ? []
+              : nonValidOnReattackVulnerabilities.map(
+                  (vulnerability: IVulnRowAttr): string => vulnerability.id
+                );
           const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
             currentVulnerabilities,
             vulnerabilities,
             getNonSelectableVulnerabilitiesOnReattackIds
+          ).filter(
+            (vuln: IVulnRowAttr): boolean => !nonValidIds.includes(vuln.id)
           );
+
           onVulnSelect(newVulnerabilities, clearSelectedVulns);
 
           return newVulnerabilities;
@@ -217,7 +227,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     nonSelectable: setNonSelectable(
       vulnerabilities,
       isRequestingReattack,
-      isVerifyingRequest
+      isVerifyingRequest,
+      nonValidOnReattackVulnerabilities
     ),
     onSelect: onSelectOneVulnerability,
     onSelectAll: onSelectVariousVulnerabilities,

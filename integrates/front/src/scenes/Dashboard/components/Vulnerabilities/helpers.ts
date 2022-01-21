@@ -80,13 +80,31 @@ const errorMessageHelper = (message: string): void => {
 function setNonSelectable(
   vulns: IVulnRowAttr[],
   requestingReattack: boolean,
-  verifyingRequest: boolean
+  verifyingRequest: boolean,
+  nonValidOnReattackVulnerabilities: IVulnRowAttr[] | undefined
 ): number[] {
   const nonSelectable: number[] = getNonSelectableVulnerabilitiesOnEdit(vulns);
+  const nonValidIds =
+    nonValidOnReattackVulnerabilities === undefined
+      ? []
+      : nonValidOnReattackVulnerabilities.map(
+          (vulnerability: IVulnRowAttr): string => vulnerability.id
+        );
   if (requestingReattack) {
     return [
       ...getNonSelectableVulnerabilitiesOnReattack(vulns),
       ...nonSelectable,
+      ...vulns.reduce(
+        (
+          previous: number[],
+          vuln: IVulnRowAttr,
+          currentIndex: number
+        ): number[] =>
+          nonValidIds.includes(vuln.id)
+            ? [...previous, currentIndex]
+            : previous,
+        []
+      ),
     ];
   } else if (verifyingRequest) {
     return [
