@@ -40,15 +40,15 @@ from postgres_client.ids import (
 from purity.v1 import (
     Flattener,
 )
+from purity.v1.pure_iter.transform.io import (
+    consume,
+)
 from purity.v2.adapters import (
     from_returns,
     to_returns,
 )
 from purity.v2.frozen import (
     FrozenList,
-)
-from purity.v2.pure_iter.transform.io import (
-    consume,
 )
 from purity.v2.result import (
     Result,
