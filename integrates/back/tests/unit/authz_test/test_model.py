@@ -19,9 +19,7 @@ pytestmark = [
             authz.GROUP_LEVEL_ROLES,
             [
                 "admin",
-                "analyst",
                 "architect",
-                "closer",
                 "customer",
                 "customer_manager",
                 "customeradmin",
@@ -38,9 +36,7 @@ pytestmark = [
             authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS,
             [
                 "admin",
-                "analyst",
                 "architect",
-                "closer",
                 "customer",
                 "customer_manager",
                 "customeradmin",
@@ -57,7 +53,6 @@ pytestmark = [
             authz.USER_LEVEL_ROLES,
             [
                 "admin",
-                "analyst",
                 "customer",
                 "hacker",
             ],
@@ -66,7 +61,6 @@ pytestmark = [
             authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
             [
                 "admin",
-                "analyst",
                 "customer",
                 "hacker",
             ],

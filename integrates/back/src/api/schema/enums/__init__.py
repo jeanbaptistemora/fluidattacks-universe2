@@ -199,9 +199,7 @@ ENUMS: Tuple[EnumType, ...] = (
         "StakeholderRole",
         {
             "ADMIN": "admin",
-            "ANALYST": "analyst",
             "ARCHITECT": "architect",
-            "CLOSER": "closer",
             "CUSTOMER": "customer",
             "CUSTOMER_MANAGER": "customer_manager",
             "CUSTOMERADMIN": "customeradmin",

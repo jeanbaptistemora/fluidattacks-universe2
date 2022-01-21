@@ -646,9 +646,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
-# Permission duplication for the old roles
-GROUP_LEVEL_ROLES["analyst"] = GROUP_LEVEL_ROLES["hacker"]
-GROUP_LEVEL_ROLES["closer"] = GROUP_LEVEL_ROLES["reattacker"]
+# Permission duplication for the new roles
 GROUP_LEVEL_ROLES["customer_manager"] = GROUP_LEVEL_ROLES["system_owner"]
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -926,13 +924,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
-# Permission duplication for the old roles
-GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "analyst"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["hacker"]
-GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "closer"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["reattacker"]
+# Permission duplication for the new roles
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
     "customer_manager"
 ] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["system_owner"]
@@ -1119,8 +1111,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Permission duplication for the new roles
-USER_LEVEL_ROLES["analyst"] = USER_LEVEL_ROLES["hacker"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -1143,7 +1133,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "keep_default_organization_access",
         },
         tags={
-            *USER_LEVEL_ROLES["analyst"]["tags"],
+            *USER_LEVEL_ROLES["hacker"]["tags"],
         },
     ),
     customer=dict(
@@ -1159,10 +1149,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
     ),
 )
-# Permission duplication for the old roles
-USER_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "analyst"
-] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS["hacker"]
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(

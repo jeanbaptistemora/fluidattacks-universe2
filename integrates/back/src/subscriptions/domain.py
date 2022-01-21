@@ -601,9 +601,7 @@ async def _get_consult_users(
             [get_group_level_role(email, group_name) for email in users]
         )
         hackers = [
-            email
-            for email, role in zip(users, roles)
-            if role in {"hacker", "analyst"}
+            email for email, role in zip(users, roles) if role == "hacker"
         ]
 
         return [*recipients, *hackers]

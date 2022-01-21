@@ -36,7 +36,7 @@ async def test_admin(populate: bool, email: str) -> None:
         ["resourcer@gmail.com"],
     ],
 )
-async def test_closer(populate: bool, email: str) -> None:
+async def test_reattacker(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
     result: Dict[str, Any] = await get_result(user=email, event=event_id)

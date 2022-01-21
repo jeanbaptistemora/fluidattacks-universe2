@@ -64,7 +64,7 @@ async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
     return [
         str(user)
         for user, user_role in zip(users, user_roles)
-        if user_role in {"reattacker", "closer"}
+        if user_role == "reattacker"
     ]
 
 
