@@ -17,7 +17,7 @@ source: https://unsplash.com/photos/4iwLxkESGe4
 ---
 
 Let's start with a bit of a history lesson.
-Way back when,
+A few decades ago,
 software developers [did not](https://hackernoon.com/how-git-changed-the-history-of-software-version-control-5f2c0a0850df)
 have access to the master version of a software solution project.
 Only one person had access to it
