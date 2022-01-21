@@ -16475,7 +16475,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,s
   7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
-",f052._java_properties_missing_ssl
+",java.java_properties_missing_ssl
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,3,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
@@ -16486,7 +16486,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,3,310 + 327,s
   7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
-",f052._java_properties_missing_ssl
+",java.java_properties_missing_ssl
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,2,310 + 327,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
 > 2 | ibm.mq.use_ssl=false
@@ -16497,7 +16497,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,2,310 + 327,s
   7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
-",f052._java_properties_missing_ssl
+",java.java_properties_missing_ssl
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
@@ -16508,7 +16508,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310 + 327,s
   7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
-",f052._java_properties_weak_cipher_suite
+",java.java_properties_weak_cipher_suite
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,15,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
    1 | ng System.Security.Cryptography;
    2 |
