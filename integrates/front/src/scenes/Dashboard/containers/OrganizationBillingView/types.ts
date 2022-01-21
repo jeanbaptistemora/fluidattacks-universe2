@@ -20,4 +20,4 @@ interface IGetOrganizationBilling {
   };
 }
 
-export { IBillingData, IOrganizationBillingProps, IGetOrganizationBilling };
+export { IBillingData, IGetOrganizationBilling, IOrganizationBillingProps };
