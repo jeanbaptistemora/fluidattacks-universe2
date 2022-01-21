@@ -1,15 +1,15 @@
 from collections import (
     deque,
 )
+from purity.v1.pure_iter.transform._iter_factory import (
+    IterableFactoryIO,
+)
 from purity.v2.pure_iter.core import (
     PureIter,
 )
 from purity.v2.pure_iter.factory import (
     iter_obj,
     unsafe_from_generator,
-)
-from purity.v2.pure_iter.transform._iter_factory import (
-    IterableFactoryIO,
 )
 from returns.io import (
     IO,
