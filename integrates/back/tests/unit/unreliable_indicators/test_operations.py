@@ -2,6 +2,9 @@
 from dataloaders import (
     get_new_context,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.enums import (
     FindingStatus,
 )
@@ -73,8 +76,8 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         unreliable_last_reattack_requester="integratesuser@gmail.com",
         unreliable_last_requested_reattack_date="2020-02-18T15:41:04+00:00",
         unreliable_reattack_cycles=1,
-        unreliable_report_date=None,
-        unreliable_source=None,
+        unreliable_report_date="2019-09-13T13:17:41+00:00",
+        unreliable_source=Source.ASM,
         unreliable_treatment_changes=0,
     )
     assert vulnerability.unreliable_indicators == expected_vulnerability_output
