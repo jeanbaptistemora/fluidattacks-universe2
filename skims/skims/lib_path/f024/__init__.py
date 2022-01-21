@@ -8,7 +8,10 @@ from lib_path.common import (
 )
 from lib_path.f024.cloudformation import (
     cfn_allows_anyone_to_admin_ports,
+    cfn_ec2_has_open_all_ports_to_the_public,
     cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
+    cfn_ec2_has_unrestricted_dns_access,
+    cfn_ec2_has_unrestricted_ftp_access,
     cfn_ec2_has_unrestricted_ports,
     cfn_groups_without_egress,
     cfn_instances_without_profile,
@@ -223,6 +226,48 @@ async def run_cfn_groups_without_egress(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_cfn_ec2_has_unrestricted_dns_access(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return await in_process(
+        cfn_ec2_has_unrestricted_dns_access,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_cfn_ec2_has_unrestricted_ftp_access(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return await in_process(
+        cfn_ec2_has_unrestricted_ftp_access,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_cfn_ec2_has_open_all_ports_to_the_public(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return await in_process(
+        cfn_ec2_has_open_all_ports_to_the_public,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], str],
@@ -259,6 +304,21 @@ async def analyze(
             )
             coroutines.append(
                 run_cfn_ec2_has_unrestricted_ports(content, path, template)
+            )
+            coroutines.append(
+                run_cfn_ec2_has_unrestricted_dns_access(
+                    content, path, template
+                )
+            )
+            coroutines.append(
+                run_cfn_ec2_has_unrestricted_ftp_access(
+                    content, path, template
+                )
+            )
+            coroutines.append(
+                run_cfn_ec2_has_open_all_ports_to_the_public(
+                    content, path, template
+                )
             )
 
     if file_extension in EXTENSIONS_TERRAFORM:

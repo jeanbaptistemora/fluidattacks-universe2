@@ -37,3 +37,27 @@ src.lib_path.f024_aws.instances_without_profile:
 src.lib_path.f024_aws.public_buckets:
   en: S3 buckets are publicly accessible for read or write operations
   es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura
+src.lib_path.f024.ec2_sg_allows_anyone_to_admin_ports:
+  en: >
+    SecurityGroup allows connection from internet to admin services
+  es: >
+    SecurityGroup permite la conexión desde Internet a servicios
+    de administración
+src.lib_path.f024.ec2_has_open_all_ports_to_the_public:
+  en: >
+    Security groups has all ports open to the public
+  es: >
+    Los grupos de seguridad tienen todos los puertos abiertos al público
+src.lib_path.f024.ec2_has_unrestricted_ftp_access:
+  en: >
+    Group must restrict access to TCP port 20/21 to the necessary IP addresses
+  es: >
+    El grupo debe restringir el acceso al puerto TCP 20/21 a las direcciones
+    IP necesarias
+src.lib_path.f024.ec2_has_unrestricted_dns_access:
+  en: >
+    Group must restrict access to TCP port and UDP 53 to the
+    necessary IP addresses
+  es: >
+    El grupo debe restringir el acceso al puerto TCP y UDP 53 a las
+    direcciones IP necesarias
