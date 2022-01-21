@@ -120,6 +120,7 @@ in
         })
         [
           "0170_populate_vuln_indicators.py"
+          "0172_send_masked_vulns_to_redshift_old.py"
         ])
         ++ (builtins.map
         (name: {
