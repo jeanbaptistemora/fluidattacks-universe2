@@ -20119,7 +20119,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,0
   18 | bg.ws.endpoint = http://0.0.0.0
   19 | sonar.host.url=http://localhost:9000
      ^ Col 0
-",f022._java_properties_unencrypted_transport
+",java.java_properties_unencrypted_transport
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
 >  1 | bg.ws.endpoint =  http://www.test.com
    2 | bg.ws.endpoint = https://www.test.com
@@ -20141,7 +20141,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,0
   18 | bg.ws.endpoint = http://0.0.0.0
   19 | sonar.host.url=http://localhost:9000
      ^ Col 0
-",f022._java_properties_unencrypted_transport
+",java.java_properties_unencrypted_transport
 F016,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application is not using the strongest protocol in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
    1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""
