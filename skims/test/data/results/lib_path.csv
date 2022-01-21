@@ -22146,7 +22146,7 @@ F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,68
   20 |   instance_class      = ""db.r4.large""
   21 |   engine              = aws_rds_cluster.default.engine
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
   12 |   skip_final_snapshot  = true
   13 | }
@@ -22170,7 +22170,7 @@ F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,25,6
   31 |   master_password     = ""barbut8chars""
   32 | }
      ^ Col 0
-",f109._tfm_rds_instance_inside_subnet
+",terraform.tfm_rds_instance_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,35,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
   25 |       DBParameterGroupName:
   26 |         Ref: RDSDBParameterGroup
@@ -22194,7 +22194,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   44 |       StorageEncrypted: True
   45 |     Type: ""AWS::RDS::DBCluster""
      ^ Col 0
-",f109._cfn_rds_is_not_inside_a_db_subnet_group
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,47,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
   37 |         Ref: RDSDBClusterParameterGroup
   38 |       DeletionProtection: True
@@ -22218,7 +22218,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   56 |         Ref: RDSDBParameterGroup
   57 |       DeletionProtection: True
      ^ Col 0
-",f109._cfn_rds_is_not_inside_a_db_subnet_group
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,49,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
   39 |           ""Ref"": ""DBSubnetGroup""
   40 |         },
@@ -22242,7 +22242,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   58 |         ""MasterUsername"": {
   59 |           ""Ref"": ""username""
      ^ Col 0
-",f109._cfn_rds_is_not_inside_a_db_subnet_group
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,66,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
   56 |           ""Ref"": ""password""
   57 |         },
@@ -22266,7 +22266,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   75 |         },
   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
      ^ Col 0
-",f109._cfn_rds_is_not_inside_a_db_subnet_group
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = false
@@ -22290,7 +22290,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,10
   20 |   engine             = aws_rds_cluster.default.engine
   21 |   engine_version     = aws_rds_cluster.default.engine_version
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
    2 |   publicly_accessible  = false
    3 |   allocated_storage    = 10
@@ -22314,7 +22314,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,1
   21 |   engine_version     = aws_rds_cluster.default.engine_version
   22 | }
      ^ Col 0
-",f109._tfm_rds_instance_inside_subnet
+",terraform.tfm_rds_instance_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
@@ -22338,7 +22338,7 @@ F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,1,681,skims,109. 
   20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
   21 |   database_name           = ""mydb""
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
    7 |   name                    = ""mydb""
    8 |   username                = ""foo""
@@ -22362,7 +22362,7 @@ F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,681,skims,109.
   26 |   preferred_backup_window = ""07:00-09:00""
   27 | }
      ^ Col 0
-",f109._tfm_rds_instance_inside_subnet
+",terraform.tfm_rds_instance_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
    4 |   engine               = ""mysql""
    5 |   engine_version       = ""5.7""
@@ -22386,7 +22386,7 @@ F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,681,sk
   23 |   skip_final_snapshot  = true
   24 | }
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage    = 10
@@ -22410,7 +22410,7 @@ F109,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,1,681,ski
   20 |   username             = ""user""
   21 |   password             = ""useradmin""
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
@@ -22426,7 +22426,7 @@ F109,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,1,681,sk
   12 |   skip_final_snapshot     = true
   13 | }
      ^ Col 0
-",f109._tfm_db_cluster_inside_subnet
+",terraform.tfm_db_cluster_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
 > 1 | resource ""aws_rds_cluster"" ""default"" {
   2 |   cluster_identifier      = ""aurora-cluster-demo""
@@ -22438,7 +22438,7 @@ F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,s
   8 |   preferred_backup_window = ""07:00-09:00""
   9 | }
     ^ Col 0
-",f109._tfm_rds_instance_inside_subnet
+",terraform.tfm_rds_instance_inside_subnet
 F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,36,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
   26 |       DBParameterGroupName:
   27 |         Ref: RDSDBParameterGroup
