@@ -88,15 +88,20 @@ describe("update verification component", (): void => {
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <UpdateVerificationModal
           clearSelected={jest.fn()}
-          findingId={""}
-          groupName={""}
           handleCloseModal={handleOnClose}
           isReattacking={true}
           isVerifying={false}
           setRequestState={handleRequestState}
           setVerifyState={jest.fn()}
           vulns={[
-            { currentState: "open", id: "test", specific: "", where: "" },
+            {
+              currentState: "open",
+              findingId: "",
+              groupName: "",
+              id: "test",
+              specific: "",
+              where: "",
+            },
           ]}
         />
       </MockedProvider>
@@ -156,8 +161,6 @@ describe("update verification component", (): void => {
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <UpdateVerificationModal
           clearSelected={jest.fn()}
-          findingId={""}
-          groupName={""}
           handleCloseModal={handleOnClose}
           isReattacking={true}
           isVerifying={false}
@@ -166,6 +169,8 @@ describe("update verification component", (): void => {
           vulns={[
             {
               currentState: "open",
+              findingId: "",
+              groupName: "",
               id: "test_error",
               specific: "",
               where: "",
@@ -244,15 +249,20 @@ describe("update verification component", (): void => {
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <UpdateVerificationModal
           clearSelected={jest.fn()}
-          findingId={""}
-          groupName={""}
           handleCloseModal={handleOnClose}
           isReattacking={false}
           isVerifying={true}
           setRequestState={jest.fn()}
           setVerifyState={handleVerifyState}
           vulns={[
-            { currentState: "open", id: "test", specific: "", where: "" },
+            {
+              currentState: "open",
+              findingId: "",
+              groupName: "",
+              id: "test",
+              specific: "",
+              where: "",
+            },
           ]}
         />
       </MockedProvider>
@@ -310,8 +320,6 @@ describe("update verification component", (): void => {
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <UpdateVerificationModal
           clearSelected={jest.fn()}
-          findingId={""}
-          groupName={""}
           handleCloseModal={handleOnClose}
           isReattacking={false}
           isVerifying={true}
@@ -320,6 +328,8 @@ describe("update verification component", (): void => {
           vulns={[
             {
               currentState: "open",
+              findingId: "",
+              groupName: "",
               id: "test_error",
               specific: "",
               where: "",

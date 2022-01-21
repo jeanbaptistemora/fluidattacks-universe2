@@ -4,10 +4,10 @@ import { useAbility } from "@casl/react";
 import React, { useCallback, useState } from "react";
 
 import {
-  getAreAllMutationValid,
+  getAreAllChunckedMutationValid,
+  handleAltSubmitHelper,
   handleRequestVerification,
   handleRequestVerificationError,
-  handleSubmitHelper,
   handleVerifyRequest,
   handleVerifyRequestError,
 } from "./helpers";
@@ -25,18 +25,19 @@ import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
 interface IVulnData {
   currentState: string;
+  findingId: string;
+  groupName: string;
   id: string;
   specific: string;
   where: string;
 }
 interface IUpdateVerificationModal {
-  findingId: string;
-  groupName: string;
   isReattacking: boolean;
   isVerifying: boolean;
   vulns: IVulnData[];
@@ -50,8 +51,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   props: IUpdateVerificationModal
 ): JSX.Element => {
   const {
-    findingId,
-    groupName,
     isReattacking,
     isVerifying,
     vulns,
@@ -80,8 +79,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId,
-            groupName,
+            findingId: vulnerabilitiesList[0].findingId,
+            groupName: vulnerabilitiesList[0].groupName,
           },
         },
         {
@@ -90,9 +89,10 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
             ),
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
+        GET_ME_VULNERABILITIES_ASSIGNED,
       ],
     }
   );
@@ -105,14 +105,14 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           query: GET_FINDING_HEADER,
           variables: {
             canGetHistoricState: canDisplayHacker,
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId,
-            groupName,
+            findingId: vulnerabilitiesList[0].findingId,
+            groupName: vulnerabilitiesList[0].groupName,
           },
         },
         {
@@ -121,7 +121,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
             ),
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
       ],
@@ -132,16 +132,14 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     treatmentJustification: string;
   }): Promise<void> {
     try {
-      const results = await handleSubmitHelper(
+      const results = await handleAltSubmitHelper(
         requestVerification,
         verifyRequest,
-        findingId,
         values,
-        vulns,
         vulnerabilitiesList,
         isReattacking
       );
-      const areAllMutationValid = getAreAllMutationValid(results);
+      const areAllMutationValid = getAreAllChunckedMutationValid(results);
       if (areAllMutationValid.every(Boolean)) {
         if (isReattacking) {
           handleRequestVerification(clearSelected, setRequestState, true);

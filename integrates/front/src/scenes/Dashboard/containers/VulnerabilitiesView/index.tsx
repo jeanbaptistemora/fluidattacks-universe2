@@ -562,8 +562,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
         {isOpen ? (
           <UpdateVerificationModal
             clearSelected={_.get(remediationModalConfig, "clearSelected")}
-            findingId={findingId}
-            groupName={groupName}
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}

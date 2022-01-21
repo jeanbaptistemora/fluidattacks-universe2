@@ -109,6 +109,19 @@ const getAreAllMutationValid = (
   );
 };
 
+const getAreAllChunckedMutationValid = (
+  results: (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+): boolean[] =>
+  results
+    .map(getAreAllMutationValid)
+    .reduce(
+      (previous: boolean[], current: boolean[]): boolean[] => [
+        ...previous,
+        ...current,
+      ],
+      []
+    );
+
 const handleSubmitHelper = async (
   requestVerification: (
     variables: Record<string, unknown>
@@ -206,11 +219,67 @@ const handleSubmitHelper = async (
   );
 };
 
+const handleAltSubmitHelper = async (
+  requestVerification: (
+    variables: Record<string, unknown>
+  ) => Promise<ReattackVulnerabilitiesResult>,
+  verifyRequest: (
+    variables: Record<string, unknown>
+  ) => Promise<VerifyVulnerabilitiesResult>,
+  values: { treatmentJustification: string },
+  vulnerabilitiesList: IVulnData[],
+  isReattacking: boolean
+): Promise<
+  (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+> => {
+  const vulnerabilitiesByFinding = _.groupBy(
+    vulnerabilitiesList,
+    (vuln: IVulnData): string => vuln.findingId
+  );
+  const requestedChunks = Object.entries(vulnerabilitiesByFinding).map(
+    ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnData[]
+      ]): (() => Promise<
+        (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+      >) =>
+      async (): Promise<
+        (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+      > => {
+        return Promise.all([
+          handleSubmitHelper(
+            requestVerification,
+            verifyRequest,
+            findingId,
+            values,
+            chunkedVulnerabilities,
+            chunkedVulnerabilities,
+            isReattacking
+          ),
+        ]);
+      }
+  );
+
+  return requestedChunks.reduce(
+    async (
+      previousValue,
+      currentValue
+    ): Promise<
+      (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+    > => [...(await previousValue), ...(await currentValue())],
+    Promise.resolve<
+      (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+    >([])
+  );
+};
+
 export {
+  getAreAllChunckedMutationValid,
   getAreAllMutationValid,
   handleRequestVerification,
   handleRequestVerificationError,
   handleVerifyRequest,
   handleVerifyRequestError,
+  handleAltSubmitHelper,
   handleSubmitHelper,
 };
