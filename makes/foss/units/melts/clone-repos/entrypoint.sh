@@ -18,7 +18,8 @@ function main {
     && for root in "${@:2}"; do
       echo "[INFO] cloning ${root} from ${group}" \
         && { USER=nobody melts resources --clone-from-customer-git "${group}" --name "${root}" || true; }
-    done
+    done \
+    && USER=nobody melts drills --push-repos "${group}"
 }
 
 main "${@}"
