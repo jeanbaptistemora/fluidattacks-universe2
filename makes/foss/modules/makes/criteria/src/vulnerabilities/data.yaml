@@ -14322,7 +14322,7 @@
       it easy for a malicious actor to
       analyze the application.
     impact: >
-      Understanding the inner workings of the
+      Understand the inner workings of the
       application to generate new attack vectors.
     recommendation: >
       Limit access of map files to authorized users and roles.
@@ -14444,13 +14444,13 @@
       entire GraphQL API Schema Structure
       (both queries and mutations).
     impact: >
-      An anonymous attacker from Internet
-      Network crafts an introspection query.
+      Get the knowledge of the Schema Structure
+      to open a door for more dangerous attacks.
     recommendation: >
       Disable introspection queries.
     threat: >
-      Once the knowledge of the Schema Structure
-      is achieved, a door for more dangerous attacks is open.
+      An anonymous attacker from Internet
+      network crafts an introspection query.
   es:
     title: Technical information leak - API
     description: >
@@ -14458,14 +14458,14 @@
       estructura del esquema de la API GraphQL
       (tanto las consultas como las mutaciones).
     impact: >
-      Un atacante anónimo de la Red de Internet
-      realiza una consulta de introspección.
+      Conseguir el conocimiento de la estructura
+      del esquema para abrir una puerta a ataques
+      más peligrosos.
     recommendation: >
       Desactivar las consultas de introspección.
     threat: >
-      Una vez que se conoce la estructura
-      del esquema, se abre una puerta
-      para ataques más peligrosos.
+      Un atacante anónimo de la red de Internet
+      realiza una consulta de introspección.
   category: Collect Information
   score:
     base:
@@ -14550,10 +14550,10 @@
       valid any combination, even if it does
       not comply with the specified number of digits.
     impact: >
-      - Unauthorized creation of users
-      in the system.
+      - Create unauthorized users
+      of the system.
 
-      - User impersonation.
+      - Impersonate users.
     recommendation: >
       Validate on the server side that the
       code entered by the user, corresponds
@@ -14572,7 +14572,8 @@
       combinación, incluso si no cumple con la
       cantidad de dígitos especificada.
     impact: >
-      - Crear de forma no autorizada usuarios en el sistema.
+      - Crear de forma no autorizada usuarios
+      en el sistema.
 
       - Suplantar usuarios.
     recommendation: >
@@ -14624,7 +14625,7 @@
       de los mecanismos de autenticación de AWS
       disponibles o tiene uno que puede ser eludido.
     impact: >
-      El acceso es una de las partes más críticas de
+      Acceder a una de las partes más críticas de
       un programa de seguridad de la información.
     recommendation: >
       Configurar los mecanismos de autenticación del
