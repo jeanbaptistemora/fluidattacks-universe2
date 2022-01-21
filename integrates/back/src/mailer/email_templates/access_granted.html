@@ -33,14 +33,14 @@
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-      <table summary="Confirmation Links" style="width: 50%; margin: 0 auto;">
+      <table aria-label="Confirmation Links" style="width: 50%; margin: 0 auto;">
         <tr>
-          <td>
+          <th scope="col">
             {{ go_to_button('Confirm access', confirm_access_url) }}
-          </td>
-          <td>
+          </th>
+          <th scope="col">
             {{ go_to_button('Reject access', reject_access_url) }}
-          </td>
+          </th>
         </tr>
       </table>
     <br />
