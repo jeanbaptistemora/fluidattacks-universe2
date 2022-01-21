@@ -15287,7 +15287,8 @@
       El sistema expone recursos que no son necesarios
       para el funcionamiento de la aplicación.
     impact: >
-      Exponer recursos del sistema que pueden ser enumerados.
+      Exponer recursos del sistema que pueden ser
+      enumerados.
     recommendation: >
       La aplicación no debe exponer recursos que
       no sean explícitamente necesarios para el
@@ -15472,7 +15473,7 @@
     impact: >
       - Delete or terminate instances by accident.
 
-      - Lose of EBS  data.
+      - Lose of EBS data.
     recommendation: >
       Ensure that instances have Termination
       Protection safety feature enabled.
@@ -15484,10 +15485,10 @@
       Las instancias no tienen activada la
       opción de protección de terminación/eliminación.
     impact: >
-      - Eliminación o finalización de
+      - Eliminar o finalizar
       instancias por accidente.
 
-      - Pérdida de datos de EBS.
+      - Perder datos de EBS.
     recommendation: >
       Asegúrese de que las instancias tienen
       activada la función de seguridad de
@@ -15685,7 +15686,7 @@
       The server where the application is
       stored supports insecure encryption.
     impact: >
-      Decrypting the information transmitted
+      Decrypt the information transmitted
       between the client and the server.
     recommendation: >
       Use algorithms considered cryptographically secure.
@@ -15776,7 +15777,7 @@
       The web application uses insecure
       algorithms such as MD5 to hash passwords.
     impact: >
-      Easily cracking captured credentials.
+      Crack captured credential easly.
     recommendation: >
       Use secure hashing algorithms to store
       passwords like PBKDF2.
@@ -15790,8 +15791,8 @@
       inseguros como MD5 para el hash de
       las contraseñas.
     impact: >
-      Facilidad para descifrar las
-      credenciales capturadas.
+      Descifrar las credenciales
+      capturadas con facilidad.
     recommendation: >
       Utilizar algoritmos hash seguros para
       almacenar las contraseñas, como PBKDF2.
@@ -15878,16 +15879,15 @@
       and AES/CBC/PKCS5PADDING encryption, both
       of which are considered insecure.
     impact: >
-      Attacker with access to the code.
+      Decrypt the information encrypted with
+      the algorithm because it has vulnerabilities
+      that make it easily breakable.
     recommendation: >
       Only secure encryption with secure algorithms
       such as RSA/NONE/OAEPwithSHA-256andMGF1Padding
       should be allowed.
     threat: >
-      An attacker can decrypt the information
-      encrypted with the algorithm because it
-      has vulnerabilities that make it easily
-      breakable.
+      Attacker with access to the code.
   es:
     title: Insecure encryption algorithm - AES
     description: >
@@ -15895,16 +15895,16 @@
       RSA/ECB/PKCS1Padding y AES/CBC/PKCS5PADDING
       los cuales se consideran inseguros.
     impact: >
-      Atacante con acceso al código.
+      Descifrar la información encriptada con el
+      algoritmo debido a que este presenta
+      vulnerabilidades que lo hacen
+      fácilmente rompible.
     recommendation: >
       Solamente se debe de permitir cifrados
       seguros con algoritmos seguros como
       RSA/NONE/OAEPwithSHA-256andMGF1Padding.
     threat: >
-      Un atacante puede descifrar la información
-      encriptada con el algoritmo debido a que
-      este presenta vulnerabilidades que lo hacen
-      fácilmente rompible.
+      Atacante con acceso al código.
   category: Collect Information
   score:
     base:
@@ -16103,24 +16103,24 @@
       are used to encrypt the information
       stored in the code.
     impact: >
-      User with access to the code.
+      Decrypt the credentials that are stored
+      encrypted with blowfish.
     recommendation: >
       Use secure algorithms such as AES or RSA.
     threat: >
-      The credentials are stored encrypted with
-      blowfish so that an attacker could decrypt them.
+      User with access to the code.
   es:
     title: Insecure encryption algorithm - Blowfish
     description: >
       Se usan algoritmos inseguros como Blowfish
       para cifrar la información almacenada en el código.
     impact: >
-      Usuario con acceso al código.
+      Desencriptar las credenciales que se
+      almacenan encriptadas con blowfish.
     recommendation: >
       Utilizar algoritmos seguros como AES o RSA.
     threat: >
-      Las credenciales se guardan cifradas con
-      blowfish con lo que un atacante podría descifrarlas.
+      Usuario con acceso al código.
   category: Collect Information
   score:
     base:
