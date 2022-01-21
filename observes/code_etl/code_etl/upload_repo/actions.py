@@ -14,11 +14,11 @@ from postgres_client.client import (
 from postgres_client.ids import (
     TableID,
 )
+from purity.v1.pure_iter.core import (
+    PureIter,
+)
 from purity.v1.pure_iter.transform.io import (
     consume,
-)
-from purity.v2.pure_iter.core import (
-    PureIter,
 )
 from returns.io import (
     IO,

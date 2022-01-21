@@ -34,14 +34,14 @@ from git.objects import (
 from git.repo.base import (
     Repo,
 )
+from purity.v1.pure_iter.core import (
+    PureIter,
+)
 from purity.v1.pure_iter.factory import (
     unsafe_from_generator,
 )
 from purity.v1.pure_iter.transform import (
     until_empty,
-)
-from purity.v2.pure_iter.core import (
-    PureIter,
 )
 from returns.io import (
     IO,
