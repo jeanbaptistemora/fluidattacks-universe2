@@ -240,6 +240,8 @@ async def process_finding(
     exceptions=(
         HTTPClientError,
         ClientConnectorError,
+        UnavailabilityError,
+        ClientError,
     ),
     sleep_seconds=10,
 )
