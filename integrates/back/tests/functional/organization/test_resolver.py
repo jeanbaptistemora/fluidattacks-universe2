@@ -24,13 +24,13 @@ async def test_get_organization_ver_1(
     org_stakeholders: List[str] = [
         "admin@gmail.com",
         "customer@gmail.com",
+        "customer_manager@fluidattacks.com",
         "customeradmin@gmail.com",
         "executive@gmail.com",
         "hacker@gmail.com",
         "reattacker@gmail.com",
         "resourcer@gmail.com",
         "reviewer@gmail.com",
-        "system_owner@gmail.com",
     ]
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
@@ -68,7 +68,7 @@ async def test_get_organization_ver_1(
         ("reattacker@gmail.com", "reattacker", 0),
         ("resourcer@gmail.com", "resourcer", 0),
         ("reviewer@gmail.com", "reviewer", 0),
-        ("system_owner@gmail.com", "system_owner", 0),
+        ("customer_manager@fluidattacks.com", "customer_manager", 0),
     ),
 )
 async def test_get_organization_ver_2(

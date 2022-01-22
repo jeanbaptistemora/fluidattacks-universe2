@@ -444,7 +444,7 @@
             "S": "2021-08-30 13:40:37"
           },
           "email": {
-            "S": "system_owner@fluidattacks.com"
+            "S": "customer_manager@fluidattacks.com"
           },
           "registered": {
             "BOOL": true

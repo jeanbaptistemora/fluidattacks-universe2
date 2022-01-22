@@ -15,7 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["customeradmin@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 @pytest.mark.parametrize(

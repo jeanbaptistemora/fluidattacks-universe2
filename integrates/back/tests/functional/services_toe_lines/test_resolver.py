@@ -19,7 +19,7 @@ from typing import (
         ["customer@fluidattacks.com"],
         ["customeradmin@fluidattacks.com"],
         ["executive@fluidattacks.com"],
-        ["system_owner@fluidattacks.com"],
+        ["customer_manager@fluidattacks.com"],
         ["resourcer@fluidattacks.com"],
         ["reviewer@fluidattacks.com"],
     ],
@@ -80,7 +80,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
@@ -90,4 +90,5 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
 async def test_get_toe_lines_error(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
+    print(result)
     assert result["errors"][0]["message"] == "Access denied"

@@ -21,7 +21,7 @@ from typing import (
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_get_forces_executions(populate: bool, email: str) -> None:

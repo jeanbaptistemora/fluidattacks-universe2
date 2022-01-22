@@ -295,7 +295,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "system_owner@fluidattacks.com"
+            "S": "customer_manager@fluidattacks.com"
           },
           "object": {
             "S": "unittesting"
@@ -313,7 +313,7 @@
             "S": "user"
           },
           "subject": {
-            "S": "system_owner@fluidattacks.com"
+            "S": "customer_manager@fluidattacks.com"
           },
           "object": {
             "S": "self"
@@ -331,7 +331,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "system_owner@fluidattacks.com"
+            "S": "customer_manager@fluidattacks.com"
           },
           "object": {
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"

@@ -23,7 +23,7 @@ from typing import (
         ("resourcer@gmail.com", "resourcer", 0, 1),
         ("reviewer@gmail.com", "reviewer", 0, 2),
         ("service_forces@gmail.com", "service_forces", 0, 1),
-        ("system_owner@gmail.com", "system_owner", 0, 1),
+        ("customer_manager@fluidattacks.com", "customer_manager", 0, 1),
     ),
 )
 async def test_get_me(

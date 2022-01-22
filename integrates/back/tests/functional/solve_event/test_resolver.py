@@ -17,7 +17,7 @@ from typing import (
         ["hacker@gmail.com", "418900972"],
         ["reattacker@gmail.com", "418900973"],
         ["resourcer@gmail.com", "418900974"],
-        ["system_owner@gmail.com", "418900975"],
+        ["customer_manager@fluidattacks.com", "418900975"],
     ],
 )
 async def test_solve_event(populate: bool, email: str, event_id: str) -> None:

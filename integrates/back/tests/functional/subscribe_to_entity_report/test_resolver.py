@@ -22,7 +22,7 @@ from typing import (
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:

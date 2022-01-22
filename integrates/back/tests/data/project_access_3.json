@@ -231,7 +231,7 @@
             "S": "Test Owner"
           },
           "user_email": {
-            "S": "system_owner@fluidattacks.com"
+            "S": "customer_manager@fluidattacks.com"
           }
         }
       }

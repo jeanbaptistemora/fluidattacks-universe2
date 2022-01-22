@@ -22,7 +22,7 @@ from typing import (
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@gmail.com"],
     ],
 )
 async def test_accept_legal(populate: bool, email: str) -> None:

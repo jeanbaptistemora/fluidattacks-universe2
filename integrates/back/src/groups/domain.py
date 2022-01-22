@@ -590,7 +590,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                     # Only Fluid staff can be customer managers
                     # Customers are granted the user manager role
                     role: str = (
-                        "system_owner"
+                        "customer_manager"
                         if users_domain.is_fluid_staff(user_email)
                         else "customeradmin"
                     )

@@ -15,7 +15,11 @@ from typing import (
 @pytest.mark.parametrize(
     ["email", "role", "admin_email"],
     [
-        ["system_owner@gmail.com", "system_owner", "admin@gmail.com"],
+        [
+            "customer_manager@fluidattacks.com",
+            "customer_manager",
+            "admin@gmail.com",
+        ],
     ],
 )
 async def test_remove_stakeholder(

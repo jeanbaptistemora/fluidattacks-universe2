@@ -210,7 +210,7 @@ async def test_refresh_toe_lines(
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
         ["service_forces@fluidattacks.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_refresh_toe_lines_fail(

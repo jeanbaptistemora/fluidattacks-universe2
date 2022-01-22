@@ -36,7 +36,7 @@ async def test_add_git_root(populate: bool, email: str) -> None:
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_add_git_root_fail_1(populate: bool, email: str) -> None:

@@ -18,7 +18,7 @@ from typing import (
         ("customer@gmail.com", ["testing2"]),
         ("customeradmin@gmail.com", ["testing3"]),
         ("executive@gmail.com", ["testing4"]),
-        ("system_owner@gmail.com", ["testing5"]),
+        ("customer_manager@fluidattacks.com", ["testing5"]),
     ),
 )
 async def test_add_group_tags(

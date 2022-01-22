@@ -49,7 +49,7 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_grant_stakeholder_access_fail(

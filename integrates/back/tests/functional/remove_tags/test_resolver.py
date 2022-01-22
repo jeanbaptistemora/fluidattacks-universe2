@@ -52,7 +52,7 @@ async def test_remove_single_tag(populate: bool) -> None:
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
-        ["system_owner@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_remove_all_tags(populate: bool, email: str) -> None:

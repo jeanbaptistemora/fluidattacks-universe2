@@ -110,7 +110,7 @@ async def test_update_vulnerabilities_treatment(
             "ACCEPTED",
         ),
         (
-            "system_owner@fluidattacks.com",
+            "customer_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "ACCEPTED",
         ),
