@@ -15252,7 +15252,7 @@ F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   39 |               AWS: '*'
   40 |             Action: 'kms:*'
      ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json,41,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml.json,"
   31 |             }
   32 |           ]
@@ -15276,7 +15276,7 @@ F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   50 |               ""Principal"": {
   51 |                 ""AWS"": ""*""
      ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,24,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
   14 |             Effect: Allow
   15 |             Principal:
@@ -15300,7 +15300,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   33 |               AWS: 'arn:aws:iam::111122223333:root'
   34 |             Action: 'kms:*'
      ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,38,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
   28 |         Id: key-default-1
   29 |         Statement:
@@ -15324,7 +15324,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   47 |             Effect: Allow
   48 |             Principal:
      ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,72,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
   62 |         Statement:
   63 |           - Sid: Enable IAM User Permissions
@@ -15348,7 +15348,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   81 |             Effect: Allow
   82 |             Principal:
      ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,32,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
    22 |             }
    23 |           ]
@@ -15372,7 +15372,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
    41 |               ""Principal"": {
    42 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
       ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,53,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
    43 |               },
    44 |               ""Action"": ""kms:*"",
@@ -15396,7 +15396,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
    62 |               ""Sid"": ""Enable IAM User Permissions"",
    63 |               ""Effect"": ""Allow"",
       ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,101,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
    91 |               ""Action"": ""kms:*"",
    92 |               ""Resource"": ""*""
@@ -15420,7 +15420,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   110 |               ""Sid"": ""Enable IAM User Permissions"",
   111 |               ""Effect"": ""Allow"",
       ^ Col 0
-",f396._cfn_kms_key_is_key_rotation_absent_or_disabled
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   23 |          RedirectConfig:
   24 |            Protocol: ""HTTPS""
