@@ -126,13 +126,20 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   const enablePagination = dataset.length > pageSize;
 
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  const listSizePerPage: number[] = [10, 20, 30, 50, 100, 200, 500, 1000];
+
   const paginationOptions: PaginationOptions = {
     onPageChange,
     onSizePerPageChange,
     paginationSize: 10,
     sizePerPage: preferredPageSize,
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    sizePerPageList: [10, 20, 30, 50, 100, 200, 500, 1000],
+    sizePerPageList: listSizePerPage.slice(
+      0,
+      listSizePerPage.findIndex(
+        (element): boolean => element > dataset.length
+      ) + 1
+    ),
     sizePerPageRenderer:
       SizePerPageRenderer as unknown as PaginationOptions["sizePerPageRenderer"],
   };
