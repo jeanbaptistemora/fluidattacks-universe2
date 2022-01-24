@@ -3,7 +3,6 @@
 from . import (
     datetime as datetime_utils,
 )
-import bugsnag
 from custom_exceptions import (
     AlreadyRequested,
     AlreadyZeroRiskRequested,
@@ -56,8 +55,6 @@ from dynamodb.types import (
 )
 import html
 import itertools
-import logging
-import logging.config
 import newrelic.agent
 from newutils.datetime import (
     convert_from_iso_str,
@@ -71,9 +68,6 @@ from newutils.requests import (
 from operator import (
     attrgetter,
 )
-from settings import (
-    LOGGING,
-)
 from typing import (
     Any,
     Counter,
@@ -84,12 +78,6 @@ from typing import (
     Tuple,
     Union,
 )
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def adjust_historic_dates(
@@ -459,22 +447,10 @@ async def get_report_dates(
     vulns_historic_state: Tuple[
         Tuple[VulnerabilityState, ...]
     ] = await vulns_historic_loader.load_many(vulns_ids)
-    try:
-        return tuple(
-            datetime.fromisoformat(historic[0].modified_date)
-            for historic in vulns_historic_state
-        )
-    except IndexError:
-        bugsnag.notify(
-            "Vulnerability with empty historic state",
-            severity="error",
-            metadata={"extra": {"vulnerabilities": vulns_ids}},
-        )
-        LOGGER_CONSOLE.warning(
-            "Vulnerability with empty historic state",
-            extra={"extra": {"vulnerabilities": vulns_ids}},
-        )
-        return tuple()
+    return tuple(
+        datetime.fromisoformat(historic[0].modified_date)
+        for historic in vulns_historic_state
+    )
 
 
 def get_specific(value: Dict[str, str]) -> int:
@@ -654,15 +630,7 @@ async def get_report_date(
     historic: Tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vuln.id)
-    try:
-        return datetime.fromisoformat(historic[0].modified_date)
-    except IndexError:
-        bugsnag.notify(
-            "Vulnerability with empty historic state",
-            severity="error",
-            metadata={"extra": {"vulnerability": vuln.id}},
-        )
-        raise
+    return datetime.fromisoformat(historic[0].modified_date)
 
 
 async def get_source(
