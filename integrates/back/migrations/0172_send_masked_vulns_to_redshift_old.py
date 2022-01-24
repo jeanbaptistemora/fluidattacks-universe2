@@ -17,6 +17,9 @@ from aioextensions import (
 from aiohttp import (
     ClientConnectorError,
 )
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -154,6 +157,7 @@ async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
     exceptions=(
         UnavailabilityError,
         ClientError,
+        ClientPayloadError,
     ),
     sleep_seconds=10,
 )
@@ -260,7 +264,7 @@ async def process_group(
     all_findings = group_drafts_and_findings + group_removed_findings
     await collect(
         tuple(process_finding(finding=finding) for finding in all_findings),
-        workers=16,
+        workers=30,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
