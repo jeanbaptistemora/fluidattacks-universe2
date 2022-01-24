@@ -3,16 +3,23 @@ from aioextensions import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_TERRAFORM,
     SHIELD,
 )
 from lib_path.f257.cloudformation import (
     cfn_ec2_has_not_termination_protection,
+)
+from lib_path.f257.terraform import (
+    ec2_has_not_termination_protection,
 )
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates,
+)
+from parse_hcl2.loader import (
+    load as load_terraform,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -43,6 +50,20 @@ async def run_cfn_ec2_has_not_termination_protection(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_ec2_has_not_termination_protection(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return await in_process(
+        ec2_has_not_termination_protection,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], str],
@@ -60,5 +81,12 @@ async def analyze(
                     content, file_extension, path, template
                 )
             )
+    elif file_extension in EXTENSIONS_TERRAFORM:
+        content = content_generator()
+        model = await load_terraform(stream=content, default=[])
+
+        coroutines.append(
+            run_ec2_has_not_termination_protection(content, path, model)
+        )
 
     return coroutines
