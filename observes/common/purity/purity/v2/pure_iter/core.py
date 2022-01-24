@@ -30,6 +30,7 @@ class _PureIter(
     Generic[_T],
 ):
     # In this case Cmd models mutation not side effects
+    # all produced iterables are supposed to be semanticly equivalent
     _new_iter: Cmd[Iterable[_T]]
 
 
