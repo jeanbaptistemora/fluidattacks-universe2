@@ -61,6 +61,8 @@ Higher severity and more types of vulnerabilities<br>
 Manual SAST, DAST and SCA (Pentesting)<br>
 ![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
 Optimization of vulnerability search with AI<br>
+![Yes](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp)
+Possibility to talk to an expert via ASM<br>
 
 </div>
 
