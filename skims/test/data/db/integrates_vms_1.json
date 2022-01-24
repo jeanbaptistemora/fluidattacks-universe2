@@ -36,9 +36,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "affected_systems": {
-            "S": "namespace"
-          },
           "recommendation": {
             "S": "- Remove the files that should not be versioned from the repository.\n- Include the affected extensions in the .gitignore file.\n"
           },
@@ -336,9 +333,6 @@
           },
           "cvss_version": {
             "S": "3.1"
-          },
-          "affected_systems": {
-            "S": "namespace2"
           },
           "recommendation": {
             "S": "Use cipher algorithms that do not expose previous communications in case a private key is compromised.\n"
