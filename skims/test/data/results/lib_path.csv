@@ -24919,7 +24919,7 @@ F402,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_
   36 |   }
   37 | }
      ^ Col 0
-",f402._tfm_azure_app_service_logging_disabled
+",terraform.tfm_azure_app_service_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,1,778,skims,402. Tracebility Loss - Azure,"Ensure app service enables failed request tracing and detailed error messages
  in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
 >  1 | resource ""azurerm_app_service"" ""vulnerable"" {
@@ -24944,7 +24944,7 @@ F402,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_
   20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
   21 |   https_only                 = true
      ^ Col 0
-",f402._tfm_azure_app_service_logging_disabled
+",terraform.tfm_azure_app_service_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,9,778,skims,402. Tracebility Loss - Azure,"Ensure app service enables failed request tracing and detailed error messages
  in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
@@ -24969,7 +24969,7 @@ F402,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   20 |   location                   = azurerm_resource_group.example.location
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
-",f402._tfm_azure_app_service_logging_disabled
+",terraform.tfm_azure_app_service_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,778,skims,402. Tracebility Loss - Azure,"Ensure app service enables failed request tracing and detailed error messages
  in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
 >  1 | resource ""azurerm_app_service"" ""vulnerable"" {
@@ -24994,7 +24994,7 @@ F402,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   20 |   location                   = azurerm_resource_group.example.location
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
-",f402._tfm_azure_app_service_logging_disabled
+",terraform.tfm_azure_app_service_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,23,778,skims,402. Tracebility Loss - Azure,"Ensure app service enables failed request tracing and detailed error messages
  in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf","
    9 |     detailed_error_messages_enabled = true
@@ -25019,7 +25019,7 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_trac
   28 |   }
   29 | }
      ^ Col 0
-",f402._tfm_azure_app_service_logging_disabled
+",terraform.tfm_azure_app_service_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,778,skims,402. Tracebility Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
  in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf","
 >  1 | resource ""azurerm_storage_account"" ""example"" {
@@ -25035,7 +25035,7 @@ F402,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.
   11 |   }
   12 | }
      ^ Col 0
-",f402._tfm_azure_storage_logging_disabled
+",terraform.tfm_azure_storage_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,28,778,skims,402. Tracebility Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
  in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf","
   15 |     }
@@ -25060,7 +25060,7 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   34 |   }
   35 | }
      ^ Col 0
-",f402._tfm_azure_storage_logging_disabled
+",terraform.tfm_azure_storage_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/elb_test.tf,"
    1 | resource ""aws_elb"" ""bar"" {
    2 |   name               = ""foobar-terraform-elb""
