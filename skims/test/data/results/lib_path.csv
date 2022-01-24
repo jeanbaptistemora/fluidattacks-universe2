@@ -22429,8 +22429,8 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak
   16 | }
      ^ Col 0
 ",query.get_vulnerabilities_from_syntax
-F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
-",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
+",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -22449,8 +22449,8 @@ F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"appli
   14 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
-",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
+",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -22472,8 +22472,8 @@ F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"appli
   16 | </manifest>
      ^ Col 0
 ",__init__._apk_backups_enabled
-F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default
-",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default
+F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
+",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
