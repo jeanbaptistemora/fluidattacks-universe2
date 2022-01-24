@@ -1,11 +1,4 @@
 import androguard
-from androguard.core.analysis import (
-    analysis,
-)
-from androguard.core.bytecodes import (
-    apk,
-    dvm,
-)
 from androguard.core.bytecodes.dvm import (
     ClassDefItem,
     DalvikVMFormat,
@@ -59,16 +52,6 @@ def is_method_present(
     ]
 
     return used_by
-
-
-def get_dex(path: str) -> DalvikVMFormat:
-    """Return DEX analysis from APK file."""
-    apk_obj = apk.APK(path)
-    _dex = dvm.DalvikVMFormat(apk_obj.get_dex())
-    dex = analysis.Analysis()
-    dex.add(_dex)
-    dex.create_xref()
-    return dex
 
 
 def get_activities_source(dvms: list) -> str:
@@ -660,8 +643,8 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.analysis is not None:
+        dex = ctx.apk_ctx.analysis
         method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
-        dex = get_dex(ctx.apk_ctx.path)
 
         deletes_insecure: List[str] = is_method_present(
             dex, "Ljava/io/File;", "delete", "()Z"
