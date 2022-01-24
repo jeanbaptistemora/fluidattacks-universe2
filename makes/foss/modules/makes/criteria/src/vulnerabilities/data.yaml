@@ -17529,8 +17529,8 @@
       of the application gets to the point
       where the OTP is requested.
 
-      - Attacker enters default otp and
-      successfully logs in to the application.
+      - Enters default OTP and successfully
+      logs in to the application.
     recommendation: >
       Remove the OTP mock so that you can
       only login to the application with the
@@ -17548,7 +17548,7 @@
       de la aplicación llega hasta el punto que
       se solicita el OTP.
 
-      - Atacante ingresa OTP por defecto e ingresa
+      - Ingresar OTP por defecto e ingresar
       exitosamente a la aplicación.
     recommendation: >
       Eliminar el mock de OTP para así solo
@@ -17735,10 +17735,10 @@
       by knowing a valid username by changing the
       redirect with which the server responds.
     impact: >
-      - Attacker knows a valid user.
+      - Knows a valid user.
 
-      - Attacker changes the redirect and
-      accesses the application.
+      - Change the redirect and
+      access the application.
     recommendation: >
       Put in place for every resource with
       business-critical functionality a strong
@@ -17757,10 +17757,10 @@
       conociendo un nombre de usuario válido cambiando
       la redirección con la que responde el servidor.
     impact: >
-      - Atacante conoce un usuario válido.
+      - Conocer un usuario válido.
 
-      - Atacante cambia la redirección
-      y accede a la aplicación.
+      - Cambiar la redirección
+      y acceder a la aplicación.
     recommendation: >
       Poner para todo recurso con una funcionalidad
       crítica para el negocio un proceso de autenticación
@@ -17798,12 +17798,12 @@
       accessed without the need to be
       logged into the server.
     impact: >
-      - Accessing Artifactory repositories.
+      - Access Artifactory repositories.
 
-      - Uploading files to any repository
+      - Upload files to any repository
       without authorization.
 
-      - Deleting files from any repository
+      - Delete files from any repository
       without authentication.
     recommendation: >
       Protect resources that are not authenticated for access.
@@ -17854,10 +17854,11 @@
       The system has flaws over authentication mechanisms or
       had been configured with one that can be bypassed.
     impact: >
-      - Organizations could be vulnerable to
-      stealthy brute-force attacks.
+      - Allow organizations to be vulnerable
+      to stealthy brute-force attacks.
 
-      - Fraudulent attempts on access users accounts.
+      - Allow fraudulent attempts on access
+      users accounts.
     recommendation: >
       - Configure Azure AD Multi-Factor Authentication (MFA).
 
@@ -17875,10 +17876,11 @@
       El sistema tiene fallos sobre los mecanismos de autenticación
       o ha sido configurado con uno que puede ser eludido.
     impact: >
-      - Las organizaciones podrían ser vulnerables a ataques
-      sigilosos de fuerza bruta.
+      - Permitir que las organizaciones sean
+      vulnerables a ataques sigilosos de fuerza bruta.
 
-      - Intentos fraudulentos de acceso a las cuentas de los usuarios.
+      - Permitir intentos fraudulentos de
+      acceso a las cuentas de los usuarios.
     recommendation: >
       - Configurar la autenticación multifactorial (MFA) de Azure AD.
 
@@ -17920,7 +17922,7 @@
       URL in the application when the error
       that there is already a session started appears.
     impact: >
-      Concurrent access to the application with
+      Access concurrently to the application with
       the same user causing loss of traceability.
     recommendation: >
       Immediately invalidate previous session
