@@ -307,8 +307,9 @@ enum OrganizationRole {
   CUSTOMERADMIN
   "Customer Manager"
   CUSTOMER_MANAGER
-  "System Owner"
-  SYSTEM_OWNER
+  "Old Customer Manager label"
+  SYSTEM_OWNER @deprecated(reason: """This enum field  will be removed soon.
+  Use `CUSTOMER_MANAGER` instead.""")
 }
 
 "Reasons allowed for removing a group enum dfinition"
@@ -399,8 +400,9 @@ enum StakeholderRole {
   REVIEWER
   "Forces"
   SERVICE_FORCES
-  "System Owner"
-  SYSTEM_OWNER
+  "Old Customer Manager label"
+  SYSTEM_OWNER @deprecated(reason: """This enum field  will be removed soon.
+  Use `CUSTOMER_MANAGER` instead.""")
 }
 
 "Subscription report entity enum definition"

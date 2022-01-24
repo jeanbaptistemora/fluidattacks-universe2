@@ -52,7 +52,7 @@ async def test_add_group() -> None:
     users = await group_access_domain.get_group_users(group)
     assert (
         await authz.get_organization_level_role(users[0], org_id)
-        == "system_owner"
+        == "customer_manager"
     )
 
 
