@@ -22353,7 +22353,7 @@ F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expira
   11 |   key_vault_id    = data.azurerm_key_vault.kv.id
   12 | }
      ^ Col 0
-",f401._tfm_azure_kv_secret_no_expiration_date
+",terraform.tfm_azure_kv_secret_no_expiration_date
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,10,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
