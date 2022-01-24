@@ -46,6 +46,14 @@ locals {
         ]
       },
       {
+        Sid    = "elasticloadbalancingRead"
+        Effect = "Allow"
+        Action = [
+          "elasticloadbalancing:Describe*",
+        ]
+        Resource = ["*"]
+      },
+      {
         Sid    = "s3Read"
         Effect = "Allow"
         Action = [
