@@ -1051,7 +1051,13 @@ export const enTranslations: ResourceKey = {
           title: "Subscription Details",
         },
         paymentMethods: {
+          add: "Add new payment method",
+          cvc: "Card CVC",
+          default: "Make card default payment method",
           defaultPaymentMethod: "(Default)",
+          expirationMonth: "Card expiration month",
+          expirationYear: "Card expiration year",
+          number: "Card number",
           title: "Payment Methods",
         },
         text: "Billing",

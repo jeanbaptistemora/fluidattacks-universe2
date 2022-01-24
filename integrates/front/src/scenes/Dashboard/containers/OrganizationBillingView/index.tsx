@@ -24,22 +24,28 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const { organizationId } = props;
 
   // GraphQL operations
-  const { data } = useQuery<IGetOrganizationBilling>(GET_ORGANIZATION_BILLING, {
-    onCompleted: (paramData: IGetOrganizationBilling): void => {
-      if (_.isEmpty(paramData.organization.groups)) {
-        Logger.warning("Empty groups", document.location.pathname);
-      }
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading organization groups", error);
-      });
-    },
-    variables: {
-      organizationId,
-    },
-  });
+  const { data, refetch } = useQuery<IGetOrganizationBilling>(
+    GET_ORGANIZATION_BILLING,
+    {
+      onCompleted: (paramData: IGetOrganizationBilling): void => {
+        if (_.isEmpty(paramData.organization.groups)) {
+          Logger.warning("Empty groups", document.location.pathname);
+        }
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred loading organization groups",
+            error
+          );
+        });
+      },
+      variables: {
+        organizationId,
+      },
+    }
+  );
   const groups: IGroupAttr[] =
     data === undefined ? [] : data.organization.groups;
   const paymentMethods: IPaymentMethodAttr[] =
@@ -48,7 +54,11 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   return (
     <React.Fragment>
       <OrganizationBillingGroups groups={groups} />
-      <OrganizationBillingPaymentMethods paymentMethods={paymentMethods} />
+      <OrganizationBillingPaymentMethods
+        onUpdate={refetch}
+        organizationId={organizationId}
+        paymentMethods={paymentMethods}
+      />
     </React.Fragment>
   );
 };

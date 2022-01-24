@@ -1,22 +1,37 @@
+import { useMutation } from "@apollo/client";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback, useState } from "react";
 
+import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
+import { ADD_BILLING_PAYMENT_METHOD } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { filterSearchText } from "components/DataTableNext/utils";
 import { Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IOrganizationBillingPaymentMethodsProps {
+  organizationId: string;
   paymentMethods: IPaymentMethodAttr[];
+  onUpdate: () => void;
 }
 
 export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPaymentMethodsProps> =
   ({
+    organizationId,
     paymentMethods,
+    onUpdate,
   }: IOrganizationBillingPaymentMethodsProps): JSX.Element => {
+    // Data
     const data: IPaymentMethodAttr[] = paymentMethods.map(
       (paymentMethodData: IPaymentMethodAttr): IPaymentMethodAttr => {
         const isDefault: boolean = paymentMethodData.default;
@@ -33,6 +48,69 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
         };
       }
     );
+
+    // Search bar
+    const [searchTextFilter, setSearchTextFilter] = useState("");
+    function onSearchTextChange(
+      event: React.ChangeEvent<HTMLInputElement>
+    ): void {
+      setSearchTextFilter(event.target.value);
+    }
+    const filterSearchtextResult: IPaymentMethodAttr[] = filterSearchText(
+      data,
+      searchTextFilter
+    );
+
+    // Add payment method
+    const [isManagingPaymentMethod, setManagingPaymentMethod] = useState<
+      false | { mode: "ADD" }
+    >(false);
+    const openAddModal = useCallback((): void => {
+      setManagingPaymentMethod({ mode: "ADD" });
+    }, []);
+    const closeModal = useCallback((): void => {
+      setManagingPaymentMethod(false);
+    }, []);
+    const [addPaymentMethod] = useMutation(ADD_BILLING_PAYMENT_METHOD, {
+      onCompleted: (): void => {
+        onUpdate();
+        closeModal();
+      },
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't add payment method", error);
+        });
+      },
+    });
+    const handleUrlSubmit = useCallback(
+      async ({
+        cardCvc,
+        cardExpirationMonth,
+        cardExpirationYear,
+        cardNumber,
+        makeDefault,
+      }: {
+        cardCvc: string;
+        cardExpirationMonth: string;
+        cardExpirationYear: string;
+        cardNumber: string;
+        makeDefault: boolean;
+      }): Promise<void> => {
+        await addPaymentMethod({
+          variables: {
+            cardCvc,
+            cardExpirationMonth,
+            cardExpirationYear,
+            cardNumber,
+            makeDefault,
+            organizationId,
+          },
+        });
+      },
+      [addPaymentMethod, organizationId]
+    );
+
     const tableHeaders: IHeaderConfig[] = [
       {
         align: "center",
@@ -66,17 +144,39 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
               </h2>
               <DataTableNext
                 bordered={true}
-                dataset={data}
+                columnToggle={false}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                  position: "right",
+                }}
+                dataset={filterSearchtextResult}
                 defaultSorted={{ dataField: "brand", order: "asc" }}
                 exportCsv={false}
+                extraButtons={
+                  <Can do={"api_mutations_add_billing_payment_method_mutate"}>
+                    <Button onClick={openAddModal}>
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;
+                      {translate.t(
+                        "organization.tabs.billing.paymentMethods.add"
+                      )}
+                    </Button>
+                  </Can>
+                }
                 headers={tableHeaders}
                 id={"tblBillingPaymentMethods"}
                 pageSize={10}
                 search={false}
+                striped={true}
               />
             </Row>
           </Col100>
         </Row>
+        {isManagingPaymentMethod === false ? undefined : (
+          <ManagementModal onClose={closeModal} onSubmit={handleUrlSubmit} />
+        )}
       </Container>
     );
   };
