@@ -2,8 +2,8 @@
 """
 This migration swaps all system owners for customer managers
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-01-24 at 13:43:54 UTC-5
+Finalization Time: 2022-01-24 at 13:45:01 UTC-5
 """
 
 from aioextensions import (
@@ -30,7 +30,7 @@ from typing import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 AUTHZ_TABLE: str = "fi_authz"
 
