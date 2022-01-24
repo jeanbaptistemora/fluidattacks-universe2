@@ -219,6 +219,7 @@ def format_exposed_chart_yearly(
 
 @retry_on_exceptions(
     exceptions=(UnavailabilityError,),
+    max_attempts=10,
     sleep_seconds=5,
 )
 async def create_register_by_week(  # pylint: disable=too-many-locals
@@ -367,6 +368,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
 
 @retry_on_exceptions(
     exceptions=(UnavailabilityError,),
+    max_attempts=10,
     sleep_seconds=5,
 )
 async def create_register_by_month(  # pylint: disable=too-many-locals
@@ -771,24 +773,22 @@ async def _get_group_indicators(
     group: str, loaders: Dataloaders, findings: Tuple[Finding, ...]
 ) -> Dict[str, object]:
     (
-        (last_closing_vuln_days, last_closing_vuln),
-        (max_open_severity, max_open_severity_finding),
-        mean_remediate,
-        closed_vulnerabilities,
-        open_findings,
-    ) = await collect(
-        (
-            findings_domain.get_last_closed_vulnerability_info(
-                loaders, findings
-            ),
-            findings_domain.get_max_open_severity(loaders, findings),
-            groups_domain.get_mean_remediate_severity(
-                loaders, group, Decimal("0.0"), Decimal("10.0")
-            ),
-            groups_domain.get_closed_vulnerabilities(loaders, group),
-            groups_domain.get_open_findings(loaders, group),
-        )
+        last_closing_vuln_days,
+        last_closing_vuln,
+    ) = await findings_domain.get_last_closed_vulnerability_info(
+        loaders, findings
     )
+    (
+        max_open_severity,
+        max_open_severity_finding,
+    ) = await findings_domain.get_max_open_severity(loaders, findings)
+    mean_remediate = await groups_domain.get_mean_remediate_severity(
+        loaders, group, Decimal("0.0"), Decimal("10.0")
+    )
+    closed_vulnerabilities = await groups_domain.get_closed_vulnerabilities(
+        loaders, group
+    )
+    open_findings = await groups_domain.get_open_findings(loaders, group)
 
     return {
         "last_closing_date": last_closing_vuln_days,
@@ -812,53 +812,37 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     loaders: Dataloaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     _indicators = await _get_group_indicators(group, loaders, findings)
-    (
-        remediate_critical,
-        remediate_high,
-        remediate_medium,
-        remediate_low,
-        total_treatment,
-    ) = await collect(
-        [
-            groups_domain.get_mean_remediate_severity(
-                loaders, group, Decimal("9.0"), Decimal("10.0")
-            ),
-            groups_domain.get_mean_remediate_severity(
-                loaders, group, Decimal("7.0"), Decimal("8.9")
-            ),
-            groups_domain.get_mean_remediate_severity(
-                loaders, group, Decimal("4.0"), Decimal("6.9")
-            ),
-            groups_domain.get_mean_remediate_severity(
-                loaders, group, Decimal("0.1"), Decimal("3.9")
-            ),
-            findings_domain.get_total_treatment(loaders, findings),
-        ]
+    remediate_critical = await groups_domain.get_mean_remediate_severity(
+        loaders, group, Decimal("9.0"), Decimal("10.0")
     )
-    (
-        remediated_over_time,
-        remediated_over_thirty_days,
-        remediated_over_ninety_days,
-    ) = await collect(
-        [
-            create_register_by_week(loaders, group),
-            create_register_by_week(
-                loaders,
-                group,
-                datetime.combine(
-                    datetime_utils.get_now_minus_delta(days=30),
-                    datetime.min.time(),
-                ),
-            ),
-            create_register_by_week(
-                loaders,
-                group,
-                datetime.combine(
-                    datetime_utils.get_now_minus_delta(days=90),
-                    datetime.min.time(),
-                ),
-            ),
-        ]
+    remediate_high = await groups_domain.get_mean_remediate_severity(
+        loaders, group, Decimal("7.0"), Decimal("8.9")
+    )
+    remediate_medium = await groups_domain.get_mean_remediate_severity(
+        loaders, group, Decimal("4.0"), Decimal("6.9")
+    )
+    remediate_low = await groups_domain.get_mean_remediate_severity(
+        loaders, group, Decimal("0.1"), Decimal("3.9")
+    )
+    total_treatment = await findings_domain.get_total_treatment(
+        loaders, findings
+    )
+    remediated_over_time = await create_register_by_week(loaders, group)
+    remediated_over_thirty_days = await create_register_by_week(
+        loaders,
+        group,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=30),
+            datetime.min.time(),
+        ),
+    )
+    remediated_over_ninety_days = await create_register_by_week(
+        loaders,
+        group,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=90),
+            datetime.min.time(),
+        ),
     )
     over_time_month: RegisterByTime = await create_register_by_month(
         loaders=loaders, group=group
@@ -1088,21 +1072,21 @@ def get_exposed_cvssf(
 
 
 async def update_group_indicators(group_name: str) -> None:
-    payload_data = {"group_name": group_name}
-    indicators = await get_group_indicators(group_name)
     try:
+        payload_data = {"group_name": group_name}
+        indicators = await get_group_indicators(group_name)
         response = await groups_domain.update(group_name, indicators)
         if not response:
             msg = "Error: An error ocurred updating indicators in the database"
             LOGGER.error(msg, extra={"extra": payload_data})
-    except ClientError as ex:
+    except (ClientError, TypeError, UnavailabilityError) as ex:
         LOGGER.exception(ex, extra={"extra": payload_data})
 
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     groups = sorted(await groups_domain.get_alive_group_names())
-    await collect(map(update_group_indicators, groups), workers=2)
+    await collect(map(update_group_indicators, groups), workers=1)
 
 
 async def main() -> None:
