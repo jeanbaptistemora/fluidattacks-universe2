@@ -12437,7 +12437,7 @@
       details: __empty__
 "205":
   en:
-    title: Insuficient Phisical Access Controls
+    title: Insuficient Physical Access Controls
     description: >
       It is possible to access the
       facilities by tailgating.
@@ -12450,7 +12450,7 @@
     threat: >
       Anonymous entering the branch.
   es:
-    title: Insuficient Phisical Access Controls
+    title: Insuficient Physical Access Controls
     description: >
       Es posible acceder a las instalaciones
       haciendo uso del tailgating.
@@ -16694,10 +16694,10 @@
   en:
     title: Session Fixation
     description: >
-      The cookie session doesnt change after
+      The cookie session doesn't change after
       a valid login which allow an attacker
       to hijack the user session by setting
-      the user cookie for one knew by the attacker.
+      the user cookie for one known by the attacker.
     impact: >
       Hijack a valid user session.
     recommendation: >
