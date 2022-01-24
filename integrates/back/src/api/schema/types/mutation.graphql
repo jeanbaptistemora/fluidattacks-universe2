@@ -687,6 +687,14 @@ type Mutation {
     reportSubject: String!
   ): SimplePayload!
 
+  "Queues an execution to sync the state of the S3 mirror with the repository"
+  syncGitRoot(
+    "Name of the group"
+    groupName: String!
+    "ID of the Git root to sync"
+    rootId: String!
+  ): SimplePayload!
+
   "Revoke your access permissions to a group"
   unsubscribeFromGroup(
     "Name of the group to be removed from"

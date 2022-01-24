@@ -1034,6 +1034,12 @@ class HasActiveRoots(CustomBaseException):
         super(HasActiveRoots, self).__init__(msg)
 
 
+class InactiveRoot(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The root is not active"
+        super(InactiveRoot, self).__init__(msg)
+
+
 class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"
