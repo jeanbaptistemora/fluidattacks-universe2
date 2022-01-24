@@ -686,6 +686,7 @@ export const enTranslations: ResourceKey = {
           cloning: {
             message: "Message",
             status: "Status",
+            sync: "Sync",
           },
           credentials: {
             name: "Cloning credential",
@@ -701,6 +702,12 @@ export const enTranslations: ResourceKey = {
             "Nickname must be unique and different from the repository name",
           title: "Git repository",
           url: "URL",
+        },
+        sync: {
+          noCredentials:
+            "Git root cannot be cloned due to lack of access credentials",
+          success: "Sync started successfully",
+          successTitle: "Success",
         },
         title: "Git Roots",
       },

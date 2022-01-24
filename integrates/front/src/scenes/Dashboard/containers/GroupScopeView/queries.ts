@@ -222,6 +222,14 @@ const GET_ROOTS_VULNS: DocumentNode = gql`
   }
 `;
 
+const SYNC_GIT_ROOT: DocumentNode = gql`
+  mutation SyncGitRoot($groupName: String!, $rootId: String!) {
+    syncGitRoot(groupName: $groupName, rootId: $rootId) {
+      success
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -232,6 +240,7 @@ export {
   GET_ROOTS,
   GET_ROOTS_VULNS,
   MOVE_ROOT,
+  SYNC_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 };

@@ -146,6 +146,17 @@ const handleActivationError = (
   });
 };
 
+const handleSyncError = (graphQLErrors: readonly GraphQLError[]): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (error.message === "Exception - Access denied or credential not found") {
+      msgError(translate.t("group.scope.git.sync.noCredentials"));
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.error("Couldn't queue root cloning", error);
+    }
+  });
+};
+
 const hasCheckedItem = (
   checkedItems: Record<string, boolean>,
   columnName: string
@@ -265,6 +276,7 @@ export {
   handleCreationError,
   handleUpdateError,
   handleActivationError,
+  handleSyncError,
   hasCheckedItem,
   useGitSubmit,
 };

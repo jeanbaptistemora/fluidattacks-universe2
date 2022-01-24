@@ -7,3 +7,4 @@ export { commitFormatter } from "components/DataTableNext/formatters/commitForma
 export { deleteFormatter } from "components/DataTableNext/formatters/deleteFormatter";
 export { timeFromNow } from "components/DataTableNext/formatters/timeFromNow";
 export { timeFromUnix } from "components/DataTableNext/formatters/timeFromUnix";
+export { syncButtonFormatter } from "components/DataTableNext/formatters/syncButtonFormatter";

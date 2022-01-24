@@ -14,6 +14,7 @@ import {
   filterSelectStatus,
   handleActivationError,
   handleCreationError,
+  handleSyncError,
   handleUpdateError,
   hasCheckedItem,
   useGitSubmit,
@@ -28,6 +29,7 @@ import { DeactivationModal } from "../deactivationModal";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  SYNC_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 } from "../queries";
@@ -36,7 +38,10 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
-import { changeFormatter } from "components/DataTableNext/formatters";
+import {
+  changeFormatter,
+  syncButtonFormatter,
+} from "components/DataTableNext/formatters";
 import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
 import type { IFilterProps } from "components/DataTableNext/types";
 import {
@@ -47,9 +52,12 @@ import {
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
+import { msgSuccess } from "utils/notifications";
 
 interface IGitRootsProps {
   groupName: string;
@@ -70,11 +78,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   roots,
 }: IGitRootsProps): JSX.Element => {
   // Constants
+  const user: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { url: groupUrl }: IGroupContext = useContext(groupContext);
   const { push } = useHistory();
   const { t } = useTranslation();
 
+  const canSyncGitRoot: boolean = permissions.can(
+    "api_mutations_sync_git_root_mutate"
+  );
   const canUpdateRootState: boolean = permissions.can(
     "api_mutations_activate_root_mutate"
   );
@@ -196,7 +208,27 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
+  const [syncGitRoot] = useMutation(SYNC_GIT_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      msgSuccess(
+        t("group.scope.git.sync.success"),
+        t("group.scope.git.sync.successTitle")
+      );
+      setCurrentRow(undefined);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      handleSyncError(graphQLErrors);
+    },
+  });
+
   // Event handlers
+  const handleSyncClick: (row: Record<string, string>) => void = (
+    row
+  ): void => {
+    void syncGitRoot({ variables: { groupName, rootId: row.id } });
+  };
+
   const handleRowClick = useCallback(
     (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
       if (
@@ -530,6 +562,17 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
                     width: "105px",
+                  },
+                  {
+                    align: "left",
+                    changeFunction: handleSyncClick,
+                    dataField: "",
+                    formatter: syncButtonFormatter,
+                    header: t("group.scope.git.repo.cloning.sync"),
+                    visible:
+                      canSyncGitRoot &&
+                      _.endsWith(user.userEmail, "@fluidattacks.com"),
+                    width: "15px",
                   },
                 ]}
                 id={"tblGitRoots"}
