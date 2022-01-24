@@ -21,9 +21,10 @@ async def get_efficacy(
     loaders: Any,
     vuln: Vulnerability,
 ) -> Decimal:
-    cycles: int = await get_reattack_cycles(loaders, vuln)
-    if cycles and vuln.state.status == VulnerabilityStateStatus.CLOSED:
-        return Decimal(100 / cycles).quantize(Decimal("0.01"))
+    if vuln.state.status == VulnerabilityStateStatus.CLOSED:
+        cycles: int = await get_reattack_cycles(loaders, vuln)
+        if cycles:
+            return Decimal(100 / cycles).quantize(Decimal("0.01"))
     return Decimal(0)
 
 
