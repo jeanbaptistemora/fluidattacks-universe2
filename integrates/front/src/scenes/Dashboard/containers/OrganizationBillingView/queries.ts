@@ -13,6 +13,13 @@ export const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         service
         tier
       }
+      billingPaymentMethods {
+        id
+        brand
+        lastFourDigits
+        expirationMonth
+        expirationYear
+      }
     }
   }
 `;

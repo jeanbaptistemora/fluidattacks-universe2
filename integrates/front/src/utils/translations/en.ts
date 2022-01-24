@@ -1022,6 +1022,9 @@ export const enTranslations: ResourceKey = {
         tooltip: "Organization status at a glance",
       },
       billing: {
+        groups: {
+          title: "Groups",
+        },
         modal: {
           close: "Close",
           continue: "Continue",
@@ -1037,6 +1040,9 @@ export const enTranslations: ResourceKey = {
             },
           },
           title: "Subscription Details",
+        },
+        paymentMethods: {
+          title: "Payment Methods",
         },
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",

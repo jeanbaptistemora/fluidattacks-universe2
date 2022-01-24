@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 
 import { Container } from "./styles";
 
+import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type {
@@ -12,7 +13,6 @@ import type {
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import type { IBillingData } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
@@ -27,13 +27,13 @@ interface IFilterSet {
 }
 
 interface IOrganizationBillingGroupsProps {
-  groups: IBillingData[];
+  groups: IGroupAttr[];
 }
 
 export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps> =
   ({ groups }: IOrganizationBillingGroupsProps): JSX.Element => {
     // States
-    const defaultCurrentRow: IBillingData = {
+    const defaultCurrentRow: IGroupAttr = {
       forces: "",
       hasForces: false,
       hasMachine: false,
@@ -51,10 +51,10 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
 
     // Auxiliary functions
 
-    const formatGroupData: (groupData: IBillingData[]) => IBillingData[] = (
-      groupData: IBillingData[]
-    ): IBillingData[] =>
-      groupData.map((group: IBillingData): IBillingData => {
+    const formatGroupData: (groupData: IGroupAttr[]) => IGroupAttr[] = (
+      groupData: IGroupAttr[]
+    ): IGroupAttr[] =>
+      groupData.map((group: IGroupAttr): IGroupAttr => {
         const servicesParameters: Record<string, string> = {
           false: "organization.tabs.groups.disabled",
           true: "organization.tabs.groups.enabled",
@@ -145,14 +145,14 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       },
     ];
 
-    const dataset: IBillingData[] = formatGroupData(groups);
+    const dataset: IGroupAttr[] = formatGroupData(groups);
 
     function onSearchTextChange(
       event: React.ChangeEvent<HTMLInputElement>
     ): void {
       setSearchTextFilter(event.target.value);
     }
-    const filterSearchTextDataset: IBillingData[] = filterSearchText(
+    const filterSearchTextDataset: IGroupAttr[] = filterSearchText(
       dataset,
       searchTextFilter
     );
@@ -168,7 +168,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterGroupNameDataset: IBillingData[] = filterText(
+    const filterGroupNameDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.groupName,
       "name"
@@ -183,7 +183,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterTierDataset: IBillingData[] = filterText(
+    const filterTierDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.tier,
       "tier"
@@ -200,7 +200,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterServiceDataset: IBillingData[] = filterText(
+    const filterServiceDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.service,
       "service"
@@ -217,7 +217,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterMachineDataset: IBillingData[] = filterText(
+    const filterMachineDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.machine,
       "machine"
@@ -232,7 +232,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterSquadDataset: IBillingData[] = filterText(
+    const filterSquadDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.squad,
       "squad"
@@ -247,7 +247,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         })
       );
     }
-    const filterForcesDataset: IBillingData[] = filterText(
+    const filterForcesDataset: IGroupAttr[] = filterText(
       dataset,
       filterOrganizationGroupsTable.forces,
       "forces"
@@ -267,7 +267,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       setSearchTextFilter("");
     }
 
-    const resultDataset: IBillingData[] = _.intersection(
+    const resultDataset: IGroupAttr[] = _.intersection(
       filterSearchTextDataset,
       filterGroupNameDataset,
       filterTierDataset,
@@ -350,8 +350,8 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
 
     const openSeeBillingDetailsModal: (
       event: Record<string, unknown>,
-      row: IBillingData
-    ) => void = (_0: Record<string, unknown>, row: IBillingData): void => {
+      row: IGroupAttr
+    ) => void = (_0: Record<string, unknown>, row: IGroupAttr): void => {
       updateRow(row);
       setBillingDetailsModalOpen(true);
     };
@@ -365,6 +365,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         <Row>
           <Col100>
             <Row>
+              <h2>{translate.t("organization.tabs.billing.groups.title")}</h2>
               <DataTableNext
                 bordered={true}
                 clearFiltersButton={clearFilters}
@@ -388,7 +389,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
                 defaultSorted={{ dataField: "name", order: "asc" }}
                 exportCsv={false}
                 headers={tableHeaders}
-                id={"tblBilling"}
+                id={"tblBillingGroups"}
                 pageSize={10}
                 rowEvents={{ onClick: openSeeBillingDetailsModal }}
                 search={false}

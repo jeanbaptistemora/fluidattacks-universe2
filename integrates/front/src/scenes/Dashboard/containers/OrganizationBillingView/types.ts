@@ -1,4 +1,4 @@
-interface IBillingData {
+interface IGroupAttr {
   forces: string;
   hasForces: boolean;
   hasMachine: boolean;
@@ -10,14 +10,28 @@ interface IBillingData {
   tier: string;
 }
 
+interface IPaymentMethodAttr {
+  id: string;
+  brand: string;
+  lastFourDigits: string;
+  expirationMonth: string;
+  expirationYear: string;
+}
+
 interface IOrganizationBillingProps {
   organizationId: string;
 }
 
 interface IGetOrganizationBilling {
   organization: {
-    groups: IBillingData[];
+    groups: IGroupAttr[];
+    billingPaymentMethods: IPaymentMethodAttr[];
   };
 }
 
-export { IBillingData, IGetOrganizationBilling, IOrganizationBillingProps };
+export {
+  IGroupAttr,
+  IPaymentMethodAttr,
+  IGetOrganizationBilling,
+  IOrganizationBillingProps,
+};

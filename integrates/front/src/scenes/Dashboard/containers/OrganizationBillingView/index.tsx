@@ -5,13 +5,15 @@ import _ from "lodash";
 import React from "react";
 
 import { OrganizationBillingGroups } from "./Groups";
-
-import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
+import { OrganizationBillingPaymentMethods } from "./PaymentMethods";
+import { GET_ORGANIZATION_BILLING } from "./queries";
 import type {
-  IBillingData,
   IGetOrganizationBilling,
+  IGroupAttr,
   IOrganizationBillingProps,
-} from "scenes/Dashboard/containers/OrganizationBillingView/types";
+  IPaymentMethodAttr,
+} from "./types";
+
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -38,8 +40,15 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       organizationId,
     },
   });
-  const groups: IBillingData[] =
+  const groups: IGroupAttr[] =
     data === undefined ? [] : data.organization.groups;
+  const paymentMethods: IPaymentMethodAttr[] =
+    data === undefined ? [] : data.organization.billingPaymentMethods;
 
-  return <OrganizationBillingGroups groups={groups} />;
+  return (
+    <React.Fragment>
+      <OrganizationBillingGroups groups={groups} />
+      <OrganizationBillingPaymentMethods paymentMethods={paymentMethods} />
+    </React.Fragment>
+  );
 };
