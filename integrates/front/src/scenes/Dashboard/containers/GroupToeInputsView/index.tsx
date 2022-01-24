@@ -55,6 +55,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       attackedAt: true,
       bePresent: false,
+      bePresentUntil: false,
       component: false,
       entryPoint: true,
       hasVulnerabilities: true,
@@ -181,6 +182,16 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       header: translate.t("group.toe.inputs.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
+    },
+    {
+      align: "center",
+      dataField: "bePresentUntil",
+      filter: dateFilter({}),
+      formatter: formatDate,
+      header: translate.t("group.toe.inputs.bePresentUntil"),
+      omit: !isInternal || !canGetBePresentUntil,
+      onSort,
+      visible: checkedItems.bePresentUntil,
     },
   ];
 
