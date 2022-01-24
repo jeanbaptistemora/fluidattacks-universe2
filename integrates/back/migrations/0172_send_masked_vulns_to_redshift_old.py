@@ -27,9 +27,6 @@ from botocore.exceptions import (
     ClientError,
     HTTPClientError,
 )
-from custom_exceptions import (
-    UnavailabilityError,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -49,6 +46,9 @@ from db_model.vulnerabilities.types import (
 )
 from decorators import (
     retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from dynamodb.types import (
     Item,
