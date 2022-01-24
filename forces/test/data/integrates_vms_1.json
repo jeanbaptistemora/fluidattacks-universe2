@@ -36,9 +36,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "affected_systems": {
-            "S": "OWASP"
-          },
           "recommendation": {
             "S": "- Prevent the attacker from constructing the pathname, or\n- Validate/Neutralize the input for special elements like: .., , etc.\n"
           },
@@ -330,9 +327,6 @@
           },
           "cvss_version": {
             "S": "3.1"
-          },
-          "affected_systems": {
-            "S": "OWASP"
           },
           "recommendation": {
             "S": "- Use a centralized logging mechanism that supports several levels of detail.\n- Make sure all events related to successes and failures are recorded.\n"

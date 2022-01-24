@@ -118,9 +118,6 @@
           "cvss_version": {
             "S": "3.1"
           },
-          "affected_systems": {
-            "S": "User Registration"
-          },
           "recommendation": {
             "S": "Validar en el lado del servidor los tipos de datos que se ingresan a distintos tipos de campos en la aplicaci\u00f3n."
           },
@@ -412,9 +409,6 @@
           },
           "cvss_version": {
             "S": "3.1"
-          },
-          "affected_systems": {
-            "S": "OWASP"
           },
           "recommendation": {
             "S": "Catch specific exceptions and provide custom treatment to every exceptional event.\n"
