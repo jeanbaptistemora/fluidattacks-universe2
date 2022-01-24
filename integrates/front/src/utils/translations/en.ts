@@ -785,17 +785,17 @@ export const enTranslations: ResourceKey = {
     },
     toe: {
       inputs: {
+        attackedAt: "Attacked at",
         bePresent: "Be present",
         bePresentUntil: "Be present until",
         commit: "Commit",
         component: "Component",
-        createdDate: "Seen at",
         entryPoint: "Entry point",
         hasVulnerabilities: "Has vulnerabilities",
         no: "No",
         root: "Root",
+        seenAt: "Seen at",
         seenFirstTimeBy: "Seen first time by",
-        testedDate: "Attacked at",
         yes: "Yes",
       },
       lines: {
