@@ -17100,12 +17100,12 @@
       new employees or updating the information of
       those that already existed.
     impact: >
-      - Attacker starts file upload process.
+      - Start a file upload process.
 
-      - Attacker changes the payrollNumber
+      - Change the payrollNumber
       to not own.
 
-      - Attacker uploads or modifies information
+      - Upload or modify information
       to a third party company.
     recommendation: >
       Verify that the user who is trying to
@@ -17132,11 +17132,11 @@
       empleados nuevos o actualizando la información
       de aquellos que ya existían.
     impact: >
-      - Atacante comienza proceso de carga de archivo.
+      - Comenzar un proceso de carga de archivo.
 
-      - Atacante cambiar el payrollNumber a uno no propio.
+      - Cambiar el payrollNumber a uno no propio.
 
-      - Atacante sube o modifica información a una
+      - Subir o modificar información a una
       empresa de un tercero.
     recommendation: >
       Verificar que el usuario que está intentando
@@ -17226,36 +17226,37 @@
     description: >
       The application has an HTML file
       that displays a LOG of the system.
-    impact: >
       In the event that this page is accessible
       by users, they will be able to know
       information about the system.
+    impact: >
+      Understand how the system works from the
+      messages stored in the Log and generate
+      an attack against the system based on
+      this knowledge.
     recommendation: >
       Avoid exposing system information in files
       that can be accessed by third parties.
     threat: >
-      An attacker who knows this information can
-      understand how the system works from the
-      messages stored in the Log and generate an
-      attack against the system based on this knowledge.
+      External attacker from the Internet.
   es:
     title: Technical information leak - Logs
     description: >
       La aplicación tiene un archivo HTML
       que despliega un LOG del sistema.
+      En el caso de que esta página sea
+      accesible para los usuarios, éstos
+      podrán conocer información sobre el sistema.
     impact: >
-      En caso de que esa página sea accesible
-      por parte de los usuarios, estos podrán
-      conocer información del sistema.
+      Entender cómo funciona el sistema
+      a partir de los mensajes almacenados
+      en el Log y generar un ataque contra
+      el sistema basado en este conocimiento.
     recommendation: >
       Evitar exponer información del sistema en
       archivos que pueden ser accedidos por terceros.
     threat: >
-      Un atacante que conozca dicha información
-      puede entender como funciona el sistema a
-      partir de los mensajes almacenados en el
-      Log y generar un ataque contra el sistema
-      a partir de dicho conocimiento.
+      Atacante externo desde Internet.
   category: Collect Information
   score:
     base:
@@ -17398,39 +17399,43 @@
       The code presents several classes whose
       variables are declared as public.
     impact: >
-      A public variable can be get or set by any part
+      - Get or set a public variable by any part
       of the program, and any rules regarding its use
       can be easily broken or forgotten.
+
+      - Exploit the use of public variables in
+      the code by accessing them through classes
+      external to the application in order to
+      modify the values of these variables and
+      compromise the integrity of the application.
     recommendation: >
       Unless strictly necessary, all variables
       should be declared as private.
     threat: >
-      An attacker can exploit the use of public
-      variables in the code by accessing them
-      through classes external to the application
-      in order to modify the values of these
-      variables and compromise the integrity
-      of the application.
+      Unauthorized attacker with access
+      to the application.
   es:
     title: Inappropriate coding practices - Public variables
     description: >
       El código presenta varias clases cuyas
       variables están declaradas como públicas.
     impact: >
-      Una variable global puede ser obtenida o
-      establecida por cualquier parte del programa,
-      y cualquier regla relativa a su uso puede ser
-      fácilmente rota u olvidada.
+      - Obtener o establecer una variable
+      pública por cualquier parte del
+      programa, y cualquier regla relativa
+      a su uso puede ser fácilmente rota u olvidada.
+
+      - Explotar el uso de variables públicas
+      en el código accediendo a ellas a través
+      de clases externas a la aplicación para
+      modificar los valores de estas variables
+      y comprometer la integridad de la aplicación.
     recommendation: >
       A no ser que sea estrictamente necesario,
       todas las variables deben ser declaradas
       como privadas.
     threat: >
-      Un atacante puede aprovechar el uso de variables
-      públicas en el código accediendo a estás a través
-      de clases externas a la aplicación con el fin de
-      modificar los valores de dichas variables y
-      comprometer la integridad de la aplicación.
+      Atacante no autorizado con acceso a la aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -17465,14 +17470,14 @@
       - validity 365.
       The Kpassword must be different from the Spassword.
     impact: >
-      Attacker in adjacent network.
+      Compromise the access to the files if the
+      keys of the keystore are the same as
+      those of the key pair.
     recommendation: >
       Implement best practices in cryptographic systems
       Recommendation for Cryptographic Key Generation.
     threat: >
-      If the keys of the keystore are the same
-      as those of the key pair in case they are
-      compromised you will have access to the files.
+      Attacker in adjacent network.
   es:
     title: Insecure service configuration - Key pair
     description: >
@@ -17486,15 +17491,15 @@
       -storepass Spassword, - validity 365.
       El Kpassword debe ser diferente al Spassword.
     impact: >
-      Atacante en red adyancente.
+      Comprometer el acceso a los archivos
+      si las claves del almacén de claves
+      son las mismas que las del par de claves.
     recommendation: >
       Implementar buenas prácticas en cuanto a
       sistemas criptográficos Recommendation for
       Cryptographic Key Generation.
     threat: >
-      Si las llaves del keystore son las mismas
-      que del key pair en caso de que se comprometan
-      se tendrá acceso a los archivos.
+      Atacante en red adyancente.
   category: Abuse Functionality
   score:
     base:
