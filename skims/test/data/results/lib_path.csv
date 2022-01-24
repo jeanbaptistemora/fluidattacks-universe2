@@ -24847,7 +24847,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. 
   20 | RUN apt update
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
-",f380._unpinned_docker_image
+",docker.unpinned_docker_image
 F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
  in namespace/skims/test/data/lib_path/f381/Dockerfile","
    1 | # Insecure
@@ -24872,7 +24872,7 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. S
   20 | RUN apt update
   21 | RUN apt install -y nginx php-fpm supervisor && \
      ^ Col 0
-",f380._unpinned_docker_image
+",docker.unpinned_docker_image
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
    1 | using System;
    2 | using System.Security;
