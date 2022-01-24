@@ -4,7 +4,7 @@ resource "helm_release" "newrelic" {
   name       = "newrelic"
   repository = "https://helm-charts.newrelic.com"
   chart      = "nri-bundle"
-  version    = "2.6.0"
+  version    = "3.3.2"
   namespace  = "kube-system"
 
   set_sensitive {

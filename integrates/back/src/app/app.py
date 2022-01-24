@@ -1,6 +1,22 @@
 # Starlette app init file
 
+"""
+IMPORTANT
+Unlike standard Python functionality, the import order matters:
+the agent package must be imported first.
+"""
+# flake8: noqa
+import newrelic.agent
+from settings import (
+    DEBUG,
+    JWT_COOKIE_NAME,
+    LOGGING,
+    NEW_RELIC_CONF_FILE,
+    queue,
+    TEMPLATES_DIR,
+)
 
+newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 from . import (
     utils,
 )
@@ -52,7 +68,6 @@ from groups import (
 )
 import logging
 import logging.config
-import newrelic.agent
 from newutils import (
     analytics,
     templates,
@@ -65,13 +80,6 @@ from redis_cluster.operations import (
 )
 from sessions import (
     dal as sessions_dal,
-)
-from settings import (
-    DEBUG,
-    JWT_COOKIE_NAME,
-    LOGGING,
-    queue,
-    TEMPLATES_DIR,
 )
 from starlette.applications import (
     Starlette,
@@ -287,9 +295,9 @@ STARLETTE_APP = Starlette(
     on_startup=[start_queue_daemon],
     exception_handlers=exception_handlers,
 )
-BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
-NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
-    BUGSNAG_WRAP, framework=("Starlette", "0.13.8")
-)
 
-APP = NEWRELIC_WRAP
+# ASGI wrappers
+NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(STARLETTE_APP)
+BUGSNAG_WRAPPER = BugsnagMiddleware(NEWRELIC_WRAPPER)
+
+APP = BUGSNAG_WRAPPER

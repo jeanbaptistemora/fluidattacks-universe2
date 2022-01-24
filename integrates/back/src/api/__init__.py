@@ -10,18 +10,11 @@ from dataloaders import (
 from dynamodb.exceptions import (
     DynamoDbBaseException,
 )
-import newrelic.agent
 from newutils import (
     logs as logs_utils,
 )
-from settings import (
-    NEW_RELIC_CONF_FILE,
-)
 from starlette.requests import (
     Request,
-)
-from starlette.responses import (
-    Response,
 )
 from typing import (
     Any,
@@ -29,8 +22,6 @@ from typing import (
 )
 
 APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
-
-newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 
 class IntegratesAPI(GraphQL):
@@ -47,8 +38,6 @@ class IntegratesAPI(GraphQL):
         query: str = data.get("query", "-").replace("\n", "")
         variables: str = data.get("variables", "-")
 
-        newrelic.agent.set_transaction_name(f"api:{name}")
-        newrelic.agent.add_custom_parameters(tuple(data.items()))
         logs_utils.cloudwatch_log(
             request,
             f"API: {name} with parameters {variables}."
@@ -56,7 +45,3 @@ class IntegratesAPI(GraphQL):
         )
 
         return data
-
-    @newrelic.agent.web_transaction()
-    async def graphql_http_server(self, request: Request) -> Response:
-        return await super().graphql_http_server(request)
