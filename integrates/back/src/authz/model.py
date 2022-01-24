@@ -115,7 +115,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:reattacker",
             "grant_group_level_role:resourcer",
             "grant_group_level_role:reviewer",
-            "grant_group_level_role:system_owner",
             "post_finding_observation",
             "update_git_root_filter",
             "request_group_upgrade",
@@ -403,7 +402,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    system_owner=dict(
+    customer_manager=dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
@@ -475,7 +474,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:resourcer",
             "grant_group_level_role:reviewer",
             "grant_user_level_role:customer",
-            "grant_group_level_role:system_owner",
             "post_finding_observation",
         },
         tags=set(),
@@ -646,8 +644,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
-# Permission duplication for the new roles
-GROUP_LEVEL_ROLES["customer_manager"] = GROUP_LEVEL_ROLES["system_owner"]
+# Permission duplication for the old roles
+GROUP_LEVEL_ROLES["system_owner"] = GROUP_LEVEL_ROLES["customer_manager"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -812,9 +810,9 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *GROUP_LEVEL_ROLES["executive"]["tags"],
         },
     ),
-    system_owner=dict(
+    customer_manager=dict(
         actions={
-            *GROUP_LEVEL_ROLES["system_owner"]["actions"],
+            *GROUP_LEVEL_ROLES["customer_manager"]["actions"],
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_services_toe_lines_resolve",
@@ -836,7 +834,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_toe_lines_days_to_attack",
         },
         tags={
-            *GROUP_LEVEL_ROLES["system_owner"]["tags"],
+            *GROUP_LEVEL_ROLES["customer_manager"]["tags"],
         },
     ),
     resourcer=dict(
@@ -924,10 +922,10 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
-# Permission duplication for the new roles
+# Permission duplication for the old roles
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "customer_manager"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["system_owner"]
+    "system_owner"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["customer_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -983,7 +981,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    system_owner=dict(
+    customer_manager=dict(
         actions={
             "api_mutations_add_organization_finding_policy_mutate",
             "api_mutations_deactivate_finding_policy_mutate",
@@ -1010,8 +1008,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 # Permission duplication for the old roles
-ORGANIZATION_LEVEL_ROLES["customer_manager"] = ORGANIZATION_LEVEL_ROLES[
-    "system_owner"
+ORGANIZATION_LEVEL_ROLES["system_owner"] = ORGANIZATION_LEVEL_ROLES[
+    "customer_manager"
 ]
 
 
@@ -1027,7 +1025,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             "api_resolvers_organization_billing_payment_methods_resolve",
             "api_resolvers_organization_billing_portal_resolve",
             "grant_organization_level_role:customer_manager",
-            "grant_organization_level_role:system_owner",
         },
         tags={
             *ORGANIZATION_LEVEL_ROLES["admin"]["tags"],
@@ -1051,22 +1048,21 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             *ORGANIZATION_LEVEL_ROLES["customeradmin"]["tags"],
         },
     ),
-    system_owner=dict(
+    customer_manager=dict(
         actions={
-            *ORGANIZATION_LEVEL_ROLES["system_owner"]["actions"],
+            *ORGANIZATION_LEVEL_ROLES["customer_manager"]["actions"],
             "api_mutations_add_group_mutate",
             "grant_organization_level_role:customer_manager",
-            "grant_organization_level_role:system_owner",
         },
         tags={
-            *ORGANIZATION_LEVEL_ROLES["system_owner"]["tags"],
+            *ORGANIZATION_LEVEL_ROLES["customer_manager"]["tags"],
         },
     ),
 )
-# Permission duplication for the new roles
+# Permission duplication for the old roles
 ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "customer_manager"
-] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["system_owner"]
+    "system_owner"
+] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["customer_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
