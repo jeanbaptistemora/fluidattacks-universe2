@@ -116,7 +116,7 @@ F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   17 |       IsLogging: true
   18 |       S3BucketName: bk3
      ^ Col 0
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,13,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml","
    1 | esources:
@@ -138,7 +138,7 @@ F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   17 |      IsLogging: true
   18 |      S3BucketName: bk3
      ^ Col 1
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,16,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json","
    6 |    ""IsLogging"": true,
@@ -163,7 +163,7 @@ F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   25 |
   26 |
      ^ Col 5
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,21,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json","
    7 |         ""S3BucketName"": ""bk1"",
@@ -188,7 +188,7 @@ F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   26 |   }
   27 | }
      ^ Col 0
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,15,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml","
    1 | Resources:
@@ -209,7 +209,7 @@ F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   16 |       IsLogging: true
   17 |       IsMultiRegionTrail: True
      ^ Col 0
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,11,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml","
    1 | esources:
@@ -230,7 +230,7 @@ F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   16 |      IsLogging: true
   17 |      IsMultiRegionTrail: True
      ^ Col 1
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,14,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json","
    4 |  ""Type"": ""AWS::CloudTrail::Trail"",
@@ -255,7 +255,7 @@ F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   23 |  }
   24 |
      ^ Col 5
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,20,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json","
    6 |         ""IsLogging"": true,
@@ -280,7 +280,7 @@ F394,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   25 |   }
   26 | }
      ^ Col 0
-",f394._cfn_log_files_not_validated
+",cloudformation.cfn_log_files_not_validated
 F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,6,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,"
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
