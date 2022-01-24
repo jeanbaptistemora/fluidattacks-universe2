@@ -1,10 +1,6 @@
 import type { IHistoricTreatment } from "../DescriptionView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
-interface IGroupAttr {
-  subscription: string;
-}
-
 interface IFindingAttr {
   id: string;
   remediated: boolean;
@@ -17,7 +13,6 @@ interface IFindingAttr {
 
 interface IGetFindingVulnInfoAttr {
   finding: IFindingAttr;
-  group: IGroupAttr;
 }
 
 interface IVulnerabilitiesAttr {
@@ -30,7 +25,6 @@ interface IVulnerabilitiesAttr {
 
 interface IGetFindingAndGroupInfo {
   finding: IFindingInfoAttr;
-  group: IGroupAttr;
 }
 
 interface IGetFindingVulns {
@@ -55,7 +49,6 @@ export {
   IGetFindingVulnInfoAttr,
   IGetFindingAndGroupInfo,
   IGetFindingVulns,
-  IGroupAttr,
   IFindingInfoAttr,
   IFindingVulnsAtrr,
   IVulnerabilitiesAttr,

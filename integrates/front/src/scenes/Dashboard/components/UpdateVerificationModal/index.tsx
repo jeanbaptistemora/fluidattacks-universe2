@@ -80,7 +80,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
             findingId: vulnerabilitiesList[0].findingId,
-            groupName: vulnerabilitiesList[0].groupName,
           },
         },
         {
@@ -112,7 +111,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
             findingId: vulnerabilitiesList[0].findingId,
-            groupName: vulnerabilitiesList[0].groupName,
           },
         },
         {

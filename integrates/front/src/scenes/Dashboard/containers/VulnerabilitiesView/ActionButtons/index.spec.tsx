@@ -45,7 +45,6 @@ describe("ActionButtons", (): void => {
         openHandleAcceptance={jest.fn()}
         openModal={jest.fn()}
         state={"open"}
-        subscription={""}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -82,7 +81,6 @@ describe("ActionButtons", (): void => {
         openHandleAcceptance={jest.fn()}
         openModal={jest.fn()}
         state={"open"}
-        subscription={""}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -136,7 +134,6 @@ describe("ActionButtons", (): void => {
         openHandleAcceptance={jest.fn()}
         openModal={jest.fn()}
         state={"open"}
-        subscription={"continuous"}
       />,
       { wrappingComponent: contextWrapper }
     );

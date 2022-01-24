@@ -1,6 +1,5 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -17,7 +16,6 @@ interface IReattackVulnButtonProps {
   isRequestingReattack: boolean;
   isVerifying: boolean;
   state: "closed" | "open";
-  subscription: string;
   onRequestReattack: () => void;
   openModal: () => void;
 }
@@ -30,22 +28,13 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   isRequestingReattack,
   isVerifying,
   state,
-  subscription,
   onRequestReattack,
   openModal,
 }: IReattackVulnButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const isContinuous: boolean = _.includes(
-    ["continuous", "continua", "concurrente", "si"],
-    subscription.toLowerCase()
-  );
-
   const shouldRenderRequestVerifyBtn: boolean =
-    isContinuous &&
-    isFindingReleased &&
-    state === "open" &&
-    !(isEditing || isVerifying);
+    isFindingReleased && state === "open" && !(isEditing || isVerifying);
 
   return (
     <Can do={"api_mutations_request_vulnerabilities_verification_mutate"}>

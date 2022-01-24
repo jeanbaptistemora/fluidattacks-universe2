@@ -161,7 +161,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
             findingId,
-            groupName,
           },
         },
         {
@@ -243,7 +242,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         query: GET_FINDING_AND_GROUP_INFO,
         variables: {
           findingId,
-          groupName,
         },
       },
       {
@@ -335,7 +333,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
             findingId,
-            groupName,
           },
         },
         {

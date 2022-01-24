@@ -21,7 +21,6 @@ interface IActionButtonsProps {
   isVerified: boolean;
   isVerifying: boolean;
   state: "closed" | "open";
-  subscription: string;
   onEdit: () => void;
   onRequestReattack: () => void;
   onVerify: () => void;
@@ -40,7 +39,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isVerified,
   isVerifying,
   state,
-  subscription,
   onEdit,
   onRequestReattack,
   onVerify,
@@ -87,7 +85,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           onRequestReattack={onRequestReattack}
           openModal={openModal}
           state={state}
-          subscription={subscription}
         />
       </Have>
       <EditButton

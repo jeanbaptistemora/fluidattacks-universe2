@@ -22,7 +22,6 @@ describe("VulnerabilitiesView", (): void => {
       query: GET_FINDING_AND_GROUP_INFO,
       variables: {
         findingId: "422286126",
-        groupName: "testgroup",
       },
     },
     result: {
@@ -34,11 +33,6 @@ describe("VulnerabilitiesView", (): void => {
           remediated: false,
           state: "open",
           verified: false,
-        },
-        group: {
-          __typename: "Group",
-          name: "testgroup",
-          subscription: "continuous",
         },
       },
     },

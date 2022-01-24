@@ -295,7 +295,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       <DeleteVulnerabilityModal
         findingId={findingId}
-        groupName={groupName}
         id={vulnerabilityId}
         onClose={handleCloseDeleteModal}
         onRemoveVulnRes={onDeleteVulnResult}

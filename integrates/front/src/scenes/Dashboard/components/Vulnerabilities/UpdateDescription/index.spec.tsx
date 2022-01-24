@@ -71,7 +71,6 @@ describe("Update Description component", (): void => {
         query: GET_FINDING_AND_GROUP_INFO,
         variables: {
           findingId: "422286126",
-          groupName: "",
         },
       },
       result: {
@@ -81,10 +80,6 @@ describe("Update Description component", (): void => {
             remediated: false,
             state: "open",
             verified: false,
-          },
-          group: {
-            name: "",
-            subscription: "",
           },
         },
       },

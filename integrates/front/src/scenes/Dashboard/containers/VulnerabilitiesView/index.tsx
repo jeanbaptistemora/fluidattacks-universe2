@@ -153,7 +153,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
       },
       variables: {
         findingId,
-        groupName,
       },
     }
   );
@@ -482,7 +481,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     return (
       <Col100>
         <Can do={"api_mutations_upload_file_mutate"}>
-          <UploadVulnerabilities findingId={findingId} groupName={groupName} />
+          <UploadVulnerabilities findingId={findingId} />
         </Can>
       </Col100>
     );
@@ -538,7 +537,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     openHandleAcceptance={toggleHandleAcceptanceModal}
                     openModal={toggleModal}
                     state={data.finding.state}
-                    subscription={data.group.subscription}
                   />
                 }
                 findingState={data.finding.state}

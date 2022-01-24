@@ -42,7 +42,6 @@ import { composeValidators, isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
   findingId: string;
-  groupName: string;
 }
 
 interface IErrorInfoAttr {
@@ -53,7 +52,6 @@ interface IErrorInfoAttr {
 
 const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
-  groupName,
 }: IUploadVulnProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -116,7 +114,6 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
             findingId,
-            groupName,
           },
         },
         {

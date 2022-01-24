@@ -27,17 +27,13 @@ const VULNS_FRAGMENT: DocumentNode = gql`
 `;
 
 const GET_FINDING_AND_GROUP_INFO: DocumentNode = gql`
-  query GetFindingAndGroupInfo($findingId: String!, $groupName: String!) {
+  query GetFindingInfo($findingId: String!) {
     finding(identifier: $findingId) {
       id
       remediated
       releaseDate
       state
       verified
-    }
-    group(groupName: $groupName) {
-      name
-      subscription
     }
   }
 `;

@@ -26,7 +26,6 @@ describe("update verification component", (): void => {
         query: GET_FINDING_AND_GROUP_INFO,
         variables: {
           findingId: "",
-          groupName: "",
         },
       },
       result: {
@@ -36,10 +35,6 @@ describe("update verification component", (): void => {
             remediated: true,
             state: "open",
             verified: false,
-          },
-          group: {
-            name: "",
-            subscription: "",
           },
         },
       },
