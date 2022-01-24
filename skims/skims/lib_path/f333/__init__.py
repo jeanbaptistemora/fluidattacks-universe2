@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD,
 )
 from lib_path.f333.terraform import (
-    ec2_has_not_termination_protection,
     ec2_has_terminate_shutdown_behavior,
     tfm_ec2_associate_public_ip_address,
 )
@@ -47,20 +46,6 @@ async def run_ec2_has_terminate_shutdown_behavior(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def run_ec2_has_not_termination_protection(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return await in_process(
-        ec2_has_not_termination_protection,
-        content=content,
-        path=path,
-        model=model,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
 async def run_tfm_ec2_associate_public_ip_address(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -87,9 +72,6 @@ async def analyze(
 
         coroutines.append(
             run_ec2_has_terminate_shutdown_behavior(content, path, model)
-        )
-        coroutines.append(
-            run_ec2_has_not_termination_protection(content, path, model)
         )
         coroutines.append(
             run_tfm_ec2_associate_public_ip_address(content, path, model)

@@ -1,9 +1,6 @@
 lib_path.f333.ec2_allows_shutdown_command:
   en: EC2 Launch Templates allows the shutdown command to terminate the instance
   es: Las plantillas de lanzamiento de EC2 permiten que el comando de apagado termine la instancia
-lib_path.f333.api_termination_enabled:
-  en: EC2 Launch Templates have API termination enabled
-  es: Las plantillas de lanzamiento de EC2 tienen habilitada la terminación de API
 lib_path.f333.ec2_public_ip_addresses:
   en: EC2 instances should not be launched with public IP addresses.
   es: Las instancias EC2 no deben ser lanzadas con direcciones IP públicas.

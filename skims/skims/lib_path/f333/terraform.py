@@ -49,23 +49,6 @@ def _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
                 yield elem
 
 
-def _ec2_has_not_termination_protection_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        protection_attr = False
-        for elem in resource.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "disable_api_termination"
-            ):
-                protection_attr = True
-                if elem.val is False:
-                    yield elem
-        if not protection_attr:
-            yield resource
-
-
 def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -102,23 +85,6 @@ def ec2_has_terminate_shutdown_behavior(
         finding=FindingEnum.F333,
         iterator=get_cloud_iterator(
             _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
-                resource_iterator=iter_aws_launch_template(model=model)
-            )
-        ),
-        path=path,
-    )
-
-
-def ec2_has_not_termination_protection(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={FindingEnum.F333.value.cwe},
-        description_key="criteria.vulns.333.description",
-        finding=FindingEnum.F333,
-        iterator=get_cloud_iterator(
-            _ec2_has_not_termination_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
