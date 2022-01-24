@@ -54,6 +54,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     "toeInputsTableSet",
     {
       attackedAt: true,
+      attackedBy: false,
       bePresent: false,
       bePresentUntil: false,
       component: false,
@@ -149,6 +150,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
+    },
+    {
+      align: "center",
+      dataField: "attackedBy",
+      header: translate.t("group.toe.inputs.attackedBy"),
+      omit: !isInternal || !canGetAttackedBy,
+      onSort,
+      visible: checkedItems.attackedBy,
     },
     {
       align: "center",

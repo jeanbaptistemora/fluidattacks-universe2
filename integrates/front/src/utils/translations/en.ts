@@ -786,6 +786,7 @@ export const enTranslations: ResourceKey = {
     toe: {
       inputs: {
         attackedAt: "Attacked at",
+        attackedBy: "Attacked by",
         bePresent: "Be present",
         bePresentUntil: "Be present until",
         commit: "Commit",
