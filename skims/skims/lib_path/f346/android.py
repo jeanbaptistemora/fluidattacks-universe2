@@ -1,34 +1,19 @@
-from aioextensions import (
-    in_process,
-)
 import bs4
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
 )
-from model import (
-    core_model,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
 )
 from typing import (
-    Awaitable,
-    Callable,
     Iterator,
-    List,
     Set,
     Tuple,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
-def _has_dangerous_permissions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
+def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         dangerous_permissions: Set[str] = {
             "android.permission.ACCEPT_HANDOVER",
@@ -77,42 +62,7 @@ def _has_dangerous_permissions(
         content=content,
         cwe={"272"},
         description_key="src.lib_path.f346.dangerous_permission",
-        finding=core_model.FindingEnum.F346,
+        finding=FindingEnum.F346,
         iterator=iterator(),
         path=path,
     )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def has_dangerous_permissions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _has_dangerous_permissions,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_extension: str,
-    file_name: str,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-
-    if (file_name, file_extension) == ("AndroidManifest", "xml"):
-        coroutines.append(
-            has_dangerous_permissions(
-                content=content_generator(),
-                path=path,
-            )
-        )
-
-    return coroutines

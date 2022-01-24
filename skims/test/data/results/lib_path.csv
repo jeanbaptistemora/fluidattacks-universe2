@@ -15540,7 +15540,7 @@ F346,lines,namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml,2,272
   10 |     </application>
   11 | </manifest>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f058/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
@@ -15555,7 +15555,7 @@ F346,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,2,272,ski
   10 |     </application>
   11 | </manifest>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f075/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
@@ -15576,7 +15576,7 @@ F346,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,2,272,ski
   16 |     </application>
   17 | </manifest>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,11,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15601,7 +15601,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,11,272,sk
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,10,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15626,7 +15626,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,10,272,sk
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,9,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15651,7 +15651,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,9,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,8,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15676,7 +15676,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,8,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,7,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15701,7 +15701,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,7,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,6,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15726,7 +15726,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,6,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,5,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15751,7 +15751,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,5,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,4,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15776,7 +15776,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,4,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,3,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -15801,7 +15801,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,3,272,ski
   20 |     <uses-permission android:name=""android.permission.CHANGE_NETWORK_STATE""/>
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,12,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    2 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:compileSdkVersion=""31"" android:compileSdkVer
@@ -15826,7 +15826,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,12,272,sk
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
   22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,13,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    3 |     <uses-permission android:name=""android.permission.READ_CALL_LOG""/>
@@ -15851,7 +15851,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,13,272,sk
   22 |     <uses-permission android:name=""android.permission.READ_EXTERNAL_STORAGE""/>
   23 |     <uses-permission android:name=""android.permission.AUTHENTICATE_ACCOUNTS""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,15,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    5 |     <uses-permission android:name=""android.permission.CAMERA""/>
@@ -15876,7 +15876,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,15,272,sk
   24 |     <uses-permission android:name=""android.permission.MANAGE_ACCOUNTS""/>
   25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,16,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
    6 |     <uses-permission android:name=""android.permission.READ_PHONE_STATE""/>
@@ -15901,7 +15901,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,16,272,sk
   25 |     <uses-permission android:name=""android.permission.USE_CREDENTIALS""/>
   26 |     <uses-permission android:name=""com.android.launcher.permission.INSTALL_SHORTCUT""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,21,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   11 |     <uses-permission android:name=""android.permission.WRITE_CONTACTS""/>
@@ -15926,7 +15926,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,21,272,sk
   30 |     <uses-permission android:name=""android.permission.WRITE_SMS""/>
   31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,22,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   12 |     <uses-permission android:name=""android.permission.READ_CONTACTS""/>
@@ -15951,7 +15951,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,22,272,sk
   31 |     <uses-permission android:name=""android.permission.RECEIVE_MMS""/>
   32 |     <uses-permission android:name=""android.permission.MMS_SEND_OUTBOX_MSG""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,27,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   17 |     <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE""/>
@@ -15976,7 +15976,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,27,272,sk
   36 |     <uses-permission android:name=""android.permission.DISABLE_KEYGUARD""/>
   37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,28,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   18 |     <uses-permission android:name=""android.permission.INTERNET""/>
@@ -16001,7 +16001,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,28,272,sk
   37 |     <uses-permission android:name=""android.permission.MODIFY_AUDIO_SETTINGS""/>
   38 |     <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,29,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   19 |     <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE""/>
@@ -16026,7 +16026,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,29,272,sk
   38 |     <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED""/>
   39 |     <uses-permission android:name=""android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,31,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   21 |     <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE""/>
@@ -16051,7 +16051,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,31,272,sk
   40 |     <uses-permission android:name=""android.permission.SYSTEM_ALERT_WINDOW""/>
   41 |     <uses-permission android:name=""android.permission.VIBRATE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f346/AndroidManifest.xml","
   48 |     <uses-feature android:name=""android.hardware.telephony"" android:required=""false""/>
@@ -16076,7 +16076,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,sk
   67 |     <uses-permission android:name=""com.majeur.launcher.permission.UPDATE_BADGE""/>
   68 |     <uses-permission android:name=""com.huawei.android.launcher.permission.CHANGE_BADGE""/>
      ^ Col 0
-",f346._has_dangerous_permissions
+",android.has_dangerous_permissions
 F203,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
   14 |       apply_server_side_encryption_by_default {
   15 |         kms_master_key_id = aws_kms_key.mykey.arn
