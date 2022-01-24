@@ -5,6 +5,9 @@
 from collections import (
     deque as deque_iter,
 )
+from itertools import (
+    chain as _chain,
+)
 import more_itertools
 from purity.v2.cmd import (
     Cmd,
@@ -20,6 +23,12 @@ from typing import (
 )
 
 _T = TypeVar("_T")
+
+
+def chain(
+    unchained: Iterable[Iterable[_T]],
+) -> Iterable[_T]:
+    return _chain.from_iterable(unchained)
 
 
 def chunked(items: Iterable[_T], size: int) -> Iterable[FrozenList[_T]]:

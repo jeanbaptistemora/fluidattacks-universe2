@@ -1,3 +1,6 @@
+from purity.v2 import (
+    _iter_factory,
+)
 from purity.v2.cmd import (
     Cmd,
 )
@@ -9,9 +12,6 @@ from purity.v2.pure_iter.core import (
 )
 from purity.v2.pure_iter.factory import (
     unsafe_from_cmd,
-)
-from purity.v2.pure_iter.transform._iter_factory import (
-    IterableFactory,
 )
 from typing import (
     Optional,
@@ -25,13 +25,17 @@ def chain(
     unchained: PureIter[PureIter[_T]],
 ) -> PureIter[_T]:
     return unsafe_from_cmd(
-        Cmd.from_cmd(lambda: IterableFactory.chain(unchained))
+        Cmd.from_cmd(lambda: _iter_factory.chain(unchained))
     )
+
+
+def consume(p_iter: PureIter[Cmd[None]]) -> Cmd[None]:
+    return Cmd.from_cmd(lambda: _iter_factory.deque(p_iter))
 
 
 def filter_opt(items: PureIter[Optional[_T]]) -> PureIter[_T]:
     return unsafe_from_cmd(
-        Cmd.from_cmd(lambda: IterableFactory.filter_none(items))
+        Cmd.from_cmd(lambda: _iter_factory.filter_none(items))
     )
 
 
@@ -41,7 +45,7 @@ def filter_maybe(items: PureIter[Maybe[_T]]) -> PureIter[_T]:
 
 def until_none(items: PureIter[Optional[_T]]) -> PureIter[_T]:
     return unsafe_from_cmd(
-        Cmd.from_cmd(lambda: IterableFactory.until_none(items))
+        Cmd.from_cmd(lambda: _iter_factory.until_none(items))
     )
 
 

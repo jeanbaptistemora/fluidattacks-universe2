@@ -1,12 +1,12 @@
+from purity.v2 import (
+    _iter_factory,
+)
 from purity.v2.cmd import (
     Cmd,
     unsafe_unwrap,
 )
 from purity.v2.maybe import (
     Maybe,
-)
-from purity.v2.stream import (
-    _iter_factory,
 )
 from purity.v2.stream.core import (
     _Stream,

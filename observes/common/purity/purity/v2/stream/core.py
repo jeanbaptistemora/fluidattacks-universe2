@@ -5,14 +5,14 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from purity.v2 import (
+    _iter_factory,
+)
 from purity.v2.cmd import (
     Cmd,
 )
 from purity.v2.frozen import (
     FrozenList,
-)
-from purity.v2.stream import (
-    _iter_factory,
 )
 from typing import (
     Callable,
