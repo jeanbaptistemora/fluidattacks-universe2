@@ -1,3 +1,0 @@
-src.lib_path.f080_aws.public_buckets:
-  en: AccessControl should not be PublicReadWrite
-  es: AccessControl no debería ser PublicReadWrite
