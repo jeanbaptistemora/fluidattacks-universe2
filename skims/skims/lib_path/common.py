@@ -54,6 +54,7 @@ from utils.ctx import (
 )
 from utils.function import (
     shield,
+    shield_blocking,
 )
 from utils.string import (
     make_snippet,
@@ -92,6 +93,7 @@ TRUE_OPTIONS: Set[Union[str, bool, int]] = {"true", "True", True, "1", 1}
 FALSE_OPTIONS: Set[Union[str, bool, int]] = {"false", "False", False, "0", 0}
 
 SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
+SHIELD_BLOCKING: Callable[[TFun], TFun] = shield_blocking(on_error_return=())
 
 # Lint config
 # pylint: disable=too-many-arguments

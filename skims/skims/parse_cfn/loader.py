@@ -28,11 +28,13 @@ from parse_json import (
 from typing import (
     Any,
     AsyncIterator,
+    Iterator,
     Type as TypeOf,
     Union,
 )
 from utils.logs import (
     log_exception,
+    log_exception_blocking,
 )
 import yaml  # type: ignore
 
@@ -196,6 +198,26 @@ async def load_templates(
             yield template  # NOSONAR
     except MetaloaderError as exc:
         await log_exception("error", exc)
+        return
+
+
+def load_templates_blocking(
+    content: str, fmt: str
+) -> Union[Iterator[Node], None]:
+    try:
+        templates: Node = load_cfn(
+            stream=content,
+            fmt=fmt,
+        )
+        for template in (
+            templates.data
+            if (templates.data_type == Type.ARRAY)
+            else [templates]
+        ):
+            # Exception: FP(AsyncIterator is subtype of Iterator)
+            yield template  # NOSONAR
+    except MetaloaderError as exc:
+        log_exception_blocking("error", exc)
         return
 
 

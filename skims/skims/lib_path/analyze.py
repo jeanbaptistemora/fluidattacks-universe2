@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from lib_path import (
     f009,
     f011,
@@ -50,6 +53,12 @@ from lib_path import (
 from model import (
     core_model,
 )
+from more_itertools.more import (
+    collapse,
+)
+from os import (
+    cpu_count,
+)
 from os.path import (
     split,
     splitext,
@@ -59,6 +68,7 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
+    Awaitable,
     Dict,
     Set,
     Tuple,
@@ -126,7 +136,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
 )
 
 
-async def analyze_one_path(  # pylint: disable=too-many-locals
+async def analyze_one_path(  # noqa: MC0001
     *,
     index: int,
     path: str,
@@ -172,16 +182,26 @@ async def analyze_one_path(  # pylint: disable=too-many-locals
             }:
                 continue
 
-        for vulnerabilities in await analyzer(
+        analyzer_result = analyzer(
             content_generator=file_content_generator,
             file_extension=file_extension,
             file_name=file_name,
             finding=finding,
             path=path,
             raw_content_generator=file_raw_content_generator,
-        ):
-            for vulnerability in await vulnerabilities:
-                stores[finding].store(vulnerability)
+        )
+        if isinstance(analyzer_result, Awaitable):
+            for vulnerabilities in await analyzer_result:
+                for vulnerability in await vulnerabilities:
+                    stores[finding].store(vulnerability)
+        else:
+            with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+                worker.map(
+                    stores[finding].store,
+                    collapse(
+                        analyzer_result, base_type=core_model.Vulnerability
+                    ),
+                )
 
 
 async def analyze(

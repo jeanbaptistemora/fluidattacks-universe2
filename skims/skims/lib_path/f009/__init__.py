@@ -1,11 +1,8 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f009.aws_credentials import (
     aws_credentials,
@@ -35,131 +32,82 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
-    load_templates,
+    load_templates_blocking,
 )
 from state.cache import (
     CACHE_ETERNALLY,
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_aws_credentials(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        aws_credentials,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_aws_credentials(content: str, path: str) -> Vulnerabilities:
+    return aws_credentials(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_dockerfile_env_secrets(
-    content: str, path: str
-) -> Vulnerabilities:
-    return await in_process(
-        dockerfile_env_secrets,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
+    return dockerfile_env_secrets(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_docker_compose_env_secrets(
+@SHIELD_BLOCKING
+def run_docker_compose_env_secrets(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        docker_compose_env_secrets,
-        content=content,
-        path=path,
-        template=template,
+    return docker_compose_env_secrets(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_java_properties_sensitive_data(
+@SHIELD_BLOCKING
+def run_java_properties_sensitive_data(
     content: str, path: str
 ) -> Vulnerabilities:
-    return await in_process(
-        java_properties_sensitive_data,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-@TIMEOUT_1MIN
-async def run_sensitive_key_in_json(
-    content: str, path: str
-) -> Vulnerabilities:
-    return await in_process(
-        sensitive_key_in_json,
-        content=content,
-        path=path,
-    )
+    return java_properties_sensitive_data(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_web_config_user_pass(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        web_config_user_pass,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
+    return sensitive_key_in_json(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_web_config_db_connection(
-    content: str, path: str
-) -> Vulnerabilities:
-    return await in_process(
-        web_config_db_connection,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_web_config_user_pass(content: str, path: str) -> Vulnerabilities:
+    return web_config_user_pass(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_jwt_token(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        jwt_token,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_web_config_db_connection(content: str, path: str) -> Vulnerabilities:
+    return web_config_db_connection(content=content, path=path)
 
 
-@SHIELD
-async def analyze(
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_jwt_token(content: str, path: str) -> Vulnerabilities:
+    return jwt_token(content=content, path=path)
+
+
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> List[Vulnerabilities]:
 
     content = content_generator()
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+    results: List[Vulnerabilities] = []
 
     if file_extension in {
         "groovy",
@@ -176,25 +124,25 @@ async def analyze(
         "yaml",
         "yml",
     }:
-        coroutines.append(run_aws_credentials(content, path))
+        results.append(run_aws_credentials(content, path))
 
     if file_name in NAMES_DOCKERFILE:
-        coroutines.append(run_dockerfile_env_secrets(content, path))
+        results.append(run_dockerfile_env_secrets(content, path))
 
     elif file_name == "docker-compose" and file_extension in EXTENSIONS_YAML:
-        async for template in load_templates(content, fmt=file_extension):
-            coroutines.append(
+        for template in load_templates_blocking(content, fmt=file_extension):
+            results.append(
                 run_docker_compose_env_secrets(content, path, template)
             )
 
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        coroutines.append(run_java_properties_sensitive_data(content, path))
+        results.append(run_java_properties_sensitive_data(content, path))
 
     elif file_extension in {"json"}:
-        coroutines.append(run_sensitive_key_in_json(content, path))
+        results.append(run_sensitive_key_in_json(content, path))
 
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
-        coroutines.append(run_web_config_user_pass(content, path))
-        coroutines.append(run_web_config_db_connection(content, path))
+        results.append(run_web_config_user_pass(content, path))
+        results.append(run_web_config_db_connection(content, path))
 
-    return coroutines
+    return results
