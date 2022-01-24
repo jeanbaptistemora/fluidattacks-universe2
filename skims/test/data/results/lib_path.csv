@@ -22798,7 +22798,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   33 |   resource_group_name        = azurerm_resource_group.example.name
   34 |   app_service_plan_id        = azurerm_app_service_plan.example.id
      ^ Col 0
-",f372._tfm_azure_kv_only_accessible_over_https
+",terraform.tfm_azure_kv_only_accessible_over_https
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
 >  1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
@@ -22822,7 +22822,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   20 |   location                   = azurerm_resource_group.example.location
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
-",f372._tfm_azure_kv_only_accessible_over_https
+",terraform.tfm_azure_kv_only_accessible_over_https
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,30,650,skims,372. Use of an insecure channel - HTTP,Ensure secure transfer required is enabled in namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,"
   20 | }
   21 |
@@ -22846,7 +22846,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfe
   39 |   }
   40 |   network_rules {
      ^ Col 0
-",f372._tfm_azure_sa_insecure_transfer
+",terraform.tfm_azure_sa_insecure_transfer
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,4,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    1 | Resources:
    2 |   ELBv2targetGroup1:
@@ -22870,7 +22870,7 @@ F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   20 |   ELBv2targetGroup3:
   21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,22,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
   12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
   13 |     Properties:
@@ -22894,7 +22894,7 @@ F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   31 |       HealthCheckEnabled: false
   32 |       Name: MyTargets
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,5,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -22918,7 +22918,7 @@ F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   20 |     ""ELBv2targetGroup2"": {
   21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,39,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
   29 |             ""Id"": [
   30 |               ""MyLambdaFunction"",
@@ -22942,7 +22942,7 @@ F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   48 |             ]
   49 |           }
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,25,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   15 |       Name: MyTargets
   16 |       Protocol: HTTP
@@ -22966,7 +22966,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   34 |       Protocol: HTTP
   35 |       Targets:
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,34,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   24 |       Name: MyTargets
   25 |       Protocol: HTTP
@@ -22990,7 +22990,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   43 |       Targets:
   44 |       - Id: [ MyLambdaFunction, Arn ]
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,42,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   32 |             ]
   33 |           }
@@ -23014,7 +23014,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   51 |         ]
   52 |       }
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,59,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   49 |             ]
   50 |           }
@@ -23038,7 +23038,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   68 |       }
   69 |     },
      ^ Col 0
-",f372._cfn_elb2_uses_insecure_protocol
+",cloudformation.cfn_elb2_uses_insecure_protocol
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,13,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
    3 |   Type: AWS::CloudFront::Distribution
    4 |   Properties:
@@ -23062,7 +23062,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   22 |       - TargetOriginId: cache12
   23 |         ForwardedValues:
      ^ Col 2
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,27,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
   17 |           QueryString: 'true'
   18 |           Cookies:
@@ -23086,7 +23086,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   36 |         ForwardedValues:
   37 |           QueryString: 'false'
      ^ Col 2
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,47,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
   35 |         TargetOriginId: def2
   36 |         ForwardedValues:
@@ -23110,7 +23110,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   54 |         ViewerProtocolPolicy: https-only
   55 |         PathPattern: images2/*.jpg
      ^ Col 2
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
    6 |   ""DistributionConfig"": {
    7 |     ""Enabled"": ""true"",
@@ -23134,7 +23134,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   25 |           }
   26 |         },
      ^ Col 6
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
   28 |       ""PathPattern"": ""images1/*.jpg""
   29 |     },
@@ -23158,7 +23158,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   47 | roperties"": {
   48 | ""DistributionConfig"": {
      ^ Col 8
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
   59 |   },
   60 |   ""CacheBehaviors"": [
@@ -23182,7 +23182,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   78 |         }
   79 |       },
      ^ Col 8
-",f372._cfn_serves_content_over_http
+",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/test.tf,"
   27 |     target_origin_id = local.s3_origin_id
   28 |
@@ -23206,7 +23206,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use
   46 |     cached_methods   = [""GET"", ""HEAD"", ""OPTIONS""]
   47 |     target_origin_id = local.s3_origin_id
      ^ Col 0
-",f372._tfm_serves_content_over_http
+",terraform.tfm_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/test.tf,"
   52 |
   53 |       cookies {
@@ -23230,7 +23230,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use
   71 |   }
   72 | }
      ^ Col 0
-",f372._tfm_serves_content_over_http
+",terraform.tfm_serves_content_over_http
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,DBInstance or DBCluster are not inside a DBSubnetGroup in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = true
