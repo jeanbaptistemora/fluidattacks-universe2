@@ -60,7 +60,6 @@ async def process_finding(
         ),
         table=TABLE,
     )
-    print(f'pk: {finding["pk"]}')
 
 
 @retry_on_exceptions(
