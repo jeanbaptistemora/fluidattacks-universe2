@@ -32,7 +32,7 @@ def unsafe_from_cmd(iterable: Cmd[Iterable[_T]]) -> PureIter[_T]:
     # This is an unsafe constructor (type-check cannot ensure its proper use)
     # Do not use until is strictly necessary
     # Cmd MUST produce an IMMUTABLE Iterable object i.e. tuple
-    # or a different/new Iterable object if its MUTABLE i.e. map object
+    # or different/new MUTABLE Iterable objects that are equivalent i.e. map object
     #
     # Non compliant code:
     #   y = map(lambda i: i + 1, range(0, 10))
@@ -49,6 +49,7 @@ def unsafe_from_cmd(iterable: Cmd[Iterable[_T]]) -> PureIter[_T]:
     #       )
     #   )
     #   # cmd lambda produces a new ref in each call
+    #   # but all of them are equivalent (created with the same builder with equal args)
     return PureIter(_PureIter(iterable))
 
 

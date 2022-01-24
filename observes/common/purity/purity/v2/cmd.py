@@ -46,7 +46,11 @@ class Cmd(Generic[_A]):
 def unsafe_unwrap(action: Cmd[_A]) -> _A:
     # This is an unsafe constructor (type-check cannot ensure its proper use)
     # Do not use until is strictly necessary
+    # WARNING: this is equivalent to compute, and will execute the Cmd
     #
-    # When all actions (Cmd[_A]) result in the same output instance (_A)
-    # this unwrap can be used
+    # Some use cases:
+    # - When all actions (Cmd[_A]) result in the same output instance (_A)
+    # and side effects are not present or negligible, this unwrap can be used
+    # - When defining a new Cmd at the cmd context (the cmd lambda function),
+    # this ensures that execution is done in the compute phase
     return action._value.unwrap()
