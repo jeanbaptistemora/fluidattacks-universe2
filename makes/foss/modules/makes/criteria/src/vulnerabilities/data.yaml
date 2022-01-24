@@ -19776,17 +19776,18 @@
       as this may result in data leakage, as in
       the case of AWS IAM passwords.
     impact: >
-      Internal attacker.
+      Generate data leakage within the sensitive
+      information that is uploaded to the cloud,
+      for example, the case of how through the
+      credentials that were stored in the code
+      can be obtained data from the buckets and
+      AWS services.
     recommendation: >
       Do not store credentials in the code, it is
       necessary to use environment variables and
       protected secret sources.
     threat: >
-      Sensitive information that is uploaded to the
-      cloud can generate data leakage, for example,
-      the case of how through the credentials that
-      were stored in the code can be obtained data
-      from the buckets and AWS services.
+      Internal attacker.
   es:
     title: Insecure service configuration - IAM
     description: >
@@ -19798,17 +19799,17 @@
       filtración de datos, es el caso de claves de
       acceso del IAM AWS.
     impact: >
-      Atacante interno.
+      Generar fuga de datos dentro de la información
+      sensible que se sube a la nube, por ejemplo,
+      el caso de cómo a través de las credenciales
+      que se almacenaron en el código se pueden
+      obtener datos de los buckets y servicios de AWS.
     recommendation: >
       No se debe almacenar credenciales en el código,
       es necesario usar variables de entorno y
       fuentes de secretos protegidas.
     threat: >
-      La información sensible que se suba a la nube
-      puede generar filtración de datos, es por ejemplo
-      el caso de como a través de las credenciales que
-      se almacenaron en el código se puede obtener datos
-      de los buckets y servicios AWS.
+      Atacante interno.
   category: Abuse Functionality
   score:
     base:
@@ -19838,7 +19839,7 @@
       due to causes such as malicious actions of users
       or application failures, is not enabled.
     impact: >
-      - Permanently delete information from S3 buckets.
+      - Delete information from S3 buckets permanently.
 
       - Avoid recovering information that was deleted
       by mistake or maliciously.
@@ -19846,7 +19847,7 @@
       Securely configure the Buckets by enabling the
       VersioningConfiguration resource.
     threat: >
-      - Internet attacker with access to S3 Buckets.
+      Internet attacker with access to S3 Buckets.
   es:
     title: Insecure service configuration - Bucket
     description: >
@@ -19951,7 +19952,7 @@
       a transaction to receive the Nequi push
       notification and complete the request.
     impact: >
-      Spoofing an authenticated user in the application
+      Spoof an authenticated user in the application
       by means of a modified link to execute critical
       transactions such as transfers or payments.
     recommendation: >
@@ -19971,7 +19972,7 @@
       ejecuta una transacción para recibir la notificación
       push de Nequi y completar la solicitud.
     impact: >
-      Suplantación de un usuario autentificado en la
+      Suplantar a un usuario autentificado en la
       aplicación mediante un enlace modificado para
       ejecutar transacciones críticas como transferencias
       o pagos.
@@ -20204,7 +20205,7 @@
       same as exposing yourself to show sensitive
       information of the application.
     impact: >
-      You open your browser console and send real
+      Open the browser console and send real
       and fake requests to the application, waiting
       for it to display console information.
     recommendation: >
@@ -20223,9 +20224,10 @@
       ambiente de producción es igual a exponerse a mostrar
       información sensible de la aplicación.
     impact: >
-      Se abre la consola de su navegador y se envían
+      Abrir la consola del navegador y enviar
       peticiones reales y falsas a la aplicación,
-      esperando que ésta muestre información por consola.
+      esperando que ésta muestre información
+      por consola.
     recommendation: >
       Eliminar completamente la función
       console.log(), alert() de todos los archivos
@@ -20265,16 +20267,17 @@
 
       - It stores secrets (session tokens or anti-CSRF).
     impact: >
-      User with access to the victims traffic
-      (man-in-the-middle attack).
+      Allow to obtain privileged information
+      (such as session token) due to the
+      compression features with the gzip format.
+      Additional information can be
+      found at http://breachattack.com/
     recommendation: >
       Securely configure the vulnerable service so
       that it can only be accessed by authorized users.
     threat: >
-      The BREACH attack allows obtaining privileged
-      information (such as session token) due to
-      the compression features with the gzip format.
-      Additional information can be found at http://breachattack.com/
+      User with access to the victims traffic
+      (man-in-the-middle attack).
   es:
     title: Insecure service configuration - BREACH Attack
     description: >
@@ -20288,18 +20291,17 @@
 
       - Almacena secretos (tokens de sesión o anti-CSRF).
     impact: >
-      Usuario con acceso al tráfico de la víctima
-      (ataque man-in-the-middle).
+      Permitir obtener información privilegiada
+      (como token de sesión) debido a las
+      características de compresión con el formato gzip.
+      Información adicional en http://breachattack.com/
     recommendation: >
       Configurar de manera segura el servicio
       vulnerable permitiendo así que solo sean
       accedido por usuarios autorizados.
     threat: >
-      El ataque BREACH permite obtener información
-      privilegiada (como token de sesión) debido a
-      las características de compresión con el formato
-      gzip.
-      Información adicional en http://breachattack.com/
+      Usuario con acceso al tráfico de la víctima
+      (ataque man-in-the-middle).
   category: Abuse Functionality
   score:
     base:
