@@ -9,6 +9,8 @@ from lib_path.common import (
 from lib_path.f031.cloudformation import (
     cfn_admin_policy_attached,
     cfn_bucket_policy_allows_public_access,
+    cfn_ec2_has_not_an_iam_instance_profile,
+    cfn_iam_has_full_access_to_ssm,
     cfn_iam_user_missing_role_based_security,
     cfn_negative_statement,
     cfn_open_passrole,
@@ -19,6 +21,7 @@ from lib_path.f031.terraform import (
     terraform_negative_statement,
     terraform_open_passrole,
     terraform_permissive_policy,
+    tfm_ec2_has_not_an_iam_instance_profile,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -153,6 +156,35 @@ async def run_cfn_permissive_policy(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
+async def run_cfn_ec2_has_not_an_iam_instance_profile(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return await in_process(
+        cfn_ec2_has_not_an_iam_instance_profile,
+        content=content,
+        file_ext=file_ext,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_cfn_iam_has_full_access_to_ssm(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return await in_process(
+        cfn_iam_has_full_access_to_ssm,
+        content=content,
+        path=path,
+        template=template,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
 async def run_terraform_admin_policy_attached(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -229,6 +261,20 @@ async def run_terraform_permissive_policy(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def run_tfm_ec2_has_not_an_iam_instance_profile(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return await in_process(
+        tfm_ec2_has_not_an_iam_instance_profile,
+        content=content,
+        path=path,
+        model=model,
+    )
+
+
 @SHIELD
 async def analyze(
     content_generator: Callable[[], str],
@@ -261,7 +307,14 @@ async def analyze(
             coroutines.append(
                 run_cfn_permissive_policy(content, path, template)
             )
-
+            coroutines.append(
+                run_cfn_ec2_has_not_an_iam_instance_profile(
+                    content, file_extension, path, template
+                )
+            )
+            coroutines.append(
+                run_cfn_iam_has_full_access_to_ssm(content, path, template)
+            )
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = await load_terraform(stream=content, default=[])
@@ -275,6 +328,9 @@ async def analyze(
         coroutines.append(run_terraform_open_passrole(content, path, model))
         coroutines.append(
             run_terraform_permissive_policy(content, path, model)
+        )
+        coroutines.append(
+            run_tfm_ec2_has_not_an_iam_instance_profile(content, path, model)
         )
 
     return coroutines

@@ -1601,6 +1601,31 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   117 | }
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
+F177,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf","
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+> 22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+     ^ Col 0
+",terraform.ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf","
    1 |
@@ -1668,6 +1693,30 @@ F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. 
   54 |   key_name = ""test""
      ^ Col 0
 ",terraform.ec2_has_terminate_shutdown_behavior
+F024,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+>  5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -1860,6 +1909,30 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   65 | }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
+F333,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf,30,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+> 30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+  33 |
+  34 |   tags = {
+  35 |     method = ""aws.ec2.has_unencrypted_volumes""
+  36 |     Name   = ""aws.ec2_unencrypted""
+  37 |   }
+  38 | }
+     ^ Col 0
+",terraform.tfm_ec2_associate_public_ip_address
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,EC2 instances should not be launched with public IP addresses. in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
   60 |     http_endpoint               = ""enabled""
   61 |     http_tokens                 = ""required""
@@ -8699,6 +8772,287 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   37 |       ""Type"": ""AWS::KMS::Key"",
      ^ Col 0
 ",cloudformation.cfn_kms_key_has_master_keys_exposed_to_everyone
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf,22,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f031_aws/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+> 22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+     ^ Col 0
+",terraform.tfm_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
+   1 |
+>  2 | resource ""aws_instance"" ""foo"" {
+   3 |   ami           = ""ami-005e54dee72cc1d00""
+   4 |   instance_type = ""t2.micro""
+   5 |
+   6 |   network_interface {
+   7 |     network_interface_id = aws_network_interface.foo.id
+   8 |     device_index         = 0
+   9 |   }
+  10 |
+  11 |   credit_specification {
+  12 |     cpu_credits = ""unlimited""
+  13 |   }
+  14 | }
+     ^ Col 0
+",terraform.tfm_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,1,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+> 43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,37,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+> 37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+> 43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+> 51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+  59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F031,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,250,skims,031. Excessive privileges - AWS,EC2 instance have not an IamInstanceProfile in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
    5 |     Type: AWS::IAM::ManagedPolicy
    6 |     Properties:
@@ -9323,6 +9677,102 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,12,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+   2 |   MyPolicy:
+   3 |     Type: 'AWS::IAM::Policy'
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+> 12 |               - 'ssm:*'
+  13 |               - 'cloudformation:Get*'
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+     ^ Col 0
+",cloudformation.cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,14,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+  12 |               - 'ssm:*'
+  13 |               - 'cloudformation:Get*'
+> 14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+  24 |             Action: 'ssm:*'
+     ^ Col 0
+",cloudformation.cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+   4 |       ""Type"": ""AWS::IAM::Policy"",
+   5 |       ""Properties"": {
+   6 |         ""PolicyName"": ""CFNUsers"",
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+> 14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+  17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+     ^ Col 0
+",cloudformation.cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+  14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+> 17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+     ^ Col 0
+",cloudformation.cfn_permissive_policy
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    1 | Resources:
    2 |   AWS_IAM_Role_1:
@@ -10115,6 +10565,214 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
    32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
       ^ Col 0
 ",cloudformation.cfn_permissive_policy
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,12,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+   2 |   MyPolicy:
+   3 |     Type: 'AWS::IAM::Policy'
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+> 12 |               - 'ssm:*'
+  13 |               - 'cloudformation:Get*'
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,14,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+  12 |               - 'ssm:*'
+  13 |               - 'cloudformation:Get*'
+> 14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+  24 |             Action: 'ssm:*'
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,24,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+> 24 |             Action: 'ssm:*'
+  25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:*'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+  24 |             Action: 'ssm:*'
+> 25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:*'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+  35 |       Groups:
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+   4 |       ""Type"": ""AWS::IAM::Policy"",
+   5 |       ""Properties"": {
+   6 |         ""PolicyName"": ""CFNUsers"",
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+> 14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+  17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+  14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+> 17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+> 33 |               ""Action"": ""ssm:*"",
+  34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:*"",
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
+- Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+  33 |               ""Action"": ""ssm:*"",
+> 34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:*"",
+  44 |               ""Resource"": ""*"",
+     ^ Col 0
+",cloudformation.cfn_iam_is_policy_miss_configured
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,11,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
 - Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
  in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
@@ -13383,6 +14041,152 @@ F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   126 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,12,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
+   2 |   MyPolicy:
+   3 |     Type: 'AWS::IAM::Policy'
+   4 |     Properties:
+   5 |       PolicyName: CFNUsers
+   6 |       PolicyDocument:
+   7 |         Version: ""2012-10-17""
+   8 |         Statement:
+   9 |           - Effect: Allow
+  10 |             Action:
+  11 |               - 'cloudformation:Describe*'
+> 12 |               - 'ssm:*'
+  13 |               - 'cloudformation:Get*'
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+     ^ Col 0
+",cloudformation.cfn_iam_has_full_access_to_ssm
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,24,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
+  14 |             Resource: '*'
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+> 24 |             Action: 'ssm:*'
+  25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:*'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+     ^ Col 0
+",cloudformation.cfn_iam_has_full_access_to_ssm
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,"
+   4 |       ""Type"": ""AWS::IAM::Policy"",
+   5 |       ""Properties"": {
+   6 |         ""PolicyName"": ""CFNUsers"",
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+> 14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+  17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+     ^ Col 0
+",cloudformation.cfn_iam_has_full_access_to_ssm
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,"
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+> 33 |               ""Action"": ""ssm:*"",
+  34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:*"",
+     ^ Col 0
+",cloudformation.cfn_iam_has_full_access_to_ssm
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+  15 |   CreateTestDBPolicy:
+  16 |     Type: 'AWS::IAM::ManagedPolicy'
+  17 |     Properties:
+  18 |       Description: Policy for creating a test database
+  19 |       Path: /
+  20 |       PolicyDocument:
+  21 |         Version: ""2012-10-17""
+  22 |         Statement:
+  23 |           - Effect: Allow
+  24 |             Action: 'ssm:*'
+> 25 |             Resource: ""*""
+  26 |             Condition:
+  27 |               StringEquals:
+  28 |                 'rds:DatabaseEngine': mysql
+  29 |           - Effect: Deny
+  30 |             Action: 'ssm:*'
+  31 |             Resource: ""*""
+  32 |             Condition:
+  33 |               StringEquals:
+  34 |                 'rds:DatabaseClass': db.t2.micro
+  35 |       Groups:
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
+  28 |         ""PolicyDocument"": {
+  29 |           ""Version"": ""2012-10-17"",
+  30 |           ""Statement"": [
+  31 |             {
+  32 |               ""Effect"": ""Allow"",
+  33 |               ""Action"": ""ssm:*"",
+> 34 |               ""Resource"": ""*"",
+  35 |               ""Condition"": {
+  36 |                 ""StringEquals"": {
+  37 |                   ""rds:DatabaseEngine"": ""mysql""
+  38 |                 }
+  39 |               }
+  40 |             },
+  41 |             {
+  42 |               ""Effect"": ""Deny"",
+  43 |               ""Action"": ""ssm:*"",
+  44 |               ""Resource"": ""*"",
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    3 |     Type: AWS::IAM::Role
@@ -19746,6 +20550,78 @@ F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skim
   17 | }
      ^ Col 0
 ",terraform.tfm_azure_key_vault_not_recoverable
+F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+> 18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+  22 |       BlockDeviceMappings:
+  23 |       - DeviceName: ""/dev/sdm""
+  24 |         Ebs:
+  25 |           VolumeType: ""io1""
+  26 |           Iops: ""200""
+  27 |           DeleteOnTermination: ""false""
+  28 |           VolumeSize: ""20""
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""IamInstanceProfile"": ""iamProfile"",
+   9 |         ""BlockDeviceMappings"": [
+  10 |           {
+  11 |             ""DeviceName"": ""/dev/sdm"",
+  12 |             ""Ebs"": {
+  13 |               ""VolumeType"": ""io1"",
+  14 |               ""Iops"": ""200"",
+  15 |               ""DeleteOnTermination"": ""false"",
+  16 |               ""VolumeSize"": ""20""
+  17 |             }
+  18 |           },
+  19 |           {
+  20 |             ""DeviceName"": ""/dev/sdk"",
+  21 |             ""NoDevice"": {}
+     ^ Col 0
+",f257._cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:

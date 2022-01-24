@@ -1,0 +1,55 @@
+Resources:
+  MyPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: CFNUsers
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'cloudformation:Describe*'
+              - 'ssm:*'
+              - 'cloudformation:Get*'
+            Resource: '*'
+  CreateTestDBPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: 'ssm:*'
+            Resource: "*"
+            Condition:
+              StringEquals:
+                'rds:DatabaseEngine': mysql
+          - Effect: Deny
+            Action: 'ssm:*'
+            Resource: "*"
+            Condition:
+              StringEquals:
+                'rds:DatabaseClass': db.t2.micro
+      Groups:
+        - TestDBGroup
+  RootRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+            Action:
+              - "ssm:CreateAssociation"
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
