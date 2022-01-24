@@ -544,35 +544,39 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         }}
       </ConfirmDialog>
       <br />
-      <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
-      <div className={"flex flex-wrap nt2"}>
-        <DataTableNext
-          bordered={true}
-          customSearch={{
-            customSearchDefault: searchEnvsTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchEnvsTextChange,
-            position: "right",
-          }}
-          dataset={filterEnvSearchTextDataset}
-          expandRow={{
-            expandByColumnOnly: true,
-            renderer: renderEnvDescription,
-            showExpandColumn: true,
-          }}
-          exportCsv={false}
-          headers={[
-            {
-              dataField: "environmentUrl",
-              header: t("group.scope.git.repo.url"),
-            },
-          ]}
-          id={"tblGitRootEnvs"}
-          pageSize={10}
-          search={false}
-          striped={true}
-        />
-      </div>
+      {filterEnvSearchTextDataset.length === 0 ? undefined : (
+        <React.Fragment>
+          <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
+          <div className={"flex flex-wrap nt2"}>
+            <DataTableNext
+              bordered={true}
+              customSearch={{
+                customSearchDefault: searchEnvsTextFilter,
+                isCustomSearchEnabled: true,
+                onUpdateCustomSearch: onSearchEnvsTextChange,
+                position: "right",
+              }}
+              dataset={filterEnvSearchTextDataset}
+              expandRow={{
+                expandByColumnOnly: true,
+                renderer: renderEnvDescription,
+                showExpandColumn: true,
+              }}
+              exportCsv={false}
+              headers={[
+                {
+                  dataField: "environmentUrl",
+                  header: t("group.scope.git.repo.url"),
+                },
+              ]}
+              id={"tblGitRootEnvs"}
+              pageSize={10}
+              search={false}
+              striped={true}
+            />
+          </div>
+        </React.Fragment>
+      )}
       {isManagingRoot === false ? undefined : (
         <ManagementModal
           initialValues={

@@ -25,11 +25,39 @@ describe("GitRoots", (): void => {
   it("should render tables", (): void => {
     expect.hasAssertions();
 
+    const roots: IGitRootAttr[] = [
+      {
+        __typename: "GitRoot",
+        branch: "",
+        cloningStatus: {
+          message: "",
+          status: "UNKNOWN",
+        },
+        credentials: {
+          id: "",
+          key: "",
+          name: "",
+          type: "",
+        },
+        environment: "",
+        environmentUrls: ["https://app.fluidattacks.com"],
+        gitignore: [],
+        id: "",
+        includesHealthCheck: false,
+        nickname: "",
+        state: "ACTIVE",
+        url: "https://gitlab.com/fluidattacks/product",
+      },
+    ];
     const refetch: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <MockedProvider>
         <MemoryRouter initialEntries={["/TEST"]}>
-          <GitRoots groupName={"unittesting"} onUpdate={refetch} roots={[]} />
+          <GitRoots
+            groupName={"unittesting"}
+            onUpdate={refetch}
+            roots={roots}
+          />
         </MemoryRouter>
       </MockedProvider>
     );
