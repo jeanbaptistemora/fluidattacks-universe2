@@ -37,6 +37,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
     VulnerabilityVerification,
 )
 from decimal import (
@@ -211,6 +212,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     verification=VulnerabilityVerification(
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
@@ -235,6 +240,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     verification=VulnerabilityVerification(
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
@@ -259,6 +268,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     verification=VulnerabilityVerification(
                         modified_date="2018-04-08T01:45:11+01:00",
                         status=VulnerabilityVerificationStatus.VERIFIED,

@@ -30,6 +30,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
     VulnerabilityZeroRisk,
 )
 from decimal import (
@@ -201,6 +202,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     where="192.168.1.20",
                 ),
             },
@@ -224,6 +229,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="anything@gmail.com",
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     where="192.168.1.1",
                 ),
             },
@@ -245,6 +254,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         justification="justification",
                         assigned="anything@gmail.com",
                         modified_by="anything@gmail.com",
+                    ),
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
                     ),
                     type=VulnerabilityType.PORTS,
                     where="192.168.1.7",

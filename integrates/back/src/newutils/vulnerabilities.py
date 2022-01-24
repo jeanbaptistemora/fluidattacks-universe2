@@ -505,6 +505,7 @@ def group_specific(
                 specific=specific_grouped,
                 state=group[0].state,
                 type=group[0].type,
+                unreliable_indicators=group[0].unreliable_indicators,
                 where=key[0],
                 commit=(
                     group[0].commit[0:7]

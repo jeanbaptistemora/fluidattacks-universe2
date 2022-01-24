@@ -26,6 +26,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityUnreliableIndicators,
 )
 from decimal import (
     Decimal,
@@ -178,6 +179,10 @@ async def test_get_vuln_closing_date() -> None:
             status=VulnerabilityStateStatus.CLOSED,
         ),
         type=VulnerabilityType.INPUTS,
+        unreliable_indicators=VulnerabilityUnreliableIndicators(
+            unreliable_report_date="2019-01-08T21:01:26+00:00",
+            unreliable_source=Source.ASM,
+        ),
         where="https://example.com",
     )
     test_data = get_closing_date(closed_vulnerability)

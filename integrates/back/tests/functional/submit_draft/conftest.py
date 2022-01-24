@@ -26,6 +26,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
 )
 from decimal import (
     Decimal,
@@ -143,6 +144,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:14+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
                     where="192.168.1.20",
                 ),
             },
