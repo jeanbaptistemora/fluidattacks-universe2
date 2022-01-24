@@ -25061,246 +25061,6 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   35 | }
      ^ Col 0
 ",f402._tfm_azure_storage_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
-   1 | Resources:
-   2 |   distribution1:
-   3 |     Type: AWS::CloudFront::Distribution
-   4 |     Properties:
->  5 |       DistributionConfig:
-   6 |         Enabled: 'true'
-   7 |         DefaultCacheBehavior:
-   8 |           TargetOriginId: def1
-   9 |           ForwardedValues:
-  10 |             QueryString: 'false'
-  11 |             Cookies:
-  12 |               Forward: all
-  13 |         Origins:
-  14 |         - CustomOriginConfig:
-  15 |             OriginSSLProtocols:
-  16 |             - SSLv3
-  17 |             - TLSv1
-  18 |             - TLSv1.1
-  19 |             - TLSv1.2
-  20 |   distribution2:
-  21 |     Type: AWS::CloudFront::Distribution
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,23,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
-  12 |               Forward: all
-  13 |         Origins:
-  14 |         - CustomOriginConfig:
-  15 |             OriginSSLProtocols:
-  16 |             - SSLv3
-  17 |             - TLSv1
-  18 |             - TLSv1.1
-  19 |             - TLSv1.2
-  20 |   distribution2:
-  21 |     Type: AWS::CloudFront::Distribution
-  22 |     Properties:
-> 23 |       DistributionConfig:
-  24 |         Enabled: 'true'
-  25 |         DefaultCacheBehavior:
-  26 |           TargetOriginId: def2
-  27 |           ForwardedValues:
-  28 |             QueryString: 'false'
-  29 |             Cookies:
-  30 |               Forward: all
-  31 |         ViewerCertificate:
-  32 |           MinimumProtocolVersion: TLSv1
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""distribution1"": {
-   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
-   5 |       ""Properties"": {
->  6 |         ""DistributionConfig"": {
-   7 |           ""Enabled"": ""true"",
-   8 |           ""DefaultCacheBehavior"": {
-   9 |             ""TargetOriginId"": ""def1"",
-  10 |             ""ForwardedValues"": {
-  11 |               ""QueryString"": ""false"",
-  12 |               ""Cookies"": {
-  13 |                 ""Forward"": ""all""
-  14 |               }
-  15 |             }
-  16 |           },
-  17 |           ""Origins"": [
-  18 |             {
-  19 |               ""CustomOriginConfig"": {
-  20 |                 ""OriginSSLProtocols"": [
-  21 |                   ""SSLv3"",
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,35,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
-  25 |                 ]
-  26 |               }
-  27 |             }
-  28 |           ]
-  29 |         }
-  30 |       }
-  31 |     },
-  32 |     ""distribution2"": {
-  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
-  34 |       ""Properties"": {
-> 35 |         ""DistributionConfig"": {
-  36 |           ""Enabled"": ""true"",
-  37 |           ""DefaultCacheBehavior"": {
-  38 |             ""TargetOriginId"": ""def2"",
-  39 |             ""ForwardedValues"": {
-  40 |               ""QueryString"": ""false"",
-  41 |               ""Cookies"": {
-  42 |                 ""Forward"": ""all""
-  43 |               }
-  44 |             }
-  45 |           },
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-   1 | Resources:
-   2 |   distribution1:
-   3 |     Type: AWS::CloudFront::Distribution
-   4 |     Properties:
->  5 |       DistributionConfig:
-   6 |         Enabled: 'true'
-   7 |         DefaultCacheBehavior:
-   8 |           TargetOriginId: def1
-   9 |           ForwardedValues:
-  10 |             QueryString: 'false'
-  11 |             Cookies:
-  12 |               Forward: all
-  13 |           ViewerProtocolPolicy: allow-all
-  14 |         CacheBehaviors:
-  15 |         - TargetOriginId: cache11
-  16 |           ForwardedValues:
-  17 |             QueryString: 'true'
-  18 |             Cookies:
-  19 |               Forward: none
-  20 |           ViewerProtocolPolicy: https-only
-  21 |           PathPattern: images1/*.jpg
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,32,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-  22 |         - TargetOriginId: cache12
-  23 |           ForwardedValues:
-  24 |             QueryString: 'true'
-  25 |             Cookies:
-  26 |               Forward: none
-  27 |           ViewerProtocolPolicy: allow-all
-  28 |           PathPattern: images2/*.jpg
-  29 |   distribution2:
-  30 |     Type: AWS::CloudFront::Distribution
-  31 |     Properties:
-> 32 |       DistributionConfig:
-  33 |         Enabled: 'true'
-  34 |         DefaultCacheBehavior:
-  35 |           TargetOriginId: def2
-  36 |           ForwardedValues:
-  37 |             QueryString: 'false'
-  38 |             Cookies:
-  39 |               Forward: all
-  40 |           ViewerProtocolPolicy: https-only
-  41 |         CacheBehaviors:
-  42 |         - TargetOriginId: cache21
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""distribution1"": {
-   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
-   5 |       ""Properties"": {
->  6 |         ""DistributionConfig"": {
-   7 |           ""Enabled"": ""true"",
-   8 |           ""DefaultCacheBehavior"": {
-   9 |             ""TargetOriginId"": ""def1"",
-  10 |             ""ForwardedValues"": {
-  11 |               ""QueryString"": ""false"",
-  12 |               ""Cookies"": {
-  13 |                 ""Forward"": ""all""
-  14 |               }
-  15 |             },
-  16 |             ""ViewerProtocolPolicy"": ""allow-all""
-  17 |           },
-  18 |           ""CacheBehaviors"": [
-  19 |             {
-  20 |               ""TargetOriginId"": ""cache11"",
-  21 |               ""ForwardedValues"": {
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,48,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-  38 |               ""ViewerProtocolPolicy"": ""allow-all"",
-  39 |               ""PathPattern"": ""images2/*.jpg""
-  40 |             }
-  41 |           ]
-  42 |         }
-  43 |       }
-  44 |     },
-  45 |     ""distribution2"": {
-  46 |       ""Type"": ""AWS::CloudFront::Distribution"",
-  47 |       ""Properties"": {
-> 48 |         ""DistributionConfig"": {
-  49 |           ""Enabled"": ""true"",
-  50 |           ""DefaultCacheBehavior"": {
-  51 |             ""TargetOriginId"": ""def2"",
-  52 |             ""ForwardedValues"": {
-  53 |               ""QueryString"": ""false"",
-  54 |               ""Cookies"": {
-  55 |                 ""Forward"": ""all""
-  56 |               }
-  57 |             },
-  58 |             ""ViewerProtocolPolicy"": ""https-only""
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,18,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,"
-   5 |       DistributionConfig:
-   6 |         Enabled: 'true'
-   7 |         DefaultCacheBehavior:
-   8 |           TargetOriginId: def1
-   9 |           ForwardedValues:
-  10 |             QueryString: 'false'
-  11 |             Cookies:
-  12 |               Forward: all
-  13 |         Logging:
-  14 |           Bucket: bucket1
-  15 |   distribution2:
-  16 |     Type: AWS::CloudFront::Distribution
-  17 |     Properties:
-> 18 |       DistributionConfig:
-  19 |         Enabled: 'true'
-  20 |         DefaultCacheBehavior:
-  21 |           TargetOriginId: def2
-  22 |           ForwardedValues:
-  23 |             QueryString: 'false'
-  24 |             Cookies:
-  25 |               Forward: all
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,26,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,"
-  16 |           },
-  17 |           ""Logging"": {
-  18 |             ""Bucket"": ""bucket1""
-  19 |           }
-  20 |         }
-  21 |       }
-  22 |     },
-  23 |     ""distribution2"": {
-  24 |       ""Type"": ""AWS::CloudFront::Distribution"",
-  25 |       ""Properties"": {
-> 26 |         ""DistributionConfig"": {
-  27 |           ""Enabled"": ""true"",
-  28 |           ""DefaultCacheBehavior"": {
-  29 |             ""TargetOriginId"": ""def2"",
-  30 |             ""ForwardedValues"": {
-  31 |               ""QueryString"": ""false"",
-  32 |               ""Cookies"": {
-  33 |                 ""Forward"": ""all""
-  34 |               }
-  35 |             }
-  36 |           }
-     ^ Col 0
-",f400._cfn_cf_distribution_has_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/elb_test.tf,"
    1 | resource ""aws_elb"" ""bar"" {
    2 |   name               = ""foobar-terraform-elb""
@@ -25324,7 +25084,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. 
   20 |   health_check {
   21 |     healthy_threshold   = 2
      ^ Col 0
-",f400._tfm_elb_logging_disabled
+",terraform.tfm_elb_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -25348,7 +25108,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,5,778
   20 |           - ServerSideEncryptionByDefault:
   21 |               SSEAlgorithm: aws:kms
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,15,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    5 |     Properties:
    6 |       AccessControl: PublicReadWrite
@@ -25372,7 +25132,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,15,77
   24 |   PrivateS3Bucket:
   25 |     Type: AWS::S3::Bucket
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,26,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
   14 |     Type: AWS::S3::Bucket
   15 |     Properties:
@@ -25396,7 +25156,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,26,77
   33 |               KMSMasterKeyID: KMS-KEY-ARN
   34 |     DeletionPolicy: Delete
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -25420,7 +25180,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   20 |     },
   21 |     ""S3Bucket1"": {
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,23,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
   13 |                 ""SSEAlgorithm"": ""aws:kms"",
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
@@ -25444,7 +25204,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   32 |               }
   33 |             }
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,41,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
   31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   32 |               }
@@ -25468,7 +25228,7 @@ F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   50 |               }
   51 |             }
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,9,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -25487,7 +25247,7 @@ F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,
   15 |               KMSMasterKeyID: KMS-KEY-ARN
   16 |     DeletionPolicy: Delete
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -25506,7 +25266,7 @@ F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml,
   15 |               KMSMasterKeyID: KMS-KEY-ARN
   16 |     DeletionPolicy: Delete
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -25530,7 +25290,7 @@ F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.
   20 |               }
   21 |             }
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,12,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -25554,7 +25314,7 @@ F400,lines,namespace/skims/test/data/lib_path/f250/cfn_unencrypted_buckets.yaml.
   21 |             }
   22 |           ]
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
@@ -25571,7 +25331,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   13 |         DestinationBucketName: bucket_destination
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -25595,7 +25355,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   20 |     }
   21 |   }
      ^ Col 0
-",f400._cfn_bucket_has_logging_conf_disabled
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,17,778,skims,400. Tracebility Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,"
    7 |         S3BucketName: bkname
    8 |       Listeners:
@@ -25619,7 +25379,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   26 |     Properties:
   27 |       Listeners:
      ^ Col 0
-",f400._cfn_elb_has_access_logging_disabled
+",cloudformation.cfn_elb_has_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,26,778,skims,400. Tracebility Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,"
   11 |         LoadBalancerPort: '443'
   12 |         Protocol: HTTPS
@@ -25643,7 +25403,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   30 |         LoadBalancerPort: '443'
   31 |         Protocol: HTTPS
      ^ Col 0
-",f400._cfn_elb_has_access_logging_disabled
+",cloudformation.cfn_elb_has_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,400. Tracebility Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
   14 |             ""LoadBalancerPort"": ""443"",
   15 |             ""Protocol"": ""HTTPS""
@@ -25667,7 +25427,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   33 |           }
   34 |         ]
      ^ Col 0
-",f400._cfn_elb_has_access_logging_disabled
+",cloudformation.cfn_elb_has_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,400. Tracebility Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
   29 |             ""InstancePort"": ""80"",
   30 |             ""InstanceProtocol"": ""HTTP"",
@@ -25691,7 +25451,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   48 |       }
   49 |     }
      ^ Col 0
-",f400._cfn_elb_has_access_logging_disabled
+",cloudformation.cfn_elb_has_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,16,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -25712,7 +25472,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   17 |       IsLogging: true
   18 |       S3BucketName: bk3
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,10,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -25733,7 +25493,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   17 |       IsLogging: true
   18 |       S3BucketName: bk3
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,4,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -25754,7 +25514,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   17 |       IsLogging: true
   18 |       S3BucketName: bk3
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,5,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -25778,7 +25538,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   20 |       ""Type"": ""AWS::CloudTrail::Trail"",
   21 |       ""Properties"": {
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,13,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,"
    3 |     ""trail1"": {
    4 |       ""Type"": ""AWS::CloudTrail::Trail"",
@@ -25802,7 +25562,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   22 |         ""IsLogging"": true,
   23 |         ""S3BucketName"": ""bk3""
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,21,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,"
    7 |         ""S3BucketName"": ""bk1"",
    8 |         ""EnableLogFileValidation"": true
@@ -25826,7 +25586,7 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   26 |   }
   27 | }
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,12,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -25846,7 +25606,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   16 |       IsLogging: true
   17 |       IsMultiRegionTrail: True
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,4,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -25866,7 +25626,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   16 |       IsLogging: true
   17 |       IsMultiRegionTrail: True
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,5,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -25890,7 +25650,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   20 |       ""Properties"": {
   21 |         ""IsLogging"": true,
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,15,778,skims,400. Tracebility Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,"
    5 |       ""Properties"": {
    6 |         ""IsLogging"": true,
@@ -25914,7 +25674,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   24 |     }
   25 |   }
      ^ Col 0
-",f400._cfn_trails_not_multiregion
+",cloudformation.cfn_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,7,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    1 | Resources:
    2 |   LoadBalancer1:
@@ -25938,7 +25698,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   20 |       - Key: ""access_logs.s3.bucket""
   21 |         Value: ""bk""
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,17,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    7 |       LoadBalancerAttributes:
    8 |       - Key: ""deletion_protection.enabled""
@@ -25962,7 +25722,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   26 |       IpAddressType: String
   27 |       LoadBalancerAttributes:
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,32,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
@@ -25986,7 +25746,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   33 |       Name: ""test-Application-Load-Balancer""
   34 |       IpAddressType: String
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,27,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
@@ -26010,7 +25770,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   33 |       Name: ""test-Application-Load-Balancer""
   34 |       IpAddressType: String
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,8,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
    1 |
    2 | esources"": {
@@ -26034,7 +25794,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   20 | ""LoadBalancer2"": {
   21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
      ^ Col 4
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,25,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   15 |         ""Value"": ""bk""
   16 |       }
@@ -26058,7 +25818,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   34 |     ]
   35 |   }
      ^ Col 4
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   32 |         ""Value"": ""bk""
   33 |       }
@@ -26082,7 +25842,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   52 |   ""Properties"": {
      ^ Col 4
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
@@ -26106,7 +25866,7 @@ F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   57 |   }
   58 | }
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,19,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
    9 |         Value: True
   10 |       - Key: ""access_logs.s3.bucket""
@@ -26130,7 +25890,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   28 |       - Key: ""access_logs.s3.bucket""
   29 |         Value: ""bk""
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,32,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
@@ -26154,7 +25914,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   33 |       Name: ""test-Application-Load-Balancer""
   34 |       IpAddressType: String
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,27,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
@@ -26178,7 +25938,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   33 |       Name: ""test-Application-Load-Balancer""
   34 |       IpAddressType: String
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,28,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   18 |       }
   19 |     },
@@ -26202,7 +25962,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   37 |     ""LoadBalancer3"": {
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,42,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   32 |         ""Value"": ""bk""
   33 |       }
@@ -26226,7 +25986,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   52 |   ""Properties"": {
      ^ Col 4
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,778,skims,400. Tracebility Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
@@ -26250,7 +26010,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   57 |   }
   58 | }
      ^ Col 0
-",f400._cfn_elb2_has_access_logs_s3_disabled
+",cloudformation.cfn_elb2_has_access_logs_s3_disabled
 F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
  in namespace/skims/test/data/lib_path/f004/test.cs","
    5 | {
@@ -35564,3 +35324,243 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (y18n v4.0.0) [C
   142 | }
       ^ Col 0
 ",npm_package_json.npm_package_json
+F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,5,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+   1 | Resources:
+   2 |   distribution1:
+   3 |     Type: AWS::CloudFront::Distribution
+   4 |     Properties:
+>  5 |       DistributionConfig:
+   6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+  17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,23,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+  12 |               Forward: all
+  13 |         Origins:
+  14 |         - CustomOriginConfig:
+  15 |             OriginSSLProtocols:
+  16 |             - SSLv3
+  17 |             - TLSv1
+  18 |             - TLSv1.1
+  19 |             - TLSv1.2
+  20 |   distribution2:
+  21 |     Type: AWS::CloudFront::Distribution
+  22 |     Properties:
+> 23 |       DistributionConfig:
+  24 |         Enabled: 'true'
+  25 |         DefaultCacheBehavior:
+  26 |           TargetOriginId: def2
+  27 |           ForwardedValues:
+  28 |             QueryString: 'false'
+  29 |             Cookies:
+  30 |               Forward: all
+  31 |         ViewerCertificate:
+  32 |           MinimumProtocolVersion: TLSv1
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,6,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""distribution1"": {
+   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
+   5 |       ""Properties"": {
+>  6 |         ""DistributionConfig"": {
+   7 |           ""Enabled"": ""true"",
+   8 |           ""DefaultCacheBehavior"": {
+   9 |             ""TargetOriginId"": ""def1"",
+  10 |             ""ForwardedValues"": {
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,35,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  34 |       ""Properties"": {
+> 35 |         ""DistributionConfig"": {
+  36 |           ""Enabled"": ""true"",
+  37 |           ""DefaultCacheBehavior"": {
+  38 |             ""TargetOriginId"": ""def2"",
+  39 |             ""ForwardedValues"": {
+  40 |               ""QueryString"": ""false"",
+  41 |               ""Cookies"": {
+  42 |                 ""Forward"": ""all""
+  43 |               }
+  44 |             }
+  45 |           },
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
+   1 | Resources:
+   2 |   distribution1:
+   3 |     Type: AWS::CloudFront::Distribution
+   4 |     Properties:
+>  5 |       DistributionConfig:
+   6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |           ViewerProtocolPolicy: allow-all
+  14 |         CacheBehaviors:
+  15 |         - TargetOriginId: cache11
+  16 |           ForwardedValues:
+  17 |             QueryString: 'true'
+  18 |             Cookies:
+  19 |               Forward: none
+  20 |           ViewerProtocolPolicy: https-only
+  21 |           PathPattern: images1/*.jpg
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,32,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
+  22 |         - TargetOriginId: cache12
+  23 |           ForwardedValues:
+  24 |             QueryString: 'true'
+  25 |             Cookies:
+  26 |               Forward: none
+  27 |           ViewerProtocolPolicy: allow-all
+  28 |           PathPattern: images2/*.jpg
+  29 |   distribution2:
+  30 |     Type: AWS::CloudFront::Distribution
+  31 |     Properties:
+> 32 |       DistributionConfig:
+  33 |         Enabled: 'true'
+  34 |         DefaultCacheBehavior:
+  35 |           TargetOriginId: def2
+  36 |           ForwardedValues:
+  37 |             QueryString: 'false'
+  38 |             Cookies:
+  39 |               Forward: all
+  40 |           ViewerProtocolPolicy: https-only
+  41 |         CacheBehaviors:
+  42 |         - TargetOriginId: cache21
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,6,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""distribution1"": {
+   4 |       ""Type"": ""AWS::CloudFront::Distribution"",
+   5 |       ""Properties"": {
+>  6 |         ""DistributionConfig"": {
+   7 |           ""Enabled"": ""true"",
+   8 |           ""DefaultCacheBehavior"": {
+   9 |             ""TargetOriginId"": ""def1"",
+  10 |             ""ForwardedValues"": {
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             },
+  16 |             ""ViewerProtocolPolicy"": ""allow-all""
+  17 |           },
+  18 |           ""CacheBehaviors"": [
+  19 |             {
+  20 |               ""TargetOriginId"": ""cache11"",
+  21 |               ""ForwardedValues"": {
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,48,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
+  38 |               ""ViewerProtocolPolicy"": ""allow-all"",
+  39 |               ""PathPattern"": ""images2/*.jpg""
+  40 |             }
+  41 |           ]
+  42 |         }
+  43 |       }
+  44 |     },
+  45 |     ""distribution2"": {
+  46 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  47 |       ""Properties"": {
+> 48 |         ""DistributionConfig"": {
+  49 |           ""Enabled"": ""true"",
+  50 |           ""DefaultCacheBehavior"": {
+  51 |             ""TargetOriginId"": ""def2"",
+  52 |             ""ForwardedValues"": {
+  53 |               ""QueryString"": ""false"",
+  54 |               ""Cookies"": {
+  55 |                 ""Forward"": ""all""
+  56 |               }
+  57 |             },
+  58 |             ""ViewerProtocolPolicy"": ""https-only""
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,18,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,"
+   5 |       DistributionConfig:
+   6 |         Enabled: 'true'
+   7 |         DefaultCacheBehavior:
+   8 |           TargetOriginId: def1
+   9 |           ForwardedValues:
+  10 |             QueryString: 'false'
+  11 |             Cookies:
+  12 |               Forward: all
+  13 |         Logging:
+  14 |           Bucket: bucket1
+  15 |   distribution2:
+  16 |     Type: AWS::CloudFront::Distribution
+  17 |     Properties:
+> 18 |       DistributionConfig:
+  19 |         Enabled: 'true'
+  20 |         DefaultCacheBehavior:
+  21 |           TargetOriginId: def2
+  22 |           ForwardedValues:
+  23 |             QueryString: 'false'
+  24 |             Cookies:
+  25 |               Forward: all
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,26,FindingEnum.F400,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,"
+  16 |           },
+  17 |           ""Logging"": {
+  18 |             ""Bucket"": ""bucket1""
+  19 |           }
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""distribution2"": {
+  24 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  25 |       ""Properties"": {
+> 26 |         ""DistributionConfig"": {
+  27 |           ""Enabled"": ""true"",
+  28 |           ""DefaultCacheBehavior"": {
+  29 |             ""TargetOriginId"": ""def2"",
+  30 |             ""ForwardedValues"": {
+  31 |               ""QueryString"": ""false"",
+  32 |               ""Cookies"": {
+  33 |                 ""Forward"": ""all""
+  34 |               }
+  35 |             }
+  36 |           }
+     ^ Col 0
+",cloudformation.cfn_cf_distribution_has_logging_disabled
