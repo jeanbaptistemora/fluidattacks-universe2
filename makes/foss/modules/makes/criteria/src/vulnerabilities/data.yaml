@@ -22203,8 +22203,8 @@
       - Spoof, intercept and modify messages in
       the network in arbitrary ways.
 
-      - Malicious behavior by one of the intended
-      communication endpoints.
+      - Allow malicious behavior by one of the
+      intended communication endpoints.
     recommendation: >
       - Establish a shared cryptographic key between
       two or more communication endpoints to use the
@@ -22233,8 +22233,9 @@
       - Suplantar, interceptar y modificar mensajes en
       la red de forma arbitraria.
 
-      - Comportamiento malicioso por parte de uno de los
-      puntos finales de comunicación previstos.
+      - Permitir comportamiento malicioso por parte
+      de uno de los puntos finales de comunicación
+      previstos.
     recommendation: >
       - Establecer una clave criptográfica compartida
       entre dos o más puntos finales de comunicación,
@@ -23325,7 +23326,8 @@
       by SSL certificate spoofing.
     impact: >
       DoS attack exploiting the TCP three-way handshake
-      required when initializing a connection to an LDAP server.
+      required when initializing a connection to an
+      LDAP server.
     recommendation: >
       - LDAP had to incorporate the use of SSL to provide
       encryption of traffic containing plain-text passwords.
@@ -23399,7 +23401,7 @@
       or an insecure configuration of isValidFragment.
     impact: >
       Use malicious fragments
-      to exploit different vulnerabilities
+      to exploit different vulnerabilities.
     recommendation: >
       - Set the attribute exported to false
       to avoid the attempt of
@@ -23422,7 +23424,7 @@
     impact: >
       Utilizar fragmentos maliciosos
       que pueden ser usados para explotar
-      diferentes vulnerabilidades
+      diferentes vulnerabilidades.
     recommendation: >
       - Establecer el atributo exported a false
        para evitar intentos de explotación
