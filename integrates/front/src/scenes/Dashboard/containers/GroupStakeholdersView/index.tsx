@@ -267,18 +267,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  /**
-   * Helper role mapping function for display and sorting purposes, to be
-   * removed as soon as the old role values are migrated
-   */
-  const mapRoles = (role: string): string => {
-    if (role === "system_owner") {
-      return "customer_manager";
-    }
-
-    return role;
-  };
-
   const stakeholdersList = data.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
       function handleResendEmail(): void {
@@ -298,7 +286,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             {translate.t("searchFindings.usersTable.resendEmail")}
           </Button>
         ),
-        role: mapRoles(stakeholder.role),
+        /*
+         * If migrating roles, don't forget to put a role mapping function
+         * overwrite here to avoid breaking the stakeholder filter
+         */
       };
     }
   );
@@ -371,14 +362,14 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       selectOptions: {
         admin: "Admin",
         customer: "User",
+        // eslint-disable-next-line camelcase
+        customer_manager: "Customer Manager",
         customeradmin: "User Manager",
         executive: "Executive",
         hacker: "Hacker",
         reattacker: "Reattacker",
         resourcer: "Resourcer",
         reviewer: "Reviewer",
-        // eslint-disable-next-line camelcase
-        system_owner: "Customer Manager",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",
