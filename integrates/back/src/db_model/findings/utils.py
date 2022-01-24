@@ -284,7 +284,9 @@ def format_verification_item(verification: FindingVerification) -> Item:
         "modified_by": verification.modified_by,
         "modified_date": verification.modified_date,
         "status": verification.status.value,
-        "vulnerability_ids": verification.vulnerability_ids,
+        "vulnerability_ids": verification.vulnerability_ids
+        if verification.vulnerability_ids
+        else None,
     }
 
 
