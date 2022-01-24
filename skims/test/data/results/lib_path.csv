@@ -18093,7 +18093,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   29 |      - ""s3:DeleteObject""
   30 |      - ""s3:DeleteObjectVersion""
      ^ Col 9
-",f281._cfn_bucket_policy_has_secure_transport
+",cloudformation.cfn_bucket_policy_has_secure_transport
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,41,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
   31 |      - ""s3:PutLifecycleConfiguration""
   32 |    Effect: Deny
@@ -18117,7 +18117,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   50 |      - ""s3:DeleteObject""
   51 |      - ""s3:DeleteObjectVersion""
      ^ Col 9
-",f281._cfn_bucket_policy_has_secure_transport
+",cloudformation.cfn_bucket_policy_has_secure_transport
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,26,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,"
    16 |      """",
    17 |      [
@@ -18141,7 +18141,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
    35 | "": ""AWS::S3::BucketPolicy"",
    36 | erties"": {
       ^ Col 11
-",f281._cfn_bucket_policy_has_secure_transport
+",cloudformation.cfn_bucket_policy_has_secure_transport
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,59,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,"
    49 |      """",
    50 |      [
@@ -18165,7 +18165,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
    68 | "": ""AWS::S3::BucketPolicy"",
    69 | erties"": {
       ^ Col 11
-",f281._cfn_bucket_policy_has_secure_transport
+",cloudformation.cfn_bucket_policy_has_secure_transport
 F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,20,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled in namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,"
   10 | etObject'
   11 | llow
@@ -19237,7 +19237,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   25 |       Port: 80
   26 |       Targets:
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,30,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
   15 |       Name: MyTargets
   16 |       Port: 80
@@ -19261,7 +19261,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   34 |       Targets:
   35 |       - Id: [ MyLambdaFunction, Arn ]
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,25,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
   15 |             ]
   16 |           }
@@ -19285,7 +19285,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   34 |         ]
   35 |       }
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,55,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml.json,"
   45 |             ""Id"": [
   46 |               ""MyLambdaFunction"",
@@ -19309,7 +19309,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.y
   64 |             ]
   65 |           }
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,4,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
    1 | Resources:
    2 |   ELBv2targetGroup1:
@@ -19333,7 +19333,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   20 |   ELBv2targetGroup3:
   21 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,13,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
    3 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
    4 |     Properties:
@@ -19357,7 +19357,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   22 |     Properties:
   23 |       HealthCheckEnabled: false
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,22,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   12 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
   13 |     Properties:
@@ -19381,7 +19381,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   31 |     Properties:
   32 |       HealthCheckEnabled: false
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,39,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   24 |       Name: MyTargets
   25 |       Protocol: HTTP
@@ -19405,7 +19405,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   43 |       Targets:
   44 |       - Id: [ MyLambdaFunction, Arn ]
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,5,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -19429,7 +19429,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   20 |     ""ELBv2targetGroup2"": {
   21 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,22,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   12 |             ""Id"": [
   13 |               ""MyLambdaFunction"",
@@ -19453,7 +19453,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   31 |               ""Arn""
   32 |             ]
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,39,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   29 |             ""Id"": [
   30 |               ""MyLambdaFunction"",
@@ -19477,7 +19477,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   48 |               ""Arn""
   49 |             ]
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,72,311,skims,281. Use of an insecure channel - AWS,TargetGroup should use port 443 in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   62 |             ""Id"": [
   63 |               ""MyLambdaFunction"",
@@ -19501,7 +19501,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   81 |             ]
   82 |           }
      ^ Col 0
-",f281._cfn_elb2_uses_insecure_port
+",cloudformation.cfn_elb2_uses_insecure_port
 F247,lines,namespace/skims/test/data/lib_path/f247/test_ebs.tf,10,311,skims,247. Non-encrypted confidential information - AWS,The resource or the information on it is not encrypted in namespace/skims/test/data/lib_path/f247/test_ebs.tf,"
    1 | resource ""aws_ebs_volume"" ""example"" {
    2 |   availability_zone = ""us-west-2a""

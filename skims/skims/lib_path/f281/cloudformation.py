@@ -1,50 +1,33 @@
-from aioextensions import (
-    in_process,
-)
 from aws.model import (
     AWSElbV2,
     AWSS3BucketPolicy,
 )
 from lib_path.common import (
-    EXTENSIONS_CLOUDFORMATION,
     FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
     TRUE_OPTIONS,
 )
 from metaloaders.model import (
     Node,
 )
-from model import (
-    core_model,
-)
-from parse_cfn.loader import (
-    load_templates,
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
 )
 from parse_cfn.structure import (
     iter_elb2_load_target_groups,
     iter_s3_bucket_policies,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
-    Awaitable,
-    Callable,
     Iterator,
-    List,
     Union,
 )
 from utils.function import (
     get_node_by_keys,
-    TIMEOUT_1MIN,
 )
-
-_FINDING_F281 = core_model.FindingEnum.F281
-_FINDING_F281_CWE = _FINDING_F281.value.cwe
 
 
 def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
@@ -86,16 +69,14 @@ def _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 )
 
 
-def _cfn_bucket_policy_has_secure_transport(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_bucket_policy_has_secure_transport(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F281_CWE},
+        cwe={FindingEnum.F281.value.cwe},
         description_key="src.lib_path.f281.bucket_policy_has_secure_transport",
-        finding=_FINDING_F281,
+        finding=FindingEnum.F281,
         iterator=get_cloud_iterator(
             _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
@@ -105,17 +86,14 @@ def _cfn_bucket_policy_has_secure_transport(
     )
 
 
-def _cfn_elb2_uses_insecure_port(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_elb2_uses_insecure_port(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F281_CWE},
+        cwe={FindingEnum.F281.value.cwe},
         description_key="src.lib_path.f281.elb2_uses_insecure_port",
-        finding=_FINDING_F281,
+        finding=FindingEnum.F281,
         iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -126,69 +104,3 @@ def _cfn_elb2_uses_insecure_port(
         ),
         path=path,
     )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_bucket_policy_has_secure_transport(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_bucket_policy_has_secure_transport,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_elb2_uses_insecure_port(
-    content: str,
-    file_ext: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_elb2_uses_insecure_port,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_extension: str,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-    if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        async for template in load_templates(
-            content=content, fmt=file_extension
-        ):
-            coroutines.append(
-                cfn_bucket_policy_has_secure_transport(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-            coroutines.append(
-                cfn_elb2_uses_insecure_port(
-                    content=content,
-                    file_ext=file_extension,
-                    path=path,
-                    template=template,
-                )
-            )
-
-    return coroutines
