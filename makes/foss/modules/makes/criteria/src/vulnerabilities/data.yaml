@@ -20380,16 +20380,17 @@
       if a session code containing the word auto is
       used, access is allowed.
     impact: >
-      Anonymous attacker from the Internet puts
-      in his session code the word auto and manages
-      to access the application with a Main used
-      during the testing phase.
+      - Exploit the logic introduced by the
+      debugging code to access the application
+      without having credentials.
+
+      - Put in a session code the word auto and
+      manage to access the application with a
+      Main used during the testing phase.
     recommendation: >
       Remove the code used during testing.
     threat: >
-      Probability of an attacker exploits the logic
-      introduced by the debugging code to access the
-      application without having credentials.
+      Anonymous attacker from the Internet.
   es:
     title: Security controls bypass or absence - Session Invalidation
     description: >
@@ -20402,17 +20403,18 @@
       sesión que contenga la palabra auto,
       se permite el acceso.
     impact: >
-      Atacante anónimo desde Internet pone en su
-      código de sesión la palabra auto y logra
-      acceder la aplicación con una Principal
-      usada durante la fase de pruebas.
+      - Explotar la lógica que introduce el
+      código de depuración para acceder la
+      aplicación sin poseer unas credenciales.
+
+      - Poner en un código de sesión la
+      palabra auto y conseguir acceder a
+      la aplicación con un Main utilizado
+      durante la fase de pruebas.
     recommendation: >
       Eliminar el código usado durante las pruebas.
     threat: >
-      Probabilidad de que un atacante explote la
-      lógica que introduce el código de depuración
-      para acceder la aplicación sin poseer
-      unas credenciales.
+      Atacante anónimo desde Internet.
   category: Subvert Access
   score:
     base:
@@ -20591,16 +20593,15 @@
       the BotChat Direct Line Secret Key can be
       read in plain text.
     impact: >
-      Anonymous attacker consults the login page.
+      Obtain the direct line secret key and
+      connect directly to the application bot.
     recommendation: >
       - Minify and obfuscate binaries.
 
       - Use a vault service or environment variables
       to protect sensitive information.
     threat: >
-      Possibility for an anonymous attacker to
-      obtain the direct line secret key and
-      connect directly to the application bot.
+      Anonymous attacker consults the login page.
   es:
     title: Technical information leak - Credentials
     description: >
@@ -20609,16 +20610,16 @@
       no minificado y no ofuscado en el que se puede leer
       en texto plano la Secret Key de BotChat Direct Line.
     impact: >
-      Atacante anónimo consulta la página de login.
+      Obtener la secret key de direct line y
+      conectarse directamente con el bot de
+      la aplicación.
     recommendation: >
       - Minificar y ofuscar los binarios.
 
       - Utilizar un servicio de bóveda o variables de
       entorno para proteger información sensible.
     threat: >
-      Posibilidad de que un atacante anónimo obtenga
-      la secret key de direct line y se conecte directamente
-      con el bot de la aplicación.
+      Atacante anónimo consulta la página de login.
   category: Collect Information
   score:
     base:
@@ -20891,7 +20892,7 @@
       of time, and uploading a new one does not
       delete the previous one from the server.
     impact: >
-      Uploading large numbers of files over the
+      Upload large numbers of files over the
       upload limit size one after another, using
       up server storage resources indiscriminately.
     recommendation: >
@@ -20943,7 +20944,7 @@
       The application does not properly validate the
       integrity of resources uploaded from external servers.
     impact: >
-      Using third-party resources without verifying
+      Use third-party resources without verifying
       that the integrity has not been compromised.
     recommendation: >
       Validate the integrity of all resources originating
@@ -21916,11 +21917,12 @@
       the database, including transmissions from clients
       and transmissions from middle tiers.
     impact: >
-      - Data can be modified, replayed and no longer confidential.
+      - Data can be modified, replayed
+      and no longer confidential.
       Also, lost packets can be detected.
 
-      - Sensitive information that travels over
-      an intranet may be intercepted.
+      - Intercept sensitive information that
+      travels over an intranet.
     recommendation: >
       - Set up encrypted communications channels.
       Enable Oracle Database encryption for data that
@@ -21948,8 +21950,8 @@
       y dejar de ser confidenciales.
       Además, se pueden detectar los paquetes perdidos.
 
-      - La información sensible que viaja por una
-      intranet puede ser interceptada.
+      - Interceptar información sensible que
+      viaja por una intranet.
     recommendation: >
       - Configurar canales de comunicación encriptados.
       Habilite el cifrado de la base de datos Oracle
@@ -21996,9 +21998,10 @@
     impact: >
       - Create unintended entry points or expose sensitive information.
 
-      - An attacker could successfully start a remote
-      debugging session and is likely to disclose confidential
-      information about the web application and supporting infrastructure.
+      - Start a successful remote debugging session
+      and is likely to disclose confidential information
+      about the web application and supporting
+      infrastructure.
     recommendation: >
       - Assign debug programs user right only to administrators
       or trusted users to reduce the risk of this potential vulnerability.
@@ -22021,9 +22024,10 @@
       - Crear puntos de entrada involuntarios o
       exponer información sensible.
 
-      - Un atacante podría iniciar con éxito una sesión
-      de depuración remota y es probable que revele información
-      confidencial sobre la aplicación web y la infraestructura de apoyo.
+      - Iniciar con éxito una sesión de depuración
+      remota y es probable que revele información
+      confidencial sobre la aplicación web y la
+      infraestructura de apoyo.
     recommendation: >
       - Asigne el derecho de usuario de los programas
       de depuración sólo a los administradores o usuarios
