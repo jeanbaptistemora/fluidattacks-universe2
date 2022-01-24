@@ -1,8 +1,5 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f011.maven_gradle import (
     maven_gradle,
@@ -32,92 +29,62 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Awaitable,
     Callable,
     List,
 )
 
 
-@SHIELD
-async def run_maven_pom_xml(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        maven_pom_xml,
+@SHIELD_BLOCKING
+def run_maven_pom_xml(content: str, path: str) -> Vulnerabilities:
+    return maven_pom_xml(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_maven_gradle(content: str, path: str) -> Vulnerabilities:
+    return maven_gradle(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_maven_sbt(content: str, path: str) -> Vulnerabilities:
+    return maven_sbt(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
+    return npm_yarn_lock(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_nuget_csproj(content: str, path: str) -> Vulnerabilities:
+    return nuget_csproj(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
+    return nuget_pkgs_config(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
+    return npm_package_json(content=content, path=path)
+
+
+@SHIELD_BLOCKING
+def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
+    return npm_pkg_lock_json(
         content=content,
         path=path,
     )
 
 
-@SHIELD
-async def run_maven_gradle(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        maven_gradle,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_maven_sbt(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        maven_sbt,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        npm_yarn_lock,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_nuget_csproj(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        nuget_csproj,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        nuget_pkgs_config,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        npm_package_json,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        npm_pkg_lock_json,
-        content=content,
-        path=path,
-    )
-
-
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_name: str,
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> List[Vulnerabilities]:
     # pylint: disable=too-many-return-statements
 
     if (file_name, file_extension) == ("pom", "xml"):
