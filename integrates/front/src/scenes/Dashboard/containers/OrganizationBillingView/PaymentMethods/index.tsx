@@ -19,7 +19,13 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
   }: IOrganizationBillingPaymentMethodsProps): JSX.Element => {
     const data: IPaymentMethodAttr[] = paymentMethods.map(
       (paymentMethodData: IPaymentMethodAttr): IPaymentMethodAttr => {
-        const brand: string = _.capitalize(paymentMethodData.brand);
+        const isDefault: boolean = paymentMethodData.default;
+        const capitalized: string = _.capitalize(paymentMethodData.brand);
+        const brand: string = isDefault
+          ? `${capitalized} ${translate.t(
+              "organization.tabs.billing.paymentMethods.defaultPaymentMethod"
+            )}`
+          : capitalized;
 
         return {
           ...paymentMethodData,
@@ -36,7 +42,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
       {
         align: "center",
         dataField: "lastFourDigits",
-        header: "last four digits",
+        header: "Last four digits",
       },
       {
         align: "center",

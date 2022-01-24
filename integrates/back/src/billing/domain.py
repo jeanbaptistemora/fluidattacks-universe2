@@ -118,10 +118,31 @@ async def customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
 ) -> List[PaymentMethod]:
     """Return list of customer's payment methods"""
-    return await dal.get_customer_payment_methods(
+    # Return empty list if stripe customer does not exist
+    if org_billing_customer is None:
+        return []
+
+    customer: Customer = await dal.get_customer(
+        org_billing_customer=org_billing_customer,
+    )
+    payment_methods: List[
+        Dict[str, Any]
+    ] = await dal.get_customer_payment_methods(
         org_billing_customer=org_billing_customer,
         limit=limit,
     )
+
+    return [
+        PaymentMethod(
+            id=payment_method["id"],
+            last_four_digits=payment_method["card"]["last4"],
+            expiration_month=str(payment_method["card"]["exp_month"]),
+            expiration_year=str(payment_method["card"]["exp_year"]),
+            brand=payment_method["card"]["brand"],
+            default=payment_method["id"] == customer.default_payment_method,
+        )
+        for payment_method in payment_methods
+    ]
 
 
 async def create_payment_method(
@@ -156,6 +177,7 @@ async def create_payment_method(
         card_expiration_month=card_expiration_month,
         card_expiration_year=card_expiration_year,
         card_cvc=card_cvc,
+        default=make_default,
     )
 
     # Attach payment method to customer

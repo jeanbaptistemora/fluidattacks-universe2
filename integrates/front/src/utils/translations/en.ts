@@ -1044,6 +1044,7 @@ export const enTranslations: ResourceKey = {
           title: "Subscription Details",
         },
         paymentMethods: {
+          defaultPaymentMethod: "(Default)",
           title: "Payment Methods",
         },
         text: "Billing",

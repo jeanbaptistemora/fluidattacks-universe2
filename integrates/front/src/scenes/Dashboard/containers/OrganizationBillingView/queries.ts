@@ -16,9 +16,10 @@ export const GET_ORGANIZATION_BILLING: DocumentNode = gql`
       billingPaymentMethods {
         id
         brand
-        lastFourDigits
+        default
         expirationMonth
         expirationYear
+        lastFourDigits
       }
     }
   }

@@ -13,6 +13,7 @@ interface IGroupAttr {
 interface IPaymentMethodAttr {
   id: string;
   brand: string;
+  default: boolean;
   lastFourDigits: string;
   expirationMonth: string;
   expirationYear: string;

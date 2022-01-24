@@ -2,6 +2,8 @@
 type BillingPaymentMethod {
   "Mastercard, Visa, or any other brand"
   brand: String!
+  "True if the payment method is default for the customer"
+  default: Boolean!
   "Expiration month"
   expirationMonth: String!
   "Expiration year"

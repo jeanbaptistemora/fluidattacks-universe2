@@ -17,6 +17,7 @@ class PaymentMethod(NamedTuple):
     expiration_month: str
     expiration_year: str
     brand: str
+    default: bool
 
 
 class Price(NamedTuple):

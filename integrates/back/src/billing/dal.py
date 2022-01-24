@@ -14,7 +14,6 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
-    InvalidBillingCustomer,
     InvalidBillingPrice,
 )
 from datetime import (
@@ -99,6 +98,7 @@ async def create_payment_method(
     card_expiration_month: str,
     card_expiration_year: str,
     card_cvc: str,
+    default: bool,
 ) -> PaymentMethod:
     """Create a Stripe payment method"""
     data = stripe.PaymentMethod.create(
@@ -116,6 +116,7 @@ async def create_payment_method(
         expiration_month=str(data.card.exp_month),
         expiration_year=str(data.card.exp_year),
         brand=data.card.brand,
+        default=default,
     )
 
 
@@ -219,27 +220,13 @@ async def get_customer(
 
 async def get_customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
-) -> List[PaymentMethod]:
+) -> List[Dict[str, Any]]:
     """Return list of customer's payment methods"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    payment_methods = stripe.Customer.list_payment_methods(
+    return stripe.Customer.list_payment_methods(
         org_billing_customer,
         type="card",
         limit=limit,
     ).data
-    return [
-        PaymentMethod(
-            id=payment_method.id,
-            last_four_digits=payment_method.card.last4,
-            expiration_month=str(payment_method.card.exp_month),
-            expiration_year=str(payment_method.card.exp_year),
-            brand=payment_method.card.brand,
-        )
-        for payment_method in payment_methods
-    ]
 
 
 async def set_default_payment_method(
