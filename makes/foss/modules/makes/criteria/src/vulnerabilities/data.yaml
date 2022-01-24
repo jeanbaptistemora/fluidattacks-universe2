@@ -16358,20 +16358,16 @@
       as names, e-mail addresses, dates of birth,
       addresses, telephone numbers, among others.
     impact: >
-      - Attacker enters upon registration
-      confirmation request.
-
-      - Attacker changes employees ID.
-
-      - Attacker modifies or replaces employees information.
+      Modify or replace the information
+      of other employees independently of
+      the company.
     recommendation: >
       Verify that the user who is trying
       to modify the information has the
       necessary permissions to access.
     threat: >
-      Possibility for an external employee to modify
-      or replace the information of other employees
-      independently of your company.
+      External attacker with access to
+      employees information.
   es:
     title: Restricted fields manipulation
     description: >
@@ -16389,21 +16385,16 @@
       como nombres, correos fechas de nacimiento,
       direcciones, teléfonos, entre otros.
     impact: >
-      - Atacante entra a petición de
-      confirmación de registro.
-
-      - Atacante varia el DNI del empleado.
-
-      - Atacante modifica o reemplaza la
-      información del empleado.
+      Modificar o sustituir la información
+      de otros empleados independientemente
+      de la empresa.
     recommendation: >
       Verificar que el usuario que está intentando
       modificar la información efectivamente tenga
       los permisos necesarios para acceder.
     threat: >
-      Posibilidad de que un empleado externo
-      modifique o reemplace la información de
-      otros empleados independientemente de su empresa.
+      Atacante externo con acceso a la
+      información de los empleados.
   category: Inject Unexpected
   score:
     base:
@@ -16539,16 +16530,17 @@
       set to disable, good security practices suggest
       that credentials should be renewed in 90 day periods.
     impact: >
-      External attacker.
+      Leak of credentials that can be
+      used for further attacks.
     recommendation: >
-      Establish credential policies following
+      - Establish credential policies following
       the requirements of the different security
       and cloud standards.
+
+      - Credentials should have an expiration time
+      limit to mitigate possible leakage.
     threat: >
-      Credentials should have an expiration time
-      limit, this helps to mitigate possible leakage
-      and leakage of credentials that can be used
-      for further attacks.
+      External attacker with unauthorized credentials.
   es:
     title: Weak credential policy - Password Expiration
     description: >
@@ -16558,16 +16550,20 @@
       seguridad sugieren que las credenciales deben renovarse
       en periodos de noventa días.
     impact: >
-      Atacante externo.
+      Filtrar de credenciales que pueden
+      ser utilizadas para otros ataques.
     recommendation: >
-      Establecer políticas de credenciales siguiendo
-      los requerimientos en los diferentes estándares
-      de seguridad y cloud.
+      - Establecer políticas de credenciales
+      siguiendo los requisitos de los
+      diferentes estándares de seguridad
+      y de la nube.
+
+      - Las credenciales deben tener un
+      límite de tiempo de caducidad para
+      mitigar posibles fugas.
     threat: >
-      Las credenciales deben contar con un tiempo
-      límite de caducidad, esto ayuda a mitigar
-      posibles fugas y filtración de credenciales
-      que pueden ser usadas para posteriores ataques.
+      Atacante externo con credenciales
+      no autorizadas.
   category: Probabilistic Techniques
   score:
     base:
@@ -16746,10 +16742,11 @@
       Insecure communications medium and channels
       require application data protection in transit.
     impact: >
-      - Insecure sessions are established.
+      - Establish insecure sessions.
 
-      - Authentication of the communications channel
-      between the client and the server compromised.
+      - Authenticate and compromise
+      communications channels
+      between the client and the server.
 
       - Compromise sensitive information that
       travels in plain text.
@@ -16769,12 +16766,13 @@
       Los medios y canales de comunicación inseguros requieren
       aplicaciones de protección de datos en tránsito.
     impact: >
-      - Se establecen sesiones inseguras.
+      - Establecer sesiones inseguras.
 
-      - Autenticación del canal de comunicación entre
-      el cliente y el servidor comprometidas.
+      - Autenticar y comprometer el canal
+      de comunicación entre el cliente y
+      el servidor.
 
-      - Se compromete la información sensible
+      - Comprometer la información sensible
       que viaja en texto plano.
     recommendation: >
       - Habilitar suites de cifrado y protocolos de cifrado seguros.
