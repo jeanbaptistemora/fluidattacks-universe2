@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 21, 2022, 10:14 AM",
+    "DateLastModified": "Jan 24, 2022, 10:58 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -309,10 +309,6 @@
         {
           "AttributeName": "sorts_risk_level",
           "AttributeType": "N"
-        },
-        {
-          "AttributeName": "affected_systems",
-          "AttributeType": "S"
         },
         {
           "AttributeName": "analyst_email",
@@ -2567,9 +2563,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "System"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2683,9 +2676,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "Front"
               },
               "sk": {
                 "S": "GROUP#asgard"
@@ -2801,9 +2791,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "Cloud storage"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2917,9 +2904,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
               },
               "sk": {
                 "S": "GROUP#continuoustesting"
@@ -3062,9 +3046,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -3193,9 +3174,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -3310,9 +3288,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#lubbock"
               },
@@ -3426,9 +3401,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "Sistema"
               },
               "sk": {
                 "S": "GROUP#oneshottest"
@@ -3584,9 +3556,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3728,9 +3697,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3871,9 +3837,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "Server bWAPP\nAnother Server"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4094,9 +4057,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "System"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4303,9 +4263,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "Sistema"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4446,9 +4403,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "test"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4616,9 +4570,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "affected_systems": {
-                "S": "test"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4800,9 +4751,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": "test"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4917,9 +4865,6 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "affected_systems": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4963,7 +4908,6 @@
             "recommendation",
             "requirements",
             "threat",
-            "affected_systems",
             "analyst_email",
             "cvss_version",
             "title",
