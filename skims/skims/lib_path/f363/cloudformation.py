@@ -1,45 +1,28 @@
-from aioextensions import (
-    in_process,
-)
 from aws.model import (
     AWSSecretsManagerSecret,
 )
 from lib_path.common import (
-    EXTENSIONS_CLOUDFORMATION,
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
 )
 from metaloaders.model import (
     Node,
 )
-from model import (
-    core_model,
-)
-from parse_cfn.loader import (
-    load_templates,
+from model.core_model import (
+    FindingEnum,
+    Vulnerabilities,
 )
 from parse_cfn.structure import (
     iter_secret_manager_secrets,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
-    Awaitable,
-    Callable,
     Iterator,
-    List,
     Union,
 )
 from utils.function import (
     get_node_by_keys,
-    TIMEOUT_1MIN,
 )
-
-_FINDING_F363 = core_model.FindingEnum.F363
-_FINDING_F363_CWE = _FINDING_F363.value.cwe
 
 
 # pylint: disable=too-many-arguments
@@ -119,16 +102,14 @@ def _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
             )
 
 
-def _cfn_insecure_generate_secret_string(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
+def cfn_insecure_generate_secret_string(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={_FINDING_F363_CWE},
+        cwe={FindingEnum.F363.value.cwe},
         description_key="src.lib_path.f363.insecure_generate_secret_string",
-        finding=_FINDING_F363,
+        finding=FindingEnum.F363,
         iterator=get_cloud_iterator(
             _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
                 secrets_iterator=iter_secret_manager_secrets(
@@ -138,43 +119,3 @@ def _cfn_insecure_generate_secret_string(
         ),
         path=path,
     )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def cfn_insecure_generate_secret_string(
-    content: str,
-    path: str,
-    template: Any,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _cfn_insecure_generate_secret_string,
-        content=content,
-        path=path,
-        template=template,
-    )
-
-
-@SHIELD
-async def analyze(
-    content_generator: Callable[[], str],
-    file_extension: str,
-    path: str,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-    if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        async for template in load_templates(
-            content=content, fmt=file_extension
-        ):
-            coroutines.append(
-                cfn_insecure_generate_secret_string(
-                    content=content,
-                    path=path,
-                    template=template,
-                )
-            )
-
-    return coroutines

@@ -22382,7 +22382,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   20 |     Properties:
   21 |       Name: MySecretForAppA
      ^ Col 0
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,14,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22411,7 +22411,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   21 |       Name: MySecretForAppA
   22 |       Description: ""This secret has a dynamically generated secret password.""
      ^ Col 0
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,12,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22440,7 +22440,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   21 |       Name: MySecretForAppA
   22 |       Description: ""This secret has a dynamically generated secret password.""
      ^ Col 0
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,17,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22469,7 +22469,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   21 |    Name: MySecretForAppA
   22 |    Description: ""This secret has a dynamically generated secret password.""
      ^ Col 3
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,11,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22498,7 +22498,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   20 |       }
   21 |     },
      ^ Col 0
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,13,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22527,7 +22527,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   22 |     ""MySecret2"": {
   23 |       ""Type"": ""AWS::SecretsManager::Secret"",
      ^ Col 0
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,15,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22556,7 +22556,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   24 |     ""Properties"": {
   25 |       ""Name"": ""MySecretForAppA"",
      ^ Col 2
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,18,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
 - It must contain uppercase and lowercase letters
 - It must contain numbers and punctuation
@@ -22585,7 +22585,7 @@ F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_
   27 |
   28 |
      ^ Col 7
-",f363._cfn_insecure_generate_secret_string
+",cloudformation.cfn_insecure_generate_secret_string
 F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | namespace Controllers
    2 | {
