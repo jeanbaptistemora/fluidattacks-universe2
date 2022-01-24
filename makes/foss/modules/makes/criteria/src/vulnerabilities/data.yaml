@@ -18098,7 +18098,10 @@
       impact on performance, even when using these
       collections from a single thread.
     impact: >
-      Application user.
+      Make requests to the system that
+      may affect process performance and response
+      times, since the system does not make use of
+      the most optimal components and libraries.
     recommendation: >
       Use the libraries that allow to execute the
       functions of concatenation and storage in
@@ -18109,6 +18112,7 @@
       may affect process performance and response
       times, since the system does not make use of
       the most optimal components and libraries.
+      Application user attack.
   es:
     title: Inappropriate coding practices - Performance
     description: >
@@ -18123,17 +18127,17 @@
       gran impacto negativo en el rendimiento, incluso
       cuando se usan estas colecciones desde un solo hilo.
     impact: >
-      Usuario de la aplicación.
+      Realizar peticiones al sistema
+      que puedan afectar el desempeño de procesos y
+      tiempos de respuesta, ya que el sistema no hace
+      uso de los componentes y librerías más óptimos.
     recommendation: >
       Utilizar las librerías que permiten ejecutar
       las funciones de concatenado y almacenamiento
       en colecciones de manera optimizada (ArrayList
       y StringBuilder o SyncronizedList).
     threat: >
-      Un usuario puede realizar peticiones al sistema
-      que puedan afectar el desempeño de procesos y
-      tiempos de respuesta, ya que el sistema no hace
-      uso de los componentes y librerías más óptimos.
+      Ataque de usuario de la aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -18215,8 +18219,8 @@
       differentiates them, since the application
       does not validate the necessary permissions to access.
     impact: >
-      An authenticated user tamper the payerUuid
-      parameter in the invoice upload function.
+      Tamper the payerUuid parameter in
+      the invoice upload function.
     recommendation: >
       Verify that the user who is trying to
       access the information has the necessary
@@ -18233,8 +18237,7 @@
       diferencia, ya que el aplicativo no valida
       los permisos necesarios para acceder.
     impact: >
-      Un usuario autenticado hace tampering
-      del parámetro payerUuid en la función
+      Manipular parámetro payerUuid en la función
       de carga de facturas.
     recommendation: >
       Verificar que el usuario que está intentando
@@ -18682,26 +18685,26 @@
     description: >
       The database server has insecure configurations.
     impact: >
-      Internet user with credentials.
+      Access the database and exploit
+      vulnerabilities in the system
+      configuration to affect the service.
     recommendation: >
       Correctly configure the MySQL server.
     threat: >
-      An attacker can access the database
-      and exploit vulnerabilities in the
-      system configuration to affect the service.
+      Internet user with credentials.
   es:
     title: Insecure service configuration - DB
     description: >
       El servidor de base de datos cuenta
       con configuraciones inseguras.
     impact: >
-      Usuario de Internet con credenciales.
+      Acceder a la base de datos y aprovechar
+      las vulnerabilidades en la configuración
+      del sistema para afectar el servicio.
     recommendation: >
       Configurar correctamente el servidor MySQL.
     threat: >
-      Un atacante puede acceder a la base de datos
-      y aprovechar las vulnerabilidades en la configuración
-      del sistema para afectar el servicio.
+      Usuario de Internet con credenciales.
   category: Abuse Functionality
   score:
     base:
@@ -18842,7 +18845,7 @@
       have been opened, because they are not
       explicitly closed within the source code.
     impact: >
-      Exhausting server resources.
+      Exhaust server resources.
     recommendation: >
       Outflows must be explicitly shut down
       immediately after use.
@@ -19001,17 +19004,17 @@
       configurations, as it is obtained from the
       admon-chanel configuration file.
     impact: >
-      Internal attacker.
-    recommendation: >
-      Service configurations and credentials
-      must be in protected environments.
-    threat: >
-      An attacker can use these insecure service
+      Use these insecure service
       configurations to gain access to the AD
       and collect all kinds of information that
       will be useful in later attacks, such as
       internal network architecture recognition
       or employee information.
+    recommendation: >
+      Service configurations and credentials
+      must be in protected environments.
+    threat: >
+      Internal attacker.
   es:
     title: Insecure service configuration - LDAP
     description: >
@@ -19021,18 +19024,18 @@
       como se obtiene de el archivo de
       configuraciones admon-chanel.
     impact: >
-      Atacante interno.
-    recommendation: >
-      Las configuraciones de los servicios y
-      credenciales de estos deben estar en
-      ambientes protegidos.
-    threat: >
-      Un atacante puede usar estas configuraciones
+      Usar estas configuraciones
       inseguras de los servicios para obtener acceso
       al AD y asi recolectar todo tipo de infirmación
       que le sera util en posteriores ataques, como
       reconocimiento de la arquitectura interna de la
       red o información de empleados.
+    recommendation: >
+      Las configuraciones de los servicios y
+      credenciales de estos deben estar en
+      ambientes protegidos.
+    threat: >
+      Atacante interno.
   category: Abuse Functionality
   score:
     base:
@@ -19060,7 +19063,7 @@
       que podría interpretarse en el sitio que
       reciba el JSON de respuesta.
     impact: >
-      - Inserting character sequences whose semantics
+      - Insert character sequences whose semantics
       result in the creation of new HTML elements,
       log file injection, remote command execution or
       insecure file fetching.
@@ -19236,8 +19239,8 @@
       of the vulnerabilities over the time and the
       policies is still accessible by the email.
     impact: >
-      Ability for unauthorized administrators to manage
-      user access to different system resources.
+      Grant the ability for unauthorized administrators
+      to manage user access to different system resources.
     recommendation: >
       Grant access to the projects only to users
       that have consented the reception of information
@@ -19264,8 +19267,8 @@
       de las vulnerabilidades en el tiempo y las políticas
       sigue siendo accesible por el correo electrónico.
     impact: >
-      Posibilidad de que los administradores no
-      autorizados gestionen el acceso de los usuarios
+      Otorgar la habilidad para que los administradores
+      no autorizados gestionen el acceso de los usuarios
       a los diferentes recursos del sistema.
     recommendation: >
       Permitir el acceso a los proyectos sólo a los
