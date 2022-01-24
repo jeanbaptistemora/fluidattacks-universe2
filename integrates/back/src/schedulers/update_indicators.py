@@ -33,6 +33,12 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -211,6 +217,10 @@ def format_exposed_chart_yearly(
     return result_data
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    sleep_seconds=5,
+)
 async def create_register_by_week(  # pylint: disable=too-many-locals
     loaders: Dataloaders, group: str, min_date: Optional[datetime] = None
 ) -> RegisterByTime:
@@ -355,6 +365,10 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     )
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    sleep_seconds=5,
+)
 async def create_register_by_month(  # pylint: disable=too-many-locals
     *, loaders: Dataloaders, group: str
 ) -> RegisterByTime:
