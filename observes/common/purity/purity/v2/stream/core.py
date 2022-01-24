@@ -5,18 +5,19 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-import more_itertools
 from purity.v2.cmd import (
     Cmd,
 )
 from purity.v2.frozen import (
     FrozenList,
 )
+from purity.v2.stream import (
+    _iter_factory,
+)
 from typing import (
     Callable,
     Generic,
     Iterable,
-    Iterator,
     TypeVar,
 )
 
@@ -31,10 +32,6 @@ class _Stream(
     _new_iter: Cmd[Iterable[_T]]
 
 
-def _chunked(items: Iterable[_T], size: int) -> Iterator[FrozenList[_T]]:
-    return iter(map(lambda l: tuple(l), more_itertools.chunked(items, size)))
-
-
 class Stream(_Stream[_T]):
     def __init__(self, obj: _Stream[_T]):
         super().__init__(obj._new_iter)
@@ -46,7 +43,9 @@ class Stream(_Stream[_T]):
         return Stream(draft)
 
     def chunked(self, size: int) -> Stream[FrozenList[_T]]:
-        draft = _Stream(self._new_iter.map(lambda i: _chunked(i, size)))
+        draft = _Stream(
+            self._new_iter.map(lambda i: _iter_factory.chunked(i, size))
+        )
         return Stream(draft)
 
     def to_list(self) -> Cmd[FrozenList[_T]]:
