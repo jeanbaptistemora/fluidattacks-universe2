@@ -66,17 +66,6 @@ def _ec2_has_not_termination_protection_iterate_vulnerabilities(
             yield resource
 
 
-def _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        if not get_attribute(
-            key="iam_instance_profile",
-            body=resource.data,
-        ):
-            yield resource
-
-
 def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -131,25 +120,6 @@ def ec2_has_not_termination_protection(
         iterator=get_cloud_iterator(
             _ec2_has_not_termination_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)
-            )
-        ),
-        path=path,
-    )
-
-
-def tfm_ec2_has_not_an_iam_instance_profile(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        cwe={FindingEnum.F333.value.cwe},
-        description_key=(
-            "src.lib_path.f333.ec2_has_not_an_iam_instance_profile"
-        ),
-        finding=FindingEnum.F333,
-        iterator=get_cloud_iterator(
-            _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
-                resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,
