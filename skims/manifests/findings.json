@@ -487,6 +487,14 @@
       "title": "200. Traceability loss"
     }
   },
+  "F203": {
+    "EN": {
+      "title": "203. Unauthorized access to files - S3 Bucket"
+    },
+    "ES": {
+      "title": "203. Unauthorized access to files - S3 Bucket"
+    }
+  },
   "F206": {
     "EN": {
       "title": "206. Security controls bypass or absence - Anti hooking"
