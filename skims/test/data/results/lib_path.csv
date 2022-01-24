@@ -20573,7 +20573,7 @@ F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_in
   20 |       KeyName: ""testkey""
   21 |       IamInstanceProfile: iamProfile
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
    8 |       - DeviceName: ""/dev/sdm""
    9 |         Ebs:
@@ -20597,7 +20597,7 @@ F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_in
   27 |           DeleteOnTermination: ""false""
   28 |           VolumeSize: ""20""
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -20621,7 +20621,7 @@ F257,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_ec2_has_not_an_iam_in
   20 |             ""DeviceName"": ""/dev/sdk"",
   21 |             ""NoDevice"": {}
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -20645,7 +20645,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   20 |         LaunchTemplateId:
   21 |           Ref: launchTemplate
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    7 |       BlockDeviceMappings:
    8 |         - DeviceName: ""/dev/sdm""
@@ -20669,7 +20669,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   26 |             - LatestVersionNumber
   27 |       NetworkInterfaces:
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -20693,7 +20693,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   20 |             ""NoDevice"": {}
   21 |           }
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
   16 |             }
   17 |           },
@@ -20717,7 +20717,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   35 |               ""launchTemplate"",
   36 |               ""LatestVersionNumber""
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
    7 |        InstanceType: t2.micro
    8 |        KeyName: MyKeyPair
@@ -20741,7 +20741,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   26 |    Type: AWS::EC2::LaunchTemplate
   27 |    Properties:
      ^ Col 1
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,22,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   12 |     Properties:
   13 |       LaunchTemplateName: MyLaunchTemplate
@@ -20765,7 +20765,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   31 |     Properties:
   32 |       ImageId: ""ami-79fd7eee""
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,27,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   17 |         DisableApiTermination: False
   18 |   MyLaunchTemplate3:
@@ -20789,7 +20789,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   36 |     Type: AWS::EC2::Instance
   37 |     Properties:
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   25 |   MyLaunchTemplate4:
   26 |     Type: AWS::EC2::LaunchTemplate
@@ -20813,7 +20813,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   44 |       ImageId: ""ami-79fd7eee""
   45 |       KeyName: ""testkey""
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,40,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   25 |   MyLaunchTemplate4:
   26 |     Type: AWS::EC2::LaunchTemplate
@@ -20837,7 +20837,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   44 |       ImageId: ""ami-79fd7eee""
   45 |       KeyName: ""testkey""
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,21,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   11 |    }
   12 |  }
@@ -20861,7 +20861,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   30 |      ""InstanceType"": ""t2.micro"",
   31 |      ""KeyName"": ""MyKeyPair""
      ^ Col 5
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,29,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   19 |           ""InstanceType"": ""t2.micro"",
   20 |           ""KeyName"": ""MyKeyPair"",
@@ -20885,7 +20885,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
   39 |       }
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,37,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   27 |       ""Properties"": {
   28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
@@ -20909,7 +20909,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   46 |         ""DisableApiTermination"": true
   47 |       }
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,54,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   44 |      ""ImageId"": ""ami-79fd7eee"",
   45 |      ""KeyName"": ""testkey"",
@@ -20933,7 +20933,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |  }
   64 |
      ^ Col 3
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   45 |         ""KeyName"": ""testkey"",
   46 |         ""DisableApiTermination"": true
@@ -20957,7 +20957,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   64 |   }
   65 | }
      ^ Col 0
-",f257._cfn_ec2_has_not_termination_protection
+",cloudformation.cfn_ec2_has_not_termination_protection
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String
