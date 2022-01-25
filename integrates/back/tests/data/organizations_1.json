@@ -17,7 +17,7 @@
                     "S": "2019-11-22 15:07:57"
                   },
                   "user": {
-                    "S": "__adminEmail__"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "max_number_acceptations": {
                     "N": "4"
@@ -54,7 +54,7 @@
             "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
           },
           "sk": {
-            "S": "USER#__adminEmail__"
+            "S": "USER#integratesmanager@gmail.com"
           }
         }
       }
@@ -136,7 +136,7 @@
                     "S": "2019-11-22 15:07:57"
                   },
                   "user": {
-                    "S": "__adminEmail__"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "max_number_acceptations": {
                     "N": "3"
@@ -173,7 +173,7 @@
             "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
           },
           "sk": {
-            "S": "USER#__adminEmail__"
+            "S": "USER#integratesmanager@gmail.com"
           }
         }
       }

@@ -1,0 +1,184 @@
+{
+  "fi_authz": [
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "user"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "self"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "role": {
+            "S": "customeradmin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "role": {
+            "S": "customer"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "metropolis"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "gotham"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "asgard"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "org#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "barranquilla"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "monteria"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "organization"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "org#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    }
+  ]
+}

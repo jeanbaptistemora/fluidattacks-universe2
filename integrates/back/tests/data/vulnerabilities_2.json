@@ -691,7 +691,7 @@
                     "S": "2019-09-13 09:03:05"
                   },
                   "analyst": {
-                    "S": "__adminEmail__"
+                    "S": "integratesmanager@gmail.com"
                   },
                   "source": {
                     "S": "integrates"

@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local email="" # Place your email here to become an admin
+  local email="${GITLAB_USER_EMAIL:-unknown@gmail.com}"
+  local out="makes/foss/units/integrates/db/.data"
   local i=0
   local included_facets=(
     credentials_metadata
@@ -41,11 +42,12 @@ function main {
   local facets=''
 
   facets=$(echo "${included_facets[@]}" | jq -R 'split(" ")') \
-    && mkdir "${out}" \
+    && rm -rf "${out}" \
+    && mkdir -p "${out}" \
     && echo '[INFO] Populating from new database design...' \
     && jq -c --arg facets "${facets}" \
       '{integrates_vms: [.DataModel[].TableFacets[] | select(.FacetName as $fn | $facets | index($fn) ) | {PutRequest: {Item: .TableData[]}}]}' \
-      "${envNewDbDesign}" > "${out}/database-design" \
+      "__argNewDbDesign__" > "${out}/database-design" \
     && items_len=$(jq '.integrates_vms | length' "${out}/database-design") \
     && echo "items qy: ${items_len}" \
     && while [ $((i * 25)) -lt "$items_len" ]; do
@@ -55,26 +57,11 @@ function main {
           "${out}/database-design" > "${out}/database-design${i}.json" \
         && ((i++))
     done \
-    && if test -z "${email}"; then
-      echo "[INFO] Admin email for new DB: test@fluidattacks.com"
-      echo "[INFO] Admin email for old DB: integratesmanager@gmail.com"
-    else
-      echo "[INFO] Admin email for new DB: ${email}"
-      echo "[INFO] Admin email for old DB: ${email}"
-    fi \
-    && for data in "${out}/database-design"*.json; do
-      if test -n "${email}"; then
-        sed -i "s/test@fluidattacks.com/${email}/g" "${data}"
-      fi
-    done \
-    && for data in "${envDbData}/"*'.json'; do
-      if test -z "${email}"; then
-        sed "s/__adminEmail__/integratesmanager@gmail.com/g" "${data}" \
-          > "${out}/$(basename "${data}")"
-      else
-        sed "s/__adminEmail__/${email}/g" "${data}" \
-          > "${out}/$(basename "${data}")"
-      fi
+    && echo "[INFO] Admin email for new DB: ${email}" \
+    && echo "[INFO] Admin email for old DB: ${email}" \
+    && for data in "__argDbData__/"*'.json'; do
+      sed "s/__adminEmail__/${email}/g" "${data}" \
+        > "${out}/$(basename "${data}")"
     done
 }
 

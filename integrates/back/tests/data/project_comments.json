@@ -190,7 +190,7 @@
             "S": "2019-05-28 15:09:37"
           },
           "email": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "fullname": {
             "S": "integrates manager"

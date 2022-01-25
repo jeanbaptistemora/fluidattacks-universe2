@@ -467,7 +467,8 @@ async def test_get_description() -> None:
 
 async def test_get_users() -> None:
     group_name = "unittesting"
-    expected_output = [
+    users = await get_group_users(group_name)
+    expected = [
         "integratesserviceforces@gmail.com",
         "integratesmanager@gmail.com",
         "unittest@fluidattacks.com",
@@ -486,7 +487,8 @@ async def test_get_users() -> None:
         "continuoushack2@gmail.com",
         "integratesreviewer@fluidattacks.com",
     ]
-    assert expected_output == await get_group_users(group_name)
+    for user in expected:
+        assert user in users
 
 
 async def test_get_reattackers() -> None:

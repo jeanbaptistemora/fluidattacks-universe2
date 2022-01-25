@@ -157,7 +157,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           }
         }
       }
@@ -193,7 +193,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           }
         }
       }
@@ -247,7 +247,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           }
         }
       }

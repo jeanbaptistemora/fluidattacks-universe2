@@ -79,7 +79,7 @@ spec:
           command: [m]
           args:
             - f@${CI_COMMIT_SHA}
-            - /dynamoDb/${TARGET_PRODUCT}
+            - /integrates/db
           env:
             - name: MAKES_K8S_COMPAT
               value: "1"

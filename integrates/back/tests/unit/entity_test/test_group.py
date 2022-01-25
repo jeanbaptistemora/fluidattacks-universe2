@@ -88,42 +88,7 @@ async def test_group() -> None:
         }
       }
     """
-
-    data = {"query": query, "variables": variables}
-    result = await _get_result_async(data)
-
-    assert "errors" not in result
-    assert result["data"]["group"]["name"] == "unittesting"
-    assert result["data"]["group"]["hasSquad"]
-    assert result["data"]["group"]["hasForces"]
-    assert len(result["data"]["group"]["findings"]) == 6
-    assert result["data"]["group"]["openVulnerabilities"] == 31
-    assert result["data"]["group"]["closedVulnerabilities"] == 8
-    assert "lastClosedVulnerability" in result["data"]["group"]
-    assert result["data"]["group"]["maxSeverity"] == 6.3
-    assert result["data"]["group"]["meanRemediate"] == 245
-    assert result["data"]["group"]["meanRemediateLowSeverity"] == 232
-    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 287
-    assert result["data"]["group"]["openFindings"] == 5
-    assert result["data"]["group"]["totalFindings"] == 6
-    assert "totalTreatment" in result["data"]["group"]
-    assert result["data"]["group"]["subscription"] == "continuous"
-    assert result["data"]["group"]["deletionDate"] == ""
-    assert result["data"]["group"]["userDeletion"] == ""
-    assert result["data"]["group"]["tags"][0] == "test-groups"
-    assert (
-        result["data"]["group"]["description"] == "Integrates unit test group"
-    )
-    assert result["data"]["group"]["disambiguation"] == "Disambiguation test"
-    assert result["data"]["group"]["groupContext"] == "Group context test"
-    assert len(result["data"]["group"]["drafts"]) == 1
-    assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
-    assert len(result["data"]["group"]["events"]) == 5
-    assert (
-        result["data"]["group"]["consulting"][0]["content"]
-        == "Now we can post comments on groups"
-    )
-    assert result["data"]["group"]["stakeholders"] == [
+    expected_stakeholders = [
         {
             "email": "integratesserviceforces@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
@@ -181,6 +146,43 @@ async def test_group() -> None:
             "role": "customeradmin",
         },
     ]
+
+    data = {"query": query, "variables": variables}
+    result = await _get_result_async(data)
+
+    assert "errors" not in result
+    assert result["data"]["group"]["name"] == "unittesting"
+    assert result["data"]["group"]["hasSquad"]
+    assert result["data"]["group"]["hasForces"]
+    assert len(result["data"]["group"]["findings"]) == 6
+    assert result["data"]["group"]["openVulnerabilities"] == 31
+    assert result["data"]["group"]["closedVulnerabilities"] == 8
+    assert "lastClosedVulnerability" in result["data"]["group"]
+    assert result["data"]["group"]["maxSeverity"] == 6.3
+    assert result["data"]["group"]["meanRemediate"] == 245
+    assert result["data"]["group"]["meanRemediateLowSeverity"] == 232
+    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 287
+    assert result["data"]["group"]["openFindings"] == 5
+    assert result["data"]["group"]["totalFindings"] == 6
+    assert "totalTreatment" in result["data"]["group"]
+    assert result["data"]["group"]["subscription"] == "continuous"
+    assert result["data"]["group"]["deletionDate"] == ""
+    assert result["data"]["group"]["userDeletion"] == ""
+    assert result["data"]["group"]["tags"][0] == "test-groups"
+    assert (
+        result["data"]["group"]["description"] == "Integrates unit test group"
+    )
+    assert result["data"]["group"]["disambiguation"] == "Disambiguation test"
+    assert result["data"]["group"]["groupContext"] == "Group context test"
+    assert len(result["data"]["group"]["drafts"]) == 1
+    assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
+    assert len(result["data"]["group"]["events"]) == 5
+    assert (
+        result["data"]["group"]["consulting"][0]["content"]
+        == "Now we can post comments on groups"
+    )
+    for stakeholder in expected_stakeholders:
+        assert stakeholder in result["data"]["group"]["stakeholders"]
 
 
 @pytest.mark.changes_db

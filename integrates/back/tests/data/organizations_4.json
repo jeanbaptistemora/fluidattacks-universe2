@@ -1,0 +1,52 @@
+{
+  "fi_organizations": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+          },
+          "sk": {
+            "S": "USER#__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "USER#__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+          },
+          "sk": {
+            "S": "USER#__adminEmail__"
+          }
+        }
+      }
+    }
+  ]
+}

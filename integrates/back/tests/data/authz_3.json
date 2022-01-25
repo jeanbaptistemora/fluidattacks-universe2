@@ -7,7 +7,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "metropolis"
@@ -25,7 +25,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "gotham"
@@ -43,7 +43,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "asgard"
@@ -61,7 +61,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "org#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -223,7 +223,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "barranquilla"
@@ -241,7 +241,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "monteria"
@@ -259,7 +259,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "__adminEmail__"
+            "S": "integratesmanager@gmail.com"
           },
           "object": {
             "S": "org#956e9107-fd8d-49bc-b550-5609a7a1f6ac"

@@ -208,8 +208,7 @@ async def test_get_groups() -> None:
 async def test_get_users() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_dal.get_users(org_id)
-    assert len(users) == 16
-    assert sorted(users) == [
+    expected = [
         "continuoushack2@gmail.com",
         "continuoushacking@gmail.com",
         "customer_manager@fluidattacks.com",
@@ -227,6 +226,9 @@ async def test_get_users() -> None:
         "integratesuser@gmail.com",
         "unittest2@fluidattacks.com",
     ]
+    assert len(users) == 17
+    for user in expected:
+        assert user in users
 
 
 async def test_has_group() -> None:

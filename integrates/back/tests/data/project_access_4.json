@@ -1,0 +1,148 @@
+{
+  "FI_project_access": [
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "oneshottest"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "pendinggroup"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "metropolis"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "gotham"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "asgard"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "barranquilla"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "responsibility": {
+            "S": "Test"
+          },
+          "project_name": {
+            "S": "monteria"
+          },
+          "has_access": {
+            "BOOL": true
+          },
+          "user_email": {
+            "S": "__adminEmail__"
+          }
+        }
+      }
+    }
+  ]
+}

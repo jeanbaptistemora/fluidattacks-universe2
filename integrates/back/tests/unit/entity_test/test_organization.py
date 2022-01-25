@@ -382,7 +382,8 @@ async def test_organization() -> None:
     )
     assert result["data"]["organization"]["name"] == "okada"
     assert sorted(groups) == expected_groups
-    assert sorted(stakeholders) == expected_stakeholders
+    for stakeholder in expected_stakeholders:
+        assert stakeholder in stakeholders
 
     exe = UserNotInOrganization()
     result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
