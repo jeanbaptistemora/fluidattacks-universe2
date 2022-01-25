@@ -28,14 +28,14 @@ _I = TypeVar("_I")
 _R = TypeVar("_R")
 
 
-def unsafe_from_cmd(iterable: Cmd[Iterable[_T]]) -> PureIter[_T]:
+def unsafe_from_cmd(cmd: Cmd[Iterable[_T]]) -> PureIter[_T]:
     # This is an unsafe constructor (type-check cannot ensure its proper use)
     # Do not use until is strictly necessary
     #
     # Cmd MUST produce semanticly equivalent iterables. This is:
     # possibly different objects that means the same thing
     #
-    # - if Iterable is IMMUTABLE (e.g. tuple) then requirement is fullfilled
+    # - if Iterable is IMMUTABLE (e.g. tuple) then requirement is fulfilled
     # - if Iterable is MUTABLE then the Cmd must call the obj constructor (that is not pure)
     # with the same arguments for ensuring equivalence.
     #
@@ -55,7 +55,7 @@ def unsafe_from_cmd(iterable: Cmd[Iterable[_T]]) -> PureIter[_T]:
     #   )
     #   # cmd lambda produces a new ref in each call
     #   # but all of them are equivalent (created with the same args)
-    return PureIter(_PureIter(iterable))
+    return PureIter(_PureIter(cmd))
 
 
 def from_flist(items: FrozenList[_T]) -> PureIter[_T]:

@@ -48,6 +48,9 @@ class Stream(_Stream[_T]):
         )
         return Stream(draft)
 
+    def transform(self, function: Callable[[Stream[_T]], _R]) -> _R:
+        return function(self)
+
     def to_list(self) -> Cmd[FrozenList[_T]]:
         return self._new_iter.map(tuple)
 

@@ -57,6 +57,9 @@ class PureIter(_PureIter[_T]):
         cmd = self._new_iter.map(lambda x: tuple(x))
         return unsafe_unwrap(cmd)
 
+    def transform(self, function: Callable[[PureIter[_T]], _R]) -> _R:
+        return function(self)
+
     def __iter__(self) -> Iterator[_T]:
         # all cmds will result in an equivalent new iterator
         return iter(unsafe_unwrap(self._new_iter))
