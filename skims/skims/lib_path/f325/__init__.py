@@ -1,9 +1,6 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f325.cloudformation import (
     cfn_iam_has_privileges_over_iam,
@@ -16,7 +13,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
-    load_templates,
+    load_templates_blocking,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -27,88 +24,63 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_kms_key_has_master_keys_exposed_to_everyone(
+@SHIELD_BLOCKING
+def run_cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_kms_key_has_master_keys_exposed_to_everyone,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_kms_key_has_master_keys_exposed_to_everyone(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_has_wildcard_resource_on_write_action(
+@SHIELD_BLOCKING
+def run_cfn_iam_has_wildcard_resource_on_write_action(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_has_wildcard_resource_on_write_action,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_iam_has_wildcard_resource_on_write_action(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_is_policy_miss_configured(
+@SHIELD_BLOCKING
+def run_cfn_iam_is_policy_miss_configured(
     content: str,
     file_ext: str,
     path: str,
     template: Any,
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_is_policy_miss_configured,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
+    return cfn_iam_is_policy_miss_configured(
+        content=content, file_ext=file_ext, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_has_privileges_over_iam(
+@SHIELD_BLOCKING
+def run_cfn_iam_has_privileges_over_iam(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_has_privileges_over_iam,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_iam_has_privileges_over_iam(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_is_role_over_privileged(
+@SHIELD_BLOCKING
+def run_cfn_iam_is_role_over_privileged(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_is_role_over_privileged,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
+    return cfn_iam_is_role_over_privileged(
+        content=content, file_ext=file_ext, path=path, template=template
     )
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     path: str,
@@ -119,7 +91,7 @@ async def analyze(
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
 
-        async for template in load_templates(content, fmt=file_extension):
+        for template in load_templates_blocking(content, fmt=file_extension):
             coroutines.append(
                 run_cfn_kms_key_has_master_keys_exposed_to_everyone(
                     content, path, template

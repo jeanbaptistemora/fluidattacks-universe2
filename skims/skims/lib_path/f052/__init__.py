@@ -1,9 +1,6 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_JAVA_PROPERTIES,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f052.java import (
     java_properties_missing_ssl,
@@ -20,39 +17,26 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_java_properties_missing_ssl(
+@SHIELD_BLOCKING
+def run_java_properties_missing_ssl(
     content: str, path: str
 ) -> Vulnerabilities:
-    return await in_process(
-        java_properties_missing_ssl,
-        content=content,
-        path=path,
-    )
+    return java_properties_missing_ssl(content=content, path=path)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_java_properties_weak_cipher_suite(
+@SHIELD_BLOCKING
+def run_java_properties_weak_cipher_suite(
     content: str, path: str
 ) -> Vulnerabilities:
-    return await in_process(
-        java_properties_weak_cipher_suite,
-        content=content,
-        path=path,
-    )
+    return java_properties_weak_cipher_suite(content=content, path=path)
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     path: str,

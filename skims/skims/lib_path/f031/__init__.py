@@ -1,10 +1,7 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f031.cloudformation import (
     cfn_admin_policy_attached,
@@ -27,10 +24,10 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
-    load_templates,
+    load_templates_blocking,
 )
 from parse_hcl2.loader import (
-    load as load_terraform,
+    load_blocking as load_terraform,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -41,58 +38,42 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_admin_policy_attached(
+@SHIELD_BLOCKING
+def run_cfn_admin_policy_attached(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     # cfn_nag W43 IAM role should not have AdministratorAccess policy
-    return await in_process(
-        cfn_admin_policy_attached,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_admin_policy_attached(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_bucket_policy_allows_public_access(
+@SHIELD_BLOCKING
+def run_cfn_bucket_policy_allows_public_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_bucket_policy_allows_public_access,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_bucket_policy_allows_public_access(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_user_missing_role_based_security(
+@SHIELD_BLOCKING
+def run_cfn_iam_user_missing_role_based_security(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_user_missing_role_based_security,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_iam_user_missing_role_based_security(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_negative_statement(
+@SHIELD_BLOCKING
+def run_cfn_negative_statement(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     # cloudconformity IAM-061
@@ -103,18 +84,14 @@ async def run_cfn_negative_statement(
     # cfn_nag W21 IAM role should not allow Allow+NotResource
     # cfn_nag W22 IAM policy should not allow Allow+NotResource
     # cfn_nag W23 IAM managed policy should not allow Allow+NotResource
-    return await in_process(
-        cfn_negative_statement,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_negative_statement(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_open_passrole(
+@SHIELD_BLOCKING
+def run_cfn_open_passrole(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     # cfn_nag F38 IAM role should not allow * resource with PassRole action
@@ -122,18 +99,12 @@ async def run_cfn_open_passrole(
     # cfn_nag F39 IAM policy should not allow * resource with PassRole action
     # cfn_nag F40 IAM managed policy should not allow a * resource with
     #             PassRole action
-    return await in_process(
-        cfn_open_passrole,
-        content=content,
-        path=path,
-        template=template,
-    )
+    return cfn_open_passrole(content=content, path=path, template=template)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_permissive_policy(
+@SHIELD_BLOCKING
+def run_cfn_permissive_policy(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     # cloudconformity IAM-045
@@ -145,62 +116,43 @@ async def run_cfn_permissive_policy(
     # cfn_nag F3 IAM role should not allow * action on its permissions policy
     # cfn_nag F4 IAM policy should not allow * action
     # cfn_nag F5 IAM managed policy should not allow * action
-    return await in_process(
-        cfn_permissive_policy,
-        content=content,
-        path=path,
-        template=template,
-    )
+    return cfn_permissive_policy(content=content, path=path, template=template)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_ec2_has_not_an_iam_instance_profile(
+@SHIELD_BLOCKING
+def run_cfn_ec2_has_not_an_iam_instance_profile(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_ec2_has_not_an_iam_instance_profile,
-        content=content,
-        file_ext=file_ext,
-        path=path,
-        template=template,
+    return cfn_ec2_has_not_an_iam_instance_profile(
+        content=content, file_ext=file_ext, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_iam_has_full_access_to_ssm(
+@SHIELD_BLOCKING
+def run_cfn_iam_has_full_access_to_ssm(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_iam_has_full_access_to_ssm,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_iam_has_full_access_to_ssm(
+        content=content, path=path, template=template
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_terraform_admin_policy_attached(
+@SHIELD_BLOCKING
+def run_terraform_admin_policy_attached(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     # cfn_nag W43 IAM role should not have AdministratorAccess policy
-    return await in_process(
-        terraform_admin_policy_attached,
-        content=content,
-        path=path,
-        model=model,
+    return terraform_admin_policy_attached(
+        content=content, path=path, model=model
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_terraform_negative_statement(
+@SHIELD_BLOCKING
+def run_terraform_negative_statement(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     # cloudconformity IAM-061
@@ -211,18 +163,14 @@ async def run_terraform_negative_statement(
     # cfn_nag W21 IAM role should not allow Allow+NotResource
     # cfn_nag W22 IAM policy should not allow Allow+NotResource
     # cfn_nag W23 IAM managed policy should not allow Allow+NotResource
-    return await in_process(
-        terraform_negative_statement,
-        content=content,
-        path=path,
-        model=model,
+    return terraform_negative_statement(
+        content=content, path=path, model=model
     )
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_terraform_open_passrole(
+@SHIELD_BLOCKING
+def run_terraform_open_passrole(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     # cfn_nag F38 IAM role should not allow * resource with PassRole action
@@ -230,18 +178,12 @@ async def run_terraform_open_passrole(
     # cfn_nag F39 IAM policy should not allow * resource with PassRole action
     # cfn_nag F40 IAM managed policy should not allow a * resource with
     #             PassRole action
-    return await in_process(
-        terraform_open_passrole,
-        content=content,
-        path=path,
-        model=model,
-    )
+    return terraform_open_passrole(content=content, path=path, model=model)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_terraform_permissive_policy(
+@SHIELD_BLOCKING
+def run_terraform_permissive_policy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     # cloudconformity IAM-045
@@ -253,30 +195,21 @@ async def run_terraform_permissive_policy(
     # cfn_nag F3 IAM role should not allow * action on its permissions policy
     # cfn_nag F4 IAM policy should not allow * action
     # cfn_nag F5 IAM managed policy should not allow * action
-    return await in_process(
-        terraform_permissive_policy,
-        content=content,
-        path=path,
-        model=model,
-    )
+    return terraform_permissive_policy(content=content, path=path, model=model)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_tfm_ec2_has_not_an_iam_instance_profile(
+@SHIELD_BLOCKING
+def run_tfm_ec2_has_not_an_iam_instance_profile(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        tfm_ec2_has_not_an_iam_instance_profile,
-        content=content,
-        path=path,
-        model=model,
+    return tfm_ec2_has_not_an_iam_instance_profile(
+        content=content, path=path, model=model
     )
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     path: str,
@@ -286,7 +219,7 @@ async def analyze(
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
-        async for template in load_templates(content, fmt=file_extension):
+        for template in load_templates_blocking(content, fmt=file_extension):
             coroutines.append(
                 run_cfn_admin_policy_attached(content, path, template)
             )
@@ -317,7 +250,7 @@ async def analyze(
             )
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
-        model = await load_terraform(stream=content, default=[])
+        model = load_terraform(stream=content, default=[])
 
         coroutines.append(
             run_terraform_admin_policy_attached(content, path, model)

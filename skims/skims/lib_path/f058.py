@@ -1,8 +1,5 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from model import (
     core_model,
@@ -22,20 +19,17 @@ from typing import (
 )
 
 
-@SHIELD
-async def check(
+@SHIELD_BLOCKING
+def check(
     path: str,
 ) -> core_model.Vulnerabilities:
     apk_ctx: APKContext = get_apk_context(path)
     apk_check_ctx: APKCheckCtx = get_check_ctx(apk_ctx)
-    return await in_process(
-        _apk_debugging_enabled,
-        ctx=apk_check_ctx,
-    )
+    return _apk_debugging_enabled(ctx=apk_check_ctx)
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     file_name: str,
     file_extension: str,
     path: str,

@@ -1,6 +1,6 @@
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from model import (
     core_model,
@@ -13,15 +13,11 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def non_upgradeable_deps(
+@SHIELD_BLOCKING
+def non_upgradeable_deps(
     path: str,
     raw_content: bytes,
 ) -> core_model.Vulnerabilities:
@@ -35,8 +31,8 @@ async def non_upgradeable_deps(
     )
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     path: str,
     raw_content_generator: Callable[[], Awaitable[bytes]],
     **_: None,
@@ -44,7 +40,7 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = [
         non_upgradeable_deps(
             path=path,
-            raw_content=await raw_content_generator(),
+            raw_content=raw_content_generator(),
         )
     ]
 

@@ -1,8 +1,5 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f393.npm_package_json import (
     npm_package_json,
@@ -20,26 +17,18 @@ from typing import (
 )
 
 
-@SHIELD
-async def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        npm_package_json,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
+    return npm_package_json(content=content, path=path)
 
 
-@SHIELD
-async def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
-    return await in_process(
-        npm_pkg_lock_json,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
+    return npm_pkg_lock_json(content=content, path=path)
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_name: str,
     file_extension: str,
