@@ -140,6 +140,9 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
+
+    const refreshClick: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
     ]);
@@ -150,20 +153,22 @@ describe("VulnerabilitiesView", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route path={"/todos"}>
               <TasksContent
-                meVulnerabilitiesAssigned={{
-                  me: {
-                    userEmail: "",
-                    vulnerabilitiesAssigned: [],
-                  },
-                }}
+                meVulnerabilitiesAssigned={
+                  (
+                    mocksVulnerabilities.result as Dictionary<{
+                      me: IGetMeVulnerabilitiesAssigned["me"];
+                    }>
+                  ).data
+                }
                 refetchVulnerabilitiesAssigned={jest.fn()}
-                setUserRole={jest.fn()}
-                userData={{
-                  me: {
-                    organizations: [{ groups: [], name: "orgtest" }],
-                    userEmail: "",
-                  },
-                }}
+                setUserRole={refreshClick}
+                userData={
+                  (
+                    mocksUserGroups.result as Dictionary<{
+                      me: IGetUserOrganizationsGroups["me"];
+                    }>
+                  ).data
+                }
               />
             </Route>
           </authzPermissionsContext.Provider>
@@ -178,8 +183,70 @@ describe("VulnerabilitiesView", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
-          "dataTableNext.noDataIndication"
+      });
+    });
+
+    const refreshAssigned = wrapper
+      .find("Button")
+      .find("#refresh-assigned")
+      .first();
+
+    refreshAssigned.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(refreshClick).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    const tableVulnerabilities: ReactWrapper = wrapper
+      .find({ id: "vulnerabilitiesTable" })
+      .at(0);
+    const selectionCell: ReactWrapper =
+      tableVulnerabilities.find("SelectionCell");
+    selectionCell.at(0).find("input").simulate("click");
+    selectionCell.at(1).find("input").simulate("click");
+    wrapper.update();
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const tableUpdated: ReactWrapper = wrapper
+          .find({ id: "vulnerabilitiesTable" })
+          .at(0);
+        const selectionUpdated: ReactWrapper =
+          tableUpdated.find("SelectionCell");
+
+        expect(selectionUpdated.at(0).find("input").prop("checked")).toBe(true);
+        expect(selectionUpdated.at(1).find("input").prop("checked")).toBe(true);
+      });
+    });
+
+    const buttons: ReactWrapper = wrapper.find("Button");
+    const requestButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("searchFindings.tabDescription.requestVerify.tex"))
+    );
+    requestButton.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(msgInfo).toHaveBeenCalledWith(
+          t("searchFindings.tabVuln.info.text"),
+          t("searchFindings.tabVuln.info.title"),
+          true
+        );
+        expect(msgError).toHaveBeenCalledWith(
+          t("searchFindings.tabVuln.errors.selectedVulnerabilities")
         );
       });
     });
