@@ -8,6 +8,9 @@ from purity.v2.cmd import (
 from purity.v2.maybe import (
     Maybe,
 )
+from purity.v2.pure_iter.core import (
+    PureIter,
+)
 from purity.v2.stream.core import (
     _Stream,
     Stream,
@@ -18,6 +21,13 @@ from typing import (
 )
 
 _T = TypeVar("_T")
+
+
+def chain(
+    unchained: Stream[PureIter[_T]],
+) -> Stream[_T]:
+    draft = _Stream(unchained.unsafe_to_iter().map(_iter_factory.chain))
+    return Stream(draft)
 
 
 def squash(stm: Stream[Cmd[_T]]) -> Stream[_T]:

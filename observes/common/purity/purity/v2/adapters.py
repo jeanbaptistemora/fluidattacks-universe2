@@ -1,11 +1,21 @@
 from dataclasses import (
     dataclass,
 )
+from purity.v1.pure_iter import (
+    PureIter as PureIterV1,
+)
 from purity.v2.cmd import (
     Cmd,
+    unsafe_unwrap,
 )
 from purity.v2.maybe import (
     Maybe,
+)
+from purity.v2.pure_iter.core import (
+    PureIter,
+)
+from purity.v2.pure_iter.factory import (
+    unsafe_from_cmd,
 )
 from purity.v2.result import (
     Result,
@@ -94,3 +104,11 @@ def from_returns(
 
 def to_cmd(action: Callable[[], IO[_T]]) -> Cmd[_T]:
     return Cmd.from_cmd(lambda: unsafe_perform_io(action()))
+
+
+def unsafe_to_io(action: Cmd[_T]) -> IO[_T]:
+    return IO(unsafe_unwrap(action))
+
+
+def to_piter_v2(p_iter: PureIterV1[_T]) -> PureIter[_T]:
+    return unsafe_from_cmd(Cmd.from_cmd(lambda: iter(p_iter)))
