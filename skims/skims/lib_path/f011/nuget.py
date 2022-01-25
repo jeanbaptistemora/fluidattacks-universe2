@@ -34,3 +34,26 @@ def nuget_csproj(content: str, path: str) -> Vulnerabilities:
         path=path,
         platform=Platform.NUGET,
     )
+
+
+def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
+    def resolve_dependencies() -> Iterator[DependencyType]:
+        root = bs4.BeautifulSoup(content, features="html.parser")
+
+        for pkg in root.find_all("package", recursive=True):
+            if (id_ := pkg.get("id")) and (version := pkg.get("version")):
+                column = pkg.sourcepos
+                line = pkg.sourceline
+
+                yield (
+                    {"column": column, "line": line, "item": id_},
+                    {"column": column, "line": line, "item": version},
+                )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
+        finding=FindingEnum.F011,
+        path=path,
+        platform=Platform.NUGET,
+    )

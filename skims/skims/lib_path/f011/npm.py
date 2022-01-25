@@ -10,12 +10,35 @@ from model.core_model import (
     Platform,
     Vulnerabilities,
 )
+from more_itertools import (
+    windowed,
+)
 from parse_json import (
     loads_blocking as json_loads_blocking,
 )
 from typing import (
     Iterator,
+    Tuple,
 )
+
+
+def npm_package_json(content: str, path: str) -> Vulnerabilities:
+    content_json = json_loads_blocking(content, default={})
+
+    dependencies: Iterator[DependencyType] = (
+        (product, version)
+        for key in content_json
+        if key["item"] == "dependencies"
+        for product, version in content_json[key].items()
+    )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=dependencies,
+        finding=FindingEnum.F011,
+        path=path,
+        platform=Platform.NPM,
+    )
 
 
 def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
@@ -58,6 +81,48 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
         dependencies=resolve_dependencies(
             obj=json_loads_blocking(content, default={}),
         ),
+        finding=FindingEnum.F011,
+        path=path,
+        platform=Platform.NPM,
+    )
+
+
+def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
+    def resolve_dependencies() -> Iterator[DependencyType]:
+        windower: Iterator[
+            Tuple[Tuple[int, str], Tuple[int, str]],
+        ] = windowed(
+            fillvalue="",
+            n=2,
+            seq=tuple(enumerate(content.splitlines(), start=1)),
+            step=1,
+        )
+
+        # ((11479, 'zen-observable@^0.8.21:'), (11480, '  version "0.8.21"'))
+        for (product_line, product), (version_line, version) in windower:
+            product, version = product.strip(), version.strip()
+
+            if (
+                product.endswith(":")
+                and not product.startswith(" ")
+                and version.startswith("version")
+            ):
+                product = product.rstrip(":")
+                product = product.split(",", maxsplit=1)[0]
+                product = product.strip('"')
+                product = product.rsplit("@", maxsplit=1)[0]
+
+                version = version.split(" ", maxsplit=1)[1]
+                version = version.strip('"')
+
+                yield (
+                    {"column": 0, "line": product_line, "item": product},
+                    {"column": 0, "line": version_line, "item": version},
+                )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies(),
         finding=FindingEnum.F011,
         path=path,
         platform=Platform.NPM,

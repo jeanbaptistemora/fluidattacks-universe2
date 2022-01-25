@@ -1,28 +1,18 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
-from lib_path.f011.maven_gradle import (
+from lib_path.f011.maven import (
     maven_gradle,
-)
-from lib_path.f011.maven_pom_xml import (
     maven_pom_xml,
-)
-from lib_path.f011.maven_sbt import (
     maven_sbt,
 )
-from lib_path.f011.npm_package_json import (
+from lib_path.f011.npm import (
     npm_package_json,
-)
-from lib_path.f011.npm_pkg_lock_json import (
     npm_pkg_lock_json,
-)
-from lib_path.f011.npm_yarn_lock import (
     npm_yarn_lock,
 )
-from lib_path.f011.nuget_csproj import (
+from lib_path.f011.nuget import (
     nuget_csproj,
-)
-from lib_path.f011.nuget_pkgs_config import (
     nuget_pkgs_config,
 )
 from model.core_model import (
