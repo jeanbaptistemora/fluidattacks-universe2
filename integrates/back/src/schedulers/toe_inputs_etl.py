@@ -216,6 +216,23 @@ async def add_toe_inputs(
     )
 
 
+def _get_attacked_at(
+    toe_input: ToeInput,
+    cvs_toe_input: ToeInput,
+) -> Optional[datetime]:
+    return (
+        cvs_toe_input.attacked_at
+        if cvs_toe_input.attacked_at
+        and toe_input.attacked_at
+        and cvs_toe_input.attacked_at > toe_input.attacked_at
+        else toe_input.attacked_at
+        if toe_input.attacked_at is not None
+        else cvs_toe_input.attacked_at
+        if cvs_toe_input.attacked_at
+        else None
+    )
+
+
 def _get_first_attack_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
@@ -259,7 +276,10 @@ async def update_toe_inputs(
             toe_inputs_update(
                 current_value=group_toe_inputs[cvs_toe_input.get_hash()],
                 attributes=ToeInputAttributesToUpdate(
-                    attacked_at=cvs_toe_input.attacked_at,
+                    attacked_at=_get_attacked_at(
+                        toe_input=group_toe_inputs[cvs_toe_input.get_hash()],
+                        cvs_toe_input=cvs_toe_input,
+                    ),
                     attacked_by=cvs_toe_input.attacked_by,
                     be_present=cvs_toe_input.be_present,
                     first_attack_at=_get_first_attack_at(
@@ -292,7 +312,10 @@ async def update_toe_inputs(
             for cvs_toe_input in cvs_group_toe_inputs.values()
             if cvs_toe_input.get_hash() in group_toe_inputs
             and (
-                cvs_toe_input.attacked_at,
+                _get_attacked_at(
+                    toe_input=group_toe_inputs[cvs_toe_input.get_hash()],
+                    cvs_toe_input=cvs_toe_input,
+                ),
                 cvs_toe_input.attacked_by,
                 cvs_toe_input.be_present,
                 _get_first_attack_at(
