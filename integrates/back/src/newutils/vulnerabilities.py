@@ -437,19 +437,15 @@ async def get_reattack_requester(
     return None
 
 
-async def get_report_dates(
-    loaders: Any,
+def get_report_dates(
     vulns: Tuple[Vulnerability, ...],
 ) -> Tuple[datetime, ...]:
     """Get report dates for vulnerabilities."""
-    vulns_ids = [vuln.id for vuln in vulns]
-    vulns_historic_loader = loaders.vulnerability_historic_state
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await vulns_historic_loader.load_many(vulns_ids)
     return tuple(
-        datetime.fromisoformat(historic[0].modified_date)
-        for historic in vulns_historic_state
+        datetime.fromisoformat(
+            vuln.unreliable_indicators.unreliable_report_date
+        )
+        for vuln in vulns
     )
 
 
@@ -619,17 +615,6 @@ async def get_last_reattack_date(
         ),
         None,
     )
-
-
-async def get_report_date(
-    loaders: Any,
-    vuln: Vulnerability,
-) -> datetime:
-    """Get report date as datetime."""
-    historic: Tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vuln.id)
-    return datetime.fromisoformat(historic[0].modified_date)
 
 
 async def get_source(
