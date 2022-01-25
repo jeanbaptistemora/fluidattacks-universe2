@@ -1,10 +1,8 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
-from lib_path.f393.npm_package_json import (
+from lib_path.f393.npm import (
     npm_package_json,
-)
-from lib_path.f393.npm_pkg_lock_json import (
     npm_pkg_lock_json,
 )
 from model.core_model import (

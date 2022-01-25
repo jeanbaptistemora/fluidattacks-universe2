@@ -62,3 +62,22 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
         path=path,
         platform=Platform.NPM,
     )
+
+
+def npm_package_json(content: str, path: str) -> Vulnerabilities:
+    content_json = json_loads_blocking(content, default={})
+
+    dependencies: Iterator[DependencyType] = (
+        (product, version)
+        for key in content_json
+        if key["item"] == "devDependencies"
+        for product, version in content_json[key].items()
+    )
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=dependencies,
+        finding=FindingEnum.F393,
+        path=path,
+        platform=Platform.NPM,
+    )
