@@ -261,7 +261,7 @@
       o una búsqueda se está demorando mucho
       en procesar la información.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -369,7 +369,7 @@
       or the exposure of user ID
       must be avoided.
     threat: >
-      Autenthicated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Privilege escalation
     description: >
@@ -386,7 +386,7 @@
       o se debe evitar la exposición
       de identificadores de usuario.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   category: Subvert Access
   score:
     base:
@@ -714,7 +714,7 @@
       Filtrar la información que recibe
       y envía la aplicación
       por medio de listas blancas.
-    threat: Atacante autorizado desde Internet
+    threat: Atacante autorizado desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -1249,7 +1249,7 @@
       within the application
       according to the organizations policies.
     threat: >
-      Attacker with access
+      Anonymous attacker with access
       to the source-code from the Internet.
   es:
     title: Non-encrypted confidential information
@@ -1267,7 +1267,7 @@
       dentro la aplicación
       de acuerdo a las políticas de la organización.
     threat: >
-      Atacante con acceso al código fuente
+      Atacante anónimo con acceso al código fuente
       desde Internet.
   category: Collect Information
   score:
@@ -1337,7 +1337,7 @@
       en el lado del servidor
       para evitar los ataques
       mas comunes de inyección.
-    threat: Atacante autenticado desde Internet
+    threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -1707,7 +1707,9 @@
     recommendation: >
       Evitar guardar información sensible
       en archivos del servidor.
-    threat: Atacante autenticado con acceso local al servidor.
+    threat: >
+      Atacante autenticado con acceso
+      local al servidor.
   category: Collect Information
   score:
     base:
@@ -1877,7 +1879,7 @@
       to the appropriate groups and roles
       following the principle of least privilege.
     threat: >
-      Authenticated user from the Internet
+      Authenticated attacker from the Internet
       with access to a misconfigured role.
   es:
     title: Excessive privileges - AWS
@@ -2205,7 +2207,7 @@
       en la configuración de la aplicación.
     threat: >
       Atacante anónimo con acceso local
-      al navegador de la victima.
+      al navegador de la víctima.
   category: Collect Information
   score:
     base:
@@ -2773,7 +2775,7 @@
       in its strongest configuration.
     threat: >
       Unauthorized attacker
-      from internet network
+      from Internet network
       with access to the APK.
   es:
     title: Missing secure obfuscation - APK
@@ -2800,7 +2802,7 @@
       en su configuración más fuerte.
     threat: >
       Atacante sin autorización
-      desde internet
+      desde Internet
       con acceso a el APK.
   category: Collect Information
   score:
@@ -2946,8 +2948,11 @@
       The source code defines and initializes variables
       that are not used, making it a dead store.
     impact: >
-      - Memory stack get full and overloaded when there
+      - Overload memory stack when there
       are unused variables in the code.
+
+      - Lead to further bugs and the
+      introduction of weaknesses.
 
       - Compiler will take more time to run the code.
 
@@ -2957,7 +2962,7 @@
     recommendation: >
       Detect and remove unused variables from the code.
     threat: >
-      Lead to further bugs and the introduction of weaknesses.
+      Anonymous attacker from adjacent network.
   es:
     title: Inappropriate coding practices - Unused variables
     description: >
@@ -2965,10 +2970,14 @@
       variables que no se utilizan, lo que lo
       convierte en un almacén muerto.
     impact: >
-      - La pila de memoria se llena y se sobrecarga cuando
+      - Sobrecargar la memoria de pila cuando
       hay variables no utilizadas en el código.
 
-      - El compilador tardará más tiempo en ejecutar el código.
+      - Llevar a más errores y a la introducción
+      de debilidades.
+
+      - El compilador tardará más tiempo en
+      ejecutar el código.
 
       - Podría ser una indicación de un error en el
       programa o de una variable obsoleta que no fue
@@ -2976,7 +2985,7 @@
     recommendation: >
       Detectar y eliminar las variables no utilizadas del código.
     threat: >
-      Llevar a más errores y a la introducción de debilidades.
+      Atacante anónimo desde una red adyacente.
   category: Subvert Access
   score:
     base:
@@ -3270,7 +3279,7 @@
       o segmentos de red de gestión
       explícitamente permitidos.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Collect Information
   score:
     base:
@@ -4291,7 +4300,8 @@
       - Strongly advised that the load balancer
       uses a secure listener.
     threat: >
-      Unauthorized attacker from adjacent network performing a MiTM.
+      Unauthorized attacker from adjacent
+      network performing a MiTM.
   es:
     title: Insecure service configuration - ELB
     description: >
@@ -4316,7 +4326,8 @@
       - Se recomienda encarecidamente que el equilibrador
       de carga utilice un oyente seguro.
     threat: >
-      Atacante no autorizado de la red adyacente que realiza un MiTM.
+      Atacante no autorizado de la red
+      adyacente que realiza un MiTM.
   category: Abuse Functionality
   score:
     base:
@@ -4355,7 +4366,7 @@
       in the server responses.
     threat: >
       Unauthorized attacker
-      from Internet.
+      from the Internet.
   es:
     title: Insecure or unset HTTP headers - Referrer-Policy
     description: >
@@ -4538,7 +4549,8 @@
       de código funcional comentado
       en el código fuente de la aplicación.
     threat: >
-      Atacante autenticado desde Internet.
+      Atacante autentificado desde Internet
+      con permisos de escritura en el repositorio.
   category: Abuse Functionality
   score:
     base:
