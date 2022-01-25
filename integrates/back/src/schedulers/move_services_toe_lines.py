@@ -144,7 +144,7 @@ def _get_first_attack_at(
         and datetime.fromisoformat(services_toe_lines.tested_date)
         < toe_lines.first_attack_at
         else toe_lines.first_attack_at
-        if toe_lines.attacked_at is not None
+        if toe_lines.first_attack_at is not None
         else datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         else None

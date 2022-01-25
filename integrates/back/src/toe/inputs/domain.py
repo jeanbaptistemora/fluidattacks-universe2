@@ -36,6 +36,7 @@ async def add(
     attributes: ToeInputAttributesToAdd,
 ) -> None:
     be_present_until = _get_optional_be_present_until(attributes.be_present)
+    first_attack_at = attributes.first_attack_at or attributes.attacked_at
     has_vulnerabilities = get_has_vulnerabilities(
         attributes.be_present, attributes.has_vulnerabilities
     )
@@ -46,7 +47,7 @@ async def add(
         be_present_until=be_present_until,
         component=component,
         entry_point=entry_point,
-        first_attack_at=attributes.first_attack_at,
+        first_attack_at=first_attack_at,
         group_name=group_name,
         has_vulnerabilities=has_vulnerabilities,
         seen_at=attributes.seen_at,
@@ -76,6 +77,13 @@ async def update(
         if attributes.be_present is None
         else attributes.be_present
     )
+    first_attack_at = (
+        attributes.first_attack_at
+        if attributes.first_attack_at is not None
+        else attributes.attacked_at
+        if not current_value.first_attack_at and attributes.attacked_at
+        else None
+    )
     has_vulnerabilities = (
         get_has_vulnerabilities(
             current_be_present, attributes.has_vulnerabilities
@@ -89,7 +97,7 @@ async def update(
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,
         be_present_until=be_present_until,
-        first_attack_at=attributes.first_attack_at,
+        first_attack_at=first_attack_at,
         has_vulnerabilities=has_vulnerabilities,
         seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
