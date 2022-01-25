@@ -1,9 +1,6 @@
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
-from lib_path.f009.utils import (
-    is_key_sensitive,
-)
 from model.core_model import (
     FindingEnum,
     Vulnerabilities,
@@ -73,9 +70,7 @@ def java_properties_sensitive_data(content: str, path: str) -> Vulnerabilities:
         for line_no, (key, val) in data.items():
             key = key.lower()
             for sensible_key_smell in sensible_key_smells:
-                if (
-                    sensible_key_smell in key or is_key_sensitive(key)
-                ) and val:
+                if sensible_key_smell in key and val:
                     yield line_no, 0
 
     return get_vulnerabilities_from_iterator_blocking(
