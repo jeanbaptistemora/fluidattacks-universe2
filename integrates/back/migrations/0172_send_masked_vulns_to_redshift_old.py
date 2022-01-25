@@ -19,6 +19,7 @@ from aiohttp import (
 )
 from aiohttp.client_exceptions import (
     ClientPayloadError,
+    ServerTimeoutError,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -250,6 +251,7 @@ async def process_finding(
         ClientError,
         CustomUnavailabilityError,
         HTTPClientError,
+        ServerTimeoutError,
         UnavailabilityError,
     ),
     sleep_seconds=10,
@@ -269,7 +271,7 @@ async def process_group(
     all_findings = group_drafts_and_findings + group_removed_findings
     await collect(
         tuple(process_finding(finding=finding) for finding in all_findings),
-        workers=30,
+        workers=16,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
