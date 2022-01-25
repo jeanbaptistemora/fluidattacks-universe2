@@ -120,7 +120,6 @@ in
         })
         [
           "0172_send_masked_vulns_to_redshift_old.py"
-          "0174_remove_affected_systems.py"
         ])
         ++ (builtins.map
         (name: {

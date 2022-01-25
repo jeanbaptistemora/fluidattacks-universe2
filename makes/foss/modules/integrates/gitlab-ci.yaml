@@ -16,24 +16,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/computeOnAwsBatch/integratesMigration__prod__0174_remove_affected_systems.py:
-  image: ghcr.io/fluidattacks/makes:22.02
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_migration_0174_remove_affected_systems == null
-      when: never
-    - when: always
-  script:
-    - m . /computeOnAwsBatch/integratesMigration 'prod' '0174_remove_affected_systems.py'
-  stage: scheduler
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
   image: ghcr.io/fluidattacks/makes:22.02
   interruptible: false

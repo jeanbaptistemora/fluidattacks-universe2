@@ -10,8 +10,8 @@ Removed and masked findings are left out as they will be migrated to redshift,
 effectively removing the field in the process.
 See: https://gitlab.com/fluidattacks/product/-/issues/5690
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-01-25 at 15:28:45 UTC
+Finalization Time:  2022-01-25 at 15:30:37 UTC
 """
 
 from aioextensions import (
