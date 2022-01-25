@@ -214,6 +214,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                     first_attack_at=_get_first_attack_at(
                         repo_services_toe_lines[filename], toe_lines
                     ),
+                    has_vulnerabilities=toe_lines.has_vulnerabilities or False,
                     seen_at=_get_seen_at(
                         repo_services_toe_lines[filename], toe_lines
                     ),
@@ -227,6 +228,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.attacked_at,
                 toe_lines.attacked_lines,
                 toe_lines.first_attack_at,
+                toe_lines.has_vulnerabilities or False,
                 toe_lines.seen_at,
             )
             != (
@@ -248,6 +250,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 _get_first_attack_at(
                     repo_services_toe_lines[filename], toe_lines
                 ),
+                toe_lines.has_vulnerabilities,
                 _get_seen_at(repo_services_toe_lines[filename], toe_lines),
             )
         )
