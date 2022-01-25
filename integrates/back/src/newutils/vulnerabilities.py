@@ -275,24 +275,14 @@ def format_where(
 
 
 def get_opening_date(
-    historic: Tuple[VulnerabilityState, ...],
+    vuln: Vulnerability,
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
-    opening_date: Optional[datetype] = None
-    open_state = next(
-        (
-            state
-            for state in reversed(historic)
-            if state.status == VulnerabilityStateStatus.OPEN
-        ),
-        None,
+    opening_date: datetype = datetime_utils.get_date_from_iso_str(
+        vuln.unreliable_indicators.unreliable_report_date
     )
-    if open_state:
-        opening_date = datetime_utils.get_date_from_iso_str(
-            open_state.modified_date
-        )
-        if min_date and min_date > opening_date:
-            opening_date = None
+    if min_date and min_date > opening_date:
+        return None
     return opening_date
 
 
@@ -312,15 +302,11 @@ def get_closing_date(
 
 def get_mean_remediate_vulnerabilities_cvssf(
     vulns: Tuple[Vulnerability, ...],
-    vulns_historic_state: Tuple[Tuple[VulnerabilityState, ...]],
     finding_cvssf: Dict[str, Decimal],
     min_date: Optional[datetype] = None,
 ) -> Decimal:
     total_days: Decimal = Decimal("0.0")
-    open_vuln_dates = [
-        get_opening_date(historic, min_date)
-        for historic in vulns_historic_state
-    ]
+    open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
     filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
     closed_vuln_dates: List[Tuple[Optional[datetype], Decimal]] = [
         (
@@ -363,16 +349,12 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 def get_mean_remediate_vulnerabilities(
     vulns: Tuple[Vulnerability, ...],
-    vulns_historic_state: Tuple[Tuple[VulnerabilityState, ...]],
     min_date: Optional[datetype] = None,
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    open_vuln_dates = [
-        get_opening_date(historic, min_date)
-        for historic in vulns_historic_state
-    ]
+    open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
     filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
     closed_vuln_dates = [
         get_closing_date(vuln, min_date)

@@ -59,7 +59,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from decimal import (
     Decimal,
@@ -1074,14 +1073,8 @@ async def get_mean_remediate_severity_cvssf(
     findings_vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in findings_vulns]
-    )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
         findings_vulns,
-        vulns_historic_state,
         finding_cvssf,
         min_date,
     )
@@ -1124,14 +1117,8 @@ async def get_mean_remediate_non_treated_severity_cvssf(
         for vuln in non_confirmed_zr_vulns
         if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
     )
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in non_accepted_undefined_vulns]
-    )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
         non_accepted_undefined_vulns,
-        vulns_historic_state,
         finding_cvssf,
         min_date,
     )
@@ -1162,14 +1149,8 @@ async def get_mean_remediate_severity(
     findings_vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in findings_vulns]
-    )
     return vulns_utils.get_mean_remediate_vulnerabilities(
         findings_vulns,
-        vulns_historic_state,
         min_date,
     )
 
@@ -1204,14 +1185,8 @@ async def get_mean_remediate_non_treated_severity(
         for vuln in non_confirmed_zr_vulns
         if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
     )
-    vulns_historic_state: Tuple[
-        Tuple[VulnerabilityState, ...]
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in non_accepted_undefined_vulns]
-    )
     return vulns_utils.get_mean_remediate_vulnerabilities(
         non_accepted_undefined_vulns,
-        vulns_historic_state,
         min_date,
     )
 

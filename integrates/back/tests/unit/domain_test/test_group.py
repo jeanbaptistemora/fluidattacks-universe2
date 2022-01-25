@@ -232,26 +232,38 @@ async def test_get_open_findings() -> None:
 
 
 async def test_get_vuln_opening_date() -> None:
-    closed_vuln_historic: Tuple[VulnerabilityState, ...] = (
-        VulnerabilityState(
-            modified_by="test@test.com",
+    test_vuln = Vulnerability(
+        finding_id="",
+        id="",
+        specific="",
+        type=VulnerabilityType.LINES,
+        where="",
+        state=VulnerabilityState(
+            modified_by="",
             modified_date="2019-01-08T21:01:26+00:00",
             source=Source.ASM,
-            status=VulnerabilityStateStatus.CLOSED,
+            status=VulnerabilityStateStatus.OPEN,
+        ),
+        unreliable_indicators=VulnerabilityUnreliableIndicators(
+            unreliable_report_date="2019-01-08T21:01:26+00:00",
+            unreliable_source=Source.ASM,
+            unreliable_treatment_changes=0,
         ),
     )
-    test_data = get_opening_date(closed_vuln_historic)
-    assert test_data is None
+    result_date = get_opening_date(test_vuln)
+    assert result_date == datetime(2019, 1, 8).date()
+
+    min_date = datetime(2021, 1, 1).date()
+    result_date = get_opening_date(vuln=test_vuln, min_date=min_date)
+    assert result_date is None
 
     loaders: Dataloaders = get_new_context()
-    open_vuln_historic: Tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(
+    test_open_vuln = await loaders.vulnerability_typed.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
-    test_data = get_opening_date(open_vuln_historic)
+    result_date = get_opening_date(test_open_vuln)
     expected_output = datetime(2020, 9, 9).date()
-    assert test_data == expected_output
+    assert result_date == expected_output
 
 
 @freeze_time("2020-12-01")
@@ -262,10 +274,10 @@ async def test_get_mean_remediate() -> None:
     max_severity: Decimal = Decimal("10.0")
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity
-    ) == Decimal("383.0")
+    ) == Decimal("384.0")
     assert await get_mean_remediate_non_treated_severity(
         context, group_name, min_severity, max_severity
-    ) == Decimal("385.0")
+    ) == Decimal("386.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
     assert await get_mean_remediate_severity(
@@ -288,7 +300,7 @@ async def test_get_mean_remediate() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("375.404")),
+        (0, Decimal("376.001")),
         (30, Decimal("0")),
         (90, Decimal("82.000")),
     ),
@@ -314,7 +326,7 @@ async def test_get_mean_remediate_cvssf(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("238.042")),
+        (0, Decimal("239.007")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -486,7 +498,7 @@ async def test_get_reattackers() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("8")),
+        (None, Decimal("10")),
         (30, Decimal("0")),
         (90, Decimal("1")),
     ),
@@ -514,7 +526,7 @@ async def test_get_mean_remediate_severity_low_min_days(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("43.780")),
+        (None, Decimal("49.797")),
         (30, Decimal("10.658")),
         (90, Decimal("11.269")),
     ),
@@ -626,7 +638,7 @@ async def test_get_mean_remediate_severity_medium_cvssf(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("358.666")),
+        (0, Decimal("364.485")),
         (30, Decimal("0.0")),
         (90, Decimal("82.0")),
     ),
