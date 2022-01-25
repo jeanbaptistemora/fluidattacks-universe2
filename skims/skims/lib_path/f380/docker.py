@@ -15,8 +15,10 @@ import re
 def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
     def check_regex(tokens: ParseResults) -> bool:
         for token in tokens:
-            if re.fullmatch(r"FROM\s+\w+:\S+", token) or re.fullmatch(
-                r"FROM\s+\w+[^@]", token
+            if re.fullmatch(
+                r"FROM\s+[\w\/]+(\s+AS\s+\S+)?", token
+            ) or re.fullmatch(
+                r"FROM\s+[\w\/]+:[\w\-\.]+(\s+AS\s+\S+)?", token
             ):
                 return True
         return False

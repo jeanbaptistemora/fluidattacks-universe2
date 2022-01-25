@@ -24751,8 +24751,8 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
- in namespace/skims/test/data/lib_path/f381/Dockerfile","
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
    1 | # Insecure
    2 | FROM node
    3 | RUN apk add --no-cache python g++ make
@@ -24762,22 +24762,22 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,10,749,skims,380. 
    7 | CMD [""node"", ""src/index.js""]
    8 |
    9 | # Insecure
-> 10 | FROM node:12.2
+> 10 | FROM node AS node_image
   11 | RUN apk add --no-cache python g++ make
   12 | WORKDIR /app
   13 | COPY . .
   14 | RUN yarn install --production
   15 | CMD [""node"", ""src/index.js""]
   16 |
-  17 | # Secure
-  18 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
-  19 | ARG DEBIAN_FRONTEND=noninteractive
-  20 | RUN apt update
-  21 | RUN apt install -y nginx php-fpm supervisor && \
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
      ^ Col 0
 ",docker.unpinned_docker_image
-F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
- in namespace/skims/test/data/lib_path/f381/Dockerfile","
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
    1 | # Insecure
 >  2 | FROM node
    3 | RUN apk add --no-cache python g++ make
@@ -24787,18 +24787,68 @@ F380,lines,namespace/skims/test/data/lib_path/f381/Dockerfile,2,749,skims,380. S
    7 | CMD [""node"", ""src/index.js""]
    8 |
    9 | # Insecure
-  10 | FROM node:12.2
+  10 | FROM node AS node_image
   11 | RUN apk add --no-cache python g++ make
   12 | WORKDIR /app
   13 | COPY . .
   14 | RUN yarn install --production
   15 | CMD [""node"", ""src/index.js""]
   16 |
-  17 | # Secure
-  18 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
-  19 | ARG DEBIAN_FRONTEND=noninteractive
-  20 | RUN apt update
-  21 | RUN apt install -y nginx php-fpm supervisor && \
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,18,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+   8 |
+   9 | # Insecure
+  10 | FROM node AS node_image
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Insecure
+> 18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+  22 | RUN yarn install --production
+  23 | CMD [""node"", ""src/index.js""]
+  24 |
+  25 | # Insecure
+  26 | FROM node:12.2 AS node_image
+  27 | RUN apk add --no-cache python g++ make
+  28 | WORKDIR /app
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,26,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned, allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+  16 |
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+  22 | RUN yarn install --production
+  23 | CMD [""node"", ""src/index.js""]
+  24 |
+  25 | # Insecure
+> 26 | FROM node:12.2 AS node_image
+  27 | RUN apk add --no-cache python g++ make
+  28 | WORKDIR /app
+  29 | COPY . .
+  30 | RUN yarn install --production
+  31 | CMD [""node"", ""src/index.js""]
+  32 |
+  33 | # Secure
+  34 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
+  35 | ARG DEBIAN_FRONTEND=noninteractive
+  36 | RUN apt update
      ^ Col 0
 ",docker.unpinned_docker_image
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
