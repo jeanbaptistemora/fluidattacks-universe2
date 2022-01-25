@@ -8,15 +8,14 @@ from model.core_model import (
 from pyparsing import (
     Regex,
 )
-import re
 
 
-def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
+def aws_credentials(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,
         cwe={"798"},
-        description_key="src.lib_path.f009.web_config_user_pass.description",
+        description_key="src.lib_path.f009.aws_credentials.description",
         finding=FindingEnum.F009,
-        grammar=Regex(r'(username|password)=".+?"', flags=re.IGNORECASE),
+        grammar=Regex(r"AKIA[A-Z0-9]{16}"),
         path=path,
     )

@@ -4,29 +4,21 @@ from lib_path.common import (
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
 )
-from lib_path.f009.aws_credentials import (
+from lib_path.f009.aws import (
     aws_credentials,
 )
-from lib_path.f009.docker_compose_env_secrets import (
-    docker_compose_env_secrets,
+from lib_path.f009.conf_files import (
+    jwt_token,
+    sensitive_key_in_json,
+    web_config_db_connection,
+    web_config_user_pass,
 )
-from lib_path.f009.dockerfile_env_secrets import (
+from lib_path.f009.docker import (
+    docker_compose_env_secrets,
     dockerfile_env_secrets,
 )
-from lib_path.f009.java_properties_sensitive_data import (
+from lib_path.f009.java import (
     java_properties_sensitive_data,
-)
-from lib_path.f009.jwt_token import (
-    jwt_token,
-)
-from lib_path.f009.sensitive_key_in_json import (
-    sensitive_key_in_json,
-)
-from lib_path.f009.web_config_db_connection import (
-    web_config_db_connection,
-)
-from lib_path.f009.web_config_user_pass import (
-    web_config_user_pass,
 )
 from model.core_model import (
     Vulnerabilities,
