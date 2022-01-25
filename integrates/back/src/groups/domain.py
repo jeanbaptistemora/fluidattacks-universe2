@@ -1584,6 +1584,11 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
                 "severity": str(max_severity),
             }
         ]
+    content["main"]["remediation_time"] = int(
+        await get_mean_remediate_non_treated_severity(
+            loaders, group_name, Decimal("0.0"), Decimal("10.0")
+        )
+    )
     content["main"]["remediation_rate"] = await get_remediation_rate(
         loaders, group_name
     )
