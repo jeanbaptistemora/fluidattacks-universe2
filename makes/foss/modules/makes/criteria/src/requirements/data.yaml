@@ -58,7 +58,7 @@
       del sistema, sus usuarios
       y la información que contiene.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -96,7 +96,7 @@
       entre páginas cuando sea necesario.
     description: __empty__
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -153,7 +153,7 @@
       hechas por el usuario suplantado
       <<r1, ^[1]^>> <<r2, ^[2]^>>.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -188,7 +188,7 @@
       que están al lado del cliente.
     description: __empty__
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -220,7 +220,7 @@
       por autenticación.
     description: __empty__
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -277,7 +277,7 @@
       el sistema permitiría a los usuarios
       ver y cerrar cualquier sesión activa.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -343,7 +343,7 @@
       De esta manera,
       el robo de sesión se mitiga drásticamente.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -423,7 +423,7 @@
       afectar la confidencialidad,
       integridad y disponibilidad del sistema.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -503,7 +503,7 @@
       puede ser usada maliciosamente
       se incrementa.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -583,7 +583,7 @@
       presentados al usuario,
       ni almacenados en logs.
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -659,7 +659,7 @@
       e incrementa el nivel de confidencialidad
       y dispnibilidad del sistema.
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -700,7 +700,7 @@
       cuentas de usuario.
     description: __empty__
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -760,7 +760,7 @@
       para acceder a funcionalidades
       y recursos restringidos.
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -803,7 +803,7 @@
       en ambientes de producción.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -843,7 +843,7 @@
       un atacante puede acceder a estas rutas
       y comprometer información sensible.
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -908,7 +908,7 @@
       de que un atacante cargue un archivo
       que contiene software malicioso.
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -940,7 +940,7 @@
       corresponde a su extensión.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -971,7 +971,7 @@
       esté libre de código malicioso.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1007,7 +1007,7 @@
       es requerido por la operación del negocio.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1032,7 +1032,7 @@
       definido explícitamente.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1068,7 +1068,7 @@
       definido explícitamente.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1097,7 +1097,7 @@
       un archivo o de hacerlo público.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1126,7 +1126,7 @@
       del sistema.
     description: __empty__
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1170,7 +1170,7 @@
       como sea posible.
     description: __empty__
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1210,7 +1210,7 @@
       con el fin para prevenir
       varios tipos de ataques por inyección.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1249,7 +1249,7 @@
       en un repositorio centrl.
     description: __empty__
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1302,7 +1302,7 @@
       y resiliencia contínuas de los sistemas
       y servicios.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1389,7 +1389,7 @@
       cuando el número de usuarios concurrentes
       alcanza su máximo.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1477,7 +1477,7 @@
       o se puede obstruir un análisis forense
       en caso de que un ataque sea exitoso.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1561,7 +1561,7 @@
       por atacantes para explotar
       otras vulnerabilidades más adelante.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1592,7 +1592,7 @@
       no deben estar habilitados en producción.
     description: __empty__
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1643,7 +1643,7 @@
       de ocurrencia para permitir
       el seguimiento en una investigación.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1703,7 +1703,7 @@
       que una vulnerabilidad o brecha
       se note de manera oportuna.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1772,7 +1772,7 @@
       un atacante que tenga acceso a estos
       también puede obtener la información.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1829,7 +1829,7 @@
       incluidos sus registros
       de transacciones.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1875,7 +1875,7 @@
       que el sistema haya recopilado de ellos,
       incluido su historial de sesión.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1908,7 +1908,7 @@
       en el proceso de autenticación.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1943,7 +1943,7 @@
       con una vigencia superior a dos años.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1969,7 +1969,7 @@
       que no se encuentren vencidos.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -1996,7 +1996,7 @@
       para aplicaciones internas.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2023,7 +2023,7 @@
       sean para aplicaciones externas.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2051,7 +2051,7 @@
       se encuentra asociado.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2106,7 +2106,7 @@
       ya que este no debería ser
       un rol predeterminado.
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2168,7 +2168,7 @@
       debería también estar
       claramente establecido.
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2227,7 +2227,7 @@
       revocadas o bloqueadas.
     description: __empty__
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2256,7 +2256,7 @@
       por un filtro anti-spam.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2283,7 +2283,7 @@
       cuyo origen sea desconocido.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2306,7 +2306,7 @@
       por defecto.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2333,7 +2333,7 @@
       anti-malware.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2362,7 +2362,7 @@
       correos electrónicos masivos.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2396,7 +2396,7 @@
       de correo RFC822.
     description: __empty__
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2424,7 +2424,7 @@
       propiedad sobre ellos.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2490,7 +2490,7 @@
       o añadan a listas de distribución
       de correos masivos.
   category: Emails
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2547,7 +2547,7 @@
       generar una nueva contraseña
       en cualquiera de estos escenarios.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2601,7 +2601,7 @@
       al sistema de almacenamiento
       para obtenerlas.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2632,7 +2632,7 @@
       única fuente de datos.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2665,7 +2665,7 @@
       para el mismo usuario.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2687,7 +2687,7 @@
       por un maximo de 30 dias.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2718,7 +2718,7 @@
       el mismo día.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2761,7 +2761,7 @@
       de longitud.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2791,7 +2791,7 @@
       deben tener al menos 20 caracteres.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2822,7 +2822,7 @@
       derivaciones de clave (Salt).
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2850,7 +2850,7 @@
       y de mínimo 48 bits.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2899,7 +2899,7 @@
       los usuarios deberían ser forzados
       a cambiarlas después del primer uso.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -2957,7 +2957,7 @@
       ser cambiadas después
       del primer uso.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3003,7 +3003,7 @@
       por el sistema que las creó.
       Por lot
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3047,7 +3047,7 @@
       de 6 caracteres como protección
       contra ataques de fuerza bruta.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3100,7 +3100,7 @@
       solamente usarlas una vez
       dentro del periodo de validez.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3142,7 +3142,7 @@
       deshabilitación del usuario, etc).
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3214,7 +3214,7 @@
       y eliminar todas las credenciales
       predeterminadas.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3251,7 +3251,7 @@
       para cada actor.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3281,7 +3281,7 @@
       periódicamente.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3343,7 +3343,7 @@
       y administrarse siguiendo estándares
       verificados por la industria.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3396,7 +3396,7 @@
       de 5 segundos.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3450,7 +3450,7 @@
       pre-existentes, probados,
       y aprovados.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3491,7 +3491,7 @@
       de 2048 bits.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3517,7 +3517,7 @@
       de 128 bits.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3540,7 +3540,7 @@
       con un tamaño mínimo de 256 bits.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3565,7 +3565,7 @@
       para el cifrado y las firmas.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3589,7 +3589,7 @@
       las conexiones de la base de datos.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3651,7 +3651,7 @@
       y la opción predeterminada
       no debe ser de texto claro.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3724,7 +3724,7 @@
       en graves vulnerabilidades
       de seguridad.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3796,7 +3796,7 @@
       rootkits, bombas de tiempo,
       bombas lógicas, etc.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3867,7 +3867,7 @@
       ya que una fuga podría poner
       en peligro los sistemas críticos.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3911,7 +3911,7 @@
       en modo estricto.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -3962,7 +3962,7 @@
       y libre de vulnerabilidades conocidas.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4004,7 +4004,7 @@
       en ambiente de producción.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4057,7 +4057,7 @@
       incluyen una entrada de fuentes no confiables
       y esta entrada no está apropiadamente
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4175,7 +4175,7 @@
       es más probable que surjan
       vulnerabilidades.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4204,7 +4204,7 @@
       métodos o clases repetidas.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4227,7 +4227,7 @@
       de datos y estructuras optimizadas.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4261,7 +4261,7 @@
       abiertos no utilizados.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4286,7 +4286,7 @@
       estar explícitamente inicializadas.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4316,7 +4316,7 @@
       (ej: java.sql.PreparedStatement).
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4352,7 +4352,7 @@
       deben ser removidos.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4408,7 +4408,7 @@
       y la clave de cifrado debe
       también estar protegido.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4506,7 +4506,7 @@
       y se deben aplicar controles
       y un tratamiento adecuado.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4621,7 +4621,7 @@
       un patrón discernible.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4682,7 +4682,7 @@
       en sitios maliciosos
       (por ejemplo, "X-Frame-Options").
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4748,7 +4748,7 @@
       deben implementarse
       teniendo en cuenta estas restricciones.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4841,7 +4841,7 @@
       y los archivos temporales ayuda
       a proteger la información confidencial.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4899,7 +4899,7 @@
       que sean susceptibles
       de ser afectados por terceros.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -4972,7 +4972,7 @@
       o datos que se hayan generado
       automáticamente.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5036,7 +5036,7 @@
       Ejemplos de estos protocolos inseguros
       son HTTP, FTP, POP3 y Telnet.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5142,7 +5142,7 @@
       procedimientos seguros
       que evitan que sean recuperado.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5189,7 +5189,7 @@
       si la aplicación no está enfocada.
     description: __empty__
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5255,7 +5255,7 @@
       accedido al sistema de almacenamiento
       obtengan la información.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5341,7 +5341,7 @@
       mayor impacto al explotar
       otras vulnerabilidades.
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5438,7 +5438,7 @@
       para la recolección
       y procesamiento de datos.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5485,7 +5485,7 @@
       configurado en la tarjeta SIM.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5520,7 +5520,7 @@
       como Bluetooth, NFC y Tethering.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5549,7 +5549,7 @@
       de autenticación.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5575,7 +5575,7 @@
       fallidos de autenticación.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5606,7 +5606,7 @@
       de pérdida.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5634,7 +5634,7 @@
       en caso de pérdida.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5668,7 +5668,7 @@
       Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
   category: Virtualization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5695,7 +5695,7 @@
       anfitriona.
     description: __empty__
   category: Virtualization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5745,7 +5745,7 @@
       que garanticen una distribución
       aleatoria.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5820,7 +5820,7 @@
       que a menudo ya ha sido
       implementado por la plataforma.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5927,7 +5927,7 @@
       que pueden usar en ataques
       de fuerza bruta.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -5958,7 +5958,7 @@
       fallidos.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6023,7 +6023,7 @@
       solo están disponibles
       para los usuarios autorizados.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6056,7 +6056,7 @@
       siguiendo protocolos estándar.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6111,7 +6111,7 @@
       un nombre de usuario
       y una contraseña.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6202,7 +6202,7 @@
       de identidad en vigor,
       sino más bien un factor secundario.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6241,7 +6241,7 @@
       o sistema está autenticado.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6272,7 +6272,7 @@
       para el ingreso de credenciales.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6297,7 +6297,7 @@
       definido de 30 segundos.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6358,7 +6358,7 @@
       que la entidad con la que se está
       interactuando sea un ser humano.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6429,7 +6429,7 @@
       la propiedad del ususario
       de la cuenta correspondiente.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6465,7 +6465,7 @@
       del SSID (Service Set Identifier).
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6489,7 +6489,7 @@
       de diccionario.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6517,7 +6517,7 @@
       las instalaciones autorizadas.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6548,7 +6548,7 @@
       del equipo.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6572,7 +6572,7 @@
       que viene de fábrica.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6602,7 +6602,7 @@
       o WPA2 Enterprise (802.11x).
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6634,7 +6634,7 @@
       y direcciones MAC autorizadas.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6664,7 +6664,7 @@
       del SSID de la red inalámbrica.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6689,7 +6689,7 @@
       sólo a los puertos necesarios.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6727,7 +6727,7 @@
       (por ejemplo, NAC 802.1x).
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6762,7 +6762,7 @@
       (Output 'Proxy').
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6785,7 +6785,7 @@
       debe estar segmentada.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6824,7 +6824,7 @@
       en redes sociales (incluido +LinkedIn+).
     description: __empty__
   category: Social
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6872,7 +6872,7 @@
       corporativa tampoco debe exponerse
       en las cuentas de redes sociales personales.
   category: Social
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -6939,7 +6939,7 @@
       relacionados con vulnerabilidades
       descubiertas recientemente.
   category: Services
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7013,7 +7013,7 @@
       que evite que actores no autorizados
       accedan a ellos.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7096,7 +7096,7 @@
       con roles que tengan
       los privilegios requeridos.
   category: Services
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7189,7 +7189,7 @@
       de control de acceso, servidores
       y funciones sin servidor.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7241,7 +7241,7 @@
       Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7286,7 +7286,7 @@
       necesarios.
     description: __empty__
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7312,7 +7312,7 @@
       definidas por IP origen.
     description: __empty__
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7363,7 +7363,7 @@
       mecanismo que contribuye
       a esta protección.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7426,7 +7426,7 @@
       ataques de apropiación
       de cuentas.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7507,7 +7507,7 @@
       y administrarlo mediante
       un administrador de paquetes.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7545,7 +7545,7 @@
       de la tarjeta.
     description: __empty__
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7621,7 +7621,7 @@
       recopilar cualquier información
       personal.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7691,7 +7691,7 @@
       utilizarse para demostrar
       la concesión del consentimiento.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7753,7 +7753,7 @@
       a la recolección y procesamiento
       de su información.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7823,7 +7823,7 @@
       recaba y pueda demostrarlo,
       deberá informarles de esta situación.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7875,7 +7875,7 @@
       de los usuarios
       sino de un tercero.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -7963,7 +7963,7 @@
       en un formato estructurado
       y utilizar un lenguaje fácilmente comprensible.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8026,7 +8026,7 @@
       sobre esta información y solicitar su rectificación
       si lo consideran necesario.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8090,7 +8090,7 @@
       si el usuario decide revocar
       su consentimiento.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8156,7 +8156,7 @@
       cuando el usuario solicita
       que el sistema deje de procesar sus datos.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8203,7 +8203,7 @@
       en el control de seguridad,
       para que no haya una alternativa más débil.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8265,7 +8265,7 @@
       porque es propenso a ser eludido
       y / o manipulado.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8345,7 +8345,7 @@
       puede llevar a ataques de deserialización,
       como inyección de objetos.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8429,7 +8429,7 @@
       de problemas en los entornos
       de producción.
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8493,7 +8493,7 @@
       como las puertas traseras,
       los rootkits e información sensible expuesta.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8542,7 +8542,7 @@
       solo sean redirigidos
       a los sitios de confianza.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8608,7 +8608,7 @@
       entonces no debe contener
       ninguna información confidencial.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8665,7 +8665,7 @@
       sobre los riesgos asociados,
       o evitar su propia ejecución.
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8737,7 +8737,7 @@
       que considere un flujo de solicitud
       regular entre un host y el servidor.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8774,7 +8774,7 @@
       del lado del cliente (ViewState).
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8841,7 +8841,7 @@
       sensible o de sesión en el almacenamiento
       del lado del cliente.
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8893,7 +8893,7 @@
       en caso de que los sistemas
       estén comprometidos.
   category: Services
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8928,7 +8928,7 @@
       de la jurisdicción a la cual está sujeto.
     description: __empty__
   category: Legal
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -8989,7 +8989,7 @@
       y la actualización de contraseña
       usen contraseñas contenidas en ellas.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9049,7 +9049,7 @@
       cada valor de salt posible
       para descifrar una sola contraseña.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9107,7 +9107,7 @@
       y tampoco deben usarse en el proceso
       de recuperación de contraseña.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9167,7 +9167,7 @@
       dentro de este período
       para evitar ataques de repetición.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9230,7 +9230,7 @@
       recurran a los protocolos inseguros
       o no cifrados.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9314,7 +9314,7 @@
       para evitar que surjan
       las condiciones de carrera.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9394,7 +9394,7 @@
       lo que representa un aumento
       en la seguridad general del sistema.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9448,7 +9448,7 @@
       información confidencial
       no deben almacenarse en ella.
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9518,7 +9518,7 @@
       de vectores XSS u otros ataques
       del archivo cargado.
   category: Files
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9579,7 +9579,7 @@
       y acceso utilizando el principio
       de negación de forma predeterminada.
   category: Authorization
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9649,7 +9649,7 @@
       y proporciona contramedidas para proteger
       contra la asignación de parámetros inseguros.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9718,7 +9718,7 @@
       una violación de la privacidad
       si no se solicita ningún consentimiento.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9773,7 +9773,7 @@
       (por ejemplo, las que proporciona los usuarios)
       deben ser filtradas adecuadamente.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9855,7 +9855,7 @@
       copia de memoria segura
       y puntero aritmético.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9933,7 +9933,7 @@
       y solo deben usarse una vez
       con una clave de cifrado dada.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -9985,7 +9985,7 @@
       invalidarse cada vez que
       se genere una nueva.
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10056,7 +10056,7 @@
       y los ataques de inclusión
       de archivos remotos (RFI).
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10110,7 +10110,7 @@
       posible e incluirse en todas
       las solicitudes de servidores y respuestas.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10169,7 +10169,7 @@
       tales como ASLR y DEP.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10196,7 +10196,7 @@
       y certificados.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10227,7 +10227,7 @@
       del dispositivo.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10255,7 +10255,7 @@
       en un horario predefinido.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10288,7 +10288,7 @@
       (anti-rollback) de estar degradado.
     description: __empty__
   category: Devices
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10344,7 +10344,7 @@
       ayuda a prevenir la exposición
       involuntaria de la información técnica.
   category: Architecture
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10382,7 +10382,7 @@
       de toma de control del subdominio.
     description: __empty__
   category: Networks
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10411,7 +10411,7 @@
       en lugar de secretos de la API estática.
     description: __empty__
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10446,7 +10446,7 @@
       están a punto de caducar.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10489,7 +10489,7 @@
       ya que algunos flujos especiales
       pasan desapercibidos.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10543,7 +10543,7 @@
       el sistema debe eliminar esta información
       después de que ya no se requiera.
   category: Privacy
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10616,7 +10616,7 @@
       y cualquier posible pérdida de su integridad,
       deben ser reemplazados a menudo.
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10674,7 +10674,7 @@
       su valor disminuye considerablemente
       cuando se comparten entre varias cuentas.
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10741,7 +10741,7 @@
       de eventos que provocó el incidente
       de seguridad.
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10771,7 +10771,7 @@
       extendida (EV).
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10799,7 +10799,7 @@
       no debería ser accesible.
     description: __empty__
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10821,7 +10821,7 @@
       deben tener un tipo asociado.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10845,7 +10845,7 @@
       y aleatoria.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10873,7 +10873,7 @@
       ya sea que un usuario exista o no.
     description: __empty__
   category: Authentication
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10900,7 +10900,7 @@
       del usuario (tiempo de espera absoluto).
     description: __empty__
   category: Session
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10928,7 +10928,7 @@
       (relleno de cifrado asimétrico óptimo).
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10951,7 +10951,7 @@
       debe usarse solo con relleno GCM.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -10978,7 +10978,7 @@
       la misma longitud que la clave de cifrado.
     description: __empty__
   category: Cryptography
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11009,7 +11009,7 @@
       se deben permitir hasta 2 certificados.
     description: __empty__
   category: Certificates
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11038,7 +11038,7 @@
       (usando sandboxing, cárceles, contenedores, etc.).
     description: __empty__
   category: System
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11072,7 +11072,7 @@
       según el origen esperado.
     description: __empty__
   category: Data
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11109,7 +11109,7 @@
       evento excepcional y de seguridad.
     description: __empty__
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11150,7 +11150,7 @@
       para ese sistema específico.
     description: __empty__
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11187,7 +11187,7 @@
       separado de la aplicación.
     description: __empty__
   category: Logs
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11253,7 +11253,7 @@
       para encontrar y corregir vulnerabilidades
       aumentarán sustancialmente.
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11281,7 +11281,7 @@
       completar esta tarea.
     description: __empty__
   category: Credentials
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false
@@ -11308,7 +11308,7 @@
       mediante rutas absolutas.
     description: __empty__
   category: Source
-  tested_in:
+  supported_in:
     machine: false
     squad: false
     oneshot: false

@@ -10,7 +10,7 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "en", "es", "category", "tested_in", "references", "metadata" ],
+      "required": [ "en", "es", "category", "supported_in", "references", "metadata" ],
       "properties": {
         "en": { "$ref": "#/definitions/language" },
         "es": { "$ref": "#/definitions/language" },
@@ -38,7 +38,7 @@
             { "type": "string", "pattern": "^Social$" }
           ]
         },
-        "tested_in": {
+        "supported_in": {
           "type": "object",
           "additionalProperties": false,
           "required": [ "machine", "squad", "oneshot" ],
