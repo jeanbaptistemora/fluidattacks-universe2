@@ -1,6 +1,7 @@
 import asyncio
 import base64
 from custom_exceptions import (
+    InactiveRoot,
     InvalidChar,
     InvalidGitCredentials,
     RepeatedRootNickname,
@@ -25,6 +26,7 @@ import os
 import re
 import tempfile
 from typing import (
+    Any,
     List,
     Tuple,
 )
@@ -153,3 +155,11 @@ async def validate_git_credentials(
             await proc.communicate()
             if proc.returncode != 0:
                 raise InvalidGitCredentials()
+
+
+async def validate_open_root(
+    loaders: Any, group_name: str, root_id: str
+) -> None:
+    root: RootItem = await loaders.root.load((group_name, root_id))
+    if root.state.status != "ACTIVE":
+        raise InactiveRoot()
