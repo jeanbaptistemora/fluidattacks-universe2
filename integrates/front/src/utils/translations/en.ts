@@ -799,6 +799,7 @@ export const enTranslations: ResourceKey = {
         commit: "Commit",
         component: "Component",
         entryPoint: "Entry point",
+        firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",
         no: "No",
         root: "Root",

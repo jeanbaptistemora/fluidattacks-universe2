@@ -126,27 +126,27 @@ describe("GroupToeInputsView", (): void => {
       [
         "Root",
         "Entry point",
-        "Attacked at",
         "Has vulnerabilities",
+        "Attacked at",
         "Seen at",
         "Seen first time by",
       ].join("")
     );
     expect(firstRow.text()).toStrictEqual(
-      ["test_nickname", "idTest", "2020-01-02", "No", "2000-01-01", ""].join("")
+      ["test_nickname", "idTest", "No", "2020-01-02", "2000-01-01", ""].join("")
     );
     expect(secondRow.text()).toStrictEqual(
       [
         "test_nickname",
         "btnTest",
-        "2021-02-02",
         "Yes",
+        "2021-02-02",
         "2020-03-14",
         "test@test.com",
       ].join("")
     );
     expect(thirdRow.text()).toStrictEqual(
-      ["", "-", "2021-02-11", "Yes", "2020-01-11", "test2@test.com"].join("")
+      ["", "-", "Yes", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
     );
   });
 });
