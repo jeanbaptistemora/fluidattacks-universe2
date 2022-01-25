@@ -19,7 +19,7 @@
     integratesScheduler = rec {
       allowDuplicates = false;
       attempts = 1;
-      attemptDurationSeconds = 43200;
+      attemptDurationSeconds = 86400;
       command = [ "m" "f" "/integrates/scheduler" ];
       definition = "makes";
       includePositionalArgsInName = true;
