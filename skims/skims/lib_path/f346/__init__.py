@@ -1,8 +1,5 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f346.android import (
     has_dangerous_permissions,
@@ -18,26 +15,16 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_has_dangerous_permissions(
-    content: str, path: str
-) -> Vulnerabilities:
-    return await in_process(
-        has_dangerous_permissions,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
+    return has_dangerous_permissions(content=content, path=path)
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,

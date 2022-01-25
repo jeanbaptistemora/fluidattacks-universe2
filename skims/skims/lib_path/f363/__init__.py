@@ -1,9 +1,6 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f363.cloudformation import (
     cfn_insecure_generate_secret_string,
@@ -12,7 +9,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
-    load_templates,
+    load_templates_blocking,
 )
 from state.cache import (
     CACHE_ETERNALLY,
@@ -23,27 +20,20 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
 @CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def run_cfn_insecure_generate_secret_string(
+@SHIELD_BLOCKING
+def run_cfn_insecure_generate_secret_string(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return await in_process(
-        cfn_insecure_generate_secret_string,
-        content=content,
-        path=path,
-        template=template,
+    return cfn_insecure_generate_secret_string(
+        content=content, path=path, template=template
     )
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     path: str,
@@ -53,7 +43,7 @@ async def analyze(
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
 
-        async for template in load_templates(content, fmt=file_extension):
+        for template in load_templates_blocking(content, fmt=file_extension):
             coroutines.append(
                 run_cfn_insecure_generate_secret_string(
                     content, path, template

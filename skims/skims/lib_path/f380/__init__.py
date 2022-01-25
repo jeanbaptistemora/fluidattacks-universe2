@@ -1,10 +1,7 @@
-from aioextensions import (
-    in_process,
-)
 from lib_path.common import (
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f380.docker import (
     unpinned_docker_image,
@@ -18,25 +15,15 @@ from typing import (
     Callable,
     List,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
-)
 
 
-@SHIELD
-@TIMEOUT_1MIN
-async def run_unpinned_docker_image(
-    content: str, path: str
-) -> Vulnerabilities:
-    return await in_process(
-        unpinned_docker_image,
-        content=content,
-        path=path,
-    )
+@SHIELD_BLOCKING
+def run_unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
+    return unpinned_docker_image(content=content, path=path)
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
     file_name: str,

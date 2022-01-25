@@ -1,7 +1,3 @@
-from aioextensions import (
-    collect,
-    CPU_CORES,
-)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
@@ -55,6 +51,7 @@ from model import (
 from more_itertools.more import (
     collapse,
 )
+import os
 from os import (
     cpu_count,
 )
@@ -67,7 +64,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Awaitable,
     Dict,
     Set,
     Tuple,
@@ -77,11 +73,11 @@ from utils.ctx import (
 )
 from utils.fs import (
     generate_file_content,
-    generate_file_raw_content,
+    generate_file_raw_content_blocking,
     resolve_paths,
 )
 from utils.logs import (
-    log,
+    log_blocking,
 )
 
 # Constants
@@ -134,7 +130,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
 )
 
 
-async def analyze_one_path(  # noqa: MC0001
+def analyze_one_path(  # noqa: MC0001
     *,
     index: int,
     path: str,
@@ -148,7 +144,7 @@ async def analyze_one_path(  # noqa: MC0001
     :param path: Path to the file who's object of analysis
     :type path: str
     """
-    await log(
+    log_blocking(
         "info",
         "Analyzing path %s of %s: %s",
         index,
@@ -157,7 +153,9 @@ async def analyze_one_path(  # noqa: MC0001
     )
 
     file_content_generator = generate_file_content(path, size=MAX_READ)
-    file_raw_content_generator = generate_file_raw_content(path, size=MAX_READ)
+    file_raw_content_generator = generate_file_raw_content_blocking(
+        path, size=MAX_READ
+    )
 
     _, file = split(path)
     file_name, file_extension = splitext(file)
@@ -188,21 +186,14 @@ async def analyze_one_path(  # noqa: MC0001
             path=path,
             raw_content_generator=file_raw_content_generator,
         )
-        if isinstance(analyzer_result, Awaitable):
-            for vulnerabilities in await analyzer_result:
-                for vulnerability in await vulnerabilities:
-                    stores[finding].store(vulnerability)
-        else:
-            with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-                worker.map(
-                    stores[finding].store,
-                    collapse(
-                        analyzer_result, base_type=core_model.Vulnerability
-                    ),
-                )
+        with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+            worker.map(
+                stores[finding].store,
+                collapse(analyzer_result, base_type=core_model.Vulnerability),
+            )
 
 
-async def analyze(
+def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
@@ -217,17 +208,18 @@ async def analyze(
     paths = unique_paths | unique_nu_paths | unique_nv_paths
     unique_paths_count: int = len(paths)
 
-    await collect(
-        (
-            analyze_one_path(
-                index=index,
-                path=path,
-                stores=stores,
-                unique_nu_paths=unique_nu_paths,
-                unique_nv_paths=unique_nv_paths,
-                unique_paths_count=unique_paths_count,
-            )
-            for index, path in enumerate(paths, start=1)
-        ),
-        workers=CPU_CORES,
-    )
+    with ThreadPoolExecutor(max_workers=os.cpu_count()) as worker:
+        worker.map(
+            lambda x: analyze_one_path(**x),
+            [
+                dict(
+                    index=index,
+                    path=path,
+                    stores=stores,
+                    unique_nu_paths=unique_nu_paths,
+                    unique_nv_paths=unique_nv_paths,
+                    unique_paths_count=unique_paths_count,
+                )
+                for index, path in enumerate(paths, start=1)
+            ],
+        )

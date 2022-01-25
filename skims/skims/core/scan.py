@@ -83,7 +83,7 @@ async def execute_skims(token: Optional[str]) -> bool:
         await analyze_http(stores=stores)
     if CTX.config.path.include:
         if CTX.config.path.lib_path:
-            await analyze_paths(stores=stores)
+            analyze_paths(stores=stores)
         if CTX.config.path.lib_root:
             await analyze_root(stores=stores)
     if CTX.config.ssl.include:

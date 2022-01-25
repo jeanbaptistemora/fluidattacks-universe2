@@ -106,6 +106,22 @@ def generate_file_raw_content(
     return get_one
 
 
+def generate_file_raw_content_blocking(
+    path: str,
+    size: int = -1,
+) -> Callable[[], bytes]:
+    data: Dict[str, bytes] = {}
+
+    def get_one() -> bytes:
+        if not data:
+            data["file_raw_content"] = get_file_raw_content_blocking(
+                path, size
+            )
+        return data["file_raw_content"]
+
+    return get_one
+
+
 async def get_file_content(
     path: str,
     encoding: str = "latin-1",
@@ -149,6 +165,13 @@ def sync_get_file_content(path: str, size: int = MAX_FILE_SIZE) -> str:
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
     async with aiofiles.open(path, mode="rb") as file_handle:
         file_contents: bytes = await file_handle.read(size)
+
+        return file_contents
+
+
+def get_file_raw_content_blocking(path: str, size: int = -1) -> bytes:
+    with open(path, mode="rb") as file_handle:
+        file_contents: bytes = file_handle.read(size)
 
         return file_contents
 

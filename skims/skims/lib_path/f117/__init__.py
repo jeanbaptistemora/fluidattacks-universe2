@@ -1,5 +1,5 @@
 from lib_path.common import (
-    SHIELD,
+    SHIELD_BLOCKING,
 )
 from lib_path.f117.generic import (
     unverifiable_files,
@@ -14,15 +14,15 @@ from typing import (
 )
 
 
-@SHIELD
-async def analyze(
+@SHIELD_BLOCKING
+def analyze(
     path: str,
-    raw_content_generator: Callable[[], Awaitable[bytes]],
+    raw_content_generator: Callable[[], bytes],
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> List[Vulnerabilities]:
 
     coroutines: List[Awaitable[Vulnerabilities]] = [
-        unverifiable_files(path, raw_content=await raw_content_generator())
+        unverifiable_files(path, raw_content=raw_content_generator())
     ]
 
     return coroutines
