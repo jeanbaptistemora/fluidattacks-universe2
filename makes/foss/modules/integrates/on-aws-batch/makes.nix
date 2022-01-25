@@ -6,7 +6,7 @@
     integratesMigration = rec {
       allowDuplicates = false;
       attempts = 1;
-      attemptDurationSeconds = 259200;
+      attemptDurationSeconds = 64800;
       command = [ "m" "f" "/integrates/db/migration" ];
       definition = "makes";
       includePositionalArgsInName = true;

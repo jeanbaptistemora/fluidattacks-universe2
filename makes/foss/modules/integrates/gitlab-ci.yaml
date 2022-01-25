@@ -1,21 +1,3 @@
-/computeOnAwsBatch/integratesMigration__prod__0170_populate_vuln_indicators.py:
-  image: ghcr.io/fluidattacks/makes:22.02
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_migration_0170_populate_vuln_indicators == null
-      when: never
-    - when: always
-  script:
-    - m . /computeOnAwsBatch/integratesMigration 'prod' '0170_populate_vuln_indicators.py'
-  stage: scheduler
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesMigration__prod__0172_send_masked_vulns_to_redshift_old.py:
   image: ghcr.io/fluidattacks/makes:22.02
   interruptible: false
