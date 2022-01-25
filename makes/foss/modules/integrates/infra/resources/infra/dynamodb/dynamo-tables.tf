@@ -4,14 +4,29 @@ resource "aws_dynamodb_table" "async_processing" {
   hash_key     = "pk"
 
   attribute {
+    name = "action_name"
+    type = "S"
+  }
+  attribute {
+    name = "entity"
+    type = "S"
+  }
+  attribute {
     name = "pk"
     type = "S"
   }
 
+  global_secondary_index {
+    name            = "gsi-1"
+    hash_key        = "action_name"
+    range_key       = "entity"
+    projection_type = "ALL"
+  }
+
+
   point_in_time_recovery {
     enabled = true
   }
-
   tags = {
     "Name"               = "fi_async_processing"
     "management:area"    = "cost"

@@ -470,6 +470,31 @@ async def get_action(
     )
 
 
+async def get_actions_by_name(
+    action_name: str, entity: str
+) -> Tuple[BatchProcessing, ...]:
+    query_attrs = {
+        "IndexName": "gsi-1",
+        "KeyConditionExpression": (
+            Key("action_name").eq(action_name) & Key("entity").eq(entity)
+        ),
+    }
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
+
+    return tuple(
+        BatchProcessing(
+            key=item["pk"],
+            action_name=item["action_name"].lower(),
+            entity=item["entity"].lower(),
+            subject=item["subject"].lower(),
+            time=item["time"],
+            additional_info=item.get("additional_info", ""),
+            queue=item["queue"],
+        )
+        for item in response_items
+    )
+
+
 async def get_actions() -> List[BatchProcessing]:
     items = await dynamodb_ops.scan(table=TABLE_NAME, scan_attrs={})
 

@@ -24,12 +24,28 @@ provider "aws" {
 
 resource "aws_dynamodb_table" "fi_async_processing" {
   attribute {
+    name = "action_name"
+    type = "S"
+  }
+  attribute {
+    name = "entity"
+    type = "S"
+  }
+  attribute {
     name = "pk"
     type = "S"
   }
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "pk"
-  name         = "fi_async_processing"
+
+  global_secondary_index {
+    name            = "gsi-1"
+    hash_key        = "action_name"
+    range_key       = "entity"
+    projection_type = "ALL"
+  }
+
+  hash_key = "pk"
+  name     = "fi_async_processing"
 }
 
 resource "aws_dynamodb_table" "fi_authz" {

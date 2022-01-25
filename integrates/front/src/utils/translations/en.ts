@@ -704,6 +704,7 @@ export const enTranslations: ResourceKey = {
           url: "URL",
         },
         sync: {
+          alreadyCloning: "Git root already has an active cloning process",
           noCredentials:
             "Git root cannot be cloned due to lack of access credentials",
           success: "Sync started successfully",

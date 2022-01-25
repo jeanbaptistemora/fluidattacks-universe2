@@ -1040,6 +1040,12 @@ class InactiveRoot(CustomBaseException):
         super(InactiveRoot, self).__init__(msg)
 
 
+class RootAlreadyCloning(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The root already has an active cloning process"
+        super(RootAlreadyCloning, self).__init__(msg)
+
+
 class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"

@@ -7,6 +7,7 @@ from batch import (
 from custom_exceptions import (
     CredentialNotFound,
     InactiveRoot,
+    RootAlreadyCloning,
 )
 from custom_types import (
     SimplePayload,
@@ -57,6 +58,21 @@ async def mutate(
         raise InactiveRoot()
     if len(list(filter(lambda x: root.id in x.state.roots, group_creds))) == 0:
         raise CredentialNotFound()
+    existing_actions = await batch_dal.get_actions_by_name(
+        "clone_root", group_name
+    )
+    if (
+        len(
+            list(
+                filter(
+                    lambda x: x.additional_info == root.state.nickname,
+                    existing_actions,
+                )
+            )
+        )
+        > 0
+    ):
+        raise RootAlreadyCloning()
     await batch_dal.put_action(
         action_name="clone_root",
         entity=root.group_name,

@@ -148,11 +148,16 @@ const handleActivationError = (
 
 const handleSyncError = (graphQLErrors: readonly GraphQLError[]): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
-    if (error.message === "Exception - Access denied or credential not found") {
-      msgError(translate.t("group.scope.git.sync.noCredentials"));
-    } else {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.error("Couldn't queue root cloning", error);
+    switch (error.message) {
+      case "Exception - Access denied or credential not found":
+        msgError(translate.t("group.scope.git.sync.noCredentials"));
+        break;
+      case "Exception - The root already has an active cloning process":
+        msgError(translate.t("group.scope.git.sync.alreadyCloning"));
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.error("Couldn't queue root cloning", error);
     }
   });
 };
