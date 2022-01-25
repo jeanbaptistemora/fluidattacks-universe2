@@ -54,6 +54,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
             translations[f"criteria.vulns.{code}.title"] = dict(
                 EN=f"{code}. {data['en']['title']}",
                 ES=f"{code}. {data['es']['title']}",
+                SCORE=f"{data['score']}",
             )
 
             for field in ("description", "impact", "recommendation", "threat"):
