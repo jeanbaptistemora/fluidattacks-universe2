@@ -442,8 +442,7 @@ async def update_vulnerabilities_treatment(
         role: str = await authz.get_group_level_role(user_email, group_name)
         updated_values["assigned"] = await get_valid_assigned(
             assigned=updated_values["assigned"],
-            is_customer_admin=role
-            in {"customeradmin", "system_owner", "customer_manager"},
+            is_customer_admin=role in {"customeradmin", "customer_manager"},
             user_email=user_email,
             group_name=group_name,
         )

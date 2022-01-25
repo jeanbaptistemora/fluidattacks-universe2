@@ -184,7 +184,6 @@ ENUMS: Tuple[EnumType, ...] = (
             "CUSTOMER": "CUSTOMER",
             "CUSTOMER_MANAGER": "CUSTOMER_MANAGER",
             "CUSTOMERADMIN": "CUSTOMERADMIN",
-            "SYSTEM_OWNER": "SYSTEM_OWNER",
         },
     ),
     EnumType("ReportLang", {"EN": "en"}),
@@ -209,7 +208,6 @@ ENUMS: Tuple[EnumType, ...] = (
             "RESOURCER": "resourcer",
             "REVIEWER": "reviewer",
             "SERVICE_FORCES": "service_forces",
-            "SYSTEM_OWNER": "system_owner",
         },
     ),
     EnumType(

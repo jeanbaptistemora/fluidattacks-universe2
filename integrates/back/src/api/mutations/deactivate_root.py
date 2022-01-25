@@ -86,8 +86,7 @@ async def deactivate_root(
     email_list = [
         str(user)
         for user, user_role in zip(users, user_roles)
-        if user_role
-        in {"customeradmin", "resourcer", "system_owner", "customer_manager"}
+        if user_role in {"customeradmin", "resourcer", "customer_manager"}
     ]
     root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
         root.id

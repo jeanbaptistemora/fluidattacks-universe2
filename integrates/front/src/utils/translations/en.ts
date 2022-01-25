@@ -2542,7 +2542,6 @@ export const enTranslations: ResourceKey = {
       reattacker: "Reattacker",
       resourcer: "Resourcer",
       reviewer: "Reviewer",
-      systemOwner: "Customer Manager",
     },
     success: "{{email}} was added successfully",
   },

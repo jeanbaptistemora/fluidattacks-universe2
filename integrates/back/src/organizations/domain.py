@@ -166,10 +166,10 @@ async def add_group(organization_id: str, group: str) -> bool:
         success = success and all(
             await collect(
                 group_access_domain.add_user_access(
-                    user, group, "system_owner"
+                    user, group, "customer_manager"
                 )
                 for user, user_role in zip(users, users_roles)
-                if user_role in {"customer_manager", "system_owner"}
+                if user_role == "customer_manager"
             )
         )
     return success
@@ -183,7 +183,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     ) and await authz.grant_organization_level_role(
         email, organization_id, role
     )
-    if success and role in {"system_owner", "customer_manager"}:
+    if success and role == "customer_manager":
         groups = await get_groups(organization_id)
         success = success and all(
             await collect(

@@ -65,7 +65,7 @@ async def validate_handle_comment_scope(
 def validate_role_fluid_reqs(email: str, role: str) -> bool:
     """Validates that new users belong to Fluid Attacks before granting them
     a restricted role"""
-    restricted_roles = {"customer_manager", "system_owner"}
+    restricted_roles = {"customer_manager"}
     if role not in restricted_roles or (
         role in restricted_roles and email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     ):

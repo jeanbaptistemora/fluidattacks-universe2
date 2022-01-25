@@ -650,8 +650,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
-# Permission duplication for the old roles
-GROUP_LEVEL_ROLES["system_owner"] = GROUP_LEVEL_ROLES["customer_manager"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -928,10 +926,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
-# Permission duplication for the old roles
-GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "system_owner"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["customer_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1013,10 +1007,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Permission duplication for the old roles
-ORGANIZATION_LEVEL_ROLES["system_owner"] = ORGANIZATION_LEVEL_ROLES[
-    "customer_manager"
-]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1065,10 +1055,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
         },
     ),
 )
-# Permission duplication for the old roles
-ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "system_owner"
-] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["customer_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
