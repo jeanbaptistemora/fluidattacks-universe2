@@ -20528,7 +20528,7 @@ F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. I
 ",query.get_vulnerabilities_from_syntax
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
-",f117.unverifiable_files
+",generic.unverifiable_files
 F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
 > 1 | ����9
   2 | 
@@ -20540,7 +20540,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. 
   8 | *��  �
   9 | 
     ^ Col 0
-",f117.unverifiable_files
+",generic.unverifiable_files
 F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
 >  1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
    2 | K-*��ϳR0�3��r.JM,IM�u�
@@ -20558,7 +20558,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Un
   14 | l27PK}1����PK�[%O META-INF/��PK�[%O�Kx32
   15 | �MyJar.classPK��
      ^ Col 0
-",f117.unverifiable_files
+",generic.unverifiable_files
 F160,lines,namespace/skims/test/data/lib_path/f160/test.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in namespace/skims/test/data/lib_path/f160/test.cs,"
    1 | using System;
    2 | using System.IO;
