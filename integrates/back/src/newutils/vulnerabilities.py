@@ -481,7 +481,6 @@ def group_specific(
                 specific=specific_grouped,
                 state=group[0].state,
                 type=group[0].type,
-                unreliable_indicators=group[0].unreliable_indicators,
                 where=key[0],
                 commit=(
                     group[0].commit[0:7]
@@ -827,6 +826,19 @@ def get_treatment_actions(
         for action, times in Counter(treatments_actions).most_common()
     ]
     return actions
+
+
+def get_treatment_changes(
+    historic_treatment: Tuple[VulnerabilityTreatment, ...]
+) -> int:
+    if historic_treatment:
+        first_treatment = historic_treatment[0]
+        return (
+            len(historic_treatment) - 1
+            if first_treatment.status == VulnerabilityTreatmentStatus.NEW
+            else len(historic_treatment)
+        )
+    return 0
 
 
 def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
