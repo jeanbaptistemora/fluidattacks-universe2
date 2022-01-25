@@ -18375,6 +18375,131 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_
    36 |
       ^ Col 23
 ",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+>  5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+   1 | Resources:
+   2 |   S3Bucket1:
+   3 |     Type: AWS::S3::Bucket
+   4 |     Properties:
+   5 |       AccessControl: bucket1
+   6 |       BucketName: bk1
+   7 |   S3Bucket2:
+   8 |     Type: AWS::S3::Bucket
+>  9 |     Properties:
+  10 |       AccessControl: PublicReadWrite
+  11 |       BucketName: bucket2
+  12 |       LoggingConfiguration:
+  13 |         DestinationBucketName: bucket_destination
+  14 |         LogFilePrefix: log_prefix
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+   1 | Resources:
+   2 |   S3Bucket1:
+   3 |     Type: AWS::S3::Bucket
+>  4 |     Properties:
+   5 |       AccessControl: bucket1
+   6 |       BucketName: bk1
+   7 |   S3Bucket2:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       AccessControl: PublicReadWrite
+  11 |       BucketName: bucket2
+  12 |       LoggingConfiguration:
+  13 |         DestinationBucketName: bucket_destination
+  14 |         LogFilePrefix: log_prefix
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket1"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+>  5 |       ""Properties"": {
+   6 |         ""AccessControl"": ""bucket1"",
+   7 |         ""BucketName"": ""bk1""
+   8 |       }
+   9 |     },
+  10 |     ""S3Bucket2"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""AccessControl"": ""PublicReadWrite"",
+  14 |         ""BucketName"": ""bucket2"",
+  15 |         ""LoggingConfiguration"": {
+  16 |           ""DestinationBucketName"": ""bucket_destination"",
+  17 |           ""LogFilePrefix"": ""log_prefix""
+  18 |         }
+  19 |       }
+  20 |     }
+  21 |   }
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,12,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket1"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""Properties"": {
+   6 |         ""AccessControl"": ""bucket1"",
+   7 |         ""BucketName"": ""bk1""
+   8 |       }
+   9 |     },
+  10 |     ""S3Bucket2"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+> 12 |       ""Properties"": {
+  13 |         ""AccessControl"": ""PublicReadWrite"",
+  14 |         ""BucketName"": ""bucket2"",
+  15 |         ""LoggingConfiguration"": {
+  16 |           ""DestinationBucketName"": ""bucket_destination"",
+  17 |           ""LogFilePrefix"": ""log_prefix""
+  18 |         }
+  19 |       }
+  20 |     }
+  21 |   }
+  22 | }
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
 F246,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
   33 |     Properties:
   34 |       DBClusterParameterGroupName:
@@ -24888,6 +25013,92 @@ F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. 
   21 |     healthy_threshold   = 2
      ^ Col 0
 ",terraform.tfm_elb_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,9,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+   5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+>  9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",cloudformation.cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
+   1 | Resources:
+   2 |   S3Bucket:
+   3 |     Type: AWS::S3::Bucket
+   4 |     DeletionPolicy: Retain
+>  5 |     Properties:
+   6 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   7 |   EncryptedS3Bucket:
+   8 |     Type: AWS::S3::Bucket
+   9 |     Properties:
+  10 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  11 |       BucketEncryption:
+  12 |         ServerSideEncryptionConfiguration:
+  13 |           - ServerSideEncryptionByDefault:
+  14 |               SSEAlgorithm: aws:kms
+  15 |               KMSMasterKeyID: KMS-KEY-ARN
+  16 |     DeletionPolicy: Delete
+     ^ Col 0
+",cloudformation.cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,6,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",cloudformation.cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,12,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+   6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+> 12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+  22 |           ]
+     ^ Col 0
+",cloudformation.cfn_bucket_has_logging_conf_disabled
 F400,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,5,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
