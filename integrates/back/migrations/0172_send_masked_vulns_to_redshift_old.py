@@ -27,6 +27,9 @@ from botocore.exceptions import (
     ClientError,
     HTTPClientError,
 )
+from custom_exceptions import (
+    UnavailabilityError as CustomUnavailabilityError,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -155,9 +158,10 @@ async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
 
 @retry_on_exceptions(
     exceptions=(
-        UnavailabilityError,
         ClientError,
         ClientPayloadError,
+        CustomUnavailabilityError,
+        UnavailabilityError,
     ),
     sleep_seconds=10,
 )
@@ -242,10 +246,11 @@ async def process_finding(
 
 @retry_on_exceptions(
     exceptions=(
-        HTTPClientError,
         ClientConnectorError,
-        UnavailabilityError,
         ClientError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        UnavailabilityError,
     ),
     sleep_seconds=10,
 )
