@@ -172,14 +172,26 @@ let
     let
       supportedIn = requirements.${requirementId}.supported_in;
       isSupported = subs:
-        if subs then "Yes" else "No";
+        if subs then "🟢" else "🔴";
+      machineLink = link {
+        body = "Machine";
+        path = "https://fluidattacks.com/services/continuous-hacking/";
+      };
+      squadLink = link {
+        body = "Squad";
+        path = "https://fluidattacks.com/services/continuous-hacking/";
+      };
+      oneshotLink = link {
+        body = "One-Shot";
+        path = "https://fluidattacks.com/services/one-shot-hacking/";
+      };
     in
     ''
       | Plan     | Supported              |
       | :------: | :--------------------: |
-      | Machine  | ${isSupported supportedIn.machine} |
-      | Squad    | ${isSupported supportedIn.squad}   |
-      | One-Shot | ${isSupported supportedIn.oneshot} |
+      | ${machineLink} | ${isSupported supportedIn.machine} |
+      | ${squadLink}   | ${isSupported supportedIn.squad}   |
+      | ${oneshotLink} | ${isSupported supportedIn.oneshot} |
     '';
 
   # References list for a requirement
