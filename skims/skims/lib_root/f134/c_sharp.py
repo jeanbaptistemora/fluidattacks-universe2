@@ -29,6 +29,7 @@ from utils.string import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def insecure_cors(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:

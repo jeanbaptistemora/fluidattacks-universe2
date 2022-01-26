@@ -23,6 +23,7 @@ from utils.string import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def check_hashes_salt(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

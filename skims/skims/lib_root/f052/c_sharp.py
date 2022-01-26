@@ -76,6 +76,7 @@ def _old_insecure_keys_check(
                 yield shard, member
 
 
+#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
     ciphers = {
         "RSACryptoServiceProvider",
@@ -101,6 +102,7 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def c_sharp_rsa_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -162,6 +164,7 @@ def c_sharp_rsa_secure_mode(
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def c_sharp_aesmanaged_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -217,6 +220,7 @@ def c_sharp_aesmanaged_secure_mode(
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -246,6 +250,7 @@ def c_sharp_insecure_cipher(
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

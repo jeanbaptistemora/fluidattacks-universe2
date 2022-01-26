@@ -102,6 +102,7 @@ def _yield_insecure_ciphers(
         )
 
 
+#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -114,6 +115,7 @@ def kotlin_insecure_hash(
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -126,6 +128,7 @@ def kotlin_insecure_cipher(
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_key(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

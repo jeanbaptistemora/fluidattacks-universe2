@@ -38,6 +38,7 @@ def insecure_props(shard: graph_model.GraphShard, name_var: str) -> bool:
     return True
 
 
+#  developer: jecheverri@fluidattacks.com
 def insecurely_generated_cookies(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

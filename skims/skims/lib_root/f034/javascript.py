@@ -27,6 +27,7 @@ from utils.string import (
 )
 
 
+#  developer: drestrepo@fluidattacks.com
 def weak_random(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         random_number = False

@@ -57,6 +57,7 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
                     yield shard, param_id
 
 
+#  developer: acuberos@fluidattacks.com
 def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
         cwe=("319"),

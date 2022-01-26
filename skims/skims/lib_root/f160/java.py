@@ -13,6 +13,7 @@ from utils.string import (
 )
 
 
+#  developer: drestrepo@fluidattacks.com
 def java_file_create_temp_file(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

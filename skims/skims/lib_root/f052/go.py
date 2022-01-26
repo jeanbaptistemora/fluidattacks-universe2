@@ -15,6 +15,7 @@ from sast.query import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def go_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -33,6 +34,7 @@ def go_insecure_hash(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def go_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

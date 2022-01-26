@@ -30,6 +30,7 @@ def _could_be_boolean(key: str) -> bool:
     return False
 
 
+#  developer: drestrepo@fluidattacks.com
 def client_storage(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

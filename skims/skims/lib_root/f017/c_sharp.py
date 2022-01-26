@@ -22,6 +22,7 @@ from utils.graph.text_nodes import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def verify_decoder(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -78,6 +79,7 @@ def verify_decoder(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def jwt_signed(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

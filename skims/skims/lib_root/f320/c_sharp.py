@@ -28,6 +28,7 @@ def _insecure_arg(dependencies: SyntaxSteps) -> bool:
     return False
 
 
+#  developer: jecheverri@fluidattacks.com
 def ldap_connections_authenticated(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:

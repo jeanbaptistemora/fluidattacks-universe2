@@ -117,6 +117,7 @@ def _test_crypto_js(
         yield shard_n_id_query(graph_db, FINDING, shard, "1")
 
 
+#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         for (
@@ -157,6 +158,7 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
     return tuple(chain.from_iterable(find_vulns()))
 
 
+#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -179,6 +181,7 @@ def javascript_insecure_cipher(
     return tuple(chain.from_iterable(find_vulns()))
 
 
+#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         for (

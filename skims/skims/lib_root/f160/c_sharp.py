@@ -13,6 +13,7 @@ from utils.string import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def c_sharp_file_create_temp_file(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

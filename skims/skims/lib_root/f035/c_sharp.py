@@ -20,6 +20,7 @@ from typing import (
 
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
+#  developer: asalgado@fluidattacks.com
 def weak_credential_policy(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -105,6 +106,7 @@ def _check_no_password_argument(arg: graph_model.SyntaxStepLiteral) -> bool:
     return False
 
 
+#  developer: asalgado@fluidattacks.com
 def no_password(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

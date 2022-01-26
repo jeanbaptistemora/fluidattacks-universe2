@@ -15,6 +15,7 @@ from sast_syntax_readers.utils_generic import (
 )
 
 
+#  developer: jecheverri@fluidattacks.com
 def sql_injection(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

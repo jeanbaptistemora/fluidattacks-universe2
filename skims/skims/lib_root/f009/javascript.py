@@ -16,6 +16,7 @@ from utils.string import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def crypto_js_credentials(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:

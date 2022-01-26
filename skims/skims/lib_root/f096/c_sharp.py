@@ -22,6 +22,7 @@ from utils.graph.text_nodes import (
 
 
 # https://docs.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+#  developer: jecheverri@fluidattacks.com
 def insecure_deserialization(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -57,6 +58,7 @@ def insecure_deserialization(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def check_xml_serializer(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
