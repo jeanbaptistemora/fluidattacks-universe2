@@ -8,6 +8,8 @@ import type {
 interface IUpdateDescriptionProps {
   findingId: string;
   groupName?: string;
+  isOpen?: boolean;
+  changePermissions?: (groupName: string) => void;
   vulnerabilities: IVulnDataTypeAttr[];
   handleClearSelected: () => void;
   handleCloseModal: () => void;

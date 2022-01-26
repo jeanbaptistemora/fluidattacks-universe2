@@ -1,7 +1,7 @@
 import type { FetchResult } from "@apollo/client";
 import { Formik } from "formik";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { UpdateTreatmentModal } from "./form";
@@ -23,7 +23,9 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
+  changePermissions,
   findingId,
+  isOpen = false,
   groupName,
   vulnerabilities,
   handleClearSelected,
@@ -89,6 +91,12 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
     },
     []
   );
+
+  useEffect((): void => {
+    if (isOpen && changePermissions !== undefined) {
+      changePermissions(groupName as string);
+    }
+  }, [groupName, isOpen, changePermissions]);
 
   return (
     <React.StrictMode>
