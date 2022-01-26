@@ -160,7 +160,7 @@ def main(
 
 
 @shield(on_error_return=1)
-async def main_wrapped(  # pylint: disable=too-many-arguments
+async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     token: str,
     verbose: int,
     strict: bool,
@@ -216,11 +216,13 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
             ),
         )
 
+    if kind == "dynamic":
+        kind_chg = KindEnum.DYNAMIC
+    else:
+        kind_chg = KindEnum.STATIC if kind == "static" else KindEnum.ALL
     config = ForcesConfig(
         group=group,
-        kind=KindEnum.DYNAMIC
-        if kind == "dynamic"
-        else (KindEnum.STATIC if kind == "static" else KindEnum.ALL),
+        kind=kind_chg,
         output=output,
         repository_path=repo_path,
         repository_name=repo_name,
