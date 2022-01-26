@@ -138,6 +138,7 @@ def _create_ssl_vuln(
     )
 
 
+#  developer: asalgado@fluidattacks.com
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -212,6 +213,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
@@ -358,6 +360,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -392,6 +395,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -426,6 +430,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -467,6 +472,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -541,6 +547,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -607,6 +614,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -701,6 +709,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -747,6 +756,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+#  developer: asalgado@fluidattacks.com
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
