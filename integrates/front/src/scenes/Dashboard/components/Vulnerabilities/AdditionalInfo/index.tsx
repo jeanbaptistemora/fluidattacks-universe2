@@ -117,7 +117,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         </Col100>
         <div className={"flex flex-wrap pb0"}>
           <div className={"pl1 pr0 pb0 w-100"}>
-            <Field>{vulnerability.where}</Field>
+            <Field>{_.unescape(vulnerability.where)}</Field>
             {_.isEmpty(data.vulnerability.stream) ? undefined : (
               <Field>{data.vulnerability.stream}</Field>
             )}
