@@ -75,18 +75,18 @@ LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
 
-def _execute_query(client: Client, query: Query) -> Cmd[None]:
-    return to_cmd(lambda: client.cursor.execute_query(query))
+def _execute_query(client: Client, _query: Query) -> Cmd[None]:
+    return to_cmd(lambda: client.cursor.execute_query(_query))
 
 
 def _execute_batch(
-    client: Client, query: Query, args: FrozenList[SqlArgs]
+    client: Client, _query: Query, args: FrozenList[SqlArgs]
 ) -> Cmd[None]:
-    return to_cmd(lambda: client.cursor.execute_batch(query, list(args)))
+    return to_cmd(lambda: client.cursor.execute_batch(_query, list(args)))
 
 
 def _fetch_one(client: Client) -> Cmd[FrozenList[Any]]:
-    return to_cmd(lambda: client.cursor.fetch_one())
+    return to_cmd(client.cursor.fetch_one)
 
 
 def _fetch_many(
@@ -134,6 +134,7 @@ def _fetch(
 def _all_data(
     client: Client, table: TableID, namespace: Maybe[str]
 ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+    # pylint: disable=unnecessary-lambda
     pkg_items = 2000
     statement = namespace.map(
         lambda n: query.namespace_data(table, n)
@@ -196,7 +197,7 @@ def _fetch_one_result(client: Client, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
 
 
 def _fetch_not_empty(client: Client) -> Cmd[bool]:
-    return to_cmd(lambda: client.cursor.fetch_one().map(lambda i: bool(i)))
+    return to_cmd(lambda: client.cursor.fetch_one().map(bool))
 
 
 def get_context(

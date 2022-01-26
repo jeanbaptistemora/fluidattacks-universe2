@@ -37,9 +37,6 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
-from purity.v2.adapters import (
-    to_cmd,
-)
 from purity.v2.cmd import (
     Cmd,
     unsafe_unwrap,
