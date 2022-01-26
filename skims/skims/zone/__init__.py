@@ -1,8 +1,8 @@
+from enum import (
+    Enum,
+)
 from glob import (
     iglob,
-)
-from model import (
-    core_model,
 )
 from ruamel import (
     yaml,
@@ -18,6 +18,11 @@ from utils.ctx import (
     CTX,
     STATIC,
 )
+
+
+class LocalesEnum(Enum):
+    EN: str = "EN"
+    ES: str = "ES"
 
 
 def load_translations() -> Dict[str, Dict[str, str]]:
@@ -38,7 +43,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
 
                 translations[key] = {
                     locale_code: data[locale_code.lower()]
-                    for locale in core_model.LocalesEnum
+                    for locale in LocalesEnum
                     for locale_code in [locale.value]
                 }
 
@@ -107,7 +112,7 @@ IGNORED_CHARS = str.maketrans(
 def t(  # pylint: disable=invalid-name
     key: str,
     *args: Any,
-    locale: Optional[core_model.LocalesEnum] = None,
+    locale: Optional[LocalesEnum] = None,
     **kwargs: Any,
 ) -> str:
     return (
