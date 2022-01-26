@@ -688,7 +688,11 @@ async def clone_root(*, item: BatchProcessing) -> None:
 
 
 async def queue_sync_git_root(
-    loaders: Dataloaders, root: GitRootItem, user_email: str
+    loaders: Dataloaders,
+    root: GitRootItem,
+    user_email: str,
+    check_existing_jobs: bool = True,
+    queue: str = "spot_soon",
 ) -> None:
     if root.state.status != "ACTIVE":
         raise InactiveRoot()
@@ -698,23 +702,25 @@ async def queue_sync_git_root(
     if len(list(filter(lambda x: root.id in x.state.roots, group_creds))) == 0:
         raise CredentialNotFound()
 
-    existing_actions = await get_actions_by_name("clone_root", group_name)
-    if (
-        len(
-            list(
-                filter(
-                    lambda x: x.additional_info == root.state.nickname,
-                    existing_actions,
+    if check_existing_jobs:
+        existing_actions = await get_actions_by_name("clone_root", group_name)
+        if (
+            len(
+                list(
+                    filter(
+                        lambda x: x.additional_info == root.state.nickname,
+                        existing_actions,
+                    )
                 )
             )
-        )
-        > 0
-    ):
-        raise RootAlreadyCloning()
+            > 0
+        ):
+            raise RootAlreadyCloning()
 
     await put_action(
         action_name="clone_root",
         entity=root.group_name,
         subject=user_email,
         additional_info=root.state.nickname,
+        queue=queue,
     )

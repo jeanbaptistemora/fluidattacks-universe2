@@ -517,6 +517,7 @@ in
           };
         })
         [
+          "clone_groups_roots"
           "delete_imamura_stakeholders"
           "delete_obsolete_groups"
           "delete_obsolete_orgs"
