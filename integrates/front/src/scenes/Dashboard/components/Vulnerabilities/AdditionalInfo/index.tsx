@@ -18,7 +18,6 @@ import {
   Status,
 } from "./styles";
 
-import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import { Button } from "components/Button";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
@@ -26,7 +25,6 @@ import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vul
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -49,7 +47,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const { data } = useQuery<IGetVulnAdditionalInfoAttr>(
     GET_VULN_ADDITIONAL_INFO,
     {
-      fetchPolicy: "cache-first",
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(t("groupAlerts.errorTextsad"));
@@ -71,14 +68,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   }
 
   const isVulnOpen: boolean = vulnerability.currentState === "open";
-  const lastTreatment: IHistoricTreatment = getLastTreatment(
-    data.vulnerability.historicTreatment
-  );
   const currentExpiration: string =
     isVulnOpen &&
-    lastTreatment.treatment === "ACCEPTED" &&
-    !_.isUndefined(lastTreatment.acceptanceDate)
-      ? lastTreatment.acceptanceDate
+    data.vulnerability.treatment === "ACCEPTED" &&
+    !_.isUndefined(data.vulnerability.acceptanceDate)
+      ? data.vulnerability.acceptanceDate
       : "";
   const currentJustification: string =
     !isVulnOpen ||
@@ -90,13 +84,10 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     ? (data.vulnerability.treatmentAssigned as string)
     : "";
   const treatmentDate: string = isVulnOpen
-    ? lastTreatment.date.split(" ")[0]
+    ? data.vulnerability.lastTreatmentDate.split(" ")[0]
     : "";
 
-  const [firstTreatment] = data.vulnerability.historicTreatment;
-  const treatmentChanges: number =
-    data.vulnerability.historicTreatment.length -
-    (firstTreatment.treatment === "NEW" ? 1 : 0);
+  const treatmentChanges = parseInt(data.vulnerability.treatmentChanges, 10);
 
   const vulnerabilityType: string = t(
     `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
