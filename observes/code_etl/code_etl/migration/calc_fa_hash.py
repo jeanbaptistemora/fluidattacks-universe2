@@ -150,6 +150,6 @@ def start(
 ) -> Cmd[None]:
     client = ClientFactory().from_creds(db_id, creds)
     client2 = ClientFactory().from_creds(db_id, creds)
-    return to_cmd(lambda: init_table_2_query(client, target)).bind(
+    return init_table_2_query(client, target).bind(
         lambda _: migration(client, client2, source, target, namespace)
     )
