@@ -31,11 +31,7 @@ def _tfm_public_buckets_iterate_vulnerabilities(
             yield acl
 
 
-def _tfm_public_buckets(
-    content: str,
-    path: str,
-    model: Any,
-) -> Vulnerabilities:
+def tfm_public_buckets(content: str, path: str, model: Any) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={FindingEnum.F203.value.cwe},

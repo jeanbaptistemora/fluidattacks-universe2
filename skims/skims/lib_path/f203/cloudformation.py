@@ -30,10 +30,8 @@ def _cfn_public_buckets_iterate_vulnerabilities(
             yield bucket.inner["AccessControl"]
 
 
-def _cfn_public_buckets(
-    content: str,
-    path: str,
-    template: Any,
+def cfn_public_buckets(
+    content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,

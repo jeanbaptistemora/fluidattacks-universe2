@@ -4,10 +4,10 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f203.cloudformation import (
-    _cfn_public_buckets,
+    cfn_public_buckets,
 )
 from lib_path.f203.terraform import (
-    _tfm_public_buckets,
+    tfm_public_buckets,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -31,24 +31,20 @@ from typing import (
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
-def cfn_public_buckets(
-    content: str,
-    path: str,
-    template: Any,
+def run_cfn_public_buckets(
+    content: str, path: str, template: Any
 ) -> Vulnerabilities:
     # cfn_nag F14 S3 Bucket should not have a public read-write acl
     # cfn_nag W31 S3 Bucket likely should not have a public read acl
-    return _cfn_public_buckets(content=content, path=path, template=template)
+    return cfn_public_buckets(content=content, path=path, template=template)
 
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
-def tfm_public_buckets(
-    content: str,
-    path: str,
-    model: Any,
+def run_tfm_public_buckets(
+    content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    return _tfm_public_buckets(
+    return tfm_public_buckets(
         content=content,
         path=path,
         model=model,
@@ -67,12 +63,12 @@ def analyze(
         content = content_generator()
 
         for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(cfn_public_buckets(content, path, template))
+            coroutines.append(run_cfn_public_buckets(content, path, template))
 
     elif file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
 
-        coroutines.append(tfm_public_buckets(content, path, model))
+        coroutines.append(run_tfm_public_buckets(content, path, model))
 
     return coroutines

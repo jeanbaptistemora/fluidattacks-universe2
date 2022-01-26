@@ -16100,7 +16100,7 @@ F203,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24
   33 |   }
   34 | }
      ^ Col 0
-",terraform._tfm_public_buckets
+",terraform.tfm_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,6,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -16124,7 +16124,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,6,284
   20 |           - ServerSideEncryptionByDefault:
   21 |               SSEAlgorithm: aws:kms
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,16,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    6 |       AccessControl: PublicReadWrite
    7 |       BucketName: SKIMS-PUBLIC-BUCKET
@@ -16148,7 +16148,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,16,28
   25 |     Type: AWS::S3::Bucket
   26 |     Properties:
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
@@ -16172,7 +16172,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   20 |     },
   21 |     ""S3Bucket1"": {
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   15 |               }
@@ -16196,7 +16196,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   33 |             }
   34 |           ]
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,3,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
    1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
@@ -16220,7 +16220,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,3,284,s
   20 |     target_prefix = ""log/""
   21 |   }
      ^ Col 0
-",terraform._tfm_public_buckets
+",terraform.tfm_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,10,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
@@ -16237,7 +16237,7 @@ F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   13 |         DestinationBucketName: bucket_destination
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,13,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
@@ -16261,7 +16261,7 @@ F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   21 |   }
   22 | }
      ^ Col 0
-",cloudformation._cfn_public_buckets
+",cloudformation.cfn_public_buckets
 F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
  in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
