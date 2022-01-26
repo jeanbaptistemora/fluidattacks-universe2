@@ -110,6 +110,7 @@ def build_vulnerabilities(
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _sub_resource_integrity(
     ctx: ContentCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -141,6 +142,7 @@ def _sub_resource_integrity(
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
     locations: List[Location] = []
 

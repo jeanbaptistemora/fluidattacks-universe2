@@ -199,6 +199,7 @@ def _content_security_policy_script_src(
         locations.append("content_security_policy.missing_script_src")
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -221,6 +222,7 @@ def _content_security_policy(
     )
 
 
+#  developer: asalgado@fluidattacks.com
 def _upgrade_insecure_requests(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -241,6 +243,7 @@ def _upgrade_insecure_requests(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
@@ -274,6 +277,7 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
@@ -293,6 +297,7 @@ def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -345,6 +350,7 @@ def _is_sensitive_cookie(cookie_name: str) -> bool:
     return any(smell in cookie_name for smell in sensitive_names)
 
 
+#  developer: asalgado@fluidattacks.com
 def _set_cookie_httponly(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -370,6 +376,7 @@ def _set_cookie_httponly(
     )
 
 
+#  developer: asalgado@fluidattacks.com
 def _set_cookie_samesite(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -398,6 +405,7 @@ def _set_cookie_samesite(
     )
 
 
+#  developer: asalgado@fluidattacks.com
 def _set_cookie_secure(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -423,6 +431,7 @@ def _set_cookie_secure(
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -443,6 +452,7 @@ def _strict_transport_security(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     # FP: analize if the url starts with http
     if not ctx.url_ctx.url.startswith("http://"):  # NOSONAR
@@ -465,6 +475,7 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
