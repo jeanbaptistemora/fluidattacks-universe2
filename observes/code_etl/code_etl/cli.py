@@ -1,9 +1,8 @@
 # pylint: skip-file
 
-import asyncio
 import click
 from code_etl import (
-    amend as amend_v2,
+    amend,
     compute_bills as bills,
     upload_repo,
 )
@@ -35,17 +34,18 @@ from postgres_client.ids import (
     SchemaID,
     TableID,
 )
+from purity.v2.adapters import (
+    to_returns,
+)
+from purity.v2.maybe import (
+    Maybe,
+)
 from returns.io import (
     IO,
 )
-from returns.maybe import (
-    Maybe,
-)
-import sys
 from typing import (
     Any,
     IO as FILE,
-    Iterator,
     NoReturn,
     Optional,
     Tuple,
@@ -91,14 +91,14 @@ def amend_authors(
     table: str,
     mailmap: Optional[str],
     namespace: str,
-) -> IO[None]:
-    return amend_v2.start(
+) -> NoReturn:
+    amend.start(
         ctx.db_id,
         ctx.creds,
         _to_table((schema, table)),
         namespace,
         _get_mailmap(mailmap),
-    )
+    ).compute()
 
 
 @click.command()
@@ -134,7 +134,7 @@ def upload_code(
 ) -> IO[None]:
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = _to_table((schema, table))
-    mmap = _get_mailmap(mailmap)
+    mmap = to_returns(_get_mailmap(mailmap))
     return upload_repo.upload_repos(
         ctx.db_id, ctx.creds, target, namespace, repos, mmap
     )

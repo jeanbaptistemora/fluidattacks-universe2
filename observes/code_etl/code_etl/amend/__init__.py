@@ -8,6 +8,8 @@ from code_etl.amend.core import (
 )
 from code_etl.client import (
     decoder,
+)
+from code_etl.client.v2 import (
     namespace_data,
 )
 from code_etl.mailmap import (
@@ -29,17 +31,14 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
-from purity.v2.adapters import (
-    to_returns,
+from purity.v2.cmd import (
+    Cmd,
 )
-from returns.functions import (
-    raise_exception,
-)
-from returns.io import (
-    IO,
-)
-from returns.maybe import (
+from purity.v2.maybe import (
     Maybe,
+)
+from purity.v2.stream.transform import (
+    consume,
 )
 from typing import (
     Union,
@@ -53,18 +52,16 @@ def _update(
     table: TableID,
     mailmap: Maybe[Mailmap],
     item: Union[CommitStamp, RepoRegistration],
-) -> IO[None]:
+) -> Cmd[None]:
     if isinstance(item, CommitStamp):
         _item = item
-        return update_stamp(
-            client,
-            table,
-            _item,
+        fixed = (
             mailmap.map(AmendUsers)
             .map(lambda a: a.amend_commit_stamp_users(_item))
-            .value_or(_item),
+            .value_or(_item)
         )
-    return IO(None)
+        return update_stamp(client, table, item, fixed)
+    return Cmd.from_cmd(lambda: None)
 
 
 def amend_users(
@@ -72,21 +69,24 @@ def amend_users(
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
-) -> IO[None]:
-    LOG.info("Getting data stream...")
+) -> Cmd[None]:
+    start_msg = Cmd.from_cmd(lambda: LOG.info("Getting data stream..."))
+    mutation_msg = Cmd.from_cmd(lambda: LOG.info("Mutation started"))
     data = namespace_data(client, table, namespace).map(
-        lambda i: i.map(
-            lambda r: r.bind(
-                lambda x: to_returns(decoder.decode_commit_table_row(x))
-            )
+        lambda s: s.map(
+            lambda r: r.bind(lambda x: decoder.decode_commit_table_row(x))
         )
     )
-    LOG.info("Mutation started")
-    for io_r in data:
-        io_r.map(lambda r: r.alt(raise_exception).unwrap()).map(
-            lambda c: _update(client, table, mailmap, c)
-        )
-    return IO(None)
+    result = data.bind(
+        lambda s: s.map(lambda r: r.unwrap())
+        .map(lambda c: _update(client, table, mailmap, c))
+        .transform(consume)
+    )
+    return (
+        start_msg.bind(lambda _: data)
+        .bind(lambda _: mutation_msg)
+        .bind(lambda _: result)
+    )
 
 
 def start(
@@ -95,6 +95,6 @@ def start(
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
-) -> IO[None]:
+) -> Cmd[None]:
     client = ClientFactory().from_creds(db_id, creds)
     return amend_users(client, table, namespace, mailmap)

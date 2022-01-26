@@ -1,8 +1,8 @@
-# pylint: skip-file
-
 from code_etl.client import (
-    delta_update,
     encoder,
+)
+from code_etl.client.v2 import (
+    delta_update,
 )
 from code_etl.objs import (
     CommitStamp,
@@ -14,8 +14,8 @@ from postgres_client.client import (
 from postgres_client.ids import (
     TableID,
 )
-from returns.io import (
-    IO,
+from purity.v2.cmd import (
+    Cmd,
 )
 
 LOG = logging.getLogger(__name__)
@@ -23,10 +23,14 @@ LOG = logging.getLogger(__name__)
 
 def update_stamp(
     client: Client, table: TableID, old: CommitStamp, new: CommitStamp
-) -> IO[None]:
+) -> Cmd[None]:
     if old != new:
-        LOG.info("delta update %s", old.commit.commit_id)
-        return delta_update(
-            client, table, encoder.from_stamp(old), encoder.from_stamp(new)
+        info = Cmd.from_cmd(
+            lambda: LOG.info("delta update %s", old.commit.commit_id)
         )
-    return IO(None)
+        return info.bind(
+            lambda _: delta_update(
+                client, table, encoder.from_stamp(old), encoder.from_stamp(new)
+            )
+        )
+    return Cmd.from_cmd(lambda: LOG.debug("no changes"))
