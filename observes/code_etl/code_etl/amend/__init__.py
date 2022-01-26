@@ -4,7 +4,7 @@ from code_etl.amend.actions import (
     update_stamp,
 )
 from code_etl.amend.core import (
-    amend_commit_stamp_users,
+    AmendUsers,
 )
 from code_etl.client import (
     decoder,
@@ -15,6 +15,7 @@ from code_etl.mailmap import (
 )
 from code_etl.objs import (
     CommitStamp,
+    RepoRegistration,
 )
 import logging
 from postgres_client.client import (
@@ -40,8 +41,30 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
+from typing import (
+    Union,
+)
 
 LOG = logging.getLogger(__name__)
+
+
+def _update(
+    client: Client,
+    table: TableID,
+    mailmap: Maybe[Mailmap],
+    item: Union[CommitStamp, RepoRegistration],
+) -> IO[None]:
+    if isinstance(item, CommitStamp):
+        _item = item
+        return update_stamp(
+            client,
+            table,
+            _item,
+            mailmap.map(AmendUsers)
+            .map(lambda a: a.amend_commit_stamp_users(_item))
+            .value_or(_item),
+        )
+    return IO(None)
 
 
 def amend_users(
@@ -61,16 +84,7 @@ def amend_users(
     LOG.info("Mutation started")
     for io_r in data:
         io_r.map(lambda r: r.alt(raise_exception).unwrap()).map(
-            lambda c: update_stamp(
-                client,
-                table,
-                c,
-                mailmap.map(
-                    lambda mmap: amend_commit_stamp_users(mmap, c)
-                ).value_or(c),
-            )
-            if isinstance(c, CommitStamp)
-            else IO(None)
+            lambda c: _update(client, table, mailmap, c)
         )
     return IO(None)
 

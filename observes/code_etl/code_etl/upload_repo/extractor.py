@@ -1,7 +1,7 @@
 # pylint: skip-file
 
 from code_etl.amend.core import (
-    amend_commit_users,
+    AmendUsers,
 )
 from code_etl.factories import (
     CommitDataFactory,
@@ -60,9 +60,11 @@ class Extractor:
         if commit.hexsha == self._context.last_commit:
             return Maybe.empty
         _obj = CommitDataFactory.from_commit(commit)
-        obj = self._mailmap.map(
-            lambda m: amend_commit_users(m, _obj)
-        ).value_or(_obj)
+        obj = (
+            self._mailmap.map(AmendUsers)
+            .map(lambda a: a.amend_commit_users(_obj))
+            .value_or(_obj)
+        )
         data_id = CommitDataId(self._context.repo, obj.commit_id)
         stamp = CommitStamp(
             Commit(data_id, obj.data),
