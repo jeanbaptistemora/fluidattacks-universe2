@@ -1,8 +1,3 @@
-from code_etl.client import (
-    all_data_count,
-    insert_rows,
-    namespace_data,
-)
 from code_etl.client.decoder import (
     decode_commit_data_2,
     decode_repo_registration,
@@ -10,6 +5,11 @@ from code_etl.client.decoder import (
 from code_etl.client.encoder import (
     CommitTableRow,
     from_row_obj,
+)
+from code_etl.client.v2 import (
+    all_data_count,
+    insert_rows,
+    namespace_data,
 )
 from code_etl.factories import (
     gen_fa_hash_2,
@@ -37,41 +37,33 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
-from purity.v1 import (
-    Flattener,
-)
-from purity.v1.pure_iter.transform.io import (
-    consume,
-)
 from purity.v2.adapters import (
-    from_returns,
-    to_returns,
+    to_cmd,
+)
+from purity.v2.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
+from purity.v2.flatten import (
+    flatten_results,
 )
 from purity.v2.frozen import (
     FrozenList,
 )
 from purity.v2.result import (
-    Result,
     ResultE,
-    UnwrapError,
+)
+from purity.v2.stream.transform import (
+    consume,
 )
 from purity.v2.union import (
     inl,
 )
-from returns.io import (
-    IO,
-)
 from typing import (
-    Any,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
-
-
-def _log_info(msg: str, *args: Any) -> IO[None]:
-    LOG.info(msg, *args)
-    return IO(None)
 
 
 def migrate_commit(
@@ -97,61 +89,56 @@ def migrate_row(
     return reg.lash(lambda _: migrate_commit(row).map(inl))
 
 
-def _progress(count: int, total: int) -> IO[None]:
-    LOG.info("Migration %s/%s [%s%%]", count, total, (count * 100) // total)
-    return IO(None)
-
-
 def migration(
     client: Client,
     client_2: Client,
     source: TableID,
     target: TableID,
     namespace: str,
-) -> IO[ResultE[None]]:
+) -> Cmd[None]:
     # pylint: disable=unnecessary-lambda
-    data = (
-        namespace_data(client, source, namespace)
-        .map(
-            lambda i: i.map(
-                lambda r: r.bind(lambda x: to_returns(migrate_row(x)))
-            )
+    adjusted_data = namespace_data(client, source, namespace).map(
+        lambda s: s.map(lambda r: r.bind(migrate_row)).chunked(2000)
+    )
+    counter = [0]
+    total = all_data_count(client_2, source, namespace).map(
+        lambda i: i.unwrap()
+    )
+
+    def _emit_action(
+        client: Client,
+        target: TableID,
+        total_items: int,
+        pkg: FrozenList[CommitTableRow],
+    ) -> None:
+        pkg_len = len(pkg)
+        unsafe_unwrap(insert_rows(client, target, pkg))
+        counter[0] = counter[0] + pkg_len
+        LOG.info(
+            "Migration %s/%s [%s%%]",
+            counter[0],
+            total_items,
+            (counter[0] * 100) // total_items,
         )
-        .chunked(2000)
-        .map(
-            lambda i: Flattener.list_io(tuple(i)).map(
-                lambda l: Flattener.result_list(l)
-            )
-        )
-        .map(
-            lambda i: i.map(
-                lambda r: r.map(lambda t: tuple(from_row_obj(j) for j in t))
+
+    action = total.bind(
+        lambda t: Cmd.from_cmd(lambda: LOG.info("Total rows: %s", t)).bind(
+            lambda _: adjusted_data.map(
+                lambda s: s.map(lambda i: flatten_results(i))
+                .map(
+                    lambda r: r.map(
+                        lambda l: tuple(from_row_obj(i) for i in l)
+                    ).map(
+                        lambda p: Cmd.from_cmd(
+                            lambda: _emit_action(client_2, target, t, p)
+                        )
+                    )
+                )
+                .map(lambda x: x.unwrap())
             )
         )
     )
-    try:
-        counter = IO(0)
-        total = all_data_count(client_2, source).map(lambda i: i.unwrap())
-        total.bind(lambda t: _log_info("Total rows: %s", t))
-
-        def _emit(
-            items: IO[Result[FrozenList[CommitTableRow], Exception]]
-        ) -> IO[None]:
-            _items = items.map(lambda i: i.unwrap())
-            pkg_len = _items.map(lambda i: len(i))
-            count = counter.bind(lambda c: pkg_len.map(lambda l: c + l))
-            return _items.bind(
-                lambda i: insert_rows(client_2, target, i)
-            ).bind(
-                lambda _: count.bind(
-                    lambda c: total.bind(lambda t: _progress(c, t))
-                )
-            )
-
-        consume(data.map(lambda x: _emit(x.map(from_returns))))
-        return IO(Result.success(None))
-    except UnwrapError[Any, Exception] as err:
-        return IO(Result.failure(err.container.unwrap_fail()))
+    return action.bind(consume)
 
 
 def start(
@@ -160,11 +147,9 @@ def start(
     source: TableID,
     target: TableID,
     namespace: str,
-) -> IO[None]:
+) -> Cmd[None]:
     client = ClientFactory().from_creds(db_id, creds)
     client2 = ClientFactory().from_creds(db_id, creds)
-    return init_table_2_query(client, target).bind(
-        lambda _: migration(client, client2, source, target, namespace).map(
-            lambda i: i.unwrap()
-        )
+    return to_cmd(lambda: init_table_2_query(client, target)).bind(
+        lambda _: migration(client, client2, source, target, namespace)
     )
