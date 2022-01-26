@@ -692,6 +692,10 @@ export const enTranslations: ResourceKey = {
             name: "Cloning credential",
             nameHint: "Repository SSH Key",
             ssh: "SSH",
+            sshHint:
+              "-----BEGIN OPENSSH PRIVATE KEY-----\n" +
+              "SSH PRIVATE KEY...\n" +
+              "-----END OPENSSH PRIVATE KEY-----",
             sshKey: "Private SSH Key",
             type: "Type",
           },
@@ -2575,6 +2579,7 @@ export const enTranslations: ResourceKey = {
     invalidEmailInField: "The email address inserted is not valid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidMarkdown: "Invalid or malformed markdown",
+    invalidSshFormat: "Invalid or malformed SSH private key",
     invalidTextBeginning:
       "Field cannot begin with the following character: {{ chars }}",
     invalidTextField:

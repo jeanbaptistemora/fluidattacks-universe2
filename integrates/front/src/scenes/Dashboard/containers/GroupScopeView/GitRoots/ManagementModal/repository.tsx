@@ -34,7 +34,12 @@ import {
   FormikTextArea,
 } from "utils/forms/fields";
 import { openUrl } from "utils/resourceHelpers";
-import { checked, required } from "utils/validations";
+import {
+  checked,
+  composeValidators,
+  hasSshFormat,
+  required,
+} from "utils/validations";
 
 interface IRepositoryProps {
   initialValues: IGitRootAttr;
@@ -215,8 +220,14 @@ const Repository: React.FC<IRepositoryProps> = ({
                             <Field
                               component={FormikTextArea}
                               name={"credentials.key"}
+                              placeholder={t(
+                                "group.scope.git.repo.credentials.sshHint"
+                              )}
                               type={"text"}
-                              validate={required}
+                              validate={composeValidators([
+                                required,
+                                hasSshFormat,
+                              ])}
                             />
                           </div>
                         </div>

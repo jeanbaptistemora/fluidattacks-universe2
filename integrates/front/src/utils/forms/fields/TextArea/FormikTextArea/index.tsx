@@ -16,6 +16,7 @@ interface ITextAreaProps extends FieldProps {
   input: Omit<FieldInputProps<string>, "value"> & { value: string };
   withCount?: boolean;
   disabled?: boolean;
+  placeholder?: string;
   rows?: number;
 }
 
@@ -31,6 +32,7 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
     form,
     id,
     input,
+    placeholder,
     rows,
     withCount = false,
   } = props;
@@ -49,6 +51,7 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
         }`}
         disabled={disabled}
         id={id}
+        placeholder={placeholder}
         rows={rows}
         value={value}
       />

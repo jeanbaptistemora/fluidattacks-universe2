@@ -456,6 +456,17 @@ const excludeFormat: Validator = (
   return undefined;
 };
 
+const hasSshFormat: Validator = (value: string): string | undefined => {
+  const regex =
+    /^-----BEGIN OPENSSH PRIVATE KEY-----\n(?:[a-zA-Z0-9+/=]+\n)+-----END OPENSSH PRIVATE KEY-----\n?$/u;
+
+  if (!regex.test(value)) {
+    return translate.t("validations.invalidSshFormat");
+  }
+
+  return undefined;
+};
+
 export {
   composeValidators,
   checked,
@@ -494,4 +505,5 @@ export {
   isValidDateAccessToken,
   isLowerDate,
   excludeFormat,
+  hasSshFormat,
 };
