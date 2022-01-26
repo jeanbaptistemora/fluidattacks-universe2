@@ -224,8 +224,7 @@ def main(
         or not generic.is_env_ci()
     ):
         update_last_sync_date("last_sync_date", subs)
-    if passed:
-        if subs != TEST_SUBS:
-            utils.integrates.refresh_toe_lines(subs)
+    if passed and subs != TEST_SUBS:
+        utils.integrates.refresh_toe_lines(subs)
 
     return passed

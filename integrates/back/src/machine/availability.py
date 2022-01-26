@@ -73,9 +73,10 @@ def is_check_available(finding_code: str) -> bool:
 
 def operation_can_be_executed(context: Any, finding_title: str) -> bool:
     source = requests_utils.get_source_new(context)
-    if source.value == Source.MACHINE.value:
-        if finding_code := get_finding_code_from_title(finding_title):
-            return is_check_available(finding_code)
+    if source.value == Source.MACHINE.value and (
+        finding_code := get_finding_code_from_title(finding_title)
+    ):
+        return is_check_available(finding_code)
     return True
 
 
