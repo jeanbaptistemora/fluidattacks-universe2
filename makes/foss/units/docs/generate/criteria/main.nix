@@ -15,7 +15,7 @@ let
   compliance = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/a408c50fd41684da440f807b2b201da2df56301a/makes/foss/modules/makes/criteria/src/compliance/data.yaml";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/1b94378e4a8e397964c6e0fc758aed295c677b3a/makes/foss/modules/makes/criteria/src/compliance/data.yaml";
         sha256 = "1hn2xx01w0nfdlvb9biaxmi2010yrrqfjdi6ba0alcpna6i9m00y";
       }
     )
@@ -23,16 +23,16 @@ let
   requirements = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/a408c50fd41684da440f807b2b201da2df56301a/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
-        sha256 = "085lqfkny8gmrij7xjmsm81xp7zzh4yqrc35wl5jc8xvai5vr4sg";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/1b94378e4a8e397964c6e0fc758aed295c677b3a/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
+        sha256 = "14v3jmhyf53hmxdq151j7hl0gla97b4dp43fm63zlimvlar4m02p";
       }
     )
   );
   vulnerabilities = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/a408c50fd41684da440f807b2b201da2df56301a/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "0wmzydlk976dzl7wgy1yphb2hlgs541jgp9y49vqf19ic5alx594";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/1b94378e4a8e397964c6e0fc758aed295c677b3a/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "05hpn32sx7sh60xmb31fmc8hwfmwhnbxlmqhcwx9rvzxk9piyjxa";
       }
     )
   );
@@ -166,6 +166,21 @@ let
       })
       filtered
     );
+
+  # Table for plans that support requirement
+  requirementsSupportedIn = requirementId:
+    let
+      supportedIn = requirements.${requirementId}.supported_in;
+      isSupported = subs:
+        if subs then "Yes" else "No";
+    in
+    ''
+      | Plan     | Supported              |
+      | :------: | :--------------------: |
+      | Machine  | ${isSupported supportedIn.machine} |
+      | Squad    | ${isSupported supportedIn.squad}   |
+      | One-Shot | ${isSupported supportedIn.oneshot} |
+    '';
 
   # References list for a requirement
   requirementReferences = requirementId:
@@ -358,6 +373,10 @@ let
       __argDescription__ = section {
         title = "## Description";
         content = src.en.description;
+      };
+      __argSupportedIn__ = section {
+        title = "## Supported In";
+        content = (requirementsSupportedIn __argCode__);
       };
       __argReferences__ = section {
         title = "## References";
