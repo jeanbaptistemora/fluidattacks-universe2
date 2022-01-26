@@ -159,7 +159,6 @@ const formatVulnerabilitiesTreatment: (
     return {
       ...vulnerability,
       historicTreatment: [lastTreatment],
-      reportDate: "",
     };
   });
 
