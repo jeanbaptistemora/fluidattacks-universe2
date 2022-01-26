@@ -1,5 +1,11 @@
+from concurrent.futures.process import (
+    ProcessPoolExecutor,
+)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
+)
+from functools import (
+    partial,
 )
 from lib_path import (
     f009,
@@ -48,9 +54,6 @@ from lib_path import (
 from model import (
     core_model,
 )
-from more_itertools.more import (
-    collapse,
-)
 import os
 from os import (
     cpu_count,
@@ -65,6 +68,7 @@ from state.ephemeral import (
 from typing import (
     Any,
     Dict,
+    List,
     Set,
     Tuple,
 )
@@ -72,8 +76,8 @@ from utils.ctx import (
     CTX,
 )
 from utils.fs import (
-    generate_file_content,
     generate_file_raw_content_blocking,
+    get_file_content_block,
     resolve_paths,
 )
 from utils.logs import (
@@ -134,11 +138,11 @@ def analyze_one_path(  # noqa: MC0001
     *,
     index: int,
     path: str,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_nu_paths: Set[str],
     unique_nv_paths: Set[str],
     unique_paths_count: int,
-) -> None:
+    file_content: str,
+) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
     """Execute all findings against the provided file.
 
     :param path: Path to the file who's object of analysis
@@ -152,7 +156,7 @@ def analyze_one_path(  # noqa: MC0001
         path,
     )
 
-    file_content_generator = generate_file_content(path, size=MAX_READ)
+    file_content_generator = lambda: file_content  # noqa
     file_raw_content_generator = generate_file_raw_content_blocking(
         path, size=MAX_READ
     )
@@ -160,6 +164,8 @@ def analyze_one_path(  # noqa: MC0001
     _, file = split(path)
     file_name, file_extension = splitext(file)
     file_extension = file_extension[1:]
+
+    result: Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]] = {}
 
     for finding, analyzer in CHECKS:
         if finding not in CTX.config.checks:
@@ -178,7 +184,7 @@ def analyze_one_path(  # noqa: MC0001
             }:
                 continue
 
-        analyzer_result = analyzer(
+        result[finding] = analyzer(
             content_generator=file_content_generator,
             file_extension=file_extension,
             file_name=file_name,
@@ -186,11 +192,14 @@ def analyze_one_path(  # noqa: MC0001
             path=path,
             raw_content_generator=file_raw_content_generator,
         )
-        with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-            worker.map(
-                stores[finding].store,
-                collapse(analyzer_result, base_type=core_model.Vulnerability),
-            )
+
+    return result
+
+
+def _execute_partial_analyze_one_path(
+    fun: partial,
+) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
+    return fun()
 
 
 def analyze(
@@ -208,18 +217,38 @@ def analyze(
     paths = unique_paths | unique_nu_paths | unique_nv_paths
     unique_paths_count: int = len(paths)
 
-    with ThreadPoolExecutor(max_workers=os.cpu_count()) as worker:
-        worker.map(
-            lambda x: analyze_one_path(**x),
-            [
-                dict(
-                    index=index,
-                    path=path,
-                    stores=stores,
-                    unique_nu_paths=unique_nu_paths,
-                    unique_nv_paths=unique_nv_paths,
-                    unique_paths_count=unique_paths_count,
-                )
-                for index, path in enumerate(paths, start=1)
-            ],
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        files_content = list(
+            worker.map(lambda x: (x, get_file_content_block(x)), paths)
         )
+
+    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+
+        result: Tuple[
+            Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]], ...
+        ] = tuple(
+            executor.map(
+                _execute_partial_analyze_one_path,
+                [
+                    partial(
+                        analyze_one_path,
+                        index=index,
+                        path=content[0],
+                        file_content=content[1],
+                        unique_nu_paths=unique_nu_paths,
+                        unique_nv_paths=unique_nv_paths,
+                        unique_paths_count=unique_paths_count,
+                    )
+                    for index, content in enumerate(files_content, start=1)
+                ],
+            )
+        )
+    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
+        for finding, vuln in (
+            (finding, vuln)
+            for vulns_result in result
+            for finding, vulns_list in vulns_result.items()
+            for vulns in vulns_list
+            for vuln in vulns
+        ):
+            worker.submit(stores[finding].store, vuln)
