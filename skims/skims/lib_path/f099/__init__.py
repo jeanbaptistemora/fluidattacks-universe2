@@ -17,7 +17,7 @@ from parse_cfn.loader import (
     load_templates_blocking,
 )
 from parse_hcl2.loader import (
-    load as load_terraform,
+    load_blocking as load_terraform,
 )
 from state.cache import (
     CACHE_ETERNALLY,

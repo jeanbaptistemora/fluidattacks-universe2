@@ -18418,6 +18418,78 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.
   21 |             }
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+>  1 | resource ""aws_s3_bucket"" ""bucket"" {
+   2 |   bucket = ""fluidattacks.com""
+   3 |   acl    = ""private""
+   4 |   region = var.region
+   5 | }
+   6 |
+   7 | resource ""aws_kms_key"" ""mykey"" {
+   8 |   description             = ""This key is used to encrypt bucket objects""
+   9 |   deletion_window_in_days = 10
+  10 | }
+  11 |
+  12 | resource ""aws_s3_bucket"" ""mybucket"" {
+  13 |   bucket = ""mybucket""
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read-write""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+> 14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+  22 | }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+>  1 | resource ""aws_s3_bucket"" ""example"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+   3 |   acl    = ""public-read-write""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
 F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
