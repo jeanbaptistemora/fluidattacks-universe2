@@ -185,14 +185,19 @@ let
         body = "One-Shot";
         path = "https://fluidattacks.com/services/one-shot-hacking/";
       };
+      showTable = builtins.any (x: x) (builtins.attrValues supportedIn);
+
     in
-    ''
-      | Plan     | Supported              |
-      | :------: | :--------------------: |
-      | ${machineLink} | ${isSupported supportedIn.machine} |
-      | ${squadLink}   | ${isSupported supportedIn.squad}   |
-      | ${oneshotLink} | ${isSupported supportedIn.oneshot} |
-    '';
+    if showTable then
+      ''
+        | Plan     | Supported              |
+        | :------: | :--------------------: |
+        | ${machineLink} | ${isSupported supportedIn.machine} |
+        | ${squadLink}   | ${isSupported supportedIn.squad}   |
+        | ${oneshotLink} | ${isSupported supportedIn.oneshot} |
+      ''
+    else
+      "";
 
   # References list for a requirement
   requirementReferences = requirementId:

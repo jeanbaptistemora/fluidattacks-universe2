@@ -1171,9 +1171,9 @@
     description: __empty__
   category: Architecture
   supported_in:
-    machine: false
+    machine: true
     squad: false
-    oneshot: false
+    oneshot: true
   references:
     - "012.V14_2_2"
     - "012.V14_2_5"
@@ -7313,9 +7313,9 @@
     description: __empty__
   category: System
   supported_in:
-    machine: false
+    machine: true
     squad: false
-    oneshot: false
+    oneshot: true
   references:
     - "003.16_10"
     - "013.A5"
