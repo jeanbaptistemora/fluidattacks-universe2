@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.str_utils import (
     TruncatedStr,
 )
@@ -9,11 +7,9 @@ from code_etl.time_utils import (
 from dataclasses import (
     dataclass,
 )
-from returns.maybe import (
-    Maybe,
-)
 from typing import (
     Literal,
+    Optional,
 )
 
 
@@ -88,5 +84,5 @@ class RepoRegistration:
 @dataclass(frozen=True)
 class RepoContex:
     repo: RepoId
-    last_commit: Maybe[str]
+    last_commit: Optional[str]
     is_new: bool

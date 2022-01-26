@@ -169,7 +169,7 @@ def get_context(
         .map(lambda b: not b)
     )
     return last.bind(
-        lambda l: is_new.map(lambda n: RepoContex(repo, result_to_maybe(l), n))
+        lambda l: is_new.map(lambda n: RepoContex(repo, l.value_or(None), n))
     )
 
 

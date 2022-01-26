@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.client import (
     query,
 )
@@ -38,7 +36,6 @@ from postgres_client.query import (
 import psycopg2
 from purity.v2.adapters import (
     to_cmd,
-    to_returns,
 )
 from purity.v2.cmd import (
     Cmd,
@@ -217,11 +214,7 @@ def get_context(
         .map(lambda b: not b)
     )
     return last.bind(
-        lambda l: is_new.map(
-            lambda n: RepoContex(
-                repo, to_returns(Maybe.from_optional(l.value_or(None))), n
-            )
-        )
+        lambda l: is_new.map(lambda n: RepoContex(repo, l.value_or(None), n))
     )
 
 
