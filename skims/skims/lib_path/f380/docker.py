@@ -12,6 +12,7 @@ from pyparsing import (
 import re
 
 
+#  developer: jecheverri@fluidattacks.com
 def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
     def check_regex(tokens: ParseResults) -> bool:
         for token in tokens:

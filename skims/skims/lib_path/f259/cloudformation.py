@@ -47,6 +47,7 @@ def _cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
             )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_has_not_point_in_time_recovery(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

@@ -97,6 +97,7 @@ def _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_aws_serves_content_over_insecure_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -116,6 +117,7 @@ def tfm_aws_serves_content_over_insecure_protocols(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_serves_content_over_insecure_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

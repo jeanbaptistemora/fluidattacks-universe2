@@ -36,6 +36,7 @@ def _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
             )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_rds_is_not_inside_a_db_subnet_group(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

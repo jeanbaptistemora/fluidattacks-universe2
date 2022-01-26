@@ -50,6 +50,7 @@ def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
                 )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_elb2_uses_insecure_security_policy(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

@@ -64,6 +64,7 @@ def _tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_storage_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -81,6 +82,7 @@ def tfm_azure_storage_logging_disabled(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_app_service_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

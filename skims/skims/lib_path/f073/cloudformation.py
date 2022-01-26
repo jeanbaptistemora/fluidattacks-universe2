@@ -35,6 +35,7 @@ def _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
             yield publicy_acc
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_rds_is_publicly_accessible(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:

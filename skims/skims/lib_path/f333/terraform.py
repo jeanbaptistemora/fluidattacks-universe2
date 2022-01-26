@@ -75,6 +75,7 @@ def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
             yield public_ip
 
 
+#  developer: jecheverri@fluidattacks.com
 def ec2_has_terminate_shutdown_behavior(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -92,6 +93,7 @@ def ec2_has_terminate_shutdown_behavior(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_ec2_associate_public_ip_address(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

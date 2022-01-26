@@ -112,6 +112,7 @@ def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
                     yield action
 
 
+#  developer: acuberos@fluidattacks.com
 def cfn_admin_policy_attached(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -131,6 +132,7 @@ def cfn_admin_policy_attached(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_bucket_policy_allows_public_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -148,6 +150,7 @@ def cfn_bucket_policy_allows_public_access(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_iam_user_missing_role_based_security(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -167,6 +170,7 @@ def cfn_iam_user_missing_role_based_security(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def cfn_negative_statement(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -186,6 +190,7 @@ def cfn_negative_statement(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def cfn_open_passrole(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -205,6 +210,7 @@ def cfn_open_passrole(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def cfn_permissive_policy(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -224,6 +230,7 @@ def cfn_permissive_policy(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_not_an_iam_instance_profile(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -244,6 +251,7 @@ def cfn_ec2_has_not_an_iam_instance_profile(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_iam_has_full_access_to_ssm(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:

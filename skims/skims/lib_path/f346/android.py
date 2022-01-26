@@ -13,6 +13,7 @@ from typing import (
 )
 
 
+#  developer: lsaavedra@fluidattacks.com
 def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         dangerous_permissions: Set[str] = {

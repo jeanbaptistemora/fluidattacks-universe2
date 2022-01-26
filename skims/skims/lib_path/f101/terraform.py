@@ -35,6 +35,7 @@ def _tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_key_vault_not_recoverable(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

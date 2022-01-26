@@ -49,6 +49,7 @@ def _tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 yield elem
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_cluster_publicly_accessible(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -66,6 +67,7 @@ def tfm_db_cluster_publicly_accessible(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_instance_publicly_accessible(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

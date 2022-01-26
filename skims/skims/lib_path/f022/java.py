@@ -14,6 +14,7 @@ from typing import (
 )
 
 
+#  developer: drestrepo@fluidattacks.com
 def java_properties_unencrypted_transport(
     content: str, path: str
 ) -> Vulnerabilities:

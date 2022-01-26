@@ -73,6 +73,7 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
             yield env_var
 
 
+#  developer: atrujillo@fluidattacks.com
 def docker_compose_env_secrets(
     content: str,
     path: str,
@@ -92,6 +93,7 @@ def docker_compose_env_secrets(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
     secret_smells: Set[str] = {
         "api_key",

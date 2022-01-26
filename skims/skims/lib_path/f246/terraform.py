@@ -37,6 +37,7 @@ def _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_has_unencrypted_storage(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -54,6 +55,7 @@ def tfm_db_has_unencrypted_storage(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_rds_has_unencrypted_storage(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

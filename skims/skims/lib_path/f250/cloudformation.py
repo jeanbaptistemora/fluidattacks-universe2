@@ -63,6 +63,7 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_fsx_has_unencrypted_volumes(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -81,6 +82,7 @@ def cfn_fsx_has_unencrypted_volumes(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_unencrypted_volumes(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

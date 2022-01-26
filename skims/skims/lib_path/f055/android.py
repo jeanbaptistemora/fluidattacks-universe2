@@ -15,6 +15,7 @@ from parse_android_manifest.types import (
 )
 
 
+#  developer: bagudelo@fluidattacks.com
 @SHIELD_BLOCKING
 def apk_backups_enabled(path: str) -> Vulnerabilities:
     apk_ctx: APKContext = get_apk_context(path)

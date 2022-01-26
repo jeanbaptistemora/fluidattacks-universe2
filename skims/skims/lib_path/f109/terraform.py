@@ -53,6 +53,7 @@ def _tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_cluster_inside_subnet(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -72,6 +73,7 @@ def tfm_db_cluster_inside_subnet(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_rds_instance_inside_subnet(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

@@ -63,6 +63,7 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                         )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_serves_content_over_insecure_protocols(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:

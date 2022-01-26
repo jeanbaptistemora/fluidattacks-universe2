@@ -44,6 +44,7 @@ def _cfn_log_files_not_validated_iterate_vulnerabilities(
             )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_log_files_not_validated(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

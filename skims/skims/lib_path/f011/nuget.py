@@ -13,6 +13,7 @@ from typing import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def nuget_csproj(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
@@ -36,6 +37,7 @@ def nuget_csproj(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")

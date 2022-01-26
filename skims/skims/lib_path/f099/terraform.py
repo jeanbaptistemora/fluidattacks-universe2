@@ -39,6 +39,7 @@ def _tfm_unencrypted_buckets_iterate_vulnerabilities(
             yield bucket
 
 
+#  developer: atrujillo@fluidattacks.com
 def tfm_unencrypted_buckets(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

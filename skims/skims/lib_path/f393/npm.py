@@ -18,6 +18,7 @@ from typing import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies(
         obj: frozendict, direct_deps: bool = True
@@ -64,6 +65,7 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def npm_package_json(content: str, path: str) -> Vulnerabilities:
     content_json = json_loads_blocking(content, default={})
 

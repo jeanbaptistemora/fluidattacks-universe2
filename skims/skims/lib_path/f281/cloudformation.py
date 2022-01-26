@@ -69,6 +69,7 @@ def _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_bucket_policy_has_secure_transport(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -86,6 +87,7 @@ def cfn_bucket_policy_has_secure_transport(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_elb2_uses_insecure_port(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

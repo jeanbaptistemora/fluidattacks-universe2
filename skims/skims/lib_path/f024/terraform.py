@@ -186,6 +186,7 @@ def _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_aws_ec2_allows_all_outbound_traffic(
     content: str,
     path: str,
@@ -207,6 +208,7 @@ def tfm_aws_ec2_allows_all_outbound_traffic(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -227,6 +229,7 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_aws_ec2_unrestricted_cidrs(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -247,6 +250,7 @@ def tfm_aws_ec2_unrestricted_cidrs(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def tfm_ec2_has_unrestricted_ports(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

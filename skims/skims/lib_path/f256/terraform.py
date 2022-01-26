@@ -83,6 +83,7 @@ def _tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 yield elem
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_no_deletion_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -100,6 +101,7 @@ def tfm_db_no_deletion_protection(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_rds_no_deletion_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -117,6 +119,7 @@ def tfm_rds_no_deletion_protection(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_has_not_automated_backups(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -134,6 +137,7 @@ def tfm_db_has_not_automated_backups(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_rds_has_not_automated_backups(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

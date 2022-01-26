@@ -102,6 +102,7 @@ def _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
             )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_insecure_generate_secret_string(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:

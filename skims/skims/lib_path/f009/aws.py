@@ -10,6 +10,7 @@ from pyparsing import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def aws_credentials(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,

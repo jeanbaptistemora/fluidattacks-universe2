@@ -19,6 +19,7 @@ from utils.crypto import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
     missing_ssl_key: str = "ibm.mq.use_ssl"
     missing_ssl_values: Set[str] = {"false"}
@@ -38,6 +39,7 @@ def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def java_properties_weak_cipher_suite(
     content: str, path: str
 ) -> Vulnerabilities:

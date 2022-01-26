@@ -11,6 +11,7 @@ from state.cache import (
 )
 
 
+#  developer: jrestrepo@fluidattacks.com
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:

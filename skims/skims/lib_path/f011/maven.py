@@ -59,6 +59,7 @@ def _interpolate(properties: Dict[str, str], value: str) -> str:
     return value
 
 
+#  developer: acuberos@fluidattacks.com
 def maven_gradle(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):
@@ -97,6 +98,7 @@ def maven_gradle(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
@@ -135,6 +137,7 @@ def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def maven_sbt(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         for line_no, line in enumerate(content.splitlines(), start=1):

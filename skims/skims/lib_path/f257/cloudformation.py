@@ -42,6 +42,7 @@ def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
                 yield dis_api_term
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_not_termination_protection(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

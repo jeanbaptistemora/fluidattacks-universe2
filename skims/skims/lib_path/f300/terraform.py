@@ -52,6 +52,7 @@ def _tfm_azure_as_client_certificates_enabled_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_app_authentication_off(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -72,6 +73,7 @@ def tfm_azure_app_authentication_off(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_as_client_certificates_enabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

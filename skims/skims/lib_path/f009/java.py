@@ -14,6 +14,7 @@ from typing import (
 )
 
 
+#  developer: acuberos@fluidattacks.com
 def java_properties_sensitive_data(content: str, path: str) -> Vulnerabilities:
     sensible_key_smells = {
         "amazon.aws.key",

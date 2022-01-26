@@ -43,6 +43,7 @@ def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
                 yield en_key_rot
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_kms_key_is_key_rotation_absent_or_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

@@ -93,6 +93,7 @@ def _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
             yield https
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_serves_content_over_http(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -110,6 +111,7 @@ def tfm_serves_content_over_http(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_kv_only_accessible_over_https(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -130,6 +132,7 @@ def tfm_azure_kv_only_accessible_over_https(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_azure_sa_insecure_transfer(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

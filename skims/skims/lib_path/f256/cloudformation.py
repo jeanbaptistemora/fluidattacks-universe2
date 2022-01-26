@@ -56,6 +56,7 @@ def _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
                 )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_rds_has_not_automated_backups(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -75,6 +76,7 @@ def cfn_rds_has_not_automated_backups(
     )
 
 
+#  developer: atrujillo@fluidattacks.com
 def cfn_rds_has_not_termination_protection(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

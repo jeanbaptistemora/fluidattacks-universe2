@@ -31,6 +31,7 @@ def _tfm_public_buckets_iterate_vulnerabilities(
             yield acl
 
 
+#  developer: atrujillo@fluidattacks.com
 def tfm_public_buckets(content: str, path: str, model: Any) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,

@@ -35,6 +35,7 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_elb_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

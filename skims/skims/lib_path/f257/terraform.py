@@ -39,6 +39,7 @@ def _ec2_has_not_termination_protection_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def ec2_has_not_termination_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

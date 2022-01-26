@@ -62,6 +62,7 @@ def jwt_token(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: asalgado@fluidattacks.com
 def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
     key_smell = {
         "api_key",
@@ -88,6 +89,7 @@ def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: drestrepo@fluidattacks.com
 def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
     grammar = Regex(r'connectionString=".+?"', flags=re.IGNORECASE)
     grammar.addCondition(
@@ -107,6 +109,7 @@ def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,

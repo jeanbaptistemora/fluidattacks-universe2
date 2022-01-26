@@ -43,6 +43,7 @@ def _tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_db_no_point_in_time_recovery(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:

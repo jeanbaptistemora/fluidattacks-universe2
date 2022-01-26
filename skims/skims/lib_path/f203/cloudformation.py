@@ -30,6 +30,7 @@ def _cfn_public_buckets_iterate_vulnerabilities(
             yield bucket.inner["AccessControl"]
 
 
+#  developer: acuberos@fluidattacks.com
 def cfn_public_buckets(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:

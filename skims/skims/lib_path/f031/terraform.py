@@ -37,6 +37,7 @@ def _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
             yield resource
 
 
+#  developer: acuberos@fluidattacks.com
 def terraform_admin_policy_attached(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -56,6 +57,7 @@ def terraform_admin_policy_attached(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def terraform_negative_statement(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -75,6 +77,7 @@ def terraform_negative_statement(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def terraform_open_passrole(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -94,6 +97,7 @@ def terraform_open_passrole(
     )
 
 
+#  developer: acuberos@fluidattacks.com
 def terraform_permissive_policy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -113,6 +117,7 @@ def terraform_permissive_policy(
     )
 
 
+#  developer: jecheverri@fluidattacks.com
 def tfm_ec2_has_not_an_iam_instance_profile(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
