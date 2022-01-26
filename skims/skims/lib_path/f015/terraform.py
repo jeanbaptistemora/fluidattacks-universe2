@@ -24,12 +24,13 @@ def _tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
-        if linux_config := get_argument(
-            key="os_profile_linux_config",
-            body=resource.data,
-        ):
-            if not get_block_attribute(linux_config, "ssh_keys"):
-                yield linux_config
+        if (
+            linux_config := get_argument(
+                key="os_profile_linux_config",
+                body=resource.data,
+            )
+        ) and not get_block_attribute(linux_config, "ssh_keys"):
+            yield linux_config
 
 
 def _tfm_azure_linux_vm_insecure_auth_iterate_vulnerabilities(

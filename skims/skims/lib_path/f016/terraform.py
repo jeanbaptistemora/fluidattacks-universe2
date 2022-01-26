@@ -42,37 +42,45 @@ def _tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
         if isinstance(resource, AWSCloudfrontDistribution):
-            if v_cert := get_argument(
-                key="viewer_certificate",
-                body=resource.data,
+            if (
+                v_cert := get_argument(
+                    key="viewer_certificate",
+                    body=resource.data,
+                )
+            ) and (
+                (
+                    min_prot := get_block_attribute(
+                        v_cert, "minimum_protocol_version"
+                    )
+                )
+                and any(
+                    True
+                    for protocol in VULNERABLE_MIN_PROT_VERSIONS
+                    if protocol == min_prot.val
+                )
             ):
-                if min_prot := get_block_attribute(
-                    v_cert, "minimum_protocol_version"
-                ):
-                    if any(
-                        True
-                        for protocol in VULNERABLE_MIN_PROT_VERSIONS
-                        if protocol == min_prot.val
-                    ):
-                        yield min_prot
-            if origin := get_argument(
-                key="origin",
-                body=resource.data,
+                yield min_prot
+            if (
+                origin := get_argument(
+                    key="origin",
+                    body=resource.data,
+                )
+            ) and (
+                (
+                    ssl_prot := get_attribute_by_block(
+                        block=origin,
+                        namespace="custom_origin_config",
+                        key="origin_ssl_protocols",
+                    )
+                )
+                and len(
+                    set(ssl_prot.val).intersection(
+                        VULNERABLE_ORIGIN_SSL_PROTOCOLS
+                    )
+                )
+                > 0
             ):
-                if ssl_prot := get_attribute_by_block(
-                    block=origin,
-                    namespace="custom_origin_config",
-                    key="origin_ssl_protocols",
-                ):
-                    if (
-                        len(
-                            set(ssl_prot.val).intersection(
-                                VULNERABLE_ORIGIN_SSL_PROTOCOLS
-                            )
-                        )
-                        > 0
-                    ):
-                        yield ssl_prot
+                yield ssl_prot
 
 
 def _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(

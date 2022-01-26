@@ -596,9 +596,11 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
         is_vulnerable: bool = False
 
-        if "SSLSocket" in act_source:
-            if "getDefaultHostnameVerifier" not in act_source:
-                is_vulnerable = True
+        if (
+            "SSLSocket" in act_source
+            and "getDefaultHostnameVerifier" not in act_source
+        ):
+            is_vulnerable = True
 
         if is_vulnerable:
             _add_not_verifies_ssl_hostname(ctx, locations, act_source)

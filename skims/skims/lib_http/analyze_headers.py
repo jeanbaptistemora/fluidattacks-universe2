@@ -227,12 +227,11 @@ def _upgrade_insecure_requests(
     locations = Locations(locations=[])
     head: Optional[Header] = None
 
-    if not ctx.headers_parsed.get("UpgradeInsecureRequestsHeader"):
-        if (
-            not (head := ctx.headers_parsed.get("ContentSecurityPolicyHeader"))
-            or "upgrade-insecure-requests" not in head.directives
-        ):
-            locations.append("upgrade_insecure_requests.missing")
+    if not ctx.headers_parsed.get("UpgradeInsecureRequestsHeader") and (
+        not (head := ctx.headers_parsed.get("ContentSecurityPolicyHeader"))
+        or "upgrade-insecure-requests" not in head.directives
+    ):
+        locations.append("upgrade_insecure_requests.missing")
 
     return _create_vulns(
         locations=locations,
