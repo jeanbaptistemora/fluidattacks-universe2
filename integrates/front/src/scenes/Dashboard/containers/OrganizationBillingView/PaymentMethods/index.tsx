@@ -1,4 +1,6 @@
 import { useMutation } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
@@ -9,12 +11,17 @@ import { Container } from "./styles";
 
 import { ADD_BILLING_PAYMENT_METHOD } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
+import {
+  getPaymentMethodsIndex,
+  onSelectSeveralPaymentMethodsHelper,
+} from "../utils";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -111,6 +118,35 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
       [addPaymentMethod, organizationId]
     );
 
+    // Remove payment method
+    const permissions: PureAbility<string> = useAbility(
+      authzPermissionsContext
+    );
+    const canDelete: boolean = permissions.can(
+      "api_mutations_remove_billing_payment_method_mutate"
+    );
+    const [selectedPaymentMethodsDatas, setSelectedPaymentMethodsDatas] =
+      useState<IPaymentMethodAttr[]>([]);
+    function onSelectSeveralPaymentMethodsDatas(
+      isSelect: boolean,
+      paymentMethodsDatasSelected: IPaymentMethodAttr[]
+    ): string[] {
+      return onSelectSeveralPaymentMethodsHelper(
+        isSelect,
+        paymentMethodsDatasSelected,
+        selectedPaymentMethodsDatas,
+        setSelectedPaymentMethodsDatas
+      );
+    }
+    function onSelectOnePaymentMethodsData(
+      paymentMethodsdata: IPaymentMethodAttr,
+      isSelect: boolean
+    ): boolean {
+      onSelectSeveralPaymentMethodsDatas(isSelect, [paymentMethodsdata]);
+
+      return true;
+    }
+
     const tableHeaders: IHeaderConfig[] = [
       {
         align: "center",
@@ -144,7 +180,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
               </h2>
               <DataTableNext
                 bordered={true}
-                columnToggle={false}
+                columnToggle={true}
                 customSearch={{
                   customSearchDefault: searchTextFilter,
                   isCustomSearchEnabled: true,
@@ -169,6 +205,17 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                 id={"tblBillingPaymentMethods"}
                 pageSize={10}
                 search={false}
+                selectionMode={{
+                  clickToSelect: canDelete,
+                  hideSelectColumn: !canDelete,
+                  mode: "checkbox",
+                  onSelect: onSelectOnePaymentMethodsData,
+                  onSelectAll: onSelectSeveralPaymentMethodsDatas,
+                  selected: getPaymentMethodsIndex(
+                    selectedPaymentMethodsDatas,
+                    paymentMethods
+                  ),
+                }}
                 striped={true}
               />
             </Row>

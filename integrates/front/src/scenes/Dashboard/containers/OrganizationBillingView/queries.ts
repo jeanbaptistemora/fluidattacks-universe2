@@ -47,4 +47,22 @@ const ADD_BILLING_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
-export { ADD_BILLING_PAYMENT_METHOD, GET_ORGANIZATION_BILLING };
+const REMOVE_BILLING_PAYMENT_METHOD: DocumentNode = gql`
+  mutation removeBillingPaymentMethod(
+    $organizationId: String!
+    $paymentMethodId: String!
+  ) {
+    removeBillingPaymentMethod(
+      organizationId: $organizationId
+      paymentMethodId: $paymentMethodId
+    ) {
+      success
+    }
+  }
+`;
+
+export {
+  ADD_BILLING_PAYMENT_METHOD,
+  GET_ORGANIZATION_BILLING,
+  REMOVE_BILLING_PAYMENT_METHOD,
+};
