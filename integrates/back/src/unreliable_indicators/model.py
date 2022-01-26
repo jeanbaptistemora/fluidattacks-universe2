@@ -154,7 +154,6 @@ ENTITIES = {
                     EntityDependency.request_vulnerabilities_verification,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.verify_vulnerabilities_request,
-                    EntityDependency.upload_file,
                 }
             ),
             EntityAttr.last_requested_reattack_date: dict(
@@ -163,7 +162,6 @@ ENTITIES = {
                     EntityDependency.move_root,
                     EntityDependency.request_vulnerabilities_verification,
                     EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,
                 }
             ),
@@ -173,7 +171,6 @@ ENTITIES = {
                     EntityDependency.move_root,
                     EntityDependency.request_vulnerabilities_verification,
                     EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,
                 }
             ),
