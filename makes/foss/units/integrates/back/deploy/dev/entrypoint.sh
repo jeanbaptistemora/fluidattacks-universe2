@@ -38,6 +38,7 @@ function b64 {
 }
 
 function main {
+  local target_product
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
   export B64_DEV_AWS_ACCESS_KEY_ID
@@ -45,6 +46,7 @@ function main {
   export B64_GITLAB_USER_EMAIL
   export REPLICAS
   export UUID
+  export DB_JOB
 
   aws_login_dev \
     && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
@@ -53,6 +55,12 @@ function main {
     && B64_DEV_AWS_ACCESS_KEY_ID="$(b64 "${DEV_AWS_ACCESS_KEY_ID}")" \
     && B64_DEV_AWS_SECRET_ACCESS_KEY="$(b64 "${DEV_AWS_SECRET_ACCESS_KEY}")" \
     && B64_GITLAB_USER_EMAIL="$(b64 "${GITLAB_USER_EMAIL}")" \
+    && target_product="$(echo "${CI_COMMIT_TITLE}" | grep -oEi '^(airs|all|asserts|common|docs|forces|integrates|makes|melts|observes|reviews|skims|sorts|teaches)')" \
+    && if [ "${target_product}" = "integrates" ]; then
+      DB_JOB="/integrates/db"
+    else
+      DB_JOB="/dynamoDb/${target_product}"
+    fi \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
