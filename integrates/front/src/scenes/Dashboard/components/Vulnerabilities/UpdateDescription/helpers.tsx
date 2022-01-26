@@ -7,6 +7,7 @@ import React from "react";
 import type {
   IRemoveTagResultAttr,
   IRequestVulnZeroRiskResultAttr,
+  ISendNotificationResultAttr,
   IUpdateVulnDescriptionResultAttr,
 } from "./types";
 import { groupLastHistoricTreatment } from "./utils";
@@ -46,6 +47,7 @@ const deleteTagVulnHelper = (result: IRemoveTagResultAttr): void => {
 };
 
 type VulnUpdateResult = ExecutionResult<IUpdateVulnDescriptionResultAttr>;
+type NotificationResult = ExecutionResult<ISendNotificationResultAttr>;
 
 const getResults = async (
   updateVuln: (variables: Record<string, unknown>) => Promise<VulnUpdateResult>,
@@ -100,6 +102,97 @@ const getResults = async (
   );
 };
 
+const getAllResults = async (
+  updateVuln: (variables: Record<string, unknown>) => Promise<VulnUpdateResult>,
+  vulnerabilities: IVulnDataTypeAttr[],
+  dataTreatment: IUpdateTreatmentVulnerabilityForm,
+  isEditPristine: boolean,
+  isTreatmentPristine: boolean
+): Promise<VulnUpdateResult[][]> => {
+  const vulnerabilitiesByFinding = _.groupBy(
+    vulnerabilities,
+    (vuln: IVulnDataTypeAttr): string => vuln.findingId
+  );
+  const requestedChunks = Object.entries(vulnerabilitiesByFinding).map(
+    ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataTypeAttr[]
+      ]): (() => Promise<VulnUpdateResult[][]>) =>
+      async (): Promise<VulnUpdateResult[][]> => {
+        return Promise.all([
+          getResults(
+            updateVuln,
+            chunkedVulnerabilities,
+            dataTreatment,
+            findingId,
+            isEditPristine,
+            isTreatmentPristine
+          ),
+        ]);
+      }
+  );
+
+  return requestedChunks.reduce(
+    async (previousValue, currentValue): Promise<VulnUpdateResult[][]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VulnUpdateResult[][]>([])
+  );
+};
+
+const getAllNotifications = async (
+  sendNotification: (
+    variables: Record<string, unknown>
+  ) => Promise<NotificationResult>,
+  vulnerabilities: IVulnDataTypeAttr[]
+): Promise<NotificationResult[]> => {
+  const vulnerabilitiesByFinding = _.groupBy(
+    vulnerabilities,
+    (vuln: IVulnDataTypeAttr): string => vuln.findingId
+  );
+  const requestedChunks = Object.entries(vulnerabilitiesByFinding).map(
+    ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataTypeAttr[]
+      ]): (() => Promise<NotificationResult[]>) =>
+      async (): Promise<NotificationResult[]> => {
+        return Promise.all([
+          await sendNotification({
+            variables: {
+              findingId,
+              vulnerabilities: chunkedVulnerabilities.map(
+                ({ id }): string => id
+              ),
+            },
+          }),
+        ]);
+      }
+  );
+
+  return requestedChunks.reduce(
+    async (previousValue, currentValue): Promise<NotificationResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<NotificationResult[]>([])
+  );
+};
+
+const getAreAllNotificationValid = (
+  results: NotificationResult[]
+): boolean[] => {
+  return results.map((result: NotificationResult): boolean => {
+    if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
+      return _.isUndefined(result.data.sendAssignedNotification)
+        ? true
+        : result.data.sendAssignedNotification.success;
+    }
+
+    return false;
+  });
+};
+
 const getAreAllMutationValid = (
   results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[]
 ): boolean[] => {
@@ -124,6 +217,19 @@ const getAreAllMutationValid = (
     }
   );
 };
+
+const getAreAllChunckedMutationValid = (
+  results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[][]
+): boolean[] =>
+  results
+    .map(getAreAllMutationValid)
+    .reduce(
+      (previous: boolean[], current: boolean[]): boolean[] => [
+        ...previous,
+        ...current,
+      ],
+      []
+    );
 
 const dataTreatmentTrackHelper = (
   dataTreatment: IUpdateTreatmentVulnerabilityForm
@@ -328,6 +434,10 @@ export {
   deleteTagVulnHelper,
   getResults,
   getAreAllMutationValid,
+  getAllNotifications,
+  getAllResults,
+  getAreAllChunckedMutationValid,
+  getAreAllNotificationValid,
   dataTreatmentTrackHelper,
   validMutationsHelper,
   handleUpdateVulnTreatmentError,

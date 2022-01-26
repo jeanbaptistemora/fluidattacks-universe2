@@ -49,6 +49,7 @@ interface IDownloadVulnerabilitiesResultAttr {
 interface IVulnDataTypeAttr {
   currentState: "closed" | "open";
   externalBugTrackingSystem: string | null;
+  findingId: string;
   groupName: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
