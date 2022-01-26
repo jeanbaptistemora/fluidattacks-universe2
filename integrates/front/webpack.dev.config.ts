@@ -4,9 +4,7 @@ import type { Configuration as DevServerConfig } from "webpack-dev-server";
 import { commonConfig } from "./webpack.common.config";
 
 interface IWebpackConfig extends Configuration {
-  devServer: DevServerConfig & {
-    client: Pick<DevServerConfig, "overlay">;
-  };
+  devServer: DevServerConfig;
 }
 
 const devConfig: IWebpackConfig = {
@@ -18,8 +16,8 @@ const devConfig: IWebpackConfig = {
     headers: { "Access-Control-Allow-Origin": "https://localhost:8001" },
     historyApiFallback: true,
     hot: true,
-    https: true,
     port: 3000,
+    server: "https",
   },
   devtool: false,
   mode: "development",
