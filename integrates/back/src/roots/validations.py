@@ -4,6 +4,7 @@ from custom_exceptions import (
     InactiveRoot,
     InvalidChar,
     InvalidGitCredentials,
+    InvalidRootComponent,
     RepeatedRootNickname,
 )
 from db_model.credentials.types import (
@@ -118,6 +119,35 @@ def is_url_unique(
         for root in roots
         if isinstance(root, URLRootItem) and root.state.status == "ACTIVE"
     )
+
+
+def validate_component(root: RootItem, component: str) -> None:
+    if isinstance(root, GitRootItem) and (
+        component in set(root.state.environment_urls)
+    ):
+        return
+
+    if isinstance(root, URLRootItem):
+        host = (
+            f"{root.state.host}:{root.state.port}"
+            if root.state.port
+            else root.state.host
+        )
+        if component.startswith(
+            f"{root.state.protocol}://{host}{root.state.path}"
+        ):
+            return
+
+    if isinstance(root, IPRootItem):
+        host = (
+            f"{root.state.address}:{root.state.port}"
+            if root.state.port
+            else root.state.address
+        )
+        if component == host or component.startswith(f"{host}/"):
+            return
+
+    raise InvalidRootComponent()
 
 
 def validate_nickname(nickname: str) -> None:

@@ -652,6 +652,15 @@ class InvalidRoleProvided(CustomBaseException):
         super(InvalidRoleProvided, self).__init__(f"Exception - {msg}")
 
 
+class InvalidRootComponent(CustomBaseException):
+    """Exception to control the root has the component"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The root does not have the component"
+        super(InvalidRootComponent, self).__init__(msg)
+
+
 class InvalidRootExclusion(CustomBaseException):
     """Exception to control exclusion paths"""
 
