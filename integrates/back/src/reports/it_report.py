@@ -19,8 +19,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
-    VulnerabilityTreatment,
 )
 from findings import (
     domain as findings_domain,
@@ -305,43 +303,30 @@ class ITReport:
                 return "Temporarily accepted"
             return treatment.value.capitalize().replace("_", " ")
 
-        historic_treatment: Tuple[
-            VulnerabilityTreatment, ...
-        ] = await self.loaders.vulnerability_historic_treatment.load(vuln.id)
         current_treatment_exp_date: Union[str, datetime] = EMPTY
-        first_treatment_exp_date: Union[str, datetime] = EMPTY
-        current_treatment = historic_treatment[-1]
-        first_treatment_state = historic_treatment[0]
-        if current_treatment.accepted_until:
+        if vuln.treatment.accepted_until:
             current_treatment_exp_date = datetime_utils.convert_from_iso_str(
-                current_treatment.accepted_until
+                vuln.treatment.accepted_until
             )
-        if first_treatment_state.accepted_until:
-            first_treatment_exp_date = datetime_utils.convert_from_iso_str(
-                first_treatment_state.accepted_until
-            )
-
         current_treatment_data = {
-            "Current Treatment": format_treatment(current_treatment.status),
+            "Current Treatment": format_treatment(vuln.treatment.status),
             "Current Treatment Moment": datetime_utils.convert_from_iso_str(
-                current_treatment.modified_date
+                vuln.treatment.modified_date
             ),
             "Current Treatment Justification": (
-                current_treatment.justification or EMPTY
+                vuln.treatment.justification or EMPTY
             ),
             "Current Treatment expiration Moment": current_treatment_exp_date,
-            "Current Assigned": current_treatment.assigned or EMPTY,
+            "Current Assigned": vuln.treatment.assigned or EMPTY,
         }
         first_treatment_data = {
-            "First Treatment": format_treatment(first_treatment_state.status),
+            "First Treatment": VulnerabilityTreatmentStatus.NEW.value,
             "First Treatment Moment": datetime_utils.convert_from_iso_str(
-                first_treatment_state.modified_date
+                vuln.unreliable_indicators.unreliable_report_date
             ),
-            "First Treatment Justification": (
-                first_treatment_state.justification or EMPTY
-            ),
-            "First Treatment expiration Moment": first_treatment_exp_date,
-            "First Assigned": first_treatment_state.assigned or EMPTY,
+            "First Treatment Justification": EMPTY,
+            "First Treatment expiration Moment": EMPTY,
+            "First Assigned": EMPTY,
         }
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = (
@@ -393,10 +378,8 @@ class ITReport:
         self.set_row_height()
 
     async def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
-        historic_state: Tuple[
-            VulnerabilityState, ...
-        ] = await self.loaders.vulnerability_historic_state.load(vuln.id)
-        vuln_date = datetime.fromisoformat(historic_state[0].modified_date)
+        indicators = vuln.unreliable_indicators
+        vuln_date = datetime.fromisoformat(indicators.unreliable_report_date)
         limit_date = datetime_utils.get_now()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln.state.status == VulnerabilityStateStatus.CLOSED:
