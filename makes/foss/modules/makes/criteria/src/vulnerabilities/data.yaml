@@ -5370,8 +5370,8 @@
       Abide by the privacy regulations
       in force.
     threat: >
-      Attacker from internet,
-      unauthenticated in the application.
+      Unauthenticated attacker from
+      the Iternet in the application.
   es:
     title: Privacy violation
     description: >
@@ -5385,8 +5385,8 @@
       Acatar las regulaciones
       de privacidad vigentes.
     threat: >
-      Atacante en internet
-      no autenticado en la aplicación.
+      Atacante no autenticado desde
+      Internet en la aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -5953,7 +5953,7 @@
       con el valor noopener
       en cada link externo.
     threat: >
-      Atacante anónimo desde red Interna.
+      Atacante anónimo desde red local.
   category: Deceptive Interactions
   score:
     base:
@@ -5980,16 +5980,18 @@
       It is possible to modify the path
       to which an uploaded file will be saved.
     impact: >
-      Save files in paths other than
+      - Save files in paths other than
       those expected by the application.
+
+      - Overwrite important files within the
+      system by referring to the path where
+      the upload is performed.
     recommendation: >
       Validate uploaded files names
       on the system and restrict
       the storage to destined folders only.
     threat: >
-      Overwrite important files within the
-      system by referring to the path where
-      the upload is performed.
+      Anonymous attacker from external network.
   es:
     title: External control of file name or path
     description: >
@@ -5997,16 +5999,18 @@
       donde se almacenará un archivo cargado
       en el sistema.
     impact: >
-      Guardar archivos en rutas diferentes a
+      - Guardar archivos en rutas diferentes a
       las esperadas por la aplicación.
+
+      - Sobreescribir archivos importantes
+      dentro del sistema tomando como referencia
+      la ruta donde se realiza la carga.
     recommendation: >
       Validar el nombre de los archivos cargados
       en el sistema y restringir
       el almacenamiento solo a las carpetas destinadas.
     threat: >
-      Sobreescribir archivos importantes
-      dentro del sistema tomando como referencia
-      la ruta donde se realiza la carga.
+      Atacante anónimo desde red externa.
   category: Manipulate Data
   score:
     base:
@@ -6230,9 +6234,7 @@
       tables and enable protection against
       accidental deletion.
     threat: >
-      - Database administrator user.
-
-      - Attacker in any scenario that
+      Attacker in any scenario that
       modifies or deletes information
       from databases.
   es:
@@ -6252,10 +6254,7 @@
       tablas de DynamoDB y habilitar protección
       contra borrado accidental.
     threat: >
-      - Usuario administrador de la base
-      de datos.
-
-      - Atacante en cualquier escenario
+      Atacante en cualquier escenario
       que llegue a modificar o borrar la
       información de las bases de datos.
   category: Abuse Functionality
