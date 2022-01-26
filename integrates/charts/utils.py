@@ -74,12 +74,15 @@ async def get_all_time_forces_executions(
     group: str,
 ) -> ForcesExecutions:
     executions: List[Dict[str, Union[str, int]]] = []
-    executions = await forces_domain.get_executions(
-        from_date=datetime.utcfromtimestamp(1),
-        group_name=group,
-        group_name_key="project_name",
-        to_date=datetime.utcnow(),
-    )
+    executions = [
+        execution
+        async for execution in forces_domain.get_executions(
+            from_date=datetime.utcfromtimestamp(1),
+            group_name=group,
+            group_name_key="project_name",
+            to_date=datetime.utcnow(),
+        )
+    ]
 
     return executions
 

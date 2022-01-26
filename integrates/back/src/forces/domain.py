@@ -36,9 +36,9 @@ from starlette.datastructures import (
 import tempfile
 from typing import (
     Any,
+    AsyncIterable,
     cast,
     Dict,
-    List,
     Optional,
     Union,
 )
@@ -155,16 +155,14 @@ async def get_executions(
     group_name: str,
     to_date: datetime,
     group_name_key: str,
-) -> List[ForcesExecutionType]:
-    result = []
+) -> AsyncIterable[ForcesExecutionType]:
     async for execution in forces_dal.yield_executions(
         group_name=group_name,
         group_name_key=group_name_key,
         from_date=from_date,
         to_date=to_date,
     ):
-        result.append(format_execution(execution))
-    return result
+        yield format_execution(execution)
 
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
