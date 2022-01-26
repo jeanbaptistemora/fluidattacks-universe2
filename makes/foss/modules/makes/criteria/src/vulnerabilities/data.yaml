@@ -4734,17 +4734,18 @@
       lacks protection mechanisms,
       such as PortSecurity.
     impact: >
-      ARP spoofing attacks are used to
-      steal sensitive information.
+      - Steal sensitive information.
+
+      - Facilitate other attacks such as
+      Denial-of-Service DoS attacks, session
+      hijacking and Man-in-the-middle
+      MITM attacks.
     recommendation: >
       Set network controls
       (PortSecurity) in the affected switches.
     threat: >
-      ARP spoofing attacks are often used
-      to facilitate other attacks such as
-      Denial-of-Service DoS attacks, session
-      hijacking and Man-in-the-middle
-      MITM attacks.
+      Attacker from the Internet performig
+      a MitM attack.
   es:
     title: ARP spoofing
     description: >
@@ -4754,19 +4755,18 @@
       no cuenta con protecciones
       como PortSecurity.
     impact: >
-      Los ataques de suplantación de ARP
-      se utilizan para robar información
-      sensible.
+      - Robar información sensible.
+
+      - Facilitar otros ataques como los
+      de denegación de servicio (DoS), el
+      secuestro de sesiones y los ataques
+      MITM (Man-in-the-middle).
     recommendation: >
       Establecer controles de red
       (PortSecurity) en los switches afectados.
     threat: >
-      Los ataques de suplantación de ARP
-      se utilizan a menudo para facilitar
-      otros ataques como los de denegación
-      de servicio (DoS), el secuestro de
-      sesiones y los ataques
-      MITM (Man-in-the-middle).
+      Atacante desde Internet ejecutando
+      un ataque MitM.
   category: Manipulate System
   score:
     base:
@@ -4799,7 +4799,7 @@
     recommendation: >
       Generate a token with random components
       without sensitive information.
-    threat: Anonymous attacker from the internet with access to the hash.
+    threat: Anonymous attacker from the Internet with access to the hash.
   es:
     title: Insecurely generated token
     description: >
@@ -4810,7 +4810,7 @@
     recommendation: >
       Generar un token con componentes aleatorios
       sin información sensible.
-    threat: Atacante anónimo desde internet con acceso al hash.
+    threat: Atacante anónimo desde Internet con acceso al hash.
   category: Deceptive Interactions
   score:
     base:
@@ -5266,7 +5266,7 @@
       to HTML script tags.
     threat: >
       Unauthorized attacker
-      from internet network.
+      from the Internet network.
   es:
     title: Missing subresource integrity check
     description: >
@@ -5282,7 +5282,7 @@
       a las tags script de HTML.
     threat: >
       Atacante sin autorización
-      desde red internet.
+      desde la red de Internet.
   category: Deceptive Interactions
   score:
     base:
