@@ -14,9 +14,9 @@ class ToeInputAttributesToAdd(NamedTuple):
     first_attack_at: Optional[datetime]
     seen_first_time_by: str
     unreliable_root_id: str
-
     has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
+    is_moving_toe_input: bool = False
 
 
 class ToeInputAttributesToUpdate(NamedTuple):

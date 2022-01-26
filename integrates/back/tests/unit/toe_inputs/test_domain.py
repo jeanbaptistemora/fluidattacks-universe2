@@ -26,6 +26,7 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_add() -> None:
+    loaders = get_new_context()
     group_name = "unittesting"
     toe_input = ToeInput(
         attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
@@ -42,6 +43,7 @@ async def test_add() -> None:
         unreliable_root_id="",
     )
     await toe_inputs_domain.add(
+        loaders=loaders,
         entry_point="btnTest",
         component="test.com/test/new.aspx",
         group_name=group_name,

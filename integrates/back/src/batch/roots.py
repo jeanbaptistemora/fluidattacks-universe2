@@ -342,9 +342,11 @@ async def process_toe_input(
         seen_first_time_by=toe_input.seen_first_time_by,
         unreliable_root_id=target_root_id,
         seen_at=toe_input.seen_at,
+        is_moving_toe_input=True,
     )
     try:
         await toe_inputs_add(
+            loaders,
             target_group_name,
             toe_input.component,
             toe_input.entry_point,

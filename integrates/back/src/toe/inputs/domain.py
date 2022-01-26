@@ -11,6 +11,9 @@ from db_model.toe_inputs.types import (
 from newutils import (
     datetime as datetime_utils,
 )
+from roots.validations import (
+    validate_open_root,
+)
 from toe.inputs.types import (
     ToeInputAttributesToAdd,
     ToeInputAttributesToUpdate,
@@ -19,6 +22,7 @@ from toe.utils import (
     get_has_vulnerabilities,
 )
 from typing import (
+    Any,
     Optional,
 )
 
@@ -30,11 +34,19 @@ def _get_optional_be_present_until(
 
 
 async def add(
+    loaders: Any,
     group_name: str,
     component: str,
     entry_point: str,
     attributes: ToeInputAttributesToAdd,
 ) -> None:
+    if (
+        attributes.is_moving_toe_input is False
+        and attributes.unreliable_root_id
+    ):
+        await validate_open_root(
+            loaders, group_name, attributes.unreliable_root_id
+        )
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at
     has_vulnerabilities = get_has_vulnerabilities(

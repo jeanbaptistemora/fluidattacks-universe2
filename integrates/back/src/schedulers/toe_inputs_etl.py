@@ -13,6 +13,7 @@ from custom_types import (
     Group,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -190,12 +191,14 @@ def _get_group_toe_inputs_from_cvs(
 
 
 async def add_toe_inputs(
+    loaders: Dataloaders,
     group_toe_inputs: Dict[int, ToeInput],
     cvs_group_toe_inputs: Dict[int, ToeInput],
 ) -> None:
     await collect(
         tuple(
             toe_inputs_add(
+                loaders=loaders,
                 group_name=cvs_toe_input.group_name,
                 component=cvs_toe_input.component,
                 entry_point=cvs_toe_input.entry_point,
@@ -208,6 +211,7 @@ async def add_toe_inputs(
                     seen_at=cvs_toe_input.seen_at,
                     seen_first_time_by=cvs_toe_input.seen_first_time_by,
                     unreliable_root_id=cvs_toe_input.unreliable_root_id,
+                    is_moving_toe_input=True,
                 ),
             )
             for cvs_toe_input in cvs_group_toe_inputs.values()
@@ -393,7 +397,7 @@ async def update_toe_inputs_from_csv(
     )
     await update_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
     await remove_toe_inputs(group_roots, group_toe_inputs)
-    await add_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
+    await add_toe_inputs(loaders, group_toe_inputs, cvs_group_toe_inputs)
 
 
 def _get_group_name(tmpdirname: str, inputs_csv_path: str) -> str:
