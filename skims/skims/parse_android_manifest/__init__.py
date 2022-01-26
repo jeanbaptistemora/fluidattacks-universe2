@@ -138,6 +138,7 @@ def _get_caseless_attr(tag: bs4.Tag, key: str, default: str) -> str:
     return default
 
 
+#  developer: bagudelo@fluidattacks.com
 def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -175,6 +176,7 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+#  developer: bagudelo@fluidattacks.com
 def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -205,6 +207,7 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+#  developer: bagudelo@fluidattacks.com
 def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     if ctx.apk_ctx.apk_manifest is None:
         return ()

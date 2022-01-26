@@ -93,6 +93,7 @@ def _add_apk_unsigned_not_signed_location(
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -158,6 +159,7 @@ def _get_class_names(
     return names
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -243,6 +245,7 @@ def _add_no_certs_pinning_2_location(
     )
 
 
+#  developer: jrestrepo@fluidattacks.com
 def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -288,6 +291,7 @@ def _add_no_obfuscation_location(
     )
 
 
+#  developer: lsaavedra@fluidattacks.com
 def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -387,6 +391,7 @@ def _add_has_fragment_injection_location(
     )
 
 
+#  developer: lsaavedra@fluidattacks.com
 def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -472,6 +477,7 @@ def _add_webview_allows_resource_access(
     )
 
 
+#  developer: lsaavedra@fluidattacks.com
 def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -539,6 +545,7 @@ def _add_has_frida(
     )
 
 
+#  developer: lsaavedra@fluidattacks.com
 def _has_frida(
     ctx: APKCheckCtx,
 ) -> core_model.Vulnerabilities:
