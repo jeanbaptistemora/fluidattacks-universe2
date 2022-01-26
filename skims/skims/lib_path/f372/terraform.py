@@ -85,11 +85,12 @@ def _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
-        if https := get_attribute(
-            body=resource.data, key="enable_https_traffic_only"
-        ):
-            if https.val is False:
-                yield https
+        if (
+            https := get_attribute(
+                body=resource.data, key="enable_https_traffic_only"
+            )
+        ) and https.val is False:
+            yield https
 
 
 def tfm_serves_content_over_http(

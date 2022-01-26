@@ -77,9 +77,12 @@ def get_var_id_type(
 
     var_type_parent: Optional[str] = match["user_type"]
     var_type: str = ""
-    if var_type_parent is None and (null_type := match["nullable_type"]):
-        if c_ids := g.get_ast_childs(args.graph, null_type, "user_type"):
-            var_type_parent = c_ids[0]
+    if (
+        var_type_parent is None
+        and (null_type := match["nullable_type"])
+        and (c_ids := g.get_ast_childs(args.graph, null_type, "user_type"))
+    ):
+        var_type_parent = c_ids[0]
     if (
         var_id
         and var_type_parent

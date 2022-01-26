@@ -147,9 +147,8 @@ def _service_is_present_action(
 
 def _iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
     effect = stmt.inner.get("Effect")
-    if effect.raw == "Allow":
-        if action := stmt.inner.get("Action"):
-            yield from _service_is_present_action(action, "iam")
+    if effect.raw == "Allow" and (action := stmt.inner.get("Action")):
+        yield from _service_is_present_action(action, "iam")
 
 
 def _cfn_iam_has_privileges_over_iam_iter_vulns(

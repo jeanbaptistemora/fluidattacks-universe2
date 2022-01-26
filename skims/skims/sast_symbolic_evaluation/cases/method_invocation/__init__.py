@@ -428,13 +428,15 @@ def analyze_method_invocation_external(
         method_var_decl_type = args.dependencies[-1].object_type
 
     if method_var_decl_type and (
-        _method := lookup_method(
-            args,
-            method_path,
-            method_var_decl_type,
+        (
+            _method := lookup_method(
+                args,
+                method_path,
+                method_var_decl_type,
+            )
         )
-    ):
-        if args.shard.path != _method.shard_path and (
+        and args.shard.path != _method.shard_path
+        and (
             return_step := args.eval_method(
                 args,
                 _method.metadata.n_id,
@@ -442,10 +444,11 @@ def analyze_method_invocation_external(
                 args.graph_db.shards_by_path_f(_method.shard_path),
                 method_var_decl.meta.value if method_var_decl else None,
             )
-        ):
-            args.syntax_step.meta.danger = return_step.meta.danger
-            args.syntax_step.meta.value = return_step.meta.value
-            return True
+        )
+    ):
+        args.syntax_step.meta.danger = return_step.meta.danger
+        args.syntax_step.meta.value = return_step.meta.value
+        return True
 
     return False
 
@@ -572,21 +575,20 @@ def analyze_unvalidated_method(
         if dep.meta.danger is True and isinstance(dep, SyntaxStepSymbolLookup)
     )
     _, method_path = split_on_first_dot(method)
-    if (
-        len(dangers_args) > 0
-        and method_var_decl
+    if len(dangers_args) > 0 and (
+        method_var_decl
         and method_var_decl.var_type_base
-    ):
-        if method_path in (
-            BY_UNVALIDATED_ARGUMENTS.get(method_var_decl.var_type_base, {})
-        ) and not has_validations(
+        and method_path
+        in (BY_UNVALIDATED_ARGUMENTS.get(method_var_decl.var_type_base, {}))
+        and not has_validations(
             dangers_args,
             args,
             args.syntax_step.meta.n_id,
             BY_UNVALIDATED_ARGUMENTS.get(
                 method_var_decl.var_type_base, {}
             ).get(method_path),
-        ):
-            args.syntax_step.meta.danger = True
-            return True
+        )
+    ):
+        args.syntax_step.meta.danger = True
+        return True
     return False

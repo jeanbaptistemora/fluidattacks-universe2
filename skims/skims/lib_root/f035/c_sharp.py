@@ -73,9 +73,11 @@ def _get_var_decl(
     syntax_steps: graph_model.SyntaxSteps,
 ) -> Optional[graph_model.SyntaxStep]:
     for step in reversed(syntax_steps):
-        if isinstance(step, graph_model.SyntaxStepDeclaration):
-            if step.var == var_step.symbol:
-                return step
+        if (
+            isinstance(step, graph_model.SyntaxStepDeclaration)
+            and step.var == var_step.symbol
+        ):
+            return step
     return None
 
 
