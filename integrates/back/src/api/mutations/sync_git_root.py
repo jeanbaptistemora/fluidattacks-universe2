@@ -2,12 +2,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from batch import (
-    dal as batch_dal,
-)
-from custom_exceptions import (
-    CredentialNotFound,
-    InactiveRoot,
-    RootAlreadyCloning,
+    roots as batch_roots,
 )
 from custom_types import (
     SimplePayload,
@@ -53,32 +48,7 @@ async def mutate(
     root: GitRootItem = await loaders.root.load(
         (group_name, kwargs["root_id"])
     )
-    group_creds = await loaders.group_credentials.load(group_name)
-    if root.state.status != "ACTIVE":
-        raise InactiveRoot()
-    if len(list(filter(lambda x: root.id in x.state.roots, group_creds))) == 0:
-        raise CredentialNotFound()
-    existing_actions = await batch_dal.get_actions_by_name(
-        "clone_root", group_name
-    )
-    if (
-        len(
-            list(
-                filter(
-                    lambda x: x.additional_info == root.state.nickname,
-                    existing_actions,
-                )
-            )
-        )
-        > 0
-    ):
-        raise RootAlreadyCloning()
-    await batch_dal.put_action(
-        action_name="clone_root",
-        entity=root.group_name,
-        subject=user_email,
-        additional_info=root.state.nickname,
-    )
+    await batch_roots.queue_sync_git_root(loaders, root, user_email)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Queued a sync clone for root {root.state.nickname} in "

@@ -606,7 +606,7 @@ async def update_git_root(
     return GitRootItem(
         cloning=root.cloning,
         group_name=root.group_name,
-        id=root.group_name,
+        id=root.id,
         metadata=root.metadata,
         state=new_state,
         machine_execution=root.machine_execution,

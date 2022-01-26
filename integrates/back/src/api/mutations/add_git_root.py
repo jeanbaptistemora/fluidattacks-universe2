@@ -2,7 +2,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from batch import (
-    dal as batch_dal,
+    roots as batch_roots,
 )
 from custom_types import (
     AddRootPayload,
@@ -47,11 +47,8 @@ async def mutate(
         info.context.loaders, user_email, **kwargs
     )
     if kwargs.get("credentials"):
-        await batch_dal.put_action(
-            action_name="clone_root",
-            entity=root.group_name,
-            subject=user_email,
-            additional_info=root.state.nickname,
+        await batch_roots.queue_sync_git_root(
+            info.context.loaders, root, user_email
         )
     logs_utils.cloudwatch_log(
         info.context,

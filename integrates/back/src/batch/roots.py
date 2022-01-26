@@ -5,6 +5,7 @@ import asyncio
 import base64
 from batch.dal import (
     delete_action,
+    get_actions_by_name,
     put_action,
 )
 from batch.types import (
@@ -14,8 +15,11 @@ from context import (
     FI_AWS_S3_MIRRORS_BUCKET,
 )
 from custom_exceptions import (
+    CredentialNotFound,
+    InactiveRoot,
     RepeatedToeInput,
     RepeatedToeLines,
+    RootAlreadyCloning,
     ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
 )
@@ -669,4 +673,37 @@ async def clone_root(*, item: BatchProcessing) -> None:
         entity=item.entity,
         subject=item.subject,
         time=item.time,
+    )
+
+
+async def queue_sync_git_root(
+    loaders: Dataloaders, root: GitRootItem, user_email: str
+) -> None:
+    if root.state.status != "ACTIVE":
+        raise InactiveRoot()
+
+    group_name: str = root.group_name
+    group_creds = await loaders.group_credentials.load(group_name)
+    if len(list(filter(lambda x: root.id in x.state.roots, group_creds))) == 0:
+        raise CredentialNotFound()
+
+    existing_actions = await get_actions_by_name("clone_root", group_name)
+    if (
+        len(
+            list(
+                filter(
+                    lambda x: x.additional_info == root.state.nickname,
+                    existing_actions,
+                )
+            )
+        )
+        > 0
+    ):
+        raise RootAlreadyCloning()
+
+    await put_action(
+        action_name="clone_root",
+        entity=root.group_name,
+        subject=user_email,
+        additional_info=root.state.nickname,
     )
