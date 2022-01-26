@@ -26,7 +26,7 @@ from utils.function import (
 )
 
 
-def cfn_log_files_not_validated_iterate_vulnerabilities(
+def _cfn_log_files_not_validated_iterate_vulnerabilities(
     file_ext: str,
     trails_iterator: Iterator[Union[AWSCTrail, Node]],
 ) -> Iterator[Union[AWSCTrail, Node]]:
@@ -53,7 +53,7 @@ def cfn_log_files_not_validated(
         description_key="src.lib_path.f394.cfn_log_files_not_validated",
         finding=FindingEnum.F394,
         iterator=get_cloud_iterator(
-            cfn_log_files_not_validated_iterate_vulnerabilities(
+            _cfn_log_files_not_validated_iterate_vulnerabilities(
                 file_ext=file_ext,
                 trails_iterator=iter_cloudtrail_trail(template=template),
             )

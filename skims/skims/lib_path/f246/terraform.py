@@ -23,7 +23,7 @@ from typing import (
 )
 
 
-def tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
+def _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
@@ -46,7 +46,7 @@ def tfm_db_has_unencrypted_storage(
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
         finding=FindingEnum.F246,
         iterator=get_cloud_iterator(
-            tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
+            _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
@@ -63,7 +63,7 @@ def tfm_rds_has_unencrypted_storage(
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
         finding=FindingEnum.F246,
         iterator=get_cloud_iterator(
-            tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
+            _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
