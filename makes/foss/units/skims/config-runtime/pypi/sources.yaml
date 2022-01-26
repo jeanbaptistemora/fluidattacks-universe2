@@ -9,8 +9,8 @@ closure:
   async-timeout: 3.0.1
   attrs: 21.4.0
   beautifulsoup4: 4.9.3
-  boto3: 1.20.42
-  botocore: 1.23.42
+  boto3: 1.20.43
+  botocore: 1.23.43
   certifi: 2021.10.8
   cfn-flip: 1.2.3
   chardet: 3.0.4
@@ -30,7 +30,7 @@ closure:
   jmespath: 0.10.0
   kiwisolver: 1.3.2
   lark-parser: 0.7.8
-  lxml: 4.6.3
+  lxml: 4.7.1
   matplotlib: 3.5.1
   metaloaders: 20.9.2566091
   more-itertools: 8.7.0
@@ -156,18 +156,18 @@ links:
   - name: beautifulsoup4-4.9.3.tar.gz
     sha256: 09gbd49mwz86k572r1231x2rdp82p42zlnw0bz9b9mfi58r9wwl4
     url: https://files.pythonhosted.org/packages/6b/c3/d31704ae558dcca862e4ee8e8388f357af6c9d9acb0cad4ba0fbbd350d9a/beautifulsoup4-4.9.3.tar.gz
-  - name: boto3-1.20.42-py3-none-any.whl
-    sha256: 03bg94ss7pq154da05hci2vnzmsw0asgxawkxc4mzfqx7z7rlja9
-    url: https://files.pythonhosted.org/packages/14/ca/fcbc1970ec2a9c9d7e9ca00587521afc541881f269d492265f9b1fc50abe/boto3-1.20.42-py3-none-any.whl
-  - name: boto3-1.20.42.tar.gz
-    sha256: 1ykwhvfxvjzn1yzr03dkday6csma0z3jn9zzydiv4z6b8agfkz6j
-    url: https://files.pythonhosted.org/packages/b8/51/76cb44aa2480775e14fa8add802d1c026c74701e22d9d338a662054d0613/boto3-1.20.42.tar.gz
-  - name: botocore-1.23.42-py3-none-any.whl
-    sha256: 1h9vji7yb9rav4ybd715qxiba2vpvi6xwq55mxsa6d766jcm1rg2
-    url: https://files.pythonhosted.org/packages/65/10/f017aed4cde40524223581f40b0b1e9858d1cf7ba25086a59cba4c07bbe6/botocore-1.23.42-py3-none-any.whl
-  - name: botocore-1.23.42.tar.gz
-    sha256: 1l35ay67wa20ghvzfc4xf0nnzdggmwbq5i2synam9ipjkxaix3x5
-    url: https://files.pythonhosted.org/packages/14/f6/5ca4d62dd7a8a00f6536bdcb7b390c325b7bbafdbeb9cedb24a6a77c7e08/botocore-1.23.42.tar.gz
+  - name: boto3-1.20.43-py3-none-any.whl
+    sha256: 1d975a71qsmmsd35vjjyp451pz4cp5nijz491qqg2rz90x3isqah
+    url: https://files.pythonhosted.org/packages/38/3b/5c2a365e52ea9939954acf7cdb0ba5d8ffad6220732a28dc360761660472/boto3-1.20.43-py3-none-any.whl
+  - name: boto3-1.20.43.tar.gz
+    sha256: 0p2m1kb8jv9hdkpasxgffpm0fjkww1ay73k7s4xhyg4b0wfvm711
+    url: https://files.pythonhosted.org/packages/f9/d5/2dd0d754b6803c652b0b0895a281f326a37aef04ff8c541f583421cb1d14/boto3-1.20.43.tar.gz
+  - name: botocore-1.23.43-py3-none-any.whl
+    sha256: 0ki8f51fr41d220f1rpylfpal3pyz9af3bdhx7r3jr0279jqmj12
+    url: https://files.pythonhosted.org/packages/e8/c1/393f71de79821e8fded6e5c560e51bf6c97cdb4bcf2da9539cf3d0b84542/botocore-1.23.43-py3-none-any.whl
+  - name: botocore-1.23.43.tar.gz
+    sha256: 00li35y0vh8m3h8xmll3r044y3c9g3ky9w0897wagbm7j3zhvipq
+    url: https://files.pythonhosted.org/packages/80/77/9322025cbd28c5ba8243f4ead92336148a59ddcbb700716e5d6b01af69cf/botocore-1.23.43.tar.gz
   - name: certifi-2021.10.8-py2.py3-none-any.whl
     sha256: 0scm6gbbk4gfwb1flivxihnim9wragvvvcia0jn488scxdih2ann
     url: https://files.pythonhosted.org/packages/37/45/946c02767aabb873146011e665728b680884cd8fe70dde973c640e45b775/certifi-2021.10.8-py2.py3-none-any.whl
@@ -288,27 +288,30 @@ links:
   - name: lark-parser-0.7.8.tar.gz
     sha256: 19103j8amnlzw5f23gi6dr2pwfwzbd2a96iifkpb4vvy2nxmw896
     url: https://files.pythonhosted.org/packages/34/b8/aa7d6cf2d5efdd2fcd85cf39b33584fe12a0f7086ed451176ceb7fb510eb/lark-parser-0.7.8.tar.gz
-  - name: lxml-4.6.3-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 1ahwisk8i1k9q35m72rjpnl1djxscnzxqp3aigxv93dj8nwcn1xh
-    url: https://files.pythonhosted.org/packages/87/ff/784d03f79daa7e59cf685a7ffedd2ab6acddd5e6af18f236e75c84e0e19d/lxml-4.6.3-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: lxml-4.6.3-cp38-cp38-manylinux1_i686.whl
-    sha256: 06l75zp0p3rk3haggrj7hypv0nckqyvjzzkm7syqz7yic89ppykn
-    url: https://files.pythonhosted.org/packages/d1/83/a83fafce8a41ad4517e60d9c0555563c165c54d545417143767300658a16/lxml-4.6.3-cp38-cp38-manylinux1_i686.whl
-  - name: lxml-4.6.3-cp38-cp38-manylinux1_x86_64.whl
-    sha256: 09vrlsm14kfn9dhwgilr0isr7grmzi5zp0pfapszbb87bfmn3rr6
-    url: https://files.pythonhosted.org/packages/e5/d7/2d8b9e1d4fe05b8b72b3d2345d5a741b005640681482502b5ce3d8f020d4/lxml-4.6.3-cp38-cp38-manylinux1_x86_64.whl
-  - name: lxml-4.6.3-cp38-cp38-manylinux2010_i686.whl
-    sha256: 0pi7zgjf8rmkxw75ch0c3xkaq8dr6w461y823q0pxqk1kbqx7jz1
-    url: https://files.pythonhosted.org/packages/dc/6e/a166f586ddc87291f0f6111001eb9b26b436d82729c7a6777eae4ef0c072/lxml-4.6.3-cp38-cp38-manylinux2010_i686.whl
-  - name: lxml-4.6.3-cp38-cp38-manylinux2014_aarch64.whl
-    sha256: 14cp1j0n31vmdxhd30y7c09vkfimksmnz2yb8z5gkhwj4z37brb6
-    url: https://files.pythonhosted.org/packages/e4/86/ce700aa79423cc6a7b7619efe224811c9d3f136739825f869739c3f45356/lxml-4.6.3-cp38-cp38-manylinux2014_aarch64.whl
-  - name: lxml-4.6.3-cp38-cp38-manylinux2014_x86_64.whl
-    sha256: 1bi6yfr7s329g3j16jp2n7dkic8ahbk6w65jlpg1i0b2drmi2f0v
-    url: https://files.pythonhosted.org/packages/4c/30/8d712990f7f3806d08e54d82ac414cb723f1c1dfaf5831307e94ef8a1392/lxml-4.6.3-cp38-cp38-manylinux2014_x86_64.whl
-  - name: lxml-4.6.3.tar.gz
-    sha256: 0s14r1w2x9sdlcsw8mxiqgw4rz5zs5lpqpxrfyn4a1mkndqqbdrr
-    url: https://files.pythonhosted.org/packages/e5/21/a2e4517e3d216f0051687eea3d3317557bde68736f038a3b105ac3809247/lxml-4.6.3.tar.gz
+  - name: lxml-4.7.1-cp38-cp38-macosx_10_14_x86_64.whl
+    sha256: 0xqb84ags6ym4hpwylg1sjais67p02vs3assyzvlkg77cldv37zw
+    url: https://files.pythonhosted.org/packages/92/48/e2a7ce5147e6ccd184a2e3b1e1bf794ad87cc9258bc8e0bdc0144f616d09/lxml-4.7.1-cp38-cp38-macosx_10_14_x86_64.whl
+  - name: lxml-4.7.1-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
+    sha256: 07lcg0x1k68wp01wi7k04ckc6d6y0a9b3q8v7jppbn5lf0wdcyri
+    url: https://files.pythonhosted.org/packages/1b/7f/c9953e1773f5cf608ccb841edb63ec5d7a8f12bc02969745a4fb0a64066f/lxml-4.7.1-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_24_i686.whl
+  - name: lxml-4.7.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
+    sha256: 0h3lx7ga2j3d3pzcwwlli8n30scyciqnjijr2mdm9zchm770f231
+    url: https://files.pythonhosted.org/packages/e4/39/8fa4325c38e7959c26d10b7607fd7e7d8a0432aa006d42188df20efc4ae5/lxml-4.7.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_24_aarch64.whl
+  - name: lxml-4.7.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+    sha256: 0pq2zyzywaww6d3snhfyn0ji59qpjpvqp2lrfni2vjzq18v3idq9
+    url: https://files.pythonhosted.org/packages/ae/64/f002c327e99a3f3e8ec5c84590f665c071a39f85547987bdbab585fda1df/lxml-4.7.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+  - name: lxml-4.7.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.whl
+    sha256: 07mpk5mrl7p7llmyjffr0r1hkr7zmvs02nvlh6xpfk9ji78bjaka
+    url: https://files.pythonhosted.org/packages/9f/2b/3936fecd19b1cec197896f0128a143968813569a5e9334977ad0f457253b/lxml-4.7.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.whl
+  - name: lxml-4.7.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 17lz4g93cb0s3fg1qk2407cbjlli64azda5l1i7q74kpk84r9lzf
+    url: https://files.pythonhosted.org/packages/df/14/38b01aec6da11ce9b6a77935694baee8c4ca69c0d869df6469b281819fa3/lxml-4.7.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: lxml-4.7.1-cp38-cp38-musllinux_1_1_x86_64.whl
+    sha256: 1jbp3gasd63bkwn9cgx7f0bbl9g4qsyhkw82yf2nwqf0x563npkk
+    url: https://files.pythonhosted.org/packages/db/d8/ec305df55d1eaa04c067c2bfbcfe72b4d930259d45ba8f5db4b79da66468/lxml-4.7.1-cp38-cp38-musllinux_1_1_x86_64.whl
+  - name: lxml-4.7.1.tar.gz
+    sha256: 090viyanaki4q7w7i000xl0qh4in52bkl3qal55sz2bbm8w3hqd1
+    url: https://files.pythonhosted.org/packages/84/74/4a97db45381316cd6e7d4b1eb707d7f60d38cb2985b5dfd7251a340404da/lxml-4.7.1.tar.gz
   - name: matplotlib-3.5.1-cp38-cp38-macosx_10_9_universal2.whl
     sha256: 0g8a1xhg70p2kn4pcaccj9y1bmzfpj53vl7zmpwsfbydzr5lw2bc
     url: https://files.pythonhosted.org/packages/62/42/5f6d283d3e52604fb3461d94464bb92a2f4bd55c04530087df7ac3c882d8/matplotlib-3.5.1-cp38-cp38-macosx_10_9_universal2.whl
