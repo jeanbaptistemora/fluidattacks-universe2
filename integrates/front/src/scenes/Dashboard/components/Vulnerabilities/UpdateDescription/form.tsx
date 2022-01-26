@@ -15,8 +15,10 @@ import { ExternalBtsField } from "./ExternalBtsField";
 import {
   dataTreatmentTrackHelper,
   deleteTagVulnHelper,
-  getAreAllMutationValid,
-  getResults,
+  getAllNotifications,
+  getAllResults,
+  getAreAllChunckedMutationValid,
+  getAreAllNotificationValid,
   handleRequestZeroRiskError,
   handleUpdateVulnTreatmentError,
   hasNewVulnsAlert,
@@ -85,7 +87,6 @@ function usePreviousPristine(value: boolean): boolean {
 }
 
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
-  findingId,
   groupName,
   vulnerabilities,
   handleClearSelected,
@@ -111,6 +112,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const [isRunning, setRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
+  const [vulnerabilitiesList] = useState(vulnerabilities);
 
   const {
     dirty,
@@ -160,14 +162,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         {
           query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         GET_ME_VULNERABILITIES_ASSIGNED,
@@ -177,20 +179,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const [sendNotification] = useMutation<ISendNotificationResultAttr>(
     SEND_ASSIGNED_NOTIFICATION,
     {
-      onCompleted: ({
-        sendAssignedNotification,
-      }: ISendNotificationResultAttr): void => {
-        if (sendAssignedNotification.success) {
-          msgSuccess(
-            translate.t(
-              "searchFindings.tabDescription.notification.emailNotificationText"
-            ),
-            translate.t(
-              "searchFindings.tabDescription.notification.emailNotificationTitle"
-            )
-          );
-        }
-      },
       onError: (updateError: ApolloError): void => {
         updateError.graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(
@@ -241,14 +229,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       {
         query: GET_FINDING_AND_GROUP_INFO,
         variables: {
-          findingId,
+          findingId: vulnerabilitiesList[0].findingId,
         },
       },
       {
         query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
-          findingId,
+          findingId: vulnerabilitiesList[0].findingId,
         },
       },
       GET_ME_VULNERABILITIES_ASSIGNED,
@@ -266,16 +254,15 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       dataTreatmentTrackHelper(dataTreatment);
       try {
         setRunning(true);
-        const results = await getResults(
+        const results = await getAllResults(
           updateVuln,
           vulnerabilities,
           dataTreatment,
-          findingId,
           isEditPristineP,
           isTreatmentPristineP
         );
 
-        const areAllMutationValid = getAreAllMutationValid(results);
+        const areAllMutationValid = getAreAllChunckedMutationValid(results);
 
         validMutationsHelper(
           handleCloseModal,
@@ -284,12 +271,22 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
 
         if (!isTreatmentPristineP) {
-          await sendNotification({
-            variables: {
-              findingId,
-              vulnerabilities: vulnerabilities.map(({ id }): string => id),
-            },
-          });
+          const notificationsResults = await getAllNotifications(
+            sendNotification,
+            vulnerabilities
+          );
+          const areAllNotificationValid =
+            getAreAllNotificationValid(notificationsResults);
+          if (areAllNotificationValid.every(Boolean)) {
+            msgSuccess(
+              translate.t(
+                "searchFindings.tabDescription.notification.emailNotificationText"
+              ),
+              translate.t(
+                "searchFindings.tabDescription.notification.emailNotificationTitle"
+              )
+            );
+          }
         }
       } catch (updateError: unknown) {
         handleUpdateVulnTreatmentError(updateError);
@@ -304,7 +301,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   async function handleDeletion(tag: string): Promise<void> {
     await deleteTagVuln({
       variables: {
-        findingId,
+        findingId: vulnerabilitiesList[0].findingId,
         tag,
         vulnerabilities: vulnerabilities.map(
           (vuln: IVulnDataTypeAttr): string => vuln.id
@@ -332,21 +329,21 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         {
           query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         {
           query: GET_FINDING_HEADER,
           variables: {
             canGetHistoricState,
-            findingId,
+            findingId: vulnerabilitiesList[0].findingId,
           },
         },
         GET_ME_VULNERABILITIES_ASSIGNED,
