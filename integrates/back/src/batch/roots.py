@@ -652,20 +652,29 @@ async def clone_root(*, item: BatchProcessing) -> None:
     if root and root_cred:
         if root_cred.metadata.type.value == "SSH":
             root_cloned = await _ssh_clone_root(root, root_cred)
+
+        if root_cloned:
+            findings = tuple(
+                key for key in FINDINGS.keys() if is_check_available(key)
+            )
+            await queue_all_checks_new(
+                group=group_name,
+                roots=(root.state.nickname,),
+                finding_codes=findings,
+                queue=SkimsBatchQueue.HIGH,
+            )
+
+        await roots_domain.update_root_cloning_status(
+            loaders=dataloaders,
+            group_name=group_name,
+            root_id=root.id,
+            status="OK" if root_cloned else "FAILED",
+            message="Cloned successfully" if root_cloned else "Clone failed",
+        )
     else:
         LOGGER.error(
             "Root could not be determined or it does not have any credentials",
             extra=dict(extra=locals()),
-        )
-    if root_cloned:
-        findings = tuple(
-            key for key in FINDINGS.keys() if is_check_available(key)
-        )
-        await queue_all_checks_new(
-            group=group_name,
-            roots=(root.state.nickname,),
-            finding_codes=findings,
-            queue=SkimsBatchQueue.HIGH,
         )
     await delete_action(
         action_name=item.action_name,
