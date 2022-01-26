@@ -67,11 +67,9 @@ from purity.v2.stream.transform import (
     chain,
     until_empty,
 )
-from returns.io import (
-    IO,
-)
 from typing import (
     Any,
+    Optional,
     Type,
     TypeVar,
 )
@@ -100,8 +98,15 @@ def _fetch_many(
     return to_cmd(lambda: client.cursor.fetch_many(chunk))
 
 
-def all_data_count(client: Client, table: TableID) -> Cmd[ResultE[int]]:
-    return _execute_query(client, query.all_data_count(table)).bind(
+def all_data_count(
+    client: Client, table: TableID, namespace: Optional[str]
+) -> Cmd[ResultE[int]]:
+    _query = (
+        query.all_data_count(table, namespace)
+        if namespace
+        else query.all_data_count(table)
+    )
+    return _execute_query(client, _query).bind(
         lambda _: _fetch_one(client).map(
             lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
         )
@@ -119,6 +124,7 @@ def _fetch_action(
         )
         return unsafe_unwrap(result)
     except psycopg2.ProgrammingError:
+        LOG.warning("Empty fetch response")
         return Maybe.empty()
 
 
@@ -130,15 +136,14 @@ def _fetch(
 
 def _all_data(
     client: Client, table: TableID, namespace: Maybe[str]
-) -> Stream[ResultE[CommitTableRow]]:
+) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     pkg_items = 2000
     statement = namespace.map(
         lambda n: query.namespace_data(table, n)
     ).or_else_call(lambda: query.all_data(table))
-    _execute_query(client, statement)
     items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
-    return (
-        from_piter(items)
+    return _execute_query(client, statement).map(
+        lambda _: from_piter(items)
         .transform(lambda s: until_empty(s))
         .map(lambda l: from_flist(l))
         .transform(lambda s: chain(s))
@@ -147,44 +152,42 @@ def _all_data(
 
 def namespace_data(
     client: Client, table: TableID, namespace: str
-) -> Stream[ResultE[CommitTableRow]]:
+) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     return _all_data(client, table, Maybe.from_value(namespace))
 
 
 def all_data_raw(
     client: Client, table: TableID
-) -> Stream[ResultE[CommitTableRow]]:
+) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     return _all_data(client, table, Maybe.empty())
-
-
-def _insert_rows(
-    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
-) -> IO[None]:
-    LOG.debug("inserting %s rows", len(rows))
-    return client.cursor.execute_batch(
-        query.insert_row(table), [SqlArgs(to_dict(r)) for r in rows]
-    )
 
 
 def insert_rows(
     client: Client, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> Cmd[None]:
-    return to_cmd(lambda: _insert_rows(client, table, rows))
-
-
-def _insert_unique_rows(
-    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
-) -> IO[None]:
-    LOG.debug("unique inserting %s rows", len(rows))
-    return client.cursor.execute_batch(
-        query.insert_unique_row(table), [SqlArgs(to_dict(r)) for r in rows]
+    msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
+    return msg.bind(
+        lambda _: _execute_batch(
+            client,
+            query.insert_row(table),
+            tuple(SqlArgs(to_dict(r)) for r in rows),
+        )
     )
 
 
 def insert_unique_rows(
     client: Client, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> Cmd[None]:
-    return to_cmd(lambda: _insert_unique_rows(client, table, rows))
+    msg = Cmd.from_cmd(
+        lambda: LOG.debug("unique inserting %s rows", len(rows))
+    )
+    return msg.bind(
+        lambda _: _execute_batch(
+            client,
+            query.insert_unique_row(table),
+            tuple(SqlArgs(to_dict(r)) for r in rows),
+        )
+    )
 
 
 def _fetch_one_result(client: Client, d_type: Type[_T]) -> Cmd[ResultE[_T]]:

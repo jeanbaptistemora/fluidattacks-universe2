@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.client.encoder import (
     CommitTableRow,
     RawRow,
@@ -23,52 +21,53 @@ from postgres_client.query import (
 from purity.v2.frozen import (
     FrozenList,
 )
-from returns.maybe import (
+from purity.v2.maybe import (
     Maybe,
+)
+from typing import (
+    Optional,
 )
 
 
-def _all_data(table: TableID, namespace: Maybe[str]) -> Query:
+def _all_data(table: TableID, namespace: Optional[str]) -> Query:
+    _namespace = Maybe.from_optional(namespace)
     _attrs = ",".join([f.name for f in fields(RawRow)])
-    _args = SqlArgs(
-        identifiers={
+    args = SqlArgs(
+        {"namespace": namespace} if namespace else {},
+        {
             "schema": table.schema.name,
             "table": table.table_name,
-        }
+        },
     )
-    args = namespace.map(
-        lambda n: SqlArgs(
-            {
-                "namespace": n,
-            },
-            _args.identifiers,
-        )
-    ).value_or(_args)
-    _query = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
-    query = namespace.map(
-        lambda n: _query + " WHERE namespace = %(namespace)s"
-    ).value_or(_query)
-    return Query(query, args)
+    base_query = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
+    _query = _namespace.map(
+        lambda _: f"{base_query} WHERE namespace = %(namespace)s"
+    ).value_or(base_query)
+    return Query(_query, args)
 
 
 def namespace_data(table: TableID, namespace: str) -> Query:
-    return _all_data(table, Maybe.from_value(namespace))
+    return _all_data(table, namespace)
 
 
 def all_data(table: TableID) -> Query:
-    return _all_data(table, Maybe.empty)
+    return _all_data(table, None)
 
 
-def all_data_count(table: TableID) -> Query:
+def all_data_count(table: TableID, namespace: Optional[str] = None) -> Query:
+    _namespace = Maybe.from_optional(namespace)
+    base_query = "SELECT COUNT(*) FROM {schema}.{table}"
+    _query = _namespace.map(
+        lambda _: f"{base_query} WHERE namespace = %(namespace)s"
+    ).value_or(base_query)
     return Query(
-        """
-        SELECT COUNT(*) FROM {schema}.{table}
-        """,
+        _query,
         SqlArgs(
-            identifiers={
+            {"namespace": namespace} if namespace else {},
+            {
                 "schema": table.schema.name,
                 "table": table.table_name,
-            }
+            },
         ),
     )
 
