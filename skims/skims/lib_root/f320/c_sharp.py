@@ -28,7 +28,6 @@ def _insecure_arg(dependencies: SyntaxSteps) -> bool:
     return False
 
 
-#  developer: jecheverri@fluidattacks.com
 def ldap_connections_authenticated(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -51,6 +50,7 @@ def ldap_connections_authenticated(
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 

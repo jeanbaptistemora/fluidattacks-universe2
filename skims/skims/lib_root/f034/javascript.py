@@ -5,6 +5,7 @@ from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
     Vulnerability,
@@ -27,7 +28,6 @@ from utils.string import (
 )
 
 
-#  developer: drestrepo@fluidattacks.com
 def weak_random(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         random_number = False
@@ -51,7 +51,13 @@ def weak_random(graph_db: GraphDB) -> Vulnerabilities:
                     shard.syntax,
                     {"cookie"},
                 )
-                yield shard_n_id_query(graph_db, FINDING, shard, "1")
+                yield shard_n_id_query(
+                    graph_db,
+                    FINDING,
+                    shard,
+                    n_id="1",
+                    developer=DeveloperEnum.DIEGO_RESTREPO,
+                )
 
     return tuple(chain.from_iterable(find_vulns()))
 

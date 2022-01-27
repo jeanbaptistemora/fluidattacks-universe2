@@ -6,6 +6,7 @@ from lib_root.utilities.java import (
     yield_object_creation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -226,7 +227,6 @@ def _yield_insecure_ciphers(
         yield from javax_yield_insecure_ciphers(shard, method_name, parameters)
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_insecure_pass(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -236,10 +236,10 @@ def java_insecure_pass(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_pass(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_insecure_key(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -249,10 +249,10 @@ def java_insecure_key(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_key(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -262,10 +262,10 @@ def java_insecure_hash(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_hash(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -275,6 +275,7 @@ def java_insecure_cipher(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_ciphers(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

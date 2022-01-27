@@ -13,7 +13,6 @@ from utils.string import (
 )
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_file_create_temp_file(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -32,6 +31,7 @@ def java_file_create_temp_file(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

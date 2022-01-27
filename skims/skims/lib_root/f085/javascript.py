@@ -30,7 +30,6 @@ def _could_be_boolean(key: str) -> bool:
     return False
 
 
-#  developer: drestrepo@fluidattacks.com
 def client_storage(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -97,6 +96,7 @@ def client_storage(
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

@@ -2,6 +2,7 @@ from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -57,7 +58,6 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
                     yield shard, param_id
 
 
-#  developer: acuberos@fluidattacks.com
 def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
         cwe=("319"),
@@ -65,6 +65,7 @@ def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=_kotlin_yield_unencrypted_channels(graph_db),
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 

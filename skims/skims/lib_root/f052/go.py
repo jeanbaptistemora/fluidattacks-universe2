@@ -3,6 +3,7 @@ from lib_root.utilities.go import (
     yield_object_creation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -15,7 +16,6 @@ from sast.query import (
 )
 
 
-#  developer: jecheverri@fluidattacks.com
 def go_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -31,10 +31,10 @@ def go_insecure_hash(
         desc_params=dict(lang="Go"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def go_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -53,6 +53,7 @@ def go_insecure_cipher(
         desc_params=dict(lang="Go"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 

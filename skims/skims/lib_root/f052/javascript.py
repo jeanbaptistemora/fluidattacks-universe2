@@ -5,6 +5,7 @@ from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
     Vulnerability,
@@ -66,6 +67,7 @@ def _test_native_cipher(
             desc_params=dict(lang="JavaScript"),
             finding=FINDING,
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+            developer=DeveloperEnum.DIEGO_RESTREPO,
         )
     elif algorithm.type == "SyntaxStepSymbolLookup":
         append_label_input(shard.graph, "1", FINDING)
@@ -75,7 +77,13 @@ def _test_native_cipher(
             shard.syntax,
             {"createCipheriv", "createDecipheriv"},
         )
-        yield shard_n_id_query(graph_db, FINDING, shard, "1")
+        yield shard_n_id_query(
+            graph_db,
+            FINDING,
+            shard,
+            n_id="1",
+            developer=DeveloperEnum.DIEGO_RESTREPO,
+        )
     else:
         return
 
@@ -100,6 +108,7 @@ def _test_crypto_js(
             desc_params=dict(lang="JavaScript"),
             finding=FINDING,
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+            developer=DeveloperEnum.DIEGO_RESTREPO,
         )
     elif method in complete_attrs_on_set(
         {
@@ -114,10 +123,15 @@ def _test_crypto_js(
             shard.syntax,
             {"encrypt"},
         )
-        yield shard_n_id_query(graph_db, FINDING, shard, "1")
+        yield shard_n_id_query(
+            graph_db,
+            FINDING,
+            shard,
+            n_id="1",
+            developer=DeveloperEnum.DIEGO_RESTREPO,
+        )
 
 
-#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         for (
@@ -153,12 +167,12 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
                     desc_params=dict(lang="JavaScript"),
                     finding=FINDING,
                     graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+                    developer=DeveloperEnum.DIEGO_RESTREPO,
                 )
 
     return tuple(chain.from_iterable(find_vulns()))
 
 
-#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -181,7 +195,6 @@ def javascript_insecure_cipher(
     return tuple(chain.from_iterable(find_vulns()))
 
 
-#  developer: drestrepo@fluidattacks.com
 def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         for (
@@ -205,6 +218,7 @@ def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
                         desc_params=dict(lang="JavaScript"),
                         finding=FINDING,
                         graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+                        developer=DeveloperEnum.DIEGO_RESTREPO,
                     )
             elif "generateKeyPair" in invocation_step.method:
                 append_label_input(shard.graph, "1", FINDING)
@@ -214,7 +228,13 @@ def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
                     shard.syntax,
                     {"generateKeyPair"},
                 )
-                yield shard_n_id_query(graph_db, FINDING, shard, "1")
+                yield shard_n_id_query(
+                    graph_db,
+                    FINDING,
+                    shard,
+                    n_id="1",
+                    developer=DeveloperEnum.DIEGO_RESTREPO,
+                )
 
     return tuple(chain.from_iterable(find_vulns()))
 

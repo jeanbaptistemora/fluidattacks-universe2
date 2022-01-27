@@ -60,7 +60,6 @@ def insecure_attribute(
     return ""
 
 
-#  developer: jecheverri@fluidattacks.com
 def insecure_logging(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -127,4 +126,5 @@ def insecure_logging(
         desc_params={},
         finding=core_model.FindingEnum.F091,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )

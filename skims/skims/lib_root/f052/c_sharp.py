@@ -4,6 +4,7 @@ from lib_root.utilities.c_sharp import (
     yield_shard_object_creation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -76,7 +77,6 @@ def _old_insecure_keys_check(
                 yield shard, member
 
 
-#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
     ciphers = {
         "RSACryptoServiceProvider",
@@ -99,10 +99,10 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def c_sharp_rsa_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -161,10 +161,10 @@ def c_sharp_rsa_secure_mode(
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def c_sharp_aesmanaged_secure_mode(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -217,10 +217,10 @@ def c_sharp_aesmanaged_secure_mode(
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -247,10 +247,10 @@ def c_sharp_insecure_cipher(
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def c_sharp_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -281,6 +281,7 @@ def c_sharp_insecure_hash(
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

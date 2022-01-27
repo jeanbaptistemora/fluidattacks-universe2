@@ -21,7 +21,6 @@ from utils.graph.text_nodes import (
 )
 
 
-#  developer: jecheverri@fluidattacks.com
 def vuln_regular_expression(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -89,6 +88,7 @@ def vuln_regular_expression(
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 

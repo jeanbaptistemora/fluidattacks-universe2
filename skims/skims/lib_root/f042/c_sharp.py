@@ -38,7 +38,6 @@ def insecure_props(shard: graph_model.GraphShard, name_var: str) -> bool:
     return True
 
 
-#  developer: jecheverri@fluidattacks.com
 def insecurely_generated_cookies(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -71,6 +70,7 @@ def insecurely_generated_cookies(
         desc_params=dict(lang="C#"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 

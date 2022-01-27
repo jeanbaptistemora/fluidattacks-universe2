@@ -50,7 +50,6 @@ def _has_like_injection(statement: str) -> bool:
     return False
 
 
-#  developer: drestrepo@fluidattacks.com
 def jpa_like(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -101,6 +100,7 @@ def jpa_like(
         desc_params=dict(lang="Java"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

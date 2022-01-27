@@ -7,6 +7,7 @@ from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -102,7 +103,6 @@ def _yield_insecure_ciphers(
         )
 
 
-#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -112,10 +112,10 @@ def kotlin_insecure_hash(
         desc_params=dict(lang="Kotlin"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_hash(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -125,10 +125,10 @@ def kotlin_insecure_cipher(
         desc_params=dict(lang="Kotlin"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_ciphers(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def kotlin_insecure_key(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -138,6 +138,7 @@ def kotlin_insecure_key(
         desc_params=dict(lang="Kotlin"),
         finding=FINDING,
         graph_shard_nodes=_yield_insecure_key(graph_db),
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 

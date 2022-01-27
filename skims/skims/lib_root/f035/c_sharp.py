@@ -20,7 +20,6 @@ from typing import (
 
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
-#  developer: asalgado@fluidattacks.com
 def weak_credential_policy(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -64,7 +63,13 @@ def weak_credential_policy(
                     },
                 )
 
-                yield shard_n_id_query(graph_db, FINDING, shard, param_id)
+                yield shard_n_id_query(
+                    graph_db,
+                    FINDING,
+                    shard,
+                    param_id,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+                )
 
     return tuple(chain.from_iterable(find_vulns()))
 
@@ -106,7 +111,6 @@ def _check_no_password_argument(arg: graph_model.SyntaxStepLiteral) -> bool:
     return False
 
 
-#  developer: asalgado@fluidattacks.com
 def no_password(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -156,6 +160,7 @@ def no_password(
         desc_params=dict(lang="CSharp"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 

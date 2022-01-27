@@ -15,7 +15,6 @@ from sast_syntax_readers.utils_generic import (
 )
 
 
-#  developer: jecheverri@fluidattacks.com
 def sql_injection(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -64,6 +63,7 @@ def sql_injection(
         desc_params=dict(lang="C#"),
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 

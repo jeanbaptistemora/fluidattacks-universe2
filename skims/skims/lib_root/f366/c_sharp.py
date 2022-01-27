@@ -7,7 +7,6 @@ from sast.query import (
 )
 
 
-#  developer: jecheverri@fluidattacks.com
 def conflicting_annotations(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -34,6 +33,7 @@ def conflicting_annotations(
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
