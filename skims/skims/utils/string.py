@@ -138,22 +138,25 @@ def make_snippet(
                 lines[index] = (line_no, fmt.rstrip(" "))
 
             # Slice viewport vertically
-            lines = lines[
-                slice(
-                    0,
-                    2 * viewport.line_context + 1,
-                )
-                if (viewport_center - viewport.line_context <= 0)
-                else slice(
-                    max(viewport_center - viewport.line_context, 0),
-                    viewport_center + viewport.line_context + 1,
-                )
-                if (viewport_center + viewport.line_context < len(lines))
-                else slice(
-                    max(len(lines) - 2 * viewport.line_context - 1, 0),
-                    len(lines),
-                )
-            ]
+            if viewport_center - viewport.line_context <= 0:
+                lines = lines[
+                    slice(
+                        0,
+                        2 * viewport.line_context + 1,
+                    )
+                ]
+            else:
+                lines = lines[
+                    slice(
+                        max(viewport_center - viewport.line_context, 0),
+                        viewport_center + viewport.line_context + 1,
+                    )
+                    if (viewport_center + viewport.line_context < len(lines))
+                    else slice(
+                        max(len(lines) - 2 * viewport.line_context - 1, 0),
+                        len(lines),
+                    )
+                ]
 
             # Highlight the column if requested
             lines.append((0, f"  {' ':>{loc_width}} ^ Col {viewport_left}"))
