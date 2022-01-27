@@ -18,6 +18,9 @@ from datetime import (
 from integrates.domain import (
     do_add_skims_execution,
 )
+from integrates.graphql import (
+    create_session,
+)
 from lib_apk.analyze import (
     analyze as analyze_apk,
 )
@@ -62,7 +65,7 @@ from zone import (
 )
 
 
-def execute_skims(token: Optional[str]) -> bool:
+def execute_skims(token: Optional[str] = None) -> bool:
     """Execute skims according to the provided config.
 
     :param token: Integrates API token
@@ -100,6 +103,8 @@ def execute_skims(token: Optional[str]) -> bool:
     log_blocking("info", "Value missing to add:\n%s", CTX.value_to_add)
 
     if CTX.config.group and token:
+        create_session(token)
+
         msg = "Results will be synced to group: %s"
         log_blocking("info", msg, CTX.config.group)
 
