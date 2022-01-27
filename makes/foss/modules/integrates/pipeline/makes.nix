@@ -120,6 +120,7 @@ in
         })
         [
           "0172_send_masked_vulns_to_redshift_old.py"
+          "0175_format_toe_inputs.py"
         ])
         ++ (builtins.map
         (name: {

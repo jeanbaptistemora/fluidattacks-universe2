@@ -1088,12 +1088,8 @@ def _get_path(url: str) -> str:
 
 def _get_protocol(url: str) -> str:
     if (index := url.find("://")) != -1:
-        return url[:index]
+        return url[:index].lower()
     return "unknown"
-
-
-def _has_protocol(url: str) -> bool:
-    return bool("://" in url)
 
 
 def _format_component(
@@ -1127,6 +1123,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
     host = _get_host(formatted_component)
     port = _get_port(formatted_component)
     path = _get_path(formatted_component)
+    protocol = _get_protocol(component.strip())
     host_and_port = f"{host}:{port}" if port else host
     for root in group_roots:
         if has_white_service and isinstance(root, GitRootItem):
@@ -1189,8 +1186,4 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
                     root, f"{root_host_and_port}/{path}"
                 )
 
-    return None, (
-        component
-        if _has_protocol(component)
-        else f"unknown://{host_and_port}/{path}"
-    )
+    return None, f"{protocol}://{host_and_port}/{path}"
