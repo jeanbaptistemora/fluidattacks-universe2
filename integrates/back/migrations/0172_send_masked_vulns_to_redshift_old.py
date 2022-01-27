@@ -60,6 +60,9 @@ from dynamodb.types import (
 from groups import (
     dal as groups_dal,
 )
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
 from newutils.vulnerabilities import (
@@ -157,6 +160,74 @@ async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
     return items
 
 
+def _format_metadata(
+    vulns_items: List[Item],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(format_vulnerability(item=item) for item in vulns_items)
+
+
+def _format_state(
+    vulns_items: List[Item],
+) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
+    return tuple(
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_state(state)
+                for state in vulnerability["historic_state"]
+            )
+        )
+        for vulnerability in vulns_items
+    )
+
+
+def _format_treatment(
+    vulns_items: List[Item],
+) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
+    return tuple(
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_treatment(treatment)
+                for treatment in get_optional(
+                    "historic_treatment", vulnerability, tuple()
+                )
+            )
+        )
+        for vulnerability in vulns_items
+    )
+
+
+def _format_verification(
+    vulns_items: List[Item],
+) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
+    return tuple(
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_verification(verification)
+                for verification in get_optional(
+                    "historic_verification", vulnerability, tuple()
+                )
+            )
+        )
+        for vulnerability in vulns_items
+    )
+
+
+def _format_zero_risk(
+    vulns_items: List[Item],
+) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
+    return tuple(
+        adjust_historic_dates(
+            tuple(
+                format_vulnerability_zero_risk(zero_risk)
+                for zero_risk in get_optional(
+                    "historic_zero_risk", vulnerability, tuple()
+                )
+            )
+        )
+        for vulnerability in vulns_items
+    )
+
+
 @retry_on_exceptions(
     exceptions=(
         ClientError,
@@ -169,80 +240,25 @@ async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
 async def process_finding(
     *,
     finding: Finding,
-) -> None:
+) -> List[Item]:
     # Only vulns for released findings will be stored
     if finding.state.status not in {
         FindingStateStatus.APPROVED,
         FindingStateStatus.DELETED,
     }:
-        return
+        return []
 
     # Retrieve vulns as dict from old table
     vulns_items = await _get_vulnerabilities_by_finding(finding_id=finding.id)
     if not vulns_items:
-        return
+        return []
 
     # Only deleted vulns by external users will be stored
     vulns_items_to_store = _filter_out_deleted_vulns(vulns_items)
     if not vulns_items_to_store:
-        return
+        return []
 
-    # Format vulns as typed
-    vulns_metadata: Tuple[Vulnerability, ...] = tuple(
-        format_vulnerability(item=item) for item in vulns_items_to_store
-    )
-    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...] = tuple(
-        adjust_historic_dates(
-            tuple(
-                format_vulnerability_state(state)
-                for state in vulnerability["historic_state"]
-            )
-        )
-        for vulnerability in vulns_items_to_store
-    )
-    vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...] = tuple(
-        adjust_historic_dates(
-            tuple(
-                format_vulnerability_treatment(treatment)
-                for treatment in get_optional(
-                    "historic_treatment", vulnerability, tuple()
-                )
-            )
-        )
-        for vulnerability in vulns_items_to_store
-    )
-    vulns_verification: Tuple[
-        Tuple[VulnerabilityVerification, ...], ...
-    ] = tuple(
-        adjust_historic_dates(
-            tuple(
-                format_vulnerability_verification(verification)
-                for verification in get_optional(
-                    "historic_verification", vulnerability, tuple()
-                )
-            )
-        )
-        for vulnerability in vulns_items_to_store
-    )
-    vulns_zero_risk: Tuple[Tuple[VulnerabilityZeroRisk, ...], ...] = tuple(
-        adjust_historic_dates(
-            tuple(
-                format_vulnerability_zero_risk(zero_risk)
-                for zero_risk in get_optional(
-                    "historic_zero_risk", vulnerability, tuple()
-                )
-            )
-        )
-        for vulnerability in vulns_items_to_store
-    )
-
-    await send_vulns_to_redshift(
-        vulns_metadata=vulns_metadata,
-        vulns_state=vulns_state,
-        vulns_treatment=vulns_treatment,
-        vulns_verification=vulns_verification,
-        vulns_zero_risk=vulns_zero_risk,
-    )
+    return vulns_items_to_store
 
 
 @retry_on_exceptions(
@@ -269,9 +285,42 @@ async def process_group(
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
     all_findings = group_drafts_and_findings + group_removed_findings
-    await collect(
-        tuple(process_finding(finding=finding) for finding in all_findings),
-        workers=16,
+    vulns_items_to_store: List[Item] = list(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    process_finding(finding=finding)
+                    for finding in all_findings
+                ),
+                workers=64,
+            )
+        )
+    )
+    try:
+        # Format vulns as typed
+        vulns_metadata = _format_metadata(vulns_items_to_store)
+        vulns_state = _format_state(vulns_items_to_store)
+        vulns_treatment = _format_treatment(vulns_items_to_store)
+        vulns_verification = _format_verification(vulns_items_to_store)
+        vulns_zero_risk = _format_zero_risk(vulns_items_to_store)
+    except IndexError as ex:
+        LOGGER_CONSOLE.error(
+            "Formatting error at vulns",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "ex": ex,
+                }
+            },
+        )
+        return
+
+    await send_vulns_to_redshift(
+        vulns_metadata=vulns_metadata,
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+        vulns_verification=vulns_verification,
+        vulns_zero_risk=vulns_zero_risk,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
@@ -317,7 +366,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(removed_groups)
         ),
-        workers=16,
+        workers=64,
     )
 
 
