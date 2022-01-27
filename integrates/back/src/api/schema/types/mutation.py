@@ -93,6 +93,7 @@ from api.mutations import (
     update_vulnerability_commit,
     update_vulnerability_treatment,
     upload_file,
+    validate_git_access,
     verify_vulnerabilities_request,
     virus_scan_file,
 )
@@ -263,6 +264,7 @@ MUTATION.set_field(
 )
 MUTATION.set_field("uploadFile", upload_file.mutate)
 MUTATION.set_field("requestGroupsUpgrade", request_groups_upgrade.mutate)
+MUTATION.set_field("validateGitAccess", validate_git_access.mutate)
 MUTATION.set_field(
     "verifyVulnerabilitiesRequest",
     verify_vulnerabilities_request.mutate,

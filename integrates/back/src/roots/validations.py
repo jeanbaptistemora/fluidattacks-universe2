@@ -7,8 +7,8 @@ from custom_exceptions import (
     InvalidRootComponent,
     RepeatedRootNickname,
 )
-from db_model.credentials.types import (
-    CredentialItem,
+from db_model.enums import (
+    CredentialType,
 )
 from db_model.roots.types import (
     GitRootItem,
@@ -156,9 +156,9 @@ def validate_nickname(nickname: str) -> None:
 
 
 async def validate_git_credentials(
-    repo_url: str, credential: CredentialItem
+    repo_url: str, credential_type: CredentialType, credential_key: str
 ) -> None:
-    if credential.metadata.type == "SSH":
+    if credential_type == "SSH":
         with tempfile.TemporaryDirectory() as temp_dir:
             ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
             parsed_url = urlparse(repo_url)
@@ -168,7 +168,7 @@ async def validate_git_credentials(
                 "w",
                 encoding="utf-8",
             ) as ssh_file:
-                ssh_file.write(base64.b64decode(credential.state.key).decode())
+                ssh_file.write(base64.b64decode(credential_key).decode())
 
             proc = await asyncio.create_subprocess_exec(
                 "git",

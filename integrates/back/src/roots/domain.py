@@ -252,7 +252,6 @@ async def add_git_root(
         credential = _format_root_credential(
             credentials, group_name, user_email, root.id
         )
-        await validations.validate_git_credentials(url, credential)
         await creds_model.add(credential=credential)
 
     await roots_model.add(root=root)
@@ -402,30 +401,37 @@ def _format_root_nickname(nickname: str, url: str) -> str:
     return nick
 
 
-def _format_root_credential(
-    credentials: Dict[str, str], group_name: str, user_email: str, root_id: str
-) -> CredentialItem:
-    credential_key = credentials["key"]
-    credential_name = credentials["name"]
-    credential_type = credentials["type"]
-
-    if not credential_name or not hasattr(CredentialType, credential_type):
-        raise InvalidParameter()
-
-    if credential_type == "SSH":
+def _format_credential_key(key_type: CredentialType, key: str) -> str:
+    encoded_key = key
+    if key_type.value == "SSH":
         try:
-            raw_key: str = base64.b64decode(credential_key).decode()
+            raw_key: str = base64.b64decode(key).decode()
         except binascii.Error as exc:
             raise InvalidParameter() from exc
 
         if not raw_key.endswith("\n"):
             raw_key += "\n"
-            credential_key = base64.b64encode(raw_key.encode()).decode()
+        encoded_key = base64.b64encode(raw_key.encode()).decode()
+
+    return encoded_key
+
+
+def _format_root_credential(
+    credentials: Dict[str, str], group_name: str, user_email: str, root_id: str
+) -> CredentialItem:
+    credential_name = credentials["name"]
+    credential_type = CredentialType(credentials["type"])
+    credential_key = _format_credential_key(
+        credential_type, credentials["key"]
+    )
+
+    if not credential_name:
+        raise InvalidParameter()
 
     return CredentialItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=CredentialMetadata(type=CredentialType(credential_type)),
+        metadata=CredentialMetadata(type=credential_type),
         state=CredentialState(
             key=credential_key,
             modified_by=user_email,
@@ -478,13 +484,12 @@ async def update_git_environments(
     )
 
 
-async def update_root_credentials(  # pylint: disable=too-many-arguments
+async def update_root_credentials(
     loaders: Any,
     credentials: Dict[str, str],
     group_name: str,
     user_email: str,
     root_id: str,
-    url: str,
 ) -> None:
     existing_credential: Optional[CredentialItem] = None
     credential_id: Optional[str] = credentials.get("id")
@@ -496,7 +501,6 @@ async def update_root_credentials(  # pylint: disable=too-many-arguments
         credential = _format_root_credential(
             credentials, group_name, user_email, root_id
         )
-        await validations.validate_git_credentials(url, credential)
         await creds_model.add(credential=credential)
         if existing_credential:
             await creds_model.remove(
@@ -566,7 +570,7 @@ async def update_git_root(
     credentials = kwargs.get("credentials")
     if credentials:
         await update_root_credentials(
-            loaders, credentials, group_name, user_email, root_id, url
+            loaders, credentials, group_name, user_email, root_id
         )
 
     new_state = GitRootState(
@@ -1070,3 +1074,12 @@ async def add_machine_execution(
         commit=kwargs.pop("git_commit", ""),
     )
     return await roots_model.add_machine_execution(root_id, execution)
+
+
+async def validate_git_access(**kwargs: Any) -> None:
+    url: str = _format_git_repo_url(kwargs["url"])
+    cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
+    cred_key: str = _format_credential_key(
+        cred_type, kwargs["credentials"]["key"]
+    )
+    await validations.validate_git_credentials(url, cred_type, cred_key)
