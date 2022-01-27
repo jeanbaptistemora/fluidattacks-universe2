@@ -23748,3 +23748,67 @@
   metadata:
     en:
       details: __empty__
+"404":
+  en:
+    title: OS Command Injection
+    description: >
+      The application allows the execution
+      of functions or methods which
+      execute commands in the system
+      with non-sanitized parameters.
+      This action would allow an attacker
+      to inject malicious commands in the server
+      to highly increase the attack vectors
+      by escalating privileges, obtaining or modifying
+      sensitive information stored in the machine.
+    impact: >
+      Inject malicious commands that will be executed
+      in the server
+    recommendation: >
+      - If possible, do not use functions that execute commands
+      in the system with inputs controlled by the user
+
+      - Validate all input parameters using regular expressions
+      or whitelists before passing the parameters to critical functions
+    threat: >
+      Authenticated local attacker with access to the machine
+  category: Abuse Functionality
+  es:
+    title: OS Command Injection
+    description: >
+      La aplicación ejecuta funciones o métodos
+      que ejecutan comandos en el sistema
+      con parámetros sin validar.
+      Esto permite a un atacante inyectar
+      comandos maliciosos en el servidor
+      que pueden ampliar enormemente la superficie de ataque,
+      escalando privilegios, obteniendo o modificando
+      información sensible allí almacenada
+    impact: >
+      Inyectar comandos maliciosos que serán ejecutados en el servidor
+    recommendation: >
+      - De ser posible, no utilizar funciones que ejecuten comandos
+      en el sistema con entradas controladas por el usuario
+
+      - Validar todos los parámetros mediante expresiones regulares
+      o listas blancas antes de pasarlas como parámetros a una función crítica.
+    threat: >
+      Atacante autenticado con acceso local a la máquina
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "L"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["173", "265", "266"]
+  metadata:
+    en:
+      details: __empty__
