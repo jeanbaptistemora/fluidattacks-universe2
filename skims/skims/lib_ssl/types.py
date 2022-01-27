@@ -7,6 +7,7 @@ from lib_ssl.suites import (
     SSLVersionId,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     LocalesEnum,
 )
@@ -167,6 +168,7 @@ class SSLVulnerability(NamedTuple):
     ssl_settings: SSLSettings
     server_response: Optional[SSLServerResponse]
     finding: FindingEnum
+    developer: Optional[DeveloperEnum]
 
     def get_context(self) -> SSLContext:
         return self.ssl_settings.context

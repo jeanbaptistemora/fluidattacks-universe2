@@ -115,7 +115,7 @@ def _create_core_vulns(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=ssl_vulnerability.developer,
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities
@@ -123,10 +123,12 @@ def _create_core_vulns(
 
 
 def _create_ssl_vuln(
+    # pylint: disable=too-many-arguments
     check: str,
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],
     finding: core_model.FindingEnum,
+    developer: Optional[core_model.DeveloperEnum],
     check_kwargs: Optional[Dict[str, str]] = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(
@@ -136,10 +138,10 @@ def _create_ssl_vuln(
         description=t(
             f"lib_ssl.analyze_protocol.{check}", **(check_kwargs or {})
         ),
+        developer=developer,
     )
 
 
-#  developer: asalgado@fluidattacks.com
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -206,6 +208,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     finding=core_model.FindingEnum.F133,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
 
@@ -214,7 +217,6 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
@@ -354,6 +356,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ),
                 server_response=response,
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
             )
         )
     sock.close()
@@ -361,7 +364,6 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -390,13 +392,13 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ),
                 server_response=ctx.get_tls_response(SSLVersionId.tlsv1_0),
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
             )
         )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -425,13 +427,13 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ),
                 server_response=ctx.get_tls_response(SSLVersionId.tlsv1_1),
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
             )
         )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -467,13 +469,13 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ),
                 server_response=None,
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
             )
         )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -540,6 +542,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     finding=core_model.FindingEnum.F052,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
 
@@ -548,7 +551,6 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -607,6 +609,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     finding=core_model.FindingEnum.F094,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
 
@@ -615,7 +618,6 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -703,6 +705,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ),
                 server_response=response,
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
             )
         )
     sock.close()
@@ -710,7 +713,6 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -750,6 +752,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ssl_settings=ssl_settings,
                 server_response=ctx.get_tls_response(v_id),
                 finding=core_model.FindingEnum.F016,
+                developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 check_kwargs={"version": v_name},
             )
         )
@@ -757,8 +760,8 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-#  developer: asalgado@fluidattacks.com
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
+    # pylint: disable=too-many-locals
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
@@ -867,6 +870,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                 heartbeat_type, _, _ = heartbeat_record
 
                 if heartbeat_type == 24:
+                    developer = core_model.DeveloperEnum.ALEJANDRO_SALGADO
                     ssl_vulnerabilities.append(
                         _create_ssl_vuln(
                             check="heartbleed_possible",
@@ -877,6 +881,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             ),
                             server_response=response,
                             finding=core_model.FindingEnum.F016,
+                            developer=developer,
                         )
                     )
         sock.close()
@@ -949,6 +954,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     finding=core_model.FindingEnum.F016,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
         sock.close()
@@ -1022,6 +1028,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     finding=core_model.FindingEnum.F016,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
         sock.close()
@@ -1084,6 +1091,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=None,
                     finding=core_model.FindingEnum.F016,
+                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
                 )
             )
 
