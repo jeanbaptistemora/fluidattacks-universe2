@@ -12,6 +12,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 
+import { EditButton } from "../VulnerabilitiesView/ActionButtons/EditButton";
 import { Button } from "components/Button";
 import type { IFilterProps } from "components/DataTableNext/types";
 import {
@@ -19,9 +20,11 @@ import {
   filterSelect,
   filterText,
 } from "components/DataTableNext/utils";
+import { Modal } from "components/Modal";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   filterTreatment,
   filterTreatmentCurrentStatus,
@@ -385,6 +388,40 @@ export const TasksContent: React.FC<ITasksContent> = ({
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
+  const [isEditing, setEditing] = useState(false);
+  const [iscurrentOpen, setCurrentOpen] = useState<boolean[]>([]);
+  function toggleEdit(): void {
+    setCurrentOpen(
+      Object.entries(
+        _.groupBy(
+          remediationModalConfig.vulnerabilitiesToReattack,
+          (vuln: IVulnRowAttr): string => vuln.groupName
+        )
+      ).map((__, index: number): boolean => index === 0)
+    );
+    setEditing(!isEditing);
+  }
+  function handleCloseUpdateModal(index: number): void {
+    setCurrentOpen((current: boolean[]): boolean[] => {
+      const newCurrent = current.map(
+        (isCurrentOpen: boolean, currentIndex: number): boolean =>
+          currentIndex === index
+            ? !isCurrentOpen
+            : currentIndex === index + 1
+            ? !isCurrentOpen
+            : isCurrentOpen
+      );
+      if (
+        newCurrent.every((isCurrentOpen: boolean): boolean => !isCurrentOpen)
+      ) {
+        setEditing(false);
+        remediationModalConfig.clearSelected();
+      }
+
+      return newCurrent;
+    });
+  }
+
   if (_.isUndefined(userData) || _.isEmpty(userData)) {
     return <div />;
   }
@@ -464,7 +501,11 @@ export const TasksContent: React.FC<ITasksContent> = ({
             }}
             extraButtons={
               <ButtonToolbarRow>
-                <Button id={"refresh-assigned"} onClick={refreshAssigned}>
+                <Button
+                  disabled={isEditing || isReattacking}
+                  id={"refresh-assigned"}
+                  onClick={refreshAssigned}
+                >
                   <FontAwesomeIcon icon={faSyncAlt} />
                 </Button>
                 <ReattackVulnerabilities
@@ -481,11 +522,22 @@ export const TasksContent: React.FC<ITasksContent> = ({
                   areVulnsSelected={
                     remediationModalConfig.vulnerabilitiesToReattack.length > 0
                   }
-                  isEditing={false}
+                  isEditing={isEditing}
                   isOpen={isOpen}
                   isRequestingReattack={isReattacking}
                   onRequestReattack={onReattack}
                   openModal={toggleModal}
+                />
+                <EditButton
+                  isDisabled={
+                    remediationModalConfig.vulnerabilitiesToReattack.length ===
+                    0
+                  }
+                  isEditing={isEditing}
+                  isFindingReleased={true}
+                  isRequestingReattack={isReattacking}
+                  isVerifying={false}
+                  onEdit={toggleEdit}
                 />
               </ButtonToolbarRow>
             }
@@ -521,6 +573,49 @@ export const TasksContent: React.FC<ITasksContent> = ({
           vulns={remediationModalConfig.vulnerabilitiesToReattack}
         />
       ) : undefined}
+      {isEditing && remediationModalConfig.vulnerabilitiesToReattack.length > 0
+        ? Object.entries(
+            _.groupBy(
+              remediationModalConfig.vulnerabilitiesToReattack,
+              (vuln: IVulnRowAttr): string => vuln.groupName
+            )
+          ).map(
+            (
+              [vulnGroupName, vulnerabilitiesToUpdated]: [
+                string,
+                IVulnRowAttr[]
+              ],
+              index: number
+            ): JSX.Element => {
+              function onClose(): void {
+                handleCloseUpdateModal(index);
+              }
+
+              return (
+                <Modal
+                  headerTitle={t("searchFindings.tabDescription.editVuln")}
+                  key={vulnGroupName}
+                  onEsc={onClose}
+                  open={iscurrentOpen[index]}
+                  size={"largeModal"}
+                >
+                  <UpdateDescription
+                    changePermissions={changePermissions}
+                    findingId={""}
+                    groupName={vulnGroupName}
+                    handleClearSelected={_.get(
+                      remediationModalConfig,
+                      "clearSelected"
+                    )}
+                    handleCloseModal={onClose}
+                    isOpen={iscurrentOpen[index]}
+                    vulnerabilities={vulnerabilitiesToUpdated}
+                  />
+                </Modal>
+              );
+            }
+          )
+        : undefined}
     </React.StrictMode>
   );
 };
