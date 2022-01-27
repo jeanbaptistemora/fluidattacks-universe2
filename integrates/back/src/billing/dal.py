@@ -172,7 +172,7 @@ async def get_price(
     raise InvalidBillingPrice()
 
 
-async def get_subscriptions(
+async def get_group_subscriptions(
     *,
     group_name: str,
     org_billing_customer: str,
@@ -229,7 +229,7 @@ async def get_customer_payment_methods(
     ).data
 
 
-async def set_default_payment_method(
+async def update_default_payment_method(
     *,
     payment_method_id: str,
     org_billing_customer: str,

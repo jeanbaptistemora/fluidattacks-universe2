@@ -707,6 +707,14 @@ type Mutation {
     expirationTime: Int!
   ): UpdateAccessTokenPayload!
 
+  "Update a default payment method for an organization"
+  updateBillingDefaultPaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Payment Method id"
+    paymentMethodId: String!
+  ): SimplePayload!
+
   "Returns invoice information after updating a subscription for a group"
   updateBillingSubscription(
     "Group name"

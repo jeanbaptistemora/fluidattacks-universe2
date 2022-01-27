@@ -58,7 +58,7 @@ async def _group_has_active_subscription(
     org_billing_customer: str,
 ) -> bool:
     """True if group has active subscription"""
-    subs: Dict[str, Subscription] = await dal.get_subscriptions(
+    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -189,7 +189,7 @@ async def create_payment_method(
     # If payment method is the first one registered or selected as default,
     # then make it default
     if not customer.default_payment_method or make_default:
-        await dal.set_default_payment_method(
+        await dal.update_default_payment_method(
             payment_method_id=payment_method.id,
             org_billing_customer=customer.id,
         )
@@ -258,6 +258,33 @@ async def create_portal(
     )
 
 
+async def update_default_payment_method(
+    *,
+    org_billing_customer: str,
+    payment_method_id: str,
+) -> bool:
+    """Update a customer's default payment method"""
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    payment_methods: List[PaymentMethod] = await customer_payment_methods(
+        org_billing_customer=org_billing_customer,
+        limit=1000,
+    )
+
+    # Raise exception if payment method does not belong to organization
+    if payment_method_id not in [
+        payment_method.id for payment_method in payment_methods
+    ]:
+        raise InvalidBillingPaymentMethod()
+
+    return await dal.update_default_payment_method(
+        payment_method_id=payment_method_id,
+        org_billing_customer=org_billing_customer,
+    )
+
+
 async def update_subscription(
     *,
     subscription: str,
@@ -270,7 +297,7 @@ async def update_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    subs: Dict[str, Subscription] = await dal.get_subscriptions(
+    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -344,7 +371,7 @@ async def remove_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    subs: Dict[str, Subscription] = await dal.get_subscriptions(
+    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",

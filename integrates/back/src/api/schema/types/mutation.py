@@ -69,6 +69,7 @@ from api.mutations import (
     sync_git_root,
     unsubscribe_from_group,
     update_access_token,
+    update_billing_default_payment_method,
     update_billing_subscription,
     update_event_evidence,
     update_evidence,
@@ -211,6 +212,10 @@ MUTATION.set_field(
 MUTATION.set_field("syncGitRoot", sync_git_root.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
+MUTATION.set_field(
+    "updateBillingDefaultPaymentMethod",
+    update_billing_default_payment_method.mutate,
+)
 MUTATION.set_field(
     "updateBillingSubscription", update_billing_subscription.mutate
 )
