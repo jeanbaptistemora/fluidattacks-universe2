@@ -3516,6 +3516,33 @@
     "M1016":
       title: Vulnerability Scanning
       link: https://attack.mitre.org/mitigations/enterprise/
+    "M1015":
+      title: Active Directory Configuration
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1013":
+      title: Application Developer Guidance
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1042":
+      title: Disable or Remove Feature or Program
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1028":
+      title: Operating System Configuration
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1056":
+      title: Pre-compromise
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1044":
+      title: Restrict Library Loading
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1024":
+      title: Restrict Registry Permissions
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1054":
+      title: Software Configuration
+      link: https://attack.mitre.org/mitigations/enterprise/
+    "M1052":
+      title: User Account Control
+      link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
 "028":
   title: PA DSS
