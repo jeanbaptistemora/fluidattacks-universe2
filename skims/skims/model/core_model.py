@@ -2323,3 +2323,14 @@ class PersistResult(NamedTuple):
 
     def __bool__(self) -> bool:
         return self.success
+
+
+class DeveloperEnum(Enum):
+    ALEJANDRO_SALGADO: str = "asalgado@fluidattacks.com"
+    ALEJANDRO_TRUJILLO: str = "atrujillo@fluidattacks.com"
+    ANDRES_CUBEROS: str = "acuberos@fluidattacks.com"
+    BRIAM_AGUDELO: str = "bagudelo@fluidattacks.com"
+    DIEGO_RESTREPO: str = "drestrepo@fluidattacks.com"
+    JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
+    JUAN_RESTREPO: str = "jrestrepo@fluidattacks.com"
+    LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
