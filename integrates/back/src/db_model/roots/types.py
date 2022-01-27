@@ -1,3 +1,6 @@
+from db_model.enums import (
+    GitCloningStatus,
+)
 from typing import (
     List,
     NamedTuple,
@@ -11,9 +14,9 @@ class GitRootMetadata(NamedTuple):
 
 
 class GitRootCloning(NamedTuple):
-    modified_date: Optional[str]
-    reason: Optional[str]
-    status: Optional[str]
+    modified_date: str
+    reason: str
+    status: GitCloningStatus
 
 
 class GitEnvironmentUrl(NamedTuple):

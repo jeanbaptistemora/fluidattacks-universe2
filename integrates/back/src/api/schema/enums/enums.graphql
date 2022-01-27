@@ -103,6 +103,8 @@ enum CallerOrigin {
 
 "Git root cloning status"
 enum CloningStatus {
+  "Cloning in progress"
+  CLONING
   "Cloning failed"
   FAILED
   "Cloning was successful"

@@ -29,6 +29,7 @@ from db_model.credentials.types import (
 )
 from db_model.enums import (
     CredentialType,
+    GitCloningStatus,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -102,7 +103,7 @@ def format_root(root: RootItem) -> Root:
         return GitRoot(
             branch=root.state.branch,
             cloning_status=GitRootCloningStatus(
-                status=root.cloning.status,
+                status=root.cloning.status.value,
                 message=root.cloning.reason,
             ),
             environment=root.state.environment,
@@ -223,7 +224,7 @@ async def add_git_root(
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
             reason="root created",
-            status="UNKNOWN",
+            status=GitCloningStatus("UNKNOWN"),
         ),
         group_name=group_name,
         id=str(uuid4()),
@@ -631,7 +632,7 @@ async def update_root_cloning_status(
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
             reason=message,
-            status=status,
+            status=GitCloningStatus(status),
         ),
         group_name=group_name,
         root_id=root_id,

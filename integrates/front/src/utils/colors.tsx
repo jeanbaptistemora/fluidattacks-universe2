@@ -13,6 +13,7 @@ const statusGreenColor: string[] = [
 ];
 const statusOrangeColor: string[] = [
   "Accepted",
+  "Cloning",
   "Created",
   "Pending",
   "Partially closed",

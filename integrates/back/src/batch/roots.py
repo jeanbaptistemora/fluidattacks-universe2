@@ -724,3 +724,10 @@ async def queue_sync_git_root(
         additional_info=root.state.nickname,
         queue=queue,
     )
+    await roots_domain.update_root_cloning_status(
+        loaders=loaders,
+        group_name=group_name,
+        root_id=root.id,
+        status="CLONING",
+        message="Cloning in progress...",
+    )

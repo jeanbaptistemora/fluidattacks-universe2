@@ -1,6 +1,9 @@
 from back.tests import (
     db,
 )
+from db_model.enums import (
+    GitCloningStatus,
+)
 from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
@@ -24,7 +27,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 cloning=GitRootCloning(
                     modified_date="2020-11-19T13:37:10+00:00",
                     reason="root creation",
-                    status="UNKNOWN",
+                    status=GitCloningStatus("UNKNOWN"),
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",

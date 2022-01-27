@@ -458,7 +458,7 @@ const excludeFormat: Validator = (
 
 const hasSshFormat: Validator = (value: string): string | undefined => {
   const regex =
-    /^-----BEGIN OPENSSH PRIVATE KEY-----\n(?:[a-zA-Z0-9+/=]+\n)+-----END OPENSSH PRIVATE KEY-----\n?$/u;
+    /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u;
 
   if (!regex.test(value)) {
     return translate.t("validations.invalidSshFormat");

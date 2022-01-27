@@ -133,7 +133,7 @@ def update_root_cloning_status(
     status: str,
     message: str,
 ) -> bool:
-    if status not in {"OK", "FAILED", "UNKNOWN"}:
+    if status not in {"OK", "FAILED", "CLONING", "UNKNOWN"}:
         raise ValueError(f"{status} is an invalid status")
 
     result = api.integrates.Mutations.update_cloning_status(

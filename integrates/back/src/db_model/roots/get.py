@@ -16,6 +16,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.enums import (
+    GitCloningStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -85,7 +88,7 @@ def _build_root(
             cloning=GitRootCloning(
                 modified_date=cloning["modified_date"],
                 reason=cloning["reason"],
-                status=cloning["status"],
+                status=GitCloningStatus(cloning["status"]),
             ),
             machine_execution=[
                 MachineGitRootExecution(
