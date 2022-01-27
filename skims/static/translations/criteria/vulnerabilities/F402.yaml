@@ -9,3 +9,8 @@ lib_path.f402.tfm_azure_failed_request_tracing_disabled:
     Ensure app service enables failed request tracing and detailed error messages
   es: >
     Asegúrese de que app service tenga habilitiado el seguimiento de solicitudes fallidas y mensajes de error detallados
+lib_path.f402.tfm_azure_sql_server_audit_log_retention:
+  en: >
+    Ensure Azure SQL Server audit log retention is greater than 90 days
+  es: >
+    Asegúrese de que Azure SQL Server audit log retention es mayor a 90 dias

@@ -24945,6 +24945,31 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 ",c_sharp.conflicting_annotations
+F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Tracebility Loss - Azure,"Ensure Azure SQL Server audit log retention is greater than 90 days
+ in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","
+  12 |     storage_account_access_key_is_secondary = true
+  13 |     retention_in_days                       = 100
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | resource ""azurerm_sql_server"" ""vulnerable"" {
+  19 |   name                         = ""mssqlserver""
+  20 |   resource_group_name          = azurerm_resource_group.example.name
+  21 |   location                     = azurerm_resource_group.example.location
+  22 |   version                      = ""12.0""
+  23 |   administrator_login          = ""mradministrator""
+  24 |   administrator_login_password = ""thisIsDog11""
+  25 |
+  26 |   extended_auditing_policy {
+  27 |     storage_endpoint                        = azurerm_storage_account.example.primary_blob_endpoint
+  28 |     storage_account_access_key              = azurerm_storage_account.example.primary_access_key
+  29 |     storage_account_access_key_is_secondary = true
+> 30 |     retention_in_days                       = 30
+  31 |   }
+  32 | }
+     ^ Col 0
+",terraform.tfm_azure_sql_server_audit_log_retention
 F402,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,27,778,skims,402. Tracebility Loss - Azure,"Ensure app service enables failed request tracing and detailed error messages
  in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
   17 |   resource_group_name        = azurerm_resource_group.example.name
