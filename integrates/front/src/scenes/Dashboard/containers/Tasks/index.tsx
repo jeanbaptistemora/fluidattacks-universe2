@@ -149,21 +149,22 @@ export const TasksContent: React.FC<ITasksContent> = ({
             )
         )
       );
-      const groups = userData.me.organizations.reduce(
-        (
-          previousValue: IOrganizationGroups["groups"],
-          currentValue
-        ): IOrganizationGroups["groups"] => [
-          ...previousValue,
-          ...currentValue.groups.filter((group): boolean =>
-            vulnerabilitesGroupName.includes(group.name.toLowerCase())
-          ),
-        ],
-        []
-      );
+      const groupsServicesAttributes: IOrganizationGroups["groups"] =
+        userData.me.organizations.reduce(
+          (
+            previousValue: IOrganizationGroups["groups"],
+            currentValue
+          ): IOrganizationGroups["groups"] => [
+            ...previousValue,
+            ...currentValue.groups.filter((group): boolean =>
+              vulnerabilitesGroupName.includes(group.name.toLowerCase())
+            ),
+          ],
+          []
+        );
       const currentAttributes: string[] = Array.from(
         new Set(
-          groups.reduce(
+          groupsServicesAttributes.reduce(
             (previous: string[], current): string[] => [
               ...previous,
               ...current.serviceAttributes,

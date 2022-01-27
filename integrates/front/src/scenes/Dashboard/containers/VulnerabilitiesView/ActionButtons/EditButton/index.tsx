@@ -28,9 +28,6 @@ const EditButton: React.FC<IEditButtonProps> = ({
   const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canUploadVulns: boolean = permissions.can(
-    "api_mutations_upload_file_mutate"
-  );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
@@ -40,7 +37,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
   const shouldRenderEditBtn: boolean =
     isFindingReleased &&
     !(isRequestingReattack || isVerifying) &&
-    (canRequestZeroRiskVuln || canUpdateVulnsTreatment || canUploadVulns);
+    (canRequestZeroRiskVuln || canUpdateVulnsTreatment);
 
   return (
     <React.StrictMode>
