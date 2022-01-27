@@ -3,6 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -13,7 +14,6 @@ from typing import (
 )
 
 
-#  developer: lsaavedra@fluidattacks.com
 def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         dangerous_permissions: Set[str] = {
@@ -66,4 +66,5 @@ def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F346,
         iterator=iterator(),
         path=path,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )

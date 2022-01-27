@@ -12,6 +12,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -60,7 +61,6 @@ def _cfn_unencrypted_buckets_iterate_vulnerabilities(
             )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_bucket_policy_has_server_side_encryption_disabled(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -77,10 +77,10 @@ def cfn_bucket_policy_has_server_side_encryption_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_unencrypted_buckets(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -96,4 +96,5 @@ def cfn_unencrypted_buckets(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

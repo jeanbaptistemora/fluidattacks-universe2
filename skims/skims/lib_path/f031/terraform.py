@@ -9,6 +9,7 @@ from lib_path.f031.utils import (
     permissive_policy_iterate_vulnerabilities,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -37,7 +38,6 @@ def _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: acuberos@fluidattacks.com
 def terraform_admin_policy_attached(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -54,10 +54,10 @@ def terraform_admin_policy_attached(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def terraform_negative_statement(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -74,10 +74,10 @@ def terraform_negative_statement(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def terraform_open_passrole(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -94,10 +94,10 @@ def terraform_open_passrole(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def terraform_permissive_policy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -114,10 +114,10 @@ def terraform_permissive_policy(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_ec2_has_not_an_iam_instance_profile(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -134,4 +134,5 @@ def tfm_ec2_has_not_an_iam_instance_profile(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

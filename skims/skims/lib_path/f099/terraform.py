@@ -9,6 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -39,7 +40,6 @@ def _tfm_unencrypted_buckets_iterate_vulnerabilities(
             yield bucket
 
 
-#  developer: atrujillo@fluidattacks.com
 def tfm_unencrypted_buckets(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -54,4 +54,5 @@ def tfm_unencrypted_buckets(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

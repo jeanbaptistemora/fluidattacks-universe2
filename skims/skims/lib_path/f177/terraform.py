@@ -9,6 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -43,7 +44,6 @@ def _ec2_use_default_security_group_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def ec2_use_default_security_group(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -61,4 +61,5 @@ def ec2_use_default_security_group(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

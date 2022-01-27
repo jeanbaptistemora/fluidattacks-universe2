@@ -10,6 +10,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -111,7 +112,6 @@ def _tfm_azure_kv_danger_bypass_iterate_vulns(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_unrestricted_access_network_segments(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -126,10 +126,10 @@ def tfm_azure_unrestricted_access_network_segments(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_sa_default_network_access(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -147,10 +147,10 @@ def tfm_azure_sa_default_network_access(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_kv_default_network_access(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -165,10 +165,10 @@ def tfm_azure_kv_default_network_access(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_kv_danger_bypass(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -183,4 +183,5 @@ def tfm_azure_kv_danger_bypass(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

@@ -4,6 +4,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Platform,
     Vulnerabilities,
@@ -13,7 +14,6 @@ from typing import (
 )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def nuget_csproj(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
@@ -34,10 +34,10 @@ def nuget_csproj(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F011,
         path=path,
         platform=Platform.NUGET,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
@@ -58,4 +58,5 @@ def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F011,
         path=path,
         platform=Platform.NUGET,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

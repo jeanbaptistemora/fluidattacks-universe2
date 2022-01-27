@@ -3,6 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -35,7 +36,6 @@ def _tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_key_vault_not_recoverable(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -50,4 +50,5 @@ def tfm_azure_key_vault_not_recoverable(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

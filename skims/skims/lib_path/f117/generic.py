@@ -3,6 +3,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -11,7 +12,6 @@ from state.cache import (
 )
 
 
-#  developer: jrestrepo@fluidattacks.com
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def unverifiable_files(path: str, raw_content: bytes) -> Vulnerabilities:
@@ -22,4 +22,5 @@ def unverifiable_files(path: str, raw_content: bytes) -> Vulnerabilities:
         finding=FindingEnum.F117,
         iterator=iter([(1, 0)]),
         path=path,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

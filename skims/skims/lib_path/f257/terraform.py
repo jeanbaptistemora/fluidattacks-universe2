@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -39,7 +40,6 @@ def _ec2_has_not_termination_protection_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def ec2_has_not_termination_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -54,4 +54,5 @@ def ec2_has_not_termination_protection(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

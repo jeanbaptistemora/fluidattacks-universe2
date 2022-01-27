@@ -2,6 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -19,7 +20,6 @@ from utils.crypto import (
 )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
     missing_ssl_key: str = "ibm.mq.use_ssl"
     missing_ssl_values: Set[str] = {"false"}
@@ -36,10 +36,10 @@ def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def java_properties_weak_cipher_suite(
     content: str, path: str
 ) -> Vulnerabilities:
@@ -60,4 +60,5 @@ def java_properties_weak_cipher_suite(
         finding=FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

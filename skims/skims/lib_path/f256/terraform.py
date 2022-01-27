@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -83,7 +84,6 @@ def _tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 yield elem
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_db_no_deletion_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -98,10 +98,10 @@ def tfm_db_no_deletion_protection(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_rds_no_deletion_protection(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -116,10 +116,10 @@ def tfm_rds_no_deletion_protection(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_db_has_not_automated_backups(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -134,10 +134,10 @@ def tfm_db_has_not_automated_backups(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_rds_has_not_automated_backups(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -152,4 +152,5 @@ def tfm_rds_has_not_automated_backups(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

@@ -3,6 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -29,7 +30,6 @@ def _tfm_azure_kv_secret_no_expiration_date_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_kv_secret_no_expiration_date(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -44,4 +44,5 @@ def tfm_azure_kv_secret_no_expiration_date(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

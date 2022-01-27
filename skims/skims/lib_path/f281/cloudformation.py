@@ -13,6 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -69,7 +70,6 @@ def _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_bucket_policy_has_secure_transport(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -84,10 +84,10 @@ def cfn_bucket_policy_has_secure_transport(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_elb2_uses_insecure_port(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -105,4 +105,5 @@ def cfn_elb2_uses_insecure_port(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

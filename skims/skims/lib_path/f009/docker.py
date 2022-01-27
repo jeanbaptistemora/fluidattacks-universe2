@@ -10,6 +10,7 @@ from metaloaders.model import (
     Type,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -73,7 +74,6 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
             yield env_var
 
 
-#  developer: atrujillo@fluidattacks.com
 def docker_compose_env_secrets(
     content: str,
     path: str,
@@ -90,10 +90,10 @@ def docker_compose_env_secrets(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
     secret_smells: Set[str] = {
         "api_key",
@@ -127,4 +127,5 @@ def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         iterator=iterator(),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )

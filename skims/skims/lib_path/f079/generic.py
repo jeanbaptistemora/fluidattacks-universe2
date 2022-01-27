@@ -3,6 +3,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -11,7 +12,6 @@ from state.cache import (
 )
 
 
-#  developer: jrestrepo@fluidattacks.com
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
@@ -22,4 +22,5 @@ def non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
         finding=FindingEnum.F079,
         iterator=iter([(1, 0)]),
         path=path,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

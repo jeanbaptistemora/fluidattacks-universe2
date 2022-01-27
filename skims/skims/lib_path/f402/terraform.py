@@ -3,6 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -87,7 +88,6 @@ def _tfm_azure_sql_server_audit_log_retention_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_storage_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -102,10 +102,10 @@ def tfm_azure_storage_logging_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_app_service_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -122,10 +122,10 @@ def tfm_azure_app_service_logging_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_sql_server_audit_log_retention(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -142,4 +142,5 @@ def tfm_azure_sql_server_audit_log_retention(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

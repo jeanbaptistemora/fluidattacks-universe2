@@ -10,6 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -63,7 +64,6 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                         )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_serves_content_over_insecure_protocols(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -82,4 +82,5 @@ def cfn_serves_content_over_insecure_protocols(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

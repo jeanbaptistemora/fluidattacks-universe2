@@ -13,6 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -97,7 +98,6 @@ def _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_aws_serves_content_over_insecure_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -114,10 +114,10 @@ def tfm_aws_serves_content_over_insecure_protocols(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_azure_serves_content_over_insecure_protocols(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -134,4 +134,5 @@ def tfm_azure_serves_content_over_insecure_protocols(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

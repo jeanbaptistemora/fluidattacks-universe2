@@ -10,6 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -75,7 +76,6 @@ def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
                 )
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_serves_content_over_http(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -92,10 +92,10 @@ def cfn_serves_content_over_http(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_elb2_uses_insecure_protocol(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -113,4 +113,5 @@ def cfn_elb2_uses_insecure_protocol(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )

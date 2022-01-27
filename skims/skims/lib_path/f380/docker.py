@@ -2,6 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -12,7 +13,6 @@ from pyparsing import (
 import re
 
 
-#  developer: jecheverri@fluidattacks.com
 def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
     def check_regex(tokens: ParseResults) -> bool:
         for token in tokens:
@@ -34,4 +34,5 @@ def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F380,
         grammar=grammar,
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

@@ -9,6 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -30,7 +31,6 @@ def _cfn_public_buckets_iterate_vulnerabilities(
             yield bucket.inner["AccessControl"]
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_public_buckets(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -45,4 +45,5 @@ def cfn_public_buckets(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )

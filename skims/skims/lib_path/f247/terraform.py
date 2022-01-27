@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -96,7 +97,6 @@ def _tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_fsx_unencrypted_volumes(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -111,10 +111,10 @@ def tfm_fsx_unencrypted_volumes(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_ebs_unencrypted_volumes(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -129,10 +129,10 @@ def tfm_ebs_unencrypted_volumes(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_ec2_unencrypted_volumes(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -147,10 +147,10 @@ def tfm_ec2_unencrypted_volumes(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_ebs_unencrypted_by_default(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -167,4 +167,5 @@ def tfm_ebs_unencrypted_by_default(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

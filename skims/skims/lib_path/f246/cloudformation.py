@@ -11,6 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -45,7 +46,6 @@ def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_rds_has_unencrypted_storage(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -63,4 +63,5 @@ def cfn_rds_has_unencrypted_storage(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

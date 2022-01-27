@@ -12,6 +12,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -63,7 +64,6 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_fsx_has_unencrypted_volumes(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -79,10 +79,10 @@ def cfn_fsx_has_unencrypted_volumes(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_unencrypted_volumes(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -98,4 +98,5 @@ def cfn_ec2_has_unencrypted_volumes(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

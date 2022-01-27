@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -31,7 +32,6 @@ def _tfm_public_buckets_iterate_vulnerabilities(
             yield acl
 
 
-#  developer: atrujillo@fluidattacks.com
 def tfm_public_buckets(content: str, path: str, model: Any) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -44,4 +44,5 @@ def tfm_public_buckets(content: str, path: str, model: Any) -> Vulnerabilities:
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

@@ -18,6 +18,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -253,7 +254,6 @@ def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
                 yield from_port
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_allows_anyone_to_admin_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -271,10 +271,10 @@ def cfn_allows_anyone_to_admin_ports(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -293,10 +293,10 @@ def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_unrestricted_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -313,10 +313,10 @@ def cfn_ec2_has_unrestricted_ports(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_groups_without_egress(
     content: str,
     path: str,
@@ -333,10 +333,10 @@ def cfn_groups_without_egress(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_instances_without_profile(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -351,14 +351,13 @@ def cfn_instances_without_profile(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def cfn_unrestricted_cidrs(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         cwe={FindingEnum.F024.value.cwe},
@@ -374,10 +373,10 @@ def cfn_unrestricted_cidrs(
             )
         ),
         path=path,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_unrestricted_ip_protocols(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -396,10 +395,10 @@ def cfn_unrestricted_ip_protocols(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def cfn_unrestricted_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -418,10 +417,10 @@ def cfn_unrestricted_ports(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_open_all_ports_to_the_public(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -440,10 +439,10 @@ def cfn_ec2_has_open_all_ports_to_the_public(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_unrestricted_dns_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -460,10 +459,10 @@ def cfn_ec2_has_unrestricted_dns_access(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_ec2_has_unrestricted_ftp_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -480,4 +479,5 @@ def cfn_ec2_has_unrestricted_ftp_access(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

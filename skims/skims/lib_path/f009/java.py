@@ -2,6 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -14,7 +15,6 @@ from typing import (
 )
 
 
-#  developer: acuberos@fluidattacks.com
 def java_properties_sensitive_data(content: str, path: str) -> Vulnerabilities:
     sensible_key_smells = {
         "amazon.aws.key",
@@ -81,4 +81,5 @@ def java_properties_sensitive_data(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         iterator=iterator(),
         path=path,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )

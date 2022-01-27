@@ -13,6 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -75,7 +76,6 @@ def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
             yield public_ip
 
 
-#  developer: jecheverri@fluidattacks.com
 def ec2_has_terminate_shutdown_behavior(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -90,10 +90,10 @@ def ec2_has_terminate_shutdown_behavior(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_ec2_associate_public_ip_address(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -111,4 +111,5 @@ def tfm_ec2_associate_public_ip_address(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

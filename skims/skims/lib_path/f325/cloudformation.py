@@ -14,6 +14,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -300,7 +301,6 @@ def _cfn_iam_is_role_over_privileged_iter_vulns(
             )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -317,10 +317,10 @@ def cfn_kms_key_has_master_keys_exposed_to_everyone(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_iam_has_wildcard_resource_on_write_action(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -339,10 +339,10 @@ def cfn_iam_has_wildcard_resource_on_write_action(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_iam_is_policy_miss_configured(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -360,10 +360,10 @@ def cfn_iam_is_policy_miss_configured(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_iam_has_privileges_over_iam(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -380,10 +380,10 @@ def cfn_iam_has_privileges_over_iam(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_iam_is_role_over_privileged(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -399,4 +399,5 @@ def cfn_iam_is_role_over_privileged(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

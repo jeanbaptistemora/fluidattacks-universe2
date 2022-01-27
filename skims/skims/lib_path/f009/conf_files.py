@@ -8,6 +8,7 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -59,10 +60,10 @@ def jwt_token(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
 
 
-#  developer: asalgado@fluidattacks.com
 def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
     key_smell = {
         "api_key",
@@ -86,10 +87,10 @@ def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 
-#  developer: drestrepo@fluidattacks.com
 def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
     grammar = Regex(r'connectionString=".+?"', flags=re.IGNORECASE)
     grammar.addCondition(
@@ -105,11 +106,11 @@ def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
         wrap=True,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,
@@ -118,4 +119,5 @@ def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F009,
         grammar=Regex(r'(username|password)=".+?"', flags=re.IGNORECASE),
         path=path,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

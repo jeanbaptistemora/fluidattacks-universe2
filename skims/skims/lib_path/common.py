@@ -44,6 +44,7 @@ from typing import (
     Callable,
     cast,
     Iterator,
+    Optional,
     Set,
     Tuple,
     TypeVar,
@@ -126,6 +127,7 @@ def get_vulnerabilities_blocking(
     finding: core_model.FindingEnum,
     grammar: ParserElement,
     path: str,
+    developer: Optional[core_model.DeveloperEnum],
     wrap: bool = False,
 ) -> core_model.Vulnerabilities:
     source = cast(
@@ -154,7 +156,7 @@ def get_vulnerabilities_blocking(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for match in get_matching_lines_blocking(
@@ -173,6 +175,7 @@ def get_vulnerabilities_from_iterator_blocking(
     finding: core_model.FindingEnum,
     iterator: Iterator[Tuple[int, int]],
     path: str,
+    developer: Optional[core_model.DeveloperEnum],
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -196,7 +199,7 @@ def get_vulnerabilities_from_iterator_blocking(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for line_no, column_no in iterator
@@ -247,6 +250,7 @@ def translate_dependencies_to_vulnerabilities(
     finding: core_model.FindingEnum,
     path: str,
     platform: core_model.Platform,
+    developer: Optional[core_model.DeveloperEnum],
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -286,7 +290,7 @@ def translate_dependencies_to_vulnerabilities(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for product, version in dependencies

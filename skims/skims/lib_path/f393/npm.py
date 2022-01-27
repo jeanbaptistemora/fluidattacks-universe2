@@ -6,6 +6,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Platform,
     Vulnerabilities,
@@ -18,7 +19,6 @@ from typing import (
 )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies(
         obj: frozendict, direct_deps: bool = True
@@ -62,10 +62,10 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F393,
         path=path,
         platform=Platform.NPM,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def npm_package_json(content: str, path: str) -> Vulnerabilities:
     content_json = json_loads_blocking(content, default={})
 
@@ -82,4 +82,5 @@ def npm_package_json(content: str, path: str) -> Vulnerabilities:
         finding=FindingEnum.F393,
         path=path,
         platform=Platform.NPM,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )

@@ -15,6 +15,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -129,7 +130,6 @@ def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
                 )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_bucket_has_logging_conf_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -145,10 +145,10 @@ def cfn_bucket_has_logging_conf_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_elb_has_access_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -166,10 +166,10 @@ def cfn_elb_has_access_logging_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_cf_distribution_has_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -187,10 +187,10 @@ def cfn_cf_distribution_has_logging_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_trails_not_multiregion(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -206,10 +206,10 @@ def cfn_trails_not_multiregion(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )
 
 
-#  developer: atrujillo@fluidattacks.com
 def cfn_elb2_has_access_logs_s3_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -227,4 +227,5 @@ def cfn_elb2_has_access_logs_s3_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
     )

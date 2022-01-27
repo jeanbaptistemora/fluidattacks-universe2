@@ -2,6 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -14,7 +15,6 @@ from typing import (
 )
 
 
-#  developer: drestrepo@fluidattacks.com
 def java_properties_unencrypted_transport(
     content: str, path: str
 ) -> Vulnerabilities:
@@ -44,4 +44,5 @@ def java_properties_unencrypted_transport(
         finding=FindingEnum.F022,
         iterator=iterator(),
         path=path,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )

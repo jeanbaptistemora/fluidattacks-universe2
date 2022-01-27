@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -35,7 +36,6 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_elb_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -50,4 +50,5 @@ def tfm_elb_logging_disabled(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )

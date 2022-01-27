@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     Vulnerabilities,
 )
@@ -53,7 +54,6 @@ def _tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
             yield resource
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_db_cluster_inside_subnet(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -70,10 +70,10 @@ def tfm_db_cluster_inside_subnet(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def tfm_rds_instance_inside_subnet(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -90,4 +90,5 @@ def tfm_rds_instance_inside_subnet(
             )
         ),
         path=path,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
