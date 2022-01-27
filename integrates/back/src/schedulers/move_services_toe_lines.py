@@ -83,15 +83,16 @@ def _get_attacked_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
 ) -> Optional[datetime]:
-    return (
-        datetime.fromisoformat(services_toe_lines.tested_date)
-        if services_toe_lines.tested_date
-        and toe_lines.attacked_at
+    if services_toe_lines.tested_date and (
+        toe_lines.attacked_at
         and datetime.fromisoformat(services_toe_lines.tested_date)
         > toe_lines.attacked_at
-        else toe_lines.attacked_at
-        if toe_lines.attacked_at is not None
-        else datetime.fromisoformat(services_toe_lines.tested_date)
+    ):
+        return datetime.fromisoformat(services_toe_lines.tested_date)
+    if toe_lines.attacked_at is not None:
+        return toe_lines.attacked_at
+    return (
+        datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         else None
     )
@@ -102,15 +103,16 @@ def _get_attacked_lines(
     toe_lines: ToeLines,
     new_attacked_at: Optional[datetime],
 ) -> int:
-    attacked_lines = (
-        toe_lines.attacked_lines
-        if new_attacked_at == toe_lines.attacked_at
-        else new_attacked_lines
-        if new_attacked_at
-        and toe_lines.modified_date
-        and toe_lines.modified_date <= new_attacked_at
-        else 0
-    )
+    if new_attacked_at == toe_lines.attacked_at:
+        attacked_lines = toe_lines.attacked_lines
+    else:
+        attacked_lines = (
+            new_attacked_lines
+            if new_attacked_at
+            and toe_lines.modified_date
+            and toe_lines.modified_date <= new_attacked_at
+            else 0
+        )
     if attacked_lines > toe_lines.loc:
         attacked_lines = toe_lines.loc
     return attacked_lines
@@ -121,15 +123,16 @@ def _get_comments(
     toe_lines: ToeLines,
     new_attacked_at: Optional[datetime],
 ) -> str:
-    comments = (
-        toe_lines.comments
-        if new_attacked_at == toe_lines.attacked_at
-        else new_comments
-        if new_attacked_at
-        and toe_lines.attacked_at
-        and toe_lines.attacked_at < new_attacked_at
-        else ""
-    )
+    if new_attacked_at == toe_lines.attacked_at:
+        comments = toe_lines.comments
+    else:
+        comments = (
+            new_comments
+            if new_attacked_at
+            and toe_lines.attacked_at
+            and toe_lines.attacked_at < new_attacked_at
+            else ""
+        )
     return comments
 
 
@@ -137,15 +140,16 @@ def _get_first_attack_at(
     services_toe_lines: ServicesToeLines,
     toe_lines: ToeLines,
 ) -> Optional[datetime]:
-    return (
-        datetime.fromisoformat(services_toe_lines.tested_date)
-        if services_toe_lines.tested_date
-        and toe_lines.first_attack_at
+    if services_toe_lines.tested_date and (
+        toe_lines.first_attack_at
         and datetime.fromisoformat(services_toe_lines.tested_date)
         < toe_lines.first_attack_at
-        else toe_lines.first_attack_at
-        if toe_lines.first_attack_at is not None
-        else datetime.fromisoformat(services_toe_lines.tested_date)
+    ):
+        return datetime.fromisoformat(services_toe_lines.tested_date)
+    if toe_lines.first_attack_at is not None:
+        return toe_lines.first_attack_at
+    return (
+        datetime.fromisoformat(services_toe_lines.tested_date)
         if services_toe_lines.tested_date
         else None
     )

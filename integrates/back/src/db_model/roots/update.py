@@ -29,22 +29,23 @@ async def update_root_state(
     state: Union[GitRootState, IPRootState, URLRootState],
 ) -> None:
     key_structure = TABLE.primary_key
-    latest_facet, historic_facet = (
-        (
+    if isinstance(state, GitRootState):
+        latest_facet, historic_facet = (
             TABLE.facets["git_root_state"],
             TABLE.facets["git_root_historic_state"],
         )
-        if isinstance(state, GitRootState)
-        else (
-            TABLE.facets["ip_root_state"],
-            TABLE.facets["ip_root_historic_state"],
+    else:
+        latest_facet, historic_facet = (
+            (
+                TABLE.facets["ip_root_state"],
+                TABLE.facets["ip_root_historic_state"],
+            )
+            if isinstance(state, IPRootState)
+            else (
+                TABLE.facets["url_root_state"],
+                TABLE.facets["url_root_historic_state"],
+            )
         )
-        if isinstance(state, IPRootState)
-        else (
-            TABLE.facets["url_root_state"],
-            TABLE.facets["url_root_historic_state"],
-        )
-    )
     latest, historic = historics.build_historic(
         attributes=json.loads(json.dumps(state)),
         historic_facet=historic_facet,
