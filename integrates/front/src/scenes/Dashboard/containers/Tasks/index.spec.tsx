@@ -1,4 +1,5 @@
 import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
@@ -55,7 +56,7 @@ describe("VulnerabilitiesView", (): void => {
               specific: "specific-1",
               stream: "home > blog > articulo",
               tag: "tag-1, tag-2",
-              treatment: "IN_PROGRESS",
+              treatment: "ACCEPTED",
               treatmentAcceptanceDate: "",
               treatmentAcceptanceStatus: "",
               treatmentAssigned: "assigned-user-1",
@@ -112,6 +113,8 @@ describe("VulnerabilitiesView", (): void => {
                   name: "group1",
                   permissions: [
                     "api_mutations_request_vulnerabilities_verification_mutate",
+                    "api_mutations_update_vulnerabilities_treatment_mutate",
+                    "api_resolvers_group_stakeholders_resolve",
                   ],
                   serviceAttributes: ["is_continuous"],
                 },
@@ -119,6 +122,7 @@ describe("VulnerabilitiesView", (): void => {
                   name: "group2",
                   permissions: [
                     "api_mutations_request_vulnerabilities_verification_mutate",
+                    "api_mutations_update_vulnerabilities_treatment_mutate",
                   ],
                   serviceAttributes: [],
                 },
@@ -137,7 +141,7 @@ describe("VulnerabilitiesView", (): void => {
     expect(typeof TasksContent).toStrictEqual("function");
   });
 
-  it("should render container", async (): Promise<void> => {
+  it("should handle reattack button basic", async (): Promise<void> => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
@@ -248,6 +252,154 @@ describe("VulnerabilitiesView", (): void => {
         expect(msgError).toHaveBeenCalledWith(
           t("searchFindings.tabVuln.errors.selectedVulnerabilities")
         );
+      });
+    });
+  });
+
+  it("should handle edit button basic", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+
+    const refreshClick: jest.Mock = jest.fn();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_vulnerability_hacker_resolve" },
+    ]);
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/todos"]}>
+        <AssignedVulnerabilitiesContext.Provider value={[[], jest.fn()]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <MockedProvider addTypename={false} mocks={[]}>
+              <Route path={"/todos"}>
+                <TasksContent
+                  meVulnerabilitiesAssigned={
+                    (
+                      mocksVulnerabilities.result as Dictionary<{
+                        me: IGetMeVulnerabilitiesAssigned["me"];
+                      }>
+                    ).data
+                  }
+                  refetchVulnerabilitiesAssigned={jest.fn()}
+                  setUserRole={refreshClick}
+                  userData={
+                    (
+                      mocksUserGroups.result as Dictionary<{
+                        me: IGetUserOrganizationsGroups["me"];
+                      }>
+                    ).data
+                  }
+                />
+              </Route>
+            </MockedProvider>
+          </authzPermissionsContext.Provider>
+        </AssignedVulnerabilitiesContext.Provider>
+      </MemoryRouter>
+    );
+
+    wrapper.update();
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
+    });
+
+    const filterModal = (modal: ReactWrapper): boolean =>
+      modal.text().includes(t("searchFindings.tabDescription.editVuln"));
+
+    const tableVulnerabilities: ReactWrapper = wrapper
+      .find({ id: "vulnerabilitiesTable" })
+      .at(0);
+    const selectionCell: ReactWrapper =
+      tableVulnerabilities.find("SelectionCell");
+    selectionCell.at(0).find("input").simulate("click");
+    selectionCell.at(1).find("input").simulate("click");
+    wrapper.update();
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const tableUpdated: ReactWrapper = wrapper
+          .find({ id: "vulnerabilitiesTable" })
+          .at(0);
+        const selectionUpdated: ReactWrapper =
+          tableUpdated.find("SelectionCell");
+
+        expect(selectionUpdated.at(0).find("input").prop("checked")).toBe(true);
+        expect(selectionUpdated.at(1).find("input").prop("checked")).toBe(true);
+      });
+    });
+
+    const buttons: ReactWrapper = wrapper.find("Button");
+    const editButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
+        button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
+    );
+    editButton.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const firstModal = wrapper.find("Modal").filterWhere(filterModal);
+
+        expect(wrapper).toHaveLength(1);
+        expect(firstModal).toHaveLength(1);
+        expect(
+          firstModal
+            .first()
+            .find({ name: "treatment" })
+            .find("select")
+            .prop("value")
+        ).toStrictEqual("ACCEPTED");
+      });
+    });
+
+    const firstCloseButton: ReactWrapper = wrapper
+      .find("Modal")
+      .filterWhere(filterModal)
+      .first()
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean => button.contains("Close"));
+
+    firstCloseButton.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        const secondModal = wrapper.find("Modal").filterWhere(filterModal);
+
+        expect(wrapper).toHaveLength(1);
+        expect(secondModal).toHaveLength(1);
+        expect(
+          secondModal
+            .last()
+            .find({ name: "treatment" })
+            .find("select")
+            .prop("value")
+        ).toStrictEqual("IN_PROGRESS");
+      });
+    });
+
+    const secondCloseButton: ReactWrapper = wrapper
+      .find("Modal")
+      .filterWhere(filterModal)
+      .last()
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean => button.contains("Close"));
+    secondCloseButton.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("Modal").filterWhere(filterModal)).toHaveLength(0);
       });
     });
   });
