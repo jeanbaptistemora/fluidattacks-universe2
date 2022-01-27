@@ -5,6 +5,7 @@ from azure.model import (
     AzurermKeyVault,
     AzurermKeyVaultSecret,
     AzurermLinuxVirtualMachine,
+    AzurermSqlServer,
     AzurermStorageAccount,
     AzurermStorageAccountNetworkRules,
     AzurermVirtualMachine,
@@ -106,6 +107,16 @@ def iter_azurerm_storage_account_network_rules(model: Any) -> Iterator[Any]:
     )
     for bucket in iterator:
         yield AzurermStorageAccountNetworkRules(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_azurerm_sql_server(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "azurerm_sql_server")
+    for bucket in iterator:
+        yield AzurermSqlServer(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
