@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -8,7 +8,7 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
-import { msgInfo } from "utils/notifications";
+import { msgSuccess } from "utils/notifications";
 
 interface IReattackVulnButtonProps {
   areVulnsSelected: boolean;
@@ -32,12 +32,21 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
   const { t } = useTranslation();
 
   const shouldRenderRequestVerifyBtn: boolean = !isEditing;
+  const tooltipMessage = useMemo((): string => {
+    if (isRequestingReattack) {
+      return t("searchFindings.tabVuln.buttonsTooltip.cancel");
+    }
+
+    return t("searchFindings.tabDescription.requestVerify.tooltip");
+  }, [isRequestingReattack, t]);
+
   const displayMessage = (): void => {
-    msgInfo(
-      t("searchFindings.tabVuln.info.text"),
-      t("searchFindings.tabVuln.info.title"),
-      !isRequestingReattack || isOpen
-    );
+    if (isRequestingReattack && !isOpen) {
+      msgSuccess(
+        t("searchFindings.tabVuln.info.text"),
+        t("searchFindings.tabVuln.info.title")
+      );
+    }
   };
   useEffect(displayMessage, [isRequestingReattack, isOpen, t]);
 
@@ -59,11 +68,7 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
           <TooltipWrapper
             displayClass={"dib"}
             id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
-            message={
-              isRequestingReattack
-                ? t("searchFindings.tabVuln.buttonsTooltip.cancel")
-                : t("searchFindings.tabDescription.requestVerify.tooltip")
-            }
+            message={tooltipMessage}
           >
             <Button
               disabled={areVulnerabilitiesReattacked}

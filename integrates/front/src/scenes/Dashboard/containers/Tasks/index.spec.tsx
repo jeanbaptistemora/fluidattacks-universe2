@@ -20,14 +20,14 @@ import type {
   IGetUserOrganizationsGroups,
 } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgError, msgInfo } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-  jest.spyOn(mockedNotifications, "msgInfo").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -244,10 +244,9 @@ describe("VulnerabilitiesView", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(msgInfo).toHaveBeenCalledWith(
+        expect(msgSuccess).toHaveBeenCalledWith(
           t("searchFindings.tabVuln.info.text"),
-          t("searchFindings.tabVuln.info.title"),
-          true
+          t("searchFindings.tabVuln.info.title")
         );
         expect(msgError).toHaveBeenCalledWith(
           t("searchFindings.tabVuln.errors.selectedVulnerabilities")
