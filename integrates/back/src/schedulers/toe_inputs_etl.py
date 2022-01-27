@@ -224,50 +224,42 @@ def _get_attacked_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
 ) -> Optional[datetime]:
-    return (
-        cvs_toe_input.attacked_at
-        if cvs_toe_input.attacked_at
-        and toe_input.attacked_at
+    if cvs_toe_input.attacked_at and (
+        toe_input.attacked_at
         and cvs_toe_input.attacked_at > toe_input.attacked_at
-        else toe_input.attacked_at
-        if toe_input.attacked_at is not None
-        else cvs_toe_input.attacked_at
-        if cvs_toe_input.attacked_at
-        else None
-    )
+    ):
+        return cvs_toe_input.attacked_at
+    if toe_input.attacked_at is not None:
+        return toe_input.attacked_at
+    return cvs_toe_input.attacked_at if cvs_toe_input.attacked_at else None
 
 
 def _get_first_attack_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
 ) -> Optional[datetime]:
-    return (
-        cvs_toe_input.attacked_at
-        if cvs_toe_input.attacked_at
-        and toe_input.first_attack_at
+    if cvs_toe_input.attacked_at and (
+        toe_input.first_attack_at
         and cvs_toe_input.attacked_at < toe_input.first_attack_at
-        else toe_input.first_attack_at
-        if toe_input.first_attack_at is not None
-        else cvs_toe_input.attacked_at
-        if cvs_toe_input.attacked_at
-        else None
-    )
+    ):
+        return cvs_toe_input.attacked_at
+    if toe_input.first_attack_at is not None:
+        return toe_input.first_attack_at
+    return cvs_toe_input.attacked_at if cvs_toe_input.attacked_at else None
 
 
 def _get_seen_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
 ) -> Optional[datetime]:
+    if cvs_toe_input.seen_at is None:
+        return None
     return (
-        None
-        if cvs_toe_input.seen_at is None
-        else (
-            cvs_toe_input.seen_at
-            if cvs_toe_input.seen_at
-            and toe_input.seen_at
-            and cvs_toe_input.seen_at < toe_input.seen_at
-            else toe_input.seen_at or cvs_toe_input.seen_at
-        )
+        cvs_toe_input.seen_at
+        if cvs_toe_input.seen_at
+        and toe_input.seen_at
+        and cvs_toe_input.seen_at < toe_input.seen_at
+        else toe_input.seen_at or cvs_toe_input.seen_at
     )
 
 

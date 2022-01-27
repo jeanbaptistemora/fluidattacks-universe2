@@ -131,13 +131,11 @@ async def update(
     last_modified_date = (
         attributes.modified_date or current_value.modified_date
     )
-    first_attack_at = (
-        attributes.first_attack_at
-        if attributes.first_attack_at is not None
-        else attributes.attacked_at
-        if not current_value.first_attack_at and attributes.attacked_at
-        else None
-    )
+    first_attack_at = None
+    if attributes.first_attack_at is not None:
+        first_attack_at = attributes.first_attack_at
+    elif not current_value.first_attack_at and attributes.attacked_at:
+        first_attack_at = attributes.attacked_at
     attacked_lines = (
         attributes.attacked_lines or current_value.attacked_lines
         if attributes.attacked_lines != 0

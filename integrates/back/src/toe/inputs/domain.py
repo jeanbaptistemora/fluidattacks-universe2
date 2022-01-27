@@ -89,13 +89,11 @@ async def update(
         if attributes.be_present is None
         else attributes.be_present
     )
-    first_attack_at = (
-        attributes.first_attack_at
-        if attributes.first_attack_at is not None
-        else attributes.attacked_at
-        if not current_value.first_attack_at and attributes.attacked_at
-        else None
-    )
+    first_attack_at = None
+    if attributes.first_attack_at is not None:
+        first_attack_at = attributes.first_attack_at
+    elif not current_value.first_attack_at and attributes.attacked_at:
+        first_attack_at = attributes.attacked_at
     has_vulnerabilities = (
         get_has_vulnerabilities(
             current_be_present, attributes.has_vulnerabilities
