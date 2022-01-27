@@ -93,7 +93,6 @@ def _add_apk_unsigned_not_signed_location(
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -107,6 +106,7 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F103,
         locations=locations,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
@@ -159,7 +159,6 @@ def _get_class_names(
     return names
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -184,6 +183,7 @@ def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F048,
         locations=locations,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
@@ -245,7 +245,6 @@ def _add_no_certs_pinning_2_location(
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -273,6 +272,7 @@ def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F207,
         locations=locations,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
@@ -291,7 +291,6 @@ def _add_no_obfuscation_location(
     )
 
 
-#  developer: lsaavedra@fluidattacks.com
 def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -354,6 +353,7 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F046,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 
@@ -391,7 +391,6 @@ def _add_has_fragment_injection_location(
     )
 
 
-#  developer: lsaavedra@fluidattacks.com
 def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -414,6 +413,7 @@ def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F398,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 
@@ -477,7 +477,6 @@ def _add_webview_allows_resource_access(
     )
 
 
-#  developer: lsaavedra@fluidattacks.com
 def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -514,6 +513,7 @@ def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F268,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 
@@ -545,7 +545,6 @@ def _add_has_frida(
     )
 
 
-#  developer: lsaavedra@fluidattacks.com
 def _has_frida(
     ctx: APKCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -563,6 +562,7 @@ def _has_frida(
         ctx=ctx,
         finding=core_model.FindingEnum.F206,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 
@@ -616,6 +616,7 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F268,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 
@@ -666,6 +667,7 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F082,
         locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
 
 

@@ -81,6 +81,7 @@ def _create_vulns(
     ctx: APKCheckCtx,
     finding: core_model.FindingEnum,
     locations: Locations,
+    developer: Optional[core_model.DeveloperEnum],
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -101,7 +102,7 @@ def _create_vulns(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for location in locations.locations
@@ -139,7 +140,6 @@ def _get_caseless_attr(tag: bs4.Tag, key: str, default: str) -> str:
     return default
 
 
-#  developer: bagudelo@fluidattacks.com
 def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -174,10 +174,10 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F055,
         locations=locations,
+        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
     )
 
 
-#  developer: bagudelo@fluidattacks.com
 def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -205,10 +205,10 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F058,
         locations=locations,
+        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
     )
 
 
-#  developer: bagudelo@fluidattacks.com
 def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     if ctx.apk_ctx.apk_manifest is None:
         return ()
@@ -258,6 +258,7 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F075,
         locations=locations,
+        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
     )
 
 
