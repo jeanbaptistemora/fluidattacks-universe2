@@ -95,4 +95,4 @@ async def execute_batch(
 ) -> None:
     if FI_ENVIRONMENT == "production":
         with db_cursor() as cursor:
-            extras.execute_batch(cursor, sql_query, sql_vars)
+            extras.execute_batch(cursor, sql_query, sql_vars, page_size=1000)

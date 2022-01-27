@@ -114,21 +114,25 @@ async def send_vulns_to_redshift(
     await insert_batch_metadata(
         vulnerabilities=vulns_metadata,
     )
-    await insert_batch_state(
-        vulnerability_ids=vulns_id,
-        historics=vulns_state,
-    )
-    await insert_batch_treatment(
-        vulnerability_ids=vulns_id,
-        historics=vulns_treatment,
-    )
-    await insert_batch_verification(
-        vulnerability_ids=vulns_id,
-        historics=vulns_verification,
-    )
-    await insert_batch_zero_risk(
-        vulnerability_ids=vulns_id,
-        historics=vulns_zero_risk,
+    await collect(
+        (
+            insert_batch_state(
+                vulnerability_ids=vulns_id,
+                historics=vulns_state,
+            ),
+            insert_batch_treatment(
+                vulnerability_ids=vulns_id,
+                historics=vulns_treatment,
+            ),
+            insert_batch_verification(
+                vulnerability_ids=vulns_id,
+                historics=vulns_verification,
+            ),
+            insert_batch_zero_risk(
+                vulnerability_ids=vulns_id,
+                historics=vulns_zero_risk,
+            ),
+        )
     )
 
 
@@ -278,13 +282,13 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    group_drafts_and_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
     group_removed_findings: Tuple[
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
-    all_findings = group_drafts_and_findings + group_removed_findings
+    all_findings = group_findings + group_removed_findings
     vulns_items_to_store: List[Item] = list(
         chain.from_iterable(
             await collect(
@@ -366,7 +370,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(removed_groups)
         ),
-        workers=64,
+        workers=32,
     )
 
 
