@@ -42,7 +42,7 @@ import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { useStoredState } from "utils/hooks";
+import { useStoredState, useTabTracking } from "utils/hooks";
 import { msgError } from "utils/notifications";
 
 export const TasksContent: React.FC<ITasksContent> = ({
@@ -77,6 +77,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
   );
+
+  useTabTracking("Todos");
 
   const vulnerabilities: IVulnRowAttr[] = useMemo(
     (): IVulnRowAttr[] =>

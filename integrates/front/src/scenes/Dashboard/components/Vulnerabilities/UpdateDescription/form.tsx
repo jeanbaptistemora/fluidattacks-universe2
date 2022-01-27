@@ -267,7 +267,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         validMutationsHelper(
           handleCloseModal,
           areAllMutationValid,
-          vulnerabilities
+          dataTreatment,
+          vulnerabilities,
+          isTreatmentPristineP
         );
 
         if (!isTreatmentPristineP) {

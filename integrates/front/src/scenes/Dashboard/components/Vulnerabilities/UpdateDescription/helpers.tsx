@@ -245,12 +245,25 @@ const dataTreatmentTrackHelper = (
 const validMutationsHelper = (
   handleCloseModal: () => void,
   areAllMutationValid: boolean[],
-  vulnerabilities: IVulnDataTypeAttr[]
+  dataTreatment: IUpdateTreatmentVulnerabilityForm,
+  vulnerabilities: IVulnDataTypeAttr[],
+  isTreatmentPristine: boolean
 ): void => {
   if (areAllMutationValid.every(Boolean)) {
     track("UpdatedTreatmentVulnerabilities", {
       batchSize: vulnerabilities.length,
     });
+    if (!isTreatmentPristine && !_.isEmpty(dataTreatment.assigned)) {
+      const assignedChanged: number = vulnerabilities.filter(
+        (vulnerability: IVulnDataTypeAttr): boolean =>
+          vulnerability.assigned !== dataTreatment.assigned
+      ).length;
+      if (assignedChanged > 0) {
+        track("UpdatedAssignedVulnerabilities", {
+          batchSize: assignedChanged,
+        });
+      }
+    }
     msgSuccess(
       translate.t("searchFindings.tabDescription.updateVulnerabilities"),
       translate.t("groupAlerts.titleSuccess")

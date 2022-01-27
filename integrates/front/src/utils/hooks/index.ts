@@ -94,8 +94,10 @@ const useTabTracking: (containerName: string) => void = (
     const lastElements: number = -2;
     const [id, tabName] = pathname.split("/").slice(lastElements);
 
-    if (tabName) {
+    if (tabName && tabName.toLowerCase() !== containerName.toLowerCase()) {
       track(`${containerName}${_.capitalize(tabName)}`, { id });
+    } else {
+      track(containerName);
     }
   }, [containerName, pathname]);
 };
