@@ -14,7 +14,7 @@ import {
 } from "styles/styledComponents";
 import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
-interface IManagementModalProps {
+interface IAddPaymentModalProps {
   onClose: () => void;
   onSubmit: (values: {
     cardCvc: string;
@@ -33,15 +33,15 @@ const validations = object().shape({
   makeDefault: boolean(),
 });
 
-const ManagementModal: React.FC<IManagementModalProps> = ({
+const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
   onClose,
   onSubmit,
-}: IManagementModalProps): JSX.Element => {
+}: IAddPaymentModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <Modal
-      headerTitle={t("organization.tabs.billing.paymentMethods.add")}
+      headerTitle={t("organization.tabs.billing.paymentMethods.modal.add")}
       onEsc={onClose}
       open={true}
     >
@@ -121,4 +121,4 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   );
 };
 
-export { ManagementModal };
+export { AddPaymentModal };
