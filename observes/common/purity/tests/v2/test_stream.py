@@ -18,8 +18,8 @@ from purity.v2.stream.transform import (
     until_none,
 )
 import pytest
-from random import (
-    randint,
+from secrets import (
+    randbelow,
 )
 from typing import (
     IO,
@@ -27,9 +27,7 @@ from typing import (
 
 
 def _rand_val(count: int, none_index: int) -> Cmd[Optional[int]]:
-    return Cmd.from_cmd(
-        lambda: randint(0, 10) if count != none_index else None
-    )
+    return Cmd.from_cmd(lambda: randbelow(11) if count != none_index else None)
 
 
 def test_use_case_1() -> None:
