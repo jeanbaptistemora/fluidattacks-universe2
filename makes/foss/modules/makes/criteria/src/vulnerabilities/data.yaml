@@ -11002,12 +11002,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "X"
+      report_confidence: "C"
   requirements: ["266"]
   metadata:
     en:
