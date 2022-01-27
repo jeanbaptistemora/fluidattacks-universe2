@@ -190,11 +190,13 @@ let
     in
     if showTable then
       ''
-        | Plan     | Supported              |
-        | :------: | :--------------------: |
-        | ${machineLink} | ${isSupported supportedIn.machine} |
-        | ${squadLink}   | ${isSupported supportedIn.squad}   |
-        | ${oneshotLink} | ${isSupported supportedIn.oneshot} |
+        This requirement is verified in following services:
+
+          | Plan     | Supported              |
+          | :------: | :--------------------: |
+          | ${machineLink} | ${isSupported supportedIn.machine} |
+          | ${squadLink}   | ${isSupported supportedIn.squad}   |
+          | ${oneshotLink} | ${isSupported supportedIn.oneshot} |
       ''
     else
       "";
