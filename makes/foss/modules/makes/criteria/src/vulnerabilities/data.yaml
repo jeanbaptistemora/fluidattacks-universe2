@@ -16769,8 +16769,6 @@
       Insecure communications medium and channels
       require application data protection in transit.
     impact: >
-      - Establish insecure sessions.
-
       - Authenticate and compromise
       communications channels
       between the client and the server.
@@ -16786,15 +16784,14 @@
       - It is equally important to authenticate the
       identity of the remote end of the connection.
     threat: >
-      Unauthorized attacker from the Internet.
+      Anonymous attacker from adjacent network
+      performing a MitM attack
   es:
     title: Use of an insecure channel - AWS
     description: >
       Los medios y canales de comunicación inseguros requieren
       aplicaciones de protección de datos en tránsito.
     impact: >
-      - Establecer sesiones inseguras.
-
       - Autenticar y comprometer el canal
       de comunicación entre el cliente y
       el servidor.
@@ -16810,22 +16807,23 @@
       - Es igualmente importante autenticar la identidad
       del extremo remoto de la conexión.
     threat: >
-      Atacante no autorizado desde Internet.
+      Atacante anónimo desde red adyacente
+      ejecutando un MitM
   category: Collect Information
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "L"
-      integrity: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["181"]
   metadata:
     en:
