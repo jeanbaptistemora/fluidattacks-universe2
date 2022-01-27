@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.amend.actions import (
     update_stamp,
 )
@@ -73,9 +71,7 @@ def amend_users(
     start_msg = Cmd.from_cmd(lambda: LOG.info("Getting data stream..."))
     mutation_msg = Cmd.from_cmd(lambda: LOG.info("Mutation started"))
     data = namespace_data(client, table, namespace).map(
-        lambda s: s.map(
-            lambda r: r.bind(lambda x: decoder.decode_commit_table_row(x))
-        )
+        lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
     )
     result = data.bind(
         lambda s: s.map(lambda r: r.unwrap())

@@ -1,6 +1,6 @@
 # pylint: skip-file
 
-from code_etl.client import (
+from code_etl.client.v2 import (
     get_context,
 )
 from code_etl.mailmap import (
@@ -36,11 +36,15 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
+from purity.v2.adapters import (
+    from_returns,
+)
+from purity.v2.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
 from purity.v2.frozen import (
     FrozenList,
-)
-from returns.io import (
-    IO,
 )
 from returns.maybe import (
     Maybe,
@@ -55,9 +59,14 @@ class NonexistentPath(Exception):
 
 def upload_or_register(
     client: Client, target: TableID, extractor: Extractor, repo: Repo
-) -> IO[None]:
-    actions.register(client, target, extractor.extract_repo())
-    return actions.upload_stamps(client, target, extractor.extract_data(repo))
+) -> Cmd[None]:
+    _register = actions.register(
+        client, target, from_returns(extractor.extract_repo())
+    )
+    _upload = actions.upload_stamps(
+        client, target, extractor.extract_data(repo)
+    )
+    return _register.bind(lambda _: _upload)
 
 
 def upload(
@@ -66,15 +75,17 @@ def upload(
     namespace: str,
     repo_path: Path,
     mailmap: Maybe[Mailmap],
-) -> IO[None]:
+) -> Cmd[None]:
     repo = Repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
-    LOG.info("Uploading %s", repo_id)
+    info = Cmd.from_cmd(lambda: LOG.info("Uploading %s", repo_id))
     extractor = get_context(client, target, repo_id).map(
         lambda r: Extractor(r, mailmap)
     )
-    return extractor.bind(
-        lambda ext: upload_or_register(client, target, ext, repo)
+    return info.bind(
+        lambda _: extractor.bind(
+            lambda ext: upload_or_register(client, target, ext, repo)
+        )
     )
 
 
@@ -85,7 +96,7 @@ def upload_repos(
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
-) -> IO[None]:
+) -> Cmd[None]:
     LOG.info(
         "Uploading repos data into %s.%s", target.schema, target.table_name
     )
@@ -93,8 +104,14 @@ def upload_repos(
         (ClientFactory().from_creds(db_id, creds), p) for p in repo_paths
     )
     pool = ThreadPool()
-    pool.map(
-        lambda i: upload(i[0], target, namespace, i[1], mailmap),
-        client_paths,
-    )
-    return IO(None)
+
+    def _action() -> None:
+        pool.map(
+            lambda i: unsafe_unwrap(
+                upload(i[0], target, namespace, i[1], mailmap)
+            ),
+            client_paths,
+        )
+
+    jobs = Cmd.from_cmd(lambda: _action())
+    return jobs

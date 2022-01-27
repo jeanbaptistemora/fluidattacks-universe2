@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 import click
 from code_etl import (
     amend,
@@ -39,9 +37,6 @@ from purity.v2.adapters import (
 )
 from purity.v2.maybe import (
     Maybe,
-)
-from returns.io import (
-    IO,
 )
 from typing import (
     Any,
@@ -131,13 +126,14 @@ def upload_code(
     namespace: str,
     repositories: Tuple[str, ...],
     mailmap: Optional[str],
-) -> IO[None]:
+) -> NoReturn:
+    # pylint: disable=too-many-arguments
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = _to_table((schema, table))
     mmap = to_returns(_get_mailmap(mailmap))
-    return upload_repo.upload_repos(
+    upload_repo.upload_repos(
         ctx.db_id, ctx.creds, target, namespace, repos, mmap
-    )
+    ).compute()
 
 
 @click.command()
