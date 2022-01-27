@@ -3,6 +3,7 @@ from purity.v2 import (
 )
 from purity.v2.cmd import (
     Cmd,
+    unsafe_unwrap,
 )
 from purity.v2.maybe import (
     Maybe,
@@ -30,7 +31,9 @@ def chain(
 
 
 def consume(p_iter: PureIter[Cmd[None]]) -> Cmd[None]:
-    return Cmd.from_cmd(lambda: _iter_factory.deque(p_iter))
+    return Cmd.from_cmd(
+        lambda: _iter_factory.deque(unsafe_unwrap(cmd) for cmd in p_iter)
+    )
 
 
 def filter_opt(items: PureIter[Optional[_T]]) -> PureIter[_T]:

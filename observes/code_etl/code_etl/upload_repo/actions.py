@@ -12,12 +12,6 @@ from postgres_client.client import (
 from postgres_client.ids import (
     TableID,
 )
-from purity.v1.pure_iter.core import (
-    PureIter,
-)
-from purity.v1.pure_iter.transform.io import (
-    consume,
-)
 from purity.v2.adapters import (
     to_cmd,
 )
@@ -26,6 +20,12 @@ from purity.v2.cmd import (
 )
 from purity.v2.maybe import (
     Maybe,
+)
+from purity.v2.pure_iter.core import (
+    PureIter,
+)
+from purity.v2.pure_iter.transform import (
+    consume,
 )
 
 
@@ -42,7 +42,7 @@ def register(
 def upload_stamps(
     client: Client, target: TableID, stamps: PureIter[CommitStamp]
 ) -> Cmd[None]:
-    actions = stamps.chunked(2000).map(
-        lambda s: insert_stamps(client, target, tuple(s))
+    actions: PureIter[Cmd[None]] = stamps.chunked(2000).map(
+        lambda s: to_cmd(lambda: insert_stamps(client, target, tuple(s)))
     )
-    return to_cmd(lambda: consume(actions))
+    return consume(actions)

@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.client.v2 import (
     get_context,
 )
@@ -36,9 +34,6 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
-from purity.v2.adapters import (
-    from_returns,
-)
 from purity.v2.cmd import (
     Cmd,
     unsafe_unwrap,
@@ -46,7 +41,7 @@ from purity.v2.cmd import (
 from purity.v2.frozen import (
     FrozenList,
 )
-from returns.maybe import (
+from purity.v2.maybe import (
     Maybe,
 )
 
@@ -60,9 +55,7 @@ class NonexistentPath(Exception):
 def upload_or_register(
     client: Client, target: TableID, extractor: Extractor, repo: Repo
 ) -> Cmd[None]:
-    _register = actions.register(
-        client, target, from_returns(extractor.extract_repo())
-    )
+    _register = actions.register(client, target, extractor.extract_repo())
     _upload = actions.upload_stamps(
         client, target, extractor.extract_data(repo)
     )
@@ -97,6 +90,7 @@ def upload_repos(
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
+    # pylint: disable=too-many-arguments
     LOG.info(
         "Uploading repos data into %s.%s", target.schema, target.table_name
     )
@@ -113,5 +107,5 @@ def upload_repos(
             client_paths,
         )
 
-    jobs = Cmd.from_cmd(lambda: _action())
+    jobs = Cmd.from_cmd(_action)
     return jobs

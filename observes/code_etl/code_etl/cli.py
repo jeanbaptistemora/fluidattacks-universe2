@@ -32,9 +32,6 @@ from postgres_client.ids import (
     SchemaID,
     TableID,
 )
-from purity.v2.adapters import (
-    to_returns,
-)
 from purity.v2.maybe import (
     Maybe,
 )
@@ -130,7 +127,7 @@ def upload_code(
     # pylint: disable=too-many-arguments
     repos = tuple(Path(abspath(r)) for r in repositories)
     target = _to_table((schema, table))
-    mmap = to_returns(_get_mailmap(mailmap))
+    mmap = _get_mailmap(mailmap)
     upload_repo.upload_repos(
         ctx.db_id, ctx.creds, target, namespace, repos, mmap
     ).compute()

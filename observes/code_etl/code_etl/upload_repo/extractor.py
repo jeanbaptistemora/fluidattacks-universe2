@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 from code_etl.amend.core import (
     AmendUsers,
 )
@@ -34,20 +32,20 @@ from git.objects import (
 from git.repo.base import (
     Repo,
 )
-from purity.v1.pure_iter.core import (
+from purity.v2.cmd import (
+    Cmd,
+)
+from purity.v2.maybe import (
+    Maybe,
+)
+from purity.v2.pure_iter.core import (
     PureIter,
 )
-from purity.v1.pure_iter.factory import (
-    unsafe_from_generator,
+from purity.v2.pure_iter.factory import (
+    unsafe_from_cmd,
 )
-from purity.v1.pure_iter.transform import (
+from purity.v2.pure_iter.transform import (
     until_empty,
-)
-from returns.io import (
-    IO,
-)
-from returns.maybe import (
-    Maybe,
 )
 
 
@@ -58,7 +56,7 @@ class Extractor:
 
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
         if commit.hexsha == self._context.last_commit:
-            return Maybe.empty
+            return Maybe.empty()
         _obj = CommitDataFactory.from_commit(commit)
         obj = (
             self._mailmap.map(AmendUsers)
@@ -73,8 +71,14 @@ class Extractor:
         return Maybe.from_value(stamp)
 
     def extract_data(self, repo: Repo) -> PureIter[CommitStamp]:
-        commits: PureIter[GitCommit] = unsafe_from_generator(
-            lambda: IO(repo.iter_commits(no_merges=True, topo_order=True))
+        # using `unsafe_from_cmd` assumes the repository
+        # is read-only/unmodified
+        commits: PureIter[GitCommit] = unsafe_from_cmd(
+            Cmd.from_cmd(
+                lambda: iter(
+                    repo.iter_commits(no_merges=True, topo_order=True)
+                )
+            )
         )
         return until_empty(commits.map(self._to_stamp))
 
@@ -88,4 +92,4 @@ class Extractor:
                     to_utc(DATE_NOW),
                 )
             )
-        return Maybe.empty
+        return Maybe.empty()
