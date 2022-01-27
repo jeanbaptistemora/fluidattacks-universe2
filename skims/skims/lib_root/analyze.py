@@ -1,8 +1,8 @@
-from aioextensions import (
-    in_thread,
-)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
+)
+from contextlib import (
+    suppress,
 )
 from ctx import (
     CTX,
@@ -49,11 +49,8 @@ from typing import (
 from utils.fs import (
     resolve_paths,
 )
-from utils.function import (
-    shield,
-)
 from utils.logs import (
-    log,
+    log_blocking,
 )
 
 QUERIES: graph_model.Queries = (
@@ -80,8 +77,7 @@ QUERIES: graph_model.Queries = (
 )
 
 
-@shield(on_error_return=None)
-async def analyze(
+def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
@@ -103,7 +99,7 @@ async def analyze(
     queries_len: int = len(queries)
 
     for idx, (finding, query) in enumerate(queries, start=1):
-        await log(
+        log_blocking(
             "info",
             "Executing query %s of %s, finding %s",
             idx,
@@ -111,7 +107,7 @@ async def analyze(
             finding.name,
         )
         if stores[finding].has_errors:
-            await log(
+            log_blocking(
                 "warning",
                 (
                     "The query %s of %s, finding %s cannot be executed,"
@@ -125,12 +121,12 @@ async def analyze(
 
         # Ideally should be in_process but memory requirements constraint us
         # for now
-        vulnerabilities: Optional[core_model.Vulnerabilities] = await shield(
-            on_error_return=None
-        )(in_thread)(query, graph_db)
+        vulnerabilities: Optional[core_model.Vulnerabilities] = None
+        with suppress(Exception):
+            vulnerabilities = query(graph_db)
 
         if vulnerabilities is None:
-            await log(
+            log_blocking(
                 "error",
                 "An error has occurred executing query %s of %s, finding %s",
                 idx,
