@@ -296,7 +296,14 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={data.vulnerability.severity ?? ""} />
+                <Value
+                  value={
+                    data.vulnerability.severity === null ||
+                    data.vulnerability.severity === "-1"
+                      ? ""
+                      : data.vulnerability.severity
+                  }
+                />
               </InfoField>
             </Row>
           </Col50>

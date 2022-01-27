@@ -56,7 +56,13 @@ def format_vulnerability(item: Item) -> Vulnerability:
     return Vulnerability(
         bug_tracking_system_url=item.get("bug_tracking_system_url", None),
         commit=item.get("commit", None),
-        custom_severity=item.get("custom_severity", None),
+        custom_severity=(
+            int(item["custom_severity"])
+            if "custom_severity" in item
+            and item["custom_severity"] is not None
+            and item["custom_severity"]
+            else None
+        ),
         finding_id=item["sk"].split("#")[1],
         hash=item.get("hash", None),
         repo=item.get("repo", None),

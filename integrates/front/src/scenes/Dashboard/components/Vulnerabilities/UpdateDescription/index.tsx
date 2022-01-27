@@ -139,7 +139,10 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                 externalBugTrackingSystem:
                   groupExternalBugTrackingSystem(vulnerabilities),
                 justification: lastTreatment.justification,
-                severity: groupVulnLevel(vulnerabilities),
+                severity:
+                  Number(groupVulnLevel(vulnerabilities)) > 0
+                    ? groupVulnLevel(vulnerabilities)
+                    : "",
                 tag: _.join(_.intersection(...vulnsTags), ","),
                 treatment: lastTreatment.treatment.replace("NEW", ""),
                 user: lastTreatment.user,

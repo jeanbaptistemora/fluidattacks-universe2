@@ -107,12 +107,18 @@ const groupVulnLevel: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
 ): string => {
   const vulnLevel: string = vulnerabilities.reduce(
     (acc: string, vuln: IVulnDataTypeAttr): string =>
-      _.isEmpty(vuln.severity) ? acc : (vuln.severity as string),
+      _.isEmpty(vuln.severity) ||
+      _.isNull(vuln.severity) ||
+      vuln.severity === "-1"
+        ? acc
+        : vuln.severity,
     ""
   );
 
   return vulnerabilities.every((row: IVulnDataTypeAttr): boolean =>
-    _.isEmpty(row.severity) ? true : row.severity === vulnLevel
+    _.isEmpty(row.severity) || _.isNull(row.severity) || row.severity === "-1"
+      ? true
+      : row.severity === vulnLevel
   )
     ? vulnLevel
     : "";

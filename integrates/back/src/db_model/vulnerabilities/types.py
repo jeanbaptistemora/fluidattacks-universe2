@@ -90,7 +90,7 @@ class Vulnerability(NamedTuple):
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
-    custom_severity: Optional[int] = None
+    custom_severity: Optional[str] = None
     hash: Optional[int] = None
     repo: Optional[str] = None
     skims_method: Optional[str] = None

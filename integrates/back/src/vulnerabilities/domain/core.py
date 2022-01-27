@@ -798,7 +798,9 @@ async def update_metadata(
         vulnerability_id=vulnerability_id,
         metadata=VulnerabilityMetadataToUpdate(
             bug_tracking_system_url=bug_tracking_system_url,
-            custom_severity=custom_severity,
+            custom_severity=""
+            if custom_severity is None or custom_severity <= 0
+            else str(custom_severity),
             tags=sorted(list(set(all_tags))),
         ),
     )
