@@ -141,11 +141,18 @@ async def main() -> None:
         ]
     )
     groups_len = len(groups)
-    for index, group_toe_input_connection, group_roots, group in zip(
+    for (
+        index,
+        group_toe_input_connection,
+        group_roots,
+        group,
+        group_name,
+    ) in zip(
         range(groups_len),
         groups_toe_input_connections,
         groups_roots,
         groups,
+        group_names,
     ):
         await collect(
             tuple(
@@ -159,7 +166,7 @@ async def main() -> None:
             "Group updated",
             extra={
                 "extra": {
-                    "group_name": group["name"],
+                    "group_name": group_name,
                     "progress": str(index / groups_len),
                 }
             },
