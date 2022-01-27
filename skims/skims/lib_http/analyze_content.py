@@ -104,6 +104,7 @@ def build_vulnerabilities(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
+                developer=None,
             ),
         )
         for location in locations

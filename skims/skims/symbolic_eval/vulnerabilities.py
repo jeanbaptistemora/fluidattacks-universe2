@@ -55,5 +55,6 @@ def create_vulnerability(
                 ),
             ),
             source_method=source_method,
+            developer=None,
         ),
     )

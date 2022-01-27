@@ -87,6 +87,7 @@ def get_vulnerability_from_n_id(
                 ),
             ),
             source_method=source_method,
+            developer=None,
         ),
     )
 

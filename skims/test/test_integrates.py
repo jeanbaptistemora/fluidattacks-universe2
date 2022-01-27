@@ -65,6 +65,7 @@ async def test_build_vulnerabilities_stream() -> None:
                         description="Vulnerability description",
                         snippet="Vulnerability snippet",
                         source_method=skims_method,
+                        developer=None,
                     ),
                 ),
                 core_model.Vulnerability(

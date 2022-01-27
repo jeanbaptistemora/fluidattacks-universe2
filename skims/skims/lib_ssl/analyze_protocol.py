@@ -115,6 +115,7 @@ def _create_core_vulns(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
+                developer=None,
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities

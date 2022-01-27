@@ -154,6 +154,7 @@ def get_vulnerabilities_blocking(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
+                developer=None,
             ),
         )
         for match in get_matching_lines_blocking(
@@ -195,6 +196,7 @@ def get_vulnerabilities_from_iterator_blocking(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
+                developer=None,
             ),
         )
         for line_no, column_no in iterator
@@ -284,6 +286,7 @@ def translate_dependencies_to_vulnerabilities(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
+                developer=None,
             ),
         )
         for product, version in dependencies
