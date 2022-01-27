@@ -6448,7 +6448,7 @@
       Additionally, sanitise user input
       before involving them in queries.
     threat: >
-      Unauthorised attacker on the Internet.
+      Unauthorized attacker on the Internet.
   es:
     title: Apache lucene query injection
     description: >
@@ -7213,8 +7213,7 @@
       Consider the applicable regulations
       for the system.
     threat: >
-      - Incur the fine or some other
-      penalty.
+      Anonymous attacker from the Internet.
   es:
     title: Regulation infringement
     description: >
@@ -7231,8 +7230,7 @@
       Tener en cuenta las regulaciones
       aplicables para el sistema.
     threat: >
-      - Incurrir en una multa
-      o alguna otra sanción legal.
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   score:
     base:
@@ -7315,6 +7313,12 @@
       the version of the libraries
       on which it depends.
     impact: >
+      - Accept a range of versions
+      can cause a version of a dependency
+      that is not supported
+      by the application
+      to be automatically installed.
+
       - Install a dependency
       containing a known vulnerability
       and being unaware of it.
@@ -7331,11 +7335,8 @@
       the projects construction
       and packaging.
     threat: >
-      Accept a range of versions
-      can cause a version of a dependency
-      that is not supported
-      by the application
-      to be automatically installed.
+      Anonymous attacker with access to
+      the application.
   es:
     title: Improper dependency pinning
     description: >
@@ -7343,6 +7344,13 @@
       no se declara la versión específica
       aceptada de algunas dependencias.
     impact: >
+      - Aceptar un rango de versiones
+      puede ocasionar
+      que se instale automáticamente
+      una versión de una dependencia
+      que no es compatible con la aplicación
+      u otras dependencias.
+
       - Instalar una dependencia que
       contenga una vulnerabilidad conocida
       y no tener conocimiento de ello.
@@ -7360,12 +7368,8 @@
       la construcción
       y empaquetado de proyectos.
     threat: >
-      Aceptar un rango de versiones
-      puede ocasionar
-      que se instale automáticamente
-      una versión de una dependencia
-      que no es compatible con la aplicación
-      u otras dependencias.
+      Atacante anónimo con acceso a la
+      aplicación.
   category: Abuse Functionality
   score:
     base:
@@ -7395,9 +7399,12 @@
       this can cause unexpected behavior
       on the server.
     impact: >
-      Make the application to read
+      - Make the application to read
       malicious parameters and have
       a wrong behavior.
+
+      - Cause unexpected behaviors
+      on the application.
     recommendation: >
       Make validations to guarantee
       that the quantity
@@ -7405,8 +7412,7 @@
       is equal to the expected parameters
       on the server.
     threat: >
-      Causing unexpected behaviors
-      on the application.
+      Anonymous attacker from the Internet.
   es:
     title: HTTP parameter pollution
     description: >
@@ -7417,9 +7423,12 @@
       comportamientos inesperados
       en el servidor.
     impact: >
-      Hacer que la aplicación lea
+      - Hacer que la aplicación lea
       parámetros maliciosos y tenga
       un comportamiento erróneo.
+
+      - Causar comportamientos inesperados
+      en la aplicación.
     recommendation: >
       Garantizar mediante validaciones
       que la cantidad de parámetros recibidos
@@ -7427,8 +7436,7 @@
       de parámetros esperados
       por el servidor.
     threat: >
-      Causar comportamientos inesperados
-      en la aplicación.
+      Atacante anónimo desde Internet.
   category: Inject Unexpected
   score:
     base:
@@ -7515,6 +7523,10 @@
       through relative paths manipulation
       in the input fields.
     impact: >
+      - Visualize the content
+      of sensitive files stored
+      on the server.
+
       - Get sensitive data.
 
       - Read system files.
@@ -7528,9 +7540,7 @@
       that allow reading
       of arbitrary files on the server.
     threat: >
-      Visualize the content
-      of sensitive files stored
-      on the server.
+      Unauthorized attacker from local network.
   es:
     title: Local file inclusion
     description: >
@@ -7541,6 +7551,10 @@
       de rutas relativas
       en los campos de entrada.
     impact: >
+      -Visualizar el contenido
+      de archivos sensibles almacenados
+      en el servidor.
+
       - Obtener información sensible.
 
       - Leer archivos del sistema.
@@ -7553,9 +7567,7 @@
       que permitan la lectura
       de archivos arbitrarios en el servidor.
     threat: >
-      Visualizar el contenido
-      de archivos sensibles almacenados
-      en el servidor.
+      - Atacante no autorizado desde red local.
   category: Manipulate Data
   score:
     base:
@@ -7585,16 +7597,18 @@
       of a specific functionality
       do not arrive in the expected order.
     impact: >
-      Overwrite, delete or read arbitrary
+      - Overwrite, delete or read arbitrary
       files from the system.
+
+      - Cause unexpected behaviour
+      in the application.
     recommendation: >
       Ensure that the verification
       and use of inputs
       must be realized at the same time
       or in an atomic way.
     threat: >
-      Cause unexpected behaviour
-      in the application.
+      Anonymous attacker in the system.
   es:
     title: Race condition
     description: >
@@ -7604,16 +7618,18 @@
       a una funcionalidad específica
       no llegan en el orden esperado.
     impact: >
-      Sobrescribir, borrar o leer archivos
+      - Sobrescribir, borrar o leer archivos
       arbitrarios del sistema.
+
+      - Ocasionar comportamientos inesperados
+      en la aplicación.
     recommendation: >
       Garantizar que la verificacion
       y el uso de las entradas
       se realice en un mismo momento
       o de forma atómica.
     threat: >
-      Ocasionar comportamientos inesperados
-      en la aplicación.
+      Atacante anónimo en el sistema.
   category: Abuse Functionality
   score:
     base:
