@@ -44,9 +44,6 @@ from newutils.validations import (
     validate_email_address,
 )
 import re
-from roots import (
-    domain as roots_domain,
-)
 import tempfile
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -141,7 +138,10 @@ def _get_group_toe_inputs_from_cvs(
                 except ValueError:
                     new_toe_input[field_name] = default_value
 
-            unreliable_root = roots_domain.get_unreliable_root_by_component(
+            (
+                unreliable_root,
+                unreliable_component,
+            ) = toe_inputs_domain.get_unreliable_component(
                 new_toe_input["component"], group_roots.values(), group
             )
             be_present = (
@@ -176,7 +176,9 @@ def _get_group_toe_inputs_from_cvs(
                     attacked_by=new_toe_input["attacked_by"],
                     be_present=new_toe_input["be_present"],
                     be_present_until=new_toe_input["be_present_until"],
-                    component=new_toe_input["component"],
+                    component=new_toe_input["component"]
+                    if unreliable_component is None
+                    else unreliable_component,
                     entry_point=new_toe_input["entry_point"],
                     first_attack_at=new_toe_input["first_attack_at"],
                     has_vulnerabilities=False,
@@ -361,6 +363,33 @@ async def remove_toe_inputs(
     )
 
 
+async def remove_duplicated_inputs(
+    group_toe_inputs: Dict[int, ToeInput],
+    cvs_group_toe_inputs: Dict[int, ToeInput],
+) -> None:
+    group_toe_input_reduced_components = {
+        toe_inputs_domain.get_reduced_component(input.component): input
+        for input in group_toe_inputs.values()
+    }
+    await collect(
+        [
+            toe_inputs_remove(
+                entry_point=cvs_input.entry_point,
+                component=group_toe_input_reduced_components[
+                    toe_inputs_domain.get_reduced_component(
+                        cvs_input.component
+                    )
+                ].component,
+                group_name=cvs_input.group_name,
+            )
+            for cvs_input in cvs_group_toe_inputs.values()
+            if cvs_input.get_hash() not in group_toe_inputs
+            and toe_inputs_domain.get_reduced_component(cvs_input.component)
+            in group_toe_input_reduced_components
+        ]
+    )
+
+
 @retry_on_exceptions(
     exceptions=(
         RepeatedToeInput,
@@ -389,6 +418,7 @@ async def update_toe_inputs_from_csv(
     )
     await update_toe_inputs(group_toe_inputs, cvs_group_toe_inputs)
     await remove_toe_inputs(group_roots, group_toe_inputs)
+    await remove_duplicated_inputs(group_toe_inputs, cvs_group_toe_inputs)
     await add_toe_inputs(loaders, group_toe_inputs, cvs_group_toe_inputs)
 
 

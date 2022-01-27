@@ -539,7 +539,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="test@test.com",
             be_present=True,
             be_present_until=None,
-            component="test.com/api/Test",
+            component="https://test.com/api/Test",
             entry_point="idTest",
             first_attack_at=datetime.fromisoformat(
                 "2020-01-02T05:00:00+00:00"
@@ -557,7 +557,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             be_present_until=datetime.fromisoformat(
                 "2021-03-20T15:41:04+00:00"
             ),
-            component="test.com/test/test.aspx",
+            component="https://test.com/test/test.aspx",
             entry_point="btnTest",
             first_attack_at=datetime.fromisoformat(
                 "2021-01-02T05:00:00+00:00"
@@ -573,7 +573,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="test2@test.com",
             be_present=True,
             be_present_until=None,
-            component="test.com/test2/test.aspx",
+            component="https://test.com/test2/test.aspx",
             entry_point="-",
             first_attack_at=datetime.fromisoformat(
                 "2021-02-11T05:00:00+00:00"
@@ -597,7 +597,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="",
             be_present=True,
             be_present_until=None,
-            component="test.com/api/Test",
+            component="https://test.com/api/Test",
             entry_point="idTest",
             first_attack_at=datetime.fromisoformat(
                 "2020-01-02T05:00:00+00:00"
@@ -613,7 +613,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="",
             be_present=True,
             be_present_until=None,
-            component="test.com/test/test.aspx",
+            component="https://test.com/test/test.aspx",
             entry_point="",
             first_attack_at=datetime.fromisoformat(
                 "2021-02-11T05:00:00+00:00"
@@ -629,7 +629,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="",
             be_present=True,
             be_present_until=None,
-            component="test.com/test/test.aspx",
+            component="https://test.com/test/test.aspx",
             entry_point="btnTest",
             first_attack_at=None,
             group_name="unittesting",
@@ -643,7 +643,7 @@ async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
             attacked_by="test2@test.com",
             be_present=True,
             be_present_until=None,
-            component="test.com/test2/test.aspx",
+            component="https://test.com/test2/test.aspx",
             entry_point="-",
             first_attack_at=datetime.fromisoformat(
                 "2021-02-11T05:00:00+00:00"

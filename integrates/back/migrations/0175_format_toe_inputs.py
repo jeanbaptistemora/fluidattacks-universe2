@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 """
-Format toe input with port and protocol.
+Format toe input component with port and protocol.
 """
 
 from aioextensions import (
@@ -41,11 +41,11 @@ from groups import (
 )
 import logging
 import logging.config
-from roots import (
-    domain as roots_domain,
-)
 from settings import (
     LOGGING,
+)
+from toe.inputs import (
+    domain as toe_inputs_domain,
 )
 from typing import (
     Tuple,
@@ -100,7 +100,7 @@ async def process_input(
     group_roots: Tuple[RootItem, ...],
     group: Group,
 ) -> None:
-    root, component = roots_domain.get_unreliable_component(
+    root, component = toe_inputs_domain.get_unreliable_component(
         current_toe_input.component, group_roots, group
     )
     new_component = ""

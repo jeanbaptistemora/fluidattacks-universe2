@@ -2090,7 +2090,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "INPUTS#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
+                "S": "INPUTS#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
               },
               "has_vulnerabilities": {
                 "BOOL": false
@@ -2099,7 +2099,7 @@
                 "S": ""
               },
               "component": {
-                "S": "test.com/api/Test"
+                "S": "https://test.com/api/Test"
               },
               "entry_point": {
                 "S": "idTest"
@@ -2132,7 +2132,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
-                "S": "INPUTS#PRESENT#true#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
+                "S": "INPUTS#PRESENT#true#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
               }
             },
             {
@@ -2140,7 +2140,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
+                "S": "INPUTS#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
               },
               "has_vulnerabilities": {
                 "BOOL": false
@@ -2149,7 +2149,7 @@
                 "S": "test@test.com"
               },
               "component": {
-                "S": "test.com/test/test.aspx"
+                "S": "https://test.com/test/test.aspx"
               },
               "entry_point": {
                 "S": "btnTest"
@@ -2182,7 +2182,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
-                "S": "INPUTS#PRESENT#false#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
+                "S": "INPUTS#PRESENT#false#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
               }
             },
             {
@@ -2190,7 +2190,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk": {
-                "S": "INPUTS#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
+                "S": "INPUTS#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
               },
               "has_vulnerabilities": {
                 "BOOL": false
@@ -2199,7 +2199,7 @@
                 "S": "test2@test.com"
               },
               "component": {
-                "S": "test.com/test2/test.aspx"
+                "S": "https://test.com/test2/test.aspx"
               },
               "entry_point": {
                 "S": "-"
@@ -2232,7 +2232,7 @@
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
-                "S": "INPUTS#PRESENT#true#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
+                "S": "INPUTS#PRESENT#true#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
               }
             }
           ],

@@ -33,7 +33,7 @@ async def test_add() -> None:
         attacked_by="test@test.com",
         be_present=True,
         be_present_until=None,
-        component="test.com/test/new.aspx",
+        component="https://test.com/test/new.aspx",
         first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         entry_point="btnTest",
         group_name=group_name,
@@ -45,7 +45,7 @@ async def test_add() -> None:
     await toe_inputs_domain.add(
         loaders=loaders,
         entry_point="btnTest",
-        component="test.com/test/new.aspx",
+        component="https://test.com/test/new.aspx",
         group_name=group_name,
         attributes=ToeInputAttributesToAdd(
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
@@ -77,7 +77,7 @@ async def test_delete() -> None:
     assert len(group_toe_inputs) == 5
     await toe_inputs_domain.remove(
         entry_point="btnTest",
-        component="test.com/test/new.aspx",
+        component="https://test.com/test/new.aspx",
         group_name=group_name,
     )
     loaders = get_new_context()
@@ -91,7 +91,7 @@ async def test_delete() -> None:
 async def test_update() -> None:
     group_name = "unittesting"
     entry_point = "btnTest"
-    component = "test.com/test/test.aspx"
+    component = "https://test.com/test/test.aspx"
     loaders = get_new_context()
     current_value = await loaders.toe_input.load(
         ToeInputRequest(
@@ -120,7 +120,7 @@ async def test_update() -> None:
         attacked_by="",
         be_present=True,
         be_present_until=None,
-        component="test.com/test/test.aspx",
+        component="https://test.com/test/test.aspx",
         entry_point="btnTest",
         first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         has_vulnerabilities=False,
