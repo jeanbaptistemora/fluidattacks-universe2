@@ -256,7 +256,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     )
 
     if vulns:
-        first_day, last_day = get_first_week_dates(historic_states, min_date)
+        first_day, last_day = get_first_week_dates(vulns, min_date)
         first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
             result_vulns_by_week: VulnerabilitiesStatusByTimeRange = (
@@ -705,15 +705,15 @@ def get_last_vulnerabilities_date(
 
 
 def get_first_week_dates(
-    historic_states: Tuple[Tuple[VulnerabilityState, ...], ...],
+    vulns: Tuple[Vulnerability, ...],
     min_date: Optional[datetime] = None,
 ) -> Tuple[str, str]:
-    """Get first week vulnerabilities"""
+    """Get first week vulnerabilities."""
     first_date = min(
-        [
-            datetime.fromisoformat(historic_state[0].modified_date)
-            for historic_state in historic_states
-        ]
+        datetime.fromisoformat(
+            vuln.unreliable_indicators.unreliable_report_date
+        )
+        for vuln in vulns
     )
     if min_date:
         first_date = min_date
