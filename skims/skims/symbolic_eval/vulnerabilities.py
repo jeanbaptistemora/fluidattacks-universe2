@@ -1,4 +1,5 @@
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
     SkimsVulnerabilityMetadata,
     Vulnerability,
@@ -11,6 +12,9 @@ from model.graph_model import (
     NId,
 )
 import os
+from typing import (
+    Optional,
+)
 from utils import (
     ctx,
     fs,
@@ -22,7 +26,11 @@ from zone import (
 
 
 def create_vulnerability(
-    finding: FindingEnum, shard: GraphShard, n_id: NId, source_method: str
+    finding: FindingEnum,
+    shard: GraphShard,
+    n_id: NId,
+    source_method: str,
+    developer: Optional[DeveloperEnum],
 ) -> Vulnerability:
     node_attrs = shard.graph.nodes[n_id]
     line = node_attrs["label_l"]
@@ -55,6 +63,6 @@ def create_vulnerability(
                 ),
             ),
             source_method=source_method,
-            developer=None,
+            developer=developer,
         ),
     )
