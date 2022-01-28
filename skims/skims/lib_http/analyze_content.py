@@ -14,6 +14,7 @@ from model import (
     core_model,
 )
 from model.core_model import (
+    DeveloperEnum,
     FindingEnum,
 )
 from pathlib import (
@@ -77,6 +78,7 @@ def build_vulnerabilities(
     locations: List[Location],
     finding: core_model.FindingEnum,
     ctx: ContentCheckCtx,
+    developer: Optional[DeveloperEnum],
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -104,14 +106,13 @@ def build_vulnerabilities(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for location in locations
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _sub_resource_integrity(
     ctx: ContentCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -140,10 +141,10 @@ def _sub_resource_integrity(
         ctx=ctx,
         finding=FindingEnum.F086,
         locations=locations,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
     locations: List[Location] = []
 
@@ -164,6 +165,7 @@ def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=FindingEnum.F036,
         locations=locations,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
 
 

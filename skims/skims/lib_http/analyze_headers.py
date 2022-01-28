@@ -84,6 +84,7 @@ def _create_vulns(
     finding: core_model.FindingEnum,
     header: Optional[Header],
     ctx: HeaderCheckCtx,
+    developer: Optional[core_model.DeveloperEnum],
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -110,7 +111,7 @@ def _create_vulns(
                 source_method=(
                     f"{Path(source.co_filename).stem}.{source.co_name}"
                 ),
-                developer=None,
+                developer=developer,
             ),
         )
         for location in locations.locations
@@ -200,7 +201,6 @@ def _content_security_policy_script_src(
         locations.append("content_security_policy.missing_script_src")
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -220,10 +220,10 @@ def _content_security_policy(
         finding=core_model.FindingEnum.F043,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: asalgado@fluidattacks.com
 def _upgrade_insecure_requests(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -241,10 +241,10 @@ def _upgrade_insecure_requests(
         finding=core_model.FindingEnum.F043,
         header=head,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 
-#  developer: acuberos@fluidattacks.com
 def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
@@ -275,10 +275,10 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         finding=core_model.FindingEnum.F064,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.ANDRES_CUBEROS,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
@@ -295,10 +295,10 @@ def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         finding=core_model.FindingEnum.F023,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -343,6 +343,7 @@ def _referrer_policy(
         finding=core_model.FindingEnum.F071,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
@@ -351,7 +352,6 @@ def _is_sensitive_cookie(cookie_name: str) -> bool:
     return any(smell in cookie_name for smell in sensitive_names)
 
 
-#  developer: asalgado@fluidattacks.com
 def _set_cookie_httponly(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -374,10 +374,10 @@ def _set_cookie_httponly(
         finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
+        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 
-#  developer: asalgado@fluidattacks.com
 def _set_cookie_samesite(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -403,10 +403,10 @@ def _set_cookie_samesite(
         finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
+        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 
-#  developer: asalgado@fluidattacks.com
 def _set_cookie_secure(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -429,10 +429,10 @@ def _set_cookie_secure(
         finding=core_model.FindingEnum.F130,
         header=None if not headers else headers[0],
         ctx=ctx,
+        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -450,10 +450,10 @@ def _strict_transport_security(
         finding=core_model.FindingEnum.F131,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
-#  developer: jecheverri@fluidattacks.com
 def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     # FP: analize if the url starts with http
     if not ctx.url_ctx.url.startswith("http://"):  # NOSONAR
@@ -473,10 +473,10 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         finding=core_model.FindingEnum.F015,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
     )
 
 
-#  developer: jrestrepo@fluidattacks.com
 def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
@@ -492,6 +492,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         finding=core_model.FindingEnum.F132,
         header=header,
         ctx=ctx,
+        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
     )
 
 
