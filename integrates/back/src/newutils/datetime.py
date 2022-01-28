@@ -33,15 +33,9 @@ def format_comment_date(date_string: str) -> str:
 
 
 def format_justification_date(date_string: str) -> str:
-    comment_date = get_from_tz_str(date_string)
-    formatted_date = get_as_str(comment_date, date_format="%Y/%m/%d %H:%M")
+    just_date = get_datetime_from_iso_str(date_string)
+    formatted_date = get_as_str(just_date, date_format="%Y/%m/%d %H:%M")
     return formatted_date
-
-
-def get_from_tz_str(
-    date_str: str,
-) -> datetime:
-    return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S%z")
 
 
 def get_from_str(
