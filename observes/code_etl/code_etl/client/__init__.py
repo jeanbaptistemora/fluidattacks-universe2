@@ -1,4 +1,6 @@
 from code_etl.client import (
+    decoder,
+    encoder,
     query,
 )
 from code_etl.client._assert import (
@@ -22,9 +24,12 @@ from code_etl.objs import (
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
+from dataclasses import (
+    dataclass,
+)
 import logging
 from postgres_client.client import (
-    Client,
+    Client as DbClient,
 )
 from postgres_client.ids import (
     TableID,
@@ -69,34 +74,35 @@ from typing import (
     Optional,
     Type,
     TypeVar,
+    Union,
 )
 
 LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
 
-def _execute_query(client: Client, _query: Query) -> Cmd[None]:
+def _execute_query(client: DbClient, _query: Query) -> Cmd[None]:
     return to_cmd(lambda: client.cursor.execute_query(_query))
 
 
 def _execute_batch(
-    client: Client, _query: Query, args: FrozenList[SqlArgs]
+    client: DbClient, _query: Query, args: FrozenList[SqlArgs]
 ) -> Cmd[None]:
     return to_cmd(lambda: client.cursor.execute_batch(_query, list(args)))
 
 
-def _fetch_one(client: Client) -> Cmd[FrozenList[Any]]:
+def _fetch_one(client: DbClient) -> Cmd[FrozenList[Any]]:
     return to_cmd(client.cursor.fetch_one)
 
 
 def _fetch_many(
-    client: Client, chunk: int
+    client: DbClient, chunk: int
 ) -> Cmd[FrozenList[FrozenList[Any]]]:
     return to_cmd(lambda: client.cursor.fetch_many(chunk))
 
 
 def all_data_count(
-    client: Client, table: TableID, namespace: Optional[str]
+    client: DbClient, table: TableID, namespace: Optional[str]
 ) -> Cmd[ResultE[int]]:
     _query = (
         query.all_data_count(table, namespace)
@@ -111,7 +117,7 @@ def all_data_count(
 
 
 def _fetch_action(
-    client: Client, chunk: int
+    client: DbClient, chunk: int
 ) -> Maybe[FrozenList[ResultE[CommitTableRow]]]:
     try:
         result = _fetch_many(client, chunk).map(
@@ -126,13 +132,13 @@ def _fetch_action(
 
 
 def _fetch(
-    client: Client, chunk: int
+    client: DbClient, chunk: int
 ) -> Cmd[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
     return Cmd.from_cmd(lambda: _fetch_action(client, chunk))
 
 
 def _all_data(
-    client: Client, table: TableID, namespace: Maybe[str]
+    client: DbClient, table: TableID, namespace: Maybe[str]
 ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     # pylint: disable=unnecessary-lambda
     pkg_items = 2000
@@ -149,19 +155,19 @@ def _all_data(
 
 
 def namespace_data(
-    client: Client, table: TableID, namespace: str
+    client: DbClient, table: TableID, namespace: str
 ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     return _all_data(client, table, Maybe.from_value(namespace))
 
 
 def all_data_raw(
-    client: Client, table: TableID
+    client: DbClient, table: TableID
 ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
     return _all_data(client, table, Maybe.empty())
 
 
 def insert_rows(
-    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
+    client: DbClient, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> Cmd[None]:
     msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
     return msg.bind(
@@ -174,7 +180,7 @@ def insert_rows(
 
 
 def insert_unique_rows(
-    client: Client, table: TableID, rows: FrozenList[CommitTableRow]
+    client: DbClient, table: TableID, rows: FrozenList[CommitTableRow]
 ) -> Cmd[None]:
     msg = Cmd.from_cmd(
         lambda: LOG.debug("unique inserting %s rows", len(rows))
@@ -188,7 +194,7 @@ def insert_unique_rows(
     )
 
 
-def _fetch_one_result(client: Client, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
+def _fetch_one_result(client: DbClient, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
     return to_cmd(
         lambda: client.cursor.fetch_one()
         .map(lambda l: assert_key(l, 0))
@@ -196,12 +202,12 @@ def _fetch_one_result(client: Client, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
     )
 
 
-def _fetch_not_empty(client: Client) -> Cmd[bool]:
+def _fetch_not_empty(client: DbClient) -> Cmd[bool]:
     return to_cmd(lambda: client.cursor.fetch_one().map(bool))
 
 
 def get_context(
-    client: Client, table: TableID, repo: RepoId
+    client: DbClient, table: TableID, repo: RepoId
 ) -> Cmd[RepoContex]:
     last = _execute_query(client, query.last_commit_hash(table, repo)).bind(
         lambda _: _fetch_one_result(client, str)
@@ -220,7 +226,7 @@ def get_context(
 
 
 def register_repos(
-    client: Client, table: TableID, reg: FrozenList[RepoRegistration]
+    client: DbClient, table: TableID, reg: FrozenList[RepoRegistration]
 ) -> Cmd[None]:
     log_info = Cmd.from_cmd(lambda: LOG.info("register_repos %s", str(reg)))
     encoded = tuple(from_reg(r) for r in reg)
@@ -228,7 +234,7 @@ def register_repos(
 
 
 def insert_stamps(
-    client: Client, table: TableID, stamps: FrozenList[CommitStamp]
+    client: DbClient, table: TableID, stamps: FrozenList[CommitStamp]
 ) -> Cmd[None]:
     log_info = Cmd.from_cmd(
         lambda: LOG.info("inseting %s stamps", len(stamps))
@@ -246,7 +252,7 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
 
 
 def delta_update(
-    client: Client,
+    client: DbClient,
     table: TableID,
     old: CommitTableRow,
     new: CommitTableRow,
@@ -272,3 +278,40 @@ def delta_update(
             )
         )
     return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
+
+
+@dataclass(frozen=True)
+class Client:
+    # exposes utilities from and to DB using not raw objs
+    _db_client: DbClient
+    _table: TableID
+
+    def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
+        return all_data_count(self._db_client, self._table, namespace)
+
+    def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
+        return get_context(self._db_client, self._table, repo)
+
+    def register_repos(self, reg: FrozenList[RepoRegistration]) -> Cmd[None]:
+        return register_repos(self._db_client, self._table, reg)
+
+    def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
+        return insert_stamps(self._db_client, self._table, stamps)
+
+    def namespace_data(
+        self, namespace: str
+    ) -> Cmd[Stream[ResultE[Union[CommitStamp, RepoRegistration]]]]:
+        return namespace_data(self._db_client, self._table, namespace).map(
+            lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
+        )
+
+    def delta_update(
+        self, old: CommitStamp, new: CommitStamp, ignore_fa_hash: bool = True
+    ) -> Cmd[None]:
+        return delta_update(
+            self._db_client,
+            self._table,
+            encoder.from_stamp(old),
+            encoder.from_stamp(new),
+            ignore_fa_hash,
+        )
