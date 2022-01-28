@@ -40,20 +40,6 @@ def standard_name(name: str) -> str:
     return std
 
 
-def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
-    """Parse the users response into a list of users."""
-
-    def parse(user: JSON) -> Tuple[str, str]:
-        """Parse the user information from the raw response."""
-        user_id: str = str(user["user_id"])
-        user_name: str = standard_name(user["full_name"])
-        return (user_id, user_name)
-
-    users: JSON = json.loads(timedoctor_users_str)["users"]
-    users_list: List[Tuple[str, str]] = list(map(parse, users))
-    return users_list
-
-
 def ensure_200(status_code: Optional[int]) -> None:
     """Ensure status_code 200 or exit."""
     if not status_code == 200:
