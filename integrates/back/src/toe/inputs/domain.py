@@ -21,7 +21,8 @@ from newutils import (
     datetime as datetime_utils,
 )
 from roots.validations import (
-    validate_open_root,
+    validate_active_root,
+    validate_component,
 )
 from toe.inputs.types import (
     ToeInputAttributesToAdd,
@@ -50,13 +51,20 @@ async def add(
     entry_point: str,
     attributes: ToeInputAttributesToAdd,
 ) -> None:
-    if (
-        attributes.is_moving_toe_input is False
-        and attributes.unreliable_root_id
-    ):
-        await validate_open_root(
+    formatted_component = component
+    if component.endswith("/"):
+        formatted_component = component[:-1]
+    if attributes.is_moving_toe_input is False:
+        await validate_active_root(
             loaders, group_name, attributes.unreliable_root_id
         )
+        await validate_component(
+            loaders,
+            group_name,
+            attributes.unreliable_root_id,
+            formatted_component,
+        )
+
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at
     has_vulnerabilities = get_has_vulnerabilities(
@@ -67,7 +75,7 @@ async def add(
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,
         be_present_until=be_present_until,
-        component=component,
+        component=formatted_component,
         entry_point=entry_point,
         first_attack_at=first_attack_at,
         group_name=group_name,

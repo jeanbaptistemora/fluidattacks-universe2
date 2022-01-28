@@ -121,11 +121,26 @@ def is_url_unique(
     )
 
 
-def validate_component(root: RootItem, component: str) -> None:
-    if isinstance(root, GitRootItem) and (
-        component in set(root.state.environment_urls)
-    ):
-        return
+async def validate_active_root(
+    loaders: Any, group_name: str, root_id: str
+) -> None:
+    if root_id:
+        root: RootItem = await loaders.root.load((group_name, root_id))
+        if root.state.status == "ACTIVE":
+            return
+    raise InactiveRoot()
+
+
+async def validate_component(
+    loaders: Any, group_name: str, root_id: str, component: str
+) -> None:
+    root: RootItem = await loaders.root.load((group_name, root_id))
+    if isinstance(root, GitRootItem):
+        for environment_url in root.state.environment_urls:
+            if component == environment_url or component.startswith(
+                f"{environment_url}/"
+            ):
+                return
 
     if isinstance(root, URLRootItem):
         host = (
@@ -185,11 +200,3 @@ async def validate_git_credentials(
             await proc.communicate()
             if proc.returncode != 0:
                 raise InvalidGitCredentials()
-
-
-async def validate_open_root(
-    loaders: Any, group_name: str, root_id: str
-) -> None:
-    root: RootItem = await loaders.root.load((group_name, root_id))
-    if root.state.status != "ACTIVE":
-        raise InactiveRoot()
