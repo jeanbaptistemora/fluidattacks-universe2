@@ -1,8 +1,6 @@
 from code_etl.client import (
-    encoder,
-)
-from code_etl.client.v2 import (
     delta_update,
+    encoder,
 )
 from code_etl.objs import (
     CommitStamp,

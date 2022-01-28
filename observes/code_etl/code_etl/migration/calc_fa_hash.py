@@ -1,3 +1,8 @@
+from code_etl.client import (
+    all_data_count,
+    insert_rows,
+    namespace_data,
+)
 from code_etl.client.decoder import (
     decode_commit_data_2,
     decode_repo_registration,
@@ -5,11 +10,6 @@ from code_etl.client.decoder import (
 from code_etl.client.encoder import (
     CommitTableRow,
     from_row_obj,
-)
-from code_etl.client.v2 import (
-    all_data_count,
-    insert_rows,
-    namespace_data,
 )
 from code_etl.factories import (
     gen_fa_hash_2,

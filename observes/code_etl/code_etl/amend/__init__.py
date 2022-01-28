@@ -6,8 +6,6 @@ from code_etl.amend.core import (
 )
 from code_etl.client import (
     decoder,
-)
-from code_etl.client.v2 import (
     namespace_data,
 )
 from code_etl.mailmap import (

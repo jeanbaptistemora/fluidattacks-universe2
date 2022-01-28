@@ -1,4 +1,4 @@
-from code_etl.client.v2 import (
+from code_etl.client import (
     get_context,
 )
 from code_etl.mailmap import (
