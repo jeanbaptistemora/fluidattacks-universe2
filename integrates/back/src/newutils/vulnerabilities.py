@@ -1034,14 +1034,15 @@ def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
 
 
 def format_vulnerability_treatment(
-    treatment: Dict[str, Any]
+    treatment: Dict[str, Any],
+    default_date: str = datetime_utils.DEFAULT_STR,
 ) -> VulnerabilityTreatment:
     accepted_until: Optional[str] = get_optional("acceptance_date", treatment)
     if accepted_until:
         accepted_until = convert_to_iso_str(accepted_until)
     return VulnerabilityTreatment(
         modified_by=get_optional("user", treatment),
-        modified_date=convert_to_iso_str(treatment["date"]),
+        modified_date=convert_to_iso_str(treatment.get("date", default_date)),
         status=VulnerabilityTreatmentStatus(
             treatment["treatment"].replace(" ", "_").upper()
         ),
@@ -1080,17 +1081,18 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
     current_state: Dict[str, str] = item["historic_state"][-1]
     current_treatment: Optional[Dict[str, str]] = (
         item["historic_treatment"][-1]
-        if exists("historic_treatment", item)
+        if exists("historic_treatment", item) and item["historic_treatment"]
         else None
     )
     current_verification: Optional[Dict[str, str]] = (
         item["historic_verification"][-1]
         if exists("historic_verification", item)
+        and item["historic_verification"]
         else None
     )
     current_zero_risk: Optional[Dict[str, str]] = (
         item["historic_zero_risk"][-1]
-        if exists("historic_zero_risk", item)
+        if exists("historic_zero_risk", item) and item["historic_zero_risk"]
         else None
     )
 
@@ -1100,7 +1102,9 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         specific=item["specific"],
         state=format_vulnerability_state(current_state),
         treatment=(
-            format_vulnerability_treatment(current_treatment)
+            format_vulnerability_treatment(
+                current_treatment, item["historic_state"][0]["date"]
+            )
             if current_treatment
             else None
         ),

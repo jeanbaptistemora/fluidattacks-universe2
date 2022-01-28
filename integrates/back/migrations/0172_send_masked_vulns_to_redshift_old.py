@@ -6,8 +6,12 @@ part of the vuln migration to single table.
 
 Store them in redshift.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-01-27 at 20:00:40 UTC
+Finalization Time:  2022-01-28 at 02:49:27 UTC
+
+Execution Time:     2022-01-28 at 20:43:20 UTC
+Finalization Time:  2022-01-28 at 21:51:09 UTC
+
 """
 
 from aioextensions import (
@@ -190,7 +194,9 @@ def _format_treatment(
     return tuple(
         adjust_historic_dates(
             tuple(
-                format_vulnerability_treatment(treatment)
+                format_vulnerability_treatment(
+                    treatment, vulnerability["historic_state"][0]["date"]
+                )
                 for treatment in get_optional(
                     "historic_treatment", vulnerability, tuple()
                 )
