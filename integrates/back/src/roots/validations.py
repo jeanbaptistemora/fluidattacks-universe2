@@ -27,7 +27,6 @@ import os
 import re
 import tempfile
 from typing import (
-    Any,
     List,
     Tuple,
 )
@@ -121,20 +120,13 @@ def is_url_unique(
     )
 
 
-async def validate_active_root(
-    loaders: Any, group_name: str, root_id: str
-) -> None:
-    if root_id:
-        root: RootItem = await loaders.root.load((group_name, root_id))
-        if root.state.status == "ACTIVE":
-            return
+def validate_active_root(root: RootItem) -> None:
+    if root.state.status == "ACTIVE":
+        return
     raise InactiveRoot()
 
 
-async def validate_component(
-    loaders: Any, group_name: str, root_id: str, component: str
-) -> None:
-    root: RootItem = await loaders.root.load((group_name, root_id))
+def validate_component(root: RootItem, component: str) -> None:
     if isinstance(root, GitRootItem):
         for environment_url in root.state.environment_urls:
             if component == environment_url or component.startswith(

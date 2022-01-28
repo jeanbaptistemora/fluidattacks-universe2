@@ -55,15 +55,11 @@ async def add(
     if component.endswith("/"):
         formatted_component = component[:-1]
     if attributes.is_moving_toe_input is False:
-        await validate_active_root(
-            loaders, group_name, attributes.unreliable_root_id
+        root: RootItem = await loaders.root.load(
+            (group_name, attributes.unreliable_root_id)
         )
-        await validate_component(
-            loaders,
-            group_name,
-            attributes.unreliable_root_id,
-            formatted_component,
-        )
+        validate_active_root(root)
+        validate_component(root, formatted_component)
 
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at

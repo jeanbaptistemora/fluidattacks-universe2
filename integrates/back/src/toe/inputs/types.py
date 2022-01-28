@@ -8,12 +8,12 @@ from typing import (
 
 
 class ToeInputAttributesToAdd(NamedTuple):
-    attacked_at: Optional[datetime]
-    attacked_by: str
     be_present: bool
-    first_attack_at: Optional[datetime]
-    seen_first_time_by: str
     unreliable_root_id: str
+    attacked_at: Optional[datetime] = None
+    attacked_by: str = ""
+    first_attack_at: Optional[datetime] = None
+    seen_first_time_by: str = ""
     has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
     is_moving_toe_input: bool = False
