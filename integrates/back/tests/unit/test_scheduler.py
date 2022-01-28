@@ -164,6 +164,9 @@ async def test_get_accepted_vulns() -> None:
         findings_severity[vulnerability.finding_id]
         for vulnerability in vulnerabilities
     ]
+    historic_states = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
             [vuln.id for vuln in vulnerabilities]
@@ -172,10 +175,10 @@ async def test_get_accepted_vulns() -> None:
     test_data = sum(
         [
             update_indicators.get_accepted_vulns(
-                vulnerability, historic_treatment, severity, last_day
+                historic_state, historic_treatment, severity, last_day
             ).vulnerabilities
-            for vulnerability, historic_treatment, severity in zip(
-                vulnerabilities,
+            for historic_state, historic_treatment, severity in zip(
+                historic_states,
                 historic_treatments,
                 vulnerabilities_severity,
             )
@@ -193,8 +196,11 @@ async def test_get_by_time_range() -> None:
     )
     finding: Finding = await loaders.finding.load(vulnerability.finding_id)
     vulnerability_severity = get_severity_score(finding.severity)
+    historic_state = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
     test_data = update_indicators.get_by_time_range(
-        vulnerability,
+        historic_state,
         VulnerabilityStateStatus.OPEN,
         vulnerability_severity,
         last_day,

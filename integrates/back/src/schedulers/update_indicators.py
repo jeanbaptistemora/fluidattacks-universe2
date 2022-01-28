@@ -568,7 +568,7 @@ def create_date(first_date: str) -> str:
 
 
 def get_accepted_vulns(
-    vulnerability: Vulnerability,
+    historic_state: Tuple[VulnerabilityState, ...],
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
     last_day: str,
@@ -586,7 +586,7 @@ def get_accepted_vulns(
     )
     if treatments and treatments[-1].status in accepted_treatments:
         return get_by_time_range(
-            vulnerability,
+            historic_state,
             VulnerabilityStateStatus.OPEN,
             severity,
             last_day,
@@ -646,20 +646,26 @@ def get_open_vulnerabilities(
 
 
 def get_by_time_range(
-    vulnerability: Vulnerability,
+    historic_state: Tuple[VulnerabilityState, ...],
     status: VulnerabilityStateStatus,
     severity: Decimal,
     last_day: str,
     min_date: Optional[str] = None,
 ) -> VulnerabilityStatusByTimeRange:
-    report_date = vulnerability.unreliable_indicators.unreliable_report_date
-    if (
-        datetime.fromisoformat(vulnerability.state.modified_date)
+    states = tuple(
+        state
+        for state in historic_state
+        if datetime.fromisoformat(state.modified_date)
         <= datetime_utils.get_from_str(last_day)
-        and vulnerability.state.status == status
+    )
+    if (
+        states
+        and datetime.fromisoformat(states[-1].modified_date)
+        <= datetime_utils.get_from_str(last_day)
+        and states[-1].status == status
         and not (
             min_date
-            and datetime.fromisoformat(report_date)
+            and datetime.fromisoformat(historic_state[0].modified_date)
             < datetime_utils.get_from_str(min_date)
         )
     ):
@@ -908,22 +914,22 @@ def get_status_vulns_by_time_range(
     ]
     vulnerabilities_closed = [
         get_by_time_range(
-            vulnerability,
+            historic_state,
             VulnerabilityStateStatus.CLOSED,
             severity,
             last_day,
             min_date,
         )
-        for vulnerability, severity in zip(
-            vulnerabilities, vulnerabilities_severity
+        for historic_state, severity in zip(
+            vulnerabilities_historic_states, vulnerabilities_severity
         )
     ]
     vulnerabilities_accepted = [
         get_accepted_vulns(
-            vulnerability, historic_treatment, severity, last_day, min_date
+            historic_state, historic_treatment, severity, last_day, min_date
         )
-        for vulnerability, historic_treatment, severity in zip(
-            vulnerabilities,
+        for historic_state, historic_treatment, severity in zip(
+            vulnerabilities_historic_states,
             vulnerabilities_historic_treatments,
             vulnerabilities_severity,
         )
