@@ -1,8 +1,10 @@
 import click
 from code_etl import (
-    amend,
     compute_bills as bills,
     upload_repo,
+)
+from code_etl.amend.actions import (
+    start as start_amend,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -84,7 +86,7 @@ def amend_authors(
     mailmap: Optional[str],
     namespace: str,
 ) -> NoReturn:
-    amend.start(
+    start_amend(
         ctx.db_id,
         ctx.creds,
         _to_table((schema, table)),
