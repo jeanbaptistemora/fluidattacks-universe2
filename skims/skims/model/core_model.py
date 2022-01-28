@@ -1687,6 +1687,26 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
+    F267: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F267",
+        cwe=250,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[95, 97, 186],
+        score=cvss3_model.Score(
+            attack_complexity=cvss3_model.AttackComplexity.low,
+            attack_vector=cvss3_model.AttackVector.local,
+            availability_impact=cvss3_model.AvailabilityImpact.low,
+            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
+            exploitability=cvss3_model.Exploitability.poc,
+            integrity_impact=cvss3_model.IntegrityImpact.low,
+            privileges_required=cvss3_model.PrivilegesRequired.low,
+            remediation_level=cvss3_model.RemediationLevel.official_fix,
+            report_confidence=cvss3_model.ReportConfidence.confirmed,
+            severity_scope=cvss3_model.SeverityScope.unchanged,
+            user_interaction=cvss3_model.UserInteraction.none,
+        ),
+    )
     F268: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F268",

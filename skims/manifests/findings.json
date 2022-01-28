@@ -591,6 +591,14 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
+  "F267": {
+    "EN": {
+      "title": "267. Excessive Privileges - Kubernetes"
+    },
+    "ES": {
+      "title": "267. Excessive Privileges - Kubernetes"
+    }
+  },
   "F268": {
     "EN": {
       "title": "268. Insecure service configuration - Webview"
