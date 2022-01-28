@@ -37,7 +37,7 @@ from utils.function import (
     get_node_by_keys,
 )
 
-WILDCARD_ACTION: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
+WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
 WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
 
 
@@ -170,7 +170,7 @@ def _cfn_iam_has_privileges_over_iam_iter_vulns(
 
 
 def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
-    wildcard_action: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
+    wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
     wildcard_resource: Pattern = re.compile(r"^(\*)$")
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":
