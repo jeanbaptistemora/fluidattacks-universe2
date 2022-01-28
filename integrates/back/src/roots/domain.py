@@ -12,9 +12,6 @@ from custom_exceptions import (
     RepeatedRoot,
     RootNotFound,
 )
-from custom_types import (
-    Group,
-)
 from datetime import (
     datetime,
 )
@@ -906,47 +903,6 @@ async def get_last_status_update(
             if state.status != current_status
         ),
         historic_state[0].modified_date,
-    )
-
-
-def _format_input_url(url: str) -> str:
-    return (
-        url.strip()
-        .replace("https://", "")
-        .replace("http://", "")
-        .replace("www.", "")
-        .split("/")[0]
-    )
-
-
-def get_unreliable_root_by_component(
-    component: str, group_roots: Tuple[RootItem, ...], group: Group
-) -> Optional[RootItem]:
-    if not component:
-        return None
-
-    formatted_component = _format_input_url(component)
-    has_black_service = group["service"] == "BLACK"
-    has_white_service = group["service"] == "WHITE"
-    return next(
-        (
-            root
-            for root in group_roots
-            if (
-                has_white_service
-                and isinstance(root, GitRootItem)
-                and (
-                    formatted_component
-                    in set(map(_format_input_url, root.state.environment_urls))
-                )
-            )
-            or (
-                has_black_service
-                and isinstance(root, URLRootItem)
-                and _format_input_url(root.state.host) == formatted_component
-            )
-        ),
-        None,
     )
 
 
