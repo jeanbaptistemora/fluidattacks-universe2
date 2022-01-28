@@ -4103,4 +4103,52 @@
     "CM_L2-3_4_3":
       title: System Change Management
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_5":
+      title: Access Restrictions for Change
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_6":
+      title: Least Functionality
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_7":
+      title: Nonessential Functionality
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_8":
+      title: Application Execution Policy
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_9":
+      title: User-Installed Software
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L1-3_5_2":
+      title: Authentication
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_3":
+      title: Multifactor Authentication
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_4":
+      title: Replay-Resistant Authentication
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_5":
+      title: Identifier Reuse
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_6":
+      title: Identifier Handling
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_7":
+      title: Password Complexity
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_8":
+      title: Password Reuse
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_9":
+      title: Temporary Passwords
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "IA_L2-3_5_10":
+      title: Cryptographically-Protected Passwords
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MA_L2-3_7_3":
+      title: Equipment Sanitization
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MA_L2-3_7_4":
+      title: Media Inspection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
   metadata: {}
