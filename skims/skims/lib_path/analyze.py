@@ -4,6 +4,9 @@ from concurrent.futures.process import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from ctx import (
+    CTX,
+)
 from functools import (
     partial,
 )
@@ -71,9 +74,6 @@ from typing import (
     List,
     Set,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.fs import (
     generate_file_raw_content_blocking,

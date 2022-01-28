@@ -15,6 +15,9 @@ from bs4 import (
     BeautifulSoup,
 )
 import contextlib
+from ctx import (
+    CTX,
+)
 import inspect
 import lxml.etree  # nosec
 from model import (
@@ -34,9 +37,6 @@ from typing import (
     List,
     NamedTuple,
     Optional,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.string import (
     make_snippet,

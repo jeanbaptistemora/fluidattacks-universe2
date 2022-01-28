@@ -2,6 +2,10 @@ from concurrent.futures import (
     ProcessPoolExecutor,
     ThreadPoolExecutor,
 )
+from ctx import (
+    CTX,
+    TREE_SITTER_PARSERS,
+)
 from functools import (
     partial,
 )
@@ -53,10 +57,6 @@ from typing import (
 )
 from utils import (
     graph as g,
-)
-from utils.ctx import (
-    CTX,
-    TREE_SITTER_PARSERS,
 )
 from utils.encodings import (
     json_dump,

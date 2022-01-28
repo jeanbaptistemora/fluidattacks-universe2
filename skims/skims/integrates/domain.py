@@ -1,6 +1,9 @@
 from aiogqlc.client import (
     GraphQLClient,
 )
+from ctx import (
+    CTX,
+)
 from datetime import (
     datetime,
 )
@@ -28,9 +31,6 @@ from typing import (
     Optional,
     Tuple,
     Union,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.encodings import (
     yaml_dumps,

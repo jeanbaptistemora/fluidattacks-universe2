@@ -3,6 +3,9 @@ from aioextensions import (
     CPU_CORES,
 )
 import bs4
+from ctx import (
+    CTX,
+)
 from datetime import (
     datetime,
 )
@@ -36,9 +39,6 @@ from typing import (
     Tuple,
 )
 import urllib.parse
-from utils.ctx import (
-    CTX,
-)
 from utils.function import (
     rate_limited,
     shield,

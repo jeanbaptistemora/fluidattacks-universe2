@@ -3,6 +3,11 @@ from PIL import (
     ImageDraw,
     ImageFont,
 )
+from ctx import (
+    FLUID_WATERMARK,
+    ROBOTO_FONT,
+    STATE_FOLDER_DEBUG,
+)
 from io import (
     BytesIO,
 )
@@ -23,11 +28,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-)
-from utils.ctx import (
-    FLUID_WATERMARK,
-    ROBOTO_FONT,
-    STATE_FOLDER_DEBUG,
 )
 from utils.image import (
     clarify_blocking,

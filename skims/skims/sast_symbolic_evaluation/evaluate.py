@@ -1,6 +1,9 @@
 from copy import (
     deepcopy,
 )
+from ctx import (
+    CTX,
+)
 from itertools import (
     chain,
 )
@@ -64,9 +67,6 @@ from typing import (
 )
 from utils import (
     graph as g,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.encodings import (
     json_dump,

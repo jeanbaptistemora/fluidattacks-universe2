@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+from ctx import (
+    CTX,
+)
 from lib_ssl import (
     analyze_protocol,
 )
@@ -24,9 +27,6 @@ from typing import (
     List,
     Set,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.function import (
     shield,

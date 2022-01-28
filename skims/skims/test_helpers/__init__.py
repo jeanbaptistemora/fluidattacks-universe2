@@ -1,10 +1,10 @@
+from ctx import (
+    CTX,
+)
 from model import (
     core_model,
 )
 import os
-from utils.ctx import (
-    CTX,
-)
 
 
 def create_test_context(debug: bool = True) -> None:

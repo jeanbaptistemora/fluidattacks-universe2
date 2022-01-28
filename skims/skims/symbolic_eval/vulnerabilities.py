@@ -1,3 +1,6 @@
+from ctx import (
+    CTX,
+)
 from model.core_model import (
     DeveloperEnum,
     FindingEnum,
@@ -13,7 +16,6 @@ from model.graph_model import (
 )
 import os
 from utils import (
-    ctx,
     fs,
     string,
 )
@@ -37,12 +39,12 @@ def create_vulnerability(
     desc_key = params.desc_key
     desc_params = params.desc_params
 
-    full_path = os.path.join(ctx.CTX.config.working_dir, shard.path)
+    full_path = os.path.join(CTX.config.working_dir, shard.path)
 
     return Vulnerability(
         finding=finding,
         kind=VulnerabilityKindEnum.LINES,
-        namespace=ctx.CTX.config.namespace,
+        namespace=CTX.config.namespace,
         state=VulnerabilityStateEnum.OPEN,
         what=shard.path,
         where=str(line),
@@ -50,7 +52,7 @@ def create_vulnerability(
             cwe=finding.value.cwe,
             description=(
                 f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
-                f"{ctx.CTX.config.namespace}/{shard.path}"
+                f"{CTX.config.namespace}/{shard.path}"
             ),
             snippet=string.make_snippet(
                 content=fs.sync_get_file_content(full_path),

@@ -1,3 +1,6 @@
+from ctx import (
+    CTX,
+)
 import inspect
 from itertools import (
     chain,
@@ -30,9 +33,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.string import (
     make_snippet,

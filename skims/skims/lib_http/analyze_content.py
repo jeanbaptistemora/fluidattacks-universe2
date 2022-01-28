@@ -6,6 +6,9 @@ from bs4.element import (
     Tag,
 )
 import contextlib
+from ctx import (
+    CTX,
+)
 import inspect
 from lib_http.types import (
     URLContext,
@@ -34,9 +37,6 @@ from typing import (
 )
 from urllib.parse import (
     urlparse,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.string import (
     make_snippet,

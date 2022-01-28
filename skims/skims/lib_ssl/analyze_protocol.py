@@ -1,4 +1,7 @@
 # pylint: disable=too-many-lines
+from ctx import (
+    CTX,
+)
 import inspect
 from lib_ssl.as_string import (
     snippet,
@@ -50,9 +53,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.http import (
     request_blocking,

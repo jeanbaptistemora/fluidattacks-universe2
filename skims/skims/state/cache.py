@@ -2,6 +2,10 @@ from aioextensions import (
     in_thread,
 )
 import asyncio
+from ctx import (
+    CTX,
+    STATE_FOLDER,
+)
 import functools
 from os import (
     makedirs,
@@ -23,10 +27,6 @@ from typing import (
     cast,
     Optional,
     TypeVar,
-)
-from utils.ctx import (
-    CTX,
-    STATE_FOLDER,
 )
 
 # Constants

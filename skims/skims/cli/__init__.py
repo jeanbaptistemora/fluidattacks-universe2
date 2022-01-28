@@ -3,6 +3,10 @@ from aioextensions import (
     run,
 )
 import click
+from ctx import (
+    CTX,
+    LEGAL,
+)
 from functools import (
     partial,
 )
@@ -21,10 +25,6 @@ from typing import (
 from utils.bugs import (
     add_bugsnag_data,
     initialize_bugsnag,
-)
-from utils.ctx import (
-    CTX,
-    LEGAL,
 )
 from utils.env import (
     guess_environment,

@@ -1,3 +1,9 @@
+from ctx import (
+    CRITERIA_REQUIREMENTS,
+    CRITERIA_VULNERABILITIES,
+    CTX,
+    STATIC,
+)
 from enum import (
     Enum,
 )
@@ -11,12 +17,6 @@ from typing import (
     Any,
     Dict,
     Optional,
-)
-from utils.ctx import (
-    CRITERIA_REQUIREMENTS,
-    CRITERIA_VULNERABILITIES,
-    CTX,
-    STATIC,
 )
 
 
@@ -71,7 +71,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
                 "integrity",
                 "availability",
             ):
-                translations[f"criteria.vulns.{code}.score.{field}"] = dict(
+                translations[f"criteria.vulns.{code}.{field}"] = dict(
                     EN=data["score"]["base"][field]
                 )
 
@@ -80,7 +80,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
                 "remediation_level",
                 "report_confidence",
             ):
-                translations[f"criteria.vulns.{code}.score.{field}"] = dict(
+                translations[f"criteria.vulns.{code}.{field}"] = dict(
                     EN=data["score"]["temporal"][field]
                 )
 

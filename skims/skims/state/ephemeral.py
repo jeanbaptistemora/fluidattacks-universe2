@@ -4,6 +4,9 @@ from aioextensions import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from ctx import (
+    STATE_FOLDER,
+)
 from os import (
     cpu_count,
     makedirs,
@@ -29,9 +32,6 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
-)
-from utils.ctx import (
-    STATE_FOLDER,
 )
 from utils.fs import (
     mkdir,

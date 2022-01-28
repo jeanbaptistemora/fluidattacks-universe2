@@ -1,6 +1,9 @@
 from aioextensions import (
     run_decorator,
 )
+from ctx import (
+    CTX,
+)
 from integrates.dal import (
     get_group_level_role,
 )
@@ -16,9 +19,6 @@ from model import (
 import pytest
 from textwrap import (
     dedent,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.repositories import (
     get_repo_head_hash,

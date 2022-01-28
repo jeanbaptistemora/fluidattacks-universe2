@@ -2,14 +2,14 @@ from aioextensions import (
     in_process,
 )
 import csv
+from ctx import (
+    CIPHER_SUITES_PATH,
+)
 import hashlib
 import hmac
 from typing import (
     Dict,
     Optional,
-)
-from utils.ctx import (
-    CIPHER_SUITES_PATH,
 )
 
 # Constants

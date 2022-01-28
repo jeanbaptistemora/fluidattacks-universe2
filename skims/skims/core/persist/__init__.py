@@ -7,6 +7,9 @@ from aiogqlc.client import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from ctx import (
+    CTX,
+)
 from integrates.dal import (
     do_update_evidence,
     do_update_evidence_description,
@@ -43,9 +46,6 @@ from typing import (
     Dict,
     Optional,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.logs import (
     log,

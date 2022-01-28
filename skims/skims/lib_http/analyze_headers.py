@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ctx import (
+    CTX,
+)
 from http_headers import (
     as_string,
     content_security_policy,
@@ -40,9 +43,6 @@ from typing import (
     List,
     NamedTuple,
     Optional,
-)
-from utils.ctx import (
-    CTX,
 )
 from zone import (
     t,

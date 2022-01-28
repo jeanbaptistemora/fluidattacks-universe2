@@ -5,6 +5,10 @@ from core.persist import (
     persist,
 )
 import csv
+from ctx import (
+    CTX,
+    MANAGER,
+)
 from datetime import (
     datetime,
 )
@@ -42,10 +46,6 @@ from typing import (
 )
 from utils.bugs import (
     add_bugsnag_data,
-)
-from utils.ctx import (
-    CTX,
-    MANAGER,
 )
 from utils.logs import (
     configure as configure_logs,

@@ -2,6 +2,9 @@ from aioextensions import (
     in_thread,
 )
 import bugsnag
+from ctx import (
+    CTX,
+)
 import logging
 import os
 import sys
@@ -17,9 +20,6 @@ from typing import (
 )
 from utils.bugs import (
     META as BUGS_META,
-)
-from utils.ctx import (
-    CTX,
 )
 import watchtower
 

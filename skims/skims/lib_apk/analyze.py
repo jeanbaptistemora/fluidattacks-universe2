@@ -1,6 +1,9 @@
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from ctx import (
+    CTX,
+)
 from lib_apk import (
     analyze_bytecodes,
 )
@@ -30,9 +33,6 @@ from typing import (
     Iterable,
     Set,
     Tuple,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.fs import (
     resolve_paths,

@@ -1,3 +1,8 @@
+from ctx import (
+    CTX,
+    STATIC,
+    TOOLS_SEMVER_MATCH,
+)
 import json
 from model import (
     core_model,
@@ -8,11 +13,6 @@ from sys import (
 from typing import (
     Dict,
     List,
-)
-from utils.ctx import (
-    CTX,
-    STATIC,
-    TOOLS_SEMVER_MATCH,
 )
 from utils.logs import (
     log_blocking,

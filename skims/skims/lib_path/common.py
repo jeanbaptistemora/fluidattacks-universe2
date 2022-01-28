@@ -2,6 +2,9 @@ import ast
 from contextlib import (
     suppress,
 )
+from ctx import (
+    CTX,
+)
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -48,9 +51,6 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-)
-from utils.ctx import (
-    CTX,
 )
 from utils.function import (
     shield,
