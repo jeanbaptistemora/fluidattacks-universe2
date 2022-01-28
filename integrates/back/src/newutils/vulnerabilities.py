@@ -889,6 +889,7 @@ def format_vulnerability_metadata_item(
         "external_bts": metadata.bug_tracking_system_url,
         "commit_hash": metadata.commit,
         "skims_method": metadata.skims_method,
+        "developer": metadata.developer,
         "severity": metadata.custom_severity,
         "repo_nickname": metadata.repo,
         "specific": metadata.specific,
@@ -990,6 +991,8 @@ def format_vulnerability_item(  # noqa: MC0001
         item["repo_nickname"] = vulnerability.repo
     if vulnerability.skims_method:
         item["skims_method"] = vulnerability.skims_method
+    if vulnerability.developer:
+        item["developer"] = vulnerability.developer
     if vulnerability.stream:
         item["stream"] = ",".join(vulnerability.stream)
     if vulnerability.tags:
@@ -1120,6 +1123,7 @@ def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
         hash=None,
         repo=get_optional("repo_nickname", item),
         skims_method=get_optional("skims_method", item),
+        developer=get_optional("developer", item),
         stream=item["stream"].split(",") if exists("stream", item) else None,
         tags=sorted(item["tag"]) if exists("tag", item) else None,
         verification=(

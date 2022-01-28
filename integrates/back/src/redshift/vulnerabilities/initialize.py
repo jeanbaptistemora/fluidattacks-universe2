@@ -32,6 +32,7 @@ async def _initialize_metadata_table() -> None:
                 custom_severity INTEGER,
                 finding_id VARCHAR NOT NULL,
                 skims_method VARCHAR,
+                developer VARCHAR,
                 type VARCHAR NOT NULL,
 
                 UNIQUE (

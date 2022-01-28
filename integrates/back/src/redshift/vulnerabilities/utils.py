@@ -22,6 +22,7 @@ def format_row_metadata(
         custom_severity=vulnerability.custom_severity,
         finding_id=vulnerability.finding_id,
         skims_method=vulnerability.skims_method,
+        developer=vulnerability.developer,
         type=vulnerability.type.value,
     )
 
