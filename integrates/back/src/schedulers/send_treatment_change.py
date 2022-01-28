@@ -26,7 +26,10 @@ from vulnerabilities import (
 
 
 async def send_group_treatment_change(
-    loaders: Dataloaders, group_name: str, min_date: datetime
+    loaders: Dataloaders,
+    group_name: str,
+    min_date: datetime,
+    modified_by: str,
 ) -> None:
     group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -39,6 +42,7 @@ async def send_group_treatment_change(
             finding.title,
             group_name,
             min_date,
+            modified_by,
         )
         for finding in group_findings
     )
@@ -48,9 +52,15 @@ async def send_treatment_change() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await groups_domain.get_active_groups()
     min_date = datetime_utils.get_now_minus_delta(days=1)
+    user_email = "integrates@fluidattacks.com"
     await collect(
         [
-            send_group_treatment_change(loaders, group_name, min_date)
+            send_group_treatment_change(
+                loaders,
+                group_name,
+                min_date,
+                user_email,
+            )
             for group_name in groups
         ],
         workers=20,

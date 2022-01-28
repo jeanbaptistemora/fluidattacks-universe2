@@ -376,12 +376,13 @@ async def handle_vulnerabilities_acceptance(
     await collect(coroutines)
 
 
-async def send_treatment_change_mail(
+async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
     loaders: Any,
     finding_id: str,
     finding_title: str,
     group_name: str,
     min_date: Datetime,
+    modified_by: str,
 ) -> bool:
     vulns: Tuple[
         Vulnerability, ...
@@ -401,6 +402,7 @@ async def send_treatment_change_mail(
             group_name=group_name,
             treatment=treatment,
             updated_vulns=tuple(change[1] for change in treatments_change),
+            modified_by=modified_by,
         )
     return bool(treatments)
 

@@ -28,6 +28,7 @@ async def send_mail_updated_treatment(
     group_name: str,
     treatment: str,
     vulnerabilities: str,
+    modified_by: str,
 ) -> None:
     group_loader = loaders.group
     group = await group_loader.load(group_name)
@@ -40,6 +41,7 @@ async def send_mail_updated_treatment(
     managers = await group_access_domain.get_managers(group_name)
     email_context = {
         "group": group_name,
+        "responsible": modified_by,
         "treatment": treatment,
         "finding": finding_title,
         "vulnerabilities": vulnerabilities.splitlines(),

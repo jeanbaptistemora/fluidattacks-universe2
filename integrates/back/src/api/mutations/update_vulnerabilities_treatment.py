@@ -109,6 +109,7 @@ async def mutate(
             title,
             group_name,
             datetime.now(timezone.utc) - timedelta(days=1),
+            user_email,
         )
 
     except APP_EXCEPTIONS:

@@ -711,6 +711,7 @@ async def should_send_update_treatment(
     group_name: str,
     treatment: str,
     updated_vulns: Tuple[Vulnerability, ...],
+    modified_by: str,
 ) -> None:
     translations = {"IN_PROGRESS": "In Progress"}
     if treatment in translations:
@@ -725,6 +726,7 @@ async def should_send_update_treatment(
                 group_name=group_name,
                 treatment=translations[treatment],
                 vulnerabilities=mail_content,
+                modified_by=modified_by,
             )
         )
 
