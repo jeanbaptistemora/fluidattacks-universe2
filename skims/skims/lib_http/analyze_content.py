@@ -78,7 +78,7 @@ def build_vulnerabilities(
     locations: List[Location],
     finding: core_model.FindingEnum,
     ctx: ContentCheckCtx,
-    developer: Optional[DeveloperEnum],
+    developer: DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back

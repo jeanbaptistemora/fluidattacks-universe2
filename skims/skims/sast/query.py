@@ -52,7 +52,7 @@ def get_vulnerability_from_n_id(
     graph_shard: graph_model.GraphShard,
     n_id: str,
     source_method: str,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
     meta_attrs_label_path = graph_shard.path
@@ -100,7 +100,7 @@ def get_vulnerabilities_from_n_ids(
     desc_params: Dict[str, str],
     finding: core_model.FindingEnum,
     graph_shard_nodes: graph_model.GraphShardNodes,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -136,7 +136,7 @@ def get_vulnerabilities_from_syntax(
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     possible_syntax_steps: graph_model.SyntaxSteps,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
     return get_vulnerabilities_from_n_ids(
@@ -161,7 +161,7 @@ def shard_n_id_query_lazy(
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     syntax_steps_n_id: PossibleSyntaxStepsForUntrustedNId,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
     for steps in syntax_steps_n_id.values():
         yield get_vulnerabilities_from_syntax(finding, shard, steps, developer)
@@ -171,7 +171,7 @@ def shard_query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
     possible_steps_finding: Optional[PossibleSyntaxStepsForFinding] = None,
 ) -> Iterator[core_model.Vulnerabilities]:
 
@@ -189,7 +189,7 @@ def shard_n_id_query(
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     n_id: str,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     steps = get_possible_syntax_steps_for_n_id(
         graph_db,
@@ -209,7 +209,7 @@ def shard_query(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
         chain.from_iterable(
@@ -221,7 +221,7 @@ def shard_query(
 def query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
     if CTX.debug:
         all_possible_steps = get_all_possible_syntax_steps(graph_db, finding)
@@ -248,7 +248,7 @@ def analyze_lazy(
 def query(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable(query_lazy(graph_db, finding, developer)))
 

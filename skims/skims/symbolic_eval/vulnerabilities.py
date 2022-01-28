@@ -12,9 +12,6 @@ from model.graph_model import (
     NId,
 )
 import os
-from typing import (
-    Optional,
-)
 from utils import (
     ctx,
     fs,
@@ -30,7 +27,7 @@ def create_vulnerability(
     shard: GraphShard,
     n_id: NId,
     source_method: str,
-    developer: Optional[DeveloperEnum],
+    developer: DeveloperEnum,
 ) -> Vulnerability:
     node_attrs = shard.graph.nodes[n_id]
     line = node_attrs["label_l"]

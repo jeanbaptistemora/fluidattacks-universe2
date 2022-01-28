@@ -81,7 +81,7 @@ def _create_vulns(
     ctx: APKCheckCtx,
     finding: core_model.FindingEnum,
     locations: Locations,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back

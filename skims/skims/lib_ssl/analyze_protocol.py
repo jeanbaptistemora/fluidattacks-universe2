@@ -128,7 +128,7 @@ def _create_ssl_vuln(
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],
     finding: core_model.FindingEnum,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
     check_kwargs: Optional[Dict[str, str]] = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(

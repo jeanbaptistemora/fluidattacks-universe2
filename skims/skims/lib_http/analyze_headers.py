@@ -84,7 +84,7 @@ def _create_vulns(
     finding: core_model.FindingEnum,
     header: Optional[Header],
     ctx: HeaderCheckCtx,
-    developer: Optional[core_model.DeveloperEnum],
+    developer: core_model.DeveloperEnum,
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back

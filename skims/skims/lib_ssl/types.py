@@ -168,7 +168,7 @@ class SSLVulnerability(NamedTuple):
     ssl_settings: SSLSettings
     server_response: Optional[SSLServerResponse]
     finding: FindingEnum
-    developer: Optional[DeveloperEnum]
+    developer: DeveloperEnum
 
     def get_context(self) -> SSLContext:
         return self.ssl_settings.context

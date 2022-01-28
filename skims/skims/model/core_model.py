@@ -2233,7 +2233,7 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     description: str
     snippet: str
     source_method: str
-    developer: Optional[DeveloperEnum]
+    developer: DeveloperEnum
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):
