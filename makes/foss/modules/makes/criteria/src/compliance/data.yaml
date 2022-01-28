@@ -4199,4 +4199,52 @@
     "SC_L1-3_13_1":
       title: Boundary Protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L1-3_13_5":
+      title: Public-Access System Separation
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_3":
+      title: Role Separation
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_4":
+      title: Shared Resource Control
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_6":
+      title: Network Communication by Exception
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_7":
+      title: Split Tunneling
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_8":
+      title: Data in Transit
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_9":
+      title: Connections Termination
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_10":
+      title: Key Management
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_13":
+      title: Mobile Code
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_15":
+      title: Communications Authenticity
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L2-3_13_16":
+      title: Data at Rest
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SI_L1-3_14_2":
+      title: Malicious Code Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SI_L1-3_14_4":
+      title: Update Malicious Code Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SI_L1-3_14_5":
+      title: System & File Scanning
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SI_L2-3_14_3":
+      title: Security Alerts & Advisories
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SI_L2-3_14_7":
+      title: Identify Unauthorized Use
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
   metadata: {}
