@@ -1,16 +1,9 @@
 from code_etl.client import (
-    insert_stamps,
-    register_repos,
+    Client,
 )
 from code_etl.objs import (
     CommitStamp,
     RepoRegistration,
-)
-from postgres_client.client import (
-    Client,
-)
-from postgres_client.ids import (
-    TableID,
 )
 from purity.v2.cmd import (
     Cmd,
@@ -26,20 +19,16 @@ from purity.v2.pure_iter.transform import (
 )
 
 
-def register(
-    client: Client, target: TableID, reg: Maybe[RepoRegistration]
-) -> Cmd[None]:
+def register(client: Client, reg: Maybe[RepoRegistration]) -> Cmd[None]:
     none = Cmd.from_cmd(lambda: None)
     _register: Maybe[Cmd[None]] = reg.map(
-        lambda i: register_repos(client, target, (i,))
+        lambda i: client.register_repos((i,))
     )
     return _register.value_or(none)
 
 
-def upload_stamps(
-    client: Client, target: TableID, stamps: PureIter[CommitStamp]
-) -> Cmd[None]:
+def upload_stamps(client: Client, stamps: PureIter[CommitStamp]) -> Cmd[None]:
     actions: PureIter[Cmd[None]] = stamps.chunked(2000).map(
-        lambda s: insert_stamps(client, target, tuple(s))
+        client.insert_stamps
     )
     return consume(actions)
