@@ -172,6 +172,30 @@ async def get_price(
     raise InvalidBillingPrice()
 
 
+async def get_customer_subscriptions(
+    *,
+    org_billing_customer: str,
+    limit: int = 1000,
+    status: str = "active",
+) -> Dict[str, Subscription]:
+    subs = stripe.Subscription.list(
+        customer=org_billing_customer,
+        limit=limit,
+        status=status,
+    ).data
+    return {
+        f"{sub.metadata.group}__{sub.metadata.subscription}": Subscription(
+            id=sub.id,
+            group=sub.metadata.group,
+            org_billing_customer=sub.customer,
+            organization=sub.metadata.organization,
+            type=sub.metadata.subscription,
+            item=sub["items"]["data"][0]["id"],
+        )
+        for sub in subs
+    }
+
+
 async def get_group_subscriptions(
     *,
     group_name: str,

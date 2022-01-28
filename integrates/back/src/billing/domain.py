@@ -11,6 +11,7 @@ from billing.types import (
     Subscription,
 )
 from custom_exceptions import (
+    BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
     BillingGroupActiveSubscription,
     BillingGroupWithoutSubscription,
@@ -347,18 +348,53 @@ async def remove_payment_method(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    data: List[PaymentMethod] = await customer_payment_methods(
+    payment_methods: List[PaymentMethod] = await customer_payment_methods(
         org_billing_customer=org_billing_customer,
         limit=1000,
     )
 
     # Raise exception if payment method does not belong to organization
-    if payment_method_id not in [item.id for item in data]:
+    if payment_method_id not in [
+        payment_method.id for payment_method in payment_methods
+    ]:
         raise InvalidBillingPaymentMethod()
 
-    return await dal.remove_payment_method(
+    subscriptions: Dict[
+        str, Subscription
+    ] = await dal.get_customer_subscriptions(
+        org_billing_customer=org_billing_customer,
+        limit=1000,
+        status="active",
+    )
+
+    # Raise exception if payment method is the last one
+    # and there are active subscriptions
+    if len(payment_methods) == 1 and len(subscriptions) > 0:
+        raise BillingCustomerHasActiveSubscription()
+
+    result: bool = True
+
+    # Set another payment as default if current default will be deleted
+    default: PaymentMethod = [
+        payment_method
+        for payment_method in payment_methods
+        if payment_method.default
+    ][0]
+    if len(payment_methods) > 1 and payment_method_id == default.id:
+        non_defaults = [
+            payment_method
+            for payment_method in payment_methods
+            if not payment_method.default
+        ]
+        result = await update_default_payment_method(
+            payment_method_id=non_defaults[0].id,
+            org_billing_customer=org_billing_customer,
+        )
+
+    result = result and await dal.remove_payment_method(
         payment_method_id=payment_method_id,
     )
+    return result
 
 
 async def remove_subscription(

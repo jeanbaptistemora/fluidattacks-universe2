@@ -1134,6 +1134,15 @@ class BillingCustomerHasNoPaymentMethod(CustomBaseException):
         super(BillingCustomerHasNoPaymentMethod, self).__init__(msg)
 
 
+class BillingCustomerHasActiveSubscription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Cannot perform action. "
+            "The organization has active subscriptions."
+        )
+        super(BillingCustomerHasActiveSubscription, self).__init__(msg)
+
+
 class InvalidBillingPaymentMethod(CustomBaseException):
     def __init__(self) -> None:
         msg = (
