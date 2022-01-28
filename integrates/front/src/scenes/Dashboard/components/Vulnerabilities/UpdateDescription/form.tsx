@@ -160,12 +160,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
       refetchQueries: [
         {
-          query: GET_FINDING_AND_GROUP_INFO,
-          variables: {
-            findingId: vulnerabilitiesList[0].findingId,
-          },
-        },
-        {
           query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
@@ -226,12 +220,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       });
     },
     refetchQueries: [
-      {
-        query: GET_FINDING_AND_GROUP_INFO,
-        variables: {
-          findingId: vulnerabilitiesList[0].findingId,
-        },
-      },
       {
         query: GET_FINDING_VULNS,
         variables: {
