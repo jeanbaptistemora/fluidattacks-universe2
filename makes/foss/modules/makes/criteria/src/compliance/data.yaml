@@ -4151,4 +4151,52 @@
     "MA_L2-3_7_4":
       title: Media Inspection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MA_L2-3_7_5":
+      title: Nonlocal Maintenance
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L1-3_8_3":
+      title: Media Disposal
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_1":
+      title: Media Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_2":
+      title: Media Access
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_5":
+      title: Media Accountability
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_6":
+      title: Portable Storage Encryption
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_7":
+      title: Removable Media
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "MP_L2-3_8_8":
+      title: Shared Media
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "PE_L1-3_10_1":
+      title: Limit Physical Access
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "PE_L1-3_10_4":
+      title: Physical Access Logs
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "PE_L1-3_10_5":
+      title: Manage Physical Access
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "PE_L2-3_10_6":
+      title: Alternative Work Sites
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "RA_L2-3_11_2":
+      title: Vulnerability Scan
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CA_L2-3_12_2":
+      title: Plan of Action
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CA_L2-3_12_3":
+      title: Security Control Monitoring
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "SC_L1-3_13_1":
+      title: Boundary Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
   metadata: {}
