@@ -3,6 +3,9 @@ from code_etl.client import (
     insert_rows,
     namespace_data,
 )
+from code_etl.client.db_client import (
+    DbClient,
+)
 from code_etl.client.decoder import (
     decode_commit_data_2,
     decode_repo_registration,
@@ -27,7 +30,6 @@ from code_etl.objs import (
 )
 import logging
 from postgres_client.client import (
-    Client,
     ClientFactory,
 )
 from postgres_client.connection import (
@@ -87,8 +89,8 @@ def migrate_row(
 
 
 def migration(
-    client: Client,
-    client_2: Client,
+    client: DbClient,
+    client_2: DbClient,
     source: TableID,
     target: TableID,
     namespace: str,
@@ -103,7 +105,7 @@ def migration(
     )
 
     def _emit_action(
-        client: Client,
+        client: DbClient,
         target: TableID,
         total_items: int,
         pkg: FrozenList[CommitTableRow],
@@ -145,8 +147,8 @@ def start(
     target: TableID,
     namespace: str,
 ) -> Cmd[None]:
-    client = ClientFactory().from_creds(db_id, creds)
-    client2 = ClientFactory().from_creds(db_id, creds)
+    client = DbClient(ClientFactory().from_creds(db_id, creds))
+    client2 = DbClient(ClientFactory().from_creds(db_id, creds))
     return init_table_2_query(client, target).bind(
         lambda _: migration(client, client2, source, target, namespace)
     )

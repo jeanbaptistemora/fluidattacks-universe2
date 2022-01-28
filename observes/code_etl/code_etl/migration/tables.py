@@ -1,5 +1,5 @@
-from postgres_client.client import (
-    Client,
+from code_etl.client.db_client import (
+    DbClient,
 )
 from postgres_client.ids import (
     TableID,
@@ -8,15 +8,12 @@ from postgres_client.query import (
     Query,
     SqlArgs,
 )
-from purity.v2.adapters import (
-    to_cmd,
-)
 from purity.v2.cmd import (
     Cmd,
 )
 
 
-def init_table_2_query(client: Client, table: TableID) -> Cmd[None]:
+def init_table_2_query(client: DbClient, table: TableID) -> Cmd[None]:
     query = Query(
         """
         CREATE TABLE IF NOT EXISTS {schema}.{table} (
@@ -53,4 +50,4 @@ def init_table_2_query(client: Client, table: TableID) -> Cmd[None]:
             },
         ),
     )
-    return to_cmd(lambda: client.cursor.execute_query(query))
+    return client.execute_query(query)
