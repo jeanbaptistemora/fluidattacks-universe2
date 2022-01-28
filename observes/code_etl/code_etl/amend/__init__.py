@@ -1,12 +1,8 @@
-from code_etl.amend.actions import (
-    update_stamp,
-)
 from code_etl.amend.core import (
     AmendUsers,
 )
 from code_etl.client import (
-    decoder,
-    namespace_data,
+    Client,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -17,7 +13,6 @@ from code_etl.objs import (
 )
 import logging
 from postgres_client.client import (
-    Client,
     ClientFactory,
 )
 from postgres_client.connection import (
@@ -45,7 +40,6 @@ LOG = logging.getLogger(__name__)
 
 def _update(
     client: Client,
-    table: TableID,
     mailmap: Maybe[Mailmap],
     item: Union[CommitStamp, RepoRegistration],
 ) -> Cmd[None]:
@@ -56,24 +50,21 @@ def _update(
             .map(lambda a: a.amend_commit_stamp_users(_item))
             .value_or(_item)
         )
-        return update_stamp(client, table, item, fixed)
+        return client.delta_update(item, fixed)
     return Cmd.from_cmd(lambda: None)
 
 
 def amend_users(
     client: Client,
-    table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     start_msg = Cmd.from_cmd(lambda: LOG.info("Getting data stream..."))
     mutation_msg = Cmd.from_cmd(lambda: LOG.info("Mutation started"))
-    data = namespace_data(client, table, namespace).map(
-        lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
-    )
+    data = client.namespace_data(namespace)
     result = data.bind(
         lambda s: s.map(lambda r: r.unwrap())
-        .map(lambda c: _update(client, table, mailmap, c))
+        .map(lambda c: _update(client, mailmap, c))
         .transform(consume)
     )
     return (
@@ -90,5 +81,5 @@ def start(
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    client = ClientFactory().from_creds(db_id, creds)
-    return amend_users(client, table, namespace, mailmap)
+    client = Client(ClientFactory().from_creds(db_id, creds), table)
+    return amend_users(client, namespace, mailmap)

@@ -308,10 +308,17 @@ class Client:
     def delta_update(
         self, old: CommitStamp, new: CommitStamp, ignore_fa_hash: bool = True
     ) -> Cmd[None]:
-        return delta_update(
-            self._db_client,
-            self._table,
-            encoder.from_stamp(old),
-            encoder.from_stamp(new),
-            ignore_fa_hash,
-        )
+        if old != new:
+            info = Cmd.from_cmd(
+                lambda: LOG.info("delta update %s", old.commit.commit_id)
+            )
+            return info.bind(
+                lambda _: delta_update(
+                    self._db_client,
+                    self._table,
+                    encoder.from_stamp(old),
+                    encoder.from_stamp(new),
+                    ignore_fa_hash,
+                )
+            )
+        return Cmd.from_cmd(lambda: LOG.debug("no changes"))
