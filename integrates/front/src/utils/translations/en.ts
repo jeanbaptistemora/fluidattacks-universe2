@@ -1075,6 +1075,13 @@ export const enTranslations: ResourceKey = {
             },
           },
           title: "Payment Methods",
+          updateDefault: {
+            button: "Make default",
+            success: {
+              body: "Default payment method updated",
+              title: "Success",
+            },
+          },
         },
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",

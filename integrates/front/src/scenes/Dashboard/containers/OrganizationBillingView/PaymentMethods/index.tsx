@@ -1,10 +1,15 @@
 import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faUserEdit,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { AddPaymentModal } from "./AddPaymentMethodModal";
 import { Container } from "./styles";
@@ -12,6 +17,7 @@ import { Container } from "./styles";
 import {
   ADD_BILLING_PAYMENT_METHOD,
   REMOVE_BILLING_PAYMENT_METHOD,
+  UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
@@ -23,7 +29,6 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IOrganizationBillingPaymentMethodsProps {
   organizationId: string;
@@ -37,15 +42,21 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
     paymentMethods,
     onUpdate,
   }: IOrganizationBillingPaymentMethodsProps): JSX.Element => {
+    const { t } = useTranslation();
+    const permissions: PureAbility<string> = useAbility(
+      authzPermissionsContext
+    );
+    const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
+
     // Data
     const data: IPaymentMethodAttr[] = paymentMethods.map(
       (paymentMethodData: IPaymentMethodAttr): IPaymentMethodAttr => {
         const isDefault: boolean = paymentMethodData.default;
         const capitalized: string = _.capitalize(paymentMethodData.brand);
         const brand: string = isDefault
-          ? `${capitalized} ${translate.t(
+          ? `${t(
               "organization.tabs.billing.paymentMethods.defaultPaymentMethod"
-            )}`
+            )} ${capitalized}`
           : capitalized;
 
         return {
@@ -84,7 +95,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
       },
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.error("Couldn't add payment method", error);
         });
       },
@@ -118,13 +129,9 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
     );
 
     // Remove payment method
-    const permissions: PureAbility<string> = useAbility(
-      authzPermissionsContext
-    );
     const canDelete: boolean = permissions.can(
       "api_mutations_remove_billing_payment_method_mutate"
     );
-    const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
     const [removePaymentMethod, { loading: removing }] = useMutation(
       REMOVE_BILLING_PAYMENT_METHOD,
       {
@@ -132,23 +139,19 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
           onUpdate();
           setCurrentRow({});
           msgSuccess(
-            translate.t(
-              "organization.tabs.billing.paymentMethods.remove.success.body"
-            ),
-            translate.t(
-              "organization.tabs.billing.paymentMethods.remove.success.title"
-            )
+            t("organization.tabs.billing.paymentMethods.remove.success.body"),
+            t("organization.tabs.billing.paymentMethods.remove.success.title")
           );
         },
         onError: ({ graphQLErrors }): void => {
           graphQLErrors.forEach((error): void => {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't add payment method", error);
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't remove payment method", error);
           });
         },
       }
     );
-    const handleRemoveStakeholder: () => void = useCallback((): void => {
+    const handleRemovePaymentMethod: () => void = useCallback((): void => {
       void removePaymentMethod({
         variables: {
           organizationId,
@@ -156,6 +159,43 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
         },
       });
     }, [organizationId, currentRow.id, removePaymentMethod]);
+
+    // Update default payment method
+    const canUpdateDefault: boolean = permissions.can(
+      "api_mutations_update_billing_default_payment_method_mutate"
+    );
+    const [updateDefaultPaymentMethod, { loading: updating }] = useMutation(
+      UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
+      {
+        onCompleted: (): void => {
+          onUpdate();
+          setCurrentRow({});
+          msgSuccess(
+            t(
+              "organization.tabs.billing.paymentMethods.updateDefault.success.body"
+            ),
+            t(
+              "organization.tabs.billing.paymentMethods.updateDefault.success.title"
+            )
+          );
+        },
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't update default payment method", error);
+          });
+        },
+      }
+    );
+    const handleUpdateDefaultPaymentMethod: () => void =
+      useCallback((): void => {
+        void updateDefaultPaymentMethod({
+          variables: {
+            organizationId,
+            paymentMethodId: currentRow.id,
+          },
+        });
+      }, [organizationId, currentRow.id, updateDefaultPaymentMethod]);
 
     const tableHeaders: IHeaderConfig[] = [
       {
@@ -185,9 +225,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
         <Row>
           <Col100>
             <Row>
-              <h2>
-                {translate.t("organization.tabs.billing.paymentMethods.title")}
-              </h2>
+              <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
               <DataTableNext
                 bordered={true}
                 columnToggle={false}
@@ -206,23 +244,38 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                       <Button onClick={openAddModal}>
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;
-                        {translate.t(
-                          "organization.tabs.billing.paymentMethods.add"
-                        )}
+                        {t("organization.tabs.billing.paymentMethods.add")}
                       </Button>
                     </Can>
                     <Can
                       do={"api_mutations_remove_billing_payment_method_mutate"}
                     >
                       <Button
-                        disabled={_.isEmpty(currentRow) || removing}
-                        id={"removeUser"}
-                        onClick={handleRemoveStakeholder}
+                        disabled={_.isEmpty(currentRow) || removing || updating}
+                        id={"removePaymentMethod"}
+                        onClick={handleRemovePaymentMethod}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                         &nbsp;
-                        {translate.t(
+                        {t(
                           "organization.tabs.billing.paymentMethods.remove.button"
+                        )}
+                      </Button>
+                    </Can>
+                    <Can
+                      do={
+                        "api_mutations_update_billing_default_payment_method_mutate"
+                      }
+                    >
+                      <Button
+                        disabled={_.isEmpty(currentRow) || removing || updating}
+                        id={"updateDefaultPaymentMethod"}
+                        onClick={handleUpdateDefaultPaymentMethod}
+                      >
+                        <FontAwesomeIcon icon={faUserEdit} />
+                        &nbsp;
+                        {t(
+                          "organization.tabs.billing.paymentMethods.updateDefault.button"
                         )}
                       </Button>
                     </Can>
@@ -233,8 +286,8 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                 pageSize={10}
                 search={false}
                 selectionMode={{
-                  clickToSelect: canDelete,
-                  hideSelectColumn: !canDelete,
+                  clickToSelect: canDelete || canUpdateDefault,
+                  hideSelectColumn: !canDelete && !canUpdateDefault,
                   mode: "radio",
                   onSelect: setCurrentRow,
                 }}

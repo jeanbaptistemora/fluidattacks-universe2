@@ -374,7 +374,7 @@ async def remove_payment_method(
 
     result: bool = True
 
-    # Set another payment as default if current default will be deleted
+    # Set another payment method as default if current default will be deleted
     default: PaymentMethod = [
         payment_method
         for payment_method in payment_methods
