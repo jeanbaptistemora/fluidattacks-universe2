@@ -310,6 +310,18 @@ type Mutation {
     role: StakeholderRole!
   ): AddStakeholderPayload!
 
+  "Adds a new Toe input to the ASM group"
+  addToeInput(
+    "Input URL or PATH"
+    component: String!
+    "Entry point of the test"
+    entryPoint: String!
+    "Name of the group the input is associated with"
+    groupName: String!
+    "Id of the root the input is associated with"
+    rootId: String!
+  ): SimplePayload!
+
   "Adds the URL of the environment to be tested"
   addUrlRoot(
     "URL of the environment to test"
