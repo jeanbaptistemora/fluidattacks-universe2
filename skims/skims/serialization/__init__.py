@@ -92,6 +92,7 @@ def _load_lark_tree(children: Any, data: Any, meta: Any) -> LarkTree:
 def _side_effects() -> None:
     for factory in (
         core_model.AvailabilityEnum,
+        core_model.DeveloperEnum,
         core_model.ExecutionQueue,
         core_model.FindingEnum,
         core_model.Grammar,
