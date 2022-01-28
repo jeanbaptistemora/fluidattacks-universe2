@@ -10,7 +10,6 @@ import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { TasksContent } from "scenes/Dashboard/containers/Tasks";
-import { AssignedVulnerabilitiesContext } from "scenes/Dashboard/context";
 import {
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER_ORGANIZATIONS_GROUPS,
@@ -153,30 +152,28 @@ describe("VulnerabilitiesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/todos"]}>
-        <AssignedVulnerabilitiesContext.Provider value={[[], jest.fn()]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route path={"/todos"}>
-              <TasksContent
-                meVulnerabilitiesAssigned={
-                  (
-                    mocksVulnerabilities.result as Dictionary<{
-                      me: IGetMeVulnerabilitiesAssigned["me"];
-                    }>
-                  ).data
-                }
-                refetchVulnerabilitiesAssigned={jest.fn()}
-                setUserRole={refreshClick}
-                userData={
-                  (
-                    mocksUserGroups.result as Dictionary<{
-                      me: IGetUserOrganizationsGroups["me"];
-                    }>
-                  ).data
-                }
-              />
-            </Route>
-          </authzPermissionsContext.Provider>
-        </AssignedVulnerabilitiesContext.Provider>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <Route path={"/todos"}>
+            <TasksContent
+              meVulnerabilitiesAssigned={
+                (
+                  mocksVulnerabilities.result as Dictionary<{
+                    me: IGetMeVulnerabilitiesAssigned["me"];
+                  }>
+                ).data
+              }
+              refetchVulnerabilitiesAssigned={jest.fn()}
+              setUserRole={refreshClick}
+              userData={
+                (
+                  mocksUserGroups.result as Dictionary<{
+                    me: IGetUserOrganizationsGroups["me"];
+                  }>
+                ).data
+              }
+            />
+          </Route>
+        </authzPermissionsContext.Provider>
       </MemoryRouter>
     );
 
@@ -267,32 +264,30 @@ describe("VulnerabilitiesView", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/todos"]}>
-        <AssignedVulnerabilitiesContext.Provider value={[[], jest.fn()]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <MockedProvider addTypename={false} mocks={[]}>
-              <Route path={"/todos"}>
-                <TasksContent
-                  meVulnerabilitiesAssigned={
-                    (
-                      mocksVulnerabilities.result as Dictionary<{
-                        me: IGetMeVulnerabilitiesAssigned["me"];
-                      }>
-                    ).data
-                  }
-                  refetchVulnerabilitiesAssigned={jest.fn()}
-                  setUserRole={refreshClick}
-                  userData={
-                    (
-                      mocksUserGroups.result as Dictionary<{
-                        me: IGetUserOrganizationsGroups["me"];
-                      }>
-                    ).data
-                  }
-                />
-              </Route>
-            </MockedProvider>
-          </authzPermissionsContext.Provider>
-        </AssignedVulnerabilitiesContext.Provider>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MockedProvider addTypename={false} mocks={[]}>
+            <Route path={"/todos"}>
+              <TasksContent
+                meVulnerabilitiesAssigned={
+                  (
+                    mocksVulnerabilities.result as Dictionary<{
+                      me: IGetMeVulnerabilitiesAssigned["me"];
+                    }>
+                  ).data
+                }
+                refetchVulnerabilitiesAssigned={jest.fn()}
+                setUserRole={refreshClick}
+                userData={
+                  (
+                    mocksUserGroups.result as Dictionary<{
+                      me: IGetUserOrganizationsGroups["me"];
+                    }>
+                  ).data
+                }
+              />
+            </Route>
+          </MockedProvider>
+        </authzPermissionsContext.Provider>
       </MemoryRouter>
     );
 
