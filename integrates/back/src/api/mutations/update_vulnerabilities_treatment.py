@@ -7,6 +7,11 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from datetime import (
+    datetime,
+    timedelta,
+    timezone,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -65,13 +70,15 @@ async def mutate(
         group_loader = info.context.loaders.group
         group = await group_loader.load(group_name)
         severity_score = findings_domain.get_severity_score(finding.severity)
+        loaders = info.context.loaders
+        title = finding.title
         if parameters.get("treatment_manager"):
             parameters = duplicate_dict_keys(
                 parameters, "treatment_manager", "assigned"
             )
             del parameters["treatment_manager"]
         success: bool = await vulns_domain.update_vulnerabilities_treatment(
-            loaders=info.context.loaders,
+            loaders=loaders,
             finding_id=finding_id,
             updated_values=parameters,
             organization_id=group["organization"],
@@ -96,6 +103,13 @@ async def mutate(
                 "Security: Vulnerabilities treatment successfully updated in "
                 f"finding {finding_id}",
             )
+        await vulns_domain.send_treatment_change_mail(
+            loaders,
+            finding_id,
+            title,
+            group_name,
+            datetime.now(timezone.utc) - timedelta(days=1),
+        )
 
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
