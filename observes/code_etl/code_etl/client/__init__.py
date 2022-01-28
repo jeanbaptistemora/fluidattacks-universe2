@@ -271,7 +271,7 @@ class Client:
 
     def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
-            lambda: LOG.info("inseting %s stamps", len(stamps))
+            lambda: LOG.info("inserting %s stamps", len(stamps))
         )
         encoded = tuple(from_stamp(s) for s in stamps)
         return log_info.bind(

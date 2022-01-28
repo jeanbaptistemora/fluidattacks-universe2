@@ -33,7 +33,9 @@ class Cmd(Generic[_A]):
         return Cmd(Patch(lambda: function(self._value.unwrap())))
 
     def bind(self, function: Callable[[_A], Cmd[_B]]) -> Cmd[_B]:
-        return function(self._value.unwrap())
+        return Cmd(
+            Patch(lambda: function(self._value.unwrap())._value.unwrap())
+        )
 
     def apply(self, wrapped: Cmd[Callable[[_A], _B]]) -> Cmd[_B]:
         return wrapped.map(lambda f: f(self._value.unwrap()))

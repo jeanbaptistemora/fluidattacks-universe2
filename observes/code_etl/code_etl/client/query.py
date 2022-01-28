@@ -146,6 +146,7 @@ def commit_exists(
             hash = %(hash)s
             and namespace = %(namespace)s
             and repository = %(repository)s
+        LIMIT 1
         """,
         SqlArgs(
             {
