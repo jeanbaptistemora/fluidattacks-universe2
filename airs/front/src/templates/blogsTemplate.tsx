@@ -113,26 +113,17 @@ const BlogsIndex: React.FC<IQueryData> = ({
                 <p className={"f5"}>
                   <Link to={"/blog/tags/"}>{"Tags:"}</Link>
                   {taglist.map(
-                    (tag: string, index): JSX.Element =>
-                      taglist.length === index + 1 ? (
-                        <Link
-                          className={
-                            "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
-                          }
-                          to={`/blog/tags/${tag}`}
-                        >
-                          {capitalizeDashedString(tag)}
-                        </Link>
-                      ) : (
-                        <Link
-                          className={
-                            "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
-                          }
-                          to={`/blog/tags/${tag}`}
-                        >
-                          {capitalizeDashedString(tag)}
-                        </Link>
-                      )
+                    (tag: string): JSX.Element => (
+                      <Link
+                        className={
+                          "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
+                        }
+                        key={tag}
+                        to={`/blog/tags/${tag}`}
+                      >
+                        {capitalizeDashedString(tag)}
+                      </Link>
+                    )
                   )}
                 </p>
               </div>
