@@ -254,15 +254,14 @@ async def get_treatment_changes(
 
 async def _handle_vulnerability_acceptance(
     *,
+    loaders: Any,
     finding_id: str,
     new_treatment: VulnerabilityTreatment,
     vulnerability: Vulnerability,
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
 ) -> None:
     treatments_to_add: Tuple[VulnerabilityTreatment, ...] = tuple()
     if (
-        historic_treatment
-        and new_treatment.acceptance_status
+        new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.APPROVED
         and vulnerability.treatment
         and vulnerability.treatment.assigned
@@ -274,6 +273,9 @@ async def _handle_vulnerability_acceptance(
         new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.REJECTED
     ):
+        # Restore previous treatment as request was REJECTED
+        treatment_loader = loaders.vulnerability_historic_treatment
+        historic_treatment = await treatment_loader.load(vulnerability.id)
         if len(historic_treatment) > 1:
             treatments_to_add = (
                 new_treatment,
@@ -326,12 +328,8 @@ async def handle_vulnerabilities_acceptance(
         for vuln in all_vulns
         if vuln.id in accepted_vulns + rejected_vulns
     )
-    historics = await loaders.vulnerability_historic_treatment.load_many(
-        [vuln.id for vuln in vulnerabilities]
-    )
     if not vulnerabilities:
         raise VulnNotFound()
-
     for vuln in vulnerabilities:
         validate_acceptance(vuln)
 
@@ -346,12 +344,12 @@ async def handle_vulnerabilities_acceptance(
         coroutines.extend(
             [
                 _handle_vulnerability_acceptance(
+                    loaders=loaders,
                     finding_id=finding_id,
                     new_treatment=rejected_treatment,
                     vulnerability=vuln,
-                    historic_treatment=historic_treatment,
                 )
-                for vuln, historic_treatment in zip(vulnerabilities, historics)
+                for vuln in vulnerabilities
                 if vuln.id in rejected_vulns
             ]
         )
@@ -366,12 +364,12 @@ async def handle_vulnerabilities_acceptance(
         coroutines.extend(
             [
                 _handle_vulnerability_acceptance(
+                    loaders=loaders,
                     finding_id=finding_id,
                     new_treatment=approved_treatment,
                     vulnerability=vuln,
-                    historic_treatment=historic_treatment,
                 )
-                for vuln, historic_treatment in zip(vulnerabilities, historics)
+                for vuln in vulnerabilities
                 if vuln.id in accepted_vulns
             ]
         )
