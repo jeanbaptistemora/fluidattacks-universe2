@@ -206,43 +206,6 @@ def _fetch_not_empty(client: DbClient) -> Cmd[bool]:
     return to_cmd(lambda: client.cursor.fetch_one().map(bool))
 
 
-def get_context(
-    client: DbClient, table: TableID, repo: RepoId
-) -> Cmd[RepoContex]:
-    last = _execute_query(client, query.last_commit_hash(table, repo)).bind(
-        lambda _: _fetch_one_result(client, str)
-    )
-    is_new = (
-        _execute_query(
-            client,
-            query.commit_exists(table, repo, COMMIT_HASH_SENTINEL),
-        )
-        .bind(lambda _: _fetch_not_empty(client))
-        .map(lambda b: not b)
-    )
-    return last.bind(
-        lambda l: is_new.map(lambda n: RepoContex(repo, l.value_or(None), n))
-    )
-
-
-def register_repos(
-    client: DbClient, table: TableID, reg: FrozenList[RepoRegistration]
-) -> Cmd[None]:
-    log_info = Cmd.from_cmd(lambda: LOG.info("register_repos %s", str(reg)))
-    encoded = tuple(from_reg(r) for r in reg)
-    return log_info.bind(lambda _: insert_unique_rows(client, table, encoded))
-
-
-def insert_stamps(
-    client: DbClient, table: TableID, stamps: FrozenList[CommitStamp]
-) -> Cmd[None]:
-    log_info = Cmd.from_cmd(
-        lambda: LOG.info("inseting %s stamps", len(stamps))
-    )
-    encoded = tuple(from_stamp(s) for s in stamps)
-    return log_info.bind(lambda _: insert_unique_rows(client, table, encoded))
-
-
 def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
     _filter = filter(
         lambda x: x[0],
@@ -251,33 +214,37 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
     return tuple(map(lambda x: x[1], _filter))
 
 
-def delta_update(
-    client: DbClient,
-    table: TableID,
-    old: CommitTableRow,
-    new: CommitTableRow,
-    ignore_fa_hash: bool = True,
-) -> Cmd[None]:
-    _fields = _delta_fields(old, new)
-    if ignore_fa_hash and _fields == ("fa_hash",):
-        return Cmd.from_cmd(
-            lambda: LOG.warning("delta fa_hash update skipped")
-        )
-    if len(_fields) > 0:
-        changes = tuple(
-            f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields
-        )
-        log_info = Cmd.from_cmd(
-            lambda: LOG.info(
-                "delta update %s fields:\n%s", len(_fields), "\n".join(changes)
+@dataclass(frozen=True)
+class RawClient:
+    # exposes utilities from and to DB using raw objs i.e. CommitTableRow
+    _db_client: DbClient
+    _table: TableID
+    def delta_update(
+        self,
+        old: CommitTableRow,
+        new: CommitTableRow,
+        ignore_fa_hash: bool = True,
+    ) -> Cmd[None]:
+        _fields = _delta_fields(old, new)
+        if ignore_fa_hash and _fields == ("fa_hash",):
+            return Cmd.from_cmd(
+                lambda: LOG.warning("delta fa_hash update skipped")
             )
-        )
-        return log_info.bind(
-            lambda _: _execute_query(
-                client, query.update_row(table, new, _fields)
+        if len(_fields) > 0:
+            changes = tuple(
+                f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields
             )
-        )
-    return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
+            log_info = Cmd.from_cmd(
+                lambda: LOG.info(
+                    "delta update %s fields:\n%s", len(_fields), "\n".join(changes)
+                )
+            )
+            return log_info.bind(
+                lambda _: _execute_query(
+                    self._db_client, query.update_row(self._table, new, _fields)
+                )
+            )
+        return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
 
 
 @dataclass(frozen=True)
@@ -285,18 +252,44 @@ class Client:
     # exposes utilities from and to DB using not raw objs
     _db_client: DbClient
     _table: TableID
+    _raw: RawClient
+
+    def __init__(self, _db_client: DbClient, _table: TableID) -> None:
+        _raw = RawClient(_db_client, _table)
+        object.__setattr__(self, "_db_client", _db_client)
+        object.__setattr__(self, "_table", _table)
+        object.__setattr__(self, "_raw", _raw)
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         return all_data_count(self._db_client, self._table, namespace)
 
     def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
-        return get_context(self._db_client, self._table, repo)
+        last = _execute_query(self._db_client, query.last_commit_hash(self._table, repo)).bind(
+            lambda _: _fetch_one_result(self._db_client, str)
+        )
+        is_new = (
+            _execute_query(
+                self._db_client,
+                query.commit_exists(self._table, repo, COMMIT_HASH_SENTINEL),
+            )
+            .bind(lambda _: _fetch_not_empty(self._db_client))
+            .map(lambda b: not b)
+        )
+        return last.bind(
+            lambda l: is_new.map(lambda n: RepoContex(repo, l.value_or(None), n))
+        )
 
     def register_repos(self, reg: FrozenList[RepoRegistration]) -> Cmd[None]:
-        return register_repos(self._db_client, self._table, reg)
+        log_info = Cmd.from_cmd(lambda: LOG.info("register_repos %s", str(reg)))
+        encoded = tuple(from_reg(r) for r in reg)
+        return log_info.bind(lambda _: insert_unique_rows(self._db_client, self._table, encoded))
 
     def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
-        return insert_stamps(self._db_client, self._table, stamps)
+        log_info = Cmd.from_cmd(
+            lambda: LOG.info("inseting %s stamps", len(stamps))
+        )
+        encoded = tuple(from_stamp(s) for s in stamps)
+        return log_info.bind(lambda _: insert_unique_rows(self._db_client, self._table, encoded))
 
     def namespace_data(
         self, namespace: str
@@ -313,9 +306,7 @@ class Client:
                 lambda: LOG.info("delta update %s", old.commit.commit_id)
             )
             return info.bind(
-                lambda _: delta_update(
-                    self._db_client,
-                    self._table,
+                lambda _: self._raw.delta_update(
                     encoder.from_stamp(old),
                     encoder.from_stamp(new),
                     ignore_fa_hash,
