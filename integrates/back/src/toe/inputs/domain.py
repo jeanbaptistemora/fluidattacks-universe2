@@ -181,6 +181,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
             )
             formatted_root_host = _get_host(formatted_root_url)
             formatted_root_path = _get_path(formatted_root_url)
+            formatted_root_port = _get_port(formatted_root_url)
             if f"{host}/{path}".startswith(
                 f"{formatted_root_host}/{formatted_root_path}"
             ) and (not port or port == formatted_root_port):
