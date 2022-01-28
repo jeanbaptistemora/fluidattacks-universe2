@@ -4052,4 +4052,55 @@
     "AC_L2-3_1_13":
       title: Remote Access Confidentiality
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_14":
+      title: Remote Access Routing
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_15":
+      title: Privileged Remote Access
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_16":
+      title: Wireless Access Authorization
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_17":
+      title: Wireless Access Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_18":
+      title: Mobile Device Connection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_19":
+      title: Encrypt CUI on Mobile
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AC_L2-3_1_21":
+      title: Portable Storage Use
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AT_L2-3_2_1":
+      title: Role-Based Risk Awareness
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_1":
+      title: System Audit
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_2":
+      title: User Accountability
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_3":
+      title: Event Review
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_4":
+      title: Audit Failure Alerting
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_7":
+      title: Authoritative Time Source
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_8":
+      title: Audit Protection
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "AU_L2-3_3_9":
+      title: Audit Management
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_2":
+      title: Security Configuration Enforcement
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
+    "CM_L2-3_4_3":
+      title: System Change Management
+      link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
   metadata: {}
