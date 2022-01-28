@@ -108,6 +108,7 @@ async def test_get_status_vulns_by_time_range() -> None:
     )
 
     test_data = update_indicators.get_status_vulns_by_time_range(
+        vulnerabilities=vulns,
         vulnerabilities_severity=vulnerabilities_severity,
         vulnerabilities_historic_states=historic_states,
         vulnerabilities_historic_treatments=historic_treatments,
@@ -152,7 +153,7 @@ async def test_get_accepted_vulns() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
-    vulnerabilties = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -161,23 +162,20 @@ async def test_get_accepted_vulns() -> None:
     }
     vulnerabilities_severity = [
         findings_severity[vulnerability.finding_id]
-        for vulnerability in vulnerabilties
+        for vulnerability in vulnerabilities
     ]
-    historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulnerabilties]
-    )
     historic_treatments = (
         await loaders.vulnerability_historic_treatment.load_many(
-            [vuln.id for vuln in vulnerabilties]
+            [vuln.id for vuln in vulnerabilities]
         )
     )
     test_data = sum(
         [
             update_indicators.get_accepted_vulns(
-                historic_state, historic_treatment, severity, last_day
+                vulnerability, historic_treatment, severity, last_day
             ).vulnerabilities
-            for historic_state, historic_treatment, severity in zip(
-                historic_states,
+            for vulnerability, historic_treatment, severity in zip(
+                vulnerabilities,
                 historic_treatments,
                 vulnerabilities_severity,
             )
@@ -195,11 +193,8 @@ async def test_get_by_time_range() -> None:
     )
     finding: Finding = await loaders.finding.load(vulnerability.finding_id)
     vulnerability_severity = get_severity_score(finding.severity)
-    historic_state = await loaders.vulnerability_historic_state.load(
-        vulnerability.id
-    )
     test_data = update_indicators.get_by_time_range(
-        historic_state,
+        vulnerability,
         VulnerabilityStateStatus.OPEN,
         vulnerability_severity,
         last_day,
