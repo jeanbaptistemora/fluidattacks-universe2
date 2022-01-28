@@ -99,20 +99,27 @@ def _get_protocol(url: str) -> str:
     return "unknown"
 
 
-def _format_component(
-    component: str,
-) -> str:
+def _get_www(url: str) -> str:
+    pattern = "www."
+    if pattern in url:
+        return pattern
+    return ""
+
+
+def _format_component(component: str) -> str:
     return (
         component.strip()
         .replace("https://", "")
         .replace("http://", "")
+        .replace("unknown://", "")
+        .replace("unknown//", "")
         .replace("www.", "")
     )
 
 
 def _format_unreliable_component(
     root: RootItem, component: str
-) -> Tuple[RootItem, str]:
+) -> Tuple[Optional[RootItem], str]:
     if component.endswith("/"):
         return root, component[:-1]
     return root, component
@@ -142,11 +149,11 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
     for root in group_roots:
         if has_white_service and isinstance(root, GitRootItem):
             for env_url in root.state.environment_urls:
-
                 formatted_root_url = _format_component(env_url)
                 formatted_root_host = _get_host(formatted_root_url)
                 formatted_root_path = _get_path(formatted_root_url)
                 formatted_root_port = _get_port(formatted_root_url)
+                root_www = _get_www(env_url)
                 root_host_and_port = (
                     f"{formatted_root_host}:{formatted_root_port}"
                     if formatted_root_port
@@ -156,8 +163,8 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
                 if f"{host}" == f"{formatted_root_host}":
                     return _format_unreliable_component(
                         root,
-                        f"{root_protocol.lower()}://{root_host_and_port}/"
-                        f"{path}",
+                        f"{root_protocol.lower()}://{root_www}"
+                        f"{root_host_and_port}/{path}",
                     )
 
         if has_black_service and isinstance(root, URLRootItem):
@@ -200,7 +207,9 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
                     root, f"{root_host_and_port}/{path}"
                 )
 
-    return None, f"{protocol}://{host_and_port}/{path}"
+    return _format_unreliable_component(
+        None, f"{protocol}://{host_and_port}/{path}"
+    )
 
 
 async def remove(entry_point: str, component: str, group_name: str) -> None:
