@@ -587,7 +587,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         }}
       </ConfirmDialog>
       <br />
-      {filterEnvSearchTextDataset.length === 0 ? undefined : (
+      {envDataset.length === 0 ? undefined : (
         <React.Fragment>
           <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
           <div className={"flex flex-wrap nt2"}>
