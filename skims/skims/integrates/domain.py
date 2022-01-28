@@ -85,6 +85,9 @@ def _build_vulnerabilities_stream(
                 skims_method=result.skims_metadata.source_method
                 if result.skims_metadata
                 else None,
+                developer=result.skims_metadata.developer
+                if result.skims_metadata
+                else None,
             )
             for result in results
             if result.kind == core_model.VulnerabilityKindEnum.LINES
