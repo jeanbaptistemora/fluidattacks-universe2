@@ -73,6 +73,7 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "BillingSubscriptionType",
         {
+            "FREE": "free",
             "MACHINE": "machine",
             "SQUAD": "squad",
         },

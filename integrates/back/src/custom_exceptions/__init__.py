@@ -1098,24 +1098,6 @@ class InvalidBillingPrice(CustomBaseException):
         super(InvalidBillingPrice, self).__init__(msg)
 
 
-class BillingGroupWithoutSubscription(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Invalid group. "
-            "Provided group currently does not have an active subscription."
-        )
-        super(BillingGroupWithoutSubscription, self).__init__(msg)
-
-
-class BillingGroupActiveSubscription(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Invalid group. "
-            "A subscription for this group is already active"
-        )
-        super(BillingGroupActiveSubscription, self).__init__(msg)
-
-
 class BillingSubscriptionSameActive(CustomBaseException):
     def __init__(self) -> None:
         msg = (

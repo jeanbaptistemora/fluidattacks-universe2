@@ -87,6 +87,8 @@ enum AuthProvider {
 
 "Billing subscription type enum definition"
 enum BillingSubscriptionType {
+  "Free"
+  FREE
   "Continuous Machine"
   MACHINE
   "Continuous Squad"

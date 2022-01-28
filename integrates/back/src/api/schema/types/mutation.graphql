@@ -33,14 +33,6 @@ type Mutation {
     makeDefault: Boolean!
   ): SimplePayload!
 
-  "Returns a checkout URL for purchasing a subscription for a group"
-  addBillingSubscription(
-    "Group name"
-    groupName: String!
-    "Group subscription (Machine or Squad)"
-    subscription: BillingSubscriptionType!
-  ): SimplePayload!
-
   "Adds a new draft Finding to the specified Group"
   addDraft(
     """
@@ -478,9 +470,6 @@ type Mutation {
     paymentMethodId: String!
   ): SimplePayload!
 
-  "Remove a subscription for a group and make it free"
-  removeBillingSubscription("Group name" groupName: String!): SimplePayload!
-
   "Removes evidence from an Event"
   removeEventEvidence(
     "Identifier of the event to which the Evidence belongs"
@@ -719,7 +708,7 @@ type Mutation {
   updateBillingSubscription(
     "Group name"
     groupName: String!
-    "Group subscription (Machine or Squad)"
+    "Group subscription (Free, Machine or Squad)"
     subscription: BillingSubscriptionType!
   ): SimplePayload!
 

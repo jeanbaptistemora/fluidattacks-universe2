@@ -6,7 +6,6 @@ from api.mutations import (
     acknowledge_concurrent_session,
     activate_root,
     add_billing_payment_method,
-    add_billing_subscription,
     add_draft,
     add_event,
     add_event_consult,
@@ -42,7 +41,6 @@ from api.mutations import (
     reject_draft,
     reject_vulnerabilities_zero_risk,
     remove_billing_payment_method,
-    remove_billing_subscription,
     remove_event_evidence,
     remove_files,
     remove_finding,
@@ -110,7 +108,6 @@ MUTATION.set_field("activateRoot", activate_root.mutate)
 MUTATION.set_field(
     "addBillingPaymentMethod", add_billing_payment_method.mutate
 )
-MUTATION.set_field("addBillingSubscription", add_billing_subscription.mutate)
 MUTATION.set_field("addDraft", add_draft.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
@@ -168,9 +165,6 @@ MUTATION.set_field(
 )
 MUTATION.set_field(
     "removeBillingPaymentMethod", remove_billing_payment_method.mutate
-)
-MUTATION.set_field(
-    "removeBillingSubscription", remove_billing_subscription.mutate
 )
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)

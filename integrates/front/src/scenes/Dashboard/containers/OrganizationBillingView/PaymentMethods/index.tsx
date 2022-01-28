@@ -169,7 +169,6 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
       {
         onCompleted: (): void => {
           onUpdate();
-          setCurrentRow({});
           msgSuccess(
             t(
               "organization.tabs.billing.paymentMethods.updateDefault.success.body"

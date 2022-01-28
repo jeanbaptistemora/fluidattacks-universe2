@@ -13,8 +13,6 @@ from billing.types import (
 from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
-    BillingGroupActiveSubscription,
-    BillingGroupWithoutSubscription,
     BillingSubscriptionSameActive,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
@@ -115,6 +113,155 @@ async def _format_create_subscription_data(
     }
 
 
+async def _create_subscription(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> bool:
+    """Helper for creating Stripe subscription"""
+    # Raise exception if customer does not have a payment method
+    if not await _customer_has_payment_method(
+        org_billing_customer=org_billing_customer,
+    ):
+        raise BillingCustomerHasNoPaymentMethod()
+
+    # machine+squad if subscription is squad
+    subs: List[str] = [subscription]
+    if subscription == "squad":
+        subs.append("machine")
+
+    data: List[Dict[str, Any]] = await collect(
+        [
+            _format_create_subscription_data(
+                subscription=sub,
+                org_billing_customer=org_billing_customer,
+                org_name=org_name,
+                group_name=group_name,
+            )
+            for sub in subs
+        ]
+    )
+
+    return all(await collect([dal.create_subscription(**sub) for sub in data]))
+
+
+async def _update_subscription(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+    subscriptions: Dict[str, Subscription],
+) -> bool:
+    """Helper for updating a Stripe subscription"""
+    # Raise exception if customer does not have a payment method
+    if not await _customer_has_payment_method(
+        org_billing_customer=org_billing_customer,
+    ):
+        raise BillingCustomerHasNoPaymentMethod()
+
+    # Report usage if subscription is squad
+    if "squad" in subscriptions.keys():
+        await dal.report_subscription_usage(
+            subscription=subscriptions["squad"],
+        )
+
+    if subscription == "squad":
+        data: Dict[str, Any] = await _format_create_subscription_data(
+            subscription=subscription,
+            org_billing_customer=org_billing_customer,
+            org_name=org_name,
+            group_name=group_name,
+        )
+        return await dal.create_subscription(**data)
+    return await dal.remove_subscription(
+        subscription_id=subscriptions["squad"].id,
+        invoice_now=True,
+        prorate=True,
+    )
+
+
+async def _remove_subscription(
+    *,
+    subscriptions: Dict[str, Subscription],
+) -> bool:
+    """Helper for cancelling a stripe subscription"""
+
+    # Report usage if subscription is squad
+    report: bool = True
+    if "squad" in subscriptions.keys():
+        report = await dal.report_subscription_usage(
+            subscription=subscriptions["squad"],
+        )
+
+    return report and all(
+        await collect(
+            [
+                dal.remove_subscription(
+                    subscription_id=sub.id,
+                    invoice_now=sub.type == "squad",
+                    prorate=True,
+                )
+                for sub in subscriptions.values()
+            ]
+        )
+    )
+
+
+async def update_subscription(
+    *,
+    subscription: str,
+    org_billing_customer: str,
+    org_name: str,
+    group_name: str,
+) -> bool:
+    """Update a subscription for a group"""
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    subscriptions: Dict[str, Subscription] = await dal.get_group_subscriptions(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="active",
+        limit=1000,
+    )
+
+    # Raise exception if group already has the same subscription active
+    already_free: bool = subscription == "free" and len(subscriptions) == 0
+    already_machine: bool = (
+        subscription == "machine" and len(subscriptions) == 1
+    )
+    already_squad: bool = subscription == "squad" and len(subscriptions) == 2
+    if already_free or already_machine or already_squad:
+        raise BillingSubscriptionSameActive()
+
+    result: bool = False
+    if subscription == "free":
+        result = await _remove_subscription(
+            subscriptions=subscriptions,
+        )
+    elif len(subscriptions) > 0:
+        result = await _update_subscription(
+            subscription=subscription,
+            org_billing_customer=org_billing_customer,
+            org_name=org_name,
+            group_name=group_name,
+            subscriptions=subscriptions,
+        )
+    else:
+        result = await _create_subscription(
+            subscription=subscription,
+            org_billing_customer=org_billing_customer,
+            org_name=org_name,
+            group_name=group_name,
+        )
+
+    return result
+
+
 async def customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
 ) -> List[PaymentMethod]:
@@ -198,51 +345,6 @@ async def create_payment_method(
     return result
 
 
-async def create_subscription(
-    *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-) -> bool:
-    """Create Stripe subscription"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    # Raise exception if group already has an active subscription
-    if await _group_has_active_subscription(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-    ):
-        raise BillingGroupActiveSubscription()
-
-    # Raise exception if customer does not have a payment method
-    if not await _customer_has_payment_method(
-        org_billing_customer=org_billing_customer,
-    ):
-        raise BillingCustomerHasNoPaymentMethod()
-
-    # machine+squad if subscription is squad
-    subs: List[str] = [subscription]
-    if subscription == "squad":
-        subs.append("machine")
-
-    data: List[Dict[str, Any]] = await collect(
-        [
-            _format_create_subscription_data(
-                subscription=sub,
-                org_billing_customer=org_billing_customer,
-                org_name=org_name,
-                group_name=group_name,
-            )
-            for sub in subs
-        ]
-    )
-
-    return all(await collect([dal.create_subscription(**sub) for sub in data]))
-
-
 async def create_portal(
     *,
     org_name: str,
@@ -284,59 +386,6 @@ async def update_default_payment_method(
         payment_method_id=payment_method_id,
         org_billing_customer=org_billing_customer,
     )
-
-
-async def update_subscription(
-    *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-) -> bool:
-    """Preview a subscription update"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-        status="active",
-        limit=1000,
-    )
-
-    # Raise exception if group does not have an active subscription
-    if len(subs) == 0:
-        raise BillingGroupWithoutSubscription()
-
-    # Raise exception if group already has the same subscription active
-    if (subscription == "machine" and "squad" not in subs.keys()) or (
-        subscription == "squad" and "squad" in subs.keys()
-    ):
-        raise BillingSubscriptionSameActive()
-
-    # Report usage if subscription is squad
-    result: bool = True
-    if "squad" in subs.keys():
-        result = await dal.report_subscription_usage(
-            subscription=subs["squad"],
-        )
-
-    if subscription == "squad":
-        data: Dict[str, Any] = await _format_create_subscription_data(
-            subscription=subscription,
-            org_billing_customer=org_billing_customer,
-            org_name=org_name,
-            group_name=group_name,
-        )
-        result = result and await dal.create_subscription(**data)
-    result = result and await dal.remove_subscription(
-        subscription_id=subs["squad"].id,
-        invoice_now=True,
-        prorate=True,
-    )
-
-    return result
 
 
 async def remove_payment_method(
@@ -395,48 +444,6 @@ async def remove_payment_method(
         payment_method_id=payment_method_id,
     )
     return result
-
-
-async def remove_subscription(
-    *,
-    group_name: str,
-    org_billing_customer: str,
-) -> bool:
-    """Cancel a stripe subscription"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-        status="active",
-        limit=1000,
-    )
-
-    # Raise exception if group does not have an active subscription
-    if len(subs) == 0:
-        raise BillingGroupWithoutSubscription()
-
-    # Report usage if subscription is squad
-    report: bool = True
-    if "squad" in subs.keys():
-        report = await dal.report_subscription_usage(
-            subscription=subs["squad"],
-        )
-
-    return report and all(
-        await collect(
-            [
-                dal.remove_subscription(
-                    subscription_id=sub.id,
-                    invoice_now=sub.type == "squad",
-                    prorate=True,
-                )
-                for sub in subs.values()
-            ]
-        )
-    )
 
 
 async def webhook(request: Request) -> JSONResponse:
