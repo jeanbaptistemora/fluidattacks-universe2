@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -33,6 +33,14 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
     const shouldRenderVerifyBtn: boolean =
       !isVerified && !(isEditing || isRequestingReattack);
 
+    const tooltipMessage = useMemo((): string => {
+      if (isVerifying) {
+        return t("searchFindings.tabVuln.buttonsTooltip.cancel");
+      }
+
+      return t("searchFindings.tabDescription.markVerified.tooltip");
+    }, [isVerifying, t]);
+
     return (
       <Can do={"api_mutations_verify_vulnerabilities_request_mutate"}>
         {isVerifying ? (
@@ -45,11 +53,7 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
           <TooltipWrapper
             displayClass={"dib"}
             id={"searchFindings.tabVuln.buttonsTooltip.cancelVerify.id"}
-            message={
-              isVerifying
-                ? t("searchFindings.tabVuln.buttonsTooltip.cancel")
-                : t("searchFindings.tabDescription.markVerified.tooltip")
-            }
+            message={tooltipMessage}
             placement={"top"}
           >
             <Button onClick={onVerify}>

@@ -1,6 +1,6 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -39,17 +39,21 @@ const EditButton: React.FC<IEditButtonProps> = ({
     !(isRequestingReattack || isVerifying) &&
     (canRequestZeroRiskVuln || canUpdateVulnsTreatment);
 
+  const tooltipMessage = useMemo((): string => {
+    if (isEditing) {
+      return t("searchFindings.tabDescription.save.tooltip");
+    }
+
+    return t("searchFindings.tabVuln.buttonsTooltip.edit");
+  }, [isEditing, t]);
+
   return (
     <React.StrictMode>
       {shouldRenderEditBtn ? (
         <TooltipWrapper
           displayClass={"dib"}
           id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
-          message={
-            isEditing
-              ? t("searchFindings.tabDescription.save.tooltip")
-              : t("searchFindings.tabVuln.buttonsTooltip.edit")
-          }
+          message={tooltipMessage}
         >
           <Button
             disabled={isRequestingReattack || isVerifying || isDisabled}

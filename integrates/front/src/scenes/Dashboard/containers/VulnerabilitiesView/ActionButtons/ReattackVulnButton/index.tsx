@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -36,6 +36,14 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   const shouldRenderRequestVerifyBtn: boolean =
     isFindingReleased && state === "open" && !(isEditing || isVerifying);
 
+  const tooltipMessage = useMemo((): string => {
+    if (isRequestingReattack) {
+      return t("searchFindings.tabVuln.buttonsTooltip.cancel");
+    }
+
+    return t("searchFindings.tabDescription.requestVerify.tooltip");
+  }, [isRequestingReattack, t]);
+
   return (
     <Can do={"api_mutations_request_vulnerabilities_verification_mutate"}>
       {isRequestingReattack ? (
@@ -53,11 +61,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
         <TooltipWrapper
           displayClass={"dib"}
           id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
-          message={
-            isRequestingReattack
-              ? t("searchFindings.tabVuln.buttonsTooltip.cancel")
-              : t("searchFindings.tabDescription.requestVerify.tooltip")
-          }
+          message={tooltipMessage}
         >
           <Button
             disabled={isReattackRequestedInAllVuln}
