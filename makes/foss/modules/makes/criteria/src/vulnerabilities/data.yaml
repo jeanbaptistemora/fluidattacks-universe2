@@ -21801,47 +21801,31 @@
   en:
     title: Weak credential policy - Temporary passwords
     description: >
-      Passwords generated using the forgot
-      password option generate passwords insecurely
-      by concatenating, for users whose name is
-      longer than six characters, their name together
-      with two random numbers.
-      Although the password is locked at login if it
-      is entered incorrectly ten times, it is possible
-      to abuse the functionality to generate a new
-      password, unlock it and attempt a brute force
-      attack until the last generated password is found.
+      Temporary passwords do not have strong enough
+      security policies.
     impact: >
-      Obtain the passwords of application users whose
-      name contains more than six letters.
+      Compromise temporary passwords
+      to gain unauthorized access to the application
     recommendation: >
-      Generate temporary passwords securely.
+      Set secure temporary passwords
+      by following the recommended best practices.
     threat: >
       Anonymous attacker from the Internet
-      with access to a username.
   category: Inject Unexpected
   remediation_time: "60"
   es:
     title: Weak credential policy - Temporary passwords
     description: >
-      Las contraseñas generadas mediante la opción
-      olvidaste tu contraseña generan las contraseñas
-      de forma insegura concatenando, para usuarios
-      cuyo nombre tenga más de seis caracteres su nombre
-      junto con dos números aleatorios.
-      Si bien al inicio de sesión se bloquea la contraseña
-      si esta se ingresa incorrectamente diez veces, es
-      posible abusar de la funcionalidad para generar
-      una nueva, desbloquearla e intentar un ataque de
-      fuerza bruta hasta que se encuentre la última
-      contraseña generada.
+      Las contraseñas temporales no cuentan
+      con políticas de seguridad lo suficientemente estrictas.
     impact: >
-      Obtener las contraseñas de los usuarios de la
-      aplicación cuyo nombre contenga más de seis letras.
+      Comprometer contraseñas temporales
+      para ganar acceso no autorizado a la aplicación
     recommendation: >
-      Generar las contraseñas temporales de forma segura.
+      Establecer contraseñas temporales seguras
+      siguiendo las mejores prácticas recomendadas
     threat: >
-      Atacante anónimo desde Internet con acceso a un nombre de usuario.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -21849,13 +21833,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "H"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["130","132","133","139","332"]
   metadata:
     en:
