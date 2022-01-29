@@ -67,7 +67,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer_manager"
+            "S": "hacker"
           }
         }
       }
@@ -121,7 +121,7 @@
             "S": "self"
           },
           "role": {
-            "S": "reattacker"
+            "S": "hacker"
           }
         }
       }
@@ -175,7 +175,7 @@
             "S": "self"
           },
           "role": {
-            "S": "executive"
+            "S": "customer"
           }
         }
       }
@@ -229,7 +229,7 @@
             "S": "self"
           },
           "role": {
-            "S": "resourcer"
+            "S": "hacker"
           }
         }
       }
@@ -283,7 +283,7 @@
             "S": "self"
           },
           "role": {
-            "S": "reviewer"
+            "S": "hacker"
           }
         }
       }

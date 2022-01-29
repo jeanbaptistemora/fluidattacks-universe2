@@ -85,7 +85,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "customer"
           }
         }
       }

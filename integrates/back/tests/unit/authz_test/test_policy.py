@@ -64,10 +64,7 @@ async def test_get_user_level_role() -> None:
         await get_user_level_role("integrateshacker@fluidattacks.com")
         == "hacker"
     )
-    assert (
-        await get_user_level_role("integratesuser@gmail.com")
-        == "customeradmin"
-    )
+    assert await get_user_level_role("integratesuser@gmail.com") == "customer"
     assert await get_user_level_role("unittest@fluidattacks.com") == "admin"
     assert not await get_user_level_role("asdfasdfasdfasdf@gmail.com")
 

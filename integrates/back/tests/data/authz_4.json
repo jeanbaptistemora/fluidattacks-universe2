@@ -319,7 +319,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer_manager"
+            "S": "hacker"
           }
         }
       }
