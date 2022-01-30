@@ -622,6 +622,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       )}
       {isManagingRoot === false ? undefined : (
         <ManagementModal
+          groupName={groupName}
           initialValues={
             isManagingRoot.mode === "EDIT" ? currentRow : undefined
           }

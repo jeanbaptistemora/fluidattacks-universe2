@@ -689,6 +689,12 @@ export const enTranslations: ResourceKey = {
             sync: "Sync",
           },
           credentials: {
+            checkAccess: {
+              noAccess: "Credentials are invalid",
+              success: "Repository was reached successfully",
+              successTitle: "Success",
+              text: "Check Access",
+            },
             name: "Cloning credential",
             nameHint: "Repository SSH Key",
             ssh: "SSH",

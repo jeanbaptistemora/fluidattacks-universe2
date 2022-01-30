@@ -92,9 +92,6 @@ const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
-      case "Exception - Git repository was not accessible with given credentials":
-        msgError(translate.t("group.scope.git.errors.invalidGitCredentials"));
-        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't add git roots", error);

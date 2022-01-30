@@ -112,13 +112,16 @@ describe("GitRoots", (): void => {
       <authzPermissionsContext.Provider
         value={new PureAbility([{ action: "update_git_root_filter" }])}
       >
-        <ManagementModal
-          initialValues={undefined}
-          nicknames={[]}
-          onClose={handleClose}
-          onSubmitEnvs={handleSubmit}
-          onSubmitRepo={handleSubmit}
-        />
+        <MockedProvider>
+          <ManagementModal
+            groupName={""}
+            initialValues={undefined}
+            nicknames={[]}
+            onClose={handleClose}
+            onSubmitEnvs={handleSubmit}
+            onSubmitRepo={handleSubmit}
+          />
+        </MockedProvider>
       </authzPermissionsContext.Provider>
     );
 
@@ -177,13 +180,16 @@ describe("GitRoots", (): void => {
           ])
         }
       >
-        <ManagementModal
-          initialValues={initialValues}
-          nicknames={[]}
-          onClose={handleClose}
-          onSubmitEnvs={handleSubmit}
-          onSubmitRepo={handleSubmit}
-        />
+        <MockedProvider>
+          <ManagementModal
+            groupName={""}
+            initialValues={initialValues}
+            nicknames={[]}
+            onClose={handleClose}
+            onSubmitEnvs={handleSubmit}
+            onSubmitRepo={handleSubmit}
+          />
+        </MockedProvider>
       </authzPermissionsContext.Provider>
     );
 

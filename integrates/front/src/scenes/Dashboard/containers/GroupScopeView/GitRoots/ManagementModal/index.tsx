@@ -13,6 +13,7 @@ import { TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
 interface IManagementModalProps {
+  groupName: string;
   initialValues: IGitRootAttr | undefined;
   nicknames: string[];
   onClose: () => void;
@@ -21,6 +22,7 @@ interface IManagementModalProps {
 }
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
+  groupName,
   initialValues = {
     __typename: "GitRoot",
     branch: "",
@@ -106,6 +108,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
 
                 return (
                   <Repository
+                    groupName={groupName}
                     initialValues={initialValues}
                     isEditing={isEditing}
                     nicknames={nicknames}

@@ -1,14 +1,20 @@
+import { Buffer } from "buffer";
+
+import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import {
   faQuestionCircle,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FieldValidator } from "formik";
+import type { FieldValidator, FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { VALIDATE_GIT_ACCESS } from "../../queries";
 import type { IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
@@ -33,6 +39,8 @@ import {
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import {
   checked,
@@ -42,6 +50,7 @@ import {
 } from "utils/validations";
 
 interface IRepositoryProps {
+  groupName: string;
   initialValues: IGitRootAttr;
   isEditing: boolean;
   nicknames: string[];
@@ -50,6 +59,7 @@ interface IRepositoryProps {
 }
 
 const Repository: React.FC<IRepositoryProps> = ({
+  groupName,
   initialValues,
   isEditing,
   nicknames,
@@ -68,6 +78,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   };
 
   const user: IAuthContext = useContext(authContext);
+  const [isGitAccessible, changeGitAccessibility] = useState(true);
   const [credExists, deleteExistingCred] = useState(
     initialValues.credentials.id !== ""
   );
@@ -88,6 +99,14 @@ const Repository: React.FC<IRepositoryProps> = ({
     [initialValues, nicknames, t]
   );
 
+  const requireGitAccessibility: FieldValidator = (): string | undefined => {
+    if (!isGitAccessible) {
+      return t("group.scope.git.repo.credentials.checkAccess.noAccess");
+    }
+
+    return undefined;
+  };
+
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     initialValues.includesHealthCheck
   );
@@ -98,10 +117,55 @@ const Repository: React.FC<IRepositoryProps> = ({
     );
   }, []);
 
+  const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
+    onCompleted: (): void => {
+      changeGitAccessibility(true);
+      msgSuccess(
+        t("group.scope.git.repo.credentials.checkAccess.success"),
+        t("group.scope.git.repo.credentials.checkAccess.successTitle")
+      );
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        if (
+          error.message ===
+          "Exception - Git repository was not accessible with given credentials"
+        ) {
+          msgError(t("group.scope.git.errors.invalidGitCredentials"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't activate root", error);
+        }
+      });
+      changeGitAccessibility(false);
+    },
+  });
+
+  const formRef = useRef<FormikProps<IGitRootAttr>>(null);
+
+  function handleCheckAccessClick(): void {
+    if (formRef.current !== null) {
+      void validateGitAccess({
+        variables: {
+          credentials: {
+            key: Buffer.from(formRef.current.values.credentials.key).toString(
+              "base64"
+            ),
+            name: formRef.current.values.credentials.name,
+            type: formRef.current.values.credentials.type,
+          },
+          groupName,
+          url: formRef.current.values.url,
+        },
+      });
+    }
+  }
+
   return (
     <div>
       <Formik
         initialValues={initialValues}
+        innerRef={formRef}
         name={"gitRoot"}
         onSubmit={onSubmit}
         validationSchema={gitModalSchema}
@@ -225,13 +289,28 @@ const Repository: React.FC<IRepositoryProps> = ({
                               )}
                               type={"text"}
                               validate={composeValidators([
-                                required,
                                 hasSshFormat,
+                                required,
+                                requireGitAccessibility,
                               ])}
                             />
                           </div>
                         </div>
-                        <br />
+                        <div className={"mt2 tr"}>
+                          <Button
+                            disabled={
+                              !values.credentials.name ||
+                              !values.credentials.key ||
+                              hasSshFormat(values.credentials.key) !== undefined
+                            }
+                            id={"checkAccessBtn"}
+                            onClick={handleCheckAccessClick}
+                          >
+                            {t(
+                              "group.scope.git.repo.credentials.checkAccess.text"
+                            )}
+                          </Button>
+                        </div>
                       </React.Fragment>
                     ) : undefined}
                   </React.Fragment>

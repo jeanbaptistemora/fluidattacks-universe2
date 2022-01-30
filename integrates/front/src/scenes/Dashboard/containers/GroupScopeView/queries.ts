@@ -230,6 +230,22 @@ const SYNC_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
+const VALIDATE_GIT_ACCESS: DocumentNode = gql`
+  mutation ValidateGitAccess(
+    $credentials: CredentialsInput!
+    $groupName: String!
+    $url: String!
+  ) {
+    validateGitAccess(
+      credentials: $credentials
+      groupName: $groupName
+      url: $url
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -243,4 +259,5 @@ export {
   SYNC_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
+  VALIDATE_GIT_ACCESS,
 };

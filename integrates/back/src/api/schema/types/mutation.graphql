@@ -1094,12 +1094,12 @@ type Mutation {
 
   "Validate if Git root is accessible with the credentials provided"
   validateGitAccess(
-    "Url of the Git repository to check access"
-    url: String!
-    "Name of the group"
-    groupName: String!
     "Credentials used to access the repository"
     credentials: CredentialsInput!
+    "Name of the group"
+    groupName: String!
+    "Url of the Git repository to check access"
+    url: String!
   ): SimplePayload!
 
   "To verify if the vulnerabilities still remain open or were closed"
