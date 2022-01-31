@@ -8,6 +8,10 @@ from batch.types import (
 )
 from custom_exceptions import (
     ErrorUploadingFileS3,
+    UnavailabilityError,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 import logging
 import logging.config
@@ -40,6 +44,13 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 
 
+upload_report_file = retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    max_attempts=4,
+    sleep_seconds=1,
+)(upload_report)
+
+
 async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
     report_file_name: str = ""
     try:
@@ -49,7 +60,7 @@ async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
             passphrase=passphrase,
             user_email=item.subject,
         )
-        uploaded_file_name = await upload_report(report_file_name)
+        uploaded_file_name = await upload_report_file(report_file_name)
     except ErrorUploadingFileS3 as exc:
         LOGGER.exception(
             exc,
