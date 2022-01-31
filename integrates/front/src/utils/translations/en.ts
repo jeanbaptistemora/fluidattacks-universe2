@@ -2492,6 +2492,9 @@ export const enTranslations: ResourceKey = {
   },
   taskContainer: {
     filters: {
+      dateRange: {
+        placeholder: "Report date (Range)",
+      },
       groupName: {
         placeholder: "Group Name",
         tooltip: "Filter vulnerabilities based on group name",

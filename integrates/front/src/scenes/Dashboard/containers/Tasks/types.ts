@@ -23,6 +23,7 @@ interface IGroupAction {
 }
 
 interface IFilterTodosSet {
+  reportDateRange?: { max: string; min: string };
   tag: string;
   treatment: string;
   treatmentCurrentStatus: string;

@@ -16,6 +16,7 @@ import { EditButton } from "../VulnerabilitiesView/ActionButtons/EditButton";
 import { Button } from "components/Button";
 import type { IFilterProps } from "components/DataTableNext/types";
 import {
+  filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
@@ -71,9 +72,10 @@ export const TasksContent: React.FC<ITasksContent> = ({
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("todosLocationsCustomFilters", false);
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
-    useStoredState(
+    useStoredState<IFilterTodosSet>(
       "filterTodosVulnerabilitiesSet",
       {
+        reportDateRange: { max: "", min: "" },
         tag: "",
         treatment: "",
         treatmentCurrentStatus: "",
@@ -304,6 +306,42 @@ export const TasksContent: React.FC<ITasksContent> = ({
     );
   };
 
+  const onReportDateMaxChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        reportDateRange: {
+          max: event.target.value,
+          min:
+            value.reportDateRange === undefined
+              ? ""
+              : value.reportDateRange.min,
+        },
+      })
+    );
+  };
+
+  const onReportDateMinChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        reportDateRange: {
+          max:
+            value.reportDateRange === undefined
+              ? ""
+              : value.reportDateRange.max,
+          min: event.target.value,
+        },
+      })
+    );
+  };
+
   const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
     vulnerabilities,
     searchTextFilter
@@ -332,9 +370,16 @@ export const TasksContent: React.FC<ITasksContent> = ({
       filterVulnerabilitiesTable.treatmentCurrentStatus
     );
 
+  const filterReportDateRangeVulnerabilities: IVulnRowAttr[] = filterDateRange(
+    vulnerabilities,
+    filterVulnerabilitiesTable.reportDateRange ?? { max: "", min: "" },
+    "reportDate"
+  );
+
   const clearFilters = useCallback((): void => {
     setFilterVulnerabilitiesTable(
       (): IFilterTodosSet => ({
+        reportDateRange: { max: "", min: "" },
         tag: "",
         treatment: "",
         treatmentCurrentStatus: "",
@@ -345,6 +390,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
   }, [setFilterVulnerabilitiesTable]);
 
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterReportDateRangeVulnerabilities,
     filterSearchTextVulnerabilities,
     filterTagVulnerabilities,
     filterTreatmentVulnerabilities,
@@ -408,6 +454,21 @@ export const TasksContent: React.FC<ITasksContent> = ({
       tooltipId: "taskContainer.filters.groupName.tooltip.id",
       tooltipMessage: "taskContainer.filters.groupName.tooltip",
       type: "select",
+    },
+    {
+      defaultValue: "",
+      placeholder: t("taskContainer.filters.dateRange.placeholder"),
+      rangeProps: {
+        defaultValue: filterVulnerabilitiesTable.reportDateRange ?? {
+          max: "",
+          min: "",
+        },
+        onChangeMax: onReportDateMaxChange,
+        onChangeMin: onReportDateMinChange,
+      },
+      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
+      type: "dateRange",
     },
   ];
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
