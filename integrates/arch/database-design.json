@@ -2254,34 +2254,6 @@
           ]
         },
         {
-          "FacetName": "machine_git_root_execution",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#FIN#finding_code#MACHINE",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FIN#F112#MACHINE"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "queue_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "job_id": {
-                "S": "5504e9ed-8e43-486d-830b-c495086d84c1"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "queue_date",
-            "job_id",
-            "finding_code"
-          ]
-        },
-        {
           "FacetName": "org_finding_policy_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "POLICY#uuid",
