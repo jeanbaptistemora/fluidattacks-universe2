@@ -303,6 +303,14 @@ class InvalidAcceptanceDays(CustomBaseException):
         super(InvalidAcceptanceDays, self).__init__(msg)
 
 
+class InvalidMinTimeToRemediate(CustomBaseException):
+    """Exception to control correct MTTR input in draft creation"""
+
+    def __init__(self) -> None:
+        msg = "Exception - Min time to remediate should be a positive number"
+        super(InvalidMinTimeToRemediate, self).__init__(msg)
+
+
 class InvalidAcceptanceSeverity(CustomBaseException):
     def __init__(self, expr: str = "") -> None:
         if expr:

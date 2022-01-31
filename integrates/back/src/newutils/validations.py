@@ -8,6 +8,7 @@ from custom_exceptions import (
     InvalidFieldChange,
     InvalidFieldLength,
     InvalidMarkdown,
+    InvalidMinTimeToRemediate,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
@@ -17,6 +18,9 @@ from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
+)
+from decimal import (
+    Decimal,
 )
 from newutils import (
     utils,
@@ -230,3 +234,18 @@ def validate_no_duplicate_drafts(
         if new_title == finding.title:
             raise DuplicateDraftFound(kind="finding")
     return True
+
+
+def check_and_set_min_time_to_remediate(
+    mttr: Optional[str],
+) -> Optional[Decimal]:
+    """Makes sure that min_time_to_remediate is either None or a positive
+    number and returns it as a Decimal"""
+    try:
+        if mttr is None:
+            return None
+        if float(mttr) > 0.0:
+            return Decimal(mttr)
+        raise InvalidMinTimeToRemediate()
+    except ValueError as error:
+        raise InvalidMinTimeToRemediate() from error

@@ -21,6 +21,7 @@ async def get_result(
     requirements: str = "REQ.0366. Do something"
     threat: str = "Attacker"
     title: str = "366. Inappropriate coding practices - Transparency Conflict"
+    min_time_to_remediate: str = "18"
     query: str = f"""
         mutation {{
             addDraft(
@@ -31,6 +32,7 @@ async def get_result(
                 requirements: "{requirements}",
                 threat: "{threat}",
                 title: "{title}",
+                minTimeToRemediate: "{min_time_to_remediate}",
             ) {{
                 success
             }}

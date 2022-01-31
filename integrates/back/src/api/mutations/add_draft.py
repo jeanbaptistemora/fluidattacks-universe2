@@ -58,30 +58,37 @@ async def mutate(
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
-    # Duplicate check
-    group_findings_loader: DataLoader = info.context.loaders.group_findings
-    group_drafts_loader: DataLoader = info.context.loaders.group_drafts
-    drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
-    findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group_name
-    )
-    validations.validate_no_duplicate_drafts(title, drafts, findings)
-
-    validations.validate_fields(
-        [
-            kwargs.get(
-                "attack_vector_description",
-                kwargs.get("attack_vector_desc", ""),
-            ),
-            kwargs.get("description", ""),
-            kwargs.get("recommendation", ""),
-            kwargs.get("requirements", ""),
-            kwargs.get("threat", ""),
-        ]
-    )
-    findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
-
     try:
+        # Duplicate check
+        group_findings_loader: DataLoader = info.context.loaders.group_findings
+        group_drafts_loader: DataLoader = info.context.loaders.group_drafts
+        drafts: Tuple[Finding, ...] = await group_drafts_loader.load(
+            group_name
+        )
+        findings: Tuple[Finding, ...] = await group_findings_loader.load(
+            group_name
+        )
+        validations.validate_no_duplicate_drafts(title, drafts, findings)
+
+        validations.validate_fields(
+            [
+                kwargs.get(
+                    "attack_vector_description",
+                    kwargs.get("attack_vector_desc", ""),
+                ),
+                kwargs.get("description", ""),
+                kwargs.get("recommendation", ""),
+                kwargs.get("requirements", ""),
+                kwargs.get("threat", ""),
+            ]
+        )
+        findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
+        min_time_to_remediate = (
+            validations.check_and_set_min_time_to_remediate(
+                kwargs.get("min_time_to_remediate", None)
+            )
+        )
+
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         severity_info = Finding31Severity(
@@ -110,6 +117,7 @@ async def mutate(
             or kwargs.get("attack_vector_desc", ""),
             description=kwargs.get("description", ""),
             hacker_email=user_email,
+            min_time_to_remediate=min_time_to_remediate,
             recommendation=kwargs.get("recommendation", ""),
             requirements=kwargs.get("requirements", ""),
             severity=severity_info,

@@ -85,6 +85,7 @@ async def get_result(
                 linesVulnerabilities {{
                     specific
                 }}
+                minTimeToRemediate
                 newRemediated
                 observations{{
                     content

@@ -146,6 +146,10 @@ def format_finding(
         }
     )
 
+    min_time_to_remediate: Optional[Decimal] = None
+    if "min_time_to_remediate" in metadata:
+        min_time_to_remediate = Decimal(metadata["min_time_to_remediate"])
+
     return Finding(
         hacker_email=metadata["analyst_email"],
         approval=approval,
@@ -156,6 +160,7 @@ def format_finding(
         group_name=metadata["group_name"],
         id=metadata["id"],
         severity=severity,
+        min_time_to_remediate=min_time_to_remediate,
         sorts=FindingSorts[metadata["sorts"]],
         submission=submission,
         recommendation=metadata["recommendation"],

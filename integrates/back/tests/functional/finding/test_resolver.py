@@ -109,6 +109,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
     )
     attack_vector_description: str = "This is an updated attack vector"
+    min_time_to_remediate: float = 4.5
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
     tracking: List[Dict[str, Any]] = [
@@ -227,6 +228,10 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
     assert result["data"]["finding"]["verified"] == verified
+    assert (
+        result["data"]["finding"]["minTimeToRemediate"]
+        == min_time_to_remediate
+    )
     assert result["data"]["finding"]["vulnsToReattack"] == []
     assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
     vuln_ids: List[str] = [
@@ -311,6 +316,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     )
     attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
+    min_time_to_remediate: float = 4.5
     recommendation: str = "Updated recommendation"
     tracking: List[Dict[str, Any]] = [
         {
@@ -421,6 +427,10 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
     assert result["data"]["finding"]["verified"] == verified
+    assert (
+        result["data"]["finding"]["minTimeToRemediate"]
+        == min_time_to_remediate
+    )
     assert result["data"]["finding"]["vulnsToReattack"] == []
     assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
     vuln_ids: List[str] = [

@@ -120,6 +120,7 @@ async def add_draft(
         description=draft_info.description,
         group_name=group_name,
         id=finding_id,
+        min_time_to_remediate=draft_info.min_time_to_remediate,
         state=FindingState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date_no_fractional(),

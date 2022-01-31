@@ -4,6 +4,9 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding31Severity,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -23,6 +26,7 @@ class FindingDraftToAdd(NamedTuple):
     attack_vector_description: str
     description: str
     hacker_email: str
+    min_time_to_remediate: Optional[Decimal]
     recommendation: str
     requirements: str
     severity: Finding31Severity
