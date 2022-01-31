@@ -2499,6 +2499,12 @@ export const enTranslations: ResourceKey = {
         placeholder: "Group Name",
         tooltip: "Filter vulnerabilities based on group name",
       },
+      treatment: {
+        placeholder: "Treatment",
+      },
+      treatmentAcceptance: {
+        placeholder: "Treatment Acceptance",
+      },
     },
   },
   updateAccessToken: {

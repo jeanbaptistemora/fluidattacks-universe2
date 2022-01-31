@@ -412,7 +412,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
     {
       defaultValue: filterVulnerabilitiesTable.treatment,
       onChangeSelect: onTreatmentChange,
-      placeholder: "Treatment",
+      placeholder: t("taskContainer.filters.treatment.placeholder"),
       /* eslint-disable sort-keys */
       selectOptions: {
         NEW: "searchFindings.tabDescription.treatment.new",
@@ -429,7 +429,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
     {
       defaultValue: filterVulnerabilitiesTable.treatmentCurrentStatus,
       onChangeSelect: onTreatmentStatusChange,
-      placeholder: "Treatment Acceptance",
+      placeholder: t("taskContainer.filters.treatmentAcceptance.placeholder"),
       selectOptions: {
         false: "Accepted",
         true: "Pending",
