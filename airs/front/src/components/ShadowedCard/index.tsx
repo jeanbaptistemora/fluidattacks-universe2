@@ -78,28 +78,43 @@ const ShadowedCard: React.FC<IProps> = ({
   image,
   number,
   text,
-}: IProps): JSX.Element => (
-  <WhiteCardContainer>
-    <SquaredCardContainer className={`${color}`}>
-      <CloudImage
-        alt={"card-image"}
-        src={`${image}`}
-        styles={"solution-card-icon mt4"}
-      />
-      {color === "bg-white" ? (
-        <React.Fragment>
-          <RedParagraph>{number}</RedParagraph>
-          <SmallBlackText>{text}</SmallBlackText>
-        </React.Fragment>
-      ) : color === "bg-black-18" ? (
-        <React.Fragment>
-          <WhiteParagraph>{number}</WhiteParagraph>
-          <SmallGrayText>{text}</SmallGrayText>
-        </React.Fragment>
-      ) : undefined}
-    </SquaredCardContainer>
-  </WhiteCardContainer>
-);
+}: IProps): JSX.Element => {
+  if (color === "bg-white") {
+    return (
+      <WhiteCardContainer>
+        <SquaredCardContainer className={`${color}`}>
+          <CloudImage
+            alt={"card-image"}
+            src={`${image}`}
+            styles={"solution-card-icon mt4"}
+          />
+          <React.Fragment>
+            <RedParagraph>{number}</RedParagraph>
+            <SmallBlackText>{text}</SmallBlackText>
+          </React.Fragment>
+        </SquaredCardContainer>
+      </WhiteCardContainer>
+    );
+  }
+
+  return (
+    <WhiteCardContainer>
+      <SquaredCardContainer className={`${color}`}>
+        <CloudImage
+          alt={"card-image"}
+          src={`${image}`}
+          styles={"solution-card-icon mt4"}
+        />
+        {color === "bg-black-18" ? (
+          <React.Fragment>
+            <WhiteParagraph>{number}</WhiteParagraph>
+            <SmallGrayText>{text}</SmallGrayText>
+          </React.Fragment>
+        ) : undefined}
+      </SquaredCardContainer>
+    </WhiteCardContainer>
+  );
+};
 
 // eslint-disable-next-line fp/no-mutation
 ShadowedCard.defaultProps = {
