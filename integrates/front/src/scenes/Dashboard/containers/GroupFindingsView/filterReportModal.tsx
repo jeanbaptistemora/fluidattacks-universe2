@@ -1,33 +1,20 @@
 import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import {
-  faFileArchive,
-  faFileExcel,
-  faFilePdf,
-  faSlidersH,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { track } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Trans } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
-import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import {
-  ButtonToolbar,
-  ButtonToolbarCenter,
-  Col100,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbar, Col100, Row, Select } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -38,20 +25,19 @@ interface IDeactivationModalProps {
   onClose: () => void;
 }
 
-const ReportsModal: React.FC<IDeactivationModalProps> = ({
+const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   hasMobileApp,
   isOpen,
   onClose,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
 
-  const [isFilterReportModalOpen, setFilterReportModalOpen] = useState(false);
-  const openFilterReportModal: () => void = useCallback((): void => {
-    setFilterReportModalOpen(true);
-  }, []);
-  const closeFilterReportsModal: () => void = useCallback((): void => {
-    setFilterReportModalOpen(false);
-  }, []);
+  const [selectedTreatment, setSelectedTreatment] = useState("");
+  function onTreatmentChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setSelectedTreatment(event.target.value);
+  }
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
@@ -73,6 +59,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
     const icon: SVGElement | null = target.querySelector("svg");
     if (icon !== null) {
       const reportType: string = setReportType(icon);
+      const treatment: string = selectedTreatment;
 
       track("GroupReportRequest", { reportType });
 
@@ -80,6 +67,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         variables: {
           groupName,
           reportType,
+          treatment,
         },
       });
       onClose();
@@ -101,65 +89,51 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                   <p>{translate.t("group.findings.report.techDescription")}</p>
                 </Trans>
                 <br />
+                <Trans>
+                  <p>
+                    {translate.t(
+                      "group.findings.report.filterReportDescription"
+                    )}
+                  </p>
+                </Trans>
+                <Row />
+                <Trans>
+                  <p className={"tl fw8"}>
+                    {translate.t("group.findings.report.treatment")}
+                  </p>
+                </Trans>
+                <Select onChange={onTreatmentChange}>
+                  <option disabled={true} selected={true} value={""}>
+                    {"Select one"}
+                  </option>
+                  <option value={"IN_PROGRESS"}>
+                    {translate.t(
+                      "searchFindings.tabDescription.treatment.inProgress"
+                    )}
+                  </option>
+                  <option value={"ACCEPTED"}>
+                    {translate.t(
+                      "searchFindings.tabDescription.treatment.accepted"
+                    )}
+                  </option>
+                  <option value={"ACCEPTED_UNDEFINED"}>
+                    {translate.t(
+                      "searchFindings.tabDescription.treatment.acceptedUndefined"
+                    )}
+                  </option>
+                </Select>
+                <br />
                 <Row>
                   <Col100>
-                    <ButtonToolbarCenter>
-                      <TooltipWrapper
-                        id={"group.findings.report.pdfTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.pdfTooltip"
-                        )}
+                    <ButtonToolbar>
+                      <Button
+                        id={"report-excel"}
+                        onClick={handleRequestGroupReport}
                       >
-                        <Button
-                          id={"report-pdf"}
-                          onClick={handleRequestGroupReport}
-                        >
-                          <FontAwesomeIcon icon={faFilePdf} />
-                          {translate.t("group.findings.report.pdf")}
-                        </Button>
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        id={"group.findings.report.xlsTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.xlsTooltip"
-                        )}
-                      >
-                        <Button
-                          id={"report-excel"}
-                          onClick={handleRequestGroupReport}
-                        >
-                          <FontAwesomeIcon icon={faFileExcel} />
-                          {translate.t("group.findings.report.xls")}
-                        </Button>
-                        <Button
-                          id={"customize-report"}
-                          onClick={openFilterReportModal}
-                          // eslint-disable-next-line react/forbid-component-props
-                          style={{ borderLeft: "0", marginLeft: "0" }}
-                        >
-                          <FontAwesomeIcon icon={faSlidersH} />
-                        </Button>
-                        <FilterReportModal
-                          hasMobileApp={hasMobileApp}
-                          isOpen={isFilterReportModalOpen}
-                          onClose={closeFilterReportsModal}
-                        />
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        id={"group.findings.report.dataTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.dataTooltip"
-                        )}
-                      >
-                        <Button
-                          id={"report-zip"}
-                          onClick={handleRequestGroupReport}
-                        >
-                          <FontAwesomeIcon icon={faFileArchive} />
-                          {translate.t("group.findings.report.data")}
-                        </Button>
-                      </TooltipWrapper>
-                    </ButtonToolbarCenter>
+                        <FontAwesomeIcon icon={faFileExcel} />
+                        {translate.t("group.findings.report.generateXls")}
+                      </Button>
+                    </ButtonToolbar>
                   </Col100>
                 </Row>
               </React.Fragment>
@@ -171,10 +145,12 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                   </p>
                 </Trans>
                 <p>
-                  <ExternalLink
+                  <a
                     href={
                       "https://apps.apple.com/us/app/integrates/id1470450298"
                     }
+                    rel={"nofollow noopener noreferrer"}
+                    target={"_blank"}
                   >
                     <img
                       alt={"App Store"}
@@ -182,11 +158,13 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       src={AppstoreBadge}
                       width={"140"}
                     />
-                  </ExternalLink>
-                  <ExternalLink
+                  </a>
+                  <a
                     href={
                       "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
                     }
+                    rel={"nofollow noopener noreferrer"}
+                    target={"_blank"}
                   >
                     <img
                       alt={"Google Play"}
@@ -194,7 +172,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       src={GoogleplayBadge}
                       width={"140"}
                     />
-                  </ExternalLink>
+                  </a>
                 </p>
               </React.Fragment>
             )}
@@ -215,4 +193,4 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   );
 };
 
-export { ReportsModal };
+export { FilterReportModal };

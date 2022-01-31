@@ -466,6 +466,10 @@ export const enTranslations: ResourceKey = {
         dataTooltip:
           "Receive a zip file containing the exported data of all the findings " +
           "of this group",
+        filterReportDescription:
+          "Here you can customize the length of the report " +
+          "by selecting these fields",
+        generateXls: "Generate XLS",
         modalClose: "Close",
         modalTitle: "Reports",
         noMobileAppWarning:
@@ -482,6 +486,7 @@ export const enTranslations: ResourceKey = {
           "Reports are created on-demand and are protected by a <strong>passphrase</strong>. " +
           "The <strong>passphrase</strong> is generated randomly and will be " +
           "sent through a notification to your mobile device.",
+        treatment: "Treatment",
         xls: "  Technical",
         xlsTooltip:
           "Receive an xls file with a technical report that gives you more detailed " +
