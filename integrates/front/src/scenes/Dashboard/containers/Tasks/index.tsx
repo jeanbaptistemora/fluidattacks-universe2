@@ -79,6 +79,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
         tag: "",
         treatment: "",
         treatmentCurrentStatus: "",
+        verification: "",
       },
       localStorage
     );
@@ -342,6 +343,18 @@ export const TasksContent: React.FC<ITasksContent> = ({
     );
   };
 
+  const onVerificationChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setFilterVulnerabilitiesTable(
+      (value): IFilterTodosSet => ({
+        ...value,
+        verification: event.target.value,
+      })
+    );
+  };
+
   const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
     vulnerabilities,
     searchTextFilter
@@ -376,6 +389,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
     "reportDate"
   );
 
+  const filterVerificationVulnerabilities: IVulnRowAttr[] = filterSelect(
+    vulnerabilities,
+    filterVulnerabilitiesTable.verification ?? "",
+    "verification"
+  );
+
   const clearFilters = useCallback((): void => {
     setFilterVulnerabilitiesTable(
       (): IFilterTodosSet => ({
@@ -383,6 +402,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
         tag: "",
         treatment: "",
         treatmentCurrentStatus: "",
+        verification: "",
       })
     );
     setSearchTextFilter("");
@@ -395,7 +415,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
     filterTagVulnerabilities,
     filterTreatmentVulnerabilities,
     filterTreatmentCurrentStatusVulnerabilities,
-    filterGroupNameVulnerabilities
+    filterGroupNameVulnerabilities,
+    filterVerificationVulnerabilities
   );
 
   const vulnerabilitiesGroupNameArray = vulnerabilities.map(
@@ -453,6 +474,18 @@ export const TasksContent: React.FC<ITasksContent> = ({
       selectOptions: groupNameOptions,
       tooltipId: "taskContainer.filters.groupName.tooltip.id",
       tooltipMessage: "taskContainer.filters.groupName.tooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterVulnerabilitiesTable.verification ?? "",
+      onChangeSelect: onVerificationChange,
+      placeholder: "Reattacks",
+      selectOptions: {
+        Requested: "searchFindings.tabVuln.requested",
+        Verified: "searchFindings.tabVuln.verified",
+      },
+      tooltipId: "searchFindings.tabVuln.vulnTable.reattacksTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.reattacksTooltip",
       type: "select",
     },
     {

@@ -27,6 +27,7 @@ interface IFilterTodosSet {
   tag: string;
   treatment: string;
   treatmentCurrentStatus: string;
+  verification?: string;
 }
 
 export { IAction, IFilterTodosSet, IGroupAction, ITasksContent };
