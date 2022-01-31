@@ -22,9 +22,12 @@ def to_tuple(piter: PureIter[_T], limit: int) -> FrozenList[_T]:
     return tuple(items)
 
 
-def assert_immutability(piter: PureIter[_T]) -> None:
+def assert_immutability(piter: PureIter[_T], only_count: bool = False) -> None:
     # for finite PureIter
-    assert tuple(piter) == tuple(piter)
+    if only_count:
+        assert sum(1 for _ in piter) == sum(1 for _ in piter)
+    else:
+        assert tuple(piter) == tuple(piter)
 
 
 def assert_immutability_inf(piter: PureIter[_T]) -> None:
