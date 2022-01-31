@@ -17,7 +17,6 @@ class MetadataTableRow:
     type: str
     custom_severity: Optional[int]
     skims_method: Optional[str]
-    developer: Optional[str]
 
 
 @dataclass(frozen=True)
