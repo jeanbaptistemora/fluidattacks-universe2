@@ -614,7 +614,7 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F268,
+        finding=core_model.FindingEnum.F060,
         locations=locations,
         developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
     )
@@ -679,6 +679,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F055: _apk_backups_enabled,
     core_model.FindingEnum.F058: _apk_debugging_enabled,
+    core_model.FindingEnum.F060: _not_verifies_ssl_hostname,
     core_model.FindingEnum.F075: _apk_exported_cp,
     core_model.FindingEnum.F082: _uses_insecure_delete,
     core_model.FindingEnum.F103: _apk_unsigned,

@@ -1,12 +1,8 @@
 apk:
   include:
   - examples/tests/com.android.example.text.styling.apk
-  - examples/tests/com.example.android.tvleanback.apk
-  - examples/tests/com.example.android.wearable.wear.weardrawers.apk
-  - examples/tests/com.politedroid_4.apk
   - examples/tests/com.teleca.jamendo_35.apk
   - examples/tests/com.test.intent_filter.apk
-  - examples/tests/duplicate.permisssions_9999999.apk
   - examples/tests/hello-world.apk
   - examples/tests/lineageos_nexus5_framework-res.apk
   - examples/tests/multidex/multidex.apk
@@ -14,6 +10,7 @@ apk:
   - ../product/skims/test/data/lib_apk/has_frida.apk
   - ../product/skims/test/data/lib_apk/js_open.apk
   - ../product/skims/test/data/lib_apk/unsafe_delete.apk
+  - ../product/skims/test/data/lib_apk/ssl_open.apk
 namespace: namespace
 output: skims/test/outputs/lib_apk.csv
 working_dir: ../androguard
