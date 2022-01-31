@@ -34,6 +34,7 @@ locals {
           "logs:*",
           "pricing:*",
           "rds:*",
+          "redshift:*",
           "route53:*",
           "s3:*",
           "savingsplans:*",
