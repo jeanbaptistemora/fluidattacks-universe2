@@ -1,8 +1,7 @@
-from aioextensions import (
-    collect,
-    CPU_CORES,
-)
 import bs4
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 from ctx import (
     CTX,
 )
@@ -23,6 +22,9 @@ from lib_http.types import (
 from model import (
     core_model,
 )
+from more_itertools import (
+    collapse,
+)
 from queue import (
     SimpleQueue,
 )
@@ -41,7 +43,7 @@ from typing import (
 import urllib.parse
 from utils.function import (
     rate_limited,
-    shield,
+    shield_blocking,
 )
 from utils.http import (
     create_session,
@@ -51,7 +53,6 @@ from utils.limits import (
     LIB_HTTP_DEFAULT,
 )
 from utils.logs import (
-    log,
     log_blocking,
 )
 from utils.ntp import (
@@ -73,22 +74,24 @@ CHECKS: Tuple[
 )
 
 
-@shield(on_error_return=[])
-async def analyze_one(
+@shield_blocking(on_error_return=[])
+def analyze_one(
     *,
     index: int,
     url: URLContext,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_count: int,
-) -> None:
-    await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
-
-    for get_check_ctx, checks in CHECKS:
-        for finding, check_list in checks.items():
-            if finding in CTX.config.checks:
-                for check in check_list:
-                    for vuln in check(get_check_ctx(url)):
-                        stores[vuln.finding].store(vuln)
+) -> Tuple[core_model.Vulnerability, ...]:
+    log_blocking(
+        "info", "Analyzing http %s of %s: %s", index, unique_count, url
+    )
+    return tuple(
+        vuln
+        for get_check_ctx, checks in CHECKS
+        for finding, check_list in checks.items()
+        if finding in CTX.config.checks
+        for check in check_list
+        for vuln in check(get_check_ctx(url))
+    )
 
 
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
@@ -174,15 +177,23 @@ async def analyze(
     unique_urls: Set[URLContext] = await get_urls()
     unique_count: int = len(unique_urls)
 
-    await collect(
-        (
-            analyze_one(
-                index=index,
-                url=url,
-                stores=stores,
-                unique_count=unique_count,
+    with ThreadPoolExecutor() as executor:
+        vulnerabilities: Tuple[core_model.Vulnerability, ...] = tuple(
+            collapse(
+                (
+                    analyze_one(
+                        index=index,
+                        url=url,
+                        unique_count=unique_count,
+                    )
+                    for index, url in enumerate(unique_urls)
+                ),
+                base_type=core_model.Vulnerability,
             )
-            for index, url in enumerate(unique_urls)
-        ),
-        workers=CPU_CORES,
-    )
+        )
+        executor.map(
+            lambda x: stores[  # pylint: disable=unnecessary-lambda
+                x.finding
+            ].store(x),
+            vulnerabilities,
+        )
