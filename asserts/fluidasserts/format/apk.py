@@ -189,33 +189,6 @@ defaults to deny user-supplied CAs"
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def uses_insecure_delete(apk_file: str) -> tuple:
-    """
-    Check if the given APK uses insecure delete of data.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK uses insecure delete of data
-                (*Ljava/io/File;->delete()Z*).
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    dex = get_dex(apk_file)
-
-    deletes_insecure = is_method_present(
-        dex, "Ljava/io/File;", "delete", "()Z"
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK does not securely remove files",
-        msg_closed="APK securely remove files",
-        open_if=deletes_insecure,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def uses_http_resources(apk_file: str) -> tuple:
     """
     Check if the given APK references HTTP (not HTTPS) resources.

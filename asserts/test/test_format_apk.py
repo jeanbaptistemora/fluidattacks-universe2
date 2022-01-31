@@ -55,11 +55,6 @@ def test_allows_user_ca_open():
     assert apk.allows_user_ca(SIGNED_APK)
 
 
-def test_unsafe_delete_open():
-    """Test if APK does not securely erase files."""
-    assert apk.uses_insecure_delete(UNSAFE_DELETE_OPEN)
-
-
 def test_unsafe_http_open():
     """Test if APK uses HTTP references."""
     assert apk.uses_http_resources(HTTP_OPEN)
@@ -100,11 +95,6 @@ def test_allows_user_ca_close2():
     assert not apk.allows_user_ca(SSL_OPEN)
 
 
-def test_unsafe_delete_close():
-    """Test if APK does not securely erase files."""
-    assert not apk.uses_insecure_delete(SIGNED_APK)
-
-
 def test_unsafe_http_close():
     """Test if APK uses HTTP references."""
     assert not apk.uses_http_resources(SIGNED_APK)
@@ -138,11 +128,6 @@ def test_ssl_hostname_verify_unknown():
 def test_allows_user_ca_unknown():
     """Test if APK trusts user CAs."""
     assert not apk.allows_user_ca(NOT_EXISTS_APK)
-
-
-def test_unsafe_delete_unknown():
-    """Test if APK does not securely erase files."""
-    assert not apk.uses_insecure_delete(NOT_EXISTS_APK)
 
 
 def test_unsafe_http_unknown():
