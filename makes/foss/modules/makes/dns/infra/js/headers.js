@@ -1,7 +1,13 @@
 let securityHeaders = {
-  "Content-Security-Policy" : "upgrade-insecure-requests",
+  "Content-Security-Policy" : "script-src "
+                              + "'self'; "
+                              + "frame-ancestors "
+                              + "'self'; "
+                              + "object-src "
+                              + "'none'; "
+                              + "upgrade-insecure-requests;",
   "Strict-Transport-Security" : "max-age=31536000",
-  "X-Xss-Protection" : "1; mode=block",
+  "X-Xss-Protection" : "0",
   "X-Frame-Options" : "DENY",
   "X-Content-Type-Options" : "nosniff",
   "X-Permitted-Cross-Domain-Policies": "none",
