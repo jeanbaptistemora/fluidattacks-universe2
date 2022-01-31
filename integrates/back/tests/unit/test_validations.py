@@ -3,6 +3,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
+    InvalidRootComponent,
 )
 from dataloaders import (
     get_new_context,
@@ -25,6 +26,7 @@ from roots.validations import (
     is_valid_ip,
     is_valid_url,
     validate_active_root,
+    validate_component,
 )
 
 pytestmark = [
@@ -43,6 +45,26 @@ async def test_validate_active_root() -> None:
     )
     with pytest.raises(InactiveRoot):
         validate_active_root(inactive_root)
+
+
+async def test_validate_component() -> None:
+    loaders = get_new_context()
+    git_root: RootItem = await loaders.root.load(
+        ("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    )
+    validate_component(git_root, "https://app.fluidattacks.com/test")
+    url_root: RootItem = await loaders.root.load(
+        ("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    )
+    validate_component(url_root, "https://app.fluidattacks.com:443/test")
+    ip_root: RootItem = await loaders.root.load(
+        ("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    )
+    validate_component(ip_root, "127.0.0.1:8080/test")
+    with pytest.raises(InvalidRootComponent):
+        validate_component(git_root, "https://app.invalid.com/test")
+        validate_component(url_root, "https://app.fluidattacks.com:443")
+        validate_component(ip_root, "127.0.0.1/test")
 
 
 def test_validate_fields() -> None:
