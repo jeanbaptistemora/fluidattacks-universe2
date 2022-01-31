@@ -141,7 +141,7 @@ def validate_component(root: RootItem, component: str) -> None:
             else root.state.host
         )
         if component.startswith(
-            f"{root.state.protocol}://{host}{root.state.path}"
+            f"{root.state.protocol.lower()}://{host}{root.state.path}"
         ):
             return
 
