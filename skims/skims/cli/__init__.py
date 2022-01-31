@@ -31,6 +31,7 @@ from utils.env import (
 )
 from utils.function import (
     shield,
+    shield_blocking,
 )
 from utils.logs import (
     log_blocking,
@@ -199,12 +200,10 @@ def cli_scan(
     CTX.config = None
 
     start_time: float = time()
-    success: bool = run(
-        cli_scan_wrapped(
-            config=config,
-            group=group,
-            token=token,
-        ),
+    success: bool = cli_scan_wrapped(
+        config=config,
+        group=group,
+        token=token,
     )
 
     log_blocking("info", "Success: %s", success)
@@ -285,8 +284,8 @@ async def cli_rebase_wrapped(
     return success
 
 
-@shield(on_error_return=False)
-async def cli_scan_wrapped(
+@shield_blocking(on_error_return=False)
+def cli_scan_wrapped(
     config: str,
     group: Optional[str],
     token: Optional[str],
@@ -299,7 +298,7 @@ async def cli_scan_wrapped(
         group=group or "",
         token="set" if token else "",
     )
-    success: bool = await core.scan.main(
+    success: bool = core.scan.main(
         config=config,
         group=group,
         token=token,

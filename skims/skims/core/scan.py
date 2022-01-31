@@ -1,3 +1,6 @@
+from aioextensions import (
+    run,
+)
 from config import (
     load,
 )
@@ -49,7 +52,7 @@ from utils.bugs import (
 )
 from utils.logs import (
     configure as configure_logs,
-    log,
+    log_blocking,
 )
 from utils.repositories import (
     get_repo_head_hash,
@@ -59,7 +62,7 @@ from zone import (
 )
 
 
-async def execute_skims(token: Optional[str]) -> bool:
+def execute_skims(token: Optional[str]) -> bool:
     """Execute skims according to the provided config.
 
     :param token: Integrates API token
@@ -80,30 +83,32 @@ async def execute_skims(token: Optional[str]) -> bool:
     if CTX.config.apk.include:
         analyze_apk(stores=stores)
     if CTX.config.http.include:
-        await analyze_http(stores=stores)
+        run(analyze_http(stores=stores))
     if CTX.config.path.include:
         if CTX.config.path.lib_path:
             analyze_paths(stores=stores)
         if CTX.config.path.lib_root:
             analyze_root(stores=stores)
     if CTX.config.ssl.include:
-        await analyze_ssl(stores=stores)
+        run(analyze_ssl(stores=stores))
 
     if CTX.config.output:
-        await notify_findings_as_csv(stores, CTX.config.output)
+        notify_findings_as_csv(stores, CTX.config.output)
     else:
-        await notify_findings_as_snippets(stores)
+        notify_findings_as_snippets(stores)
 
-    await log("info", "Value missing to add:\n%s", CTX.value_to_add)
+    log_blocking("info", "Value missing to add:\n%s", CTX.value_to_add)
 
     if CTX.config.group and token:
         msg = "Results will be synced to group: %s"
-        await log("info", msg, CTX.config.group)
+        log_blocking("info", msg, CTX.config.group)
 
-        result_persist = await persist(
-            group=CTX.config.group,
-            stores=stores,
-            token=token,
+        result_persist = run(
+            persist(
+                group=CTX.config.group,
+                stores=stores,
+                token=token,
+            )
         )
         success = all(result_persist.values())
 
@@ -112,9 +117,9 @@ async def execute_skims(token: Optional[str]) -> bool:
             executed = [
                 {
                     "finding": finding.name,
-                    "open": await get_ephemeral_store().length(),
+                    "open": get_ephemeral_store().length(),
                     "modified": (
-                        await result_persist[finding].diff_result.length()
+                        result_persist[finding].diff_result.length()
                         if finding in result_persist
                         and result_persist[finding].diff_result
                         else 0
@@ -123,18 +128,20 @@ async def execute_skims(token: Optional[str]) -> bool:
                 for finding in core_model.FindingEnum
                 if finding in CTX.config.checks
             ]
-            await do_add_skims_execution(
-                root=CTX.config.namespace,
-                group_name=CTX.config.group,
-                job_id=batch_job_id,
-                start_date=start_date,
-                end_date=end_date,
-                findings_executed=tuple(executed),
-                commit_hash=get_repo_head_hash(CTX.config.working_dir),
+            run(
+                do_add_skims_execution(
+                    root=CTX.config.namespace,
+                    group_name=CTX.config.group,
+                    job_id=batch_job_id,
+                    start_date=start_date,
+                    end_date=end_date,
+                    findings_executed=tuple(executed),
+                    commit_hash=get_repo_head_hash(CTX.config.working_dir),
+                )
             )
     else:
         success = True
-        await log(
+        log_blocking(
             "info",
             (
                 "In case you want to persist results to Integrates "
@@ -146,7 +153,7 @@ async def execute_skims(token: Optional[str]) -> bool:
     return success
 
 
-async def notify_findings_as_snippets(
+def notify_findings_as_snippets(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     """Print user-friendly messages about the results found."""
@@ -156,10 +163,10 @@ async def notify_findings_as_snippets(
                 title = t(result.finding.value.title)
                 what = result.what_on_integrates
                 snippet = result.skims_metadata.snippet
-                await log("info", f"{title}: {what}\n\n{snippet}\n")
+                log_blocking("info", f"{title}: {what}\n\n{snippet}\n")
 
 
-async def notify_findings_as_csv(
+def notify_findings_as_csv(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     output: str,
 ) -> None:
@@ -200,10 +207,10 @@ async def notify_findings_as_csv(
         writer.writeheader()
         writer.writerows(sorted(rows, key=str))
 
-    await log("info", "An output file has been written: %s", output)
+    log_blocking("info", "An output file has been written: %s", output)
 
 
-async def main(
+def main(
     config: str,
     group: Optional[str],
     token: Optional[str],
@@ -213,13 +220,17 @@ async def main(
         configure_logs()
 
         add_bugsnag_data(namespace=CTX.config.namespace)
-        await reset_ephemeral_state()
-        await log("info", "Namespace: %s", CTX.config.namespace)
-        await log("info", "Startup working dir is: %s", CTX.config.start_dir)
-        await log("info", "Moving working dir to: %s", CTX.config.working_dir)
+        reset_ephemeral_state()
+        log_blocking("info", "Namespace: %s", CTX.config.namespace)
+        log_blocking(
+            "info", "Startup working dir is: %s", CTX.config.start_dir
+        )
+        log_blocking(
+            "info", "Moving working dir to: %s", CTX.config.working_dir
+        )
         os.chdir(CTX.config.working_dir)
-        return await execute_skims(token)
+        return execute_skims(token)
     finally:
         if CTX and CTX.config and CTX.config.start_dir:
             os.chdir(CTX.config.start_dir)
-            await reset_ephemeral_state()
+            reset_ephemeral_state()

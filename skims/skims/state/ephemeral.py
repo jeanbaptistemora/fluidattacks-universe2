@@ -46,7 +46,7 @@ EPHEMERAL: str = join(STATE_FOLDER, "ephemeral", uuid().hex)
 ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], None]
-LengthFunction = Callable[[], Awaitable[int]]
+LengthFunction = Callable[[], int]
 IteratorFunction = Callable[[], Iterator[Any]]
 
 # Side effects
@@ -73,7 +73,7 @@ def get_ephemeral_store() -> EphemeralStore:
     async def clear() -> None:
         await in_thread(rmtree, folder)
 
-    async def length() -> int:
+    def length() -> int:
         return len(recurse_dir(folder))
 
     def store(obj: Any) -> None:
@@ -102,5 +102,5 @@ def get_ephemeral_store() -> EphemeralStore:
 
 
 async def reset() -> None:
-    await in_thread(rmtree, EPHEMERAL)
-    await mkdir(EPHEMERAL, mode=0o700, exist_ok=True)
+    rmtree(EPHEMERAL)
+    mkdir(EPHEMERAL, mode=0o700, exist_ok=True)

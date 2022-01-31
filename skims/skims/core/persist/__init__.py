@@ -244,7 +244,7 @@ async def persist_finding(
     :rtype: bool
     """
     success: bool = False
-    store_length: int = await store.length()
+    store_length: int = store.length()
     has_results: bool = store_length > 0
     diff_store: Optional[EphemeralStore] = None
 
@@ -291,7 +291,7 @@ async def persist_finding(
             "info",
             "persisted: %s, modified vulns: %s, success: %s",
             finding.name,
-            await diff_store.length(),
+            diff_store.length(),
             success,
         )
     elif not has_results:

@@ -1,6 +1,3 @@
-from aioextensions import (
-    in_thread,
-)
 import aiofiles  # type: ignore
 from concurrent.futures import (
     ThreadPoolExecutor,
@@ -300,8 +297,8 @@ def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
     return nv_paths
 
 
-async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
-    return await in_thread(os.makedirs, name, mode=mode, exist_ok=exist_ok)
+def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
+    return os.makedirs(name, mode=mode, exist_ok=exist_ok)
 
 
 def recurse_dir(path: str) -> Tuple[str, ...]:
