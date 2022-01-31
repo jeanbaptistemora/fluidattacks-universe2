@@ -147,6 +147,14 @@ let
       requirements
     );
 
+  # Remediation times for a vulnerability
+  vulnerabilitiesRemediationTime = vulnerabilityId:
+    let
+      remediationTime = vulnerabilities.${vulnerabilityId}.remediation_time;
+    in
+    "${remediationTime} minutes."
+  ;
+
   # Requirements list for a definition
   definitionRequirements = { standardId, definitionId }:
     let
@@ -351,7 +359,7 @@ let
         };
         __argRemediationTime__ = section {
           title = "## Expected Remediation Time";
-          content = "This is a Test";
+          content = (vulnerabilitiesRemediationTime __argCode__);
         };
         __argScoreBaseAttackVector__ = src.score.base.attack_vector;
         __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
