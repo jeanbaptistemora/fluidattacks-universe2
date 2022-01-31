@@ -1,3 +1,6 @@
 src.lib_path.f060.insecure_exceptions.description:
   en: Insecure {lang} exception
   es: Excepción insegura de {lang}
+lib_apk.analyze_bytecodes.not_verifies_ssl_hostname:
+  en: The given APK doesn't verify the SSLSocket hostname.
+  es: El APK dado no verifica el hostname del SSLSocket.
