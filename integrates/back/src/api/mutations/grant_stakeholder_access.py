@@ -94,6 +94,7 @@ async def mutate(
             responsibility=new_user_responsibility,
             role=new_user_role,
             group_name=group_name,
+            modified_by=user_email,
         )
     else:
         LOGGER.error(

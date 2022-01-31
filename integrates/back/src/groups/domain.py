@@ -1225,6 +1225,7 @@ async def invite_to_group(
     responsibility: str,
     role: str,
     group_name: str,
+    modified_by: str,
 ) -> bool:
     success = False
     if (
@@ -1261,6 +1262,7 @@ async def invite_to_group(
         email_context: MailContentType = {
             "admin": email,
             "group": group_name,
+            "responsible": modified_by,
             "group_description": description,
             "confirm_access_url": confirm_access_url,
             "reject_access_url": reject_access_url,

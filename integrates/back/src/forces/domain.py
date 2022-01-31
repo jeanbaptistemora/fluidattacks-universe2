@@ -22,6 +22,9 @@ from groups import (
 )
 import json
 import logging
+from newutils import (
+    token as token_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -94,11 +97,14 @@ async def add_forces_execution(
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     user_email = format_forces_user_email(group_name)
+    user_data = await token_utils.get_jwt_content(info.context)
+    modified_by = user_data["user_email"]
     success = await groups_domain.invite_to_group(
         email=user_email,
         responsibility="Forces service user",
         role="service_forces",
         group_name=group_name,
+        modified_by=modified_by,
     )
 
     # Give permissions directly, no confirmation required
