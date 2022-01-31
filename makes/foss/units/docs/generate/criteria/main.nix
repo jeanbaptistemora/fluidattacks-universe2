@@ -15,24 +15,24 @@ let
   compliance = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/d1b9f35abd6378ca193f59f71ca720ea7b2c79a0/makes/foss/modules/makes/criteria/src/compliance/data.yaml";
-        sha256 = "020bsn3iyva3c0jqg2gnf49znali99f236n1gdwl8ab0362fwc3z";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/345fe21e91c3eea6bdff0d92b65238b239617d43/makes/foss/modules/makes/criteria/src/compliance/data.yaml";
+        sha256 = "1n6cifssbchimr5hp05yjk4yx0np4qml0qriy7qfkw71a81gi34g";
       }
     )
   );
   requirements = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/d1b9f35abd6378ca193f59f71ca720ea7b2c79a0/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
-        sha256 = "065jw8p1xvdqslzppm2frnkn53i3391ryjdijd0ld79b7mrf4xz0";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/345fe21e91c3eea6bdff0d92b65238b239617d43/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
+        sha256 = "11991rn6xgf58q92hm7x7g5mbjb8kfikq2m395k10fj0m53625dc";
       }
     )
   );
   vulnerabilities = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/d1b9f35abd6378ca193f59f71ca720ea7b2c79a0/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "0hj0zjqn9xis5gvgcqc2678qiw4vhfzr7cj8hibc3h7g5bw9azhk";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/345fe21e91c3eea6bdff0d92b65238b239617d43/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "1h6ky1xv7qz5afzrrwc114lm0xn336pb374s8ipaajqb4x27lxvf";
       }
     )
   );
@@ -348,6 +348,10 @@ let
         __argThreat__ = section {
           title = "## Threat";
           content = src.en.threat;
+        };
+        __argRemediationTime__ = section {
+          title = "## Expected Remediation Time";
+          content = "This is a Test";
         };
         __argScoreBaseAttackVector__ = src.score.base.attack_vector;
         __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
