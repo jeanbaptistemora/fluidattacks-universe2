@@ -57,9 +57,9 @@ async def main() -> None:  # noqa: MC0001
         )
         if not item:
             return
-        if action == "report" and additional_info in {"PDF", "XLS", "DATA"}:
+        if action == "report":
             await generate_report(item=item)
-        elif action == "move_root":
+        if action == "move_root":
             await move_root(item=item)
         elif action == "handle_finding_policy":
             await handle_finding_policy(item=item)

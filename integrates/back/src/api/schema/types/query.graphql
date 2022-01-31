@@ -91,7 +91,9 @@ type Query {
     "Deprecated. Use `groupName` instead"
     projectName: String,
     "Language of the requested report"
-    lang: ReportLang
+    lang: ReportLang,
+    "Treatment field to filter XLS"
+    treatment: String
   ): Report
 
   "Get resource metadata from group"

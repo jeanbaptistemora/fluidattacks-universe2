@@ -163,9 +163,16 @@ async def generate_xls_file(
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
+    treatment: str,
 ) -> str:
+    extra_data: Dict[str, str] = {
+        "group_name": group_name,
+        "treatment": treatment,
+    }
     it_report = ITReport(
-        data=findings_ord, group_name=group_name, loaders=loaders
+        data=findings_ord,
+        extra_data=extra_data,
+        loaders=loaders,
     )
     await it_report.create()
     filepath = it_report.result_filename

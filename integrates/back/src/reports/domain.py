@@ -26,6 +26,7 @@ async def get_group_report_url(
     group_name: str,
     passphrase: str,
     user_email: str,
+    treatment: str,
 ) -> Optional[str]:
     loaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -48,6 +49,7 @@ async def get_group_report_url(
             loaders,
             findings_ord=findings_ord,
             group_name=group_name,
+            treatment=treatment,
             passphrase=passphrase,
         )
     if report_type == "PDF":
@@ -68,6 +70,7 @@ async def get_group_report_url(
             group_description=description,
             passphrase=passphrase,
             requester_email=user_email,
+            treatment=treatment,
         )
 
     return None

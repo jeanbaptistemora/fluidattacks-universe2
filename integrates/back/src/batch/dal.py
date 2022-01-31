@@ -454,7 +454,6 @@ async def get_action(
     )
     query_attrs = dict(KeyConditionExpression=Key("pk").eq(key))
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-
     if not response_items:
         return None
 
@@ -525,7 +524,13 @@ async def put_action_to_dynamodb(
         return await dynamodb_ops.put_item(
             item=dict(
                 pk=mapping_to_key(
-                    [action_name, additional_info, entity, subject, time]
+                    [
+                        action_name,
+                        additional_info,
+                        entity,
+                        subject,
+                        time,
+                    ]
                 ),
                 action_name=action_name,
                 additional_info=additional_info,

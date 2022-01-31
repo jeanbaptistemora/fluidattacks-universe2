@@ -19,6 +19,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityTreatment,
 )
 from findings import (
     domain as findings_domain,
@@ -68,6 +69,7 @@ class ITReport:
         "RC": "report_confidence",
     }
     data: Tuple[Finding, ...] = tuple()
+    filters = None
     lang = None
     result_filename = ""
     row = 1
@@ -84,15 +86,16 @@ class ITReport:
     def __init__(
         self,
         data: Tuple[Finding, ...],
-        group_name: str,
+        extra_data: Dict[str, str],
         loaders: Any,
         lang: str = "es",
     ) -> None:
         """Initialize variables."""
         self.data = data
         self.loaders = loaders
-        self.group_name = group_name
+        self.group_name = extra_data["group_name"]
         self.lang = lang
+        self.treatment = extra_data["treatment"]
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -108,9 +111,23 @@ class ITReport:
             finding_vulns = await self.loaders.finding_vulns_nzr_typed.load(
                 finding.id
             )
-            for vuln in finding_vulns:
-                await self.set_vuln_row(vuln, finding)
-                self.row += 1
+            if self.treatment == "*":
+                for vuln in finding_vulns:
+                    await self.set_vuln_row(vuln, finding)
+                    self.row += 1
+            else:
+                for vuln in finding_vulns:
+                    historic_treatment: Tuple[
+                        VulnerabilityTreatment, ...
+                    ] = await (
+                        self.loaders.vulnerability_historic_treatment.load(
+                            vuln.id
+                        )
+                    )
+                    current_treatment = historic_treatment[-1]
+                    if current_treatment.status == self.treatment:
+                        await self.set_vuln_row(vuln, finding)
+                        self.row += 1
 
     @staticmethod
     def get_measure(metric: str, metric_value: str) -> str:

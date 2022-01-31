@@ -17,6 +17,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import json
 from newutils import (
     token as token_utils,
 )
@@ -25,6 +26,7 @@ from newutils.utils import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 
 
@@ -34,12 +36,19 @@ async def _get_url_group_report(
     report_type: str,
     user_email: str,
     group_name: str,
+    treatment: str,
 ) -> bool:
+    additional_info: str = json.dumps(
+        {
+            "report_type": report_type,
+            "treatment": treatment,
+        }
+    )
     success: bool = await batch_dal.put_action(
         action_name="report",
         entity=group_name,
         subject=user_email,
-        additional_info=report_type,
+        additional_info=additional_info,
     )
     if not success:
         raise RequestedReportError()
@@ -55,11 +64,16 @@ async def resolve(
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
+    treatment: Optional[str] = (
+        "*" if kwargs.get("treatment") is None else kwargs.get("treatment")
+    )
+
     return {
         "success": await _get_url_group_report(
             info,
             report_type,
             user_email,
             group_name=group_name,
+            treatment=treatment,
         )
     }
