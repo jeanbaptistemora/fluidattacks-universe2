@@ -680,6 +680,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F055: _apk_backups_enabled,
     core_model.FindingEnum.F058: _apk_debugging_enabled,
     core_model.FindingEnum.F075: _apk_exported_cp,
+    core_model.FindingEnum.F082: _uses_insecure_delete,
     core_model.FindingEnum.F103: _apk_unsigned,
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,

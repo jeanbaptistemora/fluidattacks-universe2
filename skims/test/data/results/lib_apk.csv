@@ -23,6 +23,30 @@ F046,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),android/s
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes._no_obfuscation
+F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+",analyze_bytecodes._no_obfuscation
 F046,inputs,examples/tests/com.android.example.text.styling.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -243,6 +267,30 @@ F048,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing r
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
    7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/js_open.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+  12 | ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZToColo
+     | r', 'XYZToLAB', 'a', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'aboveOnStack', 'abs', 'absUrl', 'accept', '
+     | acceptMatch', 'access$000', 'access$100', 'access$102', 'access$200', 'access$202', 'access$300', 'access$302', 'access$
+     | 400', 'access$402', 'access$500', 'access$600', 'accumField', 'accumulateParents', 'acquire', 'acquireTempRect', 'action
+     | BarOnMenuKeyEventPre28', 'activeStateChanged', 'activitySuperDispatchKeyEventPre28', 'add', 'addAccessibilityStateChange
+     | Listener', 'addAction', 'addActions', 'addAddedFragments', 'addAll', 'addAnimation', 'addApi', 'addApiIfAvailable', 'add
+     | Attributes', 'addBackStackState', 'addCategory', 'addChild', 'addChildren', 'addChildrenForAccessibility', 'addClass', '
+     | addCommand', 'addCompatExtras', 'addConnectionCallbacks', 'addCustomAction', 'addDataResultToIntent', 'addDataScheme', '
+     | addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'addEmail
+     | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
+     ^ Col 0
+",analyze_bytecodes._no_root_check
+F048,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -548,6 +596,23 @@ F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),applic
        | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
        ^ Col 0
 ",__init__._apk_exported_cp
+F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 | >>> # and version 4.9.3 of ""beautifulsoup4""
+   6 | >>> from bs4 import BeautifulSoup
+   7 |
+   8 | >>> # This object represents the APK to analyze
+   9 | >>> apk = APK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+  10 |
+  11 | >>> # Read and parse the Network Security Config manifest
+  12 | >>> nsc = apk.get_file(""res/xml/network_security_config.xml"")
+> 13 | >>> BeautifulSoup(nsc).find_all(""pin-set"")
+  14 | []  # Empty list means no <pin-set> tags were defined
+     ^ Col 0
+",analyze_bytecodes._no_certs_pinning
 F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -812,6 +877,30 @@ F103,inputs,examples/tests/multidex/multidex.apk (namespace),Not signed,325,"hom
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
 ",analyze_bytecodes._apk_unsigned
+F082,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+  12 |  >>> ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZT
+     | oColor', 'XYZToLAB', 'a', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'aboveOnStack', 'abs', 'absUrl', 'accep
+     | t', 'acceptMatch', 'access$000', 'access$100', 'access$102', 'access$200', 'access$202', 'access$300', 'access$302', 'ac
+     | cess$400', 'access$402', 'access$500', 'access$600', 'accumField', 'accumulateParents', 'acquire', 'acquireTempRect', 'a
+     | ctionBarOnMenuKeyEventPre28', 'activeStateChanged', 'activitySuperDispatchKeyEventPre28', 'add', 'addAccessibilityStateC
+     | hangeListener', 'addAction', 'addActions', 'addAddedFragments', 'addAll', 'addAnimation', 'addApi', 'addApiIfAvailable',
+     |  'addAttributes', 'addBackStackState', 'addCategory', 'addChild', 'addChildren', 'addChildrenForAccessibility', 'addClas
+     | s', 'addCommand', 'addCompatExtras', 'addConnectionCallbacks', 'addCustomAction', 'addDataResultToIntent', 'addDataSchem
+     | e', 'addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'add
+     | EmailTo', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAsse
+     ^ Col 0
+",analyze_bytecodes._uses_insecure_delete
 F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application is vulnerable to Fragment Injection,470,"home,apk,bytecodes",398. Fragment Injection,The application is vulnerable to Fragment Injection,"
    1 | $ python3.8
    2 |
@@ -836,6 +925,30 @@ F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application
      | s$000(this.this$0).setLang(((String) this.val$langs.get(p5)));\n        return;\n    }\n\n    public void onNothingSelec
      ^ Col 0
 ",analyze_bytecodes._has_fragment_injection
+F058,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
+     | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
+     | ""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""15"" android:targetsdkversion=""28"">
+   3 |  </uses-sdk>
+   4 |  <uses-permission android:name=""android.permission.INTERNET"">
+   5 |  </uses-permission>
+   6 |  <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE"">
+   7 |  </uses-permission>
+>  8 |  <application android:allowbackup=""true"" android:appcomponentfactory=""android.support.v4.app.CoreComponentFactory"" andro
+     | id:debuggable=""true"" android:icon=""@7F040016"" android:label=""@7F080000"" android:networksecurityconfig=""@7F0B0000"" androi
+     | d:theme=""@android:0103006D"">
+   9 |   <activity android:label=""@7F080000"" android:name=""com.fluidattacks.integrates.WebViewActivity"" android:windowsoftinput
+     | mode=""0x00000002"">
+  10 |    <intent-filter>
+  11 |     <action android:name=""android.intent.action.MAIN"">
+  12 |     </action>
+  13 |     <category android:name=""android.intent.category.LAUNCHER"">
+  14 |     </category>
+  15 |    </intent-filter>
+  16 |   </activity>
+     ^ Col 0
+",__init__._apk_debugging_enabled
 F058,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -968,6 +1081,30 @@ F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),applica
      | 0D0005"">
    9 |   <activity android:exported=""true"" android:name=""com.google.mediapipe.apps.handtrackinggpu.MainActivity"" android:screen
      | orientation=""1"">
+  10 |    <intent-filter>
+  11 |     <action android:name=""android.intent.action.MAIN"">
+  12 |     </action>
+  13 |     <category android:name=""android.intent.category.LAUNCHER"">
+  14 |     </category>
+  15 |    </intent-filter>
+  16 |   </activity>
+     ^ Col 0
+",__init__._apk_backups_enabled
+F055,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+   1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
+     | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
+     | ""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""15"" android:targetsdkversion=""28"">
+   3 |  </uses-sdk>
+   4 |  <uses-permission android:name=""android.permission.INTERNET"">
+   5 |  </uses-permission>
+   6 |  <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE"">
+   7 |  </uses-permission>
+>  8 |  <application android:allowbackup=""true"" android:appcomponentfactory=""android.support.v4.app.CoreComponentFactory"" andro
+     | id:debuggable=""true"" android:icon=""@7F040016"" android:label=""@7F080000"" android:networksecurityconfig=""@7F0B0000"" androi
+     | d:theme=""@android:0103006D"">
+   9 |   <activity android:label=""@7F080000"" android:name=""com.fluidattacks.integrates.WebViewActivity"" android:windowsoftinput
+     | mode=""0x00000002"">
   10 |    <intent-filter>
   11 |     <action android:name=""android.intent.action.MAIN"">
   12 |     </action>
@@ -1239,6 +1376,30 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes._webview_vulnerabilities
+F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
+   7 | >>> # in the APK
+   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   9 |
+  10 | >>> # Get the method names from all classes in each .dex file
+  11 | >>> sorted(set(method.name for method in dex.get_methods()))
+> 12 | # No method performs root detection
+  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
+     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
+     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
+     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
+     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
+     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
+     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
+     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
+     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+     ^ Col 0
+",analyze_bytecodes._webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1247,6 +1408,30 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
    8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/js_open.apk')
+   9 |
+  10 | >>> # Get the method names from all classes in each .dex file
+  11 | >>> sorted(set(method.name for method in dex.get_methods()))
+> 12 | # No method performs root detection
+  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
+     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
+     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
+     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
+     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
+     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
+     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
+     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
+     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+     ^ Col 0
+",analyze_bytecodes._webview_vulnerabilities
+F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
+   7 | >>> # in the APK
+   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
