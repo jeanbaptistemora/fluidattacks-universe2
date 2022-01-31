@@ -1,34 +1,11 @@
-from purity.v2.pure_iter.core import (
-    PureIter,
-)
 from purity.v2.pure_iter.factory import (
     from_range,
     infinite_range,
 )
-from typing import (
-    TypeVar,
+from tests.v2.pure_iter._utils import (
+    assert_immutability,
+    assert_immutability_inf,
 )
-
-_T = TypeVar("_T")
-
-
-def count(piter: PureIter[_T], limit: int) -> int:
-    n_items = 0
-    for _ in piter:
-        n_items += 1
-        if n_items >= limit:
-            break
-    return n_items
-
-
-def assert_immutability(piter: PureIter[_T]) -> None:
-    # for finite PureIter
-    assert sum(1 for _ in piter) == sum(1 for _ in piter)
-
-
-def assert_immutability_inf(piter: PureIter[_T]) -> None:
-    # for infinite PureIter
-    assert count(piter, 10) == count(piter, 10)
 
 
 def test_use_case_1() -> None:
