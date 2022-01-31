@@ -23,6 +23,7 @@ class MetadataTableRow:
 class StateTableRow:
     # pylint: disable=invalid-name
     id: str
+    modified_by: str
     modified_date: datetime
     source: str
     status: str

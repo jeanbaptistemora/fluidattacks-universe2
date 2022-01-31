@@ -52,6 +52,7 @@ async def _initialize_state_table() -> None:
             CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
+                modified_by VARCHAR NOT NULL,
                 source VARCHAR NOT NULL,
                 status VARCHAR NOT NULL,
 

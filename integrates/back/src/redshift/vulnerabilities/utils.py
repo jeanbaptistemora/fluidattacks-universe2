@@ -32,6 +32,7 @@ def format_row_state(
 ) -> Dict[str, Any]:
     return dict(
         id=vulnerability_id,
+        modified_by=state.modified_by,
         modified_date=datetime.fromisoformat(state.modified_date),
         source=state.source.value,
         status=state.status.value,
