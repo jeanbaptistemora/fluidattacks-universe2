@@ -1,5 +1,11 @@
+from concurrent.futures.process import (
+    ProcessPoolExecutor,
+)
 from ctx import (
     CTX,
+)
+from functools import (
+    partial,
 )
 import inspect
 from itertools import (
@@ -236,13 +242,25 @@ def query_lazy(
         )
 
 
+def _partial_symbolic_analyze(function: partial) -> core_model.Vulnerabilities:
+    return function()
+
+
 def analyze_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for shard in graph_db.shards:
-        if shard.syntax_graph:
-            yield symbolic_analyze(shard, finding)
+    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+        for vulnerabilities in executor.map(
+            _partial_symbolic_analyze,
+            (
+                partial(symbolic_analyze, shard, finding)
+                for shard in graph_db.shards
+                if shard.syntax_graph
+            ),
+            chunksize=48,
+        ):
+            yield vulnerabilities
 
 
 def query(
