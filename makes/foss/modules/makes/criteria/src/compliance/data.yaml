@@ -4003,7 +4003,14 @@
   title: CMMC
   en:
     description: >
-      ...
+      The Cybersecurity Maturity Model
+      Certification (CMMC) program enhances
+      cyber protection standards for companies
+      in the Defense Industrial Base (DIB).
+      Aimed at measuring the maturity of an
+      organization's cybersecurity processes
+      (process institutionalization).
+      The version used in this section is CMMC 2.0.
   es:
     description: __empty__
   definitions:
