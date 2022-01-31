@@ -1,9 +1,13 @@
 from aioextensions import (
     collect,
+    schedule,
 )
 import authz
 from authz.validations import (
     validate_role_fluid_reqs,
+)
+from context import (
+    BASE_URL,
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -17,6 +21,7 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from custom_types import (
+    MailContent as MailContentType,
     Organization as OrganizationType,
 )
 from decimal import (
@@ -30,6 +35,9 @@ from group_access import (
 )
 import logging
 import logging.config
+from mailer import (
+    groups as groups_mail,
+)
 from names import (
     domain as names_domain,
 )
@@ -39,9 +47,13 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from newutils.validations import (
+    validate_email_address,
+)
 from organizations import (
     dal as orgs_dal,
 )
+import secrets
 from settings import (
     LOGGING,
 )
@@ -535,4 +547,25 @@ def validate_vulnerability_grace_period(value: int) -> bool:
     success: bool = True
     if value < 0:
         raise InvalidVulnerabilityGracePeriod()
+    return success
+
+
+async def invite_to_organization(
+    email: str,
+    role: str,
+    organization_name: str,
+) -> bool:
+    success = False
+    if validate_email_address(email) and validate_role_fluid_reqs(email, role):
+        url_token = secrets.token_urlsafe(64)
+        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
+        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
+        mail_to = [email]
+        email_context: MailContentType = {
+            "admin": email,
+            "organization": organization_name,
+            "confirm_access_url": confirm_access_url,
+            "reject_access_url": reject_access_url,
+        }
+        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success
