@@ -6,8 +6,64 @@ from tempfile import (
     TemporaryFile,
 )
 from typing import (
+    Callable,
     IO,
+    NoReturn,
 )
+
+
+def _do_not_call() -> NoReturn:
+    raise Exception("Cmd action should be only executed on compute phase")
+
+
+def test_from_cmd() -> None:
+    Cmd.from_cmd(_do_not_call)
+
+
+def test_map() -> None:
+    cmd = Cmd.from_cmd(lambda: 44).map(lambda i: i + 5)
+    cmd.map(lambda _: _do_not_call())  # type: ignore
+    Cmd.from_cmd(_do_not_call).map(lambda _: _)  # type: ignore
+
+    def _verify(num: int) -> None:
+        assert num == 49
+
+    with pytest.raises(SystemExit):
+        cmd.map(_verify).compute()
+
+
+def test_bind() -> None:
+    cmd = Cmd.from_cmd(lambda: 50)
+    cmd2 = Cmd.from_cmd(lambda: 44).bind(lambda i: cmd.map(lambda x: x + i))
+    cmd2.bind(lambda _: Cmd.from_cmd(_do_not_call))
+    Cmd.from_cmd(_do_not_call).bind(lambda _: cmd)
+
+    def _verify(num: int) -> None:
+        assert num == 94
+
+    with pytest.raises(SystemExit):
+        cmd2.map(_verify).compute()
+
+
+def test_apply() -> None:
+    cmd = Cmd.from_cmd(lambda: 1)
+    wrapped: Cmd[Callable[[int], int]] = Cmd.from_cmd(lambda: lambda x: x + 10)
+
+    dead_end: Cmd[Callable[[int], NoReturn]] = Cmd.from_cmd(
+        lambda: lambda _: _do_not_call()  # type: ignore
+    )
+    wrap_no_return: Cmd[Callable[[NoReturn], int]] = Cmd.from_cmd(
+        lambda: lambda _: 1
+    )
+
+    cmd.apply(dead_end)
+    Cmd.from_cmd(_do_not_call).apply(wrap_no_return)
+
+    def _verify(num: int) -> None:
+        assert num == 11
+
+    with pytest.raises(SystemExit):
+        cmd.apply(wrapped).map(_verify).compute()
 
 
 def _print_msg(msg: str, target: IO[str]) -> Cmd[None]:
