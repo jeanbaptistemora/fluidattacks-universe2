@@ -27,6 +27,7 @@
             { "type": "string", "pattern": "^Protocol Manipulation$" }
           ]
         },
+        "remediation_time": { "type": "string", "pattern": "^[0-9]+$" },
         "score": {
           "type": "object",
           "additionalProperties": false,
