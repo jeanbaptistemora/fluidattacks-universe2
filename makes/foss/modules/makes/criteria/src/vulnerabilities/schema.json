@@ -10,7 +10,7 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "en", "es", "category", "score", "requirements", "metadata" ],
+      "required": [ "en", "es", "category", "remediation_time", "score", "requirements", "metadata" ],
       "properties": {
         "en": { "$ref": "#/definitions/language" },
         "es": { "$ref": "#/definitions/language" },
