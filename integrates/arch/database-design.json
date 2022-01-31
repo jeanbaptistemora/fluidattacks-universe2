@@ -1508,6 +1508,17 @@
               "type": {
                 "S": "IP"
               }
+            },
+            {
+              "pk": {
+                "S": "ROOT#814addf0-316c-4415-850d-21bd3783b011"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "type": {
+                "S": "IP"
+              }
             }
           ],
           "NonKeyAttributes": [
@@ -1539,6 +1550,32 @@
               },
               "nickname": {
                 "S": "ip_root_1"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "8080"
+              }
+            },
+            {
+              "pk": {
+                "S": "ROOT#814addf0-316c-4415-850d-21bd3783b011#STATE"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "status": {
+                "S": "INACTIVE"
+              },
+              "modified_date": {
+                "S": "2020-12-19T13:44:37+00:00"
+              },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
+              "nickname": {
+                "S": "ip_root_2"
               },
               "address": {
                 "S": "127.0.0.1"
@@ -1584,6 +1621,32 @@
               },
               "nickname": {
                 "S": "ip_root_1"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "8080"
+              }
+            },
+            {
+              "pk": {
+                "S": "ROOT#814addf0-316c-4415-850d-21bd3783b011"
+              },
+              "sk": {
+                "S": "STATE#2020-12-19T13:44:37+00:00"
+              },
+              "status": {
+                "S": "INACTIVE"
+              },
+              "modified_date": {
+                "S": "2020-12-19T13:44:37+00:00"
+              },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
+              "nickname": {
+                "S": "ip_root_2"
               },
               "address": {
                 "S": "127.0.0.1"

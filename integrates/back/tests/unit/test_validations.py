@@ -1,7 +1,14 @@
 from custom_exceptions import (
+    InactiveRoot,
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
+)
+from dataloaders import (
+    get_new_context,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from newutils.validations import (
     validate_alphanumeric_field,
@@ -17,7 +24,25 @@ from roots.validations import (
     is_valid_git_branch,
     is_valid_ip,
     is_valid_url,
+    validate_active_root,
 )
+
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
+
+async def test_validate_active_root() -> None:
+    loaders = get_new_context()
+    active_root: RootItem = await loaders.root.load(
+        ("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    )
+    validate_active_root(active_root)
+    inactive_root: RootItem = await loaders.root.load(
+        ("asgard", "814addf0-316c-4415-850d-21bd3783b011")
+    )
+    with pytest.raises(InactiveRoot):
+        validate_active_root(inactive_root)
 
 
 def test_validate_fields() -> None:
