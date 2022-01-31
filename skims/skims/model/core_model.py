@@ -2356,3 +2356,1253 @@ class DeveloperEnum(Enum):
     JUAN_ECHEVERRI: str = "jecheverri@fluidattacks.com"
     JUAN_RESTREPO: str = "jrestrepo@fluidattacks.com"
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
+
+
+class MethodInfo(NamedTuple):
+    file_name: str
+    name: str
+    module: str
+    finding: FindingEnum
+    developer: Optional[DeveloperEnum] = None
+
+    def get_name(self) -> str:
+        return f"{self.file_name}.{self.name}"
+
+
+class MethodsEnum(Enum):
+    CS_SQL_INJECTION = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F001,
+    )
+    QUERY_F001 = MethodInfo(
+        file_name="query",
+        name="query_f001",
+        module="sast",
+        finding=FindingEnum.F001,
+    )
+    QUERY_F004 = MethodInfo(
+        file_name="query",
+        name="query_f004",
+        module="sast",
+        finding=FindingEnum.F004,
+    )
+    QUERY_F008 = MethodInfo(
+        file_name="query",
+        name="query_f008",
+        module="sast",
+        finding=FindingEnum.F008,
+    )
+    AWS_CREDENTIALS = MethodInfo(
+        file_name="aws",
+        name="aws_credentials",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    DOCKER_ENV_SECRETS = MethodInfo(
+        file_name="docker",
+        name="dockerfile_env_secrets",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    DOCKER_COMPOSE_ENV_SECRETS = MethodInfo(
+        file_name="docker",
+        name="docker_compose_env_secrets",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    JAVA_PROP_SENSITIVE = MethodInfo(
+        file_name="java",
+        name="java_properties_sensitive_data",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    SENSITIVE_KEY_JSON = MethodInfo(
+        file_name="conf_files",
+        name="sensitive_key_in_json",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    WEB_USER_PASS = MethodInfo(
+        file_name="conf_files",
+        name="web_config_user_pass",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    WEB_DB_CONN = MethodInfo(
+        file_name="conf_files",
+        name="web_config_db_connection",
+        module="lib_path",
+        finding=FindingEnum.F009,
+    )
+    JS_CRYPTO_CREDENTIALS = MethodInfo(
+        file_name="javascript",
+        name="javascript_crypto_js_credentials",
+        module="lib_root",
+        finding=FindingEnum.F009,
+    )
+    MAVEN_POM_XML = MethodInfo(
+        file_name="maven",
+        name="maven_pom_xml",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    MAVEN_GRADLE = MethodInfo(
+        file_name="maven",
+        name="maven_gradle",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    MAVEN_SBT = MethodInfo(
+        file_name="maven",
+        name="maven_sbt",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    NPM_PKG_JSON = MethodInfo(
+        file_name="npm",
+        name="npm_package_json",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    NPM_PKG_LOCK_JSON = MethodInfo(
+        file_name="npm",
+        name="npm_pkg_lock_json",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    NPM_YARN_LOCK = MethodInfo(
+        file_name="npm",
+        name="npm_yarn_lock",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    NUGET_CSPROJ = MethodInfo(
+        file_name="nuget",
+        name="nuget_csproj",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    NUGET_PACKAGES_CONFIG = MethodInfo(
+        file_name="nuget",
+        name="nuget_packages_config",
+        module="lib_path",
+        finding=FindingEnum.F011,
+    )
+    JAVA_JPA_LIKE = MethodInfo(
+        file_name="java",
+        name="java_jpa_like",
+        module="lib_root",
+        finding=FindingEnum.F012,
+    )
+    TFM_AZURE_VM_INSEC_AUTH = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_virtual_machine_insecure_authentication",
+        module="lib_path",
+        finding=FindingEnum.F015,
+    )
+    TFM_AZURE_LNX_VM_INSEC_AUTH = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_linux_vm_insecure_authentication",
+        module="lib_path",
+        finding=FindingEnum.F015,
+    )
+    WWW_AUTHENTICATE = MethodInfo(
+        file_name="analyze_headers",
+        name="www_authenticate",
+        module="lib_http",
+        finding=FindingEnum.F015,
+    )
+    CFN_INSEC_PROTO = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_serves_content_over_insecure_protocols",
+        module="lib_path",
+        finding=FindingEnum.F016,
+    )
+    TFM_AWS_INSEC_PROTO = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_serves_content_over_insecure_protocols",
+        module="lib_path",
+        finding=FindingEnum.F016,
+    )
+    TFM_AZURE_INSEC_PROTO = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_serves_content_over_insecure_protocols",
+        module="lib_path",
+        finding=FindingEnum.F016,
+    )
+    SSLV3_ENABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="sslv3_enabled",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    TLSV1_ENABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="tlsv1_enabled",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    TLSV1_1_ENABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="tlsv1_1_enabled",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    TLSV1_2_OR_HIGHER_DISABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="tlsv1_2_or_higher_disabled",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    FALLBACK_SCSV_DISABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="fallback_scsv_disabled",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    TLSV1_3_DOWNGRADE = MethodInfo(
+        file_name="analyze_protocol",
+        name="tlsv1_3_downgrade",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    HEARTBLEED_POSSIBLE = MethodInfo(
+        file_name="analyze_protocol",
+        name="heartbleed_possible",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+    )
+    CS_JWT_SIGNED = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_jwt_signed",
+        module="lib_root",
+        finding=FindingEnum.F017,
+    )
+    CS_VERIFY_DECODER = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_verify_decoder",
+        module="lib_root",
+        finding=FindingEnum.F017,
+    )
+    QUERY_F021 = MethodInfo(
+        file_name="query",
+        name="query_f021",
+        module="sast",
+        finding=FindingEnum.F021,
+    )
+    JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
+        file_name="java",
+        name="java_properties_unencrypted_transport",
+        module="lib_path",
+        finding=FindingEnum.F022,
+    )
+    KT_UNENCRYPTED_CHANNEL = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_unencrypted_channel",
+        module="lib_root",
+        finding=FindingEnum.F022,
+    )
+    LOCATION = MethodInfo(
+        file_name="analyze_headers",
+        name="location",
+        module="lib_http",
+        finding=FindingEnum.F023,
+    )
+    CFN_ANYONE_ADMIN_PORTS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_allows_anyone_to_admin_ports",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_EC2_UNRESTRICTED_PORTS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_unrestricted_ports",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_GROUPS_WITHOUT_EGRESS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_groups_without_egress",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_INST_WITHOUT_PROFILE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_instances_without_profile",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_UNRESTRICTED_CIDRS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_unrestricted_cidrs",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_UNRESTRICTED_IP_PROTO = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_unrestricted_ip_protocols",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_UNRESTRICTED_PORTS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_unrestricted_ports",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_EC2_OPEN_ALL_PORTS_PUBLIC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_open_all_ports_to_the_public",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_EC2_UNRESTRICTED_DNS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_unrestricted_dns_access",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_EC2_UNRESTRICTED_FTP = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_unrestricted_ftp_access",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    TFM_AWS_EC2_ALL_TRAFFIC = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_ec2_allows_all_outbound_traffic",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    TFM_AWS_EC2_CFN_UNRESTR_IP_PROT = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_ec2_cfn_unrestricted_ip_protocols",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    TFM_AWS_EC2_UNRESTRICTED_CIDRS = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_ec2_unrestricted_cidrs",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    TFM_EC2_UNRESTRICTED_PORTS = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_has_unrestricted_ports",
+        module="lib_path",
+        finding=FindingEnum.F024,
+    )
+    CFN_ADMIN_POLICY_ATTACHED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_admin_policy_attached",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_BUCKET_ALLOWS_PUBLIC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_bucket_policy_allows_public_access",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_IAM_MISSING_SECURITY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_user_missing_role_based_security",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_NEGATIVE_STATEMENT = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_negative_statement",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_OPEN_PASSROLE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_open_passrole",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_PERMISSIVE_POLICY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_permissive_policy",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_EC2_NO_IAM = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_not_an_iam_instance_profile",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    CFN_IAM_FULL_ACCESS_SSM = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_has_full_access_to_ssm",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    TFM_ADMIN_POLICY = MethodInfo(
+        file_name="terraform",
+        name="terraform_admin_policy_attached",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    TFM_NEGATIVE_STATEMENT = MethodInfo(
+        file_name="terraform",
+        name="terraform_negative_statement",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    TFM_OPEN_PASSROLE = MethodInfo(
+        file_name="terraform",
+        name="terraform_open_passrole",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    TFM_PERMISSIVE_POLICY = MethodInfo(
+        file_name="terraform",
+        name="terraform_permissive_policy",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    TFM_EC2_NO_IAM = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_has_not_an_iam_instance_profile",
+        module="lib_path",
+        finding=FindingEnum.F031,
+    )
+    JS_WEAK_RANDOM = MethodInfo(
+        file_name="javascript",
+        name="javascript_weak_random",
+        module="lib_root",
+        finding=FindingEnum.F034,
+    )
+    QUERY_F034 = MethodInfo(
+        file_name="query",
+        name="query_f034",
+        module="sast",
+        finding=FindingEnum.F034,
+    )
+    CS_WEAK_CREDENTIAL = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_weak_credential_policy",
+        module="lib_root",
+        finding=FindingEnum.F035,
+    )
+    CS_NO_PASSWORD = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_no_password",
+        module="lib_root",
+        finding=FindingEnum.F035,
+    )
+    VIEW_STATE = MethodInfo(
+        file_name="analyze_content",
+        name="view_state",
+        module="lib_http",
+        finding=FindingEnum.F036,
+    )
+    CS_INSEC_COOKIES = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_insecurely_generated_cookies",
+        module="lib_root",
+        finding=FindingEnum.F042,
+    )
+    QUERY_F042 = MethodInfo(
+        file_name="query",
+        name="query_f042",
+        module="sast",
+        finding=FindingEnum.F042,
+    )
+    CONTENT_SECURITY_POLICY = MethodInfo(
+        file_name="analyze_headers",
+        name="content_security_policy",
+        module="lib_http",
+        finding=FindingEnum.F043,
+    )
+    UPGRADE_INSEC_REQ = MethodInfo(
+        file_name="analyze_headers",
+        name="upgrade_insecure_requests",
+        module="lib_http",
+        finding=FindingEnum.F043,
+    )
+    NO_OBFUSCATION = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="no_obfuscation",
+        module="lib_apk",
+        finding=FindingEnum.F046,
+    )
+    NO_ROOT_CHECK = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="no_root_check",
+        module="lib_apk",
+        finding=FindingEnum.F048,
+    )
+    JAVA_PROP_MISSING_SSL = MethodInfo(
+        file_name="java",
+        name="java_properties_missing_ssl",
+        module="lib_path",
+        finding=FindingEnum.F052,
+    )
+    JAVA_PROP_WEAK_CIPHER = MethodInfo(
+        file_name="java",
+        name="java_properties_weak_cipher_suite",
+        module="lib_path",
+        finding=FindingEnum.F052,
+    )
+    CS_INSECURE_HASH = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    CS_INSECURE_CIPHER = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    CS_AES_SECURE_MODE = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_aesmanaged_secure_mode",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    CS_RSA_SECURE_MODE = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_rsa_secure_mode",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    CS_INSECURE_KEYS = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_keys",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    GO_INSECURE_CIPHER = MethodInfo(
+        file_name="go",
+        name="go_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    GO_INSECURE_HASH = MethodInfo(
+        file_name="go",
+        name="go_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JAVA_INSECURE_CIPHER = MethodInfo(
+        file_name="java",
+        name="java_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JAVA_INSECURE_HASH = MethodInfo(
+        file_name="java",
+        name="java_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JAVA_INSECURE_KEY = MethodInfo(
+        file_name="java",
+        name="java_insecure_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JAVA_INSECURE_PASS = MethodInfo(
+        file_name="java",
+        name="java_insecure_pass",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JS_INSECURE_CIPHER = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JS_INSECURE_KEY = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    JS_INSECURE_HASH = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    KT_INSECURE_CIPHER = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    KT_INSECURE_HASH = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    KT_INSECURE_KEY = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+    )
+    QUERY_F052 = MethodInfo(
+        file_name="query",
+        name="query_f052",
+        module="sast",
+        finding=FindingEnum.F052,
+    )
+    WEAK_CIPHERS_ALLOWED = MethodInfo(
+        file_name="analyze_protocol",
+        name="weak_ciphers_allowed",
+        module="lib_ssl",
+        finding=FindingEnum.F052,
+    )
+    APK_BACKUPS_ENABLED = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="apk_backups_enabled",
+        module="lib_apk",
+        finding=FindingEnum.F055,
+    )
+    PATH_APK_BACKUPS_ENABLED = MethodInfo(
+        file_name="android",
+        name="apk_backups_enabled",
+        module="lib_path",
+        finding=FindingEnum.F055,
+    )
+    APK_DEBUGGING_ENABLED = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="apk_debugging_enabled",
+        module="lib_apk",
+        finding=FindingEnum.F058,
+    )
+    PATH_APK_DEBUGGING_ENABLED = MethodInfo(
+        file_name="android",
+        name="apk_debugging_enabled",
+        module="lib_path",
+        finding=FindingEnum.F058,
+    )
+    QUERY_F063 = MethodInfo(
+        file_name="query",
+        name="query_f063",
+        module="sast",
+        finding=FindingEnum.F063,
+    )
+    DATE = MethodInfo(
+        file_name="analyze_headers",
+        name="date",
+        module="lib_http",
+        finding=FindingEnum.F064,
+    )
+    CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb2_uses_insecure_security_policy",
+        module="lib_path",
+        finding=FindingEnum.F070,
+    )
+    TFM_LB_TARGET_INSECURE_PORT = MethodInfo(
+        file_name="terraform",
+        name="tfm_lb_target_group_insecure_port",
+        module="lib_path",
+        finding=FindingEnum.F070,
+    )
+    REFERRER_POLICY = MethodInfo(
+        file_name="analyze_headers",
+        name="referrer_policy",
+        module="lib_http",
+        finding=FindingEnum.F071,
+    )
+    CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_rds_is_publicly_accessible",
+        module="lib_path",
+        finding=FindingEnum.F073,
+    )
+    TFM_DB_CLUSTER_PUB_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_cluster_publicly_accessible",
+        module="lib_path",
+        finding=FindingEnum.F073,
+    )
+    TFM_DB_PUB_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_instance_publicly_accessible",
+        module="lib_path",
+        finding=FindingEnum.F073,
+    )
+    APK_EXPORTED_CP = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="apk_exported_cp",
+        module="lib_apk",
+        finding=FindingEnum.F075,
+    )
+    PATH_APK_EXPORTED_CP = MethodInfo(
+        file_name="android",
+        name="apk_exported_cp",
+        module="lib_path",
+        finding=FindingEnum.F075,
+    )
+    NON_UPGRADEABLE_DEPS = MethodInfo(
+        file_name="generic",
+        name="non_upgradeable_deps",
+        module="lib_path",
+        finding=FindingEnum.F079,
+    )
+    JS_CLIENT_STORAGE = MethodInfo(
+        file_name="javascript",
+        name="javascript_client_storage",
+        module="lib_root",
+        finding=FindingEnum.F085,
+    )
+    SUB_RESOURCE_INTEGRITY = MethodInfo(
+        file_name="analyze_content",
+        name="sub_resource_integrity",
+        module="lib_http",
+        finding=FindingEnum.F086,
+    )
+    QUERY_F089 = MethodInfo(
+        file_name="query",
+        name="query_f089",
+        module="sast",
+        finding=FindingEnum.F089,
+    )
+    CS_INSECURE_LOGGING = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+    )
+    CBC_ENABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="cbc_enabled",
+        module="lib_ssl",
+        finding=FindingEnum.F094,
+    )
+    CS_INSECURE_DESERIAL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_deserialization",
+        module="lib_root",
+        finding=FindingEnum.F096,
+    )
+    CS_CHECK_XML_SERIAL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_check_xml_serializer",
+        module="lib_root",
+        finding=FindingEnum.F096,
+    )
+    CFN_POLICY_SERVER_ENCRYP_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_bucket_policy_has_server_side_encryption_disabled",
+        module="lib_path",
+        finding=FindingEnum.F099,
+    )
+    CFN_UNENCRYPTED_BUCKETS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_unencrypted_buckets",
+        module="lib_path",
+        finding=FindingEnum.F099,
+    )
+    TFM_UNENCRYPTED_BUCKETS = MethodInfo(
+        file_name="terraform",
+        name="tfm_unencrypted_buckets",
+        module="lib_path",
+        finding=FindingEnum.F099,
+    )
+    QUERY_F100 = MethodInfo(
+        file_name="query",
+        name="query_f100",
+        module="sast",
+        finding=FindingEnum.F100,
+    )
+    TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_key_vault_not_recoverable",
+        module="lib_path",
+        finding=FindingEnum.F101,
+    )
+    APK_UNSIGNED = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="apk_unsigned",
+        module="lib_apk",
+        finding=FindingEnum.F103,
+    )
+    QUERY_F107 = MethodInfo(
+        file_name="query",
+        name="query_f107",
+        module="sast",
+        finding=FindingEnum.F107,
+    )
+    CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_rds_is_not_inside_a_db_subnet_group",
+        module="lib_path",
+        finding=FindingEnum.F109,
+    )
+    TFM_DB_INSIDE_SUBNET = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_cluster_inside_subnet",
+        module="lib_path",
+        finding=FindingEnum.F109,
+    )
+    TFM_RDS_INSIDE_SUBNET = MethodInfo(
+        file_name="terraform",
+        name="tfm_rds_instance_inside_subnet",
+        module="lib_path",
+        finding=FindingEnum.F109,
+    )
+    QUERY_F112 = MethodInfo(
+        file_name="query",
+        name="query_f112",
+        module="sast",
+        finding=FindingEnum.F112,
+    )
+    UNVERIFIABLE_FILES = MethodInfo(
+        file_name="generic",
+        name="unverifiable_files",
+        module="lib_path",
+        finding=FindingEnum.F117,
+    )
+    QUERY_F127 = MethodInfo(
+        file_name="query",
+        name="query_f127",
+        module="sast",
+        finding=FindingEnum.F127,
+    )
+    SET_COOKIE_HTTPONLY = MethodInfo(
+        file_name="analyze_headers",
+        name="set_cookie_httponly",
+        module="lib_http",
+        finding=FindingEnum.F128,
+    )
+    SET_COOKIE_SAMESITE = MethodInfo(
+        file_name="analyze_headers",
+        name="set_cookie_samesite",
+        module="lib_http",
+        finding=FindingEnum.F129,
+    )
+    SET_COOKIE_SECURE = MethodInfo(
+        file_name="analyze_headers",
+        name="set_cookie_secure",
+        module="lib_http",
+        finding=FindingEnum.F130,
+    )
+    STRICT_TRANSPORT_SECURITY = MethodInfo(
+        file_name="analyze_headers",
+        name="strict_transport_security",
+        module="lib_http",
+        finding=FindingEnum.F131,
+    )
+    X_CONTENT_TYPE_OPTIONS = MethodInfo(
+        file_name="analyze_headers",
+        name="x_content_type_options",
+        module="lib_http",
+        finding=FindingEnum.F132,
+    )
+    PFS_DISABLED = MethodInfo(
+        file_name="analyze_protocol",
+        name="pfs_disabled",
+        module="lib_ssl",
+        finding=FindingEnum.F133,
+    )
+    CS_INSECURE_CORS = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_insecure_cors",
+        module="lib_root",
+        finding=FindingEnum.F134,
+    )
+    TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_unrestricted_access_network_segments",
+        module="lib_path",
+        finding=FindingEnum.F157,
+    )
+    TFM_AZURE_SA_DEFAULT_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_sa_default_network_access",
+        module="lib_path",
+        finding=FindingEnum.F157,
+    )
+    TFM_AZURE_KV_DEFAULT_ACCESS = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_kv_default_network_access",
+        module="lib_path",
+        finding=FindingEnum.F157,
+    )
+    TFM_AZURE_KV_DANGER_BYPASS = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_kv_danger_bypass",
+        module="lib_path",
+        finding=FindingEnum.F157,
+    )
+    CS_CREATE_TEMP_FILE = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_file_create_temp_file",
+        module="lib_root",
+        finding=FindingEnum.F160,
+    )
+    JAVA_CREATE_TEMP_FILE = MethodInfo(
+        file_name="java",
+        name="java_file_create_temp_file",
+        module="lib_root",
+        finding=FindingEnum.F160,
+    )
+    EC2_DEFAULT_SEC_GROUP = MethodInfo(
+        file_name="terraform",
+        name="ec2_use_default_security_group",
+        module="lib_path",
+        finding=FindingEnum.F177,
+    )
+    CFN_PUBLIC_BUCKETS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_public_buckets",
+        module="lib_path",
+        finding=FindingEnum.F203,
+    )
+    TFM_PUBLIC_BUCKETS = MethodInfo(
+        file_name="terraform",
+        name="tfm_public_buckets",
+        module="lib_path",
+        finding=FindingEnum.F203,
+    )
+    HAS_FRIDA = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="has_frida",
+        module="lib_apk",
+        finding=FindingEnum.F206,
+    )
+    NO_CERTS_PINNING = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="no_certs_pinning",
+        module="lib_apk",
+        finding=FindingEnum.F207,
+    )
+    CS_VULN_REGEX = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_vuln_regular_expression",
+        module="lib_root",
+        finding=FindingEnum.F211,
+    )
+    JAVA_LEAK_STACKTRACE = MethodInfo(
+        file_name="java",
+        name="java_info_leak_stacktrace",
+        module="lib_root",
+        finding=FindingEnum.F237,
+    )
+    CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_rds_has_unencrypted_storage",
+        module="lib_path",
+        finding=FindingEnum.F246,
+    )
+    TFM_RDS_UNENCRYPTED_STORAGE = MethodInfo(
+        file_name="terraform",
+        name="tfm_rds_has_unencrypted_storage",
+        module="lib_path",
+        finding=FindingEnum.F246,
+    )
+    TFM_DB_UNENCRYPTED_STORAGE = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_has_unencrypted_storage",
+        module="lib_path",
+        finding=FindingEnum.F246,
+    )
+    TFM_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
+        file_name="terraform",
+        name="tfm_fsx_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F247,
+    )
+    TFM_EBS_UNENCRYPTED_VOLUMES = MethodInfo(
+        file_name="terraform",
+        name="tfm_ebs_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F247,
+    )
+    TFM_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F247,
+    )
+    TFM_EBS_UNENCRYPTED_DEFAULT = MethodInfo(
+        file_name="terraform",
+        name="tfm_ebs_unencrypted_by_default",
+        module="lib_path",
+        finding=FindingEnum.F247,
+    )
+    CFN_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_fsx_has_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F250,
+    )
+    CFN_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F250,
+    )
+    CFN_RDS_NOT_AUTO_BACKUPS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_rds_has_not_automated_backups",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    CFN_RDS_NOT_TERMINATION_PROTEC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_rds_has_not_termination_protection",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    TFM_DB_NO_DELETION_PROTEC = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_no_deletion_protection",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    TFM_RDS_NO_DELETION_PROTEC = MethodInfo(
+        file_name="terraform",
+        name="tfm_rds_no_deletion_protection",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    TFM_DB_NOT_AUTO_BACKUPS = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_has_not_automated_backups",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    TFM_RDS_NOT_AUTO_BACKUPS = MethodInfo(
+        file_name="terraform",
+        name="tfm_rds_has_not_automated_backups",
+        module="lib_path",
+        finding=FindingEnum.F256,
+    )
+    CFN_EC2_NOT_TERMINATION_PROTEC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_not_termination_protection",
+        module="lib_path",
+        finding=FindingEnum.F257,
+    )
+    EC2_NOT_TERMINATION_PROTEC = MethodInfo(
+        file_name="terraform",
+        name="ec2_has_not_termination_protection",
+        module="lib_path",
+        finding=FindingEnum.F257,
+    )
+    CFN_ELB2_NOT_DELETION_PROTEC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb2_has_not_deletion_protection",
+        module="lib_path",
+        finding=FindingEnum.F258,
+    )
+    CFN_NOT_POINT_TIME_RECOVERY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_has_not_point_in_time_recovery",
+        module="lib_path",
+        finding=FindingEnum.F259,
+    )
+    TFM_DB_NO_POINT_TIME_RECOVERY = MethodInfo(
+        file_name="terraform",
+        name="tfm_db_no_point_in_time_recovery",
+        module="lib_path",
+        finding=FindingEnum.F259,
+    )
+    CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_bucket_policy_has_secure_transport",
+        module="lib_path",
+        finding=FindingEnum.F281,
+    )
+    CFN_ELB2_USES_INSEC_PORT = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb2_uses_insecure_port",
+        module="lib_path",
+        finding=FindingEnum.F281,
+    )
+    TFM_AZURE_APP_AUTH_OFF = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_app_authentication_off",
+        module="lib_path",
+        finding=FindingEnum.F300,
+    )
+    TFM_AZURE_CLIENT_CERT_ENABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_as_client_certificates_enabled",
+        module="lib_path",
+        finding=FindingEnum.F300,
+    )
+    CS_LDAP_CONN_AUTH = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_ldap_connections_authenticated",
+        module="lib_root",
+        finding=FindingEnum.F320,
+    )
+    QUERY_F320 = MethodInfo(
+        file_name="query",
+        name="query_f320",
+        module="sast",
+        finding=FindingEnum.F320,
+    )
+    CFN_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_kms_key_has_master_keys_exposed_to_everyone",
+        module="lib_path",
+        finding=FindingEnum.F325,
+    )
+    CFN_IAM_WILDCARD_WRITE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_has_wildcard_resource_on_write_action",
+        module="lib_path",
+        finding=FindingEnum.F325,
+    )
+    CFN_IAM_POLICY_MISS_CONFIG = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_is_policy_miss_configured",
+        module="lib_path",
+        finding=FindingEnum.F325,
+    )
+    CFN_IAM_PRIVILEGES_OVER_IAM = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_has_privileges_over_iam",
+        module="lib_path",
+        finding=FindingEnum.F325,
+    )
+    CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_is_role_over_privileged",
+        module="lib_path",
+        finding=FindingEnum.F325,
+    )
+    WEBVIEW_VULNS = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="webview_vulnerabilities",
+        module="lib_apk",
+        finding=FindingEnum.F268,
+    )
+    EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
+        file_name="terraform",
+        name="ec2_has_terminate_shutdown_behavior",
+        module="lib_path",
+        finding=FindingEnum.F333,
+    )
+    TFM_EC2_ASSOC_PUB_IP = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_associate_public_ip_address",
+        module="lib_path",
+        finding=FindingEnum.F333,
+    )
+    CS_CHECK_HASHES_SALT = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_check_hashes_salt",
+        module="lib_root",
+        finding=FindingEnum.F338,
+    )
+    DANGEROUS_PERMISSIONS = MethodInfo(
+        file_name="android",
+        name="has_dangerous_permissions",
+        module="lib_path",
+        finding=FindingEnum.F346,
+    )
+    CFN_INSEC_GEN_SECRET = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_insecure_generate_secret_string",
+        module="lib_path",
+        finding=FindingEnum.F363,
+    )
+    CS_CONFLICTING_ANNOTATIONS = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_conflicting_annotations",
+        module="lib_root",
+        finding=FindingEnum.F366,
+    )
+    CFN_CONTENT_HTTP = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_serves_content_over_http",
+        module="lib_path",
+        finding=FindingEnum.F372,
+    )
+    CFN_ELB2_INSEC_PROTO = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb2_uses_insecure_protocol",
+        module="lib_path",
+        finding=FindingEnum.F372,
+    )
+    TFM_CONTENT_HTTP = MethodInfo(
+        file_name="terraform",
+        name="tfm_serves_content_over_http",
+        module="lib_path",
+        finding=FindingEnum.F372,
+    )
+    TFM_AZURE_KV_ONLY_ACCESS_HTTPS = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_kv_only_accessible_over_https",
+        module="lib_path",
+        finding=FindingEnum.F372,
+    )
+    TFM_AZURE_SA_INSEC_TRANSFER = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_sa_insecure_transfer",
+        module="lib_path",
+        finding=FindingEnum.F372,
+    )
+    UNPINNED_DOCKER_IMAGE = MethodInfo(
+        file_name="docker",
+        name="unpinned_docker_image",
+        module="lib_path",
+        finding=FindingEnum.F380,
+    )
+    CHECK_NPM_PKG_JSON = MethodInfo(
+        file_name="npm",
+        name="check_npm_package_json",
+        module="lib_path",
+        finding=FindingEnum.F393,
+    )
+    CHECK_NPM_PKG_LOCK_JSON = MethodInfo(
+        file_name="npm",
+        name="check_npm_package_lock_json",
+        module="lib_path",
+        finding=FindingEnum.F393,
+    )
+    CFN_LOG_NOT_VALIDATED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_log_files_not_validated",
+        module="lib_path",
+        finding=FindingEnum.F394,
+    )
+    CFN_KMS_KEY_ROTATION_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_kms_key_is_key_rotation_absent_or_disabled",
+        module="lib_path",
+        finding=FindingEnum.F396,
+    )
+    FRAGMENT_INJECTION = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="has_fragment_injection",
+        module="lib_apk",
+        finding=FindingEnum.F398,
+    )
+    CFN_LOG_CONF_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_bucket_has_logging_conf_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+    )
+    CFN_ELB_ACCESS_LOG_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_elb_has_access_logging_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+    )
