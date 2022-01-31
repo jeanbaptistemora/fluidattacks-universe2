@@ -45,11 +45,6 @@ def test_forces_update_open():
     assert apk.not_forces_updates(SIGNED_APK)
 
 
-def test_ssl_hostname_verify_open():
-    """Test if APK SSLSocket verifies for hostname."""
-    assert apk.not_verifies_ssl_hostname(SSL_OPEN)
-
-
 def test_allows_user_ca_open():
     """Test if APK trusts user CAs."""
     assert apk.allows_user_ca(SIGNED_APK)
@@ -73,16 +68,6 @@ def test_permissions_close():
 def test_forces_update_close():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(JS_APK)
-
-
-def test_ssl_hostname_verify_close1():
-    """Test if APK SSLSocket verifies for hostname."""
-    assert not apk.not_verifies_ssl_hostname(SSL_CLOSE)
-
-
-def test_ssl_hostname_verify_close2():
-    """Test if APK SSLSocket verifies for hostname."""
-    assert not apk.not_verifies_ssl_hostname(SIGNED_APK)
 
 
 def test_allows_user_ca_close1():
@@ -118,11 +103,6 @@ def test_permissions_unknown():
 def test_forces_update_unknown():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(NOT_EXISTS_APK)
-
-
-def test_ssl_hostname_verify_unknown():
-    """Test if APK SSLSocket verifies for hostname."""
-    assert not apk.not_verifies_ssl_hostname(NOT_EXISTS_APK)
 
 
 def test_allows_user_ca_unknown():

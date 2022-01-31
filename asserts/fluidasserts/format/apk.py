@@ -103,40 +103,6 @@ def get_http_urls(dex):
     ]
 
 
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def not_verifies_ssl_hostname(apk_file: str) -> tuple:
-    """
-    Check if the given APK doesn't verify the SSLSocket hostname.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK does not have *getDefaultHostnameVerifier* in
-                activities source.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    _, dvms, _ = analyze_apk(apk_file)
-    act_source = get_activities_source(dvms)
-
-    is_vulnerable: bool = False
-
-    msg_closed: str = "APK does not use SSLSocket"
-
-    if "SSLSocket" in act_source:
-        if "getDefaultHostnameVerifier" in act_source:
-            msg_closed = "APK verifies hostname in SSL cert"
-        else:
-            is_vulnerable = True
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK does not verify hostname in SSL cert",
-        msg_closed=msg_closed,
-        open_if=is_vulnerable,
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def allows_user_ca(apk_file: str) -> tuple:
