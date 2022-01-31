@@ -137,7 +137,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     sizePerPageList: listSizePerPage.slice(
       0,
       listSizePerPage.findIndex(
-        (element): boolean => element > dataset.length
+        (element): boolean => element >= dataset.length
       ) + 1
     ),
     sizePerPageRenderer:
