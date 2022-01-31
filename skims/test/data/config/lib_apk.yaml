@@ -12,6 +12,7 @@ apk:
   - examples/tests/multidex/multidex.apk
   - examples/tests/partialsignature.apk
   - ../product/skims/test/data/lib_apk/has_frida.apk
+  - ../product/skims/test/data/lib_apk/js_open.apk
 namespace: namespace
 output: skims/test/outputs/lib_apk.csv
 working_dir: ../androguard
