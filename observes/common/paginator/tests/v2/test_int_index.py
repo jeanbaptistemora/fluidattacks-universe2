@@ -2,14 +2,14 @@ from paginator.v2 import (
     IntIndexGetter,
 )
 import pytest
-from random import (
-    randint,
-)
 from returns.io import (
     IO,
 )
 from returns.maybe import (
     Maybe,
+)
+from secrets import (
+    randbelow,
 )
 
 max_pages = 10
@@ -17,7 +17,7 @@ max_pages = 10
 
 def mock_page(page: int) -> IO[Maybe[int]]:
     print(f"called {page}")
-    item = randint(0, 10) if page <= max_pages else None
+    item = randbelow(11) if page <= max_pages else None
     return IO(Maybe.from_optional(item))
 
 

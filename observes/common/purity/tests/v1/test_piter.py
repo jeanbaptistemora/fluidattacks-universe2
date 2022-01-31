@@ -8,14 +8,14 @@ from purity.v1.pure_iter import (
     io_transform,
     transform,
 )
-from random import (
-    randint,
-)
 from returns.io import (
     IO,
 )
 from returns.maybe import (
     Maybe,
+)
+from secrets import (
+    randbelow,
 )
 from typing import (
     List,
@@ -25,7 +25,7 @@ from typing import (
 
 
 def mock_get(_: int) -> IO[PureIter[int]]:
-    data = (randint(0, 10), randint(0, 10))
+    data = (randbelow(11), randbelow(11))
     return IO(factory.from_flist(data))
 
 

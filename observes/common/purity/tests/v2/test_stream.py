@@ -1,7 +1,3 @@
-from black import (
-    Optional,
-    sys,
-)
 from purity.v2.cmd import (
     Cmd,
 )
@@ -22,7 +18,7 @@ from secrets import (
     randbelow,
 )
 from typing import (
-    IO,
+    Optional,
 )
 
 
