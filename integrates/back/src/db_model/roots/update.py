@@ -12,7 +12,6 @@ from db_model.roots.types import (
 )
 from dynamodb import (
     historics,
-    keys,
     operations,
 )
 import simplejson as json  # type: ignore
@@ -66,36 +65,6 @@ async def update_root_state(
         table=TABLE,
     )
     await operations.put_item(facet=historic_facet, item=historic, table=TABLE)
-
-
-async def update_git_root_machine_execution(
-    group_name: str,
-    root_id: str,
-    finding_code: str,
-    queue_date: str,
-    batch_id: str,
-) -> None:
-    key_structure = TABLE.primary_key
-    key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={
-            "uuid": root_id,
-            "name": group_name,
-            "finding_code": finding_code,
-        },
-    )
-    execution = {
-        key_structure.partition_key: key.partition_key,
-        key_structure.sort_key: key.sort_key,
-        "queue_date": queue_date,
-        "job_id": batch_id,
-        "finding_code": finding_code,
-    }
-    await operations.put_item(
-        facet=TABLE.facets["machine_git_root_execution"],
-        item=execution,
-        table=TABLE,
-    )
 
 
 async def update_git_root_cloning(
