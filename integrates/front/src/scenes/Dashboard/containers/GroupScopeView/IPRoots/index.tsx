@@ -9,6 +9,7 @@ import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
+import { InternalSurfaceButton } from "../InternalSurfaceButton";
 import { ACTIVATE_ROOT, ADD_IP_ROOT } from "../queries";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
@@ -17,6 +18,7 @@ import { DataTableNext } from "components/DataTableNext";
 import { changeFormatter } from "components/DataTableNext/formatters";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -160,12 +162,15 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                 dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
-                  <Can do={"api_mutations_add_ip_root_mutate"}>
-                    <Button onClick={openAddModal}>
-                      <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;{t("group.scope.common.add")}
-                    </Button>
-                  </Can>
+                  <Row>
+                    <InternalSurfaceButton />
+                    <Can do={"api_mutations_add_ip_root_mutate"}>
+                      <Button onClick={openAddModal}>
+                        <FontAwesomeIcon icon={faPlus} />
+                        &nbsp;{t("group.scope.common.add")}
+                      </Button>
+                    </Can>
+                  </Row>
                 }
                 headers={[
                   {

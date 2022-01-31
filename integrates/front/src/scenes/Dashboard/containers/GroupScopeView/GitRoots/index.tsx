@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 
 import { renderEnvDescription } from "./envDescription";
 import {
@@ -23,9 +22,8 @@ import { ManagementModal } from "./ManagementModal";
 import { renderRepoDescription } from "./repoDescription";
 import { Container } from "./styles";
 
-import { groupContext } from "../../GroupContent/context";
-import type { IGroupContext } from "../../GroupContent/types";
 import { DeactivationModal } from "../deactivationModal";
+import { InternalSurfaceButton } from "../InternalSurfaceButton";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -80,8 +78,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // Constants
   const user: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const { url: groupUrl }: IGroupContext = useContext(groupContext);
-  const { push } = useHistory();
   const { t } = useTranslation();
 
   const canSyncGitRoot: boolean = permissions.can(
@@ -90,13 +86,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const canUpdateRootState: boolean = permissions.can(
     "api_mutations_activate_root_mutate"
   );
-  const canGetToeLines: boolean = permissions.can(
-    "api_resolvers_group_toe_lines_resolve"
-  );
-  const canGetToeInputs: boolean = permissions.can(
-    "api_resolvers_group_toe_inputs_resolve"
-  );
-  const canSeeInternalToe: boolean = permissions.can("see_internal_toe");
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")
     .map((root): string => root.nickname);
@@ -270,10 +259,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         [columnName]: !checkedItems[columnName],
       });
     }
-  }
-
-  function handleInternalSurfaceClick(): void {
-    push(`${groupUrl}/internal/surface`);
   }
 
   const rootsGroupedByEnvs = roots
@@ -515,21 +500,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         </Button>
                       </TooltipWrapper>
                     </Can>
-                    {canSeeInternalToe &&
-                    (canGetToeInputs || canGetToeLines) ? (
-                      <TooltipWrapper
-                        id={t("group.tabs.toe.tooltip.id")}
-                        message={t("group.tabs.toe.tooltip")}
-                      >
-                        <Button
-                          id={"git-root-internal-surface"}
-                          onClick={handleInternalSurfaceClick}
-                        >
-                          <i className={"icon pe-7s-note2"} />
-                          &nbsp;{t("group.tabs.toe.text")}
-                        </Button>
-                      </TooltipWrapper>
-                    ) : undefined}
+                    <InternalSurfaceButton />
                   </Row>
                 }
                 headers={[
