@@ -45,6 +45,11 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
 import { msgError } from "utils/notifications";
 
+interface IModalConfig {
+  selectedVulnerabilities: IVulnRowAttr[];
+  clearSelected: () => void;
+}
+
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,
   meVulnerabilitiesAssigned,
@@ -57,6 +62,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
     "api_resolvers_vulnerability_hacker_resolve"
   );
 
+  const [isEditing, setEditing] = useState(false);
+  const [iscurrentOpen, setCurrentOpen] = useState<boolean[]>([]);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [searchGroupName, setSearchGroupName] = useState("");
   const [isReattacking, setReattacking] = useState(false);
@@ -79,6 +86,23 @@ export const TasksContent: React.FC<ITasksContent> = ({
   );
 
   useTabTracking("Todos");
+
+  const groups = useMemo(
+    (): IOrganizationGroups["groups"] =>
+      userData === undefined
+        ? []
+        : userData.me.organizations.reduce(
+            (
+              previousValue: IOrganizationGroups["groups"],
+              currentValue
+            ): IOrganizationGroups["groups"] => [
+              ...previousValue,
+              ...currentValue.groups,
+            ],
+            []
+          ),
+    [userData]
+  );
 
   const vulnerabilities: IVulnRowAttr[] = useMemo(
     (): IVulnRowAttr[] =>
@@ -209,12 +233,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
     setUserRole,
   ]);
 
-  const [remediationModalConfig, setRemediationModalConfig] = useState<{
-    vulnerabilitiesToReattack: IVulnRowAttr[];
-    clearSelected: () => void;
-  }>({
+  const [modalConfig, setModalConfig] = useState<IModalConfig>({
     clearSelected: (): void => undefined,
-    vulnerabilitiesToReattack: [],
+    selectedVulnerabilities: [],
   });
 
   const openRemediationModal: (
@@ -222,9 +243,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
     clearSelected: () => void
   ) => void = useCallback(
     (vulns: IVulnRowAttr[], clearSelected: () => void): void => {
-      setRemediationModalConfig({
+      setModalConfig({
         clearSelected,
-        vulnerabilitiesToReattack: vulns,
+        selectedVulnerabilities: vulns,
       });
     },
     []
@@ -234,23 +255,25 @@ export const TasksContent: React.FC<ITasksContent> = ({
     await refetchVulnerabilitiesAssigned();
   }, [refetchVulnerabilitiesAssigned]);
 
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
+  const onSearchTextChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setSearchTextFilter(event.target.value);
+    },
+    []
+  );
 
-  const onTreatmentChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    event.persist();
-    setFilterVulnerabilitiesTable(
-      (value): IFilterTodosSet => ({
-        ...value,
-        treatment: event.target.value,
-      })
-    );
-  };
+  const onTreatmentChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      event.persist();
+      setFilterVulnerabilitiesTable(
+        (value): IFilterTodosSet => ({
+          ...value,
+          treatment: event.target.value,
+        })
+      );
+    },
+    [setFilterVulnerabilitiesTable]
+  );
 
   const onSearchGroupNameChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -309,7 +332,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
       filterVulnerabilitiesTable.treatmentCurrentStatus
     );
 
-  function clearFilters(): void {
+  const clearFilters = useCallback((): void => {
     setFilterVulnerabilitiesTable(
       (): IFilterTodosSet => ({
         tag: "",
@@ -319,7 +342,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
     );
     setSearchTextFilter("");
     setSearchGroupName("");
-  }
+  }, [setFilterVulnerabilitiesTable]);
 
   const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
     filterSearchTextVulnerabilities,
@@ -391,67 +414,53 @@ export const TasksContent: React.FC<ITasksContent> = ({
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
-  const [isEditing, setEditing] = useState(false);
-  const [iscurrentOpen, setCurrentOpen] = useState<boolean[]>([]);
-  function toggleEdit(): void {
+  const toggleEdit = useCallback((): void => {
     setCurrentOpen(
       Object.entries(
         _.groupBy(
-          remediationModalConfig.vulnerabilitiesToReattack,
+          modalConfig.selectedVulnerabilities,
           (vuln: IVulnRowAttr): string => vuln.groupName
         )
       ).map((__, index: number): boolean => index === 0)
     );
     setEditing(!isEditing);
-  }
-  function handleCloseUpdateModal(index: number): void {
-    setCurrentOpen((current: boolean[]): boolean[] => {
-      const newCurrent = current.map(
-        (isCurrentOpen: boolean, currentIndex: number): boolean =>
-          currentIndex === index
-            ? !isCurrentOpen
-            : currentIndex === index + 1
-            ? !isCurrentOpen
-            : isCurrentOpen
-      );
-      if (
-        newCurrent.every((isCurrentOpen: boolean): boolean => !isCurrentOpen)
-      ) {
-        setEditing(false);
-        remediationModalConfig.clearSelected();
-      }
+  }, [isEditing, modalConfig.selectedVulnerabilities]);
 
-      return newCurrent;
-    });
-  }
+  const handleCloseUpdateModal = useCallback(
+    (index: number): void => {
+      setCurrentOpen((current: boolean[]): boolean[] => {
+        const newCurrent = current.map(
+          (isCurrentOpen: boolean, currentIndex: number): boolean =>
+            currentIndex === index
+              ? !isCurrentOpen
+              : currentIndex === index + 1
+              ? !isCurrentOpen
+              : isCurrentOpen
+        );
+        if (
+          newCurrent.every((isCurrentOpen: boolean): boolean => !isCurrentOpen)
+        ) {
+          setEditing(false);
+          modalConfig.clearSelected();
+        }
 
-  if (_.isUndefined(userData) || _.isEmpty(userData)) {
-    return <div />;
-  }
-
-  const groups = userData.me.organizations.reduce(
-    (
-      previousValue: IOrganizationGroups["groups"],
-      currentValue
-    ): IOrganizationGroups["groups"] => [
-      ...previousValue,
-      ...currentValue.groups,
-    ],
-    []
+        return newCurrent;
+      });
+    },
+    [modalConfig]
   );
 
-  function toggleModal(): void {
+  const toggleModal = useCallback((): void => {
     setOpen(true);
-  }
-  function closeRemediationModal(): void {
+  }, []);
+  const closeRemediationModal = useCallback((): void => {
     setOpen(false);
-  }
-  function onReattack(): void {
+  }, []);
+  const onReattack = useCallback((): void => {
     if (isReattacking) {
       setReattacking(!isReattacking);
     } else {
-      const selectedVulnerabilities: IVulnRowAttr[] =
-        remediationModalConfig.vulnerabilitiesToReattack;
+      const { selectedVulnerabilities } = modalConfig;
       const validVulnerabilitiesId: string[] =
         filteredContinuousVulnerabilitiesOnReattackIds(
           selectedVulnerabilities,
@@ -475,6 +484,10 @@ export const TasksContent: React.FC<ITasksContent> = ({
         setReattacking(!isReattacking);
       }
     }
+  }, [groups, isReattacking, modalConfig, t]);
+
+  if (_.isUndefined(userData) || _.isEmpty(userData)) {
+    return <div />;
   }
 
   return (
@@ -523,7 +536,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                     ).length === 0
                   }
                   areVulnsSelected={
-                    remediationModalConfig.vulnerabilitiesToReattack.length > 0
+                    modalConfig.selectedVulnerabilities.length > 0
                   }
                   isEditing={isEditing}
                   isOpen={isOpen}
@@ -532,10 +545,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                   openModal={toggleModal}
                 />
                 <EditButton
-                  isDisabled={
-                    remediationModalConfig.vulnerabilitiesToReattack.length ===
-                    0
-                  }
+                  isDisabled={modalConfig.selectedVulnerabilities.length === 0}
                   isEditing={isEditing}
                   isFindingReleased={true}
                   isRequestingReattack={isReattacking}
@@ -567,19 +577,19 @@ export const TasksContent: React.FC<ITasksContent> = ({
       </div>
       {isOpen ? (
         <UpdateVerificationModal
-          clearSelected={_.get(remediationModalConfig, "clearSelected")}
+          clearSelected={_.get(modalConfig, "clearSelected")}
           handleCloseModal={closeRemediationModal}
           isReattacking={isReattacking}
           isVerifying={false}
           setRequestState={onReattack}
           setVerifyState={onReattack}
-          vulns={remediationModalConfig.vulnerabilitiesToReattack}
+          vulns={modalConfig.selectedVulnerabilities}
         />
       ) : undefined}
-      {isEditing && remediationModalConfig.vulnerabilitiesToReattack.length > 0
+      {isEditing && modalConfig.selectedVulnerabilities.length > 0
         ? Object.entries(
             _.groupBy(
-              remediationModalConfig.vulnerabilitiesToReattack,
+              modalConfig.selectedVulnerabilities,
               (vuln: IVulnRowAttr): string => vuln.groupName
             )
           ).map(
@@ -606,10 +616,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                     changePermissions={changePermissions}
                     findingId={""}
                     groupName={vulnGroupName}
-                    handleClearSelected={_.get(
-                      remediationModalConfig,
-                      "clearSelected"
-                    )}
+                    handleClearSelected={_.get(modalConfig, "clearSelected")}
                     handleCloseModal={onClose}
                     isOpen={iscurrentOpen[index]}
                     vulnerabilities={vulnerabilitiesToUpdated}
