@@ -152,7 +152,7 @@ let
     let
       remediationTime = vulnerabilities.${vulnerabilityId}.remediation_time;
     in
-    "${remediationTime} minutes."
+    "⌚ ${remediationTime} minutes."
   ;
 
   # Requirements list for a definition
