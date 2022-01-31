@@ -273,6 +273,7 @@ in
           [ "add_group_tags" ]
           [ "add_organization" ]
           [ "add_push_token" ]
+          [ "add_toe_input" ]
           [ "approve_draft" ]
           [ "confirm_vulnerabilities_zero_risk" ]
           [ "deactivate_root" ]
