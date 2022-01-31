@@ -52,7 +52,12 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $lang: ReportLang
     $treatment: String
   ) {
-    report(reportType: $reportType, groupName: $groupName, lang: $lang) {
+    report(
+      reportType: $reportType
+      groupName: $groupName
+      lang: $lang
+      treatment: $treatment
+    ) {
       success
     }
   }
