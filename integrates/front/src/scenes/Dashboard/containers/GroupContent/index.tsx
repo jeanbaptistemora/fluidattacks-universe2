@@ -1,13 +1,7 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import React from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import { groupContext } from "./context";
 
@@ -36,7 +30,6 @@ import { useTabTracking } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
 const GroupContent: React.FC = (): JSX.Element => {
-  const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -128,18 +121,15 @@ const GroupContent: React.FC = (): JSX.Element => {
                       />
                     </Can>
                   </Have>
-                  <Have I={"has_service_white"}>
-                    {organizationName === "imamura" ||
-                    (!canGetToeInputs && !canGetToeLines) ? undefined : (
-                      <ContentTab
-                        icon={"icon pe-7s-note2"}
-                        id={"toeTab"}
-                        link={`${url}/surface`}
-                        title={translate.t("group.tabs.toe.text")}
-                        tooltip={translate.t("group.tabs.toe.tooltip")}
-                      />
-                    )}
-                  </Have>
+                  {!canGetToeInputs && !canGetToeLines ? undefined : (
+                    <ContentTab
+                      icon={"icon pe-7s-note2"}
+                      id={"toeTab"}
+                      link={`${url}/surface`}
+                      title={translate.t("group.tabs.toe.text")}
+                      tooltip={translate.t("group.tabs.toe.tooltip")}
+                    />
+                  )}
                   <ContentTab
                     icon={"icon pe-7s-box1"}
                     id={"resourcesTab"}
