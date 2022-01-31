@@ -22,7 +22,7 @@ F046,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),android/s
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -46,7 +46,7 @@ F046,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),android/
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -70,7 +70,7 @@ F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),and
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,examples/tests/com.android.example.text.styling.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -94,7 +94,7 @@ F046,inputs,examples/tests/com.android.example.text.styling.apk (namespace),andr
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,examples/tests/com.test.intent_filter.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -118,7 +118,7 @@ F046,inputs,examples/tests/com.test.intent_filter.apk (namespace),android/suppor
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,examples/tests/hello-world.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -142,7 +142,7 @@ F046,inputs,examples/tests/hello-world.apk (namespace),android/support/annotatio
      | SSES"", 4);
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,examples/tests/partialsignature.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
@@ -166,7 +166,7 @@ F046,inputs,examples/tests/partialsignature.apk (namespace),android/support/anno
   18 |         return;
   19 |     }
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,"
 >  1 | package android.support.v4.app;
    2 |  class INotificationSideChannel$Stub$Proxy implements android.support.v4.app.INotificationSideChannel {
@@ -190,7 +190,7 @@ F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android
   20 |             v0.writeInterfaceToken(""android.support.v4.app.INotificationSideChannel"");
   21 |             v0.writeString(p6);
      ^ Col 0
-",analyze_bytecodes._no_obfuscation
+",analyze_bytecodes.no_obfuscation
 F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -214,7 +214,7 @@ F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing
      | 0', 'access$12800', 'access$12900', 'access$1300', 'access$13000', 'access$13100', 'access$13200', 'access$13300', 'acce
      | ss$13400', 'access$13500', 'access$13600', 'access$13700', 'access$13800', 'access$13900', 'access$1400', 'access$14000'
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -238,7 +238,7 @@ F048,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing r
      | addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'addEmail
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -262,7 +262,7 @@ F048,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing 
      | addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'addEmail
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -286,7 +286,7 @@ F048,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
      | addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'addEmail
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -310,7 +310,7 @@ F048,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Miss
      | ddColorStateListToCache', 'addCommand', 'addCompatExtras', 'addConstraint', 'addContentView', 'addCustomViewsWithGravity
      | ', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', 'addDurationItem', 'addEmailBcc',
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -334,7 +334,7 @@ F048,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing rooted 
      | ns', 'containsKey', 'convertStreamToString', 'create', 'createBitmap', 'createChooser', 'createFromResource', 'createPla
      | ylist', 'createStringFromIds', 'createTables', 'createWifiLock', 'currentTimeMillis', 'd', 'decodeStream', 'deconstruct'
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -358,7 +358,7 @@ F048,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing rooted
      | ors', 'addAnimatingView', 'addAnimation', 'addArc', 'addBackStackState', 'addCallback', 'addCategory', 'addCenterPoint',
      |  'addCentering', 'addChain', 'addChangePayload', 'addChild', 'addChildDrawingOrderCallback', 'addChildrenForAccessibilit
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/hello-world.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -382,7 +382,7 @@ F048,inputs,examples/tests/hello-world.apk (namespace),Missing rooted device det
      | ackState', 'addBigPictureStyle', 'addBigStyleToBuilderJellybean', 'addBigStyleToBuilderLollipop', 'addBigTextStyle', 'ad
      | dCallback', 'addCategory', 'addChangePayload', 'addChild', 'addChildDrawingOrderCallback', 'addChildrenForAccessibility'
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -397,7 +397,7 @@ F048,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missin
   11 | # No method performs root detection
   12 | []
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/multidex/multidex.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -412,7 +412,7 @@ F048,inputs,examples/tests/multidex/multidex.apk (namespace),Missing rooted devi
   11 | # No method performs root detection
   12 | ['<init>', 'othermethod', 'println', 'somemethod']
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/partialsignature.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -436,7 +436,7 @@ F048,inputs,examples/tests/partialsignature.apk (namespace),Missing rooted devic
      | n', 'addBackStackState', 'addBigPictureStyle', 'addBigTextStyle', 'addCategory', 'addChild', 'addChildrenForAccessibilit
      | y', 'addColumn', 'addCompatExtras', 'addCustomAction', 'addDrawerListener', 'addEditableKey', 'addEmailBcc', 'addEmailCc
      ^ Col 0
-",analyze_bytecodes._no_root_check
+",analyze_bytecodes.no_root_check
 F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),application.android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
   1644 |   <activity android:configchanges=""0x000000A0"" android:name=""com.android.internal.app.PlatLogoActivity"" android:process=
        | "":ui"" android:theme=""@android:01030060"">
@@ -460,7 +460,7 @@ F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),applic
   1656 |   <activity android:excludefromrecents=""true"" android:label=""@android:0104051C"" android:name=""android.accounts.ChooseAcc
        | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
        ^ Col 0
-",__init__._apk_exported_cp
+",analyze_bytecodes.apk_exported_cp
 F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
    1 | $ python3.8
    2 |
@@ -477,7 +477,7 @@ F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
 > 13 | >>> BeautifulSoup(nsc).find_all(""pin-set"")
   14 | []  # Empty list means no <pin-set> tags were defined
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -492,7 +492,7 @@ F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -507,7 +507,7 @@ F207,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing r
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -522,7 +522,7 @@ F207,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing 
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -537,7 +537,7 @@ F207,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Miss
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -552,7 +552,7 @@ F207,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing res/xml
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -567,7 +567,7 @@ F207,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing res/xm
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/hello-world.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -582,7 +582,7 @@ F207,inputs,examples/tests/hello-world.apk (namespace),Missing res/xml/network_s
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -597,7 +597,7 @@ F207,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missin
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/multidex/multidex.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -612,7 +612,7 @@ F207,inputs,examples/tests/multidex/multidex.apk (namespace),Missing res/xml/net
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/partialsignature.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -627,7 +627,7 @@ F207,inputs,examples/tests/partialsignature.apk (namespace),Missing res/xml/netw
 > 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
   12 | False  # No network security config exists
      ^ Col 0
-",analyze_bytecodes._no_certs_pinning
+",analyze_bytecodes.no_certs_pinning
 F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK has Frida gadget embedded.,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,The APK has Frida gadget embedded.,"
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -651,7 +651,7 @@ F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK
      | color/abc_tint_spinner.xml', 'res/color/abc_primary_text_disable_only_material_light.xml', 'res/color/abc_tint_default.x
      | ml', 'res/color/abc_tint_switch_track.xml', 'res/color/abc_background_cache_hint_selector_material_dark.xml', 'res/color
      ^ Col 0
-",analyze_bytecodes._has_frida
+",analyze_bytecodes.has_frida
 F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -666,7 +666,7 @@ F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not sig
   11 | >>> apk.get_signature_names()
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
-",analyze_bytecodes._apk_unsigned
+",analyze_bytecodes.apk_unsigned
 F103,inputs,examples/tests/com.test.intent_filter.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -681,7 +681,7 @@ F103,inputs,examples/tests/com.test.intent_filter.apk (namespace),Not signed,325
   11 | >>> apk.get_signature_names()
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
-",analyze_bytecodes._apk_unsigned
+",analyze_bytecodes.apk_unsigned
 F103,inputs,examples/tests/multidex/multidex.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -696,7 +696,7 @@ F103,inputs,examples/tests/multidex/multidex.apk (namespace),Not signed,325,"hom
   11 | >>> apk.get_signature_names()
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
-",analyze_bytecodes._apk_unsigned
+",analyze_bytecodes.apk_unsigned
 F060,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK doesn't verify the SSLSocket hostname.,396,"home,apk,bytecodes",060. Insecure service configuration - Host verification,The given APK doesn't verify the SSLSocket hostname.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -720,7 +720,7 @@ F060,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._not_verifies_ssl_hostname
+",analyze_bytecodes.not_verifies_ssl_hostname
 F082,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
    1 | $ python3.8
    2 |
@@ -744,7 +744,7 @@ F082,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      | e', 'addDrawerListener', 'addDurationItem', 'addEdge', 'addEditableKey', 'addElement', 'addEmailBcc', 'addEmailCc', 'add
      | EmailTo', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAsse
      ^ Col 0
-",analyze_bytecodes._uses_insecure_delete
+",analyze_bytecodes.uses_insecure_delete
 F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application is vulnerable to Fragment Injection,470,"home,apk,bytecodes",398. Fragment Injection,The application is vulnerable to Fragment Injection,"
    1 | $ python3.8
    2 |
@@ -768,7 +768,7 @@ F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application
      | t.AdapterView p3, android.view.View p4, int p5, long p6)\n    {\n        com.teleca.jamendo.activity.AlbumActivity.acces
      | s$000(this.this$0).setLang(((String) this.val$langs.get(p5)));\n        return;\n    }\n\n    public void onNothingSelec
      ^ Col 0
-",analyze_bytecodes._has_fragment_injection
+",analyze_bytecodes.has_fragment_injection
 F058,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -792,7 +792,7 @@ F058,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),app
   15 |    </intent-filter>
   16 |   </activity>
      ^ Col 0
-",__init__._apk_debugging_enabled
+",analyze_bytecodes.apk_debugging_enabled
 F058,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -816,7 +816,7 @@ F058,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),applicati
   16 |   </activity>
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
-",__init__._apk_debugging_enabled
+",analyze_bytecodes.apk_debugging_enabled
 F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -840,7 +840,7 @@ F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   16 |   </activity>
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
-",__init__._apk_debugging_enabled
+",analyze_bytecodes.apk_debugging_enabled
 F058,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
      | tp://schemas.android.com/apk/res/android"">
@@ -861,7 +861,7 @@ F058,inputs,examples/tests/com.android.example.text.styling.apk (namespace),appl
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",__init__._apk_debugging_enabled
+",analyze_bytecodes.apk_debugging_enabled
 F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""23"" android:compilesdkversioncodename=""6.0-2438415"" package=""com.google.mediapipe.a
      | pps.handtrackinggpu"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=""http://schemas.android.co
@@ -885,7 +885,7 @@ F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),applica
   15 |    </intent-filter>
   16 |   </activity>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -909,7 +909,7 @@ F055,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),app
   15 |    </intent-filter>
   16 |   </activity>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -933,7 +933,7 @@ F055,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),applicati
   16 |   </activity>
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
@@ -957,7 +957,7 @@ F055,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   16 |   </activity>
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.test.intent_filter"" platformbuildversioncode=""1"" platformbuildversionname=""1.000000"" xmlns:android
@@ -981,7 +981,7 @@ F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.an
   15 |    </intent-filter>
   16 |   </receiver>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
      | tp://schemas.android.com/apk/res/android"">
@@ -1002,7 +1002,7 @@ F055,inputs,examples/tests/com.android.example.text.styling.apk (namespace),appl
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/hello-world.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""de.rhab.helloworld"" platformbuildversioncode=""25"" p
      | latformbuildversionname=""7.1.1"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -1021,7 +1021,7 @@ F055,inputs,examples/tests/hello-world.apk (namespace),application.android:allow
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/partialsignature.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
   30 |  <uses-permission android:name=""android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"">
   31 |  </uses-permission>
@@ -1045,7 +1045,7 @@ F055,inputs,examples/tests/partialsignature.apk (namespace),application.android:
   47 |    </intent-filter>
   48 |   </activity>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -1071,7 +1071,7 @@ F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.an
    19 |   <activity android:label=""@7F090003"" android:launchmode=""1"" android:name="".activity.PlayerActivity"">
    20 |    <intent-filter>
       ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -1097,7 +1097,7 @@ F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"appli
   1629 |     </action>
   1630 |     <category android:name=""android.intent.category.DEFAULT"">
        ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1121,7 +1121,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1145,7 +1145,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1169,7 +1169,7 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1193,7 +1193,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1217,7 +1217,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities
 F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -1241,4 +1241,4 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
-",analyze_bytecodes._webview_vulnerabilities
+",analyze_bytecodes.webview_vulnerabilities

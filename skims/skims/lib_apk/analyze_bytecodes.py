@@ -104,9 +104,8 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F103,
         locations=locations,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.APK_UNSIGNED,
     )
 
 
@@ -181,9 +180,8 @@ def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F048,
         locations=locations,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.NO_ROOT_CHECK,
     )
 
 
@@ -270,9 +268,8 @@ def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F207,
         locations=locations,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.NO_CERTS_PINNING,
     )
 
 
@@ -351,9 +348,8 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F046,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.NO_OBFUSCATION,
     )
 
 
@@ -411,9 +407,8 @@ def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F398,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.FRAGMENT_INJECTION,
     )
 
 
@@ -511,9 +506,8 @@ def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F268,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.WEBVIEW_VULNS,
     )
 
 
@@ -560,9 +554,8 @@ def _has_frida(
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F206,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.HAS_FRIDA,
     )
 
 
@@ -614,9 +607,8 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F060,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.NOT_VERIFIES_SSL_HOSTNAME,
     )
 
 
@@ -665,9 +657,8 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F082,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.USES_INSECURE_DELETE,
     )
 
 
@@ -722,9 +713,8 @@ def _socket_uses_get_insecure(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F082,
         locations=locations,
-        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+        method=core_model.MethodsEnum.SOCKET_GET_INSECURE,
     )
 
 

@@ -18,7 +18,6 @@ import contextlib
 from ctx import (
     CTX,
 )
-import inspect
 import lxml.etree  # nosec
 from model import (
     core_model,
@@ -26,14 +25,7 @@ from model import (
 from parse_android_manifest.types import (
     APKContext,
 )
-from pathlib import (
-    Path,
-)
-from types import (
-    FrameType,
-)
 from typing import (
-    cast,
     List,
     NamedTuple,
     Optional,
@@ -79,16 +71,12 @@ class Locations(NamedTuple):
 
 def _create_vulns(
     ctx: APKCheckCtx,
-    finding: core_model.FindingEnum,
     locations: Locations,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    source = cast(
-        FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code
     return tuple(
         core_model.Vulnerability(
-            finding=finding,
+            finding=method.value.finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
@@ -96,13 +84,11 @@ def _create_vulns(
             what=ctx.apk_ctx.path,
             where=location.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(finding.value.cwe,),
+                cwe=(method.value.get_cwe(),),
                 description=location.description,
                 snippet=location.snippet,
-                source_method=(
-                    f"{Path(source.co_filename).stem}.{source.co_name}"
-                ),
-                developer=developer,
+                source_method=method.value.get_name(),
+                developer=method.value.developer,
             ),
         )
         for location in locations.locations
@@ -172,9 +158,8 @@ def _apk_backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F055,
         locations=locations,
-        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
+        method=core_model.MethodsEnum.APK_BACKUPS_ENABLED,
     )
 
 
@@ -203,9 +188,8 @@ def _apk_debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F058,
         locations=locations,
-        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
+        method=core_model.MethodsEnum.APK_DEBUGGING_ENABLED,
     )
 
 
@@ -256,9 +240,8 @@ def _apk_exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F075,
         locations=locations,
-        developer=core_model.DeveloperEnum.BRIAM_AGUDELO,
+        method=core_model.MethodsEnum.APK_EXPORTED_CP,
     )
 
 

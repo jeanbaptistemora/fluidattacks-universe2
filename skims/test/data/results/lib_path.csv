@@ -16607,7 +16607,7 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),applic
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",__init__._apk_exported_cp
+",analyze_bytecodes.apk_exported_cp
 F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),application.android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -16628,7 +16628,7 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),applic
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",__init__._apk_exported_cp
+",analyze_bytecodes.apk_exported_cp
 F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
 >  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
    2 |   name           = ""example-machine""
@@ -22148,7 +22148,7 @@ F058,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),applic
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",__init__._apk_debugging_enabled
+",analyze_bytecodes.apk_debugging_enabled
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
    1 |  class XmlSerializerTestCase : Controller
    2 |
@@ -22681,7 +22681,7 @@ F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"appli
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -22704,7 +22704,7 @@ F055,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),"appli
   15 |  </application>
   16 | </manifest>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -22724,7 +22724,7 @@ F055,inputs,skims/test/data/lib_path/f055_apk/AndroidManifest.xml (namespace),"a
   13 |  </application>
   14 | </manifest>
      ^ Col 0
-",__init__._apk_backups_enabled
+",analyze_bytecodes.apk_backups_enabled
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;

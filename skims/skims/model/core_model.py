@@ -2929,12 +2929,14 @@ class MethodsEnum(Enum):
         name="no_obfuscation",
         module="lib_apk",
         finding=FindingEnum.F046,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     NO_ROOT_CHECK = MethodInfo(
         file_name="analyze_bytecodes",
         name="no_root_check",
         module="lib_apk",
         finding=FindingEnum.F048,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     JAVA_PROP_MISSING_SSL = MethodInfo(
         file_name="java",
@@ -3070,6 +3072,7 @@ class MethodsEnum(Enum):
         name="apk_backups_enabled",
         module="lib_apk",
         finding=FindingEnum.F055,
+        developer=DeveloperEnum.BRIAM_AGUDELO,
     )
     PATH_APK_BACKUPS_ENABLED = MethodInfo(
         file_name="android",
@@ -3083,6 +3086,7 @@ class MethodsEnum(Enum):
         name="apk_debugging_enabled",
         module="lib_apk",
         finding=FindingEnum.F058,
+        developer=DeveloperEnum.BRIAM_AGUDELO,
     )
     PATH_APK_DEBUGGING_ENABLED = MethodInfo(
         file_name="android",
@@ -3090,6 +3094,13 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F058,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+    )
+    NOT_VERIFIES_SSL_HOSTNAME = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="not_verifies_ssl_hostname",
+        module="lib_apk",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     QUERY_F063 = MethodInfo(
         file_name="query",
@@ -3151,6 +3162,7 @@ class MethodsEnum(Enum):
         name="apk_exported_cp",
         module="lib_apk",
         finding=FindingEnum.F075,
+        developer=DeveloperEnum.BRIAM_AGUDELO,
     )
     PATH_APK_EXPORTED_CP = MethodInfo(
         file_name="android",
@@ -3165,6 +3177,20 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F079,
         developer=DeveloperEnum.JUAN_RESTREPO,
+    )
+    USES_INSECURE_DELETE = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="uses_insecure_delete",
+        module="lib_apk",
+        finding=FindingEnum.F082,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+    )
+    SOCKET_GET_INSECURE = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="socket_uses_get_insecure",
+        module="lib_apk",
+        finding=FindingEnum.F082,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     JS_CLIENT_STORAGE = MethodInfo(
         file_name="javascript",
@@ -3249,6 +3275,7 @@ class MethodsEnum(Enum):
         name="apk_unsigned",
         module="lib_apk",
         finding=FindingEnum.F103,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     QUERY_F107 = MethodInfo(
         file_name="query",
@@ -3410,12 +3437,14 @@ class MethodsEnum(Enum):
         name="has_frida",
         module="lib_apk",
         finding=FindingEnum.F206,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     NO_CERTS_PINNING = MethodInfo(
         file_name="analyze_bytecodes",
         name="no_certs_pinning",
         module="lib_apk",
         finding=FindingEnum.F207,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     CS_VULN_REGEX = MethodInfo(
         file_name="c_sharp",
@@ -3649,6 +3678,7 @@ class MethodsEnum(Enum):
         name="webview_vulnerabilities",
         module="lib_apk",
         finding=FindingEnum.F268,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="terraform",
@@ -3765,6 +3795,7 @@ class MethodsEnum(Enum):
         name="has_fragment_injection",
         module="lib_apk",
         finding=FindingEnum.F398,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
     )
     CFN_LOG_CONF_DISABLED = MethodInfo(
         file_name="cloudformation",
