@@ -671,6 +671,63 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _add_socket_uses_get_insecure(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    methods: List[str],
+) -> None:
+    locations.append(
+        desc="uses_get_insecure",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+                >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # No method performs root detection
+                 >>> {repr(methods)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
+        ),
+    )
+
+
+def _socket_uses_get_insecure(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        dex = ctx.apk_ctx.analysis
+        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
+
+        uses_get_insecure: List[str] = is_method_present(
+            dex=dex,
+            class_name="Landroid/net/SSLCertificateSocketFactory;",
+            method="getInsecure",
+            descriptor=(
+                "(I Landroid/net/SSLSessionCache;)"
+                "Ljavax/net/ssl/SSLSocketFactory;"
+            ),
+        )
+
+        if uses_get_insecure:
+            _add_socket_uses_get_insecure(ctx, locations, method_names)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F082,
+        locations=locations,
+        developer=core_model.DeveloperEnum.LUIS_SAAVEDRA,
+    )
+
+
 CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
