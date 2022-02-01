@@ -18,13 +18,11 @@ from purity.v2.json.primitive.core import (
 from purity.v2.json.value.core import (
     JsonValue,
 )
-from returns.functions import (
-    raise_exception,
-)
-from returns.result import (
-    Failure,
+from purity.v2.result import (
     Result,
-    Success,
+)
+from purity.v2.utils import (
+    raise_exception,
 )
 from typing import (
     Any,
@@ -48,7 +46,7 @@ def from_dict(
 
 def from_any(raw: Any) -> Result[JsonValue, InvalidType]:
     if is_primitive(raw):
-        return Success(JsonValue(raw))
+        return Result.success(JsonValue(raw))
     if isinstance(raw, (FrozenDict, dict)):
         try:
             json_dict = FrozenDict(
@@ -61,15 +59,15 @@ def from_any(raw: Any) -> Result[JsonValue, InvalidType]:
                     for key, val in raw.items()
                 }
             )
-            return Success(JsonValue(json_dict))
+            return Result.success(JsonValue(json_dict))
         except InvalidType as err:
-            return Failure(err)
+            return Result.failure(err)
     if isinstance(raw, list):
         try:
             json_list = tuple(
                 from_any(item).alt(raise_exception).unwrap() for item in raw
             )
-            return Success(JsonValue(json_list))
+            return Result.success(JsonValue(json_list))
         except InvalidType as err:
-            return Failure(err)
-    return Failure(invalid_type.new("from_any", "UnfoldedJVal", raw))
+            return Result.failure(err)
+    return Result.failure(invalid_type.new("from_any", "UnfoldedJVal", raw))

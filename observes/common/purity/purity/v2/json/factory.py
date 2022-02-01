@@ -22,12 +22,11 @@ from purity.v2.json.value.transform import (
     Unfolder,
     UnfoldResult,
 )
-from returns.functions import (
-    raise_exception,
+from purity.v2.result import (
+    Result,
 )
-from returns.result import (
-    Failure,
-    Success,
+from purity.v2.utils import (
+    raise_exception,
 )
 import simplejson
 from typing import (
@@ -65,12 +64,12 @@ def load(raw: IO_FILE[str]) -> UnfoldResult[JsonObj]:
 def json_list(raw: Any) -> UnfoldResult[FrozenList[JsonObj]]:
     try:
         if isinstance(raw, (list, tuple)):
-            return Success(
+            return Result.success(
                 tuple(
                     from_any(item).alt(raise_exception).unwrap()
                     for item in raw
                 )
             )
-        return Failure(invalid_type.new("json_list", "List|Tuple", raw))
+        return Result.failure(invalid_type.new("json_list", "List|Tuple", raw))
     except invalid_type.InvalidType as err:
-        return Failure(err)
+        return Result.failure(err)

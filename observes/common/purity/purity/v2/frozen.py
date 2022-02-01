@@ -1,11 +1,9 @@
 from dataclasses import (
     dataclass,
 )
-from returns.primitives.hkt import (
-    SupportsKind2,
-)
 from typing import (
     Dict,
+    Generic,
     Iterator,
     Mapping,
     Tuple,
@@ -20,7 +18,7 @@ FrozenList = Tuple[_T, ...]
 
 
 @dataclass(frozen=True)
-class _FrozenDict(SupportsKind2["_FrozenDict[_K, _V]", _K, _V]):
+class _FrozenDict(Generic[_K, _V]):
     _dict: Dict[_K, _V]
 
 

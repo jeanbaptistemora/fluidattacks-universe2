@@ -26,13 +26,12 @@ from purity.v2.json.value.core import (
     JsonValue,
     UnfoldedJVal,
 )
-from returns.primitives.exceptions import (
-    UnwrapFailedError,
-)
-from returns.result import (
-    Failure,
+from purity.v2.result import (
     Result,
-    Success,
+    UnwrapError,
+)
+from purity.v2.union import (
+    inr,
 )
 from typing import (
     Any,
@@ -58,13 +57,15 @@ class Unfolder:
 
     def to_list(self) -> UnfoldResult[FrozenList[JsonValue]]:
         if isinstance(self.value, tuple):
-            return Success(self.value)
-        return Failure(
+            return Result.success(self.value)
+        return Result.failure(
             invalid_type.new("to_list", "FrozenList[JsonValue]", self.value)
         )
 
     def to_opt_list(self) -> UnfoldResult[Optional[FrozenList[JsonValue]]]:
-        return Success(None) if self.value is None else self.to_list()
+        if self.value is None:
+            return Result.success(None)
+        return self.to_list().map(inr)
 
     def to_list_of(
         self, prim_type: Type[PrimitiveTVar]
@@ -75,8 +76,8 @@ class Unfolder:
                     to_primitive(i._value, prim_type).unwrap() for i in l
                 )
             )
-        except UnwrapFailedError:
-            return Failure(
+        except UnwrapError[PrimitiveTVar, InvalidType]:
+            return Result.failure(
                 invalid_type.new(
                     "to_list_of", f"FrozenList[{prim_type}]", prim_type
                 )
@@ -87,8 +88,8 @@ class Unfolder:
 
     def to_json(self) -> UnfoldResult[FrozenDict[str, JsonValue]]:
         if isinstance(self.value, FrozenDict):
-            return Success(self.value)
-        return Failure(
+            return Result.success(self.value)
+        return Result.failure(
             invalid_type.new(
                 "to_json", "FrozenDict[str, JsonValue]", self.value
             )
@@ -106,8 +107,8 @@ class Unfolder:
                     }
                 )
             )
-        except UnwrapFailedError:
-            return Failure(
+        except UnwrapError[PrimitiveTVar, InvalidType]:
+            return Result.failure(
                 invalid_type.new(
                     f"to_dict_of", f"Dict[str, {prim_type}]", self.value
                 )
