@@ -2513,6 +2513,7 @@ class MethodsEnum(Enum):
         name="www_authenticate",
         module="lib_http",
         finding=FindingEnum.F015,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
@@ -2609,6 +2610,7 @@ class MethodsEnum(Enum):
         name="location",
         module="lib_http",
         finding=FindingEnum.F023,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CFN_ANYONE_ADMIN_PORTS = MethodInfo(
         file_name="cloudformation",
@@ -2807,6 +2809,7 @@ class MethodsEnum(Enum):
         name="view_state",
         module="lib_http",
         finding=FindingEnum.F036,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     CS_INSEC_COOKIES = MethodInfo(
         file_name="c_sharp",
@@ -2825,12 +2828,14 @@ class MethodsEnum(Enum):
         name="content_security_policy",
         module="lib_http",
         finding=FindingEnum.F043,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     UPGRADE_INSEC_REQ = MethodInfo(
         file_name="analyze_headers",
         name="upgrade_insecure_requests",
         module="lib_http",
         finding=FindingEnum.F043,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     NO_OBFUSCATION = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3005,6 +3010,7 @@ class MethodsEnum(Enum):
         name="date",
         module="lib_http",
         finding=FindingEnum.F064,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
@@ -3023,6 +3029,7 @@ class MethodsEnum(Enum):
         name="referrer_policy",
         module="lib_http",
         finding=FindingEnum.F071,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
         file_name="cloudformation",
@@ -3071,6 +3078,7 @@ class MethodsEnum(Enum):
         name="sub_resource_integrity",
         module="lib_http",
         finding=FindingEnum.F086,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     QUERY_F089 = MethodInfo(
         file_name="query",
@@ -3185,30 +3193,35 @@ class MethodsEnum(Enum):
         name="set_cookie_httponly",
         module="lib_http",
         finding=FindingEnum.F128,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     SET_COOKIE_SAMESITE = MethodInfo(
         file_name="analyze_headers",
         name="set_cookie_samesite",
         module="lib_http",
         finding=FindingEnum.F129,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     SET_COOKIE_SECURE = MethodInfo(
         file_name="analyze_headers",
         name="set_cookie_secure",
         module="lib_http",
         finding=FindingEnum.F130,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     STRICT_TRANSPORT_SECURITY = MethodInfo(
         file_name="analyze_headers",
         name="strict_transport_security",
         module="lib_http",
         finding=FindingEnum.F131,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     X_CONTENT_TYPE_OPTIONS = MethodInfo(
         file_name="analyze_headers",
         name="x_content_type_options",
         module="lib_http",
         finding=FindingEnum.F132,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     PFS_DISABLED = MethodInfo(
         file_name="analyze_protocol",

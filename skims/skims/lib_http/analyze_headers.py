@@ -20,7 +20,6 @@ from http_headers import (
 from http_headers.types import (
     Header,
 )
-import inspect
 from lib_http.types import (
     URLContext,
 )
@@ -30,15 +29,8 @@ from model import (
 from multidict import (
     MultiDict,
 )
-from pathlib import (
-    Path,
-)
-from types import (
-    FrameType,
-)
 from typing import (
     Callable,
-    cast,
     Dict,
     List,
     NamedTuple,
@@ -81,17 +73,13 @@ class Locations(NamedTuple):
 
 def _create_vulns(
     locations: Locations,
-    finding: core_model.FindingEnum,
     header: Optional[Header],
     ctx: HeaderCheckCtx,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    source = cast(
-        FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code
     return tuple(
         core_model.Vulnerability(
-            finding=finding,
+            finding=method.value.finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
@@ -100,7 +88,7 @@ def _create_vulns(
             what=ctx.url_ctx.url,
             where=location.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(finding.value.cwe,),
+                cwe=(method.value.finding.value.cwe,),
                 description=location.description,
                 snippet=as_string.snippet(
                     url=ctx.url_ctx.url,
@@ -108,10 +96,8 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
-                source_method=(
-                    f"{Path(source.co_filename).stem}.{source.co_name}"
-                ),
-                developer=developer,
+                source_method=method.value.get_name(),
+                developer=method.value.developer,
             ),
         )
         for location in locations.locations
@@ -217,10 +203,9 @@ def _content_security_policy(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.CONTENT_SECURITY_POLICY,
     )
 
 
@@ -238,10 +223,9 @@ def _upgrade_insecure_requests(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043,
         header=head,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+        method=core_model.MethodsEnum.UPGRADE_INSEC_REQ,
     )
 
 
@@ -272,10 +256,9 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F064,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.ANDRES_CUBEROS,
+        method=core_model.MethodsEnum.DATE,
     )
 
 
@@ -292,10 +275,9 @@ def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F023,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.LOCATION,
     )
 
 
@@ -340,10 +322,9 @@ def _referrer_policy(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F071,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.REFERRER_POLICY,
     )
 
 
@@ -371,10 +352,9 @@ def _set_cookie_httponly(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
-        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+        method=core_model.MethodsEnum.SET_COOKIE_HTTPONLY,
     )
 
 
@@ -400,10 +380,9 @@ def _set_cookie_samesite(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
-        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+        method=core_model.MethodsEnum.SET_COOKIE_SAMESITE,
     )
 
 
@@ -426,10 +405,9 @@ def _set_cookie_secure(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F130,
         header=None if not headers else headers[0],
         ctx=ctx,
-        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+        method=core_model.MethodsEnum.SET_COOKIE_SECURE,
     )
 
 
@@ -447,10 +425,9 @@ def _strict_transport_security(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F131,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.STRICT_TRANSPORT_SECURITY,
     )
 
 
@@ -470,10 +447,9 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F015,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.WWW_AUTHENTICATE,
     )
 
 
@@ -489,10 +465,9 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F132,
         header=header,
         ctx=ctx,
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.X_CONTENT_TYPE_OPTIONS,
     )
 
 

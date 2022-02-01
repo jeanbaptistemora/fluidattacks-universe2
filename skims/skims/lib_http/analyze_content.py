@@ -9,7 +9,6 @@ import contextlib
 from ctx import (
     CTX,
 )
-import inspect
 from lib_http.types import (
     URLContext,
 )
@@ -17,19 +16,11 @@ from model import (
     core_model,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
-)
-from pathlib import (
-    Path,
-)
-from types import (
-    FrameType,
+    MethodsEnum,
 )
 from typing import (
     Any,
     Callable,
-    cast,
     Dict,
     List,
     NamedTuple,
@@ -76,16 +67,12 @@ class ContentCheckCtx(NamedTuple):
 
 def build_vulnerabilities(
     locations: List[Location],
-    finding: core_model.FindingEnum,
     ctx: ContentCheckCtx,
-    developer: DeveloperEnum,
+    method: MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    source = cast(
-        FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code
     return tuple(
         core_model.Vulnerability(
-            finding=finding,
+            finding=method.value.finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
@@ -94,7 +81,7 @@ def build_vulnerabilities(
             what=ctx.url.url,
             where=f"{location.line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(finding.value.cwe,),
+                cwe=(method.value.finding.value.cwe,),
                 description=location.description,
                 snippet=make_snippet(
                     content=ctx.url.content,
@@ -103,10 +90,8 @@ def build_vulnerabilities(
                         line=location.line,
                     ),
                 ),
-                source_method=(
-                    f"{Path(source.co_filename).stem}.{source.co_name}"
-                ),
-                developer=developer,
+                source_method=method.value.get_name(),
+                developer=method.value.developer,
             ),
         )
         for location in locations
@@ -139,9 +124,8 @@ def _sub_resource_integrity(
 
     return build_vulnerabilities(
         ctx=ctx,
-        finding=FindingEnum.F086,
         locations=locations,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.SUB_RESOURCE_INTEGRITY,
     )
 
 
@@ -163,9 +147,8 @@ def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
 
     return build_vulnerabilities(
         ctx=ctx,
-        finding=FindingEnum.F036,
         locations=locations,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.VIEW_STATE,
     )
 
 
