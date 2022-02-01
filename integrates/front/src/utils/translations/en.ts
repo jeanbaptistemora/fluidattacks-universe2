@@ -808,6 +808,11 @@ export const enTranslations: ResourceKey = {
     },
     toe: {
       inputs: {
+        addModal: {
+          fields: {
+            root: "Root",
+          },
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         bePresent: "Be present",
