@@ -12,9 +12,8 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -32,14 +31,15 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    results: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        results.append(
+        results = (
+            *results,
             run_java_properties_unencrypted_transport(
                 content_generator(), path
-            )
+            ),
         )
 
     return results

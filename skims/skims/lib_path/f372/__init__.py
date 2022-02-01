@@ -26,9 +26,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -88,33 +87,27 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
 
         for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(
-                run_cfn_serves_content_over_http(content, path, template)
-            )
-            coroutines.append(
+            results = (
+                *results,
+                run_cfn_serves_content_over_http(content, path, template),
                 run_cfn_elb2_uses_insecure_protocol(
                     content, file_extension, path, template
-                )
+                ),
             )
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
-
-        coroutines.append(
-            run_tfm_serves_content_over_http(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_azure_kv_only_accessible_over_https(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_azure_sa_insecure_transfer(content, path, model)
+        results = (
+            run_tfm_serves_content_over_http(content, path, model),
+            run_tfm_azure_kv_only_accessible_over_https(content, path, model),
+            run_tfm_azure_sa_insecure_transfer(content, path, model),
         )
 
-    return coroutines
+    return results

@@ -23,9 +23,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -55,25 +54,30 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    results: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
-
-        for template in load_templates_blocking(content, fmt=file_extension):
-            results.append(
+        results = (
+            *results,
+            *(
                 run_cfn_elb2_uses_insecure_security_policy(
                     content, file_extension, path, template
                 )
-            )
+                for template in load_templates_blocking(
+                    content, fmt=file_extension
+                )
+            ),
+        )
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
 
-        results.append(
-            run_tfm_lb_target_group_insecure_port(content, path, model)
+        results = (
+            *results,
+            run_tfm_lb_target_group_insecure_port(content, path, model),
         )
 
     return results

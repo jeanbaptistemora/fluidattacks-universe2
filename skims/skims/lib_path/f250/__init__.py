@@ -17,9 +17,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -49,22 +48,21 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
 
         for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(
+            results = (
+                *results,
                 run_cfn_fsx_has_unencrypted_volumes(
                     content, file_extension, path, template
-                )
-            )
-            coroutines.append(
+                ),
                 run_cfn_ec2_has_unencrypted_volumes(
                     content, file_extension, path, template
-                )
+                ),
             )
 
-    return coroutines
+    return results

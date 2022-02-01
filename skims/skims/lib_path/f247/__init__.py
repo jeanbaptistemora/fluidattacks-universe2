@@ -19,9 +19,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -65,24 +64,18 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
-
-        coroutines.append(
-            run_tfm_fsx_unencrypted_volumes(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_ebs_unencrypted_volumes(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_ec2_unencrypted_volumes(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_ebs_unencrypted_by_default(content, path, model)
+        results = (
+            *results,
+            run_tfm_fsx_unencrypted_volumes(content, path, model),
+            run_tfm_ebs_unencrypted_volumes(content, path, model),
+            run_tfm_ec2_unencrypted_volumes(content, path, model),
+            run_tfm_ebs_unencrypted_by_default(content, path, model),
         )
 
-    return coroutines
+    return results

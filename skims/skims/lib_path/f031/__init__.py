@@ -34,9 +34,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -214,56 +213,49 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
+    content = content_generator()
     if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
         for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(
-                run_cfn_admin_policy_attached(content, path, template)
+            results = (
+                *results,
+                *(
+                    fun(content, path, template)
+                    for fun in (
+                        run_cfn_admin_policy_attached,
+                        run_cfn_bucket_policy_allows_public_access,
+                        run_cfn_iam_user_missing_role_based_security,
+                        run_cfn_negative_statement,
+                        run_cfn_open_passrole,
+                        run_cfn_permissive_policy,
+                        run_cfn_iam_has_full_access_to_ssm,
+                    )
+                ),
             )
-            coroutines.append(
-                run_cfn_bucket_policy_allows_public_access(
-                    content, path, template
-                )
-            )
-            coroutines.append(
-                run_cfn_iam_user_missing_role_based_security(
-                    content, path, template
-                )
-            )
-            coroutines.append(
-                run_cfn_negative_statement(content, path, template)
-            )
-            coroutines.append(run_cfn_open_passrole(content, path, template))
-            coroutines.append(
-                run_cfn_permissive_policy(content, path, template)
-            )
-            coroutines.append(
+            results = (
+                *results,
                 run_cfn_ec2_has_not_an_iam_instance_profile(
                     content, file_extension, path, template
-                )
+                ),
             )
-            coroutines.append(
-                run_cfn_iam_has_full_access_to_ssm(content, path, template)
-            )
+
     elif file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
         model = load_terraform(stream=content, default=[])
 
-        coroutines.append(
-            run_terraform_admin_policy_attached(content, path, model)
-        )
-        coroutines.append(
-            run_terraform_negative_statement(content, path, model)
-        )
-        coroutines.append(run_terraform_open_passrole(content, path, model))
-        coroutines.append(
-            run_terraform_permissive_policy(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_ec2_has_not_an_iam_instance_profile(content, path, model)
+        results = (
+            *results,
+            *(
+                fun(content, path, model)
+                for fun in (
+                    run_terraform_admin_policy_attached,
+                    run_terraform_negative_statement,
+                    run_terraform_open_passrole,
+                    run_terraform_permissive_policy,
+                    run_tfm_ec2_has_not_an_iam_instance_profile,
+                )
+            ),
         )
 
-    return coroutines
+    return results

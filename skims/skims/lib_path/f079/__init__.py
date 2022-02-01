@@ -10,7 +10,7 @@ from model.core_model import (
 from typing import (
     Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -19,10 +19,10 @@ def analyze(
     path: str,
     raw_content_generator: Callable[[], Awaitable[bytes]],
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> Tuple[Vulnerabilities, ...]:
 
-    coroutines: List[Awaitable[Vulnerabilities]] = [
-        non_upgradeable_deps(path, raw_content_generator())
-    ]
+    results: Tuple[Vulnerabilities, ...] = (
+        non_upgradeable_deps(path, raw_content_generator()),
+    )
 
-    return coroutines
+    return results

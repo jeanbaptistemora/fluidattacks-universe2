@@ -8,9 +8,8 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -19,10 +18,10 @@ def analyze(
     path: str,
     raw_content_generator: Callable[[], bytes],
     **_: None,
-) -> List[Vulnerabilities]:
+) -> Tuple[Vulnerabilities, ...]:
 
-    coroutines: List[Awaitable[Vulnerabilities]] = [
-        unverifiable_files(path, raw_content=raw_content_generator())
-    ]
+    results: Tuple[Vulnerabilities, ...] = (
+        unverifiable_files(path, raw_content=raw_content_generator()),
+    )
 
-    return coroutines
+    return results

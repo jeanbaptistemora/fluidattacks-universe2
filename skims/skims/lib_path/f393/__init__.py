@@ -9,9 +9,8 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -32,12 +31,12 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> Tuple[Vulnerabilities, ...]:
 
     if (file_name, file_extension) == ("package", "json"):
-        return [run_npm_package_json(content_generator(), path)]
+        return (run_npm_package_json(content_generator(), path),)
 
     if (file_name, file_extension) == ("package-lock", "json"):
-        return [run_npm_pkg_lock_json(content_generator(), path)]
+        return (run_npm_pkg_lock_json(content_generator(), path),)
 
-    return []
+    return ()

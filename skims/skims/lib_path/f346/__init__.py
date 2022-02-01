@@ -11,9 +11,8 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -30,12 +29,10 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if (file_name, file_extension) == ("AndroidManifest", "xml"):
-        coroutines.append(
-            run_has_dangerous_permissions(content_generator(), path)
-        )
+        results = (run_has_dangerous_permissions(content_generator(), path),)
 
-    return coroutines
+    return results

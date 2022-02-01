@@ -19,9 +19,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -69,24 +68,20 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
-
-        coroutines.append(
+        results = (
+            *results,
             run_tfm_azure_unrestricted_access_network_segments(
                 content, path, model
-            )
+            ),
+            run_tfm_azure_sa_default_network_access(content, path, model),
+            run_tfm_azure_kv_default_network_access(content, path, model),
+            run_tfm_azure_kv_danger_bypass(content, path, model),
         )
-        coroutines.append(
-            run_tfm_azure_sa_default_network_access(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_azure_kv_default_network_access(content, path, model)
-        )
-        coroutines.append(run_tfm_azure_kv_danger_bypass(content, path, model))
 
-    return coroutines
+    return results

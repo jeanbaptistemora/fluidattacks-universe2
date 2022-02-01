@@ -20,7 +20,7 @@ from model.core_model import (
 )
 from typing import (
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -74,31 +74,31 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Vulnerabilities]:
+) -> Tuple[Vulnerabilities, ...]:
     # pylint: disable=too-many-return-statements
 
     if (file_name, file_extension) == ("pom", "xml"):
-        return [run_maven_pom_xml(content_generator(), path)]
+        return (run_maven_pom_xml(content_generator(), path),)
 
     if file_extension == "gradle":
-        return [run_maven_gradle(content_generator(), path)]
+        return (run_maven_gradle(content_generator(), path),)
 
     if (file_name, file_extension) == ("build", "sbt"):
-        return [run_maven_sbt(content_generator(), path)]
+        return (run_maven_sbt(content_generator(), path),)
 
     if (file_name, file_extension) == ("yarn", "lock"):
-        return [run_npm_yarn_lock(content_generator(), path)]
+        return (run_npm_yarn_lock(content_generator(), path),)
 
     if file_extension == "csproj":
-        return [run_nuget_csproj(content_generator(), path)]
+        return (run_nuget_csproj(content_generator(), path),)
 
     if (file_name, file_extension) == ("packages", "config"):
-        return [run_nuget_pkgs_config(content_generator(), path)]
+        return (run_nuget_pkgs_config(content_generator(), path),)
 
     if (file_name, file_extension) == ("package", "json"):
-        return [run_npm_package_json(content_generator(), path)]
+        return (run_npm_package_json(content_generator(), path),)
 
     if (file_name, file_extension) == ("package-lock", "json"):
-        return [run_npm_pkg_lock_json(content_generator(), path)]
+        return (run_npm_pkg_lock_json(content_generator(), path),)
 
-    return []
+    return ()

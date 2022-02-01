@@ -36,9 +36,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -208,68 +207,47 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> Tuple[Vulnerabilities, ...]:
 
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
 
         for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(
-                run_cfn_instances_without_profile(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_unrestricted_cidrs(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_unrestricted_ports(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_allows_anyone_to_admin_ports(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_unrestricted_ip_protocols(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
-                    content, path, template
-                )
-            )
-            coroutines.append(
-                run_cfn_ec2_has_unrestricted_ports(content, path, template)
-            )
-            coroutines.append(
-                run_cfn_ec2_has_unrestricted_dns_access(
-                    content, path, template
-                )
-            )
-            coroutines.append(
-                run_cfn_ec2_has_unrestricted_ftp_access(
-                    content, path, template
-                )
-            )
-            coroutines.append(
-                run_cfn_ec2_has_open_all_ports_to_the_public(
-                    content, path, template
-                )
+            results = (
+                *results,
+                *(
+                    fun(content, path, template)
+                    for fun in (
+                        run_cfn_instances_without_profile,
+                        run_cfn_unrestricted_cidrs,
+                        run_cfn_unrestricted_ports,
+                        run_cfn_allows_anyone_to_admin_ports,
+                        run_cfn_unrestricted_ip_protocols,
+                        run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
+                        run_cfn_ec2_has_unrestricted_ports,
+                        run_cfn_ec2_has_unrestricted_dns_access,
+                        run_cfn_ec2_has_unrestricted_ftp_access,
+                        run_cfn_ec2_has_open_all_ports_to_the_public,
+                    )
+                ),
             )
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
+        results = (
+            *results,
+            *(
+                fun(content, path, model)
+                for fun in (
+                    run_tfm_aws_ec2_allows_all_outbound_traffic,
+                    run_tfm_aws_ec2_cfn_unrestricted_ip_protocols,
+                    run_tfm_aws_ec2_unrestricted_cidrs,
+                    run_tfm_ec2_has_unrestricted_ports,
+                )
+            ),
+        )
 
-        coroutines.append(
-            run_tfm_aws_ec2_allows_all_outbound_traffic(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_aws_ec2_cfn_unrestricted_ip_protocols(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_aws_ec2_unrestricted_cidrs(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_ec2_has_unrestricted_ports(content, path, model)
-        )
-
-    return coroutines
+    return results

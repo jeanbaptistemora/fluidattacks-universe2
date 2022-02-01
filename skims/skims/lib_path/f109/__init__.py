@@ -24,9 +24,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -66,28 +65,31 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()
-
-        for template in load_templates_blocking(content, fmt=file_extension):
-            coroutines.append(
+        results = (
+            *results,
+            *(
                 run_cfn_rds_is_not_inside_a_db_subnet_group(
                     content, file_extension, path, template
                 )
-            )
+                for template in load_templates_blocking(
+                    content, fmt=file_extension
+                )
+            ),
+        )
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
 
-        coroutines.append(
-            run_tfm_db_cluster_inside_subnet(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_rds_instance_inside_subnet(content, path, model)
+        results = (
+            *results,
+            run_tfm_db_cluster_inside_subnet(content, path, model),
+            run_tfm_rds_instance_inside_subnet(content, path, model),
         )
 
-    return coroutines
+    return results

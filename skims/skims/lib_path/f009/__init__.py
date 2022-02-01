@@ -32,7 +32,7 @@ from state.cache import (
 from typing import (
     Any,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -96,10 +96,10 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> List[Vulnerabilities]:
+) -> Tuple[Vulnerabilities, ...]:
 
     content = content_generator()
-    results: List[Vulnerabilities] = []
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in {
         "groovy",
@@ -116,25 +116,33 @@ def analyze(
         "yaml",
         "yml",
     }:
-        results.append(run_aws_credentials(content, path))
+        results = (*results, run_aws_credentials(content, path))
 
     if file_name in NAMES_DOCKERFILE:
-        results.append(run_dockerfile_env_secrets(content, path))
+        results = (*results, run_dockerfile_env_secrets(content, path))
 
     elif file_name == "docker-compose" and file_extension in EXTENSIONS_YAML:
-        for template in load_templates_blocking(content, fmt=file_extension):
-            results.append(
+        results = (
+            *results,
+            *(
                 run_docker_compose_env_secrets(content, path, template)
-            )
+                for template in load_templates_blocking(
+                    content, fmt=file_extension
+                )
+            ),
+        )
 
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
-        results.append(run_java_properties_sensitive_data(content, path))
+        results = (*results, run_java_properties_sensitive_data(content, path))
 
     elif file_extension in {"json"}:
-        results.append(run_sensitive_key_in_json(content, path))
+        results = (*results, run_sensitive_key_in_json(content, path))
 
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
-        results.append(run_web_config_user_pass(content, path))
-        results.append(run_web_config_db_connection(content, path))
+        results = (
+            *results,
+            run_web_config_user_pass(content, path),
+            run_web_config_db_connection(content, path),
+        )
 
     return results

@@ -18,9 +18,8 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -60,20 +59,15 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()
         model = load_terraform(stream=content, default=[])
-
-        coroutines.append(
-            run_tfm_azure_storage_logging_disabled(content, path, model)
+        results = (
+            run_tfm_azure_storage_logging_disabled(content, path, model),
+            run_tfm_azure_app_service_logging_disabled(content, path, model),
+            run_tfm_azure_sql_server_audit_log_retention(content, path, model),
         )
-        coroutines.append(
-            run_tfm_azure_app_service_logging_disabled(content, path, model)
-        )
-        coroutines.append(
-            run_tfm_azure_sql_server_audit_log_retention(content, path, model)
-        )
-    return coroutines
+    return results

@@ -11,9 +11,8 @@ from model.core_model import (
 )
 import re
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -29,13 +28,13 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
+) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
     if (file_name in NAMES_DOCKERFILE and file_extension == "") or (
         re.search("docker", file_name, re.IGNORECASE)
         and file_extension in EXTENSIONS_YAML
     ):
-        coroutines.append(run_unpinned_docker_image(content_generator(), path))
+        results = (run_unpinned_docker_image(content_generator(), path),)
 
-    return coroutines
+    return results

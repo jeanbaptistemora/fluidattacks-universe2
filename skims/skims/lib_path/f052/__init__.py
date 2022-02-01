@@ -13,9 +13,8 @@ from state.cache import (
     CACHE_ETERNALLY,
 )
 from typing import (
-    Awaitable,
     Callable,
-    List,
+    Tuple,
 )
 
 
@@ -41,13 +40,12 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
-    coroutines: List[Awaitable[Vulnerabilities]] = []
-
+) -> Tuple[Vulnerabilities, ...]:
     if file_extension in EXTENSIONS_JAVA_PROPERTIES:
         content = content_generator()
+        return (
+            run_java_properties_missing_ssl(content, path),
+            run_java_properties_weak_cipher_suite(content, path),
+        )
 
-        coroutines.append(run_java_properties_missing_ssl(content, path))
-        coroutines.append(run_java_properties_weak_cipher_suite(content, path))
-
-    return coroutines
+    return ()

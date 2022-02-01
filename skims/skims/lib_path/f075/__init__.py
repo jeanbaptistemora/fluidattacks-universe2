@@ -8,8 +8,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Awaitable,
-    List,
+    Tuple,
 )
 
 
@@ -19,9 +18,9 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> List[Awaitable[Vulnerabilities]]:
+) -> Tuple[Vulnerabilities, ...]:
 
     if (file_name, file_extension) == ("AndroidManifest", "xml"):
-        return [apk_exported_cp(path)]
+        return (apk_exported_cp(path),)
 
-    return []
+    return ()
