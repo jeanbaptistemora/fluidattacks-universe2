@@ -1,4 +1,4 @@
-from purity.v1 import (
+from purity.v2.frozen import (
     FrozenList,
 )
 from purity.v2.result import (

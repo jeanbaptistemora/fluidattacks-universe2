@@ -15,7 +15,7 @@ from code_etl.client.encoder import (
     from_row_obj,
 )
 from code_etl.factories import (
-    gen_fa_hash_2,
+    gen_fa_hash,
 )
 from code_etl.migration.tables import (
     init_table_2_query,
@@ -72,7 +72,7 @@ def migrate_commit(
     _id = data.map(
         lambda cd: CommitDataId(
             RepoId(raw.namespace, raw.repository),
-            CommitId(raw.hash, gen_fa_hash_2(cd)),
+            CommitId(raw.hash, gen_fa_hash(cd)),
         )
     )
     commit = data.bind(lambda d: _id.map(lambda i: Commit(i, d)))

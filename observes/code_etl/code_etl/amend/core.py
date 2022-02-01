@@ -1,5 +1,5 @@
 from code_etl.factories import (
-    gen_fa_hash_2,
+    gen_fa_hash,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -38,7 +38,7 @@ class AmendUsers:
             raw.data.summary,
             raw.data.deltas,
         )
-        _id = CommitId(raw.commit_id.hash, gen_fa_hash_2(data))
+        _id = CommitId(raw.commit_id.hash, gen_fa_hash(data))
         return CommitDataObj(_id, data)
 
     def amend_commit_stamp_users(self, raw: CommitStamp) -> CommitStamp:

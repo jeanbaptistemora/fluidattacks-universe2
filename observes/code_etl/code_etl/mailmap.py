@@ -1,19 +1,17 @@
-# pylint: skip-file
-
 from code_etl.objs import (
     User,
 )
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
+from purity.v2.frozen import (
     FrozenDict,
     FrozenList,
 )
-import re
-from returns.maybe import (
+from purity.v2.maybe import (
     Maybe,
 )
+import re
 from typing import (
     Pattern,
 )

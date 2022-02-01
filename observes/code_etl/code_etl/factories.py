@@ -18,14 +18,12 @@ from git.objects import (
     Commit,
 )
 import hashlib
-from purity.v1 import (
-    PrimitiveFactory,
+from purity.v2.json.primitive.factory import (
+    to_primitive,
 )
 
-_to_prim = PrimitiveFactory.to_primitive
 
-
-def gen_fa_hash_2(commit: CommitData) -> str:
+def gen_fa_hash(commit: CommitData) -> str:
     fa_hash = hashlib.sha256()
     fa_hash.update(bytes(commit.author.name, "utf-8"))
     fa_hash.update(bytes(commit.author.email, "utf-8"))
@@ -45,12 +43,12 @@ class CommitDataFactory:
     @staticmethod
     def from_commit(commit: Commit) -> CommitDataObj:
         author = User(
-            _to_prim(commit.author.name, str),
-            _to_prim(commit.author.email, str),
+            to_primitive(commit.author.name, str).unwrap(),
+            to_primitive(commit.author.email, str).unwrap(),
         )
         commiter = User(
-            _to_prim(commit.committer.name, str),
-            _to_prim(commit.committer.email, str),
+            to_primitive(commit.committer.name, str).unwrap(),
+            to_primitive(commit.committer.email, str).unwrap(),
         )
         deltas = Deltas(
             commit.stats.total["insertions"],
@@ -67,5 +65,5 @@ class CommitDataFactory:
             truncate(str(commit.summary), 256),
             deltas,
         )
-        _id = CommitId(commit.hexsha, gen_fa_hash_2(data))
+        _id = CommitId(commit.hexsha, gen_fa_hash(data))
         return CommitDataObj(_id, data)

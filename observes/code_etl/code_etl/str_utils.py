@@ -1,20 +1,15 @@
-# pylint: skip-file
-
 from dataclasses import (
     dataclass,
 )
-from returns.functions import (
+from purity.v2.result import (
+    Result,
+    ResultE,
+)
+from purity.v2.utils import (
     raise_exception,
 )
-from returns.primitives.hkt import (
-    SupportsKind1,
-)
-from returns.result import (
-    Failure,
-    ResultE,
-    Success,
-)
 from typing import (
+    Generic,
     Literal,
     TypeVar,
 )
@@ -36,14 +31,14 @@ class TruncationError(Exception):
 def _lead_bytes_of(byte: int) -> ResultE[int]:
     """UTF-8 lead bytes of char given byte 1"""
     if (byte & 0b10000000) == 0:
-        return Success(0)
+        return Result.success(0)
     if (byte & 0b11100000) == 0b11000000:
-        return Success(1)
+        return Result.success(1)
     if (byte & 0b11110000) == 0b11100000:
-        return Success(2)
+        return Result.success(2)
     if (byte & 0b11111000) == 0b11110000:
-        return Success(3)
-    return Failure(NotUTF8(f"byte: {byte}"))
+        return Result.success(3)
+    return Result.failure(NotUTF8(f"byte: {byte}"))
 
 
 def _search_last_not_lead_byte(raw: bytes) -> int:
@@ -88,7 +83,7 @@ _L = TypeVar("_L", Literal[64], Literal[256], Literal[4096])
 
 
 @dataclass(frozen=True)
-class _TruncatedStr(SupportsKind1["_TruncatedStr[_L]", _L]):
+class _TruncatedStr(Generic[_L]):
     _length: _L
     msg: str
 
