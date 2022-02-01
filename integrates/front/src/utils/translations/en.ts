@@ -2609,6 +2609,7 @@ export const enTranslations: ResourceKey = {
       "A {{type}} of this type has been already created. Please submit vulnerabilities there",
     email: "The email format is not valid",
     excludeFormat: "Root name should not be included in the exception pattern",
+    excludePathHost: "The path should not include the host",
     fileSize: "The file size must be less than {{count}}MB",
     fluidAttacksStaffWithoutFluidAttacksService:
       "Groups without an active Fluid Attacks service " +

@@ -384,6 +384,30 @@ const validField: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
+const validPath: (host: string | undefined) => Validator =
+  (host: string | undefined): Validator =>
+  (path: string): string | undefined => {
+    const formmattedHost = host
+      ?.replace("https://", "")
+      .replace("http://", "")
+      .slice(0, -1);
+    if (
+      (!_.isUndefined(formmattedHost) && path.includes(formmattedHost)) ||
+      path.includes("https://") ||
+      path.includes("http://")
+    ) {
+      return translate.t("validations.excludePathHost");
+    }
+
+    if (!_.isEmpty(path) && path.startsWith("/")) {
+      return translate.t("validations.invalidTextBeginning", {
+        chars: "/",
+      });
+    }
+
+    return undefined;
+  };
+
 const isValidFileName: Validator = (file: FileList): string | undefined => {
   const fileName: string = _.isEmpty(file) ? "" : file[0].name;
   const name: string[] = fileName.split(".");
@@ -485,6 +509,7 @@ export {
   validAlphanumericSpace,
   validEmail,
   validDraftTitle,
+  validPath,
   isPositive,
   isZeroOrPositive,
   isValidVulnSeverity,
