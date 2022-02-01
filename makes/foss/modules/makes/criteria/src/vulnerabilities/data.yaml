@@ -21501,7 +21501,7 @@
     recommendation: >
       Configurar de manera segura DocumentBuilderFactory.
     threat: >
-      Atacante autorizado desde internet.
+      Atacante autorizado desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -21612,7 +21612,7 @@
       en la cabecera Content Security Policy
       utilizando una configuración segura.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   category: Deceptive Interactions
   remediation_time: "60"
   score:
@@ -21671,7 +21671,7 @@
       Realizar un proceso de ofuscación al código
       expuesto en las aplicaciones web.
     threat: >
-      Usuario no autorizado desde internet.
+      Usuario no autorizado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22139,7 +22139,7 @@
       para mitigar cualquier funcionalidad que sea
       ajena al rol actual.
     threat: >
-      Atacante autenticado desde internet.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -22540,7 +22540,7 @@
       on which one could provide a best fit for business
       security goals, performance requirements, and cost sensitivity.
     threat: >
-      An attacker can perform an analysis of the final
+      Anonymous attacker performing an analysis of the final
       core binary to determine its source code, algorithms
       and resources embedded within the app to execute dubious actions.
   category: Subvert Access
@@ -22574,7 +22574,7 @@
       a los objetivos de seguridad de la empresa, los requisitos
       de rendimiento y la sensibilidad a los costes.
     threat: >
-      Un atacante puede realizar un análisis del
+      Atacante anónimo realizando un análisis del
       binario del núcleo final para determinar su
       código fuente, los algoritmos y los recursos
       incrustados en la aplicación para ejecutar acciones dudosas.
@@ -22765,7 +22765,7 @@
       Importar solo los módulos necesarios para la correcta
       funcionalidad de la aplicación.
     threat: >
-      Atacante autorizado desde internet
+      Atacante autorizado desde Internet
       con acceso a la aplicación.
   score:
     base:
@@ -22818,8 +22818,8 @@
       o utilizar artefactos y hashes
       para verificar la integridad de los datos.
     threat: >
-      Atacante anónimo desde internet
-      con acceso de escritura al los releasers del proveedor.
+      Atacante anónimo desde Internet
+      con acceso de escritura a los releasers del proveedor.
   score:
     base:
       attack_vector: "N"
@@ -22872,7 +22872,7 @@
       para verificar la integridad de los datos.
     threat: >
       Atacante anónimo desde internet
-      con acceso de escritura al los releasers del proveedor.
+      con acceso de escritura a los releasers del proveedor.
   score:
     base:
       attack_vector: "N"
@@ -22988,7 +22988,7 @@
       Generate OTPs and perform the corresponding
       validations always on the server side.
     threat: >
-      Anonymous attcaker from the Internet.
+      Anonymous attacker from the Internet.
   category: Manipulate Data
   remediation_time: "60"
   es:
@@ -23154,7 +23154,7 @@
       Load the same amount of frames in all
       application load cases.
     threat: >
-      Attacker on the internet sending malicious links.
+      Attacker on the Internet sending malicious links.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -23174,7 +23174,7 @@
       Cargar la misma cantidad de frames en todos
       los casos de carga de la aplicación.
     threat: >
-      Atacante en internet enviando enlaces maliciosos.
+      Atacante en Internet enviando enlaces maliciosos.
   score:
     base:
       attack_vector: "N"
@@ -23384,7 +23384,7 @@
       - Restringir el uso de propiedades peligrosas como _proto_
       en los objetos de la aplicación.
     threat: >
-      Atacante autenticado en la aplicación desde Internet.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -23697,7 +23697,7 @@
       Enable the automatic key rotation
       for all the service keys.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -23714,7 +23714,7 @@
       Habilitar la rotación automática de llaves
       para todas las llaves del servicio.
     threat: >
-      Atacante anónimo desde Internet
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -23833,15 +23833,15 @@
     recommendation: >
       - Set the attribute exported to false
       to avoid the attempt of
-      foreign applications to exploit the vulnerability
+      foreign applications to exploit the vulnerability.
 
       - Ensure the application is running
-      with targetSdkVersion higher than 19
+      with targetSdkVersion higher than 19.
 
       - Set a whitelist of trusted fragments
       and validate them through the implementation of isValidFragment.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -23857,15 +23857,15 @@
     recommendation: >
       - Establecer el atributo exported a false
        para evitar intentos de explotación
-       de aplicaciones de terceros
+       de aplicaciones de terceros.
 
       - Garantizar que la aplicación corra
-      con targetSdkVersion superior a 19
+      con targetSdkVersion superior a 19.
 
       - Establecer una lista de fragmentos de confianza,
        validándolos mediante la implementación de isValidFragment.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -23891,16 +23891,16 @@
       The application lacks of alert or notification mechanisms
       in the presence of critical changes in the system,
       such as: access and modification of resources,
-      roles creation, among others
+      roles creation, among others.
     impact: >
       Perform potentially harmful operations in the system
-      without raising an alert
+      without raising an alert.
     recommendation: >
       Set notification mechanisms
-      in critical changes in the system resources or services
+      in critical changes in the system resources or services.
     threat: >
       Authenticated attacker from the Internet
-      who succeeded to compromise a resource
+      who succeeded to compromise a resource.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -23909,16 +23909,16 @@
       La aplicación no cuenta con mecanismos de alerta
       o notificación ante cambios críticos del sistema
       como acceso y edición de recursos, creación de roles,
-      entre otros
+      entre otros.
     impact: >
       Realizar acciones potencialmente dañinas en el sistema
-      sin generar ninguna alerta
+      sin generar ninguna alerta.
     recommendation: >
       Establecer mecanismos de notificación
-      ante cambios críticos en los recursos o servicios del sistema
+      ante cambios críticos en los recursos o servicios del sistema.
     threat: >
       Atacante autenticado desde Internet
-      que haya logrado comprometer un recurso
+      que haya logrado comprometer un recurso.
   score:
     base:
       attack_vector: "N"
@@ -23950,12 +23950,12 @@
       the log files do not have enough detail level.
     impact: >
       Perform harmful actions
-      without raising an alert
+      without raising an alert.
     recommendation: >
       Set the logging property
-      in all the EC2, ELB and S3 instances
+      in all the EC2, ELB and S3 instances.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -23971,12 +23971,12 @@
       con el suficiente nivel de detalle.
     impact: >
       Realizar acciones maliciosas
-      sin dejar ningún rastro
+      sin dejar ningún rastro.
     recommendation: >
       Establecer la propiedad logging en todas
       las instancias de EC2, S3 y ELB.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -24000,15 +24000,15 @@
     title: Insecure service configuration - AKV Secret Expiration
     description: >
       The secrets stored in Azure Key Vault
-      do not set an expiration date
+      do not set an expiration date.
     impact: >
       Increase the chances of
-      compromising sensitive secrets of the system
+      compromising sensitive secrets of the system.
     recommendation: >
       Define an expiration date for Azure secrets
-      by setting the expiration_date property
+      by setting the expiration_date property.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -24018,12 +24018,12 @@
       no definen una fecha de expiración.
     impact: >
       Incrementar las probabilidades
-      de comprometer secretos sensibles del sistema
+      de comprometer secretos sensibles del sistema.
     recommendation: >
       Establecer una fecha de expiración para los secretos
-      definiendo la propiedad expiration_date
+      definiendo la propiedad expiration_date.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -24055,13 +24055,13 @@
       of anomalous behaviours
       or security breaches.
     impact: >
-      Hinder the detection of security issues
+      Hinder the detection of security issues.
     recommendation: >
       Configure the logs with the necessary granularity level
       to detect and identify potentially harmful behaviors
-      by enabling logging for read, write and delete requests
+      by enabling logging for read, write and delete requests.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -24072,16 +24072,16 @@
       con un nivel de granularidad
       lo suficientemente detallado.
       Omitir detalles relevantes puede enmascarar
-      comportamientos anómalos o brechas de seguridad
+      comportamientos anómalos o brechas de seguridad.
     impact: >
-      Dificultar la detección de inicidentes de seguridad
+      Dificultar la detección de inicidentes de seguridad.
     recommendation: >
       Configurar los registros con el nivel de granularidad
       necesario para identificar comportamientos potencialmente
       peligrosos, habilitando los registros de peticiones
-      de lectura, escritura y borrado
+      de lectura, escritura y borrado.
     threat: >
-      Atacante autenticado desde Internet
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -24186,15 +24186,15 @@
       sensitive information stored in the machine.
     impact: >
       Inject malicious commands that will be executed
-      in the server
+      in the server.
     recommendation: >
       - If possible, do not use functions that execute commands
-      in the system with inputs controlled by the user
+      in the system with inputs controlled by the user.
 
       - Validate all input parameters using regular expressions
-      or whitelists before passing the parameters to critical functions
+      or whitelists before passing the parameters to critical functions.
     threat: >
-      Authenticated local attacker with access to the machine
+      Authenticated local attacker with access to the machine.
   category: Abuse Functionality
   remediation_time: "60"
   es:
@@ -24207,17 +24207,17 @@
       comandos maliciosos en el servidor
       que pueden ampliar enormemente la superficie de ataque,
       escalando privilegios, obteniendo o modificando
-      información sensible allí almacenada
+      información sensible allí almacenada.
     impact: >
-      Inyectar comandos maliciosos que serán ejecutados en el servidor
+      Inyectar comandos maliciosos que serán ejecutados en el servidor.
     recommendation: >
       - De ser posible, no utilizar funciones que ejecuten comandos
-      en el sistema con entradas controladas por el usuario
+      en el sistema con entradas controladas por el usuario.
 
       - Validar todos los parámetros mediante expresiones regulares
       o listas blancas antes de pasarlas como parámetros a una función crítica.
     threat: >
-      Atacante autenticado con acceso local a la máquina
+      Atacante autenticado con acceso local a la máquina.
   score:
     base:
       attack_vector: "L"
