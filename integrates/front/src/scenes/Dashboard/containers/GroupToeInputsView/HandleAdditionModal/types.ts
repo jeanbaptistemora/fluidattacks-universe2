@@ -1,6 +1,7 @@
 interface IFormValues {
   component: string;
   entryPoint: string;
+  environmentUrl: string | undefined;
   rootId: string | undefined;
 }
 
