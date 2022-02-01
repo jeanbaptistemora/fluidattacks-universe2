@@ -1,13 +1,15 @@
 interface IFormValues {
-  component: string;
   entryPoint: string;
   environmentUrl: string | undefined;
+  path: string;
   rootId: string | undefined;
 }
 
 interface IHandleAdditionModalFormProps {
   roots: Root[];
+  host: string | undefined;
   handleCloseModal: () => void;
+  setHost: (host: string | undefined) => void;
 }
 
 interface IAddToeInputResultAttr {

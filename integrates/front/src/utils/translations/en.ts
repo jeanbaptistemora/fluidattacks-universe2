@@ -809,6 +809,7 @@ export const enTranslations: ResourceKey = {
     toe: {
       inputs: {
         addModal: {
+          close: "Close",
           fields: {
             component: "Component",
             entryPoint: "Entry point",
@@ -816,6 +817,7 @@ export const enTranslations: ResourceKey = {
             path: "Path",
             root: "Root",
           },
+          procced: "Proceed",
         },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
