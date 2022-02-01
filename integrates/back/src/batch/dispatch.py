@@ -59,7 +59,7 @@ async def main() -> None:  # noqa: MC0001
             return
         if action == "report":
             await generate_report(item=item)
-        if action == "move_root":
+        elif action == "move_root":
             await move_root(item=item)
         elif action == "handle_finding_policy":
             await handle_finding_policy(item=item)

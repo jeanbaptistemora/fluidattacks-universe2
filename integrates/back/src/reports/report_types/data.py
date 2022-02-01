@@ -7,6 +7,9 @@ from context import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from magic import (
     Magic,
 )
@@ -102,14 +105,13 @@ async def _append_xls_report(
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
-    treatment: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
         loaders,
         findings_ord=findings_ord,
         group_name=group_name,
         passphrase=passphrase,
-        treatment=treatment,
+        treatments=set(VulnerabilityTreatmentStatus),
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:
@@ -174,7 +176,6 @@ async def generate(
     group_description: str,
     passphrase: str,
     requester_email: str,
-    treatment: str,
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report(
@@ -192,7 +193,6 @@ async def generate(
             findings_ord=findings_ord,
             group_name=group,
             passphrase=passphrase,
-            treatment=treatment,
         )
         await _append_evidences(
             directory=directory,

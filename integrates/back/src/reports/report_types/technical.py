@@ -8,6 +8,9 @@ from botocore.exceptions import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from findings import (
     storage as findings_storage,
 )
@@ -163,15 +166,12 @@ async def generate_xls_file(
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
-    treatment: str,
+    treatments: Set[VulnerabilityTreatmentStatus],
 ) -> str:
-    extra_data: Dict[str, str] = {
-        "group_name": group_name,
-        "treatment": treatment,
-    }
     it_report = ITReport(
         data=findings_ord,
-        extra_data=extra_data,
+        group_name=group_name,
+        treatments=treatments,
         loaders=loaders,
     )
     await it_report.create()

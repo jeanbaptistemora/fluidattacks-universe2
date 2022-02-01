@@ -10,6 +10,9 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
     UnavailabilityError,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -35,7 +38,9 @@ from settings import (
     NOEXTRA,
 )
 from typing import (
+    Any,
     Dict,
+    Set,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +62,7 @@ async def get_report(
     item: BatchProcessing,
     passphrase: str,
     report_type: str,
-    treatment: str,
+    treatments: Set[VulnerabilityTreatmentStatus],
 ) -> str:
     report_file_name: str = ""
     try:
@@ -66,7 +71,7 @@ async def get_report(
             group_name=item.entity,
             passphrase=passphrase,
             user_email=item.subject,
-            treatment=treatment,
+            treatments=treatments,
         )
         uploaded_file_name = await upload_report_file(report_file_name)
     except ErrorUploadingFileS3 as exc:
@@ -126,7 +131,7 @@ async def send_report(
 
 
 async def generate_report(*, item: BatchProcessing) -> None:
-    additional_info: Dict[str, str] = json.loads(item.additional_info)
+    additional_info: Dict[str, Any] = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
     message = (
         f"Processing {report_type} report requested by "
@@ -134,7 +139,17 @@ async def generate_report(*, item: BatchProcessing) -> None:
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
     enforcer = await authz.get_group_level_enforcer(item.subject)
-    treatment: str = additional_info["treatment"]
+    if "treatment" in additional_info:
+        treatments = (
+            set(VulnerabilityTreatmentStatus)
+            if additional_info["treatment"] == "*"
+            else {VulnerabilityTreatmentStatus[additional_info["treatment"]]}
+        )
+    elif "treatments" in additional_info:
+        treatments = {
+            VulnerabilityTreatmentStatus[treatment]
+            for treatment in additional_info["treatments"]
+        }
     if enforcer(
         item.entity, "api_resolvers_query_report__get_url_group_report"
     ):
@@ -143,7 +158,7 @@ async def generate_report(*, item: BatchProcessing) -> None:
             item=item,
             passphrase=passphrase,
             report_type=report_type,
-            treatment=treatment,
+            treatments=treatments,
         )
         if report_url:
             await send_report(

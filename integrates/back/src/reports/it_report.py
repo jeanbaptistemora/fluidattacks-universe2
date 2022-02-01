@@ -19,7 +19,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityTreatment,
 )
 from findings import (
     domain as findings_domain,
@@ -39,6 +38,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Set,
     Tuple,
     Union,
 )
@@ -86,16 +86,15 @@ class ITReport:
     def __init__(
         self,
         data: Tuple[Finding, ...],
-        extra_data: Dict[str, str],
+        group_name: str,
+        treatments: Set[VulnerabilityTreatmentStatus],
         loaders: Any,
-        lang: str = "es",
     ) -> None:
         """Initialize variables."""
         self.data = data
         self.loaders = loaders
-        self.group_name = extra_data["group_name"]
-        self.lang = lang
-        self.treatment = extra_data["treatment"]
+        self.group_name = group_name
+        self.treatments = treatments
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -108,26 +107,13 @@ class ITReport:
 
     async def generate(self, data: Tuple[Finding, ...]) -> None:
         for finding in data:
-            finding_vulns = await self.loaders.finding_vulns_nzr_typed.load(
-                finding.id
-            )
-            if self.treatment == "*":
-                for vuln in finding_vulns:
+            finding_vulns: Tuple[
+                Vulnerability, ...
+            ] = await self.loaders.finding_vulns_nzr_typed.load(finding.id)
+            for vuln in finding_vulns:
+                if vuln.treatment.status in self.treatments:
                     await self.set_vuln_row(vuln, finding)
                     self.row += 1
-            else:
-                for vuln in finding_vulns:
-                    historic_treatment: Tuple[
-                        VulnerabilityTreatment, ...
-                    ] = await (
-                        self.loaders.vulnerability_historic_treatment.load(
-                            vuln.id
-                        )
-                    )
-                    current_treatment = historic_treatment[-1]
-                    if current_treatment.status == self.treatment:
-                        await self.set_vuln_row(vuln, finding)
-                        self.row += 1
 
     @staticmethod
     def get_measure(metric: str, metric_value: str) -> str:
@@ -312,7 +298,7 @@ class ITReport:
             ),
         )
 
-    async def set_treatment_data(self, vuln: Vulnerability) -> None:
+    def set_treatment_data(self, vuln: Vulnerability) -> None:
         def format_treatment(treatment: VulnerabilityTreatmentStatus) -> str:
             if treatment == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
                 return "Permanently accepted"
@@ -384,8 +370,8 @@ class ITReport:
         self.row_values[vuln["Stream"]] = stream
 
         self.set_finding_data(finding, row)
-        await self.set_vuln_temporal_data(row)
-        await self.set_treatment_data(row)
+        self.set_vuln_temporal_data(row)
+        self.set_treatment_data(row)
         await self.set_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
@@ -394,7 +380,7 @@ class ITReport:
         ]
         self.set_row_height()
 
-    async def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
+    def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
         indicators = vuln.unreliable_indicators
         vuln_date = datetime.fromisoformat(indicators.unreliable_report_date)
         limit_date = datetime_utils.get_now()
