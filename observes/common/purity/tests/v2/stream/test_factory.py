@@ -10,13 +10,7 @@ from tests.v2.stream._utils import (
 )
 
 
-def test_map() -> None:
+def test_from_piter() -> None:
     items = from_range(range(10)).map(lambda _: rand_int())
-    stm = from_piter(items).map(lambda i: i + 1)
-    assert_different_iter(stm)
-
-
-def test_chunked() -> None:
-    items = from_range(range(10)).map(lambda _: rand_int())
-    stm = from_piter(items).chunked(2)
+    stm = from_piter(items)
     assert_different_iter(stm)
