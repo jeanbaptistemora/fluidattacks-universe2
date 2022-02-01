@@ -485,6 +485,13 @@ const Machine = [
       'machine/web/support',
       {
         type: 'category',
+        label: 'News',
+        items: [
+          'machine/web/news/subscription',
+        ],
+      },
+      {
+        type: 'category',
         label: 'Organizations',
         items: [
           'machine/web/organization/policies',
