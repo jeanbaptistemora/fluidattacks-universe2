@@ -92,7 +92,7 @@ async def _initialize_severity_cvss20_table() -> None:
                 finding_distribution DECIMAL(5,3) NOT NULL,
                 integrity_impact DECIMAL(5,3) NOT NULL,
                 integrity_requirement DECIMAL(5,3) NOT NULL,
-                resolution_level DECIMAL(5,3) NOT NULL
+                resolution_level DECIMAL(5,3) NOT NULL,
 
                 PRIMARY KEY (
                     id
@@ -131,7 +131,7 @@ async def _initialize_severity_cvss31_table() -> None:
                 remediation_level DECIMAL(4,2) NOT NULL,
                 report_confidence DECIMAL(4,2) NOT NULL,
                 severity_scope DECIMAL(4,2) NOT NULL,
-                user_interaction DECIMAL(4,2) NOT NULL
+                user_interaction DECIMAL(4,2) NOT NULL,
 
                 PRIMARY KEY (
                     id
