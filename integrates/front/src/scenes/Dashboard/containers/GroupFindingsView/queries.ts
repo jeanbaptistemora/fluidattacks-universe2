@@ -14,6 +14,7 @@ const GET_FINDINGS: DocumentNode = gql`
         openAge
         openVulnerabilities
         state
+        minTimeToRemediate
         isExploitable
         releaseDate
         remediated

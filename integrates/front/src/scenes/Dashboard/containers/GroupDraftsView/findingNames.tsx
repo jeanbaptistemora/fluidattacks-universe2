@@ -220,6 +220,12 @@ async function getFindingNames(
       privilegesRequiredRaw in privilegesRequiredScope
         ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
         : "0";
+    const minTimeToRemediateRaw = validateNotEmpty(
+      vulnsData[key].remediation_time
+    );
+    const minTimeToRemediate = minTimeToRemediateRaw
+      ? minTimeToRemediateRaw
+      : null;
     const remediationLevelRaw = validateNotEmpty(
       vulnsData[key].score.temporal.remediation_level
     );
@@ -254,6 +260,7 @@ async function getFindingNames(
         exploitability,
         integrityImpact,
         key,
+        minTimeToRemediate,
         privilegesRequired,
         recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
         remediationLevel,
@@ -276,6 +283,7 @@ async function getFindingNames(
       exploitability,
       integrityImpact,
       key,
+      minTimeToRemediate,
       privilegesRequired,
       recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
       remediationLevel,

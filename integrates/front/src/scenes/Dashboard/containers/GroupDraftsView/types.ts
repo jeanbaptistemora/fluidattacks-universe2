@@ -31,6 +31,7 @@ interface IDraftVariables {
   integrityImpact: string;
   privilegesRequired: string;
   recommendation: string;
+  minTimeToRemediate: string | null;
   remediationLevel: string;
   reportConfidence: string;
   requirements: string;
@@ -84,6 +85,7 @@ interface IVulnData {
   en: IVulnLanguage;
   es: IVulnLanguage;
   score: IVulnScore;
+  remediation_time: string;
   requirements: string[];
   metadata: Record<string, unknown>;
 }

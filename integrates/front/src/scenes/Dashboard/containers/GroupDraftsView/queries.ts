@@ -37,6 +37,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $integrityImpact: String
     $privilegesRequired: String
     $recommendation: String
+    $minTimeToRemediate: String
     $remediationLevel: String
     $reportConfidence: String
     $requirements: String
@@ -57,6 +58,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       integrityImpact: $integrityImpact
       privilegesRequired: $privilegesRequired
       recommendation: $recommendation
+      minTimeToRemediate: $minTimeToRemediate
       remediationLevel: $remediationLevel
       reportConfidence: $reportConfidence
       requirements: $requirements

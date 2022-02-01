@@ -29,6 +29,7 @@ mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
         threat: "",
         title: "Reflected cross-site scripting (XSS)",
       },
+      remediation_time: "60",
       requirements: [],
       score: {
         base: {
@@ -107,6 +108,7 @@ describe("GroupDraftsView", (): void => {
                 description: "The web application...",
                 id: "507046047",
                 isExploitable: true,
+                minTimeToRemediate: 60.0,
                 openVulnerabilities: 0,
                 releaseDate: null,
                 reportDate: "2019-05-23 21:19:29",

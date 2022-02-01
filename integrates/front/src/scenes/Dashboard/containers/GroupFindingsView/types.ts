@@ -19,6 +19,7 @@ interface IFindingAttr {
   lastVulnerability: number;
   openAge: number;
   openVulnerabilities: number;
+  minTimeToRemediate: number | null;
   name: string;
   releaseDate: string | null;
   remediated: string;
