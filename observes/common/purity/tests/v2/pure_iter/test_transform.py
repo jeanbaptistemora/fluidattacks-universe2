@@ -3,6 +3,7 @@ from purity.v2.cmd import (
 )
 from purity.v2.pure_iter.factory import (
     from_flist,
+    from_range,
 )
 from purity.v2.pure_iter.transform import (
     chain,
@@ -17,10 +18,11 @@ from tests.v2.pure_iter._utils import (
 
 
 def test_chain() -> None:
-    items = from_flist(tuple(range(5))).map(lambda i: from_flist((i,)))
-    for i, v in enumerate(chain(items)):
-        assert v == i
-    assert_immutability(chain(items))
+    base = (4, 78, 6)
+    items = from_range(range(5)).map(lambda i: from_flist(base))
+    chained = chain(items)
+    assert_immutability(chained)
+    assert tuple(chained) == base * 5
 
 
 def test_consume() -> None:
