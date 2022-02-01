@@ -42,9 +42,13 @@ So let’s start!
 - First, log in to the ASM and go to the Scope tab.
   There, you can find the Add new root button.
 
+![Scope Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1643749134/docs/web/groups/scope/root_scope_tab.png)
+
 - When you click on **Add new root**, a pop-up window
   will show up where you need to fill out the
   information with your Git repository.
+
+![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1643749134/docs/web/groups/scope/root_add_new.png)
 
 - Fill out the **Cloning credential** field with
   your SSH Private Key.
@@ -52,6 +56,8 @@ So let’s start!
   menu in the **Type** field.
   After that, an extra field will appear,
   asking for your private key.
+
+![Clone Credential](https://res.cloudinary.com/fluid-attacks/image/upload/v1643749134/docs/web/groups/scope/root_cloning_credential.png)
 
 - After filling out all the fields, click on **Proceed**.
   You will have your new URL in Git Roots
