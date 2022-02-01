@@ -7,6 +7,7 @@ import {
   faSlidersH,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { Trans } from "react-i18next";
@@ -60,9 +61,18 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         translate.t("groupAlerts.titleSuccess")
       );
     },
-    onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred requesting group report", error);
+    onError: (errors: ApolloError): void => {
+      errors.graphQLErrors.forEach((error: GraphQLError): void => {
+        if (
+          error.message ===
+          "Exception - The user already has a requested report for the same group"
+        ) {
+          msgError(translate.t("groupAlerts.reportAlreadyRequested"));
+        } else {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred requesting group report", error);
+        }
+      });
     },
   });
 

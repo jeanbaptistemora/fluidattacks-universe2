@@ -938,6 +938,9 @@ export const enTranslations: ResourceKey = {
     rangeError: "Range limits are wrong.",
     recordsRemoved: "Records have been removed successfully",
     rejectedZeroRiskSuccess: "Zero risk vulnerability has been rejected",
+    reportAlreadyRequested:
+      "Please wait until the already requested report finishes processing before " +
+      "requesting a new report for this group",
     reportRequested:
       "You will be receiving a mail with the link of the report in the next minutes",
     requestRemove: "Group deletion request has been sent successfully",
