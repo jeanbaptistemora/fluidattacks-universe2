@@ -810,7 +810,9 @@ export const enTranslations: ResourceKey = {
       inputs: {
         addModal: {
           fields: {
+            component: "Component",
             environmentUrl: "Environment url",
+            path: "Path",
             root: "Root",
           },
         },
