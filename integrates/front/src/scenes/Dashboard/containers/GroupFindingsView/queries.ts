@@ -51,13 +51,13 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $reportType: ReportType!
     $groupName: String!
     $lang: ReportLang
-    $treatment: VulnerabilityTreatment
+    $treatments: [VulnerabilityTreatment!]
   ) {
     report(
       reportType: $reportType
       groupName: $groupName
       lang: $lang
-      treatment: $treatment
+      treatments: $treatments
     ) {
       success
     }
