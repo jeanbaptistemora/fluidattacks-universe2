@@ -30,20 +30,31 @@ from typing import (
 pytestmark = pytest.mark.asyncio
 
 
-async def _get_batch_job(*, entity: str) -> BatchProcessing:
+async def _get_batch_job(
+    *, entity: str, additional_info: str
+) -> BatchProcessing:
     all_actions = await get_actions()
-    return next((action for action in all_actions if action.entity == entity))
+    return next(
+        (
+            action
+            for action in all_actions
+            if action.entity == entity
+            and additional_info in action.additional_info
+        )
+    )
 
 
 async def _run(*, entity: str, additional_info: str) -> int:
-    batch_action = await _get_batch_job(entity=entity)
+    batch_action = await _get_batch_job(
+        entity=entity, additional_info=additional_info
+    )
     cmd_args: List[str] = [
         "test",
         "report",
         entity,
         batch_action.subject,
         batch_action.time,
-        additional_info,
+        batch_action.additional_info,
     ]
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
         os.environ["BATCH_BIN"],
@@ -123,6 +134,26 @@ async def test_finding_report() -> None:
         )
         == 0
     )
+
+    # after processing report should allow to request a new one
+    new_query_data = """
+        query test {
+            report(
+                groupName: "oneshottest",
+                reportType: DATA) {
+                success
+            }
+        }
+    """
+    new_data_query = {"query": new_query_data}
+    new_request = await create_dummy_session("integratesmanager@gmail.com")
+    new_request = apply_context_attrs(new_request)
+    _, new_result_data = await graphql(
+        SCHEMA, new_data_query, context_value=new_request
+    )
+
+    assert "errors" not in new_result_data
+    assert new_result_data["data"]["report"]["success"]
 
 
 def test_pdf_paths() -> None:
