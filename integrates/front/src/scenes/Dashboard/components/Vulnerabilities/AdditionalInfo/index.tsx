@@ -71,8 +71,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const currentExpiration: string =
     isVulnOpen &&
     data.vulnerability.treatment === "ACCEPTED" &&
-    !_.isUndefined(data.vulnerability.acceptanceDate)
-      ? data.vulnerability.acceptanceDate
+    !_.isNull(data.vulnerability.treatmentAcceptanceDate)
+      ? data.vulnerability.treatmentAcceptanceDate.split(" ")[0]
       : "";
   const currentJustification: string =
     !isVulnOpen ||

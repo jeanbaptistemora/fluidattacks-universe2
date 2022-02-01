@@ -11,7 +11,7 @@ interface IVulnInfoAttr {
   severity: string | null;
   stream: string | null;
   treatment: string;
-  acceptanceDate?: string;
+  treatmentAcceptanceDate: string | null;
   treatmentAssigned: string | null;
   treatmentChanges: string;
   treatmentJustification: string | null;
