@@ -3,8 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from typing import (
@@ -61,10 +60,8 @@ def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"272"},
         description_key="src.lib_path.f346.dangerous_permission",
-        finding=FindingEnum.F346,
         iterator=iterator(),
         path=path,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        method=MethodsEnum.DANGEROUS_PERMISSIONS,
     )

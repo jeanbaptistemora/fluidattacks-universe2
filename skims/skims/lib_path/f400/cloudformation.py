@@ -15,8 +15,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -135,9 +134,7 @@ def cfn_bucket_has_logging_conf_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400.value.cwe},
         description_key="src.lib_path.f400.bucket_has_logging_conf_disabled",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -145,7 +142,7 @@ def cfn_bucket_has_logging_conf_disabled(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_LOG_CONF_DISABLED,
     )
 
 
@@ -154,9 +151,7 @@ def cfn_elb_has_access_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400.value.cwe},
         description_key="src.lib_path.f400.elb_has_access_logging_disabled",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -166,7 +161,7 @@ def cfn_elb_has_access_logging_disabled(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_ELB_ACCESS_LOG_DISABLED,
     )
 
 
@@ -175,9 +170,7 @@ def cfn_cf_distribution_has_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400},
         description_key="src.lib_path.f400.has_logging_disabled",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -187,7 +180,7 @@ def cfn_cf_distribution_has_logging_disabled(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_CF_DISTR_LOG_DISABLED,
     )
 
 
@@ -196,9 +189,7 @@ def cfn_trails_not_multiregion(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400.value.cwe},
         description_key="src.lib_path.f400.trails_not_multiregion",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _cfn_trails_not_multiregion_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -206,7 +197,7 @@ def cfn_trails_not_multiregion(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_TRAILS_NOT_MULTIREGION,
     )
 
 
@@ -215,9 +206,7 @@ def cfn_elb2_has_access_logs_s3_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400.value.cwe},
         description_key="src.lib_path.f400.elb2_has_access_logs_s3_disabled",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -227,5 +216,5 @@ def cfn_elb2_has_access_logs_s3_disabled(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_ELB2_LOGS_S3_DISABLED,
     )

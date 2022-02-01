@@ -3,8 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -50,16 +49,14 @@ def tfm_azure_virtual_machine_insecure_authentication(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F015.value.cwe},
         description_key=("lib_path.f015.does_not_use_ssh"),
-        finding=FindingEnum.F015,
         iterator=get_cloud_iterator(
             _tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_virtual_machine(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_VM_INSEC_AUTH,
     )
 
 
@@ -68,9 +65,7 @@ def tfm_azure_linux_vm_insecure_authentication(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F015.value.cwe},
         description_key=("lib_path.f015.does_not_use_ssh"),
-        finding=FindingEnum.F015,
         iterator=get_cloud_iterator(
             _tfm_azure_linux_vm_insecure_auth_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_linux_virtual_machine(
@@ -79,5 +74,5 @@ def tfm_azure_linux_vm_insecure_authentication(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_LNX_VM_INSEC_AUTH,
     )

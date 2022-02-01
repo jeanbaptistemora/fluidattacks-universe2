@@ -11,8 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -51,9 +50,7 @@ def cfn_rds_has_unencrypted_storage(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F246.value.cwe},
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
-        finding=FindingEnum.F246,
         iterator=get_cloud_iterator(
             _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -63,5 +60,5 @@ def cfn_rds_has_unencrypted_storage(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_RDS_UNENCRYPTED_STORAGE,
     )

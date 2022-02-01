@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -56,9 +55,7 @@ def cfn_elb2_uses_insecure_security_policy(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F070.value.cwe},
         description_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
-        finding=FindingEnum.F070,
         iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -66,5 +63,5 @@ def cfn_elb2_uses_insecure_security_policy(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_ELB2_INSECURE_SEC_POLICY,
     )

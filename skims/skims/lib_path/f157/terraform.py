@@ -10,8 +10,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -117,16 +116,14 @@ def tfm_azure_unrestricted_access_network_segments(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.etl_visible_to_the_public_network"),
-        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
             _tfm_azure_unrestricted_access_network_segments_iterate(
                 resource_iterator=iter_azurerm_data_factory(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_UNRESTRICTED_ACCESS,
     )
 
 
@@ -135,9 +132,7 @@ def tfm_azure_sa_default_network_access(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_sa_default_network_access"),
-        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
             _tfm_azure_sa_default_network_access_iterate_vulns(
                 resource_iterator=chain(
@@ -147,7 +142,7 @@ def tfm_azure_sa_default_network_access(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_SA_DEFAULT_ACCESS,
     )
 
 
@@ -156,16 +151,14 @@ def tfm_azure_kv_default_network_access(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_kv_default_network_access"),
-        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
             _tfm_azure_kv_default_network_access_iterate_vulns(
                 resource_iterator=iter_azurerm_key_vault(model=model),
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_KV_DEFAULT_ACCESS,
     )
 
 
@@ -174,14 +167,12 @@ def tfm_azure_kv_danger_bypass(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F157.value.cwe},
         description_key=("lib_path.f157.tfm_azure_kv_danger_bypass"),
-        finding=FindingEnum.F157,
         iterator=get_cloud_iterator(
             _tfm_azure_kv_danger_bypass_iterate_vulns(
                 resource_iterator=iter_azurerm_key_vault(model=model),
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_KV_DANGER_BYPASS,
     )

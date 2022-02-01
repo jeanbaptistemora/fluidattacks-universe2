@@ -9,8 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -45,14 +44,12 @@ def tfm_unencrypted_buckets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F099.value.cwe},
         description_key="src.lib_path.f099.unencrypted_buckets",
-        finding=FindingEnum.F099,
         iterator=get_cloud_iterator(
             _tfm_unencrypted_buckets_iterate_vulnerabilities(
                 buckets_iterator=tfm_iter_s3_buckets(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.TFM_UNENCRYPTED_BUCKETS,
     )

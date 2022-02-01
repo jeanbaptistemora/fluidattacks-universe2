@@ -6,8 +6,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Platform,
     Vulnerabilities,
 )
@@ -59,10 +58,9 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
         dependencies=resolve_dependencies(
             obj=json_loads_blocking(content, default={}),
         ),
-        finding=FindingEnum.F393,
         path=path,
         platform=Platform.NPM,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NPM_PKG_LOCK_JSON,
     )
 
 
@@ -79,8 +77,7 @@ def npm_package_json(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        finding=FindingEnum.F393,
         path=path,
         platform=Platform.NPM,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NPM_PKG_JSON,
     )

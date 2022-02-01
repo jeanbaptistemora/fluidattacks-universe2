@@ -14,8 +14,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -306,18 +305,16 @@ def cfn_kms_key_has_master_keys_exposed_to_everyone(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F325.value.cwe},
         description_key=(
             "src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone"
         ),
-        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
                 keys_iterator=iter_kms_keys(template=template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_KMS_MASTER_KEYS_EXPOSED,
     )
 
 
@@ -326,11 +323,9 @@ def cfn_iam_has_wildcard_resource_on_write_action(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F325.value.cwe},
         description_key=(
             "src.lib_path.f325.iam_has_wildcard_resource_on_write_action"
         ),
-        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 iam_iterator=iter_iam_managed_policies_and_roles(
@@ -339,7 +334,7 @@ def cfn_iam_has_wildcard_resource_on_write_action(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_WILDCARD_WRITE,
     )
 
 
@@ -348,9 +343,7 @@ def cfn_iam_is_policy_miss_configured(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_is_policy_miss_configured"),
-        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_is_policy_miss_configured_iter_vulns(
                 file_ext=file_ext,
@@ -360,7 +353,7 @@ def cfn_iam_is_policy_miss_configured(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_POLICY_MISS_CONFIG,
     )
 
 
@@ -369,9 +362,7 @@ def cfn_iam_has_privileges_over_iam(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_has_privileges_over_iam"),
-        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_has_privileges_over_iam_iter_vulns(
                 iam_iterator=iter_iam_managed_policies_and_roles(
@@ -380,7 +371,7 @@ def cfn_iam_has_privileges_over_iam(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_PRIVILEGES_OVER_IAM,
     )
 
 
@@ -389,9 +380,7 @@ def cfn_iam_is_role_over_privileged(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F325.value.cwe},
         description_key=("src.lib_path.f325.iam_is_role_over_privileged"),
-        finding=FindingEnum.F325,
         iterator=get_cloud_iterator(
             _cfn_iam_is_role_over_privileged_iter_vulns(
                 file_ext=file_ext,
@@ -399,5 +388,5 @@ def cfn_iam_is_role_over_privileged(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED,
     )

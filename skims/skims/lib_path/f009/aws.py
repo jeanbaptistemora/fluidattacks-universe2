@@ -2,8 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from pyparsing import (
@@ -14,10 +13,8 @@ from pyparsing import (
 def aws_credentials(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.aws_credentials.description",
-        finding=FindingEnum.F009,
         grammar=Regex(r"AKIA[A-Z0-9]{16}"),
         path=path,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.AWS_CREDENTIALS,
     )

@@ -2,8 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from pyparsing import (
@@ -29,10 +28,8 @@ def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"749"},
         description_key="criteria.vulns.380.description",
-        finding=FindingEnum.F380,
         grammar=grammar,
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.UNPINNED_DOCKER_IMAGE,
     )

@@ -4,8 +4,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Platform,
     Vulnerabilities,
 )
@@ -92,10 +91,9 @@ def maven_gradle(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.MAVEN,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.MAVEN_GRADLE,
     )
 
 
@@ -131,10 +129,9 @@ def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.MAVEN,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.MAVEN_POM_XML,
     )
 
 
@@ -156,8 +153,7 @@ def maven_sbt(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.MAVEN,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.MAVEN_SBT,
     )

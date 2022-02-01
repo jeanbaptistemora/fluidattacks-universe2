@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -59,18 +58,16 @@ def tfm_db_cluster_inside_subnet(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F109.value.cwe},
         description_key=(
             "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
         ),
-        finding=FindingEnum.F109,
         iterator=get_cloud_iterator(
             _tfm_db_cluster_inside_subnet_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_INSIDE_SUBNET,
     )
 
 
@@ -79,16 +76,14 @@ def tfm_rds_instance_inside_subnet(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F109.value.cwe},
         description_key=(
             "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
         ),
-        finding=FindingEnum.F109,
         iterator=get_cloud_iterator(
             _tfm_rds_instance_inside_subnet_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_RDS_INSIDE_SUBNET,
     )

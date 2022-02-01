@@ -4,8 +4,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Platform,
     Vulnerabilities,
 )
@@ -31,10 +30,9 @@ def nuget_csproj(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.NUGET,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NUGET_CSPROJ,
     )
 
 
@@ -55,8 +53,7 @@ def nuget_pkgs_config(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.NUGET,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NUGET_PACKAGES_CONFIG,
     )

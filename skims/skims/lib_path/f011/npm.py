@@ -6,8 +6,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Platform,
     Vulnerabilities,
 )
@@ -36,14 +35,13 @@ def npm_package_json(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=dependencies,
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.NPM,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NPM_PACKAGE_JSON,
     )
 
 
-def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
+def npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies(
         obj: frozendict, direct_deps: bool = True
     ) -> Iterator[DependencyType]:
@@ -83,10 +81,9 @@ def npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
         dependencies=resolve_dependencies(
             obj=json_loads_blocking(content, default={}),
         ),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.NPM,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NPM_PACKAGE_LOCK_JSON,
     )
 
 
@@ -126,8 +123,7 @@ def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
     return translate_dependencies_to_vulnerabilities(
         content=content,
         dependencies=resolve_dependencies(),
-        finding=FindingEnum.F011,
         path=path,
         platform=Platform.NPM,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.NPM_YARN_LOCK,
     )

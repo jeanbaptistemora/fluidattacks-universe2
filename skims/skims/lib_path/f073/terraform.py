@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -55,16 +54,14 @@ def tfm_db_cluster_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F073.value.cwe},
         description_key="src.lib_path.f073.rds_is_publicly_accessible",
-        finding=FindingEnum.F073,
         iterator=get_cloud_iterator(
             _tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_CLUSTER_PUB_ACCESS,
     )
 
 
@@ -73,14 +70,12 @@ def tfm_db_instance_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F073.value.cwe},
         description_key="src.lib_path.f073.rds_is_publicly_accessible",
-        finding=FindingEnum.F073,
         iterator=get_cloud_iterator(
             _tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_PUB_ACCESS,
     )

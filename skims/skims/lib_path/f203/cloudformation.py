@@ -9,8 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -36,14 +35,12 @@ def cfn_public_buckets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F203.value.cwe},
         description_key="src.lib_path.f203.public_buckets",
-        finding=FindingEnum.F203,
         iterator=get_cloud_iterator(
             _cfn_public_buckets_iterate_vulnerabilities(
                 buckets_iterator=iter_s3_buckets(template=template)
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_PUBLIC_BUCKETS,
     )

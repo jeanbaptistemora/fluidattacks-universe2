@@ -12,8 +12,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -69,9 +68,7 @@ def cfn_fsx_has_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F250.value.cwe},
         description_key="src.lib_path.f250.fsx_has_unencrypted_volumes",
-        finding=FindingEnum.F250,
         iterator=get_cloud_iterator(
             _cfn_fsx_has_unencrypted_volumes_iter_vulns(
                 file_ext=file_ext,
@@ -79,7 +76,7 @@ def cfn_fsx_has_unencrypted_volumes(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_FSX_UNENCRYPTED_VOLUMES,
     )
 
 
@@ -88,9 +85,7 @@ def cfn_ec2_has_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F250.value.cwe},
         description_key="src.lib_path.f250.ec2_has_unencrypted_volumes",
-        finding=FindingEnum.F250,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -98,5 +93,5 @@ def cfn_ec2_has_unencrypted_volumes(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_UNENCRYPTED_VOLUMES,
     )

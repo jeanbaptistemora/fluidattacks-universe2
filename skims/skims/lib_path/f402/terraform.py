@@ -3,8 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -93,16 +92,14 @@ def tfm_azure_storage_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F402.value.cwe},
         description_key="lib_path.f402.tfm_azure_storage_logging_disabled",
-        finding=FindingEnum.F402,
         iterator=get_cloud_iterator(
             _tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_storage_account(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_STORAGE_LOG_DISABLED,
     )
 
 
@@ -111,18 +108,16 @@ def tfm_azure_app_service_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F402.value.cwe},
         description_key=(
             "lib_path.f402.tfm_azure_failed_request_tracing_disabled"
         ),
-        finding=FindingEnum.F402,
         iterator=get_cloud_iterator(
             _tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_app_service(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_APP_LOG_DISABLED,
     )
 
 
@@ -131,16 +126,14 @@ def tfm_azure_sql_server_audit_log_retention(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F402.value.cwe},
         description_key=(
             "lib_path.f402.tfm_azure_sql_server_audit_log_retention"
         ),
-        finding=FindingEnum.F402,
         iterator=get_cloud_iterator(
             _tfm_azure_sql_server_audit_log_retention_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_sql_server(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_SQL_LOG_RETENT,
     )

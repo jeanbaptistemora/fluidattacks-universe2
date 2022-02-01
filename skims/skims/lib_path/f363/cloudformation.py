@@ -9,8 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -108,9 +107,7 @@ def cfn_insecure_generate_secret_string(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F363.value.cwe},
         description_key="src.lib_path.f363.insecure_generate_secret_string",
-        finding=FindingEnum.F363,
         iterator=get_cloud_iterator(
             _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
                 secrets_iterator=iter_secret_manager_secrets(
@@ -119,5 +116,5 @@ def cfn_insecure_generate_secret_string(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_INSEC_GEN_SECRET,
     )

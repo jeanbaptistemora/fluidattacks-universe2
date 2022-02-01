@@ -13,8 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -103,18 +102,16 @@ def tfm_aws_serves_content_over_insecure_protocols(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F016.value.cwe},
         description_key=(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
-        finding=FindingEnum.F016,
         iterator=get_cloud_iterator(
             _tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
                 resource_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AWS_INSEC_PROTO,
     )
 
 
@@ -123,16 +120,14 @@ def tfm_azure_serves_content_over_insecure_protocols(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F016.value.cwe},
         description_key=(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
-        finding=FindingEnum.F016,
         iterator=get_cloud_iterator(
             _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_storage_account(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_INSEC_PROTO,
     )

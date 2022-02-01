@@ -8,8 +8,7 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from pyparsing import (
@@ -55,12 +54,10 @@ def jwt_token(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.jwt_token.description",
-        finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JWT_TOKEN,
     )
 
 
@@ -82,12 +79,10 @@ def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.sensitive_key_in_json.description",
-        finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        method=MethodsEnum.SENSITIVE_KEY_JSON,
     )
 
 
@@ -99,25 +94,21 @@ def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"798"},
         description_key=(
             "src.lib_path.f009.web_config_db_connection.description"
         ),
-        finding=FindingEnum.F009,
         grammar=grammar,
         path=path,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
         wrap=True,
+        method=MethodsEnum.WEB_DB_CONN,
     )
 
 
 def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
     return get_vulnerabilities_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.web_config_user_pass.description",
-        finding=FindingEnum.F009,
         grammar=Regex(r'(username|password)=".+?"', flags=re.IGNORECASE),
         path=path,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.WEB_USER_PASS,
     )

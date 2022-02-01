@@ -18,8 +18,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -118,9 +117,7 @@ def cfn_admin_policy_attached(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             admin_policies_attached_iterate_vulnerabilities(
                 managed_policies_iterator=cnf_iterate_managed_policy_arns(
@@ -129,7 +126,7 @@ def cfn_admin_policy_attached(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_ADMIN_POLICY_ATTACHED,
     )
 
 
@@ -138,16 +135,14 @@ def cfn_bucket_policy_allows_public_access(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031.bucket_policy_allows_public_access",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_BUCKET_ALLOWS_PUBLIC,
     )
 
 
@@ -156,18 +151,16 @@ def cfn_iam_user_missing_role_based_security(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key=(
             "src.lib_path.f031.iam_user_missing_role_based_security"
         ),
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
                 users_iterator=iter_iam_users(template=template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_MISSING_SECURITY,
     )
 
 
@@ -176,9 +169,7 @@ def cfn_negative_statement(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             negative_statement_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -187,7 +178,7 @@ def cfn_negative_statement(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_NEGATIVE_STATEMENT,
     )
 
 
@@ -196,9 +187,7 @@ def cfn_open_passrole(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             open_passrole_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -207,7 +196,7 @@ def cfn_open_passrole(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_OPEN_PASSROLE,
     )
 
 
@@ -216,9 +205,7 @@ def cfn_permissive_policy(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             permissive_policy_iterate_vulnerabilities(
                 statements_iterator=cfn_iterate_iam_policy_documents(
@@ -227,7 +214,7 @@ def cfn_permissive_policy(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_PERMISSIVE_POLICY,
     )
 
 
@@ -236,11 +223,9 @@ def cfn_ec2_has_not_an_iam_instance_profile(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key=(
             "src.lib_path.f031.ec2_has_not_an_iam_instance_profile"
         ),
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -248,7 +233,7 @@ def cfn_ec2_has_not_an_iam_instance_profile(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_NO_IAM,
     )
 
 
@@ -257,9 +242,7 @@ def cfn_iam_has_full_access_to_ssm(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031.iam_has_full_access_to_ssm",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
                 iam_iterator=cfn_iterate_iam_policy_documents(
@@ -268,5 +251,5 @@ def cfn_iam_has_full_access_to_ssm(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_IAM_FULL_ACCESS_SSM,
     )

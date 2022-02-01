@@ -13,8 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -81,16 +80,14 @@ def ec2_has_terminate_shutdown_behavior(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F333.value.cwe},
         description_key="lib_path.f333.ec2_allows_shutdown_command",
-        finding=FindingEnum.F333,
         iterator=get_cloud_iterator(
             _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.EC2_TERMINATE_SHUTDOWN_BEHAVIOR,
     )
 
 
@@ -99,9 +96,7 @@ def tfm_ec2_associate_public_ip_address(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F333.value.cwe},
         description_key=("lib_path.f333.ec2_public_ip_addresses"),
-        finding=FindingEnum.F333,
         iterator=get_cloud_iterator(
             _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -111,5 +106,5 @@ def tfm_ec2_associate_public_ip_address(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_EC2_ASSOC_PUB_IP,
     )

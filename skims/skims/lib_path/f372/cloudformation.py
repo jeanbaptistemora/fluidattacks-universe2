@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -81,9 +80,7 @@ def cfn_serves_content_over_http(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F372.value.cwe},
         description_key="src.lib_path.f372.serves_content_over_http",
-        finding=FindingEnum.F372,
         iterator=get_cloud_iterator(
             _cfn_content_over_http_iterate_vulnerabilities(
                 distributions_iterator=iter_cloudfront_distributions(
@@ -92,7 +89,7 @@ def cfn_serves_content_over_http(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_CONTENT_HTTP,
     )
 
 
@@ -101,9 +98,7 @@ def cfn_elb2_uses_insecure_protocol(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F372.value.cwe},
         description_key="src.lib_path.f372.elb2_uses_insecure_protocol",
-        finding=FindingEnum.F372,
         iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -113,5 +108,5 @@ def cfn_elb2_uses_insecure_protocol(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_ELB2_INSEC_PROTO,
     )

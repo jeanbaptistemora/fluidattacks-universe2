@@ -8,7 +8,7 @@ from lib_path.f011.maven import (
 )
 from lib_path.f011.npm import (
     npm_package_json,
-    npm_pkg_lock_json,
+    npm_package_lock_json,
     npm_yarn_lock,
 )
 from lib_path.f011.nuget import (
@@ -60,8 +60,8 @@ def run_npm_package_json(content: str, path: str) -> Vulnerabilities:
 
 
 @SHIELD_BLOCKING
-def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
-    return npm_pkg_lock_json(
+def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
+    return npm_package_lock_json(
         content=content,
         path=path,
     )
@@ -99,6 +99,6 @@ def analyze(
         return (run_npm_package_json(content_generator(), path),)
 
     if (file_name, file_extension) == ("package-lock", "json"):
-        return (run_npm_pkg_lock_json(content_generator(), path),)
+        return (run_npm_package_lock_json(content_generator(), path),)
 
     return ()

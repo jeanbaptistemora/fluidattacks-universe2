@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -89,16 +88,14 @@ def tfm_db_no_deletion_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_termination_protection",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _tfm_db_no_deletion_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_NO_DELETION_PROTEC,
     )
 
 
@@ -107,16 +104,14 @@ def tfm_rds_no_deletion_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_termination_protection",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _tfm_rds_no_deletion_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_RDS_NO_DELETION_PROTEC,
     )
 
 
@@ -125,16 +120,14 @@ def tfm_db_has_not_automated_backups(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_automated_backups",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _tfm_db_has_not_automated_backups_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_NOT_AUTO_BACKUPS,
     )
 
 
@@ -143,14 +136,12 @@ def tfm_rds_has_not_automated_backups(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_automated_backups",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _tfm_rds_has_not_automated_backups_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_RDS_NOT_AUTO_BACKUPS,
     )

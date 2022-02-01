@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -42,11 +41,9 @@ def cfn_rds_is_not_inside_a_db_subnet_group(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F109.value.cwe},
         description_key=(
             "src.lib_path.f109.rds_is_not_inside_a_db_subnet_group"
         ),
-        finding=FindingEnum.F109,
         iterator=get_cloud_iterator(
             _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -56,5 +53,5 @@ def cfn_rds_is_not_inside_a_db_subnet_group(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_RDS_NOT_INSIDE_DB_SUBNET,
     )

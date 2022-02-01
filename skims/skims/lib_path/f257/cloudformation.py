@@ -11,8 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -48,9 +47,7 @@ def cfn_ec2_has_not_termination_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F257.value.cwe},
         description_key="src.lib_path.f257.ec2_has_not_termination_protection",
-        finding=FindingEnum.F257,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -60,5 +57,5 @@ def cfn_ec2_has_not_termination_protection(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_NOT_TERMINATION_PROTEC,
     )

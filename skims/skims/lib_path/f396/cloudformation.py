@@ -11,8 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -49,11 +48,9 @@ def cfn_kms_key_is_key_rotation_absent_or_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F396.value.cwe},
         description_key=(
             "src.lib_path.f396.kms_key_is_key_rotation_absent_or_disabled"
         ),
-        finding=FindingEnum.F396,
         iterator=get_cloud_iterator(
             _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
                 file_ext=file_ext,
@@ -61,5 +58,5 @@ def cfn_kms_key_is_key_rotation_absent_or_disabled(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_KMS_KEY_ROTATION_DISABLED,
     )

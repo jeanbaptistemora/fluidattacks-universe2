@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -43,16 +42,14 @@ def tfm_db_has_unencrypted_storage(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F246.value.cwe},
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
-        finding=FindingEnum.F246,
         iterator=get_cloud_iterator(
             _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_UNENCRYPTED_STORAGE,
     )
 
 
@@ -61,14 +58,12 @@ def tfm_rds_has_unencrypted_storage(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F246.value.cwe},
         description_key="src.lib_path.f246.rds_has_unencrypted_storage",
-        finding=FindingEnum.F246,
         iterator=get_cloud_iterator(
             _tfm_rds_has_unencrypted_storage_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_RDS_UNENCRYPTED_STORAGE,
     )

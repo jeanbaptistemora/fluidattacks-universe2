@@ -3,8 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -41,14 +40,12 @@ def tfm_azure_key_vault_not_recoverable(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F101.value.cwe},
         description_key=("lib_path.f101.azure_key_vault_not_recoverable"),
-        finding=FindingEnum.F101,
         iterator=get_cloud_iterator(
             _tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_key_vault(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_KEY_VAULT_NOT_RECOVER,
     )

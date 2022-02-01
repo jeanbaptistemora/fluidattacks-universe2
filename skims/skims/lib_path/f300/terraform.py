@@ -6,8 +6,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -58,9 +57,7 @@ def tfm_azure_app_authentication_off(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F300.value.cwe},
         description_key="lib_path.f300.azure_app_authentication_is_off",
-        finding=FindingEnum.F300,
         iterator=get_cloud_iterator(
             _tfm_azure_app_authentication_off_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -70,7 +67,7 @@ def tfm_azure_app_authentication_off(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_APP_AUTH_OFF,
     )
 
 
@@ -79,14 +76,12 @@ def tfm_azure_as_client_certificates_enabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F300.value.cwe},
         description_key="lib_path.f300.azure_app_authentication_is_off",
-        finding=FindingEnum.F300,
         iterator=get_cloud_iterator(
             _tfm_azure_as_client_certificates_enabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_app_service(model=model),
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_CLIENT_CERT_ENABLED,
     )

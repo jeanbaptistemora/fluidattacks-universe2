@@ -14,8 +14,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -194,18 +193,16 @@ def tfm_aws_ec2_allows_all_outbound_traffic(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=(
             "src.lib_path.f024_aws.security_group_without_egress"
         ),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
                 resource_iterator=iter_aws_security_group(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AWS_EC2_ALL_TRAFFIC,
     )
 
 
@@ -214,9 +211,7 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=("src.lib_path.f024_aws.unrestricted_protocols"),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -226,7 +221,7 @@ def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AWS_EC2_CFN_UNRESTR_IP_PROT,
     )
 
 
@@ -235,9 +230,7 @@ def tfm_aws_ec2_unrestricted_cidrs(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=("src.lib_path.f024_aws.unrestricted_cidrs"),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -247,7 +240,7 @@ def tfm_aws_ec2_unrestricted_cidrs(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AWS_EC2_UNRESTRICTED_CIDRS,
     )
 
 
@@ -256,9 +249,7 @@ def tfm_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024.ec2_has_unrestricted_ports",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -268,5 +259,5 @@ def tfm_ec2_has_unrestricted_ports(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.TFM_EC2_UNRESTRICTED_PORTS,
     )

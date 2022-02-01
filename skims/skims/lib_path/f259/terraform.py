@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -49,14 +48,12 @@ def tfm_db_no_point_in_time_recovery(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F259.value.cwe},
         description_key="src.lib_path.f259.has_not_point_in_time_recovery",
-        finding=FindingEnum.F259,
         iterator=get_cloud_iterator(
             _tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
                 resource_iterator=iter_aws_dynambodb_table(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_DB_NO_POINT_TIME_RECOVERY,
     )

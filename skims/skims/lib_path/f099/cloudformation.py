@@ -12,8 +12,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -66,18 +65,16 @@ def cfn_bucket_policy_has_server_side_encryption_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F099.value.cwe},
         description_key=(
             "src.lib_path.f099.bckp_has_server_side_encryption_disabled"
         ),
-        finding=FindingEnum.F099,
         iterator=get_cloud_iterator(
             _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_POLICY_SERVER_ENCRYP_DISABLED,
     )
 
 
@@ -86,9 +83,7 @@ def cfn_unencrypted_buckets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F099.value.cwe},
         description_key="src.lib_path.f099.unencrypted_buckets",
-        finding=FindingEnum.F099,
         iterator=get_cloud_iterator(
             _cfn_unencrypted_buckets_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -96,5 +91,5 @@ def cfn_unencrypted_buckets(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_UNENCRYPTED_BUCKETS,
     )

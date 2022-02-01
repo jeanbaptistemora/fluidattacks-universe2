@@ -11,8 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -62,9 +61,7 @@ def cfn_rds_has_not_automated_backups(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_automated_backups",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
                 rds_iterator=iter_rds_clusters_and_instances(
@@ -73,7 +70,7 @@ def cfn_rds_has_not_automated_backups(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_RDS_NOT_AUTO_BACKUPS,
     )
 
 
@@ -82,9 +79,7 @@ def cfn_rds_has_not_termination_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F256.value.cwe},
         description_key="src.lib_path.f256.rds_has_not_termination_protection",
-        finding=FindingEnum.F256,
         iterator=get_cloud_iterator(
             _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -94,5 +89,5 @@ def cfn_rds_has_not_termination_protection(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_RDS_NOT_TERMINATION_PROTEC,
     )

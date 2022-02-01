@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -50,9 +49,7 @@ def cfn_log_files_not_validated(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F394.value.cwe},
         description_key="src.lib_path.f394.cfn_log_files_not_validated",
-        finding=FindingEnum.F394,
         iterator=get_cloud_iterator(
             _cfn_log_files_not_validated_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -60,5 +57,5 @@ def cfn_log_files_not_validated(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_LOG_NOT_VALIDATED,
     )

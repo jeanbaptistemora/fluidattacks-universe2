@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -41,14 +40,12 @@ def tfm_elb_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F400.value.cwe},
         description_key="src.lib_path.f400.has_logging_disabled",
-        finding=FindingEnum.F400,
         iterator=get_cloud_iterator(
             _tfm_elb_logging_disabled_iterate_vulnerabilities(
                 resource_iterator=iter_aws_elb(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_ELB_LOGGING_DISABLED,
     )

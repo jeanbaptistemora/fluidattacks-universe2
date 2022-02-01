@@ -11,8 +11,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -63,9 +62,7 @@ def cfn_elb2_has_not_deletion_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F258.value.cwe},
         description_key="src.lib_path.f258.elb2_has_not_deletion_protection",
-        finding=FindingEnum.F258,
         iterator=get_cloud_iterator(
             _cfn_elb2_has_not_deletion_protection_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -75,5 +72,5 @@ def cfn_elb2_has_not_deletion_protection(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_ELB2_NOT_DELETION_PROTEC,
     )

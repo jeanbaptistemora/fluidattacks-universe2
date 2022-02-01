@@ -13,8 +13,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -75,16 +74,14 @@ def cfn_bucket_policy_has_secure_transport(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F281.value.cwe},
         description_key="src.lib_path.f281.bucket_policy_has_secure_transport",
-        finding=FindingEnum.F281,
         iterator=get_cloud_iterator(
             _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
                 policies_iterator=iter_s3_bucket_policies(template=template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_BUCKET_POLICY_SEC_TRANSPORT,
     )
 
 
@@ -93,9 +90,7 @@ def cfn_elb2_uses_insecure_port(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F281.value.cwe},
         description_key="src.lib_path.f281.elb2_uses_insecure_port",
-        finding=FindingEnum.F281,
         iterator=get_cloud_iterator(
             _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -105,5 +100,5 @@ def cfn_elb2_uses_insecure_port(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_ELB2_USES_INSEC_PORT,
     )

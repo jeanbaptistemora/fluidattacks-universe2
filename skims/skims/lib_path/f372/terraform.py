@@ -12,8 +12,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -99,16 +98,14 @@ def tfm_serves_content_over_http(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F372.value.cwe},
         description_key="src.lib_path.f372.serves_content_over_http",
-        finding=FindingEnum.F372,
         iterator=get_cloud_iterator(
             _tfm_content_over_http_iterate_vulnerabilities(
                 resource_iterator=iter_aws_cloudfront_distribution(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_CONTENT_HTTP,
     )
 
 
@@ -117,9 +114,7 @@ def tfm_azure_kv_only_accessible_over_https(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F372.value.cwe},
         description_key="lib_path.f372.azure_only_accessible_over_http",
-        finding=FindingEnum.F372,
         iterator=get_cloud_iterator(
             _tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -129,7 +124,7 @@ def tfm_azure_kv_only_accessible_over_https(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_KV_ONLY_ACCESS_HTTPS,
     )
 
 
@@ -138,16 +133,14 @@ def tfm_azure_sa_insecure_transfer(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F372.value.cwe},
         description_key=(
             "lib_path.f372.tfm_azure_storage_account_insecure_transfer"
         ),
-        finding=FindingEnum.F372,
         iterator=get_cloud_iterator(
             _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_storage_account(model=model),
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_SA_INSEC_TRANSFER,
     )

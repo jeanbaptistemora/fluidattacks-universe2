@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -53,9 +52,7 @@ def cfn_has_not_point_in_time_recovery(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F259.value.cwe},
         description_key="src.lib_path.f259.has_not_point_in_time_recovery",
-        finding=FindingEnum.F259,
         iterator=get_cloud_iterator(
             _cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
                 file_ext=file_ext,
@@ -63,5 +60,5 @@ def cfn_has_not_point_in_time_recovery(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_NOT_POINT_TIME_RECOVERY,
     )

@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -41,9 +40,7 @@ def cfn_rds_is_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F073.value.cwe},
         description_key="src.lib_path.f073.rds_is_publicly_accessible",
-        finding=FindingEnum.F073,
         iterator=get_cloud_iterator(
             _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
                 rds_iterator=iter_rds_clusters_and_instances(
@@ -52,5 +49,5 @@ def cfn_rds_is_publicly_accessible(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_RDS_PUB_ACCESSIBLE,
     )

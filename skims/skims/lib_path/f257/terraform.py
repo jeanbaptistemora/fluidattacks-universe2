@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -45,14 +44,12 @@ def ec2_has_not_termination_protection(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F257.value.cwe},
         description_key="src.lib_path.f257.ec2_has_not_termination_protection",
-        finding=FindingEnum.F257,
         iterator=get_cloud_iterator(
             _ec2_has_not_termination_protection_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.EC2_NOT_TERMINATION_PROTEC,
     )

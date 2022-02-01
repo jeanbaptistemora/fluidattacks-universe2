@@ -3,8 +3,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from state.cache import (
@@ -17,10 +16,8 @@ from state.cache import (
 def unverifiable_files(path: str, raw_content: bytes) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=raw_content.decode(encoding="utf-8", errors="replace"),
-        cwe={"377"},
         description_key="src.lib_path.f117.unverifiable_files.description",
-        finding=FindingEnum.F117,
         iterator=iter([(1, 0)]),
         path=path,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.UNVERIFIABLE_FILES,
     )

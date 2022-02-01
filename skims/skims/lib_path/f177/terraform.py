@@ -9,8 +9,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -49,9 +48,7 @@ def ec2_use_default_security_group(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F177.value.cwe},
         description_key="lib_path.f177.ec2_using_default_security_group",
-        finding=FindingEnum.F177,
         iterator=get_cloud_iterator(
             _ec2_use_default_security_group_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -61,5 +58,5 @@ def ec2_use_default_security_group(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.EC2_DEFAULT_SEC_GROUP,
     )

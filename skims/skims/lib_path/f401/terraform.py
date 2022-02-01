@@ -3,8 +3,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -35,14 +34,12 @@ def tfm_azure_kv_secret_no_expiration_date(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F401.value.cwe},
         description_key="lib_path.f401.has_not_expiration_date_set",
-        finding=FindingEnum.F401,
         iterator=get_cloud_iterator(
             _tfm_azure_kv_secret_no_expiration_date_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_key_vault_secret(model=model),
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_AZURE_KV_SECRET_NO_EXPIRATION,
     )

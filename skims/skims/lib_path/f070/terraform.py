@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.structure.aws import (
@@ -41,14 +40,12 @@ def tfm_lb_target_group_insecure_port(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F070.value.cwe},
         description_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
-        finding=FindingEnum.F070,
         iterator=get_cloud_iterator(
             _tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
                 resource_iterator=iter_aws_lb_target_group(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_LB_TARGET_INSECURE_PORT,
     )

@@ -10,8 +10,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -69,11 +68,9 @@ def cfn_serves_content_over_insecure_protocols(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F016.value.cwe},
         description_key=(
             "src.lib_path.f016.serves_content_over_insecure_protocols"
         ),
-        finding=FindingEnum.F016,
         iterator=get_cloud_iterator(
             _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 distributions_iterator=iter_cloudfront_distributions(
@@ -82,5 +79,5 @@ def cfn_serves_content_over_insecure_protocols(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_INSEC_PROTO,
     )

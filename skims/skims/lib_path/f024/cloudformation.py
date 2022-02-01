@@ -18,8 +18,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_cfn.structure import (
@@ -259,9 +258,7 @@ def cfn_allows_anyone_to_admin_ports(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_iter_vulnerable_admin_ports(
                 rules_iterator=iter_ec2_ingress_egress(
@@ -271,7 +268,7 @@ def cfn_allows_anyone_to_admin_ports(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_ANYONE_ADMIN_PORTS,
     )
 
 
@@ -280,11 +277,9 @@ def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=(
             "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
         ),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
                 ec2_iterator=iter_ec2_ingress_egress(
@@ -293,7 +288,7 @@ def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_SEC_GROUPS_RFC1918,
     )
 
 
@@ -302,9 +297,7 @@ def cfn_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=("src.lib_path.f024.ec2_has_unrestricted_ports"),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 ec2_iterator=iter_ec2_ingress_egress(
@@ -313,7 +306,7 @@ def cfn_ec2_has_unrestricted_ports(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_UNRESTRICTED_PORTS,
     )
 
 
@@ -324,16 +317,14 @@ def cfn_groups_without_egress(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.security_group_without_egress",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _groups_without_egress_iter_vulnerabilities(
                 groups_iterators=iter_ec2_security_groups(template=template)
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_GROUPS_WITHOUT_EGRESS,
     )
 
 
@@ -342,16 +333,14 @@ def cfn_instances_without_profile(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.instances_without_profile",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _instances_without_role_iter_vulns(
                 instaces_iterator=iter_ec2_instances(template=template)
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_INST_WITHOUT_PROFILE,
     )
 
 
@@ -360,9 +349,7 @@ def cfn_unrestricted_cidrs(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.unrestricted_cidrs",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cidr_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
@@ -373,7 +360,7 @@ def cfn_unrestricted_cidrs(
             )
         ),
         path=path,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CFN_UNRESTRICTED_CIDRS,
     )
 
 
@@ -382,9 +369,7 @@ def cfn_unrestricted_ip_protocols(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.unrestricted_protocols",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _protocol_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
@@ -395,7 +380,7 @@ def cfn_unrestricted_ip_protocols(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_UNRESTRICTED_IP_PROTO,
     )
 
 
@@ -404,9 +389,7 @@ def cfn_unrestricted_ports(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key="src.lib_path.f024_aws.unrestricted_ports",
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _range_port_iter_vulnerabilities(
                 rules_iterator=iter_ec2_ingress_egress(
@@ -417,7 +400,7 @@ def cfn_unrestricted_ports(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.CFN_UNRESTRICTED_PORTS,
     )
 
 
@@ -426,11 +409,9 @@ def cfn_ec2_has_open_all_ports_to_the_public(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=(
             "src.lib_path.f024.ec2_has_open_all_ports_to_the_public"
         ),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
                 ec2_iterator=iter_ec2_ingress_egress(
@@ -439,7 +420,7 @@ def cfn_ec2_has_open_all_ports_to_the_public(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_OPEN_ALL_PORTS_PUBLIC,
     )
 
 
@@ -448,9 +429,7 @@ def cfn_ec2_has_unrestricted_dns_access(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=("src.lib_path.f024.ec2_has_unrestricted_dns_access"),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
                 ec2_iterator=iter_ec2_ingress_egress(
@@ -459,7 +438,7 @@ def cfn_ec2_has_unrestricted_dns_access(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_UNRESTRICTED_DNS,
     )
 
 
@@ -468,9 +447,7 @@ def cfn_ec2_has_unrestricted_ftp_access(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F024.value.cwe},
         description_key=("src.lib_path.f024.ec2_has_unrestricted_ftp_access"),
-        finding=FindingEnum.F024,
         iterator=get_cloud_iterator(
             _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
                 ec2_iterator=iter_ec2_ingress_egress(
@@ -479,5 +456,5 @@ def cfn_ec2_has_unrestricted_ftp_access(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.CFN_EC2_UNRESTRICTED_FTP,
     )

@@ -2,8 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_java_properties import (
@@ -31,12 +30,10 @@ def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"310", "327"},
         description_key="src.lib_path.f052.java_properties_missing_ssl",
-        finding=FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.JAVA_PROP_MISSING_SSL,
     )
 
 
@@ -55,10 +52,8 @@ def java_properties_weak_cipher_suite(
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"310", "327"},
         description_key="src.lib_path.f052.java_properties_weak_cipher_suite",
-        finding=FindingEnum.F052,
         iterator=_iterate_vulnerabilities(),
         path=path,
-        developer=DeveloperEnum.JUAN_RESTREPO,
+        method=MethodsEnum.JAVA_PROP_WEAK_CIPHER,
     )

@@ -10,8 +10,7 @@ from metaloaders.model import (
     Type,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 import re
@@ -81,16 +80,14 @@ def docker_compose_env_secrets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.docker_compose_env_secrets",
-        finding=FindingEnum.F009,
         iterator=get_cloud_iterator(
             _docker_compose_env_secrets_iterate_vulnerabilities(
                 env_vars_iterator=_iterate_docker_c_envs(template),
             )
         ),
         path=path,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        method=MethodsEnum.DOCKER_COMPOSE_ENV_SECRETS,
     )
 
 
@@ -122,10 +119,8 @@ def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"798"},
         description_key="src.lib_path.f009.dockerfile_env_secrets.description",
-        finding=FindingEnum.F009,
         iterator=iterator(),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.DOCKER_ENV_SECRETS,
     )

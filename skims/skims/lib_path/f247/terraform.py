@@ -6,8 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -102,16 +101,14 @@ def tfm_fsx_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F247.value.cwe},
         description_key="lib_path.f247.resource_not_encrypted",
-        finding=FindingEnum.F247,
         iterator=get_cloud_iterator(
             _tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
                 resource_iterator=iter_aws_fsx_windows_file_system(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_FSX_UNENCRYPTED_VOLUMES,
     )
 
 
@@ -120,16 +117,14 @@ def tfm_ebs_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F247.value.cwe},
         description_key="lib_path.f247.resource_not_encrypted",
-        finding=FindingEnum.F247,
         iterator=get_cloud_iterator(
             _tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
                 resource_iterator=iter_aws_ebs_volume(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_EBS_UNENCRYPTED_VOLUMES,
     )
 
 
@@ -138,16 +133,14 @@ def tfm_ec2_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F247.value.cwe},
         description_key="lib_path.f247.resource_not_encrypted",
-        finding=FindingEnum.F247,
         iterator=get_cloud_iterator(
             _tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
                 resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_EC2_UNENCRYPTED_VOLUMES,
     )
 
 
@@ -156,9 +149,7 @@ def tfm_ebs_unencrypted_by_default(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F247.value.cwe},
         description_key="lib_path.f247.resource_not_encrypted",
-        finding=FindingEnum.F247,
         iterator=get_cloud_iterator(
             _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
                 resource_iterator=iter_aws_ebs_encryption_by_default(
@@ -167,5 +158,5 @@ def tfm_ebs_unencrypted_by_default(
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_EBS_UNENCRYPTED_DEFAULT,
     )

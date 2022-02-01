@@ -2,8 +2,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_java_properties import (
@@ -39,10 +38,8 @@ def java_properties_unencrypted_transport(
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={"319"},
         description_key="src.lib_path.f022.unencrypted_channel",
-        finding=FindingEnum.F022,
         iterator=iterator(),
         path=path,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JAVA_PROP_UNENCRYPTED_TRANSPORT,
     )

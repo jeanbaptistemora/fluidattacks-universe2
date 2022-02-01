@@ -9,8 +9,7 @@ from lib_path.f031.utils import (
     permissive_policy_iterate_vulnerabilities,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from parse_hcl2.common import (
@@ -43,9 +42,7 @@ def terraform_admin_policy_attached(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             admin_policies_attached_iterate_vulnerabilities(
                 managed_policies_iterator=(
@@ -54,7 +51,7 @@ def terraform_admin_policy_attached(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.TFM_ADMIN_POLICY,
     )
 
 
@@ -63,9 +60,7 @@ def terraform_negative_statement(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             negative_statement_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -74,7 +69,7 @@ def terraform_negative_statement(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.TFM_NEGATIVE_STATEMENT,
     )
 
 
@@ -83,9 +78,7 @@ def terraform_open_passrole(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             open_passrole_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -94,7 +87,7 @@ def terraform_open_passrole(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.TFM_OPEN_PASSROLE,
     )
 
 
@@ -103,9 +96,7 @@ def terraform_permissive_policy(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             permissive_policy_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
@@ -114,7 +105,7 @@ def terraform_permissive_policy(
             )
         ),
         path=path,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.TFM_PERMISSIVE_POLICY,
     )
 
 
@@ -123,16 +114,14 @@ def tfm_ec2_has_not_an_iam_instance_profile(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        cwe={FindingEnum.F031.value.cwe},
         description_key=(
             "src.lib_path.f031.ec2_has_not_an_iam_instance_profile"
         ),
-        finding=FindingEnum.F031,
         iterator=get_cloud_iterator(
             _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
                 resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.TFM_EC2_NO_IAM,
     )
