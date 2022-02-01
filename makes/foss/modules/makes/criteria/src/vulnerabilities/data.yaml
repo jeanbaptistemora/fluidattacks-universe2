@@ -12515,28 +12515,32 @@
       The debug APK is available to anyone
       on the Internet.
     impact: >
-      Host an APK in AWS.
+      - Host an APK in AWS.
+
+      - Download the debug APK without any
+      authentication, being able to analyze
+      the application and find vulnerabilities easily.
     recommendation: >
       Protect the APK behind some kind of authentication.
     threat: >
-      Anyone from the Internet can download the debug APK
-      without any authentication, being able to analyze
-      the application and find vulnerabilities easily.
+      Anonymous attacker from the Internet.
   es:
     title: Unauthorized access to files - Debug APK
     description: >
       La APK de depuración está disponible
       para cualquiera en internet.
     impact: >
-      Hostear una APK en AWS.
+      - Hostear una APK en AWS.
+
+      - Descargar la APK de depuración sin
+      ningún tipo de autenticación, pudiendo
+      analizar la aplicación y encontrar
+      vulnerabilidades fácilmente.
     recommendation: >
       Proteger la apk detrás de algún
       tipo de autenticación.
     threat: >
-      Cualquier persona desde internet puede descargar
-      la APK de depuración sin ningún tipo de
-      autenticación, pudiendo analizar la aplicación
-      y encontrar vulnerabilidades fácilmente.
+      Atacante anónimo desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -12627,7 +12631,7 @@
       data that are entered into different types
       of fields in the application.
     threat: >
-      Authorized user from internet.
+      Authorized user from Internet.
   es:
     title: Insufficient data authenticity validation
     description: >
@@ -12644,7 +12648,7 @@
       datos que se ingresan a distintos tipos de
       campos en la aplicación.
     threat: >
-      Usuario autorizado desde internet.
+      Usuario autorizado desde Internet.
   category: Manipulate Data
   remediation_time: "60"
   score:
@@ -12678,7 +12682,7 @@
       for an access card.
       Make employees aware of tailgating.
     threat: >
-      Anonymous entering the branch.
+      Anonymous attacker entering the branch.
   es:
     title: Insuficient Physical Access Controls
     description: >
@@ -12692,7 +12696,7 @@
       Concientizar a los empleados acerca
       del tailgating.
     threat: >
-      Anónimo entrando en la sucursal
+      Atacante anónimo entrando en la sucursal.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -12789,7 +12793,7 @@
       in its strongest configuration.
       Add tampering detection to the App.
     threat: >
-      Anonymous attacker from the internet.
+      Anonymous attacker from the Internet.
   es:
     title: Security controls bypass or absence - SSLPinning
     description: >
@@ -13072,7 +13076,7 @@
       Redirect any request to the
       server to the security service.
     threat: >
-      User from the Internet.
+      Unauthorized user from the Internet.
   es:
     title: Security controls bypass or absence - Cloudflare
     description: >
@@ -13093,7 +13097,7 @@
       Redirigir cualquier petición al servidor
       hacia el servicio de seguridad.
     threat: >
-      Usuario de Internet.
+      Usuario no autorizado desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -13152,7 +13156,7 @@
       y gestionar este tipo de información en
       el lado del servidor.
     threat: >
-      Atacante anónimo desde internet.
+      Atacante anónimo desde Internet.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -13200,10 +13204,7 @@
 
       - Network security and access controls should be reviewed.
     threat: >
-      The threat is magnified by a number of factors
-      which extend the leakage beyond the corporate
-      firewall (i.e. account hijacking, identity theft,
-      extortion schemes, and spear phishing campaigns).
+      Unauthorized attacker with access to business information.
   es:
     title: Business information leak - Credentials
     description: >
@@ -13231,11 +13232,8 @@
 
       - Se debe revisar la seguridad de la red y los controles de acceso.
     threat: >
-      La amenaza se ve magnificada por una serie de
-      factores que extienden la filtración más allá
-      del cortafuegos de la empresa (es decir, el secuestro
-      de cuentas, el robo de identidad, los esquemas de
-      extorsión y las campañas de phishing).
+      Atacante no autorizado con acesso a la
+      información de la empresa.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -13324,7 +13322,7 @@
       controls so that the information is only
       accessible to the indicated persons.
     threat: >
-      Insider attacker with access to source code.
+      Internal attacker with access to source code.
   es:
     title: Business information leak - Source Code
     description: >
@@ -13456,9 +13454,7 @@
       - Secure transport encryption is crucial to
       encrypt the transmission in this layer.
     threat: >
-      Network scanning tools give enough information
-      about the network, which attackers can then use
-      for malicious activities.
+      Anonymous atacker in local network.
   es:
     title: Business information leak - Network Unit
     description: >
@@ -13478,9 +13474,7 @@
       - El cifrado de transporte seguro es crucial para
       cifrar la transmisión en esta capa.
     threat: >
-      Las herramientas de escaneo de la red proporcionan
-      suficiente información sobre la red, que los atacantes
-      pueden utilizar para realizar actividades maliciosas.
+      Atacante anónimo en red local.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -14062,7 +14056,11 @@
       a legitimate device and the switch, compromising
       and allowing information leakage.
     impact: >
-      Disrupt the NAC infrastructure to make it inaccessible.
+      - Disrupt the NAC infrastructure to
+      make it inaccessible.
+
+      - Circumvent the NAC solution by
+      using a man-in-the-middle attack.
     recommendation: >
       - Implement NAC can drastically improve an
       organizations network security posture.
@@ -14077,8 +14075,8 @@
       internal client network are used in publicly
       accessible areas.
     threat: >
-      It is possible to circumvent the NAC solution
-      by using a man-in-the-middle attack.
+      Anonymous attacker from the Internet
+      performing man-in-the-middle attack.
   es:
     title: Business information leak - NAC
     description: >
@@ -14091,8 +14089,11 @@
       un dispositivo legítimo y el switch, comprometiendo
       y permitiendo la fuga de información.
     impact: >
-      Interrumpir la infraestructura del NAC
+      - Interrumpir la infraestructura del NAC
       para hacerla inaccesible.
+
+      - Eludir la solución NAC mediante
+      un ataque man-in-the-middle.
     recommendation: >
       - Implementar NAC puede mejorar drásticamente
       la postura de seguridad de la red de una organización.
@@ -14108,7 +14109,7 @@
       con acceso a la red interna del cliente en
       zonas de acceso público.
     threat: >
-      Es posible eludir la solución NAC mediante
+      Atacante anónimo desde Internet realizando
       un ataque man-in-the-middle.
   category: Collect Information
   remediation_time: "60"
@@ -14712,7 +14713,7 @@
     recommendation: >
       Disable introspection queries.
     threat: >
-      An anonymous attacker from Internet
+      An anonymous attacker from the Internet
       network crafts an introspection query.
   es:
     title: Technical information leak - API
@@ -14727,7 +14728,7 @@
     recommendation: >
       Desactivar las consultas de introspección.
     threat: >
-      Un atacante anónimo de la red de Internet
+      Un atacante anónimo desde la red de Internet
       realiza una consulta de introspección.
   category: Collect Information
   remediation_time: "60"
@@ -14882,7 +14883,7 @@
       mechanisms based and evaluating the business
       security requirements.
     threat: >
-      Probability of an unauthorized attacker
+      Unauthorized attacker with probability of
       bypassing the authentication process.
   es:
     title: Authentication mechanism absence or evasion - AWS
@@ -14898,7 +14899,7 @@
       sistema operativo AWS basándose y evaluando los
       requisitos de seguridad de la empresa.
     threat: >
-      Probabilidad de que un atacante no autorizado
+      Atacante no autorizado con probabilidad de que
       se salte el proceso de autenticación.
   category: Subvert Access
   remediation_time: "60"
@@ -15760,7 +15761,7 @@
       Ensure that instances have Termination
       Protection safety feature enabled.
     threat: >
-      External atacker with AWS credentials.
+      External attacker with AWS credentials.
   es:
     title: Lack of protection against deletion - EC2
     description: >
@@ -15776,7 +15777,7 @@
       activada la función de seguridad de
       protección de la terminación.
     threat: >
-      Ataque externo con credenciales de AWS.
+      Atacante externo con credenciales de AWS.
   category: Abuse Functionality
   remediation_time: "60"
   score:
