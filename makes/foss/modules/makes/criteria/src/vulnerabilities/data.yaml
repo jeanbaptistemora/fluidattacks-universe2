@@ -9866,7 +9866,7 @@
       el servicio estableciendo ubicaciones
       confiables para acceder al servicio.
     threat: >
-      Usuario autorizado desde internet.
+      Usuario autorizado desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -9954,7 +9954,7 @@
       modificar sus permisos.
     threat: >
       Atacante con acceso a la
-      aplicación desde internet.
+      aplicación desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -10221,9 +10221,9 @@
       Obfuscate all source code files
       in production.
     threat: >
-      An anonymous user from the Internet
-      can have access to the application
-      logic by being able to view the
+      Anonymous user from the Internet
+      with access to the application
+      logic being able to view the
       binaries and see the source code.
   es:
     title: Missing secure obfuscation - binary
@@ -10247,9 +10247,9 @@
       Ofuscar todos los archivos de código
       fuente en producción.
     threat: >
-      Un usuario anónimo desde internet
-      puede tener acceso a la lógica de
-      la aplicación al poder ver los
+      Usuario anónimo desde Internet
+      con acceso a la lógica de
+      la aplicación, puede ver los
       binarios y ver el código fuente.
   category: Collect Information
   remediation_time: "60"
@@ -10469,8 +10469,8 @@
       Configure a logger to alert
       Kerberoast attacks.
     threat: >
-      Domain user with valid credentials
-      in the internal network.
+      Unauthorized domain user with valid
+      credentials in the internal network.
   es:
     title: Insecure service configuration - Kerberoast
     description: >
@@ -10483,8 +10483,8 @@
       Configurar un logger que alerte
       los ataques de Kerberoast.
     threat: >
-      Usuario del dominio con credenciales
-      válidas en la red interna.
+      Usuario del dominio no autorizado con
+      credenciales válidas en la red interna.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -10809,18 +10809,21 @@
       hosted has port 8080 open running
       the http-proxy service.
     impact: >
-      Establish, from the Internet,
+      - Establish, from the Internet,
       a connection with the port open.
+
+      - Allow malicious clients to mount
+      attacks originating from the IP address of
+      the server running the proxy, without requiring
+      authentication from the attacker.
+
+      - Access to the internal network on
+      which the server is located
     recommendation: >
       Securely configure the vulnerable service,
       so that it can only be accessed by authorized users.
     threat: >
-      An open proxy allows malicious clients to
-      mount attacks originating from the IP address of
-      the server running the proxy, without requiring
-      authentication from the attacker.
-      It can also allow an attacker to access the internal
-      network on which the server is located.
+      Anonymous attacker from the Internet.
   es:
     title: Insecure service configuration - Firewall
     description: >
@@ -10828,19 +10831,22 @@
       tiene abierto el puerto 8080 corriendo el
       servicio http-proxy.
     impact: >
-      Establecer, desde Internet, una conexión
+      - Establecer, desde Internet, una conexión
       con un puerto abierto.
+
+      - Permitir que clientes maliciosos
+      monten ataques que se originan desde la dirección
+      IP del servidor ejecutando el proxy, sin requerir
+      autenticación del atacante.
+
+      - Permitir que un atacante acceda a la
+      red interna en la que está el servidor.
     recommendation: >
       Configurar de manera segura el servicio
       vulnerable permitiendo así que solo sea
       accedido por usuarios autorizados.
     threat: >
-      Un proxy abierto permite que clientes maliciosos
-      monten ataques que se originan desde la dirección
-      IP del servidor ejecutando el proxy, sin requerir
-      autenticación del atacante.
-      También puede permitir que un atacante acceda a la
-      red interna en la que está el servidor.
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -11407,7 +11413,8 @@
       Configurar el endpoint sendEmail para
       que no permita una conexión anónima.
     threat: >
-      Un atacante anónimo de Internet puede enviar correo utilizando el punto final sendEmail.
+      Un atacante anónimo de Internet puede enviar
+      correo utilizando el endpoint sendEmail.
   category: Deceptive Interactions
   remediation_time: "60"
   score:
@@ -11746,7 +11753,7 @@
       and then attaching them yields much better
       performance than only create them.
     threat: >
-      An attacker could read confidential data.
+      Unauthorized attacker reading confidential data.
   es:
     title: Lack of data validation - Modify DOM Elements
     description: >
@@ -11772,7 +11779,7 @@
       separan y luego se adjuntan produce un rendimiento
       mucho mejor que sólo crearlos
     threat: >
-      Un atacante podría leer datos confidenciales.
+      Atacante no autorizado leyendo datos confidenciales.
   category: Inject Unexpected
   remediation_time: "60"
   score:
@@ -11862,7 +11869,7 @@
     recommendation: >
       Prevent modification of the session cookie value.
     threat: >
-      External attacker with internet
+      External attacker with Internet
       access and a valid token.
   es:
     title: Lack of data validation - Session Cookie
@@ -11879,7 +11886,7 @@
       Prevenir la modificación del valor de
       la cookie de sesión.
     threat: >
-      Atacante externo con acceso a internet
+      Atacante externo con acceso a Internet
       y con un token válido.
   category: Inject Unexpected
   remediation_time: "60"
@@ -12089,7 +12096,7 @@
       entradas de los usuarios cumplan con un
       límite de caracteres.
     threat: >
-      Atacante autorizado desde internet.
+      Atacante autorizado desde Internet.
   category: Inject Unexpected
   remediation_time: "60"
   score:
@@ -12145,7 +12152,7 @@
       datos que se ingresan a distintos tipos de
       campos en la aplicación.
     threat: >
-      Usuario autorizado desde internet.
+      Usuario autorizado desde Internet.
   category: Inject Unexpected
   remediation_time: "60"
   score:
@@ -12179,15 +12186,14 @@
       valid requests.
     impact: >
       Generate the history of all movements
-      associated with a product number.
+      associated with a product number, in
+      some cases it could generate availability
+      problems.
     recommendation: >
       Validate on the server side the data that is
       entered before processing the received request.
     threat: >
-      By means of a build request it is possible
-      to request the history of all the movements
-      associated with a product, in some cases it
-      could generate availability problems.
+      Unauthorized user with access to the application.
   es:
     title: Lack of data validation - Dates
     description: >
@@ -12198,15 +12204,13 @@
       valida y procesa como peticiones válidas.
     impact: >
       Generar el histórico de todos los movimientos
-      asociados a un numero de producto.
+      asociados a un numero de producto, en algunos casos
+      podría generar problemas de disponibilidad.
     recommendation: >
       Validar en el lado del servidor los datos que se
       ingresan antes de procesar la petición recibida.
     threat: >
-      Mediante una petición forjada es posible solicitar
-      el histórico de todos los movimientos asociados a
-      un producto, en algún caso podría generar problemas
-      de disponibilidad.
+      Usuario no autorizado con acceso a la aplicación.
   category: Inject Unexpected
   remediation_time: "60"
   score:
