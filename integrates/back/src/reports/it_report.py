@@ -19,6 +19,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityTreatment,
 )
 from findings import (
     domain as findings_domain,
@@ -38,6 +39,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Set,
     Tuple,
     Union,
@@ -298,13 +300,31 @@ class ITReport:
             ),
         )
 
-    def set_treatment_data(self, vuln: Vulnerability) -> None:
+    async def set_treatment_data(self, vuln: Vulnerability) -> None:
+        def get_first_treatment(
+            treatments: Tuple[VulnerabilityTreatment, ...]
+        ) -> Optional[VulnerabilityTreatment]:
+
+            return next(
+                (
+                    treatment
+                    for treatment in treatments
+                    if treatment.status != VulnerabilityTreatmentStatus.NEW
+                ),
+                None,
+            )
+
         def format_treatment(treatment: VulnerabilityTreatmentStatus) -> str:
             if treatment == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
                 return "Permanently accepted"
             if treatment == VulnerabilityTreatmentStatus.ACCEPTED:
                 return "Temporarily accepted"
             return treatment.value.capitalize().replace("_", " ")
+
+        historic_treatment: Tuple[
+            VulnerabilityTreatment, ...
+        ] = await self.loaders.vulnerability_historic_treatment.load(vuln.id)
+        first_treatment = get_first_treatment(historic_treatment)
 
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         if vuln.treatment.accepted_until:
@@ -322,15 +342,32 @@ class ITReport:
             "Current Treatment expiration Moment": current_treatment_exp_date,
             "Current Assigned": vuln.treatment.assigned or EMPTY,
         }
-        first_treatment_data = {
-            "First Treatment": VulnerabilityTreatmentStatus.NEW.value,
-            "First Treatment Moment": datetime_utils.convert_from_iso_str(
-                vuln.unreliable_indicators.unreliable_report_date
-            ),
-            "First Treatment Justification": EMPTY,
-            "First Treatment expiration Moment": EMPTY,
-            "First Assigned": EMPTY,
-        }
+        if first_treatment:
+            if first_treatment.status == VulnerabilityTreatmentStatus.ACCEPTED:
+                first_expiration = datetime_utils.convert_from_iso_str(
+                    first_treatment.accepted_until
+                )
+            else:
+                first_expiration = EMPTY
+            first_treatment_data = {
+                "First Treatment": format_treatment(first_treatment.status),
+                "First Treatment Moment": datetime_utils.convert_from_iso_str(
+                    first_treatment.modified_date
+                ),
+                "First Treatment Justification": first_treatment.justification
+                or EMPTY,
+                "First Treatment expiration Moment": first_expiration,
+                "First Assigned": first_treatment.assigned or EMPTY,
+            }
+        else:
+            first_treatment_data = {
+                "First Treatment": EMPTY,
+                "First Treatment Moment": EMPTY,
+                "First Treatment Justification": EMPTY,
+                "First Treatment expiration Moment": EMPTY,
+                "First Assigned": EMPTY,
+            }
+
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = (
                 value
@@ -371,7 +408,7 @@ class ITReport:
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)
-        self.set_treatment_data(row)
+        await self.set_treatment_data(row)
         await self.set_reattack_data(finding, row)
         self.set_cvss_metrics_cell(finding)
 
