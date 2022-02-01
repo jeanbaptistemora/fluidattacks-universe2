@@ -50,6 +50,25 @@
               }
             }
           },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_reattack_cycles": {
+                "N": "0"
+              },
+              "unreliable_source": {
+                "S": "ASM"
+              },
+              "unreliable_efficacy": {
+                "N": "0"
+              },
+              "unreliable_report_date": {
+                "S": "2020-07-22T21:19:24+00:00"
+              },
+              "unreliable_treatment_changes": {
+                "N": "0"
+              }
+            }
+          },
           "specific": {
             "S": "1"
           },
