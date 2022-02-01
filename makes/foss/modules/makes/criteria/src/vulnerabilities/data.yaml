@@ -7783,7 +7783,12 @@
       to know the content of the files stored
       on the server.
     impact: >
-      Collect technical information
+      - Obtain technical
+      or sensitive information
+      of the files stored
+      in the applications directory.
+
+      - Collect technical information
       on the application.
     recommendation: >
       - Disable the configurations
@@ -7794,10 +7799,8 @@
       that will be shown
       when the directories are loaded.
     threat: >
-      Obtain technical
-      or sensitive information
-      of the files stored
-      in the applications directory.
+      External attacker with access
+      to the application.
   es:
     title: Directory listing
     description: >
@@ -7807,7 +7810,11 @@
       permitiendo a un atacante
       conocer su contenido.
     impact: >
-      Recopilar información técnica
+      - Obtener información técnica
+      o sensible de los archivos almacenados
+      en el directorio de la aplicación.
+
+      - Recopilar información técnica
       del aplicativo.
     recommendation: >
       - Deshabilitar las configuraciones
@@ -7818,9 +7825,7 @@
       que se muestren
       al cargar los directorios.
     threat: >
-      Obtener información técnica
-      o sensible de los archivos almacenados
-      en el directorio de la aplicación.
+      Atacante externo con acceso a la aplicación.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -8028,7 +8033,7 @@
       the SameSite attribute in the cookies
       with sensitive information.
     threat: >
-      Attacker from internet network
+      Attacker from Internet network
       performing a CSRF attack.
   es:
     title: Insecurely generated cookies - SameSite
@@ -8044,7 +8049,7 @@
       el atributo SameSite en la cookies
       con información sensible.
     threat: >
-      Atacante desde internet
+      Atacante desde Internet
       ejecutando un ataque CSRF.
   category: Subvert Access
   remediation_time: "60"
@@ -8270,7 +8275,7 @@
       to nosniff in the server responses.
     threat: >
       Unauthorized attacker
-      from internet network.
+      from Internet network.
   es:
     title: Insecure or unset HTTP headers - X-Content-Type-Options
     description: >
@@ -8286,7 +8291,7 @@
       en las respuestas del servidor.
     threat: >
       Atacante sin autorización
-      desde internet.
+      desde Internet.
   category: Protocol Manipulation
   remediation_time: "60"
   score:
@@ -8667,7 +8672,7 @@
       Migrate obsolete units to their
       updated equivalent.
     threat: >
-      Anonymous attacker on the internet
+      Anonymous attacker on the Internet
       with knowledge of the vulnerabilities
       of the unit.
   es:
@@ -8683,7 +8688,7 @@
       Migrar las dependencias obsoletas
       por su equivalente actualizado.
     threat: >
-      Atacante anónimo en internet con
+      Atacante anónimo en Internet con
       conocimiento de las vulnerabilidades
       de la dependencia.
   category: Abuse Functionality
@@ -8850,10 +8855,11 @@
       obtained from a secure source that
       guarantees its confidentiality.
     impact: >
-      Information of a company is
-      at stake as their internal, web and
-      API security can easily be open to
-      sensitive data exposure.
+      - Generate an elaborate brute-force
+      attack on the applications encrypted messages.
+
+      - Open easily information of a company, web and
+      API security to sensitive data exposure.
     recommendation: >
       It is recommended to load encryption
       keys from:
@@ -8865,12 +8871,10 @@
 
       - Administrative environment variables.
     threat: >
-      An unauthorised user can obtain the
+      Unauthorized user obtaining the
       encryption key directly from the
       application repository or an application
-      file and use it to generate a more
-      elaborate brute-force attack on the
-      applications encrypted messages.
+      file.
   es:
     title: Sensitive information in source code - API Key
     description: >
@@ -8880,11 +8884,12 @@
       fuente segura que garantice su
       confidencialidad.
     impact: >
-      La información de una empresa está en
-      juego ya que su seguridad interna, web
-      y la seguridad de la API puede estar
-      fácilmente abierta a exposición de
-      datos sensibles.
+      - Generar un ataque elaborado a los mensajes
+      cifrados de la aplicación o de fuerza bruta.
+
+      - Abrir fácilmente la información de
+      una empresa, la web y la seguridad de
+      la API a la exposición de datos sensibles.
     recommendation: >
       Se recomienda cargar las llaves de
       cifrado desde:
@@ -8896,12 +8901,9 @@
 
       - Variables de entorno administrativas.
     threat: >
-      Un usuario no autorizado puede obtener
-      la llave de cifrado directamente del
-      repositorio de la aplicación o un archivo
-      de esta y utilizarlo para generar una
-      ataque más elaborado a los mensajes
-      cifrados de la aplicación o de fuerza bruta.
+      Usuario no autorizado obteniendo la clave
+      de cifrado directamente del repositorio de
+      la aplicación o de un archivo de la aplicación.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -8997,8 +8999,13 @@
       members from classes, allowing them
       to be used without class qualification.
     impact: >
-      The static import construct allows
-      unqualified access to static members
+      - Overuse static import can result
+      in code that is difficult to read
+      and maintain, since readers of the
+      code will not know which class defines
+      a particular static object.
+
+      -Allow unqualified access to static members
       without inheriting from the type
       containing the static members.
     recommendation: >
@@ -9008,11 +9015,7 @@
       need frequent access to a few static
       objects from one or two classes.
     threat: >
-      Overusing static import can result
-      in code that is difficult to read
-      and maintain, since readers of the
-      code will not know which class defines
-      a particular static object.
+      Unauthorized attacker with access to the code.
   es:
     title: Inappropriate coding practices - Static Import
     description: >
@@ -9027,10 +9030,14 @@
       clases, permitiendo su uso sin la
       calificación de clase.
     impact: >
-      La construcción de importación estática
-      permite el acceso no cualificado a los
-      miembros estáticos sin heredar del tipo
-      que contiene los miembros estáticos.
+      - Reusar la importación estática puede dar
+      lugar a un código difícil de leer y mantener,
+      ya que los lectores del código no sabrán
+      qué clase define un objeto estático concreto.
+
+      - Permitir el acceso no cualificado a
+      los miembros estáticos sin heredar del
+      tipo que contiene los miembros estáticos.
     recommendation: >
       Utilice la importación estática con
       mucha moderación, si es que lo hace.
@@ -9039,12 +9046,7 @@
       a unos pocos objetos estáticos
       de una o dos clases.
     threat: >
-      El uso excesivo de la importación
-      estática puede dar lugar a un código
-      difícil de leer y mantener, ya que
-      los lectores del código no sabrán
-      qué clase define un objeto
-      estático concreto.
+      Atacante no autorizado con acceso al código.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -9780,10 +9782,7 @@
       privilege necessary to limit
       access to the database.
     threat: >
-      An attacker who obtains the
-      database credentials can access
-      the database from anywhere and
-      get, delete and/or modify data.
+      Unauthorized user in local network.
   es:
     title: Unrestricted access between network segments
     description: >
@@ -9801,11 +9800,7 @@
       para limitar los accesos a
       la base de datos.
     threat: >
-      Un atacante que obtenga las
-      credenciales de la base de datos
-      puede acceder desde cualquier
-      lugar a la misma y obtener,
-      eliminar y/o modificar datos.
+      Usuario no autorizado en red local.
   category: Subvert Access
   remediation_time: "60"
   score:
