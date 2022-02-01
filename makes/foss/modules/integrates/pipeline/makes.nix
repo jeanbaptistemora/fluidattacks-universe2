@@ -119,7 +119,7 @@ in
           };
         })
         [
-          "0172_send_masked_vulns_to_redshift_old.py"
+          "0176_update_vuln_state_in_redshift.py"
         ])
         ++ (builtins.map
         (name: {
