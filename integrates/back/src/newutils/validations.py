@@ -9,6 +9,7 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
+    InvalidSeverityUpdateValues,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
@@ -187,6 +188,21 @@ def validate_missing_severity_field_names(
         raise InvalidCvssVersion()
     if missing_field_names:
         raise IncompleteSeverity(missing_field_names)
+
+
+def validate_update_severity_values(dictionary: dict) -> None:
+    if (
+        len(
+            list(
+                filter(
+                    lambda item: item[1] < 0 or item[1] > 10,
+                    dictionary.items(),
+                )
+            )
+        )
+        > 0
+    ):
+        raise InvalidSeverityUpdateValues()
 
 
 def validate_string_length_between(

@@ -702,6 +702,15 @@ class InvalidSeverity(CustomBaseException):
         super(InvalidSeverity, self).__init__(msg)
 
 
+class InvalidSeverityUpdateValues(CustomBaseException):
+    """Exception to control severity update values"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg: str = "Invalid, severity update values out of range"
+        super(InvalidSeverityUpdateValues, self).__init__(msg)
+
+
 class InvalidSource(CustomBaseException):
     """Exception to control if the source is valid."""
 

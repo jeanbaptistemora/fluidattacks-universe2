@@ -78,6 +78,7 @@ async def mutate(
         validations.validate_missing_severity_field_names(
             set(cvss_fields.keys()), cvss_version
         )
+        validations.validate_update_severity_values(cvss_fields)
         if cvss_version == FindingCvssVersion.V20.value:
             severity = Finding20Severity(
                 access_complexity=cvss_fields["access_complexity"],
