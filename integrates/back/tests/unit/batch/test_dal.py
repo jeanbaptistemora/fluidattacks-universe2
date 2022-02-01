@@ -24,13 +24,13 @@ pytestmark = [
 async def test_get_actions() -> None:
     all_actions = await batch_dal.get_actions()
     assert isinstance(all_actions, list)
-    assert len(all_actions) == 3
+    assert len(all_actions) == 4
 
 
 async def test_get_action() -> None:
     action = await batch_dal.get_action(
         action_name="report",
-        additional_info="XLS",
+        additional_info='{"report_type": "XLS", "treatment": "ACCEPTED"}',
         entity="unittesting",
         subject="integratesmanager@gmail.com",
         time="1615834776",

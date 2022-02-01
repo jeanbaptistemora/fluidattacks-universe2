@@ -112,7 +112,7 @@ async def grant_stakeholder(
             }
         }
     """
-    data: Dict[str, str] = {
+    data: Dict[str, Any] = {
         "query": query,
         "variables": {
             "stakeholder": stakeholder,
@@ -142,7 +142,7 @@ async def get_stakeholders(
             }
         }
     """
-    data: Dict[str, str] = {
+    data: Dict[str, Any] = {
         "query": query,
         "variables": {
             "groupName": group,
