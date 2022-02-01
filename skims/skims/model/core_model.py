@@ -2368,6 +2368,9 @@ class MethodInfo(NamedTuple):
     def get_name(self) -> str:
         return f"{self.file_name}.{self.name}"
 
+    def get_cwe(self) -> int:
+        return self.finding.value.cwe
+
 
 class MethodsEnum(Enum):
     CS_SQL_INJECTION = MethodInfo(

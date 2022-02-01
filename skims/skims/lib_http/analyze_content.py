@@ -81,7 +81,7 @@ def build_vulnerabilities(
             what=ctx.url.url,
             where=f"{location.line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.finding.value.cwe,),
+                cwe=(method.value.get_cwe(),),
                 description=location.description,
                 snippet=make_snippet(
                     content=ctx.url.content,

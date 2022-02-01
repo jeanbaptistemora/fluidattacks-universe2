@@ -95,7 +95,7 @@ def _create_core_vulns(
             what=str(ssl_vulnerability),
             where=ssl_vulnerability.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(ssl_vulnerability.method.value.finding.value.cwe,),
+                cwe=(ssl_vulnerability.method.value.get_cwe(),),
                 description=ssl_vulnerability.description,
                 snippet=snippet(
                     locale=CTX.config.language,
