@@ -2538,42 +2538,70 @@ class MethodsEnum(Enum):
         name="sslv3_enabled",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     TLSV1_ENABLED = MethodInfo(
         file_name="analyze_protocol",
         name="tlsv1_enabled",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     TLSV1_1_ENABLED = MethodInfo(
         file_name="analyze_protocol",
         name="tlsv1_1_enabled",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     TLSV1_2_OR_HIGHER_DISABLED = MethodInfo(
         file_name="analyze_protocol",
         name="tlsv1_2_or_higher_disabled",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     FALLBACK_SCSV_DISABLED = MethodInfo(
         file_name="analyze_protocol",
         name="fallback_scsv_disabled",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     TLSV1_3_DOWNGRADE = MethodInfo(
         file_name="analyze_protocol",
         name="tlsv1_3_downgrade",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     HEARTBLEED_POSSIBLE = MethodInfo(
         file_name="analyze_protocol",
         name="heartbleed_possible",
         module="lib_ssl",
         finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+    )
+    FREAK_POSSIBLE = MethodInfo(
+        file_name="analyze_protocol",
+        name="freak_possible",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+    )
+    RACCOON_POSSIBLE = MethodInfo(
+        file_name="analyze_protocol",
+        name="raccoon_possible",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+    )
+    BREACH_POSSIBLE = MethodInfo(
+        file_name="analyze_protocol",
+        name="breach_possible",
+        module="lib_ssl",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     CS_JWT_SIGNED = MethodInfo(
         file_name="c_sharp",
@@ -2974,6 +3002,7 @@ class MethodsEnum(Enum):
         name="weak_ciphers_allowed",
         module="lib_ssl",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     APK_BACKUPS_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3097,6 +3126,7 @@ class MethodsEnum(Enum):
         name="cbc_enabled",
         module="lib_ssl",
         finding=FindingEnum.F094,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     CS_INSECURE_DESERIAL = MethodInfo(
         file_name="c_sharp",
@@ -3228,6 +3258,7 @@ class MethodsEnum(Enum):
         name="pfs_disabled",
         module="lib_ssl",
         finding=FindingEnum.F133,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     CS_INSECURE_CORS = MethodInfo(
         file_name="c_sharp",

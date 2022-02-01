@@ -20,7 +20,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   18 | ------------------------------Conclusion-------------------------------
   19 | server refuses connections with PFS support
      ^ Col 0
-",analyze_protocol._pfs_disabled
+",analyze_protocol.pfs_disabled
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
@@ -42,7 +42,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   18 | ------------------------------Conclusion-------------------------------
   19 | server refuses connections with PFS support
      ^ Col 0
-",analyze_protocol._pfs_disabled
+",analyze_protocol.pfs_disabled
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
 ",generic.unverifiable_files
