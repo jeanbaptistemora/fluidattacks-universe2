@@ -198,7 +198,6 @@ async def process_group(
             )
         )
     )
-    vulns_items_to_store = vulns_items_to_store[:5]
     vulns_id = tuple(vuln["UUID"] for vuln in vulns_items_to_store)
     vulns_state = _format_state(vulns_items_to_store)
     await _update_state_redshift(
