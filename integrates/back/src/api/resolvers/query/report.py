@@ -86,17 +86,14 @@ async def resolve(
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
-
-    # temporary backwards compatibility
-    if "treatment" in kwargs:
-        treatments = {VulnerabilityTreatmentStatus[kwargs["treatment"]]}
-    elif "treatments" in kwargs:
-        treatments = {
+    treatments = (
+        {
             VulnerabilityTreatmentStatus[treatment]
             for treatment in kwargs["treatments"]
         }
-    else:
-        treatments = set(VulnerabilityTreatmentStatus)
+        if kwargs.get("treatments")
+        else set(VulnerabilityTreatmentStatus)
+    )
 
     return {
         "success": await _get_url_group_report(

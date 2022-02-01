@@ -92,8 +92,6 @@ type Query {
     projectName: String,
     "Language of the requested report"
     lang: ReportLang,
-    "Treatment field to filter XLS"
-    treatment: String
     "Treatments to include"
     treatments: [VulnerabilityTreatment!]
   ): Report

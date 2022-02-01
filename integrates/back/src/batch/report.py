@@ -139,17 +139,10 @@ async def generate_report(*, item: BatchProcessing) -> None:
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
     enforcer = await authz.get_group_level_enforcer(item.subject)
-    if "treatment" in additional_info:
-        treatments = (
-            set(VulnerabilityTreatmentStatus)
-            if additional_info["treatment"] == "*"
-            else {VulnerabilityTreatmentStatus[additional_info["treatment"]]}
-        )
-    elif "treatments" in additional_info:
-        treatments = {
-            VulnerabilityTreatmentStatus[treatment]
-            for treatment in additional_info["treatments"]
-        }
+    treatments = {
+        VulnerabilityTreatmentStatus[treatment]
+        for treatment in additional_info["treatments"]
+    }
     if enforcer(
         item.entity, "api_resolvers_query_report__get_url_group_report"
     ):

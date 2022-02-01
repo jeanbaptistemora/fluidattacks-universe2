@@ -80,7 +80,7 @@ async def test_finding_report() -> None:
         query test {
             report(
                 groupName: "oneshottest",
-                reportType: XLS, treatment: "ACCEPTED") {
+                reportType: XLS, treatments: [ACCEPTED]) {
                 success
             }
         }
