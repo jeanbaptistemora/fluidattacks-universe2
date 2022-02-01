@@ -9,7 +9,7 @@ from postgres_client.query import (
     Query,
     SqlArgs,
 )
-from purity.v2.adapters import (
+from purity.adapters.to_v2 import (
     to_cmd,
 )
 from purity.v2.cmd import (
