@@ -34,36 +34,15 @@ from redshift.operations import (
     execute_batch,
     execute_many,
 )
+from redshift.queries import (
+    SQL_INSERT_HISTORIC,
+    SQL_INSERT_METADATA,
+)
 from redshift.utils import (
     format_query_fields,
 )
-from string import (
-    Template,
-)
 from typing import (
     Tuple,
-)
-
-SQL_INSERT_METADATA = Template(
-    """
-    INSERT INTO ${table} (${fields}) SELECT ${values}
-    WHERE NOT EXISTS (
-        SELECT id
-        FROM ${table}
-        WHERE id = %(id)s
-    )
-    """
-)
-
-SQL_INSERT_HISTORIC = Template(
-    """
-    INSERT INTO ${table} (${fields}) SELECT ${values}
-    WHERE NOT EXISTS (
-        SELECT id, modified_date
-        FROM ${table}
-        WHERE id = %(id)s and modified_date = %(modified_date)s
-    )
-    """
 )
 
 
