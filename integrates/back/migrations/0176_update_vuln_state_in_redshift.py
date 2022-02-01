@@ -12,8 +12,19 @@ from aioextensions import (
     collect,
     run,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
 from boto3.dynamodb.conditions import (
     Attr,
+)
+from botocore.exceptions import (
+    ClientError,
+    HTTPClientError,
 )
 from custom_exceptions import (
     UnavailabilityError as CustomUnavailabilityError,
@@ -145,6 +156,8 @@ def _format_state(
 
 @retry_on_exceptions(
     exceptions=(
+        ClientError,
+        ClientPayloadError,
         CustomUnavailabilityError,
         UnavailabilityError,
     ),
@@ -174,6 +187,17 @@ async def process_finding(
     return vulns_items_to_store
 
 
+@retry_on_exceptions(
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        ServerTimeoutError,
+        UnavailabilityError,
+    ),
+    sleep_seconds=10,
+)
 async def process_group(
     *,
     loaders: Dataloaders,
