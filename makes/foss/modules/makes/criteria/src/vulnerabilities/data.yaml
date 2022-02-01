@@ -18545,15 +18545,14 @@
       differentiates them, since the application
       does not validate the necessary permissions to access.
     impact: >
-      Tamper the payerUuid parameter in
-      the invoice upload function.
+      Access or manipulate the victims account
+      information by knowing a victims user ID.
     recommendation: >
       Verify that the user who is trying to
       access the information has the necessary
       permissions to access.
     threat: >
-      An attacker, knowing a victims user ID, can
-      access or manipulate the victims account information.
+      Unauthorized user from local network.
   es:
     title: Insecure object reference - Files
     description: >
@@ -18563,16 +18562,14 @@
       diferencia, ya que el aplicativo no valida
       los permisos necesarios para acceder.
     impact: >
-      Manipular parámetro payerUuid en la función
-      de carga de facturas.
+      Acceder o manipular la información de la
+      cuenta de las víctimas al conocer el user ID.
     recommendation: >
       Verificar que el usuario que está intentando
       acceder a la información efectivamente tenga
       los permisos necesarios para acceder.
     threat: >
-      Un atacante, al conocer la user ID de
-      una víctima, puede acceder o manipular
-      información de la cuenta de esta.
+      Usuario no autorizado desde red local.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -18639,7 +18636,7 @@
       acceder a la información efectivamente tenga
       los permisos necesarios para hacerlo.
     threat: >
-      Usuario autenticado desde internet.
+      Usuario autenticado desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -18693,7 +18690,7 @@
       del servidor de tal manera que no se pueda
       obtener ninguna información de ella.
     threat: >
-      Atacante anónimo desde internet.
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -19354,7 +19351,8 @@
       Service configurations and credentials
       must be in protected environments.
     threat: >
-      Internal attacker.
+      Internal attacker with access to
+      service configurations.
   es:
     title: Insecure service configuration - LDAP
     description: >
@@ -19375,7 +19373,8 @@
       credenciales de estos deben estar en
       ambientes protegidos.
     threat: >
-      Atacante interno.
+      Atacante interno con acceso a las
+      configuraciones de servicios.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -19514,20 +19513,22 @@
       It allows to read a source of XML data and bind
       its values to a new instance of an object.
     impact: >
-      Escalate attack to compromise the underlying
+      - Escalate attack to compromise the underlying
       server or other back-end infrastructure.
-    recommendation: >
-      The XML unmarshaller should be configured securely
-      so that it does not allow external entities as
-      part of an incoming XML attack.
-    threat: >
-      - Allows an attacker to view files on
+
+      - Allow an attacker to view files on
       the application server filesystem.
 
       - Interact with any back-end or external systems
       that the application itself can access.
 
       - Disclosure of confidential data.
+    recommendation: >
+      The XML unmarshaller should be configured securely
+      so that it does not allow external entities as
+      part of an incoming XML attack.
+    threat: >
+      Anonymous attacker from the Internet.
   es:
     title: XML injection (XXE) - Unmarshaller
     description: >
@@ -19535,20 +19536,22 @@
       Permite leer una fuente de datos XML y vincular sus
       valores a una nueva instancia de un objeto.
     impact: >
-      Escalar el ataque para comprometer el servidor
+      - Escalar el ataque para comprometer el servidor
       subyacente u otra infraestructura back-end.
-    recommendation: >
-      El desmarcador XML debe configurarse de forma segura
-      para que no permita entidades externas como parte
-      de un ataque XML entrante.
-    threat: >
-      - Permite a un atacante ver los archivos del
+
+      - Permitir a un atacante ver los archivos del
       sistema de archivos del servidor de aplicaciones.
 
       - Interactuar con cualquier sistema back-end o externo
       al que pueda acceder la propia aplicación.
 
       - Revelación de datos confidenciales.
+    recommendation: >
+      El desmarcador XML debe configurarse de forma segura
+      para que no permita entidades externas como parte
+      de un ataque XML entrante.
+    threat: >
+      Atacante anónimo desde Internet.
   category: Inject Unexpected
   remediation_time: "60"
   score:
@@ -19583,8 +19586,10 @@
       of the vulnerabilities over the time and the
       policies is still accessible by the email.
     impact: >
-      Grant the ability for unauthorized administrators
+      - Grant the ability for unauthorized administrators
       to manage user access to different system resources.
+
+      - Disclose sensitive information.
     recommendation: >
       Grant access to the projects only to users
       that have consented the reception of information
@@ -19596,7 +19601,6 @@
     threat: >
       Authorized external attacker
       with privileges to add users.
-      Disclose sensitive information.
   es:
     title: Insecure functionality - User management
     description: >
@@ -19611,9 +19615,11 @@
       de las vulnerabilidades en el tiempo y las políticas
       sigue siendo accesible por el correo electrónico.
     impact: >
-      Otorgar la habilidad para que los administradores
+      - Otorgar la habilidad para que los administradores
       no autorizados gestionen el acceso de los usuarios
       a los diferentes recursos del sistema.
+
+      - Revelar información sensible.
     recommendation: >
       Permitir el acceso a los proyectos sólo a los
       usuarios que han consentido la recepción de
@@ -19626,7 +19632,6 @@
     threat: >
       Atacante externo autorizado con privilegios
       para añadir usuarios.
-      Revelar información sensible.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -19795,7 +19800,7 @@
       Validar que las URLs proporcionadas en las
       imágenes de perfil conduzcan a imágenes válidas.
     threat: >
-      Atacante con acceso a la aplicación desde internet.
+      Atacante con acceso a la aplicación desde Internet.
   category: Manipulate Data
   remediation_time: "60"
   score:
@@ -20046,7 +20051,7 @@
       utilizando TLS.
     threat: >
       Atacante anónimo en red adyacente ejecutando
-      un ataque de hombre en el medio.
+      un ataque man-in-the-middle.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -20141,7 +20146,8 @@
       necessary to use environment variables and
       protected secret sources.
     threat: >
-      Internal attacker.
+      Internal attacker with access to
+      services configurations.
   es:
     title: Insecure service configuration - IAM
     description: >
@@ -20163,7 +20169,7 @@
       es necesario usar variables de entorno y
       fuentes de secretos protegidas.
     threat: >
-      Atacante interno.
+      Atacante interno con acceso a configuraciones de servicios.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -20382,7 +20388,7 @@
     recommendation: >
       Generar el Salt con una función segura de hashing.
     threat: >
-      Atacante anónimo desde internet.
+      Atacante anónimo desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -20816,7 +20822,7 @@
       complying with the principle of least privilege
     threat: >
       Authenticated attacker
-      with local access to the application
+      with local access to the application.
   es:
     title: Excessive privileges - Mobile App
     description: >
@@ -20831,7 +20837,7 @@
       Desactivar permisos que la aplicación no utilice,
       operando de acuerdo al principio de mínimo privilegio
     threat: >
-      Atacante autenticado con acceso local a la aplicación
+      Atacante autenticado con acceso local a la aplicación.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -20862,13 +20868,15 @@
       the possibility that the application is vulnerable
       to Task Hijacking.
     impact: >
-      Mislead the user with a malicious application that
+      - Mislead the user with a malicious application that
       impersonates the applications functionalities.
+
+      - Install malicious application on the
+      application users device.
     recommendation: >
       Configure the launchMode with the singleInstance option.
     threat: >
-      Malicious application installed on the
-      application users device.
+      Unauthorized user with access to the application.
   es:
     title: Insecure service configuration - Task Hijacking
     description: >
@@ -20878,13 +20886,15 @@
       posibilidad de que la aplicación sea vulnerable
       Task Hijacking.
     impact: >
-      Engañar al usuario con una aplicación maliciosa
+      - Engañar al usuario con una aplicación maliciosa
       que suplante las funcionalidades de la aplicación.
+
+      - Instalar aplicación maliciosa en
+      la aplicación del dispositivo del usuario.
     recommendation: >
       Configurar el launchMode con la opción de singleInstance.
     threat: >
-      Aplicación maliciosa instalada en el dispositivo
-      del usuario de la aplicación.
+      Usuario no autorizado con acceso a la aplicación.
   category: Abuse Functionality
   remediation_time: "60"
   score:
