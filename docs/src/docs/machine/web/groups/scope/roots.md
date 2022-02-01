@@ -10,34 +10,51 @@ you can add and edit
 the repositories and environments
 to be included in the testing service
 
-## Adding git roots
+## Adding a root with the SSH key
 
-![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
+We know it is very important to keep our repositories
+private if we have sensitive information in there.
+A component that can help you achieve this purpose is
+the SSH key (Security Shell), which you can use for authentication.
+By setting SSH keys, you can connect to your repository
+server without using a username and password.
+If you need to set up an SSH Key, we recommend reading
+this document: [Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account).
+There, we show you how to generate your private
+and public key step by step.
 
-By clicking on the "Add new root" button, the following form will show up:
+With a SSH key, someone can clone your repository
+and use that code according to their interests.
+It is essential that you provide our hackers with
+the most complete information and access rights
+before they start hacking your software.
+Here, you will learn how to use the **Scope** tab for
+adding SSH keys with **Adding a new root**.
 
-![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211896/docs/web/groups/scope/add_new_root_nql2hc.webp)
+On the ASM, you can give full permission for
+accessing your Git repository in the “Scope” tab
+using the **Add new root** option.
+The nice feature we have here is a Cloning
+credential with the Repository SSH Key.
+We want to guide you on how to do it.
+So let’s start!
 
-Here you can specify the URL of the repository, the specific branch, and the
-kind of environment to which it corresponds
+- First, log in to the ASM and go to the Scope tab.
+  There, you can find the Add new root button.
 
-You can also choose
-if you would like a Health Check
-for the existing code,
-which means that we would also review
-all the code already in the repository
-at the moment the project starts,
-for an additional cost.
+- When you click on **Add new root**, a pop-up window
+  will show up where you need to fill out the
+  information with your Git repository.
 
-Lastly, you can specify the paths to
-[exclude](/machine/web/groups/scope/exclusions)
-from the testing scope.
+- Fill out the **Cloning credential** field with
+  your SSH Private Key.
+  You need to select **SSH** from the drop-down
+  menu in the **Type** field.
+  After that, an extra field will appear,
+  asking for your private key.
 
-After you complete the required fields,
-click on **Proceed**
-to add the git Root,
-or you can click on **Cancel**
-to discard all the information.
+- After filling out all the fields, click on **Proceed**.
+  You will have your new URL in Git Roots
 
 ## Editing git roots
 

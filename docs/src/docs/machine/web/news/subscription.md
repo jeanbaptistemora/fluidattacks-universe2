@@ -5,11 +5,12 @@ sidebar_label: Subscription
 slug: /machine/web/news/subscription
 ---
 
-Do you want to get our latest news?
+## Do you want to get our latest news?
+
 There are two ways to subscribe to
 our channel.
 
-## Through URL
+### Through URL
 
 The first way is through our URL.
 
@@ -41,7 +42,7 @@ The first way is through our URL.
 
 ![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_verify-note.png)
 
-## Through ASM
+### Through ASM
 
 The second way to subscribe is through are ASM.
 
