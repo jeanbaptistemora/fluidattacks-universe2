@@ -14,6 +14,9 @@ from custom_exceptions import (
 from custom_types import (
     Report,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from decorators import (
     enforce_group_level_auth_async,
     require_login,
@@ -29,8 +32,9 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
+    Any,
     Dict,
-    Optional,
+    Set,
     Tuple,
 )
 
@@ -41,12 +45,12 @@ async def _get_url_group_report(
     report_type: str,
     user_email: str,
     group_name: str,
-    treatment: str,
+    treatments: Set[VulnerabilityTreatmentStatus],
 ) -> bool:
     additional_info: str = json.dumps(
         {
             "report_type": report_type,
-            "treatment": treatment,
+            "treatments": list(treatments),
         }
     )
     existing_actions: Tuple[
@@ -76,15 +80,23 @@ async def _get_url_group_report(
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> Report:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
-    treatment: Optional[str] = (
-        "*" if kwargs.get("treatment") is None else kwargs.get("treatment")
-    )
+
+    # temporary backwards compatibility
+    if "treatment" in kwargs:
+        treatments = {VulnerabilityTreatmentStatus[kwargs["treatment"]]}
+    elif "treatments" in kwargs:
+        treatments = {
+            VulnerabilityTreatmentStatus[treatment]
+            for treatment in kwargs["treatments"]
+        }
+    else:
+        treatments = set(VulnerabilityTreatmentStatus)
 
     return {
         "success": await _get_url_group_report(
@@ -92,6 +104,6 @@ async def resolve(
             report_type,
             user_email,
             group_name=group_name,
-            treatment=treatment,
+            treatments=treatments,
         )
     }

@@ -461,6 +461,18 @@ enum VulnerabilityState {
   UNKNOWN
 }
 
+"Treatment given to a vulnerability"
+enum VulnerabilityTreatment {
+  "The client opted to temporarily assume the risk"
+  ACCEPTED
+  "The client opted to indefinitely assume the risk"
+  ACCEPTED_UNDEFINED
+  "The client is working on a solution"
+  IN_PROGRESS
+  "No treatment has been given yet"
+  NEW
+}
+
 "Protocol to use in URLRoots enum definition"
 enum URLProtocol {
   "HTTP"

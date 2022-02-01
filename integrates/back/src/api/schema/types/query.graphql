@@ -94,6 +94,8 @@ type Query {
     lang: ReportLang,
     "Treatment field to filter XLS"
     treatment: String
+    "Treatments to include"
+    treatments: [VulnerabilityTreatment!]
   ): Report
 
   "Get resource metadata from group"
