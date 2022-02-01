@@ -16403,7 +16403,7 @@
     recommendation: >
       Use secure algorithms such as AES or RSA.
     threat: >
-      User with access to the code.
+      Unauthorized user with access to the code.
   es:
     title: Insecure encryption algorithm - Blowfish
     description: >
@@ -16415,7 +16415,7 @@
     recommendation: >
       Utilizar algoritmos seguros como AES o RSA.
     threat: >
-      Usuario con acceso al código.
+      Usuario no autorizado con acceso al código.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -16521,7 +16521,7 @@
       Para que de esta forma no puedan modificar
       configuraciones de otros usuarios dentro de la misma.
     threat: >
-      Atacante con acceso a la aplicación desde internet.
+      Atacante con acceso a la aplicación desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -16956,7 +16956,7 @@
       application so that it cannot be used
       if it has been modified.
     threat: >
-      Attcker with access to APK.
+      Attacker with access to APK.
   es:
     title: Root detection control bypass
     description: >
@@ -17088,7 +17088,7 @@
       del extremo remoto de la conexión.
     threat: >
       Atacante anónimo desde red adyacente
-      ejecutando un MitM
+      ejecutando un MitM.
   category: Collect Information
   remediation_time: "60"
   score:
@@ -17174,7 +17174,7 @@
       session tokens to limit the information
       viewed by a user.
     threat: >
-      Attacker authenticated from the Internet.
+      Authenticated attacker from the Internet.
   es:
     title: Automatic information enumeration - Personal Information
     description: >
@@ -17354,7 +17354,7 @@
 
       - Manage user operations using session objects.
     threat: >
-      Attacker authenticated from the Internet.
+      Authenticated attacker from the Internet.
   es:
     title: Insecure object reference - Personal information
     description: >
@@ -17423,9 +17423,7 @@
       modify the information has the necessary
       permissions to access.
     threat: >
-      Possibility for a user to modify or
-      include the information of employees
-      of third party companies.
+      Unauthorized user with access to corporate information.
   es:
     title: Insecure object reference - Corporate information
     description: >
@@ -17454,8 +17452,8 @@
       modificar la información efectivamente tenga
       los permisos necesarios para acceder.
     threat: >
-      Posibilidad de que un usuario modifique o incluya
-      la información de empleados de empresas de terceros.
+      Usuario no autorizado con acceso a la
+      información corporativa.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -17794,7 +17792,7 @@
       Implement best practices in cryptographic systems
       Recommendation for Cryptographic Key Generation.
     threat: >
-      Attacker in adjacent network.
+      Anonymous attacker in adjacent network.
   es:
     title: Insecure service configuration - Key pair
     description: >
@@ -17816,7 +17814,7 @@
       sistemas criptográficos Recommendation for
       Cryptographic Key Generation.
     threat: >
-      Atacante en red adyancente.
+      Atacantea anónimo en red adyancente.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -17854,8 +17852,7 @@
       only login to the application with the
       OTP sent to the email.
     threat: >
-      An unauthorized user can enter the
-      application by entering the default OTP.
+      Unauthorized user with access to the application.
   es:
     title: Insecure service configuration - OTP
     description: >
@@ -17873,8 +17870,8 @@
       poder ingresar a la aplicación con el
       OTP enviado al correo electrónico.
     threat: >
-      Un usuario no autorizado puede entrar a
-      la aplicación ingresando el OTP por defecto.
+      Usuario no autorizado con acceso a
+      la aplicación.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -17922,7 +17919,7 @@
       La sesión abierta se debe cerrar luego
       de un proceso de cambio de contraseña.
     threat: >
-      Usuario no autorizado desde internet
+      Usuario no autorizado desde Internet
       con acceso a la sesión de un usuario.
   category: Subvert Access
   remediation_time: "60"
@@ -17976,7 +17973,7 @@
       múltiples peticiones de cambio de
       contraseña el mismo día.
     threat: >
-      Usuario  desde internet con acceso a la sesión.
+      Usuario desde Internet con acceso a la sesión.
   category: Probabilistic Techniques
   remediation_time: "60"
   score:
@@ -18057,7 +18054,12 @@
       by knowing a valid username by changing the
       redirect with which the server responds.
     impact: >
-      - Knows a valid user.
+      - Bypass the authentication process by
+      changing the page redirection and thus
+      gain access to the applications
+      functionality.
+
+      - Know a valid user.
 
       - Change the redirect and
       access the application.
@@ -18068,10 +18070,7 @@
       every user attempting to access it is
       logged in.
     threat: >
-      Probability of an unauthorized attacker
-      bypassing the authentication process by
-      changing the page redirection and thus
-      gaining access to the applications functionality.
+      Anonymous attacker from the Internet.
   es:
     title: Authentication mechanism absence or evasion - Redirect
     description: >
@@ -18079,6 +18078,10 @@
       conociendo un nombre de usuario válido cambiando
       la redirección con la que responde el servidor.
     impact: >
+      - Evitar el proceso de autenticación cambiando la
+      redirección de la página y así lograr acceder a
+      las funcionalidades de la aplicación.
+
       - Conocer un usuario válido.
 
       - Cambiar la redirección
@@ -18089,10 +18092,7 @@
       fuerte y asegurarse de que cada usuario que
       intente acceder tenga una sesión iniciada.
     threat: >
-      Probabilidad de que un atacante no autorizado
-      evite el proceso de autenticación cambiando la
-      redirección de la página y así logre acceder a
-      las funcionalidades de la aplicación.
+      Atacante anónimo desde Internet.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -18391,7 +18391,7 @@
       resuelva el llamado almacenado.
       Por tanto, sugerimos retirar esta subrutina.
     threat: >
-      Usuario autenticado desde internet.
+      Usuario autenticado desde Internet.
   category: Abuse Functionality
   remediation_time: "60"
   score:
@@ -18436,11 +18436,7 @@
       collections in an optimized way (ArrayList
       and StringBuilder or SyncronizedList).
     threat: >
-      A user can make requests to the system that
-      may affect process performance and response
-      times, since the system does not make use of
-      the most optimal components and libraries.
-      Application user attack.
+      Anonymous user with access to the application.
   es:
     title: Inappropriate coding practices - Performance
     description: >
@@ -18465,7 +18461,7 @@
       en colecciones de manera optimizada (ArrayList
       y StringBuilder o SyncronizedList).
     threat: >
-      Ataque de usuario de la aplicación.
+      Usuario anónimo con acceso a la aplicación.
   category: Abuse Functionality
   remediation_time: "60"
   score:
