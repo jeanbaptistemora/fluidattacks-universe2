@@ -889,6 +889,15 @@ class RequestedReportError(CustomBaseException):
         super(RequestedReportError, self).__init__(msg)
 
 
+class ReportAlreadyRequested(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - The user already has a requested report "
+            "for the same group"
+        )
+        super(ReportAlreadyRequested, self).__init__(msg)
+
+
 class CredentialNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Access denied or credential not found"

@@ -4,7 +4,11 @@ from ariadne.utils import (
 from batch import (
     dal as batch_dal,
 )
+from batch.types import (
+    BatchProcessing,
+)
 from custom_exceptions import (
+    ReportAlreadyRequested,
     RequestedReportError,
 )
 from custom_types import (
@@ -27,6 +31,7 @@ from newutils.utils import (
 from typing import (
     Dict,
     Optional,
+    Tuple,
 )
 
 
@@ -44,6 +49,19 @@ async def _get_url_group_report(
             "treatment": treatment,
         }
     )
+    existing_actions: Tuple[
+        BatchProcessing, ...
+    ] = await batch_dal.get_actions_by_name("report", group_name)
+
+    if list(
+        filter(
+            lambda x: x.subject.lower() == user_email.lower()
+            and x.additional_info.lower() == additional_info.lower(),
+            existing_actions,
+        )
+    ):
+        raise ReportAlreadyRequested()
+
     success: bool = await batch_dal.put_action(
         action_name="report",
         entity=group_name,
