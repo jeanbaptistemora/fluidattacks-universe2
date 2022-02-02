@@ -73,7 +73,6 @@ async def _customer_has_payment_method(
     customer: Customer = await dal.get_customer(
         org_billing_customer=org_billing_customer,
     )
-    print(customer.default_payment_method)
     return customer.default_payment_method is not None
 
 

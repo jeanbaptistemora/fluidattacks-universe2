@@ -1,21 +1,24 @@
+import { useMutation } from "@apollo/client";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Container } from "./styles";
+import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
 
+import { UPDATE_BILLING_SUBSCRIPTION } from "../queries";
 import type { IGroupAttr } from "../types";
-import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type {
   IFilterProps,
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
-import { Modal } from "components/Modal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
-import { translate } from "utils/translations/translate";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 interface IFilterSet {
   forces: string;
@@ -28,10 +31,13 @@ interface IFilterSet {
 
 interface IOrganizationBillingGroupsProps {
   groups: IGroupAttr[];
+  onUpdate: () => void;
 }
 
 export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps> =
-  ({ groups }: IOrganizationBillingGroupsProps): JSX.Element => {
+  ({ groups, onUpdate }: IOrganizationBillingGroupsProps): JSX.Element => {
+    const { t } = useTranslation();
+
     // States
     const defaultCurrentRow: IGroupAttr = {
       forces: "",
@@ -44,10 +50,6 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       squad: "",
       tier: "",
     };
-
-    const [currentRow, updateRow] = useState(defaultCurrentRow);
-    const [isBillingDetailsModalOpen, setBillingDetailsModalOpen] =
-      useState(false);
 
     // Auxiliary functions
 
@@ -62,15 +64,13 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         const name: string = group.name.toUpperCase();
         const service: string = _.capitalize(group.service);
         const tier: string = _.capitalize(group.tier);
-        const forces: string = translate.t(
+        const forces: string = t(
           servicesParameters[group.hasForces.toString()]
         );
-        const machine: string = translate.t(
+        const machine: string = t(
           servicesParameters[group.hasMachine.toString()]
         );
-        const squad: string = translate.t(
-          servicesParameters[group.hasSquad.toString()]
-        );
+        const squad: string = t(servicesParameters[group.hasSquad.toString()]);
 
         return {
           ...group,
@@ -348,24 +348,53 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       },
     ];
 
-    const openSeeBillingDetailsModal: (
-      event: Record<string, unknown>,
-      row: IGroupAttr
-    ) => void = (_0: Record<string, unknown>, row: IGroupAttr): void => {
+    // Edit group subscription
+    const [currentRow, updateRow] = useState(defaultCurrentRow);
+    const [isUpdatingSubscription, setUpdatingSubscription] = useState<
+      false | { mode: "UPDATE" }
+    >(false);
+    const openModal = (_0: Record<string, unknown>, row: IGroupAttr): void => {
       updateRow(row);
-      setBillingDetailsModalOpen(true);
+      setUpdatingSubscription({ mode: "UPDATE" });
     };
-
-    const closeSeeBillingDetailsModal: () => void = useCallback((): void => {
-      setBillingDetailsModalOpen(false);
+    const closeModal = useCallback((): void => {
+      setUpdatingSubscription(false);
     }, []);
+    const [updateSubscription] = useMutation(UPDATE_BILLING_SUBSCRIPTION, {
+      onCompleted: (): void => {
+        onUpdate();
+        closeModal();
+        msgSuccess(
+          t("organization.tabs.billing.groups.updateSubscription.success.body"),
+          t("organization.tabs.billing.groups.updateSubscription.success.title")
+        );
+      },
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't update group subscription", error);
+        });
+      },
+    });
+    const handleUpdateSubscriptionSubmit = useCallback(
+      async ({ subscription }: { subscription: string }): Promise<void> => {
+        const groupName = currentRow.name.toLowerCase();
+        await updateSubscription({
+          variables: {
+            groupName,
+            subscription,
+          },
+        });
+      },
+      [updateSubscription, currentRow.name]
+    );
 
     return (
       <Container>
         <Row>
           <Col100>
             <Row>
-              <h2>{translate.t("organization.tabs.billing.groups.title")}</h2>
+              <h2>{t("organization.tabs.billing.groups.title")}</h2>
               <DataTableNext
                 bordered={true}
                 clearFiltersButton={clearFilters}
@@ -391,33 +420,17 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
                 headers={tableHeaders}
                 id={"tblBillingGroups"}
                 pageSize={10}
-                rowEvents={{ onClick: openSeeBillingDetailsModal }}
+                rowEvents={{ onClick: openModal }}
                 search={false}
               />
-              <Modal
-                headerTitle={translate.t(
-                  "organization.tabs.billing.modal.title"
-                )}
-                onEsc={closeSeeBillingDetailsModal}
-                open={isBillingDetailsModalOpen}
-                size={"largeModal"}
-              >
-                <div>{currentRow.name}</div>
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
-                      <Button onClick={closeSeeBillingDetailsModal}>
-                        {translate.t(
-                          "organization.tabs.billing.modal.continue"
-                        )}
-                      </Button>
-                      <Button onClick={closeSeeBillingDetailsModal}>
-                        {translate.t("organization.tabs.billing.modal.close")}
-                      </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
-              </Modal>
+              {isUpdatingSubscription === false ? undefined : (
+                <UpdateSubscriptionModal
+                  current={currentRow.tier.toUpperCase()}
+                  groupName={currentRow.name}
+                  onClose={closeModal}
+                  onSubmit={handleUpdateSubscriptionSubmit}
+                />
+              )}
             </Row>
           </Col100>
         </Row>

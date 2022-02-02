@@ -53,7 +53,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
 
   return (
     <React.Fragment>
-      <OrganizationBillingGroups groups={groups} />
+      <OrganizationBillingGroups groups={groups} onUpdate={refetch} />
       <OrganizationBillingPaymentMethods
         onUpdate={refetch}
         organizationId={organizationId}

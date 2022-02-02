@@ -75,9 +75,24 @@ const UPDATE_BILLING_DEFAULT_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
+const UPDATE_BILLING_SUBSCRIPTION: DocumentNode = gql`
+  mutation updateBillingSubscription(
+    $groupName: String!
+    $subscription: BillingSubscriptionType!
+  ) {
+    updateBillingSubscription(
+      groupName: $groupName
+      subscription: $subscription
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   ADD_BILLING_PAYMENT_METHOD,
   GET_ORGANIZATION_BILLING,
   REMOVE_BILLING_PAYMENT_METHOD,
   UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
+  UPDATE_BILLING_SUBSCRIPTION,
 };

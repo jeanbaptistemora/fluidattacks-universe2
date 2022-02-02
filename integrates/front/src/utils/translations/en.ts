@@ -1064,22 +1064,19 @@ export const enTranslations: ResourceKey = {
       billing: {
         groups: {
           title: "Groups",
-        },
-        modal: {
-          close: "Close",
-          continue: "Continue",
-          form: {
-            title: "Tier",
-            tooltip: "Tier to subscribe",
-            type: {
+          updateSubscription: {
+            subscription: "Subscription",
+            success: {
+              body: "Group subscription successfully updated.",
+              title: "Success",
+            },
+            title: "Update",
+            types: {
               free: "Free",
               machine: "Machine",
-              oneshot: "Oneshot",
-              other: "Other",
               squad: "Squad",
             },
           },
-          title: "Subscription Details",
         },
         paymentMethods: {
           add: "Add",
@@ -1095,7 +1092,7 @@ export const enTranslations: ResourceKey = {
           remove: {
             button: "Remove",
             success: {
-              body: "Card successfuly removed.",
+              body: "Card successfully removed.",
               title: "Success",
             },
           },

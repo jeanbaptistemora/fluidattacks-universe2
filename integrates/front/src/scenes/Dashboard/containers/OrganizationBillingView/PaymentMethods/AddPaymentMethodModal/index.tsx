@@ -33,7 +33,7 @@ const validations = object().shape({
   makeDefault: boolean(),
 });
 
-const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
+export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
   onClose,
   onSubmit,
 }: IAddPaymentModalProps): JSX.Element => {
@@ -120,5 +120,3 @@ const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
     </Modal>
   );
 };
-
-export { AddPaymentModal };
