@@ -155,6 +155,7 @@ auditing areas for companies such as:
 [`Arus`](https://www.arus.com.co/),
 [`ATH`](https://www.ath.com.co/wps/themes/html/ath/index.html),
 [`Avianca`](https://www.avianca.com/co/es/),
+[`B89`](https://www.b89.io/),
 [`Bancolombia`](https://www.grupobancolombia.com/wps/portal/personas),
 [`Banitsmo`](https://www.banistmo.com/),
 [`BIVA`](https://www.biva.mx/en/web/portal-biva/home),
@@ -168,9 +169,10 @@ auditing areas for companies such as:
 [`F2X`](https://www.f2x.com.co/), [`GCO`](http://www.gco.com.co/),
 [`Grupo AVAL`](https://www.grupoaval.com/wps/portal/grupo-aval/aval/),
 [`Grupo Éxito`](https://www.grupoexito.com.co/es/),
-[`Interbank`](https://interbank.pe/), [`Komet
-Sales`](https://www.kometsales.com/), [`Pay
-valida`](https://www.payvalida.com/),
+[`Interbank`](https://interbank.pe/),
+[`Komet Sales`](https://www.kometsales.com/),
+[`Nutresa`](https://gruponutresa.com/),
+[`Pay valida`](https://www.payvalida.com/),
 [`Protección`](https://www.proteccion.com/wps/portal/proteccion/),
 [`RUNT`](https://www.runt.com.co/), [`Seti`](https://seti.com.co/) and
 [`Tech and Solve`](http://www.techandsolve.com/).
