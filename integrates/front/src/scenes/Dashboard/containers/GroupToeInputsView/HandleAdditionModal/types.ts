@@ -26,25 +26,10 @@ interface IHandleAdditionModalProps {
 
 interface IGitRootAttr {
   __typename: "GitRoot";
-  branch: string;
-  cloningStatus: {
-    message: string;
-    status: "FAIL" | "OK" | "UNKNOWN";
-  };
-  credentials: {
-    id: string;
-    key: string;
-    name: string;
-    type: "" | "SSH";
-  };
-  environment: string;
   environmentUrls: string[];
-  gitignore: string[];
-  includesHealthCheck: boolean;
   id: string;
   nickname: string;
   state: "ACTIVE" | "INACTIVE";
-  url: string;
 }
 
 interface IIPRootAttr {

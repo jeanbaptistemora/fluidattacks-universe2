@@ -7,8 +7,8 @@ const getIpRootHost = (root: IIPRootAttr): string =>
 
 const getUrlRootHost = (root: IURLRootAttr): string =>
   root.port
-    ? `${root.protocol.toLowerCase()}://${root.host}:${root.port}/`
-    : `${root.protocol.toLowerCase()}://${root.host}/`;
+    ? `${root.protocol.toLowerCase()}://${root.host}:${root.port}${root.path}`
+    : `${root.protocol.toLowerCase()}://${root.host}${root.path}`;
 
 const isGitRoot = (root: Root): root is IGitRootAttr =>
   root.__typename === "GitRoot";
