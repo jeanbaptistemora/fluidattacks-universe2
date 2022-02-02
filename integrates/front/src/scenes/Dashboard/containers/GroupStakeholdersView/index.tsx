@@ -13,7 +13,11 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { handleEditError, handleGrantError } from "./helpers";
+import {
+  getStakeHolderIndex,
+  handleEditError,
+  handleGrantError,
+} from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -159,7 +163,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   ];
 
   // GraphQL operations
-  const { data, refetch } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
+  const {
+    data,
+    refetch,
+    loading: loadingStakeholders,
+  } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
@@ -186,15 +194,19 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const [updateGroupStakeholder] = useMutation(
     UPDATE_GROUP_STAKEHOLDER_MUTATION,
     {
-      onCompleted: (mtResult: IUpdateGroupStakeholderAttr): void => {
+      onCompleted: async (
+        mtResult: IUpdateGroupStakeholderAttr
+      ): Promise<void> => {
         if (mtResult.updateGroupStakeholder.success) {
-          void refetch();
+          setuserModalAction("add");
+          await refetch();
 
           track("EditUserAccess");
           msgSuccess(
             translate.t("searchFindings.tabUsers.successAdmin"),
             translate.t("searchFindings.tabUsers.titleSuccess")
           );
+          setCurrentRow({});
         }
       },
       onError: (editError: ApolloError): void => {
@@ -206,9 +218,9 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const [removeStakeholderAccess, { loading: removing }] = useMutation(
     REMOVE_STAKEHOLDER_MUTATION,
     {
-      onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
+      onCompleted: async (mtResult: IRemoveStakeholderAttr): Promise<void> => {
         if (mtResult.removeStakeholderAccess.success) {
-          void refetch();
+          await refetch();
 
           track("RemoveUserAccess");
           const { removedEmail } = mtResult.removeStakeholderAccess;
@@ -218,6 +230,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             )}`,
             translate.t("searchFindings.tabUsers.titleSuccess")
           );
+          setCurrentRow({});
         }
       },
       onError: (removeError: ApolloError): void => {
@@ -255,11 +268,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     ]
   );
 
-  const handleRemoveUser: () => void = useCallback((): void => {
-    void removeStakeholderAccess({
+  const handleRemoveUser = useCallback(async (): Promise<void> => {
+    await removeStakeholderAccess({
       variables: { groupName, userEmail: currentRow.email },
     });
-    setCurrentRow({});
     setuserModalAction("add");
   }, [currentRow.email, groupName, removeStakeholderAccess]);
 
@@ -451,7 +463,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             )}
                           >
                             <Button
-                              disabled={_.isEmpty(currentRow)}
+                              disabled={
+                                _.isEmpty(currentRow) ||
+                                removing ||
+                                loadingStakeholders
+                              }
                               id={"editUser"}
                               onClick={openEditUserModal}
                             >
@@ -476,7 +492,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             )}
                           >
                             <Button
-                              disabled={_.isEmpty(currentRow) || removing}
+                              disabled={
+                                _.isEmpty(currentRow) ||
+                                removing ||
+                                loadingStakeholders
+                              }
                               id={"removeUser"}
                               onClick={handleRemoveUser}
                             >
@@ -506,6 +526,12 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                       ),
                     mode: "radio",
                     onSelect: setCurrentRow,
+                    selected: getStakeHolderIndex(
+                      _.isEmpty(currentRow)
+                        ? []
+                        : [currentRow as unknown as IStakeholderDataSet],
+                      resultStakeHolders
+                    ),
                   }}
                   striped={true}
                 />

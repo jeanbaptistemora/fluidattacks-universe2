@@ -1,6 +1,8 @@
 import type { ApolloError, ObservableQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 
+import type { IStakeholderDataSet } from "./types";
+
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -90,4 +92,25 @@ const handleEditError = (
   });
 };
 
-export { handleGrantError, handleEditError };
+const getStakeHolderIndex = (
+  selectedStakeholders: IStakeholderDataSet[],
+  allStakeholders: IStakeholderDataSet[]
+): number[] => {
+  const selectedIds: string[] = selectedStakeholders.map(
+    (selected: IStakeholderDataSet): string => selected.email.toLowerCase()
+  );
+
+  return allStakeholders.reduce(
+    (
+      selectedIndex: number[],
+      currentStakeholders: IStakeholderDataSet,
+      currentStakeholdersIndex: number
+    ): number[] =>
+      selectedIds.includes(currentStakeholders.email.toLowerCase())
+        ? [...selectedIndex, currentStakeholdersIndex]
+        : selectedIndex,
+    []
+  );
+};
+
+export { getStakeHolderIndex, handleGrantError, handleEditError };
