@@ -46,6 +46,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       hasSquad: false,
       machine: "",
       name: "",
+      permissions: [],
       service: "",
       squad: "",
       tier: "",
@@ -53,9 +54,14 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
 
     // Auxiliary functions
 
-    const formatGroupData: (groupData: IGroupAttr[]) => IGroupAttr[] = (
-      groupData: IGroupAttr[]
-    ): IGroupAttr[] =>
+    const accesibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
+      groupData.filter((group): boolean =>
+        group.permissions.includes(
+          "api_mutations_update_billing_subscription_mutate"
+        )
+      );
+
+    const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
       groupData.map((group: IGroupAttr): IGroupAttr => {
         const servicesParameters: Record<string, string> = {
           false: "organization.tabs.groups.disabled",
@@ -145,7 +151,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       },
     ];
 
-    const dataset: IGroupAttr[] = formatGroupData(groups);
+    const dataset: IGroupAttr[] = formatGroupsData(accesibleGroupsData(groups));
 
     function onSearchTextChange(
       event: React.ChangeEvent<HTMLInputElement>

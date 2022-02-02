@@ -7,16 +7,22 @@ import React from "react";
 import { OrganizationBillingGroups } from "./Groups";
 import { OrganizationBillingPaymentMethods } from "./PaymentMethods";
 import { GET_ORGANIZATION_BILLING } from "./queries";
-import type {
-  IGetOrganizationBilling,
-  IGroupAttr,
-  IOrganizationBillingProps,
-  IPaymentMethodAttr,
-} from "./types";
+import type { IGroupAttr, IPaymentMethodAttr } from "./types";
 
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+
+interface IOrganizationBillingProps {
+  organizationId: string;
+}
+
+interface IGetOrganizationBilling {
+  organization: {
+    groups: IGroupAttr[];
+    billingPaymentMethods: IPaymentMethodAttr[];
+  };
+}
 
 export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   props: IOrganizationBillingProps

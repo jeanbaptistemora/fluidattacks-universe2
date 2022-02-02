@@ -5,6 +5,7 @@ interface IGroupAttr {
   hasSquad: boolean;
   machine: string;
   name: string;
+  permissions: string[];
   service: string;
   squad: string;
   tier: string;
@@ -19,20 +20,4 @@ interface IPaymentMethodAttr {
   expirationYear: string;
 }
 
-interface IOrganizationBillingProps {
-  organizationId: string;
-}
-
-interface IGetOrganizationBilling {
-  organization: {
-    groups: IGroupAttr[];
-    billingPaymentMethods: IPaymentMethodAttr[];
-  };
-}
-
-export {
-  IGroupAttr,
-  IPaymentMethodAttr,
-  IGetOrganizationBilling,
-  IOrganizationBillingProps,
-};
+export { IGroupAttr, IPaymentMethodAttr };

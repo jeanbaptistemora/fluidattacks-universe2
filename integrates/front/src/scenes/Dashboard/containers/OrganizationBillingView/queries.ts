@@ -11,6 +11,7 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         hasMachine
         hasSquad
         service
+        permissions
         tier
       }
       billingPaymentMethods {
