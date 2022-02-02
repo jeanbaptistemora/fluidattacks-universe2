@@ -117,7 +117,7 @@ describe("GroupToeInputsView", (): void => {
       .find(DataTableNext)
       .filter({ id: "tblToeInputs" });
     const tableHeader: ReactWrapper = toeInputsTable.find("Header");
-    const simpleRows: ReactWrapper = toeInputsTable.find("SimpleRow");
+    const simpleRows: ReactWrapper = toeInputsTable.find("RowPureContent");
     const firstRow: ReactWrapper = simpleRows.at(0);
     const secondRow: ReactWrapper = simpleRows.at(1);
     const thirdRow: ReactWrapper = simpleRows.at(2);

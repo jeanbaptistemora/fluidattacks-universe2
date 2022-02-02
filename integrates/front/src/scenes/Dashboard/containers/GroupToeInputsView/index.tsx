@@ -12,9 +12,17 @@ import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
 import { HandleAdditionModal } from "./HandleAdditionModal";
+import {
+  getNonSelectable,
+  getToeInputIndex,
+  onSelectSeveralToeInputHelper,
+} from "./utils";
 
 import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IHeaderConfig,
+  ISelectRowProps,
+} from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
@@ -99,6 +107,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     "toeInputsFilters",
     false
   );
+  const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
+    IToeInputData[]
+  >([]);
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
@@ -295,6 +306,37 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     order: "asc",
   });
 
+  function onSelectSeveralToeInputDatas(
+    isSelect: boolean,
+    toeInputDatasSelected: IToeInputData[]
+  ): string[] {
+    return onSelectSeveralToeInputHelper(
+      isSelect,
+      toeInputDatasSelected,
+      selectedToeInputDatas,
+      setSelectedToeInputDatas
+    );
+  }
+
+  function onSelectOneToeInputData(
+    toeInputdata: IToeInputData,
+    isSelect: boolean
+  ): boolean {
+    onSelectSeveralToeInputDatas(isSelect, [toeInputdata]);
+
+    return true;
+  }
+
+  const selectionMode: ISelectRowProps = {
+    clickToSelect: false,
+    hideSelectColumn: !isInternal,
+    mode: "checkbox",
+    nonSelectable: getNonSelectable(toeInputs),
+    onSelect: onSelectOneToeInputData,
+    onSelectAll: onSelectSeveralToeInputDatas,
+    selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
+  };
+
   return (
     <React.StrictMode>
       <DataTableNext
@@ -325,6 +367,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={false}
+        selectionMode={selectionMode}
       />
       {isAdding ? (
         <HandleAdditionModal
