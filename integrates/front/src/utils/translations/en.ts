@@ -808,6 +808,12 @@ export const enTranslations: ResourceKey = {
     },
     toe: {
       inputs: {
+        actionButtons: {
+          addButton: {
+            text: "Add",
+            tooltip: "Add new input",
+          },
+        },
         addModal: {
           alerts: {
             alreadyExists: "The input already exists.",
@@ -844,7 +850,6 @@ export const enTranslations: ResourceKey = {
       lines: {
         actionButtons: {
           editButton: {
-            success: "was successfully edited",
             text: "Edit",
             tooltip: "Edit attacked lines",
           },
