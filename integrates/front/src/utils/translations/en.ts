@@ -1117,6 +1117,9 @@ export const enTranslations: ResourceKey = {
             },
           },
         },
+        portal: {
+          title: "Invoices",
+        },
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",
       },

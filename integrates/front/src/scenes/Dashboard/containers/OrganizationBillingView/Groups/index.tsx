@@ -1,4 +1,6 @@
 import { useMutation } from "@apollo/client";
+import { faMoneyBill } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,14 +10,17 @@ import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
 
 import { UPDATE_BILLING_SUBSCRIPTION } from "../queries";
 import type { IGroupAttr } from "../types";
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
 import type {
   IFilterProps,
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { ExternalLink } from "components/ExternalLink";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -30,12 +35,17 @@ interface IFilterSet {
 }
 
 interface IOrganizationBillingGroupsProps {
+  billingPortal: string;
   groups: IGroupAttr[];
   onUpdate: () => void;
 }
 
 export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps> =
-  ({ groups, onUpdate }: IOrganizationBillingGroupsProps): JSX.Element => {
+  ({
+    billingPortal,
+    groups,
+    onUpdate,
+  }: IOrganizationBillingGroupsProps): JSX.Element => {
     const { t } = useTranslation();
 
     // States
@@ -53,7 +63,6 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
     };
 
     // Auxiliary functions
-
     const accesibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
       groupData.filter((group): boolean =>
         group.permissions.includes(
@@ -423,6 +432,17 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
                 dataset={resultDataset}
                 defaultSorted={{ dataField: "name", order: "asc" }}
                 exportCsv={false}
+                extraButtons={
+                  <Can do={"api_resolvers_organization_billing_portal_resolve"}>
+                    <ExternalLink href={billingPortal}>
+                      <Button>
+                        <FontAwesomeIcon icon={faMoneyBill} />
+                        &nbsp;
+                        {t("organization.tabs.billing.portal.title")}
+                      </Button>
+                    </ExternalLink>
+                  </Can>
+                }
                 headers={tableHeaders}
                 id={"tblBillingGroups"}
                 pageSize={10}
