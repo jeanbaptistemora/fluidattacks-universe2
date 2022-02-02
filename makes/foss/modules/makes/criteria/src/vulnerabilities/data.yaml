@@ -3850,7 +3850,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -3918,7 +3918,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "N"
@@ -3966,7 +3966,7 @@
       Atacante anónimo
       desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -4031,7 +4031,7 @@
     threat: >
       Atacante anónimo desde red local.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "L"
@@ -4096,7 +4096,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -4208,7 +4208,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -4325,7 +4325,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -4457,7 +4457,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -4515,7 +4515,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -4564,7 +4564,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -4625,7 +4625,7 @@
       Atacante autentificado desde Internet
       con permisos de escritura en el repositorio.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -4708,7 +4708,7 @@
       propietario de una aplicación de terceros
       instalada en el dispositivo.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "L"
@@ -4958,7 +4958,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -5006,7 +5006,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "L"
@@ -5071,7 +5071,7 @@
       de los recursos críticos.
     threat: Atacante autenticado desde Internet.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -5128,7 +5128,7 @@
     threat: >
       Atacante autenticado desde red local.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -5317,7 +5317,7 @@
       Atacante con acceso físico
       o virtual al navegador de la víctima.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -5369,7 +5369,7 @@
       Atacante sin autorización
       desde la red de Internet.
   category: Deceptive Interactions
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -5425,7 +5425,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -5475,7 +5475,7 @@
       Atacante no autenticado desde
       Internet en la aplicación.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "300"
   score:
     base:
       attack_vector: "N"
@@ -5533,7 +5533,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "N"
@@ -5588,7 +5588,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "L"
@@ -5650,7 +5650,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Manipulate System
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -5701,7 +5701,7 @@
       Atacante sin autorización
       desde red adyacente ejecutando un MITM.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -5878,7 +5878,7 @@
       Atacante sin autorización
       desde red adyacente.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "A"
@@ -5933,7 +5933,7 @@
       espera un valor único.
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "N"
@@ -5984,7 +5984,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -6051,7 +6051,7 @@
     threat: >
       Atacante anónimo desde red local.
   category: Deceptive Interactions
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -6109,7 +6109,7 @@
     threat: >
       Atacante anónimo desde red externa.
   category: Manipulate Data
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -6191,7 +6191,7 @@
       Atacante autenticado desde Internet
       con acceso al bucket.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -6298,7 +6298,7 @@
       aceptados para consulta.
     threat: Atacante no autorizado desde Internet.
   category: Deceptive Interactions
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -6358,7 +6358,7 @@
       que llegue a modificar o borrar la
       información de las bases de datos.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "A"
@@ -6510,7 +6510,7 @@
       con software malicioso.
     threat: Atacante interno no autorizado.
   category: Manipulate System
-  remediation_time: "60"
+  remediation_time: "450"
   score:
     base:
       attack_vector: "P"
@@ -6630,7 +6630,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "N"
@@ -6683,7 +6683,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "A"
@@ -6793,7 +6793,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "90"
   score:
     base:
       attack_vector: "N"
@@ -6869,7 +6869,7 @@
       entre las peticiones.
     threat: Atacante no autorizado desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "45"
   score:
     base:
       attack_vector: "N"
@@ -6991,7 +6991,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -7054,7 +7054,7 @@
       no autorizado.
     threat: Atacante externo autentificado.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "L"
@@ -7167,7 +7167,7 @@
       en espacios de tiempo definidos.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -7222,7 +7222,7 @@
       los casos de carga de la aplicación.
     threat: Atacante anónimo desde Internet.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -7293,7 +7293,7 @@
       Atacante autenticado
       desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -7349,7 +7349,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -7404,7 +7404,7 @@
       Atacante con acceso al repositorio
       desde Internet.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -7490,7 +7490,7 @@
       Atacante anónimo con acceso a la
       aplicación.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -7558,7 +7558,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -7691,7 +7691,7 @@
     threat: >
       - Atacante no autorizado desde red local.
   category: Manipulate Data
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -7754,7 +7754,7 @@
     threat: >
       Atacante anónimo en el sistema.
   category: Abuse Functionality
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "L"
@@ -7827,7 +7827,7 @@
     threat: >
       Atacante externo con acceso a la aplicación.
   category: Collect Information
-  remediation_time: "60"
+  remediation_time: "15"
   score:
     base:
       attack_vector: "N"
@@ -7888,7 +7888,7 @@
       Atacante externo con
       acceso a la aplicación.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "120"
   score:
     base:
       attack_vector: "N"
@@ -7944,7 +7944,7 @@
       pero evitar que se interpreten.
     threat: Usuario autorizado de la intranet.
   category: Inject Unexpected
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "A"
@@ -7999,7 +7999,7 @@
       desde internet
       ejecutando un ataque XSS.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -8052,7 +8052,7 @@
       Atacante desde Internet
       ejecutando un ataque CSRF.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
@@ -8113,7 +8113,7 @@
       desde red adyacente
       ejecutando un MITM.
   category: Subvert Access
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "A"
@@ -8172,7 +8172,7 @@
       desde red adyacente
       ejecutando un ataque de sniffing.
   category: Protocol Manipulation
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "A"
@@ -8293,7 +8293,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
-  remediation_time: "60"
+  remediation_time: "30"
   score:
     base:
       attack_vector: "N"
