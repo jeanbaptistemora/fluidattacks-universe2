@@ -8,26 +8,15 @@ function serve_daemon {
 
 function serve {
   local env="${1:-}"
-
+  # https://docs.gunicorn.org/en/latest/design.html#how-many-workers
+  local recommended_workers
   local config=(
-    # The maximum number of pending connections. [2048]
-    --backlog '512'
     # The socket to bind. [['127.0.0.1:8000']]
     --bind "${HOST}:${PORT}"
     # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
     --forwarded-allow-ips '*'
-    # Timeout for graceful workers restart. [30]
-    --graceful-timeout '30'
-    # The maximum number of requests a worker will process before restarting. [0]
-    --max-requests '256'
-    # The maximum jitter to add to the max_requests setting. [0]
-    --max-requests-jitter '64'
-    # Workers silent for more than this many seconds are killed and restarted. [30]
-    --timeout '300'
     # The type of workers to use. [sync]
     --worker-class 'settings.uvicorn.IntegratesWorker'
-    # The maximum number of simultaneous clients. [1000]
-    --worker-connections '512'
   )
 
   source __argIntegratesBackEnv__/template "${env}" \
@@ -36,6 +25,7 @@ function serve {
       true) export LOG_LEVEL_CONSOLE="ERROR" ;;
       *) export LOG_LEVEL_CONSOLE="INFO" ;;
     esac \
+    && recommended_workers=$(python3 -c "import os; print(2 * os.cpu_count() + 1)") \
     && if test "${env}" == 'dev'; then
       config+=(
         # SSL certificate file
@@ -53,12 +43,12 @@ function serve {
     elif test "${env}" == 'eph'; then
       config+=(
         # The number of worker processes for handling requests
-        --workers 3
+        --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod'; then
       config+=(
         # The number of worker processes for handling requests
-        --workers 5
+        --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod-local'; then
       config+=(
@@ -67,7 +57,7 @@ function serve {
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
         # The number of worker processes for handling requests
-        --workers 3
+        --workers 1
       )
     else
       error First argument must be one of: dev, dev-mobile, eph, prod, prod-local
