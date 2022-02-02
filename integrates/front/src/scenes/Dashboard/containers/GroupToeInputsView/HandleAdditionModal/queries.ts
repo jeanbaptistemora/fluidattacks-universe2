@@ -25,12 +25,14 @@ const GET_ROOTS: DocumentNode = gql`
       name
       roots {
         ... on GitRoot {
+          __typename
           environmentUrls
           id
           nickname
           state
         }
         ... on IPRoot {
+          __typename
           address
           id
           nickname
@@ -38,6 +40,7 @@ const GET_ROOTS: DocumentNode = gql`
           state
         }
         ... on URLRoot {
+          __typename
           host
           id
           nickname
