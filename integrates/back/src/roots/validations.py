@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidGitCredentials,
     InvalidRootComponent,
+    InvalidUrl,
     RepeatedRootNickname,
 )
 from db_model.enums import (
@@ -128,6 +129,8 @@ def validate_active_root(root: RootItem) -> None:
 
 def validate_component(root: RootItem, component: str) -> None:
     if isinstance(root, GitRootItem):
+        if not is_valid_url(component):
+            raise InvalidUrl()
         for environment_url in root.state.environment_urls:
             if component == environment_url or component.startswith(
                 f"{environment_url}/"
@@ -135,12 +138,17 @@ def validate_component(root: RootItem, component: str) -> None:
                 return
 
     if isinstance(root, URLRootItem):
+        if not is_valid_url(component):
+            raise InvalidUrl()
         host = (
             f"{root.state.host}:{root.state.port}"
             if root.state.port
             else root.state.host
         )
-        if component.startswith(
+        if (
+            root.state.path == "/"
+            and component == f"{root.state.protocol.lower()}://{host}"
+        ) or component.startswith(
             f"{root.state.protocol.lower()}://{host}{root.state.path}"
         ):
             return

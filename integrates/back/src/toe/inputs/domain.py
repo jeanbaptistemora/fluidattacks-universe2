@@ -51,9 +51,10 @@ async def add(
     entry_point: str,
     attributes: ToeInputAttributesToAdd,
 ) -> None:
-    formatted_component = component
-    if component.endswith("/"):
-        formatted_component = component[:-1]
+    formatted_component = component.strip()
+    while formatted_component.endswith("/"):
+        formatted_component = formatted_component[:-1].strip()
+
     if attributes.is_moving_toe_input is False:
         root: RootItem = await loaders.root.load(
             (group_name, attributes.unreliable_root_id)

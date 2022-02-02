@@ -1176,3 +1176,12 @@ class EmptyHistoric(CustomBaseException):
         """Constructor"""
         msg = "Exception - The historic can not be empty"
         super(EmptyHistoric, self).__init__(msg)
+
+
+class InvalidUrl(CustomBaseException):
+    """Exception to control the url is valid"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The URL is not valid"
+        super(InvalidUrl, self).__init__(msg)
