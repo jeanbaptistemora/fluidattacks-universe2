@@ -109,7 +109,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
     )
     attack_vector_description: str = "This is an updated attack vector"
-    min_time_to_remediate: float = 4.5
+    min_time_to_remediate: int = 4
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
     tracking: List[Dict[str, Any]] = [
@@ -316,7 +316,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     )
     attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
-    min_time_to_remediate: float = 4.5
+    min_time_to_remediate: int = 4
     recommendation: str = "Updated recommendation"
     tracking: List[Dict[str, Any]] = [
         {

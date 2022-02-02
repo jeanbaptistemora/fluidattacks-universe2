@@ -108,7 +108,7 @@ describe("GroupDraftsView", (): void => {
                 description: "The web application...",
                 id: "507046047",
                 isExploitable: true,
-                minTimeToRemediate: 60.0,
+                minTimeToRemediate: 60,
                 openVulnerabilities: 0,
                 releaseDate: null,
                 reportDate: "2019-05-23 21:19:29",

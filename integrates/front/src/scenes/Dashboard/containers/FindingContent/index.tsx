@@ -219,11 +219,15 @@ const findingContent: React.FC = (): JSX.Element => {
     if (_.isNil(headerData.finding.minTimeToRemediate)) {
       return "Unknown";
     }
+    const minutesInAnHour = 60;
     const rawHours =
-      headerData.finding.minTimeToRemediate * headerData.finding.openVulns;
+      (headerData.finding.minTimeToRemediate * headerData.finding.openVulns) /
+      minutesInAnHour;
 
-    if (rawHours === 0.0) {
+    if (rawHours === 0) {
       return "None";
+    } else if (Number.isInteger(rawHours)) {
+      return `${rawHours.toFixed(0)}h`;
     }
 
     return `${rawHours.toFixed(1)}h`;

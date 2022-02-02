@@ -154,7 +154,7 @@ class Finding(NamedTuple):
     approval: Optional[FindingState] = None
     creation: Optional[FindingState] = None
     description: str = ""
-    min_time_to_remediate: Optional[Decimal] = None
+    min_time_to_remediate: Optional[int] = None
     evidences: FindingEvidences = FindingEvidences()
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO

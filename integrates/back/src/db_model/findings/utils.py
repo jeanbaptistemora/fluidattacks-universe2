@@ -146,9 +146,9 @@ def format_finding(
         }
     )
 
-    min_time_to_remediate: Optional[Decimal] = None
+    min_time_to_remediate: Optional[int] = None
     if "min_time_to_remediate" in metadata:
-        min_time_to_remediate = Decimal(metadata["min_time_to_remediate"])
+        min_time_to_remediate = int(metadata["min_time_to_remediate"])
 
     return Finding(
         hacker_email=metadata["analyst_email"],

@@ -22,9 +22,6 @@ from boto3.dynamodb.conditions import (
 from db_model import (
     TABLE,
 )
-from decimal import (
-    Decimal,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -53,20 +50,20 @@ from typing import (
 )
 
 
-def get_mttr(title: str, finding_info: Dict) -> Optional[Decimal]:
+def get_mttr(title: str, finding_info: Dict) -> Optional[int]:
     finding_code = title[:3]
     if (
         finding_code in finding_info
         and "remediation_time" in finding_info[finding_code]
     ):
-        return Decimal(finding_info[finding_code]["remediation_time"])
+        return int(finding_info[finding_code]["remediation_time"])
     return None
 
 
 async def process_finding(
     *,
     finding: Item,
-    new_mttr: Optional[Decimal],
+    new_mttr: Optional[int],
 ) -> None:
     await operations.update_item(
         item={"min_time_to_remediate": new_mttr},

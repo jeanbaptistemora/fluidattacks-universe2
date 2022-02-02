@@ -71,7 +71,8 @@ type Mutation {
     components
     """
     integrityImpact: String
-    "Minimum time (hours) to remediate a typical vulnerability in this Finding"
+    """Minimum time in minutes to remediate a typical vulnerability in this
+    Finding"""
     minTimeToRemediate: String
     "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: String

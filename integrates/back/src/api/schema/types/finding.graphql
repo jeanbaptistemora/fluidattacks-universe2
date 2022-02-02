@@ -46,8 +46,9 @@ type Finding {
     removed after 2022/02/06. Use `linesVulnerabilities` instead.""")
   "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob!]
-  "Minimum time in hours to remediate a typical vulnerability in this Finding"
-  minTimeToRemediate: Float
+  """Minimum time in minutes to remediate a typical vulnerability in this
+  Finding"""
+  minTimeToRemediate: Int
   "Re-attacks requested in all locations"
   newRemediated: Boolean @deprecated(reason: """This field
     will be removed after 2021/12/20. Use `remediated` instead.""")
