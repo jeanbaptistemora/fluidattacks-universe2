@@ -24220,3 +24220,54 @@
   metadata:
     en:
       details: __empty__
+"405":
+  en:
+    title: Excessive privileges - Access Mode
+    description: >
+      The system files or directories
+      have an access mode too permissive
+    impact: >
+      - Read, write or execute files
+
+      - Create potentially harmful files
+    recommendation: >
+      System files and directories
+      must be restricted by a custom permission mask,
+      for example an access mode 0600
+    threat: >
+      Anonymous attacker with local access to the machine
+  category: Abuse Functionality
+  remediation_time: "15"
+  es:
+    title: Excessive privileges - Access Mode
+    description: >
+      Los archivos o directorios del sistema
+      cuentan con un modo de acceso demasiado permisivo.
+    impact: >
+      - Leer modificar, ejecutar o eliminar archivos
+
+      - Crear archivos potencialmente maliciosos
+    recommendation: >
+      Los archivos y directorios de la aplicación
+      deben estar restringidos por una máscara de permisos
+      personalizada, por ejemplo un access mode 0600.
+    threat: >
+      Atacante anónimo con acceso local a la máquina
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["033", "176", "265", "280"]
+  metadata:
+    en:
+      details: __empty__
