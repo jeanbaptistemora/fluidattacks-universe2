@@ -45,6 +45,7 @@ import type {
   IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
+import type { IStakeholderAttrs as IGenericStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -529,8 +530,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     selected: getStakeHolderIndex(
                       _.isEmpty(currentRow)
                         ? []
-                        : [currentRow as unknown as IStakeholderDataSet],
-                      resultStakeHolders
+                        : [currentRow as unknown as IGenericStakeholderAttrs],
+                      resultStakeHolders as unknown as IGenericStakeholderAttrs[]
                     ),
                   }}
                   striped={true}

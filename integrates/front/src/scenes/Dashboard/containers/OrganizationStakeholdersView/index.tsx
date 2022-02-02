@@ -12,6 +12,7 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { getStakeHolderIndex } from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
@@ -123,25 +124,28 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   }, []);
 
   // GraphQL Operations
-  const { data, refetch: refetchStakeholders } =
-    useQuery<IGetOrganizationStakeholders>(GET_ORGANIZATION_STAKEHOLDERS, {
-      notifyOnNetworkStatusChange: true,
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred fetching organization stakeholders",
-            error
-          );
-        });
-      },
-      variables: { organizationId },
-    });
+  const {
+    data,
+    refetch: refetchStakeholders,
+    loading: loadingStakeholders,
+  } = useQuery<IGetOrganizationStakeholders>(GET_ORGANIZATION_STAKEHOLDERS, {
+    notifyOnNetworkStatusChange: true,
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred fetching organization stakeholders",
+          error
+        );
+      });
+    },
+    variables: { organizationId },
+  });
 
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IAddStakeholderAttrs): void => {
+    onCompleted: async (mtResult: IAddStakeholderAttrs): Promise<void> => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
-        void refetchStakeholders();
+        await refetchStakeholders();
         track("AddUserOrganzationAccess", {
           Organization: organizationName,
         });
@@ -159,11 +163,12 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   });
 
   const [updateStakeholder] = useMutation(UPDATE_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IUpdateStakeholderAttrs): void => {
+    onCompleted: async (mtResult: IUpdateStakeholderAttrs): Promise<void> => {
       if (mtResult.updateOrganizationStakeholder.success) {
+        setStakeholderModalAction("add");
         const { email } =
           mtResult.updateOrganizationStakeholder.modifiedStakeholder;
-        void refetchStakeholders();
+        await refetchStakeholders();
 
         track("EditUserOrganizationAccess", {
           Organization: organizationName,
@@ -174,6 +179,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
           )}`,
           translate.t("organization.tabs.users.successTitle")
         );
+        setCurrentRow({});
       }
     },
     onError: handleMtError,
@@ -182,9 +188,9 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const [removeStakeholderAccess, { loading: removing }] = useMutation(
     REMOVE_STAKEHOLDER_MUTATION,
     {
-      onCompleted: (mtResult: IRemoveStakeholderAttrs): void => {
+      onCompleted: async (mtResult: IRemoveStakeholderAttrs): Promise<void> => {
         if (mtResult.removeStakeholderOrganizationAccess.success) {
-          void refetchStakeholders();
+          await refetchStakeholders();
 
           track("RemoveUserOrganizationAccess", {
             Organization: organizationName,
@@ -234,8 +240,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     ]
   );
 
-  const handleRemoveStakeholder: () => void = useCallback((): void => {
-    void removeStakeholderAccess({
+  const handleRemoveStakeholder = useCallback(async (): Promise<void> => {
+    await removeStakeholderAccess({
       variables: {
         organizationId,
         userEmail: currentRow.email,
@@ -306,7 +312,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           )}
                         >
                           <Button
-                            disabled={_.isEmpty(currentRow)}
+                            disabled={
+                              _.isEmpty(currentRow) ||
+                              removing ||
+                              loadingStakeholders
+                            }
                             id={"editUser"}
                             onClick={openEditStakeholderModal}
                           >
@@ -327,7 +337,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           )}
                         >
                           <Button
-                            disabled={_.isEmpty(currentRow) || removing}
+                            disabled={
+                              _.isEmpty(currentRow) ||
+                              loadingStakeholders ||
+                              removing
+                            }
                             id={"removeUser"}
                             onClick={handleRemoveStakeholder}
                           >
@@ -349,6 +363,12 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                     clickToSelect: true,
                     mode: "radio",
                     onSelect: setCurrentRow,
+                    selected: getStakeHolderIndex(
+                      _.isEmpty(currentRow)
+                        ? []
+                        : [currentRow as unknown as IStakeholderAttrs],
+                      filterSearchtextResult
+                    ),
                   }}
                   striped={true}
                 />

@@ -1,8 +1,7 @@
 import type { ApolloError, ObservableQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 
-import type { IStakeholderDataSet } from "./types";
-
+import type { IStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -93,17 +92,17 @@ const handleEditError = (
 };
 
 const getStakeHolderIndex = (
-  selectedStakeholders: IStakeholderDataSet[],
-  allStakeholders: IStakeholderDataSet[]
+  selectedStakeholders: IStakeholderAttrs[],
+  allStakeholders: IStakeholderAttrs[]
 ): number[] => {
   const selectedIds: string[] = selectedStakeholders.map(
-    (selected: IStakeholderDataSet): string => selected.email.toLowerCase()
+    (selected: IStakeholderAttrs): string => selected.email.toLowerCase()
   );
 
   return allStakeholders.reduce(
     (
       selectedIndex: number[],
-      currentStakeholders: IStakeholderDataSet,
+      currentStakeholders: IStakeholderAttrs,
       currentStakeholdersIndex: number
     ): number[] =>
       selectedIds.includes(currentStakeholders.email.toLowerCase())
