@@ -62,21 +62,36 @@ So let’s start!
 - After filling out all the fields, click on **Proceed**.
   You will have your new URL in Git Roots
 
-## Editing git roots
+## Editing root by SSH key
 
-To edit a git root, click the desired row on the table and the following form
-will show up:
+If you already have your Git roots but
+want to add the SSH keys or edit them,
+this is very easy to do.
 
-![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/edit_root_whbob4.webp)
+- First, log in to our ASM and click
+  on the **Scope** tab.
+  There, you can see all the Git roots URLs.
 
-You can update the branch, environment kind,
-activate or deactivate the Health Check option,
-modify the [exclusions](/machine/web/groups/scope/exclusions), and if there
-are no active vulnerabilities reported, you can also update the URL.
+![Edit Scope Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1643814404/docs/web/groups/scope/edit_scope_tab.png)
 
-Then, click on **Proceed**
-to apply the changes
-or on **Cancel** to discard them.
+- You need to pick which URL you want to edit.
+  When you click on it, the **Edit root** window
+  will pop up, where you can edit your root.
+
+![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1643814403/docs/web/groups/scope/edit_window_root.png)
+
+- Provide your SSH private key in
+  the **Cloning credentials** field.
+  Then, choose SSH from the **Type**
+  drop-down menu.
+  After that, an extra field will
+  appear, asking for your private key.
+
+![Clone Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1643814403/docs/web/groups/scope/edit_cloning_credentials.png)
+
+- After filling out all the fields,
+  click on **Proceed** and your changes
+  will be automatically applied.
 
 ### Managing git root environments
 
