@@ -1419,7 +1419,7 @@ async def remove_user(
                 loaders, org_id, email
             )
 
-        user_groups = await get_groups_by_user(email, organization_id=org_id)
+        user_groups = await get_groups_by_user(email)
         groups = await loaders.group.load_many(user_groups)
         groups_filtered = filter_active_groups(groups)
         has_groups = bool(groups_filtered)
