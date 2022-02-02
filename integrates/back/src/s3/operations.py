@@ -2,6 +2,9 @@ import aioboto3
 from aioextensions import (
     in_thread,
 )
+from botocore.client import (
+    Config,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -81,10 +84,12 @@ async def remove_file(bucket: str, name: str) -> None:
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
-    async with aio_client() as client:
+    async with aioboto3.client(
+        **OPTIONS, config=Config(signature_version="s3v4")
+    ) as s3_client:
         try:
             return str(
-                await client.generate_presigned_url(
+                await s3_client.generate_presigned_url(
                     "get_object",
                     Params={"Bucket": bucket, "Key": file_name},
                     ExpiresIn=expire_mins,
