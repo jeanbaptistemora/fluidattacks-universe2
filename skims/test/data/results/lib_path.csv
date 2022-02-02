@@ -22,7 +22,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,10,1 + 3 + 9,skims,
   20 |     )
   21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
      ^ Col 0
-",kotlin.unencrypted_channel
+",kotlin.kotlin_unencrypted_channel
 F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,12,1 + 3 + 9,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
    2 |
    3 | import org.apache.commons.net.ftp.FTPClient
@@ -46,7 +46,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,12,1 + 3 + 9,skims,
   21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
   22 |         ConnectionSpec.MODERN_TLS
      ^ Col 0
-",kotlin.unencrypted_channel
+",kotlin.kotlin_unencrypted_channel
 F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,19,1 + 3 + 9,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
    4 | import org.apache.commons.net.ftp.FTPSClient
    5 | import org.apache.commons.net.smtp.SMTPClient
@@ -70,7 +70,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,19,1 + 3 + 9,skims,
   23 |     )
   24 | }
      ^ Col 0
-",kotlin.unencrypted_channel
+",kotlin.kotlin_unencrypted_channel
 F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,1 + 3 + 9,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
    4 | import org.apache.commons.net.ftp.FTPSClient
    5 | import org.apache.commons.net.smtp.SMTPClient
@@ -94,7 +94,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,1 + 3 + 9,skims,
   23 |     )
   24 | }
      ^ Col 0
-",kotlin.unencrypted_channel
+",kotlin.kotlin_unencrypted_channel
 F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,16,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml","
    1 | Resources:
@@ -3124,7 +3124,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134.
   23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
   24 |
      ^ Col 0
-",c_sharp.insecure_cors
+",c_sharp.csharp_insecure_cors
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
    7 |         public void Configure(IApplicationBuilder app)
    8 |         {
@@ -3148,7 +3148,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134.
   26 |                 .AllowAnyMethod()
   27 |                 .AllowAnyOrigin());
      ^ Col 0
-",c_sharp.insecure_cors
+",c_sharp.csharp_insecure_cors
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
   13 |             corsBuilder.AllowAnyMethod();
   14 |             corsBuilder.AllowAnyOrigin();
@@ -3172,7 +3172,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134.
   32 |             SecCorsBuilder.AllowAnyHeader();
   33 |             SecCorsBuilder.AllowAnyMethod();
      ^ Col 0
-",c_sharp.insecure_cors
+",c_sharp.csharp_insecure_cors
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
   15 |
   16 |         var policyBuilder = new CorsPolicyBuilder();
@@ -3196,7 +3196,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134.
   34 |
   35 |         var SecPolicyBuilder = new CorsPolicyBuilder();
      ^ Col 4
-",c_sharp.insecure_cors
+",c_sharp.csharp_insecure_cors
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -8695,7 +8695,7 @@ F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. T
   25 |     try {
   26 |       int a = 1 / 0;
      ^ Col 0
-",java.info_leak_stacktrace
+",java.java_info_leak_stacktrace
 F237,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/Test.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
@@ -8708,7 +8708,7 @@ F237,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,237. Te
    9 |     }
   10 | }
      ^ Col 0
-",java.info_leak_stacktrace
+",java.java_info_leak_stacktrace
 F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,"
    1 | t java.io.File;
    2 |
@@ -8726,7 +8726,7 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   14 |
   15 |
      ^ Col 5
-",query.get_vulnerabilities_from_syntax
+",query.query_f063
 F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,"
    1 |
    2 |
@@ -8744,7 +8744,7 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   14 |
   15 |
      ^ Col 33
-",query.get_vulnerabilities_from_syntax
+",query.query_f063
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
  in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml","
   12 |         Statement:
@@ -17166,7 +17166,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/javascript.js,6,310 + 327,ski
   19 | cipher.write(""some clear text data"");
   20 | cipher.end();
      ^ Col 0
-",javascript._test_native_cipher
+",javascript.javascript_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    4 | .security.NoSuchAlgorithmException
    5 | .security.spec.ECGenParameterSpec
@@ -20162,7 +20162,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,
   14 |    }
   15 | }
      ^ Col 0
-",c_sharp.verify_decoder
+",c_sharp.c_sharp_verify_decoder
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | using System;
@@ -20181,7 +20181,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,0
   14 |    }
   15 | }
      ^ Col 0
-",c_sharp.verify_decoder
+",c_sharp.c_sharp_verify_decoder
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/test.cs","
    5 |
@@ -20206,7 +20206,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sen
   24 |
   25 |       var json2 = JwtBuilder.Create()
      ^ Col 0
-",c_sharp.jwt_signed
+",c_sharp.c_sharp_jwt_signed
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/test.cs","
   13 |
@@ -20231,7 +20231,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sen
   32 |    }
   33 | }
      ^ Col 0
-",c_sharp.jwt_signed
+",c_sharp.c_sharp_jwt_signed
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/test.cs","
   13 |
@@ -20256,7 +20256,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sen
   32 |    }
   33 | }
      ^ Col 0
-",c_sharp.jwt_signed
+",c_sharp.c_sharp_jwt_signed
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/test.cs","
    1 | using System;
@@ -20281,7 +20281,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sens
   20 |          .WithAlgorithm(new HMACSHA256Algorithm())
   21 |          .WithSecret(secret)
      ^ Col 0
-",c_sharp.verify_decoder
+",c_sharp.c_sharp_verify_decoder
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
    1 | bg.ws.endpoint =  http://www.test.com
    2 | bg.ws.endpoint = https://www.test.com
@@ -20597,7 +20597,7 @@ F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. I
   12 |  }
   13 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f034
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
 ",generic.unverifiable_files
@@ -20692,7 +20692,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asy
   16 |     }
   17 | }
      ^ Col 0
-",c_sharp.vuln_regular_expression
+",c_sharp.csharp_vuln_regular_expression
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
@@ -20713,7 +20713,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asy
   16 |     }
   17 | }
      ^ Col 0
-",c_sharp.vuln_regular_expression
+",c_sharp.csharp_vuln_regular_expression
 F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skims,101. Lack of protection against deletion,Azure key vault is not recoverable in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -22267,7 +22267,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,
   15 |
   16 |
      ^ Col 6
-",c_sharp.check_xml_serializer
+",c_sharp.c_sharp_check_xml_serializer
 F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
    1 |  class XmlSerializerTestCase : Controller
    2 |
@@ -22286,7 +22286,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   15 |
   16 |
      ^ Col 6
-",c_sharp.check_xml_serializer
+",c_sharp.c_sharp_check_xml_serializer
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
@@ -22305,7 +22305,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Ins
   14 |
   15 |
      ^ Col 10
-",c_sharp.insecure_deserialization
+",c_sharp.c_sharp_insecure_deserialization
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | m.Runtime.Serialization.Formatters.Binary;
@@ -22324,7 +22324,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Inse
   14 |
   15 |
      ^ Col 11
-",c_sharp.insecure_deserialization
+",c_sharp.c_sharp_insecure_deserialization
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | rialization.Formatters.Binary;
@@ -22343,7 +22343,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Ins
   14 |
   15 |
      ^ Col 23
-",c_sharp.insecure_deserialization
+",c_sharp.c_sharp_insecure_deserialization
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | tem.Runtime.Serialization.Formatters.Binary;
@@ -22362,7 +22362,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Ins
   14 |
   15 |
      ^ Col 9
-",c_sharp.insecure_deserialization
+",c_sharp.c_sharp_insecure_deserialization
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
@@ -22387,7 +22387,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,502,skims,091. Log
   23 |         sec_log.Info(id);
   24 |     }
      ^ Col 0
-",c_sharp.insecure_logging
+",c_sharp.c_sharp_insecure_logging
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    5 | {
@@ -22412,7 +22412,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,502,skims,091. Log
   24 |     }
   25 | }
      ^ Col 0
-",c_sharp.insecure_logging
+",c_sharp.c_sharp_insecure_logging
 F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/test.cs","
    1 | using System;
@@ -22437,7 +22437,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,502,skims,091. Log
   20 |         //secure
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
-",c_sharp.insecure_logging
+",c_sharp.c_sharp_insecure_logging
 F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,"Azure Key Vault secrets do not have an expiration date set
  in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf","
 >  1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
@@ -22703,7 +22703,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,8,521,skims,035. W
   14 |     }
   15 | }
      ^ Col 0
-",c_sharp.no_password
+",c_sharp.csharp_no_password
 F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
    1 | ntrollers
    2 |
@@ -22721,7 +22721,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. 
   14 |
   15 |
      ^ Col 12
-",c_sharp.no_password
+",c_sharp.csharp_no_password
 F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The systems credential policy is not compliant with security regulations.
  in namespace/skims/test/data/lib_root/f035/Test.cs","
    1 | ï»¿public class Startup
@@ -22741,7 +22741,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Wea
   15 |     }
   16 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",c_sharp.csharp_weak_credential_policy
 F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The systems credential policy is not compliant with security regulations.
  in namespace/skims/test/data/lib_root/f035/Test.cs","
    1 | ï»¿public class Startup
@@ -22761,7 +22761,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak
   15 |     }
   16 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",c_sharp.csharp_weak_credential_policy
 F055,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -22849,7 +22849,7 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
   21 |     }
   22 | }
      ^ Col 0
-",c_sharp.insecurely_generated_cookies
+",c_sharp.csharp_insecurely_generated_cookies
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in namespace/skims/test/data/lib_root/f042/test.cs","
    2 | using System;
@@ -22874,7 +22874,7 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
   21 |     }
   22 | }
      ^ Col 0
-",c_sharp.insecurely_generated_cookies
+",c_sharp.csharp_insecurely_generated_cookies
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,24,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
   14 |   https_only          = true
   15 |   tags                = var.modtags
@@ -25044,7 +25044,7 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   18 |     }
   19 | }
      ^ Col 0
-",c_sharp.conflicting_annotations
+",c_sharp.csharp_conflicting_annotations
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Tracebility Loss - Azure,"Ensure Azure SQL Server audit log retention is greater than 90 days
  in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","
   12 |     storage_account_access_key_is_secondary = true
@@ -26450,7 +26450,7 @@ F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remo
   24 |     }
   25 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f004
 F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in namespace/skims/test/data/lib_root/f008/test.cs","
    1 | namespace Controllers
@@ -26472,7 +26472,7 @@ F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Refle
   17 |     }
   18 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f008
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | bda.credentials2.key       = AKIA0000000000000000
    2 | zon.aws.accesskey          = AKIA0000000000000000
@@ -26557,7 +26557,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,8,798,skims,009
   7 | CryptoJS.enc.Latin1.parse('sec\'ret');
 > 8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -26568,7 +26568,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,7,798,skims,009
 > 7 | CryptoJS.enc.Latin1.parse('sec\'ret');
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -26579,7 +26579,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,6,798,skims,009
   7 | CryptoJS.enc.Latin1.parse('sec\'ret');
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,5,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -26590,7 +26590,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,5,798,skims,009
   7 | CryptoJS.enc.Latin1.parse('sec\'ret');
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,4,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -26601,7 +26601,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,4,798,skims,009
   7 | CryptoJS.enc.Latin1.parse('sec\'ret');
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
   1 | CryptoJS.enc.Base64.parse(source);
   2 |
@@ -26612,7 +26612,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009
   7 | CryptoJS.enc.Latin1.parse('sec\'ret');
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
-",javascript.crypto_js_credentials
+",javascript.javascript_crypto_js_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
   1 | ENV API_KEY '123'
 > 2 | ENV API_KEY='123'
@@ -26773,7 +26773,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lac
   20 | func DangerousFloat3(request *http.Request) {
   21 |  amount := strconv.ParseFloat(request.Amount)
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f127
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
    6 |  ""math""
@@ -26798,7 +26798,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lac
   25 | func DangerousFloat4(request *http.Request) {
   26 |  operation := db.Transaction{}
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f127
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
   11 |  amount := strconv.ParseFloat(request.Amount)
@@ -26823,7 +26823,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,21,843,skims,127. Lac
   30 | }
   31 |
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f127
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
   17 |  DBQuerySameFile(""Message"", amount, 0)
@@ -26848,7 +26848,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lac
   36 |  }
   37 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f127
 F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
  in namespace/skims/test/data/lib_root/f001/test.cs","
    3 | using WebApplication1.Controllers;
@@ -26873,7 +26873,7 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL 
   22 |         }
   23 |     }
      ^ Col 0
-",c_sharp.sql_injection
+",c_sharp.c_sharp_sql_injection
 F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
  in namespace/skims/test/data/lib_root/f001/test.cs","
    4 |
@@ -26898,7 +26898,7 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL 
   23 |     }
   24 | }
      ^ Col 0
-",c_sharp.sql_injection
+",c_sharp.c_sharp_sql_injection
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    13 |     @Query(value = ""SELECT * FROM schema.table "" +
    14 |         ""WHERE CODE = ?1"", nativeQuery = true)
@@ -26922,7 +26922,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,012
    32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
       ^ Col 0
-",java.jpa_like
+",java.java_jpa_like
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    26 |    @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
    27 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
@@ -26946,7 +26946,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,012
    45 |    @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
    46 |        ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
       ^ Col 1
-",java.jpa_like
+",java.java_jpa_like
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    29 |    @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
    30 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
@@ -26970,7 +26970,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,012
    48 |    )
    49 |    Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
       ^ Col 1
-",java.jpa_like
+",java.java_jpa_like
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
@@ -26994,7 +26994,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,012
    51 |     @SqlQuery(""SEL"" +
    52 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10"")
       ^ Col 0
-",java.jpa_like
+",java.java_jpa_like
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_path/f001_jpa/java.java,"
    36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
    37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
@@ -27018,7 +27018,7 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
    55 |
    56 | /*
       ^ Col 0
-",java.jpa_like
+",java.java_jpa_like
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Internal service information should not be stored in the source code, especially AD configurations, as it is obtained from the admon-chanel configuration file.
  in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | using System;
@@ -27035,7 +27035,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insec
   12 |
   13 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f320
 F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
  in namespace/skims/test/data/lib_root/f320/test.cs","
    1 | stem;
@@ -27052,7 +27052,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insec
   12 |
   13 |
      ^ Col 8
-",c_sharp.ldap_connections_authenticated
+",c_sharp.csharp_ldap_connections_authenticated
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
  in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | amespace Controllers
@@ -27071,7 +27071,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,90,skims,338. Inse
   14 |    }
   15 |
      ^ Col 1
-",c_sharp.check_hashes_salt
+",c_sharp.csharp_check_hashes_salt
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
  in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | espace Controllers
@@ -27090,7 +27090,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,90,skims,338. Insec
   14 |  }
   15 |
      ^ Col 3
-",c_sharp.check_hashes_salt
+",c_sharp.csharp_check_hashes_salt
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
  in namespace/skims/test/data/lib_root/f338/test.cs","
    1 | mespace Controllers
@@ -27109,7 +27109,7 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,90,skims,338. Inse
   14 |   }
   15 |
      ^ Col 2
-",c_sharp.check_hashes_salt
+",c_sharp.csharp_check_hashes_salt
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | g System.Net;
@@ -27134,7 +27134,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Ser
   20 | }
   21 |
      ^ Col 4
-",query.get_vulnerabilities_from_syntax
+",query.query_f100
 F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | using System.Net;
@@ -27159,7 +27159,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   20 |     }
   21 | }
      ^ Col 0
-",query.get_vulnerabilities_from_syntax
+",query.query_f100
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_path/f085/react.jsx,"
   1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');
@@ -27170,7 +27170,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Se
   7 | localStorage.getItem('is_authenticated');
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
-",javascript.client_storage
+",javascript.javascript_client_storage
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,4,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_path/f085/react.jsx,"
   1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');
@@ -27181,7 +27181,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,4,922,skims,085. Se
   7 | localStorage.getItem('is_authenticated');
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
-",javascript.client_storage
+",javascript.javascript_client_storage
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_path/f085/react.jsx,"
 > 1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');
@@ -27192,7 +27192,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Se
   7 | localStorage.getItem('is_authenticated');
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
-",javascript.client_storage
+",javascript.javascript_client_storage
 F157,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,9,923,skims,157. Unrestricted access between network segments,Ensure Azure Key Vault default network access is set to Deny in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
    1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""

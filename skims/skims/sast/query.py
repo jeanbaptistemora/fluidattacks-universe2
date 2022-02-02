@@ -7,7 +7,6 @@ from ctx import (
 from functools import (
     partial,
 )
-import inspect
 from itertools import (
     chain,
 )
@@ -16,9 +15,6 @@ from model import (
     graph_model,
 )
 import os
-from pathlib import (
-    Path,
-)
 from sast_symbolic_evaluation.evaluate import (
     get_all_possible_syntax_steps,
     get_possible_syntax_steps_for_finding,
@@ -29,11 +25,7 @@ from sast_symbolic_evaluation.evaluate import (
 from symbolic_eval.analyze import (
     analyze as symbolic_analyze,
 )
-from types import (
-    FrameType,
-)
 from typing import (
-    cast,
     Dict,
     Iterator,
     Optional,
@@ -56,7 +48,6 @@ def get_vulnerability_from_n_id(
     desc_params: Dict[str, str],
     graph_shard: graph_model.GraphShard,
     n_id: str,
-    source_method: str,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
@@ -92,7 +83,7 @@ def get_vulnerability_from_n_id(
                     line=int(n_attrs_label_line),
                 ),
             ),
-            source_method=source_method,
+            source_method=method.value.get_name(),
             developer=method.value.developer,
         ),
     )
@@ -106,9 +97,6 @@ def get_vulnerabilities_from_n_ids(
     graph_shard_nodes: graph_model.GraphShardNodes,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    source = cast(
-        FrameType, cast(FrameType, inspect.currentframe()).f_back
-    ).f_code
     return tuple(
         get_vulnerability_from_n_id(
             cwe=cwe,
@@ -116,9 +104,6 @@ def get_vulnerabilities_from_n_ids(
             desc_params=desc_params,
             graph_shard=graph_shard,
             n_id=n_id,
-            source_method=(
-                f"{Path(source.co_filename).stem}.{source.co_name}"
-            ),
             method=method,
         )
         for graph_shard, n_id in graph_shard_nodes

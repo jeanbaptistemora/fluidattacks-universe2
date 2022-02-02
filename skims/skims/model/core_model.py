@@ -2363,7 +2363,7 @@ class MethodInfo(NamedTuple):
     name: str
     module: str
     finding: FindingEnum
-    developer: Optional[DeveloperEnum] = None
+    developer: DeveloperEnum
 
     def get_name(self) -> str:
         return f"{self.file_name}.{self.name}"
