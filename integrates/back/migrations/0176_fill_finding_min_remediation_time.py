@@ -7,8 +7,8 @@ yaml
 If there's a drift between the data kept in the findings and in the yaml, this
 migration can be rerun to keep everything in line
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-02-01 at 16:24:45 UTC-5
+Finalization Time: 2022-02-01 at 16:26:31 UTC-5
 """
 
 from aioextensions import (
@@ -55,7 +55,10 @@ from typing import (
 
 def get_mttr(title: str, finding_info: Dict) -> Optional[Decimal]:
     finding_code = title[:3]
-    if "remediation_time" in finding_info[finding_code]:
+    if (
+        finding_code in finding_info
+        and "remediation_time" in finding_info[finding_code]
+    ):
         return Decimal(finding_info[finding_code]["remediation_time"])
     return None
 
