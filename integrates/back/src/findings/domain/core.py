@@ -811,10 +811,21 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     if is_reattack_open is not None:
         justification = f"Reattack request was executed in \
             {datetime_utils.format_justification_date(today)}."
+        commits = [
+            f"""{f'{vuln.commit} Non-compliant code, Line {vuln.specific}'
+                if vuln.specific is not None and is_reattack_open
+                else vuln.commit
+            }"""
+            for vuln in vulnerabilities
+            if vuln.commit is not None
+        ]
+        str_commits = "\n- ".join(commits)
         if is_reattack_open:
-            justification += "\n Reported vulnerability is still open."
+            justification += "\n Reported vulnerability is still open"
         else:
-            justification += "\n Reported vulnerability was solved."
+            justification += "\n Reported vulnerability was solved"
+
+        justification += f" in commits: \n - {str_commits}" if commits else "."
 
     comment_data = {
         "comment_type": "verification",
