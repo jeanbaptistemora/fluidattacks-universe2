@@ -465,25 +465,34 @@ async def webhook(request: Request) -> JSONResponse:
         # Main logic
         if event.type in (
             "customer.subscription.created",
-            "customer.subscription.updated",
+            "customer.subscription.deleted",
         ):
+            tier: str = ""
+            subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
+                group_name=event.data.object.metadata.group,
+                org_billing_customer=event.data.object.customer,
+                status="active",
+                limit=1000,
+            )
+
+            if (
+                event.type == "customer.subscription.deleted"
+                and event.data.object.metadata.subscription == "machine"
+            ):
+                tier = "free"
+            elif "squad" in subs.keys():
+                tier = "squad"
+            elif "machine" in subs.keys():
+                tier = "machine"
+
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
                 reason=f"Update triggered by String with event {event.id}",
                 requester_email="development@fluidattacks.com",
                 group_name=event.data.object.metadata.group,
-                tier=event.data.object.metadata.subscription,
+                tier=tier,
             ):
-                message = "Subscription successful!"
-        elif event.type == "customer.subscription.deleted":
-            if await groups_domain.update_group_tier(
-                loaders=get_new_context(),
-                reason=f"Update triggered by String with event {event.id}",
-                requester_email="development@fluidattacks.com",
-                group_name=event.data.object.metadata.group,
-                tier="free",
-            ):
-                message = "Subscription deletion successful!"
+                message = "Success"
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"
