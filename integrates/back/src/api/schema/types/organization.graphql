@@ -10,7 +10,7 @@ type Organization {
   "Payment methods belonging to the organization"
   billingPaymentMethods: [BillingPaymentMethod]
   "Portal URL for managing group tiers"
-  billingPortal: BillingPortal
+  billingPortal: String
   "Enacted and pending Finding policies within the organization"
   findingPolicies: [FindingPolicy]
   "Groups belonging to the organization"

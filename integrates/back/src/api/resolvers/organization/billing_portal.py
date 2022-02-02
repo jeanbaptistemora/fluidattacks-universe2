@@ -1,9 +1,6 @@
 from billing import (
     domain as billing_domain,
 )
-from billing.types import (
-    Portal,
-)
 from custom_types import (
     Organization,
 )
@@ -30,7 +27,7 @@ from typing import (
 )
 async def resolve(
     parent: Organization, info: GraphQLResolveInfo, **_kwargs: None
-) -> Portal:
+) -> str:
     org_id: str = parent["id"]
     org_name: str = parent["name"]
     org_billing_customer: Optional[str] = parent.get("billing_customer", None)

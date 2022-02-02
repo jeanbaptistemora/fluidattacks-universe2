@@ -4,7 +4,6 @@ from bill import (
 from billing.types import (
     Customer,
     PaymentMethod,
-    Portal,
     Price,
     Subscription,
 )
@@ -141,17 +140,12 @@ async def create_portal(
     *,
     org_billing_customer: str,
     org_name: str,
-) -> Portal:
+) -> str:
     """Create Stripe portal session"""
-    data = stripe.billing_portal.Session.create(
+    return stripe.billing_portal.Session.create(
         customer=org_billing_customer,
         return_url=f"{BASE_URL}/orgs/{org_name}/billing",
-    )
-    return Portal(
-        organization=org_name,
-        portal_url=data.url,
-        return_url=data.return_url,
-    )
+    ).url
 
 
 async def get_price(

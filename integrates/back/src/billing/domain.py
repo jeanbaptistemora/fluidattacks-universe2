@@ -7,7 +7,6 @@ from billing import (
 from billing.types import (
     Customer,
     PaymentMethod,
-    Portal,
     Subscription,
 )
 from custom_exceptions import (
@@ -350,7 +349,7 @@ async def create_portal(
     org_name: str,
     user_email: str,
     org_billing_customer: Optional[str],
-) -> Portal:
+) -> str:
     """Create Stripe portal session"""
     # Create customer if it does not exist
     if org_billing_customer is None:

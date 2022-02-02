@@ -25,12 +25,6 @@ class Price(NamedTuple):
     subscription: str
 
 
-class Portal(NamedTuple):
-    organization: str
-    portal_url: str
-    return_url: str
-
-
 class Subscription(NamedTuple):
     id: str
     group: str

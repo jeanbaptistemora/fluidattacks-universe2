@@ -4,9 +4,6 @@ from .bill import (
 from .bill_author import (
     BILL_AUTHOR,
 )
-from .billing_portal import (
-    BILLING_PORTAL,
-)
 from .consult import (
     CONSULT,
 )
@@ -112,7 +109,6 @@ from typing import (
 TYPES: Tuple[ObjectType, ...] = (
     BILL_AUTHOR,
     BILL,
-    BILLING_PORTAL,
     CONSULT,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
