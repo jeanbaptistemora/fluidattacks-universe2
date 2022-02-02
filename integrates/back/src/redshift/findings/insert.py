@@ -1,23 +1,29 @@
 from .initialize import (
     METADATA_TABLE,
+    SEVERITY_CVSS20_TABLE,
+    SEVERITY_CVSS31_TABLE,
     STATE_TABLE,
     VERIFICATION_TABLE,
     VERIFICATION_VULN_IDS_TABLE,
 )
 from .types import (
     MetadataTableRow,
+    SeverityCvss20TableRow,
+    SeverityCvss31TableRow,
     StateTableRow,
     VerificationTableRow,
     VerificationVulnIdsTableRow,
 )
 from .utils import (
     format_row_metadata,
+    format_row_severity,
     format_row_state,
     format_row_verification,
     format_row_verification_vuln_ids,
 )
 from db_model.findings.types import (
     Finding,
+    Finding31Severity,
     FindingState,
     FindingVerification,
 )
@@ -62,6 +68,27 @@ async def insert_metadata(
     await execute(  # nosec
         SQL_INSERT_METADATA.substitute(
             table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_metadata_severity(
+    *,
+    finding: Finding,
+) -> None:
+    if isinstance(finding.severity, Finding31Severity):
+        _fields, values = format_query_fields(SeverityCvss31TableRow)
+        severity_table = SEVERITY_CVSS31_TABLE
+    else:
+        _fields, values = format_query_fields(SeverityCvss20TableRow)
+        severity_table = SEVERITY_CVSS20_TABLE
+    sql_values = format_row_severity(finding)
+    await execute(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=severity_table,
             fields=_fields,
             values=values,
         ),

@@ -18,8 +18,8 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 METADATA_TABLE: str = f"{SCHEMA_NAME}.findings_metadata"
 STATE_TABLE: str = f"{SCHEMA_NAME}.findings_state"
-SEVERITY_CVSS20: str = f"{SCHEMA_NAME}.findings_severity_cvss20"
-SEVERITY_CVSS31: str = f"{SCHEMA_NAME}.findings_severity_cvss31"
+SEVERITY_CVSS20_TABLE: str = f"{SCHEMA_NAME}.findings_severity_cvss20"
+SEVERITY_CVSS31_TABLE: str = f"{SCHEMA_NAME}.findings_severity_cvss31"
 VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.findings_verification"
 VERIFICATION_VULN_IDS_TABLE: str = (
     f"{SCHEMA_NAME}.findings_verification_vuln_ids"
@@ -74,10 +74,10 @@ async def _initialize_state_table() -> None:
 
 
 async def _initialize_severity_cvss20_table() -> None:
-    LOGGER.info(f"Ensuring {SEVERITY_CVSS20} table exists...", **NOEXTRA)
+    LOGGER.info(f"Ensuring {SEVERITY_CVSS20_TABLE} table exists...", **NOEXTRA)
     await execute(
         f"""
-            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS20} (
+            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS20_TABLE} (
                 id VARCHAR,
                 access_complexity DECIMAL(5,3) NOT NULL,
                 access_vector DECIMAL(5,3) NOT NULL,
@@ -105,10 +105,10 @@ async def _initialize_severity_cvss20_table() -> None:
 
 
 async def _initialize_severity_cvss31_table() -> None:
-    LOGGER.info(f"Ensuring {SEVERITY_CVSS31} table exists...", **NOEXTRA)
+    LOGGER.info(f"Ensuring {SEVERITY_CVSS31_TABLE} table exists...", **NOEXTRA)
     await execute(
         f"""
-            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS31} (
+            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS31_TABLE} (
                 id VARCHAR,
                 attack_complexity DECIMAL(4,2) NOT NULL,
                 attack_vector DECIMAL(4,2) NOT NULL,

@@ -35,6 +35,15 @@ def format_row_metadata(
     )
 
 
+def format_row_severity(
+    finding: Finding,
+) -> Dict[str, Any]:
+    return {
+        "id": finding.id,
+        **finding.severity._asdict(),
+    }
+
+
 def format_row_state(
     finding_id: str,
     state: FindingState,
