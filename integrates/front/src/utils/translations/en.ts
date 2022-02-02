@@ -809,6 +809,12 @@ export const enTranslations: ResourceKey = {
     toe: {
       inputs: {
         addModal: {
+          alerts: {
+            alreadyExists: "The input already exists.",
+            invalidComponent: "The root does not have the component.",
+            invalidUrl: "The URL is not valid.",
+            success: "Input has been added.",
+          },
           close: "Close",
           fields: {
             component: "Component",
@@ -818,6 +824,7 @@ export const enTranslations: ResourceKey = {
             root: "Root",
           },
           procced: "Proceed",
+          title: "Add input",
         },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
