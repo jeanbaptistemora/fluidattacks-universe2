@@ -91,10 +91,10 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open Severity (CVSSF)"] + [group.value for group in data],
+                ["Open Severity"] + [group.value for group in data],
             ],
             colors={
-                "Open Severity (CVSSF)": RISK.more_agressive,
+                "Open Severity": RISK.more_agressive,
             },
             type="bar",
         ),
@@ -111,6 +111,10 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                 ),
             ),
             y=dict(
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
                 min=0,
                 padding=dict(
                     bottom=0,

@@ -98,7 +98,7 @@ def format_data(
         VulnerabilityType.PORTS: "Infra",
     }
     data: List[Tuple[str, int]] = counters.most_common()[:10]
-    legend: str = f"{translations[source]} open severity (CVSSF)"
+    legend: str = f"{translations[source]} open severity"
 
     return dict(
         data=dict(
@@ -129,6 +129,10 @@ def format_data(
                 ),
             ),
             y=dict(
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
                 min=0,
                 padding=dict(
                     bottom=0,

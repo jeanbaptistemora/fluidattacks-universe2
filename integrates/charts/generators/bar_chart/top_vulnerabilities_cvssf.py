@@ -115,7 +115,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
         data=dict(
             columns=[
                 [
-                    "Open Severity (CVSSF)",
+                    "Open Severity",
                     *[
                         Decimal(value).quantize(Decimal("0.1"))
                         for _, value in merged_data
@@ -123,7 +123,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ],
             ],
             colors={
-                "Open Severity (CVSSF)": RISK.more_agressive,
+                "Open Severity": RISK.more_agressive,
             },
             type="bar",
         ),
@@ -143,6 +143,10 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ),
             ),
             y=dict(
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
                 min=0,
                 padding=dict(
                     bottom=0,
