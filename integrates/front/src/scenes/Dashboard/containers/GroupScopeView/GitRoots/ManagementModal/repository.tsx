@@ -10,8 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator, FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { VALIDATE_GIT_ACCESS } from "../../queries";
@@ -29,8 +28,6 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import type { IAuthContext } from "utils/auth";
-import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import {
   FormikArrayField,
@@ -77,7 +74,6 @@ const Repository: React.FC<IRepositoryProps> = ({
     return nicknames.includes(repoName) && initialNickname !== repoName;
   };
 
-  const user: IAuthContext = useContext(authContext);
   const [isGitAccessible, changeGitAccessibility] = useState(true);
   const [credExists, deleteExistingCred] = useState(
     initialValues.credentials.id !== ""
@@ -221,98 +217,92 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <br />
                   </React.Fragment>
                 ) : undefined}
-                {_.endsWith(user.userEmail, "@fluidattacks.com") ? (
-                  <React.Fragment>
-                    <div className={"flex"}>
-                      <div className={"w-70 mr3"}>
-                        <ControlLabel>
-                          {t("group.scope.git.repo.credentials.name")}
-                        </ControlLabel>
-                        <Field
-                          component={FormikText}
-                          name={"credentials.name"}
-                          placeholder={t(
-                            "group.scope.git.repo.credentials.nameHint"
-                          )}
-                          type={"text"}
-                        />
-                      </div>
-                      <div className={"w-30"}>
-                        <ControlLabel>
-                          {t("group.scope.git.repo.credentials.type")}
-                        </ControlLabel>
-                        {credExists ? (
-                          <div className={"flex w-100"}>
-                            <div className={"w-50"}>
-                              <Field
-                                component={FormikText}
-                                disabled={true}
-                                name={"credentials.type"}
-                                value={values.credentials.type}
-                              />
-                            </div>
-                            <div className={"mt1 tr w-50"}>
-                              <Button
-                                id={"git-root-add"}
-                                onClick={deleteCredential}
-                              >
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
+                <div className={"flex"}>
+                  <div className={"w-70 mr3"}>
+                    <ControlLabel>
+                      {t("group.scope.git.repo.credentials.name")}
+                    </ControlLabel>
+                    <Field
+                      component={FormikText}
+                      name={"credentials.name"}
+                      placeholder={t(
+                        "group.scope.git.repo.credentials.nameHint"
+                      )}
+                      type={"text"}
+                    />
+                  </div>
+                  <div className={"w-30"}>
+                    <ControlLabel>
+                      {t("group.scope.git.repo.credentials.type")}
+                    </ControlLabel>
+                    {credExists ? (
+                      <div className={"flex w-100"}>
+                        <div className={"w-50"}>
                           <Field
-                            component={FormikDropdown}
+                            component={FormikText}
+                            disabled={true}
                             name={"credentials.type"}
-                          >
-                            <option value={""}>{""}</option>
-                            <option value={"SSH"}>
-                              {t("group.scope.git.repo.credentials.ssh")}
-                            </option>
-                          </Field>
-                        )}
-                      </div>
-                    </div>
-                    <br />
-                    {values.credentials.type === "SSH" && !credExists ? (
-                      <React.Fragment>
-                        <div className={"flex"}>
-                          <div className={"w-100"}>
-                            <ControlLabel>
-                              {t("group.scope.git.repo.credentials.sshKey")}
-                            </ControlLabel>
-                            <Field
-                              component={FormikTextArea}
-                              name={"credentials.key"}
-                              placeholder={t(
-                                "group.scope.git.repo.credentials.sshHint"
-                              )}
-                              type={"text"}
-                              validate={composeValidators([
-                                hasSshFormat,
-                                required,
-                                requireGitAccessibility,
-                              ])}
-                            />
-                          </div>
+                            value={values.credentials.type}
+                          />
                         </div>
-                        <div className={"mt2 tr"}>
+                        <div className={"mt1 tr w-50"}>
                           <Button
-                            disabled={
-                              !values.credentials.name ||
-                              !values.credentials.key ||
-                              hasSshFormat(values.credentials.key) !== undefined
-                            }
-                            id={"checkAccessBtn"}
-                            onClick={handleCheckAccessClick}
+                            id={"git-root-add"}
+                            onClick={deleteCredential}
                           >
-                            {t(
-                              "group.scope.git.repo.credentials.checkAccess.text"
-                            )}
+                            <FontAwesomeIcon icon={faTrashAlt} />
                           </Button>
                         </div>
-                      </React.Fragment>
-                    ) : undefined}
+                      </div>
+                    ) : (
+                      <Field
+                        component={FormikDropdown}
+                        name={"credentials.type"}
+                      >
+                        <option value={""}>{""}</option>
+                        <option value={"SSH"}>
+                          {t("group.scope.git.repo.credentials.ssh")}
+                        </option>
+                      </Field>
+                    )}
+                  </div>
+                </div>
+                <br />
+                {values.credentials.type === "SSH" && !credExists ? (
+                  <React.Fragment>
+                    <div className={"flex"}>
+                      <div className={"w-100"}>
+                        <ControlLabel>
+                          {t("group.scope.git.repo.credentials.sshKey")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikTextArea}
+                          name={"credentials.key"}
+                          placeholder={t(
+                            "group.scope.git.repo.credentials.sshHint"
+                          )}
+                          type={"text"}
+                          validate={composeValidators([
+                            hasSshFormat,
+                            required,
+                            requireGitAccessibility,
+                          ])}
+                        />
+                      </div>
+                    </div>
+                    <div className={"mt2 tr"}>
+                      <Button
+                        disabled={
+                          !values.credentials.name ||
+                          !values.credentials.key ||
+                          hasSshFormat(values.credentials.key) !== undefined
+                        }
+                        id={"checkAccessBtn"}
+                        onClick={handleCheckAccessClick}
+                      >
+                        {t("group.scope.git.repo.credentials.checkAccess.text")}
+                      </Button>
+                    </div>
                   </React.Fragment>
                 ) : undefined}
                 <div className={"flex"}>
