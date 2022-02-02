@@ -98,10 +98,6 @@ def jpa_like(
         cwe=("89",),
         desc_key="src.lib_path.f001_jpa.java_like.description",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
+        method=core_model.MethodsEnum.JAVA_JPA_LIKE,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F012

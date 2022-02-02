@@ -68,10 +68,6 @@ def insecurely_generated_cookies(
         cwe=("614",),
         desc_key="criteria.vulns.042.description",
         desc_params=dict(lang="C#"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_INSEC_COOKIES,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F042

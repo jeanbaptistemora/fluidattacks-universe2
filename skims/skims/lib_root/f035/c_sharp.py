@@ -23,6 +23,9 @@ from typing import (
 def weak_credential_policy(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_WEAK_CREDENTIAL
+    finding = method.value.finding
+
     def find_vulns() -> Iterator[core_model.Vulnerabilities]:
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
@@ -47,10 +50,10 @@ def weak_credential_policy(
 
                 input_type = "label_input_type"
                 param_syntax.meta.danger = True
-                append_label(shard.graph, param_id, input_type, FINDING)
+                append_label(shard.graph, param_id, input_type, finding)
 
                 mark_assignments_sink(
-                    FINDING,
+                    finding,
                     shard.graph,
                     shard.syntax,
                     {
@@ -65,10 +68,9 @@ def weak_credential_policy(
 
                 yield shard_n_id_query(
                     graph_db,
-                    FINDING,
                     shard,
                     param_id,
-                    developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+                    method=method,
                 )
 
     return tuple(chain.from_iterable(find_vulns()))
@@ -158,10 +160,6 @@ def no_password(
         cwe=("521",),
         desc_key="src.lib_root.f035.csharp_no_password.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.ALEJANDRO_SALGADO,
+        method=core_model.MethodsEnum.CS_NO_PASSWORD,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F035

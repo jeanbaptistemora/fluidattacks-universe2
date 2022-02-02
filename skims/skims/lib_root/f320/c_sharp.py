@@ -48,10 +48,6 @@ def ldap_connections_authenticated(
         cwe=("90",),
         desc_key="lib_root.f320.authenticated_ldap_connections",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_LDAP_CONN_AUTH,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F320

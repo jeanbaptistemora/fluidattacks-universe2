@@ -29,11 +29,6 @@ def java_file_create_temp_file(
         cwe=("378",),
         desc_key=translation_key,
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
+        method=core_model.MethodsEnum.JAVA_CREATE_TEMP_FILE,
     )
-
-
-# Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F160

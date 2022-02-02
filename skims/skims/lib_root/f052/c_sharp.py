@@ -4,8 +4,7 @@ from lib_root.utilities.c_sharp import (
     yield_shard_object_creation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
@@ -97,9 +96,8 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CS_INSECURE_KEYS,
     )
 
 
@@ -159,9 +157,8 @@ def c_sharp_rsa_secure_mode(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CS_RSA_SECURE_MODE,
     )
 
 
@@ -215,9 +212,8 @@ def c_sharp_aesmanaged_secure_mode(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CS_AES_SECURE_MODE,
     )
 
 
@@ -245,9 +241,8 @@ def c_sharp_insecure_cipher(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CS_INSECURE_CIPHER,
     )
 
 
@@ -279,10 +274,6 @@ def c_sharp_insecure_hash(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params=dict(lang="CSharp"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.CS_INSECURE_HASH,
     )
-
-
-FINDING: FindingEnum = FindingEnum.F052

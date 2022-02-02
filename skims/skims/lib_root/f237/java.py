@@ -51,10 +51,6 @@ def info_leak_stacktrace(
         cwe=("209",),
         desc_key="src.lib_root.f237.java_info_leak_stacktrace",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.JAVA_LEAK_STACKTRACE,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F237

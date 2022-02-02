@@ -94,11 +94,6 @@ def client_storage(
         cwe=("922",),
         desc_key="src.lib_path.f085.client_storage.description",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
+        method=core_model.MethodsEnum.JS_CLIENT_STORAGE,
     )
-
-
-# Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F085

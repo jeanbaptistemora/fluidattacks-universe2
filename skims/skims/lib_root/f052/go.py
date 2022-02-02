@@ -3,8 +3,7 @@ from lib_root.utilities.go import (
     yield_object_creation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
@@ -29,9 +28,8 @@ def go_insecure_hash(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params=dict(lang="Go"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.GO_INSECURE_HASH,
     )
 
 
@@ -51,10 +49,6 @@ def go_insecure_cipher(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="Go"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        method=MethodsEnum.GO_INSECURE_CIPHER,
     )
-
-
-FINDING: FindingEnum = FindingEnum.F052

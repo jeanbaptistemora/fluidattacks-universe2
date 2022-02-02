@@ -5,8 +5,7 @@ from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
     Vulnerability,
 )
@@ -29,6 +28,9 @@ from utils.string import (
 
 
 def weak_random(graph_db: GraphDB) -> Vulnerabilities:
+    method = MethodsEnum.JS_WEAK_RANDOM
+    finding = method.value.finding
+
     def find_vulns() -> Iterator[Vulnerability]:
         random_number = False
         for (
@@ -37,29 +39,25 @@ def weak_random(graph_db: GraphDB) -> Vulnerabilities:
             invocation_step,
             __,
         ) in yield_method_invocation(graph_db):
-            _, method = split_on_last_dot(invocation_step.method)
-            if method == "random":
+            _, method_name = split_on_last_dot(invocation_step.method)
+            if method_name == "random":
                 random_number = True
                 append_label_input(
-                    shard.graph, invocation_step.meta.n_id, FINDING
+                    shard.graph, invocation_step.meta.n_id, finding
                 )
-            elif random_number and method == "cookie":
-                append_label_input(shard.graph, "1", FINDING)
+            elif random_number and method_name == "cookie":
+                append_label_input(shard.graph, "1", finding)
                 mark_methods_sink(
-                    FINDING,
+                    finding,
                     shard.graph,
                     shard.syntax,
                     {"cookie"},
                 )
                 yield shard_n_id_query(
                     graph_db,
-                    FINDING,
                     shard,
                     n_id="1",
-                    developer=DeveloperEnum.DIEGO_RESTREPO,
+                    method=method,
                 )
 
     return tuple(chain.from_iterable(find_vulns()))
-
-
-FINDING: FindingEnum = FindingEnum.F034

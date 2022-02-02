@@ -5,8 +5,7 @@ from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
     Vulnerability,
 )
@@ -51,8 +50,11 @@ def _test_native_cipher(
     step_index: int,
     invocation_step: SyntaxStepMethodInvocation,
 ) -> Iterator[Vulnerability]:
-    _, method = split_on_last_dot(invocation_step.method)
-    if method not in {"createCipheriv", "createDecipheriv"}:
+    method = MethodsEnum.JS_INSECURE_CIPHER
+    finding = method.value.finding
+
+    _, method_name = split_on_last_dot(invocation_step.method)
+    if method_name not in {"createCipheriv", "createDecipheriv"}:
         return
     dependencies = get_dependencies(step_index, syntax_steps)
     algorithm = dependencies[-1]
@@ -65,24 +67,22 @@ def _test_native_cipher(
             cwe=("310", "327"),
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
-            finding=FINDING,
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-            developer=DeveloperEnum.DIEGO_RESTREPO,
+            method=method,
         )
     elif algorithm.type == "SyntaxStepSymbolLookup":
-        append_label_input(shard.graph, "1", FINDING)
+        append_label_input(shard.graph, "1", finding)
         mark_methods_sink(
-            FINDING,
+            finding,
             shard.graph,
             shard.syntax,
             {"createCipheriv", "createDecipheriv"},
         )
         yield shard_n_id_query(
             graph_db,
-            FINDING,
             shard,
             n_id="1",
-            developer=DeveloperEnum.DIEGO_RESTREPO,
+            method=method,
         )
     else:
         return
@@ -93,42 +93,41 @@ def _test_crypto_js(
     shard: GraphShard,
     invocation_step: SyntaxStepMethodInvocation,
 ) -> Iterator[Vulnerability]:
+    method = MethodsEnum.JS_INSECURE_CIPHER
+    finding = method.value.finding
+
     _methods = [
         ("crypto-js", "DES.encrypt"),
         ("crypto-js", "RC4.encrypt"),
     ]
-    methods = set(
-        chain.from_iterable(build_attr_paths(*method) for method in _methods)
-    )
-    _, method = split_on_first_dot(invocation_step.method)
-    if method in methods:
+    methods = set(chain.from_iterable(build_attr_paths(*m) for m in _methods))
+    _, method_name = split_on_first_dot(invocation_step.method)
+    if method_name in methods:
         yield get_vulnerabilities_from_n_ids(
             cwe=("310", "327"),
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
-            finding=FINDING,
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-            developer=DeveloperEnum.DIEGO_RESTREPO,
+            method=method,
         )
-    elif method in complete_attrs_on_set(
+    elif method_name in complete_attrs_on_set(
         {
             "crypto-js.AES.encrypt",
             "crypto-js.RSA.encrypt",
         }
     ):
-        append_label_input(shard.graph, "1", FINDING)
+        append_label_input(shard.graph, "1", finding)
         mark_methods_sink(
-            FINDING,
+            finding,
             shard.graph,
             shard.syntax,
             {"encrypt"},
         )
         yield shard_n_id_query(
             graph_db,
-            FINDING,
             shard,
             n_id="1",
-            developer=DeveloperEnum.DIEGO_RESTREPO,
+            method=method,
         )
 
 
@@ -141,8 +140,8 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
             index,
         ) in yield_method_invocation(graph_db):
             danger_methods = {"createHash"}
-            var, method = split_on_last_dot(invocation_step.method)
-            if method not in danger_methods and var not in danger_methods:
+            var, method_name = split_on_last_dot(invocation_step.method)
+            if method_name not in danger_methods and var not in danger_methods:
                 continue
 
             dependencies = get_dependencies(index, syntax_steps)
@@ -165,9 +164,8 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
                     cwe=("310", "327"),
                     desc_key=("src.lib_path.f052.insecure_cipher.description"),
                     desc_params=dict(lang="JavaScript"),
-                    finding=FINDING,
                     graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-                    developer=DeveloperEnum.DIEGO_RESTREPO,
+                    method=MethodsEnum.JS_INSECURE_HASH,
                 )
 
     return tuple(chain.from_iterable(find_vulns()))
@@ -196,6 +194,9 @@ def javascript_insecure_cipher(
 
 
 def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
+    method = MethodsEnum.JS_INSECURE_KEY
+    finding = method.value.finding
+
     def find_vulns() -> Iterator[Vulnerability]:
         for (
             shard,
@@ -203,8 +204,8 @@ def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
             invocation_step,
             step_index,
         ) in yield_method_invocation(graph_db):
-            _, method = split_on_last_dot(invocation_step.method)
-            if method in {"createECDH"}:
+            _, method_name = split_on_last_dot(invocation_step.method)
+            if method_name in {"createECDH"}:
                 dependencies = get_dependencies(step_index, syntax_steps)
                 curve = dependencies[-1]
                 if (
@@ -216,27 +217,22 @@ def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
                         cwe=("310", "327"),
                         desc_key="src.lib_path.f052.insecure_key.description",
                         desc_params=dict(lang="JavaScript"),
-                        finding=FINDING,
                         graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-                        developer=DeveloperEnum.DIEGO_RESTREPO,
+                        method=method,
                     )
             elif "generateKeyPair" in invocation_step.method:
-                append_label_input(shard.graph, "1", FINDING)
+                append_label_input(shard.graph, "1", finding)
                 mark_methods_sink(
-                    FINDING,
+                    finding,
                     shard.graph,
                     shard.syntax,
                     {"generateKeyPair"},
                 )
                 yield shard_n_id_query(
                     graph_db,
-                    FINDING,
                     shard,
                     n_id="1",
-                    developer=DeveloperEnum.DIEGO_RESTREPO,
+                    method=method,
                 )
 
     return tuple(chain.from_iterable(find_vulns()))
-
-
-FINDING: FindingEnum = FindingEnum.F052

@@ -2378,24 +2378,28 @@ class MethodsEnum(Enum):
         name="c_sharp_sql_injection",
         module="lib_root",
         finding=FindingEnum.F001,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     QUERY_F001 = MethodInfo(
         file_name="query",
         name="query_f001",
         module="sast",
         finding=FindingEnum.F001,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     QUERY_F004 = MethodInfo(
         file_name="query",
         name="query_f004",
         module="sast",
         finding=FindingEnum.F004,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     QUERY_F008 = MethodInfo(
         file_name="query",
         name="query_f008",
         module="sast",
         finding=FindingEnum.F008,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     AWS_CREDENTIALS = MethodInfo(
         file_name="aws",
@@ -2451,6 +2455,7 @@ class MethodsEnum(Enum):
         name="javascript_crypto_js_credentials",
         module="lib_root",
         finding=FindingEnum.F009,
+        developer=DeveloperEnum.JUAN_RESTREPO,
     )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
@@ -2520,6 +2525,7 @@ class MethodsEnum(Enum):
         name="java_jpa_like",
         module="lib_root",
         finding=FindingEnum.F012,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     TFM_AZURE_VM_INSEC_AUTH = MethodInfo(
         file_name="terraform",
@@ -2638,18 +2644,21 @@ class MethodsEnum(Enum):
         name="c_sharp_jwt_signed",
         module="lib_root",
         finding=FindingEnum.F017,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CS_VERIFY_DECODER = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_verify_decoder",
         module="lib_root",
         finding=FindingEnum.F017,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     QUERY_F021 = MethodInfo(
         file_name="query",
         name="query_f021",
         module="sast",
         finding=FindingEnum.F021,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
         file_name="java",
@@ -2663,6 +2672,7 @@ class MethodsEnum(Enum):
         name="kotlin_unencrypted_channel",
         module="lib_root",
         finding=FindingEnum.F022,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
     )
     LOCATION = MethodInfo(
         file_name="analyze_headers",
@@ -2872,24 +2882,28 @@ class MethodsEnum(Enum):
         name="javascript_weak_random",
         module="lib_root",
         finding=FindingEnum.F034,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     QUERY_F034 = MethodInfo(
         file_name="query",
         name="query_f034",
         module="sast",
         finding=FindingEnum.F034,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_WEAK_CREDENTIAL = MethodInfo(
         file_name="c_sharp",
         name="csharp_weak_credential_policy",
         module="lib_root",
         finding=FindingEnum.F035,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     CS_NO_PASSWORD = MethodInfo(
         file_name="c_sharp",
         name="csharp_no_password",
         module="lib_root",
         finding=FindingEnum.F035,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
     )
     VIEW_STATE = MethodInfo(
         file_name="analyze_content",
@@ -2903,12 +2917,14 @@ class MethodsEnum(Enum):
         name="csharp_insecurely_generated_cookies",
         module="lib_root",
         finding=FindingEnum.F042,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     QUERY_F042 = MethodInfo(
         file_name="query",
         name="query_f042",
         module="sast",
         finding=FindingEnum.F042,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CONTENT_SECURITY_POLICY = MethodInfo(
         file_name="analyze_headers",
@@ -2957,108 +2973,126 @@ class MethodsEnum(Enum):
         name="c_sharp_insecure_hash",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_INSECURE_CIPHER = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_AES_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_aesmanaged_secure_mode",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_RSA_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_rsa_secure_mode",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_INSECURE_KEYS = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_keys",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     GO_INSECURE_CIPHER = MethodInfo(
         file_name="go",
         name="go_insecure_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     GO_INSECURE_HASH = MethodInfo(
         file_name="go",
         name="go_insecure_hash",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     JAVA_INSECURE_CIPHER = MethodInfo(
         file_name="java",
         name="java_insecure_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JAVA_INSECURE_HASH = MethodInfo(
         file_name="java",
         name="java_insecure_hash",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JAVA_INSECURE_KEY = MethodInfo(
         file_name="java",
         name="java_insecure_key",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JAVA_INSECURE_PASS = MethodInfo(
         file_name="java",
         name="java_insecure_pass",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JS_INSECURE_CIPHER = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JS_INSECURE_KEY = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_key",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     JS_INSECURE_HASH = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_hash",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     KT_INSECURE_CIPHER = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     KT_INSECURE_HASH = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_hash",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     KT_INSECURE_KEY = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_key",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     QUERY_F052 = MethodInfo(
         file_name="query",
         name="query_f052",
         module="sast",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     WEAK_CIPHERS_ALLOWED = MethodInfo(
         file_name="analyze_protocol",
@@ -3107,6 +3141,7 @@ class MethodsEnum(Enum):
         name="query_f063",
         module="sast",
         finding=FindingEnum.F063,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     DATE = MethodInfo(
         file_name="analyze_headers",
@@ -3197,6 +3232,7 @@ class MethodsEnum(Enum):
         name="javascript_client_storage",
         module="lib_root",
         finding=FindingEnum.F085,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     SUB_RESOURCE_INTEGRITY = MethodInfo(
         file_name="analyze_content",
@@ -3210,12 +3246,14 @@ class MethodsEnum(Enum):
         name="query_f089",
         module="sast",
         finding=FindingEnum.F089,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CS_INSECURE_LOGGING = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_logging",
         module="lib_root",
         finding=FindingEnum.F091,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CBC_ENABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -3229,12 +3267,14 @@ class MethodsEnum(Enum):
         name="c_sharp_insecure_deserialization",
         module="lib_root",
         finding=FindingEnum.F096,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
-    CS_CHECK_XML_SERIAL = MethodInfo(
+    CS_XML_SERIAL = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_check_xml_serializer",
         module="lib_root",
         finding=FindingEnum.F096,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CFN_POLICY_SERVER_ENCRYP_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3262,6 +3302,7 @@ class MethodsEnum(Enum):
         name="query_f100",
         module="sast",
         finding=FindingEnum.F100,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
         file_name="terraform",
@@ -3282,6 +3323,7 @@ class MethodsEnum(Enum):
         name="query_f107",
         module="sast",
         finding=FindingEnum.F107,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
         file_name="cloudformation",
@@ -3309,6 +3351,7 @@ class MethodsEnum(Enum):
         name="query_f112",
         module="sast",
         finding=FindingEnum.F112,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     UNVERIFIABLE_FILES = MethodInfo(
         file_name="generic",
@@ -3322,6 +3365,7 @@ class MethodsEnum(Enum):
         name="query_f127",
         module="sast",
         finding=FindingEnum.F127,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     SET_COOKIE_HTTPONLY = MethodInfo(
         file_name="analyze_headers",
@@ -3370,6 +3414,7 @@ class MethodsEnum(Enum):
         name="csharp_insecure_cors",
         module="lib_root",
         finding=FindingEnum.F134,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3404,12 +3449,14 @@ class MethodsEnum(Enum):
         name="c_sharp_file_create_temp_file",
         module="lib_root",
         finding=FindingEnum.F160,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     JAVA_CREATE_TEMP_FILE = MethodInfo(
         file_name="java",
         name="java_file_create_temp_file",
         module="lib_root",
         finding=FindingEnum.F160,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
@@ -3451,12 +3498,14 @@ class MethodsEnum(Enum):
         name="csharp_vuln_regular_expression",
         module="lib_root",
         finding=FindingEnum.F211,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
         name="java_info_leak_stacktrace",
         module="lib_root",
         finding=FindingEnum.F237,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="cloudformation",
@@ -3631,12 +3680,14 @@ class MethodsEnum(Enum):
         name="csharp_ldap_connections_authenticated",
         module="lib_root",
         finding=FindingEnum.F320,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     QUERY_F320 = MethodInfo(
         file_name="query",
         name="query_f320",
         module="sast",
         finding=FindingEnum.F320,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
     )
     CFN_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
         file_name="cloudformation",
@@ -3699,6 +3750,7 @@ class MethodsEnum(Enum):
         name="csharp_check_hashes_salt",
         module="lib_root",
         finding=FindingEnum.F338,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     DANGEROUS_PERMISSIONS = MethodInfo(
         file_name="android",
@@ -3719,6 +3771,7 @@ class MethodsEnum(Enum):
         name="csharp_conflicting_annotations",
         module="lib_root",
         finding=FindingEnum.F366,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
     CFN_CONTENT_HTTP = MethodInfo(
         file_name="cloudformation",

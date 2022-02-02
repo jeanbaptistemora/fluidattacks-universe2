@@ -73,9 +73,8 @@ def verify_decoder(
         cwe=("319",),
         desc_key="criteria.vulns.017.description",
         desc_params=dict(lang="C#"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_VERIFY_DECODER,
     )
 
 
@@ -110,10 +109,6 @@ def jwt_signed(
         cwe=("319",),
         desc_key="criteria.vulns.017.description",
         desc_params=dict(lang="C#"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_JWT_SIGNED,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F017

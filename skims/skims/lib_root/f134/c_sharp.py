@@ -70,9 +70,8 @@ def insecure_cors(
         cwe=("16",),
         desc_key="lib_root.f134.cors_policy_allows_any_origin",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_INSECURE_CORS,
     )
 
 
@@ -100,6 +99,3 @@ def allow_all(step: SyntaxStep, dependencies: SyntaxSteps) -> bool:
     ):
         return True
     return False
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F134

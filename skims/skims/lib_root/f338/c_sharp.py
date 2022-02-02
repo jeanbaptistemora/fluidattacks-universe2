@@ -83,10 +83,6 @@ def check_hashes_salt(
         cwe=("90",),
         desc_key="criteria.vulns.338.description",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_CHECK_HASHES_SALT,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F338

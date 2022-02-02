@@ -2,8 +2,7 @@ from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
@@ -63,11 +62,6 @@ def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
         cwe=("319"),
         desc_key="src.lib_path.f022.unencrypted_channel",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=_kotlin_yield_unencrypted_channels(graph_db),
-        developer=DeveloperEnum.ANDRES_CUBEROS,
+        method=MethodsEnum.KT_UNENCRYPTED_CHANNEL,
     )
-
-
-# Constants
-FINDING: FindingEnum = FindingEnum.F022

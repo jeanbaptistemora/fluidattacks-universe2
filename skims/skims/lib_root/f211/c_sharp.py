@@ -86,10 +86,6 @@ def vuln_regular_expression(
         cwe=("405",),
         desc_key="lib_root.f211.regex_vulnerable",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_VULN_REGEX,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F211

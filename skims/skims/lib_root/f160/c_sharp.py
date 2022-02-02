@@ -35,10 +35,6 @@ def c_sharp_file_create_temp_file(
         cwe=("378",),
         desc_key=translation_key,
         desc_params=dict(lang="C#"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_CREATE_TEMP_FILE,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F160

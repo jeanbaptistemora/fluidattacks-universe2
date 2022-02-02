@@ -52,9 +52,8 @@ def insecure_deserialization(
         cwe=("502",),
         desc_key="criteria.vulns.096.description",
         desc_params={},
-        finding=core_model.FindingEnum.F096,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_INSECURE_DESERIAL,
     )
 
 
@@ -106,7 +105,6 @@ def check_xml_serializer(
         cwe=("502",),
         desc_key="lib_root.f096.insecure_deserialization",
         desc_params={},
-        finding=core_model.FindingEnum.F096,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_XML_SERIAL,
     )

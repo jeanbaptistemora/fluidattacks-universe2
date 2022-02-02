@@ -31,10 +31,6 @@ def conflicting_annotations(
         cwe=("749",),
         desc_key="lib_root.f366.conflicting_transparency_annotations",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_CONFLICTING_ANNOTATIONS,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F366

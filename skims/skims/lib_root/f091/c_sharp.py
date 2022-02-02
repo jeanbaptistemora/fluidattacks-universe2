@@ -124,7 +124,6 @@ def insecure_logging(
         cwe=("502",),
         desc_key="criteria.vulns.091.description",
         desc_params={},
-        finding=core_model.FindingEnum.F091,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_INSECURE_LOGGING,
     )

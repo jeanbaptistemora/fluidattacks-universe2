@@ -64,10 +64,6 @@ def crypto_js_credentials(
         cwe=("798",),
         desc_key="src.lib_path.f009.crypto_js_credentials.description",
         desc_params={},
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_RESTREPO,
+        method=core_model.MethodsEnum.JS_CRYPTO_CREDENTIALS,
     )
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F009

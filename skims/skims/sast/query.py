@@ -54,11 +54,10 @@ def get_vulnerability_from_n_id(
     cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
-    finding: core_model.FindingEnum,
     graph_shard: graph_model.GraphShard,
     n_id: str,
     source_method: str,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
     meta_attrs_label_path = graph_shard.path
@@ -74,7 +73,7 @@ def get_vulnerability_from_n_id(
         content: str = handle.read()
 
     return core_model.Vulnerability(
-        finding=finding,
+        finding=method.value.finding,
         kind=core_model.VulnerabilityKindEnum.LINES,
         namespace=CTX.config.namespace,
         state=core_model.VulnerabilityStateEnum.OPEN,
@@ -94,7 +93,7 @@ def get_vulnerability_from_n_id(
                 ),
             ),
             source_method=source_method,
-            developer=developer,
+            developer=method.value.developer,
         ),
     )
 
@@ -104,9 +103,8 @@ def get_vulnerabilities_from_n_ids(
     cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
-    finding: core_model.FindingEnum,
     graph_shard_nodes: graph_model.GraphShardNodes,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     source = cast(
         FrameType, cast(FrameType, inspect.currentframe()).f_back
@@ -116,13 +114,12 @@ def get_vulnerabilities_from_n_ids(
             cwe=cwe,
             desc_key=desc_key,
             desc_params=desc_params,
-            finding=finding,
             graph_shard=graph_shard,
             n_id=n_id,
             source_method=(
                 f"{Path(source.co_filename).stem}.{source.co_name}"
             ),
-            developer=developer,
+            method=method,
         )
         for graph_shard, n_id in graph_shard_nodes
     )
@@ -139,105 +136,95 @@ def _is_vulnerable(
 
 
 def get_vulnerabilities_from_syntax(
-    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     possible_syntax_steps: graph_model.SyntaxSteps,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
+    params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[method.value.finding]
     return get_vulnerabilities_from_n_ids(
         cwe=params.cwe,
         desc_key=params.desc_key,
         desc_params=params.desc_params,
-        finding=finding,
         graph_shard_nodes=[
             (shard, syntax_step.meta.n_id)
             for syntax_step in possible_syntax_steps
             if _is_vulnerable(
-                finding,
+                method.value.finding,
                 syntax_step,
                 shard.graph.nodes[syntax_step.meta.n_id],
             )
         ],
-        developer=developer,
+        method=method,
     )
 
 
 def shard_n_id_query_lazy(
-    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     syntax_steps_n_id: PossibleSyntaxStepsForUntrustedNId,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
     for steps in syntax_steps_n_id.values():
-        yield get_vulnerabilities_from_syntax(finding, shard, steps, developer)
+        yield get_vulnerabilities_from_syntax(shard, steps, method)
 
 
 def shard_query_lazy(
     graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
     possible_steps_finding: Optional[PossibleSyntaxStepsForFinding] = None,
 ) -> Iterator[core_model.Vulnerabilities]:
 
     if possible_steps_finding is None:
         possible_steps_finding = get_possible_syntax_steps_for_finding(
-            graph_db, finding, shard
+            graph_db, method.value.finding, shard
         )
 
     for steps_n_id in possible_steps_finding.values():
-        yield from shard_n_id_query_lazy(finding, shard, steps_n_id, developer)
+        yield from shard_n_id_query_lazy(shard, steps_n_id, method)
 
 
 def shard_n_id_query(
     graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
     n_id: str,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     steps = get_possible_syntax_steps_for_n_id(
         graph_db,
-        finding=finding,
+        finding=method.value.finding,
         n_id=n_id,
         shard=shard,
         only_sinks=True,
     )
     return tuple(
-        chain.from_iterable(
-            shard_n_id_query_lazy(finding, shard, steps, developer)
-        )
+        chain.from_iterable(shard_n_id_query_lazy(shard, steps, method))
     )
 
 
 def shard_query(
     graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
-        chain.from_iterable(
-            shard_query_lazy(graph_db, finding, shard, developer)
-        )
+        chain.from_iterable(shard_query_lazy(graph_db, shard, method))
     )
 
 
 def query_lazy(
     graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
     if CTX.debug:
-        all_possible_steps = get_all_possible_syntax_steps(graph_db, finding)
+        all_possible_steps = get_all_possible_syntax_steps(
+            graph_db, method.value.finding
+        )
 
     for shard in graph_db.shards:
         yield from shard_query_lazy(
             graph_db,
-            finding,
             shard,
-            developer,
+            method,
             all_possible_steps[shard.path] if CTX.debug else None,
         )
 
@@ -265,10 +252,9 @@ def analyze_lazy(
 
 def query(
     graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-    developer: core_model.DeveloperEnum,
+    method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    return tuple(chain.from_iterable(query_lazy(graph_db, finding, developer)))
+    return tuple(chain.from_iterable(query_lazy(graph_db, method)))
 
 
 def analyze(
@@ -279,18 +265,15 @@ def analyze(
 
 
 def query_f001(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F001, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F001)
 
 
 def query_f004(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F004, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F004)
 
 
 def query_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F008, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F008)
 
 
 def analyze_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -298,38 +281,32 @@ def analyze_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 def query_f021(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F021, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F021)
 
 
 def query_f034(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F034, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F034)
 
 
 def query_f042(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F042, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F042)
 
 
 def query_f052(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F052, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F052)
 
 
 def query_f063(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F063, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F063)
 
 
 def query_f089(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F089, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F089)
 
 
 def query_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F100, developer)
+
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F100)
 
 
 def analyze_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -337,23 +314,19 @@ def analyze_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F107, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F107)
 
 
 def query_f112(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F112, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F112)
 
 
 def query_f127(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F127, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F127)
 
 
 def query_f320(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    developer = core_model.DeveloperEnum.DIEGO_RESTREPO
-    return query(graph_db, core_model.FindingEnum.F320, developer)
+    return query(graph_db, method=core_model.MethodsEnum.QUERY_F320)
 
 
 QUERIES: graph_model.Queries = (

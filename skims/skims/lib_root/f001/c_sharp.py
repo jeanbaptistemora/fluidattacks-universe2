@@ -61,9 +61,8 @@ def sql_injection(
         cwe=("89",),
         desc_key="criteria.vulns.001.description",
         desc_params=dict(lang="C#"),
-        finding=FINDING,
         graph_shard_nodes=n_ids(),
-        developer=core_model.DeveloperEnum.JUAN_ECHEVERRI,
+        method=core_model.MethodsEnum.CS_SQL_INJECTION,
     )
 
 
@@ -95,6 +94,3 @@ def secure_command(
                 return True
 
     return False
-
-
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F001

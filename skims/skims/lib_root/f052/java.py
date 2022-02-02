@@ -6,8 +6,7 @@ from lib_root.utilities.java import (
     yield_object_creation,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
@@ -234,9 +233,8 @@ def java_insecure_pass(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_pass.description",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=_yield_insecure_pass(graph_db),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JAVA_INSECURE_PASS,
     )
 
 
@@ -247,9 +245,8 @@ def java_insecure_key(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_key.description",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=_yield_insecure_key(graph_db),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JAVA_INSECURE_KEY,
     )
 
 
@@ -260,9 +257,8 @@ def java_insecure_hash(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=_yield_insecure_hash(graph_db),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JAVA_INSECURE_HASH,
     )
 
 
@@ -273,10 +269,6 @@ def java_insecure_cipher(
         cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="Java"),
-        finding=FINDING,
         graph_shard_nodes=_yield_insecure_ciphers(graph_db),
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        method=MethodsEnum.JAVA_INSECURE_CIPHER,
     )
-
-
-FINDING: FindingEnum = FindingEnum.F052
