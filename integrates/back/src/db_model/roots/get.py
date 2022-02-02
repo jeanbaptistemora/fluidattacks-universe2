@@ -89,6 +89,7 @@ def _build_root(
                 modified_date=cloning["modified_date"],
                 reason=cloning["reason"],
                 status=GitCloningStatus(cloning["status"]),
+                commit=cloning.get("commit"),
             ),
             machine_execution=[
                 MachineGitRootExecution(

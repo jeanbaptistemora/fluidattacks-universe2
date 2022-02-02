@@ -32,11 +32,12 @@ async def mutate(
 ) -> SimplePayload:
 
     await roots_domain.update_root_cloning_status(
-        info.context.loaders,
-        kwargs["group_name"],
-        kwargs["id"],
-        kwargs["status"],
-        kwargs["message"],
+        loaders=info.context.loaders,
+        group_name=kwargs["group_name"],
+        root_id=kwargs["id"],
+        status=kwargs["status"],
+        message=kwargs["message"],
+        commit=kwargs.get("commit"),
     )
 
     return SimplePayload(success=True)

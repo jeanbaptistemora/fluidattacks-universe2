@@ -932,6 +932,8 @@ type Mutation {
     status: CloningStatus!
     "Message when cloning is finished"
     message: String!
+    "Full SHA-1 hash of the cloned repo"
+    commit: String
   ): SimplePayload!
 
   "Updates the severity of a Finding"
