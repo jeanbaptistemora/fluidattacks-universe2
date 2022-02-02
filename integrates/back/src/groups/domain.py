@@ -1031,6 +1031,7 @@ async def get_groups_with_forces() -> List[str]:
     return await groups_dal.get_groups_with_forces()
 
 
+@newrelic.agent.function_trace()
 async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())
