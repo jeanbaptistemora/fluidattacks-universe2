@@ -215,6 +215,20 @@ const findingContent: React.FC = (): JSX.Element => {
     ? headerData.finding.historicState.slice(-1)[0].state === "SUBMITTED"
     : false;
 
+  const calculateEstRemediationTime = (): string => {
+    if (_.isNil(headerData.finding.minTimeToRemediate)) {
+      return "Unknown";
+    }
+    const rawHours =
+      headerData.finding.minTimeToRemediate * headerData.finding.openVulns;
+
+    if (rawHours === 0.0) {
+      return "None";
+    }
+
+    return `${rawHours.toFixed(1)}h`;
+  };
+
   return (
     <React.StrictMode>
       <div>
@@ -241,6 +255,7 @@ const findingContent: React.FC = (): JSX.Element => {
                   discoveryDate={
                     headerData.finding.releaseDate?.split(" ")[0] ?? "-"
                   }
+                  estRemediationTime={calculateEstRemediationTime()}
                   openVulns={headerData.finding.openVulns}
                   severity={headerData.finding.severityScore}
                   status={headerData.finding.state}

@@ -8,6 +8,7 @@ interface IHeaderQueryResult {
       state: string;
     }[];
     id: string;
+    minTimeToRemediate: number;
     openVulns: number;
     releaseDate: string | null;
     severityScore: number;

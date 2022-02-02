@@ -16,6 +16,7 @@ describe("FindingHeader", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <FindingHeader
         discoveryDate={""}
+        estRemediationTime={"42.1"}
         openVulns={9}
         severity={2}
         status={"open"}

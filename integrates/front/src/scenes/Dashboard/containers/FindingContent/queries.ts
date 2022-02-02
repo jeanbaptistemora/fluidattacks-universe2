@@ -11,6 +11,7 @@ const GET_FINDING_HEADER: DocumentNode = gql`
       severityScore
       state
       title
+      minTimeToRemediate
       historicState @include(if: $canGetHistoricState)
     }
   }

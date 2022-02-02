@@ -1364,6 +1364,7 @@ export const enTranslations: ResourceKey = {
       environment: "Environment",
       uploadDate: "Since",
     },
+    estRemediationTimeLabel: "Est. Remediation Time",
     filesTable: {
       description: "Description",
       file: "File",

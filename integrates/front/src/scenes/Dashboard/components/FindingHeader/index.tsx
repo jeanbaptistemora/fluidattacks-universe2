@@ -10,6 +10,7 @@ import {
 } from "./styles";
 
 import calendarIcon from "resources/calendar.svg";
+import clockIcon from "resources/clock-light.svg";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
@@ -19,6 +20,7 @@ import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
   discoveryDate: string;
+  estRemediationTime: string;
   openVulns: number;
   severity: number;
   status: "closed" | "default" | "open";
@@ -53,7 +55,8 @@ const statusConfigs: Record<string, { icon: string; text: string }> = {
 const FindingHeader: React.FC<IFindingHeaderProps> = (
   props: IFindingHeaderProps
 ): JSX.Element => {
-  const { discoveryDate, openVulns, severity, status } = props;
+  const { discoveryDate, estRemediationTime, openVulns, severity, status } =
+    props;
   const SEVERITY_THRESHOLD_CRITICAL: number = 9;
   const SEVERITY_THRESHOLD_HIGH: number = 6.9;
   const SEVERITY_THRESHOLD_MED: number = 3.9;
@@ -132,6 +135,13 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
         <FindingHeaderLabel>
           {translate.t("searchFindings.discoveryDateLabel")}
           <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
+        </FindingHeaderLabel>
+      </FindingHeaderDetail>
+      <FindingHeaderDetail>
+        <img alt={""} height={40} src={clockIcon} width={40} />
+        <FindingHeaderLabel>
+          {translate.t("searchFindings.estRemediationTimeLabel")}
+          <FindingHeaderIndicator>{estRemediationTime}</FindingHeaderIndicator>
         </FindingHeaderLabel>
       </FindingHeaderDetail>
     </FindingHeaderContainer>
