@@ -10,6 +10,9 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
+import { ActionButtons } from "./ActionButtons";
+import { HandleAdditionModal } from "./HandleAdditionModal";
+
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
@@ -47,6 +50,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     "api_resolvers_toe_input_seen_first_time_by_resolve"
   );
   const { groupName } = useParams<{ groupName: string }>();
+  const [isAdding, setIsAdding] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -98,6 +102,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
+  function toggleAdd(): void {
+    setIsAdding(!isAdding);
+  }
 
   const formatBoolean = (value: boolean): string =>
     value
@@ -304,6 +311,13 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
           _.get(sessionStorage, "toeInputsSort", initialSort)
         )}
         exportCsv={true}
+        extraButtonsRight={
+          <ActionButtons
+            isAdding={isAdding}
+            isInternal={isInternal}
+            onAdd={toggleAdd}
+          />
+        }
         headers={headersToeInputsTable}
         id={"tblToeInputs"}
         isFilterEnabled={isFilterEnabled}
@@ -312,6 +326,13 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         pageSize={100}
         search={false}
       />
+      {isAdding ? (
+        <HandleAdditionModal
+          groupName={groupName}
+          handleCloseModal={toggleAdd}
+          refetchData={refetch}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };
