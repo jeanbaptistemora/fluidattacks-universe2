@@ -21190,6 +21190,56 @@ F257,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,463,skims,257.
   36 |   }
      ^ Col 0
 ",terraform.ec2_has_not_termination_protection
+F259,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,16,463,skims,259. Lack of protection against deletion - DynamoDB,"Ensure CAP_SYS_ADMIN Linux capability is not used
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   1 | apiVersion: v1
+   2 | kind: Pod
+   3 | metadata:
+   4 |   name: rss-site
+   5 |   labels:
+   6 |     app: web
+   7 | spec:
+   8 |   containers:
+   9 |     - name: front-end
+  10 |       image: nginx
+  11 |       ports:
+  12 |         - containerPort: 80
+  13 |       securityContext:
+  14 |         capabilities:
+  15 |             add:
+> 16 |                 - SYS_ADMIN
+  17 |                 - NET_ADMIN
+  18 |     - name: rss-reader
+  19 |       image: nickchase/rss-php-nginxv1
+  20 |       ports:
+  21 |         - containerPort: 88
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,23,463,skims,259. Lack of protection against deletion - DynamoDB,"Ensure CAP_SYS_ADMIN Linux capability is not used
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""capabilities"": {
+  22 |             ""add"": [
+> 23 |               ""SYS_ADMIN"",
+  24 |               ""NET_ADMIN""
+  25 |             ]
+  26 |           }
+  27 |         }
+  28 |       },
+  29 |       {
+  30 |         ""name"": ""rss-reader"",
+  31 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  32 |         ""ports"": [
+  33 |           {
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String

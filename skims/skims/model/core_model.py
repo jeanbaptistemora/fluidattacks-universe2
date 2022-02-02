@@ -3647,6 +3647,13 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F259,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
+    K8S_SYS_ADMIN_LINUX_CAP_USED = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_sys_admin_linux_cap_used",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+    )
     CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
         file_name="cloudformation",
         name="cfn_bucket_policy_has_secure_transport",

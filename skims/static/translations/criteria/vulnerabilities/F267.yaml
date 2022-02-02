@@ -1,0 +1,5 @@
+lib_path.f267.k8s_sys_admin_linux_cap_is_used:
+  en: >
+    Ensure CAP_SYS_ADMIN Linux capability is not used
+  es: >
+    Asegúrese de que no se utilice la capacidad de Linux CAP_SYS_ADMIN
