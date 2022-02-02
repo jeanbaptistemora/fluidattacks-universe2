@@ -343,7 +343,10 @@ class ITReport:
             "Current Assigned": vuln.treatment.assigned or EMPTY,
         }
         if first_treatment:
-            if first_treatment.status == VulnerabilityTreatmentStatus.ACCEPTED:
+            if (
+                first_treatment.status == VulnerabilityTreatmentStatus.ACCEPTED
+                and first_treatment.accepted_until
+            ):
                 first_expiration = datetime_utils.convert_from_iso_str(
                     first_treatment.accepted_until
                 )
