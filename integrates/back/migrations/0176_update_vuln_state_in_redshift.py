@@ -4,8 +4,8 @@ Populate in redshift missing field "modified_by" from vuln state.
 Info is restored from old table "FI_vulnerabilities".
 Based on migration 0172, check it out.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-02-01 at 18:36:43 UTC
+Finalization Time:  2022-02-01 at 23:45:45 UTC
 """
 
 from aioextensions import (
