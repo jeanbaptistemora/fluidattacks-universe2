@@ -346,13 +346,20 @@ async def create_payment_method(
 
 async def create_portal(
     *,
+    org_id: str,
     org_name: str,
-    org_billing_customer: str,
+    user_email: str,
+    org_billing_customer: Optional[str],
 ) -> Portal:
     """Create Stripe portal session"""
-    # Raise exception if stripe customer does not exist
+    # Create customer if it does not exist
     if org_billing_customer is None:
-        raise InvalidBillingCustomer()
+        customer: Customer = await dal.create_customer(
+            org_id=org_id,
+            org_name=org_name,
+            user_email=user_email,
+        )
+        org_billing_customer = customer.id
 
     return await dal.create_portal(
         org_billing_customer=org_billing_customer,
