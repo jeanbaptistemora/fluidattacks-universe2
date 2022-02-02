@@ -21,6 +21,9 @@ from .utils import (
     format_row_verification,
     format_row_verification_vuln_ids,
 )
+from aioextensions import (
+    collect,
+)
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
@@ -59,7 +62,7 @@ SQL_INSERT_VERIFICATION_VULNS_IDS = Template(
 )
 
 
-async def insert_metadata(
+async def _insert_metadata(
     *,
     finding: Finding,
 ) -> None:
@@ -75,7 +78,7 @@ async def insert_metadata(
     )
 
 
-async def insert_metadata_severity(
+async def _insert_metadata_severity(
     *,
     finding: Finding,
 ) -> None:
@@ -96,7 +99,7 @@ async def insert_metadata_severity(
     )
 
 
-async def insert_historic_state(
+async def _insert_historic_state(
     *,
     finding_id: str,
     historic_state: Tuple[FindingState, ...],
@@ -115,7 +118,7 @@ async def insert_historic_state(
     )
 
 
-async def insert_historic_verification(
+async def _insert_historic_verification(
     *,
     finding_id: str,
     historic_verification: Tuple[FindingVerification, ...],
@@ -135,7 +138,7 @@ async def insert_historic_verification(
     )
 
 
-async def insert_historic_verification_vuln_ids(
+async def _insert_historic_verification_vuln_ids(
     *,
     finding_id: str,
     historic_verification: Tuple[FindingVerification, ...],
@@ -158,4 +161,32 @@ async def insert_historic_verification_vuln_ids(
             values=values,
         ),
         sql_values,
+    )
+
+
+async def insert_finding(
+    *,
+    finding: Finding,
+    historic_state: Tuple[FindingState, ...],
+    historic_verification: Tuple[FindingVerification, ...],
+) -> None:
+    await _insert_metadata(finding=finding)
+    await collect(
+        (
+            _insert_metadata_severity(
+                finding=finding,
+            ),
+            _insert_historic_state(
+                finding_id=finding.id,
+                historic_state=historic_state,
+            ),
+            _insert_historic_verification(
+                finding_id=finding.id,
+                historic_verification=historic_verification,
+            ),
+            _insert_historic_verification_vuln_ids(
+                finding_id=finding.id,
+                historic_verification=historic_verification,
+            ),
+        )
     )
