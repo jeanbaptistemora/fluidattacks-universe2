@@ -119,7 +119,6 @@ in
           };
         })
         [
-          "0176_update_vuln_state_in_redshift.py"
         ])
         ++ (builtins.map
         (name: {
