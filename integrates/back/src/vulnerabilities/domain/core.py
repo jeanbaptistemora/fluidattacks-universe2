@@ -115,13 +115,10 @@ async def _send_to_redshift(
     *,
     loaders: Any,
     vulnerability: Vulnerability,
-    state_to_append: Optional[VulnerabilityState] = None,
 ) -> None:
     historic_state = await loaders.vulnerability_historic_state.load(
         vulnerability.id
     )
-    if state_to_append:
-        historic_state = (*historic_state, state_to_append)
     historic_treatment = await loaders.vulnerability_historic_treatment.load(
         vulnerability.id
     )
@@ -287,16 +284,21 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         not user_email.endswith("@fluidattacks.com")
         and finding.state.status == FindingStateStatus.APPROVED
     ):
-        await _send_to_redshift(
-            loaders=loaders,
-            vulnerability=vulnerability,
-            state_to_append=VulnerabilityState(
+        await vulns_model.update_historic_entry(
+            current_entry=vulnerability.state,
+            entry=VulnerabilityState(
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 source=source,
                 status=VulnerabilityStateStatus.DELETED,
                 justification=justification,
             ),
+            finding_id=finding_id,
+            vulnerability_id=vulnerability_id,
+        )
+        await _send_to_redshift(
+            loaders=loaders,
+            vulnerability=vulnerability,
         )
     await vulns_model.remove(vulnerability_id=vulnerability_id)
     return True
