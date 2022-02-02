@@ -22,6 +22,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -132,6 +133,7 @@ def update_root_cloning_status(
     root_id: str,
     status: str,
     message: str,
+    commit: Optional[str] = None,
 ) -> bool:
     if status not in {"OK", "FAILED", "CLONING", "UNKNOWN"}:
         raise ValueError(f"{status} is an invalid status")
@@ -142,6 +144,7 @@ def update_root_cloning_status(
         root_id,
         status,
         message,
+        commit,
     )
 
     if result.errors:

@@ -554,12 +554,13 @@ class Mutations:
             )
 
     @staticmethod
-    def update_cloning_status(
+    def update_cloning_status(  # pylint: disable=too-many-arguments
         api_token: str,
         group_name: str,
         root_id: str,
         status: str,
         message: str,
+        commit: Optional[str] = None,
     ) -> Response:
         query = """
             mutation MeltsUpdateRootCloningStatus(
@@ -567,12 +568,14 @@ class Mutations:
                 $rootId: ID!
                 $status: CloningStatus!
                 $message: String!
+                $commit: String
             ) {
               updateRootCloningStatus(
                 groupName: $groupName
                 id: $rootId
                 status: $status
                 message: $message
+                commit: $commit
               ) {
                 success
               }
@@ -583,6 +586,7 @@ class Mutations:
             "rootId": root_id,
             "status": status,
             "message": message,
+            "commit": commit,
         }
         return request(
             api_token,
