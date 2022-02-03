@@ -63,6 +63,7 @@ async def test_finding_age() -> None:
           age
           lastVulnerability
           openAge
+          minTimeToRemediate
       }
     }"""
     data = {"query": query}
@@ -71,6 +72,7 @@ async def test_finding_age() -> None:
     assert result["data"]["finding"]["age"] == 332
     assert result["data"]["finding"]["lastVulnerability"] == 332
     assert result["data"]["finding"]["openAge"] == 332
+    assert result["data"]["finding"]["minTimeToRemediate"] == 18
 
 
 async def test_finding() -> None:
@@ -188,6 +190,7 @@ async def test_finding() -> None:
           currentState
           newRemediated
           verified
+          minTimeToRemediate
           vulnerabilities {
             id
             findingId
@@ -270,6 +273,7 @@ async def test_finding() -> None:
     assert "lastVulnerability" in result["data"]["finding"]
     assert "historicState" in result["data"]["finding"]
     assert "vulnerabilities" in result["data"]["finding"]
+    assert "minTimeToRemediate" in result["data"]["finding"]
     assert result["data"]["finding"]["vulnerabilities"][-1] == expected_vuln
     for field, value in result["data"]["finding"]["vulnerabilities"][
         -1
@@ -621,6 +625,7 @@ async def test_create_draft() -> None:
             $requirements: String,
             $threat: String,
             $title: String!,
+            $minTimeToRemediate: String!,
             ) {
             addDraft(
             description: $description,
@@ -629,6 +634,7 @@ async def test_create_draft() -> None:
             requirements: $requirements,
             threat: $threat,
             title: $title,
+            minTimeToRemediate: $minTimeToRemediate,
             ) {
             success
             }
@@ -641,6 +647,7 @@ async def test_create_draft() -> None:
         "requirements": "REQ.0001. Apply filters",
         "threat": "Attacker",
         "title": "001. SQL injection - C Sharp SQL API",
+        "minTimeToRemediate": "60",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)
@@ -702,6 +709,7 @@ async def test_non_existing_finding() -> None:
           id
           openVulns: openVulnerabilities
           releaseDate
+          minTimeToRemediate
         }
       }
     """

@@ -9,6 +9,7 @@ migration can be rerun to keep everything in line
 
 Execution Time:    2022-02-01 at 16:24:45 UTC-5
 Finalization Time: 2022-02-01 at 16:26:31 UTC-5
+Last Update:       2022-02-03 at 15:01:11 UTC-5
 """
 
 from aioextensions import (
@@ -55,6 +56,9 @@ def get_mttr(title: str, finding_info: Dict) -> Optional[int]:
     if (
         finding_code in finding_info
         and "remediation_time" in finding_info[finding_code]
+        #  Finding 205. Insuficient Physical Access Controls has a null
+        # remediation time
+        and finding_info[finding_code]["remediation_time"] is not None
     ):
         return int(finding_info[finding_code]["remediation_time"])
     return None
@@ -99,7 +103,7 @@ async def process_group(
             )
         ),
         facets=(TABLE.facets["finding_metadata"],),
-        filter_expression=Attr("min_time_to_remediate").not_exists(),
+        filter_expression=Attr("min_time_to_remediate").exists(),
         index=index,
         table=TABLE,
     )
