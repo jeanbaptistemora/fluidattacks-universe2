@@ -4,18 +4,15 @@ from .typing import (
 from datetime import (
     datetime,
 )
-from db_model.findings.enums import (
-    FindingVerificationStatus,
-)
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
-    FindingVerification,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
+    VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -26,6 +23,9 @@ from findings import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.vulnerabilities import (
+    get_reattack_requester,
 )
 from pyexcelerate import (
     Alignment,
@@ -242,37 +242,42 @@ class ITReport:
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    async def set_reattack_data(
-        self, finding: Finding, vuln: Vulnerability
-    ) -> None:
+    async def set_reattack_data(self, vuln: Vulnerability) -> None:
         historic_verification: Tuple[
-            FindingVerification, ...
-        ] = await self.loaders.finding_historic_verification.load(finding.id)
+            VulnerabilityVerificationStatus, ...
+        ] = await self.loaders.vulnerability_historic_verification.load(
+            vuln.id
+        )
         reattack_requested = None
         reattack_date = None
         reattack_requester = None
         n_requested_reattacks = None
-        remediation_effectiveness = EMPTY
+        remediation_effectiveness: str = EMPTY
         if historic_verification:
             reattack_requested = (
-                finding.verification.status
-                == FindingVerificationStatus.REQUESTED
+                vuln.verification.status
+                == VulnerabilityVerificationStatus.REQUESTED
             )
             n_requested_reattacks = len(
                 [
                     verification
                     for verification in historic_verification
                     if verification.status
-                    == FindingVerificationStatus.REQUESTED
+                    == VulnerabilityVerificationStatus.REQUESTED
                 ]
             )
             if vuln.state.status == VulnerabilityStateStatus.CLOSED:
-                remediation_effectiveness = f"{100 / n_requested_reattacks}%"
-            if reattack_requested:
-                reattack_date = datetime_utils.as_zone(
-                    datetime.fromisoformat(finding.verification.modified_date)
+                effectiveness: float = 100 / n_requested_reattacks
+                remediation_effectiveness = (
+                    f"{f'{effectiveness:.2f}'.rstrip('0').rstrip('.')}%"
                 )
-                reattack_requester = finding.verification.modified_by
+            if reattack_requested and vuln.verification.modified_date:
+                reattack_date = datetime_utils.as_zone(
+                    datetime.fromisoformat(vuln.verification.modified_date)
+                )
+                reattack_requester = await get_reattack_requester(
+                    self.loaders, vuln
+                )
         reattack_data = {
             "Pending Reattack": "Yes" if reattack_requested else "No",
             "# Requested Reattacks": n_requested_reattacks or "0",
@@ -412,7 +417,7 @@ class ITReport:
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)
         await self.set_treatment_data(row)
-        await self.set_reattack_data(finding, row)
+        await self.set_reattack_data(row)
         self.set_cvss_metrics_cell(finding)
 
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
