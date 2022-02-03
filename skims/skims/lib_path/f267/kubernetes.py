@@ -17,7 +17,7 @@ from typing import (
 )
 
 
-def _k8s_sys_admin_linux_cap_is_used(
+def _k8s_sys_admin_or_privileged_used(
     template: Any,
 ) -> Iterator[Any]:
     if is_kubernetes(template):
@@ -29,15 +29,15 @@ def _k8s_sys_admin_linux_cap_is_used(
             yield privileged
 
 
-def k8s_sys_admin_linux_cap_used(
+def k8s_sys_admin_or_privileged_used(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=("lib_path.f267.k8s_sys_admin_linux_cap_is_used"),
         iterator=get_cloud_iterator(
-            _k8s_sys_admin_linux_cap_is_used(template=template)
+            _k8s_sys_admin_or_privileged_used(template=template)
         ),
         path=path,
-        method=MethodsEnum.CFN_NOT_POINT_TIME_RECOVERY,
+        method=MethodsEnum.K8S_SYS_ADMIN_LINUX_CAP_USED,
     )
