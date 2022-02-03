@@ -471,6 +471,14 @@
       "title": "160. Excessive privileges - Temporary Files"
     }
   },
+  "F165": {
+    "EN": {
+      "title": "165. Insecure service configuration - AWS"
+    },
+    "ES": {
+      "title": "165. Insecure service configuration - AWS"
+    }
+  },
   "F177": {
     "EN": {
       "title": "177. Insecure service configuration - Security Groups"
