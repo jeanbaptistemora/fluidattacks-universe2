@@ -3,3 +3,8 @@ lib_path.f267.k8s_sys_admin_linux_cap_is_used:
     Ensure CAP_SYS_ADMIN Linux capability or PRIVILEGED mode is not used
   es: >
     Asegúrese de que no se utilice la capacidad de Linux CAP_SYS_ADMIN o el modo PRIVILEGED
+lib_path.f267.k8s_allow_privilege_escalation_enabled:
+  en: >
+    Ensure containers do not run with AllowPrivilegeEscalation
+  es: >
+    Asegúrese de que los contenedores no se ejecuten con AllowPrivilegeEscalation

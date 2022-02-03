@@ -9155,6 +9155,106 @@ F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   34 |           {
      ^ Col 0
 ",kubernetes.k8s_sys_admin_linux_cap_used
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,10,250,skims,267. Excessive Privileges - Kubernetes,"Ensure containers do not run with AllowPrivilegeEscalation
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   1 | apiVersion: v1
+   2 | kind: Pod
+   3 | metadata:
+   4 |   name: rss-site
+   5 |   labels:
+   6 |     app: web
+   7 | spec:
+   8 |   privileged: true
+   9 |   containers:
+> 10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         capabilities:
+  16 |             add:
+  17 |                 - SYS_ADMIN
+  18 |                 - NET_ADMIN
+  19 |     - name: rss-reader
+  20 |       image: nickchase/rss-php-nginxv1
+  21 |       ports:
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"Ensure containers do not run with AllowPrivilegeEscalation
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure containers do not run with AllowPrivilegeEscalation
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   3 | data:
+   4 | me: rss-site
+   5 | bels:
+   6 | app: web
+   7 | :
+   8 | ntainers:
+   9 | - name: front-end
+  10 |   image: nginx
+  11 |   ports:
+  12 |     - containerPort: 80
+  13 |   securityContext:
+> 14 |     allowPrivilegeEscalation: true
+  15 |     capabilities:
+  16 |       drop:
+  17 |         - all
+  18 |       add:
+  19 |         - NET_BIND_SERVICE
+  20 | - name: rss-reader
+  21 |   image: nickchase/rss-php-nginxv1
+  22 |   ports:
+  23 |     - containerPort: 88
+     ^ Col 4
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure containers do not run with AllowPrivilegeEscalation
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  11 | tainers"": [
+  12 |
+  13 | ""name"": ""front-end"",
+  14 | ""image"": ""nginx"",
+  15 | ""ports"": [
+  16 |   {
+  17 |     ""containerPort"": 80
+  18 |   }
+  19 | ],
+  20 | ""securityContext"": {
+> 21 |   ""allowPrivilegeEscalation"": true,
+  22 |   ""capabilities"": {
+  23 |     ""drop"": [
+  24 |       ""all""
+  25 |     ],
+  26 |     ""add"": [
+  27 |       ""NET_BIND_SERVICE""
+  28 |     ]
+  29 |   }
+  30 | }
+  31 |
+     ^ Col 8
+",kubernetes.k8s_allow_privilege_escalation_enabled
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
    5 |     Type: AWS::IAM::ManagedPolicy
    6 |     Properties:

@@ -3654,6 +3654,13 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
+    K8S_PRIVILEGE_ESCALATION_ENABLED = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_allow_privilege_escalation_enabled",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+    )
     CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
         file_name="cloudformation",
         name="cfn_bucket_policy_has_secure_transport",
