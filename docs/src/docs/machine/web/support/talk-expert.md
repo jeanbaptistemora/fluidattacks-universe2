@@ -46,13 +46,9 @@ and can respond to you as quickly as possible.
   including the name of the expert
   you will talk to.
 
-![Appointment Confirmed](https://res.cloudinary.com/fluid-attacks/image/upload/v1643913865/docs/web/organizations/support/support_info_appointment.png)
-
 - Finally, you receive an email with
   an invitation to the appointment,
   which is included in your Google Calendar.
-
-![Google Calendar Appointment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643913866/docs/web/organizations/support/support_google_calendar.png)
 
 Our priority is to serve your
 communication requests in the
