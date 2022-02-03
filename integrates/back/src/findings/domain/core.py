@@ -138,7 +138,6 @@ async def _send_to_redshift(
     finding: Finding,
 ) -> None:
     historic_state = await loaders.finding_historic_state.load(finding.id)
-    print(f"finding_state: {historic_state}")
     historic_verification = await loaders.finding_historic_verification.load(
         finding.id
     )
@@ -630,6 +629,16 @@ async def mask_finding(  # pylint: disable=too-many-locals
         for vuln in vulns
     ]
     are_vulns_masked = all(await collect(mask_vulns_coroutines, workers=4))
+
+    store_finding: bool = True
+    if finding.state.status == VulnerabilityStateStatus.DELETED:
+        if (
+            finding.state.modified_by.endswith("@fluidattacks.com")
+            or finding.state.status != FindingStateStatus.APPROVED
+        ):
+            store_finding = False
+    if store_finding:
+        await _send_to_redshift(loaders=loaders, finding=finding)
 
     success = all(
         [
