@@ -41,7 +41,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
 
   return (
     <Modal
-      headerTitle={t("organization.tabs.billing.paymentMethods.modal.add")}
+      headerTitle={t("organization.tabs.billing.paymentMethods.add.modal.add")}
       onEsc={onClose}
       open={true}
     >
@@ -62,14 +62,16 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.cvc")}
+                {t("organization.tabs.billing.paymentMethods.add.modal.cvc")}
               </ControlLabel>
               <Field component={FormikText} name={"cardCvc"} type={"text"} />
             </div>
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.expirationMonth")}
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.modal.expirationMonth"
+                )}
               </ControlLabel>
               <Field
                 component={FormikText}
@@ -80,7 +82,9 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.expirationYear")}
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.modal.expirationYear"
+                )}
               </ControlLabel>
               <Field
                 component={FormikText}
@@ -91,14 +95,16 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.number")}
+                {t("organization.tabs.billing.paymentMethods.add.modal.number")}
               </ControlLabel>
               <Field component={FormikText} name={"cardNumber"} type={"text"} />
             </div>
             <div>
               <Field
                 component={FormikCheckbox}
-                label={t("organization.tabs.billing.paymentMethods.default")}
+                label={t(
+                  "organization.tabs.billing.paymentMethods.add.modal.default"
+                )}
                 name={"makeDefault"}
                 type={"checkbox"}
               />

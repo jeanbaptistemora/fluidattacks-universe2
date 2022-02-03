@@ -1096,18 +1096,25 @@ export const enTranslations: ResourceKey = {
           },
         },
         paymentMethods: {
-          add: "Add",
-          cvc: "Card CVC",
-          default: "Make card default payment method",
-          defaultPaymentMethod: "(Default)",
-          expirationMonth: "Card expiration month",
-          expirationYear: "Card expiration year",
-          modal: {
-            add: "Add payment method",
+          add: {
+            button: "Add",
+            modal: {
+              add: "Add payment method",
+              cvc: "Card CVC",
+              default: "Make card default payment method",
+              expirationMonth: "Card expiration month",
+              expirationYear: "Card expiration year",
+              number: "Card number",
+            },
           },
-          number: "Card number",
+          defaultPaymentMethod: "(Default)",
           remove: {
             button: "Remove",
+            errors: {
+              activeSubscriptions:
+                "All subscriptions must be cancelled before removing your latest payment method.",
+              noPaymentMethod: "The payment method does not exist.",
+            },
             success: {
               body: "Card successfully removed.",
               title: "Success",

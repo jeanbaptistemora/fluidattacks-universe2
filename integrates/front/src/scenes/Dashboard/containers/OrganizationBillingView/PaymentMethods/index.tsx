@@ -145,8 +145,32 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
         },
         onError: ({ graphQLErrors }): void => {
           graphQLErrors.forEach((error): void => {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't remove payment method", error);
+            switch (error.message) {
+              case "Exception - Cannot perform action. Please add a valid payment method first":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.remove.errors.noPaymentMethod"
+                  )
+                );
+                break;
+              case "Exception - Invalid payment method. Provided payment method does not exist for this organization":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.remove.errors.noPaymentMethod"
+                  )
+                );
+                break;
+              case "Exception - Cannot perform action. The organization has active subscriptions":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.remove.errors.activeSubscriptions"
+                  )
+                );
+                break;
+              default:
+                msgError(t("groupAlerts.errorTextsad"));
+                Logger.warning("Couldn't update group subscription", error);
+            }
           });
         },
       }
@@ -243,7 +267,9 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                       <Button onClick={openAddModal}>
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;
-                        {t("organization.tabs.billing.paymentMethods.add")}
+                        {t(
+                          "organization.tabs.billing.paymentMethods.add.button"
+                        )}
                       </Button>
                     </Can>
                     <Can
