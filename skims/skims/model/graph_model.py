@@ -434,7 +434,6 @@ class GraphShard(NamedTuple):
 
 
 class GraphVulnerabilityParameters(NamedTuple):
-    cwe: Tuple[int, ...]
     desc_key: str
     desc_params: Dict[str, str]
 
@@ -445,91 +444,76 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
 ] = {
     core_model.FindingEnum.F001: (
         GraphVulnerabilityParameters(
-            cwe=(89,),
             desc_key="src.lib_path.F001.user_controled_param",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F112: (
         GraphVulnerabilityParameters(
-            cwe=(89,),
             desc_key="src.lib_path.F112.user_controled_param",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F004: GraphVulnerabilityParameters(
-        cwe=(78,),
         desc_key="criteria.vulns.004.description",
         desc_params={},
     ),
     core_model.FindingEnum.F008: GraphVulnerabilityParameters(
-        cwe=(79,),
         desc_key="criteria.vulns.008.description",
         desc_params={},
     ),
     core_model.FindingEnum.F021: GraphVulnerabilityParameters(
-        cwe=(643,),
         desc_key="criteria.vulns.021.description",
         desc_params={},
     ),
     core_model.FindingEnum.F034: GraphVulnerabilityParameters(
-        cwe=(330,),
         desc_key="criteria.vulns.034.description",
         desc_params={},
     ),
     core_model.FindingEnum.F035: GraphVulnerabilityParameters(
-        cwe=(521,),
         desc_key="criteria.vulns.035.description",
         desc_params={},
     ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
-        cwe=(614,),
         desc_key="criteria.vulns.042.description",
         desc_params={},
     ),
     core_model.FindingEnum.F052: GraphVulnerabilityParameters(
-        cwe=(328,),
         desc_key="criteria.vulns.052.description",
         desc_params={},
     ),
     core_model.FindingEnum.F063: (
         GraphVulnerabilityParameters(
-            cwe=(22,),
             desc_key="src.lib_path.f063_path_traversal.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F089: (
         GraphVulnerabilityParameters(
-            cwe=(501,),
             desc_key="criteria.vulns.089.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F100: (
         GraphVulnerabilityParameters(
-            cwe=(918,),
             desc_key="criteria.vulns.100.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F127: (
         GraphVulnerabilityParameters(
-            cwe=(core_model.FindingEnum.F127.value.cwe,),
             desc_key=(core_model.FindingEnum.F127.value.description),
             desc_params={},
         )
     ),
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
-            cwe=(90,),
             desc_key="criteria.vulns.107.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F320: (
         GraphVulnerabilityParameters(
-            cwe=(90,),
             desc_key="criteria.vulns.320.description",
             desc_params={},
         )
