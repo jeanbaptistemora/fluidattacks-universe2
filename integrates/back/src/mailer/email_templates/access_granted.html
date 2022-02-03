@@ -12,11 +12,11 @@
       Please confirm your access and check vulnerabilities related to:
     </p>
     <p>
-      {%- if group %}
+      {%- if group_description %}
       - Group: <strong>{{ group }}</strong><br>
       - Description: <strong>{{ group_description }}</strong>
       {%- else %}
-      - Organization: <strong>{{ organization }}</strong>
+      - Organization: <strong>{{ group }}</strong>
       {%- endif %}
     </p>
     <p>

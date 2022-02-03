@@ -349,6 +349,45 @@ async def has_user_access(organization_id: str, email: str) -> bool:
     )
 
 
+async def invite_to_organization(
+    email: str,
+    role: str,
+    organization_name: str,
+    modified_by: str,
+) -> bool:
+    success = False
+    if validate_email_address(email) and validate_role_fluid_reqs(email, role):
+        expiration_time = datetime_utils.get_as_epoch(
+            datetime_utils.get_now_plus_delta(weeks=1)
+        )
+        url_token = secrets.token_urlsafe(64)
+        success = await group_access_domain.update(
+            email,
+            organization_name,
+            {
+                "expiration_time": expiration_time,
+                "has_access": True,  # Temporary value until is implemented
+                "invitation": {
+                    "is_used": False,
+                    "role": role,
+                    "url_token": url_token,
+                },
+            },
+        )
+        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
+        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
+        mail_to = [email]
+        email_context: MailContentType = {
+            "admin": email,
+            "group": organization_name,
+            "responsible": modified_by,
+            "confirm_access_url": confirm_access_url,
+            "reject_access_url": reject_access_url,
+        }
+        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
+    return success
+
+
 async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
     """Yield pairs of (organization_id, organization_name)."""
     async for org_id, org_name in orgs_dal.iterate_organizations():
@@ -547,25 +586,4 @@ def validate_vulnerability_grace_period(value: int) -> bool:
     success: bool = True
     if value < 0:
         raise InvalidVulnerabilityGracePeriod()
-    return success
-
-
-async def invite_to_organization(
-    email: str,
-    role: str,
-    organization_name: str,
-) -> bool:
-    success = False
-    if validate_email_address(email) and validate_role_fluid_reqs(email, role):
-        url_token = secrets.token_urlsafe(64)
-        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
-        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
-        mail_to = [email]
-        email_context: MailContentType = {
-            "admin": email,
-            "organization": organization_name,
-            "confirm_access_url": confirm_access_url,
-            "reject_access_url": reject_access_url,
-        }
-        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success
