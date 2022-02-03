@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    ToeInputAlreadyEnumerated,
+)
 from custom_types import (
     Group,
 )
@@ -130,11 +133,11 @@ def _format_unreliable_component(
     return root, component
 
 
-def get_reduced_component(component: str) -> str:
+def get_reduced_component(component: str, entry_point: str) -> str:
     formatted_component = _format_component(component)
     host = _get_host(formatted_component)
     path = _get_path(formatted_component)
-    return f"{host}/{path}"
+    return f"{host}/{path}/{entry_point}"
 
 
 def get_unreliable_component(  # pylint: disable=too-many-locals
@@ -218,9 +221,16 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
     )
 
 
-async def remove(entry_point: str, component: str, group_name: str) -> None:
+async def remove(
+    current_value: ToeInput,
+    is_moving_toe_input: bool = False,
+) -> None:
+    if not is_moving_toe_input and current_value.seen_at is not None:
+        raise ToeInputAlreadyEnumerated()
     await toe_inputs_model.remove(
-        entry_point=entry_point, component=component, group_name=group_name
+        entry_point=current_value.entry_point,
+        component=current_value.component,
+        group_name=current_value.group_name,
     )
 
 

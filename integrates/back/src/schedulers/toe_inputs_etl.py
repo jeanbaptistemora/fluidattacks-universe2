@@ -349,11 +349,7 @@ async def remove_toe_inputs(
 ) -> None:
     await collect(
         [
-            toe_inputs_remove(
-                entry_point=toe_input.entry_point,
-                component=toe_input.component,
-                group_name=toe_input.group_name,
-            )
+            toe_inputs_remove(toe_input, is_moving_toe_input=True)
             for toe_input in group_toe_inputs.values()
             if toe_input.seen_at is None
             and group_roots.get(toe_input.unreliable_root_id)
@@ -368,23 +364,26 @@ async def remove_duplicated_inputs(
     cvs_group_toe_inputs: Dict[int, ToeInput],
 ) -> None:
     group_toe_input_reduced_components = {
-        toe_inputs_domain.get_reduced_component(input.component): input
+        toe_inputs_domain.get_reduced_component(
+            input.component, input.entry_point
+        ): input
         for input in group_toe_inputs.values()
     }
     await collect(
         [
             toe_inputs_remove(
-                entry_point=cvs_input.entry_point,
-                component=group_toe_input_reduced_components[
+                group_toe_input_reduced_components[
                     toe_inputs_domain.get_reduced_component(
-                        cvs_input.component
+                        cvs_input.component, cvs_input.entry_point
                     )
-                ].component,
-                group_name=cvs_input.group_name,
+                ],
+                is_moving_toe_input=True,
             )
             for cvs_input in cvs_group_toe_inputs.values()
             if cvs_input.get_hash() not in group_toe_inputs
-            and toe_inputs_domain.get_reduced_component(cvs_input.component)
+            and toe_inputs_domain.get_reduced_component(
+                cvs_input.component, cvs_input.entry_point
+            )
             in group_toe_input_reduced_components
         ]
     )

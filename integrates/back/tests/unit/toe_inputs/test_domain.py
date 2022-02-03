@@ -76,11 +76,14 @@ async def test_delete() -> None:
         GroupToeInputsRequest(group_name=group_name)
     )
     assert len(group_toe_inputs) == 5
-    await toe_inputs_domain.remove(
-        entry_point="btnTest",
-        component="https://test.com/test/new.aspx",
-        group_name=group_name,
+    current_value = await loaders.toe_input.load(
+        ToeInputRequest(
+            component="https://test.com/test/new.aspx",
+            entry_point="btnTest",
+            group_name=group_name,
+        )
     )
+    await toe_inputs_domain.remove(current_value, is_moving_toe_input=True)
     loaders = get_new_context()
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)

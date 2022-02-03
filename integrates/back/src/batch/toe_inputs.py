@@ -211,11 +211,7 @@ async def refresh_inactive_root_toe_inputs(
     toe_inputs_to_remove = get_toe_inputs_to_remove(root, root_toe_inputs)
     await collect(
         tuple(
-            toe_inputs_remove(
-                entry_point=toe_input.entry_point,
-                component=toe_input.component,
-                group_name=toe_input.group_name,
-            )
+            toe_inputs_remove(toe_input, is_moving_toe_input=True)
             for toe_input in toe_inputs_to_remove
         ),
     )
