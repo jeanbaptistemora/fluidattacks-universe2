@@ -482,7 +482,13 @@ const Machine = [
     label: 'Web',
     items: [
       'machine/web/asm',
-      'machine/web/support',
+      {
+        type: 'category',
+        label: 'Support',
+        items: [
+          'machine/web/support/chat',
+        ],
+      },
       {
         type: 'category',
         label: 'News',
