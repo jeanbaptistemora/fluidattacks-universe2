@@ -1,6 +1,13 @@
 interface IGroupToeInputsViewProps {
   isInternal: boolean;
 }
+
+interface IRemoveToeInputResultAttr {
+  removeToeInput: {
+    success: boolean;
+  };
+}
+
 interface IToeInputEdge {
   node: IToeInputAttr;
 }
@@ -42,6 +49,7 @@ interface IToeInputData {
 
 export type {
   IGroupToeInputsViewProps,
+  IRemoveToeInputResultAttr,
   IToeInputAttr,
   IToeInputEdge,
   IToeInputData,

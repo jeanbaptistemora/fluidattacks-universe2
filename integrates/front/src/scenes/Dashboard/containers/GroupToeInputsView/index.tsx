@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
@@ -24,9 +24,13 @@ import type {
   ISelectRowProps,
 } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
-import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
+import {
+  GET_TOE_INPUTS,
+  REMOVE_TOE_INPUT,
+} from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
   IGroupToeInputsViewProps,
+  IRemoveToeInputResultAttr,
   IToeInputData,
   IToeInputEdge,
   IToeInputsConnection,
@@ -34,6 +38,7 @@ import type {
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
@@ -57,8 +62,11 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const canGetSeenFirstTimeBy: boolean = permissions.can(
     "api_resolvers_toe_input_seen_first_time_by_resolve"
   );
+
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
+  const [isEnumerating, setIsEnumerating] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -117,6 +125,95 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     setIsAdding(!isAdding);
   }
 
+  function toggleEnumerate(): void {
+    setIsEnumerating(!isEnumerating);
+  }
+
+  function toggleRemove(): void {
+    setIsRemoving(!isRemoving);
+    setSelectedToeInputDatas(
+      selectedToeInputDatas.filter((toeInputData: IToeInputData): boolean =>
+        _.isUndefined(toeInputData.seenAt)
+      )
+    );
+  }
+
+  // // GraphQL operations
+  const { data, fetchMore, refetch } = useQuery<{
+    group: { toeInputs: IToeInputsConnection };
+  }>(GET_TOE_INPUTS, {
+    fetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load toe inputs", error);
+      });
+    },
+    variables: {
+      canGetAttackedAt,
+      canGetAttackedBy,
+      canGetBePresentUntil,
+      canGetFirstAttackAt,
+      canGetSeenFirstTimeBy,
+      first: 300,
+      groupName,
+    },
+  });
+  const [handleRemoveToeInput] = useMutation<IRemoveToeInputResultAttr>(
+    REMOVE_TOE_INPUT,
+    {
+      onCompleted: (removeResult: IRemoveToeInputResultAttr): void => {
+        if (removeResult.removeToeInput.success) {
+          msgSuccess(
+            translate.t("group.toe.inputs.remove.alerts.success"),
+            translate.t("groupAlerts.titleSuccess")
+          );
+          toggleRemove();
+          void refetch();
+        }
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred removing toe input", error);
+        });
+      },
+    }
+  );
+
+  const pageInfo =
+    data === undefined ? undefined : data.group.toeInputs.pageInfo;
+  const toeInputsEdges: IToeInputEdge[] =
+    data === undefined ? [] : data.group.toeInputs.edges;
+  const formatOptionalDate: (date: string | null) => Date | undefined = (
+    date: string | null
+  ): Date | undefined => (_.isNull(date) ? undefined : new Date(date));
+  const toeInputs: IToeInputData[] = toeInputsEdges.map(
+    ({ node }): IToeInputData => ({
+      ...node,
+      attackedAt: formatOptionalDate(node.attackedAt),
+      bePresentUntil: formatOptionalDate(node.bePresentUntil),
+      firstAttackAt: formatOptionalDate(node.firstAttackAt),
+      seenAt: formatOptionalDate(node.seenAt),
+    })
+  );
+
+  async function handleRemove(): Promise<void> {
+    await Promise.all(
+      selectedToeInputDatas.map(
+        async (
+          toeInputData: IToeInputData
+        ): Promise<FetchResult<IRemoveToeInputResultAttr>> =>
+          handleRemoveToeInput({
+            variables: {
+              component: toeInputData.component,
+              entryPoint: toeInputData.entryPoint,
+              groupName,
+            },
+          })
+      )
+    );
+  }
+
   const formatBoolean = (value: boolean): string =>
     value
       ? translate.t("group.toe.inputs.yes")
@@ -130,6 +227,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
 
     return moment(date).format("YYYY-MM-DD");
   };
+
   const onSort: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -233,60 +331,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
   ];
 
-  // // GraphQL operations
-  const { data, fetchMore, refetch } = useQuery<{
-    group: { toeInputs: IToeInputsConnection };
-  }>(GET_TOE_INPUTS, {
-    fetchPolicy: "cache-first",
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load toe inputs", error);
-      });
-    },
-    variables: {
-      canGetAttackedAt,
-      canGetAttackedBy,
-      canGetBePresentUntil,
-      canGetFirstAttackAt,
-      canGetSeenFirstTimeBy,
-      first: 300,
-      groupName,
-    },
-  });
-  const pageInfo =
-    data === undefined ? undefined : data.group.toeInputs.pageInfo;
-  const toeInputsEdges: IToeInputEdge[] =
-    data === undefined ? [] : data.group.toeInputs.edges;
-
-  const formatOptionalDate: (date: string | null) => Date | undefined = (
-    date: string | null
-  ): Date | undefined => (_.isNull(date) ? undefined : new Date(date));
-  const toeInputs: IToeInputData[] = toeInputsEdges.map(
-    ({ node }): IToeInputData => ({
-      ...node,
-      attackedAt: formatOptionalDate(node.attackedAt),
-      bePresentUntil: formatOptionalDate(node.bePresentUntil),
-      firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      seenAt: formatOptionalDate(node.seenAt),
-    })
-  );
-  useEffect((): void => {
-    if (!_.isUndefined(pageInfo)) {
-      if (pageInfo.hasNextPage) {
-        void fetchMore({
-          variables: { after: pageInfo.endCursor, first: 1200 },
-        });
-      }
-    }
-  }, [pageInfo, fetchMore]);
-  useEffect((): void => {
-    if (!_.isUndefined(data)) {
-      void refetch();
-    }
-    // It is important to run only during the first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const filterSearchtextResult: IToeInputData[] = filterSearchText(
     toeInputs,
     searchTextFilter
@@ -295,10 +339,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
-  }
-
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
   }
 
   const initialSort: string = JSON.stringify({
@@ -331,11 +371,32 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(toeInputs),
+    nonSelectable: getNonSelectable(toeInputs, isRemoving),
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
     selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
   };
+
+  useEffect((): void => {
+    if (!_.isUndefined(pageInfo)) {
+      if (pageInfo.hasNextPage) {
+        void fetchMore({
+          variables: { after: pageInfo.endCursor, first: 1200 },
+        });
+      }
+    }
+  }, [pageInfo, fetchMore]);
+  useEffect((): void => {
+    if (!_.isUndefined(data)) {
+      void refetch();
+    }
+    // It is important to run only during the first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
 
   return (
     <React.StrictMode>
@@ -355,9 +416,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         exportCsv={true}
         extraButtonsRight={
           <ActionButtons
+            areInputsSelected={selectedToeInputDatas.length > 0}
             isAdding={isAdding}
+            isEnumerating={isEnumerating}
             isInternal={isInternal}
+            isRemoving={isRemoving}
             onAdd={toggleAdd}
+            onEnumerateMode={toggleEnumerate}
+            onRemove={handleRemove}
+            onRemoveMode={toggleRemove}
           />
         }
         headers={headersToeInputsTable}

@@ -850,6 +850,11 @@ export const enTranslations: ResourceKey = {
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",
         no: "No",
+        remove: {
+          alerts: {
+            success: "Input has been removed.",
+          },
+        },
         root: "Root",
         seenAt: "Seen at",
         seenFirstTimeBy: "Seen first time by",

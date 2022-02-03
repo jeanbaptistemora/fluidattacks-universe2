@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import type { IToeInputData } from "./types";
 
 const getToeInputId: (toeInputData: IToeInputData) => string = (
@@ -69,20 +71,25 @@ const onSelectSeveralToeInputHelper = (
   );
 };
 
-function getNonSelectable(toeInputDatas: IToeInputData[]): number[] {
-  const nonSelectable: number[] = toeInputDatas.reduce(
-    (
-      nonSelectableToeInputDatas: number[],
-      toeInputData: IToeInputData,
-      currentToeInputDataIndex: number
-    ): number[] =>
-      toeInputData.bePresent
-        ? nonSelectableToeInputDatas
-        : [...nonSelectableToeInputDatas, currentToeInputDataIndex],
-    []
-  );
+function getNonSelectable(
+  toeInputDatas: IToeInputData[],
+  isRemoving: boolean
+): number[] {
+  if (isRemoving) {
+    return toeInputDatas.reduce(
+      (
+        nonSelectableToeInputDatas: number[],
+        toeInputData: IToeInputData,
+        currentToeInputDataIndex: number
+      ): number[] =>
+        _.isUndefined(toeInputData.seenAt)
+          ? nonSelectableToeInputDatas
+          : [...nonSelectableToeInputDatas, currentToeInputDataIndex],
+      []
+    );
+  }
 
-  return nonSelectable;
+  return [];
 }
 
 export { getNonSelectable, getToeInputIndex, onSelectSeveralToeInputHelper };

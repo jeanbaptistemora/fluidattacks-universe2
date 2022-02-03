@@ -17,7 +17,17 @@ describe("ToeInputsActionButtons", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isAdding={false} isInternal={true} onAdd={jest.fn()} />,
+      <ActionButtons
+        areInputsSelected={true}
+        isAdding={false}
+        isEnumerating={false}
+        isInternal={true}
+        isRemoving={false}
+        onAdd={jest.fn()}
+        onEnumerateMode={jest.fn()}
+        onRemove={jest.fn()}
+        onRemoveMode={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: new PureAbility([]) },
@@ -36,7 +46,17 @@ describe("ToeInputsActionButtons", (): void => {
       { action: "api_mutations_add_toe_input_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isAdding={false} isInternal={false} onAdd={jest.fn()} />,
+      <ActionButtons
+        areInputsSelected={true}
+        isAdding={false}
+        isEnumerating={false}
+        isInternal={false}
+        isRemoving={false}
+        onAdd={jest.fn()}
+        onEnumerateMode={jest.fn()}
+        onRemove={jest.fn()}
+        onRemoveMode={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -56,7 +76,17 @@ describe("ToeInputsActionButtons", (): void => {
       { action: "api_mutations_add_toe_input_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <ActionButtons isAdding={false} isInternal={true} onAdd={jest.fn()} />,
+      <ActionButtons
+        areInputsSelected={true}
+        isAdding={false}
+        isEnumerating={false}
+        isInternal={true}
+        isRemoving={false}
+        onAdd={jest.fn()}
+        onEnumerateMode={jest.fn()}
+        onRemove={jest.fn()}
+        onRemoveMode={jest.fn()}
+      />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
         wrappingComponentProps: { value: mockedPermissions },
@@ -65,7 +95,6 @@ describe("ToeInputsActionButtons", (): void => {
     const buttons: ReactWrapper = wrapper.find("Button");
 
     expect(wrapper).toHaveLength(1);
-    expect(buttons).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
         button
