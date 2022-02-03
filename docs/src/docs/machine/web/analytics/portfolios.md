@@ -79,3 +79,9 @@ all the tags you have
 and the amount of each one
 that belong to each group
 of your portfolio.
+
+## Open severity by groups
+
+![Severity By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1643926451/docs/web/analytics/portfolios/portfolio_severity_groups.png)
+
+For each of your groups, you can find out the severity (CVSSF) of open vulnerabilities.
