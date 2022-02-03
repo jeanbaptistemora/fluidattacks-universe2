@@ -487,6 +487,7 @@ const Machine = [
         label: 'Support',
         items: [
           'machine/web/support/chat',
+          'machine/web/support/talk-expert',
         ],
       },
       {
