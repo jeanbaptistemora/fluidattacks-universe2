@@ -23,6 +23,7 @@ from parse_android_manifest import (
     APKCheckCtx,
     Locations,
 )
+import re
 import textwrap
 from typing import (
     Callable,
@@ -715,6 +716,70 @@ def _socket_uses_get_insecure(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         locations=locations,
         method=core_model.MethodsEnum.SOCKET_GET_INSECURE,
+    )
+
+
+def _add_uses_http_resources(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    methods: List[str],
+) -> None:
+    locations.append(
+        desc="uses_http_resources",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+                >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
+
+                >>> # Get the method names from all classes in each .dex file
+                >>> sorted(set(method.name for method in dex.get_methods()))
+                # HTTP resources found
+                 >>> {repr(methods)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
+        ),
+    )
+
+
+def _uses_http_resources(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    whitelist = {
+        "http://schemas.android.com/",
+        "http://www.w3.org/",
+        "http://apache.org/",
+        "http://xml.org/",
+        "http://localhost/",
+        "http://127.0.0.1/",
+        "http://java.sun.com/",
+    }
+
+    if ctx.apk_ctx.analysis is not None:
+        dex = ctx.apk_ctx.analysis
+
+        insecure_urls = [
+            x.get_value()
+            for x in dex.get_strings()
+            if re.match(r"^http?\:\/\/.+", x.get_value())
+            and not any(
+                re.match(whitel, x.get_value()) for whitel in whitelist
+            )
+        ]
+
+        if insecure_urls:
+            _add_uses_http_resources(ctx, locations, insecure_urls)
+
+    return _create_vulns(
+        ctx=ctx,
+        locations=locations,
+        method=core_model.MethodsEnum.USES_HTTP_RESOURCES,
     )
 
 

@@ -3822,6 +3822,13 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F380,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
+    USES_HTTP_RESOURCES = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="uses_http_resources",
+        module="lib_apk",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+    )
     NPM_PKG_JSON = MethodInfo(
         file_name="npm",
         name="npm_package_json",
