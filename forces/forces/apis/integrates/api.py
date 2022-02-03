@@ -51,6 +51,7 @@ async def get_findings(group: str, **kwargs: str) -> List[str]:
           group (groupName: $group_name) {
             findings {
               id
+              currentState
             }
           }
         }
@@ -68,10 +69,11 @@ async def get_findings(group: str, **kwargs: str) -> List[str]:
         or {}
     )
 
-    findings: List[str] = [
-        group["id"]
-        for group in (result.get("group", {}) or {}).get("findings", [])
-    ]
+    findings: List[str] = list(
+        finding["id"]
+        for finding in (result.get("group", {}) or {}).get("findings", [])
+        if finding["currentState"] == "APPROVED"
+    )
 
     return findings
 
