@@ -61,7 +61,6 @@ def crypto_js_credentials(
                             yield shard, call_expression
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("798",),
         desc_key="src.lib_path.f009.crypto_js_credentials.description",
         desc_params={},
         graph_shard_nodes=n_ids(),

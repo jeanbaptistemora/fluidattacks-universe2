@@ -49,7 +49,6 @@ def insecure_deserialization(
                         yield shard, syntax_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("502",),
         desc_key="criteria.vulns.096.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
@@ -102,7 +101,6 @@ def check_xml_serializer(
                             yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("502",),
         desc_key="lib_root.f096.insecure_deserialization",
         desc_params={},
         graph_shard_nodes=n_ids(),

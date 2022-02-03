@@ -157,7 +157,6 @@ def no_password(
                         yield shard, arg.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("521",),
         desc_key="src.lib_root.f035.csharp_no_password.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),

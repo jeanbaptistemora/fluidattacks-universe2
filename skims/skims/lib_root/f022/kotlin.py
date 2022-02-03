@@ -59,7 +59,6 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
 
 def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
-        cwe=("319"),
         desc_key="src.lib_path.f022.unencrypted_channel",
         desc_params={},
         graph_shard_nodes=_kotlin_yield_unencrypted_channels(graph_db),

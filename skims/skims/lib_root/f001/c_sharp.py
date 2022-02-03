@@ -58,7 +58,6 @@ def sql_injection(
                             yield shard, syntax_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("89",),
         desc_key="criteria.vulns.001.description",
         desc_params=dict(lang="C#"),
         graph_shard_nodes=n_ids(),

@@ -1138,7 +1138,939 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063.
   33 |     res.json(result);
      ^ Col 0
 ",query.query_f063
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test110.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test104.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test104/:target"", function (req, res) {
+   6 |   const algorithm = ""des-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test104.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test104/:target"", function (req, res) {
+   6 |   const algorithm = ""des-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test105.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test105/:target"", function (req, res) {
+   6 |   const algorithm = ""des-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(8);
+   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test105.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test105/:target"", function (req, res) {
+   6 |   const algorithm = ""des-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(8);
+   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test106.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test106/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-192-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(16);
+   9 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test106.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test106/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-192-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(16);
+   9 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test107.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test107/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-192-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test107.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test107/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-192-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test108.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test108/:target"", function (req, res) {
+   6 |   const algorithm = ""rc2-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test108.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test108/:target"", function (req, res) {
+   6 |   const algorithm = ""rc2-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test109.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test109/:target"", function (req, res) {
+   6 |   const algorithm = ""rc2-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8));
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test109.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test109/:target"", function (req, res) {
+   6 |   const algorithm = ""rc2-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8));
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test111.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test111/:target"", function (req, res) {
+   6 |   const algorithm = ""rc4"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8));
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test111.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test111/:target"", function (req, res) {
+   6 |   const algorithm = ""rc4"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8));
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test112.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test112/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-256-ecb"";
+   7 |   const keyString = ""*wC!*f--xCFwUaUpLT%eSu2wnJ+ms%aZc"";
+   8 |   const key = Buffer.alloc(32, keyString);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test112.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test112/:target"", function (req, res) {
+   6 |   const algorithm = ""aes-256-ecb"";
+   7 |   const keyString = ""*wC!*f--xCFwUaUpLT%eSu2wnJ+ms%aZc"";
+   8 |   const key = Buffer.alloc(32, keyString);
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test117.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test117/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test117.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test117/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test118.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test118/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(8);
+   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test118.js","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test118/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(8);
+   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test119.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test119/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.ECB,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test119.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test119/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.ECB,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test120.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test120/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.Pkcs7,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test120.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test120/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.Pkcs7,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test121.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test121"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""rsa"",
+   8 |     {
+   9 |       modulusLength: 1024,
+  10 |       publicKeyEncoding: {
+  11 |         type: ""pkcs1"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs1"",
+  16 |         format: ""pem"",
+  17 |         //cipher: ""aes-256-cbc"", //Optional
+  18 |         //passphrase: """", //Optional
+  19 |       },
+  20 |     },
+  21 |     (err, publicKey, privateKey) => {
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test121.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test121"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""rsa"",
+   8 |     {
+   9 |       modulusLength: 1024,
+  10 |       publicKeyEncoding: {
+  11 |         type: ""pkcs1"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs1"",
+  16 |         format: ""pem"",
+  17 |         //cipher: ""aes-256-cbc"", //Optional
+  18 |         //passphrase: """", //Optional
+  19 |       },
+  20 |     },
+  21 |     (err, publicKey, privateKey) => {
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test130.js","
+   5 | router.get(""/test130"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 1024,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test130.js","
+   5 | router.get(""/test130"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 1024,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test131.js","
+   5 | router.get(""/test131"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 512,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test131.js","
+   5 | router.get(""/test131"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 512,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test132.js","
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test132"", function (req, res) {
+   6 |   let key_options = {
+   7 |     namedCurve: ""secp192k1"",
+   8 |     publicKeyEncoding: {
+   9 |       type: ""spki"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs8"",
+  14 |       format: ""pem"",
+  15 |     },
+  16 |   };
+> 17 |   generateKeyPair(""ec"", key_options, (err, publicKey, privateKey) => {
+  18 |     if (err) console.log(""Error!"", err);
+  19 |     res.send(publicKey);
+  20 |   });
+  21 | });
+  22 |
+  23 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test132.js","
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test132"", function (req, res) {
+   6 |   let key_options = {
+   7 |     namedCurve: ""secp192k1"",
+   8 |     publicKeyEncoding: {
+   9 |       type: ""spki"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs8"",
+  14 |       format: ""pem"",
+  15 |     },
+  16 |   };
+> 17 |   generateKeyPair(""ec"", key_options, (err, publicKey, privateKey) => {
+  18 |     if (err) console.log(""Error!"", err);
+  19 |     res.send(publicKey);
+  20 |   });
+  21 | });
+  22 |
+  23 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test133.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test133"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test133.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test133"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test134.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test134"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",javascript.javascript_insecure_key
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test134.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test134"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test136.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test136/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.RSA.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.ECB,
+  13 |     padding: CryptoJS.pad.Pkcs7,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_cipher
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+ in VULNERABLE_JS_APP/server/routes/testcases/test136.js","
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test136/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.RSA.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.ECB,
+  13 |     padding: CryptoJS.pad.Pkcs7,
+  14 |   }).toString();
+  15 |   res.json({ encrypted: encrypted });
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",query.query_f052
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test110.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1162,7 +2094,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skim
   21 |     res.json({ encrypted: encrypted });
      ^ Col 0
 ",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test115.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test115.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
    3 | var router = Router();
@@ -1180,7 +2112,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,ski
   15 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test116.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test116.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");
    3 | var router = Router();
@@ -1198,7 +2130,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,ski
   15 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test137.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test137.js,"
    1 | import { Router } from ""express"";
    2 | const { createHash } = require(""crypto"");
    3 | var router = Router();
@@ -1220,7 +2152,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test137.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_hash
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test138.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test138.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1242,7 +2174,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test138.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_hash
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test139.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test139.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1264,7 +2196,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test139.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_hash
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test140.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test140.js,"
    1 | import { Router } from ""express"";
    2 | const crypto = require(""crypto"");
    3 | var router = Router();
@@ -1286,7 +2218,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test140.js,7,310 + 327,skim
   19 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_hash
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test125.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test125.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1300,7 +2232,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test126.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test126.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1314,7 +2246,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test127.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test127.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1328,7 +2260,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test128.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test128.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1342,7 +2274,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test129.js,"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in VULNERABLE_JS_APP/server/routes/testcases/test129.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
    3 | var router = Router();
@@ -1356,938 +2288,6 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skim
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test104.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test104/:target"", function (req, res) {
-   6 |   const algorithm = ""des-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test104.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test104/:target"", function (req, res) {
-   6 |   const algorithm = ""des-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test105.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test105/:target"", function (req, res) {
-   6 |   const algorithm = ""des-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(8);
-   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test105.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test105.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test105/:target"", function (req, res) {
-   6 |   const algorithm = ""des-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(8);
-   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test106.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test106/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-192-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(16);
-   9 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test106.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test106.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test106/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-192-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(16);
-   9 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test107.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test107/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-192-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test107.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test107.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test107/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-192-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test108.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test108/:target"", function (req, res) {
-   6 |   const algorithm = ""rc2-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test108.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test108.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test108/:target"", function (req, res) {
-   6 |   const algorithm = ""rc2-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = crypto.scryptSync(keyString, ""salt"", 24);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test109.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test109/:target"", function (req, res) {
-   6 |   const algorithm = ""rc2-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8));
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test109.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test109.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test109/:target"", function (req, res) {
-   6 |   const algorithm = ""rc2-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8));
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test111.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test111/:target"", function (req, res) {
-   6 |   const algorithm = ""rc4"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8));
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test111.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test111.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test111/:target"", function (req, res) {
-   6 |   const algorithm = ""rc4"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8));
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test112.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test112/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-256-ecb"";
-   7 |   const keyString = ""*wC!*f--xCFwUaUpLT%eSu2wnJ+ms%aZc"";
-   8 |   const key = Buffer.alloc(32, keyString);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test112.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test112/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-256-ecb"";
-   7 |   const keyString = ""*wC!*f--xCFwUaUpLT%eSu2wnJ+ms%aZc"";
-   8 |   const key = Buffer.alloc(32, keyString);
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test117.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test117/:target"", function (req, res) {
-   6 |   const algorithm = ""bf-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test117.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test117/:target"", function (req, res) {
-   6 |   const algorithm = ""bf-ecb"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
->  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
-  10 |
-  11 |   let parameters = req.params;
-  12 |   let target = parameters[""target""];
-  13 |
-  14 |   let encrypted = """";
-  15 |   cipher.on(""readable"", () => {
-  16 |     let chunk;
-  17 |     while (null !== (chunk = cipher.read())) {
-  18 |       encrypted += chunk.toString(""hex"");
-  19 |     }
-  20 |   });
-  21 |   cipher.on(""end"", () => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test118.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test118/:target"", function (req, res) {
-   6 |   const algorithm = ""bf-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(8);
-   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test118.js","
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test118/:target"", function (req, res) {
-   6 |   const algorithm = ""bf-cbc"";
-   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   8 |   const iv = Buffer.alloc(8);
-   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test119.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test119/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.ECB,
-  13 |     padding: CryptoJS.pad.NoPadding,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test119.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test119.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test119/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.ECB,
-  13 |     padding: CryptoJS.pad.NoPadding,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test120.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test120/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.CBC,
-  13 |     padding: CryptoJS.pad.Pkcs7,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test120.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test120.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test120/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.AES.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.CBC,
-  13 |     padding: CryptoJS.pad.Pkcs7,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test121.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test121"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""rsa"",
-   8 |     {
-   9 |       modulusLength: 1024,
-  10 |       publicKeyEncoding: {
-  11 |         type: ""pkcs1"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs1"",
-  16 |         format: ""pem"",
-  17 |         //cipher: ""aes-256-cbc"", //Optional
-  18 |         //passphrase: """", //Optional
-  19 |       },
-  20 |     },
-  21 |     (err, publicKey, privateKey) => {
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test121.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test121"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""rsa"",
-   8 |     {
-   9 |       modulusLength: 1024,
-  10 |       publicKeyEncoding: {
-  11 |         type: ""pkcs1"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs1"",
-  16 |         format: ""pem"",
-  17 |         //cipher: ""aes-256-cbc"", //Optional
-  18 |         //passphrase: """", //Optional
-  19 |       },
-  20 |     },
-  21 |     (err, publicKey, privateKey) => {
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test130.js","
-   5 | router.get(""/test130"", function (req, res) {
-   6 |   let key_options = {
-   7 |     modulusLength: 1024,
-   8 |     publicKeyEncoding: {
-   9 |       type: ""pkcs1"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs1"",
-  14 |       format: ""pem"",
-  15 |       //cipher: ""aes-256-cbc"", //Optional
-  16 |       //passphrase: """", //Optional
-  17 |     },
-  18 |   };
-> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
-  20 |     if (err) console.log(""Error!"", err);
-  21 |     res.send(publicKey);
-  22 |   });
-  23 | });
-  24 |
-  25 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test130.js","
-   5 | router.get(""/test130"", function (req, res) {
-   6 |   let key_options = {
-   7 |     modulusLength: 1024,
-   8 |     publicKeyEncoding: {
-   9 |       type: ""pkcs1"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs1"",
-  14 |       format: ""pem"",
-  15 |       //cipher: ""aes-256-cbc"", //Optional
-  16 |       //passphrase: """", //Optional
-  17 |     },
-  18 |   };
-> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
-  20 |     if (err) console.log(""Error!"", err);
-  21 |     res.send(publicKey);
-  22 |   });
-  23 | });
-  24 |
-  25 | export default router;
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test131.js","
-   5 | router.get(""/test131"", function (req, res) {
-   6 |   let key_options = {
-   7 |     modulusLength: 512,
-   8 |     publicKeyEncoding: {
-   9 |       type: ""pkcs1"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs1"",
-  14 |       format: ""pem"",
-  15 |       //cipher: ""aes-256-cbc"", //Optional
-  16 |       //passphrase: """", //Optional
-  17 |     },
-  18 |   };
-> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
-  20 |     if (err) console.log(""Error!"", err);
-  21 |     res.send(publicKey);
-  22 |   });
-  23 | });
-  24 |
-  25 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test131.js","
-   5 | router.get(""/test131"", function (req, res) {
-   6 |   let key_options = {
-   7 |     modulusLength: 512,
-   8 |     publicKeyEncoding: {
-   9 |       type: ""pkcs1"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs1"",
-  14 |       format: ""pem"",
-  15 |       //cipher: ""aes-256-cbc"", //Optional
-  16 |       //passphrase: """", //Optional
-  17 |     },
-  18 |   };
-> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
-  20 |     if (err) console.log(""Error!"", err);
-  21 |     res.send(publicKey);
-  22 |   });
-  23 | });
-  24 |
-  25 | export default router;
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test132.js","
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test132"", function (req, res) {
-   6 |   let key_options = {
-   7 |     namedCurve: ""secp192k1"",
-   8 |     publicKeyEncoding: {
-   9 |       type: ""spki"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs8"",
-  14 |       format: ""pem"",
-  15 |     },
-  16 |   };
-> 17 |   generateKeyPair(""ec"", key_options, (err, publicKey, privateKey) => {
-  18 |     if (err) console.log(""Error!"", err);
-  19 |     res.send(publicKey);
-  20 |   });
-  21 | });
-  22 |
-  23 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test132.js","
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test132"", function (req, res) {
-   6 |   let key_options = {
-   7 |     namedCurve: ""secp192k1"",
-   8 |     publicKeyEncoding: {
-   9 |       type: ""spki"",
-  10 |       format: ""pem"",
-  11 |     },
-  12 |     privateKeyEncoding: {
-  13 |       type: ""pkcs8"",
-  14 |       format: ""pem"",
-  15 |     },
-  16 |   };
-> 17 |   generateKeyPair(""ec"", key_options, (err, publicKey, privateKey) => {
-  18 |     if (err) console.log(""Error!"", err);
-  19 |     res.send(publicKey);
-  20 |   });
-  21 | });
-  22 |
-  23 | export default router;
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test133.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test133"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""ec"",
-   8 |     {
-   9 |       namedCurve: ""secp192k1"",
-  10 |       publicKeyEncoding: {
-  11 |         type: ""spki"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs8"",
-  16 |         format: ""pem"",
-  17 |       },
-  18 |     },
-  19 |     (err, publicKey, privateKey) => {
-  20 |       if (err) console.log(""Error!"", err);
-  21 |       res.send(publicKey);
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test133.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test133"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""ec"",
-   8 |     {
-   9 |       namedCurve: ""secp192k1"",
-  10 |       publicKeyEncoding: {
-  11 |         type: ""spki"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs8"",
-  16 |         format: ""pem"",
-  17 |       },
-  18 |     },
-  19 |     (err, publicKey, privateKey) => {
-  20 |       if (err) console.log(""Error!"", err);
-  21 |       res.send(publicKey);
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test134.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test134"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""ec"",
-   8 |     {
-   9 |       namedCurve: ""secp192k1"",
-  10 |       publicKeyEncoding: {
-  11 |         type: ""spki"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs8"",
-  16 |         format: ""pem"",
-  17 |       },
-  18 |     },
-  19 |     (err, publicKey, privateKey) => {
-  20 |       if (err) console.log(""Error!"", err);
-  21 |       res.send(publicKey);
-     ^ Col 0
-",javascript.javascript_insecure_key
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test134.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 | const { generateKeyPair } = require(""crypto"");
-   4 |
-   5 | router.get(""/test134"", function (req, res) {
->  6 |   generateKeyPair(
-   7 |     ""ec"",
-   8 |     {
-   9 |       namedCurve: ""secp192k1"",
-  10 |       publicKeyEncoding: {
-  11 |         type: ""spki"",
-  12 |         format: ""pem"",
-  13 |       },
-  14 |       privateKeyEncoding: {
-  15 |         type: ""pkcs8"",
-  16 |         format: ""pem"",
-  17 |       },
-  18 |     },
-  19 |     (err, publicKey, privateKey) => {
-  20 |       if (err) console.log(""Error!"", err);
-  21 |       res.send(publicKey);
-     ^ Col 0
-",query.query_f052
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test136.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test136/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.RSA.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.ECB,
-  13 |     padding: CryptoJS.pad.Pkcs7,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test136.js,11,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in VULNERABLE_JS_APP/server/routes/testcases/test136.js","
-   1 | import { Router } from ""express"";
-   2 | var CryptoJS = require(""crypto-js"");
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test136/:target"", function (req, res) {
-   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
-   7 |
-   8 |   let parameters = req.params;
-   9 |   let target = parameters[""target""];
-  10 |
-> 11 |   let encrypted = CryptoJS.RSA.encrypt(target, keyString, {
-  12 |     mode: CryptoJS.mode.ECB,
-  13 |     padding: CryptoJS.pad.Pkcs7,
-  14 |   }).toString();
-  15 |   res.json({ encrypted: encrypted });
-  16 | });
-  17 |
-  18 | export default router;
-     ^ Col 0
-",query.query_f052
 F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test148.js,6,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in VULNERABLE_JS_APP/server/routes/testcases/test148.js","
    1 | import { Router } from ""express"";

@@ -65,7 +65,6 @@ def insecurely_generated_cookies(
                         yield shard, syntax_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("614",),
         desc_key="criteria.vulns.042.description",
         desc_params=dict(lang="C#"),
         graph_shard_nodes=n_ids(),

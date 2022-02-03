@@ -93,7 +93,6 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
                 yield from _old_insecure_keys_check(shard, ciphers)
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
@@ -154,7 +153,6 @@ def c_sharp_rsa_secure_mode(
                         yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
@@ -209,7 +207,6 @@ def c_sharp_aesmanaged_secure_mode(
         return insecure
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
@@ -238,7 +235,6 @@ def c_sharp_insecure_cipher(
         yield from yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
@@ -271,7 +267,6 @@ def c_sharp_insecure_hash(
         yield from yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),

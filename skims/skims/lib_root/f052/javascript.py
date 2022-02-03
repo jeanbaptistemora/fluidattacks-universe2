@@ -64,7 +64,6 @@ def _test_native_cipher(
         and javascript_cipher_vulnerable(algorithm_value)
     ):
         yield get_vulnerabilities_from_n_ids(
-            cwe=("310", "327"),
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -104,7 +103,6 @@ def _test_crypto_js(
     _, method_name = split_on_first_dot(invocation_step.method)
     if method_name in methods:
         yield get_vulnerabilities_from_n_ids(
-            cwe=("310", "327"),
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -161,7 +159,6 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
                 )
             ):
                 yield get_vulnerabilities_from_n_ids(
-                    cwe=("310", "327"),
                     desc_key=("src.lib_path.f052.insecure_cipher.description"),
                     desc_params=dict(lang="JavaScript"),
                     graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -214,7 +211,6 @@ def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
                     and insecure_elliptic_curve(algorithm_value)
                 ):
                     yield get_vulnerabilities_from_n_ids(
-                        cwe=("310", "327"),
                         desc_key="src.lib_path.f052.insecure_key.description",
                         desc_params=dict(lang="JavaScript"),
                         graph_shard_nodes=[(shard, invocation_step.meta.n_id)],

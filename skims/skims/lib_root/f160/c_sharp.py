@@ -32,7 +32,6 @@ def c_sharp_file_create_temp_file(
         "src.lib_path.f160.c_sharp_file_create_temp_file.description"
     )
     return get_vulnerabilities_from_n_ids(
-        cwe=("378",),
         desc_key=translation_key,
         desc_params=dict(lang="C#"),
         graph_shard_nodes=n_ids(),

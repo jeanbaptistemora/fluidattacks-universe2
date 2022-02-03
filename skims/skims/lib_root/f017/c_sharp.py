@@ -70,7 +70,6 @@ def verify_decoder(
         return insecure
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("319",),
         desc_key="criteria.vulns.017.description",
         desc_params=dict(lang="C#"),
         graph_shard_nodes=n_ids(),
@@ -106,7 +105,6 @@ def jwt_signed(
         return signed
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("319",),
         desc_key="criteria.vulns.017.description",
         desc_params=dict(lang="C#"),
         graph_shard_nodes=n_ids(),

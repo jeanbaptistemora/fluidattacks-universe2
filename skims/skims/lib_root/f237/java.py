@@ -48,7 +48,6 @@ def info_leak_stacktrace(
                         yield shard, method_inv_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("209",),
         desc_key="src.lib_root.f237.java_info_leak_stacktrace",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=n_ids(),

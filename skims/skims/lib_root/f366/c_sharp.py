@@ -28,7 +28,6 @@ def conflicting_annotations(
                         yield shard, _method.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("749",),
         desc_key="lib_root.f366.conflicting_transparency_annotations",
         desc_params={},
         graph_shard_nodes=n_ids(),

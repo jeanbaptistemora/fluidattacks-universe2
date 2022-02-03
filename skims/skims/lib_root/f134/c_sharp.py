@@ -67,7 +67,6 @@ def insecure_cors(
                         yield shard, vuln_nid
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("16",),
         desc_key="lib_root.f134.cors_policy_allows_any_origin",
         desc_params={},
         graph_shard_nodes=n_ids(),

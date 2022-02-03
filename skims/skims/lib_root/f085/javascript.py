@@ -91,7 +91,6 @@ def client_storage(
                 yield shard, invocation_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("922",),
         desc_key="src.lib_path.f085.client_storage.description",
         desc_params={},
         graph_shard_nodes=n_ids(),

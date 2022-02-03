@@ -230,7 +230,6 @@ def java_insecure_pass(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_pass.description",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=_yield_insecure_pass(graph_db),
@@ -242,7 +241,6 @@ def java_insecure_key(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_key.description",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=_yield_insecure_key(graph_db),
@@ -254,7 +252,6 @@ def java_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=_yield_insecure_hash(graph_db),
@@ -266,7 +263,6 @@ def java_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=_yield_insecure_ciphers(graph_db),

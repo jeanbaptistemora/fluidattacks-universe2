@@ -30,7 +30,6 @@ from typing import (
     Iterator,
     Optional,
     Set,
-    Tuple,
 )
 from utils.string import (
     make_snippet,
@@ -43,7 +42,6 @@ from zone import (
 
 def get_vulnerability_from_n_id(
     *,
-    cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
     graph_shard: graph_model.GraphShard,
@@ -71,7 +69,7 @@ def get_vulnerability_from_n_id(
         what=meta_attrs_label_path,
         where=str(n_attrs_label_line),
         skims_metadata=core_model.SkimsVulnerabilityMetadata(
-            cwe=cwe,
+            cwe=(method.value.get_cwe(),),
             description=(
                 f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
                 f"{CTX.config.namespace}/{meta_attrs_label_path}"
@@ -91,7 +89,6 @@ def get_vulnerability_from_n_id(
 
 def get_vulnerabilities_from_n_ids(
     *,
-    cwe: Tuple[str, ...],
     desc_key: str,
     desc_params: Dict[str, str],
     graph_shard_nodes: graph_model.GraphShardNodes,
@@ -99,7 +96,6 @@ def get_vulnerabilities_from_n_ids(
 ) -> core_model.Vulnerabilities:
     return tuple(
         get_vulnerability_from_n_id(
-            cwe=cwe,
             desc_key=desc_key,
             desc_params=desc_params,
             graph_shard=graph_shard,
@@ -127,7 +123,6 @@ def get_vulnerabilities_from_syntax(
 ) -> core_model.Vulnerabilities:
     params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[method.value.finding]
     return get_vulnerabilities_from_n_ids(
-        cwe=params.cwe,
         desc_key=params.desc_key,
         desc_params=params.desc_params,
         graph_shard_nodes=[

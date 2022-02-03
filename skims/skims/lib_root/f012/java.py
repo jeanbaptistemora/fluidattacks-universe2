@@ -95,7 +95,6 @@ def jpa_like(
                         yield shard, string_literal_id
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("89",),
         desc_key="src.lib_path.f001_jpa.java_like.description",
         desc_params=dict(lang="Java"),
         graph_shard_nodes=n_ids(),

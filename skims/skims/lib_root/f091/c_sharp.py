@@ -121,7 +121,6 @@ def insecure_logging(
                         yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        cwe=("502",),
         desc_key="criteria.vulns.091.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
