@@ -1159,6 +1159,12 @@ class InvalidBillingPaymentMethod(CustomBaseException):
         super(InvalidBillingPaymentMethod, self).__init__(msg)
 
 
+class CouldNotCreatePaymentMethod(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Provided payment method could not be created"
+        super(CouldNotCreatePaymentMethod, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

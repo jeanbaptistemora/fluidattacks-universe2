@@ -13,6 +13,7 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
+    CouldNotCreatePaymentMethod,
     InvalidBillingPrice,
 )
 from datetime import (
@@ -100,15 +101,19 @@ async def create_payment_method(
     default: bool,
 ) -> PaymentMethod:
     """Create a Stripe payment method"""
-    data = stripe.PaymentMethod.create(
-        type="card",
-        card={
-            "number": card_number,
-            "exp_month": int(card_expiration_month),
-            "exp_year": int(card_expiration_year),
-            "cvc": card_cvc,
-        },
-    )
+    try:
+        data = stripe.PaymentMethod.create(
+            type="card",
+            card={
+                "number": card_number,
+                "exp_month": int(card_expiration_month),
+                "exp_year": int(card_expiration_year),
+                "cvc": card_cvc,
+            },
+        )
+    except stripe.error.CardError as ex:
+        raise CouldNotCreatePaymentMethod() from ex
+
     return PaymentMethod(
         id=data.id,
         last_four_digits=data.card.last4,

@@ -1098,6 +1098,10 @@ export const enTranslations: ResourceKey = {
         paymentMethods: {
           add: {
             button: "Add",
+            errors: {
+              coultNotBeCreated:
+                "Payment method could not be created. Please make sure all the details you provided are correct.",
+            },
             modal: {
               add: "Add payment method",
               cvc: "Card CVC",
@@ -1105,6 +1109,10 @@ export const enTranslations: ResourceKey = {
               expirationMonth: "Card expiration month",
               expirationYear: "Card expiration year",
               number: "Card number",
+            },
+            success: {
+              body: "Payment method successfuly added",
+              title: "Success",
             },
           },
           defaultPaymentMethod: "(Default)",
@@ -1116,13 +1124,16 @@ export const enTranslations: ResourceKey = {
               noPaymentMethod: "The payment method does not exist.",
             },
             success: {
-              body: "Card successfully removed.",
+              body: "Payment method successfully removed.",
               title: "Success",
             },
           },
           title: "Payment Methods",
           updateDefault: {
-            button: "Make default",
+            button: "Set as default",
+            errors: {
+              noPaymentMethod: "The payment method does not exist.",
+            },
             success: {
               body: "Default payment method updated",
               title: "Success",

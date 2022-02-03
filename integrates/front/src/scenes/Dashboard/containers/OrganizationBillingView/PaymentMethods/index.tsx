@@ -92,11 +92,25 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
       onCompleted: (): void => {
         onUpdate();
         closeModal();
+        msgSuccess(
+          t("organization.tabs.billing.paymentMethods.add.success.body"),
+          t("organization.tabs.billing.paymentMethods.add.success.title")
+        );
       },
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't add payment method", error);
+          switch (error.message) {
+            case "Exception - Provided payment method could not be created":
+              msgError(
+                t(
+                  "organization.tabs.billing.paymentMethods.add.errors.coultNotBeCreated"
+                )
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.error("Couldn't create payment method", error);
+          }
         });
       },
     });
@@ -169,7 +183,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                 break;
               default:
                 msgError(t("groupAlerts.errorTextsad"));
-                Logger.warning("Couldn't update group subscription", error);
+                Logger.error("Couldn't remove payment method", error);
             }
           });
         },
@@ -204,8 +218,25 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
         },
         onError: ({ graphQLErrors }): void => {
           graphQLErrors.forEach((error): void => {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't update default payment method", error);
+            switch (error.message) {
+              case "Exception - Cannot perform action. Please add a valid payment method first":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.updateDefault.errors.noPaymentMethod"
+                  )
+                );
+                break;
+              case "Exception - Invalid payment method. Provided payment method does not exist for this organization":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.updateDefault.errors.noPaymentMethod"
+                  )
+                );
+                break;
+              default:
+                msgError(t("groupAlerts.errorTextsad"));
+                Logger.error("Couldn't update default payment method", error);
+            }
           });
         },
       }
