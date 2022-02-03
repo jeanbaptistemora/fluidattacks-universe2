@@ -1077,6 +1077,11 @@ export const enTranslations: ResourceKey = {
         groups: {
           title: "Groups",
           updateSubscription: {
+            errors: {
+              addPaymentMethod: "Please add a payment method first.",
+              alreadyActive:
+                "The group already has a subscription of the chosen type",
+            },
             subscription: "Subscription",
             success: {
               body: "Group subscription successfully updated.",

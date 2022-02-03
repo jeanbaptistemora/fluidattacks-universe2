@@ -386,8 +386,32 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
       },
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't update group subscription", error);
+          switch (error.message) {
+            case "Exception - Cannot perform action. Please add a valid payment method first":
+              msgError(
+                t(
+                  "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
+                )
+              );
+              break;
+            case "Exception - Invalid subscription. Provided subscription is already active":
+              msgError(
+                t(
+                  "organization.tabs.billing.groups.updateSubscription.errors.alreadyActive"
+                )
+              );
+              break;
+            case "Exception - Invalid customer. Provided customer does not have a payment method":
+              msgError(
+                t(
+                  "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
+                )
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("Couldn't update group subscription", error);
+          }
         });
       },
     });

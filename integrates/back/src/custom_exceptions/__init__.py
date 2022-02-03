@@ -1109,8 +1109,7 @@ class InvalidBillingCustomer(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Cannot perform action. "
-            "The organization does not have a billing customer yet. "
-            "Please add a valid payment method first."
+            "Please add a valid payment method first"
         )
         super(InvalidBillingCustomer, self).__init__(msg)
 
@@ -1119,7 +1118,7 @@ class InvalidBillingPrice(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Invalid price. "
-            "Provided price does not exist in Stripe."
+            "Provided price does not exist in Stripe"
         )
         super(InvalidBillingPrice, self).__init__(msg)
 
@@ -1128,7 +1127,7 @@ class BillingSubscriptionSameActive(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Invalid subscription. "
-            "Provided subscription is already active."
+            "Provided subscription is already active"
         )
         super(BillingSubscriptionSameActive, self).__init__(msg)
 
@@ -1137,7 +1136,7 @@ class BillingCustomerHasNoPaymentMethod(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Invalid customer. "
-            "Provided customer does not have a payment method."
+            "Provided customer does not have a payment method"
         )
         super(BillingCustomerHasNoPaymentMethod, self).__init__(msg)
 
@@ -1146,7 +1145,7 @@ class BillingCustomerHasActiveSubscription(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Cannot perform action. "
-            "The organization has active subscriptions."
+            "The organization has active subscriptions"
         )
         super(BillingCustomerHasActiveSubscription, self).__init__(msg)
 
@@ -1155,7 +1154,7 @@ class InvalidBillingPaymentMethod(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Invalid payment method. "
-            "Provided payment method does not exist for this organization."
+            "Provided payment method does not exist for this organization"
         )
         super(InvalidBillingPaymentMethod, self).__init__(msg)
 
