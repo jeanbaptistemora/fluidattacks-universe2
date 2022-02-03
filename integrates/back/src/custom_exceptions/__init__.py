@@ -1190,3 +1190,12 @@ class InvalidUrl(CustomBaseException):
         """Constructor"""
         msg = "Exception - The URL is not valid"
         super(InvalidUrl, self).__init__(msg)
+
+
+class ToeInputAlreadyEnumerated(CustomBaseException):
+    """Exception to control the toe input has been enumerated"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The toe input is already enumerated"
+        super(ToeInputAlreadyEnumerated, self).__init__(msg)
