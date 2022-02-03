@@ -136,8 +136,17 @@ class GroupDraftsAndFindingsLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: List[str]
     ) -> Tuple[Tuple[Finding, ...], ...]:
-        return await collect(
+        drafts_and_findings_by_groups = await collect(
             tuple(map(_get_drafts_and_findings_by_group, group_names))
+        )
+        return tuple(
+            filter_non_state_status_findings(
+                drafts_and_findings,
+                {
+                    FindingStateStatus.DELETED,
+                },
+            )
+            for drafts_and_findings in drafts_and_findings_by_groups
         )
 
 
