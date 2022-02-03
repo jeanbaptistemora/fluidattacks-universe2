@@ -60,9 +60,9 @@ def vuln_regular_expression(
                     var_param = g.get_ast_childs(
                         shard.graph, invocation, "identifier", depth=3
                     )
-                    if regex_param:
-                        yield shard, invocation
-                    elif var_param and vuln_attributes(shard, var_param):
+                    if regex_param or (
+                        var_param and vuln_attributes(shard, var_param)
+                    ):
                         yield shard, invocation
 
     def vuln_attributes(

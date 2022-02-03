@@ -139,9 +139,7 @@ def _service_is_present_action(
         else [action_node]
     )
     for act in actions:
-        if act.raw == "*":
-            yield act
-        elif act.raw.split(":")[0] == service:
+        if act.raw == "*" or act.raw.split(":")[0] == service:
             yield act
 
 

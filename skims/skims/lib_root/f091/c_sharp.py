@@ -85,34 +85,28 @@ def insecure_logging(
             for syntax_steps in shard.syntax.values():
                 for index, syntax_step in enumerate(syntax_steps):
                     member = ""
-                    if (
-                        isinstance(
-                            syntax_step, graph_model.SyntaxStepDeclaration
+                    cond = isinstance(
+                        syntax_step, graph_model.SyntaxStepDeclaration
+                    ) and get_dependencies(index, syntax_steps)
+                    if cond and (
+                        (
+                            isinstance(
+                                get_dependencies(index, syntax_steps)[0],
+                                graph_model.SyntaxStepMethodInvocationChain,
+                            )
+                            and get_dependencies(index, syntax_steps)[0].method
+                            in object_methods
                         )
-                        and get_dependencies(index, syntax_steps)
-                        and isinstance(
-                            get_dependencies(index, syntax_steps)[0],
-                            graph_model.SyntaxStepMethodInvocationChain,
+                        or (
+                            isinstance(
+                                get_dependencies(index, syntax_steps)[0],
+                                graph_model.SyntaxStepObjectInstantiation,
+                            )
+                            and get_dependencies(index, syntax_steps)[
+                                0
+                            ].object_type
+                            in object_names
                         )
-                        and get_dependencies(index, syntax_steps)[0].method
-                        in object_methods
-                    ):
-                        member = insecure_attribute(
-                            shard, syntax_step.var, syntax_step.meta.n_id
-                        )
-                    elif (
-                        isinstance(
-                            syntax_step, graph_model.SyntaxStepDeclaration
-                        )
-                        and get_dependencies(index, syntax_steps)
-                        and isinstance(
-                            get_dependencies(index, syntax_steps)[0],
-                            graph_model.SyntaxStepObjectInstantiation,
-                        )
-                        and get_dependencies(index, syntax_steps)[
-                            0
-                        ].object_type
-                        in object_names
                     ):
                         member = insecure_attribute(
                             shard, syntax_step.var, syntax_step.meta.n_id
