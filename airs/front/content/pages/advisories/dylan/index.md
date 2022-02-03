@@ -6,7 +6,7 @@ writer: ouribe
 codename: dylan
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-24 12:00 COT
-cveid: Pending
+cveid: CVE-2022-23048
 description: Exponent CMS 2.6.0 patch2 - Insecure file upload (RCE)
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg
@@ -22,7 +22,8 @@ template: advisory
 | **Code name**               | [Dylan](https://en.wikipedia.org/wiki/Bob_Dylan)         |
 | **Product**                 | Exponent CMS                                             |
 | **Affected versions**       | v2.6.0 patch2                                            |
-| **State**                   | Unpublished/Contacted Vendor                             |
+| **State**                   | Public                                                   |
+| **Release Date**            | 2022-02-03                                               |
 
 ## Vulnerability
 
@@ -34,27 +35,48 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
 | **CVSSv3 Base Score** | 9.1                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | Pending                                                          |
+| **CVE ID(s)**         | CVE-2022-23048                                                   |
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+Exponent CMS **2.6.0 patch2** allows an authenticated admin user to upload
+a malicious extension in the format of a zip file with a php file inside it.
+After upload it, the php file will be placed at `themes/simpletheme/{rce}.php`
+from where can be access in order to execute commands..
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+1. Click on the Exponent logo located on the upper left corner.
+2. Go to 'Super-Admin Tools' > 'Extensions' > 'Install Extension'.
+3. Click on 'Upload Extension'.
+4. Create a malicious PHP file with the following PoC.
+
+   ```php
+   <?php echo system($_GET['cmd']); ?>
+   ```
+
+5. Zip the php file.
+6. Upload the zip file.
+7. Click on 'Upload Extension'
+8. Next, click on 'Continue with Installation'.
+9. Go to `http://127.0.0.1/exponentcms/themes/simpletheme/{rce}.php`
+   in order to execute commands
+
+System Information:
+
+- Version: Exponent CMS 2.6.0 patch2.
+- Operating System: Linux.
+- Web Server: Apache
+- PHP Version: 7.4
+- Database and version: Mysql
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+By 2022-02-03 there is not a patch resolving the issue.
 
 ## Credits
 
@@ -64,12 +86,16 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://www.exponentcms.org/>                                  |
+|                     |                                                                     |
+|---------------------|---------------------------------------------------------------------|
+| **Vendor page**     | <https://www.exponentcms.org/>                                      |
+| **Ticket**          | <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1460> |
+| **Issue**           | <https://github.com/exponentcms/exponent-cms/issues/1546>           |
 
 ## Timeline
 
 - 2022-01-24: Vulnerability discovered.
 
 - 2022-01-24: Vendor contacted.
+
+- 2022-02-03: Public Disclosure.

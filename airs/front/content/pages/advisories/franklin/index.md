@@ -6,7 +6,7 @@ writer: ouribe
 codename: franklin
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-24 12:00 COT
-cveid: Pending
+cveid: CVE-2022-23047
 description: Exponent CMS 2.6.0 patch2 - Stored XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg
@@ -22,7 +22,8 @@ template: advisory
 | **Code name**               | [Franklin](https://en.wikipedia.org/wiki/Aretha_Franklin)|
 | **Product**                 | Exponent CMS                                             |
 | **Affected versions**       | v2.6.0 patch2                                            |
-| **State**                   | Unpublished/Contacted Vendor                             |
+| **State**                   | Public                                                   |
+| **Release Date**            | 2022-02-03                                               |
 
 ## Vulnerability
 
@@ -34,27 +35,45 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
 | **CVSSv3 Base Score** | 4.8                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | Pending                                                          |
+| **CVE ID(s)**         | CVE-2022-23047                                                   |
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+Exponent CMS **2.6.0 patch2** allows an authenticated admin user
+to inject persistent javascript code inside the
+`Site/Organization Name,Site Title and Site Header` parameters
+while updating the site settings on
+`http://127.0.0.1/exponentcms/administration/configure_site`.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+1. Click on the Exponent logo located on the upper left corner.
+2. Go to 'Configure Website'.
+3. Update the 'Site Title' field or any of
+   the vulnerable fields with the following PoC.
+
+   ```javascript
+   Exponent CMS" onmouseover=alert('xss')>
+   ```
+
+4. If a user hover the mouse over the logo or visits
+   the 'Configure Website' the XSS will be triggered.
+
+System Information:
+
+- Version: Exponent CMS 2.6.0 patch2.
+- Operating System: Linux.
+- Web Server: Apache
+- PHP Version: 7.4
+- Database and version: Mysql
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+By 2022-02-03 there is not a patch resolving the issue.
 
 ## Credits
 
@@ -64,12 +83,16 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://www.exponentcms.org/>                                  |
+|                     |                                                                     |
+|---------------------|---------------------------------------------------------------------|
+| **Vendor page**     | <https://www.exponentcms.org/>                                      |
+| **Ticket**          | <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1459> |
+| **Issue**           | <https://github.com/exponentcms/exponent-cms/issues/1546>           |
 
 ## Timeline
 
 - 2022-01-24: Vulnerability discovered.
 
 - 2022-01-24: Vendor contacted.
+
+- 2022-02-03: Public Disclosure.

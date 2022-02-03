@@ -6,7 +6,7 @@ writer: ouribe
 codename: cobain
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-25 12:00 COT
-cveid: Pending
+cveid: CVE-2022-23049
 description: Exponent CMS 2.6.0 patch2 - Stored XSS (User-Agent)
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg
@@ -22,7 +22,8 @@ template: advisory
 | **Code name**               | [Cobain](https://en.wikipedia.org/wiki/Kurt_Cobain)      |
 | **Product**                 | Exponent CMS                                             |
 | **Affected versions**       | v2.6.0 patch2                                            |
-| **State**                   | Unpublished/Contacted Vendor                             |
+| **State**                   | Public                                                   |
+| **Release Date**            | 2022-02-03                                               |
 
 ## Vulnerability
 
@@ -34,27 +35,45 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N                     |
 | **CVSSv3 Base Score** | 5.4                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | Pending                                                          |
+| **CVE ID(s)**         | CVE-2022-23049                                                   |
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+Exponent CMS **2.6.0 patch2** allows an authenticated user
+to inject persistent javascript code on the User-Agent when
+logging in. When an administratoruser visits the 'User Sessions'
+tab, the javascript will be triggered allowingan attacker to
+compromise the administrator session.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+1. Use a Web proxy or a tool to modify the browser
+   User-agent with the following PoC.
+
+   ```javascript
+   User-Agent: <script>alert('XSS')</script>
+   ```
+
+2. Try to login with a non-admin user.
+3. If an admin user visits 'User Management' > 'User Sessions' the XSS will be triggered.
+
+A non-admin user may compromise an admin session by exploiting this vulnerability.
+
+System Information:
+
+- Version: Exponent CMS 2.6.0 patch2.
+- Operating System: Linux.
+- Web Server: Apache
+- PHP Version: 7.4
+- Database and version: Mysql
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+By 2022-02-03 there is not a patch resolving the issue.
 
 ## Credits
 
@@ -64,12 +83,16 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://www.exponentcms.org/>                                  |
+|                     |                                                                     |
+|---------------------|---------------------------------------------------------------------|
+| **Vendor page**     | <https://www.exponentcms.org/>                                      |
+| **Ticket**          | <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1461> |
+| **Issue**           | <https://github.com/exponentcms/exponent-cms/issues/1546>           |
 
 ## Timeline
 
 - 2022-01-25: Vulnerability discovered.
 
 - 2022-01-25: Vendor contacted.
+
+- 2022-02-03: Public Disclosure.

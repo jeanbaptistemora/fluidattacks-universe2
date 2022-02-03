@@ -67,7 +67,8 @@ System Information
 
 ## Exploit
 
-There is no exploit for the vulnerability but can be manually exploited.
+An exploit developed for another researcher can be found at
+[ExploitDB](https://www.exploit-db.com/exploits/50684).
 
 ## Mitigation
 
