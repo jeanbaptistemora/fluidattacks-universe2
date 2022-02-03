@@ -813,6 +813,14 @@ export const enTranslations: ResourceKey = {
             text: "Add",
             tooltip: "Add new input",
           },
+          cancelButton: {
+            text: "Cancel",
+            tooltip: "Cancel",
+          },
+          removeButton: {
+            text: "Remove",
+            tooltip: "Remove non-enumerated input",
+          },
         },
         addModal: {
           alerts: {
