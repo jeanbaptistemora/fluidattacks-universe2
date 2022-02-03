@@ -5,6 +5,7 @@ metadata:
   labels:
     app: web
 spec:
+  privileged: true
   containers:
     - name: front-end
       image: nginx

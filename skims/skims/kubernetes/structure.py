@@ -1,6 +1,9 @@
 from metaloaders.model import (
     Node,
 )
+from typing import (
+    Optional,
+)
 
 
 def is_kubernetes(template: Node) -> bool:
@@ -11,6 +14,16 @@ def is_kubernetes(template: Node) -> bool:
         ):
             return True
     return False
+
+
+def is_privileged(template: Node) -> Optional[Node]:
+    if template and template.data:
+        k8s_spec = template.inner.get("spec", None)
+        if k8s_spec and k8s_spec.data:
+            privileged = k8s_spec.inner.get("privileged")
+            if privileged:
+                return privileged
+    return None
 
 
 def get_containers(

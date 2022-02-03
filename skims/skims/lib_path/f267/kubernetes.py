@@ -1,6 +1,7 @@
 from kubernetes.structure import (
     get_containers_capabilities,
     is_kubernetes,
+    is_privileged,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -23,6 +24,9 @@ def _k8s_sys_admin_linux_cap_is_used(
         for cap in get_containers_capabilities(template, "add"):
             if cap.data == "SYS_ADMIN":
                 yield cap
+        privileged = is_privileged(template)
+        if privileged and privileged.data:
+            yield privileged
 
 
 def k8s_sys_admin_linux_cap_used(
