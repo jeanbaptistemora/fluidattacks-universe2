@@ -59,6 +59,7 @@ TEST_GROUPS: Set[str] = {
     "remove_stakeholder_access",
     "remove_stakeholder_organization_access",
     "remove_tags",
+    "remove_toe_input",
     "remove_vulnerability",
     "report",
     "request_vulnerabilities_verification",
