@@ -32,7 +32,6 @@ from datetime import (
 )
 from db_model import (
     findings as findings_model,
-    MASKED,
 )
 from db_model.enums import (
     StateRemovalJustification,
@@ -550,85 +549,42 @@ def is_deleted(finding: Finding) -> bool:
     return finding.state.status == FindingStateStatus.DELETED
 
 
-async def mask_finding(  # pylint: disable=too-many-locals
-    loaders: Any, finding: Finding
-) -> bool:
-    mask_new_finding_coroutines = []
-    new_evidences = finding.evidences._replace(
-        **{
-            evidence_name: evidence._replace(description=MASKED, url=MASKED)
-            for evidence_name in finding.evidences._fields
-            for evidence in [getattr(finding.evidences, evidence_name)]
-            if evidence
-        }
-    )
-    metadata = FindingMetadataToUpdate(
-        attack_vector_description=MASKED,
-        description=MASKED,
-        evidences=new_evidences,
-        recommendation=MASKED,
-        threat=MASKED,
-    )
-    mask_new_finding_coroutines.append(
-        findings_model.update_metadata(
-            group_name=finding.group_name,
-            finding_id=finding.id,
-            metadata=metadata,
-            is_removed=finding.state.status == FindingStateStatus.DELETED,
-        )
-    )
-    finding_historic_verification_loader = (
-        loaders.finding_historic_verification
-    )
-    finding_historic_verification: Tuple[
-        FindingVerification, ...
-    ] = await finding_historic_verification_loader.load(finding.id)
-    new_historic_verification = tuple(
-        verification._replace(
-            status=FindingVerificationStatus.MASKED, modified_by=MASKED
-        )
-        for verification in finding_historic_verification
-    )
-    mask_new_finding_coroutines.append(
-        findings_model.update_historic_verification(
-            group_name=finding.group_name,
-            finding_id=finding.id,
-            historic_verification=new_historic_verification,
-            is_removed=finding.state.status == FindingStateStatus.DELETED,
-        )
-    )
-    list_evidences_files = await findings_storage.search_evidence(
-        f"{finding.group_name}/{finding.id}"
-    )
-    evidence_s3_coroutines = [
-        findings_storage.remove_evidence(file_name)
-        for file_name in list_evidences_files
-    ]
-    mask_new_finding_coroutines.extend(evidence_s3_coroutines)
-    await collect(mask_new_finding_coroutines)
-
+async def mask_finding(loaders: Any, finding: Finding) -> bool:
     comments_and_observations = await comments_domain.get(
         "comment", finding.id
     ) + await comments_domain.get("observation", finding.id)
-    comments_coroutines = [
-        comments_domain.delete(comment["comment_id"], finding.id)
-        for comment in comments_and_observations
-    ]
-    are_comments_masked = all(await collect(comments_coroutines))
+    success = all(
+        await collect(
+            comments_domain.delete(comment["comment_id"], finding.id)
+            for comment in comments_and_observations
+        )
+    )
+    if not success:
+        return False
+
+    list_evidences_files = await findings_storage.search_evidence(
+        f"{finding.group_name}/{finding.id}"
+    )
+    await collect(
+        findings_storage.remove_evidence(file_name)
+        for file_name in list_evidences_files
+    )
 
     finding_all_vulns_loader = loaders.finding_vulns_all_typed
     vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
     )
-    mask_vulns_coroutines = [
-        vulns_domain.mask_vulnerability(
-            loaders=loaders,
-            finding_id=finding.id,
-            vulnerability=vuln,
-        )
-        for vuln in vulns
-    ]
-    are_vulns_masked = all(await collect(mask_vulns_coroutines, workers=4))
+    await collect(
+        tuple(
+            vulns_domain.mask_vulnerability(
+                loaders=loaders,
+                finding_id=finding.id,
+                vulnerability=vuln,
+            )
+            for vuln in vulns
+        ),
+        workers=4,
+    )
 
     store_finding: bool = True
     if finding.state.status == VulnerabilityStateStatus.DELETED:
@@ -640,23 +596,19 @@ async def mask_finding(  # pylint: disable=too-many-locals
     if store_finding:
         await _send_to_redshift(loaders=loaders, finding=finding)
 
-    success = all(
-        [
-            are_comments_masked,
-            are_vulns_masked,
-        ]
+    await findings_model.remove(
+        group_name=finding.group_name, finding_id=finding.id
     )
-    if success:
-        LOGGER_CONSOLE.info(
-            "Finding masked",
-            extra={
-                "extra": {
-                    "finding_id": finding.id,
-                    "group_name": finding.group_name,
-                }
-            },
-        )
-    return success
+    LOGGER_CONSOLE.info(
+        "Finding masked",
+        extra={
+            "extra": {
+                "finding_id": finding.id,
+                "group_name": finding.group_name,
+            }
+        },
+    )
+    return True
 
 
 async def request_vulnerabilities_verification(

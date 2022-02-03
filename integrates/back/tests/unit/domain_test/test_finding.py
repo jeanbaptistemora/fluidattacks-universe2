@@ -3,6 +3,7 @@ from back.tests.unit.utils import (
     create_dummy_session,
 )
 from custom_exceptions import (
+    FindingNotFound,
     InvalidAcceptanceSeverity,
     InvalidFileType,
     InvalidNumberAcceptances,
@@ -14,9 +15,6 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
-)
-from db_model import (
-    MASKED,
 )
 from db_model.findings.types import (
     Finding,
@@ -308,20 +306,10 @@ async def test_mask_finding() -> None:
     finding_id = "475041524"
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    success = await mask_finding(loaders, finding)
-    assert isinstance(success, bool)
-    assert success
-
+    assert await mask_finding(loaders, finding)
     loaders.finding.clear(finding_id)
-    masked_finding: Finding = await loaders.finding.load(finding_id)
-    assert masked_finding.attack_vector_description == MASKED
-    assert masked_finding.description == MASKED
-    assert masked_finding.recommendation == MASKED
-    assert masked_finding.threat == MASKED
-    assert masked_finding.evidences.evidence1.description == MASKED
-    assert masked_finding.evidences.evidence1.url == MASKED
-    assert masked_finding.evidences.evidence2.description == MASKED
-    assert masked_finding.evidences.evidence2.url == MASKED
+    with pytest.raises(FindingNotFound):
+        await loaders.finding.load(finding_id)
 
 
 async def test_validate_evidence_records() -> None:

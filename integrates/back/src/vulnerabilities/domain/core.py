@@ -550,7 +550,7 @@ async def mask_vulnerability(
     loaders: Any,
     finding_id: str,
     vulnerability: Vulnerability,
-) -> bool:
+) -> None:
     store_vuln: bool = True
     if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
         finding: Finding = await loaders.finding.load(finding_id)
@@ -566,7 +566,6 @@ async def mask_vulnerability(
             vulnerability=vulnerability,
         )
     await vulns_model.remove(vulnerability_id=vulnerability.id)
-    return True
 
 
 async def reject_vulnerabilities_zero_risk(
