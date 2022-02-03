@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 
-import { TransitionLink } from "./TransitionLink";
-
 import {
   FontAwesomeContainerSmall,
   NavbarContactButton,
@@ -24,98 +22,80 @@ const NavbarItems: React.FC = (): JSX.Element => (
     <div className={"w-auto flex flex-nowrap"}>
       <Menu />
       <li>
-        <TransitionLink styles={"db tc pa1 no-underline"} to={"/"}>
+        <Link className={"db tc pa1 no-underline"} to={"/"}>
           <CloudImage
             alt={"Fluid Attacks logo navbar"}
             src={"logo_fluid_attacks_2021"}
             styles={"h-5 ml3 pv2"}
           />
-        </TransitionLink>
+        </Link>
       </li>
     </div>
     <div className={"w-auto dn flex-l center"}>
       <NavbarItem className={"db-l dn solutions-index"}>
-        <TransitionLink styles={"no-underline"} to={"/solutions/"}>
+        <Link className={"no-underline"} to={"/solutions/"}>
           <NavbarRegularButton>
             {"Solutions"}
             <FontAwesomeContainerSmall>
               <FontAwesomeIcon icon={faAngleDown} />
             </FontAwesomeContainerSmall>
           </NavbarRegularButton>
-        </TransitionLink>
+        </Link>
 
         <NavbarSubcategory className={"solutions-content nl-5"}>
-          <TransitionLink styles={"f-18 fw4"} to={"/solutions/devsecops/"}>
+          <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
             {"DevSecOps"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
-            to={"/solutions/security-testing/"}
-          >
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/security-testing/"}>
             {"Security Testing"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
-            to={"/solutions/penetration-testing/"}
-          >
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/penetration-testing/"}>
             {"Penetration Testing"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
-            to={"/solutions/ethical-hacking/"}
-          >
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/ethical-hacking/"}>
             {"Ethical Hacking"}
-          </TransitionLink>
-          <TransitionLink styles={"f-18 fw4"} to={"/solutions/red-teaming/"}>
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
             {"Red Teaming"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
-            to={"/solutions/attack-simulation/"}
-          >
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
             {"Breach and Attack Simulation"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
-            to={"/solutions/secure-code-review/"}
-          >
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
             {"Secure Code Review"}
-          </TransitionLink>
-          <TransitionLink
-            styles={"f-18 fw4"}
+          </Link>
+          <Link
+            className={"f-18 fw4"}
             to={"/solutions/vulnerability-management/"}
           >
             {"Vulnerability Management"}
-          </TransitionLink>
+          </Link>
         </NavbarSubcategory>
       </NavbarItem>
       <NavbarItem className={"db-l dn"}>
-        <TransitionLink
-          styles={"no-underline"}
-          to={"/about-us/certifications/"}
-        >
+        <Link className={"no-underline"} to={"/about-us/certifications/"}>
           <NavbarRegularButton>{"Certifications"}</NavbarRegularButton>
-        </TransitionLink>
+        </Link>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <TransitionLink styles={"no-underline"} to={"/resources/"}>
+        <Link className={"no-underline"} to={"/resources/"}>
           <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-        </TransitionLink>
+        </Link>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <TransitionLink styles={"no-underline"} to={"/plans/"}>
+        <Link className={"no-underline"} to={"/plans/"}>
           <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
-        </TransitionLink>
+        </Link>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <TransitionLink styles={"no-underline"} to={"/advisories/"}>
+        <Link className={"no-underline"} to={"/advisories/"}>
           <NavbarRegularButton>{"Advisories"}</NavbarRegularButton>
-        </TransitionLink>
+        </Link>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <TransitionLink styles={"no-underline"} to={"/blog/"}>
+        <Link className={"no-underline"} to={"/blog/"}>
           <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
-        </TransitionLink>
+        </Link>
       </NavbarItem>
     </div>
     <div className={"w-auto flex-l flex-nowrap dn"}>
@@ -126,9 +106,9 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </li>
 
       <li className={"pv4"}>
-        <TransitionLink styles={"no-underline"} to={"/contact-us/"}>
+        <Link className={"no-underline"} to={"/contact-us/"}>
           <NavbarContactButton>{"Contact now"}</NavbarContactButton>
-        </TransitionLink>
+        </Link>
       </li>
     </div>
   </NavbarList>
