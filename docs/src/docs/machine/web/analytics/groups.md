@@ -129,3 +129,28 @@ introduced into your system:
   stops those security issues
   from being delivered
   to your end users.
+
+## Agent
+
+By enabling DevSecOps you get access to a
+Docker container built specifically to
+verify the status of security vulnerabilities
+on your system.
+You can embed this container into your Continuous
+Integration system to look for changes in
+security vulnerabilities:
+
+- DevSecOps is fast and automatic, as it is
+  created by the same intelligence of the hackers
+  who already know your system in-depth.
+
+- In case the DevSecOps agent finds one vulnerability
+  to be open, we can (optionally) mark the build as failed.
+  This strict mode can be customized with severity
+  thresholds and grace periods according to your needs.
+
+- Statistics from over a hundred different systems
+  show that DevSecOps increases the remediation ratio,
+  helping you build a safer system and be more
+  cost-effective throughout your Software Security
+  Development Lifecycle.
