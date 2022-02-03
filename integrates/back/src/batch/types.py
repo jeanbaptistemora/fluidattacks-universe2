@@ -54,3 +54,8 @@ class JobPayload(NamedTuple):
     subject: str
     time: str
     additional_info: str
+
+
+class CloneResult(NamedTuple):
+    success: bool
+    commit: Optional[str] = None

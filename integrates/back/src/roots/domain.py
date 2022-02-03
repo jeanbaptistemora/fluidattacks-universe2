@@ -102,6 +102,7 @@ def format_root(root: RootItem) -> Root:
             cloning_status=GitRootCloningStatus(
                 status=root.cloning.status.value,
                 message=root.cloning.reason,
+                commit=root.cloning.commit,
             ),
             environment=root.state.environment,
             environment_urls=root.state.environment_urls,

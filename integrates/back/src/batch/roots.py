@@ -10,9 +10,13 @@ from batch.dal import (
 )
 from batch.types import (
     BatchProcessing,
+    CloneResult,
 )
 from context import (
     FI_AWS_S3_MIRRORS_BUCKET,
+)
+from contextlib import (
+    suppress,
 )
 from custom_exceptions import (
     CredentialNotFound,
@@ -70,6 +74,10 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
+import git
+from git.exc import (
+    GitError,
+)
 import itertools
 import json
 import logging
@@ -118,6 +126,7 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
+    Optional,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -587,7 +596,7 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
     return success
 
 
-async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> bool:
+async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
     success: bool = False
     group_name: str = root.group_name
     root_url: str = root.state.url
@@ -620,6 +629,7 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> bool:
         _, stderr = await proc.communicate()
 
         os.remove(ssh_file_name)
+        commit: Optional[str] = None
         if proc.returncode != 0:
             LOGGER.error(
                 "Root SSH cloning failed with error: %s",
@@ -628,7 +638,11 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> bool:
             )
         else:
             success = await _upload_cloned_repo_to_s3(temp_dir, group_name)
-    return success
+            with suppress(GitError, AttributeError):
+                commit = git.Repo(
+                    temp_dir, search_parent_directories=True
+                ).head.object.hexsha
+    return CloneResult(success=success, commit=commit)
 
 
 async def clone_root(*, item: BatchProcessing) -> None:
@@ -650,12 +664,12 @@ async def clone_root(*, item: BatchProcessing) -> None:
         filter(lambda x: root.id in x.state.roots, group_creds), None
     )
 
-    root_cloned: bool = False
+    root_cloned: CloneResult = CloneResult(success=False)
     if root and root_cred:
         if root_cred.metadata.type.value == "SSH":
             root_cloned = await _ssh_clone_root(root, root_cred)
 
-        if root_cloned:
+        if root_cloned.success:
             findings = tuple(
                 key for key in FINDINGS.keys() if is_check_available(key)
             )
@@ -672,6 +686,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
             root_id=root.id,
             status="OK" if root_cloned else "FAILED",
             message="Cloned successfully" if root_cloned else "Clone failed",
+            commit=root_cloned.commit,
         )
     else:
         LOGGER.error(

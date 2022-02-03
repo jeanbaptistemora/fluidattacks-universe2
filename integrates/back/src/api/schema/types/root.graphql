@@ -10,6 +10,8 @@ interface IRoot {
 
 "Git Root cloning status definition"
 type GitRootCloningStatus {
+  "Full SHA-1 hash of the cloned repo"
+  commit: String
   "Message after repository cloning"
   message: String!
   "Cloning status of GitRoot"

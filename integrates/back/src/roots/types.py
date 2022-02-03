@@ -4,6 +4,7 @@ from db_model.enums import (
 from typing import (
     List,
     NamedTuple,
+    Optional,
     Union,
 )
 
@@ -17,6 +18,7 @@ class Credential(NamedTuple):
 class GitRootCloningStatus(NamedTuple):
     message: str
     status: str
+    commit: Optional[str] = None
 
 
 class GitEnvironmentUrl(NamedTuple):
