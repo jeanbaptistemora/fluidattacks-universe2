@@ -23,7 +23,7 @@ async def remove(*, group_name: str, finding_id: str) -> None:
         values={"group_name": group_name, "id": finding_id},
     )
     index = TABLE.indexes["inverted_index"]
-    response = await operations.query(
+    response_inverted_index = await operations.query(
         condition_expression=(
             Key(index.primary_key.partition_key).eq(primary_key.sort_key)
             & Key(index.primary_key.sort_key).begins_with(
@@ -43,25 +43,31 @@ async def remove(*, group_name: str, finding_id: str) -> None:
         table=TABLE,
     )
 
-    await operations.batch_write_item(
-        items=tuple(
-            {
-                **item,
-                TABLE.primary_key.partition_key: (
-                    f"REMOVED#{item[TABLE.primary_key.partition_key]}"
-                ),
-            }
-            for item in response.items
+    response_table = await operations.query(
+        condition_expression=(
+            Key(TABLE.primary_key.partition_key).eq(primary_key.partition_key)
+        ),
+        facets=(
+            TABLE.facets["finding_historic_state"],
+            TABLE.facets["finding_historic_verification"],
         ),
         table=TABLE,
+    )
+
+    items = set(
+        PrimaryKey(
+            partition_key=item[TABLE.primary_key.partition_key],
+            sort_key=item[TABLE.primary_key.sort_key],
+        )
+        for item in response_inverted_index.items + response_table.items
     )
     await operations.batch_delete_item(
         keys=tuple(
             PrimaryKey(
-                partition_key=item[TABLE.primary_key.partition_key],
-                sort_key=item[TABLE.primary_key.sort_key],
+                partition_key=item.partition_key,
+                sort_key=item.sort_key,
             )
-            for item in response.items
+            for item in items
         ),
         table=TABLE,
     )

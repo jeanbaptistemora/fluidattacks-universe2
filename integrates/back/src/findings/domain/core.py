@@ -95,6 +95,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from redshift import (
+    findings as redshift_findings,
+)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -127,6 +130,32 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
+
+
+async def _send_to_redshift(
+    *,
+    loaders: Any,
+    finding: Finding,
+) -> None:
+    historic_state = await loaders.finding_historic_state.load(finding.id)
+    print(f"finding_state: {historic_state}")
+    historic_verification = await loaders.finding_historic_verification.load(
+        finding.id
+    )
+    await redshift_findings.insert_finding(
+        finding=finding,
+        historic_state=historic_state,
+        historic_verification=historic_verification,
+    )
+    LOGGER_CONSOLE.info(
+        "Finding stored in redshift",
+        extra={
+            "extra": {
+                "finding_id": finding.id,
+                "group_name": finding.group_name,
+            }
+        },
+    )
 
 
 async def add_comment(
@@ -203,6 +232,14 @@ async def remove_finding(
         finding_id=finding.id,
         metadata=metadata,
     )
+    if (
+        not user_email.endswith("@fluidattacks.com")
+        and finding.state.status == FindingStateStatus.APPROVED
+    ):
+        await _send_to_redshift(
+            loaders=context.loaders,
+            finding=finding,
+        )
     await findings_model.remove(
         group_name=finding.group_name, finding_id=finding.id
     )
