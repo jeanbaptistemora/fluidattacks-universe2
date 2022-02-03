@@ -11,6 +11,7 @@ apk:
   - ../product/skims/test/data/lib_apk/js_open.apk
   - ../product/skims/test/data/lib_apk/unsafe_delete.apk
   - ../product/skims/test/data/lib_apk/ssl_open.apk
+  - ../product/skims/test/data/lib_apk/http_refs.apk
 namespace: namespace
 output: skims/test/outputs/lib_apk.csv
 working_dir: ../androguard

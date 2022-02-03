@@ -798,5 +798,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
     core_model.FindingEnum.F268: _webview_vulnerabilities,
+    core_model.FindingEnum.F372: _uses_http_resources,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }
