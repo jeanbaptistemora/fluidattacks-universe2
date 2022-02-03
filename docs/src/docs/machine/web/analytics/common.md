@@ -21,9 +21,9 @@ of only that specific group.
 The following are
 the common analytics:
 
-## Vulnerabilities over time
+## Severity over time
 
-![Vulns Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_over_time_zjlwdi.png)
+![Severity Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
 
 In the ASM,
 you can track the evolution of your systems
@@ -227,3 +227,40 @@ that it takes for the users
 of the organization
 to solve a discovered vulnerability,
 categorized by severity.
+
+## MTTR benchmarking
+
+![MTTR Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
+
+This section shows how your organization
+optimizes how many days pass before closing
+or fixing vulnerabilities and how your MTTR
+compares to that of the best, the average
+and the worst organization.
+
+> **NOTE:**
+  > MTTR  means “Mean Time To Remediate.”
+
+## Total exposure
+
+![Total Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
+
+One of the main dilemmas organizations face
+every day is which vulnerability they
+should close first.
+To address this, we at Fluid Attacks designed
+a metric called the CVSSF to help you make
+better decisions.
+
+This new metric recognizes that closing 10
+vulnerabilities with a score equal to 1 is
+not the same as closing 1 vulnerability
+with a score equal to 10.
+Additionally, it helps calculate the level
+of exposure of a system.
+
+Thanks to the new graph based on the
+CVSSF,
+you will be able to know which vulnerabilities
+to attack and remediate first to reduce the
+level of exposure of your system.
