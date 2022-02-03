@@ -1,11 +1,9 @@
 from back.tests.unit.utils import (
+    create_dummy_info,
     create_dummy_session,
 )
 from comments import (
     domain as comments_domain,
-)
-from graphql.type.definition import (
-    GraphQLResolveInfo,
 )
 import pytest
 
@@ -18,9 +16,7 @@ async def test_list_comments() -> None:
     finding_id = "422286126"
     user_email = "unittest@fluidattacks.com"
     request = await create_dummy_session(user_email)
-    info = GraphQLResolveInfo(
-        None, None, None, None, None, None, None, None, None, None, request
-    )
+    info = create_dummy_info(request)
     test_data = await comments_domain.get_comments(
         loaders=info.context.loaders,
         group_name="unittesting",

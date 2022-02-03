@@ -4,13 +4,11 @@ closure:
   aiodataloader: 0.2.0
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
-  aiogqlc: 1.0.5
   aiohttp: 3.8.1
   aioitertools: 0.8.0
   aiosignal: 1.2.0
-  amazon-dax-client: 1.1.7
-  antlr4-python3-runtime: 4.7.2
-  ariadne: 0.12.0
+  anyio: 3.5.0
+  ariadne: 0.14.1
   asgiref: 3.5.0
   async-lru: 1.0.2
   async-timeout: 4.0.2
@@ -44,7 +42,7 @@ closure:
   frozenlist: 1.3.0
   gitdb: 4.0.9
   gitpython: 3.1.12
-  graphql-core: 3.0.3
+  graphql-core: 3.1.7
   gunicorn: 20.1.0
   h11: 0.13.0
   hijri-converter: 2.2.2
@@ -74,7 +72,7 @@ closure:
   oauthlib: 3.2.0
   packaging: "21.3"
   pandas: 1.3.4
-  pillow: 9.0.0
+  pillow: 9.0.1
   psycopg2: 2.9.3
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -108,9 +106,8 @@ closure:
   smmap: 5.0.0
   sniffio: 1.2.0
   social-auth-core: 3.3.3
-  starlette: 0.13.8
+  starlette: 0.17.1
   stripe: 2.63.0
-  tracers: 21.8.6876
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
   typing-extensions: 4.0.1
@@ -152,12 +149,6 @@ links:
   - name: aiofiles-0.7.0.tar.gz
     sha256: 1m0rbra689v6a9m4yvlhv8irvsj4yf12lf917v46h5gq5ydzri51
     url: https://files.pythonhosted.org/packages/06/f0/af90f3fb4066b0707b6a5af3ffd5fd9b3809bbb52f0153a3c7550e594de3/aiofiles-0.7.0.tar.gz
-  - name: aiogqlc-1.0.5-py3-none-any.whl
-    sha256: 1rfg7lfib1ljydb85jdb6dj7s7glj1sy0y4bikqz0yzfzpqfw6ik
-    url: https://files.pythonhosted.org/packages/04/cf/e511f5fb7114b9758f1b0edb3dba2b3d6c00fc405b99b0d73cc8bc6b209c/aiogqlc-1.0.5-py3-none-any.whl
-  - name: aiogqlc-1.0.5.tar.gz
-    sha256: 08kiag54qbyrrvar4fg8cjb02cd4j33falbyamayvy6lpv0srll1
-    url: https://files.pythonhosted.org/packages/ab/05/2ee8008fb85603b3cc99feff7f6ebd2dbf13b3b8852a7fbcc25ae6d1073a/aiogqlc-1.0.5.tar.gz
   - name: aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 0drj55w7dlysrp347lf87kggwxyqfbsapcfx3fpqb493n0p5lcgm
     url: https://files.pythonhosted.org/packages/a8/0e/068cb215e8709703c497fcd07e8a81e68b3eb8b83083f96e93ef964d4685/aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
@@ -212,18 +203,18 @@ links:
   - name: aiosignal-1.2.0.tar.gz
     sha256: 1wkxbdgw07ay8yzx3pg1jcm46p3d21rfb5g4k17ysz3vdkdngvbq
     url: https://files.pythonhosted.org/packages/27/6b/a89fbcfae70cf53f066ec22591938296889d3cc58fec1e1c393b10e8d71d/aiosignal-1.2.0.tar.gz
-  - name: amazon-dax-client-1.1.7.tar.gz
-    sha256: 0g3fpab6l87wpdxw2b499c6z9kq499f8dib3zhiiashdwj1xskn0
-    url: https://files.pythonhosted.org/packages/86/92/0358c4cb7a8b2298c10505c54a422a622c0b68c979a69521e39482bbd4ad/amazon-dax-client-1.1.7.tar.gz
-  - name: antlr4-python3-runtime-4.7.2.tar.gz
-    sha256: 02xm7ccsf51vh4xsnhlg6pvchm1x3ckgv9kwm222w5drizndr30n
-    url: https://files.pythonhosted.org/packages/29/14/8ac135ec7cc9db3f768e2d032776718c6b23f74e63543f0974b4873500b2/antlr4-python3-runtime-4.7.2.tar.gz
-  - name: ariadne-0.12.0-py3-none-any.whl
-    sha256: 1qz2fq928qn6wyby79k4f1m2cfmbz7jk2x75slsgjmf12d6mg2z8
-    url: https://files.pythonhosted.org/packages/24/29/7480ba657aad30146e8f36feca123ac9ded7f1f60bcb3e640a267d5b31c2/ariadne-0.12.0-py3-none-any.whl
-  - name: ariadne-0.12.0.tar.gz
-    sha256: 0jz658d83vma9ikq8y3ld7zqd95h1mb0v1zrh09pba2wxf21b8h0
-    url: https://files.pythonhosted.org/packages/0c/fb/b27961692390cbcd6c80a8078e78c07dc331bea5b7962abdc8d49a0715db/ariadne-0.12.0.tar.gz
+  - name: anyio-3.5.0-py3-none-any.whl
+    sha256: 0biwikx39fkdh411v9ndsqa3akdd5pzvpdgfy9311ylkzz2idymm
+    url: https://files.pythonhosted.org/packages/b1/ae/9a8af72d6f0c551943903eefcf93c3a29898fb7b594603c0d70679c199b1/anyio-3.5.0-py3-none-any.whl
+  - name: anyio-3.5.0.tar.gz
+    sha256: 19m58805wir4i2s45dd5ynwlzb7ky1218isbir53gpqzzgigzbm0
+    url: https://files.pythonhosted.org/packages/4f/d0/b957c0679a9bd0ed334e2e584102f077c3e703f83d099464c3d9569b7c8a/anyio-3.5.0.tar.gz
+  - name: ariadne-0.14.1-py3-none-any.whl
+    sha256: 0wbx8xjbik80giaikqqq5vxg3n4vwpgmcrik2xnxrknz4j2gkb5q
+    url: https://files.pythonhosted.org/packages/9d/86/3091666d4bca8690b56652b8d48c3e88738fa096a5c7511672fa71e57ab1/ariadne-0.14.1-py3-none-any.whl
+  - name: ariadne-0.14.1.tar.gz
+    sha256: 07c3xwiifzn41ahshb2gfblsjwb0r5549gc8fjjxrsnpc2gr3f9q
+    url: https://files.pythonhosted.org/packages/e6/21/dc57a99629e25659637a3c5d43afd089d839950a33950dceba36de164373/ariadne-0.14.1.tar.gz
   - name: asgiref-3.5.0-py3-none-any.whl
     sha256: 1a9hswqnzbfd5286qsnbxjddgvc804hliq0ba7hgzp1lsq9rrmc8
     url: https://files.pythonhosted.org/packages/0b/9f/5f3b91391578312827561b669a0397d58535b4e82966c8f1667525c7d563/asgiref-3.5.0-py3-none-any.whl
@@ -467,12 +458,12 @@ links:
   - name: GitPython-3.1.12.tar.gz
     sha256: 1b0x9baawd68z7azj5nfp4jp3vyw0cqry1fhdr4nqmz2v7cfzns2
     url: https://files.pythonhosted.org/packages/ec/4d/e6553122c85ec7c4c3e702142cc0f5ed02e5cf1b4d7ecea86a07e45725a0/GitPython-3.1.12.tar.gz
-  - name: graphql_core-3.0.3-py3-none-any.whl
-    sha256: 0cisz99j84fr1s5fxrhsy1kk5y0s5rn28s54432zpyrz2ycxp1p5
-    url: https://files.pythonhosted.org/packages/60/ce/c5637b00480aef1496267b8ff0686ebc0091429e3a6baa1718f85d605133/graphql_core-3.0.3-py3-none-any.whl
-  - name: graphql-core-3.0.3.tar.gz
-    sha256: 13d477116m05p5i4qjxivjxxwfk3fqjjwxflq2pv2g6ccwlyds9i
-    url: https://files.pythonhosted.org/packages/89/76/4f07e02d14366cb84f371f48d5b255258bdcfa95941b0b25daee5ac28677/graphql-core-3.0.3.tar.gz
+  - name: graphql_core-3.1.7-py3-none-any.whl
+    sha256: 0024iycg7f43v6wpjl0510q00cv980zcyrhp7dzirq0b69h0yilv
+    url: https://files.pythonhosted.org/packages/05/c3/bbdf432c196aec04d9ac6a12a88d10ac50fe412115bdb917add4b963d113/graphql_core-3.1.7-py3-none-any.whl
+  - name: graphql-core-3.1.7.tar.gz
+    sha256: 037gr3p6v6q982fg2kjrzdlgvldp5vky6ygvijhxkv6ca0hikv32
+    url: https://files.pythonhosted.org/packages/20/48/44502a3d0d39d1b094d84fdddbb49d28003dadfd4427527e14b341e43a38/graphql-core-3.1.7.tar.gz
   - name: gunicorn-20.1.0-py3-none-any.whl
     sha256: 0zl0g83a90j8gdky0hy43j4d3rd0cxban5gvri52ijxivd3lbk4x
     url: https://files.pythonhosted.org/packages/e4/dd/5b190393e6066286773a67dfcc2f9492058e9b57c4867a95f1ba5caf0a83/gunicorn-20.1.0-py3-none-any.whl
@@ -797,24 +788,24 @@ links:
   - name: pandas-1.3.4.tar.gz
     sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
     url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
-  - name: Pillow-9.0.0-cp39-cp39-macosx_10_10_x86_64.whl
-    sha256: 09frbn4rgw9pigsb85brm40ad00wm6jrsb0ikc2i87vqn0xpn1n2
-    url: https://files.pythonhosted.org/packages/0a/c8/43fd68be8478191c8a5cf65acfd1e226c42eb84d10757af8f40c86289e93/Pillow-9.0.0-cp39-cp39-macosx_10_10_x86_64.whl
-  - name: Pillow-9.0.0-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1bshij9rsfi25d5j2fgfdssv3fn0yw0csgjydgzlm9dpdwcvc5id
-    url: https://files.pythonhosted.org/packages/00/5f/9f160d8cdf077e8f110f9c8ab7264d918d0b0bce797848c423551ddbe615/Pillow-9.0.0-cp39-cp39-macosx_11_0_arm64.whl
-  - name: Pillow-9.0.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 17x61vp667qb3pb6rmmki01zhjrrnj5221hwa6agaqfbcg567jwq
-    url: https://files.pythonhosted.org/packages/b5/8e/64623478a96ab6c01b12c3ec4c9082018a16ccd189e99f6891b50b2e9ba4/Pillow-9.0.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: Pillow-9.0.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 1vkdyn4zdn88602syy42j0lvz32wdv0kdx6yrglhg9qba0j2simw
-    url: https://files.pythonhosted.org/packages/7d/f5/aea8c58b5e747ee568774cbe2eae226de7a78196961daed2a94deb9569e6/Pillow-9.0.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: Pillow-9.0.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 109jh1b2pmib92z9fvgv30pb3srjhylzngsshyyg3qjchwny31im
-    url: https://files.pythonhosted.org/packages/b6/1a/6c263743fa0b2899357a764117a7ab227a230aed3ddef41b60e6caaa72fc/Pillow-9.0.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: Pillow-9.0.0.tar.gz
-    sha256: 0gjry0yqryd2678sm47jhdnbghzxn5wk8pgyaqwr4qi7x5ijjvpf
-    url: https://files.pythonhosted.org/packages/b0/43/3e286c93b9fa20e233d53532cc419b5aad8a468d91065dbef4c846058834/Pillow-9.0.0.tar.gz
+  - name: Pillow-9.0.1-cp39-cp39-macosx_10_10_x86_64.whl
+    sha256: 0f38nqzav25zlkrp8gl870h52rpq7x00iganh0sn777d3jb37jl0
+    url: https://files.pythonhosted.org/packages/70/42/ecdde20336656550db979f1d8266f3711b935122de3ecba4707d1a87cce8/Pillow-9.0.1-cp39-cp39-macosx_10_10_x86_64.whl
+  - name: Pillow-9.0.1-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 0a3bk9vlsxm4z28j4zihpi8b90b7lymyww8sknxrn1fgd6n36g0w
+    url: https://files.pythonhosted.org/packages/c4/5d/2b309d26fa1045ab0d5c04c99dc4da004df204e2011f6922981b7d6bf37d/Pillow-9.0.1-cp39-cp39-macosx_11_0_arm64.whl
+  - name: Pillow-9.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 170z1zwpfpn1p943g8shcw90fyxmrm3j91vn85h3bkr1iw8mv1qj
+    url: https://files.pythonhosted.org/packages/09/fb/29a6768c9854dbb4f6623aea54184a228599c20703bf69f58684318e6d1b/Pillow-9.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: Pillow-9.0.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 06z8jk342b08mfp3mcn1qjq7ippbdzyp35zqxbxywvq72g4ylk2i
+    url: https://files.pythonhosted.org/packages/21/1a/5ac4fb110aa7bd2d15ae36459ae9edec77054d9ee5bcc68d92653885afd1/Pillow-9.0.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: Pillow-9.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 19xj3h1hivfn82cbj1qvl0ryl5vswxvrnqxsy646vknznydcgifk
+    url: https://files.pythonhosted.org/packages/f3/3b/d7bb231b3bc1414252e77463dc63554c1aeccffe0798524467aca7bad089/Pillow-9.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: Pillow-9.0.1.tar.gz
+    sha256: 1ykmxlg5wj90wy3rz8z5cz1zhws17xk5mv7mfmxazzbxi8iwi2vc
+    url: https://files.pythonhosted.org/packages/03/a3/f61a9a7ff7969cdef2a6e0383a346eb327495d20d25a2de5a088dbb543a6/Pillow-9.0.1.tar.gz
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
@@ -992,24 +983,18 @@ links:
   - name: social-auth-core-3.3.3.tar.gz
     sha256: 1h3zwzgf5q5i6kdl2samxs8z14j29rypyr3dp0vwrcn2ispy2v1g
     url: https://files.pythonhosted.org/packages/2e/1c/bcece546f7e7045a55985fdb0283d27d4ae64668e616bdadbc2f74f75cd8/social-auth-core-3.3.3.tar.gz
-  - name: starlette-0.13.8-py3-none-any.whl
-    sha256: 0vms42q9f62sjaqlrdm6dffmgbc6d80dzvy41j04j243z9pymbs0
-    url: https://files.pythonhosted.org/packages/85/a1/309e5ca23ec0ab6757275c9be777430399c5292608e30f63fb2ab2acb8dc/starlette-0.13.8-py3-none-any.whl
-  - name: starlette-0.13.8.tar.gz
-    sha256: 10v1f38qnfcqbs1m1bkdhw66120p0fzp8dl8ia1asdwl2jr2kpw2
-    url: https://files.pythonhosted.org/packages/86/f5/2713195e0d2f449554f3e0b749cc9d8ec5d00035279d6dfa02d4410adcbd/starlette-0.13.8.tar.gz
+  - name: starlette-0.17.1-py3-none-any.whl
+    sha256: 0l1hywcc8aaz7w36xv98shf4i64qdnrqhb61ck4m3dp6lnyqr896
+    url: https://files.pythonhosted.org/packages/32/57/e9c68acc2845ee4ca66202d19856f6a3581cab2a885d25d490103270ffa2/starlette-0.17.1-py3-none-any.whl
+  - name: starlette-0.17.1.tar.gz
+    sha256: 1s2ank0mxjriipb302zi814n6454ap9r9v7syriaya2sjz6b7sjp
+    url: https://files.pythonhosted.org/packages/11/d3/c346849b8201f0e0339e23850c8db1cebd477e44e8b5212f40e1acbb490c/starlette-0.17.1.tar.gz
   - name: stripe-2.63.0-py2.py3-none-any.whl
     sha256: 1ixvjpimx28bpmk3fkmawccaacl48qqc8a4nqymckgpg7rz6jphp
     url: https://files.pythonhosted.org/packages/9a/1a/20b2a376904895b4d5ef4517a6932cd7ac5b286f6a6299f6a11f23681fa8/stripe-2.63.0-py2.py3-none-any.whl
   - name: stripe-2.63.0.tar.gz
     sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
     url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
-  - name: tracers-21.8.6876-py3-none-any.whl
-    sha256: 0q21l5rlz98fg5r3m702lh5pkwfym5c8ls4i37f14fs6kq30488n
-    url: https://files.pythonhosted.org/packages/44/59/632eefa787e2bcb59bb1ea5c1229e8d64e4672ef82e230ddf3afc1701fc3/tracers-21.8.6876-py3-none-any.whl
-  - name: tracers-21.8.6876.tar.gz
-    sha256: 1avwi5pldy9myd04wjsl0mh6qsgl0h6iyfx2ka69sfmi2lvmjqsf
-    url: https://files.pythonhosted.org/packages/dc/0b/63b60b15ba76dd93d2c286cc34324fbaf354e397bf3110a789eb507f1379/tracers-21.8.6876.tar.gz
   - name: types_aiofiles-0.7.0-py3-none-any.whl
     sha256: 10fcqlp8jmr0hr15kjbc3vrppk8lp54bxk42mllhmizwsjbxyd03
     url: https://files.pythonhosted.org/packages/e3/7d/ea29842bee4877e69aac2309fcbeffdb855ef0f1e22c0bf739040391a189/types_aiofiles-0.7.0-py3-none-any.whl

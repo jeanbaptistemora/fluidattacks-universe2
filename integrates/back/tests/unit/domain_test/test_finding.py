@@ -1,4 +1,5 @@
 from back.tests.unit.utils import (
+    create_dummy_info,
     create_dummy_session,
 )
 from custom_exceptions import (
@@ -37,9 +38,6 @@ from findings.domain import (
 )
 from freezegun import (  # type: ignore
     freeze_time,
-)
-from graphql.type import (
-    GraphQLResolveInfo,
 )
 import os
 import pytest
@@ -271,9 +269,7 @@ async def test_get_tracking_vulnerabilities() -> None:
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
     request = await create_dummy_session("unittest@fluidattacks.com")
-    info = GraphQLResolveInfo(
-        None, None, None, None, None, None, None, None, None, None, request
-    )
+    info = create_dummy_info(request)
     finding_id = "463461507"
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = str(round(time.time() * 1000))

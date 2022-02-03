@@ -2,6 +2,7 @@ from aniso8601 import (
     parse_datetime,
 )
 from back.tests.unit.utils import (
+    create_dummy_info,
     create_dummy_session,
 )
 from comments import (
@@ -20,9 +21,6 @@ from dataloaders import (
 from events import (
     dal as events_dal,
     domain as events_domain,
-)
-from graphql.type import (
-    GraphQLResolveInfo,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -133,9 +131,7 @@ async def test_add_comment() -> None:
     comment_id = str(round(time() * 1000))
     parent = "0"
     request = await create_dummy_session("unittest@fluidattacks.com")
-    info = GraphQLResolveInfo(
-        None, None, None, None, None, None, None, None, None, None, request
-    )
+    info = create_dummy_info(request)
     comment_data = {
         "comment_type": "event",
         "parent": parent,
@@ -220,9 +216,7 @@ async def test_mask_event() -> None:
     parent = "0"
     comment_id = str(round(time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
-    info = GraphQLResolveInfo(
-        None, None, None, None, None, None, None, None, None, None, request
-    )
+    info = create_dummy_info(request)
     comment_data = {
         "comment_type": "event",
         "parent": "0",

@@ -5,19 +5,21 @@ from datetime import (
     datetime,
     timedelta,
 )
+from graphql import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     token as token_utils,
 )
 from redis_cluster.operations import (
     redis_set_entity_attr,
 )
-import requests  # type: ignore
+from requests import (
+    Request,
+)
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
-)
-from starlette.responses import (
-    Response,
 )
 from typing import (
     Optional,
@@ -27,8 +29,8 @@ import uuid
 
 def create_dummy_simple_session(
     username: str = "unittest",
-) -> Response:
-    request = requests.Request("GET", "/")
+) -> Request:
+    request = Request("GET", "/")
     request = apply_context_attrs(request)
     setattr(
         request,
@@ -42,7 +44,7 @@ def create_dummy_simple_session(
 
 async def create_dummy_session(
     username: str = "unittest", session_jwt: Optional[str] = None
-) -> Response:
+) -> Request:
     request = create_dummy_simple_session(username)
     payload = {
         "user_email": username,
@@ -73,3 +75,20 @@ async def create_dummy_session(
         )
 
     return request
+
+
+def create_dummy_info(request: Request) -> GraphQLResolveInfo:
+    return GraphQLResolveInfo(
+        field_name=None,
+        field_nodes=None,
+        return_type=None,
+        parent_type=None,
+        path=None,
+        schema=None,
+        fragments=None,
+        root_value=None,
+        operation=None,
+        variable_values=None,
+        context=request,
+        is_awaitable=None,
+    )

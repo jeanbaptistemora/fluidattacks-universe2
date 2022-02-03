@@ -1,4 +1,5 @@
 from back.tests.unit.utils import (
+    create_dummy_info,
     create_dummy_session,
 )
 from custom_exceptions import (
@@ -42,9 +43,6 @@ from findings.domain import (
 )
 from freezegun import (  # type: ignore
     freeze_time,
-)
-from graphql.type import (
-    GraphQLResolveInfo,
 )
 from group_access.domain import (
     get_group_users,
@@ -387,9 +385,7 @@ async def test_add_comment() -> None:
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
-    info = GraphQLResolveInfo(
-        None, None, None, None, None, None, None, None, None, None, request
-    )
+    info = create_dummy_info(request)
     comment_data = {
         "user_id": comment_id,
         "content": "Test comment",

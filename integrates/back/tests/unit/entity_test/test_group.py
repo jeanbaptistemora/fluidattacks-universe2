@@ -422,7 +422,7 @@ async def test_update_group_good(  # type: ignore
             "true",
             "true",
             "ASDF",
-            "Expected type UpdateGroupReason, found ASDF.",
+            "Value 'ASDF' does not exist in 'UpdateGroupReason' enum.",
             "FREE",
         ],
         # Invalid tier
@@ -434,7 +434,7 @@ async def test_update_group_good(  # type: ignore
             "true",
             "true",
             "NONE",
-            "Expected type TierType, found ASDF.",
+            "Value 'ASDF' does not exist in 'TierType' enum.",
             "ASDF",
         ],
     ],

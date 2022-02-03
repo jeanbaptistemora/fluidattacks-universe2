@@ -172,10 +172,10 @@ def get_formatted_evidence(
 ) -> Dict[str, Dict[str, Optional[str]]]:
     return {
         "animation": format_evidence(parent, parent.evidences.animation),
-        "evidence1": format_evidence(parent, parent.evidences.evidence1),
-        "evidence2": format_evidence(parent, parent.evidences.evidence2),
-        "evidence3": format_evidence(parent, parent.evidences.evidence3),
-        "evidence4": format_evidence(parent, parent.evidences.evidence4),
-        "evidence5": format_evidence(parent, parent.evidences.evidence5),
+        "evidence_1": format_evidence(parent, parent.evidences.evidence1),
+        "evidence_2": format_evidence(parent, parent.evidences.evidence2),
+        "evidence_3": format_evidence(parent, parent.evidences.evidence3),
+        "evidence_4": format_evidence(parent, parent.evidences.evidence4),
+        "evidence_5": format_evidence(parent, parent.evidences.evidence5),
         "exploitation": format_evidence(parent, parent.evidences.exploitation),
     }

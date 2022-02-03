@@ -19,6 +19,7 @@ from typing import (
 )
 
 
+# pylint: disable=too-few-public-methods
 class CustomRequestMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[..., Any]
