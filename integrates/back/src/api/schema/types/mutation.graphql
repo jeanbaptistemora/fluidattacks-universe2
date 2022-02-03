@@ -71,8 +71,10 @@ type Mutation {
     components
     """
     integrityImpact: String
-    """Minimum time in minutes to remediate a typical vulnerability in this
-    Finding"""
+    """
+    Minimum time in minutes to remediate a typical vulnerability in this
+    Finding
+    """
     minTimeToRemediate: String
     "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: String
@@ -573,6 +575,16 @@ type Mutation {
     vulnerabilities: [String]!
     "Tag to remove"
     tag: String
+  ): SimplePayload!
+
+  "Removes Toe input from the group"
+  removeToeInput(
+    "Input URL or PATH"
+    component: String!
+    "Entry point of the test"
+    entryPoint: String!
+    "Name of the group the input is associated with"
+    groupName: String!
   ): SimplePayload!
 
   "Removes/deletes a vulnerability within a finding"

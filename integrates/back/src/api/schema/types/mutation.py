@@ -51,6 +51,7 @@ from api.mutations import (
     remove_stakeholder,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
+    remove_toe_input,
     remove_vulnerability,
     remove_vulnerability_tags,
     request_groups_upgrade,
@@ -181,6 +182,7 @@ MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("removeGroup", remove_group.mutate)
 MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
+MUTATION.set_field("removeToeInput", remove_toe_input.mutate)
 MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field(
     "requestVulnerabilitiesVerification",
