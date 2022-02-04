@@ -187,8 +187,8 @@ One of the main dilemmas organizations face
 every day is which vulnerability they
 should close first.
 To address this, we at Fluid Attacks designed
-a metric called the CVSSF to help you make
-better decisions.
+a metric called the [CVSSF](/about/faq/#severity-vs-vulnerabilities)
+to help you make better decisions.
 
 This new metric recognizes that closing 10
 vulnerabilities with a score equal to 1 is
@@ -198,7 +198,60 @@ Additionally, it helps calculate the level
 of exposure of a system.
 
 Thanks to the new graph based on the
-CVSSF,
+[CVSSF](/about/faq/#severity-vs-vulnerabilities),
 you will be able to know which vulnerabilities
 to attack and remediate first to reduce the
 level of exposure of your system.
+
+## Distribution over time
+
+![Distribution Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
+
+This section shows the percentage of
+closed, accepted and open vulnerabilities
+over time, based on our standard
+[CVSSF](/about/faq/#severity-vs-vulnerabilities).
+
+## Open severity by type
+
+![Severity By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
+
+This section shows what vulnerability
+types are open and their severity
+level according to our
+[CVSSF](/about/faq/#severity-vs-vulnerabilities)
+metric.
+
+## Vulnerabilities treatment
+
+On the ASM, you can plan and manage the
+remediation of security findings.
+Vulnerabilities can be grouped according
+to their assigned treatment:
+
+- **Not defined:**
+  New vulnerabilities go here until you
+  generate an action plan and assign it
+  to a developer.
+
+- **In progress:**
+  With this treatment, you acknowledge
+  the existence of the vulnerability and
+  assign a user to it in order to ensure
+  it is solved.
+
+- **Temporarily accepted:**
+  This treatment is used when you don't
+  intend to solve the vulnerability, but
+  only temporarily, in which case you
+  accept the risks that come with it
+  until a selected date.
+
+- **Permanently accepted:**
+  As with the previous treatment, this
+  is used when you don't intend to solve
+  the vulnerability, but this time you
+  accept the risks that come with it
+  permanently.
+
+![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
