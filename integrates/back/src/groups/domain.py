@@ -1404,14 +1404,19 @@ async def remove_user(
         loaders, email, group_name
     )
     if success and check_org_access:
-        group_loader = loaders.group
-        group = await group_loader.load(group_name)
+        group = await loaders.group.load(group_name)
         org_id = group["organization"]
 
-        has_org_access = await orgs_domain.has_user_access(org_id, email)
-        user_org_groups = await get_groups_by_user(
-            email, organization_id=org_id
+        has_org_access, user_groups = await collect(
+            (
+                orgs_domain.has_user_access(org_id, email),
+                get_groups_by_user(email),
+            )
         )
+        org_groups: Set[str] = set(await orgs_domain.get_groups(org_id))
+        user_org_groups = [
+            group for group in user_groups if group in org_groups
+        ]
         groups = await loaders.group.load_many(user_org_groups)
         groups_filtered = filter_active_groups(groups)
         has_groups_in_org = bool(groups_filtered)
@@ -1420,7 +1425,6 @@ async def remove_user(
                 loaders, org_id, email
             )
 
-        user_groups = await get_groups_by_user(email)
         groups = await loaders.group.load_many(user_groups)
         groups_filtered = filter_active_groups(groups)
         has_groups = bool(groups_filtered)

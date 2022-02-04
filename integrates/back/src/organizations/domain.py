@@ -416,16 +416,20 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 
-    user_removed = await orgs_dal.remove_user(organization_id, email)
-    role_removed = await authz.revoke_organization_level_role(
-        email, organization_id
+    user_removed, role_removed = await collect(
+        (
+            orgs_dal.remove_user(organization_id, email),
+            authz.revoke_organization_level_role(email, organization_id),
+        )
     )
 
     org_groups = await get_groups(organization_id)
     groups_removed = all(
         await collect(
-            group_access_domain.remove_access(loaders, email, group)
-            for group in org_groups
+            tuple(
+                group_access_domain.remove_access(loaders, email, group)
+                for group in org_groups
+            )
         )
     )
 
