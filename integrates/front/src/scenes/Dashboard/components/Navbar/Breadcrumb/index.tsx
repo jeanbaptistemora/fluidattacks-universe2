@@ -3,13 +3,18 @@ import { useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { AddOrganizationModal } from "./AddOrganizationModal";
 import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
-import { BreadcrumbContainer, NavSplitButtonContainer } from "./styles";
+import {
+  BreadcrumbContainer,
+  NavSplitButtonContainer,
+  SplitItems,
+} from "./styles";
 import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
@@ -91,7 +96,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
     const displayValue: string = elementStyle.getPropertyValue("display");
     if (displayValue === "none") {
-      element.setAttribute("style", "display:block;");
+      element.setAttribute("style", "display:flex;");
       child.addEventListener("blur", handleBlurEvent);
       child.focus();
     }
@@ -174,19 +179,22 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           <NavSplitButtonContainer>
             <SplitButton
               content={
-                <div className={"splitItems"}>
+                <SplitItems>
                   <Can do={"api_mutations_add_organization_mutate"}>
                     <MenuItem
                       eventKey={""}
                       itemContent={t("sidebar.newOrganization.text")}
                       onClick={openOrganizationModal}
                     />
-                    {isOrganizationModalOpen ? (
-                      <AddOrganizationModal
-                        onClose={closeOrganizationModal}
-                        open={true}
-                      />
-                    ) : undefined}
+                    {isOrganizationModalOpen
+                      ? createPortal(
+                          <AddOrganizationModal
+                            onClose={closeOrganizationModal}
+                            open={true}
+                          />,
+                          document.body
+                        )
+                      : undefined}
                   </Can>
                   {organizationList.map(
                     (organization: { name: string }): JSX.Element => (
@@ -198,7 +206,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
                       />
                     )
                   )}
-                </div>
+                </SplitItems>
               }
               id={"organizationList"}
               onClick={handleOrganizationClick}

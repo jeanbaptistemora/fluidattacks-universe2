@@ -315,7 +315,7 @@ label {
   font-size: 18px !important;
   text-transform: capitalize;
   max-height: 500px !important;
-  min-width: auto;
+  width: 117px;
 }
 
 :global .split-button > div > button:active,
@@ -329,21 +329,6 @@ label {
 :global .split-button > div > button:focus {
   outline: none !important;
   box-shadow: none !important;
-}
-
-:global .splitItems {
-  background-color: #fff;
-  border: solid 1px;
-  border-color: #ddd;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  color: #333;
-  display: none;
-  margin-top: 5px;
-  position: absolute;
-  width: 117px;
-  overflow: auto;
-  max-height: 50vh;
-  z-index: 1;
 }
 
 :global .table-btn {

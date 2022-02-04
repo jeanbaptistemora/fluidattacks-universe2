@@ -23,12 +23,13 @@ const StyledMenuItem: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `w-100 flex ba br0 pa3 outline-0 justify-center ${
-      className ?? ""
-    }`,
+    className: `ba br0 pa3 outline-0 justify-center ${className ?? ""}`,
     type: type ?? "button",
   })
-)``;
+)`
+  height: 55px;
+  writing-mode: horizontal-tb;
+`;
 
 const MenuItem: React.FC<IMenuItemsProps> = (
   props: Readonly<IMenuItemsProps>
