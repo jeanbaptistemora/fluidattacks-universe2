@@ -35,7 +35,7 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N                     |
 | **CVSSv3 Base Score** | 5.4                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | CVE-2022-23049                                                   |
+| **CVE ID(s)**         | [CVE-2022-23049](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23049)                                                    |
 
 ## Description
 

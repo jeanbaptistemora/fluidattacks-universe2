@@ -35,14 +35,14 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
 | **CVSSv3 Base Score** | 9.1                                                              |
 | **Exploit available** | No                                                               |
-| **CVE ID(s)**         | CVE-2022-23048                                                   |
+| **CVE ID(s)**         | [CVE-2022-23048](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23048)                                                    |
 
 ## Description
 
 Exponent CMS **2.6.0 patch2** allows an authenticated admin user to upload
 a malicious extension in the format of a zip file with a php file inside it.
 After upload it, the php file will be placed at `themes/simpletheme/{rce}.php`
-from where can be access in order to execute commands..
+from where can be access in order to execute commands.
 
 ## Proof of Concept
 
@@ -60,7 +60,7 @@ from where can be access in order to execute commands..
 7. Click on 'Upload Extension'
 8. Next, click on 'Continue with Installation'.
 9. Go to `http://127.0.0.1/exponentcms/themes/simpletheme/{rce}.php`
-   in order to execute commands
+   in order to execute commands.
 
 System Information:
 
