@@ -18,9 +18,10 @@ source: https://unsplash.com/photos/4iwLxkESGe4
 
 Let's start with a bit of a history lesson.
 A few decades ago,
-software developers [did not](https://hackernoon.com/how-git-changed-the-history-of-software-version-control-5f2c0a0850df)
-have access to the master version of a software solution project.
-Only one person had access to it
+[not all](https://hackernoon.com/how-git-changed-the-history-of-software-version-control-5f2c0a0850df)
+software developers
+had access to the master version of a software solution project.
+In fact, only one of them had access to it
 and was responsible for sharing only what was necessary.
 For example,
 the specific part of code one project member needed to work on.
@@ -36,8 +37,10 @@ The issue of lack of documentation versioning was tackled
 with the birth of version control systems (VCS).
 They [are](https://bitbucket.org/product/version-control-software)
 basically "a software utility that tracks and manages changes to a filesystem."
+In the 1970s,
 Marc Rochkind [created](https://www.iiis.org/cds2011/cd2011imc/iceme_2011/paperspdf/fb394vz.pdf)
-the Source Code Control System (SCCS) in the 1970s
+the first VCS,
+the Source Code Control System (SCCS),
 in order to answer the question "What changed?"
 when something goes wrong in the development.
 This was a very important accomplishment
@@ -62,9 +65,9 @@ and highly communicative work between team members.
 When considering the [kinds](https://www.iiis.org/cds2011/cd2011imc/iceme_2011/paperspdf/fb394vz.pdf)
 of VCS that exist,
 we need to understand
-that they vary according to where the repository sits
+that they vary according to where the *repository* sits
 and where the developer… well, sits.
-(*Repository* is a filesystem that is being tracked for modifications.)
+(Repository is a filesystem that is being tracked for modifications.)
 The **local** kind of VCS is relatively simple:
 The person works on the same machine where the repository is kept.
 What other kinds are there?
@@ -79,9 +82,9 @@ the repository sits on the server
 and clients can read and submit changes from their machines.
 
 The server model has been known as a centralized VCS.
-Developers commit changes to a central server
+Developers *commit* changes to a central server
 that contains all the versioned files.
-(To *commit* [means](https://faun.pub/centralized-vs-distributed-version-control-systems-a135091299f0)
+(To commit [means](https://faun.pub/centralized-vs-distributed-version-control-systems-a135091299f0)
 to record the change in the central system.)
 Some centralized VCS [are](https://medium.com/polarsquad/devops-whats-it-all-about-part-2-tooling-git-the-master-of-version-control-systems-59e976c1881e)
 Subversion (SVN),
@@ -90,7 +93,7 @@ and Perforce.
 The [disadvantages of this model](https://about.gitlab.com/blog/2020/11/19/move-to-distributed-vcs/)
 refer to velocity,
 workflow flexibility
-and safety concerns.
+and safety.
 So,
 first off,
 commits are slow
@@ -100,7 +103,7 @@ if developers are not in the network,
 they can't commit.
 Lastly and critically,
 suppose the only copy of the repository becomes corrupted somehow:
-No one would be able to retrieve a previous stable version.
+It'd be necessary to wait until the repository is fixed.
 
 Luckily,
 there's a more efficient kind of VCS.
@@ -151,7 +154,7 @@ have been made
 about being afraid
 that moving to Git means having no regular support.
 However,
-it turns out that Git's open-source [community](https://dev.to/t/git)
+it turns out that Git's [community](https://dev.to/t/git)
 is constantly there to help.
 Also,
 even though the change [could](https://blog.inf.ed.ac.uk/sapm/2014/02/14/if-you-are-not-using-a-version-control-system-start-doing-it-now/)
@@ -163,7 +166,7 @@ and your team becomes bigger.
 ## Security as an essential kind of peer review
 
 When a developer is done with the intended change
-and wants to incorporate it to main,
+and wants to incorporate it into the main repository,
 then they make a *merge request*.
 Basically,
 they're proposing a change and are asking their peers to review it.
@@ -190,7 +193,7 @@ and before any changes are made to the main repository.
 
 <div class="imgblock">
 
-![Continuous Hacking flowchart](https://res.cloudinary.com/fluid-attacks/image/upload/v1642783304/blog/switch-git/Git-Figure-1.webp)
+![Continuous Hacking flowchart](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984451/blog/switch-git/Git-Figure-1.webp)
 
 <div class="title">
 
@@ -206,8 +209,8 @@ we're all for it.
 We help our clients [achieve DevSecOps](../../solutions/devsecops/),
 securing their projects
 as early in the software development lifecycle as possible (see Figure 1).
-Their management team logs into our application,
-the Attack Surface Manager (ASM).
+Everything begins when their management team logs into our application,
+the [Attack Surface Manager](https://app.fluidattacks.com/) (ASM).
 Once they provide the URL to their Git repository,
 it's all ready to start scanning
 with all the might of AI and automation.
@@ -218,8 +221,9 @@ Through our [solutions](../../plans/),
 we enable our clients to **go fast without crashing**.
 What's more,
 clients of our Squad Plan can achieve better precision
-(less False Positives and False Negatives)
+(less false positives and false negatives)
 as our [highly certified](../../about-us/certifications/) ethical hackers
-use [manual techniques](../../categories/) to attempt to hack their software.
+use [manual techniques](../../categories/)
+to test the security of their software.
 Want to learn more?
 [Contact us](../../contact-us/)\!
