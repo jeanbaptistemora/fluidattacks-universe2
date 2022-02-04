@@ -2,14 +2,14 @@
 import React from "react";
 import { RiArrowDownSFill } from "react-icons/ri";
 
-import { FontAwesomeContainerSmall } from "../../styles/styledComponents";
+import { IconContainerSmall } from "../../styles/styledComponents";
 
 interface IProps {
   isTouch: boolean;
 }
 
 const RotatingArrow: React.FC<IProps> = ({ isTouch }: IProps): JSX.Element => (
-  <FontAwesomeContainerSmall>
+  <IconContainerSmall>
     <RiArrowDownSFill
       className={"c-c-fluid-gray t-all-linear-3"}
       style={
@@ -20,7 +20,7 @@ const RotatingArrow: React.FC<IProps> = ({ isTouch }: IProps): JSX.Element => (
           : undefined
       }
     />
-  </FontAwesomeContainerSmall>
+  </IconContainerSmall>
 );
 
 export { RotatingArrow };

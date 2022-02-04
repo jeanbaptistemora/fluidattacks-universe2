@@ -26,7 +26,7 @@ import {
   TitleVertical,
 } from "./styledComponents";
 
-import { FontAwesomeContainerSmall } from "../../../styles/styledComponents";
+import { IconContainerSmall } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
 
@@ -117,9 +117,9 @@ const SolutionsSection: React.FC = (): JSX.Element => {
           </CardsGrid>
           <div className={"flex dn-l justify-center items-center"}>
             <ArrowButton onClick={scrollLeft}>
-              <FontAwesomeContainerSmall>
+              <IconContainerSmall>
                 <FaAngleLeft className={"f3 c-black-gray"} />
-              </FontAwesomeContainerSmall>
+              </IconContainerSmall>
             </ArrowButton>
             <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
               <Link to={"/solutions/devsecops/"}>
@@ -175,9 +175,9 @@ const SolutionsSection: React.FC = (): JSX.Element => {
               </Link>
             </SlideShow>
             <ArrowButton onClick={scrollRight}>
-              <FontAwesomeContainerSmall>
+              <IconContainerSmall>
                 <FaAngleRight className={"f3 c-black-gray"} />
-              </FontAwesomeContainerSmall>
+              </IconContainerSmall>
             </ArrowButton>
           </div>
         </InnerContainer>

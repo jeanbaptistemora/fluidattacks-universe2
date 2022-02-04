@@ -410,7 +410,7 @@ const FaqContainer: StyledComponent<
   `,
 })``;
 
-const FontAwesomeContainerSmall: StyledComponent<
+const IconContainerSmall: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -1639,7 +1639,7 @@ export {
   FaqContainer,
   Flex,
   FlexCenterItemsContainer,
-  FontAwesomeContainerSmall,
+  IconContainerSmall,
   FooterInfoLinksContainer,
   FooterInfoLink,
   FullWidthContainer,

@@ -5,7 +5,7 @@ import React from "react";
 import { RiArrowDownSFill } from "react-icons/ri";
 
 import {
-  FontAwesomeContainerSmall,
+  IconContainerSmall,
   NavbarContactButton,
   NavbarItem,
   NavbarList,
@@ -35,9 +35,9 @@ const NavbarItems: React.FC = (): JSX.Element => (
         <Link className={"no-underline"} to={"/solutions/"}>
           <NavbarRegularButton>
             {"Solutions"}
-            <FontAwesomeContainerSmall>
+            <IconContainerSmall>
               <RiArrowDownSFill />
-            </FontAwesomeContainerSmall>
+            </IconContainerSmall>
           </NavbarRegularButton>
         </Link>
 

@@ -19,7 +19,7 @@ import {
 
 import {
   BannerContainer,
-  FontAwesomeContainerSmall,
+  IconContainerSmall,
 } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
@@ -60,14 +60,14 @@ const ClientsSection: React.FC = (): JSX.Element => {
           <ClientsTitle>{translate.t("clients.titleHome")}</ClientsTitle>
           <ArrowContainer>
             <ArrowButton onClick={scrollLeft}>
-              <FontAwesomeContainerSmall>
+              <IconContainerSmall>
                 <RiArrowLeftLine className={"f3 c-black-gray"} />
-              </FontAwesomeContainerSmall>
+              </IconContainerSmall>
             </ArrowButton>
             <ArrowButton onClick={scrollRight}>
-              <FontAwesomeContainerSmall>
+              <IconContainerSmall>
                 <RiArrowRightLine className={"f3 c-black-gray"} />
-              </FontAwesomeContainerSmall>
+              </IconContainerSmall>
             </ArrowButton>
           </ArrowContainer>
           <SlideShow id={"clientsSlides"}>
