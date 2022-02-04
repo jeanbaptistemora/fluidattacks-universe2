@@ -1,10 +1,9 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
-import { faTimes } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import { RiCloseFill } from "react-icons/ri";
 
 import { AboutUsList } from "./AboutUsList";
 import { CategoriesList } from "./CategoriesList";
@@ -34,11 +33,7 @@ const MenuMobile: React.FC<IProps> = ({ close }: IProps): JSX.Element => (
   <SidebarContainer>
     <HeaderContainer>
       <LogoContainer>
-        <FontAwesomeIcon
-          className={"f2 nl2 pointer c-fluid-bk"}
-          icon={faTimes}
-          onClick={close}
-        />
+        <RiCloseFill className={"f2 nl2 pointer c-fluid-bk"} onClick={close} />
       </LogoContainer>
       <div className={"w-50 flex justify-end"}>
         <DesktopTopbarItem>

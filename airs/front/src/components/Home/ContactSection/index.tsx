@@ -1,16 +1,15 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
-import {
-  faFacebookF,
-  faInstagram,
-  faLinkedinIn,
-  faTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
 
 import {
   BlueBackground,
@@ -50,10 +49,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
             >
               <SocialButton>
-                <FontAwesomeIcon
-                  className={"f3 c-gray-64 mh1"}
-                  icon={faFacebookF}
-                />
+                <FaFacebookF className={"f3 c-gray-64 mh1"} />
               </SocialButton>
             </Link>
             <Link
@@ -61,10 +57,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.linkedin.com/company/fluidattacks/"}
             >
               <SocialButton>
-                <FontAwesomeIcon
-                  className={"f3 c-gray-64"}
-                  icon={faLinkedinIn}
-                />
+                <FaLinkedinIn className={"f3 c-gray-64"} />
               </SocialButton>
             </Link>
             <Link
@@ -72,7 +65,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://twitter.com/fluidattacks/"}
             >
               <SocialButton>
-                <FontAwesomeIcon className={"f3 c-gray-64"} icon={faTwitter} />
+                <FaTwitter className={"f3 c-gray-64"} />
               </SocialButton>
             </Link>
             <Link
@@ -80,7 +73,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.youtube.com/c/fluidattacks/"}
             >
               <SocialButton>
-                <FontAwesomeIcon className={"f3 c-gray-64"} icon={faYoutube} />
+                <FaYoutube className={"f3 c-gray-64"} />
               </SocialButton>
             </Link>
             <Link
@@ -88,10 +81,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.instagram.com/fluidattacks/"}
             >
               <SocialButton>
-                <FontAwesomeIcon
-                  className={"f3 c-gray-64"}
-                  icon={faInstagram}
-                />
+                <FaInstagram className={"f3 c-gray-64"} />
               </SocialButton>
             </Link>
           </SocialContainer>

@@ -1,8 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
-import { faTimes } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import { RiCloseFill } from "react-icons/ri";
 
 import {
   NavbarContactButton,
@@ -36,7 +35,7 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
   <NavbarList>
     <CloseMenuButtonContainer>
       <CloseMenuButton onClick={close}>
-        <FontAwesomeIcon className={"f2 nt1 nl2 c-fluid-bk"} icon={faTimes} />
+        <RiCloseFill className={"f2 nt1 nl2 c-fluid-bk"} />
       </CloseMenuButton>
       <Search indices={searchIndices} />
     </CloseMenuButtonContainer>

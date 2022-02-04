@@ -1,9 +1,8 @@
 /* eslint react/forbid-component-props: 0 */
-import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import ScrollAnimation from "react-animate-on-scroll";
+import { RiArrowRightLine } from "react-icons/ri";
 
 import {
   BlackBigHeader,
@@ -42,10 +41,7 @@ const Portrait: React.FC = (): JSX.Element => (
             to={"/contact-us/"}
           >
             <p className={"fl ma0 t-all-3-eio"}>{"Get a Demo"}</p>
-            <FontAwesomeIcon
-              className={"c-dkred dib t-all-3-eio mh1"}
-              icon={faArrowRight}
-            />
+            <RiArrowRightLine className={"c-dkred dib t-all-3-eio mh1"} />
           </Link>
         </GetDemoContainer>
       </InnerMainContentHome>

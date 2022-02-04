@@ -1,16 +1,15 @@
 /* eslint import/no-unresolved:0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
-import {
-  faFacebookF,
-  faInstagram,
-  faLinkedinIn,
-  faTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
 
 import { SocialMediaLink } from "../../styles/styledComponents";
 
@@ -21,7 +20,7 @@ const SocialMedia: React.FC = (): JSX.Element => (
       to={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
     >
       <SocialMediaLink>
-        <FontAwesomeIcon className={"f3 c-fluid-gray mh1"} icon={faFacebookF} />
+        <FaFacebookF className={"f3 c-fluid-gray mh1"} />
       </SocialMediaLink>
     </Link>
     <Link
@@ -29,7 +28,7 @@ const SocialMedia: React.FC = (): JSX.Element => (
       to={"https://www.linkedin.com/company/fluidattacks/"}
     >
       <SocialMediaLink>
-        <FontAwesomeIcon className={"f3 c-fluid-gray"} icon={faLinkedinIn} />
+        <FaLinkedinIn className={"f3 c-fluid-gray"} />
       </SocialMediaLink>
     </Link>
     <Link
@@ -37,7 +36,7 @@ const SocialMedia: React.FC = (): JSX.Element => (
       to={"https://twitter.com/fluidattacks/"}
     >
       <SocialMediaLink>
-        <FontAwesomeIcon className={"f3 c-fluid-gray"} icon={faTwitter} />
+        <FaTwitter className={"f3 c-fluid-gray"} />
       </SocialMediaLink>
     </Link>
     <Link
@@ -45,7 +44,7 @@ const SocialMedia: React.FC = (): JSX.Element => (
       to={"https://www.youtube.com/c/fluidattacks/"}
     >
       <SocialMediaLink>
-        <FontAwesomeIcon className={"f3 c-fluid-gray"} icon={faYoutube} />
+        <FaYoutube className={"f3 c-fluid-gray"} />
       </SocialMediaLink>
     </Link>
     <Link
@@ -53,7 +52,7 @@ const SocialMedia: React.FC = (): JSX.Element => (
       to={"https://www.instagram.com/fluidattacks/"}
     >
       <SocialMediaLink>
-        <FontAwesomeIcon className={"f3 c-fluid-gray"} icon={faInstagram} />
+        <FaInstagram className={"f3 c-fluid-gray"} />
       </SocialMediaLink>
     </Link>
   </React.Fragment>

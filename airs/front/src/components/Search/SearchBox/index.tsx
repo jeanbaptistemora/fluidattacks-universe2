@@ -3,10 +3,9 @@
 /* eslint react/jsx-no-bind:0 */
 /* eslint react/forbid-component-props:0 */
 /* eslint @typescript-eslint/no-unsafe-return:0 */
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { ReactElement } from "react";
+import { RiSearchLine } from "react-icons/ri";
 import type { SearchBoxProvided } from "react-instantsearch-core";
 import { connectSearchBox } from "react-instantsearch-dom";
 
@@ -32,10 +31,7 @@ export default connectSearchBox(
         type={"text"}
         value={currentRefinement}
       />
-      <FontAwesomeIcon
-        className={"SearchIcon c-fluid-gray f-1125 mh1"}
-        icon={faSearch}
-      />
+      <RiSearchLine className={"SearchIcon c-fluid-gray f-1125 mh1"} />
     </form>
   )
 );

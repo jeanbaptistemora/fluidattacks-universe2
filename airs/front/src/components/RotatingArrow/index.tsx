@@ -1,7 +1,6 @@
 /* eslint react/forbid-component-props: 0 */
-import { faAngleDown } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { RiArrowDownSFill } from "react-icons/ri";
 
 import { FontAwesomeContainerSmall } from "../../styles/styledComponents";
 
@@ -11,9 +10,8 @@ interface IProps {
 
 const RotatingArrow: React.FC<IProps> = ({ isTouch }: IProps): JSX.Element => (
   <FontAwesomeContainerSmall>
-    <FontAwesomeIcon
+    <RiArrowDownSFill
       className={"c-c-fluid-gray t-all-linear-3"}
-      icon={faAngleDown}
       style={
         isTouch
           ? {

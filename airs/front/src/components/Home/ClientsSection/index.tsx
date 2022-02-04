@@ -3,9 +3,8 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint fp/no-mutation:0 */
 /* eslint react/jsx-no-bind:0 */
-import { faAngleLeft, faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 
 import {
   ArrowButton,
@@ -62,18 +61,12 @@ const ClientsSection: React.FC = (): JSX.Element => {
           <ArrowContainer>
             <ArrowButton onClick={scrollLeft}>
               <FontAwesomeContainerSmall>
-                <FontAwesomeIcon
-                  className={"f3 c-black-gray"}
-                  icon={faAngleLeft}
-                />
+                <RiArrowLeftLine className={"f3 c-black-gray"} />
               </FontAwesomeContainerSmall>
             </ArrowButton>
             <ArrowButton onClick={scrollRight}>
               <FontAwesomeContainerSmall>
-                <FontAwesomeIcon
-                  className={"f3 c-black-gray"}
-                  icon={faAngleRight}
-                />
+                <RiArrowRightLine className={"f3 c-black-gray"} />
               </FontAwesomeContainerSmall>
             </ArrowButton>
           </ArrowContainer>

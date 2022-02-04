@@ -1,9 +1,8 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
-import { faTimes } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import { RiCloseFill } from "react-icons/ri";
 
 import { NavbarList } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
@@ -30,11 +29,7 @@ const InformativeBannerItems: React.FC<IProps> = ({
   url,
 }: IProps): JSX.Element => (
   <NavbarList className={"roboto"}>
-    <FontAwesomeIcon
-      className={"f2 ma2 dn-l pointer white"}
-      icon={faTimes}
-      onClick={close}
-    />
+    <RiCloseFill className={"f2 ma2 dn-l pointer white"} onClick={close} />
     <div className={"w-auto flex-l flex-wrap center"}>
       <BannerItem>
         <BannerTitle>{title}</BannerTitle>
@@ -50,11 +45,7 @@ const InformativeBannerItems: React.FC<IProps> = ({
       </BannerItem>
 
       <BannerItem className={"dn db-l"}>
-        <FontAwesomeIcon
-          className={"f2 pointer white"}
-          icon={faTimes}
-          onClick={close}
-        />
+        <RiCloseFill className={"f2 pointer white"} onClick={close} />
       </BannerItem>
     </div>
   </NavbarList>

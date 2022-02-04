@@ -4,11 +4,10 @@
 /* eslint fp/no-mutation:0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
 import ScrollAnimation from "react-animate-on-scroll";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import {
   ArrowButton,
@@ -119,10 +118,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
           <div className={"flex dn-l justify-center items-center"}>
             <ArrowButton onClick={scrollLeft}>
               <FontAwesomeContainerSmall>
-                <FontAwesomeIcon
-                  className={"f3 c-black-gray"}
-                  icon={faAngleLeft}
-                />
+                <FaAngleLeft className={"f3 c-black-gray"} />
               </FontAwesomeContainerSmall>
             </ArrowButton>
             <SlideShow id={"slideShow"} style={{ maxWidth: "272px" }}>
@@ -180,10 +176,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
             </SlideShow>
             <ArrowButton onClick={scrollRight}>
               <FontAwesomeContainerSmall>
-                <FontAwesomeIcon
-                  className={"f3 c-black-gray"}
-                  icon={faAngleRight}
-                />
+                <FaAngleRight className={"f3 c-black-gray"} />
               </FontAwesomeContainerSmall>
             </ArrowButton>
           </div>

@@ -1,8 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
-import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import { RiArrowRightLine } from "react-icons/ri";
 
 import {
   Container,
@@ -30,10 +29,7 @@ const EbookSection: React.FC = (): JSX.Element => (
           to={"https://landing.fluidattacks.com/us/ebook/"}
         >
           <DownloadText>{translate.t("ebook.download")}</DownloadText>
-          <FontAwesomeIcon
-            className={"c-dkred dib t-all-3-eio mh1"}
-            icon={faArrowRight}
-          />
+          <RiArrowRightLine className={"c-dkred dib t-all-3-eio mh1"} />
         </Link>
       </ThirdWidthContainer>
       <ThirdWidthContainer className={"db-l dn mr0 ml-auto"}>

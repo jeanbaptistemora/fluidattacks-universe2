@@ -1,8 +1,7 @@
 /* eslint react/no-danger: 0 */
 /* eslint react/forbid-component-props: 0 */
-import { faChevronDown, faChevronUp } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
+import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 
 import {
   CardBody,
@@ -54,10 +53,11 @@ const DropDownCard: React.FC<IProps> = ({
         <CardReadMore>
           {isTouch ? undefined : "Read More"}
           <br />
-          <FontAwesomeIcon
-            className={"arrow w1 pv3"}
-            icon={isTouch ? faChevronUp : faChevronDown}
-          />
+          {isTouch ? (
+            <RiArrowDownSFill className={"arrow w1 pv3"} />
+          ) : (
+            <RiArrowUpSFill className={"arrow w1 pv3"} />
+          )}
         </CardReadMore>
       </CardHeader>
       <CardBody

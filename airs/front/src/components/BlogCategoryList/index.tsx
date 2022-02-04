@@ -1,11 +1,10 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint require-unicode-regexp:0 */
-import { faChevronDown } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useEffect, useState } from "react";
 import type { SetStateAction } from "react";
+import { RiArrowDownSFill } from "react-icons/ri";
 
 import { BlogCard } from "../BlogsList/BlogCard";
 import { BlogMainDiv, LoadMoreButton } from "../BlogsList/StyledComponents";
@@ -109,7 +108,7 @@ const BlogCategoryList: React.FC<{ categoryName: string }> = ({
       <LoadMoreButton onClick={handleShowMorePosts}>
         {"Load more"}
         {/* eslint-disable-next-line react/forbid-component-props */}
-        <FontAwesomeIcon className={"f3 db center"} icon={faChevronDown} />
+        <RiArrowDownSFill className={"f3 db center"} />
       </LoadMoreButton>
     </React.Fragment>
   );

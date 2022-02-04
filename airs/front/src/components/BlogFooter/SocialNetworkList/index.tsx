@@ -1,11 +1,6 @@
 /* eslint react/forbid-component-props: 0 */
-import {
-  faFacebookF,
-  faLinkedinIn,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -23,21 +18,21 @@ const SocialNetworkList: React.FC<IProps> = ({ slug }: IProps): JSX.Element => (
       title={"Share on Facebook"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faFacebookF} />
+      <FaFacebookF className={"pa2 nb1 f4 black"} />
     </FacebookShareButton>
     <LinkedinShareButton
       className={"blog-link br3 ma1"}
       title={"Share on LinkedIn"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faLinkedinIn} />
+      <FaLinkedinIn className={"pa2 nb1 f4 black"} />
     </LinkedinShareButton>
     <TwitterShareButton
       className={"blog-link br3 ma1"}
       title={"Share on Twitter"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faTwitter} />
+      <FaTwitter className={"pa2 nb1 f4 black"} />
     </TwitterShareButton>
   </React.Fragment>
 );

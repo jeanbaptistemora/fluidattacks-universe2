@@ -1,9 +1,8 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
-import { faAngleDown } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
+import { RiArrowDownSFill } from "react-icons/ri";
 
 import {
   FontAwesomeContainerSmall,
@@ -37,7 +36,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
           <NavbarRegularButton>
             {"Solutions"}
             <FontAwesomeContainerSmall>
-              <FontAwesomeIcon icon={faAngleDown} />
+              <RiArrowDownSFill />
             </FontAwesomeContainerSmall>
           </NavbarRegularButton>
         </Link>

@@ -3,9 +3,8 @@
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-no-bind:0 */
 
-import { faBars } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { RiMenuFill } from "react-icons/ri";
 
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuDesktopTopBar } from "./MenuDesktopTopBar";
@@ -38,7 +37,7 @@ const Menu: React.FC = (): JSX.Element => {
       <MenuButton onClick={toggle}>
         <div className={"lower"}>
           <span className={"pointer dib h2-l"} id={"openbtn"}>
-            <FontAwesomeIcon className={"f2 c-fluid-bk"} icon={faBars} />
+            <RiMenuFill className={"f2 c-fluid-bk"} />
           </span>
         </div>
       </MenuButton>
