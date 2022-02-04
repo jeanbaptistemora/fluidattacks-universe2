@@ -248,3 +248,72 @@ async def insert_batch_severity_cvss31(
         ),
         sql_values,
     )
+
+
+async def insert_batch_state(
+    *,
+    finding_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[FindingState, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(StateTableRow)
+    sql_values = [
+        format_row_state(finding_id, historic_entry)
+        for finding_id, historic in zip(finding_ids, historics)
+        for historic_entry in historic
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=STATE_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_verification(
+    *,
+    finding_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[FindingVerification, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(VerificationTableRow)
+    sql_values = [
+        format_row_verification(finding_id, historic_entry)
+        for finding_id, historic in zip(finding_ids, historics)
+        for historic_entry in historic
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=VERIFICATION_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_verification_vuln_ids(
+    *,
+    finding_ids: Tuple[str, ...],
+    historics: Tuple[Tuple[FindingVerification, ...], ...],
+) -> None:
+    _fields, values = format_query_fields(VerificationVulnIdsTableRow)
+    sql_values = [
+        format_row_verification_vuln_ids(
+            finding_id=finding_id,
+            modified_date=verification.modified_date,
+            vulnerability_id=vulnerability_id,
+        )
+        for finding_id, historic in zip(finding_ids, historics)
+        for verification in historic
+        for vulnerability_id in verification.vulnerability_ids
+        if verification.vulnerability_ids
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_HISTORIC.substitute(
+            table=VERIFICATION_VULN_IDS_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
