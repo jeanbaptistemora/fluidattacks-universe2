@@ -176,9 +176,9 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IAddStakeholderAttr): void => {
+    onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
       if (mtResult.grantStakeholderAccess.success) {
-        void refetch();
+        await refetch();
         track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
@@ -241,18 +241,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (values: IStakeholderAttrs) => void = useCallback(
-    (values: IStakeholderAttrs): void => {
+  const handleSubmit = useCallback(
+    async (values: IStakeholderAttrs): Promise<void> => {
       closeUserModal();
       if (userModalAction === "add") {
-        void grantStakeholderAccess({
+        await grantStakeholderAccess({
           variables: {
             ...values,
             groupName,
           },
         });
       } else {
-        void updateGroupStakeholder({
+        await updateGroupStakeholder({
           variables: {
             ...values,
             groupName,
@@ -282,13 +282,17 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   const stakeholdersList = data.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
-      function handleResendEmail(): void {
+      async function handleResendEmail(
+        event: React.MouseEvent<HTMLButtonElement>
+      ): Promise<void> {
+        event.stopPropagation();
+
         const resendStakeholder = {
           ...stakeholder,
           role: stakeholder.role.toUpperCase(),
         };
         setuserModalAction("add");
-        handleSubmit(resendStakeholder);
+        await handleSubmit(resendStakeholder);
       }
       const isPending = stakeholder.invitationState === "PENDING";
 
