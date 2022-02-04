@@ -200,6 +200,11 @@ const onError: (
             | ZenObservable.Subscription
             | undefined => {
             try {
+              const skipGlobalErrorHandler: boolean =
+                typeof operation.getContext().skipGlobalErrorHandler ===
+                "boolean"
+                  ? operation.getContext().skipGlobalErrorHandler
+                  : false;
               const operationObserver: Observable<FetchResult> =
                 forward(operation);
               // It is necessary to change the variable value
@@ -230,7 +235,7 @@ const onError: (
                   });
                 },
                 next: (result: FetchResult): void => {
-                  if (result.errors !== undefined) {
+                  if (result.errors !== undefined && !skipGlobalErrorHandler) {
                     errorHandler({
                       forward,
                       graphQLErrors: result.errors,

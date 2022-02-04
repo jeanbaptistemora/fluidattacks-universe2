@@ -34,6 +34,8 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const { data, refetch } = useQuery<IGetOrganizationBilling>(
     GET_ORGANIZATION_BILLING,
     {
+      context: { skipGlobalErrorHandler: true },
+      errorPolicy: "ignore",
       onCompleted: (paramData: IGetOrganizationBilling): void => {
         if (_.isEmpty(paramData.organization.groups)) {
           Logger.warning("Empty groups", document.location.pathname);

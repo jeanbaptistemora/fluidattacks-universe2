@@ -50,6 +50,7 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
 
     // States
     const defaultCurrentRow: IGroupAttr = {
+      bill: { authorsNumber: 0 },
       forces: "",
       hasForces: false,
       hasMachine: false,
@@ -64,10 +65,11 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
 
     // Auxiliary functions
     const accesibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
-      groupData.filter((group): boolean =>
-        group.permissions.includes(
-          "api_mutations_update_billing_subscription_mutate"
-        )
+      groupData.filter(
+        (group): boolean =>
+          group.permissions.includes(
+            "api_mutations_update_billing_subscription_mutate"
+          ) && group.bill !== null
       );
 
     const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
@@ -157,6 +159,13 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
         formatter: pointStatusFormatter,
         header: "Forces",
         width: "90px",
+      },
+      {
+        align: "center",
+        dataField: "bill.authorsNumber",
+        formatter: pointStatusFormatter,
+        header: "Authors",
+        width: "80px",
       },
     ];
 

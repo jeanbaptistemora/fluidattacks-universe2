@@ -21,6 +21,7 @@ from newutils import (
 )
 from typing import (
     Dict,
+    List,
 )
 
 
@@ -33,9 +34,11 @@ async def resolve(
 ) -> Dict[str, Historic]:
     group_name: str = parent["name"]
     date: datetime = kwargs.get("date", datetime_utils.get_now())
+    authors_data: List[Dict[str, str]] = await bill_domain.get_authors_data(
+        date=date,
+        group=group_name,
+    )
     return {
-        "authors": await bill_domain.get_authors_data(
-            date=date,
-            group=group_name,
-        ),
+        "authors": authors_data,
+        "authors_number": len(authors_data),
     }
