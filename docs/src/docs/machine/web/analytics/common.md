@@ -40,29 +40,6 @@ from a security point of view:
   as security breaches
   that your system no longer has.
 
-## Vulnerabilities treatment
-
-![Vulns Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/common/vulns_by_treatments_ofir6j.png)
-
-In the ASM,
-you can plan and manage
-the remediation of security findings:
-
-- Not defined:
-  New vulnerabilities go here
-  until one of your managers
-  generates an action plan.
-- In progress:
-  The system is currently
-  being hardened by your developers.
-- Temporarily accepted:
-  A manager decided
-  to coexist with the risk
-  temporarily.
-- Permanently accepted:
-  A vulnerability
-  that will never be remediated.
-
 ## Total vulnerabilities
 
 Vulnerabilities are
@@ -87,19 +64,6 @@ and the finding kept open.
 
 Days since a finding
 was effectively closed.
-
-## Mean time to remediate (all vulnerabilities)
-
-Amount of time (in days)
-it takes to your team
-to fix a security vulnerability.
-
-## Mean time to remediate (non treated vulnerabilities)
-
-Amount of time (in days)
-it takes to your team
-to fix a security vulnerability,
-excluding accepted vulnerabilities.
 
 ## Severity
 
@@ -169,24 +133,6 @@ grouped under the user
 with access to them
 that accepted the vulnerabilities.
 
-## Vulnerabilities by treatment
-
-![Vulns By Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_treatment_fbvsjj.png)
-
-These are your vulnerabilities
-categorized by the number of times
-that they changed treatments.
-For example,
-a vulnerability starts as **New**,
-then changes to **In progress**
-when a user starts solving it,
-then it may change to **Permanently accepted**
-if for any number of circumstances
-it couldn't be solved,
-and then this vulnerability
-would fall under those
-that changed treatment three times.
-
 ## Vulnerabilities by source
 
 ![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_by_type_x6vnga.png)
@@ -196,14 +142,6 @@ categorized based on
 whether they come
 directly from an app,
 code or the infrastructure.
-
-## Top vulnerabilities
-
-![Top Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/top_findings_by_open_vulns_vl8lls.png)
-
-These graph shows the findings
-that have the highest number
-of individual open vulnerabilities.
 
 ## Accepted vulnerabilities by severity
 
