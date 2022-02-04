@@ -13,7 +13,6 @@ import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
-import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -26,11 +25,11 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual(
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../utils/notifications"
   );
-  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -47,6 +46,8 @@ describe("Organization users view", (): void => {
 
   it("should render component", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mocks: readonly MockedResponse[] = [
       {
@@ -141,10 +142,10 @@ describe("Organization users view", (): void => {
     );
   });
 
-  // Temporarily disabled until it gets properly refactored to use Formik
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should add a user", async (): Promise<void> => {
+  it("should add a user", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mocks: readonly MockedResponse[] = [
       {
@@ -162,29 +163,10 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  lastLogin: "[10, 35207]",
+                  lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
               ],
-            },
-          },
-        },
-      },
-      {
-        request: {
-          query: GET_STAKEHOLDER,
-          variables: {
-            entity: "ORGANIZATION",
-            groupName: "-",
-            organizationId: mockProps.organizationId,
-            userEmail: "testuser2@gmail.com",
-          },
-        },
-        result: {
-          data: {
-            stakeholder: {
-              email: "testuser2@gmail.com",
-              responsibility: "",
             },
           },
         },
@@ -195,7 +177,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser2@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "CUSTOMER",
           },
         },
@@ -224,14 +205,14 @@ describe("Organization users view", (): void => {
               stakeholders: [
                 {
                   email: "testuser1@gmail.com",
-                  firstLogin: "2020-06-01",
-                  lastLogin: "[10, 35207]",
+                  firstLogin: "2020-06-01 13:40:37",
+                  lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
-                  firstLogin: "2020-08-01",
-                  lastLogin: "[-1, -1]",
+                  firstLogin: "2020-08-01 13:40:37",
+                  lastLogin: "2020-10-29 13:40:37",
                   role: "customer",
                 },
               ],
@@ -242,7 +223,10 @@ describe("Organization users view", (): void => {
     ];
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mocks[0], mocks[1], mocks[2]]}
+        >
           <Route path={"/orgs/:organizationName/stakeholders"}>
             <OrganizationStakeholders
               organizationId={mockProps.organizationId}
@@ -253,8 +237,11 @@ describe("Organization users view", (): void => {
     );
 
     await act(async (): Promise<void> => {
-      wrapper.update();
-      await wait(0);
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
     });
 
     expect(wrapper).toHaveLength(1);
@@ -277,28 +264,39 @@ describe("Organization users view", (): void => {
     emailField().simulate("change", {
       target: { name: "email", value: "testuser2@gmail.com" },
     });
+    wrapper.update();
     emailField().simulate("blur", {
-      target: { name: "email" },
+      target: { name: "email", value: "testuser2@gmail.com" },
     });
+    wrapper.update();
     roleField().simulate("change", {
       target: { name: "role", value: "CUSTOMER" },
     });
+    wrapper.update();
     form().simulate("submit");
 
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
         wrapper.update();
 
-        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+        const TEST_LENGTH = 3;
 
-        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-        expect(wrapper.find("tr")).toHaveLength(2);
+        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+        expect(msgSuccess).toHaveBeenCalledWith(
+          `testuser2@gmail.com ${translate.t(
+            "organization.tabs.users.addButton.success"
+          )}`,
+          translate.t("organization.tabs.users.successTitle")
+        );
+        expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
       });
     });
   });
 
   it("should edit a user", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mocks: readonly MockedResponse[] = [
       {
@@ -443,6 +441,8 @@ describe("Organization users view", (): void => {
   it("should remove a user", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const mocks: readonly MockedResponse[] = [
       {
         request: {
@@ -533,6 +533,13 @@ describe("Organization users view", (): void => {
 
         expect(wrapper).toHaveLength(1);
         expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
+        expect(
+          wrapper.find("SelectionCell").find("input").first().prop("checked")
+        ).toBe(false);
+        expect(
+          wrapper.find("SelectionCell").find("input").last().prop("checked")
+        ).toBe(false);
       });
     });
 
@@ -545,6 +552,13 @@ describe("Organization users view", (): void => {
         expect(wrapper.find("button#removeUser").first().prop("disabled")).toBe(
           false
         );
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
+        expect(
+          wrapper.find("SelectionCell").find("input").first().prop("checked")
+        ).toBe(false);
+        expect(
+          wrapper.find("SelectionCell").find("input").last().prop("checked")
+        ).toBe(true);
       });
     });
 
@@ -554,14 +568,20 @@ describe("Organization users view", (): void => {
       await waitForExpect((): void => {
         wrapper.update();
 
-        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
         expect(wrapper.find("tr")).toHaveLength(2);
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(1);
+        expect(
+          wrapper.find("SelectionCell").find("input").last().prop("checked")
+        ).toBe(false);
       });
     });
   });
 
   it("should handle query errors", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mocks: readonly MockedResponse[] = [
       {
@@ -729,10 +749,8 @@ describe("Organization users view", (): void => {
     };
 
     const getForm: () => ReactWrapper = (): ReactWrapper =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       wrapper.find(AddUserModal).find("Formik");
     const getRoleField: () => ReactWrapper = (): ReactWrapper =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       wrapper.find(AddUserModal).find({ name: "role" }).find("select");
     const submit: () => void = (): void => {
       openModal();
