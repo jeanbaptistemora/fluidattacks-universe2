@@ -3478,6 +3478,13 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F160,
         developer=DeveloperEnum.DIEGO_RESTREPO,
     )
+    TFM_AWS_SECRET_WHITOUTH_KMS_CMK = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_secret_encrypted_whitouth_kms_cmk",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+    )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",

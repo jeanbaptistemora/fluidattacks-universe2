@@ -19,6 +19,7 @@ from aws.model import (
     AWSRdsCluster,
     AWSRdsClusterInstance,
     AWSS3Bucket,
+    AWSSecretsManagerSecret,
 )
 from itertools import (
     chain,
@@ -304,6 +305,18 @@ def iter_aws_security_group_rule(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_security_group_rule")
     for bucket in iterator:
         yield AWSEC2Rule(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_secrets_manager_secret(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "aws_secretsmanager_secret"
+    )
+    for bucket in iterator:
+        yield AWSSecretsManagerSecret(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

@@ -1,0 +1,3 @@
+lib_path.f165.tfm_aws_secret_encrypted_whitouth_kms_cmk:
+  en: Ensure that Secrets Manager secret is encrypted using KMS CMK
+  es: Asegúrese de que el secreto de Secrets Manager esté cifrado con KMS CMK
