@@ -433,12 +433,43 @@ describe("Group stakeholders view", (): void => {
         },
       },
     ];
+    const mockResult: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_STAKEHOLDERS,
+          variables: {
+            groupName: "TEST",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "TEST",
+              stakeholders: [
+                {
+                  email: "unittest@test.com",
+                  firstLogin: "2017-09-05 15:00:00",
+                  invitationState: "CONFIRMED",
+                  lastLogin: "2017-10-29 13:40:37",
+                  responsibility: "Project Manager",
+                  role: "hacker",
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_remove_stakeholder_access_mutate" },
+      { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
-        <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...[mocks[1]], ...mocksMutation, ...mockResult]}
+        >
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={GroupStakeholdersView}
@@ -449,9 +480,20 @@ describe("Group stakeholders view", (): void => {
       </MemoryRouter>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
+        expect(
+          wrapper.find("SelectionCell").find("input").first().prop("checked")
+        ).toBe(false);
+        expect(
+          wrapper.find("SelectionCell").find("input").last().prop("checked")
+        ).toBe(false);
+      });
     });
+
     const userInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -459,16 +501,39 @@ describe("Group stakeholders view", (): void => {
       )
       .at(0);
     userInfo.simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
+        expect(
+          wrapper.find("SelectionCell").find("input").first().prop("checked")
+        ).toBe(true);
+        expect(
+          wrapper.find("SelectionCell").find("input").last().prop("checked")
+        ).toBe(false);
+      });
+    });
+
     const removeButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
+
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
         wrapper.update();
 
+        expect(wrapper).toHaveLength(1);
         expect(msgSuccess).toHaveBeenCalledTimes(1);
+
+        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(1);
+        expect(
+          wrapper.find("SelectionCell").find("input").first().prop("checked")
+        ).toBe(false);
       });
     });
 
