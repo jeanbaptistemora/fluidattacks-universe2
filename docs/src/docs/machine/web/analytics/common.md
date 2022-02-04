@@ -255,3 +255,18 @@ to their assigned treatment:
   permanently.
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
+
+## Vulnerabilities by number of changes in treatment
+
+![Vulner Numb Of Changes](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932187/docs/web/analytics/common/common_vulner_nchanges_treatm.png)
+
+This section shows your vulnerabilities
+categorized by the number of times they
+changed treatments.
+For example, a vulnerability starts as
+**New** and then changes to **In progress**
+when a user begins solving it.
+Finally, it may change to **Permanently accepted**
+if, due to any circumstance, it couldn't be solved.
+In this example, this vulnerability would fall
+under those that changed treatments three times.
