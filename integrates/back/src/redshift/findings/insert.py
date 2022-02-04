@@ -26,12 +26,14 @@ from aioextensions import (
 )
 from db_model.findings.types import (
     Finding,
+    Finding20Severity,
     Finding31Severity,
     FindingState,
     FindingVerification,
 )
 from redshift.operations import (
     execute,
+    execute_batch,
     execute_many,
 )
 from redshift.queries import (
@@ -189,4 +191,60 @@ async def insert_finding(
                 historic_verification=historic_verification,
             ),
         )
+    )
+
+
+async def insert_batch_metadata(
+    *,
+    findings: Tuple[Finding, ...],
+) -> None:
+    _fields, values = format_query_fields(MetadataTableRow)
+    sql_values = [format_row_metadata(finding) for finding in findings]
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=METADATA_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_severity_cvss20(
+    *,
+    findings: Tuple[Finding, ...],
+) -> None:
+    _fields, values = format_query_fields(SeverityCvss20TableRow)
+    sql_values = [
+        format_row_severity(finding)
+        for finding in findings
+        if isinstance(finding.severity, Finding20Severity)
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=SEVERITY_CVSS20_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
+    )
+
+
+async def insert_batch_severity_cvss31(
+    *,
+    findings: Tuple[Finding, ...],
+) -> None:
+    _fields, values = format_query_fields(SeverityCvss31TableRow)
+    sql_values = [
+        format_row_severity(finding)
+        for finding in findings
+        if isinstance(finding.severity, Finding31Severity)
+    ]
+    await execute_batch(  # nosec
+        SQL_INSERT_METADATA.substitute(
+            table=SEVERITY_CVSS31_TABLE,
+            fields=_fields,
+            values=values,
+        ),
+        sql_values,
     )
