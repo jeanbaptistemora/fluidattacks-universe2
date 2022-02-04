@@ -93,6 +93,19 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     return response_items
 
 
+@newrelic.agent.function_trace()
+async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
+    response_items: Dict[str, Any]
+    try:
+        async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+            dynamo_table = await dynamodb_resource.Table(table)
+            response = await dynamo_table.get_item(**query_attrs)
+            response_items = response.get("Items", [])
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return response_items
+
+
 async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
