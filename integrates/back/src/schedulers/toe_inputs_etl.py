@@ -305,6 +305,7 @@ async def update_toe_inputs(
                         )
                         is None
                     ),
+                    is_moving_toe_input=True,
                 ),
             )
             for cvs_toe_input in cvs_group_toe_inputs.values()

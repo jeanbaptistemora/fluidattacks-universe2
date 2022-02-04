@@ -377,6 +377,7 @@ async def process_toe_input(
             seen_at=toe_input.seen_at,
             seen_first_time_by=toe_input.seen_first_time_by,
             unreliable_root_id=target_root_id,
+            is_moving_toe_input=True,
         )
         await toe_inputs_update(current_value, attributes_to_update)
 

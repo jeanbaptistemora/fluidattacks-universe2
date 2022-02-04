@@ -81,7 +81,7 @@ def get_non_present_toe_inputs_to_update(
         (
             toe_input,
             ToeInputAttributesToUpdate(
-                be_present=False,
+                be_present=False, is_moving_toe_input=True
             ),
         )
         for toe_input in root_toe_inputs
@@ -126,7 +126,7 @@ def get_present_toe_inputs_to_update(
         (
             toe_input,
             ToeInputAttributesToUpdate(
-                be_present=True,
+                be_present=True, is_moving_toe_input=True
             ),
         )
         for toe_input in root_toe_inputs

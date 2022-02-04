@@ -111,6 +111,7 @@ async def test_update() -> None:
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
         unreliable_root_id="",
+        is_moving_toe_input=True,
     )
     await toe_inputs_domain.update(current_value, attributes)
     loaders = get_new_context()

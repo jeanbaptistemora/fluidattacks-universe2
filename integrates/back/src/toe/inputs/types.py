@@ -31,3 +31,4 @@ class ToeInputAttributesToUpdate(NamedTuple):
     clean_attacked_at: bool = False
     clean_first_attack_at: bool = False
     clean_seen_at: bool = False
+    is_moving_toe_input: bool = False
