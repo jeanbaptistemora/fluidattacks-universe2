@@ -1165,6 +1165,15 @@ class CouldNotCreatePaymentMethod(CustomBaseException):
         super(CouldNotCreatePaymentMethod, self).__init__(msg)
 
 
+class CouldNotActivateSubscription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Subscription could not be activated, "
+            "please review your invoices"
+        )
+        super(CouldNotActivateSubscription, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

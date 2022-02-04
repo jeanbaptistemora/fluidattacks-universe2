@@ -1098,6 +1098,8 @@ export const enTranslations: ResourceKey = {
               addPaymentMethod: "Please add a payment method first.",
               alreadyActive:
                 "The group already has a subscription of the chosen type",
+              couldNotBeActivated:
+                "Subscription could not be activated. Please review your invoices",
             },
             subscription: "Subscription",
             success: {
@@ -1116,7 +1118,7 @@ export const enTranslations: ResourceKey = {
           add: {
             button: "Add",
             errors: {
-              coultNotBeCreated:
+              couldNotBeCreated:
                 "Payment method could not be created. Please make sure all the details you provided are correct.",
             },
             modal: {

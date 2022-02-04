@@ -13,7 +13,6 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
-    CouldNotCreatePaymentMethod,
     InvalidBillingPrice,
 )
 from datetime import (
@@ -101,18 +100,15 @@ async def create_payment_method(
     default: bool,
 ) -> PaymentMethod:
     """Create a Stripe payment method"""
-    try:
-        data = stripe.PaymentMethod.create(
-            type="card",
-            card={
-                "number": card_number,
-                "exp_month": int(card_expiration_month),
-                "exp_year": int(card_expiration_year),
-                "cvc": card_cvc,
-            },
-        )
-    except stripe.error.CardError as ex:
-        raise CouldNotCreatePaymentMethod() from ex
+    data = stripe.PaymentMethod.create(
+        type="card",
+        card={
+            "number": card_number,
+            "exp_month": int(card_expiration_month),
+            "exp_year": int(card_expiration_year),
+            "cvc": card_cvc,
+        },
+    )
 
     return PaymentMethod(
         id=data.id,
@@ -138,7 +134,7 @@ async def create_subscription(
         metadata=metadata,
         billing_cycle_anchor=billing_cycle_anchor,
     )
-    return isinstance(sub.created, int)
+    return sub.status == "active"
 
 
 async def create_portal(

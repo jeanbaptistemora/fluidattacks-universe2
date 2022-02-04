@@ -103,7 +103,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
             case "Exception - Provided payment method could not be created":
               msgError(
                 t(
-                  "organization.tabs.billing.paymentMethods.add.errors.coultNotBeCreated"
+                  "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
                 )
               );
               break;

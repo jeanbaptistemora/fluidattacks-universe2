@@ -13,6 +13,8 @@ from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
     BillingSubscriptionSameActive,
+    CouldNotActivateSubscription,
+    CouldNotCreatePaymentMethod,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
 )
@@ -37,6 +39,7 @@ from starlette.responses import (
     JSONResponse,
 )
 from stripe.error import (
+    CardError,
     SignatureVerificationError,
 )
 from typing import (
@@ -130,19 +133,28 @@ async def _create_subscription(
     if subscription == "squad":
         subs.append("machine")
 
-    data: List[Dict[str, Any]] = await collect(
-        [
-            _format_create_subscription_data(
-                subscription=sub,
-                org_billing_customer=org_billing_customer,
-                org_name=org_name,
-                group_name=group_name,
-            )
-            for sub in subs
-        ]
-    )
+    # Format subs data
+    data: Dict[str, Dict[str, Any]] = {
+        sub: await _format_create_subscription_data(
+            subscription=sub,
+            org_billing_customer=org_billing_customer,
+            org_name=org_name,
+            group_name=group_name,
+        )
+        for sub in subs
+    }
 
-    return all(await collect([dal.create_subscription(**sub) for sub in data]))
+    # Create machine subs
+    result: bool = await dal.create_subscription(**data["machine"])
+
+    # Raise exception if machine could not be activated
+    if not result:
+        raise CouldNotActivateSubscription()
+
+    if subscription == "squad":
+        result = result and await dal.create_subscription(**data["squad"])
+
+    return result
 
 
 async def _update_subscription(
@@ -317,20 +329,23 @@ async def create_payment_method(
             org_billing_customer=org_billing_customer,
         )
 
-    # Create payment method
-    payment_method: PaymentMethod = await dal.create_payment_method(
-        card_number=card_number,
-        card_expiration_month=card_expiration_month,
-        card_expiration_year=card_expiration_year,
-        card_cvc=card_cvc,
-        default=make_default,
-    )
+    try:
+        # Create payment method
+        payment_method: PaymentMethod = await dal.create_payment_method(
+            card_number=card_number,
+            card_expiration_month=card_expiration_month,
+            card_expiration_year=card_expiration_year,
+            card_cvc=card_cvc,
+            default=make_default,
+        )
 
-    # Attach payment method to customer
-    result: bool = await dal.attach_payment_method(
-        payment_method_id=payment_method.id,
-        org_billing_customer=customer.id,
-    )
+        # Attach payment method to customer
+        result: bool = await dal.attach_payment_method(
+            payment_method_id=payment_method.id,
+            org_billing_customer=customer.id,
+        )
+    except CardError as ex:
+        raise CouldNotCreatePaymentMethod() from ex
 
     # If payment method is the first one registered or selected as default,
     # then make it default

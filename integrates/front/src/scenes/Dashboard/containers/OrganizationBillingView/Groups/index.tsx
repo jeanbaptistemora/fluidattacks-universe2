@@ -417,6 +417,13 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
                 )
               );
               break;
+            case "Exception - Subscription could not be activated, please review your invoices":
+              msgError(
+                t(
+                  "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeActivated"
+                )
+              );
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("Couldn't update group subscription", error);
