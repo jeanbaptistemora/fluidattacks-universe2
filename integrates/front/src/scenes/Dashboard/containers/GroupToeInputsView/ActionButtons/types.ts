@@ -1,10 +1,11 @@
 interface IActionButtonsProps {
   areInputsSelected: boolean;
   isAdding: boolean;
-  isEnumerating: boolean;
+  isEnumeratingMode: boolean;
   isInternal: boolean;
-  isRemoving: boolean;
+  isRemovingMode: boolean;
   onAdd: () => void;
+  onEnumerate: () => void;
   onEnumerateMode: () => void;
   onRemove: () => void;
   onRemoveMode: () => void;

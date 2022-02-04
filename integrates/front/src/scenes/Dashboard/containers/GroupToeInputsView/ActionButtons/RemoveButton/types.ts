@@ -1,7 +1,7 @@
 interface IRemoveButtonProps {
   areInputsSelected: boolean;
-  isEnumerating: boolean;
-  isRemoving: boolean;
+  isEnumeratingMode: boolean;
+  isRemovingMode: boolean;
   onRemove: () => void;
   onRemoveMode: () => void;
 }

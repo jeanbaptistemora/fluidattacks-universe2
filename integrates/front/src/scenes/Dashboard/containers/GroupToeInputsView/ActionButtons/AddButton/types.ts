@@ -1,7 +1,7 @@
 interface IAddButtonProps {
   isDisabled: boolean;
-  isEnumerating: boolean;
-  isRemoving: boolean;
+  isEnumeratingMode: boolean;
+  isRemovingMode: boolean;
   onAdd: () => void;
 }
 

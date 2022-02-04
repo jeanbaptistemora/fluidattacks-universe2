@@ -7,9 +7,9 @@ import type { IActionButtonsProps } from "./types";
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   areInputsSelected,
   isAdding,
-  isEnumerating,
+  isEnumeratingMode,
   isInternal,
-  isRemoving,
+  isRemovingMode,
   onAdd,
   onRemove,
   onRemoveMode,
@@ -18,14 +18,14 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <React.StrictMode>
       <AddButton
         isDisabled={isAdding}
-        isEnumerating={isEnumerating}
-        isRemoving={isRemoving}
+        isEnumeratingMode={isEnumeratingMode}
+        isRemovingMode={isRemovingMode}
         onAdd={onAdd}
       />
       <RemoveButton
         areInputsSelected={areInputsSelected}
-        isEnumerating={isEnumerating}
-        isRemoving={isRemoving}
+        isEnumeratingMode={isEnumeratingMode}
+        isRemovingMode={isRemovingMode}
         onRemove={onRemove}
         onRemoveMode={onRemoveMode}
       />

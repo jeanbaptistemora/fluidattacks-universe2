@@ -66,7 +66,8 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
   const [isEnumerating, setIsEnumerating] = useState(false);
-  const [isRemoving, setIsRemoving] = useState(false);
+  const [isEnumeratingMode, setIsEnumeratingMode] = useState(false);
+  const [isRemovingMode, setIsRemovingMode] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -124,13 +125,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   function toggleAdd(): void {
     setIsAdding(!isAdding);
   }
-
   function toggleEnumerate(): void {
     setIsEnumerating(!isEnumerating);
   }
-
-  function toggleRemove(): void {
-    setIsRemoving(!isRemoving);
+  function toggleEnumerateMode(): void {
+    setIsEnumeratingMode(!isEnumeratingMode);
+  }
+  function toggleRemoveMode(): void {
+    setIsRemovingMode(!isRemovingMode);
     setSelectedToeInputDatas(
       selectedToeInputDatas.filter((toeInputData: IToeInputData): boolean =>
         _.isUndefined(toeInputData.seenAt)
@@ -167,7 +169,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
             translate.t("group.toe.inputs.remove.alerts.success"),
             translate.t("groupAlerts.titleSuccess")
           );
-          toggleRemove();
+          toggleRemoveMode();
           void refetch();
         }
       },
@@ -371,7 +373,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(toeInputs, isRemoving),
+    nonSelectable: getNonSelectable(toeInputs, isRemovingMode),
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
     selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
@@ -418,13 +420,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
           <ActionButtons
             areInputsSelected={selectedToeInputDatas.length > 0}
             isAdding={isAdding}
-            isEnumerating={isEnumerating}
+            isEnumeratingMode={isEnumeratingMode}
             isInternal={isInternal}
-            isRemoving={isRemoving}
+            isRemovingMode={isRemovingMode}
             onAdd={toggleAdd}
-            onEnumerateMode={toggleEnumerate}
+            onEnumerate={toggleEnumerate}
+            onEnumerateMode={toggleEnumerateMode}
             onRemove={handleRemove}
-            onRemoveMode={toggleRemove}
+            onRemoveMode={toggleRemoveMode}
           />
         }
         headers={headersToeInputsTable}

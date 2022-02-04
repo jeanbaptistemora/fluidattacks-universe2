@@ -73,9 +73,9 @@ const onSelectSeveralToeInputHelper = (
 
 function getNonSelectable(
   toeInputDatas: IToeInputData[],
-  isRemoving: boolean
+  isRemovingMode: boolean
 ): number[] {
-  if (isRemoving) {
+  if (isRemovingMode) {
     return toeInputDatas.reduce(
       (
         nonSelectableToeInputDatas: number[],
