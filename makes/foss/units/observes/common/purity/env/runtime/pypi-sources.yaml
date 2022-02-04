@@ -1,10 +1,11 @@
 closure:
   deprecated: 1.2.13
+  fa-purity: 1.1.1
   more-itertools: 8.12.0
   returns: 0.16.0
   simplejson: 3.17.6
-  types-deprecated: 1.2.3
-  types-simplejson: 3.17.2
+  types-deprecated: 1.2.5
+  types-simplejson: 3.17.3
   typing-extensions: 3.10.0.2
   wrapt: 1.13.3
 links:
@@ -14,6 +15,12 @@ links:
   - name: Deprecated-1.2.13.tar.gz
     sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
     url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
+  - name: fa_purity-1.1.1-py3-none-any.whl
+    sha256: 06ir86wj722i5j4i7m274ipr0y2v4wdqmq5ymvdvn6k5rsmgnmfq
+    url: https://files.pythonhosted.org/packages/7c/53/39902e3fef8069f0d8f7e9ad33decaeb0f30a61181370d4b38b51e63d1b2/fa_purity-1.1.1-py3-none-any.whl
+  - name: fa_purity-1.1.1.tar.gz
+    sha256: 0crsk8s03b41b0wnf2plpffxi850npyw124csrdimx2ngiqrg59x
+    url: https://files.pythonhosted.org/packages/f8/53/d012f12c3195ce4ccb65ab97c9a2d94abfbab0f7fdd2ccc7de7b2f4d1069/fa_purity-1.1.1.tar.gz
   - name: more_itertools-8.12.0-py3-none-any.whl
     sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
     url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl
@@ -56,18 +63,18 @@ links:
   - name: simplejson-3.17.6.tar.gz
     sha256: 19pqqn01y6qmhhv8q6dh4p1acav49kl923kklnns2qxz5a6h766g
     url: https://files.pythonhosted.org/packages/7a/47/c7cc3d4ed15f09917838a2fb4e1759eafb6d2f37ebf7043af984d8b36cf7/simplejson-3.17.6.tar.gz
-  - name: types_Deprecated-1.2.3-py3-none-any.whl
-    sha256: 0cv74i0q46fcphsd73wx42rghqslai1fz5c57507pcfqwbj4gdga
-    url: https://files.pythonhosted.org/packages/b7/9f/1658b5f70cd1baa1bb7f396711c7f832df8213aed7521a2e46dca5cb98b6/types_Deprecated-1.2.3-py3-none-any.whl
-  - name: types-Deprecated-1.2.3.tar.gz
-    sha256: 1q44bl1b4j3phs4m64dcajmzzjc8v2b04qbc87yg8inpmb9lja4m
-    url: https://files.pythonhosted.org/packages/d3/03/585395788c96f03da32b0f7931a9f6137ee0716bb310a0a3e8e93f9240d6/types-Deprecated-1.2.3.tar.gz
-  - name: types_simplejson-3.17.2-py3-none-any.whl
-    sha256: 03vsxic5gam5dkynsmp5vrv3km1sgp3yzam2qww71f4ba5fpbsm1
-    url: https://files.pythonhosted.org/packages/e4/c9/d20ee2d87a1e53aae55aea7a76765785467131e5f73af4f101ee92d78bf3/types_simplejson-3.17.2-py3-none-any.whl
-  - name: types-simplejson-3.17.2.tar.gz
-    sha256: 1yvbidv0n7khhxaxpb3xxlprq2y4km8689k7aamrd4f660g5mvip
-    url: https://files.pythonhosted.org/packages/24/5c/ac26358956e83d305634c7061d34d39da749f7446d9600111b241a882663/types-simplejson-3.17.2.tar.gz
+  - name: types_Deprecated-1.2.5-py3-none-any.whl
+    sha256: 194q3snriswdr5fmb0jdakahbnf5501vsh6nj01l35f9qb7ghv58
+    url: https://files.pythonhosted.org/packages/5f/38/5b19d0741d8c05bac9935ee1d5fb350df489c63fa00abecb5509554aba82/types_Deprecated-1.2.5-py3-none-any.whl
+  - name: types-Deprecated-1.2.5.tar.gz
+    sha256: 0zi858hibpszcpxjxbs4sny280w5rbwav6dmy6gaxm8fm18347vg
+    url: https://files.pythonhosted.org/packages/dc/7d/7c5e529ac61b9132490d196b7219c9fe16109d281df870e5bfad2b83d422/types-Deprecated-1.2.5.tar.gz
+  - name: types_simplejson-3.17.3-py3-none-any.whl
+    sha256: 0nlzc3k0xb82i6ri2rghlcy2lv0r290fj3invdhn88ljchzbbhlm
+    url: https://files.pythonhosted.org/packages/26/ad/7f277a1fe7a72596e26ac895a66d4bfdd3173ed6db654cc01c0502a9d611/types_simplejson-3.17.3-py3-none-any.whl
+  - name: types-simplejson-3.17.3.tar.gz
+    sha256: 0lrjqniv99c888gc8fvvqp8i8zvfrqz39xss6knrk7iiqcmjhl6b
+    url: https://files.pythonhosted.org/packages/19/52/bcf7e5a8dcbb9f3f6116c663e885b88aabba998f7924281aff1ec59313ac/types-simplejson-3.17.3.tar.gz
   - name: typing_extensions-3.10.0.2-py3-none-any.whl
     sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
     url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
