@@ -783,6 +783,85 @@ def _uses_http_resources(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _add_allow_user_ca_by_default(
+    ctx: APKCheckCtx,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="allow_user_ca",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.core.bytecodes.apk import APK
+
+                >>> # This object represents the APK to analyze
+                >>> apk = APK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get SDK version
+                >>> apk.get_target_sdk_version()
+                >>> No network security config file found and SDK version
+                >>> allows user-supplied CAs by default
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
+        ),
+    )
+
+
+def _add_allow_user_ca(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    methods: str,
+) -> None:
+    locations.append(
+        desc="allow_user_ca_by_default",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.core.bytecodes.apk import APK
+
+                >>> # This object represents the APK to analyze
+                >>> apk = APK({repr(ctx.apk_ctx.path)})
+
+                >>> # Get network security config file
+                >>> apk.get_file("res/xml/network_security_config.xml")()
+                >>> {repr(methods)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=11, wrap=True),
+        ),
+    )
+
+
+def _allows_user_ca(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    apk_obj = ctx.apk_ctx.apk_obj
+
+    try:
+        net_conf = str(apk_obj.get_file("res/xml/network_security_config.xml"))
+    except androguard.core.bytecodes.apk.FileNotPresent:
+        sdk_version = apk_obj.get_target_sdk_version()
+        target_sdk = int(sdk_version) if sdk_version else 0
+        if target_sdk < 24:
+            _add_allow_user_ca_by_default(ctx, locations)
+
+    if "trust-anchors" in net_conf and "user" in net_conf:
+        _add_allow_user_ca(ctx, locations, net_conf)
+
+    return _create_vulns(
+        ctx=ctx,
+        locations=locations,
+        method=core_model.MethodsEnum.USES_HTTP_RESOURCES,
+    )
+
+
 CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
