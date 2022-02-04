@@ -28,7 +28,6 @@ makeTemplate {
         searchPathsBuild.bin = [ inputs.nixpkgs.gcc inputs.nixpkgs.postgresql ];
       })
       outputs."/observes/common/purity/env/runtime"
-      outputs."/observes/common/singer-io/env/runtime"
       outputs."/observes/common/postgres-client/env/runtime"
       outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
     ];

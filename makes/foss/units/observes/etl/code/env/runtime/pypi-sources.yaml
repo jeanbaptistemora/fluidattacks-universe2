@@ -1,23 +1,24 @@
 closure:
   aioextensions: 20.11.1621472
   certifi: 2021.10.8
-  chardet: 4.0.0
+  charset-normalizer: 2.0.11
   click: 7.1.2
   deprecated: 1.2.13
   dill: 0.3.4
   fa-purity: 1.1.1
   gitdb: 4.0.9
-  gitpython: 3.1.14
-  idna: "2.10"
+  gitpython: 3.1.26
+  idna: "3.3"
   more-itertools: 8.12.0
   multiprocess: 0.70.12.2
   pathos: 0.2.8
   pox: 0.3.0
   ppft: 1.6.6.4
-  psycopg2: 2.9.1
+  psycopg2: 2.9.3
   ratelimiter: 1.2.0.post0
-  requests: 2.25.1
+  requests: 2.27.1
   simplejson: 3.17.6
+  six: 1.16.0
   smmap: 5.0.0
   types-deprecated: 1.2.5
   types-simplejson: 3.17.3
@@ -36,12 +37,12 @@ links:
   - name: certifi-2021.10.8.tar.gz
     sha256: 0wl8ln7acd797i1q7mmb430l6hqwhmk4bd37x8ycw02b3my4x23q
     url: https://files.pythonhosted.org/packages/6c/ae/d26450834f0acc9e3d1f74508da6df1551ceab6c2ce0766a593362d6d57f/certifi-2021.10.8.tar.gz
-  - name: chardet-4.0.0-py2.py3-none-any.whl
-    sha256: 198xs99vbvcj312d1bk7bgn7aix5h64sqi3hwvr1i4gxcr6har7q
-    url: https://files.pythonhosted.org/packages/19/c7/fa589626997dd07bd87d9269342ccb74b1720384a4d739a1872bd84fbe68/chardet-4.0.0-py2.py3-none-any.whl
-  - name: chardet-4.0.0.tar.gz
-    sha256: 1ykr04qyhgpc0h5b7dhqw4g92b1xv7ki2ky910mhy4mlbnhm6vqd
-    url: https://files.pythonhosted.org/packages/ee/2d/9cdc2b527e127b4c9db64b86647d567985940ac3698eeabc7ffaccb4ea61/chardet-4.0.0.tar.gz
+  - name: charset_normalizer-2.0.11-py3-none-any.whl
+    sha256: 0i8a9151d73n81lysvxh0chcykydw7ak829q6yj6l7rax3sxhhi8
+    url: https://files.pythonhosted.org/packages/0c/8e/73ef5366e5c04c2410dab1c74493ca9617a56a27a50f11e01aa4fac2a16c/charset_normalizer-2.0.11-py3-none-any.whl
+  - name: charset-normalizer-2.0.11.tar.gz
+    sha256: 071pi2kd222rjjrjdllffqv3iz4bfaj93a9bfs65907fd6fqlfcq
+    url: https://files.pythonhosted.org/packages/e8/e8/b6cfd28fb430b2ec9923ad0147025bf8bbdf304b1eb3039b69f1ce44ed6e/charset-normalizer-2.0.11.tar.gz
   - name: click-7.1.2-py2.py3-none-any.whl
     sha256: 1p607168jqq20d8bngrkfqv0vvkfas57r6s8szimvpgs9fgsik6s
     url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
@@ -72,18 +73,18 @@ links:
   - name: gitdb-4.0.9.tar.gz
     sha256: 1al9wymnqakranw28x1qjbpr4f66pmi0vab3krhwzjd1q12zvhms
     url: https://files.pythonhosted.org/packages/fc/44/64e02ef96f20b347385f0e9c03098659cb5a1285d36c3d17c56e534d80cf/gitdb-4.0.9.tar.gz
-  - name: GitPython-3.1.14-py3-none-any.whl
-    sha256: 16wksh6ip9xgxw4vpqja0sy2nxx7z6jmnbp1azc17j9ip8psx0rj
-    url: https://files.pythonhosted.org/packages/a6/99/98019716955ba243657daedd1de8f3a88ca1f5b75057c38e959db22fb87b/GitPython-3.1.14-py3-none-any.whl
-  - name: GitPython-3.1.14.tar.gz
-    sha256: 0qdg6w8lwl9fv8qcvncjiy85pkx6n8rcs1q2y68q7r89flz669xy
-    url: https://files.pythonhosted.org/packages/5f/f2/ea3242d97695451ab1521775a85253e002942d2c8f4519ae1172c0f5f979/GitPython-3.1.14.tar.gz
-  - name: idna-2.10-py2.py3-none-any.whl
-    sha256: 1h280sli58v5dapmf79rnnqdrrk0xjn8vi3pxppknllv3r5q0zdr
-    url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
-  - name: idna-2.10.tar.gz
-    sha256: 1xmk3s92d2vq42684p61wixfmh3qpr2mw762w0n6662vhlpqf1xk
-    url: https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz
+  - name: GitPython-3.1.26-py3-none-any.whl
+    sha256: 1mnqkld4xyj8dkxpgmm0acby2rpcyg7sa71n6rhb3xyi2b13bb16
+    url: https://files.pythonhosted.org/packages/ed/4e/441f12af8faed3b6efe95c4b9359943ee741d5a96a0fee0c9676bde0b7f4/GitPython-3.1.26-py3-none-any.whl
+  - name: GitPython-3.1.26.tar.gz
+    sha256: 1vk9arizcgrj77q2dlfadyk8anhqpaaijj2zna7jcv9f7bv6i27w
+    url: https://files.pythonhosted.org/packages/70/b0/23e3245248f63eac75335828527016c7636c1780e7ad934a341970b47a78/GitPython-3.1.26.tar.gz
+  - name: idna-3.3-py3-none-any.whl
+    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
+    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
+  - name: idna-3.3.tar.gz
+    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
+    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
   - name: more_itertools-8.12.0-py3-none-any.whl
     sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
     url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl
@@ -111,21 +112,21 @@ links:
   - name: ppft-1.6.6.4.zip
     sha256: 1lk30h3d1gb0qmrkllp4gl0211xr9d2npg95pn86k19icz644d27
     url: https://files.pythonhosted.org/packages/6b/89/871fdf9f6b295559099de627d56e8a5d052d2654c80e249a71b10037f232/ppft-1.6.6.4.zip
-  - name: psycopg2-2.9.1.tar.gz
-    sha256: 0z0v2d5gpgy0wf2ypqxv955c9k44yszd7r20km5s79yhy6k06lyy
-    url: https://files.pythonhosted.org/packages/aa/8a/7c80e7e44fb1b4277e89bd9ca509aefdd4dd1b2c547c6f293afe9f7ffd04/psycopg2-2.9.1.tar.gz
+  - name: psycopg2-2.9.3.tar.gz
+    sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
+    url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
   - name: ratelimiter-1.2.0.post0-py3-none-any.whl
     sha256: 17w0b514f12r0cp0glza1yqbnsf7207ma15knis3c2xvq1xy0ax5
     url: https://files.pythonhosted.org/packages/51/80/2164fa1e863ad52cc8d870855fba0fbb51edd943edffd516d54b5f6f8ff8/ratelimiter-1.2.0.post0-py3-none-any.whl
   - name: ratelimiter-1.2.0.post0.tar.gz
     sha256: 1xxli4pw5nkkcjvj7hnxlra681m3d2sqjgzgg18jxpmvpp55sfaw
     url: https://files.pythonhosted.org/packages/5b/e0/b36010bddcf91444ff51179c076e4a09c513674a56758d7cfea4f6520e29/ratelimiter-1.2.0.post0.tar.gz
-  - name: requests-2.25.1-py2.py3-none-any.whl
-    sha256: 07l7fm7y9zkvmpfli803dni6iwyyhy1f804y46wycam46r70h462
-    url: https://files.pythonhosted.org/packages/29/c1/24814557f1d22c56d50280771a17307e6bf87b70727d975fd6b2ce6b014a/requests-2.25.1-py2.py3-none-any.whl
-  - name: requests-2.25.1.tar.gz
-    sha256: 015qflyqsgsz09gnar69s6ga74ivq5kch69s4qxz3904m7a3v5r7
-    url: https://files.pythonhosted.org/packages/6b/47/c14abc08432ab22dc18b9892252efaf005ab44066de871e72a38d6af464b/requests-2.25.1.tar.gz
+  - name: requests-2.27.1-py2.py3-none-any.whl
+    sha256: 0bg7c13nfm400gx7wn5kjbjfjyz1b6bwf6p4wqbgvpf9akjs2bzj
+    url: https://files.pythonhosted.org/packages/2d/61/08076519c80041bc0ffa1a8af0cbd3bf3e2b62af10435d269a9d0f40564d/requests-2.27.1-py2.py3-none-any.whl
+  - name: requests-2.27.1.tar.gz
+    sha256: 0qcsbi919d689xqlgyhw9zkppp1fs6k09wwffa3ri6d8smpwbmv8
+    url: https://files.pythonhosted.org/packages/60/f3/26ff3767f099b73e0efa138a9998da67890793bfa475d8278f84a30fec77/requests-2.27.1.tar.gz
   - name: simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
     sha256: 1qbyy7l8wm2igazngd3d08bxm31njcr3kmf3kyxsqisjjypp11h6
     url: https://files.pythonhosted.org/packages/dc/23/f580502e18d957d59f401bb2b4d879d4c2a16620164d923907d3163c0e98/simplejson-3.17.6-cp38-cp38-macosx_10_9_universal2.whl
@@ -156,6 +157,12 @@ links:
   - name: simplejson-3.17.6.tar.gz
     sha256: 19pqqn01y6qmhhv8q6dh4p1acav49kl923kklnns2qxz5a6h766g
     url: https://files.pythonhosted.org/packages/7a/47/c7cc3d4ed15f09917838a2fb4e1759eafb6d2f37ebf7043af984d8b36cf7/simplejson-3.17.6.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
   - name: smmap-5.0.0-py3-none-any.whl
     sha256: 150d3676rvpfb44wwmcf3pbrxc07cblmfp6y165qvrs0l3b1kfia
     url: https://files.pythonhosted.org/packages/6d/01/7caa71608bc29952ae09b0be63a539e50d2484bc37747797a66a60679856/smmap-5.0.0-py3-none-any.whl
