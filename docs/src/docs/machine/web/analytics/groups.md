@@ -22,7 +22,7 @@ one of your managers.
 
 ## Systems risk
 
-![Systems Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/groups/systems_risk_h1dmre.png)
+![Systems Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984583/docs/web/analytics/groups/groups_system_risk.png)
 
 - Each grey dot
   represents a resource
@@ -38,7 +38,7 @@ one of your managers.
 
 ## Findings by tags
 
-![Finding By Tags](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/groups/findings_by_tags_jzu4nw.png)
+![Finding By Tags](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984798/docs/web/analytics/groups/groups_findings_tags.png)
 
 These are
 all your findings
@@ -96,7 +96,7 @@ at any of its versions
 
 ### Your commitment towards security
 
-![Commitment Towards Security](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/groups/commitment_towards_security_uszasj.png)
+![Commitment Towards Security](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984899/docs/web/analytics/groups/groups_comm_towards_security.png)
 
 The agent's objective
 is to help your team
@@ -125,7 +125,7 @@ and the strict mode high.
 
 ### Builds risk
 
-![Builds Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/groups/builds_risk_grz5vi.png)
+![Builds Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986228/docs/web/analytics/groups/groups_build_risk.png)
 
 Risk is proportional
 to the number of vulnerable changes
