@@ -1,11 +1,11 @@
 from dataclasses import (
     dataclass,
 )
-from purity.v2.result import (
+from fa_purity.result import (
     Result,
     ResultE,
 )
-from purity.v2.utils import (
+from fa_purity.utils import (
     raise_exception,
 )
 from typing import (

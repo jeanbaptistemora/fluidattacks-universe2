@@ -26,26 +26,26 @@ from code_etl.utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
+from fa_purity.maybe import (
+    Maybe,
+)
+from fa_purity.pure_iter.core import (
+    PureIter,
+)
+from fa_purity.pure_iter.factory import (
+    unsafe_from_cmd,
+)
+from fa_purity.pure_iter.transform import (
+    until_empty,
+)
 from git.objects import (
     Commit as GitCommit,
 )
 from git.repo.base import (
     Repo,
-)
-from purity.v2.cmd import (
-    Cmd,
-)
-from purity.v2.maybe import (
-    Maybe,
-)
-from purity.v2.pure_iter.core import (
-    PureIter,
-)
-from purity.v2.pure_iter.factory import (
-    unsafe_from_cmd,
-)
-from purity.v2.pure_iter.transform import (
-    until_empty,
 )
 
 

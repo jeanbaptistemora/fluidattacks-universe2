@@ -1,6 +1,12 @@
 from dataclasses import (
     dataclass,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
+from fa_purity.frozen import (
+    FrozenList,
+)
 import logging
 from postgres_client.client import (
     Client,
@@ -9,14 +15,8 @@ from postgres_client.query import (
     Query,
     SqlArgs,
 )
-from purity.adapters.to_v2 import (
+from purity.adapters.fa_purity.from_returns import (
     to_cmd,
-)
-from purity.v2.cmd import (
-    Cmd,
-)
-from purity.v2.frozen import (
-    FrozenList,
 )
 from typing import (
     Any,

@@ -28,6 +28,25 @@ from code_etl.objs import (
     RepoId,
     RepoRegistration,
 )
+from fa_purity.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
+from fa_purity.flatten import (
+    flatten_results,
+)
+from fa_purity.frozen import (
+    FrozenList,
+)
+from fa_purity.result import (
+    ResultE,
+)
+from fa_purity.stream.transform import (
+    consume,
+)
+from fa_purity.union import (
+    inl,
+)
 import logging
 from postgres_client.client import (
     ClientFactory,
@@ -38,25 +57,6 @@ from postgres_client.connection import (
 )
 from postgres_client.ids import (
     TableID,
-)
-from purity.v2.cmd import (
-    Cmd,
-    unsafe_unwrap,
-)
-from purity.v2.flatten import (
-    flatten_results,
-)
-from purity.v2.frozen import (
-    FrozenList,
-)
-from purity.v2.result import (
-    ResultE,
-)
-from purity.v2.stream.transform import (
-    consume,
-)
-from purity.v2.union import (
-    inl,
 )
 from typing import (
     Union,

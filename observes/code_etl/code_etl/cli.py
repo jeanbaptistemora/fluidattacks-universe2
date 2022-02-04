@@ -1,3 +1,5 @@
+# False positive in ci: error implicit return in no-return function
+# ignoring using `type: ignore[misc]`
 import click
 from code_etl import (
     compute_bills as bills,
@@ -16,6 +18,9 @@ from code_etl.migration import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity.maybe import (
+    Maybe,
+)
 from os.path import (
     abspath,
 )
@@ -33,9 +38,6 @@ from postgres_client.connection.decoder import (
 from postgres_client.ids import (
     SchemaID,
     TableID,
-)
-from purity.v2.maybe import (
-    Maybe,
 )
 from typing import (
     Any,
@@ -79,7 +81,7 @@ def _to_table(pair: Tuple[str, str]) -> TableID:
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.pass_obj
-def amend_authors(
+def amend_authors(  # type: ignore[misc]
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -118,7 +120,7 @@ def compute_bills(
 @click.option("--mailmap", type=mailmap_file)
 @click.argument("repositories", type=str, nargs=-1)
 @pass_ctx
-def upload_code(
+def upload_code(  # type: ignore[misc]
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -140,7 +142,7 @@ def upload_code(
 @click.option("--source", type=(str, str), help="schema-table pair")
 @click.option("--target", type=(str, str), help="schema-table pair")
 @pass_ctx
-def calculate_fa_hash(
+def calculate_fa_hash(  # type: ignore[misc]
     ctx: CmdContext,
     source: Tuple[str, str],
     target: Tuple[str, str],

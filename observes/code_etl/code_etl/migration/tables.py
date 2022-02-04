@@ -1,15 +1,15 @@
 from code_etl.client.db_client import (
     DbClient,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
 from postgres_client.ids import (
     TableID,
 )
 from postgres_client.query import (
     Query,
     SqlArgs,
-)
-from purity.v2.cmd import (
-    Cmd,
 )
 
 

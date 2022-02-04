@@ -26,10 +26,10 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from purity.v2.maybe import (
+from fa_purity.maybe import (
     Maybe,
 )
-from purity.v2.result import (
+from fa_purity.result import (
     Result,
     ResultE,
     UnwrapError,

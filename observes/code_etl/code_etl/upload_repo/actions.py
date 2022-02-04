@@ -5,16 +5,16 @@ from code_etl.objs import (
     CommitStamp,
     RepoRegistration,
 )
-from purity.v2.cmd import (
+from fa_purity.cmd import (
     Cmd,
 )
-from purity.v2.maybe import (
+from fa_purity.maybe import (
     Maybe,
 )
-from purity.v2.pure_iter.core import (
+from fa_purity.pure_iter.core import (
     PureIter,
 )
-from purity.v2.pure_iter.transform import (
+from fa_purity.pure_iter.transform import (
     consume,
 )
 

@@ -18,11 +18,11 @@ from code_etl.objs import (
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
-from purity.v2.result import (
+from fa_purity.result import (
     Result,
     ResultE,
 )
-from purity.v2.union import (
+from fa_purity.union import (
     inl,
     inr,
 )

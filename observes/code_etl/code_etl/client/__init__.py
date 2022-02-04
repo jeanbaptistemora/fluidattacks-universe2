@@ -30,6 +30,33 @@ from code_etl.utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
+from fa_purity.frozen import (
+    FrozenList,
+)
+from fa_purity.maybe import (
+    Maybe,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
+    infinite_range,
+)
+from fa_purity.result import (
+    ResultE,
+)
+from fa_purity.stream.core import (
+    Stream,
+)
+from fa_purity.stream.factory import (
+    from_piter,
+)
+from fa_purity.stream.transform import (
+    chain,
+    until_empty,
+)
 import logging
 from postgres_client.client import (
     Client as RawDbClient,
@@ -41,33 +68,6 @@ from postgres_client.query import (
     SqlArgs,
 )
 import psycopg2
-from purity.v2.cmd import (
-    Cmd,
-    unsafe_unwrap,
-)
-from purity.v2.frozen import (
-    FrozenList,
-)
-from purity.v2.maybe import (
-    Maybe,
-)
-from purity.v2.pure_iter.factory import (
-    from_flist,
-    infinite_range,
-)
-from purity.v2.result import (
-    ResultE,
-)
-from purity.v2.stream.core import (
-    Stream,
-)
-from purity.v2.stream.factory import (
-    from_piter,
-)
-from purity.v2.stream.transform import (
-    chain,
-    until_empty,
-)
 from typing import (
     Optional,
     Type,

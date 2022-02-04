@@ -11,18 +11,18 @@ from code_etl.utils import (
 from dataclasses import (
     fields,
 )
+from fa_purity.frozen import (
+    FrozenList,
+)
+from fa_purity.maybe import (
+    Maybe,
+)
 from postgres_client.ids import (
     TableID,
 )
 from postgres_client.query import (
     Query,
     SqlArgs,
-)
-from purity.v2.frozen import (
-    FrozenList,
-)
-from purity.v2.maybe import (
-    Maybe,
 )
 from typing import (
     Optional,

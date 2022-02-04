@@ -11,6 +11,15 @@ from code_etl.objs import (
     CommitStamp,
     RepoRegistration,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
+from fa_purity.maybe import (
+    Maybe,
+)
+from fa_purity.stream.transform import (
+    consume,
+)
 import logging
 from postgres_client.client import (
     ClientFactory,
@@ -21,15 +30,6 @@ from postgres_client.connection import (
 )
 from postgres_client.ids import (
     TableID,
-)
-from purity.v2.cmd import (
-    Cmd,
-)
-from purity.v2.maybe import (
-    Maybe,
-)
-from purity.v2.stream.transform import (
-    consume,
 )
 from typing import (
     Union,

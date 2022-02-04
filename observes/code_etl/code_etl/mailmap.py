@@ -4,11 +4,11 @@ from code_etl.objs import (
 from dataclasses import (
     dataclass,
 )
-from purity.v2.frozen import (
+from fa_purity.frozen import (
     FrozenDict,
     FrozenList,
 )
-from purity.v2.maybe import (
+from fa_purity.maybe import (
     Maybe,
 )
 import re

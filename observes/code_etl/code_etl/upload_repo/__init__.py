@@ -13,6 +13,16 @@ from code_etl.upload_repo import (
 from code_etl.upload_repo.extractor import (
     Extractor,
 )
+from fa_purity.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
+from fa_purity.frozen import (
+    FrozenList,
+)
+from fa_purity.maybe import (
+    Maybe,
+)
 from git.repo.base import (
     Repo,
 )
@@ -32,16 +42,6 @@ from postgres_client.connection import (
 )
 from postgres_client.ids import (
     TableID,
-)
-from purity.v2.cmd import (
-    Cmd,
-    unsafe_unwrap,
-)
-from purity.v2.frozen import (
-    FrozenList,
-)
-from purity.v2.maybe import (
-    Maybe,
 )
 
 LOG = logging.getLogger(__name__)

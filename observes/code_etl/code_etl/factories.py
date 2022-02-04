@@ -14,13 +14,13 @@ from code_etl.time_utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
 from git.objects import (
     Commit,
 )
 import hashlib
-from purity.v2.json.primitive.factory import (
-    to_primitive,
-)
 
 
 def gen_fa_hash(commit: CommitData) -> str:

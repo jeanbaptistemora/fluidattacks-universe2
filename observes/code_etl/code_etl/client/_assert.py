@@ -1,7 +1,7 @@
-from purity.v2.frozen import (
+from fa_purity.frozen import (
     FrozenList,
 )
-from purity.v2.result import (
+from fa_purity.result import (
     Result,
     ResultE,
 )
