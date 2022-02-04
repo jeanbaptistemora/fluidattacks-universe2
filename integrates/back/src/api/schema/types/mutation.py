@@ -31,6 +31,7 @@ from api.mutations import (
     download_event_file,
     download_file,
     download_vulnerability_file,
+    enumerate_toe_input,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptance,
@@ -144,6 +145,7 @@ MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field(
     "downloadVulnerabilityFile", download_vulnerability_file.mutate
 )
+MUTATION.set_field("enumerateToeInput", enumerate_toe_input.mutate)
 MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
 MUTATION.set_field(
     "grantStakeholderOrganizationAccess",
