@@ -21,6 +21,7 @@ from custom_types import (
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
     delete_item as dynamodb_delete_item,
+    get_item as dynamodb_get_item,
     put_item as dynamodb_put_item,
     query as dynamodb_query,
     update_item as dynamodb_update_item,
@@ -31,6 +32,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     AsyncIterator,
     cast,
     Dict,
@@ -151,6 +153,19 @@ async def exists(org_name: str) -> bool:
     if org:
         resp = True
     return resp
+
+
+async def get_access_by_url_token(
+    organization_id: str,
+    user_email: str,
+) -> Dict[str, Dict[str, Any]]:
+    """Get user access of a organization by the url token"""
+    filter_exp = Key("pk").eq(organization_id) & Key("sk").eq(
+        f"USER#{user_email}"
+    )
+    scan_attrs = {"FilterExpression": filter_exp}
+    item = await dynamodb_get_item(TABLE_NAME, scan_attrs)
+    return item
 
 
 async def get_by_id(
@@ -480,4 +495,40 @@ async def update_group(
         success = await dynamodb_update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
         raise UnavailabilityError() from ex
+    return success
+
+
+async def update_user(
+    user_email: str, org_id: str, data: Dict[str, Any]
+) -> bool:
+    """Update org access attributes."""
+    success = False
+    set_expression = ""
+    remove_expression = ""
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f"{attr}, "
+        else:
+            set_expression += f"{attr} = :{attr}, "
+            expression_values.update({f":{attr}": value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        "Key": {
+            "sk": f"USER#{user_email.lower()}",
+            "pk": org_id.lower(),
+        },
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
+    }
+    if expression_values:
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
+    try:
+        success = await dynamodb_update_item(TABLE_NAME, update_attrs)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
     return success
