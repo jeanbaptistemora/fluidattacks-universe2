@@ -220,6 +220,24 @@ async def _remove_subscription(
     )
 
 
+async def _remove_incomplete_subscriptions(
+    *,
+    org_billing_customer: str,
+    group_name: str,
+) -> bool:
+    """Cancel all incomplete subscriptions for a group"""
+    subscriptions: Dict[str, Subscription] = await dal.get_group_subscriptions(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="incomplete",
+        limit=1000,
+    )
+
+    return await _remove_subscription(
+        subscriptions=subscriptions,
+    )
+
+
 async def update_subscription(
     *,
     subscription: str,
@@ -248,13 +266,18 @@ async def update_subscription(
     if already_free or already_machine or already_squad:
         raise BillingSubscriptionSameActive()
 
-    result: bool = False
+    # Remove incomplete subscriptions
+    result: bool = await _remove_incomplete_subscriptions(
+        org_billing_customer=org_billing_customer,
+        group_name=group_name,
+    )
+
     if subscription == "free":
-        result = await _remove_subscription(
+        result = result and await _remove_subscription(
             subscriptions=subscriptions,
         )
     elif len(subscriptions) > 0:
-        result = await _update_subscription(
+        result = result and await _update_subscription(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
@@ -262,7 +285,7 @@ async def update_subscription(
             subscriptions=subscriptions,
         )
     else:
-        result = await _create_subscription(
+        result = result and await _create_subscription(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
@@ -502,7 +525,7 @@ async def webhook(request: Request) -> JSONResponse:
 
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
-                reason=f"Update triggered by String with event {event.id}",
+                reason=f"Update triggered by Stripe with event {event.id}",
                 requester_email="development@fluidattacks.com",
                 group_name=event.data.object.metadata.group,
                 tier=tier,

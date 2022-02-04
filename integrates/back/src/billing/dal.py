@@ -280,14 +280,13 @@ async def remove_subscription(
     prorate: bool,
 ) -> bool:
     """Remove a stripe subscription"""
-    return (
-        stripe.Subscription.delete(
-            subscription_id,
-            invoice_now=invoice_now,
-            prorate=prorate,
-        ).status
-        == "canceled"
-    )
+    result: str = stripe.Subscription.delete(
+        subscription_id,
+        invoice_now=invoice_now,
+        prorate=prorate,
+    ).status
+
+    return result in ("canceled", "incomplete_expired")
 
 
 async def report_subscription_usage(
