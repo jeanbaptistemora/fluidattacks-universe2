@@ -155,31 +155,6 @@ defaults to deny user-supplied CAs"
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def uses_http_resources(apk_file: str) -> tuple:
-    """
-    Check if the given APK references HTTP (not HTTPS) resources.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK references HTTP (not HTTPS) resources.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    dex = get_dex(apk_file)
-
-    insecure_urls = get_http_urls(dex)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open=f"APK references non HTTPS URLs",
-        msg_closed="All HTTP references in APK use HTTPS",
-        open_if=insecure_urls,
-        fingerprint=insecure_urls,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def socket_uses_getinsecure(apk_file: str) -> tuple:
     """
     Check if the given APK uses sockets created with getInsecure.
