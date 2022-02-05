@@ -490,6 +490,58 @@ async def complete_register_for_group_invitation(
     return success
 
 
+async def complete_register_for_organization_invitation(
+    organization_access: Dict[str, Any]
+) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    success: bool = False
+    invitation = organization_access["invitation"]
+    if invitation["is_used"]:
+        bugsnag.notify(Exception("Token already used"), severity="warning")
+
+    organization_id = organization_access["pk"]
+    organization_name = await orgs_domain.get_name_by_id(organization_id)
+    role = invitation["role"]
+    user_email = organization_access["sk"].split("#")[1]
+    updated_invitation = invitation.copy()
+    updated_invitation["is_used"] = True
+
+    coroutines.extend(
+        [
+            orgs_domain.update(
+                user_email,
+                organization_id,
+                {
+                    "expiration_time": None,
+                    "has_access": True,
+                    "invitation": updated_invitation,
+                },
+            )
+        ]
+    )
+
+    user_added = await orgs_domain.add_user(organization_id, user_email, role)
+
+    user_created = False
+    user_exists = bool(await users_domain.get_data(user_email, "email"))
+    if not user_exists:
+        user_created = await add_without_group(
+            user_email,
+            "customer",
+            should_add_default_org=(
+                FI_DEFAULT_ORG.lower() == organization_name.lower()
+            ),
+        )
+
+    success = user_added and any([user_created, user_exists])
+    if success:
+        redis_del_by_deps_soon(
+            "confirm_access",
+            organization_id=organization_id,
+        )
+    return success
+
+
 async def reject_register_for_group_invitation(
     loaders: Any,
     group_access: GroupAccessType,

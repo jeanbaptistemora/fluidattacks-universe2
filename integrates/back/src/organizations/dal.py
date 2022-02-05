@@ -160,11 +160,9 @@ async def get_access_by_url_token(
     user_email: str,
 ) -> Dict[str, Dict[str, Any]]:
     """Get user access of a organization by the url token"""
-    filter_exp = Key("pk").eq(organization_id) & Key("sk").eq(
-        f"USER#{user_email}"
-    )
-    scan_attrs = {"FilterExpression": filter_exp}
-    item = await dynamodb_get_item(TABLE_NAME, scan_attrs)
+    key = {"pk": organization_id, "sk": f"USER#{user_email}"}
+    get_attrs = {"Key": key}
+    item = await dynamodb_get_item(TABLE_NAME, get_attrs)
     return item
 
 
