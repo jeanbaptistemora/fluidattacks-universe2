@@ -119,6 +119,7 @@ in
           };
         })
         [
+          "0177_send_masked_findings_to_redshift.py"
         ])
         ++ (builtins.map
         (name: {
