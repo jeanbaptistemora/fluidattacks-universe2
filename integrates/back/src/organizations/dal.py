@@ -518,7 +518,7 @@ async def update_user(
 
     update_attrs = {
         "Key": {
-            "pk": org_id.lower(),
+            "pk": org_id,
             "sk": f"USER#{user_email.lower()}",
         },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),

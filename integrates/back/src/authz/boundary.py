@@ -8,6 +8,7 @@ from .model import (
     get_group_level_actions_model,
     get_group_level_roles_model,
     get_organization_level_actions_model,
+    get_organization_level_roles_model,
     get_user_level_actions_model,
     get_user_level_roles_model,
     SERVICE_ATTRIBUTES_SET,
@@ -92,6 +93,21 @@ async def get_organization_level_actions(
             extra=dict(extra=locals()),
         )
     return organization_actions
+
+
+async def get_organization_level_roles_a_user_can_grant(
+    *,
+    organization: str,
+    requester_email: str,
+) -> Tuple[str, ...]:
+    """Return a tuple of roles that users can grant based on their role."""
+    enforcer = await get_organization_level_enforcer(requester_email)
+    roles_the_user_can_grant: Tuple[str, ...] = tuple(
+        role
+        for role in get_organization_level_roles_model(requester_email)
+        if enforcer(organization, f"grant_organization_level_role:{role}")
+    )
+    return roles_the_user_can_grant
 
 
 async def get_user_level_actions(

@@ -940,6 +940,15 @@ class StakeholderHasGroupAccess(CustomBaseException):
         super(StakeholderHasGroupAccess, self).__init__(msg)
 
 
+class StakeholderHasOrganizationAccess(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The stakeholder has been granted access to "
+            "the organization previously"
+        )
+        super(StakeholderHasOrganizationAccess, self).__init__(msg)
+
+
 class StakeholderNotFound(CustomBaseException):
     """Exception to control stakeholder availability"""
 

@@ -493,7 +493,6 @@ async def complete_register_for_group_invitation(
 async def complete_register_for_organization_invitation(
     organization_access: Dict[str, Any]
 ) -> bool:
-    coroutines: List[Awaitable[bool]] = []
     success: bool = False
     invitation = organization_access["invitation"]
     if invitation["is_used"]:
@@ -506,21 +505,17 @@ async def complete_register_for_organization_invitation(
     updated_invitation = invitation.copy()
     updated_invitation["is_used"] = True
 
-    coroutines.extend(
-        [
-            orgs_domain.update(
-                user_email,
-                organization_id,
-                {
-                    "expiration_time": None,
-                    "has_access": True,
-                    "invitation": updated_invitation,
-                },
-            )
-        ]
-    )
-
     user_added = await orgs_domain.add_user(organization_id, user_email, role)
+
+    await orgs_domain.update(
+        organization_id,
+        user_email,
+        {
+            "expiration_time": None,
+            "has_access": True,
+            "invitation": updated_invitation,
+        },
+    )
 
     user_created = False
     user_exists = bool(await users_domain.get_data(user_email, "email"))
