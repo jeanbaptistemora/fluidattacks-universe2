@@ -2398,12 +2398,21 @@ class DeveloperEnum(Enum):
     LUIS_SAAVEDRA: str = "lsaavedra@fluidattacks.com"
 
 
+class TechniqueEnum(Enum):
+    APK: str = "APK"
+    SCA: str = "SCA"
+    ADVANCE_SAST: str = "ASAST"
+    BASIC_SAST: str = "BSAST"
+    DAST: str = "DAST"
+
+
 class MethodInfo(NamedTuple):
     file_name: str
     name: str
     module: str
     finding: FindingEnum
     developer: DeveloperEnum
+    technique: Optional[TechniqueEnum] = None
 
     def get_name(self) -> str:
         return f"{self.file_name}.{self.name}"

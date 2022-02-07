@@ -98,6 +98,7 @@ def _side_effects() -> None:
         core_model.Grammar,
         core_model.MethodsEnum,
         core_model.Platform,
+        core_model.TechniqueEnum,
         core_model.VulnerabilityKindEnum,
         core_model.VulnerabilitySourceEnum,
         core_model.VulnerabilityVerificationStateEnum,
