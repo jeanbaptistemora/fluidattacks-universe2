@@ -1,12 +1,14 @@
+from aioextensions import (
+    collect,
+)
 from batch import (
     roots as batch_roots,
-)
-from contextlib import (
-    suppress,
 )
 from custom_exceptions import (
     CredentialNotFound,
     InactiveRoot,
+    RootAlreadyCloned,
+    RootAlreadyCloning,
 )
 from dataloaders import (
     Dataloaders,
@@ -24,8 +26,50 @@ from schedulers.common import (
 )
 from typing import (
     List,
+    NamedTuple,
+    Optional,
     Tuple,
 )
+
+
+class QuequeResult(NamedTuple):
+    root: RootItem
+    success: bool
+    group: str
+    message: Optional[str] = None
+
+
+async def _queue_sync_git_root(
+    loaders: Dataloaders,
+    root: GitRootItem,
+    user_email: str,
+    check_existing_jobs: bool = True,
+    queue: str = "spot_soon",
+    *,
+    group_name: str,
+) -> QuequeResult:
+    success = False
+    message: Optional[str] = None
+    try:
+        await (
+            batch_roots.queue_sync_git_root(
+                loaders,
+                root,
+                user_email,
+                check_existing_jobs,
+                queue,
+            )
+        )
+        success = True
+    except (
+        InactiveRoot,
+        CredentialNotFound,
+        RootAlreadyCloned,
+        RootAlreadyCloning,
+    ) as exc:
+        message = str(exc)
+
+    return QuequeResult(root, success, group_name, message)
 
 
 async def clone_groups_roots() -> None:
@@ -37,19 +81,28 @@ async def clone_groups_roots() -> None:
         Tuple[RootItem, ...], ...
     ] = await group_roots_loader.load_many(groups)
     for group, roots in zip(groups, groups_roots):
-        git_roots: GitRootItem = list(
-            filter(lambda x: x.metadata.type == "Git", roots)
-        )
-        for git_root in git_roots:
-            with suppress(InactiveRoot, CredentialNotFound):
-                await batch_roots.queue_sync_git_root(
-                    loaders=loaders,
-                    root=git_root,
-                    user_email="integrates@fluidattacks.com",
-                    check_existing_jobs=False,
-                    queue="spot_later",
+        futures = [
+            _queue_sync_git_root(
+                loaders=loaders,
+                root=git_root,
+                user_email="integrates@fluidattacks.com",
+                check_existing_jobs=False,
+                queue="spot_later",
+                group_name=group,
+            )
+            for git_root in (
+                root for root in roots if root.metadata.type == "Git"
+            )
+        ]
+
+        for result in await collect(futures):
+            if result.success:
+                info(
+                    (
+                        f"Queued clone for root {result.root.id} in"
+                        f" group {result.group}"
+                    )
                 )
-                info(f"Queued clone for root {git_root.id} in group {group}")
 
 
 async def main() -> None:

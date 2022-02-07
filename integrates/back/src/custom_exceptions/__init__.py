@@ -1087,7 +1087,7 @@ class RootAlreadyCloning(CustomBaseException):
 
 class RootAlreadyCloned(CustomBaseException):
     def __init__(self) -> None:
-        msg = "Exception - The root version is already cloning"
+        msg = "Exception - The root version has already been cloned"
         super(RootAlreadyCloned, self).__init__(msg)
 
 
