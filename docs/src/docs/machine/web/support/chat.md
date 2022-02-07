@@ -1,8 +1,8 @@
 ---
-id: chat
-title: Chat
-sidebar_label: Chat
-slug: /machine/web/support/chat
+id: live-chat
+title: Live Chat
+sidebar_label: Live Chat
+slug: /machine/web/support/live-chat
 ---
 
 While using the

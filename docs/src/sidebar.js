@@ -486,7 +486,7 @@ const Machine = [
         type: 'category',
         label: 'Support',
         items: [
-          'machine/web/support/chat',
+          'machine/web/support/live-chat',
           'machine/web/support/talk-expert',
         ],
       },
