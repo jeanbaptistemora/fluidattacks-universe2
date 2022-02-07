@@ -22,12 +22,9 @@ describe("ToeInputsActionButtons", (): void => {
         isAdding={false}
         isEnumeratingMode={false}
         isInternal={true}
-        isRemovingMode={false}
         onAdd={jest.fn()}
         onEnumerate={jest.fn()}
         onEnumerateMode={jest.fn()}
-        onRemove={jest.fn()}
-        onRemoveMode={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -52,12 +49,9 @@ describe("ToeInputsActionButtons", (): void => {
         isAdding={false}
         isEnumeratingMode={false}
         isInternal={false}
-        isRemovingMode={false}
         onAdd={jest.fn()}
         onEnumerate={jest.fn()}
         onEnumerateMode={jest.fn()}
-        onRemove={jest.fn()}
-        onRemoveMode={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -83,12 +77,9 @@ describe("ToeInputsActionButtons", (): void => {
         isAdding={false}
         isEnumeratingMode={false}
         isInternal={true}
-        isRemovingMode={false}
         onAdd={jest.fn()}
         onEnumerate={jest.fn()}
         onEnumerateMode={jest.fn()}
-        onRemove={jest.fn()}
-        onRemoveMode={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -103,43 +94,6 @@ describe("ToeInputsActionButtons", (): void => {
         button
           .text()
           .includes(t("group.toe.inputs.actionButtons.addButton.text"))
-      )
-    ).toHaveLength(1);
-  });
-
-  it("should display the remove button", (): void => {
-    expect.hasAssertions();
-
-    const { t } = useTranslation();
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_remove_toe_input_mutate" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <ActionButtons
-        areInputsSelected={true}
-        isAdding={false}
-        isEnumeratingMode={false}
-        isInternal={true}
-        isRemovingMode={false}
-        onAdd={jest.fn()}
-        onEnumerate={jest.fn()}
-        onEnumerateMode={jest.fn()}
-        onRemove={jest.fn()}
-        onRemoveMode={jest.fn()}
-      />,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
-    );
-    const buttons: ReactWrapper = wrapper.find("Button");
-
-    expect(wrapper).toHaveLength(1);
-    expect(
-      buttons.filterWhere((button: ReactWrapper): boolean =>
-        button
-          .text()
-          .includes(t("group.toe.inputs.actionButtons.removeButton.text"))
       )
     ).toHaveLength(1);
   });

@@ -7,16 +7,13 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { RemoveButton } from "./ActionButtons/RemoveButton";
-import { GET_TOE_INPUTS, REMOVE_TOE_INPUT } from "./queries";
+import { GET_TOE_INPUTS } from "./queries";
 
 import { GroupToeInputsView } from ".";
 import { DataTableNext } from "components/DataTableNext";
 import type { ITableProps } from "components/DataTableNext/types";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -161,148 +158,5 @@ describe("GroupToeInputsView", (): void => {
     expect(thirdRow.text()).toStrictEqual(
       ["", "-", "Yes", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
     );
-  });
-
-  it("should handle input removal", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    jest.clearAllMocks();
-
-    const mocksMutation: MockedResponse[] = [
-      {
-        request: {
-          query: REMOVE_TOE_INPUT,
-          variables: {
-            component: "https://test.test.com/test/path",
-            entryPoint: "-",
-            groupName: "groupname",
-          },
-        },
-        result: { data: { removeToeInput: { success: true } } },
-      },
-    ];
-    const mockedToeInputs: MockedResponse = {
-      request: {
-        query: GET_TOE_INPUTS,
-        variables: {
-          canGetAttackedAt: true,
-          canGetAttackedBy: true,
-          canGetBePresentUntil: true,
-          canGetFirstAttackAt: true,
-          canGetSeenFirstTimeBy: true,
-          first: 300,
-          groupName: "groupname",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            name: "unittesting",
-            toeInputs: {
-              __typename: "ToeInputsConnection",
-              edges: [
-                {
-                  node: {
-                    attackedAt: "2020-01-02T00:00:00-05:00",
-                    attackedBy: "test@test.com",
-                    bePresent: true,
-                    bePresentUntil: null,
-                    component: "https://test.test.com/test/path",
-                    entryPoint: "-",
-                    firstAttackAt: "2020-01-02T00:00:00-05:00",
-                    hasVulnerabilities: false,
-                    seenAt: null,
-                    seenFirstTimeBy: "",
-                    unreliableRootNickname: "test_nickname",
-                  },
-                },
-                {
-                  node: {
-                    attackedAt: "2021-02-02T00:00:00-05:00",
-                    attackedBy: "test@test.com",
-                    bePresent: true,
-                    bePresentUntil: null,
-                    component: "test.com/test/test.aspx",
-                    entryPoint: "btnTest",
-                    firstAttackAt: "2020-01-02T00:00:00-05:00",
-                    hasVulnerabilities: true,
-                    seenAt: "2020-03-14T00:00:00-05:00",
-                    seenFirstTimeBy: "test@test.com",
-                    unreliableRootNickname: "test_nickname",
-                  },
-                },
-                {
-                  node: {
-                    attackedAt: "2021-02-11T00:00:00-05:00",
-                    attackedBy: "test@test.com",
-                    bePresent: false,
-                    bePresentUntil: "2021-02-12T00:00:00-05:00",
-                    component: "test.com/test2/test.aspx",
-                    entryPoint: "-",
-                    firstAttackAt: "2020-01-02T00:00:00-05:00",
-                    hasVulnerabilities: true,
-                    seenAt: "2020-03-14T00:00:00-05:00",
-                    seenFirstTimeBy: "test2@test.com",
-                    unreliableRootNickname: "",
-                  },
-                },
-              ],
-              pageInfo: {
-                endCursor: "bnVsbA==",
-                hasNextPage: false,
-              },
-            },
-          },
-        },
-      },
-    };
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_remove_toe_input_mutate" },
-      { action: "api_resolvers_toe_input_attacked_at_resolve" },
-      { action: "api_resolvers_toe_input_attacked_by_resolve" },
-      { action: "api_resolvers_toe_input_be_present_until_resolve" },
-      { action: "api_resolvers_toe_input_first_attack_at_resolve" },
-      { action: "api_resolvers_toe_input_seen_first_time_by_resolve" },
-    ]);
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groupname/surface/inputs"]}>
-        <MockedProvider
-          addTypename={true}
-          mocks={[mockedToeInputs, ...mocksMutation]}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route path={"/:groupName/surface/inputs"}>
-              <GroupToeInputsView isInternal={true} />
-            </Route>
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-
-    const toeInputsTable: ReactWrapper<ITableProps> = wrapper
-      .find(DataTableNext)
-      .filter({ id: "tblToeInputs" });
-    const checkboxes: ReactWrapper = toeInputsTable.find("SelectionCell");
-    const firstCheckbox: ReactWrapper = checkboxes.find({ rowIndex: 0 });
-    const removeModeButton = wrapper.find(RemoveButton).find("button");
-    removeModeButton.simulate("click");
-    firstCheckbox.find("input").simulate("click");
-    const removeButton = wrapper.find(RemoveButton).find("button").at(0);
-    removeButton.simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "Input has been removed.",
-          "Congratulations"
-        );
-      });
-    });
   });
 });

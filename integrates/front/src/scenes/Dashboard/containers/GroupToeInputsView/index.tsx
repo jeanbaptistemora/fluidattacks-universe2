@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError, FetchResult } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
@@ -24,13 +24,9 @@ import type {
   ISelectRowProps,
 } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
-import {
-  GET_TOE_INPUTS,
-  REMOVE_TOE_INPUT,
-} from "scenes/Dashboard/containers/GroupToeInputsView/queries";
+import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
   IGroupToeInputsViewProps,
-  IRemoveToeInputResultAttr,
   IToeInputData,
   IToeInputEdge,
   IToeInputsConnection,
@@ -38,7 +34,6 @@ import type {
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
@@ -67,7 +62,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const [isAdding, setIsAdding] = useState(false);
   const [isEnumerating, setIsEnumerating] = useState(false);
   const [isEnumeratingMode, setIsEnumeratingMode] = useState(false);
-  const [isRemovingMode, setIsRemovingMode] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -131,14 +125,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   function toggleEnumerateMode(): void {
     setIsEnumeratingMode(!isEnumeratingMode);
   }
-  function toggleRemoveMode(): void {
-    setIsRemovingMode(!isRemovingMode);
-    setSelectedToeInputDatas(
-      selectedToeInputDatas.filter((toeInputData: IToeInputData): boolean =>
-        _.isUndefined(toeInputData.seenAt)
-      )
-    );
-  }
 
   // // GraphQL operations
   const { data, fetchMore, refetch } = useQuery<{
@@ -160,27 +146,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       groupName,
     },
   });
-  const [handleRemoveToeInput] = useMutation<IRemoveToeInputResultAttr>(
-    REMOVE_TOE_INPUT,
-    {
-      onCompleted: (removeResult: IRemoveToeInputResultAttr): void => {
-        if (removeResult.removeToeInput.success) {
-          msgSuccess(
-            translate.t("group.toe.inputs.remove.alerts.success"),
-            translate.t("groupAlerts.titleSuccess")
-          );
-          toggleRemoveMode();
-          void refetch();
-        }
-      },
-      onError: (errors: ApolloError): void => {
-        errors.graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred removing toe input", error);
-        });
-      },
-    }
-  );
 
   const pageInfo =
     data === undefined ? undefined : data.group.toeInputs.pageInfo;
@@ -198,23 +163,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
-
-  async function handleRemove(): Promise<void> {
-    await Promise.all(
-      selectedToeInputDatas.map(
-        async (
-          toeInputData: IToeInputData
-        ): Promise<FetchResult<IRemoveToeInputResultAttr>> =>
-          handleRemoveToeInput({
-            variables: {
-              component: toeInputData.component,
-              entryPoint: toeInputData.entryPoint,
-              groupName,
-            },
-          })
-      )
-    );
-  }
 
   const formatBoolean = (value: boolean): string =>
     value
@@ -373,7 +321,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(toeInputs, isRemovingMode),
+    nonSelectable: getNonSelectable(toeInputs, isEnumeratingMode),
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
     selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
@@ -422,12 +370,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
             isAdding={isAdding}
             isEnumeratingMode={isEnumeratingMode}
             isInternal={isInternal}
-            isRemovingMode={isRemovingMode}
             onAdd={toggleAdd}
             onEnumerate={toggleEnumerate}
             onEnumerateMode={toggleEnumerateMode}
-            onRemove={handleRemove}
-            onRemoveMode={toggleRemoveMode}
           />
         }
         headers={headersToeInputsTable}

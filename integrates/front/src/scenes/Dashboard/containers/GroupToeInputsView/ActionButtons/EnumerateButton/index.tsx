@@ -12,13 +12,10 @@ import { Can } from "utils/authz/Can";
 const EnumerateButton: React.FC<IEnumerateButtonProps> = ({
   areInputsSelected,
   isEnumeratingMode,
-  isRemovingMode,
   onEnumerate,
   onEnumerateMode,
 }: IEnumerateButtonProps): JSX.Element => {
   const { t } = useTranslation();
-
-  const shouldRenderEnumerateBtns: boolean = !isRemovingMode;
 
   const tooltipMessage = useMemo((): string => {
     if (isEnumeratingMode) {
@@ -36,7 +33,7 @@ const EnumerateButton: React.FC<IEnumerateButtonProps> = ({
           &nbsp;{t("group.toe.inputs.actionButtons.enumerateButton.text")}
         </Button>
       ) : undefined}
-      {shouldRenderEnumerateBtns ? (
+      {
         <TooltipWrapper
           displayClass={"dib"}
           id={"group.toe.inputs.actionButtons.enumerateButton.tooltip.id"}
@@ -57,7 +54,7 @@ const EnumerateButton: React.FC<IEnumerateButtonProps> = ({
             )}
           </Button>
         </TooltipWrapper>
-      ) : undefined}
+      }
     </Can>
   );
 };

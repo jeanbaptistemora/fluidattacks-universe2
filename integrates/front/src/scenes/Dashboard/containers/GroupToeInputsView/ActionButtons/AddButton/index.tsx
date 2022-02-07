@@ -14,7 +14,6 @@ import { authzPermissionsContext } from "utils/authz/config";
 const AddButton: React.FC<IAddButtonProps> = ({
   isDisabled,
   isEnumeratingMode,
-  isRemovingMode,
   onAdd,
 }: IAddButtonProps): JSX.Element => {
   const { t } = useTranslation();
@@ -23,8 +22,7 @@ const AddButton: React.FC<IAddButtonProps> = ({
   const canAddToeInput: boolean = permissions.can(
     "api_mutations_add_toe_input_mutate"
   );
-  const shouldRenderAddBtn: boolean =
-    canAddToeInput && !(isEnumeratingMode || isRemovingMode);
+  const shouldRenderAddBtn: boolean = canAddToeInput && !isEnumeratingMode;
 
   return (
     <React.StrictMode>

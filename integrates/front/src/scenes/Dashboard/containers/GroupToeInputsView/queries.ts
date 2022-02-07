@@ -41,20 +41,4 @@ const GET_TOE_INPUTS: DocumentNode = gql`
   }
 `;
 
-const REMOVE_TOE_INPUT: DocumentNode = gql`
-  mutation RemoveToeInput(
-    $component: String!
-    $entryPoint: String!
-    $groupName: String!
-  ) {
-    removeToeInput(
-      component: $component
-      entryPoint: $entryPoint
-      groupName: $groupName
-    ) {
-      success
-    }
-  }
-`;
-
-export { GET_TOE_INPUTS, REMOVE_TOE_INPUT };
+export { GET_TOE_INPUTS };
