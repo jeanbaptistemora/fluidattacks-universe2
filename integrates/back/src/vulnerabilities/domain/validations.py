@@ -71,5 +71,5 @@ def validate_stream(where: str, stream: str) -> bool:
 
 
 def validate_where(where: str) -> None:
-    if not re.match("^(?!=)+[^/]+/.+$", where):
+    if not re.match("^[^=/]+[^/]*/.+$", where):
         raise InvalidVulnWhere.new()
