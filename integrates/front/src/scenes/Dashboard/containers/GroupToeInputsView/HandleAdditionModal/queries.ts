@@ -20,7 +20,7 @@ const ADD_TOE_INPUT: DocumentNode = gql`
 `;
 
 const GET_ROOTS: DocumentNode = gql`
-  query GetRoots($groupName: String!) {
+  query GetRootsInfo($groupName: String!) {
     group(groupName: $groupName) {
       name
       roots {

@@ -29,7 +29,7 @@ const EnumerateButton: React.FC<IEnumerateButtonProps> = ({
   }, [isEnumeratingMode, t]);
 
   return (
-    <Can do={"api_mutations_remove_toe_input_mutate"}>
+    <Can do={"api_mutations_enumerate_toe_input_mutate"}>
       {isEnumeratingMode ? (
         <Button disabled={!areInputsSelected} onClick={onEnumerate}>
           <FontAwesomeIcon icon={faCheck} />
