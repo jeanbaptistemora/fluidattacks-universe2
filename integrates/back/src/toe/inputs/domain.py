@@ -67,6 +67,9 @@ async def add(
     has_vulnerabilities = get_has_vulnerabilities(
         attributes.be_present, attributes.has_vulnerabilities
     )
+    seen_at = (
+        attributes.seen_at or first_attack_at or datetime_utils.get_utc_now()
+    )
     toe_input = ToeInput(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
@@ -77,7 +80,7 @@ async def add(
         first_attack_at=first_attack_at,
         group_name=group_name,
         has_vulnerabilities=has_vulnerabilities,
-        seen_at=attributes.seen_at,
+        seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
     )

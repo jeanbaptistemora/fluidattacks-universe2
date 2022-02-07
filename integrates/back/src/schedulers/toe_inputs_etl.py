@@ -84,6 +84,12 @@ def _format_date(iso_date_str: str) -> Optional[datetime]:
             if iso_date_str
             else None
         )
+        if (
+            formatted_date is not None
+            and formatted_date
+            == datetime.fromisoformat(datetime_utils.DEFAULT_ISO_STR)
+        ):
+            return None
     except ValueError:
         formatted_date = None
     return formatted_date
@@ -164,12 +170,9 @@ def _get_group_toe_inputs_from_cvs(
             new_toe_input["first_attack_at"] = _format_date(
                 new_toe_input["tested_date"]
             )
-            new_toe_input["seen_at"] = (
-                _format_date(new_toe_input["created_date"])
-                or _format_date(new_toe_input["tested_date"])
-                if new_toe_input["seen_first_time_by"]
-                else None
-            )
+            new_toe_input["seen_at"] = _format_date(
+                new_toe_input["created_date"]
+            ) or _format_date(new_toe_input["tested_date"])
             group_toe_inputs.add(
                 ToeInput(
                     attacked_at=new_toe_input["attacked_at"],
@@ -254,6 +257,7 @@ def _get_seen_at(
     toe_input: ToeInput,
     cvs_toe_input: ToeInput,
 ) -> Optional[datetime]:
+    default_date = datetime.fromisoformat(datetime_utils.DEFAULT_ISO_STR)
     if cvs_toe_input.seen_at is None:
         return None
     return (
@@ -261,6 +265,8 @@ def _get_seen_at(
         if cvs_toe_input.seen_at
         and toe_input.seen_at
         and cvs_toe_input.seen_at < toe_input.seen_at
+        else cvs_toe_input.seen_at
+        if default_date == toe_input.seen_at
         else toe_input.seen_at or cvs_toe_input.seen_at
     )
 
