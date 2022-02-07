@@ -14,20 +14,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         args.graph, args.n_id, "array_type", "initializer_expression"
     )
     object_type_id = args.graph.nodes[match["array_type"]]["label_field_type"]
-    initializer = None
-
-    if initializer:
-        yield graph_model.SyntaxStepArrayInstantiation(
-            meta=graph_model.SyntaxStepMeta.default(
-                args.n_id,
-                [
-                    args.generic(args.fork_n_id(initializer)),
-                ],
-            ),
-            array_type=args.graph.nodes[object_type_id]["label_text"],
-        )
-    else:
-        yield graph_model.SyntaxStepArrayInstantiation(
-            meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            array_type=args.graph.nodes[object_type_id]["label_text"],
-        )
+    yield graph_model.SyntaxStepArrayInstantiation(
+        meta=graph_model.SyntaxStepMeta.default(args.n_id),
+        array_type=args.graph.nodes[object_type_id]["label_text"],
+    )

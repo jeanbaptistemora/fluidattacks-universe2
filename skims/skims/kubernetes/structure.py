@@ -7,12 +7,12 @@ from typing import (
 
 
 def is_kubernetes(template: Node) -> bool:
-    if template and template.data and isinstance(template.inner, dict):
-        if (
-            list(template.inner.keys())
-            and list(template.inner.keys())[0] == "apiVersion"
-        ):
-            return True
+    cond = template and template.data and isinstance(template.inner, dict)
+    if cond and (
+        list(template.inner.keys())
+        and list(template.inner.keys())[0] == "apiVersion"
+    ):
+        return True
     return False
 
 
@@ -57,10 +57,10 @@ def get_containers_capabilities(template: Node, type_cap: str) -> list:
     for elem in containers:
         if elem and elem.data:
             sec_cont = elem.inner.get("securityContext", None)
-            if sec_cont and sec_cont.data:
-                cap = sec_cont.inner.get("capabilities", None)
-                if cap and cap.data:
-                    add = cap.inner.get(type_cap, None)
-                    if add and add.data:
-                        return add.data
+        if sec_cont and sec_cont.data:
+            cap = sec_cont.inner.get("capabilities", None)
+        if cap and cap.data:
+            add = cap.inner.get(type_cap, None)
+        if add and add.data:
+            return add.data
     return []
