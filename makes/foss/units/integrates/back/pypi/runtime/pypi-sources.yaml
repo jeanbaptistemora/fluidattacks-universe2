@@ -1,11 +1,11 @@
 closure:
-  aioboto3: 8.0.3
-  aiobotocore: 1.0.4
+  aioboto3: 9.3.1
+  aiobotocore: 2.1.0
   aiodataloader: 0.2.0
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
   aiohttp: 3.8.1
-  aioitertools: 0.8.0
+  aioitertools: 0.9.0
   aiosignal: 1.2.0
   anyio: 3.5.0
   ariadne: 0.14.1
@@ -14,13 +14,12 @@ closure:
   async-timeout: 4.0.2
   attrs: 21.4.0
   authlib: 0.15.4
-  awscli: 1.18.32
   backports.csv: 1.0.7
   binaryornot: 0.4.4
   bleach: 4.1.0
-  boto3: 1.12.32
+  boto3: 1.20.24
   boto3-type-annotations: 0.3.1
-  botocore: 1.15.32
+  botocore: 1.23.24
   cachetools: 5.0.0
   certifi: 2021.10.8
   cffi: 1.15.0
@@ -28,13 +27,12 @@ closure:
   charset-normalizer: 2.0.11
   click: 8.0.3
   cloudmersive-virus-api-client: 3.0.5
-  colorama: 0.4.3
+  colorama: 0.4.4
   convertdate: 2.4.0
   cryptography: 3.3.2
   cycler: 0.11.0
   defusedxml: 0.7.1
   docopt: 0.6.2
-  docutils: 0.15.2
   ecdsa: 0.17.0
   exponent-server-sdk: 0.3.1
   fpdf: 1.7.2
@@ -97,10 +95,10 @@ closure:
   requests-oauthlib: 1.3.1
   retrying: 1.3.3
   rfc3986: 1.5.0
-  rsa: 3.4.2
+  rsa: "4.8"
   ruamel.yaml: 0.17.20
   ruamel.yaml.clib: 0.2.6
-  s3transfer: 0.3.3
+  s3transfer: 0.5.1
   simplejson: 3.17.0
   six: 1.16.0
   smmap: 5.0.0
@@ -111,7 +109,7 @@ closure:
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
   typing-extensions: 4.0.1
-  urllib3: 1.25.11
+  urllib3: 1.26.8
   uvicorn: 0.17.1
   uvloop: 0.16.0
   watchgod: "0.7"
@@ -122,18 +120,15 @@ closure:
   yarl: 1.7.2
   zenpy: 2.0.24
 links:
-  - name: aioboto3-8.0.3-py2.py3-none-any.whl
-    sha256: 1vr9s82y8q5xcq5493nm2gpvjvzz7gapnif69sy7riys0qj13zdk
-    url: https://files.pythonhosted.org/packages/ed/c6/baa60289d1c8c04f7680f56ed08f1a0d2887af961003cb7c73c9a99847e8/aioboto3-8.0.3-py2.py3-none-any.whl
-  - name: aioboto3-8.0.3.tar.gz
-    sha256: 1z3hn3w9znf86z4d112hcxa32w979dsp4awaskvirlfjg32ajl0n
-    url: https://files.pythonhosted.org/packages/5e/a3/f6dcb8047438a85352d54ad75270139810ce1111ccabc489bc7dec65c7a1/aioboto3-8.0.3.tar.gz
-  - name: aiobotocore-1.0.4-py3-none-any.whl
-    sha256: 1lyq7qb28253bpjcc297knwf6ahnmc617af4qy4pvdrfqnbyz28y
-    url: https://files.pythonhosted.org/packages/b2/82/7914c3e3db9d18e893ac0d6e60e7bfea597435e519b367c67f94602a6984/aiobotocore-1.0.4-py3-none-any.whl
-  - name: aiobotocore-1.0.4.tar.gz
-    sha256: 1y2gf51h8xi9d7fcvnqdxrzc6mjzn4j52af57lh7c88nkq5xj0s1
-    url: https://files.pythonhosted.org/packages/96/43/8674a7144e137e5130fb80fab8a3ad1c8c841e0d4dd15dab846f4a45730a/aiobotocore-1.0.4.tar.gz
+  - name: aioboto3-9.3.1-py3-none-any.whl
+    sha256: 15p0s8gxdmr89lydh8pli6hdgpyz6yhklw3mpin112i0jh7dg86a
+    url: https://files.pythonhosted.org/packages/03/04/e722f2fd6262ff953000d9dd015017f6e7113553c0438d1b91931c0d7d4d/aioboto3-9.3.1-py3-none-any.whl
+  - name: aioboto3-9.3.1.tar.gz
+    sha256: 01x2f6mjxcbq83vmf7xvkavs75iajjxjk9sqq01fm77xkqfnrydd
+    url: https://files.pythonhosted.org/packages/8c/12/ab52b5022d47577e45f4de097f8bdc724344aacec862b2cdbd0a8ddb4a01/aioboto3-9.3.1.tar.gz
+  - name: aiobotocore-2.1.0.tar.gz
+    sha256: 08210wy1rxwgzr1mfz3c06wcrm9flpcfl598sd6zx5h8zapdgm2z
+    url: https://files.pythonhosted.org/packages/af/71/9fae62115f4a2531a6cb3b40d4304a76265bb56fef0444ea0d4e7c8d7761/aiobotocore-2.1.0.tar.gz
   - name: aiodataloader-0.2.0.tar.gz
     sha256: 1yjpnqz6dai7s291vfvqdgqqvv4nivppi94a3v28jq3y22fbs6yx
     url: https://files.pythonhosted.org/packages/7b/23/3a7cbaa38ad7d9e6d67fce2054b84d7363da502638b16b13069328b746bf/aiodataloader-0.2.0.tar.gz
@@ -191,12 +186,12 @@ links:
   - name: aiohttp-3.8.1.tar.gz
     sha256: 0y3m1dzl4h6frg8vys0fc3m83ijd1plfpihv3kvmxqadlphp2m7w
     url: https://files.pythonhosted.org/packages/5a/86/5f63de7a202550269a617a5d57859a2961f3396ecd1739a70b92224766bc/aiohttp-3.8.1.tar.gz
-  - name: aioitertools-0.8.0-py3-none-any.whl
-    sha256: 0lml8s9n2pxs1lglgq2whymnswv2s94f5bhp370ch2h5s40iy51s
-    url: https://files.pythonhosted.org/packages/bf/ef/fd35e61a554489a4438cc34aadc95bdc4987f513b56624d78d8b22f08516/aioitertools-0.8.0-py3-none-any.whl
-  - name: aioitertools-0.8.0.tar.gz
-    sha256: 0iibihfjqknrmfawr49ncvc7w9nkycis4jcrfdkih3wvpk7zl0lb
-    url: https://files.pythonhosted.org/packages/78/f7/ea3904946e33c6e2799b5303e11ae5f43cf6b08dda58c8db8d759e34c3fb/aioitertools-0.8.0.tar.gz
+  - name: aioitertools-0.9.0-py3-none-any.whl
+    sha256: 153g27rsd6ywx55vq8rxclxd79hqira45r5xfiv47c72ggq479kh
+    url: https://files.pythonhosted.org/packages/92/a0/d7addf01e207e91076c7529b52515355c3d91ef67be8a498ebe394cac364/aioitertools-0.9.0-py3-none-any.whl
+  - name: aioitertools-0.9.0.tar.gz
+    sha256: 1b3ii3wk7r039r5clhddi21k529n1m7s27z7r9rkj6cj67ah7lhg
+    url: https://files.pythonhosted.org/packages/a7/c5/fe985d8eab13f168341a80bba99bdc2608f7788050f87722786a80583873/aioitertools-0.9.0.tar.gz
   - name: aiosignal-1.2.0-py3-none-any.whl
     sha256: 0fjfsrsspwlg2cjbj33dw5gx1kqd3zwldmkadvgq3lbc0c4j3ri6
     url: https://files.pythonhosted.org/packages/3b/87/fe94898f2d44a93a35d5aa74671ed28094d80753a1113d68b799fab6dc22/aiosignal-1.2.0-py3-none-any.whl
@@ -242,12 +237,6 @@ links:
   - name: Authlib-0.15.4.tar.gz
     sha256: 0r34n8q46zwl8cjwg3vz99il1bn2z928r1667kdf0vxwahjkmprp
     url: https://files.pythonhosted.org/packages/f2/24/09b67e9cffa426f3df4d6a3e12155ea35d3382549fd723e8e1aa40a56006/Authlib-0.15.4.tar.gz
-  - name: awscli-1.18.32-py2.py3-none-any.whl
-    sha256: 0pbrxppglzlw71nda3q0kdk8w92hwr0abj0mvgjglijcvs0lpkbc
-    url: https://files.pythonhosted.org/packages/95/6f/e9c2be00df5b20783e405338eb42e61f8467b269d0e03d47565ba00e2ab2/awscli-1.18.32-py2.py3-none-any.whl
-  - name: awscli-1.18.32.tar.gz
-    sha256: 13370ak2f6k02skh5014gs1ic4j03kkkrhnmb4zfym282xh6z7rr
-    url: https://files.pythonhosted.org/packages/61/c5/02d87f3407ef9356abf3ddd63049135486aaf682860304bbf09283e2ceee/awscli-1.18.32.tar.gz
   - name: backports.csv-1.0.7-py2.py3-none-any.whl
     sha256: 1kn5m9773nrp06knjvm8c9i64pmnfw1c9nvyhwgnr7jqmfdy1xi1
     url: https://files.pythonhosted.org/packages/8e/26/a6bd68f13e0f38fbb643d6e497fc3462be83a0b6c4d43425c78bb51a7291/backports.csv-1.0.7-py2.py3-none-any.whl
@@ -263,24 +252,24 @@ links:
   - name: bleach-4.1.0.tar.gz
     sha256: 1nkibazmw1ry4cfxs9qrkkidxdf2z1hh1b20xq1ahqdsgsrxh009
     url: https://files.pythonhosted.org/packages/6a/a3/217842324374fd3fb33db0eb4c2909ccf3ecc5a94f458088ac68581f8314/bleach-4.1.0.tar.gz
-  - name: boto3-1.12.32-py2.py3-none-any.whl
-    sha256: 0y0hmbxh9vdfv0hs0hspknani50cz5liwi36r0ayfx70nphqsfap
-    url: https://files.pythonhosted.org/packages/2b/4d/d205e9dee3216f163c484171c9bee410fa446fd27d12dd871ec22067a857/boto3-1.12.32-py2.py3-none-any.whl
-  - name: boto3-1.12.32.tar.gz
-    sha256: 09ajb1zgf505s85b6fikjaxh380n1p6lf19jlwvfscbjb4j13b30
-    url: https://files.pythonhosted.org/packages/1a/66/14469ec66c7cb3e68e05926f952f66a65828bc5a6f66d6fb91dc4ed1d299/boto3-1.12.32.tar.gz
+  - name: boto3-1.20.24-py3-none-any.whl
+    sha256: 11hr99kjhwsfp8fmrzhcxnmn17wdvymfk136hvlwa1zi9glyh24g
+    url: https://files.pythonhosted.org/packages/4a/15/d854221077e22acd05c190778c29b14398bce0cee0fed34a6979d320546e/boto3-1.20.24-py3-none-any.whl
+  - name: boto3-1.20.24.tar.gz
+    sha256: 16lapydsjyql543qbxvny6m9dhirsh0sh6s87gm2j8vbisr0b5vk
+    url: https://files.pythonhosted.org/packages/7c/16/f1311747c6eb9a4f69b9a07e82e7836f4e8c925f9006f24f715a8f3ec0c6/boto3-1.20.24.tar.gz
   - name: boto3_type_annotations-0.3.1-py3-none-any.whl
     sha256: 0pj34m11cr5wln1i57p7hhd7ijdcq8ck1b5a8bpap4mp5an0gq2j
     url: https://files.pythonhosted.org/packages/96/7f/9477016e1bfd5b87ce9fcbadd3363ca3b7eb07ed2fe43137588a44dfc06c/boto3_type_annotations-0.3.1-py3-none-any.whl
   - name: boto3_type_annotations-0.3.1.tar.gz
     sha256: 11dqn69x0a94jakjnr0yrpgwxb3fxw0wc94z3343bs9ms29j0s75
     url: https://files.pythonhosted.org/packages/9f/f1/fd99a0d0e52fe26ffaf601cce72757e740a45e0d08d942cdedf4935dcd0f/boto3_type_annotations-0.3.1.tar.gz
-  - name: botocore-1.15.32-py2.py3-none-any.whl
-    sha256: 16miv7wppcgwz04xdk8lw097zvbsid756b1xzy3pf44l9mbayqx9
-    url: https://files.pythonhosted.org/packages/49/86/6448bb5ab4b0c169f379fce589e568e798907b569eaeb012c720a4dd9ca2/botocore-1.15.32-py2.py3-none-any.whl
-  - name: botocore-1.15.32.tar.gz
-    sha256: 0vgwsccqyv2bn7f8arhnwpylr1dy6bc8n9q58046aas5xq0rda1y
-    url: https://files.pythonhosted.org/packages/80/38/b2fb224d0b74a48c14f997be0511d677f5f4e16523e0b971120a1b6604a7/botocore-1.15.32.tar.gz
+  - name: botocore-1.23.24-py3-none-any.whl
+    sha256: 05qnykghn640h2b536yqvy78dzp2xhpj1ik2nfwky0cc1k2li3g7
+    url: https://files.pythonhosted.org/packages/ef/05/cb9048c57f77ab9fa6970d2c88bd92471dc4ccc4bcf5b59c645db9cbdedc/botocore-1.23.24-py3-none-any.whl
+  - name: botocore-1.23.24.tar.gz
+    sha256: 01j8dcp9d7yln6y1xk1shmi7gvnvbihhznnk359nbfypa97nn023
+    url: https://files.pythonhosted.org/packages/2e/32/9103b5c8a8e2596f39e6db658f1e2f4193ecdacec7539854c09ed4612699/botocore-1.23.24.tar.gz
   - name: cachetools-5.0.0-py3-none-any.whl
     sha256: 1r3nm7jxhwkv0ykrq8i26q3h6dh8v24hdfg7if91gbrq78hd9v4g
     url: https://files.pythonhosted.org/packages/19/99/ace1769546388976b45e93445bb04c6df95e96363f03fbb56f916da5ebde/cachetools-5.0.0-py3-none-any.whl
@@ -338,12 +327,12 @@ links:
   - name: cloudmersive_virus_api_client-3.0.5.tar.gz
     sha256: 0lbzl1dn97yazn6gl0h7634v5sdv1gndfdj46qj0rjq6gnmm9s9r
     url: https://files.pythonhosted.org/packages/4e/ce/59eb2af5920c5d642e39241b05770431faa8284180d330df39c584b7f3f8/cloudmersive_virus_api_client-3.0.5.tar.gz
-  - name: colorama-0.4.3-py2.py3-none-any.whl
-    sha256: 1zxg57x9j55n8y7fyxnhv5cjx026j3j5wibbmhv7l42kjylx4wvx
-    url: https://files.pythonhosted.org/packages/c9/dc/45cdef1b4d119eb96316b3117e6d5708a08029992b2fee2c143c7a0a5cc5/colorama-0.4.3-py2.py3-none-any.whl
-  - name: colorama-0.4.3.tar.gz
-    sha256: 189n8hpijy14jfan4ha9f5n06mnl33cxz7ay92wjqgkr639s0vg9
-    url: https://files.pythonhosted.org/packages/82/75/f2a4c0c94c85e2693c229142eb448840fba0f9230111faa889d1f541d12d/colorama-0.4.3.tar.gz
+  - name: colorama-0.4.4-py2.py3-none-any.whl
+    sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
+    url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
+  - name: colorama-0.4.4.tar.gz
+    sha256: 16w62sm95hmh55rqxn4zwdz0bkh3fqm1qnz9cwi3s510iasb4har
+    url: https://files.pythonhosted.org/packages/1f/bb/5d3246097ab77fa083a61bd8d3d527b7ae063c7d8e8671b1cf8c4ec10cbe/colorama-0.4.4.tar.gz
   - name: convertdate-2.4.0-py3-none-any.whl
     sha256: 0kly0dc3kbc9k7i4rq2szqk9f1zxgisw7c03rx42c5r2fnkf7zzw
     url: https://files.pythonhosted.org/packages/27/65/3deecc820ce91716225ec72b584b48ba9512ed9583ad48619e3dbbbbd714/convertdate-2.4.0-py3-none-any.whl
@@ -380,12 +369,6 @@ links:
   - name: docopt-0.6.2.tar.gz
     sha256: 14f4hn6d1j4b99svwbaji8n2zj58qicyz19mm0x6pmhb50jsics9
     url: https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz
-  - name: docutils-0.15.2-py3-none-any.whl
-    sha256: 1l5nk52lmds6gjak2az9b7q43g8fhiilnn8cpaw1z7xpcdj6jkvc
-    url: https://files.pythonhosted.org/packages/22/cd/a6aa959dca619918ccb55023b4cb151949c64d4d5d55b3f4ffd7eee0c6e8/docutils-0.15.2-py3-none-any.whl
-  - name: docutils-0.15.2.tar.gz
-    sha256: 168s5v7bff5ar9jspr6wn823q1sbn0jhnbp9clk41nl8j09fmbm2
-    url: https://files.pythonhosted.org/packages/93/22/953e071b589b0b1fee420ab06a0d15e5aa0c7470eb9966d60393ce58ad61/docutils-0.15.2.tar.gz
   - name: ecdsa-0.17.0-py2.py3-none-any.whl
     sha256: 0xpn7rzwpqvya9g56jwrixa9v9j9r0v91698zh6vwfkl6ddivwsw
     url: https://files.pythonhosted.org/packages/4a/b6/b678b080967b2696e9a201c096dc076ad756fb35c87dca4e1d1a13496ff7/ecdsa-0.17.0-py2.py3-none-any.whl
@@ -788,6 +771,9 @@ links:
   - name: pandas-1.3.4.tar.gz
     sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
     url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
+  - name: Pillow-9.0.1-1-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 1z2vrk5pm4ksj1r3kv178ldxam2zclwjjgr8fljhsz13pliqhqdr
+    url: https://files.pythonhosted.org/packages/34/4e/a491038f9bb13ea7f69874789d2cb69577eefb16724d678602f42222128f/Pillow-9.0.1-1-cp39-cp39-macosx_11_0_arm64.whl
   - name: Pillow-9.0.1-cp39-cp39-macosx_10_10_x86_64.whl
     sha256: 0f38nqzav25zlkrp8gl870h52rpq7x00iganh0sn777d3jb37jl0
     url: https://files.pythonhosted.org/packages/70/42/ecdde20336656550db979f1d8266f3711b935122de3ecba4707d1a87cce8/Pillow-9.0.1-cp39-cp39-macosx_10_10_x86_64.whl
@@ -932,9 +918,12 @@ links:
   - name: rfc3986-1.5.0.tar.gz
     sha256: 0d8q89p98vq33vi8qci6nb8f6vmwvprmpik3a04lw3bxv08ay2i7
     url: https://files.pythonhosted.org/packages/79/30/5b1b6c28c105629cc12b33bdcbb0b11b5bb1880c6cfbd955f9e792921aa8/rfc3986-1.5.0.tar.gz
-  - name: rsa-3.4.2.tar.gz
-    sha256: 1dcxvszbikgzh99ybdc7jq0zb9wspy2ds8z9mjsqiyv3q884xpr5
-    url: https://files.pythonhosted.org/packages/14/89/adf8b72371e37f3ca69c6cb8ab6319d009c4a24b04a31399e5bd77d9bb57/rsa-3.4.2.tar.gz
+  - name: rsa-4.8-py3-none-any.whl
+    sha256: 1fshd62fvf7f8cia5hrwcpypi565csjqnhlcf1lywyg8qh0d7icm
+    url: https://files.pythonhosted.org/packages/30/ab/8fd9e88e6fa5ec41afca995938bbefb72195278e0cfc5bd76a4f29b23fb2/rsa-4.8-py3-none-any.whl
+  - name: rsa-4.8.tar.gz
+    sha256: 05vbvxavxk80cbljm764pwmlwrrvia51yqsa63j7yfslgbfdjssw
+    url: https://files.pythonhosted.org/packages/8c/ee/4022542e0fed77dd6ddade38e1e4dea3299f873b7fd4e6d78319953b0f83/rsa-4.8.tar.gz
   - name: ruamel.yaml-0.17.20-py3-none-any.whl
     sha256: 1bqiy0kj5320g0058bbah2z5w9888xx2crlw8xvkyfjj8sffy3l1
     url: https://files.pythonhosted.org/packages/cb/30/2d76730ade03303d1c4deb0742a4fbe374e072a4eeb9e1d08f5140f7ddd2/ruamel.yaml-0.17.20-py3-none-any.whl
@@ -950,12 +939,12 @@ links:
   - name: ruamel.yaml.clib-0.2.6.tar.gz
     sha256: 1gdchmdngbni9mv6f62xb7ii1kjr8wvkqq859xwj1fws8g709xjg
     url: https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz
-  - name: s3transfer-0.3.3-py2.py3-none-any.whl
-    sha256: 04wardfqby7j2fr6wz845yv6sx5xa47q7njr5l13m4r4jljv90i4
-    url: https://files.pythonhosted.org/packages/69/79/e6afb3d8b0b4e96cefbdc690f741d7dd24547ff1f94240c997a26fa908d3/s3transfer-0.3.3-py2.py3-none-any.whl
-  - name: s3transfer-0.3.3.tar.gz
-    sha256: 1nzp5kwmy9669334shcz9ipg89jgpdqhrmbkgdg18r7wmvi3f6lj
-    url: https://files.pythonhosted.org/packages/50/de/2b688c062107942486c81a739383b1432a72717d9a85a6a1a692f003c70c/s3transfer-0.3.3.tar.gz
+  - name: s3transfer-0.5.1-py3-none-any.whl
+    sha256: 07wi080qffr6mcx2l1jzi61rxifx8p6hvr8bqqd9x9vaqvsl1h95
+    url: https://files.pythonhosted.org/packages/17/7c/4b60191e38bed78c65e817f7506ef1038a4246a703cb36fb5390a5eaf7ce/s3transfer-0.5.1-py3-none-any.whl
+  - name: s3transfer-0.5.1.tar.gz
+    sha256: 02niv6jfskkq3z2i0az34b6r2n4mgv4j43xaiavnkrb0wz9n9lk9
+    url: https://files.pythonhosted.org/packages/66/e2/cc19f36aade1ef40cba69555fcf713d942ec9e31ecff2415948bd885911d/s3transfer-0.5.1.tar.gz
   - name: simplejson-3.17.0.tar.gz
     sha256: 108yf3252fy4ndqab7h46raksxfhcn113bzy2yd8369vidrjnjrb
     url: https://files.pythonhosted.org/packages/98/87/a7b98aa9256c8843f92878966dc3d8d914c14aad97e2c5ce4798d5743e07/simplejson-3.17.0.tar.gz
@@ -1013,12 +1002,12 @@ links:
   - name: typing_extensions-4.0.1.tar.gz
     sha256: 03ka3fb2ilxw4d93japj5rlyh8agf6p8vd5gavn4bya9l7g9382c
     url: https://files.pythonhosted.org/packages/0d/4a/60ba3706797b878016f16edc5fbaf1e222109e38d0fa4d7d9312cb53f8dd/typing_extensions-4.0.1.tar.gz
-  - name: urllib3-1.25.11-py2.py3-none-any.whl
-    sha256: 0pnxjyc33d162wrxmk285av9x44h9sqpzzhbzl7gmzpk9fz1ycpm
-    url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
-  - name: urllib3-1.25.11.tar.gz
-    sha256: 18hpzh1am1dqx81fypn57r2wk565fi4g14292qrc5jm1h9dalzld
-    url: https://files.pythonhosted.org/packages/76/d9/bbbafc76b18da706451fa91bc2ebe21c0daf8868ef3c30b869ac7cb7f01d/urllib3-1.25.11.tar.gz
+  - name: urllib3-1.26.8-py2.py3-none-any.whl
+    sha256: 1v976ijsh5zxyjziwqhqvyzj2mrhhpp26w3c3hjw4cx2f7saf300
+    url: https://files.pythonhosted.org/packages/4e/b8/f5a25b22e803f0578e668daa33ba3701bb37858ec80e08a150bd7d2cf1b1/urllib3-1.26.8-py2.py3-none-any.whl
+  - name: urllib3-1.26.8.tar.gz
+    sha256: 0g18xk7gfm88gr4bp3f58vgvsbzwps3sq2kqhv5xyz9ylvck6z0f
+    url: https://files.pythonhosted.org/packages/b0/b1/7bbf5181f8e3258efae31702f5eab87d8a74a72a0aa78bc8c08c1466e243/urllib3-1.26.8.tar.gz
   - name: uvicorn-0.17.1-py3-none-any.whl
     sha256: 0wrcys9b3cm05nxvdc6k2r3vb8p8by1q5wc4860gf035nzndj5lb
     url: https://files.pythonhosted.org/packages/47/16/f3a9c53c87a82172bf4046276882a7874fe8dd410f57a5c928e35c5376f7/uvicorn-0.17.1-py3-none-any.whl
