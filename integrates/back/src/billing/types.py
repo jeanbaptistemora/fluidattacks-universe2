@@ -1,4 +1,5 @@
 from typing import (
+    Dict,
     NamedTuple,
     Optional,
 )
@@ -20,15 +21,10 @@ class PaymentMethod(NamedTuple):
     default: bool
 
 
-class Price(NamedTuple):
-    id: str
-    subscription: str
-
-
 class Subscription(NamedTuple):
     id: str
     group: str
     org_billing_customer: str
     organization: str
     type: str
-    item: str
+    items: Dict[str, str]

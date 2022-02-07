@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from billing import (
     dal,
 )
@@ -13,7 +10,6 @@ from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
     BillingSubscriptionSameActive,
-    CouldNotActivateSubscription,
     CouldNotCreatePaymentMethod,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
@@ -53,21 +49,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def _group_has_active_subscription(
-    *,
-    group_name: str,
-    org_billing_customer: str,
-) -> bool:
-    """True if group has active subscription"""
-    subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-        status="active",
-        limit=1000,
-    )
-    return len(subs) > 0
-
-
 async def _customer_has_payment_method(
     *,
     org_billing_customer: str,
@@ -89,18 +70,28 @@ async def _format_create_subscription_data(
     billing_cycle_anchor: int = int(
         datetime_utils.get_first_day_next_month_timestamp()
     )
+    prices: Dict[str, str] = await dal.get_prices()
     items: List[Dict[str, Any]] = [
         {
-            "price": (
-                await dal.get_price(
-                    subscription=subscription,
-                    active=True,
-                )
-            ).id,
+            "price": prices["machine"],
+            "quantity": 1,
+            "metadata": {
+                "group": group_name,
+                "name": "machine",
+                "organization": org_name,
+            },
+        },
+        {
+            "price": prices["squad"]
+            if subscription == "squad"
+            else prices["free"],
+            "metadata": {
+                "group": group_name,
+                "name": "squad",
+                "organization": org_name,
+            },
         },
     ]
-    if subscription == "machine":
-        items[0]["quantity"] = 1
 
     return {
         "customer": org_billing_customer,
@@ -122,119 +113,55 @@ async def _create_subscription(
     group_name: str,
 ) -> bool:
     """Helper for creating Stripe subscription"""
-    # Raise exception if customer does not have a payment method
-    if not await _customer_has_payment_method(
-        org_billing_customer=org_billing_customer,
-    ):
-        raise BillingCustomerHasNoPaymentMethod()
-
-    # machine+squad if subscription is squad
-    subs: List[str] = [subscription]
-    if subscription == "squad":
-        subs.append("machine")
-
     # Format subs data
-    data: Dict[str, Dict[str, Any]] = {
-        sub: await _format_create_subscription_data(
-            subscription=sub,
-            org_billing_customer=org_billing_customer,
-            org_name=org_name,
-            group_name=group_name,
-        )
-        for sub in subs
-    }
+    data: Dict[str, Any] = await _format_create_subscription_data(
+        subscription=subscription,
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
+        group_name=group_name,
+    )
 
-    # Create machine subs
-    result: bool = await dal.create_subscription(**data["machine"])
-
-    # Raise exception if machine could not be activated
-    if not result:
-        raise CouldNotActivateSubscription()
-
-    if subscription == "squad":
-        result = result and await dal.create_subscription(**data["squad"])
-
-    return result
+    # Create subscription
+    return await dal.create_subscription(**data)
 
 
 async def _update_subscription(
     *,
+    current: Subscription,
     subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-    subscriptions: Dict[str, Subscription],
 ) -> bool:
     """Helper for updating a Stripe subscription"""
-    # Raise exception if customer does not have a payment method
-    if not await _customer_has_payment_method(
-        org_billing_customer=org_billing_customer,
-    ):
-        raise BillingCustomerHasNoPaymentMethod()
-
     # Report usage if subscription is squad
-    if "squad" in subscriptions.keys():
-        await dal.report_subscription_usage(
-            subscription=subscriptions["squad"],
+    report: bool = True
+    if current.type == "squad":
+        report = await dal.report_subscription_usage(
+            subscription=current,
         )
 
-    if subscription == "squad":
-        data: Dict[str, Any] = await _format_create_subscription_data(
-            subscription=subscription,
-            org_billing_customer=org_billing_customer,
-            org_name=org_name,
-            group_name=group_name,
-        )
-        return await dal.create_subscription(**data)
-    return await dal.remove_subscription(
-        subscription_id=subscriptions["squad"].id,
-        invoice_now=True,
-        prorate=True,
+    upgrade: bool = current.type == "machine" and subscription == "squad"
+    return report and await dal.update_subscription(
+        subscription=current,
+        upgrade=upgrade,
     )
 
 
 async def _remove_subscription(
     *,
-    subscriptions: Dict[str, Subscription],
+    subscription: Subscription,
 ) -> bool:
     """Helper for cancelling a stripe subscription"""
 
     # Report usage if subscription is squad
     report: bool = True
-    if "squad" in subscriptions.keys():
+    if subscription.type == "squad":
         report = await dal.report_subscription_usage(
-            subscription=subscriptions["squad"],
+            subscription=subscription,
         )
 
-    return report and all(
-        await collect(
-            [
-                dal.remove_subscription(
-                    subscription_id=sub.id,
-                    invoice_now=sub.type == "squad",
-                    prorate=True,
-                )
-                for sub in subscriptions.values()
-            ]
-        )
-    )
-
-
-async def _remove_incomplete_subscriptions(
-    *,
-    org_billing_customer: str,
-    group_name: str,
-) -> bool:
-    """Cancel all incomplete subscriptions for a group"""
-    subscriptions: Dict[str, Subscription] = await dal.get_group_subscriptions(
-        group_name=group_name,
-        org_billing_customer=org_billing_customer,
-        status="incomplete",
-        limit=1000,
-    )
-
-    return await _remove_subscription(
-        subscriptions=subscriptions,
+    return report and await dal.remove_subscription(
+        subscription_id=subscription.id,
+        invoice_now=subscription.type == "squad",
+        prorate=True,
     )
 
 
@@ -250,7 +177,13 @@ async def update_subscription(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    subscriptions: Dict[str, Subscription] = await dal.get_group_subscriptions(
+    # Raise exception if customer does not have a payment method
+    if not await _customer_has_payment_method(
+        org_billing_customer=org_billing_customer,
+    ):
+        raise BillingCustomerHasNoPaymentMethod()
+
+    current: Optional[Subscription] = await dal.get_group_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -258,38 +191,28 @@ async def update_subscription(
     )
 
     # Raise exception if group already has the same subscription active
-    already_free: bool = subscription == "free" and len(subscriptions) == 0
-    already_machine: bool = (
-        subscription == "machine" and len(subscriptions) == 1
-    )
-    already_squad: bool = subscription == "squad" and len(subscriptions) == 2
-    if already_free or already_machine or already_squad:
+    is_free: bool = current is None and subscription == "free"
+    is_other: bool = current is not None and current.type == subscription
+    if is_free or is_other:
         raise BillingSubscriptionSameActive()
 
-    # Remove incomplete subscriptions
-    result: bool = await _remove_incomplete_subscriptions(
-        org_billing_customer=org_billing_customer,
-        group_name=group_name,
-    )
+    result: bool = False
 
-    if subscription == "free":
-        result = result and await _remove_subscription(
-            subscriptions=subscriptions,
-        )
-    elif len(subscriptions) > 0:
-        result = result and await _update_subscription(
+    if current is None:
+        result = await _create_subscription(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
             group_name=group_name,
-            subscriptions=subscriptions,
+        )
+    elif subscription != "free":
+        result = await _update_subscription(
+            current=current,
+            subscription=subscription,
         )
     else:
-        result = result and await _create_subscription(
-            subscription=subscription,
-            org_billing_customer=org_billing_customer,
-            org_name=org_name,
-            group_name=group_name,
+        result = await _remove_subscription(
+            subscription=current,
         )
 
     return result
@@ -501,40 +424,32 @@ async def webhook(request: Request) -> JSONResponse:
         )
 
         # Main logic
+        run: bool = False
+        tier: str = ""
         if event.type in (
             "customer.subscription.created",
-            "customer.subscription.deleted",
+            "customer.subscription.updated",
         ):
-            tier: str = ""
-            subs: Dict[str, Subscription] = await dal.get_group_subscriptions(
-                group_name=event.data.object.metadata.group,
-                org_billing_customer=event.data.object.customer,
-                status="active",
-                limit=1000,
-            )
+            run = True
+            tier = event.data.object.metadata.subscription
+        elif event.type == "customer.subscription.deleted":
+            run = True
+            tier = "free"
+        else:
+            message = f"Unhandled event type: {event.type}"
+            status = "failed"
+            LOGGER.warning(message, extra=dict(extra=locals()))
 
-            if (
-                event.type == "customer.subscription.deleted"
-                and event.data.object.metadata.subscription == "machine"
-            ):
-                tier = "free"
-            elif "squad" in subs.keys():
-                tier = "squad"
-            elif "machine" in subs.keys():
-                tier = "machine"
-
+        if run:
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
-                reason=f"Update triggered by Stripe with event {event.id}",
+                reason=f"Triggered by Stripe with event {event.id}",
                 requester_email="development@fluidattacks.com",
                 group_name=event.data.object.metadata.group,
                 tier=tier,
             ):
                 message = "Success"
-        else:
-            message = f"Unhandled event type: {event.type}"
-            status = "failed"
-            LOGGER.warning(message, extra=dict(extra=locals()))
+
     except ValueError as ex:
         message = "Invalid payload"
         status = "failed"

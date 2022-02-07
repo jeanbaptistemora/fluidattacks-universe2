@@ -1133,15 +1133,6 @@ class InvalidBillingCustomer(CustomBaseException):
         super(InvalidBillingCustomer, self).__init__(msg)
 
 
-class InvalidBillingPrice(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Invalid price. "
-            "Provided price does not exist in Stripe"
-        )
-        super(InvalidBillingPrice, self).__init__(msg)
-
-
 class BillingSubscriptionSameActive(CustomBaseException):
     def __init__(self) -> None:
         msg = (
@@ -1182,15 +1173,6 @@ class CouldNotCreatePaymentMethod(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Provided payment method could not be created"
         super(CouldNotCreatePaymentMethod, self).__init__(msg)
-
-
-class CouldNotActivateSubscription(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Subscription could not be activated, "
-            "please review your invoices"
-        )
-        super(CouldNotActivateSubscription, self).__init__(msg)
 
 
 class InvalidGitCredentials(CustomBaseException):

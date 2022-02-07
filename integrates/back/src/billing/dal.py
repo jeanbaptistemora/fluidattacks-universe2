@@ -4,16 +4,12 @@ from bill import (
 from billing.types import (
     Customer,
     PaymentMethod,
-    Price,
     Subscription,
 )
 from context import (
     BASE_URL,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
-)
-from custom_exceptions import (
-    InvalidBillingPrice,
 )
 from datetime import (
     datetime,
@@ -149,22 +145,18 @@ async def create_portal(
     ).url
 
 
-async def get_price(
-    *,
-    subscription: str,
-    active: bool = True,
-) -> Price:
-    """Return a subscription price"""
+async def get_prices() -> Dict[str, str]:
+    """Get model prices"""
     data = stripe.Price.list(
-        lookup_keys=[subscription],
-        active=active,
+        lookup_keys=[
+            "machine",
+            "squad",
+            "free",
+        ],
+        active=True,
     ).data
-    if len(data) > 0:
-        return Price(
-            id=data[0].id,
-            subscription=data[0].lookup_key,
-        )
-    raise InvalidBillingPrice()
+
+    return {price.lookup_key: price.id for price in data}
 
 
 async def get_customer_subscriptions(
@@ -185,37 +177,42 @@ async def get_customer_subscriptions(
             org_billing_customer=sub.customer,
             organization=sub.metadata.organization,
             type=sub.metadata.subscription,
-            item=sub["items"]["data"][0]["id"],
+            items={
+                item["metadata"]["name"]: item["id"]
+                for item in sub["items"]["data"]
+            },
         )
         for sub in subs
     }
 
 
-async def get_group_subscriptions(
+async def get_group_subscription(
     *,
     group_name: str,
     org_billing_customer: str,
     limit: int = 1000,
     status: str = "active",
-) -> Dict[str, Subscription]:
-    """Return subscriptions for a group"""
+) -> Optional[Subscription]:
+    """Return subscription for a group"""
     subs = stripe.Subscription.list(
         customer=org_billing_customer,
         limit=limit,
         status=status,
     ).data
     filtered = [sub for sub in subs if sub.metadata.group == group_name]
-    return {
-        sub.metadata.subscription: Subscription(
-            id=sub.id,
-            group=sub.metadata.group,
-            org_billing_customer=sub.customer,
-            organization=sub.metadata.organization,
-            type=sub.metadata.subscription,
-            item=sub["items"]["data"][0]["id"],
+    if len(filtered) > 0:
+        return Subscription(
+            id=filtered[0].id,
+            group=filtered[0].metadata.group,
+            org_billing_customer=filtered[0].customer,
+            organization=filtered[0].metadata.organization,
+            type=filtered[0].metadata.subscription,
+            items={
+                item["metadata"]["name"]: item["id"]
+                for item in filtered[0]["items"]["data"]
+            },
         )
-        for sub in filtered
-    }
+    return None
 
 
 async def get_customer(
@@ -303,9 +300,33 @@ async def report_subscription_usage(
         )
     )
     result = stripe.SubscriptionItem.create_usage_record(
-        subscription.item,
+        subscription.items["squad"],
         quantity=authors,
         timestamp=timestamp,
         action="set",
     )
     return isinstance(result.id, str)
+
+
+async def update_subscription(
+    *,
+    subscription: Subscription,
+    upgrade: bool,
+) -> bool:
+    """Upgrade or downgrade a subscription"""
+    prices: Dict[str, str] = await get_prices()
+
+    result = stripe.Subscription.modify(
+        subscription.id,
+        items=[
+            {
+                "id": subscription.items["squad"],
+                "price": prices["squad"] if upgrade else prices["free"],
+            }
+        ],
+        metadata={
+            "subscription": "squad" if upgrade else "machine",
+        },
+        proration_behavior="always_invoice",
+    )
+    return isinstance(result.created, int)
