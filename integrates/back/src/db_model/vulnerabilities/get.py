@@ -247,7 +247,7 @@ class VulnNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
         return await collect(
-            _get_vulnerability(vulnerability_id=id) for id in ids
+            tuple(_get_vulnerability(vulnerability_id=id) for id in ids)
         )
 
 
@@ -257,7 +257,7 @@ class VulnHistoricStateNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
         return await collect(
-            _get_historic_state(vulnerability_id=id) for id in ids
+            tuple(_get_historic_state(vulnerability_id=id) for id in ids)
         )
 
 
@@ -289,7 +289,7 @@ class VulnHistoricZeroRiskNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
-            _get_historic_zero_risk(vulnerability_id=id) for id in ids
+            tuple(_get_historic_zero_risk(vulnerability_id=id) for id in ids)
         )
 
 

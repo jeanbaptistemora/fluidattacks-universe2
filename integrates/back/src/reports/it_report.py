@@ -402,7 +402,15 @@ class ITReport:
             "Current Treatment expiration Moment": current_treatment_exp_date,
             "Current Assigned": vuln.treatment.assigned or EMPTY,
         }
+        first_treatment_data = {
+            "First Treatment": EMPTY,
+            "First Treatment Moment": EMPTY,
+            "First Treatment Justification": EMPTY,
+            "First Treatment expiration Moment": EMPTY,
+            "First Assigned": EMPTY,
+        }
         if first_treatment:
+            first_expiration = EMPTY
             if (
                 first_treatment.status == VulnerabilityTreatmentStatus.ACCEPTED
                 and first_treatment.accepted_until
@@ -410,8 +418,6 @@ class ITReport:
                 first_expiration = datetime_utils.convert_from_iso_str(
                     first_treatment.accepted_until
                 )
-            else:
-                first_expiration = EMPTY
             first_treatment_data = {
                 "First Treatment": format_treatment(first_treatment.status),
                 "First Treatment Moment": datetime_utils.convert_from_iso_str(
@@ -421,14 +427,6 @@ class ITReport:
                 or EMPTY,
                 "First Treatment expiration Moment": first_expiration,
                 "First Assigned": first_treatment.assigned or EMPTY,
-            }
-        else:
-            first_treatment_data = {
-                "First Treatment": EMPTY,
-                "First Treatment Moment": EMPTY,
-                "First Treatment Justification": EMPTY,
-                "First Treatment expiration Moment": EMPTY,
-                "First Assigned": EMPTY,
             }
 
         for key, value in current_treatment_data.items():

@@ -27,7 +27,9 @@ class GroupStakeholdersLoader(DataLoader):
         return cast(
             Tuple[List[StakeholderType], ...],
             await collect(
-                users_domain.get_stakeholders(group_name)
-                for group_name in group_names
+                tuple(
+                    users_domain.get_stakeholders(group_name)
+                    for group_name in group_names
+                )
             ),
         )
