@@ -35,6 +35,10 @@ from utils.string import (
     make_snippet,
     SnippetViewport,
 )
+from vulnerabilities import (
+    build_lines_vuln,
+    build_metadata,
+)
 from zone import (
     t,
 )
@@ -61,15 +65,12 @@ def get_vulnerability_from_n_id(
     ) as handle:
         content: str = handle.read()
 
-    return core_model.Vulnerability(
-        finding=method.value.finding,
-        kind=core_model.VulnerabilityKindEnum.LINES,
-        namespace=CTX.config.namespace,
-        state=core_model.VulnerabilityStateEnum.OPEN,
+    return build_lines_vuln(
+        method=method,
         what=meta_attrs_label_path,
         where=str(n_attrs_label_line),
-        skims_metadata=core_model.SkimsVulnerabilityMetadata(
-            cwe=(method.value.get_cwe(),),
+        metadata=build_metadata(
+            method=method,
             description=(
                 f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
                 f"{CTX.config.namespace}/{meta_attrs_label_path}"
@@ -81,8 +82,6 @@ def get_vulnerability_from_n_id(
                     line=int(n_attrs_label_line),
                 ),
             ),
-            source_method=method.value.get_name(),
-            developer=method.value.developer,
         ),
     )
 

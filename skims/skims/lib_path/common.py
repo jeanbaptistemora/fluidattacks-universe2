@@ -52,6 +52,10 @@ from utils.string import (
     make_snippet,
     SnippetViewport,
 )
+from vulnerabilities import (
+    build_lines_vuln,
+    build_metadata,
+)
 from zone import (
     t,
 )
@@ -120,15 +124,12 @@ def get_vulnerabilities_blocking(
     wrap: bool = False,
 ) -> core_model.Vulnerabilities:
     results: core_model.Vulnerabilities = tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.LINES,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
+        build_lines_vuln(
+            method=method,
             what=path,
-            where=f"{match.start_line}",
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            where=str(match.start_line),
+            metadata=build_metadata(
+                method=method,
                 description=f"{t(key=description_key)} {t(key='words.in')} "
                 f"{CTX.config.namespace}/{path}",
                 snippet=make_snippet(
@@ -139,14 +140,9 @@ def get_vulnerabilities_blocking(
                         wrap=wrap,
                     ),
                 ),
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
-        for match in get_matching_lines_blocking(
-            content=content,
-            grammar=grammar,
-        )
+        for match in get_matching_lines_blocking(content, grammar)
     )
 
     return results
@@ -160,23 +156,18 @@ def get_vulnerabilities_from_iterator_blocking(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     results: core_model.Vulnerabilities = tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.LINES,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
+        build_lines_vuln(
+            method=method,
             what=path,
-            where=f"{line_no}",
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            where=str(line_no),
+            metadata=build_metadata(
+                method=method,
                 description=f"{t(key=description_key)} {t(key='words.in')} "
                 f"{CTX.config.namespace}/{path}",
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
                 ),
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
         for line_no, column_no in iterator
@@ -229,11 +220,8 @@ def translate_dependencies_to_vulnerabilities(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     results: core_model.Vulnerabilities = tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.LINES,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
+        build_lines_vuln(
+            method=method,
             what=" ".join(
                 (
                     path,
@@ -241,9 +229,9 @@ def translate_dependencies_to_vulnerabilities(
                     f"[{cve}]",
                 )
             ),
-            where=f'{product["line"]}',
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            where=str(product["line"]),
+            metadata=build_metadata(
+                method=method,
                 description=(
                     t(
                         key="src.lib_path.f011.npm_package_json.description",
@@ -260,8 +248,6 @@ def translate_dependencies_to_vulnerabilities(
                         line=product["line"],
                     ),
                 ),
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
         for product, version in dependencies
