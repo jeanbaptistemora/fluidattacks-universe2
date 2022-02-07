@@ -1,8 +1,3 @@
-import authz
-from custom_exceptions import (
-    InvalidSeenFirstTimeByRole,
-    ToeInputAlreadyEnumerated,
-)
 from custom_types import (
     Group,
 )
@@ -225,10 +220,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
 
 async def remove(
     current_value: ToeInput,
-    is_moving_toe_input: bool = False,
 ) -> None:
-    if not is_moving_toe_input and current_value.seen_at is not None:
-        raise ToeInputAlreadyEnumerated()
     await toe_inputs_model.remove(
         entry_point=current_value.entry_point,
         component=current_value.component,
@@ -263,21 +255,6 @@ async def update(
         or attributes.be_present is not None
         else None
     )
-    seen_at = attributes.seen_at
-    if (
-        attributes.is_moving_toe_input is False
-        and attributes.seen_first_time_by is not None
-    ):
-        role = await authz.get_group_level_role(
-            attributes.seen_first_time_by, current_value.group_name
-        )
-        if role not in {"hacker", "enumerator"}:
-            raise InvalidSeenFirstTimeByRole()
-
-        if current_value.seen_at is not None:
-            raise ToeInputAlreadyEnumerated()
-
-        seen_at = datetime_utils.get_utc_now()
 
     metadata = ToeInputMetadataToUpdate(
         attacked_at=attributes.attacked_at,
@@ -286,7 +263,7 @@ async def update(
         be_present_until=be_present_until,
         first_attack_at=first_attack_at,
         has_vulnerabilities=has_vulnerabilities,
-        seen_at=seen_at,
+        seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
         clean_attacked_at=attributes.clean_attacked_at,

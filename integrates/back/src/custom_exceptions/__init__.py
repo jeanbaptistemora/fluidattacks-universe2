@@ -1209,24 +1209,3 @@ class InvalidUrl(CustomBaseException):
         """Constructor"""
         msg = "Exception - The URL is not valid"
         super(InvalidUrl, self).__init__(msg)
-
-
-class ToeInputAlreadyEnumerated(CustomBaseException):
-    """Exception to control the toe input has been enumerated"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Exception - The toe input is already enumerated"
-        super(ToeInputAlreadyEnumerated, self).__init__(msg)
-
-
-class InvalidSeenFirstTimeByRole(CustomBaseException):
-    """Exception to control the role for seen firt time by"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = (
-            "Exception - The role is not valid for the user in seen first "
-            "time by"
-        )
-        super(InvalidSeenFirstTimeByRole, self).__init__(msg)

@@ -395,18 +395,6 @@ type Mutation {
     findingId: String!
   ): DownloadFilePayload!
 
-  "Enumerate Toe input of a group"
-  enumerateToeInput(
-    "Input URL or PATH"
-    component: String!
-    "Entry point of the test"
-    entryPoint: String!
-    "Name of the group the input is associated with"
-    groupName: String!
-    "Hacker who found the application input"
-    seenFirstTimeBy: String!
-  ): SimplePayload!
-
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
     "Deprecated. Use `groupName` instead"
@@ -587,16 +575,6 @@ type Mutation {
     vulnerabilities: [String]!
     "Tag to remove"
     tag: String
-  ): SimplePayload!
-
-  "Removes Toe input from the group"
-  removeToeInput(
-    "Input URL or PATH"
-    component: String!
-    "Entry point of the test"
-    entryPoint: String!
-    "Name of the group the input is associated with"
-    groupName: String!
   ): SimplePayload!
 
   "Removes/deletes a vulnerability within a finding"

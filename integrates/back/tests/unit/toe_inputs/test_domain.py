@@ -83,7 +83,7 @@ async def test_delete() -> None:
             group_name=group_name,
         )
     )
-    await toe_inputs_domain.remove(current_value, is_moving_toe_input=True)
+    await toe_inputs_domain.remove(current_value)
     loaders = get_new_context()
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)

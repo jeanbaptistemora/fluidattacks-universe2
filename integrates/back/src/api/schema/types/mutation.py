@@ -31,7 +31,6 @@ from api.mutations import (
     download_event_file,
     download_file,
     download_vulnerability_file,
-    enumerate_toe_input,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptance,
@@ -52,7 +51,6 @@ from api.mutations import (
     remove_stakeholder,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
-    remove_toe_input,
     remove_vulnerability,
     remove_vulnerability_tags,
     request_groups_upgrade,
@@ -145,7 +143,6 @@ MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field(
     "downloadVulnerabilityFile", download_vulnerability_file.mutate
 )
-MUTATION.set_field("enumerateToeInput", enumerate_toe_input.mutate)
 MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
 MUTATION.set_field(
     "grantStakeholderOrganizationAccess",
@@ -184,7 +181,6 @@ MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("removeGroup", remove_group.mutate)
 MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
-MUTATION.set_field("removeToeInput", remove_toe_input.mutate)
 MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field(
     "requestVulnerabilitiesVerification",

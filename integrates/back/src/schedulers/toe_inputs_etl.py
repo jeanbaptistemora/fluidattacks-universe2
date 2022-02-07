@@ -350,7 +350,7 @@ async def remove_toe_inputs(
 ) -> None:
     await collect(
         [
-            toe_inputs_remove(toe_input, is_moving_toe_input=True)
+            toe_inputs_remove(toe_input)
             for toe_input in group_toe_inputs.values()
             if toe_input.seen_at is None
             and group_roots.get(toe_input.unreliable_root_id)
@@ -378,7 +378,6 @@ async def remove_duplicated_inputs(
                         cvs_input.component, cvs_input.entry_point
                     )
                 ],
-                is_moving_toe_input=True,
             )
             for cvs_input in cvs_group_toe_inputs.values()
             if cvs_input.get_hash() not in group_toe_inputs

@@ -211,8 +211,7 @@ async def refresh_inactive_root_toe_inputs(
     toe_inputs_to_remove = get_toe_inputs_to_remove(root, root_toe_inputs)
     await collect(
         tuple(
-            toe_inputs_remove(toe_input, is_moving_toe_input=True)
-            for toe_input in toe_inputs_to_remove
+            toe_inputs_remove(toe_input) for toe_input in toe_inputs_to_remove
         ),
     )
     LOGGER_CONSOLE.info(
