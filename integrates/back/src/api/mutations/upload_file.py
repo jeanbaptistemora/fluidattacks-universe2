@@ -91,6 +91,12 @@ async def mutate(
             finding_ids=[finding_id],
             vulnerability_ids=processed_vulnerabilities,
         )
+        if finding_policy:
+            await update_unreliable_indicators_by_deps(
+                EntityDependency.handle_finding_policy,
+                finding_ids=[finding_id],
+                vulnerability_ids=processed_vulnerabilities,
+            )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Uploaded file in {finding.group_name} group "
