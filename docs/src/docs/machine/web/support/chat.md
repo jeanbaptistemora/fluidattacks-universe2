@@ -5,50 +5,53 @@ sidebar_label: Live Chat
 slug: /machine/web/support/live-chat
 ---
 
-While using the
-[Attack Surface Manager (ASM)](https://app.fluidattacks.com)
-and managing your organization or groups,
-you may have questions
-about using the ASM in general.
-For answering these questions,
-there is a function
-that allows you to chat
-directly with us,
-which you can find at any time
-while browsing the ASM
-in the top right corner of your screen.
+If you have a question about any
+feature of the ASM or need help
+on how to use it, we recommend
+you to get in touch using the
+**Instant Live Chat** option.
+Through this means, we provide you
+with fast and personalized support
+on minor issues for which it is not
+necessary to schedule a video call
+(in this case, the
+[Talk to an expert](/machine/web/support/talk-expert/)
+option would apply).
 
-![Support Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622669089/docs/web/organizations/support/support_button_highlight_tjivwk.png)
+![Second Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1644244093/docs/web/organizations/support/support__livechat_option.png)
 
-You find a **question mark** button
-that you can click
-to bring up a small chat
-in the lower right corner of your screen.
+To find the **Live Chat** option,
+go to the top-right corner of the
+ASM and click on the question
+mark icon.
+Select **Live Chat** from the
+drop-down menu.
+A chat box will appear in the
+right corner of your screen, and
+you will be enabled to chat
+with our Customer Support team.
 
-![Support Chat](https://res.cloudinary.com/fluid-attacks/image/upload/v1622669090/docs/web/organizations/support/support_chat_kmc0bu.png)
+![Second Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1644244093/docs/web/organizations/support/support_chatbox.png)
 
-Use this chat
-to convey your questions to us,
-and we will do our best
-to help you as soon as possible.
+You need to keep in mind that the
+**Instant Live Chat** service is
+available from 8:00 AM until
+6:00 PM (GMT-5).
+Outside these hours, the chat
+box’s title bar will say
+**Leave us a message**.
+You will be asked for your email
+address, the applicable product
+and the kind of help you need.
+You may then type your message
+and send it.
+Since email communication is much
+slower than chatting, we recommend
+that you provide us with as much
+details as you can about the
+problem you are having.
+Our Customer Support will reply
+to your message via email as
+soon as possible.
 
-There is also another option
-to receive help from us,
-and that is by reaching us
-through our support email address:
-help@fluidattacks.com
-
-Use this address to send us
-any questions you have,
-just like with the chat.
-However,
-since email communication is much slower
-than chatting,
-we recommend that you provide us with
-as much details as you can
-about the problem you are having.
-This way,
-we won't have to ask you for more information
-to help you,
-and we will give you an appropiate answer
-much faster.
+![Second Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1644244093/docs/web/organizations/support/support_leave_message.png)
