@@ -103,56 +103,6 @@ def get_http_urls(dex):
     ]
 
 
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def allows_user_ca(apk_file: str) -> tuple:
-    """
-    Check if the given APK allows to trust on user-given CAs.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK allows to trust on user-given CAs.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    msg_open = ""
-    msg_closed = ""
-    try:
-        net_conf = str(apk_obj.get_file("res/xml/network_security_config.xml"))
-    except androguard.core.bytecodes.apk.FileNotPresent:
-        sdk_version = apk_obj.get_target_sdk_version()
-        target_sdk = int(sdk_version) if sdk_version else 0
-        if target_sdk < 24:
-            msg_open = "No network security config file found and SDK version \
-allows user-supplied CAs by default"
-            return _get_result_as_tuple_sast(
-                path=apk_file,
-                msg_open=msg_open,
-                msg_closed=msg_closed,
-                open_if=True,
-            )
-        msg_closed = "No network security config file found but SDK version \
-defaults to deny user-supplied CAs"
-        return _get_result_as_tuple_sast(
-            path=apk_file,
-            msg_open=msg_open,
-            msg_closed=msg_closed,
-            open_if=False,
-        )
-
-    result = False
-    if "trust-anchors" in net_conf and "user" in net_conf:
-        msg_open = "APK allows to trust user-supplied CAs"
-        result = True
-    else:
-        msg_closed = "APK denies to trust user-supplied CAs"
-    return _get_result_as_tuple_sast(
-        path=apk_file, msg_open=msg_open, msg_closed=msg_closed, open_if=result
-    )
-
-
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def socket_uses_getinsecure(apk_file: str) -> tuple:

@@ -45,11 +45,6 @@ def test_forces_update_open():
     assert apk.not_forces_updates(SIGNED_APK)
 
 
-def test_allows_user_ca_open():
-    """Test if APK trusts user CAs."""
-    assert apk.allows_user_ca(SIGNED_APK)
-
-
 #
 # Close tests
 #
@@ -63,16 +58,6 @@ def test_permissions_close():
 def test_forces_update_close():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(JS_APK)
-
-
-def test_allows_user_ca_close1():
-    """Test if APK trusts user CAs."""
-    assert not apk.allows_user_ca(SSL_CLOSE)
-
-
-def test_allows_user_ca_close2():
-    """Test if APK trusts user CAs."""
-    assert not apk.allows_user_ca(SSL_OPEN)
 
 
 def test_getinsecure_close():
@@ -93,11 +78,6 @@ def test_permissions_unknown():
 def test_forces_update_unknown():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(NOT_EXISTS_APK)
-
-
-def test_allows_user_ca_unknown():
-    """Test if APK trusts user CAs."""
-    assert not apk.allows_user_ca(NOT_EXISTS_APK)
 
 
 def test_getinsecure_unknown():
