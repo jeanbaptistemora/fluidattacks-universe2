@@ -43,11 +43,7 @@ def test_get_entities_to_update_by_dependency() -> None:
         Entity.vulnerability: EntityToUpdate(
             entity_ids={EntityId.ids: [vulnerability_id]},
             attributes_to_update={
-                EntityAttr.efficacy,
                 EntityAttr.last_reattack_date,
-                EntityAttr.last_reattack_requester,
-                EntityAttr.last_requested_reattack_date,
-                EntityAttr.reattack_cycles,
                 EntityAttr.treatment_changes,
             },
         ),

@@ -133,8 +133,6 @@ ENTITIES = {
                 dependencies={
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
-                    EntityDependency.request_vulnerabilities_verification,
-                    EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,
                 }
@@ -143,7 +141,6 @@ ENTITIES = {
                 dependencies={
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
-                    EntityDependency.request_vulnerabilities_verification,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,
@@ -152,8 +149,6 @@ ENTITIES = {
             EntityAttr.last_reattack_requester: dict(
                 dependencies={
                     EntityDependency.request_vulnerabilities_verification,
-                    EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.last_requested_reattack_date: dict(
@@ -161,8 +156,6 @@ ENTITIES = {
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.request_vulnerabilities_verification,
-                    EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.reattack_cycles: dict(
@@ -170,8 +163,6 @@ ENTITIES = {
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.request_vulnerabilities_verification,
-                    EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.verify_vulnerabilities_request,
                 }
             ),
             EntityAttr.treatment_changes: dict(

@@ -21,7 +21,10 @@ async def get_efficacy(
     loaders: Any,
     vuln: Vulnerability,
 ) -> Decimal:
-    if vuln.state.status != VulnerabilityStateStatus.CLOSED:
+    if (
+        vuln.state.status != VulnerabilityStateStatus.CLOSED
+        or not vuln.verification
+    ):
         return Decimal(0)
 
     if (
