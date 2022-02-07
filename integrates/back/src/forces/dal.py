@@ -1,7 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
 
-import aioboto3
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -69,25 +68,23 @@ async def get_execution(group_name: str, execution_id: str) -> Any:
     key_condition_expresion = Key("execution_id").eq(execution_id) & Key(
         "subscription"
     ).eq(group_name)
+    results = await dynamodb_ops.query(
+        TABLE_NAME, {"KeyConditionExpression": key_condition_expresion}
+    )
 
-    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
-        table = await resource.Table(TABLE_NAME)
-        results = await table.query(
-            KeyConditionExpression=key_condition_expresion
-        )
-        if results:
-            result = results["Items"][0]
-            if "accepted" not in result["vulnerabilities"]:
-                result["vulnerabilities"]["accepted"] = []
-            if "open" not in result["vulnerabilities"]:
-                result["vulnerabilities"]["open"] = []
-            if "closed" not in result["vulnerabilities"]:
-                result["vulnerabilities"]["closed"] = []
-            # Compatibility with old API
-            result["project_name"] = result.get("subscription")
-            result["group_name"] = result.get("subscription")
-            return result
-        return {}
+    if results:
+        result = results["Items"][0]
+        if "accepted" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["accepted"] = []
+        if "open" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["open"] = []
+        if "closed" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["closed"] = []
+        # Compatibility with old API
+        result["project_name"] = result.get("subscription")
+        result["group_name"] = result.get("subscription")
+        return result
+    return {}
 
 
 async def get_log_execution(group_name: str, execution_id: str) -> str:
@@ -160,27 +157,18 @@ async def yield_executions(
         "date"
     ).lte(to_date.isoformat())
 
-    async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
-        table = await resource.Table(TABLE_NAME)
-        query_params = {
-            "KeyConditionExpression": key_condition_expresion,
-            "FilterExpression": filter_expression,
-        }
-        has_more = True
-        while has_more:
-            results = await table.query(**query_params)
-            for result in results["Items"]:
-                if "accepted" not in result["vulnerabilities"]:
-                    result["vulnerabilities"]["accepted"] = []
-                if "open" not in result["vulnerabilities"]:
-                    result["vulnerabilities"]["open"] = []
-                if "closed" not in result["vulnerabilities"]:
-                    result["vulnerabilities"]["closed"] = []
-                result[f"{group_name_key}"] = result.get("subscription")
-                # Exception: WF(AsyncIterator is subtype of iterator)
-                yield result  # NOSONAR
-            if results.get("LastEvaluatedKey", None):
-                query_params["ExclusiveStartKey"] = results.get(
-                    "LastEvaluatedKey"
-                )
-            has_more = results.get("LastEvaluatedKey", False)
+    query_params = {
+        "KeyConditionExpression": key_condition_expresion,
+        "FilterExpression": filter_expression,
+    }
+    results = await dynamodb_ops.query(TABLE_NAME, query_params)
+    for result in results:
+        if "accepted" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["accepted"] = []
+        if "open" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["open"] = []
+        if "closed" not in result["vulnerabilities"]:
+            result["vulnerabilities"]["closed"] = []
+        result[f"{group_name_key}"] = result.get("subscription")
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield result  # NOSONAR

@@ -1,15 +1,14 @@
-import aioboto3
 from boto3.dynamodb.conditions import (
     Key,
-)
-from botocore.exceptions import (
-    ClientError,
 )
 from custom_exceptions import (
     EmptyPoolName,
 )
-from dynamodb.operations_legacy import (
-    RESOURCE_OPTIONS,
+from custom_types import (
+    DynamoDelete,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
@@ -38,29 +37,19 @@ async def create(name: str, entity: str) -> bool:
         "gsi-2-pk": f"RANDOM_AVAILABLE_{entity.upper()}_SORT",
         "gsi-2-sk": str(uuid.uuid4()),
     }
-    resp = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        try:
-            response = await table.put_item(Item=new_item)
-            resp = response["ResponseMetadata"]["HTTPStatusCode"] == 200
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-    return resp
+    await dynamodb_ops.put_item(TABLE_NAME, new_item)
+    return True
 
 
 async def exists(name: str, entity: str) -> bool:
     """
     Returns True if the given entity name exists
     """
-    item_exists = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.get_item(
-            Key={"pk": f"AVAILABLE_{entity.upper()}", "sk": name.upper()}
-        )
-        item_exists = bool(response.get("Item", {}))
-    return item_exists
+    item = await dynamodb_ops.get_item(
+        TABLE_NAME,
+        {"Key": {"pk": f"AVAILABLE_{entity.upper()}", "sk": name.upper()}},
+    )
+    return bool(item)
 
 
 async def get_all(entity: str) -> List[str]:
@@ -68,21 +57,11 @@ async def get_all(entity: str) -> List[str]:
     Returns all availale entity names
     """
     key_exp = Key("pk").eq(f"AVAILABLE_{entity.upper()}")
-    all_names = []
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.query(
-            KeyConditionExpression=key_exp, ProjectionExpression="sk"
-        )
-        all_available = response["Items"]
-        while response.get("LastEvaluatedKey"):
-            response = await table.query(
-                ExclusiveStartKey=response["LastEvaluatedKey"],
-                KeyConditionExpression=key_exp,
-                ProjectionExpression="sk",
-            )
-            all_available += response["Items"]
-        all_names = [available["sk"] for available in all_available]
+    all_available = await dynamodb_ops.query(
+        TABLE_NAME,
+        {"KeyConditionExpression": key_exp, "ProjectionExpression": "sk"},
+    )
+    all_names = [available["sk"] for available in all_available]
     return all_names
 
 
@@ -106,21 +85,17 @@ async def get_one(entity: str) -> str:
     }
     # Make two attempts to return a name using the random uuid
     # First attempt with greater than operator
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        response = await table.query(**query_attrs)
-        response_items = response.get("Items", [])
+    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
+    if response_items:
+        name = response_items[0].get("sk", "").lower()
+    else:
+        # Second attempt with less than or equal operator
+        query_attrs["KeyConditionExpression"] = key_exp_lt
+        response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
         if response_items:
             name = response_items[0].get("sk", "").lower()
         else:
-            # Second attempt with less than or equal operator
-            query_attrs["KeyConditionExpression"] = key_exp_lt
-            response = await table.query(**query_attrs)
-            response_items = response.get("Items", [])
-            if response_items:
-                name = response_items[0].get("sk", "").lower()
-            else:
-                raise EmptyPoolName(entity)
+            raise EmptyPoolName(entity)
     return name
 
 
@@ -129,12 +104,5 @@ async def remove(name: str, entity: str) -> bool:
     Removes an available entity given its name
     """
     primary_keys = {"pk": f"AVAILABLE_{entity.upper()}", "sk": name.upper()}
-    resp = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        table = await dynamodb_resource.Table(TABLE_NAME)
-        try:
-            response = await table.delete_item(Key=primary_keys)
-            resp = response["ResponseMetadata"]["HTTPStatusCode"] == 200
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-    return resp
+    await dynamodb_ops.delete_item(TABLE_NAME, DynamoDelete(Key=primary_keys))
+    return True

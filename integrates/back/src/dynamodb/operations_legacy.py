@@ -100,7 +100,7 @@ async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
         async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
             dynamo_table = await dynamodb_resource.Table(table)
             response = await dynamo_table.get_item(**query_attrs)
-            response_items = response.get("Items", [])
+            response_items = response.get("Item", {})
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return response_items
