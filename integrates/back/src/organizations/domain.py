@@ -43,6 +43,7 @@ from names import (
 )
 from newutils import (
     datetime as datetime_utils,
+    token,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -53,7 +54,6 @@ from newutils.validations import (
 from organizations import (
     dal as orgs_dal,
 )
-import secrets
 from settings import (
     LOGGING,
 )
@@ -254,6 +254,18 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
     }
 
 
+async def get_access_by_url_token(
+    url_token: str,
+) -> Dict[str, Any]:
+    token_content = token.decode_jwt(url_token)
+    organization_id: str = token_content["organization_id"]
+    user_email: str = token_content["user_email"]
+    access = await orgs_dal.get_access_by_url_token(
+        organization_id, user_email
+    )
+    return access if access else {}
+
+
 async def get_by_id(org_id: str) -> OrganizationType:
     organization: OrganizationType = await orgs_dal.get_by_id(org_id)
     if organization:
@@ -360,13 +372,19 @@ async def invite_to_organization(
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
         )
-        url_token = secrets.token_urlsafe(64)
-        success = await group_access_domain.update(
+        organization_id = await get_id_by_name(organization_name)
+        url_token = token.new_encoded_jwt(
+            {
+                "organization_id": organization_id,
+                "user_email": email,
+            },
+        )
+        success = await update(
+            organization_id,
             email,
-            organization_name,
             {
                 "expiration_time": expiration_time,
-                "has_access": True,  # Temporary value until is implemented
+                "has_access": False,
                 "invitation": {
                     "is_used": False,
                     "role": role,
@@ -374,7 +392,9 @@ async def invite_to_organization(
                 },
             },
         )
-        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
+        confirm_access_url = (
+            f"{BASE_URL}/confirm_access_organization/{url_token}"
+        )
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]
         email_context: MailContentType = {
@@ -437,6 +457,14 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     if not has_orgs:
         user_removed = user_removed and await users_domain.delete(email)
     return user_removed and role_removed and groups_removed
+
+
+async def update(
+    organization_id: str,
+    user_email: str,
+    data: Dict[str, Any],
+) -> bool:
+    return await orgs_dal.update_user(organization_id, user_email, data)
 
 
 async def update_pending_deletion_date(

@@ -497,7 +497,7 @@ async def update_group(
 
 
 async def update_user(
-    user_email: str, org_id: str, data: Dict[str, Any]
+    org_id: str, user_email: str, data: Dict[str, Any]
 ) -> bool:
     """Update org access attributes."""
     success = False
@@ -518,8 +518,8 @@ async def update_user(
 
     update_attrs = {
         "Key": {
-            "sk": f"USER#{user_email.lower()}",
             "pk": org_id.lower(),
+            "sk": f"USER#{user_email.lower()}",
         },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
