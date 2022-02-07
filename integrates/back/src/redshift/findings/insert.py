@@ -310,7 +310,7 @@ async def insert_batch_verification_vuln_ids(
         if verification.vulnerability_ids
     ]
     await execute_batch(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
+        SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
             table=VERIFICATION_VULN_IDS_TABLE,
             fields=_fields,
             values=values,

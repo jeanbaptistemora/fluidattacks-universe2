@@ -150,17 +150,17 @@ class Finding(NamedTuple):
     id: str
     state: FindingState
     title: str
-    attack_vector_description: str = ""
     approval: Optional[FindingState] = None
+    attack_vector_description: str = ""
     creation: Optional[FindingState] = None
     description: str = ""
-    min_time_to_remediate: Optional[int] = None
     evidences: FindingEvidences = FindingEvidences()
+    min_time_to_remediate: Optional[int] = None
+    recommendation: str = ""
+    requirements: str = ""
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
-    recommendation: str = ""
-    requirements: str = ""
     threat: str = ""
     unreliable_indicators: FindingUnreliableIndicators = (
         FindingUnreliableIndicators()

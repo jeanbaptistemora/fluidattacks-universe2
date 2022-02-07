@@ -73,11 +73,11 @@ class Vulnerability(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
     custom_severity: Optional[int] = None
+    developer: Optional[str] = None
     hash: Optional[int] = None
     repo: Optional[str] = None
     root_id: Optional[str] = None
     skims_method: Optional[str] = None
-    developer: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
