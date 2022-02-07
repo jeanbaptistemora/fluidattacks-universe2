@@ -10,7 +10,6 @@ import aioextensions
 from boto3.dynamodb.conditions import (
     ConditionBase,
 )
-import botocore
 from botocore.exceptions import (
     ClientError,
 )
@@ -46,34 +45,20 @@ from typing import (
     Tuple,
 )
 
-
-def _format_map_attrs(attr: str) -> str:
-    return ".".join([f"#{map_attr}" for map_attr in attr.split(".")])
-
-
-def _get_resource_options() -> Dict[str, Optional[str]]:
-    basic_options = {
-        "service_name": "dynamodb",
-        "aws_access_key_id": FI_AWS_DYNAMODB_ACCESS_KEY,
-        "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
-        "aws_session_token": FI_AWS_SESSION_TOKEN,
-        "region_name": "us-east-1",
-        "config": botocore.config.Config(
-            max_pool_connections=50,
-        ),
-    }
-    if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
-        return {
-            **basic_options,
-            # FP: the endpoint is hosted in a local environment
-            "endpoint_url": (
-                f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
-            ),
-        }
-    return basic_options
-
-
-RESOURCE_OPTIONS = _get_resource_options()
+RESOURCE_OPTIONS = {
+    "service_name": "dynamodb",
+    "aws_access_key_id": FI_AWS_DYNAMODB_ACCESS_KEY,
+    "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
+    "aws_session_token": FI_AWS_SESSION_TOKEN,
+    "region_name": "us-east-1",
+    "endpoint_url": (
+        # FP: the endpoint is hosted in a local environment
+        f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
+        if FI_ENVIRONMENT == "development"
+        else None
+    ),
+}
+SESSION = aioboto3.Session()
 
 
 def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
@@ -128,7 +113,7 @@ async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
         async with table_resource.batch_writer() as batch_writer:
@@ -152,7 +137,7 @@ async def batch_delete_item(
 
 @newrelic.agent.function_trace()
 async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
         async with table_resource.batch_writer() as batch_writer:
@@ -176,7 +161,7 @@ async def delete_item(
 ) -> None:
     key_structure = table.primary_key
 
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         args = {
             "ConditionExpression": condition_expression,
@@ -200,7 +185,7 @@ async def put_item(
     item: Item,
     table: Table,
 ) -> None:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         facet_item = _build_facet_item(facet=facet, item=item, table=table)
         args = {
@@ -226,7 +211,7 @@ async def query(  # pylint: disable=too-many-locals
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         start_key = None
         if after:
@@ -268,6 +253,10 @@ async def query(  # pylint: disable=too-many-locals
     )
 
 
+def _format_map_attrs(attr: str) -> str:
+    return ".".join([f"#{map_attr}" for map_attr in attr.split(".")])
+
+
 @newrelic.agent.function_trace()
 async def update_item(
     *,
@@ -299,7 +288,7 @@ async def update_item(
         if value is None
     )
 
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
         base_args: Dict[str, Any] = {
             "ConditionExpression": condition_expression,

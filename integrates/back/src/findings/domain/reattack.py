@@ -18,7 +18,7 @@ async def clone_roots_in_batch(group: str, *roots: str) -> Dict[str, Any]:
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
-    async with aioboto3.client(**resource_options) as batch:
+    async with aioboto3.Session().client(**resource_options) as batch:
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,

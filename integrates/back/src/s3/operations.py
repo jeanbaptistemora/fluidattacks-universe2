@@ -56,7 +56,7 @@ if FI_ENVIRONMENT == "development":
 
 @contextlib.asynccontextmanager
 async def aio_client() -> aioboto3.session.Session.client:
-    async with aioboto3.client(**OPTIONS) as client:
+    async with aioboto3.Session().client(**OPTIONS) as client:
         yield client
 
 
@@ -84,7 +84,7 @@ async def remove_file(bucket: str, name: str) -> None:
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
-    async with aioboto3.client(
+    async with aioboto3.Session().client(
         **OPTIONS, config=Config(signature_version="s3v4")
     ) as s3_client:
         try:

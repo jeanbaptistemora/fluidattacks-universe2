@@ -1,5 +1,4 @@
 import aioboto3
-import botocore
 from botocore.exceptions import (
     ClientError,
 )
@@ -41,24 +40,25 @@ RESOURCE_OPTIONS: Dict[str, Optional[str]] = {
     "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
     "aws_session_token": os.environ.get("AWS_SESSION_TOKEN"),
     "region_name": "us-east-1",
-    "config": botocore.config.Config(max_pool_connections=50),
+    "endpoint_url": (
+        # FP: the endpoint is hosted in a local environment
+        f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
+        if FI_ENVIRONMENT == "development"
+        else None
+    ),
 }
-
-if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
-    # FP: the endpoint is hosted in a local environment
-    ENDPOINT_URL = f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
-    RESOURCE_OPTIONS["endpoint_url"] = ENDPOINT_URL
+SESSION = aioboto3.Session()
 
 
 @asynccontextmanager
 async def client() -> aioboto3.session.Session.client:
-    async with aioboto3.client(**RESOURCE_OPTIONS) as dynamodb_client:
+    async with SESSION.client(**RESOURCE_OPTIONS) as dynamodb_client:
         yield dynamodb_client
 
 
 async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.delete_item(**delete_attrs._asdict())
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
@@ -67,7 +67,7 @@ async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
 
 async def put_item(table: str, item: Dict[str, Any]) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.put_item(Item=item)
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
@@ -78,7 +78,7 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
 async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     try:
-        async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
             dynamo_table = await dynamodb_resource.Table(table)
             response = await dynamo_table.query(**query_attrs)
             response_items = response.get("Items", [])
@@ -97,7 +97,7 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
 async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
     response_items: Dict[str, Any]
     try:
-        async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+        async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
             dynamo_table = await dynamodb_resource.Table(table)
             response = await dynamo_table.get_item(**query_attrs)
             response_items = response.get("Item", {})
@@ -108,7 +108,7 @@ async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
 
 async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.scan(**scan_attrs)
         response_items = response.get("Items", [])
@@ -138,13 +138,13 @@ def serialize(object_: Any) -> Any:
 
 @asynccontextmanager
 async def start_context() -> aioboto3.session.Session.resource:
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         yield dynamodb_resource
 
 
 async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
     success: bool = False
-    async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
+    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.update_item(**update_attrs)
         success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
