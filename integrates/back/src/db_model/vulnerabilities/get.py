@@ -233,7 +233,7 @@ class FindingVulnsNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
         vulns = await collect(
-            _get_finding_vulnerabilities(finding_id=id) for id in ids
+            tuple(_get_finding_vulnerabilities(finding_id=id) for id in ids)
         )
         for finding_vulns in vulns:
             for vuln in finding_vulns:
@@ -267,7 +267,7 @@ class VulnHistoricTreatmentNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
         return await collect(
-            _get_historic_treatment(vulnerability_id=id) for id in ids
+            tuple(_get_historic_treatment(vulnerability_id=id) for id in ids)
         )
 
 
@@ -277,7 +277,9 @@ class VulnHistoricVerificationNewLoader(DataLoader):
         self, ids: Tuple[str, ...]
     ) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
         return await collect(
-            _get_historic_verification(vulnerability_id=id) for id in ids
+            tuple(
+                _get_historic_verification(vulnerability_id=id) for id in ids
+            )
         )
 
 

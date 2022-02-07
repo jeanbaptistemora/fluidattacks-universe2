@@ -1,12 +1,19 @@
 from .typing import (
     GroupVulnsReportHeader,
 )
+from aioextensions import (
+    collect,
+)
 from datetime import (
     datetime,
+)
+from db_model.findings.enums import (
+    FindingVerificationStatus,
 )
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
+    FindingVerification,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -23,9 +30,6 @@ from findings import (
 )
 from newutils import (
     datetime as datetime_utils,
-)
-from newutils.vulnerabilities import (
-    get_reattack_requester,
 )
 from pyexcelerate import (
     Alignment,
@@ -107,15 +111,66 @@ class ITReport:
         self.style_sheet()
         self.save()
 
+    async def _get_findings_vulnerabilities(
+        self, findings_ids: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await self.loaders.finding_vulns_nzr_typed.load_many_chained(
+            findings_ids
+        )
+
+    async def _get_findings_historics_verifications(
+        self, findings_ids: Tuple[str, ...]
+    ) -> Tuple[FindingVerification, ...]:
+        return await self.loaders.finding_historic_verification.load_many(
+            findings_ids
+        )
+
     async def generate(self, data: Tuple[Finding, ...]) -> None:
-        for finding in data:
-            finding_vulns: Tuple[
-                Vulnerability, ...
-            ] = await self.loaders.finding_vulns_nzr_typed.load(finding.id)
-            for vuln in finding_vulns:
-                if vuln.treatment.status in self.treatments:
-                    await self.set_vuln_row(vuln, finding)
-                    self.row += 1
+        findings_ids = tuple(finding.id for finding in data)
+        findings_vulnerabilities, findings_verifications = await collect(
+            (
+                self._get_findings_vulnerabilities(findings_ids),
+                self._get_findings_historics_verifications(findings_ids),
+            )
+        )
+        finding_data: Dict[str, Tuple[Finding]] = {
+            finding.id: finding for finding in data
+        }
+        finding_verification: Dict[str, Tuple[FindingVerification]] = {
+            finding.id: verification
+            for finding, verification in zip(data, findings_verifications)
+        }
+
+        vulnerabilities_filtered: Tuple[Vulnerability, ...] = tuple(
+            vulnerability
+            for vulnerability in findings_vulnerabilities
+            if vulnerability.treatment.status in self.treatments
+        )
+        vulnerabilities_historics: Tuple[
+            Tuple[
+                Tuple[VulnerabilityTreatment, ...],
+                Tuple[VulnerabilityVerificationStatus, ...],
+            ],
+            ...,
+        ] = await collect(
+            tuple(
+                self._get_vulnerability_data(vulnerability)
+                for vulnerability in vulnerabilities_filtered
+            ),
+            workers=32,
+        )
+
+        for vulnerability, historics in zip(
+            vulnerabilities_filtered, vulnerabilities_historics
+        ):
+            self.set_vuln_row(
+                vulnerability,
+                finding_data[vulnerability.finding_id],
+                historics[1],
+                historics[0],
+                finding_verification[vulnerability.finding_id],
+            )
+            self.row += 1
 
     @staticmethod
     def get_measure(metric: str, metric_value: str) -> str:
@@ -185,7 +240,7 @@ class ITReport:
 
     @classmethod
     def get_row_range(cls, row: int) -> List[str]:
-        return [f"A{row}", f"AY{row}"]
+        return [f"A{row}", f"AW{row}"]
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -242,12 +297,12 @@ class ITReport:
         for key, value in finding_data.items():
             self.row_values[self.vulnerability[key]] = value
 
-    async def set_reattack_data(self, vuln: Vulnerability) -> None:
-        historic_verification: Tuple[
-            VulnerabilityVerificationStatus, ...
-        ] = await self.loaders.vulnerability_historic_verification.load(
-            vuln.id
-        )
+    def set_reattack_data(
+        self,
+        vuln: Vulnerability,
+        historic_verification: Tuple[VulnerabilityVerificationStatus, ...],
+        finding_verification: Tuple[FindingVerification, ...],
+    ) -> None:
         reattack_requested = None
         reattack_date = None
         reattack_requester = None
@@ -275,8 +330,8 @@ class ITReport:
                 reattack_date = datetime_utils.as_zone(
                     datetime.fromisoformat(vuln.verification.modified_date)
                 )
-                reattack_requester = await get_reattack_requester(
-                    self.loaders, vuln
+                reattack_requester = self._get_reattack_requester(
+                    vuln, finding_verification
                 )
         reattack_data = {
             "Pending Reattack": "Yes" if reattack_requested else "No",
@@ -305,7 +360,11 @@ class ITReport:
             ),
         )
 
-    async def set_treatment_data(self, vuln: Vulnerability) -> None:
+    def set_treatment_data(
+        self,
+        vuln: Vulnerability,
+        historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    ) -> None:
         def get_first_treatment(
             treatments: Tuple[VulnerabilityTreatment, ...]
         ) -> Optional[VulnerabilityTreatment]:
@@ -326,11 +385,7 @@ class ITReport:
                 return "Temporarily accepted"
             return treatment.value.capitalize().replace("_", " ")
 
-        historic_treatment: Tuple[
-            VulnerabilityTreatment, ...
-        ] = await self.loaders.vulnerability_historic_treatment.load(vuln.id)
         first_treatment = get_first_treatment(historic_treatment)
-
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         if vuln.treatment.accepted_until:
             current_treatment_exp_date = datetime_utils.convert_from_iso_str(
@@ -386,7 +441,56 @@ class ITReport:
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
 
-    async def set_vuln_row(self, row: Vulnerability, finding: Finding) -> None:
+    async def _get_historic_treatment(
+        self, vulnerability_id: str
+    ) -> Tuple[VulnerabilityTreatment, ...]:
+        return await self.loaders.vulnerability_historic_treatment.load(
+            vulnerability_id
+        )
+
+    async def _get_historic_verification(
+        self, vulnerability_id: str
+    ) -> Tuple[VulnerabilityVerificationStatus, ...]:
+        return await self.loaders.vulnerability_historic_verification.load(
+            vulnerability_id
+        )
+
+    async def _get_vulnerability_data(
+        self, vuln: Vulnerability
+    ) -> Tuple[
+        Tuple[VulnerabilityTreatment, ...],
+        Tuple[VulnerabilityVerificationStatus, ...],
+    ]:
+        return await collect(
+            (
+                self._get_historic_treatment(vuln.id),
+                self._get_historic_verification(vuln.id),
+            )
+        )
+
+    @staticmethod
+    def _get_reattack_requester(
+        vuln: Vulnerability,
+        historic_verification: Tuple[FindingVerification, ...],
+    ) -> Optional[str]:
+        reversed_historic_verification = tuple(reversed(historic_verification))
+        for verification in reversed_historic_verification:
+            if (
+                verification.status == FindingVerificationStatus.REQUESTED
+                and verification.vulnerability_ids is not None
+                and vuln.id in verification.vulnerability_ids
+            ):
+                return verification.modified_by
+        return None
+
+    def set_vuln_row(  # pylint: disable=too-many-arguments
+        self,
+        row: Vulnerability,
+        finding: Finding,
+        historic_verification: Tuple[VulnerabilityVerificationStatus, ...],
+        historic_treatment: Tuple[VulnerabilityTreatment, ...],
+        finding_verification: Tuple[FindingVerification, ...],
+    ) -> None:
         vuln = self.vulnerability
         specific = row.specific
         if row.type == VulnerabilityType.LINES:
@@ -416,8 +520,10 @@ class ITReport:
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)
-        await self.set_treatment_data(row)
-        await self.set_reattack_data(row)
+        self.set_treatment_data(row, historic_treatment)
+        self.set_reattack_data(
+            row, historic_verification, finding_verification
+        )
         self.set_cvss_metrics_cell(finding)
 
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
