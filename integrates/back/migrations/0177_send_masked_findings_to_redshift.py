@@ -13,14 +13,19 @@ from aioextensions import (
     collect,
     run,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
 from aiohttp.client_exceptions import (
     ClientPayloadError,
+    ServerTimeoutError,
 )
 from boto3.dynamodb.conditions import (
     Attr,
 )
 from botocore.exceptions import (
     ClientError,
+    HTTPClientError,
 )
 from custom_exceptions import (
     UnavailabilityError as CustomUnavailabilityError,
@@ -114,31 +119,38 @@ async def send_findings_to_redshift(
     await insert_batch_metadata(
         findings=findings_to_store,
     )
-    await insert_batch_severity_cvss20(
-        findings=findings_to_store,
-    )
-    await insert_batch_severity_cvss31(
-        findings=findings_to_store,
-    )
-    await insert_batch_state(
-        finding_ids=tuple(findings_to_store_ids),
-        historics=findings_state,
-    )
-    await insert_batch_verification(
-        finding_ids=tuple(findings_to_store_ids),
-        historics=findings_verification,
-    )
-    await insert_batch_verification_vuln_ids(
-        finding_ids=tuple(findings_to_store_ids),
-        historics=findings_verification,
+    await collect(
+        (
+            insert_batch_severity_cvss20(
+                findings=findings_to_store,
+            ),
+            insert_batch_severity_cvss31(
+                findings=findings_to_store,
+            ),
+            insert_batch_state(
+                finding_ids=tuple(findings_to_store_ids),
+                historics=findings_state,
+            ),
+            insert_batch_verification(
+                finding_ids=tuple(findings_to_store_ids),
+                historics=findings_verification,
+            ),
+            insert_batch_verification_vuln_ids(
+                finding_ids=tuple(findings_to_store_ids),
+                historics=findings_verification,
+            ),
+        )
     )
 
 
 @retry_on_exceptions(
     exceptions=(
+        ClientConnectorError,
         ClientError,
         ClientPayloadError,
         CustomUnavailabilityError,
+        HTTPClientError,
+        ServerTimeoutError,
         UnavailabilityError,
     ),
     sleep_seconds=10,
@@ -203,7 +215,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(removed_groups)
         ),
-        workers=8,
+        workers=32,
     )
 
 
