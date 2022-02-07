@@ -4,6 +4,12 @@ from .types import (
 from .utils import (
     get_assigned,
 )
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from custom_exceptions import (
+    VulnAlreadyCreated,
+)
 from db_model import (
     TABLE,
 )
@@ -32,6 +38,20 @@ async def add(  # pylint: disable=too-many-locals
             "id": vulnerability.id,
         },
     )
+
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(
+                vulnerability_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["vulnerability_metadata"],),
+        limit=1,
+        table=TABLE,
+    )
+    if response.items:
+        raise VulnAlreadyCreated.new()
+
     gsi_2_key = keys.build_key(
         facet=ROOT_INDEX_METADATA,
         values={

@@ -94,6 +94,10 @@ class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
 
+class VulnAlreadyCreated(_SingleMessageException):
+    msg: str = "This vulnerability has already been created"
+
+
 class AcceptanceNotRequested(CustomBaseException):
     """Exception to control if acceptance is not valid"""
 
