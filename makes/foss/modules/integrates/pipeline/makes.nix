@@ -280,6 +280,7 @@ in
           [ "download_event_file" ]
           [ "download_file" ]
           [ "download_vulnerability_file" ]
+          [ "enumerate_toe_input" ]
           [ "event" ]
           [ "events" ]
           [ "finding" ]
