@@ -566,8 +566,8 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
         if not dirs and not files
     ]
     for _dir in empty_dirs:
-        with open(os.path.join(_dir, ".keep"), "w", encoding="utf-8"):
-            pass
+        with open(os.path.join(_dir, ".keep"), "w", encoding="utf-8") as file:
+            file.close()
 
     proc = await asyncio.create_subprocess_exec(
         "aws",

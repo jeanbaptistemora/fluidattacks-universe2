@@ -159,7 +159,6 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
             for env_url in root.state.environment_urls:
                 formatted_root_url = _format_component(env_url)
                 formatted_root_host = _get_host(formatted_root_url)
-                formatted_root_path = _get_path(formatted_root_url)
                 formatted_root_port = _get_port(formatted_root_url)
                 root_www = _get_www(env_url)
                 root_host_and_port = (

@@ -587,12 +587,11 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     )
 
     store_finding: bool = True
-    if finding.state.status == VulnerabilityStateStatus.DELETED:
-        if (
-            finding.state.modified_by.endswith("@fluidattacks.com")
-            or finding.state.status != FindingStateStatus.APPROVED
-        ):
-            store_finding = False
+    if finding.state.status == VulnerabilityStateStatus.DELETED and (
+        finding.state.modified_by.endswith("@fluidattacks.com")
+        or finding.state.status != FindingStateStatus.APPROVED
+    ):
+        store_finding = False
     if store_finding:
         await _send_to_redshift(loaders=loaders, finding=finding)
 
