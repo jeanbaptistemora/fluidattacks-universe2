@@ -95,102 +95,6 @@ F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),and
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,examples/tests/com.android.example.text.styling.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
->  1 | package android.support.annotation;
-   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
-   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
-   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
-   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
-   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
-   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
-   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
-   9 |
-  10 |     static RestrictTo$Scope()
-  11 |     {
-  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
-     |  0);
-  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
-     | RARY_GROUP"", 1);
-  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
-     | "", 2);
-  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
-  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
-     | SSES"", 4);
-  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
-     ^ Col 0
-",analyze_bytecodes.no_obfuscation
-F046,inputs,examples/tests/com.test.intent_filter.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
->  1 | package android.support.annotation;
-   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
-   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
-   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
-   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
-   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
-   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
-   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
-   9 |
-  10 |     static RestrictTo$Scope()
-  11 |     {
-  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
-     |  0);
-  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
-     | RARY_GROUP"", 1);
-  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
-     | "", 2);
-  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
-  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
-     | SSES"", 4);
-  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
-     ^ Col 0
-",analyze_bytecodes.no_obfuscation
-F046,inputs,examples/tests/hello-world.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
->  1 | package android.support.annotation;
-   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
-   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
-   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
-   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
-   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
-   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
-   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
-   9 |
-  10 |     static RestrictTo$Scope()
-  11 |     {
-  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
-     |  0);
-  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
-     | RARY_GROUP"", 1);
-  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
-     | "", 2);
-  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
-  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
-     | SSES"", 4);
-  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
-     ^ Col 0
-",analyze_bytecodes.no_obfuscation
-F046,inputs,examples/tests/partialsignature.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
->  1 | package android.support.annotation;
-   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
-   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
-   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
-   5 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
-   6 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
-   7 |
-   8 |     static RestrictTo$Scope()
-   9 |     {
-  10 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
-     | "", 0);
-  11 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 1);
-  12 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
-     | SSES"", 2);
-  13 |         android.support.annotation.RestrictTo$Scope[] v0_3 = new android.support.annotation.RestrictTo$Scope[3];
-  14 |         v0_3[0] = android.support.annotation.RestrictTo$Scope.GROUP_ID;
-  15 |         v0_3[1] = android.support.annotation.RestrictTo$Scope.TESTS;
-  16 |         v0_3[2] = android.support.annotation.RestrictTo$Scope.SUBCLASSES;
-  17 |         android.support.annotation.RestrictTo$Scope.$VALUES = v0_3;
-  18 |         return;
-  19 |     }
-     ^ Col 0
-",analyze_bytecodes.no_obfuscation
 F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,"
 >  1 | package android.support.v4.app;
    2 |  class INotificationSideChannel$Stub$Proxy implements android.support.v4.app.INotificationSideChannel {
@@ -335,30 +239,6 @@ F048,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/com.android.example.text.styling.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-  12 | ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZToColo
-     | r', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'accept', 'acceptMatch', 'access$000', 'ac
-     | cess$001', 'access$002', 'access$100', 'access$101', 'access$102', 'access$200', 'access$202', 'access$300', 'access$301
-     | ', 'access$302', 'access$400', 'access$402', 'access$500', 'access$502', 'access$600', 'access$602', 'access$700', 'acce
-     | ss$702', 'access$800', 'access$802', 'accumField', 'acos', 'acquire', 'acquireSolverVariable', 'actionFormatChanged', 'a
-     | dd', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHideOffset', 'addActions', 'addAddedFragments', 'a
-     | ddAll', 'addAnchors', 'addAnimation', 'addBackStackState', 'addCategory', 'addCentering', 'addChain', 'addChild', 'addCh
-     | ildrenForAccessibility', 'addChildrenForExpandedActionView', 'addChildrenToSolver', 'addCircle', 'addClientEquation', 'a
-     | ddColorStateListToCache', 'addCommand', 'addCompatExtras', 'addConstraint', 'addContentView', 'addCustomViewsWithGravity
-     | ', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', 'addDurationItem', 'addEmailBcc',
-     ^ Col 0
-",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -383,54 +263,6 @@ F048,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing rooted 
      | ylist', 'createStringFromIds', 'createTables', 'createWifiLock', 'currentTimeMillis', 'd', 'decodeStream', 'deconstruct'
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/com.test.intent_filter.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-  12 | ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZToColo
-     | r', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'absorbGlows', 'accept', 'acceptMatch', 'a
-     | ccess$000', 'access$001', 'access$002', 'access$100', 'access$1000', 'access$101', 'access$102', 'access$1100', 'access$
-     | 1200', 'access$1300', 'access$1400', 'access$200', 'access$201', 'access$202', 'access$300', 'access$302', 'access$400',
-     |  'access$500', 'access$502', 'access$600', 'access$700', 'access$800', 'access$900', 'accumField', 'acos', 'acquire', 'a
-     | cquireSolverVariable', 'acquireTempRect', 'acquireTile', 'actionBarOnMenuKeyEventPre28', 'actionFormatChanged', 'activeS
-     | tateChanged', 'activitySuperDispatchKeyEventPre28', 'actualDraw', 'actualIsOpaque', 'add', 'addAccessibilityStateChangeL
-     | istener', 'addAction', 'addActionBarHideOffset', 'addActions', 'addAddedFragments', 'addAll', 'addAllInternal', 'addAnch
-     | ors', 'addAnimatingView', 'addAnimation', 'addArc', 'addBackStackState', 'addCallback', 'addCategory', 'addCenterPoint',
-     |  'addCentering', 'addChain', 'addChangePayload', 'addChild', 'addChildDrawingOrderCallback', 'addChildrenForAccessibilit
-     ^ Col 0
-",analyze_bytecodes.no_root_check
-F048,inputs,examples/tests/hello-world.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/hello-world.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-  12 | ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'NodesToString', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'XYZ
-     | ToColor', 'XYZToLAB', 'abandon', 'abandonAudioFocus', 'abort', 'abortAnimation', 'abs', 'absorbGlows', 'accept', 'accept
-     | Match', 'acceptNestedScroll', 'access$000', 'access$001', 'access$002', 'access$100', 'access$1000', 'access$101', 'acce
-     | ss$102', 'access$1102', 'access$1200', 'access$1300', 'access$1400', 'access$200', 'access$202', 'access$300', 'access$3
-     | 02', 'access$400', 'access$402', 'access$500', 'access$502', 'access$600', 'access$602', 'access$700', 'access$702', 'ac
-     | cess$800', 'access$802', 'access$900', 'access$902', 'accumField', 'acos', 'acquire', 'acquireTempRect', 'acquireTile',
-     | 'actionFormatChanged', 'activateNewButton', 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHide
-     | Offset', 'addActions', 'addActionsToBuilder', 'addAll', 'addAllInternal', 'addAnimatingView', 'addAnimation', 'addBackSt
-     | ackState', 'addBigPictureStyle', 'addBigStyleToBuilderJellybean', 'addBigStyleToBuilderLollipop', 'addBigTextStyle', 'ad
-     | dCallback', 'addCategory', 'addChangePayload', 'addChild', 'addChildDrawingOrderCallback', 'addChildrenForAccessibility'
-     ^ Col 0
-",analyze_bytecodes.no_root_check
 F048,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -444,45 +276,6 @@ F048,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missin
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
   11 | # No method performs root detection
   12 | []
-     ^ Col 0
-",analyze_bytecodes.no_root_check
-F048,inputs,examples/tests/multidex/multidex.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/multidex/multidex.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-  12 | ['<init>', 'othermethod', 'println', 'somemethod']
-     ^ Col 0
-",analyze_bytecodes.no_root_check
-F048,inputs,examples/tests/partialsignature.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/partialsignature.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # No method performs root detection
-  12 | ['<clinit>', '<init>', 'DoConnected', 'DoDisconnected', 'GetColumns', 'GetName', 'HSLToColor', 'LABToColor', 'LABToXYZ',
-     |  'LoadPrefs', 'Locationbtn', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'Save', 'TextReader', 'XYZToColor', 'XYZToLAB', 'abando
-     | n', 'abandonAudioFocus', 'abort', 'abortAnimation', 'abs', 'accept', 'acceptMatch', 'access$000', 'access$002', 'access$
-     | 100', 'access$1000', 'access$1002', 'access$102', 'access$1100', 'access$1102', 'access$1200', 'access$1300', 'access$13
-     | 02', 'access$1400', 'access$1402', 'access$1500', 'access$1502', 'access$1600', 'access$1602', 'access$1700', 'access$18
-     | 00', 'access$1900', 'access$200', 'access$2000', 'access$202', 'access$300', 'access$302', 'access$400', 'access$402', '
-     | access$500', 'access$600', 'access$700', 'access$702', 'access$800', 'access$802', 'access$900', 'accumField', 'acquire'
-     | , 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActions', 'addActionsToBuilder', 'addAll', 'addAnimatio
-     | n', 'addBackStackState', 'addBigPictureStyle', 'addBigTextStyle', 'addCategory', 'addChild', 'addChildrenForAccessibilit
-     | y', 'addColumn', 'addCompatExtras', 'addCustomAction', 'addDrawerListener', 'addEditableKey', 'addEmailBcc', 'addEmailCc
      ^ Col 0
 ",analyze_bytecodes.no_root_check
 F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),application.android:grantUriPermissions enabled,284,"home,apk,bytecodes",075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
@@ -588,21 +381,6 @@ F207,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing 
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,examples/tests/com.android.example.text.styling.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/com.android.example.text.styling.apk')
-   8 |
-   9 | >>> # List all files in the APK
-  10 | >>> apk_files = apk.zip.nameslist()
-> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
-  12 | False  # No network security config exists
-     ^ Col 0
-",analyze_bytecodes.no_certs_pinning
 F207,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -611,36 +389,6 @@ F207,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),Missing res/xml
    5 |
    6 | >>> # This object represents the APK to analyze
    7 | >>> apk = APK('examples/tests/com.teleca.jamendo_35.apk')
-   8 |
-   9 | >>> # List all files in the APK
-  10 | >>> apk_files = apk.zip.nameslist()
-> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
-  12 | False  # No network security config exists
-     ^ Col 0
-",analyze_bytecodes.no_certs_pinning
-F207,inputs,examples/tests/com.test.intent_filter.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/com.test.intent_filter.apk')
-   8 |
-   9 | >>> # List all files in the APK
-  10 | >>> apk_files = apk.zip.nameslist()
-> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
-  12 | False  # No network security config exists
-     ^ Col 0
-",analyze_bytecodes.no_certs_pinning
-F207,inputs,examples/tests/hello-world.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/hello-world.apk')
    8 |
    9 | >>> # List all files in the APK
   10 | >>> apk_files = apk.zip.nameslist()
@@ -663,36 +411,23 @@ F207,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),Missin
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,examples/tests/multidex/multidex.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+F313,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"No network security config file found and SDK version allows user-supplied CAs by default.
+",295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,"No network security config file found and SDK version allows user-supplied CAs by default.
+","
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/multidex/multidex.apk')
+   7 | >>> apk = APK('examples/tests/com.teleca.jamendo_35.apk')
    8 |
-   9 | >>> # List all files in the APK
-  10 | >>> apk_files = apk.zip.nameslist()
-> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
-  12 | False  # No network security config exists
+   9 | >>> # Get SDK version
+> 10 | >>> apk.get_target_sdk_version()
+  11 | >>> No network security config file found and SDK version
+  12 | >>> allows user-supplied CAs by default
      ^ Col 0
-",analyze_bytecodes.no_certs_pinning
-F207,inputs,examples/tests/partialsignature.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/partialsignature.apk')
-   8 |
-   9 | >>> # List all files in the APK
-  10 | >>> apk_files = apk.zip.nameslist()
-> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
-  12 | False  # No network security config exists
-     ^ Col 0
-",analyze_bytecodes.no_certs_pinning
+",analyze_bytecodes.allows_user_ca
 F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK has Frida gadget embedded.,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,The APK has Frida gadget embedded.,"
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -717,6 +452,54 @@ F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK
      | ml', 'res/color/abc_tint_switch_track.xml', 'res/color/abc_background_cache_hint_selector_material_dark.xml', 'res/color
      ^ Col 0
 ",analyze_bytecodes.has_frida
+F313,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 |
+   6 | >>> # This object represents the APK to analyze
+   7 | >>> apk = APK('../product/skims/test/data/lib_apk/http_refs.apk')
+   8 |
+   9 | >>> # Get network security config file
+  10 | >>> apk.get_file(""res/xml/network_security_config.xml"")()
+> 11 | >>> ""b'\\x03\\x00\\x08\\x00\\x9c\\x02\\x00\\x00\\x01\\x00\\x1c\\x00\\xcc\\x00\\x00\\x00\\n\\x00\\x00\\x00\\x00\\x00\\x00
+     | \\x00\\x00\\x01\\x00\\x00D\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0f\\x00\\x00\\x00\\x18\\x00\\x00\\x0
+     | 0(\\x00\\x00\\x00<\\x00\\x00\\x00V\\x00\\x00\\x00b\\x00\\x00\\x00h\\x00\\x00\\x00q\\x00\\x00\\x00\\x81\\x00\\x00\\x00\\x
+     | 0c\\x0ccertificates\\x00\\x06\\x06domain\\x00\\r\\rdomain-config\\x00\\x11\\x11includeSubdomains\\x00\\x17\\x17network-s
+     | ecurity-config\\x00\\t\\towasp.org\\x00\\x03\\x03src\\x00\\x06\\x06system\\x00\\r\\rtrust-anchors\\x00\\x04\\x04user\\x0
+     | 0\\x80\\x01\\x08\\x00\\x08\\x00\\x00\\x00\\x02\\x01\\x10\\x00$\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x
+     | ff\\xff\\xff\\xff\\x04\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x01\\x10\\x00$\\
+     | x00\\x00\\x00\\x03\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\x02\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x00\\
+     | x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x01\\x10\\x008\\x00\\x00\\x00\\x04\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\xff\\xff\
+     | \xff\\xff\\x01\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x03\\x00\
+     | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
+     ^ Col 0
+",analyze_bytecodes.allows_user_ca
+F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 |
+   6 | >>> # This object represents the APK to analyze
+   7 | >>> apk = APK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   8 |
+   9 | >>> # Get network security config file
+  10 | >>> apk.get_file(""res/xml/network_security_config.xml"")()
+> 11 | >>> ""b'\\x03\\x00\\x08\\x00\\x9c\\x02\\x00\\x00\\x01\\x00\\x1c\\x00\\xcc\\x00\\x00\\x00\\n\\x00\\x00\\x00\\x00\\x00\\x00
+     | \\x00\\x00\\x01\\x00\\x00D\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0f\\x00\\x00\\x00\\x18\\x00\\x00\\x0
+     | 0(\\x00\\x00\\x00<\\x00\\x00\\x00V\\x00\\x00\\x00b\\x00\\x00\\x00h\\x00\\x00\\x00q\\x00\\x00\\x00\\x81\\x00\\x00\\x00\\x
+     | 0c\\x0ccertificates\\x00\\x06\\x06domain\\x00\\r\\rdomain-config\\x00\\x11\\x11includeSubdomains\\x00\\x17\\x17network-s
+     | ecurity-config\\x00\\t\\towasp.org\\x00\\x03\\x03src\\x00\\x06\\x06system\\x00\\r\\rtrust-anchors\\x00\\x04\\x04user\\x0
+     | 0\\x80\\x01\\x08\\x00\\x08\\x00\\x00\\x00\\x02\\x01\\x10\\x00$\\x00\\x00\\x00\\x02\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x
+     | ff\\xff\\xff\\xff\\x04\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x01\\x10\\x00$\\
+     | x00\\x00\\x00\\x03\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\x02\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x00\\
+     | x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x01\\x10\\x008\\x00\\x00\\x00\\x04\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\xff\\xff\
+     | \xff\\xff\\x01\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x03\\x00\
+     | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
+     ^ Col 0
+",analyze_bytecodes.allows_user_ca
 F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
@@ -725,36 +508,6 @@ F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not sig
    5 |
    6 | >>> # This object represents the APK to analyze
    7 | >>> apk = APK('../product/skims/test/data/lib_apk/has_frida.apk')
-   8 |
-   9 | >>> # Check the META-INF/ folder and retrieve signature pairs
-  10 | >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
-  11 | >>> apk.get_signature_names()
-> 12 | []  # Empty list means no signatures exist
-     ^ Col 0
-",analyze_bytecodes.apk_unsigned
-F103,inputs,examples/tests/com.test.intent_filter.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/com.test.intent_filter.apk')
-   8 |
-   9 | >>> # Check the META-INF/ folder and retrieve signature pairs
-  10 | >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
-  11 | >>> apk.get_signature_names()
-> 12 | []  # Empty list means no signatures exist
-     ^ Col 0
-",analyze_bytecodes.apk_unsigned
-F103,inputs,examples/tests/multidex/multidex.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.core.bytecodes.apk import APK
-   5 |
-   6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('examples/tests/multidex/multidex.apk')
    8 |
    9 | >>> # Check the META-INF/ folder and retrieve signature pairs
   10 | >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
@@ -954,27 +707,6 @@ F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F058,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
-   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
-     | tp://schemas.android.com/apk/res/android"">
-   2 |  <uses-sdk android:minsdkversion=""15"" android:targetsdkversion=""27"">
-   3 |  </uses-sdk>
->  4 |  <application android:allowbackup=""true"" android:debuggable=""true"" android:icon=""@7F0C0000"" android:label=""@7F0D001D"" an
-     | droid:roundicon=""@7F0C0001"" android:supportsrtl=""true"" android:theme=""@7F0E0005"">
-   5 |   <activity android:name=""com.android.example.text.styling.MainActivity"">
-   6 |    <intent-filter>
-   7 |     <action android:name=""android.intent.action.MAIN"">
-   8 |     </action>
-   9 |     <category android:name=""android.intent.category.LAUNCHER"">
-  10 |     </category>
-  11 |    </intent-filter>
-  12 |   </activity>
-  13 |   <meta-data android:name=""preloaded_fonts"" android:resource=""@7F020003"">
-  14 |   </meta-data>
-  15 |  </application>
-  16 | </manifest>
-     ^ Col 0
-",analyze_bytecodes.apk_debugging_enabled
 F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""23"" android:compilesdkversioncodename=""6.0-2438415"" package=""com.google.mediapipe.a
      | pps.handtrackinggpu"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=""http://schemas.android.co
@@ -1095,94 +827,6 @@ F055,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F055,inputs,examples/tests/com.test.intent_filter.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
-   1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
-     | me=""1.0"" package=""com.test.intent_filter"" platformbuildversioncode=""1"" platformbuildversionname=""1.000000"" xmlns:android
-     | =""http://schemas.android.com/apk/res/android"">
-   2 |  <uses-sdk android:minsdkversion=""19"" android:targetsdkversion=""28"">
-   3 |  </uses-sdk>
->  4 |  <application android:allowbackup=""true"" android:appcomponentfactory=""android.support.v4.app.CoreComponentFactory"" andro
-     | id:icon=""@7F0C0000"" android:label=""@7F0D0027"" android:roundicon=""@7F0C0001"" android:supportsrtl=""true"" android:theme=""@7
-     | F0E0006"">
-   5 |   <receiver android:enabled=""true"" android:exported=""false"" android:name=""com.test.intent_filter.TestReceiver"">
-   6 |    <intent-filter>
-   7 |     <action android:name=""android.intent.action.VIEW"">
-   8 |     </action>
-   9 |     <category android:name=""android.intent.category.DEFAULT"">
-  10 |     </category>
-  11 |     <category android:name=""android.intent.category.BROWSABLE"">
-  12 |     </category>
-  13 |     <data android:host=""@7F0D002F"" android:mimetype=""text/html"" android:path=""/testpath"" android:pathpattern=""testpatter
-     | n"" android:port=""0301"" android:scheme=""@7F0D0036"">
-  14 |     </data>
-  15 |    </intent-filter>
-  16 |   </receiver>
-     ^ Col 0
-",analyze_bytecodes.apk_backups_enabled
-F055,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
-   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
-     | tp://schemas.android.com/apk/res/android"">
-   2 |  <uses-sdk android:minsdkversion=""15"" android:targetsdkversion=""27"">
-   3 |  </uses-sdk>
->  4 |  <application android:allowbackup=""true"" android:debuggable=""true"" android:icon=""@7F0C0000"" android:label=""@7F0D001D"" an
-     | droid:roundicon=""@7F0C0001"" android:supportsrtl=""true"" android:theme=""@7F0E0005"">
-   5 |   <activity android:name=""com.android.example.text.styling.MainActivity"">
-   6 |    <intent-filter>
-   7 |     <action android:name=""android.intent.action.MAIN"">
-   8 |     </action>
-   9 |     <category android:name=""android.intent.category.LAUNCHER"">
-  10 |     </category>
-  11 |    </intent-filter>
-  12 |   </activity>
-  13 |   <meta-data android:name=""preloaded_fonts"" android:resource=""@7F020003"">
-  14 |   </meta-data>
-  15 |  </application>
-  16 | </manifest>
-     ^ Col 0
-",analyze_bytecodes.apk_backups_enabled
-F055,inputs,examples/tests/hello-world.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
-   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""de.rhab.helloworld"" platformbuildversioncode=""25"" p
-     | latformbuildversionname=""7.1.1"" xmlns:android=""http://schemas.android.com/apk/res/android"">
-   2 |  <uses-sdk android:minsdkversion=""21"" android:targetsdkversion=""25"">
-   3 |  </uses-sdk>
->  4 |  <application android:allowbackup=""true"" android:icon=""@7F030000"" android:label=""@7F070022"" android:supportsrtl=""true"" a
-     | ndroid:theme=""@7F0900A7"">
-   5 |   <activity android:label=""@7F070022"" android:name=""de.rhab.helloworld.MainActivity"" android:theme=""@7F090040"">
-   6 |    <intent-filter>
-   7 |     <action android:name=""android.intent.action.MAIN"">
-   8 |     </action>
-   9 |     <category android:name=""android.intent.category.LAUNCHER"">
-  10 |     </category>
-  11 |    </intent-filter>
-  12 |   </activity>
-  13 |  </application>
-  14 | </manifest>
-     ^ Col 0
-",analyze_bytecodes.apk_backups_enabled
-F055,inputs,examples/tests/partialsignature.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
-  30 |  <uses-permission android:name=""android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"">
-  31 |  </uses-permission>
-  32 |  <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE"">
-  33 |  </uses-permission>
-  34 |  <uses-permission android:name=""android.permission.READ_PHONE_STATE"">
-  35 |  </uses-permission>
-  36 |  <uses-permission android:name=""android.permission.BROADCAST_STICKY"">
-  37 |  </uses-permission>
-  38 |  <uses-permission android:name=""android.permission.GET_ACCOUNTS"">
-  39 |  </uses-permission>
-> 40 |  <application android:allowbackup=""true"" android:description=""@7F070058"" android:icon=""@7F020002"" android:label=""@7F0700
-     | 5D"" android:name=""a2dp.Vol.MyApplication"" android:persistent=""true"">
-  41 |   <activity android:description=""@7F070058"" android:icon=""@7F020003"" android:label=""@7F07005D"" android:launchmode=""1"" an
-     | droid:multiprocess=""false"" android:name=""a2dp.Vol.main"">
-  42 |    <intent-filter>
-  43 |     <action android:name=""android.intent.action.MAIN"">
-  44 |     </action>
-  45 |     <category android:name=""android.intent.category.LAUNCHER"">
-  46 |     </category>
-  47 |    </intent-filter>
-  48 |   </activity>
-     ^ Col 0
-",analyze_bytecodes.apk_backups_enabled
 F055,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"application.android:allowBackup is enabled by default unless its value is set to False.
 ",530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
@@ -1264,21 +908,6 @@ F372,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The given APK r
   11 | # HTTP resources found
   12 |  >>> ['http://api.jamendo.com/get2/', 'http://www.jamendo.com/en/rss/top-track-week', 'http://www.jamendo.com/track/', '
      | http://www.jamendo.com/en/cgu_user', 'http://www.jamendo.com/track/%d']
-     ^ Col 0
-",analyze_bytecodes.uses_http_resources
-F372,inputs,examples/tests/partialsignature.apk (namespace),The given APK references HTTP (not HTTPS) resources.,650,"home,apk,bytecodes",372. Use of an insecure channel - HTTP,The given APK references HTTP (not HTTPS) resources.,"
-   1 | $ python3.8
-   2 |
-   3 | >>> # We'll use the version 3.3.5 of ""androguard""
-   4 | >>> from androguard.misc import AnalyzeAPK
-   5 |
-   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('examples/tests/partialsignature.apk')[2]
-   8 |
-   9 | >>> # Get the method names from all classes in each .dex file
-> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
-  11 | # HTTP resources found
-  12 |  >>> ['http://listen.googlelabs.com/listen?id=@@', 'http://maps.google.com/maps?q=']
      ^ Col 0
 ",analyze_bytecodes.uses_http_resources
 F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"

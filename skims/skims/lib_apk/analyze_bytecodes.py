@@ -788,7 +788,7 @@ def _add_allow_user_ca_by_default(
     locations: Locations,
 ) -> None:
     locations.append(
-        desc="allow_user_ca",
+        desc="allow_user_ca_by_default",
         snippet=make_snippet(
             content=textwrap.dedent(
                 f"""
@@ -817,7 +817,7 @@ def _add_allow_user_ca(
     methods: str,
 ) -> None:
     locations.append(
-        desc="allow_user_ca_by_default",
+        desc="allow_user_ca",
         snippet=make_snippet(
             content=textwrap.dedent(
                 f"""
@@ -843,7 +843,7 @@ def _allows_user_ca(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     apk_obj = ctx.apk_ctx.apk_obj
-
+    net_conf: str = ""
     try:
         net_conf = str(apk_obj.get_file("res/xml/network_security_config.xml"))
     except androguard.core.bytecodes.apk.FileNotPresent:
@@ -858,7 +858,7 @@ def _allows_user_ca(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     return _create_vulns(
         ctx=ctx,
         locations=locations,
-        method=core_model.MethodsEnum.USES_HTTP_RESOURCES,
+        method=core_model.MethodsEnum.ALLOWS_USER_CA,
     )
 
 
@@ -877,6 +877,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
     core_model.FindingEnum.F268: _webview_vulnerabilities,
+    core_model.FindingEnum.F313: _allows_user_ca,
     core_model.FindingEnum.F372: _uses_http_resources,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }

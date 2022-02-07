@@ -1,12 +1,7 @@
 apk:
   include:
-  - examples/tests/com.android.example.text.styling.apk
   - examples/tests/com.teleca.jamendo_35.apk
-  - examples/tests/com.test.intent_filter.apk
-  - examples/tests/hello-world.apk
   - examples/tests/lineageos_nexus5_framework-res.apk
-  - examples/tests/multidex/multidex.apk
-  - examples/tests/partialsignature.apk
   - ../product/skims/test/data/lib_apk/has_frida.apk
   - ../product/skims/test/data/lib_apk/js_open.apk
   - ../product/skims/test/data/lib_apk/unsafe_delete.apk
