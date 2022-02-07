@@ -789,6 +789,14 @@ async def queue_sync_git_root(
         and (last_commit := await ssh_ls_remote_root(root, root_cred))
         and root.cloning.commit == last_commit
     ):
+        await roots_domain.update_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_id=root.id,
+            status="OK",
+            message="Already up to date",
+            commit=root.cloning.commit,
+        )
         raise RootAlreadyCloned()
 
     await put_action(
