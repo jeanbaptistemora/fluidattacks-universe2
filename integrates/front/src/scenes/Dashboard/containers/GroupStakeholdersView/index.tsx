@@ -121,6 +121,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           customer: roleToUrl(value, "#user-role"),
           customeradmin: roleToUrl(value, "#user-manager-role"),
           executive: roleToUrl(value, "#executive-role"),
+          // eslint-disable-next-line camelcase
+          user_manager: roleToUrl(value, "#user-manager-role"),
         }[value];
 
         if (!_.isUndefined(mappedRole)) {
@@ -387,6 +389,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         reattacker: "Reattacker",
         resourcer: "Resourcer",
         reviewer: "Reviewer",
+        // eslint-disable-next-line camelcase
+        user_manager: "User Manager",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",

@@ -107,8 +107,7 @@ async def test_add_organization() -> None:
     org_id = await orgs_domain.get_id_by_name(org_name)
     assert await orgs_domain.has_user_access(org_id, user)
     assert (
-        await authz.get_organization_level_role(user, org_id)
-        == "customeradmin"
+        await authz.get_organization_level_role(user, org_id) == "user_manager"
     )
 
     with pytest.raises(InvalidOrganization):

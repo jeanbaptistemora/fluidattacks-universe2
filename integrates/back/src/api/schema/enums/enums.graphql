@@ -307,10 +307,13 @@ enum OrganizationFindingPolicyStatus {
 enum OrganizationRole {
   "Customer"
   CUSTOMER
-  "Customer administrator"
-  CUSTOMERADMIN
+  "User Manager"
+  CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
+    after 2022/08/07. Use `USER_MANAGER` instead.""")
   "Customer Manager"
   CUSTOMER_MANAGER
+  "User Manager"
+  USER_MANAGER
 }
 
 "Reasons allowed for removing a group enum dfinition"
@@ -383,8 +386,9 @@ enum StakeholderRole {
   ARCHITECT
   "Customer"
   CUSTOMER
-  "User manager"
-  CUSTOMERADMIN
+  "User Manager"
+  CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
+    after 2022/08/07. Use `USER_MANAGER` instead.""")
   "Customer Manager"
   CUSTOMER_MANAGER
   "Executive"
@@ -401,6 +405,8 @@ enum StakeholderRole {
   REVIEWER
   "Forces"
   SERVICE_FORCES
+  "User Manager"
+  USER_MANAGER
 }
 
 "Subscription report entity enum definition"

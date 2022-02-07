@@ -80,7 +80,7 @@ async def get_managers(group_name: str) -> List[str]:
     return [
         user_email
         for user_email, role in zip(users, users_roles)
-        if role == "customeradmin"
+        if role in {"user_manager", "customeradmin"}
     ]
 
 

@@ -638,7 +638,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                     role: str = (
                         "customer_manager"
                         if users_domain.is_fluid_staff(user_email)
-                        else "customeradmin"
+                        else "user_manager"
                     )
                     success = success and all(
                         await collect(

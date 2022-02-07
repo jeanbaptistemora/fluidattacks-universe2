@@ -97,11 +97,11 @@ def validate_acceptance(vuln: Vulnerability) -> None:
 async def get_valid_assigned(
     *,
     assigned: str,
-    is_customer_admin: bool,
+    is_manager: bool,
     user_email: str,
     group_name: str,
 ) -> str:
-    if not is_customer_admin:
+    if not is_manager:
         assigned = user_email
     enforcer = await authz.get_group_level_enforcer(assigned)
     if not enforcer(group_name, "valid_assigned"):

@@ -29,6 +29,7 @@ pytestmark = [
                 "resourcer",
                 "reviewer",
                 "service_forces",
+                "user_manager",
             ],
         ),
         (
@@ -45,6 +46,7 @@ pytestmark = [
                 "resourcer",
                 "reviewer",
                 "service_forces",
+                "user_manager",
             ],
         ),
         (
