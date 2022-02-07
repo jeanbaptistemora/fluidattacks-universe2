@@ -639,6 +639,14 @@
       "title": "300. Authentication mechanism absence or evasion - Azure"
     }
   },
+  "F313": {
+    "EN": {
+      "title": "313. Insecure service configuration - Certificates"
+    },
+    "ES": {
+      "title": "313. Insecure service configuration - Certificates"
+    }
+  },
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
