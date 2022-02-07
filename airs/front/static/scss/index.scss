@@ -26,6 +26,7 @@ $gray-179: rgba(179, 175, 169, 1);
 $black-18: rgba(18, 18, 22, 1);
 $gray-221: rgba(221, 221, 227, 1);
 $gray-120: rgba(120, 120, 145, 1);
+$gray-154: rgba(154, 154, 172, 1);
 
 // Rules
 @keyframes fadein {
@@ -131,6 +132,7 @@ $gray-120: rgba(120, 120, 145, 1);
 .c-gray-179 { color: $gray-179; }
 .c-gray-64 { color: $gray-64; }
 .c-gray-120 { color: $gray-120; }
+.c-gray-154 { color: $gray-154; }
 .bc-darker-blue { border-color: $darker-blue; }
 
 // Columns classes
@@ -145,8 +147,10 @@ $gray-120: rgba(120, 120, 145, 1);
 
 // Font Sizes
 .f-1125 { font-size: 1.125rem; }
-.f-375 { font-size: 3.75rem; }
+.f-2 { font-size: 2rem; }
 .f-225 { font-size: 2.25rem; }
+.f-375 { font-size: 3.75rem; }
+.f-45 { font-size: 4.5rem; }
 .f-error { font-size: 10rem; }
 
 
@@ -262,12 +266,18 @@ $gray-120: rgba(120, 120, 145, 1);
   .w36-l { width: 36rem; }
 }
 
+@media screen and (min-width: 1366px) {
+  .f-home-title { font-size: 4.5rem !important; }
+}
+
 @media screen and (min-width: 1200px) {
   .db-xl { display: block !important; }
   .dib-xl { display: inline-block !important; }
   .df-l { display: flex; }
   .fl-xl { float: left; }
   .justify-around-xl { justify-content: space-around !important; }
+  .w-main-content { width: 60% !important; }
+  .w-home-image { width: 40% !important; }
 }
 
 // Medium screen sizes
