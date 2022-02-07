@@ -18,6 +18,7 @@ function serve {
     # The type of workers to use. [sync]
     --worker-class 'settings.uvicorn.IntegratesWorker'
   )
+  local load_balancer_timeout=60
 
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
@@ -42,11 +43,15 @@ function serve {
       )
     elif test "${env}" == 'eph'; then
       config+=(
+        # The number of seconds to wait for requests on a Keep-Alive connection
+        --keep-alive "${load_balancer_timeout}"
         # The number of worker processes for handling requests
         --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod'; then
       config+=(
+        # The number of seconds to wait for requests on a Keep-Alive connection
+        --keep-alive "${load_balancer_timeout}"
         # The number of worker processes for handling requests
         --workers "${recommended_workers}"
       )
