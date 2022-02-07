@@ -123,7 +123,6 @@ def _side_effects() -> None:
         core_model.ExecutionQueueConfig,
         core_model.FindingMetadata,
         core_model.IntegratesVulnerabilityMetadata,
-        core_model.MethodsEnum,
         core_model.NVDVulnerability,
         core_model.SkimsVulnerabilityMetadata,
         core_model.Vulnerability,
