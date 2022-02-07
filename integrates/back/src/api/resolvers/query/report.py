@@ -71,6 +71,8 @@ async def _get_url_group_report(
         entity=group_name,
         subject=user_email,
         additional_info=additional_info,
+        vcpus=4,
+        attempt_duration_seconds=7200,
     )
     if not success:
         raise RequestedReportError()

@@ -69,6 +69,10 @@ async def requeue_actions() -> None:
     )
     pending_actions = _filter_refresh_toe_inputs_actions(pending_actions)
     pending_actions = _filter_refresh_toe_lines_actions(pending_actions)
+    report_additional_info = dict(
+        vcpus=4,
+        attempt_duration_seconds=7200,
+    )
     await collect(
         [
             batch_dal.put_action_to_batch(
@@ -78,6 +82,11 @@ async def requeue_actions() -> None:
                 time=action.time,
                 additional_info=action.additional_info,
                 queue=action.queue,
+                **(
+                    report_additional_info
+                    if action.action_name == "report"
+                    else {}
+                ),
             )
             for action in pending_actions
             if JobPayload(

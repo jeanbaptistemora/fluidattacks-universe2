@@ -554,6 +554,8 @@ async def put_action_to_batch(
     time: str,
     additional_info: str,
     queue: str = "spot_soon",
+    vcpus: int = 2,
+    attempt_duration_seconds: int = 3600,
 ) -> bool:
     if FI_ENVIRONMENT == "development":
         return True
@@ -570,7 +572,7 @@ async def put_action_to_batch(
                 jobQueue=queue,
                 jobDefinition="makes",
                 containerOverrides={
-                    "vcpus": 2,
+                    "vcpus": vcpus,
                     "command": format_command(
                         action_name=action_name,
                         subject=subject,
@@ -591,7 +593,7 @@ async def put_action_to_batch(
                 retryStrategy={
                     "attempts": 1,
                 },
-                timeout={"attemptDurationSeconds": 3600},
+                timeout={"attemptDurationSeconds": attempt_duration_seconds},
             )
     except ClientError as exc:
         LOGGER.exception(
@@ -618,6 +620,8 @@ async def put_action(
     subject: str,
     additional_info: str,
     queue: str = "spot_soon",
+    vcpus: int = 2,
+    attempt_duration_seconds: int = 3600,
 ) -> bool:
     time: str = str(get_as_epoch(get_now()))
     action = dict(
@@ -632,7 +636,11 @@ async def put_action(
     return all(
         await collect(
             (
-                put_action_to_batch(**action),
+                put_action_to_batch(
+                    **action,
+                    vcpus=vcpus,
+                    attempt_duration_seconds=attempt_duration_seconds,
+                ),
                 put_action_to_dynamodb(**action),
             )
         )
