@@ -144,38 +144,34 @@ async def remove_access(
             ]
         )
     )
-    if not user_email or not group_name:
-        return success
+    if user_email and group_name:
+        vulnerabilities: Tuple[
+            Vulnerability, ...
+        ] = await loaders.me_vulnerabilities.load(user_email)
+        group_drafts_and_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_drafts_and_findings.load(group_name)
+        group_removed_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_removed_findings.load(group_name)
+        all_findings = group_drafts_and_findings + group_removed_findings
 
-    vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.me_vulnerabilities.load(user_email)
-    group_drafts_and_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
-    group_removed_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_removed_findings.load(group_name)
-    all_findings = group_drafts_and_findings + group_removed_findings
-
-    findings_ids: Set[str] = {finding.id for finding in all_findings}
-    group_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
-        vulnerability
-        for vulnerability in vulnerabilities
-        if vulnerability.finding_id in findings_ids
-    )
-
-    await collect(
-        tuple(
-            update_assigned_index(
-                finding_id=vulnerability.finding_id,
-                vulnerability_id=vulnerability.id,
-                entry=None,
-            )
-            for vulnerability in group_vulnerabilities
+        findings_ids: Set[str] = {finding.id for finding in all_findings}
+        group_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+            vulnerability
+            for vulnerability in vulnerabilities
+            if vulnerability.finding_id in findings_ids
         )
-    )
-
+        await collect(
+            tuple(
+                update_assigned_index(
+                    finding_id=vulnerability.finding_id,
+                    vulnerability_id=vulnerability.id,
+                    entry=None,
+                )
+                for vulnerability in group_vulnerabilities
+            )
+        )
     return success
 
 
