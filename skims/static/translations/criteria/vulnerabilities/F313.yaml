@@ -1,0 +1,11 @@
+lib_apk.analyze_bytecodes.allow_user_ca_by_default:
+  en: >
+    No network security config file found and SDK version
+    allows user-supplied CAs by default.
+  es: >
+    No se encontró ningún archivo de configuración de seguridad de red
+    y la versión SDK permite las CA proporcionadas por el usuario
+    de manera predeterminada.
+lib_apk.analyze_bytecodes.allow_user_ca:
+  en: The given APK allows to trust user-supplied CAs.
+  es: El APK dado permite confiar en las CA proporcionadas por el usuario.

@@ -3736,6 +3736,13 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
     )
+    ALLOWS_USER_CA = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="allows_user_ca",
+        module="lib_apk",
+        finding=FindingEnum.F313,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+    )
     CS_LDAP_CONN_AUTH = MethodInfo(
         file_name="c_sharp",
         name="csharp_ldap_connections_authenticated",
