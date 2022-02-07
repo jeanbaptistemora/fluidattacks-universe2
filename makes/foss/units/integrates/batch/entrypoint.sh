@@ -9,6 +9,7 @@ function main {
   esac)
 
   source __argIntegratesBackEnv__/template "${login_env}" \
+    && export NODE_OPTIONS='--max_old_space_size=4096' \
     && if test "${env}" == 'prod'; then
       DAEMON=true integrates-cache \
         && ensure_gitlab_env_vars \
