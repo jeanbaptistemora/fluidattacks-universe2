@@ -6,9 +6,6 @@ from bs4.element import (
     Tag,
 )
 import contextlib
-from ctx import (
-    CTX,
-)
 from lib_http.types import (
     URLContext,
 )
@@ -34,6 +31,10 @@ from utils.string import (
     SnippetViewport,
 )
 import viewstate
+from vulnerabilities import (
+    build_inputs_vuln,
+    build_metadata,
+)
 from zone import (
     t,
 )
@@ -71,17 +72,13 @@ def build_vulnerabilities(
     method: MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            # Must start with home so integrates allows it
+        build_inputs_vuln(
+            method=method,
             stream="home,response,content",
             what=ctx.url.url,
-            where=f"{location.line}",
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            where=str(location.line),
+            metadata=build_metadata(
+                method=method,
                 description=location.description,
                 snippet=make_snippet(
                     content=ctx.url.content,
@@ -90,8 +87,6 @@ def build_vulnerabilities(
                         line=location.line,
                     ),
                 ),
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
         for location in locations

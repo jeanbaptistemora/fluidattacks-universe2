@@ -2,9 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from ctx import (
-    CTX,
-)
 from http_headers import (
     as_string,
     content_security_policy,
@@ -35,6 +32,10 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+)
+from vulnerabilities import (
+    build_inputs_vuln,
+    build_metadata,
 )
 from zone import (
     t,
@@ -78,17 +79,13 @@ def _create_vulns(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            # Must start with home so integrates allows it
+        build_inputs_vuln(
+            method=method,
             stream="home,response,headers",
             what=ctx.url_ctx.url,
             where=location.description,
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            metadata=build_metadata(
+                method=method,
                 description=location.description,
                 snippet=as_string.snippet(
                     url=ctx.url_ctx.url,
@@ -96,8 +93,6 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
         for location in locations.locations

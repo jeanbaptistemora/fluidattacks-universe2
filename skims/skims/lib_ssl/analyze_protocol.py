@@ -52,6 +52,10 @@ from utils.http import (
 from utils.sockets import (
     tcp_connect,
 )
+from vulnerabilities import (
+    build_inputs_vuln,
+    build_metadata,
+)
 from zone import (
     t,
 )
@@ -86,23 +90,18 @@ def _create_core_vulns(
     ssl_vulnerabilities: List[SSLVulnerability],
 ) -> core_model.Vulnerabilities:
     return tuple(
-        core_model.Vulnerability(
-            finding=ssl_vulnerability.method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
+        build_inputs_vuln(
+            method=ssl_vulnerability.method,
             stream="home,socket-send,socket-response",
             what=str(ssl_vulnerability),
             where=ssl_vulnerability.description,
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(ssl_vulnerability.method.value.get_cwe(),),
+            metadata=build_metadata(
+                method=ssl_vulnerability.method,
                 description=ssl_vulnerability.description,
                 snippet=snippet(
                     locale=CTX.config.language,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
-                source_method=ssl_vulnerability.method.value.get_name(),
-                developer=ssl_vulnerability.method.value.developer,
             ),
         )
         for ssl_vulnerability in ssl_vulnerabilities

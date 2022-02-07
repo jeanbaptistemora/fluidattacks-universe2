@@ -15,9 +15,6 @@ from bs4 import (
     BeautifulSoup,
 )
 import contextlib
-from ctx import (
-    CTX,
-)
 import lxml.etree  # nosec
 from model import (
     core_model,
@@ -33,6 +30,10 @@ from typing import (
 from utils.string import (
     make_snippet,
     SnippetViewport,
+)
+from vulnerabilities import (
+    build_inputs_vuln,
+    build_metadata,
 )
 import zipfile
 from zone import (
@@ -75,20 +76,15 @@ def _create_vulns(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
-        core_model.Vulnerability(
-            finding=method.value.finding,
-            kind=core_model.VulnerabilityKindEnum.INPUTS,
-            namespace=CTX.config.namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
+        build_inputs_vuln(
+            method=method,
             stream="home,apk,bytecodes",
             what=ctx.apk_ctx.path,
             where=location.description,
-            skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(method.value.get_cwe(),),
+            metadata=build_metadata(
+                method=method,
                 description=location.description,
                 snippet=location.snippet,
-                source_method=method.value.get_name(),
-                developer=method.value.developer,
             ),
         )
         for location in locations.locations
