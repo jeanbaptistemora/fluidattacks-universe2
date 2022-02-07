@@ -175,6 +175,40 @@ async def confirm_access(request: Request) -> HTMLResponse:
     return response
 
 
+async def confirm_access_organization(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get("url_token")
+    if url_token:
+        organization_access = await orgs_domain.get_access_by_url_token(
+            url_token
+        )
+        if organization_access:
+            success = await (
+                groups_domain.complete_register_for_organization_invitation(
+                    organization_access
+                )
+            )
+            if success:
+                response = await templates.valid_invitation(
+                    request, organization_access
+                )
+            else:
+                response = templates.invalid_invitation(
+                    request,
+                    "Invalid or Expired",
+                    group_access=organization_access,
+                )
+        else:
+            await in_thread(
+                bugsnag.notify, Exception("Invalid token"), severity="warning"
+            )
+            response = templates.invalid_invitation(
+                request, "Invalid or Expired"
+            )
+    else:
+        response = templates.invalid_invitation(request, "Invalid or Expired")
+    return response
+
+
 async def reject_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
     if url_token:
@@ -261,6 +295,10 @@ STARLETTE_APP = Starlette(
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),
         Route("/confirm_access/{url_token:path}", confirm_access),
+        Route(
+            "/confirm_access_organization/{url_token:path}",
+            confirm_access_organization,
+        ),
         Route("/dglogin", auth.do_google_login),
         Route("/dalogin", auth.do_azure_login),
         Route("/dblogin", auth.do_bitbucket_login),
