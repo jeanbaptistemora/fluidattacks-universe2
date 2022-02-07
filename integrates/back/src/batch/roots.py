@@ -23,6 +23,7 @@ from custom_exceptions import (
     InactiveRoot,
     RepeatedToeInput,
     RepeatedToeLines,
+    RootAlreadyCloned,
     RootAlreadyCloning,
     ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
@@ -597,12 +598,53 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
     return success
 
 
+async def ssh_ls_remote_root(
+    root: RootItem, cred: CredentialItem
+) -> Optional[str]:
+    root_url: str = root.state.url
+    parsed_url = urlparse(root_url)
+    raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            ssh_file.write(base64.b64decode(cred.state.key).decode())
+
+        proc = await asyncio.create_subprocess_exec(
+            "git",
+            "ls-remote",
+            "-h",
+            raw_root_url,
+            root.state.branch,
+            stderr=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": (
+                    f"ssh -i {ssh_file_name} -o"
+                    "UserKnownHostsFile=/dev/null -o "
+                    "StrictHostKeyChecking=no"
+                ),
+            },
+        )
+        stdout, _ = await proc.communicate()
+
+        os.remove(ssh_file_name)
+
+        if proc.returncode != 0:
+            return None
+
+        return stdout.decode().split("\t")[0]
+
+
 async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
     success: bool = False
     group_name: str = root.group_name
     root_url: str = root.state.url
-    parsed_url = urlparse(root_url)
-    raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
+    raw_root_url = root_url.replace(f"{urlparse(root_url).scheme}://", "")
     branch: str = root.state.branch
     with tempfile.TemporaryDirectory() as temp_dir:
         ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
@@ -613,18 +655,23 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
         ) as ssh_file:
             ssh_file.write(base64.b64decode(cred.state.key).decode())
 
-        os.chdir(temp_dir)
+        folder_to_clone_root = f"{temp_dir}/{root.state.nickname}"
         proc = await asyncio.create_subprocess_exec(
             "git",
             "clone",
             "--branch",
             branch,
             raw_root_url,
+            folder_to_clone_root,
             stderr=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             env={
                 **os.environ.copy(),
-                "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
+                "GIT_SSH_COMMAND": (
+                    f"ssh -i {ssh_file_name} -o"
+                    "UserKnownHostsFile=/dev/null -o "
+                    "StrictHostKeyChecking=no"
+                ),
             },
         )
         _, stderr = await proc.communicate()
@@ -641,7 +688,7 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
             success = await _upload_cloned_repo_to_s3(temp_dir, group_name)
             with suppress(GitError, AttributeError):
                 commit = git.Repo(
-                    temp_dir, search_parent_directories=True
+                    folder_to_clone_root, search_parent_directories=True
                 ).head.object.hexsha
     return CloneResult(success=success, commit=commit)
 
@@ -714,24 +761,35 @@ async def queue_sync_git_root(
         raise InactiveRoot()
 
     group_name: str = root.group_name
-    group_creds = await loaders.group_credentials.load(group_name)
-    if len(list(filter(lambda x: root.id in x.state.roots, group_creds))) == 0:
+    group_creds: Tuple[
+        CredentialItem, ...
+    ] = await loaders.group_credentials.load(group_name)
+    root_cred: Optional[CredentialItem] = next(
+        (cred for cred in group_creds if root.id in cred.state.roots), None
+    )
+    if not root_cred:
         raise CredentialNotFound()
 
     if check_existing_jobs:
         existing_actions = await get_actions_by_name("clone_root", group_name)
         if (
             len(
-                list(
-                    filter(
-                        lambda x: x.additional_info == root.state.nickname,
-                        existing_actions,
-                    )
-                )
+                [
+                    action
+                    for action in existing_actions
+                    if action.additional_info == root.state.nickname
+                ]
             )
             > 0
         ):
             raise RootAlreadyCloning()
+
+    if (
+        root_cred.metadata.type.value == "SSH"
+        and (last_commit := await ssh_ls_remote_root(root, root_cred))
+        and root.cloning.commit == last_commit
+    ):
+        raise RootAlreadyCloned()
 
     await put_action(
         action_name="clone_root",
