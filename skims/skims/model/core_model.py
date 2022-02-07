@@ -2412,7 +2412,7 @@ class MethodInfo(NamedTuple):
     module: str
     finding: FindingEnum
     developer: DeveloperEnum
-    technique: Optional[TechniqueEnum] = None
+    technique: TechniqueEnum
 
     def get_name(self) -> str:
         return f"{self.file_name}.{self.name}"
@@ -2428,6 +2428,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F001,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F001 = MethodInfo(
         file_name="query",
@@ -2435,6 +2436,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F001,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     QUERY_F004 = MethodInfo(
         file_name="query",
@@ -2442,6 +2444,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F004,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     QUERY_F008 = MethodInfo(
         file_name="query",
@@ -2449,6 +2452,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F008,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     AWS_CREDENTIALS = MethodInfo(
         file_name="aws",
@@ -2456,6 +2460,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     DOCKER_ENV_SECRETS = MethodInfo(
         file_name="docker",
@@ -2463,6 +2468,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     DOCKER_COMPOSE_ENV_SECRETS = MethodInfo(
         file_name="docker",
@@ -2470,6 +2476,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_PROP_SENSITIVE = MethodInfo(
         file_name="java",
@@ -2477,6 +2484,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     SENSITIVE_KEY_JSON = MethodInfo(
         file_name="conf_files",
@@ -2484,6 +2492,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     WEB_USER_PASS = MethodInfo(
         file_name="conf_files",
@@ -2491,6 +2500,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     WEB_DB_CONN = MethodInfo(
         file_name="conf_files",
@@ -2498,6 +2508,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JS_CRYPTO_CREDENTIALS = MethodInfo(
         file_name="javascript",
@@ -2505,6 +2516,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
@@ -2512,6 +2524,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     MAVEN_POM_XML = MethodInfo(
         file_name="maven",
@@ -2519,6 +2532,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.SCA,
     )
     MAVEN_GRADLE = MethodInfo(
         file_name="maven",
@@ -2526,6 +2540,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.SCA,
     )
     MAVEN_SBT = MethodInfo(
         file_name="maven",
@@ -2533,6 +2548,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.SCA,
     )
     NPM_YARN_LOCK = MethodInfo(
         file_name="npm",
@@ -2540,6 +2556,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     NPM_PACKAGE_JSON = MethodInfo(
         file_name="npm",
@@ -2547,6 +2564,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     NPM_PACKAGE_LOCK_JSON = MethodInfo(
         file_name="npm",
@@ -2554,6 +2572,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     NUGET_CSPROJ = MethodInfo(
         file_name="nuget",
@@ -2561,6 +2580,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     NUGET_PACKAGES_CONFIG = MethodInfo(
         file_name="nuget",
@@ -2568,6 +2588,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     JAVA_JPA_LIKE = MethodInfo(
         file_name="java",
@@ -2575,6 +2596,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F012,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_VM_INSEC_AUTH = MethodInfo(
         file_name="terraform",
@@ -2582,6 +2604,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F015,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_LNX_VM_INSEC_AUTH = MethodInfo(
         file_name="terraform",
@@ -2589,6 +2612,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F015,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     WWW_AUTHENTICATE = MethodInfo(
         file_name="analyze_headers",
@@ -2596,6 +2620,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F015,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.DAST,
     )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
@@ -2603,6 +2628,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_INSEC_PROTO = MethodInfo(
         file_name="terraform",
@@ -2610,6 +2636,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_INSEC_PROTO = MethodInfo(
         file_name="terraform",
@@ -2617,6 +2644,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     SSLV3_ENABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -2624,6 +2652,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     TLSV1_ENABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -2631,6 +2660,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     TLSV1_1_ENABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -2638,6 +2668,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     TLSV1_2_OR_HIGHER_DISABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -2645,6 +2676,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     FALLBACK_SCSV_DISABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -2652,6 +2684,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     TLSV1_3_DOWNGRADE = MethodInfo(
         file_name="analyze_protocol",
@@ -2659,6 +2692,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     HEARTBLEED_POSSIBLE = MethodInfo(
         file_name="analyze_protocol",
@@ -2666,6 +2700,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     FREAK_POSSIBLE = MethodInfo(
         file_name="analyze_protocol",
@@ -2673,6 +2708,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     RACCOON_POSSIBLE = MethodInfo(
         file_name="analyze_protocol",
@@ -2680,6 +2716,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     BREACH_POSSIBLE = MethodInfo(
         file_name="analyze_protocol",
@@ -2687,6 +2724,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     CS_JWT_SIGNED = MethodInfo(
         file_name="c_sharp",
@@ -2694,6 +2732,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F017,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_VERIFY_DECODER = MethodInfo(
         file_name="c_sharp",
@@ -2701,6 +2740,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F017,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F021 = MethodInfo(
         file_name="query",
@@ -2708,6 +2748,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F021,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
         file_name="java",
@@ -2715,6 +2756,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F022,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     KT_UNENCRYPTED_CHANNEL = MethodInfo(
         file_name="kotlin",
@@ -2722,6 +2764,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F022,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     LOCATION = MethodInfo(
         file_name="analyze_headers",
@@ -2729,6 +2772,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F023,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.DAST,
     )
     CFN_ANYONE_ADMIN_PORTS = MethodInfo(
         file_name="cloudformation",
@@ -2736,6 +2780,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
@@ -2743,6 +2788,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_UNRESTRICTED_PORTS = MethodInfo(
         file_name="cloudformation",
@@ -2750,6 +2796,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_GROUPS_WITHOUT_EGRESS = MethodInfo(
         file_name="cloudformation",
@@ -2757,6 +2804,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_INST_WITHOUT_PROFILE = MethodInfo(
         file_name="cloudformation",
@@ -2764,6 +2812,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_UNRESTRICTED_CIDRS = MethodInfo(
         file_name="cloudformation",
@@ -2771,6 +2820,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_UNRESTRICTED_IP_PROTO = MethodInfo(
         file_name="cloudformation",
@@ -2778,6 +2828,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_UNRESTRICTED_PORTS = MethodInfo(
         file_name="cloudformation",
@@ -2785,6 +2836,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_OPEN_ALL_PORTS_PUBLIC = MethodInfo(
         file_name="cloudformation",
@@ -2792,6 +2844,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_UNRESTRICTED_DNS = MethodInfo(
         file_name="cloudformation",
@@ -2799,6 +2852,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_UNRESTRICTED_FTP = MethodInfo(
         file_name="cloudformation",
@@ -2806,6 +2860,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_EC2_ALL_TRAFFIC = MethodInfo(
         file_name="terraform",
@@ -2813,6 +2868,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_EC2_CFN_UNRESTR_IP_PROT = MethodInfo(
         file_name="terraform",
@@ -2820,6 +2876,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_EC2_UNRESTRICTED_CIDRS = MethodInfo(
         file_name="terraform",
@@ -2827,6 +2884,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EC2_UNRESTRICTED_PORTS = MethodInfo(
         file_name="terraform",
@@ -2834,6 +2892,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ADMIN_POLICY_ATTACHED = MethodInfo(
         file_name="cloudformation",
@@ -2841,6 +2900,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_BUCKET_ALLOWS_PUBLIC = MethodInfo(
         file_name="cloudformation",
@@ -2848,6 +2908,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_MISSING_SECURITY = MethodInfo(
         file_name="cloudformation",
@@ -2855,6 +2916,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_NEGATIVE_STATEMENT = MethodInfo(
         file_name="cloudformation",
@@ -2862,6 +2924,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_OPEN_PASSROLE = MethodInfo(
         file_name="cloudformation",
@@ -2869,6 +2932,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_PERMISSIVE_POLICY = MethodInfo(
         file_name="cloudformation",
@@ -2876,6 +2940,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_NO_IAM = MethodInfo(
         file_name="cloudformation",
@@ -2883,6 +2948,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_FULL_ACCESS_SSM = MethodInfo(
         file_name="cloudformation",
@@ -2890,6 +2956,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_ADMIN_POLICY = MethodInfo(
         file_name="terraform",
@@ -2897,6 +2964,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_NEGATIVE_STATEMENT = MethodInfo(
         file_name="terraform",
@@ -2904,6 +2972,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_OPEN_PASSROLE = MethodInfo(
         file_name="terraform",
@@ -2911,6 +2980,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_PERMISSIVE_POLICY = MethodInfo(
         file_name="terraform",
@@ -2918,6 +2988,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EC2_NO_IAM = MethodInfo(
         file_name="terraform",
@@ -2925,6 +2996,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JS_WEAK_RANDOM = MethodInfo(
         file_name="javascript",
@@ -2932,6 +3004,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F034,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     QUERY_F034 = MethodInfo(
         file_name="query",
@@ -2939,6 +3012,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F034,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_WEAK_CREDENTIAL = MethodInfo(
         file_name="c_sharp",
@@ -2946,6 +3020,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F035,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_NO_PASSWORD = MethodInfo(
         file_name="c_sharp",
@@ -2953,6 +3028,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F035,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     VIEW_STATE = MethodInfo(
         file_name="analyze_content",
@@ -2960,6 +3036,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F036,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     CS_INSEC_COOKIES = MethodInfo(
         file_name="c_sharp",
@@ -2967,6 +3044,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F042,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F042 = MethodInfo(
         file_name="query",
@@ -2974,6 +3052,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F042,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CONTENT_SECURITY_POLICY = MethodInfo(
         file_name="analyze_headers",
@@ -2981,6 +3060,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F043,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     UPGRADE_INSEC_REQ = MethodInfo(
         file_name="analyze_headers",
@@ -2988,6 +3068,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F043,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     NO_OBFUSCATION = MethodInfo(
         file_name="analyze_bytecodes",
@@ -2995,6 +3076,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F046,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     NO_ROOT_CHECK = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3002,6 +3084,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F048,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.APK,
     )
     JAVA_PROP_MISSING_SSL = MethodInfo(
         file_name="java",
@@ -3009,6 +3092,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_PROP_WEAK_CIPHER = MethodInfo(
         file_name="java",
@@ -3016,6 +3100,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_HASH = MethodInfo(
         file_name="c_sharp",
@@ -3023,6 +3108,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_CIPHER = MethodInfo(
         file_name="c_sharp",
@@ -3030,6 +3116,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_AES_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
@@ -3037,6 +3124,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_RSA_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
@@ -3044,6 +3132,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_KEYS = MethodInfo(
         file_name="c_sharp",
@@ -3051,6 +3140,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     GO_INSECURE_CIPHER = MethodInfo(
         file_name="go",
@@ -3058,6 +3148,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     GO_INSECURE_HASH = MethodInfo(
         file_name="go",
@@ -3065,6 +3156,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_INSECURE_CIPHER = MethodInfo(
         file_name="java",
@@ -3072,6 +3164,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_INSECURE_HASH = MethodInfo(
         file_name="java",
@@ -3079,6 +3172,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_INSECURE_KEY = MethodInfo(
         file_name="java",
@@ -3086,6 +3180,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_INSECURE_PASS = MethodInfo(
         file_name="java",
@@ -3093,6 +3188,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JS_INSECURE_CIPHER = MethodInfo(
         file_name="javascript",
@@ -3100,6 +3196,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JS_INSECURE_KEY = MethodInfo(
         file_name="javascript",
@@ -3107,6 +3204,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JS_INSECURE_HASH = MethodInfo(
         file_name="javascript",
@@ -3114,6 +3212,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     KT_INSECURE_CIPHER = MethodInfo(
         file_name="kotlin",
@@ -3121,6 +3220,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     KT_INSECURE_HASH = MethodInfo(
         file_name="kotlin",
@@ -3128,6 +3228,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     KT_INSECURE_KEY = MethodInfo(
         file_name="kotlin",
@@ -3135,6 +3236,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F052 = MethodInfo(
         file_name="query",
@@ -3142,6 +3244,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     WEAK_CIPHERS_ALLOWED = MethodInfo(
         file_name="analyze_protocol",
@@ -3149,6 +3252,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     APK_BACKUPS_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3156,6 +3260,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F055,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.APK,
     )
     PATH_APK_BACKUPS_ENABLED = MethodInfo(
         file_name="android",
@@ -3163,6 +3268,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F055,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     APK_DEBUGGING_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3170,6 +3276,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F058,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.APK,
     )
     PATH_APK_DEBUGGING_ENABLED = MethodInfo(
         file_name="android",
@@ -3177,6 +3284,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F058,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     NOT_VERIFIES_SSL_HOSTNAME = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3184,6 +3292,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F060,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     QUERY_F063 = MethodInfo(
         file_name="query",
@@ -3191,6 +3300,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F063,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     DATE = MethodInfo(
         file_name="analyze_headers",
@@ -3198,6 +3308,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F064,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.DAST,
     )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
@@ -3205,6 +3316,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F070,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_LB_TARGET_INSECURE_PORT = MethodInfo(
         file_name="terraform",
@@ -3212,6 +3324,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F070,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     REFERRER_POLICY = MethodInfo(
         file_name="analyze_headers",
@@ -3219,6 +3332,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F071,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
         file_name="cloudformation",
@@ -3226,6 +3340,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F073,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_CLUSTER_PUB_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3233,6 +3348,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F073,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_PUB_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3240,6 +3356,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F073,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     APK_EXPORTED_CP = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3247,6 +3364,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F075,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.APK,
     )
     PATH_APK_EXPORTED_CP = MethodInfo(
         file_name="android",
@@ -3254,6 +3372,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F075,
         developer=DeveloperEnum.BRIAM_AGUDELO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     NON_UPGRADEABLE_DEPS = MethodInfo(
         file_name="generic",
@@ -3261,6 +3380,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F079,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     USES_INSECURE_DELETE = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3268,6 +3388,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F082,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     SOCKET_GET_INSECURE = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3275,6 +3396,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F082,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     JS_CLIENT_STORAGE = MethodInfo(
         file_name="javascript",
@@ -3282,6 +3404,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F085,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     SUB_RESOURCE_INTEGRITY = MethodInfo(
         file_name="analyze_content",
@@ -3289,6 +3412,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F086,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     QUERY_F089 = MethodInfo(
         file_name="query",
@@ -3296,6 +3420,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F089,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_INSECURE_LOGGING = MethodInfo(
         file_name="c_sharp",
@@ -3303,6 +3428,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F091,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CBC_ENABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -3310,6 +3436,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F094,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     CS_INSECURE_DESERIAL = MethodInfo(
         file_name="c_sharp",
@@ -3317,6 +3444,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F096,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_XML_SERIAL = MethodInfo(
         file_name="c_sharp",
@@ -3324,6 +3452,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F096,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_POLICY_SERVER_ENCRYP_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3331,6 +3460,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F099,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_UNENCRYPTED_BUCKETS = MethodInfo(
         file_name="cloudformation",
@@ -3338,6 +3468,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F099,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_UNENCRYPTED_BUCKETS = MethodInfo(
         file_name="terraform",
@@ -3345,6 +3476,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F099,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F100 = MethodInfo(
         file_name="query",
@@ -3352,6 +3484,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F100,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
         file_name="terraform",
@@ -3359,6 +3492,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F101,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     APK_UNSIGNED = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3366,6 +3500,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F103,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.APK,
     )
     QUERY_F107 = MethodInfo(
         file_name="query",
@@ -3373,6 +3508,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F107,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
         file_name="cloudformation",
@@ -3380,6 +3516,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_INSIDE_SUBNET = MethodInfo(
         file_name="terraform",
@@ -3387,6 +3524,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_RDS_INSIDE_SUBNET = MethodInfo(
         file_name="terraform",
@@ -3394,6 +3532,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F112 = MethodInfo(
         file_name="query",
@@ -3401,6 +3540,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F112,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     UNVERIFIABLE_FILES = MethodInfo(
         file_name="generic",
@@ -3408,6 +3548,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F117,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F127 = MethodInfo(
         file_name="query",
@@ -3415,6 +3556,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F127,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     SET_COOKIE_HTTPONLY = MethodInfo(
         file_name="analyze_headers",
@@ -3422,6 +3564,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F128,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     SET_COOKIE_SAMESITE = MethodInfo(
         file_name="analyze_headers",
@@ -3429,6 +3572,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F129,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     SET_COOKIE_SECURE = MethodInfo(
         file_name="analyze_headers",
@@ -3436,6 +3580,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F130,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     STRICT_TRANSPORT_SECURITY = MethodInfo(
         file_name="analyze_headers",
@@ -3443,6 +3588,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F131,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     X_CONTENT_TYPE_OPTIONS = MethodInfo(
         file_name="analyze_headers",
@@ -3450,6 +3596,7 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F132,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.DAST,
     )
     PFS_DISABLED = MethodInfo(
         file_name="analyze_protocol",
@@ -3457,6 +3604,7 @@ class MethodsEnum(Enum):
         module="lib_ssl",
         finding=FindingEnum.F133,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
     )
     CS_INSECURE_CORS = MethodInfo(
         file_name="c_sharp",
@@ -3464,6 +3612,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F134,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3471,6 +3620,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_SA_DEFAULT_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3478,6 +3628,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KV_DEFAULT_ACCESS = MethodInfo(
         file_name="terraform",
@@ -3485,6 +3636,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KV_DANGER_BYPASS = MethodInfo(
         file_name="terraform",
@@ -3492,6 +3644,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_CREATE_TEMP_FILE = MethodInfo(
         file_name="c_sharp",
@@ -3499,6 +3652,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F160,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_CREATE_TEMP_FILE = MethodInfo(
         file_name="java",
@@ -3506,6 +3660,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F160,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_SECRET_WHITOUTH_KMS_CMK = MethodInfo(
         file_name="terraform",
@@ -3513,6 +3668,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F165,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
@@ -3520,6 +3676,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F177,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_PUBLIC_BUCKETS = MethodInfo(
         file_name="cloudformation",
@@ -3527,6 +3684,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F203,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_PUBLIC_BUCKETS = MethodInfo(
         file_name="terraform",
@@ -3534,6 +3692,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F203,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     HAS_FRIDA = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3541,6 +3700,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F206,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     NO_CERTS_PINNING = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3548,6 +3708,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F207,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.APK,
     )
     CS_VULN_REGEX = MethodInfo(
         file_name="c_sharp",
@@ -3555,6 +3716,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F211,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
@@ -3562,6 +3724,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F237,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="cloudformation",
@@ -3569,6 +3732,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F246,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="terraform",
@@ -3576,6 +3740,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F246,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="terraform",
@@ -3583,6 +3748,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F246,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
@@ -3590,6 +3756,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F247,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EBS_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
@@ -3597,6 +3764,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F247,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
@@ -3604,6 +3772,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F247,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EBS_UNENCRYPTED_DEFAULT = MethodInfo(
         file_name="terraform",
@@ -3611,6 +3780,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F247,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
@@ -3618,6 +3788,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
@@ -3625,6 +3796,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_RDS_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="cloudformation",
@@ -3632,6 +3804,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_RDS_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="cloudformation",
@@ -3639,6 +3812,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_NO_DELETION_PROTEC = MethodInfo(
         file_name="terraform",
@@ -3646,6 +3820,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_RDS_NO_DELETION_PROTEC = MethodInfo(
         file_name="terraform",
@@ -3653,6 +3828,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="terraform",
@@ -3660,6 +3836,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_RDS_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="terraform",
@@ -3667,6 +3844,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_EC2_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="cloudformation",
@@ -3674,6 +3852,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F257,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     EC2_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="terraform",
@@ -3681,6 +3860,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F257,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ELB2_NOT_DELETION_PROTEC = MethodInfo(
         file_name="cloudformation",
@@ -3688,6 +3868,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F258,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_NOT_POINT_TIME_RECOVERY = MethodInfo(
         file_name="cloudformation",
@@ -3695,6 +3876,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F259,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_DB_NO_POINT_TIME_RECOVERY = MethodInfo(
         file_name="terraform",
@@ -3702,6 +3884,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F259,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     K8S_SYS_ADMIN_LINUX_CAP_USED = MethodInfo(
         file_name="kubernetes",
@@ -3709,6 +3892,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     K8S_PRIVILEGE_ESCALATION_ENABLED = MethodInfo(
         file_name="kubernetes",
@@ -3716,6 +3900,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
         file_name="cloudformation",
@@ -3723,6 +3908,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F281,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ELB2_USES_INSEC_PORT = MethodInfo(
         file_name="cloudformation",
@@ -3730,6 +3916,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F281,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_APP_AUTH_OFF = MethodInfo(
         file_name="terraform",
@@ -3737,6 +3924,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_CLIENT_CERT_ENABLED = MethodInfo(
         file_name="terraform",
@@ -3744,6 +3932,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     ALLOWS_USER_CA = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3751,6 +3940,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F313,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     CS_LDAP_CONN_AUTH = MethodInfo(
         file_name="c_sharp",
@@ -3758,6 +3948,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F320,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F320 = MethodInfo(
         file_name="query",
@@ -3765,6 +3956,7 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F320,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CFN_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
         file_name="cloudformation",
@@ -3772,6 +3964,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_WILDCARD_WRITE = MethodInfo(
         file_name="cloudformation",
@@ -3779,6 +3972,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_POLICY_MISS_CONFIG = MethodInfo(
         file_name="cloudformation",
@@ -3786,6 +3980,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_PRIVILEGES_OVER_IAM = MethodInfo(
         file_name="cloudformation",
@@ -3793,6 +3988,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="cloudformation",
@@ -3800,6 +3996,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     WEBVIEW_VULNS = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3807,6 +4004,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F268,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="terraform",
@@ -3814,6 +4012,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EC2_ASSOC_PUB_IP = MethodInfo(
         file_name="terraform",
@@ -3821,6 +4020,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_CHECK_HASHES_SALT = MethodInfo(
         file_name="c_sharp",
@@ -3828,6 +4028,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F338,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     DANGEROUS_PERMISSIONS = MethodInfo(
         file_name="android",
@@ -3835,6 +4036,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F346,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_INSEC_GEN_SECRET = MethodInfo(
         file_name="cloudformation",
@@ -3842,6 +4044,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F363,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_CONFLICTING_ANNOTATIONS = MethodInfo(
         file_name="c_sharp",
@@ -3849,6 +4052,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F366,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_CONTENT_HTTP = MethodInfo(
         file_name="cloudformation",
@@ -3856,6 +4060,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ELB2_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
@@ -3863,6 +4068,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_CONTENT_HTTP = MethodInfo(
         file_name="terraform",
@@ -3870,6 +4076,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KV_ONLY_ACCESS_HTTPS = MethodInfo(
         file_name="terraform",
@@ -3877,6 +4084,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_SA_INSEC_TRANSFER = MethodInfo(
         file_name="terraform",
@@ -3884,6 +4092,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     UNPINNED_DOCKER_IMAGE = MethodInfo(
         file_name="docker",
@@ -3891,6 +4100,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F380,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     USES_HTTP_RESOURCES = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3898,6 +4108,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     NPM_PKG_JSON = MethodInfo(
         file_name="npm",
@@ -3905,6 +4116,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F393,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     NPM_PKG_LOCK_JSON = MethodInfo(
         file_name="npm",
@@ -3912,6 +4124,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F393,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
     )
     CFN_LOG_NOT_VALIDATED = MethodInfo(
         file_name="cloudformation",
@@ -3919,6 +4132,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F394,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_KMS_KEY_ROTATION_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3926,6 +4140,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F396,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     FRAGMENT_INJECTION = MethodInfo(
         file_name="analyze_bytecodes",
@@ -3933,6 +4148,7 @@ class MethodsEnum(Enum):
         module="lib_apk",
         finding=FindingEnum.F398,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
     )
     CFN_LOG_CONF_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3940,6 +4156,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ELB_ACCESS_LOG_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3947,6 +4164,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_CF_DISTR_LOG_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3954,6 +4172,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_TRAILS_NOT_MULTIREGION = MethodInfo(
         file_name="cloudformation",
@@ -3961,6 +4180,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_ELB2_LOGS_S3_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -3968,6 +4188,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_ELB_LOGGING_DISABLED = MethodInfo(
         file_name="terraform",
@@ -3975,6 +4196,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = MethodInfo(
         file_name="terraform",
@@ -3982,6 +4204,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F401,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_STORAGE_LOG_DISABLED = MethodInfo(
         file_name="terraform",
@@ -3989,6 +4212,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F402,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_APP_LOG_DISABLED = MethodInfo(
         file_name="terraform",
@@ -3996,6 +4220,7 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F402,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_SQL_LOG_RETENT = MethodInfo(
         file_name="terraform",
@@ -4003,4 +4228,5 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F402,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
