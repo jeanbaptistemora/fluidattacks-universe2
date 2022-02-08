@@ -10,6 +10,7 @@ from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
     BillingSubscriptionSameActive,
+    CouldNotActivateSubscription,
     CouldNotCreatePaymentMethod,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
@@ -165,6 +166,31 @@ async def _remove_subscription(
     )
 
 
+async def _has_pending_subscription(
+    *,
+    subscriptions: List[Subscription],
+) -> bool:
+    pending: List[str] = ["incomplete", "past_due", "unpaid"]
+    for subscription in subscriptions:
+        if subscription.status in pending:
+            return True
+    return False
+
+
+async def _get_active_subscription(
+    *,
+    subscriptions: List[Subscription],
+) -> Optional[Subscription]:
+    result: List[Subscription] = [
+        subscription
+        for subscription in subscriptions
+        if subscription.status == "active"
+    ]
+    if len(result) > 0:
+        return result[0]
+    return None
+
+
 async def update_subscription(
     *,
     subscription: str,
@@ -183,11 +209,19 @@ async def update_subscription(
     ):
         raise BillingCustomerHasNoPaymentMethod()
 
-    current: Optional[Subscription] = await dal.get_group_subscription(
+    subscriptions: List[Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
-        status="active",
+        status="all",
         limit=1000,
+    )
+
+    # Raise exception if group has incomplete, past_due or unpaid subscriptions
+    if await _has_pending_subscription(subscriptions=subscriptions):
+        raise CouldNotActivateSubscription()
+
+    current: Optional[Subscription] = await _get_active_subscription(
+        subscriptions=subscriptions
     )
 
     # Raise exception if group already has the same subscription active

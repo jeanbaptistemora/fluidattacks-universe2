@@ -26,5 +26,6 @@ class Subscription(NamedTuple):
     group: str
     org_billing_customer: str
     organization: str
+    status: str
     type: str
     items: Dict[str, str]

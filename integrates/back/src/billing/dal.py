@@ -176,6 +176,7 @@ async def get_customer_subscriptions(
             group=sub.metadata.group,
             org_billing_customer=sub.customer,
             organization=sub.metadata.organization,
+            status=sub.status,
             type=sub.metadata.subscription,
             items={
                 item["metadata"]["name"]: item["id"]
@@ -186,33 +187,35 @@ async def get_customer_subscriptions(
     }
 
 
-async def get_group_subscription(
+async def get_group_subscriptions(
     *,
     group_name: str,
     org_billing_customer: str,
     limit: int = 1000,
-    status: str = "active",
-) -> Optional[Subscription]:
-    """Return subscription for a group"""
+    status: str = "",
+) -> List[Subscription]:
+    """Return subscription history for a group"""
     subs = stripe.Subscription.list(
         customer=org_billing_customer,
         limit=limit,
         status=status,
     ).data
     filtered = [sub for sub in subs if sub.metadata.group == group_name]
-    if len(filtered) > 0:
-        return Subscription(
-            id=filtered[0].id,
-            group=filtered[0].metadata.group,
-            org_billing_customer=filtered[0].customer,
-            organization=filtered[0].metadata.organization,
-            type=filtered[0].metadata.subscription,
+    return [
+        Subscription(
+            id=sub.id,
+            group=sub.metadata.group,
+            org_billing_customer=sub.customer,
+            organization=sub.metadata.organization,
+            status=sub.status,
+            type=sub.metadata.subscription,
             items={
                 item["metadata"]["name"]: item["id"]
-                for item in filtered[0]["items"]["data"]
+                for item in sub["items"]["data"]
             },
         )
-    return None
+        for sub in filtered
+    ]
 
 
 async def get_customer(
