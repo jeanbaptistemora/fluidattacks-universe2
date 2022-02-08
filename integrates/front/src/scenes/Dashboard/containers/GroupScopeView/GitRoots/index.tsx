@@ -5,7 +5,7 @@ import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
@@ -50,8 +50,6 @@ import {
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
-import type { IAuthContext } from "utils/auth";
-import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -76,7 +74,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   roots,
 }: IGitRootsProps): JSX.Element => {
   // Constants
-  const user: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
@@ -128,6 +125,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       branch: true,
       "cloningStatus.status": true,
       state: true,
+      sync: true,
       url: true,
     },
     localStorage
@@ -537,12 +535,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   {
                     align: "left",
                     changeFunction: handleSyncClick,
-                    dataField: "",
+                    dataField: "sync",
                     formatter: syncButtonFormatter,
                     header: t("group.scope.git.repo.cloning.sync"),
-                    visible:
-                      canSyncGitRoot &&
-                      _.endsWith(user.userEmail, "@fluidattacks.com"),
+                    visible: canSyncGitRoot && checkedItems.sync,
                     width: "15px",
                   },
                 ]}

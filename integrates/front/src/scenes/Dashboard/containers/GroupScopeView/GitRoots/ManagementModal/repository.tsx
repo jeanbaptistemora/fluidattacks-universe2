@@ -218,42 +218,17 @@ const Repository: React.FC<IRepositoryProps> = ({
                   </React.Fragment>
                 ) : undefined}
                 <div className={"flex"}>
-                  <div className={"w-70 mr3"}>
-                    <ControlLabel>
-                      {t("group.scope.git.repo.credentials.name")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      name={"credentials.name"}
-                      placeholder={t(
-                        "group.scope.git.repo.credentials.nameHint"
-                      )}
-                      type={"text"}
-                    />
-                  </div>
-                  <div className={"w-30"}>
+                  <div className={"w-30 mr3"}>
                     <ControlLabel>
                       {t("group.scope.git.repo.credentials.type")}
                     </ControlLabel>
                     {credExists ? (
-                      <div className={"flex w-100"}>
-                        <div className={"w-50"}>
-                          <Field
-                            component={FormikText}
-                            disabled={true}
-                            name={"credentials.type"}
-                            value={values.credentials.type}
-                          />
-                        </div>
-                        <div className={"mt1 tr w-50"}>
-                          <Button
-                            id={"git-root-add"}
-                            onClick={deleteCredential}
-                          >
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                          </Button>
-                        </div>
-                      </div>
+                      <Field
+                        component={FormikText}
+                        disabled={true}
+                        name={"credentials.type"}
+                        value={values.credentials.type}
+                      />
                     ) : (
                       <Field
                         component={FormikDropdown}
@@ -265,6 +240,26 @@ const Repository: React.FC<IRepositoryProps> = ({
                         </option>
                       </Field>
                     )}
+                  </div>
+                  <div className={"w-70"}>
+                    <ControlLabel>
+                      {t("group.scope.git.repo.credentials.name")}
+                    </ControlLabel>
+                    <div className={"flex"}>
+                      <Field
+                        component={FormikText}
+                        name={"credentials.name"}
+                        placeholder={t(
+                          "group.scope.git.repo.credentials.nameHint"
+                        )}
+                        type={"text"}
+                      />
+                      {credExists ? (
+                        <Button id={"git-root-add"} onClick={deleteCredential}>
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      ) : undefined}
+                    </div>
                   </div>
                 </div>
                 <br />

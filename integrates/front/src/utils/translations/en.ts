@@ -700,7 +700,7 @@ export const enTranslations: ResourceKey = {
               successTitle: "Success",
               text: "Check Access",
             },
-            name: "Cloning credential",
+            name: "Credential Name",
             nameHint: "Repository SSH Key",
             ssh: "SSH",
             sshHint:
@@ -708,7 +708,7 @@ export const enTranslations: ResourceKey = {
               "SSH PRIVATE KEY...\n" +
               "-----END OPENSSH PRIVATE KEY-----",
             sshKey: "Private SSH Key",
-            type: "Type",
+            type: "Credential Type",
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",
