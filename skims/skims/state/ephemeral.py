@@ -101,6 +101,6 @@ def get_ephemeral_store() -> EphemeralStore:
     )
 
 
-async def reset() -> None:
+def reset() -> None:
     rmtree(EPHEMERAL)
     mkdir(EPHEMERAL, mode=0o700, exist_ok=True)

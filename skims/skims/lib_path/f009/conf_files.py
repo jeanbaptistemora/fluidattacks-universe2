@@ -87,11 +87,9 @@ def sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
 
 
 def web_config_db_connection(content: str, path: str) -> Vulnerabilities:
-    grammar = Regex(r'connectionString=".+?"', flags=re.IGNORECASE)
-    grammar.addCondition(
-        lambda tokens: any("password" in token.lower() for token in tokens)
+    grammar = Regex(
+        r'connectionString=".*password=[^{]+.*"', flags=re.IGNORECASE
     )
-
     return get_vulnerabilities_blocking(
         content=content,
         description_key=(
