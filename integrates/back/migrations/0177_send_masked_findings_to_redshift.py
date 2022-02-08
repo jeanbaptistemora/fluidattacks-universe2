@@ -52,6 +52,8 @@ from dynamodb.exceptions import (
 from groups import (
     dal as groups_dal,
 )
+import logging
+import logging.config
 from redshift.findings import (
     insert_batch_metadata,
     insert_batch_severity_cvss20,
@@ -60,11 +62,19 @@ from redshift.findings import (
     insert_batch_verification,
     insert_batch_verification_vuln_ids,
 )
+from settings import (
+    LOGGING,
+)
 import time
 from typing import (
     List,
     Tuple,
 )
+
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def filter_out_non_released_findings(
@@ -186,7 +196,15 @@ async def process_group(
         ),
         workers=64,
     )
-    print(f"Group updated: {group_name}, progress: {round(progress, 4)}")
+    LOGGER_CONSOLE.info(
+        "Group updated",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "progress": str(progress),
+            }
+        },
+    )
 
 
 async def get_removed_groups() -> List[str]:
@@ -205,7 +223,14 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
     removed_groups = await get_removed_groups()
     removed_groups_len = len(removed_groups)
-    print(f"Removed groups: {removed_groups_len}")
+    LOGGER_CONSOLE.info(
+        "Removed groups",
+        extra={
+            "extra": {
+                "removed_groups_len": removed_groups_len,
+            }
+        },
+    )
     await collect(
         tuple(
             process_group(
