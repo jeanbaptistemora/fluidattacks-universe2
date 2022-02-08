@@ -68,6 +68,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
         repo=item.get("repo", None),
         root_id=item.get("root_id", None),
         skims_method=item.get("skims_method", None),
+        skims_technique=item.get("skims_technique", None),
         developer=item.get("developer", None),
         specific=item["specific"],
         state=state,

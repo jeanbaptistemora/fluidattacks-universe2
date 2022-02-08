@@ -78,6 +78,7 @@ class Vulnerability(NamedTuple):
     repo: Optional[str] = None
     root_id: Optional[str] = None
     skims_method: Optional[str] = None
+    skims_technique: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
@@ -95,6 +96,7 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     hash: Optional[int] = None
     repo: Optional[str] = None
     skims_method: Optional[str] = None
+    skims_technique: Optional[str] = None
     developer: Optional[str] = None
     specific: Optional[str] = None
     stream: Optional[List[str]] = None
