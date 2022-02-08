@@ -86,7 +86,7 @@ async def get_totals_by_week(
                 )
                 for vulnerability in vulnerabilities
             ),
-            workers=16,
+            workers=32,
         )
     )
 
@@ -102,7 +102,7 @@ async def get_totals_by_week(
                 )
                 for vulnerability in vulnerabilities
             ),
-            workers=16,
+            workers=32,
         )
     )
 
