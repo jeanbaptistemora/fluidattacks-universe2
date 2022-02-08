@@ -59,7 +59,7 @@ stripe: 2.63.0
 types-aiofiles: 0.7.0
 types-pytz: 2021.3.1
 uvicorn:
-  version: 0.17.1
+  version: 0.17.4
   extras:
     - standard
 watchtower: 0.7.3
