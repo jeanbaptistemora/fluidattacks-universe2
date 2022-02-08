@@ -157,7 +157,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -175,7 +175,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -211,7 +211,7 @@
             "S": "pendinggroup"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -229,7 +229,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -301,7 +301,7 @@
             "S": "oneshottest"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -319,7 +319,7 @@
             "S": "suspendedtest"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -337,7 +337,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -355,7 +355,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }

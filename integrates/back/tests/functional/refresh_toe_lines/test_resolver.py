@@ -204,7 +204,7 @@ async def test_refresh_toe_lines(
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

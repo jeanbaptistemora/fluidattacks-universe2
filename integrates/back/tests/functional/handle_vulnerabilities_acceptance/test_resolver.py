@@ -14,7 +14,7 @@ from typing import (
     ("email", "accepted_vulnerability_id", "rejected_vulnerability_id"),
     (
         (
-            "customeradmin@gmail.com",
+            "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
         ),

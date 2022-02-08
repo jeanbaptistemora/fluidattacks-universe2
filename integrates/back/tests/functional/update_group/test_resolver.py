@@ -32,7 +32,7 @@ async def test_update_group(populate: bool, email: str) -> None:
     [
         ["hacker@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

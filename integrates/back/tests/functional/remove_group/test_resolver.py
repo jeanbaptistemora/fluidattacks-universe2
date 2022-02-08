@@ -34,7 +34,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],

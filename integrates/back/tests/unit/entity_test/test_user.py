@@ -17,7 +17,7 @@ async def test_get_user() -> None:
     """Check for user."""
     expected_output = {
         "email": "continuoushacking@gmail.com",
-        "role": "customeradmin",
+        "role": "user_manager",
         "responsibility": "Test",
         "first_login": "2018-02-28 11:54:12",
         "last_login": "[186, 33677]",

@@ -14,7 +14,7 @@ from typing import (
     ["email"],
     [
         ["admin@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
     ],
 )
 async def test_update_organization_policies(

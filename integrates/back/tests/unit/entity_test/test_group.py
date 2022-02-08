@@ -127,7 +127,7 @@ async def test_group() -> None:
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",
             "responsibility": "Test",
-            "role": "customeradmin",
+            "role": "user_manager",
         },
         {
             "email": "continuoushacking@gmail.com",
@@ -135,7 +135,7 @@ async def test_group() -> None:
             "invitationState": "CONFIRMED",
             "lastLogin": "2020-03-23 10:45:37",
             "responsibility": "Test",
-            "role": "customeradmin",
+            "role": "user_manager",
         },
         {
             "email": "continuoushack2@gmail.com",
@@ -143,7 +143,7 @@ async def test_group() -> None:
             "invitationState": "CONFIRMED",
             "lastLogin": "2020-03-23 10:45:37",
             "responsibility": "Test",
-            "role": "customeradmin",
+            "role": "user_manager",
         },
     ]
 

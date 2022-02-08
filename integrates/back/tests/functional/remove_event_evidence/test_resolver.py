@@ -31,7 +31,7 @@ async def test_remove_event_evidence(
     ["email"],
     [
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

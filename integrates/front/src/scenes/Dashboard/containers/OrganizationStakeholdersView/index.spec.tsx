@@ -72,7 +72,7 @@ describe("Organization users view", (): void => {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
                   lastLogin: "-",
-                  role: "customeradmin",
+                  role: "user_manager",
                 },
               ],
             },
@@ -329,7 +329,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -359,7 +359,7 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  role: "customeradmin",
+                  role: "user_manager",
                 },
               ],
             },
@@ -423,7 +423,7 @@ describe("Organization users view", (): void => {
       .find("select");
 
     roleField.simulate("change", {
-      target: { name: "role", value: "CUSTOMERADMIN" },
+      target: { name: "role", value: "USER_MANAGER" },
     });
     form.simulate("submit");
 
@@ -466,7 +466,7 @@ describe("Organization users view", (): void => {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
                   lastLogin: "[-1, -1]",
-                  role: "customeradmin",
+                  role: "user_manager",
                 },
               ],
             },
@@ -656,7 +656,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -670,7 +670,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -684,7 +684,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -698,7 +698,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -714,7 +714,7 @@ describe("Organization users view", (): void => {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
             responsibility: "",
-            role: "CUSTOMERADMIN",
+            role: "USER_MANAGER",
           },
         },
         result: {
@@ -758,7 +758,7 @@ describe("Organization users view", (): void => {
       expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
 
       getRoleField().simulate("change", {
-        target: { name: "role", value: "CUSTOMERADMIN" },
+        target: { name: "role", value: "USER_MANAGER" },
       });
       getForm().simulate("submit");
     };

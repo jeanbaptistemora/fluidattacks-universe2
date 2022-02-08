@@ -125,7 +125,7 @@ async def test_update_organization_stakeholder() -> None:
 
     data = {
         "query": query.substitute(
-            org_id=org_id, role="CUSTOMERADMIN", email=stakeholder
+            org_id=org_id, role="USER_MANAGER", email=stakeholder
         )
     }
     result = await _get_result_async(data, stakeholder=stakeholder)
@@ -134,7 +134,7 @@ async def test_update_organization_stakeholder() -> None:
 
     data = {
         "query": query.substitute(
-            org_id=org_id, role="CUSTOMERADMIN", email="madeupuser@gmail.com"
+            org_id=org_id, role="USER_MANAGER", email="madeupuser@gmail.com"
         )
     }
     result = await _get_result_async(data)

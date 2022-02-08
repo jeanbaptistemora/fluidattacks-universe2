@@ -89,7 +89,7 @@ async def test_remove_stakeholder_organization_remaining_access(
     ["email"],
     [
         ["admin@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
 )

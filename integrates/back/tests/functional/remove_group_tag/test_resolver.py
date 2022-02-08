@@ -15,7 +15,7 @@ from typing import (
     (
         ("admin@gmail.com", "test1"),
         ("customer@gmail.com", "test2"),
-        ("customeradmin@gmail.com", "test3"),
+        ("user_manager@gmail.com", "test3"),
         ("executive@gmail.com", "test4"),
         ("customer_manager@fluidattacks.com", "test5"),
     ),

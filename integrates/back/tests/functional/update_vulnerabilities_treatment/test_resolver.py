@@ -30,14 +30,14 @@ from typing import (
             "",
         ),
         (
-            "customeradmin@gmail.com",
+            "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
             "ACCEPTED_UNDEFINED",
             "customer1@gmail.com",
             "",
         ),
         (
-            "customeradmin@fluidattacks.com",
+            "user_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdc10",
             "ACCEPTED",
             "customer1@gmail.com",
@@ -143,7 +143,7 @@ async def test_update_vulnerabilities_treatment_fail(
     ("email", "vulnerability", "treatment", "assigned"),
     (
         (
-            "customeradmin@gmail.com",
+            "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "IN_PROGRESS",
             "nonconfirmeduser@test.com",

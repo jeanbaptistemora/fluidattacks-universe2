@@ -15,7 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],
@@ -61,7 +61,7 @@ async def test_add_group_consult_fail(populate: bool, email: str) -> None:
     [
         ["admin@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],

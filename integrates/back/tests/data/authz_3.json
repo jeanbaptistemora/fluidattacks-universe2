@@ -85,7 +85,7 @@
             "S": "metropolis"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -103,7 +103,7 @@
             "S": "gotham"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -121,7 +121,7 @@
             "S": "asgard"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -139,7 +139,7 @@
             "S": "org#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -283,7 +283,7 @@
             "S": "barranquilla"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -301,7 +301,7 @@
             "S": "monteria"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }
@@ -319,7 +319,7 @@
             "S": "org#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
           },
           "role": {
-            "S": "customeradmin"
+            "S": "user_manager"
           }
         }
       }

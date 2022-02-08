@@ -32,7 +32,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
     ["email"],
     [
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],

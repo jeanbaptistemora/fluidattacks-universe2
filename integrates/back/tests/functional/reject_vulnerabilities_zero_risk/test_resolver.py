@@ -86,7 +86,7 @@ async def test_reject_vulnerabilities_zero_risk_fail(
         ("hacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("reattacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
-        ("customeradmin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("user_manager@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         (
             "customer_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",

@@ -187,7 +187,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     ["email"],
     [
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["executive@gmail.com"],

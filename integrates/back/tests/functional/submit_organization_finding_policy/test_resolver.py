@@ -18,7 +18,7 @@ import pytest
         ),
         (
             "3be367f9-b06c-4f72-ab77-38268045a8ff",
-            "customeradmin@gmail.com",
+            "user_manager@gmail.com",
         ),
     ),
 )
@@ -45,7 +45,7 @@ async def test_submit_organization_finding_policy(
     ("email",),
     (
         ("customer@gmail.com",),
-        ("customeradmin@gmail.com",),
+        ("user_manager@gmail.com",),
     ),
 )
 async def test_submit_organization_finding_policy_fail_1(

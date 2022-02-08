@@ -18,7 +18,7 @@ from typing import (
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
@@ -100,7 +100,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     ["email", "length"],
     [
         ["customer@gmail.com", 1],
-        ["customeradmin@gmail.com", 1],
+        ["user_manager@gmail.com", 1],
     ],
 )
 async def test_get_assigned(populate: bool, email: str, length: int) -> None:

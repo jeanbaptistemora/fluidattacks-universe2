@@ -113,8 +113,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     architect_fluid_email: str = "architect@fluidattacks.com"
     customer_email: str = "customer@gmail.com"
     customer_fluid_email: str = "customer@fluidattacks.com"
-    customer_admin_email: str = "customeradmin@gmail.com"
-    customer_admin_fluid_email: str = "customeradmin@fluidattacks.com"
+    customer_admin_email: str = "user_manager@gmail.com"
+    customer_admin_fluid_email: str = "user_manager@fluidattacks.com"
     customer_manager_fluid_email: str = "customer_manager@fluidattacks.com"
     executive_email: str = "executive@gmail.com"
     executive_fluid_email: str = "executive@fluidattacks.com"
@@ -519,13 +519,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "user",
                     "subject": customer_admin_email,
                     "object": "self",
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "user",
                     "subject": customer_admin_fluid_email,
                     "object": "self",
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "user",
@@ -645,13 +645,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "group",
                     "subject": customer_admin_email,
                     "object": "group1",
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "group",
                     "subject": customer_admin_fluid_email,
                     "object": "group1",
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "group",
@@ -771,13 +771,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "organization",
                     "subject": customer_admin_email,
                     "object": org_id,
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "organization",
                     "subject": customer_admin_fluid_email,
                     "object": org_id,
-                    "role": "customeradmin",
+                    "role": "user_manager",
                 },
                 {
                     "level": "organization",

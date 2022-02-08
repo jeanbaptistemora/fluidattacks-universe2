@@ -39,7 +39,7 @@ async def test_update_group_info(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["customer@gmail.com"],
         ["reattacker@gmail.com"],
         ["reviewer@gmail.com"],

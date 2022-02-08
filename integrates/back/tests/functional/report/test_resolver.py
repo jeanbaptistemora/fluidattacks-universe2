@@ -17,7 +17,7 @@ from typing import (
     ["email"],
     [
         ["admin@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
@@ -63,7 +63,7 @@ async def test_get_report_fail(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["customeradmin@gmail.com"],
+        ["user_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
