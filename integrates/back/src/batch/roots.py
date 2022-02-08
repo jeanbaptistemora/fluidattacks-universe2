@@ -539,7 +539,12 @@ async def move_root(*, item: BatchProcessing) -> None:
     )
 
 
-async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
+async def _upload_cloned_repo_to_s3(
+    *,
+    content_dir: str,
+    group_name: str,
+    nickname: str,
+) -> bool:
     success: bool = False
     repo_path: str = os.path.join(content_dir, os.listdir(content_dir)[0])
 
@@ -581,7 +586,7 @@ async def _upload_cloned_repo_to_s3(content_dir: str, group_name: str) -> bool:
         "--include",
         "*/.git/*",
         content_dir,
-        f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}",
+        f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}/{nickname}/",
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
         env={**os.environ.copy()},
@@ -640,7 +645,7 @@ async def ssh_ls_remote_root(
         return stdout.decode().split("\t")[0]
 
 
-async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
+async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
     success: bool = False
     group_name: str = root.group_name
     root_url: str = root.state.url
@@ -685,7 +690,11 @@ async def _ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
                 extra=dict(extra=locals()),
             )
         else:
-            success = await _upload_cloned_repo_to_s3(temp_dir, group_name)
+            success = await _upload_cloned_repo_to_s3(
+                content_dir=temp_dir,
+                group_name=group_name,
+                nickname=root.state.nickname,
+            )
             with suppress(GitError, AttributeError):
                 commit = git.Repo(
                     folder_to_clone_root, search_parent_directories=True
@@ -715,7 +724,7 @@ async def clone_root(*, item: BatchProcessing) -> None:
     root_cloned: CloneResult = CloneResult(success=False)
     if root and root_cred:
         if root_cred.metadata.type.value == "SSH":
-            root_cloned = await _ssh_clone_root(root, root_cred)
+            root_cloned = await ssh_clone_root(root, root_cred)
 
         if root_cloned.success:
             findings = tuple(
