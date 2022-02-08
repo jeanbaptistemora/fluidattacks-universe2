@@ -238,7 +238,7 @@ describe("Add user modal", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "grant_user_level_role:admin" },
-      { action: "grant_user_level_role:customer" },
+      { action: "grant_user_level_role:user" },
       { action: "grant_user_level_role:hacker" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -257,7 +257,7 @@ describe("Add user modal", (): void => {
 
     expect(adminOption).toHaveLength(1);
 
-    const userOption: ReactWrapper = options.find({ value: "CUSTOMER" });
+    const userOption: ReactWrapper = options.find({ value: "USER" });
 
     expect(userOption).toHaveLength(1);
 

@@ -305,13 +305,16 @@ enum OrganizationFindingPolicyStatus {
 
 "Organization stakeholder role enum definition"
 enum OrganizationRole {
-  "Customer"
-  CUSTOMER
+  "User"
+  CUSTOMER @deprecated(reason: """This enum field  will be removed
+    after 2022/08/08. Use `USER` instead.""")
   "User Manager"
   CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
     after 2022/08/07. Use `USER_MANAGER` instead.""")
   "Customer Manager"
   CUSTOMER_MANAGER
+  "User"
+  USER
   "User Manager"
   USER_MANAGER
 }
@@ -384,8 +387,9 @@ enum StakeholderRole {
   ADMIN
   "Architect"
   ARCHITECT
-  "Customer"
-  CUSTOMER
+  "User"
+  CUSTOMER @deprecated(reason: """This enum field  will be removed
+    after 2022/08/08. Use `USER` instead.""")
   "User Manager"
   CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
     after 2022/08/07. Use `USER_MANAGER` instead.""")
@@ -405,6 +409,8 @@ enum StakeholderRole {
   REVIEWER
   "Forces"
   SERVICE_FORCES
+  "User"
+  USER
   "User Manager"
   USER_MANAGER
 }

@@ -321,7 +321,7 @@ async def get_or_add(
     in which case it will be added
     """
     org_created: bool = False
-    org_role: str = "customer"
+    org_role: str = "user"
     organization_name = organization_name.lower().strip()
 
     org = await orgs_dal.get_by_name(organization_name, ["id", "name"])

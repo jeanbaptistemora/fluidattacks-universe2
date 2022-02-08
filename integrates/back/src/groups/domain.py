@@ -469,14 +469,14 @@ async def complete_register_for_group_invitation(
     organization_id = await orgs_domain.get_id_for_group(group_name)
     if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
-            orgs_domain.add_user(organization_id, user_email, "customer")
+            orgs_domain.add_user(organization_id, user_email, "user")
         )
 
     if not await users_domain.is_registered(user_email):
         coroutines.extend(
             [
                 users_domain.register(user_email),
-                authz.grant_user_level_role(user_email, "customer"),
+                authz.grant_user_level_role(user_email, "user"),
             ]
         )
 
@@ -522,7 +522,7 @@ async def complete_register_for_organization_invitation(
     if not user_exists:
         user_created = await add_without_group(
             user_email,
-            "customer",
+            "user",
             should_add_default_org=(
                 FI_DEFAULT_ORG.lower() == organization_name.lower()
             ),
@@ -695,7 +695,7 @@ async def add_without_group(
         if should_add_default_org and not await orgs_domain.has_user_access(
             str(org["id"]), email
         ):
-            await orgs_domain.add_user(str(org["id"]), email, "customer")
+            await orgs_domain.add_user(str(org["id"]), email, "user")
     return success
 
 

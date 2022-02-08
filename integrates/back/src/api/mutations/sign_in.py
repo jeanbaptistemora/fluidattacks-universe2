@@ -70,8 +70,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_user(email: str) -> None:
-    new_user_user_level_role: str = "customer"
-    new_user_group_level_role: str = "customer"
+    new_user_user_level_role: str = "user"
+    new_user_group_level_role: str = "user"
 
     await groups_domain.add_without_group(
         email=email, role=new_user_user_level_role

@@ -152,6 +152,8 @@ def map_roles(
     role: str,
 ) -> str:
     """Maps old roles to their new equivalents"""
+    if role == "customer":
+        return "user"
     if role == "customeradmin":
         return "user_manager"
     return role

@@ -2654,6 +2654,7 @@ export const enTranslations: ResourceKey = {
       reattacker: "Reattacker",
       resourcer: "Resourcer",
       reviewer: "Reviewer",
+      user: "User",
       userManager: "User Manager",
     },
     success: "{{email}} was added successfully",

@@ -62,7 +62,7 @@ async def mutate(
     if not user_exists:
         user_created = await groups_domain.add_without_group(
             user_email,
-            "customer",
+            "user",
             should_add_default_org=(
                 FI_DEFAULT_ORG.lower() == organization_name.lower()
             ),

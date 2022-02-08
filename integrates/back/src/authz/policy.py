@@ -316,7 +316,7 @@ async def grant_group_level_role(email: str, group: str, role: str) -> bool:
     # If there is no user-level role for this user add one
     if not await get_user_level_role(email):
         user_level_role: str = (
-            role if role in get_user_level_roles_model(email) else "customer"
+            role if role in get_user_level_roles_model(email) else "user"
         )
         coroutines.append(grant_user_level_role(email, user_level_role))
     success = await collect(coroutines)
@@ -342,7 +342,7 @@ async def grant_organization_level_role(
     # If there is no user-level role for this user add one
     if not await get_user_level_role(email):
         user_level_role: str = (
-            role if role in get_user_level_roles_model(email) else "customer"
+            role if role in get_user_level_roles_model(email) else "user"
         )
         coroutines.append(grant_user_level_role(email, user_level_role))
     success = await collect(coroutines)

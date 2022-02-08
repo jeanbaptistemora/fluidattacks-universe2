@@ -117,6 +117,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:reattacker",
             "grant_group_level_role:resourcer",
             "grant_group_level_role:reviewer",
+            "grant_group_level_role:user",
             "grant_group_level_role:user_manager",
             "post_finding_observation",
             "update_git_root_filter",
@@ -357,7 +358,9 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:customeradmin",
             "grant_group_level_role:executive",
             "grant_user_level_role:customer",
+            "grant_group_level_role:user",
             "grant_group_level_role:user_manager",
+            "grant_user_level_role:user",
             "update_git_root_filter",
             "valid_assigned",
             "request_group_upgrade",
@@ -486,7 +489,9 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_group_level_role:resourcer",
             "grant_group_level_role:reviewer",
             "grant_user_level_role:customer",
+            "grant_group_level_role:user",
             "grant_group_level_role:user_manager",
+            "grant_user_level_role:user",
             "post_finding_observation",
         },
         tags=set(),
@@ -661,6 +666,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
 )
 # Helper mapping for new roles
 GROUP_LEVEL_ROLES["user_manager"] = GROUP_LEVEL_ROLES["customeradmin"]
+GROUP_LEVEL_ROLES["user"] = GROUP_LEVEL_ROLES["customer"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -941,6 +947,9 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
     "user_manager"
 ] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["customeradmin"]
+GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "user"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["customer"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -957,6 +966,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_stakeholder__resolve_for_organization",
             "grant_organization_level_role:customer",
             "grant_organization_level_role:customeradmin",
+            "grant_organization_level_role:user",
             "grant_organization_level_role:user_manager",
         },
         tags=set(),
@@ -994,6 +1004,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_stakeholder__resolve_for_organization",
             "grant_organization_level_role:customer",
             "grant_organization_level_role:customeradmin",
+            "grant_organization_level_role:user",
             "grant_organization_level_role:user_manager",
         },
         tags=set(),
@@ -1028,6 +1039,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
 ORGANIZATION_LEVEL_ROLES["user_manager"] = ORGANIZATION_LEVEL_ROLES[
     "customeradmin"
 ]
+ORGANIZATION_LEVEL_ROLES["user"] = ORGANIZATION_LEVEL_ROLES["customer"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1081,6 +1093,9 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
 ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
     "user_manager"
 ] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["customeradmin"]
+ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "user"
+] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["customer"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1103,6 +1118,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "grant_user_level_role:admin",
             "grant_user_level_role:customer",
             "grant_user_level_role:hacker",
+            "grant_user_level_role:user",
         },
         tags=set(),
     ),
@@ -1125,6 +1141,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
+# Helper mapping for new roles
+USER_LEVEL_ROLES["user"] = USER_LEVEL_ROLES["customer"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -1163,6 +1181,10 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
     ),
 )
+# Helper mapping for new roles
+USER_LEVEL_ROLES_FOR_FLUIDATTACKS["user"] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "customer"
+]
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
