@@ -121,7 +121,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.stackedBarChart.riskOverTime.tooltip.vulnerabilities"
         ),
-        url: "#vulnerabilities-over-time",
+        url: "#severity-over-time",
       },
     ],
     default: {
@@ -131,7 +131,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
       ),
-      url: "#vulnerabilities-over-time",
+      url: "#severity-over-time",
     },
     documentType: "stackedBarChart",
   },
@@ -146,7 +146,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
         ),
-        url: "#top-vulnerabilities",
+        url: "#open-severity-by-type",
       },
       {
         documentName: "topVulnerabilitiesBySourceCode",
@@ -157,7 +157,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.code"
         ),
-        url: "#top-vulnerabilities",
+        url: "#open-severity-by-type",
       },
       {
         documentName: "topVulnerabilitiesBySourceInfra",
@@ -168,7 +168,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.infra"
         ),
-        url: "#top-vulnerabilities",
+        url: "#open-severity-by-type",
       },
       {
         documentName: "topVulnerabilitiesBySourceApp",
@@ -179,7 +179,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.app"
         ),
-        url: "#top-vulnerabilities",
+        url: "#open-severity-by-type",
       },
     ],
     default: {
@@ -189,7 +189,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.cvssf"
       ),
-      url: "#top-vulnerabilities",
+      url: "#open-severity-by-type",
     },
     documentType: "barChart",
   },
