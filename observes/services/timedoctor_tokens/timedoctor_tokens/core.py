@@ -59,7 +59,7 @@ def timedoctor_initial_url_1(client_id: str, redirect_uri: str) -> str:
     )
 
 
-def timedoctor_initial_url_2(
+def get_refresh_token(
     code: str, client_id: str, client_secret: str, redirect_uri: str
 ) -> str:
     """Return the authentication endpoint."""
@@ -73,9 +73,7 @@ def timedoctor_initial_url_2(
     )
 
 
-def timedoctor_refresh_url(
-    client_id: str, client_secret: str, refresh_token: str
-) -> str:
+def new_token(client_id: str, client_secret: str, refresh_token: str) -> str:
     """Return the refresh url for timedoctor."""
     return (
         f"https://webapi.timedoctor.com/oauth/v2/token"
@@ -101,15 +99,15 @@ def code_grant_page(creds: str) -> None:
     )
 
 
-def get_and_update_token(creds: str) -> None:
+def recreate_save_refresh_token(creds: str, temp_code: str) -> None:
     project_id = os.environ["CI_PROJECT_ID"]
     timedoctor = json.loads(creds)
     analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
     new_timedoctor = json.loads(
         get_from_url(
             method="GET",
-            resource=timedoctor_initial_url_2(
-                code=timedoctor["code"],
+            resource=get_refresh_token(
+                code=temp_code,
                 client_id=timedoctor["client_id"],
                 client_secret=timedoctor["client_secret"],
                 redirect_uri=timedoctor["redirect_uri"],
@@ -118,6 +116,9 @@ def get_and_update_token(creds: str) -> None:
     )
 
     # Put it on vault, tokens are issued with 2 hours of duration
+    LOG.debug("timedoctor: %s", timedoctor)
+    LOG.debug("new_timedoctor: %s", new_timedoctor)
+
     new_values = json.dumps({**timedoctor, **new_timedoctor})
     cmd = (
         "observes-common-update-project-variable-bin"
@@ -131,8 +132,7 @@ def get_and_update_token(creds: str) -> None:
     run_command(cmd, raise_on_errors=True, raise_msg="unable to update var")
 
 
-def timedoctor_refresh(creds: str) -> bool:
-    """Scrip to refresh the timedoctor token."""
+def recreate_and_save_token(creds: str) -> bool:
     # Get the current values
     project_id = os.environ["CI_PROJECT_ID"]
     timedoctor = json.loads(creds)
@@ -142,12 +142,11 @@ def timedoctor_refresh(creds: str) -> bool:
     new_timedoctor = json.loads(
         get_from_url(
             method="GET",
-            resource=timedoctor_refresh_url(
+            resource=new_token(
                 client_id=timedoctor["client_id"],
                 client_secret=timedoctor["client_secret"],
                 refresh_token=timedoctor["refresh_token"],
             ),
-            headers={"Authorization": f'Bearer {timedoctor["access_token"]}'},
         )[1]
     )
 

@@ -12,14 +12,19 @@ def new_grant_code(init_creds: str) -> None:
 
 @click.command()
 @click.option("--init-creds", type=str, required=True)
-def set_init_token(init_creds: str) -> None:
-    core.get_and_update_token(init_creds)
+@click.option(
+    "--code",
+    prompt=True,
+    hide_input=True,
+)
+def set_init_token(init_creds: str, code: str) -> None:
+    core.recreate_save_refresh_token(init_creds, code)
 
 
 @click.command()
 @click.option("--creds", type=str, required=True)
 def update_token(creds: str) -> None:
-    core.timedoctor_refresh(creds)
+    core.recreate_and_save_token(creds)
 
 
 @click.group()
