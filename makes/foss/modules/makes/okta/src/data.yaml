@@ -1967,7 +1967,6 @@ OKTA_DATA_RAW:
             - ENC[AES256_GCM,data:rpt7Ru+jPA==,iv:j/73JPI6BOIn+ZahvvFfFPsVjosnncn/6qRzNK2h1hY=,tag:DaQfSENdcsUFhn3IwOC2YQ==,type:str]
             - ENC[AES256_GCM,data:NkfphA3iRLA=,iv:jS8pKcqyTsBEv5QyhiF4+9AhRUEJrnM7Yt0/68PDhOE=,tag:c6J0CndNx+CA3nKlxDFdkQ==,type:str]
             - ENC[AES256_GCM,data:aJ5PiLU=,iv:eXpE+C45LudGZyZTdfobbyIuSGHOLcsYobDHjOkq+4M=,tag:j86Fb9SBdZPr+67dokwC7A==,type:str]
-            - ENC[AES256_GCM,data:fz5DljwR,iv:EifC2ZKkXQHrODht/nPWRbgmNUQI+pWXZhQ7sj44myw=,tag:aGnipMB6tfSbn5+/KsyUWQ==,type:str]
             - ENC[AES256_GCM,data:cgaTg7m3Mb0=,iv:HIt/fE33mI07c/cUGH8zwoFUwfRfukQPk13jLxp8Wq0=,tag:shKV2h6TtOdPH8/crwBO0g==,type:str]
             - ENC[AES256_GCM,data:9wOzyk9tTA==,iv:YbhKy5+c/ki5QlkS9A5aQdo58A2wk3IBdsW9BXY393o=,tag:N562Vdi6iAfIcXAsbeymLA==,type:str]
           apps:
@@ -3263,8 +3262,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-02-07T22:32:05Z"
-    mac: ENC[AES256_GCM,data:u5vqoeMCiLNKoRxYmh7o8AWUVBTmpp3QIk6BScLaPZlebP/Lm38/x8TeDoAcZBNSeV9HEUMGnn6a185mKYFNXmjQAUthqZXyaOZAr2V9kHEN6SB7p5ptFchng4XZa1W+f+Sk3+qjzghoscfkQz6OTmr9odsa7rvuclACv9n+618=,iv:tUoxze1U70Y6aYdmL0Ty431IxiWv240gLmR53GFsSw4=,tag:i5aJjmzLz4mOvUv26C5HsA==,type:str]
+    lastmodified: "2022-02-08T22:02:10Z"
+    mac: ENC[AES256_GCM,data:1EFJHvMEIg3kAo9gDN4ehDOF1HpvZlMolWPDIQw8EMb0Hs7MKtUisJWmXSCMiaau6CPvV0GbElfD5T2NMNKUcuBiESWpkOw5Tb7MTZg8hOvfH46dUrrrI0F8/tCLKqmP6IjiVvWOZxuwVOHfqRkSgWWBN7+5LRdqUUDvn3plPk4=,iv:gwHTqU/TBwZgFzaG+wK2Xz6L1LAF4MYjTXiTfn+cgmc=,tag:fLZ/pNre7U9qI3TxvBJYWg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
