@@ -183,10 +183,6 @@ def get_iso_date() -> str:
     return datetime.now(tz=timezone.utc).isoformat()
 
 
-def get_iso_date_no_fractional() -> str:
-    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat()
-
-
 def is_valid_format(date_str: str) -> bool:
     try:
         get_from_str(date_str)

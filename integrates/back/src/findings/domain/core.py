@@ -205,7 +205,7 @@ async def remove_finding(
     new_state = FindingState(
         justification=justification,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date_no_fractional(),
+        modified_date=datetime_utils.get_iso_date(),
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.DELETED,
     )
@@ -653,7 +653,7 @@ async def request_vulnerabilities_verification(
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date_no_fractional(),
+        modified_date=datetime_utils.get_iso_date(),
         status=FindingVerificationStatus.REQUESTED,
         vulnerability_ids=vulnerability_ids,
     )
@@ -787,7 +787,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_iso_date_no_fractional()
+    today = datetime_utils.get_iso_date()
     user_email: str = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified

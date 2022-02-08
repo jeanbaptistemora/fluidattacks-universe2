@@ -71,7 +71,7 @@ async def approve_draft(
     if not nzr_vulns:
         raise DraftWithoutVulns()
 
-    approval_date = datetime_utils.get_iso_date_no_fractional()
+    approval_date = datetime_utils.get_iso_date()
     new_state = FindingState(
         modified_by=user_email,
         modified_date=approval_date,
@@ -123,7 +123,7 @@ async def add_draft(
         min_time_to_remediate=draft_info.min_time_to_remediate,
         state=FindingState(
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date_no_fractional(),
+            modified_date=datetime_utils.get_iso_date(),
             source=requests_utils.get_source_new(context),
             status=FindingStateStatus.CREATED,
         ),
@@ -147,7 +147,7 @@ async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date_no_fractional(),
+        modified_date=datetime_utils.get_iso_date(),
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.REJECTED,
     )
@@ -191,7 +191,7 @@ async def submit_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date_no_fractional(),
+        modified_date=datetime_utils.get_iso_date(),
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.SUBMITTED,
     )

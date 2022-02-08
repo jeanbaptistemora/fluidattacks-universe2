@@ -242,7 +242,7 @@ async def _apply_finding_policy(
     user_email: str,
     tags: Set[str],
 ) -> None:
-    current_day: str = datetime_utils.get_iso_date_no_fractional()
+    current_day: str = datetime_utils.get_iso_date()
     if status not in {"APPROVED", "INACTIVE"}:
         return
     if status == "APPROVED":

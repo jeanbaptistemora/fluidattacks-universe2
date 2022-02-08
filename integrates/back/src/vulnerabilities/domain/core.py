@@ -186,7 +186,7 @@ async def confirm_vulnerabilities_zero_risk(
             zero_risk=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date_no_fractional(),
+                modified_date=datetime_utils.get_iso_date(),
                 status=VulnerabilityZeroRiskStatus.CONFIRMED,
             ),
         )
@@ -606,7 +606,7 @@ async def reject_vulnerabilities_zero_risk(
             zero_risk=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date_no_fractional(),
+                modified_date=datetime_utils.get_iso_date(),
                 status=VulnerabilityZeroRiskStatus.REJECTED,
             ),
         )
@@ -624,7 +624,7 @@ async def request_verification(vulnerability: Vulnerability) -> bool:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         verification=VulnerabilityVerification(
-            modified_date=datetime_utils.get_iso_date_no_fractional(),
+            modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.REQUESTED,
         ),
     )
@@ -669,7 +669,7 @@ async def request_vulnerabilities_zero_risk(
             zero_risk=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date_no_fractional(),
+                modified_date=datetime_utils.get_iso_date(),
                 status=VulnerabilityZeroRiskStatus.REQUESTED,
             ),
         )
@@ -917,7 +917,7 @@ async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         verification=VulnerabilityVerification(
-            modified_date=datetime_utils.get_iso_date_no_fractional(),
+            modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.VERIFIED,
         ),
     )
@@ -939,7 +939,7 @@ async def close_by_exclusion(
             vulnerability_id=vulnerability.id,
             state=VulnerabilityState(
                 modified_by=modified_by,
-                modified_date=datetime_utils.get_iso_date_no_fractional(),
+                modified_date=datetime_utils.get_iso_date(),
                 source=source,
                 status=VulnerabilityStateStatus.CLOSED,
                 justification=StateRemovalJustification.EXCLUSION,
