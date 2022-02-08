@@ -1233,3 +1233,41 @@ $gray-154: rgba(154, 154, 172, 1);
   font-style: normal;
   list-style-type: none;
 }
+
+@mixin white-gradient {
+  background: linear-gradient(to right, $darker-blue 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-446px * 30));}
+}
+
+.home-clients-container {
+  &::before,
+  &::after {
+    @include white-gradient;
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  &::before {
+    left: 0;
+    top: 0;
+  }
+}
+
+.home-slide-track {
+  animation: scroll 50s linear infinite;
+  width: calc(446px * 60);
+}
+

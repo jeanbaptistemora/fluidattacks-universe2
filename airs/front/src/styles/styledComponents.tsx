@@ -515,6 +515,7 @@ const NewInnerMainContentHome: StyledComponent<
     pt4
     pl3
     cf
+    tl
   `,
 })``;
 
@@ -555,11 +556,9 @@ const WhiteBigParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f-home-title
     f1
     white
     fw6
-    tl
     neue
     lh-solid
     ma0
@@ -590,7 +589,6 @@ const NewGrayBigParagraph: StyledComponent<
     f-2
     c-fluid-gray
     fw6
-    tl
     neue
     lh-solid
     ma0
@@ -606,7 +604,6 @@ const GrayMediumParagraph: StyledComponent<
     f3
     c-gray-154
     fw6
-    tl
     neue
     lh-solid
     ma0
@@ -622,7 +619,6 @@ const GrayLittleParagraph: StyledComponent<
     f4
     c-gray-154
     fw6
-    tl
     neue
     lh-solid
     ma0

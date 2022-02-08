@@ -27,7 +27,7 @@ const Portrait: React.FC = (): JSX.Element => (
       </HomeImageContainer>
       <NewInnerMainContentHome>
         <ScrollAnimation animateIn={"animate__fadeInDown"} animateOnce={true}>
-          <WhiteBigParagraph>
+          <WhiteBigParagraph className={"f-home-title"}>
             {"Secure your application with our Continuous Hacking Solution."}
           </WhiteBigParagraph>
           <NewGrayBigParagraph>
@@ -41,18 +41,18 @@ const Portrait: React.FC = (): JSX.Element => (
           <GrayLittleParagraph>
             {`Andrew Chung, VP of Information Technology at GESA `}
           </GrayLittleParagraph>
-          <Link className={"no-underline"} to={"/newHome"}>
-            <NewRegularRedButton className={"mv3 fl mh1 w-auto-ns w-100"}>
-              {"Start your free trial"}
-            </NewRegularRedButton>
-          </Link>
-          <Link className={"no-underline"} to={"/newHome"}>
-            <PhantomRegularRedButton
-              className={"mt3-ns mb5  fl mh1 w-auto-ns w-100"}
-            >
-              {"Product overview"}
-            </PhantomRegularRedButton>
-          </Link>
+          <div className={"cf mt4 mb5"}>
+            <Link className={"no-underline"} to={"/newHome"}>
+              <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
+                {"Start your free trial"}
+              </NewRegularRedButton>
+            </Link>
+            <Link className={"no-underline"} to={"/newHome"}>
+              <PhantomRegularRedButton className={"fl mh1 w-auto-ns w-100"}>
+                {"Product overview"}
+              </PhantomRegularRedButton>
+            </Link>
+          </div>
         </ScrollAnimation>
       </NewInnerMainContentHome>
     </MainContentHome>
