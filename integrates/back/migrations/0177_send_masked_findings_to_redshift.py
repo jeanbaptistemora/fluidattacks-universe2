@@ -77,18 +77,6 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-def filter_out_non_released_findings(
-    *,
-    findings: Tuple[Finding, ...],
-) -> Tuple[Finding, ...]:
-    return tuple(
-        finding
-        for finding in findings
-        if finding.state.status
-        in {FindingStateStatus.APPROVED, FindingStateStatus.DELETED}
-    )
-
-
 def filter_out_deleted_findings(
     *,
     findings: Tuple[Finding, ...],
@@ -109,10 +97,8 @@ async def send_findings_to_redshift(
     loaders: Dataloaders,
     findings: Tuple[Finding, ...],
 ) -> None:
-    # Only released findings will be stored
-    findings_released = filter_out_non_released_findings(findings=findings)
     # Only deleted vulns by external users will be stored
-    findings_to_store = filter_out_deleted_findings(findings=findings_released)
+    findings_to_store = filter_out_deleted_findings(findings=findings)
     if not findings_to_store:
         return
 
