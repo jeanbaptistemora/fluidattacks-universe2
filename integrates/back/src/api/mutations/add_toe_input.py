@@ -21,6 +21,7 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -50,6 +51,8 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         loaders: Dataloaders = info.context.loaders
+        user_data = await token_utils.get_jwt_content(info.context)
+        user_email = user_data["user_email"]
         await toe_inputs_domain.add(
             loaders=loaders,
             group_name=group_name,
@@ -59,6 +62,7 @@ async def mutate(
                 be_present=True,
                 unreliable_root_id=root_id,
                 has_vulnerabilities=False,
+                seen_first_time_by=user_email,
             ),
         )
         logs_utils.cloudwatch_log(
