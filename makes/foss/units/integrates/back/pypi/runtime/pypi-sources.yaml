@@ -110,7 +110,7 @@ closure:
   types-pytz: 2021.3.1
   typing-extensions: 4.0.1
   urllib3: 1.26.8
-  uvicorn: 0.17.4
+  uvicorn: 0.17.1
   uvloop: 0.16.0
   watchgod: "0.7"
   watchtower: 0.7.3
@@ -1008,12 +1008,12 @@ links:
   - name: urllib3-1.26.8.tar.gz
     sha256: 0g18xk7gfm88gr4bp3f58vgvsbzwps3sq2kqhv5xyz9ylvck6z0f
     url: https://files.pythonhosted.org/packages/b0/b1/7bbf5181f8e3258efae31702f5eab87d8a74a72a0aa78bc8c08c1466e243/urllib3-1.26.8.tar.gz
-  - name: uvicorn-0.17.4-py3-none-any.whl
-    sha256: 1v1arz0848h96s7fgwfqnj7mn1ddgv7p2ajx9k6cqldn9zc74n78
-    url: https://files.pythonhosted.org/packages/f1/4c/9f4b2a72512c1f70caf9be3087703f4b7716c253ae69ed7aaeaba6a72627/uvicorn-0.17.4-py3-none-any.whl
-  - name: uvicorn-0.17.4.tar.gz
-    sha256: 048h5d3j8lyff8lr35pvhyv1z1jcgcxlngkv8yk72nhrhsy0p195
-    url: https://files.pythonhosted.org/packages/03/29/87b9741a98b735851001a0ef3c2c8583ebc61df9b235bd5e94f5f166fbbe/uvicorn-0.17.4.tar.gz
+  - name: uvicorn-0.17.1-py3-none-any.whl
+    sha256: 0wrcys9b3cm05nxvdc6k2r3vb8p8by1q5wc4860gf035nzndj5lb
+    url: https://files.pythonhosted.org/packages/47/16/f3a9c53c87a82172bf4046276882a7874fe8dd410f57a5c928e35c5376f7/uvicorn-0.17.1-py3-none-any.whl
+  - name: uvicorn-0.17.1.tar.gz
+    sha256: 0hgwgarr3rax3vi8szak6ry75rjgii3jq793ipb29n95rjwaryyz
+    url: https://files.pythonhosted.org/packages/63/3e/a2b92679e3d6dcd35c42d7e70a678c06328a29859fde65025a280690baa5/uvicorn-0.17.1.tar.gz
   - name: uvloop-0.16.0-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 13zf110crqpdgnmgk43pnxk21gf4ksf2w686krz6fzdiinp5gkbc
     url: https://files.pythonhosted.org/packages/a2/22/2fba0652a03bac8c38201d5832aaba8d47e6e8dd4e2d05c9746571927ebb/uvloop-0.16.0-cp39-cp39-macosx_10_9_universal2.whl
