@@ -12,6 +12,7 @@ from lib_path.f400.cloudformation import (
 )
 from lib_path.f400.terraform import (
     tfm_elb_logging_disabled,
+    tfm_s3_buckets_logging_disabled,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -91,6 +92,16 @@ def run_tfm_elb_logging_disabled(
     return tfm_elb_logging_disabled(content=content, path=path, model=model)
 
 
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_s3_buckets_logging_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_s3_buckets_logging_disabled(
+        content=content, path=path, model=model
+    )
+
+
 @SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -130,6 +141,7 @@ def analyze(
         results = (
             *results,
             run_tfm_elb_logging_disabled(content, path, model),
+            run_tfm_s3_buckets_logging_disabled(content, path, model),
         )
 
     return results
