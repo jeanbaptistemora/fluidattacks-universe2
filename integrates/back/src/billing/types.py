@@ -21,6 +21,13 @@ class PaymentMethod(NamedTuple):
     default: bool
 
 
+class Price(NamedTuple):
+    id: str
+    currency: str
+    amount: int
+    type: str
+
+
 class Subscription(NamedTuple):
     id: str
     group: str

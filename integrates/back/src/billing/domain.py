@@ -4,6 +4,7 @@ from billing import (
 from billing.types import (
     Customer,
     PaymentMethod,
+    Price,
     Subscription,
 )
 from custom_exceptions import (
@@ -71,10 +72,11 @@ async def _format_create_subscription_data(
     billing_cycle_anchor: int = int(
         datetime_utils.get_first_day_next_month_timestamp()
     )
-    prices: Dict[str, str] = await dal.get_prices()
+    prices: Dict[str, Price] = await dal.get_prices()
+
     items: List[Dict[str, Any]] = [
         {
-            "price": prices["machine"],
+            "price": prices["machine"].id,
             "quantity": 1,
             "metadata": {
                 "group": group_name,
@@ -82,17 +84,18 @@ async def _format_create_subscription_data(
                 "organization": org_name,
             },
         },
-        {
-            "price": prices["squad"]
-            if subscription == "squad"
-            else prices["free"],
-            "metadata": {
-                "group": group_name,
-                "name": "squad",
-                "organization": org_name,
-            },
-        },
     ]
+    if subscription == "squad":
+        items.append(
+            {
+                "price": prices["squad"].id,
+                "metadata": {
+                    "group": group_name,
+                    "name": "squad",
+                    "organization": org_name,
+                },
+            },
+        )
 
     return {
         "customer": org_billing_customer,
@@ -212,7 +215,7 @@ async def update_subscription(
     subscriptions: List[Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
-        status="all",
+        status="",
         limit=1000,
     )
 

@@ -1199,6 +1199,15 @@ class CouldNotCreatePaymentMethod(CustomBaseException):
         super(CouldNotCreatePaymentMethod, self).__init__(msg)
 
 
+class PaymentIntentFailed(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Subscription could not be downgraded, "
+            "payment intent for Squad failed"
+        )
+        super(PaymentIntentFailed, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

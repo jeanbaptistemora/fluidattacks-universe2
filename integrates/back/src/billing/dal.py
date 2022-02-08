@@ -4,12 +4,16 @@ from bill import (
 from billing.types import (
     Customer,
     PaymentMethod,
+    Price,
     Subscription,
 )
 from context import (
     BASE_URL,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
+)
+from custom_exceptions import (
+    PaymentIntentFailed,
 )
 from datetime import (
     datetime,
@@ -145,18 +149,25 @@ async def create_portal(
     ).url
 
 
-async def get_prices() -> Dict[str, str]:
+async def get_prices() -> Dict[str, Price]:
     """Get model prices"""
     data = stripe.Price.list(
         lookup_keys=[
             "machine",
             "squad",
-            "free",
         ],
         active=True,
     ).data
 
-    return {price.lookup_key: price.id for price in data}
+    return {
+        price.lookup_key: Price(
+            id=price.id,
+            currency=price.currency,
+            amount=price.unit_amount,
+            type=price.type,
+        )
+        for price in data
+    }
 
 
 async def get_customer_subscriptions(
@@ -195,11 +206,14 @@ async def get_group_subscriptions(
     status: str = "",
 ) -> List[Subscription]:
     """Return subscription history for a group"""
-    subs = stripe.Subscription.list(
-        customer=org_billing_customer,
-        limit=limit,
-        status=status,
-    ).data
+    data: Dict[str, Any] = {
+        "customer": org_billing_customer,
+        "limit": limit,
+    }
+    if status != "":
+        data["status"] = status
+
+    subs = stripe.Subscription.list(**data).data
     filtered = [sub for sub in subs if sub.metadata.group == group_name]
     return [
         Subscription(
@@ -289,18 +303,28 @@ async def remove_subscription(
     return result in ("canceled", "incomplete_expired")
 
 
+async def get_subscription_usage(
+    *,
+    subscription: Subscription,
+) -> int:
+    """Get group squad usage"""
+    date: datetime = datetime_utils.get_utc_now()
+    return len(
+        await bill_domain.get_authors_data(
+            date=date,
+            group=subscription.group,
+        )
+    )
+
+
 async def report_subscription_usage(
     *,
     subscription: Subscription,
 ) -> bool:
     """Report group squad usage to Stripe"""
     timestamp: int = int(datetime_utils.get_utc_timestamp())
-    date: datetime = datetime_utils.get_utc_now()
-    authors: int = len(
-        await bill_domain.get_authors_data(
-            date=date,
-            group=subscription.group,
-        )
+    authors: int = await get_subscription_usage(
+        subscription=subscription,
     )
     result = stripe.SubscriptionItem.create_usage_record(
         subscription.items["squad"],
@@ -311,25 +335,82 @@ async def report_subscription_usage(
     return isinstance(result.id, str)
 
 
+async def pay_squad_authors_to_date(
+    *,
+    prices: Dict[str, Price],
+    subscription: Subscription,
+) -> bool:
+    """Pay squad authors to date"""
+    authors: int = await get_subscription_usage(subscription=subscription)
+    customer: Customer = await get_customer(
+        org_billing_customer=subscription.org_billing_customer,
+    )
+
+    return (
+        stripe.PaymentIntent.create(
+            customer=subscription.org_billing_customer,
+            amount=prices["squad"].amount * authors,
+            currency=prices["squad"].currency,
+            payment_method=customer.default_payment_method,
+            confirm=True,
+        ).status
+        == "succeeded"
+    )
+
+
 async def update_subscription(
     *,
     subscription: Subscription,
     upgrade: bool,
 ) -> bool:
     """Upgrade or downgrade a subscription"""
-    prices: Dict[str, str] = await get_prices()
+    prices: Dict[str, Price] = await get_prices()
+    data: Dict[str, Any] = {
+        "items": [],
+        "metadata": {"subscription": ""},
+    }
+    result: bool = True
 
-    result = stripe.Subscription.modify(
-        subscription.id,
-        items=[
+    if upgrade:
+        data["items"] = [
+            {
+                "price": prices["squad"].id,
+                "metadata": {
+                    "group": subscription.group,
+                    "name": "squad",
+                    "organization": subscription.organization,
+                },
+            }
+        ]
+        data["metadata"]["subscription"] = "squad"
+    else:
+        data["items"] = [
             {
                 "id": subscription.items["squad"],
-                "price": prices["squad"] if upgrade else prices["free"],
-            }
-        ],
-        metadata={
-            "subscription": "squad" if upgrade else "machine",
-        },
-        proration_behavior="always_invoice",
+                "clear_usage": True,
+                "deleted": True,
+            },
+        ]
+        data["metadata"]["subscription"] = "machine"
+
+        # Pay squad authors to date
+        result = await pay_squad_authors_to_date(
+            prices=prices,
+            subscription=subscription,
+        )
+
+        # Raise exception if payment intent failed
+        if not result:
+            raise PaymentIntentFailed()
+
+    # Update subscription
+    result = (
+        result
+        and stripe.Subscription.modify(
+            subscription.id,
+            **data,
+        ).status
+        == "active"
     )
-    return isinstance(result.created, int)
+
+    return result
