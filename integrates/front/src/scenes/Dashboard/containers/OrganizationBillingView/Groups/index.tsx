@@ -424,6 +424,13 @@ export const OrganizationBillingGroups: React.FC<IOrganizationBillingGroupsProps
                 )
               );
               break;
+            case "Exception - Subscription could not be downgraded, payment intent for Squad failed":
+              msgError(
+                t(
+                  "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeDowngraded"
+                )
+              );
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("Couldn't update group subscription", error);

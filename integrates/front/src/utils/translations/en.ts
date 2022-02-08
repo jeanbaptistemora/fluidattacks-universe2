@@ -1095,15 +1095,17 @@ export const enTranslations: ResourceKey = {
           title: "Groups",
           updateSubscription: {
             errors: {
-              addPaymentMethod: "Please add a payment method first.",
+              addPaymentMethod: "Please add a payment method first",
               alreadyActive:
                 "The group already has a subscription of the chosen type",
               couldNotBeActivated:
                 "Subscription could not be activated. Please review your invoices",
+              couldNotBeDowngraded:
+                "Subscription could not be downgraded, payment intent for Squad failed",
             },
             subscription: "Subscription",
             success: {
-              body: "Group subscription successfully updated.",
+              body: "Group subscription successfully updated",
               title: "Success",
             },
             title: "Update",
@@ -1119,7 +1121,7 @@ export const enTranslations: ResourceKey = {
             button: "Add",
             errors: {
               couldNotBeCreated:
-                "Payment method could not be created. Please make sure all the details you provided are correct.",
+                "Payment method could not be created. Please make sure all the details you provided are correct",
             },
             modal: {
               add: "Add payment method",
@@ -1139,11 +1141,11 @@ export const enTranslations: ResourceKey = {
             button: "Remove",
             errors: {
               activeSubscriptions:
-                "All subscriptions must be cancelled before removing your latest payment method.",
-              noPaymentMethod: "The payment method does not exist.",
+                "All subscriptions must be cancelled before removing your latest payment method",
+              noPaymentMethod: "The payment method does not exist",
             },
             success: {
-              body: "Payment method successfully removed.",
+              body: "Payment method successfully removed",
               title: "Success",
             },
           },
@@ -1151,7 +1153,7 @@ export const enTranslations: ResourceKey = {
           updateDefault: {
             button: "Set as default",
             errors: {
-              noPaymentMethod: "The payment method does not exist.",
+              noPaymentMethod: "The payment method does not exist",
             },
             success: {
               body: "Default payment method updated",
