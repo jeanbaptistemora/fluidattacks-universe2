@@ -6,6 +6,9 @@ Unlike standard Python functionality, the import order matters:
 the agent package must be imported first.
 """
 # flake8: noqa
+from api.validations.query_depth import (
+    QueryDepthValidation,
+)
 import newrelic.agent
 from settings import (
     DEBUG,
@@ -319,12 +322,22 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 
 exception_handlers = {404: not_found, 500: server_error}
 
+API_VALIDATIONS = [
+    QueryDepthValidation,
+]
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
     routes=[
         Route("/", templates.login),
-        Route("/api", IntegratesAPI(SCHEMA, debug=DEBUG)),
+        Route(
+            "/api",
+            IntegratesAPI(
+                SCHEMA,
+                debug=DEBUG,
+                validation_rules=API_VALIDATIONS,
+            ),
+        ),
         Route("/authz_azure", auth.authz_azure),
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),
