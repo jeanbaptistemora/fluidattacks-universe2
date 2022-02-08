@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    ToeInputNotPresent,
+)
 from custom_types import (
     Group,
 )
@@ -234,6 +237,12 @@ async def update(
     current_value: ToeInput,
     attributes: ToeInputAttributesToUpdate,
 ) -> None:
+    if attributes.is_moving_toe_input is False and (
+        (attributes.be_present is None and current_value.be_present is False)
+        or attributes.be_present is False
+    ):
+        raise ToeInputNotPresent()
+
     be_present_until = (
         None
         if attributes.be_present is None
