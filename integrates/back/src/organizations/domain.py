@@ -14,6 +14,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
+    InvalidAuthorization,
     InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidSeverity,
@@ -258,13 +259,17 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
 async def get_access_by_url_token(
     url_token: str,
 ) -> Dict[str, Any]:
-    token_content = token.decode_jwt(url_token)
-    organization_id: str = token_content["organization_id"]
-    user_email: str = token_content["user_email"]
-    access = await orgs_dal.get_access_by_url_token(
-        organization_id, user_email
-    )
-    return access if access else {}
+    access = {}
+    try:
+        token_content = token.decode_jwt(url_token)
+        organization_id: str = token_content["organization_id"]
+        user_email: str = token_content["user_email"]
+        access = await orgs_dal.get_access_by_url_token(
+            organization_id, user_email
+        )
+    except token.JWTError:
+        InvalidAuthorization()
+    return access
 
 
 async def get_by_id(org_id: str) -> OrganizationType:
