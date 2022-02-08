@@ -850,6 +850,17 @@ export const enTranslations: ResourceKey = {
         bePresentUntil: "Be present until",
         commit: "Commit",
         component: "Component",
+        editModal: {
+          alerts: {
+            success: "Input has been updpated.",
+          },
+          close: "Close",
+          fields: {
+            bePresent: "Be present",
+          },
+          procced: "Proceed",
+          title: "Edit input",
+        },
         entryPoint: "Entry point",
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",
