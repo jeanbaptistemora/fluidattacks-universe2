@@ -1888,7 +1888,7 @@ class FindingEnum(Enum):
         ),
     )
     F335: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F335",
         cwe=922,
         execution_queue=ExecutionQueue.cloud,
@@ -4021,6 +4021,14 @@ class MethodsEnum(Enum):
         name="tfm_ec2_associate_public_ip_address",
         module="lib_path",
         finding=FindingEnum.F333,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AWS_S3_VERSIONING_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_s3_versioning_disabled",
+        module="lib_path",
+        finding=FindingEnum.F335,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

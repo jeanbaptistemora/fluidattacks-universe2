@@ -1,0 +1,3 @@
+lib_path.f335.tfm_aws_s3_versioning_disabled:
+  en: Ensure AWS S3 object versioning is enabled
+  es: Asegúrese de que el control de versiones de objetos de AWS S3 esté habilitado
