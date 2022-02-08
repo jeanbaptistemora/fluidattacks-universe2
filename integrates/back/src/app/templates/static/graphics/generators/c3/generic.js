@@ -15,6 +15,10 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
 
+  if (dataDocument.firstBarLabels) {
+    dataDocument.data.labels = { format: (datum, _id, index) => (index === 0 ? datum : '') };
+  }
+
   if (dataDocument.normalizedToolTip) {
     const percentage = 100;
     dataDocument.tooltip.format.value = (_datum, ratio) => `${ parseFloat((ratio * percentage).toFixed(2)) } %`;

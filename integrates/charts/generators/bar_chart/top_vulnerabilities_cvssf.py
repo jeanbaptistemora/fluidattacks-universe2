@@ -125,6 +125,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             colors={
                 "Open Severity": RISK.more_agressive,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -153,6 +154,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ),
             ),
         ),
+        firstBarLabels=True,
     )
 
 
