@@ -541,12 +541,11 @@ async def move_root(*, item: BatchProcessing) -> None:
 
 async def _upload_cloned_repo_to_s3(
     *,
-    content_dir: str,
+    repo_path: str,
     group_name: str,
     nickname: str,
 ) -> bool:
     success: bool = False
-    repo_path: str = os.path.join(content_dir, os.listdir(content_dir)[0])
 
     # Add metadata about the last cloning date, which is right now
     with open(
@@ -582,10 +581,10 @@ async def _upload_cloned_repo_to_s3(
         "--sse",
         "AES256",
         "--exclude",
-        "*",
+        f"{repo_path}/*",
         "--include",
-        "*/.git/*",
-        content_dir,
+        f"{repo_path}/.git/*",
+        repo_path,
         f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}/{nickname}/",
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -691,7 +690,7 @@ async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
             )
         else:
             success = await _upload_cloned_repo_to_s3(
-                content_dir=temp_dir,
+                repo_path=folder_to_clone_root,
                 group_name=group_name,
                 nickname=root.state.nickname,
             )
