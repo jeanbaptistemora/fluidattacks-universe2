@@ -35,9 +35,9 @@ async def _initialize_metadata_table() -> None:
                 cvss_version VARCHAR,
                 group_name VARCHAR NOT NULL,
                 hacker_email VARCHAR NOT NULL,
-                requirements VARCHAR NOT NULL,
+                requirements VARCHAR(MAX) NOT NULL,
                 sorts VARCHAR NOT NULL,
-                title VARCHAR NOT NULL,
+                title VARCHAR(4096) NOT NULL,
 
                 UNIQUE (
                     id
