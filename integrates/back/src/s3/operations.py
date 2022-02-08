@@ -84,15 +84,22 @@ async def remove_file(bucket: str, name: str) -> None:
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
+    client_options: Dict[str, str] = {
+        key: value
+        for key, value in OPTIONS.items()
+        if key != "aws_session_token"
+    }
     async with aioboto3.Session().client(
-        **OPTIONS, config=Config(signature_version="s3v4")
+        **client_options,
+        config=Config(signature_version="s3v4"),
     ) as s3_client:
         try:
             return str(
                 await s3_client.generate_presigned_url(
-                    "get_object",
+                    ClientMethod="get_object",
                     Params={"Bucket": bucket, "Key": file_name},
                     ExpiresIn=expire_mins,
+                    HttpMethod="GET",
                 )
             )
         except ClientError as ex:
