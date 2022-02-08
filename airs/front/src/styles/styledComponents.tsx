@@ -439,6 +439,22 @@ const MainCoverHome: StyledComponent<
   background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.webp");
 `;
 
+const NewMainCoverHome: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    flex-ns
+    items-center
+    cover-m
+    cover-s
+    bg-banner-sz
+    h-section
+  `,
+})`
+  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1643995540/airs/home/dark-cover-main.webp");
+`;
+
 const MainContentHome: StyledComponent<
   "div",
   Record<string, unknown>
@@ -449,6 +465,7 @@ const MainContentHome: StyledComponent<
     mw-1366
     center
     w-100
+    tc
   `,
 })``;
 
@@ -465,6 +482,39 @@ const InnerMainContentHome: StyledComponent<
     pt0-ns
     pt4
     pl3
+  `,
+})``;
+
+const HomeImageContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    fr-l
+    w-100
+    w-home-image
+    mt3-l
+    center
+    pt0-ns
+    pt4
+    pl3
+  `,
+})``;
+
+const NewInnerMainContentHome: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    fl-l
+    w-100
+    w-main-content
+    mt3-l
+    center
+    pt0-ns
+    pt4
+    pl3
+    cf
   `,
 })``;
 
@@ -1649,6 +1699,7 @@ export {
   GrayDash,
   HalfScreenContainer,
   HeaderContainer,
+  HomeImageContainer,
   IframeContainer,
   InnerContentList,
   InnerListContainer,
@@ -1682,6 +1733,8 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
+  NewInnerMainContentHome,
+  NewMainCoverHome,
   PageArticle,
   PageContainer,
   PlansCards,
