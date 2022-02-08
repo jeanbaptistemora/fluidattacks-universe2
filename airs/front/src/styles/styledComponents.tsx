@@ -550,6 +550,22 @@ const BlackBigParagraph: StyledComponent<
   `,
 })``;
 
+const WhiteBigParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f-home-title
+    f1
+    white
+    fw6
+    tl
+    neue
+    lh-solid
+    ma0
+  `,
+})``;
+
 const GrayBigParagraph: StyledComponent<
   "p",
   Record<string, unknown>
@@ -563,6 +579,38 @@ const GrayBigParagraph: StyledComponent<
     neue
     lh-solid
     ma0
+  `,
+})``;
+
+const NewGrayBigParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f-2
+    c-fluid-gray
+    fw6
+    tl
+    neue
+    lh-solid
+    ma0
+    mt3
+  `,
+})``;
+
+const GrayMediumParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f3
+    c-gray-154
+    fw6
+    tl
+    neue
+    lh-solid
+    ma0
+    mt3
   `,
 })``;
 
@@ -1697,6 +1745,7 @@ export {
   GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
+  GrayMediumParagraph,
   HalfScreenContainer,
   HeaderContainer,
   HomeImageContainer,
@@ -1733,6 +1782,7 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
+  NewGrayBigParagraph,
   NewInnerMainContentHome,
   NewMainCoverHome,
   PageArticle,
@@ -1751,4 +1801,5 @@ export {
   SolutionsSubtitle,
   SquaredCardContainer,
   SubcategoryLink,
+  WhiteBigParagraph,
 };
