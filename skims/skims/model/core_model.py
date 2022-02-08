@@ -2294,6 +2294,7 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     snippet: str
     source_method: str
     developer: DeveloperEnum
+    technique: DeveloperEnum
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):
@@ -2303,6 +2304,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     repo_nickname: str
     state: VulnerabilityStateEnum
     skims_method: Optional[str]  # sould be str only when the db ready
+    skims_technique: Optional[str]  # sould be str only when the db ready
     developer: Optional[str]  # sould be str only when the db ready
 
 

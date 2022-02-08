@@ -21,6 +21,7 @@ def build_metadata(
         snippet=snippet,
         source_method=method.value.get_name(),
         developer=method.value.developer,
+        technique=method.value.technique,
     )
 
 

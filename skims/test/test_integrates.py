@@ -43,7 +43,8 @@ async def test_client(
 @pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
     developer = "drestrepo@fluidattacks.com"
-    skims_method = "query.get_vulnerabilities_from_syntax"
+    skims_method = "query.query_f034"
+    skims_technique = "ASAST"
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
 
     assert (
@@ -67,6 +68,7 @@ async def test_build_vulnerabilities_stream() -> None:
                         snippet="Vulnerability snippet",
                         source_method=skims_method,
                         developer=developer,
+                        technique=skims_technique,
                     ),
                 ),
                 core_model.Vulnerability(
@@ -100,6 +102,7 @@ async def test_build_vulnerabilities_stream() -> None:
           path: test/what
           repo_nickname: test
           skims_method: {skims_method}
+          skims_technique: {skims_technique}
           state: open
     """
         )[1:]
