@@ -15,31 +15,22 @@ in
 {
   computeOnAwsBatch = {
     observesAnnounceKitEtl = sharedConfiguration // {
-      attemptDurationSeconds = 14000;
+      attemptDurationSeconds = 43200;
       command = [ "m" "f" "/observes/etl/announcekit" ];
     };
 
     observesBugsnagEtl = sharedConfiguration // {
-      attemptDurationSeconds = 14000;
+      attemptDurationSeconds = 43200;
       command = [ "m" "f" "/observes/etl/bugsnag" ];
     };
 
     observesChecklyEtl = sharedConfiguration // {
-      attemptDurationSeconds = 3600;
+      attemptDurationSeconds = 43200;
       command = [ "m" "f" "/observes/etl/checkly" ];
     };
 
-    observesGitlabEtlChallenges = sharedConfiguration // {
-      attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/etl/gitlab/challenges" ];
-      environment = [
-        "AUTONOMIC_API_TOKEN"
-        "PRODUCT_API_TOKEN"
-      ];
-    };
-
     observesDelightedEtl = sharedConfiguration // {
-      attemptDurationSeconds = 3600;
+      attemptDurationSeconds = 43200;
       command = [ "m" "f" "/observes/etl/delighted" ];
     };
 
@@ -55,6 +46,15 @@ in
       command = [ "m" "f" "/observes/etl/formstack" ];
       memory = 1800 * vcpus;
       vcpus = 2;
+    };
+
+    observesGitlabEtlChallenges = sharedConfiguration // {
+      attemptDurationSeconds = 7200;
+      command = [ "m" "f" "/observes/etl/gitlab/challenges" ];
+      environment = [
+        "AUTONOMIC_API_TOKEN"
+        "PRODUCT_API_TOKEN"
+      ];
     };
 
     observesGitlabEtlDefault = sharedConfiguration // {
