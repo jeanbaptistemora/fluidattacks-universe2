@@ -38,9 +38,6 @@ from newutils import (
     datetime as datetime_utils,
     token as token_helper,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from settings import (
     LOGGING,
     MOBILE_SESSION_AGE,
@@ -221,16 +218,9 @@ async def log_user_in(user: Dict[str, str]) -> None:
         "date_joined": today,
     }
 
-    if not await users_domain.is_registered(email):
-        await analytics.mixpanel_track(email, "Register")
-        if not await orgs_domain.get_user_organizations(email):
-            await autoenroll_user(email)
-
-        await users_domain.update_multiple_user_attributes(email, data_dict)
+    if await users_domain.get_data(email, "first_name"):
+        await users_domain.update_last_login(email)
     else:
-        if await users_domain.get_data(email, "first_name"):
-            await users_domain.update_last_login(email)
-        else:
-            await users_domain.update_multiple_user_attributes(
-                email, data_dict
-            )
+        await analytics.mixpanel_track(email, "Register")
+        await autoenroll_user(email)
+        await users_domain.update_multiple_user_attributes(email, data_dict)
