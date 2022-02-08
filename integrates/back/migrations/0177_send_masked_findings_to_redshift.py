@@ -157,13 +157,26 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    group_drafts_and_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
-    group_removed_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_removed_findings.load(group_name)
-    all_findings = group_drafts_and_findings + group_removed_findings
+    try:
+        group_drafts_and_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_drafts_and_findings.load(group_name)
+        group_removed_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_removed_findings.load(group_name)
+        all_findings = group_drafts_and_findings + group_removed_findings
+    except (RuntimeError, StopIteration, IndexError) as e:
+        LOGGER_CONSOLE.error(
+            "Formatting error",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "progress": str(progress),
+                    "e": e,
+                }
+            },
+        )
+        return
 
     if not all_findings:
         return
