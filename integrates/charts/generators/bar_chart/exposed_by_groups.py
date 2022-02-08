@@ -96,6 +96,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
             colors={
                 "Open Severity": RISK.more_agressive,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -121,6 +122,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                 ),
             ),
         ),
+        firstBarLabels=True,
     )
 
 
