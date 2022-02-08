@@ -614,6 +614,22 @@ const GrayMediumParagraph: StyledComponent<
   `,
 })``;
 
+const GrayLittleParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f4
+    c-gray-154
+    fw6
+    tl
+    neue
+    lh-solid
+    ma0
+    mt3
+  `,
+})``;
+
 const BlackSimpleParagraph: StyledComponent<
   "p",
   Record<string, unknown>
@@ -924,6 +940,57 @@ const RegularRedButton: StyledComponent<
     bc-fluid-red
     ba
     roboto
+  `,
+})``;
+
+const NewRegularRedButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    bg-fluid-red
+    bc-hovered-red
+    hv-bg-fluid-dkred
+    hv-bd-fluid-dkred
+    pointer
+    white
+    pv3
+    ph4
+    f5
+    dib
+    t-all-3-eio
+    br2
+    bc-fluid-red
+    ba
+    roboto
+    justify-center
+  `,
+})``;
+
+const PhantomRegularRedButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    bg-transparent
+    bc-hovered-red
+    hv-bg-fluid-rd
+    hv-bd-fluid-dkred
+    pointer
+    c-dkred
+    hover-white
+    pv3
+    ph4
+    f5
+    dib
+    t-all-3-eio
+    br2
+    bc-fluid-red
+    ba
+    roboto
+    justify-center
   `,
 })``;
 
@@ -1745,6 +1812,7 @@ export {
   GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
+  GrayLittleParagraph,
   GrayMediumParagraph,
   HalfScreenContainer,
   HeaderContainer,
@@ -1785,8 +1853,10 @@ export {
   NewGrayBigParagraph,
   NewInnerMainContentHome,
   NewMainCoverHome,
+  NewRegularRedButton,
   PageArticle,
   PageContainer,
+  PhantomRegularRedButton,
   PlansCards,
   PlansContainer,
   RadioButton,
