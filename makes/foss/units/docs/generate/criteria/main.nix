@@ -107,6 +107,15 @@ let
       body = "${definitionId}. ${definition.title}";
       path = definition.link;
     };
+  linkStandard = { prefix ? "- ", standardId }:
+    let
+      standard = compliance.${standardId};
+    in
+    link {
+      inherit prefix;
+      body = "${standardId}. ${standard.title}";
+      path = "/criteria/compliance/${standardId}";
+    };
 
   # Markdown image
   image = { title, path }:
@@ -303,6 +312,20 @@ let
       categories
     );
 
+  # Introduction index for Compliance
+  indexCompliance = { data }:
+    builtins.concatStringsSep "\n"
+      (builtins.map
+        (standardId: linkStandard
+          {
+            inherit standardId;
+          }
+        )
+        (builtins.attrNames
+          data
+        )
+      );
+
   # Generate a template for every introduction
   makeIntroVulnerabilities = makeTemplate {
     replace = {
@@ -327,6 +350,11 @@ let
     local = false;
   };
   makeIntroCompliance = makeTemplate {
+    replace = {
+      __argIndex__ = indexCompliance {
+        data = compliance;
+      };
+    };
     name = "docs-make-intro-compliance";
     template = ./templates/intros/compliance.md;
     local = false;
