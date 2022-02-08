@@ -86,6 +86,7 @@ from api.mutations import (
     update_organization_stakeholder,
     update_root_cloning_status,
     update_severity,
+    update_toe_input,
     update_toe_lines_attacked_lines,
     update_toe_lines_sorts,
     update_vulnerabilities_treatment,
@@ -244,6 +245,7 @@ MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
 MUTATION.set_field("updateSeverity", update_severity.mutate)
+MUTATION.set_field("updateToeInput", update_toe_input.mutate)
 MUTATION.set_field(
     "updateToeLinesAttackedLines", update_toe_lines_attacked_lines.mutate
 )

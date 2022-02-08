@@ -1010,6 +1010,22 @@ type Mutation {
   ): SimpleFindingPayload!
 
   """
+  Updates the input of a concrete root
+  """
+  updateToeInput(
+    "The time when the attacked was performed"
+    attackedAt: DateTime
+    "If the input is present in the root"
+    bePresent: Boolean!
+    "Input URL or PATH"
+    component: String!
+    "Entry point of the test"
+    entryPoint: String!
+    "Name of the group the input is associated with"
+    groupName: String!
+  ): SimplePayload!
+
+  """
   Updates the attacked lines for one or more ToE Lines of a concrete root
   """
   updateToeLinesAttackedLines(
