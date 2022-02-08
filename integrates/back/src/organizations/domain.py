@@ -6,6 +6,7 @@ import authz
 from authz.validations import (
     validate_role_fluid_reqs,
 )
+import bugsnag
 from context import (
     BASE_URL,
 )
@@ -395,7 +396,9 @@ async def invite_to_organization(
         confirm_access_url = (
             f"{BASE_URL}/confirm_access_organization/{url_token}"
         )
-        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
+        reject_access_url = (
+            f"{BASE_URL}/reject_access_organization/{url_token}"
+        )
         mail_to = [email]
         email_context: MailContentType = {
             "admin": email,
@@ -457,6 +460,21 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     if not has_orgs:
         user_removed = user_removed and await users_domain.delete(email)
     return user_removed and role_removed and groups_removed
+
+
+async def reject_register_for_organization_invitation(
+    loaders: Any,
+    organization_access: Dict[str, Any],
+) -> bool:
+    success: bool = False
+    invitation = organization_access["invitation"]
+    if invitation["is_used"]:
+        bugsnag.notify(Exception("Token already used"), severity="warning")
+
+    organization_id = organization_access["pk"]
+    user_email = organization_access["sk"].split("#")[1]
+    success = await remove_user(loaders, organization_id, user_email)
+    return success
 
 
 async def update(
