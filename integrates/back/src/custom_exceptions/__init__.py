@@ -1106,6 +1106,15 @@ class ToeInputNotPresent(CustomBaseException):
         super(ToeInputNotPresent, self).__init__(msg)
 
 
+class InvalidToeInputAttackAt(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The attack time must be between the previous "
+            "attack and the current time"
+        )
+        super(InvalidToeInputAttackAt, self).__init__(msg)
+
+
 class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"
