@@ -1100,6 +1100,12 @@ class RootAlreadyCloned(CustomBaseException):
         super(RootAlreadyCloned, self).__init__(msg)
 
 
+class ToeInputNotPresent(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The toe input is not present"
+        super(ToeInputNotPresent, self).__init__(msg)
+
+
 class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"
