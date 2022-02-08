@@ -62,7 +62,7 @@ function serve {
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
         # The number of worker processes for handling requests
-        --workers "${recommended_workers}"
+        --workers "1"
       )
     else
       error First argument must be one of: dev, dev-mobile, eph, prod, prod-local

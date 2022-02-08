@@ -65,15 +65,14 @@ async def add_execution(group_name: str, **execution_attributes: Any) -> bool:
 
 
 async def get_execution(group_name: str, execution_id: str) -> Any:
-    key_condition_expresion = Key("execution_id").eq(execution_id) & Key(
-        "subscription"
-    ).eq(group_name)
-    results = await dynamodb_ops.query(
-        TABLE_NAME, {"KeyConditionExpression": key_condition_expresion}
+    key_condition_expresion = {
+        "execution_id": execution_id,
+        "subscription": group_name,
+    }
+    result = await dynamodb_ops.get_item(
+        TABLE_NAME, {"Key": key_condition_expresion}
     )
-
-    if results:
-        result = results["Items"][0]
+    if result:
         if "accepted" not in result["vulnerabilities"]:
             result["vulnerabilities"]["accepted"] = []
         if "open" not in result["vulnerabilities"]:
