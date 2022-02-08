@@ -150,7 +150,9 @@ def unauthorized(request: Request) -> HTMLResponse:
 async def valid_invitation(
     request: Request, group_access: GroupAccessType
 ) -> HTMLResponse:
-    group_name = get_key_or_fallback(group_access)
+    group_name = (
+        get_key_or_fallback(group_access, fallback="") if group_access else ""
+    )
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_invitation.html",
         context={
@@ -163,7 +165,9 @@ async def valid_invitation(
 async def reject_invitation(
     request: Request, group_access: GroupAccessType
 ) -> HTMLResponse:
-    group_name = get_key_or_fallback(group_access)
+    group_name = (
+        get_key_or_fallback(group_access, fallback="") if group_access else ""
+    )
     return TEMPLATING_ENGINE.TemplateResponse(
         name="reject_invitation.html",
         context={
