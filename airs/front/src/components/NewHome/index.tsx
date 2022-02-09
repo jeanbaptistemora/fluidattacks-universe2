@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
+import { ClientsSection } from "./ClientsSection";
 import { Portrait } from "./Portrait";
 
 const Home: React.FC = (): JSX.Element => (
@@ -12,6 +13,7 @@ const Home: React.FC = (): JSX.Element => (
       />
     </Helmet>
     <Portrait />
+    <ClientsSection />
   </React.Fragment>
 );
 
