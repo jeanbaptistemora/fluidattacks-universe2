@@ -5,38 +5,97 @@ sidebar_label: Estimation
 slug: /about/faq/estimation
 ---
 
-## What information is needed in order to provide a quotation?
+## What information is needed in order to provide a price estimate?
 
-To provide a quotation,
-we need to determine the target of evaluation (scope).
-So,
-we require the following information:
+To provide a price estimate, we
+need to determine the objective
+of the evaluation, which we refer
+to as the scope.
+Therefore, we require the
+following information depending
+on the plan you choose.
 
-[**One-Shot Hacking**](https://fluidattacks.com/services/one-shot-hacking/)
-  (by project):
+### One-Shot Hacking (per project)
 
-- How many ports are included in the scope?
+- How many ports are included
+  within the scope?
 
-- How many inputs of applications
-  are included in the scope?
+  1. On-premises or cloud infrastructure
+  1. Number of Internet-connected servers to evaluate
+  1. Number of servers on internal network to evaluate
+  1. Number of wired network devices to
+     evaluate (e.g., switches, routers, firewalls)
+  1. Number of wireless network devices to evaluate
+     (e.g., SSIDs, switches, routers, firewalls)
 
-- How many LoC are included in the scope?
-  We recommend running
-  [CLOC](https://github.com/AlDanial/cloc)
-  in order to facilitate quantification.
+- How many application entry points
+  are included within the scope?
 
-- It would be desirable to obtain the access credentials
-  (standard user, not privileges)
-  to the applications
-  in cases where this will be included.
+  1. Application name
+  1. Application type (i.e., mobile, web or desktop)
+  1. Total input fields
+  1. Requires authentication
+  1. Testing method (i.e., black, gray or white-box)
+  1. Internet-connected application or
+     internal network application
+  1. Special installations by the client (e.g., specific
+     browser version browser extensions, digital certificates)
 
-[**Continuous Hacking**](https://fluidattacks.com/services/continuous-hacking/)
-  (SDLC):
-  Under this model,
-  we need to know how many active authors
-  will be involved in the project.
+  > **NOTE:**
+  > In this scenario, we evaluate the application
+  > without knowledge of its internal workings
+  > and without credentials.
+  > **Gray-box testing:** This scenario includes
+  > black-box testing plus an internal evaluation
+  > of the application that requires the client
+  > to provide access credentials.
+  > **White-box testing:** This scenario includes
+  > black and gray-box testing plus evaluation
+  > of the source code.
 
-Regarding the Health Check estimation,
-the same considerations apply as for One-Shot Hacking,
-so the client should also provide the corresponding information
-as mentioned above.
+- How many Lines of Code (LOC) are
+  included within the scope?
+
+We recommend using CLOC (Count
+Lines of Code) to carry on the
+quantification of LOC.
+These are the instructions for
+using this software:
+
+1. Download CLOC at http://cloc.sourceforge.net/
+1. Run CLOC using `$ cloc --csv <code path>`
+
+Preferably, access credentials are
+provided (e.g., access credentials
+of a standard user with low-level privileges).
+
+### Continuous Hacking with Machine Plan
+
+- How many applications or groups
+  will be included in the security test?
+
+- What programming languages does
+  the application have?
+
+### Continuous Hacking with Squad Plan
+
+- How many applications or groups
+  will be included in the security
+  test?
+
+- How many developers are working
+  on the client’s application?
+
+- How many LOC are included
+  within the scope?
+
+The Health Check service requires
+the client to provide us with how
+many LOC are developed.
+We recommend using CLOC to carry
+on the quantification of LOC.
+These are the instructions for
+using this software:
+
+1. Download CLOC at http://cloc.sourceforge.net/
+1. Run CLOC using `$ cloc --csv <code path>`
