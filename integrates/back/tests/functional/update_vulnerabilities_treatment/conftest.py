@@ -50,7 +50,7 @@ from typing import (
 @pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
-    customer_email: str = "customer1@gmail.com"
+    user_email: str = "customer1@gmail.com"
     data: Dict[str, Any] = {
         "findings": [
             {
@@ -190,9 +190,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-21T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["customer_email"],
+                        assigned=generic_data["global_vars"]["user_email"],
                         modified_by=generic_data["global_vars"][
-                            "customer_admin_email"
+                            "user_manager_email"
                         ],
                     ),
                 ],
@@ -309,26 +309,26 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "policies": [
             {
                 "level": "user",
-                "subject": customer_email,
+                "subject": user_email,
                 "object": "self",
                 "role": "customer",
             },
             {
                 "level": "group",
-                "subject": customer_email,
+                "subject": user_email,
                 "object": "group1",
                 "role": "customer",
             },
             {
                 "level": "organization",
-                "subject": customer_email,
+                "subject": user_email,
                 "object": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 "role": "customer",
             },
         ],
         "users": [
             {
-                "email": customer_email,
+                "email": user_email,
                 "first_login": "",
                 "first_name": "",
                 "last_login": "",

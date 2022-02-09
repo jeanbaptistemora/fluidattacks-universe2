@@ -512,9 +512,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["customer_email"],
+                        assigned=generic_data["global_vars"]["user_email"],
                         modified_by=generic_data["global_vars"][
-                            "customer_admin_email"
+                            "user_manager_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
@@ -542,9 +542,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
-                        assigned=generic_data["global_vars"]["customer_email"],
+                        assigned=generic_data["global_vars"]["user_email"],
                         modified_by=generic_data["global_vars"][
-                            "customer_admin_email"
+                            "user_manager_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
@@ -573,10 +573,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
                         assigned=generic_data["global_vars"][
-                            "customer_admin_email"
+                            "user_manager_email"
                         ],
                         modified_by=generic_data["global_vars"][
-                            "customer_admin_email"
+                            "user_manager_email"
                         ],
                     ),
                     type=VulnerabilityType.PORTS,
