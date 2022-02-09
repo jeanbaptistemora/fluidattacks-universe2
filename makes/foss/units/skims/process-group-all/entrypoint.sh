@@ -113,14 +113,14 @@ function execute_skims_combination {
   local config
   export checks=()
 
-  for check in $(echo "${CHECKS}" | jq -r '.[] | @base64'); do
-    check="$(echo "${check}" | base64 --decode)" \
-      && if skims_should_run "${group}" "${namespace}" "${check}"; then
-        checks=("${checks[@]}" "${check}")
-      fi
-  done \
-    && if test -e "groups/${group}/fusion/${namespace}"; then
-      if test "${#checks[@]}" -gt 0; then
+  if test -e "groups/${group}/fusion/${namespace}"; then
+    for check in $(echo "${CHECKS}" | jq -r '.[] | @base64'); do
+      check="$(echo "${check}" | base64 --decode)" \
+        && if skims_should_run "${group}" "${namespace}" "${check}"; then
+          checks=("${checks[@]}" "${check}")
+        fi
+    done \
+      && if test "${#checks[@]}" -gt 0; then
         skims_rebase "${group}" "${namespace}" \
           && config="$(mktemp)" \
           && echo "[INFO] Running skims scan in ${group}" \
@@ -134,9 +134,19 @@ function execute_skims_combination {
       else
         echo "[WARNING] there are no findings to run"
       fi
-    else
-      echo "[ERROR] repos no not cloned: ${namespace}"
-    fi
+  else
+    echo "[ERROR] repos no not cloned: ${namespace}"
+  fi
+}
+
+function get_all_roots {
+  group="${1}"
+  curl 'https://app.fluidattacks.com/api' \
+    -H "authorization: Bearer ${INTEGRATES_API_TOKEN}" \
+    -H 'content-type: application/json' \
+    -d "{\"operationName\":\"GetRoots\",\"variables\":{\"groupName\":\"${group}\"},\"query\":\"query GetRoots(\$groupName: String\\u0021) { group(groupName: \$groupName) { roots { ... on GitRoot { nickname state}}}}\"}" \
+    --silent \
+    --compressed | jq '.data.group.roots | map(select(.state == "ACTIVE")) | map(.nickname)'
 }
 
 function main {
@@ -145,7 +155,13 @@ function main {
   local group="${1:-}"
   local roots="${3:-}" # must be in json forma
   local config
-  CHECKS="${2:-}" # must be in json forma
+
+  if [ -z "${roots}" ] && [ -n "${MACHINE_ALL_ROOTS}" ]; then
+    roots="$(get_all_roots "${group}")" # must be in json forma
+  fi \
+    && if [ -n "${2}" ]; then
+      CHECKS="${2}" # must be in json forma
+    fi
 
   export -f execute_skims_combination
   export -f skims_rebase
@@ -156,8 +172,6 @@ function main {
   export -f from_epoch_to_iso8601
   export -f from_iso8601_to_epoch
   export -f aws_s3_sync
-
-  local parallel_args=()
 
   check_cli_arg 1 group "${group}" \
     && shopt -s nullglob \
