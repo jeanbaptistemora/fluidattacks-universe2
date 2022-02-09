@@ -110,7 +110,8 @@ async def process_toe_inputs(
                 update_toe_input(
                     toe_input,
                     ToeInputAttributesToUpdate(
-                        has_vulnerabilities=has_vulnerabilities
+                        has_vulnerabilities=has_vulnerabilities,
+                        is_moving_toe_input=True,
                     ),
                 )
             )
@@ -122,7 +123,7 @@ async def process_toe_inputs(
     exceptions=(UnavailabilityError,),
 )
 async def update_toe_lines(
-    current_value: ToeLines, attributes: ToeInputAttributesToUpdate
+    current_value: ToeLines, attributes: ToeLinesAttributesToUpdate
 ) -> None:
     await toe_lines_domain.update(current_value, attributes)
 

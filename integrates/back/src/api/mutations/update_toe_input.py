@@ -25,6 +25,7 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -53,6 +54,8 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayloadType:
     try:
+        user_info = await token_utils.get_jwt_content(info.context)
+        user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         current_value: ToeInput = await loaders.toe_input.load(
             ToeInputRequest(
@@ -64,10 +67,14 @@ async def mutate(
         be_present_to_update = (
             None if be_present is current_value.be_present else be_present
         )
+        attacked_by_to_update = (
+            None if kwargs.get("attacked_at") is None else user_email
+        )
         await toe_inputs_domain.update(
             current_value,
             ToeInputAttributesToUpdate(
                 attacked_at=kwargs.get("attacked_at"),
+                attacked_by=attacked_by_to_update,
                 be_present=be_present_to_update,
             ),
         )
