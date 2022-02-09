@@ -6,12 +6,6 @@ Unlike standard Python functionality, the import order matters:
 the agent package must be imported first.
 """
 # flake8: noqa
-from api.validations.query_breadth import (
-    QueryBreadthValidation,
-)
-from api.validations.query_depth import (
-    QueryDepthValidation,
-)
 import newrelic.agent
 from settings import (
     DEBUG,
@@ -43,6 +37,12 @@ from api import (
 )
 from api.schema import (
     SCHEMA,
+)
+from api.validations.query_breadth import (
+    QueryBreadthValidation,
+)
+from api.validations.query_depth import (
+    QueryDepthValidation,
 )
 import asyncio
 from billing.domain import (
