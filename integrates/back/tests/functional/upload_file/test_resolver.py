@@ -17,6 +17,13 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
+)
+from freezegun import (  # type: ignore
+    freeze_time,
 )
 import pytest
 from typing import (
@@ -66,6 +73,7 @@ async def _get_vulns(
         ["reattacker@gmail.com"],
     ],
 )
+@freeze_time("2022-02-09")
 async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
@@ -179,6 +187,36 @@ async def test_upload_file(populate: bool, email: str) -> None:
     )
     assert escaper_vuln.state.source == Source.ESCAPE
     assert escaper_vuln.state.modified_by == "escaper@gmail.com"
+
+    vuln_loader = loaders.vulnerability_typed
+    open_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
+    vuln_open_verified: Vulnerability = await vuln_loader.load(
+        open_verified_id
+    )
+    assert vuln_open_verified.unreliable_indicators == VulnerabilityUnreliableIndicators(
+        unreliable_efficacy=Decimal("0"),
+        unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+        unreliable_last_reattack_requester="requester@gmail.com",
+        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+        unreliable_reattack_cycles=None,
+        unreliable_report_date="2018-04-08T00:45:11+00:00",
+        unreliable_source=Source.ASM,
+        unreliable_treatment_changes=0,
+    )
+    closed_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce9"
+    vuln_closed_verified: Vulnerability = await vuln_loader.load(
+        closed_verified_id
+    )
+    assert vuln_closed_verified.unreliable_indicators == VulnerabilityUnreliableIndicators(
+        unreliable_efficacy=Decimal("100"),
+        unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+        unreliable_last_reattack_requester="requester@gmail.com",
+        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+        unreliable_reattack_cycles=None,
+        unreliable_report_date="2018-04-08T00:45:11+00:00",
+        unreliable_source=Source.ASM,
+        unreliable_treatment_changes=0,
+    )
 
 
 @pytest.mark.asyncio

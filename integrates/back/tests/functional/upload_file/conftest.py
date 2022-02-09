@@ -141,13 +141,24 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_verification": [
                     FindingVerification(
                         comment_id="42343434",
-                        modified_by="test1@gmail.com",
-                        modified_date="2020-01-01T00:45:12+00:00",
+                        modified_by="requester@gmail.com",
+                        modified_date="2018-04-08T01:45:11+00:00",
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                            "be09edb7-cd5c-47ed-bee4-97c645acdce9",
+                            "be09edb7-cd5c-47ed-bee4-97c645acdcea",
                         },
-                    )
+                    ),
+                    FindingVerification(
+                        comment_id="54545454",
+                        modified_by="reattacker@fluidattack.com",
+                        modified_date="2018-04-08T01:45:12+00:00",
+                        status=FindingVerificationStatus.VERIFIED,
+                        vulnerability_ids={
+                            "be09edb7-cd5c-47ed-bee4-97c645acdcea",
+                        },
+                    ),
                 ],
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
@@ -214,8 +225,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_last_reattack_requester="requester@gmail.com",
+                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
                         unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
                         modified_date="2018-04-08T01:45:11+00:00",
@@ -242,8 +256,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_last_reattack_requester="requester@gmail.com",
+                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
                         unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
                         modified_date="2018-04-08T01:45:11+00:00",
@@ -270,11 +287,16 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_efficacy=Decimal("0"),
+                        unreliable_last_reattack_date="2018-04-08T01:45:12+00:00",
+                        unreliable_last_reattack_requester="requester@gmail.com",
+                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
                         unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-08T01:45:11+01:00",
+                        modified_date="2018-04-08T01:45:12+00:00",
                         status=VulnerabilityVerificationStatus.VERIFIED,
                     ),
                     where="192.168.1.46",
@@ -288,7 +310,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:11+01:00",
+                        modified_date="2018-04-08T01:45:12+00:00",
                         source=Source.ASM,
                         status=VulnerabilityStateStatus.CLOSED,
                     ),
@@ -299,7 +321,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     VulnerabilityVerification(
-                        modified_date="2018-04-08T01:45:11+01:00",
+                        modified_date="2018-04-08T01:45:12+00:00",
                         status=VulnerabilityVerificationStatus.VERIFIED,
                     ),
                 ],
