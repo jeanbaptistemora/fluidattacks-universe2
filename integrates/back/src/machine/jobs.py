@@ -411,20 +411,24 @@ async def queue_all_checks_new(
                 "RUNNING",
             }
         ]
-        jobs_description = [
-            job
-            for job in await describe_jobs(
-                *[job["jobId"] for job in current_jobs]
-            )
-            if job["status"] != "RUNNING"
-            or (
-                job["status"] == "RUNNING"
-                and "startedAt" in job
-                and (_get_seconds_ago(job["startedAt"]) / 60) <= 5
-                # jobs that have been running for four minutes are still
-                # installing makes
-            )
-        ]
+        jobs_description = (
+            [
+                job
+                for job in await describe_jobs(
+                    *[job["jobId"] for job in current_jobs]
+                )
+                if job["status"] != "RUNNING"
+                or (
+                    job["status"] == "RUNNING"
+                    and "startedAt" in job
+                    and (_get_seconds_ago(job["startedAt"]) / 60) <= 5
+                    # jobs that have been running for four minutes are still
+                    # installing makes
+                )
+            ]
+            if current_jobs
+            else ()
+        )
         roots_to_execute = set(
             collapse(
                 [
@@ -455,12 +459,12 @@ async def queue_all_checks_new(
 
         for job in jobs_description:
             with suppress(ClientError):
-                batch.cancel_job(
+                await batch.cancel_job(
                     jobId=job["jobId"],
                     reason="another job was queued",
                 )
             with suppress(ClientError):
-                batch.terminate_job(
+                await batch.terminate_job(
                     jobId=job["jobId"],
                     reason="another job was queued",
                 )
