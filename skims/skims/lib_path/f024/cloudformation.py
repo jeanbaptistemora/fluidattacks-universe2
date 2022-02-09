@@ -120,7 +120,8 @@ def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
         if (
             from_port
             and to_port
-            and float(from_port.raw) != float(to_port.raw)
+            and int(from_port.raw) != int(to_port.raw)
+            and abs(int(to_port.raw) - int(from_port.raw)) >= 5
         ):
             yield from_port
 
