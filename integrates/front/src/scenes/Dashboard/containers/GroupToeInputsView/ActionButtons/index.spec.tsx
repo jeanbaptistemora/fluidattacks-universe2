@@ -20,11 +20,10 @@ describe("ToeInputsActionButtons", (): void => {
       <ActionButtons
         areInputsSelected={true}
         isAdding={false}
-        isEnumeratingMode={false}
+        isEditing={false}
         isInternal={true}
         onAdd={jest.fn()}
-        onEnumerate={jest.fn()}
-        onEnumerateMode={jest.fn()}
+        onEdit={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -47,11 +46,10 @@ describe("ToeInputsActionButtons", (): void => {
       <ActionButtons
         areInputsSelected={true}
         isAdding={false}
-        isEnumeratingMode={false}
+        isEditing={false}
         isInternal={false}
         onAdd={jest.fn()}
-        onEnumerate={jest.fn()}
-        onEnumerateMode={jest.fn()}
+        onEdit={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,
@@ -75,11 +73,10 @@ describe("ToeInputsActionButtons", (): void => {
       <ActionButtons
         areInputsSelected={true}
         isAdding={false}
-        isEnumeratingMode={false}
+        isEditing={false}
         isInternal={true}
         onAdd={jest.fn()}
-        onEnumerate={jest.fn()}
-        onEnumerateMode={jest.fn()}
+        onEdit={jest.fn()}
       />,
       {
         wrappingComponent: authzPermissionsContext.Provider,

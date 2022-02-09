@@ -23,6 +23,7 @@ interface IHandleEditionModalProps {
   selectedToeInputDatas: IToeInputData[];
   handleCloseModal: () => void;
   refetchData: () => void;
+  setSelectedToeInputDatas: (selectedToeInputDatas: IToeInputData[]) => void;
 }
 
 export {

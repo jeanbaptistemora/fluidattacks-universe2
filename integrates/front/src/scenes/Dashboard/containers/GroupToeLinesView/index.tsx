@@ -479,6 +479,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           handleCloseModal={toggleEdit}
           refetchData={refetch}
           selectedToeLinesDatas={selectedToeLinesDatas}
+          setSelectedToeLinesDatas={setSelectedToeLinesDatas}
         />
       ) : undefined}
     </React.StrictMode>

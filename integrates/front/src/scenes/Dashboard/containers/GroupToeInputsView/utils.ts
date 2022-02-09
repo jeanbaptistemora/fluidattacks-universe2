@@ -89,30 +89,4 @@ const onSelectSeveralToeInputHelper = (
   );
 };
 
-function getNonSelectable(
-  toeInputDatas: IToeInputData[],
-  isEnumeratingMode: boolean
-): number[] {
-  if (isEnumeratingMode) {
-    return toeInputDatas.reduce(
-      (
-        nonSelectableToeInputDatas: number[],
-        toeInputData: IToeInputData,
-        currentToeInputDataIndex: number
-      ): number[] =>
-        _.isUndefined(toeInputData.seenAt)
-          ? nonSelectableToeInputDatas
-          : [...nonSelectableToeInputDatas, currentToeInputDataIndex],
-      []
-    );
-  }
-
-  return [];
-}
-
-export {
-  getErrors,
-  getNonSelectable,
-  getToeInputIndex,
-  onSelectSeveralToeInputHelper,
-};
+export { getErrors, getToeInputIndex, onSelectSeveralToeInputHelper };

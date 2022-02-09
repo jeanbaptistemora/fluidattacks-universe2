@@ -48,7 +48,7 @@ describe("handle toe lines edition modal", (): void => {
         result: { data: { updateToeLinesAttackedLines: { success: true } } },
       },
     ];
-    const mokedVulns: IToeLinesData[] = [
+    const mokedToeLines: IToeLinesData[] = [
       {
         attackedAt: new Date("2021-02-20T05:00:00+00:00"),
         attackedBy: "test2@test.com",
@@ -84,7 +84,8 @@ describe("handle toe lines edition modal", (): void => {
           groupName={"groupname"}
           handleCloseModal={handleCloseModal}
           refetchData={handleRefetchData}
-          selectedToeLinesDatas={mokedVulns}
+          selectedToeLinesDatas={mokedToeLines}
+          setSelectedToeLinesDatas={jest.fn()}
         />
       </MockedProvider>,
       {

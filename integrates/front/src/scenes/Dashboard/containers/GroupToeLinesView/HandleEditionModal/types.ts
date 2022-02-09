@@ -24,6 +24,7 @@ interface IHandleEditionModalProps {
   selectedToeLinesDatas: IToeLinesData[];
   handleCloseModal: () => void;
   refetchData: () => void;
+  setSelectedToeLinesDatas: (selectedToeLinesDatas: IToeLinesData[]) => void;
 }
 
 export {

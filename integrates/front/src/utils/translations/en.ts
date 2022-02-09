@@ -852,6 +852,10 @@ export const enTranslations: ResourceKey = {
         component: "Component",
         editModal: {
           alerts: {
+            alreadyUpdate: "Something modified the input during the edition.",
+            invalidAttackedAt:
+              "The attacked at is not valid. There is a new datetime.",
+            nonPresent: "The input is not present.",
             success: "Input has been updated.",
           },
           close: "Close",

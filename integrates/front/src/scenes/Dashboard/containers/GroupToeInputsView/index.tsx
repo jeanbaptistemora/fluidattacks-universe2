@@ -12,11 +12,8 @@ import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
 import { HandleAdditionModal } from "./HandleAdditionModal";
-import {
-  getNonSelectable,
-  getToeInputIndex,
-  onSelectSeveralToeInputHelper,
-} from "./utils";
+import { HandleEditionModal } from "./HandleEditionModal";
+import { getToeInputIndex, onSelectSeveralToeInputHelper } from "./utils";
 
 import { DataTableNext } from "components/DataTableNext";
 import type {
@@ -60,8 +57,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
 
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
-  const [isEnumerating, setIsEnumerating] = useState(false);
-  const [isEnumeratingMode, setIsEnumeratingMode] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -119,11 +115,8 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   function toggleAdd(): void {
     setIsAdding(!isAdding);
   }
-  function toggleEnumerate(): void {
-    setIsEnumerating(!isEnumerating);
-  }
-  function toggleEnumerateMode(): void {
-    setIsEnumeratingMode(!isEnumeratingMode);
+  function toggleEdit(): void {
+    setIsEditing(!isEditing);
   }
 
   // // GraphQL operations
@@ -321,7 +314,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(toeInputs, isEnumeratingMode),
+    nonSelectable: undefined,
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
     selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
@@ -368,11 +361,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
           <ActionButtons
             areInputsSelected={selectedToeInputDatas.length > 0}
             isAdding={isAdding}
-            isEnumeratingMode={isEnumeratingMode}
+            isEditing={isEditing}
             isInternal={isInternal}
             onAdd={toggleAdd}
-            onEnumerate={toggleEnumerate}
-            onEnumerateMode={toggleEnumerateMode}
+            onEdit={toggleEdit}
           />
         }
         headers={headersToeInputsTable}
@@ -389,6 +381,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
           groupName={groupName}
           handleCloseModal={toggleAdd}
           refetchData={refetch}
+        />
+      ) : undefined}
+      {isEditing ? (
+        <HandleEditionModal
+          groupName={groupName}
+          handleCloseModal={toggleEdit}
+          refetchData={refetch}
+          selectedToeInputDatas={selectedToeInputDatas}
+          setSelectedToeInputDatas={setSelectedToeInputDatas}
         />
       ) : undefined}
     </React.StrictMode>

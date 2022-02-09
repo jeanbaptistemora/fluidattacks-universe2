@@ -23,8 +23,13 @@ import { msgError, msgSuccess } from "utils/notifications";
 const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
   props: IHandleEditionModalProps
 ): JSX.Element => {
-  const { groupName, selectedToeLinesDatas, handleCloseModal, refetchData } =
-    props;
+  const {
+    groupName,
+    selectedToeLinesDatas,
+    handleCloseModal,
+    refetchData,
+    setSelectedToeLinesDatas,
+  } = props;
 
   const { t } = useTranslation();
 
@@ -42,6 +47,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
               t("groupAlerts.updatedTitle")
             );
             refetchData();
+            setSelectedToeLinesDatas([]);
             handleCloseModal();
           }
         },
