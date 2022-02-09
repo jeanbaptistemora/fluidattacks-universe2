@@ -102,6 +102,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
             colors={
                 "Mean time to remediate": RISK.neutral,
             },
+            labels=True,
             type="bar",
         ),
         axis=dict(
