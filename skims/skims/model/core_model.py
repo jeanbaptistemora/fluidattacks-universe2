@@ -2303,9 +2303,9 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     path: str
     repo_nickname: str
     state: VulnerabilityStateEnum
-    skims_method: Optional[str]  # sould be str only when the db ready
-    skims_technique: Optional[str]  # sould be str only when the db ready
-    developer: Optional[str]  # sould be str only when the db ready
+    skims_method: Optional[str]
+    skims_technique: Optional[str]
+    developer: Optional[str]
 
 
 class IntegratesVulnerabilitiesInputs(NamedTuple):
@@ -2314,9 +2314,9 @@ class IntegratesVulnerabilitiesInputs(NamedTuple):
     state: VulnerabilityStateEnum
     stream: str
     url: str
-    skims_method: Optional[str]  # sould be str only when the db ready
-    skims_technique: Optional[str]  # sould be str only when the db ready
-    developer: Optional[str]  # sould be str only when the db ready
+    skims_method: Optional[str]
+    skims_technique: Optional[str]
+    developer: Optional[str]
 
 
 class Vulnerability(NamedTuple):
