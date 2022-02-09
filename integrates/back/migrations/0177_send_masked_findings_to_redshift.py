@@ -86,8 +86,8 @@ def filter_out_deleted_findings(
         for finding in findings
         if finding.state.status != FindingStateStatus.DELETED
         or (
-            finding.state.status == FindingStateStatus.DELETED
-            and "@fluidattacks.com" not in finding.state.modified_by
+            "@fluid" not in finding.state.modified_by
+            and "@kernelship" not in finding.state.modified_by
         )
     )
 
@@ -193,7 +193,7 @@ async def process_group(
             )
             for finding in all_findings
         ),
-        workers=64,
+        workers=16,
     )
     LOGGER_CONSOLE.info(
         "Group updated",
@@ -239,7 +239,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(removed_groups)
         ),
-        workers=32,
+        workers=4,
     )
 
 
