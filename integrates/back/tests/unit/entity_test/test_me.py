@@ -45,7 +45,7 @@ async def test_me() -> None:
     expected_groups = ["unittesting", "oneshottest"]
     assert "me" in result["data"]
     assert "role" in result["data"]["me"]
-    assert result["data"]["me"]["role"] == "customer"
+    assert result["data"]["me"]["role"] == "user"
     assert sorted(result["data"]["me"]["permissions"]) == [
         "api_mutations_sign_post_url_requester_mutate",
         "api_mutations_virus_scan_file_mutate",

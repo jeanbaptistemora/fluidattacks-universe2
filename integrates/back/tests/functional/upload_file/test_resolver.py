@@ -186,7 +186,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

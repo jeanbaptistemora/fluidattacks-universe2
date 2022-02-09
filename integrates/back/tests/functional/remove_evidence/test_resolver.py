@@ -52,7 +52,7 @@ async def test_remove_evidence_fail_1(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],

@@ -243,8 +243,8 @@ async def test_remove_user() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     group_users = await group_access_domain.get_group_users(group)
     assert user in group_users
-    assert await authz.get_group_level_role(user, group) == "customer"
-    assert await authz.get_organization_level_role(user, org_id) == "customer"
+    assert await authz.get_group_level_role(user, group) == "user"
+    assert await authz.get_organization_level_role(user, org_id) == "user"
 
     assert await orgs_domain.remove_user(get_new_context(), org_id, user)
     updated_group_users = await group_access_domain.get_group_users(group)

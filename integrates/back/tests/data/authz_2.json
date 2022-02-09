@@ -13,7 +13,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -31,7 +31,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -49,7 +49,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -175,7 +175,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -391,7 +391,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -409,7 +409,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -427,7 +427,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }

@@ -32,7 +32,7 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],

@@ -119,7 +119,7 @@ async def test_group() -> None:
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",
             "responsibility": "Test",
-            "role": "customer",
+            "role": "user",
         },
         {
             "email": "integratesuser@gmail.com",

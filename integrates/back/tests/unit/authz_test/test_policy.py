@@ -64,15 +64,15 @@ async def test_get_user_level_role() -> None:
         await get_user_level_role("integrateshacker@fluidattacks.com")
         == "hacker"
     )
-    assert await get_user_level_role("integratesuser@gmail.com") == "customer"
+    assert await get_user_level_role("integratesuser@gmail.com") == "user"
     assert await get_user_level_role("unittest@fluidattacks.com") == "admin"
     assert not await get_user_level_role("asdfasdfasdfasdf@gmail.com")
 
 
 async def test_grant_user_level_role() -> None:
-    assert await grant_user_level_role("..TEST@gmail.com", "customer")
-    assert await get_user_level_role("..test@gmail.com") == "customer"
-    assert await get_user_level_role("..tEst@gmail.com") == "customer"
+    assert await grant_user_level_role("..TEST@gmail.com", "user")
+    assert await get_user_level_role("..test@gmail.com") == "user"
+    assert await get_user_level_role("..tEst@gmail.com") == "user"
 
     assert await grant_user_level_role("..TEST@gmail.com", "admin")
     assert await get_user_level_role("..test@gmail.com") == "admin"
@@ -83,14 +83,10 @@ async def test_grant_user_level_role() -> None:
 
 
 async def test_grant_group_level_role() -> None:
-    assert await grant_group_level_role(
-        "..TEST2@gmail.com", "group", "customer"
-    )
-    assert await get_user_level_role("..test2@gmail.com") == "customer"
-    assert await get_user_level_role("..tESt2@gmail.com") == "customer"
-    assert (
-        await get_group_level_role("..test2@gmail.com", "GROUP") == "customer"
-    )
+    assert await grant_group_level_role("..TEST2@gmail.com", "group", "user")
+    assert await get_user_level_role("..test2@gmail.com") == "user"
+    assert await get_user_level_role("..tESt2@gmail.com") == "user"
+    assert await get_group_level_role("..test2@gmail.com", "GROUP") == "user"
     assert not await get_group_level_role("..test2@gmail.com", "other-group")
     with pytest.raises(ValueError) as test_raised_err:
         await grant_group_level_role("..TEST2@gmail.com", "group", "breakall")
@@ -99,23 +95,23 @@ async def test_grant_group_level_role() -> None:
 
 async def test_revoke_group_level_role() -> None:
     assert await grant_group_level_role(
-        "revoke_group_LEVEL_role@gmail.com", "group", "customer"
+        "revoke_group_LEVEL_role@gmail.com", "group", "user"
     )
     assert await grant_group_level_role(
-        "REVOKE_group_level_role@gmail.com", "other-group", "customer"
+        "REVOKE_group_level_role@gmail.com", "other-group", "user"
     )
 
     assert (
         await get_group_level_role(
             "revoke_group_level_ROLE@gmail.com", "group"
         )
-        == "customer"
+        == "user"
     )
     assert (
         await get_group_level_role(
             "revoke_GROUP_level_role@gmail.com", "other-group"
         )
-        == "customer"
+        == "user"
     )
     assert not await get_group_level_role(
         "REVOKE_group_level_role@gmail.com", "yet-other-group"
@@ -128,7 +124,7 @@ async def test_revoke_group_level_role() -> None:
         await get_group_level_role(
             "revoke_group_level_role@gmail.com", "group"
         )
-        == "customer"
+        == "user"
     )
     assert not await get_group_level_role(
         "revoke_group_level_role@gmail.com", "other-group"
@@ -153,12 +149,11 @@ async def test_revoke_group_level_role() -> None:
 
 async def test_revoke_user_level_role() -> None:
     assert await grant_user_level_role(
-        "revoke_user_LEVEL_role@gmail.com", "customer"
+        "revoke_user_LEVEL_role@gmail.com", "user"
     )
 
     assert (
-        await get_user_level_role("revoke_user_level_ROLE@gmail.com")
-        == "customer"
+        await get_user_level_role("revoke_user_level_ROLE@gmail.com") == "user"
     )
     assert not await get_user_level_role("REVOKE_user_level_role@gmail.net")
     assert await revoke_user_level_role("revoke_USER_LEVEL_ROLE@gmail.com")

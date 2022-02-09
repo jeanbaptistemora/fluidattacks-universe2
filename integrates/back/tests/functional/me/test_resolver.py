@@ -15,7 +15,7 @@ from typing import (
     ("email", "role", "permissions", "groups_length"),
     (
         ("admin@gmail.com", "admin", 17, 0),
-        ("customer@gmail.com", "customer", 3, 1),
+        ("user@gmail.com", "user", 3, 1),
         ("user_manager@gmail.com", "user_manager", 0, 1),
         ("executive@gmail.com", "executive", 0, 1),
         ("hacker@gmail.com", "hacker", 3, 2),
@@ -63,7 +63,7 @@ async def test_get_me(
 @pytest.mark.parametrize(
     ["email", "length"],
     [
-        ["customer@gmail.com", 1],
+        ["user@gmail.com", 1],
         ["user_manager@gmail.com", 1],
     ],
 )

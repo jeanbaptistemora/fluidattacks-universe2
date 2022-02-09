@@ -38,7 +38,7 @@ async def test_get_report(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["executive@gmail.com"],
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],

@@ -17,7 +17,7 @@ from typing import (
         ["admin@gmail.com"],
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
@@ -99,7 +99,7 @@ async def test_get_group(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email", "length"],
     [
-        ["customer@gmail.com", 1],
+        ["user@gmail.com", 1],
         ["user_manager@gmail.com", 1],
     ],
 )

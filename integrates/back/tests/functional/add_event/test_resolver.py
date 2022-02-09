@@ -36,7 +36,7 @@ async def test_add_event(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],

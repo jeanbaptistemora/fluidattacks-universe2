@@ -25,7 +25,7 @@ from typing import (
     ("email", "vuln_id"),
     (
         ("admin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
-        ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
+        ("user@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
         ("user_manager@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce12"),
         (
             "customer_manager@fluidattacks.com",

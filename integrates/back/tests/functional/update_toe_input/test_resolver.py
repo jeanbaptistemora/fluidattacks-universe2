@@ -130,7 +130,7 @@ async def test_update_toe_input_fail_2(
     ["email", "component", "entry_point", "be_present", "attacked_at"],
     [
         [
-            "customer@gmail.com",
+            "user@gmail.com",
             "https://app.fluidattacks.com:8080/test",
             "-",
             True,

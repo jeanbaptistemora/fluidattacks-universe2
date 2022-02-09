@@ -102,7 +102,7 @@ async def test_add_toe_input_fail(
     ["email", "component", "root_id"],
     [
         [
-            "customer@gmail.com",
+            "user@gmail.com",
             "https://test.com/test",
             "63298a73-9dff-46cf-b42d-9b2f01a56690",
         ],

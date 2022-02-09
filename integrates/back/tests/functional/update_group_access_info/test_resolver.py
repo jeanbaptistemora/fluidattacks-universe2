@@ -17,7 +17,7 @@ from typing import (
         ["user_manager@gmail.com"],
         ["customer_manager@fluidattacks.com"],
         ["hacker@gmail.com"],
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

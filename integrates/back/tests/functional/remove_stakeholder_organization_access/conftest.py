@@ -79,7 +79,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "level": "organization",
                 "subject": new_user,
                 "object": organization_id,
-                "role": "customer",
+                "role": "user",
             },
             {
                 "level": "organization",
@@ -99,7 +99,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "level": "group",
                 "subject": new_user,
                 "object": "group5",
-                "role": "customer",
+                "role": "user",
             },
             {
                 "level": "group",

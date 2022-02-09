@@ -23,10 +23,10 @@ from typing import (
     ("email", "vulnerability", "treatment", "assigned", "acceptance_date"),
     (
         (
-            "customer@gmail.com",
+            "user@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "IN_PROGRESS",
-            "customer@gmail.com",
+            "user@gmail.com",
             "",
         ),
         (

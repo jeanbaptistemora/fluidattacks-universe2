@@ -15,7 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["hacker@gmail.com"],
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
     ],
 )
 async def test_admin(populate: bool, email: str) -> None:

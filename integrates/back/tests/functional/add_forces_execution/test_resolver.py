@@ -32,7 +32,7 @@ async def test_add_forces_execution(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["customer@gmail.com"],
+        ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["executive@gmail.com"],
         ["hacker@gmail.com"],

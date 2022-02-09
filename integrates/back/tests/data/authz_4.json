@@ -49,7 +49,7 @@
             "S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -247,7 +247,7 @@
             "S": "org#7376c5fe-4634-4053-9718-e14ecbda1e6b"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -355,7 +355,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
@@ -373,7 +373,7 @@
             "S": "self"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }

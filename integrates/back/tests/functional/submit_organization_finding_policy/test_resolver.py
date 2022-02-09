@@ -14,7 +14,7 @@ import pytest
     (
         (
             "dd63f2df-522d-4bfa-ad85-837832c71164",
-            "customer@gmail.com",
+            "user@gmail.com",
         ),
         (
             "3be367f9-b06c-4f72-ab77-38268045a8ff",
@@ -44,7 +44,7 @@ async def test_submit_organization_finding_policy(
 @pytest.mark.parametrize(
     ("email",),
     (
-        ("customer@gmail.com",),
+        ("user@gmail.com",),
         ("user_manager@gmail.com",),
     ),
 )

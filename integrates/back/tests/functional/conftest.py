@@ -125,8 +125,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     reviewer_fluid_email: str = "reviewer@fluidattacks.com"
     service_forces_email: str = "service_forces@gmail.com"
     service_forces_fluid_email: str = "service_forces@fluidattacks.com"
-    user_email: str = "customer@gmail.com"
-    user_fluid_email: str = "customer@fluidattacks.com"
+    user_email: str = "user@gmail.com"
+    user_fluid_email: str = "user@fluidattacks.com"
     user_manager_email: str = "user_manager@gmail.com"
     user_manager_fluid_email: str = "user_manager@fluidattacks.com"
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
@@ -508,13 +508,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "user",
                     "subject": user_email,
                     "object": "self",
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "user",
                     "subject": user_fluid_email,
                     "object": "self",
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "user",
@@ -634,13 +634,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "group",
                     "subject": user_email,
                     "object": "group1",
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "group",
                     "subject": user_fluid_email,
                     "object": "group1",
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "group",
@@ -760,13 +760,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "level": "organization",
                     "subject": user_email,
                     "object": org_id,
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "organization",
                     "subject": user_fluid_email,
                     "object": org_id,
-                    "role": "customer",
+                    "role": "user",
                 },
                 {
                     "level": "organization",

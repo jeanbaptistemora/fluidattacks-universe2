@@ -49,7 +49,7 @@
             "S": "org#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
           },
           "role": {
-            "S": "customer"
+            "S": "user"
           }
         }
       }
