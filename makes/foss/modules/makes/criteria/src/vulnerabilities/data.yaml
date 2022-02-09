@@ -12698,7 +12698,7 @@
     threat: >
       Atacante anónimo entrando en la sucursal.
   category: Subvert Access
-  remediation_time: null
+  remediation_time: __empty__
   score:
     base:
       attack_vector: "P"
