@@ -8,6 +8,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_input")
 @pytest.mark.parametrize(
@@ -45,6 +46,7 @@ async def test_update_toe_input(
     assert result["data"]["updateToeInput"]["success"]
 
 
+@pytest.mark.skip
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_input")
 @pytest.mark.parametrize(
@@ -84,6 +86,7 @@ async def test_update_toe_input_fail(
     )
 
 
+@pytest.mark.skip
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_input")
 @pytest.mark.parametrize(

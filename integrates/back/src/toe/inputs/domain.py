@@ -1,5 +1,6 @@
 from custom_exceptions import (
-    InvalidToeInputAttackAt,
+    InvalidToeInputAttackedAt,
+    InvalidToeInputAttackedBy,
     ToeInputNotPresent,
 )
 from custom_types import (
@@ -239,27 +240,39 @@ async def update(
     attributes: ToeInputAttributesToUpdate,
 ) -> None:
     if attributes.is_moving_toe_input is False:
-        if attributes.be_present is None and current_value.be_present is False:
+        if (
+            attributes.be_present is None
+            and current_value.be_present is False
+            and attributes.attacked_at is not None
+        ):
             raise ToeInputNotPresent()
-        if attributes.be_present is False:
+        if (
+            attributes.be_present is False
+            and attributes.attacked_at is not None
+        ):
             raise ToeInputNotPresent()
         if (
             attributes.attacked_at is not None
             and current_value.attacked_at is not None
             and attributes.attacked_at <= current_value.attacked_at
         ):
-            raise InvalidToeInputAttackAt()
+            raise InvalidToeInputAttackedAt()
         if (
             attributes.attacked_at is not None
             and attributes.attacked_at > datetime_utils.get_utc_now()
         ):
-            raise InvalidToeInputAttackAt()
+            raise InvalidToeInputAttackedAt()
         if (
             attributes.attacked_at is not None
             and current_value.seen_at is not None
             and attributes.attacked_at < current_value.seen_at
         ):
-            raise InvalidToeInputAttackAt()
+            raise InvalidToeInputAttackedAt()
+        if (
+            attributes.attacked_at is not None
+            and attributes.attacked_by is None
+        ):
+            raise InvalidToeInputAttackedBy()
 
     be_present_until = (
         None

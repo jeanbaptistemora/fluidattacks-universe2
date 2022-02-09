@@ -110,11 +110,12 @@ async def update_metadata(
         gsi_2_index = TABLE.indexes["gsi_2"]
         metadata_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
     try:
-        await operations.update_item(
-            condition_expression=condition_expression,
-            item=metadata_item,
-            key=metadata_key,
-            table=TABLE,
-        )
+        if metadata_item:
+            await operations.update_item(
+                condition_expression=condition_expression,
+                item=metadata_item,
+                key=metadata_key,
+                table=TABLE,
+            )
     except ConditionalCheckFailedException as ex:
         raise ToeInputAlreadyUpdated() from ex
