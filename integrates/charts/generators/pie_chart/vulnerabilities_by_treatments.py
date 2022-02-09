@@ -23,6 +23,12 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
 )
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
 from operator import (
     itemgetter,
 )
@@ -36,13 +42,15 @@ from typing import (
 
 
 async def get_treatment_changes(
-    loaders: Dataloaders, vuln: Vulnerability
-) -> int:
-    historic: Tuple[
+    loaders: Dataloaders, vulnerabilities: Tuple[Vulnerability, ...]
+) -> Tuple[int, ...]:
+    historics_treatments: Tuple[
         VulnerabilityTreatment, ...
-    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
+    ] = await loaders.vulnerability_historic_treatment.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
 
-    return len(historic)
+    return tuple(len(historic) for historic in historics_treatments)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -56,12 +64,16 @@ async def get_data_one_group(group: str) -> Counter[str]:
     vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
         finding_ids
     )
-    treatment_changes = await collect(
-        tuple(
-            get_treatment_changes(loaders, vulnerability)
-            for vulnerability in vulnerabilities
-        ),
-        workers=32,
+    treatment_changes = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    get_treatment_changes(loaders, vulns)
+                    for vulns in chunked(vulnerabilities, 16)
+                ),
+                workers=16,
+            )
+        )
     )
 
     return Counter(filter(None, treatment_changes))
