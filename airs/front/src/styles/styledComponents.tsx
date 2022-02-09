@@ -465,7 +465,6 @@ const MainContentHome: StyledComponent<
     mw-1366
     center
     w-100
-    tc
   `,
 })``;
 
@@ -498,6 +497,7 @@ const HomeImageContainer: StyledComponent<
     pt0-ns
     pt4
     pl3
+    tc
   `,
 })``;
 
