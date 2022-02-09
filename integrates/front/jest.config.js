@@ -29,6 +29,7 @@ const esModules = [
   "bcp-47-match",
   "rehype",
   "stringify-entities",
+  "decode-named-character-reference",
 ].join("|");
 
 module.exports = {
