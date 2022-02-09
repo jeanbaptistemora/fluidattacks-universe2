@@ -15,6 +15,7 @@ from custom_exceptions import (
     CouldNotCreatePaymentMethod,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
+    NoActiveBillingSubscription,
 )
 from dataloaders import (
     get_new_context,
@@ -447,6 +448,28 @@ async def remove_payment_method(
         payment_method_id=payment_method_id,
     )
     return result
+
+
+async def report_subscription_usage(
+    *,
+    group_name: str,
+    org_billing_customer: str,
+) -> bool:
+    """Report group squad usage to Stripe"""
+    subscriptions: List[Subscription] = await dal.get_group_subscriptions(
+        group_name=group_name,
+        org_billing_customer=org_billing_customer,
+        status="active",
+        limit=1,
+    )
+
+    # Raise exception if group does not have an active subscription
+    if len(subscriptions) == 0:
+        raise NoActiveBillingSubscription()
+
+    return await dal.report_subscription_usage(
+        subscription=subscriptions[0],
+    )
 
 
 async def webhook(request: Request) -> JSONResponse:

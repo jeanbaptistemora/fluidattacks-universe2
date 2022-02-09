@@ -1154,6 +1154,12 @@ class InvalidBillingCustomer(CustomBaseException):
         super(InvalidBillingCustomer, self).__init__(msg)
 
 
+class NoActiveBillingSubscription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - There is not an active subscription for this group"
+        super(NoActiveBillingSubscription, self).__init__(msg)
+
+
 class BillingSubscriptionSameActive(CustomBaseException):
     def __init__(self) -> None:
         msg = (
