@@ -2314,6 +2314,9 @@ class IntegratesVulnerabilitiesInputs(NamedTuple):
     state: VulnerabilityStateEnum
     stream: str
     url: str
+    skims_method: Optional[str]  # sould be str only when the db ready
+    skims_technique: Optional[str]  # sould be str only when the db ready
+    developer: Optional[str]  # sould be str only when the db ready
 
 
 class Vulnerability(NamedTuple):

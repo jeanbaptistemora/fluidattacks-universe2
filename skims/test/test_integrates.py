@@ -42,9 +42,14 @@ async def test_client(
 @run_decorator
 @pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
-    developer = "drestrepo@fluidattacks.com"
-    skims_method = "query.query_f034"
-    skims_technique = "ASAST"
+    sast_developer = "drestrepo@fluidattacks.com"
+    sast_method = "query.query_f034"
+    sast_technique = "ASAST"
+
+    dast_developer = "asalgado@fluidattacks.com"
+    dast_method = "analyze_protocol.pfs_disabled"
+    dast_technique = "DAST"
+
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
 
     assert (
@@ -66,43 +71,54 @@ async def test_build_vulnerabilities_stream() -> None:
                         cwe=(330,),
                         description="Vulnerability description",
                         snippet="Vulnerability snippet",
-                        source_method=skims_method,
-                        developer=developer,
-                        technique=skims_technique,
+                        source_method=sast_method,
+                        developer=sast_developer,
+                        technique=sast_technique,
                     ),
                 ),
                 core_model.Vulnerability(
-                    finding=core_model.FindingEnum.F034,
+                    finding=core_model.FindingEnum.F133,
                     integrates_metadata=(
                         core_model.IntegratesVulnerabilityMetadata(
                             source=core_model.VulnerabilitySourceEnum.SKIMS,
                         )
                     ),
+                    skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                        cwe=(310,),
+                        description="Vulnerability description",
+                        snippet="Vulnerability snippet",
+                        source_method=dast_method,
+                        developer=dast_developer,
+                        technique=dast_technique,
+                    ),
                     kind=core_model.VulnerabilityKindEnum.INPUTS,
                     namespace="test",
                     state=core_model.VulnerabilityStateEnum.OPEN,
-                    stream="a,b,c",
-                    what="https://example.com",
-                    where="test",
+                    stream="home,socket-send,socket-response",
+                    what="https://example.com:443",
+                    where="server refuses connections with PFS support",
                 ),
             )
         )
         == dedent(
             f"""
         inputs:
-        - field: test
+        - developer: {dast_developer}
+          field: server refuses connections with PFS support
           repo_nickname: test
+          skims_method: {dast_method}
+          skims_technique: {dast_technique}
           state: open
-          stream: a,b,c
-          url: https://example.com (test)
+          stream: home,socket-send,socket-response
+          url: https://example.com:443 (test)
         lines:
         - commit_hash: {commit_hash}
-          developer: {developer}
+          developer: {sast_developer}
           line: '11'
           path: test/what
           repo_nickname: test
-          skims_method: {skims_method}
-          skims_technique: {skims_technique}
+          skims_method: {sast_method}
+          skims_technique: {sast_technique}
           state: open
     """
         )[1:]

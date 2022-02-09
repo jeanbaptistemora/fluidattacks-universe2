@@ -70,6 +70,15 @@ def _build_vulnerabilities_stream(
                 state=result.state,
                 stream=result.stream,
                 url=result.what_on_integrates,
+                skims_method=result.skims_metadata.source_method
+                if result.skims_metadata
+                else None,
+                skims_technique=result.skims_metadata.technique
+                if result.skims_metadata
+                else None,
+                developer=result.skims_metadata.developer
+                if result.skims_metadata
+                else None,
             )
             for result in results
             if result.kind == core_model.VulnerabilityKindEnum.INPUTS
