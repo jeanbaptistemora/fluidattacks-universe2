@@ -11,10 +11,12 @@ from model.core_model import (
 )
 from parse_hcl2.common import (
     get_argument,
+    get_attribute,
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
     iter_aws_elb,
+    iter_aws_instance,
     iter_s3_buckets,
 )
 from typing import (
@@ -43,6 +45,17 @@ def _tfm_s3_buckets_logging_disabled(
         logging = get_argument(body=resource.data, key="logging")
         if not logging:
             yield resource
+
+
+def _tfm_ec2_monitoring_disabled(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        monitoring = get_attribute(body=resource.data, key="monitoring")
+        if not monitoring:
+            yield resource
+        elif monitoring.val is False:
+            yield monitoring
 
 
 def tfm_elb_logging_disabled(
@@ -74,4 +87,20 @@ def tfm_s3_buckets_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_S3_LOGGING_DISABLED,
+    )
+
+
+def tfm_ec2_monitoring_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f400.has_monitoring_disabled",
+        iterator=get_cloud_iterator(
+            _tfm_ec2_monitoring_disabled(
+                resource_iterator=iter_aws_instance(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_EC2_MONITORING_DISABLED,
     )

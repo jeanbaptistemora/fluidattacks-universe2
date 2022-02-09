@@ -11,6 +11,7 @@ from lib_path.f400.cloudformation import (
     cfn_trails_not_multiregion,
 )
 from lib_path.f400.terraform import (
+    tfm_ec2_monitoring_disabled,
     tfm_elb_logging_disabled,
     tfm_s3_buckets_logging_disabled,
 )
@@ -102,6 +103,14 @@ def run_tfm_s3_buckets_logging_disabled(
     )
 
 
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_ec2_monitoring_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_ec2_monitoring_disabled(content=content, path=path, model=model)
+
+
 @SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], Awaitable[str]],
@@ -142,6 +151,7 @@ def analyze(
             *results,
             run_tfm_elb_logging_disabled(content, path, model),
             run_tfm_s3_buckets_logging_disabled(content, path, model),
+            run_tfm_ec2_monitoring_disabled(content, path, model),
         )
 
     return results

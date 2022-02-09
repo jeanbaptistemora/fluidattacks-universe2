@@ -13,3 +13,6 @@ src.lib_path.f400.trails_not_multiregion:
 src.lib_path.f400.has_logging_disabled:
   en: Missing Logging property to make traceability
   es: Falta la propiedad Logging para hacer trazabilidad
+src.lib_path.f400.has_monitoring_disabled:
+  en: Missing Monitoring property to make traceability
+  es: Falta la propiedad Monitoring para hacer trazabilidad
