@@ -4255,3 +4255,15 @@
       title: Identify Unauthorized Use
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211203.pdf
   metadata: {}
+"034":
+  title: HITRUST CSF
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "01_a":
+      title: Access Control Policy
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+  metadata: {}
