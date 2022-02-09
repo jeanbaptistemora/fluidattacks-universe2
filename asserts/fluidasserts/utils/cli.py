@@ -1098,24 +1098,6 @@ def exec_terraform_package(paths: List[str], enable_multiprocessing: bool):
     )
 
 
-def exec_apk_package(apks):
-    """Execute generic checks of APK module."""
-    template = textwrap.dedent(
-        """\
-        from fluidasserts.format import apk
-        """
-    )
-    for apk in apks:
-        template += textwrap.dedent(
-            """
-            apk.uses_dangerous_perms('{apk}')
-            apk.not_forces_updates('{apk}')
-            apk.socket_uses_getinsecure('{apk}')
-            """
-        ).replace("{apk}", apk)
-    return exec_wrapper("built-in APK package", template)
-
-
 def exec_dns_package(nameservers):
     """Execute generic checks of DNS package."""
     template = textwrap.dedent(
@@ -1337,8 +1319,6 @@ def get_content(args):  # noqa: MC0001
         content += exec_ssl_package(args.ssl, args.multiprocessing)
     if args.dns:
         content += exec_dns_package(args.dns)
-    if args.apk:
-        content += exec_apk_package(args.apk)
     if args.lang:
         content += exec_lang_package(args.lang, args.multiprocessing)
     if args.aws:

@@ -101,36 +101,3 @@ def get_http_urls(dex):
         if re.match(r"^http?\:\/\/.+", x.get_value())
         and not any(re.match(whitel, x.get_value()) for whitel in whitelist)
     ]
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def socket_uses_getinsecure(apk_file: str) -> tuple:
-    """
-    Check if the given APK uses sockets created with getInsecure.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK uses *getInsecure* method from the
-                *android.net.SSLCertificateSocketFactory* class.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    dex = get_dex(apk_file)
-
-    uses_get_insecure = is_method_present(
-        dex=dex,
-        class_name="Landroid/net/SSLCertificateSocketFactory;",
-        method="getInsecure",
-        descriptor=(
-            "(I Landroid/net/SSLSessionCache;)"
-            "Ljavax/net/ssl/SSLSocketFactory;"
-        ),
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK uses sockets created with getInsecure",
-        msg_closed="APK does not use sockets created with getInsecure",
-        open_if=uses_get_insecure,
-    )
