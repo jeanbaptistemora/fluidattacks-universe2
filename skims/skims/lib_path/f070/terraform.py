@@ -9,11 +9,11 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
+from parse_hcl2.common import (
+    get_attribute,
+)
 from parse_hcl2.structure.aws import (
     iter_aws_lb_target_group,
-)
-from parse_hcl2.tokens import (
-    Attribute,
 )
 from typing import (
     Any,
@@ -26,13 +26,11 @@ def _tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
-        for elem in resource.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "port"
-                and elem.val != 443
-            ):
-                yield elem
+        port = get_attribute(body=resource.data, key="port")
+        if not port:
+            yield resource
+        elif isinstance(port.val, int) and port.val != 443:
+            yield port
 
 
 def tfm_lb_target_group_insecure_port(
