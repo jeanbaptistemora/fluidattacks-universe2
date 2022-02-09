@@ -385,9 +385,9 @@ def _get_seconds_ago(timestamp: int) -> float:
 
 async def queue_all_checks_new(
     group: str,
-    roots: Tuple[str, ...],
     finding_codes: Tuple[str, ...],
     queue: SkimsBatchQueue,
+    roots: Optional[Tuple[str, ...]] = None,
 ) -> Dict[str, Any]:
     queue_name = queue.value
     job_name = f"skims-process-{group}"
@@ -432,8 +432,9 @@ async def queue_all_checks_new(
         roots_to_execute = set(
             collapse(
                 [
-                    json.loads(job["container"]["command"][-1])
+                    json.loads(job["container"]["command"][5])
                     for job in jobs_description
+                    if len(job["container"]["command"]) == 6
                 ],
                 base_type=str,
             )
@@ -441,20 +442,20 @@ async def queue_all_checks_new(
         findings_to_execute = set(
             collapse(
                 [
-                    json.loads(job["container"]["command"][-2])
+                    json.loads(job["container"]["command"][4])
                     for job in jobs_description
                 ],
                 base_type=str,
             )
         )
 
-        if (
-            tuple(roots_to_execute) == roots
-            and tuple(findings_to_execute) == finding_codes
+        if (roots and tuple(roots_to_execute)) == roots and (
+            tuple(findings_to_execute) == finding_codes
         ):
             return {"error": "The job is already running"}
 
-        roots = tuple(set((*roots, *roots_to_execute)))
+        if roots:
+            roots = tuple(set((*roots, *roots_to_execute)))
         finding_codes = tuple(set((*finding_codes, *findings_to_execute)))
 
         for job in jobs_description:
@@ -468,29 +469,35 @@ async def queue_all_checks_new(
                     jobId=job["jobId"],
                     reason="another job was queued",
                 )
-
+        envars = [
+            {"name": "CI", "value": "true"},
+            {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
+            {
+                "name": "PRODUCT_API_TOKEN",
+                "value": PRODUCT_API_TOKEN,
+            },
+        ]
+        command = [
+            "m",
+            "f",
+            "/skims/process-group-all",
+            group,
+            json.dumps(list(finding_codes)),
+        ]
+        if not roots:
+            envars.append(
+                {"name": "MACHINE_ALL_ROOTS", "value": "true"},
+            )
+        else:
+            command.append(json.dumps(list(roots)))
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
             jobDefinition="makes",
             containerOverrides={
-                "vcpus": 4 if len(roots) >= 4 else len(roots),
-                "command": [
-                    "m",
-                    "f",
-                    "/skims/process-group-all",
-                    group,
-                    json.dumps(list(finding_codes)),
-                    json.dumps(list(roots)),
-                ],
-                "environment": [
-                    {"name": "CI", "value": "true"},
-                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-                    {
-                        "name": "PRODUCT_API_TOKEN",
-                        "value": PRODUCT_API_TOKEN,
-                    },
-                ],
+                "vcpus": 4,
+                "command": command,
+                "environment": envars,
                 "memory": 1 * 1800,
             },
             retryStrategy={

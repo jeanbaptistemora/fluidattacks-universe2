@@ -59,12 +59,10 @@ class PreparedJob(NamedTuple):
 
 async def _queue_all_checks(
     group: str,
-    repos: Tuple[str, ...],
     finding_codes: Tuple[str, ...],
 ) -> Dict[str, Any]:
     result = await queue_all_checks_new(
         group=group,
-        roots=repos,
         finding_codes=finding_codes,
         queue=SkimsBatchQueue.LOW,
     )
@@ -207,7 +205,6 @@ async def main() -> None:
     all_job_futures = [
         _queue_all_checks(
             group=prepared_job.group_name,
-            repos=tuple(prepared_job.roots),
             finding_codes=tuple(findings),
         )
         for prepared_job in sorted_jobs
