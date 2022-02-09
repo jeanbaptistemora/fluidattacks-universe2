@@ -1,6 +1,5 @@
 from aioextensions import (
     collect,
-    run,
 )
 from billing import (
     domain as billing_domain,

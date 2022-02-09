@@ -230,6 +230,7 @@ def format_vulnerabilities_by_data(
             colors={
                 column: RISK.neutral,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -252,6 +253,7 @@ def format_vulnerabilities_by_data(
             ),
         ),
         barChartYTickFormat=True,
+        firstBarLabels=True,
     )
 
 
