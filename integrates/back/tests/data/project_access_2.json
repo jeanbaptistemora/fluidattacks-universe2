@@ -13,7 +13,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratescustomer@fluidattacks.com"
+            "S": "integratesuser2@fluidattacks.com"
           }
         }
       }

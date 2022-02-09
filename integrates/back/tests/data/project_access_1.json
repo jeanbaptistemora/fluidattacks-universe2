@@ -337,7 +337,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratescustomer@gmail.com"
+            "S": "integratesuser2@gmail.com"
           }
         }
       }

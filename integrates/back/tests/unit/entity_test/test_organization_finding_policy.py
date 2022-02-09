@@ -132,7 +132,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
             "tags": tags,
         },
     }
-    result = await _get_result_async(data, "integratescustomer@gmail.com")
+    result = await _get_result_async(data, "integratesuser2@gmail.com")
     assert "errors" not in result
     assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
@@ -183,7 +183,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     )
 
     result = await _get_result_async(
-        hande_acceptance_data, stakeholder="integratescustomer@gmail.com"
+        hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
@@ -246,7 +246,7 @@ async def test_deactivate_org_finding_policy() -> None:
         "query": add_mutation,
         "variables": {"orgName": org_name, "findingName": finding_name},
     }
-    result = await _get_result_async(data, "integratescustomer@gmail.com")
+    result = await _get_result_async(data, "integratesuser2@gmail.com")
     assert "errors" not in result
     assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
@@ -295,7 +295,7 @@ async def test_deactivate_org_finding_policy() -> None:
     )
 
     result = await _get_result_async(
-        hande_acceptance_data, stakeholder="integratescustomer@gmail.com"
+        hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
@@ -351,7 +351,7 @@ async def test_deactivate_org_finding_policy() -> None:
     )
 
     result = await _get_result_async(
-        deactivate_mutation_data, stakeholder="integratescustomer@gmail.com"
+        deactivate_mutation_data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
@@ -394,7 +394,7 @@ async def test_add_org_finding_policy() -> None:
         "variables": {"orgName": org_name, "findingName": fin_name},
     }
     result = await _get_result_async(
-        data, stakeholder="integratescustomer@gmail.com"
+        data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" not in result
     assert result["data"]["addOrganizationFindingPolicy"]["success"]
@@ -466,7 +466,7 @@ async def test_submit_organization_finding_policy() -> None:
         },
     }
     result = await _get_result_async(
-        data, stakeholder="integratescustomer@gmail.com"
+        data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" not in result
     assert result["data"]["addOrganizationFindingPolicy"]["success"]
@@ -528,7 +528,7 @@ async def test_submit_organization_finding_policy() -> None:
         },
     }
     result = await _get_result_async(
-        submit_finding_policy_data, stakeholder="integratescustomer@gmail.com"
+        submit_finding_policy_data, stakeholder="integratesuser2@gmail.com"
     )
     assert "errors" not in result
     assert result["data"]["submitOrganizationFindingPolicy"]["success"]

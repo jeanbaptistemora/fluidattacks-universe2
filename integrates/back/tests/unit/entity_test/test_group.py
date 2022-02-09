@@ -114,7 +114,7 @@ async def test_group() -> None:
             "role": "executive",
         },
         {
-            "email": "integratescustomer@gmail.com",
+            "email": "integratesuser2@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",
             "lastLogin": "2019-10-29 13:40:37",

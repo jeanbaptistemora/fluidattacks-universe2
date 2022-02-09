@@ -11,7 +11,7 @@ pytestmark = [
     ["email"],
     [
         ["continuoushacking@gmail.com"],
-        ["integratescustomer@gmail.com"],
+        ["integratesuser2@gmail.com"],
         ["integrateshacker@fluidattacks.com"],
     ],
 )

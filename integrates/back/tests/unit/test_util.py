@@ -324,7 +324,7 @@ async def test_create_user() -> None:
         return user_attrs
 
     now: datetime = datetime.now(tz=timezone)
-    email: str = "integratescustomer@fluidattacks.com"
+    email: str = "integratesuser2@fluidattacks.com"
     user_info = await get_user_attrs(email, ["registered", "last_login"])
     assert user_info["registered"]
     assert user_info["last_login"] < now  # type: ignore

@@ -7,7 +7,7 @@
             "S": "user"
           },
           "subject": {
-            "S": "integratescustomer@gmail.com"
+            "S": "integratesuser2@gmail.com"
           },
           "object": {
             "S": "self"
@@ -25,7 +25,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "integratescustomer@gmail.com"
+            "S": "integratesuser2@gmail.com"
           },
           "object": {
             "S": "unittesting"
@@ -43,7 +43,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "integratescustomer@gmail.com"
+            "S": "integratesuser2@gmail.com"
           },
           "object": {
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -385,7 +385,7 @@
             "S": "user"
           },
           "subject": {
-            "S": "integratescustomer@fluidattacks.com"
+            "S": "integratesuser2@fluidattacks.com"
           },
           "object": {
             "S": "self"
@@ -403,7 +403,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "integratescustomer@fluidattacks.com"
+            "S": "integratesuser2@fluidattacks.com"
           },
           "object": {
             "S": "unittesting"
@@ -421,7 +421,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "integratescustomer@fluidattacks.com"
+            "S": "integratesuser2@fluidattacks.com"
           },
           "object": {
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"

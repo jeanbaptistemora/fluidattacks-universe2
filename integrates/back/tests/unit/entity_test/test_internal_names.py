@@ -20,7 +20,7 @@ async def test_internal_group() -> None:
         }
     }"""
     data = {"query": query}
-    request = await create_dummy_session("integratescustomer@gmail.com")
+    request = await create_dummy_session("integratesuser2@gmail.com")
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "internalNames" in result["data"]

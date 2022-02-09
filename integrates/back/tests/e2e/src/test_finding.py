@@ -405,7 +405,7 @@ def test_finding_vulnerabilities(
         "Assigned:",
         timeout,
     )
-    assert "integratescustomer" in driver.page_source
+    assert "integratesuser2" in driver.page_source
 
     close = utils.wait_for_id(
         driver,

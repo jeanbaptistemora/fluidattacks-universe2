@@ -50,6 +50,12 @@ async def test_get_group_level_role() -> None:
         == "user_manager"
     )
     assert (
+        await get_group_level_role(
+            "integratesexecutive@gmail.com", "unittesting"
+        )
+        == "executive"
+    )
+    assert (
         await get_group_level_role("unittest@fluidattacks.com", "any-group")
         == "admin"
     )

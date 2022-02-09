@@ -8427,7 +8427,7 @@
                     "S": "integratesuser@gmail.com"
                   },
                   "assigned": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser2@gmail.com"
                   },
                   "justification": {
                     "S": "test justification"
@@ -8484,7 +8484,7 @@
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
               },
               "pk_3": {
-                "S": "USER#integratescustomer@gmail.com"
+                "S": "USER#integratesuser@gmail.com"
               },
               "state": {
                 "M": {
@@ -8510,7 +8510,7 @@
               "treatment": {
                 "M": {
                   "modified_by": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser2@gmail.com"
                   },
                   "assigned": {
                     "S": "integratesuser@gmail.com"
@@ -11516,13 +11516,13 @@
               "treatment": {
                 "M": {
                   "modified_by": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser2@gmail.com"
                   },
                   "accepted_until": {
                     "S": "2021-01-16T17:46:10+00:00"
                   },
                   "assigned": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser2@gmail.com"
                   },
                   "justification": {
                     "S": "This is a treatment justification test"
@@ -11598,7 +11598,7 @@
                 "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
               },
               "pk_3": {
-                "S": "USER#integratescustomer@gmail.com"
+                "S": "USER#integratesuser2@gmail.com"
               },
               "state": {
                 "M": {
@@ -12054,7 +12054,7 @@
                     "S": "2021-04-08T00:59:06+00:00"
                   },
                   "assigned": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser2@gmail.com"
                   },
                   "justification": {
                     "S": "test justification temporarily accepted"
@@ -12083,7 +12083,7 @@
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               },
               "pk_3": {
-                "S": "USER#integratescustomer@gmail.com"
+                "S": "USER#integratesuser2@gmail.com"
               },
               "state": {
                 "M": {
@@ -13352,7 +13352,7 @@
                 "S": "2021-04-08T00:59:06+00:00"
               },
               "assigned": {
-                "S": "integratescustomer@gmail.com"
+                "S": "integratesuser2@gmail.com"
               },
               "justification": {
                 "S": "test justification temporarily accepted"
@@ -13483,7 +13483,7 @@
                 "S": "integratesuser@gmail.com"
               },
               "assigned": {
-                "S": "integratescustomer@gmail.com"
+                "S": "integratesuser2@gmail.com"
               },
               "justification": {
                 "S": "test justification"
@@ -13517,7 +13517,7 @@
                 "S": "2020-11-23T17:46:10+00:00"
               },
               "modified_by": {
-                "S": "integratescustomer@gmail.com"
+                "S": "integratesuser2@gmail.com"
               },
               "assigned": {
                 "S": "integratesuser@gmail.com"
@@ -14109,13 +14109,13 @@
                 "S": "2020-10-13T17:46:10+00:00"
               },
               "modified_by": {
-                "S": "integratescustomer@gmail.com"
+                "S": "integratesuser2@gmail.com"
               },
               "accepted_until": {
                 "S": "2021-01-16T17:46:10+00:00"
               },
               "assigned": {
-                "S": "integratescustomer@gmail.com"
+                "S": "integratesuser2@gmail.com"
               },
               "justification": {
                 "S": "This is a treatment justification test"

@@ -265,7 +265,7 @@ async def test_edit_stakeholder() -> None:
     query = """
         mutation {
             updateGroupStakeholder (
-            email: "integratescustomer@gmail.com"
+            email: "integratesuser2@gmail.com"
             groupName: "unittesting"
             responsibility: "edited"
             role: CUSTOMER) {

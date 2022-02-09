@@ -1376,10 +1376,10 @@
                     "S": "2021-01-16 12:46:10"
                   },
                   "user": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser@gmail.com"
                   },
                   "assigned": {
-                    "S": "integratescustomer@gmail.com"
+                    "S": "integratesuser@gmail.com"
                   }
                 }
               }

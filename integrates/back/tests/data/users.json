@@ -411,7 +411,7 @@
             "S": "2019-10-29 13:40:37"
           },
           "email": {
-            "S": "integratescustomer@gmail.com"
+            "S": "integratesuser2@gmail.com"
           },
           "registered": {
             "BOOL": true
@@ -719,7 +719,7 @@
             "S": "2019-10-29 13:40:37"
           },
           "email": {
-            "S": "integratescustomer@fluidattacks.com"
+            "S": "integratesuser2@fluidattacks.com"
           },
           "registered": {
             "BOOL": true
