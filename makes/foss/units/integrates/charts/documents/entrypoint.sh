@@ -18,9 +18,7 @@ function main {
   local todo
 
   source __argIntegratesBackEnv__/template "${env}" \
-    && if test "${env}" = 'prod'; then
-      DAEMON=true integrates-cache
-    else
+    && if test "${env}" = 'dev'; then
       DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
