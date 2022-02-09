@@ -150,6 +150,18 @@ def test_group_scope_repositories(
     url.send_keys(repo_url)
     branch.send_keys("master")
     environment.send_keys("production")
+    reject_health_a = utils.wait_for_name(
+        driver,
+        "rejectHealthCheckA",
+        timeout,
+    )
+    reject_health_a.click()
+    reject_health_b = utils.wait_for_name(
+        driver,
+        "rejectHealthCheckB",
+        timeout,
+    )
+    reject_health_b.click()
     proceed = utils.wait_for_id(
         driver,
         "git-root-add-proceed",

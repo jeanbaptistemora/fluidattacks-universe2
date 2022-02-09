@@ -232,6 +232,20 @@ describe("GroupScopeView", (): void => {
       target: { name: "environment", value: "production" },
     });
 
+    const rejectHealthCheckA = (): ReactWrapper =>
+      wrapper.find({ name: "rejectHealthCheckA" }).find("input");
+
+    rejectHealthCheckA().simulate("change", {
+      target: { checked: true },
+    });
+
+    const rejectHealthCheckB = (): ReactWrapper =>
+      wrapper.find({ name: "rejectHealthCheckB" }).find("input");
+
+    rejectHealthCheckB().simulate("change", {
+      target: { checked: true },
+    });
+
     wrapper.find("form").simulate("submit");
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {

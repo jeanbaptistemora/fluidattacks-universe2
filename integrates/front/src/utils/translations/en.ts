@@ -681,6 +681,10 @@ export const enTranslations: ResourceKey = {
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",
           confirm: "Would you like a health check for the existing code?",
+          rejectA:
+            "I want to exclude existing code in the repository from Fluid Attacks service",
+          rejectB:
+            "Existent code could have vulnerabilities not identified by Fluid Attacks service",
           title: "Health Check",
         },
         manageEnvs: "Manage environments",
@@ -2666,6 +2670,7 @@ export const enTranslations: ResourceKey = {
       architect: "Architect",
       customer: "User",
       customerManager: "Customer Manager",
+      customeradmin: "User Manager",
       executive: "Executive",
       hacker: "Hacker",
       reattacker: "Reattacker",

@@ -333,16 +333,42 @@ const Repository: React.FC<IRepositoryProps> = ({
                       onlabel={t("Yes")}
                     />
                     {confirmHealthCheck ? (
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.scope.git.healthCheck.accept")}
-                        name={"includesHealthCheck"}
-                        type={"checkbox"}
-                        validate={checked}
-                      >
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                      </Field>
-                    ) : undefined}
+                      <Alert>
+                        <Field
+                          component={FormikCheckbox}
+                          label={""}
+                          name={"includesHealthCheck"}
+                          type={"checkbox"}
+                          validate={checked}
+                        >
+                          {t("group.scope.git.healthCheck.accept")}
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                        </Field>
+                      </Alert>
+                    ) : (
+                      <Alert>
+                        <Field
+                          component={FormikCheckbox}
+                          label={""}
+                          name={"rejectHealthCheckA"}
+                          type={"checkbox"}
+                          validate={checked}
+                        >
+                          {t("group.scope.git.healthCheck.rejectA")}
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                        </Field>
+                        <Field
+                          component={FormikCheckbox}
+                          label={""}
+                          name={"rejectHealthCheckB"}
+                          type={"checkbox"}
+                          validate={checked}
+                        >
+                          {t("group.scope.git.healthCheck.rejectB")}
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                        </Field>
+                      </Alert>
+                    )}
                   </div>
                 </div>
               </fieldset>
