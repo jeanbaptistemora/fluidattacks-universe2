@@ -94,4 +94,37 @@ describe("ToeInputsActionButtons", (): void => {
       )
     ).toHaveLength(1);
   });
+
+  it("should display the edition button", (): void => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_toe_input_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <ActionButtons
+        areInputsSelected={true}
+        isAdding={false}
+        isEditing={false}
+        isInternal={true}
+        onAdd={jest.fn()}
+        onEdit={jest.fn()}
+      />,
+      {
+        wrappingComponent: authzPermissionsContext.Provider,
+        wrappingComponentProps: { value: mockedPermissions },
+      }
+    );
+    const buttons: ReactWrapper = wrapper.find("Button");
+
+    expect(wrapper).toHaveLength(1);
+    expect(
+      buttons.filterWhere((button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("group.toe.inputs.actionButtons.editButton.text"))
+      )
+    ).toHaveLength(1);
+  });
 });
