@@ -14,7 +14,7 @@ from typing import (
 
 class QueryDepthValidation(ValidationRule):
     """
-    This validation prevents the execution of queries containing an excessive
+    This validation prevents the execution of queries requesting an excessive
     amount of nested cyclic resolvers to prevent abuse.
 
     Inspired by graphql-ruby's implementation
@@ -24,10 +24,10 @@ class QueryDepthValidation(ValidationRule):
         super().__init__(context)
         self.current_depth = 0
 
-    def enter_field(self, *_: Any) -> None:
+    def enter_field(self, *_args: Any) -> None:
         self.current_depth += 1
 
-    def leave_field(self, node: FieldNode, *_: Any) -> None:
+    def leave_field(self, node: FieldNode, *_args: Any) -> None:
         if self.current_depth > GRAPHQL_MAX_QUERY_DEPTH:
             self.report_error(
                 GraphQLError("Exception - Max query depth exceeded", node)

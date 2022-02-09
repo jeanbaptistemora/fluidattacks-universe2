@@ -29,7 +29,6 @@ def test_should_trigger_depth_validation() -> None:
                 queryType {
                     name
                     kind
-                    name
                     ofType {
                         kind
                         name
@@ -48,14 +47,6 @@ def test_should_trigger_depth_validation() -> None:
                                         ofType {
                                             kind
                                             name
-                                            ofType {
-                                                kind
-                                                name
-                                                ofType {
-                                                    kind
-                                                    name
-                                                }
-                                            }
                                         }
                                     }
                                 }
@@ -69,3 +60,37 @@ def test_should_trigger_depth_validation() -> None:
     errors = validate(SCHEMA, parse(query), API_VALIDATIONS)
     assert errors
     assert errors[0].message == "Exception - Max query depth exceeded"
+
+
+def test_should_trigger_breadth_validation():
+    query = """
+        query MaliciousQuery {
+            alias1: __schema {
+                queryType {
+                    name
+                    kind
+                }
+            }
+            alias2: __schema {
+                queryType {
+                    name
+                    kind
+                }
+            }
+            alias3: __schema {
+                queryType {
+                    name
+                    kind
+                }
+            }
+            alias4: __schema {
+                queryType {
+                    name
+                    kind
+                }
+            }
+        }
+    """
+    errors = validate(SCHEMA, parse(query), API_VALIDATIONS)
+    assert errors
+    assert errors[0].message == "Exception - Max query breadth exceeded"

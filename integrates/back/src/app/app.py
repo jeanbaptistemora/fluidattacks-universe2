@@ -6,6 +6,9 @@ Unlike standard Python functionality, the import order matters:
 the agent package must be imported first.
 """
 # flake8: noqa
+from api.validations.query_breadth import (
+    QueryBreadthValidation,
+)
 from api.validations.query_depth import (
     QueryDepthValidation,
 )
@@ -323,6 +326,7 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 exception_handlers = {404: not_found, 500: server_error}
 
 API_VALIDATIONS = [
+    QueryBreadthValidation,
     QueryDepthValidation,
 ]
 
