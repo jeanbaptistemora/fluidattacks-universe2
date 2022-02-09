@@ -4,7 +4,7 @@ from graphql import (
     ValidationRule,
 )
 from settings.api import (
-    GRAPHQL_MAX_QUERY_BREADTH,
+    API_MAX_QUERY_BREADTH,
 )
 from typing import (
     Any,
@@ -20,7 +20,7 @@ class QueryBreadthValidation(ValidationRule):
     def enter_operation_definition(
         self, node: OperationDefinitionNode, *_args: Any
     ) -> None:
-        if len(node.selection_set.selections) > GRAPHQL_MAX_QUERY_BREADTH:
+        if len(node.selection_set.selections) > API_MAX_QUERY_BREADTH:
             self.report_error(
                 GraphQLError("Exception - Max query breadth exceeded", node)
             )

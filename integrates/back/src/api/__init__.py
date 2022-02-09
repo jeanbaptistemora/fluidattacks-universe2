@@ -24,6 +24,18 @@ from typing import (
 APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 
 
+def _log_request(request: Request, data: Dict[str, Any]) -> None:
+    """Log request to AWS Cloudwatch"""
+    name: str = data.get("operationName") or "External (unnamed)"
+    query: str = data.get("query", "").replace("\n", "") or "-"
+    variables: str = data.get("variables") or "-"
+
+    logs_utils.cloudwatch_log(
+        request,
+        f"API: {name} with parameters {variables}." f"Complete query: {query}",
+    )
+
+
 class IntegratesAPI(GraphQL):
     async def get_context_for_request(self, request: Request) -> Request:
         return apply_context_attrs(request)
@@ -31,17 +43,8 @@ class IntegratesAPI(GraphQL):
     async def extract_data_from_request(
         self, request: Request
     ) -> Dict[str, Any]:
-        """Apply configs for performance tracking"""
+        """Hook before the execution process begins"""
         data: Dict[str, Any] = await super().extract_data_from_request(request)
-
-        name: str = data.get("operationName", "External (unnamed)")
-        query: str = data.get("query", "-").replace("\n", "")
-        variables: str = data.get("variables", "-")
-
-        logs_utils.cloudwatch_log(
-            request,
-            f"API: {name} with parameters {variables}."
-            f"Complete query: {query}",
-        )
+        _log_request(request, data)
 
         return data

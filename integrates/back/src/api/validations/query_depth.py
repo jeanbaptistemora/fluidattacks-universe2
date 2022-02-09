@@ -5,7 +5,7 @@ from graphql import (
     ValidationRule,
 )
 from settings.api import (
-    GRAPHQL_MAX_QUERY_DEPTH,
+    API_MAX_QUERY_DEPTH,
 )
 from typing import (
     Any,
@@ -28,7 +28,7 @@ class QueryDepthValidation(ValidationRule):
         self.current_depth += 1
 
     def leave_field(self, node: FieldNode, *_args: Any) -> None:
-        if self.current_depth > GRAPHQL_MAX_QUERY_DEPTH:
+        if self.current_depth > API_MAX_QUERY_DEPTH:
             self.report_error(
                 GraphQLError("Exception - Max query depth exceeded", node)
             )
