@@ -41,6 +41,7 @@ const pageTexts: ResourceKey = {
       "are safe for their users. Our security experts specialize in " +
       "continuous hacking on apps, infrastructure and source code, covering " +
       "all software development stages.",
+    newTitleHome: "Clients who trust our solution",
     titleHome: "CLIENTS WHO TRUST OUR TEAM",
   },
   contactUs: {

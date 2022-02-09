@@ -21,7 +21,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
     <Container>
       <TitleContainer>
         <WhiteBigParagraph>
-          {translate.t("clients.titleHome")}
+          {translate.t("clients.newTitleHome")}
         </WhiteBigParagraph>
       </TitleContainer>
       <ClientsContainer>
