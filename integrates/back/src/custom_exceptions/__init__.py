@@ -1115,6 +1115,12 @@ class InvalidToeInputAttackAt(CustomBaseException):
         super(InvalidToeInputAttackAt, self).__init__(msg)
 
 
+class InvalidToeInputAttackedBy(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The input attacked by attribute is mandatory"
+        super(InvalidToeInputAttackedBy, self).__init__(msg)
+
+
 class ToeLinesNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe lines is not present"
