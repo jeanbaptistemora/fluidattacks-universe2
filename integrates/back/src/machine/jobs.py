@@ -13,11 +13,18 @@ from batch.dal import (
 from batch.types import (
     VulnerabilitiesSummary,
 )
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
     PRODUCT_API_TOKEN,
 )
+from contextlib import (
+    suppress,
+)
+import datetime
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
 )
@@ -34,6 +41,9 @@ import json
 import logging
 import logging.config
 import more_itertools
+from more_itertools import (
+    collapse,
+)
 import os
 from settings.logger import (
     LOGGING,
@@ -340,7 +350,7 @@ async def queue_boto3(
             jobQueue=queue_name,
             jobDefinition="makes",
             containerOverrides={
-                "vcpus": 1,
+                "vcpus": 4 if len(namespaces) >= 4 else len(namespaces),
                 "command": [
                     "m",
                     "f",
@@ -367,6 +377,12 @@ async def queue_boto3(
         )
 
 
+def _get_seconds_ago(timestamp: int) -> float:
+    date = datetime.datetime.fromtimestamp(int(timestamp / 1000))
+    now = datetime.datetime.utcnow()
+    return (now - date).seconds
+
+
 async def queue_all_checks_new(
     group: str,
     roots: Tuple[str, ...],
@@ -381,6 +397,74 @@ async def queue_all_checks_new(
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
     async with aioboto3.Session().client(**resource_options) as batch:
+        current_jobs = [
+            job
+            for job in (
+                await list_jobs_filter(queue=queue_name, filters=(job_name,))
+            )["jobSummaryList"]
+            if job["status"]
+            in {
+                "SUBMITTED",
+                "PENDING",
+                "RUNNABLE",
+                "STARTING",
+                "RUNNING",
+            }
+        ]
+        jobs_description = [
+            job
+            for job in await describe_jobs(
+                *[job["jobId"] for job in current_jobs]
+            )
+            if job["status"] != "RUNNING"
+            or (
+                job["status"] == "RUNNING"
+                and "startedAt" in job
+                and (_get_seconds_ago(job["startedAt"]) / 60) <= 5
+                # jobs that have been running for four minutes are still
+                # installing makes
+            )
+        ]
+        roots_to_execute = set(
+            collapse(
+                [
+                    json.loads(job["container"]["command"][-1])
+                    for job in jobs_description
+                ],
+                base_type=str,
+            )
+        )
+        findings_to_execute = set(
+            collapse(
+                [
+                    json.loads(job["container"]["command"][-2])
+                    for job in jobs_description
+                ],
+                base_type=str,
+            )
+        )
+
+        if (
+            tuple(roots_to_execute) == roots
+            and tuple(findings_to_execute) == finding_codes
+        ):
+            return {"error": "The job is already running"}
+
+        roots = tuple(set((*roots, *roots_to_execute)))
+        finding_codes = tuple(set((*finding_codes, *findings_to_execute)))
+
+        for job in jobs_description:
+            with suppress(ClientError):
+                batch.cancel_job(
+                    jobId=job["jobId"],
+                    reason="another job was queued",
+                )
+            with suppress(ClientError):
+                batch.terminate_job(
+                    jobId=job["jobId"],
+                    reason="another job was queued",
+                )
+
         return await batch.submit_job(
             jobName=job_name,
             jobQueue=queue_name,
