@@ -119,6 +119,54 @@ F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android
   21 |             v0.writeString(p6);
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
+F046,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),android/support/v4/os/ResultReceiver$1 is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/os/ResultReceiver$1 is not obfuscated,"
+>  1 | package android.support.v4.os;
+   2 | final class ResultReceiver$1 implements android.os.Parcelable$Creator {
+   3 |
+   4 |     ResultReceiver$1()
+   5 |     {
+   6 |         return;
+   7 |     }
+   8 |
+   9 |     public android.support.v4.os.ResultReceiver createFromParcel(android.os.Parcel p2)
+  10 |     {
+  11 |         return new android.support.v4.os.ResultReceiver(p2);
+  12 |     }
+  13 |
+  14 |     public bridge synthetic Object createFromParcel(android.os.Parcel p1)
+  15 |     {
+  16 |         return this.createFromParcel(p1);
+  17 |     }
+  18 |
+  19 |     public android.support.v4.os.ResultReceiver[] newArray(int p2)
+  20 |     {
+  21 |         android.support.v4.os.ResultReceiver[] v0 = new android.support.v4.os.ResultReceiver[p2];
+     ^ Col 0
+",analyze_bytecodes.no_obfuscation
+F048,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/get_insecure.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+> 10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+  12 | ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZToColo
+     | r', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'accept', 'acceptMatch', 'access$000', 'ac
+     | cess$001', 'access$100', 'access$101', 'access$200', 'access$300', 'access$400', 'access$500', 'accumField', 'acos', 'ac
+     | quire', 'acquireTempRect', 'actionBarOnMenuKeyEventPre28', 'actionFormatChanged', 'activeStateChanged', 'activitySuperDi
+     | spatchKeyEventPre28', 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHideOffset', 'addActions',
+     |  'addAddedFragments', 'addAll', 'addAnimation', 'addBackStackState', 'addCategory', 'addChild', 'addChildrenForAccessibi
+     | lity', 'addChildrenForExpandedActionView', 'addColorStateListToCache', 'addCommand', 'addCompatExtras', 'addContentView'
+     | , 'addCustomViewsWithGravity', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', 'addDu
+     | rationItem', 'addEdge', 'addEmailBcc', 'addEmailCc', 'addEmailTo', 'addExtras', 'addFirst', 'addFlags', 'addFocusables',
+     |  'addFontFromAssetManager', 'addFontFromBuffer', 'addFontWeightStyle', 'addFragment', 'addFrame', 'addHeaderView', 'addH
+     ^ Col 0
+",analyze_bytecodes.no_root_check
 F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
@@ -336,6 +384,21 @@ F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
   14 | []  # Empty list means no <pin-set> tags were defined
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
+F207,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+   1 | $ python3.8
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.core.bytecodes.apk import APK
+   5 |
+   6 | >>> # This object represents the APK to analyze
+   7 | >>> apk = APK('../product/skims/test/data/lib_apk/get_insecure.apk')
+   8 |
+   9 | >>> # List all files in the APK
+  10 | >>> apk_files = apk.zip.nameslist()
+> 11 | >>> ""res/xml/network_security_config.xml"" in apk_files
+  12 | False  # No network security config exists
+     ^ Col 0
+",analyze_bytecodes.no_certs_pinning
 F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
@@ -498,6 +561,30 @@ F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      | x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x01\\x10\\x008\\x00\\x00\\x00\\x04\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\xff\\xff\
      | \xff\\xff\\x01\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x03\\x00\
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
+     ^ Col 0
+",analyze_bytecodes.improper_certificate_validation
+F313,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),The given APK uses sockets created with getInsecure.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK uses sockets created with getInsecure.,"
+   2 |
+   3 | >>> # We'll use the version 3.3.5 of ""androguard""
+   4 | >>> from androguard.misc import AnalyzeAPK
+   5 |
+   6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/get_insecure.apk')[2]
+   8 |
+   9 | >>> # Get the method names from all classes in each .dex file
+  10 | >>> sorted(set(method.name for method in dex.get_methods()))
+  11 | # No method performs root detection
+> 12 |  >>> ['<clinit>', '<init>', 'HSLToColor', 'LABToColor', 'LABToXYZ', 'RGBToHSL', 'RGBToLAB', 'RGBToXYZ', 'S_ISREG', 'XYZT
+     | oColor', 'XYZToLAB', 'abandon', 'abort', 'abortAnimation', 'abortCreation', 'abs', 'accept', 'acceptMatch', 'access$000'
+     | , 'access$001', 'access$100', 'access$101', 'access$200', 'access$300', 'access$400', 'access$500', 'accumField', 'acos'
+     | , 'acquire', 'acquireTempRect', 'actionBarOnMenuKeyEventPre28', 'actionFormatChanged', 'activeStateChanged', 'activitySu
+     | perDispatchKeyEventPre28', 'add', 'addAccessibilityStateChangeListener', 'addAction', 'addActionBarHideOffset', 'addActi
+     | ons', 'addAddedFragments', 'addAll', 'addAnimation', 'addBackStackState', 'addCategory', 'addChild', 'addChildrenForAcce
+     | ssibility', 'addChildrenForExpandedActionView', 'addColorStateListToCache', 'addCommand', 'addCompatExtras', 'addContent
+     | View', 'addCustomViewsWithGravity', 'addDataResultToIntent', 'addDelegate', 'addDrawableToCache', 'addDrawerListener', '
+     | addDurationItem', 'addEdge', 'addEmailBcc', 'addEmailCc', 'addEmailTo', 'addExtras', 'addFirst', 'addFlags', 'addFocusab
+     | les', 'addFontFromAssetManager', 'addFontFromBuffer', 'addFontWeightStyle', 'addFragment', 'addFrame', 'addHeaderView',
+     | 'addHistoricalRecord', 'addIntentOptions', 'addInternal', 'addInvisibleAction', 'addItem', 'addItemView', 'addKeyboardNa
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
 F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
@@ -705,6 +792,30 @@ F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   15 |    </intent-filter>
   16 |   </activity>
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
+     ^ Col 0
+",analyze_bytecodes.apk_debugging_enabled
+F058,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:compilesdkversion=""29"" android:compilesdkversioncodename=""10"" android:versioncode=""1"" android:versionn
+     | ame=""1.0"" package=""com.example.android.activityscenetransitionbasic"" platformbuildversioncode=""29"" platformbuildversionn
+     | ame=""10"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""14"" android:targetsdkversion=""29"">
+   3 |  </uses-sdk>
+   4 |  <uses-permission android:name=""android.permission.INTERNET"">
+   5 |  </uses-permission>
+>  6 |  <application android:allowbackup=""false"" android:appcomponentfactory=""androidx.core.app.CoreComponentFactory"" android:d
+     | ebuggable=""true"" android:icon=""@7F060054"" android:label=""@7F0A0027"" android:theme=""@7F0B0005"">
+   7 |   <activity android:label=""@7F0A0027"" android:name=""com.example.android.activityscenetransitionbasic.MainActivity"">
+   8 |    <intent-filter>
+   9 |     <action android:name=""android.intent.action.MAIN"">
+  10 |     </action>
+  11 |     <category android:name=""android.intent.category.LAUNCHER"">
+  12 |     </category>
+  13 |    </intent-filter>
+  14 |   </activity>
+  15 |   <activity android:name=""com.example.android.activityscenetransitionbasic.DetailActivity"">
+  16 |   </activity>
+  17 |  </application>
+  18 | </manifest>
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
 F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
