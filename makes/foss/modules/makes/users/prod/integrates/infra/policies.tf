@@ -85,6 +85,8 @@ locals {
         Action = [
           "batch:Describe*",
           "batch:List*",
+          "batch:CancelJob",
+          "batch:TerminateJob",
         ]
         Resource = ["*"]
       },
