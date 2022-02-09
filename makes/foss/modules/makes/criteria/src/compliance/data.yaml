@@ -4266,4 +4266,55 @@
     "01_a":
       title: Access Control Policy
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_c":
+      title: Privilege Management
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_d":
+      title: User Password Management
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_e":
+      title: Review of User Access Rights
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_h":
+      title: Clear Desk and Clear Screen Policy
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_i":
+      title: Policy on the Use of Network Services
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_j":
+      title: User Authentication for External Connections
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_k":
+      title: Equipment Identification in Networks
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_l":
+      title: Remote Diagnostic and Configuration Port Protection
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_m":
+      title: Segregation in Networks
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_n":
+      title: Network Connection Control
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_o":
+      title: Network Routing Control
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_p":
+      title: Secure Log-on Procedures
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_q":
+      title: User Identification and Authentication
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_r":
+      title: Password Management System
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_t":
+      title: Session Time-out
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_u":
+      title: Limitation of Connection Time
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_v":
+      title: Information Access Restriction
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
