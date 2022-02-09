@@ -270,6 +270,13 @@ const validDatetime: Validator = (
 ): string | undefined =>
   isMoment(value) ? undefined : translate.t("validations.datetime");
 
+const validOptionalDatetime: Validator = (
+  value?: Moment | string | undefined
+): string | undefined =>
+  _.isUndefined(value) || _.isEmpty(value) || isMoment(value)
+    ? undefined
+    : translate.t("validations.datetime");
+
 const isFloatOrInteger: Validator = (value: string): string | undefined => {
   function checkNumeric(valueToValidate: never): boolean {
     return !isNaN(valueToValidate - parseFloat(valueToValidate));
@@ -338,6 +345,19 @@ const dateTimeBetween: (from: Moment, to: Moment) => Validator =
   (from: Moment, to: Moment): Validator =>
   (value?: Moment | string): string | undefined => {
     return isMoment(value) && value.isBetween(from, to)
+      ? undefined
+      : translate.t("validations.datetimeBetween", {
+          from: from.format("MM/DD/YYYY h:mm A"),
+          to: to.format("MM/DD/YYYY h:mm A"),
+        });
+  };
+
+const optionalDateTimeBetween: (from: Moment, to: Moment) => Validator =
+  (from: Moment, to: Moment): Validator =>
+  (value?: Moment | string | undefined): string | undefined => {
+    return (isMoment(value) && value.isBetween(from, to)) ||
+      _.isUndefined(value) ||
+      _.isEmpty(value)
       ? undefined
       : translate.t("validations.datetimeBetween", {
           from: from.format("MM/DD/YYYY h:mm A"),
@@ -498,6 +518,7 @@ export {
   validTextField,
   validUrlField,
   numberBetween,
+  optionalDateTimeBetween,
   optionalNumberBetween,
   minLength,
   maxLength,
@@ -518,6 +539,7 @@ export {
   validExploitFile,
   validFindingTypology,
   validRecordsFile,
+  validOptionalDatetime,
   dateTimeBeforeToday,
   dateTimeBetween,
   isValidVulnsFile,

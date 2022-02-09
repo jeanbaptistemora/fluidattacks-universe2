@@ -852,10 +852,11 @@ export const enTranslations: ResourceKey = {
         component: "Component",
         editModal: {
           alerts: {
-            success: "Input has been updpated.",
+            success: "Input has been updated.",
           },
           close: "Close",
           fields: {
+            attackedAt: "Attacked at",
             bePresent: "Be present",
           },
           procced: "Proceed",
