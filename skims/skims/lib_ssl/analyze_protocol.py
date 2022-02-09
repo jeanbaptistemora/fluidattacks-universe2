@@ -109,7 +109,6 @@ def _create_core_vulns(
 
 
 def _create_ssl_vuln(
-    check: str,
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],
     method: core_model.MethodsEnum,
@@ -119,7 +118,8 @@ def _create_ssl_vuln(
         ssl_settings=ssl_settings,
         server_response=server_response,
         description=t(
-            f"lib_ssl.analyze_protocol.{check}", **(check_kwargs or {})
+            f"lib_ssl.analyze_protocol.{method.value.name}",
+            **(check_kwargs or {}),
         ),
         method=method,
     )
@@ -177,7 +177,6 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if response is not None and response.alert is not None:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="pfs_disabled",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
@@ -330,7 +329,6 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if response is not None and response.handshake is not None:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="sslv3_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
                     tls_version=SSLVersionId.sslv3_0,
@@ -362,7 +360,6 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if SSLVersionId.tlsv1_0 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="tlsv1_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_0,
@@ -396,7 +393,6 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if SSLVersionId.tlsv1_1 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="tlsv1_1_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_1,
@@ -437,7 +433,6 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ):
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="tlsv1_2_or_higher_disabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_3,
@@ -497,7 +492,6 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="weak_ciphers_allowed",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
@@ -577,7 +571,6 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="cbc_enabled",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
@@ -673,7 +666,6 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if response is not None and response.handshake is not None:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="fallback_scsv_disabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
                     tls_version=min_v_id,
@@ -723,7 +715,6 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
-                check="tlsv1_3_downgrade",
                 ssl_settings=ssl_settings,
                 server_response=ctx.get_tls_response(v_id),
                 check_kwargs={"version": v_name},
@@ -845,7 +836,6 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                 if heartbeat_type == 24:
                     ssl_vulnerabilities.append(
                         _create_ssl_vuln(
-                            check="heartbleed_possible",
                             ssl_settings=SSLSettings(
                                 context=ctx,
                                 tls_version=v_id,
@@ -916,7 +906,6 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="freak_possible",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
@@ -988,7 +977,6 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="raccoon_possible",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
@@ -1046,7 +1034,6 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if compression in response.headers.get("Content-Encoding", ""):
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="breach_possible",
                     ssl_settings=SSLSettings(
                         context=ctx,
                         intention={
