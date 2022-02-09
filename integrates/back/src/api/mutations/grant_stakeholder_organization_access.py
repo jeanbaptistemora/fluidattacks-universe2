@@ -1,8 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from context import (
-    FI_DEFAULT_ORG,
+import authz
+from custom_exceptions import (
+    StakeholderHasOrganizationAccess,
 )
 from custom_types import (
     GrantStakeholderAccessPayload,
@@ -13,9 +14,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups import (
-    domain as groups_domain,
+from group_access.domain import (
+    validate_new_invitation_time_limit,
 )
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -24,17 +27,23 @@ from newutils.utils import (
     map_roles,
 )
 from organizations import (
+    dal as orgs_dal,
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from settings import (
+    LOGGING,
+)
 from typing import (
     Dict,
 )
-from users import (
-    domain as users_domain,
-)
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @convert_kwargs_to_snake_case
@@ -53,21 +62,44 @@ async def mutate(
     user_email = str(parameters.get("user_email"))
     user_role: str = map_roles(str(parameters.get("role")).lower())
 
-    user_added = await orgs_domain.add_user(
-        organization_id, user_email, user_role
+    organization_access = await orgs_dal.get_access_by_url_token(
+        organization_id, user_email
+    )
+    if organization_access:
+        # Stakeholder has already accepted the invitation
+        if organization_access["has_access"]:
+            raise StakeholderHasOrganizationAccess()
+        # Too soon to send another email invitation to the same stakeholder
+        if "expiration_time" in organization_access:
+            validate_new_invitation_time_limit(
+                organization_access["expiration_time"]
+            )
+
+    allowed_roles_to_grant = (
+        await authz.get_organization_level_roles_a_user_can_grant(
+            organization=organization_name,
+            requester_email=requester_email,
+        )
     )
 
-    user_created = False
-    user_exists = bool(await users_domain.get_data(user_email, "email"))
-    if not user_exists:
-        user_created = await groups_domain.add_without_group(
+    if user_role in allowed_roles_to_grant:
+        success = await orgs_domain.invite_to_organization(
             user_email,
-            "user",
-            should_add_default_org=(
-                FI_DEFAULT_ORG.lower() == organization_name.lower()
-            ),
+            user_role,
+            organization_name,
+            requester_email,
         )
-    success = user_added and any([user_created, user_exists])
+    else:
+        LOGGER.error(
+            "Invalid role provided",
+            extra={
+                "extra": {
+                    "new_user_role": user_role,
+                    "organization_name": organization_name,
+                    "requester_email": user_email,
+                }
+            },
+        )
 
     if success:
         await redis_del_by_deps(
