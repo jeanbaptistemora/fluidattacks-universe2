@@ -4317,4 +4317,64 @@
     "01_v":
       title: Information Access Restriction
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_w":
+      title: Sensitive System Isolation
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_x":
+      title: Mobile Computing and Communications
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "01_y":
+      title: Teleworking
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "02_d":
+      title: Management Responsibilities
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "03_a":
+      title: Risk Management Program Development
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "04_a":
+      title: Information Security Policy Document
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "05_c":
+      title: Allocation of Information Security Responsibilities
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "05_d":
+      title: Authorization Process for Information Assets and Facilities
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "05_i":
+      title: Identification of Risks Related to External Parties
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "05_k":
+      title: Addressing Security in Third Party Agreements
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_a":
+      title: Identification of Applicable Legislation
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_b":
+      title: Intellectual Property Rights
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_c":
+      title: Protection of Organizational Records
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_d":
+      title: Data Protection and Privacy of Covered Information
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_f":
+      title: Regulation of Cryptographic Controls
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "06_g":
+      title: Compliance with Security Policies and Standards
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "07_b":
+      title: Ownership of Assets
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "08_b":
+      title: Physical Entry Controls
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "08_c":
+      title: Securing Offices, Rooms, and Facilities
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "08_f":
+      title: Public Access, Delivery, and Loading Areas
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
