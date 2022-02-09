@@ -76,6 +76,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
+SEND_TO_REDSHIFT: bool = True
+REMOVE_FROM_VMS: bool = False
+
 
 def filter_out_deleted_findings(
     *,
@@ -181,20 +184,22 @@ async def process_group(
     if not all_findings:
         return
 
-    await send_findings_to_redshift(
-        loaders=loaders,
-        findings=all_findings,
-    )
-    await collect(
-        tuple(
-            findings_model.remove(
-                group_name=group_name,
-                finding_id=finding.id,
-            )
-            for finding in all_findings
-        ),
-        workers=16,
-    )
+    if SEND_TO_REDSHIFT:
+        await send_findings_to_redshift(
+            loaders=loaders,
+            findings=all_findings,
+        )
+    if REMOVE_FROM_VMS:
+        await collect(
+            tuple(
+                findings_model.remove(
+                    group_name=group_name,
+                    finding_id=finding.id,
+                )
+                for finding in all_findings
+            ),
+            workers=8,
+        )
     LOGGER_CONSOLE.info(
         "Group updated",
         extra={
