@@ -5,67 +5,66 @@ sidebar_label: Consulting
 slug: /squad/consulting
 ---
 
-The consulting tab
-is where you can talk directly to us
+On the ASM,
+there are sections
+where you can talk directly to us
 and communicate all the questions,
-requests, suggestions and such matters
-concerning your group or a specific vulnerability
+requests,
+suggestions
+and matters
+concerning your group
+or a specific vulnerability
+or event
 that require much more direct interaction.
 
-In order to manage the many issues
-that can occur in a group,
-there are three locations
+There are three locations
 where you can post comments
-about specific situations
-for us to help you.
-First,
-you can do it in the main page
-of any group,
-when you open a group
-you can see that one of the tabs
-is called **Consulting**.
+about specific situations for us to help you.
+
+## Concerning groups
+
+On the main page of any group,
+click on the tab called **Consulting**.
+This section has a text field
+where you can add comments about any issues
+or questions
+that you may have about the group in general.
 
 ![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_ongroup_nzutto.webp)
 
-In this section you can talk to us
-to assist you with any issues
-or questions that you may have
-about the group in general.
+## Concerning vulnerabilities
 
-You can also find a comments section
-inside all of the different vulnerabilities
-that are reported in your group.
+You can find a **Consulting** tab
+inside all of the different vulnerabilities reported in your group.
 When you click on a vulnerability,
 you can find the tab
-to the right of your screen.
+on the right-hand side of your screen.
 
 ![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onvuln_gav9nf.webp)
 
-This section will be used
-to communicate with us
-when there are any issues concerning
-any of the vulnerabilities that are reported
-in that category or in case you have questions
-about that type of vulnerability in general.
+This section should be used to communicate with us
+when there are any issues concerning any of the vulnerabilities
+reported in that category
+or if you have questions about that type of vulnerability in general.
 Furthermore,
-in this section you will find comments
-referencing your requests for **Reattacks**
-when you consider one or more vulnerabilities solved
-and our results corresponding to such Reattacks.
+in this section
+you will find comments referencing your requests for [reattacks](/squad)
+and the results of those reattacks.
+
+## Concerning events
 
 Finally,
-you will also find a comments section
-inside every event listed in the **Events** tab
-inside every group.
-When you click on an event
-this comments tab will be available.
+you can find a **Comments** tab
+after clicking on any event listed in the **Events** tab of each group.
+When you click on the former,
+a text field will be available
+where you can add your comments.
 
 ![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onevent_k7qkeq.webp)
 
-This tab will be useful
+This tab is useful
 for when you want to ask us
-the specifics of the event
-and also when you consider
-the event has been solved
-and wish to notify us
-about this.
+specific details of the event
+and when you consider
+that the event has been solved
+and wish to notify us about this.
