@@ -687,35 +687,8 @@ def _add_socket_uses_get_insecure(
                  >>> {repr(methods)}
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=10, wrap=True),
+            viewport=SnippetViewport(column=0, line=12, wrap=True),
         ),
-    )
-
-
-def _socket_uses_get_insecure(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
-    locations: Locations = Locations([])
-
-    if ctx.apk_ctx.analysis is not None:
-        dex = ctx.apk_ctx.analysis
-        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
-
-        uses_get_insecure: List[str] = is_method_present(
-            dex=dex,
-            class_name="Landroid/net/SSLCertificateSocketFactory;",
-            method="getInsecure",
-            descriptor=(
-                "(I Landroid/net/SSLSessionCache;)"
-                "Ljavax/net/ssl/SSLSocketFactory;"
-            ),
-        )
-
-        if uses_get_insecure:
-            _add_socket_uses_get_insecure(ctx, locations, method_names)
-
-    return _create_vulns(
-        ctx=ctx,
-        locations=locations,
-        method=core_model.MethodsEnum.SOCKET_GET_INSECURE,
     )
 
 
@@ -839,26 +812,47 @@ def _add_allow_user_ca(
     )
 
 
-def _allows_user_ca(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+def _improper_certificate_validation(
+    ctx: APKCheckCtx,
+) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
-    apk_obj = ctx.apk_ctx.apk_obj
-    net_conf: str = ""
-    try:
-        net_conf = str(apk_obj.get_file("res/xml/network_security_config.xml"))
-    except androguard.core.bytecodes.apk.FileNotPresent:
-        sdk_version = apk_obj.get_target_sdk_version()
-        target_sdk = int(sdk_version) if sdk_version else 0
-        if target_sdk < 24:
-            _add_allow_user_ca_by_default(ctx, locations)
+    if ctx.apk_ctx.analysis is not None:
+        dex = ctx.apk_ctx.analysis
+        apk_obj = ctx.apk_ctx.apk_obj
+        method_names: List[str] = _get_method_names(dex)
+        net_conf: str = ""
 
-    if "trust-anchors" in net_conf and "user" in net_conf:
-        _add_allow_user_ca(ctx, locations, net_conf)
+        try:
+            net_conf = str(
+                apk_obj.get_file("res/xml/network_security_config.xml")
+            )
+        except androguard.core.bytecodes.apk.FileNotPresent:
+            sdk_version = apk_obj.get_target_sdk_version()
+            target_sdk = int(sdk_version) if sdk_version else 0
+            if target_sdk < 24:
+                _add_allow_user_ca_by_default(ctx, locations)
+
+        if "trust-anchors" in net_conf and "user" in net_conf:
+            _add_allow_user_ca(ctx, locations, net_conf)
+
+        uses_get_insecure: List[str] = is_method_present(
+            dex=dex,
+            class_name="Landroid/net/SSLCertificateSocketFactory;",
+            method="getInsecure",
+            descriptor=(
+                "(I Landroid/net/SSLSessionCache;)"
+                "Ljavax/net/ssl/SSLSocketFactory;"
+            ),
+        )
+
+        if uses_get_insecure:
+            _add_socket_uses_get_insecure(ctx, locations, method_names)
 
     return _create_vulns(
         ctx=ctx,
         locations=locations,
-        method=core_model.MethodsEnum.ALLOWS_USER_CA,
+        method=core_model.MethodsEnum.IMPROPER_CERTIFICATE_VALIDATION,
     )
 
 
@@ -877,7 +871,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F206: _has_frida,
     core_model.FindingEnum.F207: _no_certs_pinning,
     core_model.FindingEnum.F268: _webview_vulnerabilities,
-    core_model.FindingEnum.F313: _allows_user_ca,
+    core_model.FindingEnum.F313: _improper_certificate_validation,
     core_model.FindingEnum.F372: _uses_http_resources,
     core_model.FindingEnum.F398: _has_fragment_injection,
 }

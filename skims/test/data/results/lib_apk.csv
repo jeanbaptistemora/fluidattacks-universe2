@@ -427,7 +427,7 @@ F313,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"No network sec
   11 | >>> No network security config file found and SDK version
   12 | >>> allows user-supplied CAs by default
      ^ Col 0
-",analyze_bytecodes.allows_user_ca
+",analyze_bytecodes.improper_certificate_validation
 F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK has Frida gadget embedded.,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,The APK has Frida gadget embedded.,"
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -475,7 +475,7 @@ F313,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
      | \xff\\xff\\x01\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x03\\x00\
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
      ^ Col 0
-",analyze_bytecodes.allows_user_ca
+",analyze_bytecodes.improper_certificate_validation
 F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
    1 | $ python3.8
    2 |
@@ -499,7 +499,7 @@ F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      | \xff\\xff\\x01\\x00\\x00\\x00\\x14\\x00\\x14\\x00\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff\\xff\\xff\\xff\\x03\\x00\
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
      ^ Col 0
-",analyze_bytecodes.allows_user_ca
+",analyze_bytecodes.improper_certificate_validation
 F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |

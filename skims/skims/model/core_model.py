@@ -3936,9 +3936,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    ALLOWS_USER_CA = MethodInfo(
+    IMPROPER_CERTIFICATE_VALIDATION = MethodInfo(
         file_name="analyze_bytecodes",
-        name="allows_user_ca",
+        name="improper_certificate_validation",
         module="lib_apk",
         finding=FindingEnum.F313,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
