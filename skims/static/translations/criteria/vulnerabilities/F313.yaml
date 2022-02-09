@@ -9,3 +9,6 @@ lib_apk.analyze_bytecodes.allow_user_ca_by_default:
 lib_apk.analyze_bytecodes.allow_user_ca:
   en: The given APK allows to trust user-supplied CAs.
   es: El APK dado permite confiar en las CA proporcionadas por el usuario.
+lib_apk.analyze_bytecodes.uses_get_insecure:
+  en: The given APK uses sockets created with getInsecure.
+  es: El APK dado usa sockets creados con el método getInsecure.
