@@ -32,6 +32,9 @@ from db_model.roots.get import (
     get_machine_executions_by_job_id,
 )
 from db_model.roots.types import (
+    GitRootItem,
+    LastMachineExecutions,
+    MachineFindingResult,
     RootMachineExecutionItem,
 )
 from enum import (
@@ -505,3 +508,77 @@ async def queue_all_checks_new(
             },
             timeout={"attemptDurationSeconds": 86400},
         )
+
+
+async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
+    group: str = root.group_name
+    complete_jobs_response = await collect(
+        list_jobs_filter(
+            queue=queue.value,
+            filters=(f"skims-process-{group}",),
+            maxResults=1,
+        )
+        for queue in SkimsBatchQueue
+    )
+    specific_jobs_response = await list_jobs_filter(
+        queue=SkimsBatchQueue.HIGH.value,
+        filters=(f"skims-process-{group}-*",),
+        maxResults=1,
+    )
+    active_complete_jobs: List[
+        Tuple[Dict[str, Any], SkimsBatchQueue]
+    ] = sorted(
+        [
+            (response["jobSummaryList"][0], queue)
+            for response, queue in zip(complete_jobs_response, SkimsBatchQueue)
+            if "jobSummaryList" in response
+            and response["jobSummaryList"]
+            and response["jobSummaryList"][0]["status"]
+            not in {"FAILED", "SUCCEEDED"}
+        ],
+        key=lambda x: x[0]["createdAt"],
+        reverse=True,
+    )
+    active_specific_job: Optional[Dict[str, Any]] = (
+        specific_jobs_response["jobSummaryList"][0]
+        if "jobSummaryList" in specific_jobs_response
+        and specific_jobs_response["jobSummaryList"]
+        and specific_jobs_response["jobSummaryList"][0]["status"]
+        not in {"FAILED", "SUCCEEDED"}
+        else None
+    )
+    return LastMachineExecutions(
+        complete=RootMachineExecutionItem(
+            job_id=active_complete_jobs[0][0]["jobId"],
+            created_at=active_complete_jobs[0][0]["createdAt"],
+            started_at=active_complete_jobs[0][0].get("startedAt", 0),
+            stopped_at=active_complete_jobs[0][0].get("stoppedAt", 0),
+            name=active_complete_jobs[0][0]["jobName"],
+            findings_executed=[
+                MachineFindingResult(open=0, modified=0, finding=fin)
+                for fin in FINDINGS.keys()
+            ],
+            queue=active_complete_jobs[0][1].value,
+            root_id=root.id,
+        )
+        if active_complete_jobs
+        else None,
+        specific=RootMachineExecutionItem(
+            job_id=active_specific_job["jobId"],
+            created_at=active_specific_job["createdAt"],
+            started_at=active_specific_job.get("startedAt", 0),
+            stopped_at=active_specific_job.get("stoppedAt", 0),
+            name=active_specific_job["jobName"],
+            findings_executed=[
+                MachineFindingResult(
+                    open=0,
+                    modified=0,
+                    finding=active_specific_job["jobName"].split("-")[-1],
+                )
+            ],
+            queue=SkimsBatchQueue.HIGH.value,
+            root_id=root.id,
+        )
+        if active_specific_job
+        else None,
+    )

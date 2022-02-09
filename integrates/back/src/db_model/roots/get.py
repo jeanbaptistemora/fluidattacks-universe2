@@ -402,7 +402,11 @@ class RootMachineExecutionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
-    ) -> Tuple[Tuple[RootState, ...], ...]:
-        return await collect(
+    ) -> Tuple[Tuple[RootMachineExecutionItem, ...], ...]:
+        machine_executions = await collect(
             get_machine_executions(root_id=root_id) for root_id in root_ids
+        )
+        return tuple(
+            tuple(sorted(execution, key=lambda x: x.created_at, reverse=True))
+            for execution in machine_executions
         )

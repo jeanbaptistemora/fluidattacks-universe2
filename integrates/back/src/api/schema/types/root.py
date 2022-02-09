@@ -1,7 +1,7 @@
 from api.resolvers.git_root import (
     credentials,
+    last_machine_executions,
     last_state_status_update,
-    machine_executions,
     services_toe_lines,
     vulnerabilities,
 )
@@ -11,8 +11,8 @@ from ariadne import (
 
 GITROOT: ObjectType = ObjectType("GitRoot")
 GITROOT.set_field("credentials", credentials.resolve)
+GITROOT.set_field("lastMachineExecutions", last_machine_executions.resolve)
 GITROOT.set_field("lastStateStatusUpdate", last_state_status_update.resolve)
-GITROOT.set_field("machineExecutions", machine_executions.resolve)
 GITROOT.set_field("servicesToeLines", services_toe_lines.resolve)
 GITROOT.set_field("vulnerabilities", vulnerabilities.resolve)
 

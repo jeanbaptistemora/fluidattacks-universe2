@@ -27,3 +27,11 @@ type MachineExecution {
   "Stopping time of the job"
   stoppedAt: DateTime!
 }
+
+"""Last Machine executions classified if it was a complete/specific execution"""
+type LastMachineExecutions {
+  "A complete execution of all findings"
+  complete: MachineExecution
+  "An execution over a specific finding"
+  specific: MachineExecution
+}

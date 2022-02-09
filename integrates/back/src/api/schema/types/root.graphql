@@ -56,6 +56,8 @@ type GitRoot implements IRoot {
   includesHealthCheck: Boolean!
   "Last time the root cloning state was modified"
   lastCloningStatusUpdate: DateTime!
+  "Machine executions for the root"
+  lastMachineExecutions: LastMachineExecutions!
   "Last time the root status was modified"
   lastStateStatusUpdate: DateTime!
   "Last time the root status was modified"
@@ -66,8 +68,6 @@ type GitRoot implements IRoot {
       after 2022/02/03. Use `lastStateStatusUpdate`.
       """
     )
-  "Machine executions for the root"
-  machineExecutions: [MachineExecution]
   "Nickname for the repository"
   nickname: String!
   "Services toe lines for the repository"

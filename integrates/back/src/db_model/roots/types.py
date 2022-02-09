@@ -128,3 +128,8 @@ class RootMachineExecutionItem(NamedTuple):
     queue: str
     root_id: str
     commit: Optional[str] = None
+
+
+class LastMachineExecutions(NamedTuple):
+    complete: Optional[RootMachineExecutionItem]
+    specific: Optional[RootMachineExecutionItem]
