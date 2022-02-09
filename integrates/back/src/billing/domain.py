@@ -461,23 +461,22 @@ async def webhook(request: Request) -> JSONResponse:
         )
 
         # Main logic
-        run: bool = False
         tier: str = ""
         if event.type in (
             "customer.subscription.created",
             "customer.subscription.updated",
+            "customer.subscription.deleted",
         ):
-            run = True
-            tier = event.data.object.metadata.subscription
-        elif event.type == "customer.subscription.deleted":
-            run = True
-            tier = "free"
+            if event.data.object.status == "active":
+                tier = event.data.object.metadata.subscription
+            else:
+                tier = "free"
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"
             LOGGER.warning(message, extra=dict(extra=locals()))
 
-        if run:
+        if tier != "":
             if await groups_domain.update_group_tier(
                 loaders=get_new_context(),
                 reason=f"Triggered by Stripe with event {event.id}",
