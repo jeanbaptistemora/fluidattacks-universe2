@@ -105,6 +105,7 @@ def format_data_non_cvssf(data: Remediate) -> dict:
             colors={
                 "Mean time to remediate": RISK.neutral,
             },
+            labels=True,
             type="bar",
         ),
         axis=dict(
