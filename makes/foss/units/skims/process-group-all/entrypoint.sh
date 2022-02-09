@@ -156,13 +156,6 @@ function main {
   local roots="${3:-}" # must be in json forma
   local config
 
-  if [ -z "${roots}" ] && [ -n "${MACHINE_ALL_ROOTS}" ]; then
-    roots="$(get_all_roots "${group}")" # must be in json forma
-  fi \
-    && if [ -n "${2}" ]; then
-      CHECKS="${2}" # must be in json forma
-    fi
-
   export -f execute_skims_combination
   export -f skims_rebase
   export -f get_skims_language
@@ -179,6 +172,12 @@ function main {
       INTEGRATES_API_TOKEN \
       PROD_SERVICES_AWS_ACCESS_KEY_ID \
       PROD_SERVICES_AWS_SECRET_ACCESS_KEY \
+    && if [ -z "${roots}" ] && [ -n "${MACHINE_ALL_ROOTS}" ]; then
+      roots="$(get_all_roots "${group}")" # must be in json forma
+    fi \
+    && if [ -n "${2}" ]; then
+      CHECKS="${2}" # must be in json forma
+    fi \
     && config="$(mktemp)" \
     && roots="$(jq -r -c '.[]' <<< "${roots}")" \
     && use_git_repo_services \
