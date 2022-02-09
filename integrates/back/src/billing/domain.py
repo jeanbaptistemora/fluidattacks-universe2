@@ -217,7 +217,6 @@ async def update_subscription(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="",
-        limit=1000,
     )
 
     # Raise exception if group has incomplete, past_due or unpaid subscriptions
@@ -460,7 +459,6 @@ async def report_subscription_usage(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
-        limit=1,
     )
 
     # Raise exception if group does not have an active subscription

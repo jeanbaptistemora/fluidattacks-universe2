@@ -202,13 +202,12 @@ async def get_group_subscriptions(
     *,
     group_name: str,
     org_billing_customer: str,
-    limit: int = 1000,
     status: str = "",
 ) -> List[Subscription]:
     """Return subscription history for a group"""
     data: Dict[str, Any] = {
         "customer": org_billing_customer,
-        "limit": limit,
+        "limit": 1000,
     }
     if status != "":
         data["status"] = status

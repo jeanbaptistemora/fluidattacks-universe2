@@ -18,7 +18,6 @@ from newutils import (
     bugsnag as bugsnag_utils,
 )
 from typing import (
-    Dict,
     List,
 )
 
@@ -33,21 +32,16 @@ async def main() -> None:
         for group in await loader.group.load_many(active_groups)
         if group["tier"] == "squad"
     ]
-    group_orgs: Dict[str, Organization] = dict(
-        zip(
-            [group["name"] for group in groups],
-            await loader.organization.load_many(
-                [group["organization"] for group in groups]
-            ),
-        )
+    orgs: List[Organization] = await loader.organization.load_many(
+        [group["organization"] for group in groups]
     )
 
     await collect(
         [
             billing_domain.report_subscription_usage(
-                group_name=group_name,
+                group_name=group["name"],
                 org_billing_customer=org["billing_customer"],
             )
-            for group_name, org in group_orgs.items()
+            for group, org in zip(groups, orgs)
         ]
     )
