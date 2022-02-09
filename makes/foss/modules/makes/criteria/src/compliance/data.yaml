@@ -4377,4 +4377,73 @@
     "08_f":
       title: Public Access, Delivery, and Loading Areas
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "08_g":
+      title: Equipment Siting and Protection
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_c":
+      title: Segregation of Duties
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_d":
+      title: Separation of Development, Test, and Operational Environments
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_e":
+      title: Service Delivery
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_f":
+      title: Monitoring and Review of Third-Party Services
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_g":
+      title: Managing Changes to Third Party Services
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_h":
+      title: Capacity Management
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_i":
+      title: System Acceptance
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_j":
+      title: Controls Against Malicious Code
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_k":
+      title: Controls Against Mobile Code
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_m":
+      title: Network Controls
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_p":
+      title: Disposal of Media
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_q":
+      title: Information Handling Procedures
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_r":
+      title: Security of System Documentation
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_s":
+      title: Information Exchange Policies and Procedures
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_v":
+      title: Electronic Messaging
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_x":
+      title: Electronic Commerce Services
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_y":
+      title: On-line Transactions
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_z":
+      title: Publicly Available Information
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_aa":
+      title: Audit Logging
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_ab":
+      title: Monitoring System Use
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_ac":
+      title: Protection of Log Information
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_ad":
+      title: Administrator and Operator Logs
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
