@@ -2,14 +2,19 @@ import boto3
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
+from fa_purity.frozen import (
     FrozenDict,
+)
+from mypy_boto3_dynamodb.service_resource import (
+    DynamoDBServiceResource,
+    Table as DynamoTable,
 )
 from tap_dynamo.auth import (
     Creds,
 )
 from typing import (
     Any,
+    cast,
     Dict,
     Optional,
 )
@@ -37,7 +42,7 @@ class ScanArgs:
 
 @dataclass(frozen=True)
 class _TableClient:
-    _raw_client: Any
+    _raw_client: DynamoTable
 
 
 @dataclass(frozen=True)
@@ -46,13 +51,15 @@ class TableClient(_TableClient):
         super().__init__(obj._raw_client)
 
     def scan(self, args: ScanArgs) -> FrozenDict[str, Any]:
+        # pylint: disable=assignment-from-no-return
         response = self._raw_client.scan(**args.to_dict())
-        return FrozenDict(response)
+        # TODO: unsafe cast should be removed
+        return FrozenDict(cast(Dict[str, Any], response))
 
 
 @dataclass(frozen=True)
 class _Client:
-    _raw_client: Any
+    _raw_client: DynamoDBServiceResource
 
 
 @dataclass(frozen=True)
@@ -61,8 +68,8 @@ class Client(_Client):
         super().__init__(obj._raw_client)
 
     def table(self, table_name: str) -> TableClient:
-        _table = self._raw_client.Table(table_name)
-        return TableClient(_TableClient(_table))
+        _table = _TableClient(self._raw_client.Table(table_name))
+        return TableClient(_table)
 
 
 def new_client(creds: Creds) -> Client:

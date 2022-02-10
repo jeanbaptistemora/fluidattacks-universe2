@@ -1,3 +1,4 @@
+# pylint: skip-file
 from purity.v1 import (
     FrozenDict,
     FrozenList,

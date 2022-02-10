@@ -5,11 +5,17 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-from purity.v1 import (
-    JsonFactory,
+from fa_purity.json.factory import (
+    load,
+)
+from fa_purity.json.value.core import (
+    JsonValue,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
 )
 from typing import (
-    IO as FILE,
+    IO,
 )
 
 
@@ -20,10 +26,11 @@ class Creds:
     region: str
 
     @staticmethod
-    def from_file(file: FILE[str]) -> Creds:
-        data = JsonFactory.load(file)
+    def from_file(file: IO[str]) -> Creds:
+        jval = JsonValue(load(file).unwrap())
+        data = Unfolder(jval).to_dict_of(str).unwrap()
         return Creds(
-            data["AWS_ACCESS_KEY_ID"].to_primitive(str),
-            data["AWS_SECRET_ACCESS_KEY"].to_primitive(str),
-            data["AWS_DEFAULT_REGION"].to_primitive(str),
+            data["AWS_ACCESS_KEY_ID"],
+            data["AWS_SECRET_ACCESS_KEY"],
+            data["AWS_DEFAULT_REGION"],
         )
