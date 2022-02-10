@@ -67,7 +67,6 @@ TEST_GROUPS: Set[str] = {
     "request_vulnerabilities_zero_risk",
     "reset_expired_accepted_findings",
     "resources",
-    "services_toe_lines",
     "sign_post_url",
     "sign_post_url_requester",
     "sign_in",

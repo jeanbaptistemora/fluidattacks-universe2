@@ -679,7 +679,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_billing_subscription_mutate",
             "api_mutations_update_toe_input_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -706,7 +705,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["hacker"]["actions"],
             "api_mutations_refresh_toe_lines_mutate",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -734,7 +732,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *GROUP_LEVEL_ROLES["reattacker"]["actions"],
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -759,7 +756,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             *GROUP_LEVEL_ROLES["customer"]["actions"],
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -784,7 +780,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     customeradmin=dict(
         actions={
             *GROUP_LEVEL_ROLES["customeradmin"]["actions"],
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -809,7 +804,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     executive=dict(
         actions={
             *GROUP_LEVEL_ROLES["executive"]["actions"],
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -836,7 +830,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *GROUP_LEVEL_ROLES["customer_manager"]["actions"],
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -862,7 +855,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["resourcer"]["actions"],
             "api_mutations_refresh_toe_lines_mutate",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -888,7 +880,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             *GROUP_LEVEL_ROLES["reviewer"]["actions"],
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -915,7 +906,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["architect"]["actions"],
             "api_mutations_refresh_toe_lines_mutate",
-            "api_resolvers_git_root_services_toe_lines_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",

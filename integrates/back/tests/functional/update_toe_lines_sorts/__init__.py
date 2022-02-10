@@ -83,33 +83,3 @@ async def query_get(
         stakeholder=user,
         context=get_new_context(),
     )
-
-
-async def query_services_get(*, user: str, group_name: str) -> Dict[str, Any]:
-    query: str = f"""{{
-        group(groupName: "{group_name}") {{
-            name
-            roots {{
-                ... on GitRoot {{
-                    id
-                    servicesToeLines {{
-                        filename
-                        modifiedDate
-                        modifiedCommit
-                        loc
-                        testedDate
-                        testedLines
-                        comments
-                        sortsRiskLevel
-                    }}
-                }}
-            }}
-        }}
-      }}
-    """
-    data: Dict[str, Any] = {"query": query}
-    return await get_graphql_result(
-        data,
-        stakeholder=user,
-        context=get_new_context(),
-    )

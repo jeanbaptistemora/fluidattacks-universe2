@@ -1,7 +1,6 @@
 from . import (
     get_result,
     query_get,
-    query_services_get,
 )
 from .constants import (
     USERS_EMAILS,
@@ -26,49 +25,6 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
         sorts_risk_level=10,
     )
     assert result["data"]["updateToeLinesSorts"]["success"]
-    services_result = await query_services_get(user=email, group_name="group1")
-    assert services_result["data"]["group"]["roots"] == [
-        {
-            "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-            "servicesToeLines": [
-                {
-                    "filename": "test/test#.config",
-                    "modifiedDate": "2019-08-01T05:00:00+00:00",
-                    "modifiedCommit": "983466z",
-                    "loc": 8,
-                    "testedDate": "2021-02-28T05:00:00+00:00",
-                    "testedLines": 4,
-                    "comments": "comment test",
-                    "sortsRiskLevel": 0,
-                }
-            ],
-        },
-        {
-            "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-            "servicesToeLines": [
-                {
-                    "filename": "test2/test.sh",
-                    "modifiedDate": "2020-11-19T05:00:00+00:00",
-                    "modifiedCommit": "273412t",
-                    "loc": 120,
-                    "testedDate": "2021-01-20T05:00:00+00:00",
-                    "testedLines": 172,
-                    "comments": "comment test",
-                    "sortsRiskLevel": 10,
-                },
-                {
-                    "filename": "test3/test.config",
-                    "modifiedDate": "2020-11-19T05:00:00+00:00",
-                    "modifiedCommit": "g545435i",
-                    "loc": 55,
-                    "testedDate": "2021-01-20T05:00:00+00:00",
-                    "testedLines": 33,
-                    "comments": "comment test",
-                    "sortsRiskLevel": 0,
-                },
-            ],
-        },
-    ]
     result = await query_get(user=email, group_name="group1")
     assert result["data"]["group"]["toeLines"] == {
         "edges": [

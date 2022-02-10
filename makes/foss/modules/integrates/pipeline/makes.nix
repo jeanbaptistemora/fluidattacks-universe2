@@ -315,7 +315,6 @@ in
           [ "request_vulnerabilities_zero_risk" ]
           [ "reset_expired_accepted_findings" ]
           [ "resources" ]
-          [ "services_toe_lines" ]
           [ "sign_in" ]
           [ "solve_event" ]
           [ "stakeholder" ]

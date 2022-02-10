@@ -70,14 +70,6 @@ type GitRoot implements IRoot {
     )
   "Nickname for the repository"
   nickname: String!
-  "Services toe lines for the repository"
-  servicesToeLines: [ServicesToeLines]
-    @deprecated(
-      reason: """
-      This field will be removed
-      after 2022/02/07.
-      """
-    )
   "Whether the root is active or not"
   state: ResourceState!
   "Repository URL"

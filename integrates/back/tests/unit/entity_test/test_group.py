@@ -559,64 +559,6 @@ async def test_get_roots() -> None:
     ]
 
 
-async def test_get_toe_lines() -> None:
-    query = """
-      query {
-        group(groupName: "unittesting"){
-          name
-          roots{
-            ... on GitRoot {
-              id
-              servicesToeLines {
-                filename
-                modifiedDate
-                modifiedCommit
-                loc
-                testedDate
-                testedLines
-                comments
-              }
-            }
-          }
-        }
-      }
-    """
-    result = await _get_result_async(
-        {"query": query}, user="unittest2@fluidattacks.com"
-    )
-    assert "errors" not in result
-    assert result["data"]["group"]["roots"] == [
-        {
-            "id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-            "servicesToeLines": [
-                {
-                    "filename": "test/test#.config",
-                    "modifiedDate": "2019-08-01T05:00:00+00:00",
-                    "modifiedCommit": "983466z",
-                    "loc": 8,
-                    "testedDate": "2021-02-28T05:00:00+00:00",
-                    "testedLines": 4,
-                    "comments": "comment test",
-                }
-            ],
-        },
-        {
-            "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-            "servicesToeLines": [
-                {
-                    "filename": "test2/test.sh",
-                    "modifiedDate": "2020-11-19T05:00:00+00:00",
-                    "modifiedCommit": "273412t",
-                    "loc": 172,
-                    "testedDate": "2021-01-20T05:00:00+00:00",
-                    "testedLines": 120,
-                    "comments": "comment test",
-                }
-            ],
-        },
-    ]
-
-
 async def test_add_git_root_black() -> None:
     query = """
       mutation {

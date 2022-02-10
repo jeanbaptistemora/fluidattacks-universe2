@@ -63,9 +63,6 @@ from .root import (
     IPROOT,
     URLROOT,
 )
-from .services_toe_lines import (
-    SERVICESTOELINES,
-)
 from .severity import (
     SEVERITY,
 )
@@ -131,7 +128,6 @@ TYPES: Tuple[ObjectType, ...] = (
     RESOURCE,
     SEVERITY,
     STAKEHOLDER,
-    SERVICESTOELINES,
     TAG,
     TOEINPUT,
     TOELINES,
