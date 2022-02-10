@@ -47,6 +47,9 @@ import more_itertools
 from more_itertools import (
     collapse,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import os
 from settings.logger import (
     LOGGING,
@@ -547,12 +550,26 @@ async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
         not in {"FAILED", "SUCCEEDED"}
         else None
     )
+    if active_specific_job:
+        specific_job_description = await describe_jobs(
+            active_specific_job["jobId"]
+        )
     return LastMachineExecutions(
         complete=RootMachineExecutionItem(
             job_id=active_complete_jobs[0][0]["jobId"],
-            created_at=active_complete_jobs[0][0]["createdAt"],
-            started_at=active_complete_jobs[0][0].get("startedAt", 0),
-            stopped_at=active_complete_jobs[0][0].get("stoppedAt", 0),
+            created_at=datetime_utils.get_from_epoch(
+                active_complete_jobs[0][0]["createdAt"] / 1000
+            ),
+            started_at=datetime_utils.get_from_epoch(
+                active_complete_jobs[0][0]["startedAt"] / 1000
+            )
+            if active_complete_jobs[0][0].get("startedAt")
+            else None,
+            stopped_at=datetime_utils.get_from_epoch(
+                active_complete_jobs[0][0]["stoppedAt"] / 1000
+            )
+            if active_complete_jobs[0][0].get("stoppedAt")
+            else None,
             name=active_complete_jobs[0][0]["jobName"],
             findings_executed=[
                 MachineFindingResult(open=0, modified=0, finding=fin)
@@ -565,9 +582,19 @@ async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
         else None,
         specific=RootMachineExecutionItem(
             job_id=active_specific_job["jobId"],
-            created_at=active_specific_job["createdAt"],
-            started_at=active_specific_job.get("startedAt", 0),
-            stopped_at=active_specific_job.get("stoppedAt", 0),
+            created_at=datetime_utils.get_from_epoch(
+                active_specific_job["createdAt"] / 1000
+            ),
+            started_at=datetime_utils.get_from_epoch(
+                active_specific_job["startedAt"] / 1000
+            )
+            if active_specific_job.get("startedAt")
+            else None,
+            stopped_at=datetime_utils.get_from_epoch(
+                active_specific_job["stoppedAt"] / 1000
+            )
+            if active_specific_job.get("stoppedAt")
+            else None,
             name=active_specific_job["jobName"],
             findings_executed=[
                 MachineFindingResult(
@@ -580,5 +607,7 @@ async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
             root_id=root.id,
         )
         if active_specific_job
+        and root.state.nickname
+        in specific_job_description[0]["container"]["command"][-1]
         else None,
     )

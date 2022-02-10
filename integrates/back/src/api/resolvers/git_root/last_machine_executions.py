@@ -33,7 +33,7 @@ async def resolve(
             ),
             None,
         )
-        last_specific_exeuction = next(
+        last_specific_execution = next(
             (
                 execution
                 for execution in machine_executions
@@ -45,6 +45,6 @@ async def resolve(
             complete=last_machine_executions.complete
             or last_complete_execution,
             specific=last_machine_executions.specific
-            or last_specific_exeuction,
+            or last_specific_execution,
         )
     return last_machine_executions

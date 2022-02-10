@@ -716,6 +716,12 @@ export const enTranslations: ResourceKey = {
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",
+          machineExecutions: {
+            active: "There is an active analysis in progress",
+            messageComplete: "Last complete Machine execution",
+            messageSpecific: "Last finding reattacked",
+            noExecutions: "There are no executions yet",
+          },
           nickname: "Nickname",
           nicknameHint:
             "Nickname must be unique and different from the repository name",

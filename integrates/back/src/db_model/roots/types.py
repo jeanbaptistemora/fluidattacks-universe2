@@ -121,8 +121,8 @@ class MachineFindingResult(NamedTuple):
 class RootMachineExecutionItem(NamedTuple):
     job_id: str
     created_at: str
-    started_at: str
-    stopped_at: str
+    started_at: Optional[str]
+    stopped_at: Optional[str]
     name: str
     findings_executed: List[MachineFindingResult]
     queue: str

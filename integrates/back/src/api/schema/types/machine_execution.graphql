@@ -23,9 +23,9 @@ type MachineExecution {
   "Queue in which Machine was executed"
   queue: String!
   "Starting time of the job"
-  startedAt: DateTime!
+  startedAt: DateTime
   "Stopping time of the job"
-  stoppedAt: DateTime!
+  stoppedAt: DateTime
 }
 
 """Last Machine executions classified if it was a complete/specific execution"""

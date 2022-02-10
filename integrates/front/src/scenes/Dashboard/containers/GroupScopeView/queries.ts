@@ -22,8 +22,19 @@ const GET_ROOTS: DocumentNode = gql`
           gitignore
           id
           includesHealthCheck
-          lastStateStatusUpdate
           lastCloningStatusUpdate
+          lastMachineExecutions {
+            complete {
+              stoppedAt
+            }
+            specific {
+              findingsExecuted {
+                finding
+              }
+              stoppedAt
+            }
+          }
+          lastStateStatusUpdate
           nickname
           state
           url
