@@ -4259,7 +4259,16 @@
   title: HITRUST CSF
   en:
     description: >
-      ...
+      HITRUST CSF is both risk- and compliance-based,
+      includes data protection compliance and the
+      challenges of assembling and maintaining
+      the many and varied programs.
+      Provides the structure, transparency, guidance,
+      and cross-references to authoritative sources
+      organizations need to be certain of their data
+      protection compliance.
+      The version used in this section is
+      HITRUST CSF v9.6.0.
   es:
     description: __empty__
   definitions:
