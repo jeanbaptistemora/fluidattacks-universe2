@@ -9,6 +9,7 @@ from aws.model import (
     AWSEbsVolume,
     AWSEC2,
     AWSEC2Rule,
+    AWSEfsFileSystem,
     AWSElb,
     AWSFsxWindowsFileSystem,
     AWSIamManagedPolicyArns,
@@ -317,6 +318,16 @@ def iter_aws_secrets_manager_secret(model: Any) -> Iterator[Any]:
     )
     for bucket in iterator:
         yield AWSSecretsManagerSecret(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_efs_file_system(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_efs_file_system")
+    for bucket in iterator:
+        yield AWSEfsFileSystem(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
