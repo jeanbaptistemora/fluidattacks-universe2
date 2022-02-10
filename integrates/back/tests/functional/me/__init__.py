@@ -77,7 +77,7 @@ async def get_vulnerabilities(
             }
         }
     """
-    data: Dict[str, Any] = {"query": query, "variables": {"groupName": group}}
+    data: Dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

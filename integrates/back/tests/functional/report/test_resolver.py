@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    get_result_treatments,
 )
 from custom_exceptions import (
     ReportAlreadyRequested,
@@ -8,6 +9,7 @@ import pytest
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 
@@ -77,3 +79,87 @@ async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(ReportAlreadyRequested())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments"],
+    [
+        ["admin@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
+        ["user_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
+        ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
+        ["customer_manager@fluidattacks.com", ["ACCEPTED", "IN_PROGRESS"]],
+    ],
+)
+async def test_get_report_treatments(
+    populate: bool, email: str, treatments: List[str]
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: Dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+    )
+    assert "success" in result_xls["data"]["report"]
+    assert result_xls["data"]["report"]["success"]
+
+    result_data: Dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+    )
+    assert "success" in result_data["data"]["report"]
+    assert result_data["data"]["report"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "should_fail"],
+    [
+        ["admin@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
+        ["admin@gmail.com", ["ACCEPTED"], False],
+        ["user_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
+        ["user_manager@gmail.com", ["ACCEPTED"], False],
+        ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
+        ["hacker@gmail.com", ["IN_PROGRESS"], False],
+        [
+            "customer_manager@fluidattacks.com",
+            ["ACCEPTED", "IN_PROGRESS"],
+            True,
+        ],
+        ["customer_manager@fluidattacks.com", ["ACCEPTED"], False],
+    ],
+)
+async def test_get_report_treatments_second_time_fail(
+    populate: bool, email: str, treatments: List[str], should_fail: bool
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: Dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+    )
+    if should_fail:
+        assert "errors" in result_xls
+        assert result_xls["errors"][0]["message"] == str(
+            ReportAlreadyRequested()
+        )
+    else:
+        assert "success" in result_xls["data"]["report"]
+        assert result_xls["data"]["report"]["success"]
+
+    result_data: Dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+    )
+    assert "errors" in result_data
+    assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())

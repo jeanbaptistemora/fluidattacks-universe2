@@ -62,7 +62,7 @@ def test_should_trigger_depth_validation() -> None:
     assert errors[0].message == "Exception - Max query depth exceeded"
 
 
-def test_should_trigger_breadth_validation():
+def test_should_trigger_breadth_validation() -> None:
     query = """
         query MaliciousQuery {
             alias1: __schema {

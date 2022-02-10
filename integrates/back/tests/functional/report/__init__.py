@@ -7,6 +7,7 @@ from dataloaders import (
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 
@@ -29,6 +30,46 @@ async def get_result(
     data: Dict[str, str] = {
         "query": query,
     }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
+async def get_result_treatments(
+    *,
+    user: str,
+    group_name: str,
+    report_type: str,
+    treatments: List[str],
+) -> Dict[str, Any]:
+    query: str = """
+        query RequestGroupReport(
+            $reportType: ReportType!
+            $groupName: String!
+            $lang: ReportLang
+            $treatments: [VulnerabilityTreatment!]
+        ) {
+            report(
+                reportType: $reportType
+                groupName: $groupName
+                lang: $lang
+                treatments: $treatments
+            ) {
+                success
+            }
+        }
+    """
+    data: Dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "reportType": report_type,
+            "groupName": group_name,
+            "treatments": treatments,
+        },
+    }
+
     return await get_graphql_result(
         data,
         stakeholder=user,
