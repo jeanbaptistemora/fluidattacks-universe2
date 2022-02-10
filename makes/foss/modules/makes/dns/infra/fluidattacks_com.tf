@@ -257,6 +257,32 @@ resource "cloudflare_record" "zd_mail4" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "stripe_bounce" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "bounce.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "custom-email-domain.stripe.com."
+  proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_record" "stripe_dkim" {
+  for_each = toset([
+    "dyh5er647prfc3gs4euuquiva6xt6ibs",
+    "267uahsbpj2i5rih3zpkbiuojg7rs6db",
+    "w6y3bzgl5l4n3ngwdikziuawrataai56",
+    "yhvbslrtgegr2wwcwp6vjdhbkgv2kouk",
+    "zhdj3ymxnqzcknajrmaoxxisxkqhsgph",
+    "nfnr3mqbqtdijdfekbxwm5zc4f7guhts",
+  ])
+
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "${each.key}._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "${each.key}.dkim.custom-email-domain.stripe.com."
+  proxied = false
+  ttl     = 1
+}
 
 # MX Records
 
@@ -405,6 +431,14 @@ resource "cloudflare_record" "zoho_verify_dkim" {
   proxied = false
 }
 
+resource "cloudflare_record" "stripe_verify" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "TXT"
+  value   = "stripe-verification=88c1426add983346960b78687bad1c70e9c9f6733116c8be02c1a7aa5139ceef"
+  ttl     = 1
+  proxied = false
+}
 
 # Page Rules
 
