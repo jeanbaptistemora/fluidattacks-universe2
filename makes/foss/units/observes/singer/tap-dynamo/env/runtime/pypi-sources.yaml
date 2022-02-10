@@ -7,6 +7,7 @@ closure:
   fa-purity: 1.1.1
   jmespath: 0.10.0
   more-itertools: 8.12.0
+  mypy-boto3-dynamodb: 1.20.49
   python-dateutil: 2.8.2
   returns: 0.16.0
   s3transfer: 0.5.1
@@ -66,6 +67,12 @@ links:
   - name: more-itertools-8.12.0.tar.gz
     sha256: 0r30gwj7s37afnqyrkxkjxxq59449vxqv7nm1n85ym2zy13avikx
     url: https://files.pythonhosted.org/packages/dc/b5/c216ffeace7b89b7387fe08e1b39a07c6da38ea82c60e2e630dd5883813b/more-itertools-8.12.0.tar.gz
+  - name: mypy_boto3_dynamodb-1.20.49-py3-none-any.whl
+    sha256: 0v5v0z9dhalh8zpfyql0d9gcv4z0bbjf2bm2w9jiivcsq7adwcch
+    url: https://files.pythonhosted.org/packages/7d/d5/e0b6335ef0b1ef11e5fa8c4cbc46bf374fcc237606b6e1cddb29f46b426b/mypy_boto3_dynamodb-1.20.49-py3-none-any.whl
+  - name: mypy-boto3-dynamodb-1.20.49.tar.gz
+    sha256: 08605rrz1ynnhkpvvnnr9q06cdwk7zigbc1ahk1rkw9j142f920n
+    url: https://files.pythonhosted.org/packages/db/74/05ca1d0d2f1956788a2489adf97ccd4f1b5534debc5c4eea38f88f887f72/mypy-boto3-dynamodb-1.20.49.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
