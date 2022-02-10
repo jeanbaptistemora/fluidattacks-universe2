@@ -89,6 +89,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             colors={
                 "Open Age (days)": RISK.neutral,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -114,6 +115,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             ),
         ),
         barChartYTickFormat=True,
+        firstBarLabels=True,
     )
 
 
