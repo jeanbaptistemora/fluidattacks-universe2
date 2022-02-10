@@ -1353,7 +1353,7 @@
     squad: false
     oneshot: false
   references:
-    - "001.SR3_3:_9"
+    - "bsimm.SR3_3:_9"
     - "002.125"
     - "002.130"
     - "002.151"
@@ -3990,7 +3990,7 @@
     squad: false
     oneshot: false
   references:
-    - "001.CR3_4:_2"
+    - "bsimm.CR3_4:_2"
     - "002.438"
     - "004.507"
     - "004.510"
@@ -4217,7 +4217,7 @@
     squad: false
     oneshot: false
   references:
-    - "001.SE3_2:_13"
+    - "bsimm.SE3_2:_13"
     - "002.188"
     - "004.1269"
     - "012.C_18"
@@ -7339,7 +7339,7 @@
     squad: false
     oneshot: false
   references:
-    - "001.SR2_4:_60"
+    - "bsimm.SR2_4:_60"
     - "002.42"
     - "002.240"
     - "002.242"
@@ -7664,7 +7664,7 @@
     squad: false
     oneshot: false
   references:
-    - "001.CR3_4:_2"
+    - "bsimm.CR3_4:_2"
     - "002.169"
     - "002.442"
     - "002.549"
