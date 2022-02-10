@@ -224,12 +224,10 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
     ["email"],
     [
         ["architect@fluidattacks.com"],
-        ["hacker@fluidattacks.com"],
         ["reattacker@fluidattacks.com"],
         ["user@fluidattacks.com"],
         ["user_manager@fluidattacks.com"],
         ["executive@fluidattacks.com"],
-        ["resourcer@fluidattacks.com"],
         ["reviewer@fluidattacks.com"],
         ["service_forces@fluidattacks.com"],
         ["architect@gmail.com"],

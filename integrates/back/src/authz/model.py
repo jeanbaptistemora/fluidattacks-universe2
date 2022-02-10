@@ -66,7 +66,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_root_cloning_status_mutate",
             "api_mutations_update_root_state_mutate",
             "api_mutations_update_toe_lines_sorts_mutate",
-            "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_mutations_update_severity_mutate",
             "api_mutations_update_vulnerability_commit_mutate",
             "api_mutations_upload_file_mutate",
@@ -667,6 +666,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_machine_job_mutate",
             "api_mutations_update_billing_subscription_mutate",
             "api_mutations_update_toe_input_mutate",
+            "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
@@ -693,7 +693,10 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     hacker=dict(
         actions={
             *GROUP_LEVEL_ROLES["hacker"]["actions"],
+            "api_mutations_add_toe_input_mutate",
             "api_mutations_refresh_toe_lines_mutate",
+            "api_mutations_update_toe_input_mutate",
+            "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -843,7 +846,10 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     resourcer=dict(
         actions={
             *GROUP_LEVEL_ROLES["resourcer"]["actions"],
+            "api_mutations_add_toe_input_mutate",
             "api_mutations_refresh_toe_lines_mutate",
+            "api_mutations_update_toe_input_mutate",
+            "api_mutations_update_toe_lines_attacked_lines_mutate",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
