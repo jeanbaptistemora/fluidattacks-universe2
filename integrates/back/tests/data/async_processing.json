@@ -10,7 +10,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatment\": \"ACCEPTED\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -23,9 +23,6 @@
           },
           "time": {
             "S": "1615834776"
-          },
-          "extra_info": {
-            "S": "ACCEPTED"
           }
         }
       }
@@ -40,7 +37,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatment\": \"*\"}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -53,9 +50,6 @@
           },
           "time": {
             "S": "1616116348"
-          },
-          "extra_info": {
-            "S": "*"
           }
         }
       }
@@ -70,7 +64,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "DATA"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -83,9 +77,6 @@
           },
           "time": {
             "S": "1616116348"
-          },
-          "extra_info": {
-            "S": "*"
           }
         }
       }
