@@ -99,8 +99,9 @@ ENTITIES = {
             EntityAttr.treatment_summary: dict(
                 dependencies={
                     EntityDependency.deactivate_root,
-                    EntityDependency.move_root,
+                    EntityDependency.handle_finding_policy,
                     EntityDependency.handle_vulnerabilities_acceptance,
+                    EntityDependency.move_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
