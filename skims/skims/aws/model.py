@@ -160,3 +160,9 @@ class AWSEfsFileSystem(NamedTuple):
     column: int
     data: List[Any]
     line: int
+
+
+class AWSLaunchConfiguration(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int

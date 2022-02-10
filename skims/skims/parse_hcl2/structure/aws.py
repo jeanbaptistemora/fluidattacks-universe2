@@ -15,6 +15,7 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSInstance,
+    AWSLaunchConfiguration,
     AWSLaunchTemplate,
     AWSLbTargetGroup,
     AWSRdsCluster,
@@ -328,6 +329,16 @@ def iter_aws_efs_file_system(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_efs_file_system")
     for bucket in iterator:
         yield AWSEfsFileSystem(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_launch_configuration(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_launch_configuration")
+    for bucket in iterator:
+        yield AWSLaunchConfiguration(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
