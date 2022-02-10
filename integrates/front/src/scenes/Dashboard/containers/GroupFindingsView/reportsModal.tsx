@@ -150,6 +150,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           <FontAwesomeIcon icon={faSlidersH} />
                         </Button>
                         <FilterReportModal
+                          closeReportsModal={onClose}
                           hasMobileApp={hasMobileApp}
                           isOpen={isFilterReportModalOpen}
                           onClose={closeFilterReportsModal}

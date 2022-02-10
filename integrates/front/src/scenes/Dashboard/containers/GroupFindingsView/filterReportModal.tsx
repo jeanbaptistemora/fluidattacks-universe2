@@ -26,17 +26,20 @@ interface IDeactivationModalProps {
   hasMobileApp: boolean;
   isOpen: boolean;
   onClose: () => void;
+  closeReportsModal: () => void;
 }
 
 const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   hasMobileApp,
   isOpen,
   onClose,
+  closeReportsModal,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
+      closeReportsModal();
       msgSuccess(
         translate.t("groupAlerts.reportRequested"),
         translate.t("groupAlerts.titleSuccess")
@@ -54,6 +57,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           Logger.warning("An error occurred requesting group report", error);
         }
       });
+      closeReportsModal();
     },
   });
 
