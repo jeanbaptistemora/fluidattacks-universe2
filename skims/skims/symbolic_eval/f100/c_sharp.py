@@ -1,6 +1,5 @@
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
+    MethodsEnum,
     Vulnerability,
 )
 from model.graph_model import (
@@ -23,15 +22,11 @@ from typing import (
 
 
 def analyze(shard: GraphShard) -> Iterator[Vulnerability]:
-    finding = FindingEnum.F100
+    method = MethodsEnum.SYMB_INSEC_CREATE
     language = GraphLanguage.CSHARP
     graph = shard.syntax_graph
-    src_method = "symbolic.f100.c_sharp"
-    developer = DeveloperEnum.ALEJANDRO_SALGADO
 
     for n_id in search_method_invocation(graph, {"Create"}):
         for path in get_backward_paths(graph, n_id):
-            if evaluate(language, finding, graph, path, n_id):
-                yield create_vulnerability(
-                    finding, shard, n_id, src_method, developer
-                )
+            if evaluate(language, method.value.finding, graph, path, n_id):
+                yield create_vulnerability(shard, n_id, method)

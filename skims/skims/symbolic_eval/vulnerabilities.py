@@ -2,12 +2,8 @@ from ctx import (
     CTX,
 )
 from model.core_model import (
-    DeveloperEnum,
-    FindingEnum,
-    SkimsVulnerabilityMetadata,
+    MethodsEnum,
     Vulnerability,
-    VulnerabilityKindEnum,
-    VulnerabilityStateEnum,
 )
 from model.graph_model import (
     GRAPH_VULNERABILITY_PARAMETERS,
@@ -19,37 +15,36 @@ from utils import (
     fs,
     string,
 )
+from vulnerabilities import (
+    build_lines_vuln,
+    build_metadata,
+)
 from zone import (
     t,
 )
 
 
 def create_vulnerability(
-    finding: FindingEnum,
     shard: GraphShard,
     n_id: NId,
-    source_method: str,
-    developer: DeveloperEnum,
+    method: MethodsEnum,
 ) -> Vulnerability:
     node_attrs = shard.graph.nodes[n_id]
     line = node_attrs["label_l"]
     column = node_attrs["label_c"]
 
-    params = GRAPH_VULNERABILITY_PARAMETERS[finding]
+    params = GRAPH_VULNERABILITY_PARAMETERS[method.value.finding]
     desc_key = params.desc_key
     desc_params = params.desc_params
 
     full_path = os.path.join(CTX.config.working_dir, shard.path)
 
-    return Vulnerability(
-        finding=finding,
-        kind=VulnerabilityKindEnum.LINES,
-        namespace=CTX.config.namespace,
-        state=VulnerabilityStateEnum.OPEN,
+    return build_lines_vuln(
+        method=method,
         what=shard.path,
         where=str(line),
-        skims_metadata=SkimsVulnerabilityMetadata(
-            cwe=finding.value.cwe,
+        metadata=build_metadata(
+            method=method,
             description=(
                 f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
                 f"{CTX.config.namespace}/{shard.path}"
@@ -61,7 +56,5 @@ def create_vulnerability(
                     line=int(line),
                 ),
             ),
-            source_method=source_method,
-            developer=developer,
         ),
     )

@@ -2459,6 +2459,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    SYMB_INSEC_ADDHEADER_WRITE = MethodInfo(
+        file_name="c_sharp",
+        name="insec_addheader_write",
+        module="symbolic_eval",
+        finding=FindingEnum.F008,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     AWS_CREDENTIALS = MethodInfo(
         file_name="aws",
         name="aws_credentials",
@@ -3489,6 +3497,14 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F100,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    SYMB_INSEC_CREATE = MethodInfo(
+        file_name="c_sharp",
+        name="insec_create",
+        module="symbolic_eval",
+        finding=FindingEnum.F100,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
