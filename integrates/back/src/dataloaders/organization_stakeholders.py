@@ -12,7 +12,9 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
     cast,
+    Dict,
     List,
     Tuple,
 )
@@ -21,12 +23,35 @@ from users import (
 )
 
 
+def get_invitation_state(
+    invitation: Dict[str, Any], stakeholder: StakeholderType
+) -> str:
+    if invitation and not invitation["is_used"]:
+        return "PENDING"
+    if not stakeholder.get("is_registered", False):
+        return "UNREGISTERED"
+    return "CONFIRMED"
+
+
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
-    stakeholder: StakeholderType = await stakeholders_domain.get_by_email(
+    """stakeholder: StakeholderType = await stakeholders_domain.get_by_email(
         email
+    )"""
+    group_access, stakeholder = await collect(
+        (
+            orgs_domain.get_user_access(org_id, email),
+            stakeholders_domain.get_by_email(email),
+        )
     )
+    invitation = group_access.get("invitation")
+    invitation_state = get_invitation_state(invitation, stakeholder)
     org_role: str = await authz.get_organization_level_role(email, org_id)
-    return {**stakeholder, "responsibility": "", "role": org_role}
+    return {
+        **stakeholder,
+        "responsibility": "",
+        "invitation_state": invitation_state,
+        "role": org_role,
+    }
 
 
 async def get_stakeholders_by_organization(

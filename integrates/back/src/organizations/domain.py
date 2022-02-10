@@ -347,6 +347,10 @@ async def get_pending_deletion_date_str(organization_id: str) -> Optional[str]:
     return result.get("pending_deletion_date")
 
 
+async def get_user_access(organization_id: str, email: str) -> Dict[str, Any]:
+    return await orgs_dal.get_access_by_url_token(organization_id, email)
+
+
 async def get_user_organizations(email: str) -> List[str]:
     return await orgs_dal.get_ids_for_user(email)
 
