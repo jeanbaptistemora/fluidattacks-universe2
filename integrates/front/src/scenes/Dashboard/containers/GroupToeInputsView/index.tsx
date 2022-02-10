@@ -54,6 +54,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const canGetSeenFirstTimeBy: boolean = permissions.can(
     "api_resolvers_toe_input_seen_first_time_by_resolve"
   );
+  const canUpdateToeInput: boolean = permissions.can(
+    "api_mutations_update_toe_input_mutate"
+  );
 
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
@@ -312,7 +315,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
 
   const selectionMode: ISelectRowProps = {
     clickToSelect: false,
-    hideSelectColumn: !isInternal,
+    hideSelectColumn: !isInternal || !canUpdateToeInput,
     mode: "checkbox",
     nonSelectable: undefined,
     onSelect: onSelectOneToeInputData,
