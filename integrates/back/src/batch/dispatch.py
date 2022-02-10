@@ -18,7 +18,7 @@ from batch.report import (
     generate_report,
 )
 from batch.roots import (
-    clone_root,
+    clone_roots,
     move_root,
 )
 from batch.toe_inputs import (
@@ -70,7 +70,7 @@ async def main() -> None:  # noqa: MC0001
         elif action == "refresh_toe_lines":
             await refresh_toe_lines(item=item)
         elif action == "clone_root":
-            await clone_root(item=item)
+            await clone_roots(item=item)
         elif action == "remove_group_resources":
             await remove_group_resources(item=item)
         else:

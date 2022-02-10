@@ -127,6 +127,7 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
+    List,
     Optional,
     Tuple,
 )
@@ -701,9 +702,9 @@ async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
     return CloneResult(success=success, commit=commit)
 
 
-async def clone_root(*, item: BatchProcessing) -> None:
+async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    root_nickname: str = item.additional_info
+    root_nicknames: List[str] = item.additional_info.split(",")
 
     dataloaders: Dataloaders = get_new_context()
     group_root_creds_loader = dataloaders.group_credentials
@@ -712,28 +713,39 @@ async def clone_root(*, item: BatchProcessing) -> None:
     group_roots = await group_roots_loader.load(group_name)
 
     # In the off case there are multiple roots with the same nickname
-    root_id = roots_domain.get_root_id_by_nickname(
-        nickname=root_nickname, group_roots=group_roots, only_git_roots=True
+    root_ids = tuple(
+        roots_domain.get_root_id_by_nickname(
+            nickname=nickname,
+            group_roots=group_roots,
+            only_git_roots=True,
+        )
+        for nickname in root_nicknames
     )
-    root: RootItem = next(filter(lambda x: x.id == root_id, group_roots), None)
-    root_cred: CredentialItem = next(
-        filter(lambda x: root.id in x.state.roots, group_creds), None
+    roots: Tuple[RootItem, ...] = tuple(
+        root for root in group_roots if root.id in root_ids
     )
+    cloned_roots_id: Tuple[str, ...] = tuple()
+    for root in roots:
+        root_cred: Optional[CredentialItem] = next(
+            (cred for cred in group_creds if root.id in cred.state.roots), None
+        )
+        if not root_cred:
+            LOGGER.error(
+                (
+                    "Root could not be determined or it"
+                    " does not have any credentials"
+                ),
+                extra=dict(extra=locals()),
+            )
+            continue
+        root_cloned: CloneResult = CloneResult(success=False)
 
-    root_cloned: CloneResult = CloneResult(success=False)
-    if root and root_cred:
         if root_cred.metadata.type.value == "SSH":
             root_cloned = await ssh_clone_root(root, root_cred)
 
         if root_cloned.success:
             findings = tuple(
                 key for key in FINDINGS.keys() if is_check_available(key)
-            )
-            await queue_all_checks_new(
-                group=group_name,
-                roots=(root.state.nickname,),
-                finding_codes=findings,
-                queue=SkimsBatchQueue.HIGH,
             )
 
         await roots_domain.update_root_cloning_status(
@@ -744,11 +756,14 @@ async def clone_root(*, item: BatchProcessing) -> None:
             message="Cloned successfully" if root_cloned else "Clone failed",
             commit=root_cloned.commit,
         )
-    else:
-        LOGGER.error(
-            "Root could not be determined or it does not have any credentials",
-            extra=dict(extra=locals()),
-        )
+        cloned_roots_id = (*cloned_roots_id, root.id)
+
+    await queue_all_checks_new(
+        group=group_name,
+        roots=cloned_roots_id,
+        finding_codes=findings,
+        queue=SkimsBatchQueue.HIGH,
+    )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,
