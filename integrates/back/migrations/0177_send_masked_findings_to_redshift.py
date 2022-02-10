@@ -5,6 +5,9 @@ These vulns were "masked" while redshift storage was not in place.
 
 Store them in redshift if apply and remove them from vms.
 
+Execution Time:     2022-02-09 at 20:21:08 UTC
+Finalization Time:  2022-02-10 at 01:16:53 UTC
+
 Execution Time:
 Finalization Time:
 """
@@ -76,8 +79,8 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-SEND_TO_REDSHIFT: bool = True
-REMOVE_FROM_VMS: bool = False
+SEND_TO_REDSHIFT: bool = False
+REMOVE_FROM_VMS: bool = True
 
 
 def filter_out_deleted_findings(
