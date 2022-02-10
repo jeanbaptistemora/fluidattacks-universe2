@@ -232,27 +232,29 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 title={translate.t("analytics.textBox.totalTypes.title")}
               />
             </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={80}
-                className={"g3"}
-                documentName={"vulnerabilitiesWithUndefinedTreatment"}
-                documentType={"textBox"}
-                entity={entity}
-                generatorName={"raw"}
-                generatorType={"textBox"}
-                infoLink={`${graphInfoLink}groups#vulnerabilities-with-not-defined-treatment`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t(
-                  "analytics.textBox.vulnsWithUndefinedTreatment.title"
-                )}
-              />
-            </Col50>
           </RowCenter>
         ) : undefined}
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
+            <RowCenter>
+              <Col50>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"vulnerabilitiesWithUndefinedTreatment"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"raw"}
+                  generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}groups#vulnerabilities-with-not-defined-treatment`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t(
+                    "analytics.textBox.vulnsWithUndefinedTreatment.title"
+                  )}
+                />
+              </Col50>
+            </RowCenter>
             <RowCenter>
               <Col33>
                 <Graphic
