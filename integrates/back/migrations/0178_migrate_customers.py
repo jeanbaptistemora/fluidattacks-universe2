@@ -3,8 +3,8 @@
 This migration swaps all customeradmins for user_managers and customers for
 users
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-02-10 at 14:45:23 UTC-5
+Finalization Time: 2022-02-10 at 14:47:26 UTC-5
 """
 
 from aioextensions import (
@@ -31,7 +31,7 @@ from typing import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 AUTHZ_TABLE: str = "fi_authz"
 
 

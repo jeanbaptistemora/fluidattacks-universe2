@@ -2676,7 +2676,6 @@ export const enTranslations: ResourceKey = {
     roles: {
       admin: "Admin",
       architect: "Architect",
-      customer: "User",
       customerManager: "Customer Manager",
       executive: "Executive",
       hacker: "Hacker",
