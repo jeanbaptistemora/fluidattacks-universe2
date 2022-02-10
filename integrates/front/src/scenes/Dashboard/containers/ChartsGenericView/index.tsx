@@ -215,28 +215,24 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </RowCenter>
           </React.Fragment>
         ) : undefined}
-        {doesEntityMatch("group", "organization") ? (
-          <RowCenter>
-            <Col50>
-              <Graphic
-                bsHeight={80}
-                className={"g3"}
-                documentName={"totalFindings"}
-                documentType={"textBox"}
-                entity={entity}
-                generatorName={"raw"}
-                generatorType={"textBox"}
-                infoLink={`${graphInfoLink}organization#total-types`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("analytics.textBox.totalTypes.title")}
-              />
-            </Col50>
-          </RowCenter>
-        ) : undefined}
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
             <RowCenter>
+              <Col50>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"totalFindings"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"raw"}
+                  generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}organization#total-types`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("analytics.textBox.totalTypes.title")}
+                />
+              </Col50>
               <Col50>
                 <Graphic
                   bsHeight={80}
