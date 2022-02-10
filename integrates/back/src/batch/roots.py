@@ -887,7 +887,8 @@ async def queue_sync_git_roots(
             entity=group_name,
             subject=user_email,
             additional_info=",".join(
-                roots_dict[root_id] for root_id in roots_to_clone
+                roots_dict[root_id].state.nickname
+                for root_id in roots_to_clone
             ),
             queue=queue,
         )
