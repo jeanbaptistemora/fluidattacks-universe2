@@ -77,7 +77,7 @@ async def mutate(
 
     allowed_roles_to_grant = (
         await authz.get_organization_level_roles_a_user_can_grant(
-            organization=organization_name,
+            organization_id=organization_id.lower(),
             requester_email=requester_email,
         )
     )

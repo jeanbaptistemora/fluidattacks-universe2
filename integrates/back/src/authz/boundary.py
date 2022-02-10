@@ -97,7 +97,7 @@ async def get_organization_level_actions(
 
 async def get_organization_level_roles_a_user_can_grant(
     *,
-    organization: str,
+    organization_id: str,
     requester_email: str,
 ) -> Tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
@@ -105,7 +105,7 @@ async def get_organization_level_roles_a_user_can_grant(
     roles_the_user_can_grant: Tuple[str, ...] = tuple(
         role
         for role in get_organization_level_roles_model(requester_email)
-        if enforcer(organization, f"grant_organization_level_role:{role}")
+        if enforcer(organization_id, f"grant_organization_level_role:{role}")
     )
     return roles_the_user_can_grant
 
