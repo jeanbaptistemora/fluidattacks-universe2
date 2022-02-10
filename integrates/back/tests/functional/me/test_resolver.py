@@ -14,7 +14,7 @@ from typing import (
 @pytest.mark.parametrize(
     ("email", "role", "permissions", "groups_length"),
     (
-        ("admin@gmail.com", "admin", 17, 0),
+        ("admin@gmail.com", "admin", 16, 0),
         ("user@gmail.com", "user", 3, 1),
         ("user_manager@gmail.com", "user_manager", 0, 1),
         ("executive@gmail.com", "executive", 0, 1),
