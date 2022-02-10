@@ -110,7 +110,7 @@ async def test_update_organization_stakeholder() -> None:
 
     data = {
         "query": query.substitute(
-            org_id=org_id, role="CUSTOMER", email=stakeholder
+            org_id=org_id, role="USER", email=stakeholder
         )
     }
     result = await _get_result_async(data)
@@ -166,7 +166,7 @@ async def test_grant_stakeholder_organization_access() -> None:
 
     data = {
         "query": query.substitute(
-            email=stakeholder, org_id=org_id, role="CUSTOMER"
+            email=stakeholder, org_id=org_id, role="USER"
         )
     }
     result = await _get_result_async(data)
@@ -187,7 +187,7 @@ async def test_grant_stakeholder_organization_access() -> None:
         "query": query.substitute(
             email="org_testuser7@gmail.com",
             org_id=default_org_id,
-            role="CUSTOMER",
+            role="USER",
         )
     }
     result = await _get_result_async(data)
@@ -199,7 +199,7 @@ async def test_grant_stakeholder_organization_access() -> None:
 
     data = {
         "query": query.substitute(
-            email="madeupuser@gmail.com", org_id=org_id, role="CUSTOMER"
+            email="madeupuser@gmail.com", org_id=org_id, role="USER"
         )
     }
     result = await _get_result_async(data, stakeholder=stakeholder)
@@ -208,7 +208,7 @@ async def test_grant_stakeholder_organization_access() -> None:
 
     data = {
         "query": query.substitute(
-            email="madeupuser@gmail.com", org_id=org_id, role="CUSTOMER"
+            email="madeupuser@gmail.com", org_id=org_id, role="USER"
         )
     }
     result = await _get_result_async(data, "madeupuser@gmail.com")

@@ -22,7 +22,7 @@ async def test_grant_stakeholder_organization_access(
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
-    stakeholder_role: str = "CUSTOMER"
+    stakeholder_role: str = "USER"
     result: Dict[str, Any] = await get_result(
         user=email,
         org=org_id,
@@ -56,7 +56,7 @@ async def test_grant_stakeholder_organization_access_fail(
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
-    stakeholder_role: str = "CUSTOMER"
+    stakeholder_role: str = "USER"
     result: Dict[str, Any] = await get_result(
         user=email,
         org=org_id,

@@ -23,7 +23,7 @@ async def test_update_organization_stakeholder(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    user_role: str = "CUSTOMER"
+    user_role: str = "USER"
     result: Dict[str, Any] = await get_result(
         user=email,
         org=org_id,
@@ -55,7 +55,7 @@ async def test_update_organization_stakeholder_fail(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    user_role: str = "CUSTOMER"
+    user_role: str = "USER"
     result: Dict[str, Any] = await get_result(
         user=email,
         org=org_id,

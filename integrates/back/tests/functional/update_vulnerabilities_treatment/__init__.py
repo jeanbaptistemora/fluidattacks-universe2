@@ -95,7 +95,7 @@ async def grant_stakeholder(
     user: str,
     stakeholder: str,
     group: str,
-    role: str = "CUSTOMER",
+    role: str = "USER",
 ) -> Dict[str, Any]:
     query: str = """
         mutation GrantStakeholderGroupAccess(
