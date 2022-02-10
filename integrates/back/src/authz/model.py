@@ -656,8 +656,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
-# Helper mapping for new roles
-GROUP_LEVEL_ROLES["customer"] = GROUP_LEVEL_ROLES["user"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -924,10 +922,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
-# Helper mapping for new roles
-GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "customer"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["user"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1009,8 +1003,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Helper mapping for old roles
-ORGANIZATION_LEVEL_ROLES["customer"] = ORGANIZATION_LEVEL_ROLES["user"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1060,10 +1052,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
         },
     ),
 )
-# Helper mapping for new roles
-ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "customer"
-] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["user"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1108,8 +1096,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Helper mapping for new roles
-USER_LEVEL_ROLES["customer"] = USER_LEVEL_ROLES["user"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -1148,10 +1134,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
     ),
 )
-# Helper mapping for new roles
-USER_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "customer"
-] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS["user"]
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
