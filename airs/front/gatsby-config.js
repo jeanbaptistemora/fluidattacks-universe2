@@ -39,15 +39,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-transformer-asciidoc",
-      options: {
-        attributes: {
-          imagesdir: "content/pages",
-          showtitle: true,
-        },
-      },
-    },
-    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
@@ -150,9 +141,6 @@ module.exports = {
     "gatsby-plugin-preload-fonts",
     "gatsby-plugin-sharp",
     "gatsby-plugin-styled-components",
-    "gatsby-plugin-typescript",
-    "gatsby-transformer-asciidoc",
     "gatsby-transformer-sharp",
-    "gatsby-plugin-transition-link",
   ],
 };

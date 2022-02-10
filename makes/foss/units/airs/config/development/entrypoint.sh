@@ -12,7 +12,9 @@ function main {
       GATSBY_ALGOLIA_SEARCH_KEY \
       ALGOLIA_ADMIN_KEY \
     && pushd "${src}" \
-    && copy __argAirsNpm__ 'node_modules' \
+    && rm -rf node_modules \
+    && copy __argAirsNpm__ node_modules \
+    && install_scripts \
     && popd \
     && npm run develop --prefix airs/front/
 }
