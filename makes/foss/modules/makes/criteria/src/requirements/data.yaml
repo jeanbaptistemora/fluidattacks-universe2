@@ -63,7 +63,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.227"
+    - "capec.227"
     - "003.4_3"
     - "004.404"
     - "004.613"
@@ -162,7 +162,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.227"
+    - "capec.227"
     - "004.384"
     - "011.7_1"
     - "012.V2_2_3"
@@ -198,8 +198,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.39"
-    - "002.74"
+    - "capec.39"
+    - "capec.74"
     - "004.642"
     - "014.6_5_10"
     - "023.LCK11-J"
@@ -356,7 +356,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.31"
+    - "capec.31"
     - "004.346"
     - "004.352"
     - "004.614"
@@ -436,7 +436,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.60"
+    - "capec.60"
     - "004.287"
     - "004.294"
     - "004.308"
@@ -793,7 +793,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.233"
+    - "capec.233"
     - "004.267"
     - "004.269"
     - "004.285"
@@ -843,7 +843,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.155"
+    - "capec.155"
     - "018.PR_DS-7"
     - "023.FIO03-J"
   metadata: {}
@@ -883,10 +883,10 @@
     squad: false
     oneshot: false
   references:
-    - "002.11"
-    - "002.153"
-    - "002.165"
-    - "002.175"
+    - "capec.11"
+    - "capec.153"
+    - "capec.165"
+    - "capec.175"
     - "004.22"
     - "004.23"
     - "004.36"
@@ -982,8 +982,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.11"
-    - "002.165"
+    - "capec.11"
+    - "capec.165"
     - "004.434"
     - "004.646"
     - "012.V12_2_1"
@@ -1013,10 +1013,10 @@
     squad: false
     oneshot: false
   references:
-    - "002.17"
-    - "002.23"
-    - "002.165"
-    - "002.549"
+    - "capec.17"
+    - "capec.23"
+    - "capec.165"
+    - "capec.549"
     - "003.2_5"
     - "004.509"
     - "004.749"
@@ -1054,7 +1054,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.165"
+    - "capec.165"
     - "004.646"
     - "012.V12_2_1"
   metadata: {}
@@ -1079,7 +1079,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.242"
+    - "capec.242"
     - "004.116"
     - "012.V5_3_1"
     - "012.V12_3_4"
@@ -1115,7 +1115,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.242"
+    - "capec.242"
     - "004.116"
     - "004.173"
     - "012.V5_3_1"
@@ -1175,12 +1175,12 @@
     squad: false
     oneshot: false
   references:
-    - "002.13"
-    - "002.23"
-    - "002.35"
-    - "002.38"
-    - "002.154"
-    - "002.176"
+    - "capec.13"
+    - "capec.23"
+    - "capec.35"
+    - "capec.38"
+    - "capec.154"
+    - "capec.176"
     - "004.778"
     - "012.V14_1_5"
     - "013.A9"
@@ -1259,10 +1259,10 @@
     squad: false
     oneshot: false
   references:
-    - "002.19"
-    - "002.154"
-    - "002.175"
-    - "002.242"
+    - "capec.19"
+    - "capec.154"
+    - "capec.175"
+    - "capec.242"
     - "004.829"
     - "004.830"
     - "012.V5_3_6"
@@ -1354,10 +1354,10 @@
     oneshot: false
   references:
     - "bsimm.SR3_3:_9"
-    - "002.125"
-    - "002.130"
-    - "002.151"
-    - "002.161"
+    - "capec.125"
+    - "capec.130"
+    - "capec.151"
+    - "capec.161"
     - "003.4_1"
     - "003.4_2"
     - "003.13_10"
@@ -1449,8 +1449,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.125"
-    - "002.130"
+    - "capec.125"
+    - "capec.130"
     - "004.400"
     - "004.770"
     - "006.32_1c"
@@ -1635,8 +1635,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.116"
-    - "002.224"
+    - "capec.116"
+    - "capec.224"
     - "004.209"
     - "004.210"
     - "012.V14_3_1"
@@ -1671,8 +1671,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.113"
-    - "002.116"
+    - "capec.113"
+    - "capec.116"
     - "004.209"
     - "004.210"
     - "004.497"
@@ -1789,7 +1789,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.161"
+    - "capec.161"
     - "004.200"
     - "004.285"
     - "008.12_4_2"
@@ -2123,7 +2123,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.94"
+    - "capec.94"
     - "004.300"
     - "033.AC_L1-3_1_20"
     - "034.01_j"
@@ -2153,7 +2153,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.475"
+    - "capec.475"
     - "004.295"
     - "004.297"
     - "013.A7"
@@ -2208,8 +2208,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.122"
-    - "002.233"
+    - "capec.122"
+    - "capec.233"
     - "003.5_1"
     - "004.250"
     - "004.276"
@@ -2281,8 +2281,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.1"
-    - "002.122"
+    - "capec.1"
+    - "capec.122"
     - "003.3_3"
     - "004.250"
     - "004.276"
@@ -2385,7 +2385,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.41"
+    - "capec.41"
     - "015.CC6_6"
     - "015.CC6_8"
     - "027.M1037"
@@ -2436,7 +2436,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.242"
+    - "capec.242"
     - "004.80"
     - "013.A3"
     - "014.6_5_1"
@@ -2554,7 +2554,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.654"
+    - "capec.654"
     - "004.287"
     - "013.A7"
     - "014.8_1_2"
@@ -2826,7 +2826,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.49"
+    - "capec.49"
     - "003.5_3"
     - "004.263"
     - "009.007-6_R5_6"
@@ -2905,8 +2905,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.49"
-    - "002.560"
+    - "capec.49"
+    - "capec.560"
     - "004.521"
     - "009.007-6_R5_5"
     - "011.5_1_1_2"
@@ -2936,8 +2936,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.49"
-    - "002.560"
+    - "capec.49"
+    - "capec.560"
     - "004.521"
     - "009.007-6_R5_5"
     - "012.V2_1_1"
@@ -3373,8 +3373,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.70"
-    - "002.560"
+    - "capec.70"
+    - "capec.560"
     - "003.4_7"
     - "009.007-6_R5_4"
     - "012.V2_5_4"
@@ -3622,7 +3622,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "003.3_6"
     - "003.16_11"
     - "004.326"
@@ -3674,7 +3674,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "007.164_312_a_2_iv"
     - "012.V1_6_1"
     - "034.10_g"
@@ -3701,7 +3701,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "007.164_312_a_2_iv"
     - "012.V1_6_1"
     - "034.10_g"
@@ -3725,7 +3725,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "012.V1_6_1"
   metadata: {}
 "151":
@@ -3916,10 +3916,10 @@
     squad: false
     oneshot: false
   references:
-    - "002.113"
-    - "002.115"
-    - "002.438"
-    - "002.554"
+    - "capec.113"
+    - "capec.115"
+    - "capec.438"
+    - "capec.554"
     - "003.5_5"
     - "004.510"
     - "004.1269"
@@ -3991,7 +3991,7 @@
     oneshot: false
   references:
     - "bsimm.CR3_4:_2"
-    - "002.438"
+    - "capec.438"
     - "004.507"
     - "004.510"
     - "004.511"
@@ -4118,9 +4118,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.123"
-    - "002.129"
-    - "002.130"
+    - "capec.123"
+    - "capec.129"
+    - "capec.130"
     - "004.120"
     - "004.611"
     - "012.C_33"
@@ -4171,9 +4171,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.123"
-    - "002.129"
-    - "002.131"
+    - "capec.123"
+    - "capec.129"
+    - "capec.131"
     - "003.16_1"
     - "004.120"
     - "012.C_11"
@@ -4218,7 +4218,7 @@
     oneshot: false
   references:
     - "bsimm.SE3_2:_13"
-    - "002.188"
+    - "capec.188"
     - "004.1269"
     - "012.C_18"
     - "012.C_34"
@@ -4275,15 +4275,15 @@
     squad: false
     oneshot: false
   references:
-    - "002.18"
-    - "002.19"
-    - "002.32"
-    - "002.48"
-    - "002.130"
-    - "002.153"
-    - "002.240"
-    - "002.242"
-    - "002.248"
+    - "capec.18"
+    - "capec.19"
+    - "capec.32"
+    - "capec.48"
+    - "capec.130"
+    - "capec.153"
+    - "capec.240"
+    - "capec.242"
+    - "capec.248"
     - "004.20"
     - "004.79"
     - "004.116"
@@ -4554,8 +4554,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.7"
-    - "002.248"
+    - "capec.7"
+    - "capec.248"
     - "004.89"
     - "012.V5_3_4"
     - "013.A3"
@@ -4752,25 +4752,25 @@
     squad: false
     oneshot: false
   references:
-    - "002.3"
-    - "002.4"
-    - "002.6"
-    - "002.7"
-    - "002.15"
-    - "002.18"
-    - "002.19"
-    - "002.22"
-    - "002.32"
-    - "002.34"
-    - "002.41"
-    - "002.48"
-    - "002.130"
-    - "002.137"
-    - "002.153"
-    - "002.175"
-    - "002.240"
-    - "002.242"
-    - "002.248"
+    - "capec.3"
+    - "capec.4"
+    - "capec.6"
+    - "capec.7"
+    - "capec.15"
+    - "capec.18"
+    - "capec.19"
+    - "capec.22"
+    - "capec.32"
+    - "capec.34"
+    - "capec.41"
+    - "capec.48"
+    - "capec.130"
+    - "capec.137"
+    - "capec.153"
+    - "capec.175"
+    - "capec.240"
+    - "capec.242"
+    - "capec.248"
     - "003.16_10"
     - "004.20"
     - "004.74"
@@ -4871,8 +4871,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.21"
-    - "002.31"
+    - "capec.21"
+    - "capec.31"
     - "004.352"
     - "012.V4_2_2"
     - "014.6_5_9"
@@ -5165,9 +5165,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.21"
-    - "002.22"
-    - "002.148"
+    - "capec.21"
+    - "capec.22"
+    - "capec.148"
     - "004.326"
     - "004.345"
     - "004.347"
@@ -5309,13 +5309,13 @@
     squad: false
     oneshot: false
   references:
-    - "002.12"
-    - "002.31"
-    - "002.94"
-    - "002.117"
-    - "002.148"
-    - "002.216"
-    - "002.594"
+    - "capec.12"
+    - "capec.31"
+    - "capec.94"
+    - "capec.117"
+    - "capec.148"
+    - "capec.216"
+    - "capec.594"
     - "003.3_10"
     - "003.6_4"
     - "003.6_5"
@@ -5627,14 +5627,14 @@
     squad: false
     oneshot: false
   references:
-    - "002.17"
-    - "002.23"
-    - "002.27"
-    - "002.35"
-    - "002.122"
-    - "002.153"
-    - "002.176"
-    - "002.233"
+    - "capec.17"
+    - "capec.23"
+    - "capec.27"
+    - "capec.35"
+    - "capec.122"
+    - "capec.153"
+    - "capec.176"
+    - "capec.233"
     - "003.2_7"
     - "004.250"
     - "004.269"
@@ -6011,7 +6011,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.115"
+    - "capec.115"
   metadata: {}
 "223":
   en:
@@ -6061,7 +6061,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "004.330"
     - "004.331"
     - "004.332"
@@ -6138,13 +6138,13 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
-    - "002.94"
-    - "002.117"
-    - "002.151"
-    - "002.216"
-    - "002.272"
-    - "002.594"
+    - "capec.20"
+    - "capec.94"
+    - "capec.117"
+    - "capec.151"
+    - "capec.216"
+    - "capec.272"
+    - "capec.594"
     - "003.3_10"
     - "004.327"
     - "004.330"
@@ -6289,8 +6289,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.2"
-    - "002.212"
+    - "capec.2"
+    - "capec.212"
     - "004.307"
     - "004.645"
     - "012.V2_2_1"
@@ -6391,7 +6391,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.115"
+    - "capec.115"
     - "014.6_5_10"
     - "015.CC6_1"
     - "026.5575_B_2"
@@ -6582,7 +6582,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.114"
+    - "capec.114"
     - "004.287"
     - "013.A7"
     - "014.12_3_2"
@@ -6705,7 +6705,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.49"
+    - "capec.49"
     - "004.287"
     - "004.307"
     - "004.799"
@@ -6814,7 +6814,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.613"
+    - "capec.613"
     - "013.A7"
     - "027.M1031"
   metadata: {}
@@ -6838,7 +6838,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.613"
+    - "capec.613"
     - "028.6_1"
   metadata: {}
 "249":
@@ -6866,7 +6866,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.619"
+    - "capec.619"
     - "003.12_2"
     - "010.AC-18_5"
     - "026.5575_B_6"
@@ -7043,7 +7043,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.613"
+    - "capec.613"
   metadata: {}
 "255":
   en:
@@ -7270,7 +7270,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.116"
+    - "capec.116"
     - "004.200"
     - "004.359"
     - "004.548"
@@ -7340,9 +7340,9 @@
     oneshot: false
   references:
     - "bsimm.SR2_4:_60"
-    - "002.42"
-    - "002.240"
-    - "002.242"
+    - "capec.42"
+    - "capec.240"
+    - "capec.242"
     - "003.2_1"
     - "003.7_4"
     - "003.16_4"
@@ -7420,9 +7420,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.1"
-    - "002.36"
-    - "002.115"
+    - "capec.1"
+    - "capec.36"
+    - "capec.115"
     - "004.287"
     - "004.306"
     - "008.9_4_2"
@@ -7508,8 +7508,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.13"
-    - "002.122"
+    - "capec.13"
+    - "capec.122"
     - "003.2_7"
     - "004.269"
     - "004.284"
@@ -7607,8 +7607,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.161"
-    - "002.212"
+    - "capec.161"
+    - "capec.212"
     - "003.9_4"
     - "004.284"
     - "004.602"
@@ -7665,9 +7665,9 @@
     oneshot: false
   references:
     - "bsimm.CR3_4:_2"
-    - "002.169"
-    - "002.442"
-    - "002.549"
+    - "capec.169"
+    - "capec.442"
+    - "capec.549"
     - "003.4_4"
     - "003.10_6"
     - "003.13_4"
@@ -7714,7 +7714,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.122"
+    - "capec.122"
     - "019.11"
     - "023.FIO00-J"
     - "027.M1022"
@@ -8685,9 +8685,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.114"
-    - "002.115"
-    - "002.151"
+    - "capec.114"
+    - "capec.115"
+    - "capec.151"
     - "004.287"
     - "004.306"
     - "012.V1_2_4"
@@ -8747,12 +8747,12 @@
     squad: false
     oneshot: false
   references:
-    - "002.11"
-    - "002.22"
-    - "002.28"
-    - "002.34"
-    - "002.39"
-    - "002.153"
+    - "capec.11"
+    - "capec.22"
+    - "capec.28"
+    - "capec.34"
+    - "capec.39"
+    - "capec.153"
     - "004.284"
     - "004.285"
     - "004.602"
@@ -8831,10 +8831,10 @@
     squad: false
     oneshot: false
   references:
-    - "002.130"
-    - "002.153"
-    - "002.248"
-    - "002.586"
+    - "capec.130"
+    - "capec.153"
+    - "capec.248"
+    - "capec.586"
     - "004.94"
     - "004.95"
     - "004.502"
@@ -9035,7 +9035,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.161"
+    - "capec.161"
     - "004.601"
     - "004.602"
     - "004.918"
@@ -9103,8 +9103,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.116"
-    - "002.224"
+    - "capec.116"
+    - "capec.224"
     - "004.651"
     - "013.A4"
     - "023.MET02-J"
@@ -9236,9 +9236,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.49"
-    - "002.125"
-    - "002.130"
+    - "capec.49"
+    - "capec.125"
+    - "capec.130"
     - "004.770"
     - "004.799"
     - "012.V2_2_1"
@@ -9274,8 +9274,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.39"
-    - "002.74"
+    - "capec.39"
+    - "capec.74"
     - "004.642"
     - "014.6_5_10"
     - "017.M4"
@@ -9343,7 +9343,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.74"
+    - "capec.74"
     - "004.922"
     - "005.4_1a"
     - "006.5_1f"
@@ -9399,9 +9399,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.148"
-    - "002.154"
-    - "002.165"
+    - "capec.148"
+    - "capec.154"
+    - "capec.165"
     - "004.353"
     - "004.494"
     - "012.V10_3_1"
@@ -9508,8 +9508,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.16"
-    - "002.560"
+    - "capec.16"
+    - "capec.560"
     - "004.521"
     - "011.5_1_1_2"
     - "012.V2_1_7"
@@ -9754,12 +9754,12 @@
     squad: false
     oneshot: false
   references:
-    - "002.94"
-    - "002.117"
-    - "002.212"
-    - "002.216"
-    - "002.272"
-    - "002.594"
+    - "capec.94"
+    - "capec.117"
+    - "capec.212"
+    - "capec.216"
+    - "capec.272"
+    - "capec.594"
     - "004.319"
     - "004.326"
     - "004.757"
@@ -9844,13 +9844,13 @@
     squad: false
     oneshot: false
   references:
-    - "002.25"
-    - "002.26"
-    - "002.27"
-    - "002.29"
-    - "002.30"
-    - "002.124"
-    - "002.233"
+    - "capec.25"
+    - "capec.26"
+    - "capec.27"
+    - "capec.29"
+    - "capec.30"
+    - "capec.124"
+    - "capec.233"
     - "004.362"
     - "004.367"
     - "012.C_20"
@@ -9926,7 +9926,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.117"
+    - "capec.117"
     - "004.326"
     - "012.V9_1_1"
     - "012.V9_1_2"
@@ -9985,7 +9985,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.116"
+    - "capec.116"
     - "004.219"
     - "004.548"
     - "004.922"
@@ -10056,8 +10056,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.19"
-    - "002.165"
+    - "capec.19"
+    - "capec.165"
     - "004.646"
     - "004.1021"
     - "012.V1_12_2"
@@ -10121,8 +10121,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.122"
-    - "002.233"
+    - "capec.122"
+    - "capec.233"
     - "004.276"
     - "004.732"
     - "009.005-5_R1_3"
@@ -10193,11 +10193,11 @@
     squad: false
     oneshot: false
   references:
-    - "002.6"
-    - "002.31"
-    - "002.32"
-    - "002.137"
-    - "002.153"
+    - "capec.6"
+    - "capec.31"
+    - "capec.32"
+    - "capec.137"
+    - "capec.153"
     - "004.20"
     - "004.233"
     - "004.235"
@@ -10318,9 +10318,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.19"
-    - "002.242"
-    - "002.248"
+    - "capec.19"
+    - "capec.242"
+    - "capec.248"
     - "004.20"
     - "004.94"
     - "004.95"
@@ -10402,8 +10402,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.123"
-    - "002.153"
+    - "capec.123"
+    - "capec.153"
     - "004.120"
     - "004.134"
     - "004.190"
@@ -10610,9 +10610,9 @@
     squad: false
     oneshot: false
   references:
-    - "002.33"
-    - "002.43"
-    - "002.153"
+    - "capec.33"
+    - "capec.43"
+    - "capec.153"
     - "004.116"
     - "004.444"
     - "012.V13_1_1"
@@ -10667,11 +10667,11 @@
     squad: false
     oneshot: false
   references:
-    - "002.19"
-    - "002.31"
-    - "002.32"
-    - "002.161"
-    - "002.173"
+    - "capec.19"
+    - "capec.31"
+    - "capec.32"
+    - "capec.161"
+    - "capec.173"
     - "004.116"
     - "004.173"
     - "004.319"
@@ -10726,7 +10726,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.123"
+    - "capec.123"
     - "012.C_3"
     - "027.M1029"
     - "027.M1034"
@@ -11388,8 +11388,8 @@
     squad: false
     oneshot: false
   references:
-    - "002.116"
-    - "002.224"
+    - "capec.116"
+    - "capec.224"
     - "034.06_d"
   metadata: {}
 "366":
@@ -11523,7 +11523,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "007.164_312_a_2_iv"
     - "012.V1_6_1"
     - "034.10_g"
@@ -11547,7 +11547,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.20"
+    - "capec.20"
     - "007.164_312_a_2_iv"
     - "012.V1_6_1"
     - "034.10_g"
@@ -11607,7 +11607,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.94"
+    - "capec.94"
     - "004.94"
     - "004.297"
     - "004.300"
@@ -11638,7 +11638,7 @@
     squad: false
     oneshot: false
   references:
-    - "002.124"
+    - "capec.124"
     - "017.M8"
     - "019.11"
     - "025.2_1"
