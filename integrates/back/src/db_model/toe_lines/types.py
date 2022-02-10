@@ -18,7 +18,6 @@ class ToeLines(NamedTuple):
     be_present: bool
     be_present_until: Optional[datetime]
     comments: str
-    commit_author: str
     filename: str
     first_attack_at: Optional[datetime]
     has_vulnerabilities: Optional[bool]
@@ -26,7 +25,6 @@ class ToeLines(NamedTuple):
     last_author: str
     last_commit: str
     loc: int
-    modified_commit: str
     modified_date: datetime
     root_id: str
     seen_at: datetime
@@ -53,11 +51,11 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     be_present: Optional[bool] = None
     be_present_until: Optional[datetime] = None
     comments: Optional[str] = None
-    commit_author: Optional[str] = None
     first_attack_at: Optional[datetime] = None
     has_vulnerabilities: Optional[bool] = None
+    last_author: Optional[str] = None
+    last_commit: Optional[str] = None
     loc: Optional[int] = None
-    modified_commit: Optional[str] = None
     modified_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None

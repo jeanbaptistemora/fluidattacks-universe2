@@ -81,6 +81,7 @@ async def update_metadata(
         Attr(attr_name).eq(current_value_item[attr_name])
         for attr_name in metadata_item
         if current_value_item[attr_name] is not None
+        and attr_name not in {"last_author", "last_commit"}
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:

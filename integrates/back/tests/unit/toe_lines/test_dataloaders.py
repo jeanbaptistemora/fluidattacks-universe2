@@ -40,7 +40,6 @@ async def test_get() -> None:
         be_present=True,
         be_present_until=None,
         comments="comment 1",
-        commit_author="user@gmail.com",
         filename="test/test#.config",
         first_attack_at=datetime.fromisoformat("2020-02-19T15:41:04+00:00"),
         group_name="unittesting",
@@ -48,7 +47,6 @@ async def test_get() -> None:
         last_author="user@gmail.com",
         last_commit="983466z",
         loc=8,
-        modified_commit="983466z",
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
@@ -69,7 +67,6 @@ async def test_get() -> None:
         be_present=False,
         be_present_until=datetime.fromisoformat("2021-01-01T15:41:04+00:00"),
         comments="comment 2",
-        commit_author="user@gmail.com",
         filename="test2/test.sh",
         first_attack_at=datetime.fromisoformat("2020-01-19T15:41:04+00:00"),
         group_name="unittesting",
@@ -77,7 +74,6 @@ async def test_get() -> None:
         last_author="user@gmail.com",
         last_commit="273412t",
         loc=172,
-        modified_commit="273412t",
         modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
         seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
@@ -103,7 +99,6 @@ async def test_get_by_group() -> None:
                     be_present=True,
                     be_present_until=None,
                     comments="comment 1",
-                    commit_author="user@gmail.com",
                     filename="test/test#.config",
                     first_attack_at=datetime.fromisoformat(
                         "2020-02-19T15:41:04+00:00"
@@ -113,7 +108,6 @@ async def test_get_by_group() -> None:
                     last_author="user@gmail.com",
                     last_commit="983466z",
                     loc=8,
-                    modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
@@ -137,7 +131,6 @@ async def test_get_by_group() -> None:
                         "2021-01-01T15:41:04+00:00"
                     ),
                     comments="comment 2",
-                    commit_author="user@gmail.com",
                     filename="test2/test.sh",
                     first_attack_at=datetime.fromisoformat(
                         "2020-01-19T15:41:04+00:00"
@@ -147,7 +140,6 @@ async def test_get_by_group() -> None:
                     last_author="user@gmail.com",
                     last_commit="273412t",
                     loc=172,
-                    modified_commit="273412t",
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),
@@ -183,7 +175,6 @@ async def test_get_by_root() -> None:
                     be_present=True,
                     be_present_until=None,
                     comments="comment 1",
-                    commit_author="user@gmail.com",
                     filename="test/test#.config",
                     first_attack_at=datetime.fromisoformat(
                         "2020-02-19T15:41:04+00:00"
@@ -193,7 +184,6 @@ async def test_get_by_root() -> None:
                     last_author="user@gmail.com",
                     last_commit="983466z",
                     loc=8,
-                    modified_commit="983466z",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
@@ -227,7 +217,6 @@ async def test_get_by_root() -> None:
                         "2021-01-01T15:41:04+00:00"
                     ),
                     comments="comment 2",
-                    commit_author="user@gmail.com",
                     filename="test2/test.sh",
                     first_attack_at=datetime.fromisoformat(
                         "2020-01-19T15:41:04+00:00"
@@ -237,7 +226,6 @@ async def test_get_by_root() -> None:
                     last_author="user@gmail.com",
                     last_commit="273412t",
                     loc=172,
-                    modified_commit="273412t",
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),

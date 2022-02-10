@@ -233,10 +233,10 @@ async def get_present_toe_lines_to_add(
                 attacked_at=None,
                 attacked_by="",
                 attacked_lines=0,
-                commit_author=last_commit_info.author,
+                last_author=last_commit_info.author,
                 comments="",
                 loc=last_loc,
-                modified_commit=last_commit_info.hash,
+                last_commit=last_commit_info.hash,
                 modified_date=last_commit_info.modified_date,
             ),
         )
@@ -306,9 +306,9 @@ async def get_present_toe_lines_to_update(
         )
         != (
             repo_toe_lines[filename].be_present,
-            repo_toe_lines[filename].commit_author,
+            repo_toe_lines[filename].last_author,
             repo_toe_lines[filename].loc,
-            repo_toe_lines[filename].modified_commit,
+            repo_toe_lines[filename].last_commit,
             repo_toe_lines[filename].modified_date,
         )
     )

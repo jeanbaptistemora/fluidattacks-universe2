@@ -12,9 +12,9 @@ class ToeLinesAttributesToAdd(NamedTuple):
     attacked_by: str
     attacked_lines: int
     comments: str
-    commit_author: str
+    last_author: str
     loc: int
-    modified_commit: str
+    last_commit: str
     modified_date: datetime
     be_present: bool = True
     be_present_until: Optional[datetime] = None

@@ -270,7 +270,7 @@ async def move_repo_services_toe_lines(group_name: str, root_id: str) -> None:
                 toe_lines.group_name, toe_lines.root_id, toe_lines.filename
             )
             for toe_lines in non_present_toe_lines
-            if not toe_lines.be_present and not toe_lines.commit_author
+            if not toe_lines.be_present and not toe_lines.last_author
         )
     )
 

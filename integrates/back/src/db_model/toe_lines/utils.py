@@ -34,17 +34,15 @@ def format_toe_lines(item: Item) -> ToeLines:
         if item["be_present_until"]
         else None,
         comments=item["comments"],
-        commit_author=item["commit_author"],
         filename=item["filename"],
         first_attack_at=datetime.fromisoformat(item["first_attack_at"])
         if item["first_attack_at"]
         else None,
         group_name=item["group_name"],
         has_vulnerabilities=item.get("has_vulnerabilities"),
-        last_author=item["commit_author"],
-        last_commit=item["modified_commit"],
+        last_author=item.get("last_author", item.get("commit_author", "")),
+        last_commit=item.get("last_commit", item.get("modified_commit", "")),
         loc=int(item["loc"]),
-        modified_commit=item["modified_commit"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
         root_id=item["root_id"],
         seen_at=datetime.fromisoformat(item["seen_at"]),
@@ -86,7 +84,6 @@ def format_toe_lines_item(
             toe_lines.be_present_until
         ),
         "comments": toe_lines.comments,
-        "commit_author": toe_lines.commit_author,
         "filename": toe_lines.filename,
         "first_attack_at": ""
         if toe_lines.first_attack_at is None
@@ -95,8 +92,9 @@ def format_toe_lines_item(
         ),
         "group_name": toe_lines.group_name,
         "has_vulnerabilities": toe_lines.has_vulnerabilities,
+        "last_author": toe_lines.last_author,
+        "last_commit": toe_lines.last_commit,
         "loc": toe_lines.loc,
-        "modified_commit": toe_lines.modified_commit,
         "modified_date": db_model_utils.get_date_as_utc_iso_format(
             toe_lines.modified_date
         ),

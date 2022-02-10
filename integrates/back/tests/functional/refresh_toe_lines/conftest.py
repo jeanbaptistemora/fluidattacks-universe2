@@ -108,7 +108,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "2021-01-19T15:41:04+00:00"
                 ),
                 comments="comment 1",
-                commit_author="customer1@gmail.com",
                 filename="test1/test.sh",
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-19T15:41:04+00:00"
@@ -118,7 +117,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 last_author="customer1@gmail.com",
                 last_commit="273412t",
                 loc=4324,
-                modified_commit="273412t",
                 modified_date=datetime.fromisoformat(
                     "2021-11-16T15:41:04+00:00"
                 ),
@@ -135,7 +133,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="comment 2",
-                commit_author="customer2@gmail.com",
                 filename="test2/test#.config",
                 first_attack_at=datetime.fromisoformat(
                     "2020-02-19T15:41:04+00:00"
@@ -145,7 +142,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 last_author="customer2@gmail.com",
                 last_commit="983466z",
                 loc=8,
-                modified_commit="983466z",
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
@@ -162,7 +158,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="comment 3",
-                commit_author="customer3@gmail.com",
                 filename="test3/test.sh",
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-14T15:41:04+00:00"
@@ -172,7 +167,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 last_author="customer3@gmail.com",
                 last_commit="g545435i",
                 loc=243,
-                modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
@@ -189,7 +183,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="comment 4",
-                commit_author="customer4@gmail.com",
                 filename="test4/test.sh",
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-14T15:41:04+00:00"
@@ -199,7 +192,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 last_author="customer4@gmail.com",
                 last_commit="g545435i",
                 loc=243,
-                modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
@@ -214,7 +206,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 comments="comment 5",
-                commit_author="customer5@gmail.com",
                 filename="test5/test.sh",
                 first_attack_at=None,
                 group_name="group1",
@@ -222,7 +213,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 last_author="customer5@gmail.com",
                 last_commit="g545435i",
                 loc=243,
-                modified_commit="g545435i",
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
