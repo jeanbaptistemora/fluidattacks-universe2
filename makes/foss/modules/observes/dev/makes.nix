@@ -33,5 +33,10 @@
         outputs."/observes/etl/code/env/development"
       ];
     };
+    observesTapDynamo = {
+      source = [
+        outputs."/observes/singer/tap-dynamo/env/development"
+      ];
+    };
   };
 }
