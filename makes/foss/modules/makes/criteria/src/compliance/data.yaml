@@ -4446,4 +4446,79 @@
     "09_ad":
       title: Administrator and Operator Logs
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "09_af":
+      title: Clock Synchronization
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_b":
+      title: Input Data Validation
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_c":
+      title: Control of Internal Processing
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_d":
+      title: Message Integrity
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_e":
+      title: Output Data Validation
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_f":
+      title: Policy on the Use of Cryptographic Controls
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_g":
+      title: Key Management
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_i":
+      title: Protection of System Test Data
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_j":
+      title: Access Control to Program Source Code
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "10_l":
+      title: Outsourced Software Development
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "11_a":
+      title: Reporting Information Security Events
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_a":
+      title: Privacy Notice
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_b":
+      title: Openness and Transparency
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_c":
+      title: Accounting of Disclosures
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_d":
+      title: Consent required
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_e":
+      title: Choice
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_f":
+      title: Principle Access
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_g":
+      title: Purpose Legitimacy
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_h":
+      title: Purpose specification
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_j":
+      title: Data Minimization
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_k":
+      title: Use and Disclosure
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_l":
+      title: Retention and Disposal
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_m":
+      title: Accuracy and Quality
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_n":
+      title: Participation and Redress
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
+    "13_s":
+      title: Privacy Monitoring and Auditing
+      link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
