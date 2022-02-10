@@ -533,7 +533,7 @@ async def get_where(loaders: Any, finding_id: str) -> str:
     """
     General locations of the Vulnerabilities. It is limited to 20 locations.
     """
-    return ", ".join(await _get_wheres(loaders, finding_id, limit=20))
+    return ", ".join(sorted(await _get_wheres(loaders, finding_id, limit=20)))
 
 
 async def has_access_to_finding(

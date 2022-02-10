@@ -11,6 +11,14 @@ from dataloaders import (
 from db_model.enums import (
     Source,
 )
+from db_model.findings.enums import (
+    FindingStatus,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingTreatmentSummary,
+    FindingUnreliableIndicators,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -199,7 +207,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         unreliable_last_reattack_requester="requester@gmail.com",
         unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
         unreliable_reattack_cycles=None,
-        unreliable_report_date="2018-04-08T00:45:11+00:00",
+        unreliable_report_date="2018-04-08T00:43:11+00:00",
         unreliable_source=Source.ASM,
         unreliable_treatment_changes=0,
     )
@@ -213,9 +221,24 @@ async def test_upload_file(populate: bool, email: str) -> None:
         unreliable_last_reattack_requester="requester@gmail.com",
         unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
         unreliable_reattack_cycles=None,
-        unreliable_report_date="2018-04-08T00:45:11+00:00",
+        unreliable_report_date="2018-04-08T00:44:11+00:00",
         unreliable_source=Source.ASM,
         unreliable_treatment_changes=0,
+    )
+
+    finding: Finding = await loaders.finding.load(finding_id)
+    assert finding.unreliable_indicators == FindingUnreliableIndicators(
+        unreliable_closed_vulnerabilities=2,
+        unreliable_is_verified=True,
+        unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00+00:00",
+        unreliable_oldest_open_vulnerability_report_date="2018-04-08T00:43:11+00:00",
+        unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11+00:00",
+        unreliable_open_vulnerabilities=6,
+        unreliable_status=FindingStatus.OPEN,
+        unreliable_treatment_summary=FindingTreatmentSummary(
+            accepted=0, accepted_undefined=0, in_progress=0, new=6
+        ),
+        unreliable_where="192.168.1.44, 192.168.1.46, https://example.com, product/path/to/file1.ext, product/test/1",
     )
 
 
