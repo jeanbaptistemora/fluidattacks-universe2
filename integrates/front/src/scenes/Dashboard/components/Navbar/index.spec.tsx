@@ -127,7 +127,7 @@ describe("Navbar", (): void => {
                   userEmail: "",
                 },
               }}
-              userRole={"customer"}
+              userRole={"user"}
             />
           </authContext.Provider>
         </MockedProvider>
@@ -204,7 +204,7 @@ describe("Navbar", (): void => {
             <Navbar
               meVulnerabilitiesAssigned={undefined}
               userData={undefined}
-              userRole={"customer"}
+              userRole={"user"}
             />
           </authContext.Provider>
         </MockedProvider>
@@ -287,7 +287,7 @@ describe("Navbar", (): void => {
             <Navbar
               meVulnerabilitiesAssigned={undefined}
               userData={undefined}
-              userRole={"customer"}
+              userRole={"user"}
             />
           </authContext.Provider>
         </MockedProvider>

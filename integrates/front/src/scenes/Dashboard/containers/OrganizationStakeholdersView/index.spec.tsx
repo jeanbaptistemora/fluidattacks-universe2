@@ -177,7 +177,7 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser2@gmail.com",
             organizationId: mockProps.organizationId,
-            role: "CUSTOMER",
+            role: "USER",
           },
         },
         result: {
@@ -213,7 +213,7 @@ describe("Organization users view", (): void => {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01 13:40:37",
                   lastLogin: "2020-10-29 13:40:37",
-                  role: "customer",
+                  role: "user",
                 },
               ],
             },
@@ -270,7 +270,7 @@ describe("Organization users view", (): void => {
     });
     wrapper.update();
     roleField().simulate("change", {
-      target: { name: "role", value: "CUSTOMER" },
+      target: { name: "role", value: "USER" },
     });
     wrapper.update();
     form().simulate("submit");
@@ -315,7 +315,7 @@ describe("Organization users view", (): void => {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
                   lastLogin: "[10, 35207]",
-                  role: "customer",
+                  role: "user",
                 },
               ],
             },
@@ -414,7 +414,7 @@ describe("Organization users view", (): void => {
         .find({ name: "role" })
         .find("select")
         .prop("value")
-    ).toBe("CUSTOMER");
+    ).toBe("USER");
 
     const form: ReactWrapper = wrapper.find(AddUserModal).find("Formik");
     const roleField: ReactWrapper = wrapper

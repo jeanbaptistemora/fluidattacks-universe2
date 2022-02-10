@@ -79,7 +79,7 @@ describe("Organization groups view", (): void => {
                   name: "unittesting",
                   service: "WHITE",
                   subscription: "continuous",
-                  userRole: "customer",
+                  userRole: "user",
                 },
                 {
                   description: "One-shot type test group",
@@ -250,7 +250,7 @@ describe("Organization groups view", (): void => {
                   name: "unittesting",
                   service: "WHITE",
                   subscription: "continuous",
-                  userRole: "customer",
+                  userRole: "user",
                 },
                 {
                   description: "One-shot type test group",
@@ -317,7 +317,7 @@ describe("Organization groups view", (): void => {
                   hasSquad: true,
                   name: "unittesting",
                   subscription: "continuous",
-                  userRole: "customer",
+                  userRole: "user",
                 },
                 {
                   description: "One-shot type test group",

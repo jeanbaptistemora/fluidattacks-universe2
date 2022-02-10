@@ -76,7 +76,7 @@ describe("User Profile", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider addTypename={false} mocks={mockQueryFalse}>
-          <UserProfile userRole={"customer"} />
+          <UserProfile userRole={"user"} />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -171,7 +171,7 @@ describe("User Profile", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider addTypename={false} mocks={mockQueryFalse}>
-          <UserProfile userRole={"customer"} />
+          <UserProfile userRole={"user"} />
         </MockedProvider>
       </MemoryRouter>
     );

@@ -53,7 +53,7 @@ describe("Group stakeholders view", (): void => {
                 invitationState: "CONFIRMED",
                 lastLogin: "2017-10-29 13:40:37",
                 responsibility: "Test responsibility",
-                role: "customer",
+                role: "user",
               },
             ],
           },
@@ -78,7 +78,7 @@ describe("Group stakeholders view", (): void => {
                 invitationState: "CONFIRMED",
                 lastLogin: "2017-10-29 13:40:37",
                 responsibility: "Rest responsibility",
-                role: "customer",
+                role: "user",
               },
               {
                 email: "unittest@test.com",
