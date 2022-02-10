@@ -39,6 +39,20 @@ from typing import (
 )
 
 
+def _filter_unique_report(
+    old_additional_info: str,
+    new_type: str,
+    new_treatments: Set[VulnerabilityTreatmentStatus],
+) -> bool:
+    additional_info: Dict[str, Any] = json.loads(old_additional_info)
+    if new_type == "XLS":
+        return new_type == additional_info.get("report_type") and list(
+            sorted(new_treatments)
+        ) == list(sorted(additional_info.get("treatments", [])))
+
+    return new_type == additional_info.get("report_type")
+
+
 @enforce_group_level_auth_async
 async def _get_url_group_report(
     _info: GraphQLResolveInfo,
@@ -50,7 +64,7 @@ async def _get_url_group_report(
     additional_info: str = json.dumps(
         {
             "report_type": report_type,
-            "treatments": list(treatments),
+            "treatments": list(sorted(treatments)),
         }
     )
     existing_actions: Tuple[
@@ -60,7 +74,9 @@ async def _get_url_group_report(
     if list(
         filter(
             lambda x: x.subject.lower() == user_email.lower()
-            and x.additional_info.lower() == additional_info.lower(),
+            and _filter_unique_report(
+                x.additional_info, report_type, treatments
+            ),
             existing_actions,
         )
     ):
