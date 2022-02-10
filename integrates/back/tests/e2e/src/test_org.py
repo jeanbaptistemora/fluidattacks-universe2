@@ -25,6 +25,7 @@ def test_org_analytics(
         "Total types",
         "Severity",
         "Days since last remediation",
+        "Open Severity by type",
         "Total vulnerabilities",
     ]
 
@@ -96,6 +97,8 @@ def test_org_portfolios(
         "Severity",
         "Days since last remediation",
         "Total vulnerabilities",
+        "Total types",
+        "Vulnerabilities with not-defined treatment",
     ]
     # Login
     utils.login(driver, asm_endpoint, credentials)
