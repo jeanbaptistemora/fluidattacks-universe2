@@ -1,12 +1,16 @@
 # Starlette evidences-related methods
 
 
+import aiohttp
 import authz
 from context import (
     FI_AWS_S3_BUCKET,
 )
 from dataloaders import (
     get_new_context,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from events.domain import (
     has_access_to_event,
@@ -40,6 +44,14 @@ from typing import (
 )
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
+download_evidence_file = retry_on_exceptions(
+    exceptions=(
+        aiohttp.ClientError,
+        aiohttp.ClientPayloadError,
+    ),
+    max_attempts=3,
+    sleep_seconds=float("0.2"),
+)(download_file)
 
 
 async def enforce_group_level_role(
@@ -108,7 +120,7 @@ async def get_evidence(request: Request) -> Response:
                 localtmp = utils.replace_all(
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )
-                await download_file(BUCKET_S3, evidence, localtmp)
+                await download_evidence_file(BUCKET_S3, evidence, localtmp)
                 return retrieve_image(localtmp)
         else:
             return JSONResponse(
