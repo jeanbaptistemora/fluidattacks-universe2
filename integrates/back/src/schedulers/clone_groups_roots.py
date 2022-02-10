@@ -4,7 +4,6 @@ from batch import (
 from custom_exceptions import (
     CredentialNotFound,
     InactiveRoot,
-    RootAlreadyCloned,
     RootAlreadyCloning,
 )
 from dataloaders import (
@@ -53,7 +52,6 @@ async def _queue_sync_git_roots(
     except (
         InactiveRoot,
         CredentialNotFound,
-        RootAlreadyCloned,
         RootAlreadyCloning,
     ) as exc:
         message = str(exc)

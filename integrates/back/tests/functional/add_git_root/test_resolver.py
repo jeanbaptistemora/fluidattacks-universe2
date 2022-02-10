@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    get_new_context,
+)
 import pytest
 from typing import (
     Any,
@@ -25,6 +28,12 @@ async def test_add_git_root(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["addGitRoot"]["success"]
+
+    loaders = get_new_context()
+    root_id = result["data"]["addGitRoot"]["rootId"]
+    root = await loaders.root.load((group_name, root_id))
+    assert root.cloning.status.value == "FAILED"
+    assert root.cloning.reason == "Credentials does not work"
 
 
 @pytest.mark.asyncio

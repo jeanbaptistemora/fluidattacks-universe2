@@ -23,7 +23,6 @@ from custom_exceptions import (
     InactiveRoot,
     RepeatedToeInput,
     RepeatedToeLines,
-    RootAlreadyCloned,
     RootAlreadyCloning,
     ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
@@ -881,26 +880,26 @@ async def queue_sync_git_roots(
         )
     )
 
-    if not roots_to_clone:
-        raise RootAlreadyCloned()
-
-    await put_action(
-        action_name="clone_roots",
-        entity=group_name,
-        subject=user_email,
-        additional_info=",".join(
-            roots_dict[root_id] for root_id in roots_to_clone
-        ),
-        queue=queue,
-    )
-    await collect(
-        roots_domain.update_root_cloning_status(
-            loaders=loaders,
-            group_name=group_name,
-            root_id=root_id,
-            status="CLONING",
-            message="Cloning in progress...",
+    success: bool = False
+    if roots_to_clone:
+        await put_action(
+            action_name="clone_roots",
+            entity=group_name,
+            subject=user_email,
+            additional_info=",".join(
+                roots_dict[root_id] for root_id in roots_to_clone
+            ),
+            queue=queue,
         )
-        for root_id in roots_to_clone
-    )
-    return True
+        await collect(
+            roots_domain.update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                status="CLONING",
+                message="Cloning in progress...",
+            )
+            for root_id in roots_to_clone
+        )
+        success = True
+    return success

@@ -84,6 +84,7 @@ TEST_GROUPS: Set[str] = {
     "update_evidence_description",
     "update_finding_description",
     "update_forces_access_token",
+    "update_git_root",
     "update_group",
     "update_group_access_info",
     "update_group_disambiguation",

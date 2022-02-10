@@ -1094,12 +1094,6 @@ class RootAlreadyCloning(CustomBaseException):
         super(RootAlreadyCloning, self).__init__(msg)
 
 
-class RootAlreadyCloned(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - The root version has already been cloned"
-        super(RootAlreadyCloned, self).__init__(msg)
-
-
 class ToeInputNotPresent(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The toe input is not present"

@@ -19,12 +19,18 @@ async def get_result(
       mutation {{
         addGitRoot(
           branch: "master"
+          credentials: {{
+            key: "VGVzdCBTU0ggS2V5Cg=="
+            name: "SSH Key"
+            type: SSH
+          }}
           environment: "production"
           gitignore: []
           groupName: "{group}"
           includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/test1"
         ) {{
+          rootId
           success
         }}
       }}
