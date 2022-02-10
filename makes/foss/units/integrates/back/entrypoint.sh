@@ -18,7 +18,10 @@ function serve {
     # The type of workers to use. [sync]
     --worker-class 'settings.uvicorn.IntegratesWorker'
   )
-  local load_balancer_timeout=60
+  # The current value of alb.ingress.kubernetes.io/load-balancer-attributes is set to 60
+  # but we wait a little longer to let the ALB close the connection first
+  # which is important to prevent some 5XX responses
+  local load_balancer_timeout=65
 
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
