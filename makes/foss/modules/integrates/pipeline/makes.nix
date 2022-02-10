@@ -120,6 +120,7 @@ in
         })
         [
           "0177_send_masked_findings_to_redshift.py"
+          "0179_rename_toe_lines_attrs.py"
         ])
         ++ (builtins.map
         (name: {
