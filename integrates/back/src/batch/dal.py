@@ -88,9 +88,10 @@ TABLE_NAME: str = "fi_async_processing"
 
 
 def mapping_to_key(items: List[str]) -> str:
-    return ".".join(
+    key = ".".join(
         [safe_encode(attribute_value) for attribute_value in sorted(items)]
     )
+    return hashlib.sha256(key.encode()).hexdigest()
 
 
 async def list_queues_jobs(

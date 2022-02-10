@@ -1,6 +1,9 @@
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from contextlib import (
+    suppress,
+)
 from db_model import (
     TABLE,
 )
@@ -13,6 +16,9 @@ from db_model.roots.types import (
 from dynamodb import (
     historics,
     operations,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
 )
 import simplejson as json  # type: ignore
 from typing import (
@@ -86,17 +92,17 @@ async def update_git_root_cloning(
         },
         latest_facet=TABLE.facets["git_root_cloning"],
     )
-
-    await operations.put_item(
-        condition_expression=(
-            Attr("modified_date").eq(current_value.modified_date)
-        ),
-        facet=TABLE.facets["git_root_cloning"],
-        item=latest,
-        table=TABLE,
-    )
-    await operations.put_item(
-        facet=TABLE.facets["git_root_historic_cloning"],
-        item=historic,
-        table=TABLE,
-    )
+    with suppress(ConditionalCheckFailedException):
+        await operations.put_item(
+            condition_expression=(
+                Attr("modified_date").eq(current_value.modified_date)
+            ),
+            facet=TABLE.facets["git_root_cloning"],
+            item=latest,
+            table=TABLE,
+        )
+        await operations.put_item(
+            facet=TABLE.facets["git_root_historic_cloning"],
+            item=historic,
+            table=TABLE,
+        )
