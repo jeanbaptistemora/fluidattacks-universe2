@@ -2379,7 +2379,7 @@
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: false
   needs: []
-  parallel: 25
+  parallel: 22
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

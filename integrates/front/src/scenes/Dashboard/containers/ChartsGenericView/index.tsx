@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
+/* eslint-disable react/forbid-component-props */
 import React, { useCallback, useState } from "react";
 
 import { Col100, Col33, Col50 } from "./components/ChartCols";
@@ -37,8 +37,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
     setIsForcesDescriptionExpanded(reportMode);
   }, [reportMode]);
 
-  const doesEntityMatch: (...entities: EntityType[]) => boolean = (
-    ...entities: EntityType[]
+  const doesEntityMatch: (entities: EntityType[]) => boolean = (
+    entities: EntityType[]
   ): boolean => entities.includes(entity);
 
   const reportModeClassName: string = reportMode ? "report-mode" : "";
@@ -49,7 +49,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   return (
     <React.StrictMode>
       <div className={`center ${reportClassName}`.trim()}>
-        {doesEntityMatch("organization") ? (
+        {doesEntityMatch(["organization"]) ? (
           <RowCenter>
             <Col100>
               <Graphic
@@ -69,7 +69,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </Col100>
           </RowCenter>
         ) : undefined}
-        {doesEntityMatch("group", "organization", "portfolio") ? (
+        {doesEntityMatch(["group", "organization", "portfolio"]) ? (
           <React.Fragment>
             <RowCenter>
               <Col100>
@@ -126,7 +126,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 />
               </Col100>
             </RowCenter>
-            {doesEntityMatch("organization", "portfolio") ? (
+            {doesEntityMatch(["organization", "portfolio"]) ? (
               <RowCenter>
                 <Col100>
                   <Graphic
@@ -215,7 +215,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </RowCenter>
           </React.Fragment>
         ) : undefined}
-        {doesEntityMatch("group", "organization", "portfolio") ? (
+        {doesEntityMatch(["group", "organization", "portfolio"]) ? (
           <React.Fragment>
             <RowCenter>
               <Col50>
@@ -338,7 +338,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </RowCenter>
           </React.Fragment>
         ) : undefined}
-        {doesEntityMatch("group") ? (
+        {doesEntityMatch(["group"]) ? (
           <RowCenter>
             <Col100>
               <Graphic
@@ -360,7 +360,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         ) : undefined}
       </div>
-      {doesEntityMatch("portfolio") ? (
+      {doesEntityMatch(["portfolio"]) ? (
         <div className={reportClassName}>
           <RowCenter>
             <Col100>
@@ -513,7 +513,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         </div>
       ) : undefined}
-      {doesEntityMatch("group", "organization", "portfolio") ? (
+      {doesEntityMatch(["group", "organization", "portfolio"]) ? (
         <div className={reportClassName}>
           <RowCenter>
             <Col100>
@@ -568,7 +568,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          {doesEntityMatch("group", "organization") ? (
+          {doesEntityMatch(["group", "organization"]) ? (
             <Row>
               <Col50>
                 <Graphic
@@ -627,7 +627,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         </div>
       ) : undefined}
-      {doesEntityMatch("organization", "portfolio") ? (
+      {doesEntityMatch(["organization", "portfolio"]) ? (
         <div className={reportClassName}>
           <RowCenter>
             <Col100>
@@ -648,7 +648,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         </div>
       ) : undefined}
-      {doesEntityMatch("group") ? (
+      {doesEntityMatch(["group"]) ? (
         <div className={reportClassName}>
           <RowCenter>
             <Col100>
@@ -792,7 +792,14 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </div>
         </div>
       ) : undefined}
-      {reportMode ? undefined : <ChartsGenericViewExtras {...props} />}
+      {reportMode ? undefined : (
+        <ChartsGenericViewExtras
+          bgChange={bgChange}
+          entity={entity}
+          reportMode={reportMode}
+          subject={subject}
+        />
+      )}
     </React.StrictMode>
   );
 };
