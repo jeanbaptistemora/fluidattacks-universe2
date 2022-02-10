@@ -162,6 +162,12 @@ def test_group_scope_repositories(
         timeout,
     )
     reject_health_b.click()
+    reject_health_c = utils.wait_for_name(
+        driver,
+        "rejectHealthCheckC",
+        timeout,
+    )
+    reject_health_c.click()
     proceed = utils.wait_for_id(
         driver,
         "git-root-add-proceed",

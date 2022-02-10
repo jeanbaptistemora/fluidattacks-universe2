@@ -367,6 +367,16 @@ const Repository: React.FC<IRepositoryProps> = ({
                           {t("group.scope.git.healthCheck.rejectB")}
                           <RequiredField>{"*"}&nbsp;</RequiredField>
                         </Field>
+                        <Field
+                          component={FormikCheckbox}
+                          label={""}
+                          name={"rejectHealthCheckC"}
+                          type={"checkbox"}
+                          validate={checked}
+                        >
+                          {t("group.scope.git.healthCheck.rejectC")}
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                        </Field>
                       </Alert>
                     )}
                   </div>

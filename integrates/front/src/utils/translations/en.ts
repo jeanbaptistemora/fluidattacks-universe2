@@ -682,9 +682,11 @@ export const enTranslations: ResourceKey = {
           accept: "I accept the additional costs derived from the healthcheck",
           confirm: "Would you like a health check for the existing code?",
           rejectA:
-            "I want to exclude existing code in the repository from Fluid Attacks service",
+            "I accept that Fluid Attacks will not include a revision of the existing code in the repository",
           rejectB:
-            "Existent code could have vulnerabilities not identified by Fluid Attacks service",
+            "I accept that the existing code contains vulnerabilities that will not be detected",
+          rejectC:
+            "I accept that the previously defined SLAs do not apply to this repository",
           title: "Health Check",
         },
         manageEnvs: "Manage environments",
