@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
+F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support in TLSv1.0,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support in TLSv1.0,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
    3 | -------------------------------Intention-------------------------------
@@ -18,10 +18,10 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
   16 | Level: FATAL
   17 | Description: handshake_failure
   18 | ------------------------------Conclusion-------------------------------
-  19 | server refuses connections with PFS support
+  19 | server refuses connections with PFS support in TLSv1.0
      ^ Col 0
 ",analyze_protocol.pfs_disabled
-F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
+F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support in TLSv1.1,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support in TLSv1.1,"
    1 | Server: localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1
    3 | -------------------------------Intention-------------------------------
@@ -40,7 +40,7 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
   16 | Level: FATAL
   17 | Description: handshake_failure
   18 | ------------------------------Conclusion-------------------------------
-  19 | server refuses connections with PFS support
+  19 | server refuses connections with PFS support in TLSv1.1
      ^ Col 0
 ",analyze_protocol.pfs_disabled
 F117,lines,namespace2/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace2/skims/test/data/lib_path/f117/.project,"

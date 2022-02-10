@@ -190,6 +190,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     method=core_model.MethodsEnum.PFS_DISABLED,
+                    check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                 )
             )
 
@@ -514,6 +515,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     method=core_model.MethodsEnum.WEAK_CIPHERS_ALLOWED,
+                    check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                 )
             )
 
@@ -579,6 +581,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     method=core_model.MethodsEnum.CBC_ENABLED,
+                    check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                 )
             )
 
@@ -717,8 +720,8 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 ssl_settings=ssl_settings,
                 server_response=ctx.get_tls_response(v_id),
-                check_kwargs={"version": v_name},
                 method=core_model.MethodsEnum.TLSV1_3_DOWNGRADE,
+                check_kwargs={"v_name": v_name},
             )
         )
 
@@ -843,6 +846,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             ),
                             server_response=response,
                             method=core_model.MethodsEnum.HEARTBLEED_POSSIBLE,
+                            check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                         )
                     )
         sock.close()
@@ -914,6 +918,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     method=core_model.MethodsEnum.FREAK_POSSIBLE,
+                    check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                 )
             )
         sock.close()
@@ -986,6 +991,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ),
                     server_response=response,
                     method=core_model.MethodsEnum.RACCOON_POSSIBLE,
+                    check_kwargs={"v_name": ssl_id2ssl_name(v_id)},
                 )
             )
         sock.close()

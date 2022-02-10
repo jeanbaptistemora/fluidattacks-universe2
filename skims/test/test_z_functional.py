@@ -508,7 +508,11 @@ async def test_should_report_vulns_to_namespace_verify(
             (
                 (
                     "localhost:4446 (namespace)",
-                    "server refuses connections with PFS support",
+                    "server refuses connections with PFS support in TLSv1.0",
+                ),
+                (
+                    "localhost:4446 (namespace)",
+                    "server refuses connections with PFS support in TLSv1.1",
                 ),
             ),
         ),
@@ -558,7 +562,11 @@ async def test_should_report_vulns_to_namespace2_verify(
             (
                 (
                     "localhost:4446 (namespace2)",
-                    "server refuses connections with PFS support",
+                    "server refuses connections with PFS support in TLSv1.0",
+                ),
+                (
+                    "localhost:4446 (namespace2)",
+                    "server refuses connections with PFS support in TLSv1.1",
                 ),
             ),
         ),
@@ -610,7 +618,11 @@ async def test_should_close_vulns_to_namespace_verify(
             (
                 (
                     "localhost:4446 (namespace2)",
-                    "server refuses connections with PFS support",
+                    "server refuses connections with PFS support in TLSv1.0",
+                ),
+                (
+                    "localhost:4446 (namespace2)",
+                    "server refuses connections with PFS support in TLSv1.1",
                 ),
             ),
         ),

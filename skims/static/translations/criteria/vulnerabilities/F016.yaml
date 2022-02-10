@@ -17,17 +17,17 @@ lib_ssl.analyze_protocol.fallback_scsv_disabled:
   en: server does not handle TLS_FALLBACK_SCSV correctly
   es: el servidor no maneja de manera correcta TLS_FALLBACK_SCSV
 lib_ssl.analyze_protocol.tlsv1_3_downgrade:
-  en: server allows TLSv1.3 downgrade to {version}
-  es: el servidor permite degradar TLSv1.3 a {version}
+  en: server allows TLSv1.3 downgrade to {v_name}
+  es: el servidor permite degradar TLSv1.3 a {v_name}
 lib_ssl.analyze_protocol.heartbleed_possible:
-  en: server is vulnerable to heartbleed attacks
-  es: el servidor es vulnerable a ataques heartbleed
+  en: server is vulnerable to heartbleed attacks in {v_name}
+  es: el servidor es vulnerable a ataques heartbleed {v_name}
 lib_ssl.analyze_protocol.freak_possible:
-  en: server is vulnerable to FREAK attacks
-  es: el servidor es vulnerable a ataques FREAK
+  en: server is vulnerable to FREAK attacks in {v_name}
+  es: el servidor es vulnerable a ataques FREAK in {v_name}
 lib_ssl.analyze_protocol.raccoon_possible:
-  en: server is vulnerable to RACCOON attacks
-  es: el servidor es vulnerable a ataques RACCOON
+  en: server is vulnerable to RACCOON attacks {v_name}
+  es: el servidor es vulnerable a ataques RACCOON {v_name}
 lib_ssl.analyze_protocol.breach_possible:
   en: server is vulnerable to BREACH attacks
   es: el servidor es vulnerable a ataques BREACH

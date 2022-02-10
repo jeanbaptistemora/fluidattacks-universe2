@@ -1,6 +1,6 @@
 lib_ssl.analyze_protocol.cbc_enabled:
-  en: server accepts connections with ciphers that supports CBC
-  es: el servidor acepta conexiones con métodos de encripción que soportan CBC
+  en: server accepts connections with ciphers that supports CBC in {v_name}
+  es: el servidor acepta conexiones con encripción que soporta CBC en {v_name}
 lib_ssl.analyze_protocol.sweet32_possible:
   en: server is vulnerable to SWEET32 attacks
   es: el servidor es vulnerable a ataques SWEET32
