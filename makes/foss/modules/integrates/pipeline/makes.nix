@@ -119,8 +119,8 @@ in
           };
         })
         [
-          "0177_send_masked_findings_to_redshift.py"
           "0179_rename_toe_lines_attrs.py"
+          "0180_clear_deleted_findings_from_vms.py"
         ])
         ++ (builtins.map
         (name: {
