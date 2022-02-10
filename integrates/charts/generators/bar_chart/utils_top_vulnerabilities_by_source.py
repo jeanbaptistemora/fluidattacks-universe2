@@ -114,6 +114,7 @@ def format_data(
             colors={
                 legend: RISK.more_agressive,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -139,6 +140,7 @@ def format_data(
                 ),
             ),
         ),
+        firstBarLabels=True,
     )
 
 
