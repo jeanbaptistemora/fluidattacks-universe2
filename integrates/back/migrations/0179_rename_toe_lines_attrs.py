@@ -2,6 +2,9 @@
 """
 Rename modified_commit by last_commit and commit_author by last_author for toe
 lines.
+
+Execution Time:     2022-02-10 at 19:06:09 UTC
+Finalization Time:  2022-02-10 at 15:54:44 UTC
 """
 
 from aioextensions import (
@@ -84,7 +87,7 @@ async def process_group(group_name: str, progress: float) -> None:
         table=TABLE,
     )
     await collect(
-        tuple(process_lines(item) for item in response.items), workers=3000
+        tuple(process_lines(item) for item in response.items), workers=1000
     )
     LOGGER_CONSOLE.info(
         "Group updated",
