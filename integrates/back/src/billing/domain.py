@@ -11,8 +11,8 @@ from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
     BillingSubscriptionSameActive,
-    CouldNotActivateSubscription,
     CouldNotCreatePaymentMethod,
+    CouldNotUpdateSubscription,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
     NoActiveBillingSubscription,
@@ -110,66 +110,6 @@ async def _format_create_subscription_data(
     }
 
 
-async def _create_subscription(
-    *,
-    subscription: str,
-    org_billing_customer: str,
-    org_name: str,
-    group_name: str,
-) -> bool:
-    """Helper for creating Stripe subscription"""
-    # Format subs data
-    data: Dict[str, Any] = await _format_create_subscription_data(
-        subscription=subscription,
-        org_billing_customer=org_billing_customer,
-        org_name=org_name,
-        group_name=group_name,
-    )
-
-    # Create subscription
-    return await dal.create_subscription(**data)
-
-
-async def _update_subscription(
-    *,
-    current: Subscription,
-    subscription: str,
-) -> bool:
-    """Helper for updating a Stripe subscription"""
-    # Report usage if subscription is squad
-    report: bool = True
-    if current.type == "squad":
-        report = await dal.report_subscription_usage(
-            subscription=current,
-        )
-
-    upgrade: bool = current.type == "machine" and subscription == "squad"
-    return report and await dal.update_subscription(
-        subscription=current,
-        upgrade=upgrade,
-    )
-
-
-async def _remove_subscription(
-    *,
-    subscription: Subscription,
-) -> bool:
-    """Helper for cancelling a stripe subscription"""
-
-    # Report usage if subscription is squad
-    report: bool = True
-    if subscription.type == "squad":
-        report = await dal.report_subscription_usage(
-            subscription=subscription,
-        )
-
-    return report and await dal.remove_subscription(
-        subscription_id=subscription.id,
-        invoice_now=subscription.type == "squad",
-        prorate=True,
-    )
-
-
 async def _has_pending_subscription(
     *,
     subscriptions: List[Subscription],
@@ -221,7 +161,7 @@ async def update_subscription(
 
     # Raise exception if group has incomplete, past_due or unpaid subscriptions
     if await _has_pending_subscription(subscriptions=subscriptions):
-        raise CouldNotActivateSubscription()
+        raise CouldNotUpdateSubscription()
 
     current: Optional[Subscription] = await _get_active_subscription(
         subscriptions=subscriptions
@@ -234,24 +174,28 @@ async def update_subscription(
         raise BillingSubscriptionSameActive()
 
     result: bool = False
-
     if current is None:
-        result = await _create_subscription(
+        data: Dict[str, Any] = await _format_create_subscription_data(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
             group_name=group_name,
         )
+        result = await dal.create_subscription(**data)
     elif subscription != "free":
-        result = await _update_subscription(
-            current=current,
-            subscription=subscription,
+        result = await dal.update_subscription(
+            subscription=current,
+            upgrade=current.type == "machine" and subscription == "squad",
         )
     else:
-        result = await _remove_subscription(
-            subscription=current,
+        result = await dal.remove_subscription(
+            subscription_id=current.id,
+            invoice_now=current.type == "squad",
+            prorate=True,
         )
 
+    if not result:
+        raise CouldNotUpdateSubscription()
     return result
 
 

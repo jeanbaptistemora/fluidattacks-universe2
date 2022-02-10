@@ -1126,10 +1126,10 @@ export const enTranslations: ResourceKey = {
               addPaymentMethod: "Please add a payment method first",
               alreadyActive:
                 "The group already has a subscription of the chosen type",
-              couldNotBeActivated:
-                "Subscription could not be activated. Please review your invoices",
               couldNotBeDowngraded:
                 "Subscription could not be downgraded, payment intent for Squad failed",
+              couldNotBeUpdated:
+                "Subscription could not be updated. Please review your invoices",
             },
             subscription: "Subscription",
             success: {

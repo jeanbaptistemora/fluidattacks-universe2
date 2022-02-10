@@ -13,7 +13,7 @@ from context import (
     FI_STRIPE_WEBHOOK_KEY,
 )
 from custom_exceptions import (
-    PaymentIntentFailed,
+    CouldNotDowngradeSubscription,
 )
 from datetime import (
     datetime,
@@ -400,7 +400,7 @@ async def update_subscription(
 
         # Raise exception if payment intent failed
         if not result:
-            raise PaymentIntentFailed()
+            raise CouldNotDowngradeSubscription()
 
     # Update subscription
     result = (

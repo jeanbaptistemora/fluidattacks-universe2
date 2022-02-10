@@ -1196,28 +1196,28 @@ class InvalidBillingPaymentMethod(CustomBaseException):
         super(InvalidBillingPaymentMethod, self).__init__(msg)
 
 
-class CouldNotActivateSubscription(CustomBaseException):
+class CouldNotUpdateSubscription(CustomBaseException):
     def __init__(self) -> None:
         msg = (
-            "Exception - Subscription could not be activated, "
+            "Exception - Subscription could not be updated, "
             "please review your invoices"
         )
-        super(CouldNotActivateSubscription, self).__init__(msg)
+        super(CouldNotUpdateSubscription, self).__init__(msg)
+
+
+class CouldNotDowngradeSubscription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Subscription could not be downgraded, "
+            "payment intent for Squad failed"
+        )
+        super(CouldNotDowngradeSubscription, self).__init__(msg)
 
 
 class CouldNotCreatePaymentMethod(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Provided payment method could not be created"
         super(CouldNotCreatePaymentMethod, self).__init__(msg)
-
-
-class PaymentIntentFailed(CustomBaseException):
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Subscription could not be downgraded, "
-            "payment intent for Squad failed"
-        )
-        super(PaymentIntentFailed, self).__init__(msg)
 
 
 class InvalidGitCredentials(CustomBaseException):
