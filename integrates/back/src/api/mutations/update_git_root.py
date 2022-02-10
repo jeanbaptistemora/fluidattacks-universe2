@@ -50,8 +50,11 @@ async def mutate(
     )
     if kwargs.get("credentials"):
         with suppress(RootAlreadyCloning):
-            await batch_roots.queue_sync_git_root(
-                info.context.loaders, root, user_email
+            await batch_roots.queue_sync_git_roots(
+                loaders=info.context.loaders,
+                roots=(root,),
+                user_email=user_email,
+                group_name=root.group_name,
             )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated root {kwargs["id"]}'

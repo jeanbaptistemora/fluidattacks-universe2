@@ -127,6 +127,7 @@ from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
 from typing import (
+    Dict,
     List,
     Optional,
     Tuple,
@@ -773,66 +774,133 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     )
 
 
-async def queue_sync_git_root(
+async def _ssh_ls_remote_root(
+    root: RootItem, cred: CredentialItem
+) -> Tuple[str, Optional[str]]:
+    return (root.id, await ssh_ls_remote_root(root, cred))
+
+
+async def queue_sync_git_roots(
+    *,
     loaders: Dataloaders,
-    root: GitRootItem,
     user_email: str,
-    check_existing_jobs: bool = True,
     queue: str = "spot_soon",
-) -> None:
-    if root.state.status != "ACTIVE":
+    group_name: str,
+    roots: Optional[Tuple[GitRootItem, ...]] = None,
+    check_existing_jobs: bool = True,
+) -> bool:
+    if check_existing_jobs and (
+        len(
+            [
+                action
+                for action in await get_actions_by_name(
+                    "clone_roots", group_name
+                )
+                if action.entity == group_name
+            ]
+        )
+        > 0
+    ):
+        raise RootAlreadyCloning()
+
+    roots = roots or await loaders.group_roots.load(group_name)
+    roots = tuple(root for root in roots if root.state.status == "ACTIVE")
+    roots_dict: Dict[str, GitRootItem] = {root.id: root for root in roots}
+
+    if not roots:
         raise InactiveRoot()
 
-    group_name: str = root.group_name
     group_creds: Tuple[
         CredentialItem, ...
     ] = await loaders.group_credentials.load(group_name)
-    root_cred: Optional[CredentialItem] = next(
-        (cred for cred in group_creds if root.id in cred.state.roots), None
+    roots_cred: Tuple[CredentialItem, ...] = tuple(
+        cred
+        for cred in group_creds
+        if set(cred.state.roots).intersection(set(roots_dict.keys()))
     )
-    if not root_cred:
+
+    creds_by_root = {
+        root_id: tuple(
+            cred for cred in roots_cred if root_id in cred.state.roots
+        )
+        for root_id in roots_dict.keys()
+    }
+    creds_by_root = {
+        root_id: creds[0]
+        for root_id, creds in creds_by_root.items()
+        if creds and creds[0].metadata.type.value == "SSH"
+    }
+
+    if not creds_by_root:
         raise CredentialNotFound()
 
-    if check_existing_jobs:
-        existing_actions = await get_actions_by_name("clone_root", group_name)
-        if (
-            len(
-                [
-                    action
-                    for action in existing_actions
-                    if action.additional_info == root.state.nickname
-                ]
-            )
-            > 0
-        ):
-            raise RootAlreadyCloning()
+    last_commits_dict = dict(
+        await collect(
+            _ssh_ls_remote_root(roots_dict[root_id], cred)
+            for root_id, cred in creds_by_root.items()
+        )
+    )
 
-    if (
-        root_cred.metadata.type.value == "SSH"
-        and (last_commit := await ssh_ls_remote_root(root, root_cred))
-        and root.cloning.commit == last_commit
-    ):
-        await roots_domain.update_root_cloning_status(
+    await collect(
+        roots_domain.update_root_cloning_status(
             loaders=loaders,
             group_name=group_name,
-            root_id=root.id,
+            root_id=root_id,
+            status="FAILED",
+            message="Credentials does not work",
+            commit=roots_dict[root_id].cloning.commit,
+        )
+        for root_id in (
+            root_id
+            for root_id, commit in last_commits_dict.items()
+            if not commit
+        )
+    )
+    await collect(
+        roots_domain.update_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_id=root_id,
             status="OK",
             message="Already up to date",
-            commit=root.cloning.commit,
+            commit=roots_dict[root_id].cloning.commit,
         )
+        for root_id in (
+            root_id
+            for root_id, commit in last_commits_dict.items()
+            if commit and commit == roots_dict[root_id].cloning.commit
+        )
+    )
+
+    roots_to_clone = tuple(
+        root_id
+        for root_id in (
+            root_id
+            for root_id, commit in last_commits_dict.items()
+            if commit and commit != roots_dict[root_id].cloning.commit
+        )
+    )
+
+    if not roots_to_clone:
         raise RootAlreadyCloned()
 
     await put_action(
-        action_name="clone_root",
-        entity=root.group_name,
+        action_name="clone_roots",
+        entity=group_name,
         subject=user_email,
-        additional_info=root.state.nickname,
+        additional_info=",".join(
+            roots_dict[root_id] for root_id in roots_to_clone
+        ),
         queue=queue,
     )
-    await roots_domain.update_root_cloning_status(
-        loaders=loaders,
-        group_name=group_name,
-        root_id=root.id,
-        status="CLONING",
-        message="Cloning in progress...",
+    await collect(
+        roots_domain.update_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_id=root_id,
+            status="CLONING",
+            message="Cloning in progress...",
+        )
+        for root_id in roots_to_clone
     )
+    return True

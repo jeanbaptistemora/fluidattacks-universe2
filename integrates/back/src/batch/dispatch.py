@@ -69,7 +69,7 @@ async def main() -> None:  # noqa: MC0001
             await refresh_toe_inputs(item=item)
         elif action == "refresh_toe_lines":
             await refresh_toe_lines(item=item)
-        elif action == "clone_root":
+        elif action == "clone_roots":
             await clone_roots(item=item)
         elif action == "remove_group_resources":
             await remove_group_resources(item=item)

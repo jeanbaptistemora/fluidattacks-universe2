@@ -48,7 +48,12 @@ async def mutate(
     root: GitRootItem = await loaders.root.load(
         (group_name, kwargs["root_id"])
     )
-    await batch_roots.queue_sync_git_root(loaders, root, user_email)
+    await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        roots=(root,),
+        user_email=user_email,
+        group_name=root.group_name,
+    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Queued a sync clone for root {root.state.nickname} in "
