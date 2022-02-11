@@ -2620,7 +2620,7 @@
       title: Automatic disconnect of sessions for remote-access technologies after a specific period of inactivity
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
-"015":
+"soc2":
   title: SOC2®
   en:
     description: >
