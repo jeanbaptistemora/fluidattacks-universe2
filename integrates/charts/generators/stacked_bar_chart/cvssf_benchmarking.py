@@ -12,6 +12,10 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.bar_chart.utils import (
+    ORGANIZATION_CATEGORIES,
+    PORTFOLIO_CATEGORIES,
+)
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
 )
@@ -199,12 +203,13 @@ def get_valid_organizations(
     ]
 
 
-def format_data(
+def format_data(  # pylint: disable=too-many-locals
     *,
     organization: OrganizationCvssfBenchmarking,
     best_cvssf: OrganizationCvssfBenchmarking,
     mean_cvssf: OrganizationCvssfBenchmarking,
     worst_cvssf: OrganizationCvssfBenchmarking,
+    categories: List[str],
 ) -> Dict[str, Any]:
     total_bar: List[Decimal] = [
         (organization.closed + organization.accepted + organization.open)
@@ -346,12 +351,7 @@ def format_data(
         ),
         axis=dict(
             x=dict(
-                categories=[
-                    "My organization",
-                    "Best organization",
-                    "Average organization",
-                    "Worst organization",
-                ],
+                categories=categories,
                 type="category",
                 tick=dict(multiline=False),
             ),
@@ -400,26 +400,47 @@ def format_data(
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
+    portfolios: List[Tuple[str, Tuple[str, ...]]] = []
 
-    async for org_id, _, org_groups in (
+    async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
         organizations.append((org_id, org_groups))
+        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            portfolios.append((portfolio, tuple(groups)))
 
     all_organizations_data = await collect(
-        [
+        tuple(
             get_data_one_organization(
                 organization_id=organization[0],
                 groups=organization[1],
                 loaders=loaders,
             )
             for organization in organizations
-        ],
-        workers=24,
+        ),
+        workers=32,
+    )
+
+    all_portfolios_data = await collect(
+        tuple(
+            get_data_one_organization(
+                organization_id=portfolios[0],
+                groups=portfolios[1],
+                loaders=loaders,
+            )
+            for portfolios in portfolios
+        ),
+        workers=32,
     )
 
     best_cvssf = get_best_organization(organizations=all_organizations_data)
     worst_cvssf = get_worst_organization(organizations=all_organizations_data)
+    best_portfolio_cvssf = get_best_organization(
+        organizations=all_portfolios_data
+    )
+    worst_portfolio_cvssf = get_worst_organization(
+        organizations=all_portfolios_data
+    )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
@@ -439,10 +460,34 @@ async def generate_all() -> None:
                     )
                 ),
                 worst_cvssf=worst_cvssf,
+                categories=ORGANIZATION_CATEGORIES,
             ),
             entity="organization",
             subject=org_id,
         )
+
+    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
+        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            utils.json_dump(
+                document=format_data(
+                    organization=await get_data_one_organization(
+                        organization_id=portfolio,
+                        groups=tuple(groups),
+                        loaders=loaders,
+                    ),
+                    best_cvssf=best_portfolio_cvssf,
+                    mean_cvssf=get_mean_organizations(
+                        organizations=get_valid_organizations(
+                            organizations=all_portfolios_data,
+                            organization_id=portfolio,
+                        )
+                    ),
+                    worst_cvssf=worst_portfolio_cvssf,
+                    categories=PORTFOLIO_CATEGORIES,
+                ),
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
+            )
 
 
 if __name__ == "__main__":
