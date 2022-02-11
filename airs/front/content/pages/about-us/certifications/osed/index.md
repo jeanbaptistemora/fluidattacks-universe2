@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-osed
 alt: Logo osed
 certification: yes
-certificationid: 6
+certificationid: 4
 ---
 
 [OSED](https://www.offensive-security.com/exp301-osed/)

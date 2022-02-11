@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-oswp
 alt: Logo OSWP
 certification: yes
-certificationid: 3
+certificationid: 8
 ---
 
 [OSWP](https://www.offensive-security.com/wifu-oswp/)

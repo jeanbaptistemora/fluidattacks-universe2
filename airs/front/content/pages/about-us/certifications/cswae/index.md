@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-cswae
 alt: Logo C)SWAE
 certification: yes
-certificationid: 20
+certificationid: 19
 ---
 
 [C)SWAE](https://www.mile2.com/cswae_outline/)

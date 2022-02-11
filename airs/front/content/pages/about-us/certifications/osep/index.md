@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-osep
 alt: Logo OSEP
 certification: yes
-certificationid: 8
+certificationid: 5
 ---
 
 [OSEP](https://www.offensive-security.com/pen300-osep/)
