@@ -7,6 +7,7 @@ from batch import (
 from batch.types import (
     BatchProcessing,
 )
+import json
 from newutils.datetime import (
     get_as_epoch,
     get_now,
@@ -30,7 +31,12 @@ async def test_get_actions() -> None:
 async def test_get_action() -> None:
     action = await batch_dal.get_action(
         action_name="report",
-        additional_info='{"report_type": "XLS", "treatment": "ACCEPTED"}',
+        additional_info=json.dumps(
+            {
+                "report_type": "XLS",
+                "treatments": list(sorted(["ACCEPTED"])),
+            }
+        ),
         entity="unittesting",
         subject="integratesmanager@gmail.com",
         time="1615834776",
