@@ -4,14 +4,6 @@ enum ActionsAfterBlocking {
   EXECUTE_OTHER_GROUP_OTHER_CLIENT
   "The hacker started working on another group from the same client"
   EXECUTE_OTHER_GROUP_SAME_CLIENT
-  "The hacker started working on another group from another client"
-  EXECUTE_OTHER_PROJECT_OTHER_CLIENT
-    @deprecated(reason: """This enum field  will be removed
-    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
-  "The hacker started working on another group from the same client"
-  EXECUTE_OTHER_PROJECT_SAME_CLIENT
-    @deprecated(reason: """This enum field  will be removed
-    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
   "The hacker stopped their work"
   NONE
   "The hacker started doing something else"
@@ -24,9 +16,6 @@ enum ActionsAfterBlocking {
 enum ActionsBeforeBlocking {
   "Document group"
   DOCUMENT_GROUP
-  "Document group"
-  DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
-    be removed after 2022/01/13. Use `DOCUMENT_GROUP` instead.""")
   "None"
   NONE
   "Other"

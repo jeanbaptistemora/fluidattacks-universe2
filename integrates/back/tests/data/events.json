@@ -4,7 +4,7 @@
       "PutRequest": {
         "Item": {
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"
@@ -82,7 +82,7 @@
             "S": "Repositorio"
           },
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"
@@ -157,10 +157,10 @@
             "S": "Repositorio"
           },
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
-            "S": "DOCUMENT_PROJECT"
+            "S": "DOCUMENT_GROUP"
           },
           "affectation": {
             "S": "4"
@@ -449,7 +449,7 @@
       "PutRequest": {
         "Item": {
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"
@@ -524,7 +524,7 @@
       "PutRequest": {
         "Item": {
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"
@@ -599,7 +599,7 @@
       "PutRequest": {
         "Item": {
           "action_after_blocking": {
-            "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
           },
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"

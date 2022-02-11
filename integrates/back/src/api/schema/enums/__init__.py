@@ -12,14 +12,8 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "ActionsAfterBlocking",
         {
-            "EXECUTE_OTHER_PROJECT_OTHER_CLIENT": (
-                "EXECUTE_OTHER_PROJECT_OTHER_CLIENT"
-            ),
             "EXECUTE_OTHER_GROUP_OTHER_CLIENT": (
                 "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
-            ),
-            "EXECUTE_OTHER_PROJECT_SAME_CLIENT": (
-                "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
             ),
             "EXECUTE_OTHER_GROUP_SAME_CLIENT": (
                 "EXECUTE_OTHER_GROUP_SAME_CLIENT"
@@ -32,7 +26,6 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "ActionsBeforeBlocking",
         {
-            "DOCUMENT_PROJECT": "DOCUMENT_PROJECT",
             "DOCUMENT_GROUP": "DOCUMENT_GROUP",
             "NONE": "NONE",
             "OTHER": "OTHER",
