@@ -202,7 +202,6 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
                 value=None,
             ),
         ),
-        normalizedToolTip=True,
         percentageValues=dict(
             Accepted=[
                 percentage_value[0]["Accepted"]

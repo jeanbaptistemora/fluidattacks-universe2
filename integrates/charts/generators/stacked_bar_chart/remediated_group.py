@@ -11,6 +11,12 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.stacked_bar_chart.utils import (
+    get_percentage,
+)
+from decimal import (
+    Decimal,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -19,6 +25,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Tuple,
 )
 
 Status = NamedTuple(
@@ -62,7 +69,56 @@ async def get_data_many_groups(groups: List[str]) -> List[Status]:
     )
 
 
+def format_percentages(
+    values: Dict[str, Decimal]
+) -> Tuple[Dict[str, str], ...]:
+    if not values:
+        max_percentage_values = dict(
+            Closed="",
+            Open="",
+        )
+        percentage_values = dict(
+            Closed="0.0",
+            Open="0.0",
+        )
+
+        return (percentage_values, max_percentage_values)
+
+    total_bar: Decimal = values["Closed"] + values["Open"]
+    total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
+    raw_percentages: List[Decimal] = [
+        values["Closed"] / total_bar,
+        values["Open"] / total_bar,
+    ]
+    percentages: List[Decimal] = get_percentage(raw_percentages)
+    max_percentages = max(percentages) if max(percentages) else ""
+    is_first_value_max: bool = percentages[0] == max_percentages
+    is_second_value_max: bool = percentages[1] == max_percentages
+    max_percentage_values = dict(
+        Closed=str(percentages[0]) if is_first_value_max else "",
+        Open=str(percentages[1])
+        if is_second_value_max and not is_first_value_max
+        else "",
+    )
+    percentage_values = dict(
+        Closed=str(percentages[0]),
+        Open=str(percentages[1]),
+    )
+
+    return (percentage_values, max_percentage_values)
+
+
 def format_data(data: List[Status]) -> Dict[str, Any]:
+    percentage_values = [
+        format_percentages(
+            {
+                "Closed": Decimal(group.closed_vulnerabilities),
+                "Open": Decimal(group.open_vulnerabilities),
+            }
+        )
+        for group in data
+    ]
+
     return dict(
         data=dict(
             columns=[
@@ -74,6 +130,11 @@ def format_data(data: List[Status]) -> Dict[str, Any]:
                 "Closed": RISK.more_passive,
                 "Open": RISK.more_agressive,
             },
+            labels=dict(
+                format=dict(
+                    Accepted=None,
+                ),
+            ),
             type="bar",
             groups=[
                 ["Closed", "Open"],
@@ -98,7 +159,26 @@ def format_data(data: List[Status]) -> Dict[str, Any]:
                 value=None,
             ),
         ),
-        normalizedToolTip=True,
+        percentageValues=dict(
+            Closed=[
+                percentage_value[0]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[0]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
+        maxPercentageValues=dict(
+            Closed=[
+                percentage_value[1]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            Open=[
+                percentage_value[1]["Open"]
+                for percentage_value in percentage_values
+            ],
+        ),
     )
 
 

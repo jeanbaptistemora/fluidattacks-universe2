@@ -371,7 +371,6 @@ def format_data(  # pylint: disable=too-many-locals
                 value=None,
             ),
         ),
-        normalizedToolTip=True,
         totalBar=total_bar,
         percentageValues=dict(
             Closed=[
