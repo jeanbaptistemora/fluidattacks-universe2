@@ -40,6 +40,7 @@ $gray-154: rgba(154, 154, 172, 1);
 
 // Background Colors
 .bg-button-red { background-color: $button-red; }
+.bg-black-gray { background-color: $black-gray; }
 .bg-black-18 { background-color: $black-18; }
 .bg-darker-blue { background-color: $darker-blue; }
 .bg-fluid-black { background-color: $fluid-black; }
@@ -225,6 +226,7 @@ $gray-154: rgba(154, 154, 172, 1);
 // Width and Max Width classes
 .mw-1200 { max-width: 1200px; }
 .mw-1366 { max-width: 1366px; }
+.mw-1038 { max-width: 1038px; }
 .mw-1920 { max-width: 1920px; }
 .mw-376 { max-width: 376px; }
 .mw-446 { max-width: 446px; }
@@ -290,7 +292,6 @@ $gray-154: rgba(154, 154, 172, 1);
   .nt-125 { margin-top: -0.125rem; }
   .two-columns-m { column-count: 2; }
   .w-products { width: 20rem; }
-
 }
 
 // Small screen sizes
@@ -351,6 +352,11 @@ $gray-154: rgba(154, 154, 172, 1);
 }
 
 // Custom elements
+
+.cycle-img {
+  max-height: 500px;
+  max-width: 500px;
+}
 
 .mobileMenuItem {
   border-bottom: solid 1px $fluid-gray;
@@ -1116,6 +1122,10 @@ $gray-154: rgba(154, 154, 172, 1);
 }
 
 .human-resources:checked~.tag-human-resources {
+  @include menu-font;
+}
+
+.technology:checked~.tag-technology {
   @include menu-font;
 }
 

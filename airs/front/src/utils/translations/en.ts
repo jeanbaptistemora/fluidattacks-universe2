@@ -181,6 +181,44 @@ const pageTexts: ResourceKey = {
     phrase5: "(False Positive Rate) of ",
   },
   service: {
+    cycleParagraph0:
+      "Our automated analyses include SAST, DAST and SCA. " +
+      "We scan your system and report the common vulnerabilities, " +
+      "showing low False Positive (FP) rates.",
+    cycleParagraph1:
+      "Our AI is specially trained with thousands of snippets of vulnerable code. " +
+      "One of our AI modules (Sorts) helps our team prioritize " +
+      "the review of potentially vulnerable files.",
+    cycleParagraph2:
+      "The highly trained and certified professionals on our Red Team " +
+      "continuously examine your source code, infrastructure and applications " +
+      "for security vulnerabilities. They do Manual Penetration Testing and " +
+      "enrich their findings by performing manual SAST, DAST and SCA.",
+    cycleParagraph3:
+      "These experts review the findings manually, looking for inconsistencies " +
+      "and typos and discarding potential False Positives. They assess the validity " +
+      "and reliability of the results before showing them to you.",
+    cycleParagraph4:
+      "The Escapes Team seeks to mitigate the presence of False Negatives " +
+      "by performing gray box testing, playing the role of an external attacker while looking " +
+      "for vulnerabilities that may go unnoticed by the Attack Team.",
+    cycleParagraph5:
+      "Once we discover a vulnerability in your software, you can fix it to avoid " +
+      "or mitigate possible consequences. The Reattack Team evaluates the implemented solution's " +
+      "effectiveness and whether new vulnerabilities were created in the process of remediation.",
+    cycleTitle0: "Automated Deterministic Attack",
+    cycleTitle1: "Triage",
+    cycleTitle2: "Attack",
+    cycleTitle3: "Release Team",
+    cycleTitle4: "Escapes Team",
+    cycleTitle5: "Reattack Team",
+    homeParagraph:
+      "With our Continuous Hacking solution, we perform comprehensive testing during " +
+      "the entire Software Development Lifecycle. This means we combine automation, " +
+      "AI and our ethical hackers’ expertise to continuously detect " +
+      "and report your system’s security issues as it evolves.",
+    homeReadMore: "Read More",
+    homeTitle: "Continuous Hacking Cycle",
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we " +
       "recommend our Continuous Hacking service",
