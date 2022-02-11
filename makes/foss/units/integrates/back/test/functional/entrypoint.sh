@@ -18,6 +18,8 @@ function main {
   )
 
   source __argIntegratesBackEnv__/template dev \
+    && sops_export_vars integrates/secrets-development.yaml \
+      TEST_SSH_KEY \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \

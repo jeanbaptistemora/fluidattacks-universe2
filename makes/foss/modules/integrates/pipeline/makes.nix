@@ -348,6 +348,7 @@ in
           [ "update_vulnerability_commit" ]
           [ "update_vulnerability_treatment" ]
           [ "upload_file" ]
+          [ "validate_git_access" ]
           [ "verify_vulnerabilities_request" ]
           [ "vulnerability" ]
         ])

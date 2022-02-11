@@ -23,6 +23,7 @@ makeScript {
       outputs."/integrates/storage"
     ];
     source = [
+      outputs."/utils/sops"
       pythonRequirements
     ];
   };
