@@ -4,6 +4,7 @@ from .utils import (
 )
 import aioboto3
 from aioboto3.dynamodb.table import (
+    BatchWriter,
     CustomTableResource,
 )
 import aioextensions
@@ -61,6 +62,26 @@ RESOURCE_OPTIONS = {
 SESSION = aioboto3.Session()
 
 
+# Fix for https://github.com/boto/boto3/pull/2867
+class PatchedBatchWriter(BatchWriter):
+    async def _flush(self) -> None:
+        items_to_send = self._items_buffer[
+            : self._flush_amount
+        ]  # type: List[Item]
+        self._items_buffer = self._items_buffer[
+            self._flush_amount :
+        ]  # type: List[Item]
+        response = await self._client.batch_write_item(
+            RequestItems={self._table_name: items_to_send}
+        )
+        unprocessed_items = response["UnprocessedItems"].get(
+            self._table_name, []
+        )
+
+        if unprocessed_items:
+            self._items_buffer.extend(unprocessed_items)
+
+
 def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
     key_structure = table.primary_key
     attrs = (key_structure.partition_key, key_structure.sort_key, *facet.attrs)
@@ -116,7 +137,13 @@ async def batch_delete_item(
     async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
-        async with table_resource.batch_writer() as batch_writer:
+        async with PatchedBatchWriter(
+            table_resource.name,
+            table_resource.meta.client,
+            flush_amount=25,
+            overwrite_by_pkeys=None,
+            on_exit_loop_sleep=0,
+        ) as batch_writer:
             try:
                 await aioextensions.collect(
                     tuple(
@@ -140,7 +167,13 @@ async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
-        async with table_resource.batch_writer() as batch_writer:
+        async with PatchedBatchWriter(
+            table_resource.name,
+            table_resource.meta.client,
+            flush_amount=25,
+            overwrite_by_pkeys=None,
+            on_exit_loop_sleep=0,
+        ) as batch_writer:
             try:
                 await aioextensions.collect(
                     tuple(
