@@ -956,7 +956,7 @@
       title: Product Released in Non-Release Configuration
       link: https://cwe.mitre.org/data/definitions/1269.html
   metadata: {}
-"005":
+"eprivacy":
   title: ePrivacy Directive
   en:
     description: >
