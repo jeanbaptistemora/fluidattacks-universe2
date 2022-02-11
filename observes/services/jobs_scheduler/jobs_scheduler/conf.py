@@ -8,6 +8,7 @@ from jobs_scheduler.cron_2.core import (
     Cron,
 )
 from jobs_scheduler.cron_2.factory import (
+    week_days,
     weekly,
     work_days,
 )
@@ -61,10 +62,12 @@ ANY = AnyTime()
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
+        week_days(ANY, 22, range(0, 5)).unwrap(): (
+            Jobs.DYNAMO_INTEGRATES_MAIN,
+        ),
         work_days(ANY, 0).unwrap(): (
             Jobs.MIRROR,
             Jobs.REPORT_CANCELLED,
-            Jobs.DYNAMO_INTEGRATES_MAIN,
         ),
         weekly(ANY, 3, 1).unwrap(): (
             Jobs.ANNOUNCEKIT,
