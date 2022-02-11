@@ -148,13 +148,9 @@ async def remove_access(
         vulnerabilities: Tuple[
             Vulnerability, ...
         ] = await loaders.me_vulnerabilities.load(user_email)
-        group_drafts_and_findings: Tuple[
+        all_findings: Tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load(group_name)
-        group_removed_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_removed_findings.load(group_name)
-        all_findings = group_drafts_and_findings + group_removed_findings
 
         findings_ids: Set[str] = {finding.id for finding in all_findings}
         group_vulnerabilities: Tuple[Vulnerability, ...] = tuple(

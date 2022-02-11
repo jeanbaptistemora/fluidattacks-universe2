@@ -1409,19 +1409,12 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
 
 async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_users_removed = await remove_all_users(loaders, group_name)
-    group_drafts_loader: DataLoader = loaders.group_drafts
-    drafts: Tuple[Finding, ...] = await group_drafts_loader.load(group_name)
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-    removed_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_removed_findings.load(group_name)
+    all_findings = await loaders.group_drafts_and_findings.load(group_name)
     are_findings_masked = all(
         await collect(
             tuple(
                 findings_domain.mask_finding(loaders, finding)
-                for finding in (*drafts, *findings, *removed_findings)
+                for finding in all_findings
             ),
             workers=4,
         )
