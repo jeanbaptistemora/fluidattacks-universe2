@@ -20,6 +20,7 @@ export const DataTableNext: React.FC<ITableProps> = (
   const {
     columnToggle = false,
     csvFilename = "spreadsheet.csv",
+    customFilters,
     dataset = [],
     headers,
     id,
@@ -71,7 +72,9 @@ export const DataTableNext: React.FC<ITableProps> = (
           columns={customizeColumns(
             nonOmittedHeaders,
             dataset,
-            isFilterEnabled
+            _.isUndefined(isFilterEnabled)
+              ? customFilters?.isCustomFilterEnabled
+              : isFilterEnabled
           )}
           data={datasetWithUniqueKeys}
           exportCSV={{ fileName: csvFilename }}
