@@ -1308,7 +1308,7 @@
       title: BES Cyber Asset Reuse and Disposal
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
   metadata: {}
-"010":
+"nist80053":
   title: NIST 800-53
   en:
     description: >
