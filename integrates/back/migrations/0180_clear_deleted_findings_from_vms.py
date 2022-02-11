@@ -6,8 +6,8 @@ preffix REMOVED#.
 
 Store them in redshift if applies and remove them from vms.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-02-10 at 22:15:34 UTC
+Finalization Time:  2022-02-10 at 22:38:47 UTC
 """
 
 from aioextensions import (
