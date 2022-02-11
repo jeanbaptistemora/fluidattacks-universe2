@@ -1,9 +1,9 @@
-interface IGroupBilling {
-  authorsNumber: number;
+interface IGroupAuthors {
+  total: number;
 }
 
 interface IGroupAttr {
-  billing: IGroupBilling | null;
+  authors: IGroupAuthors | null;
   forces: string;
   hasForces: boolean;
   hasMachine: boolean;

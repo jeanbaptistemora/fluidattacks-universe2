@@ -14,8 +14,8 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         service
         permissions
         tier
-        billing {
-          authorsNumber
+        authors {
+          total
         }
       }
       billingPaymentMethods {

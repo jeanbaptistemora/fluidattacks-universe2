@@ -16,8 +16,8 @@ import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILLING } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
-  IBillingAuthor,
   IData,
+  IGroupAuthor,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
@@ -138,14 +138,14 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const dataset: IBillingAuthor[] = (data as IData).group.billing.authors;
+  const dataset: IGroupAuthor[] = (data as IData).group.authors.data;
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextDataset: IBillingAuthor[] = filterSearchText(
+  const filterSearchtextDataset: IGroupAuthor[] = filterSearchText(
     dataset,
     searchTextFilter
   );
@@ -159,7 +159,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterAuthorDataset: IBillingAuthor[] = filterText(
+  const filterAuthorDataset: IGroupAuthor[] = filterText(
     dataset,
     filterAuthorsTable.author,
     "actor"
@@ -175,7 +175,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterGroupsContributedDataset: IBillingAuthor[] = filterText(
+  const filterGroupsContributedDataset: IGroupAuthor[] = filterText(
     dataset,
     filterAuthorsTable.groupsContributed,
     "groups"
@@ -191,7 +191,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterRepositoryDataset: IBillingAuthor[] = filterText(
+  const filterRepositoryDataset: IGroupAuthor[] = filterText(
     dataset,
     filterAuthorsTable.repository,
     "repository"
@@ -208,7 +208,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     setSearchTextFilter("");
   }
 
-  const resultDataset: IBillingAuthor[] = _.intersection(
+  const resultDataset: IGroupAuthor[] = _.intersection(
     filterSearchtextDataset,
     filterAuthorDataset,
     filterRepositoryDataset,

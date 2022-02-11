@@ -11,6 +11,7 @@ from datetime import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    require_login,
     require_service_white,
 )
 from graphql.type.definition import (
@@ -28,6 +29,7 @@ from typing import (
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_service_white,
+    require_login,
 )
 async def resolve(
     parent: Group, _info: GraphQLResolveInfo, **kwargs: datetime
@@ -39,6 +41,6 @@ async def resolve(
         group=group_name,
     )
     return {
-        "authors": authors_data,
-        "authors_number": len(authors_data),
+        "data": authors_data,
+        "total": len(authors_data),
     }

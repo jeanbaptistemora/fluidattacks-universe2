@@ -1,5 +1,5 @@
-"BillingAuthor type definition"
-type BillingAuthor {
+"Author type definition"
+type Author {
   "Author who has contributed"
   actor: String
   "Example contribution commit"
@@ -10,4 +10,12 @@ type BillingAuthor {
   organization: String
   "Root repository of the contributions"
   repository: String
+}
+
+"Authors type definition"
+type Authors {
+  "Authors data"
+  data: [Author!]!
+  "Total authors"
+  total: Int!
 }

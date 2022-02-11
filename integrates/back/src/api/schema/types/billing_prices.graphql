@@ -4,8 +4,6 @@ type BillingPrice {
   amount: Int!
   "Price currency (COP, EUR, USD, etc.)"
   currency: String!
-  "Price type (one_time or recurring)"
-  type: String!
 }
 
 "BillingPrices type definition"

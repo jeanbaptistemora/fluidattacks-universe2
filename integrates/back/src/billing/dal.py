@@ -237,7 +237,6 @@ async def get_prices() -> Dict[str, Price]:
             id=price.id,
             currency=price.currency,
             amount=price.unit_amount,
-            type=price.type,
         )
         for price in data
     }

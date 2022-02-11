@@ -1,7 +1,0 @@
-"Billing type definition"
-type Billing {
-  "List of authors that have contributed to the Group"
-  authors: [BillingAuthor]!
-  "Number of authors that have contributed to the Group"
-  authorsNumber: Int!
-}

@@ -4,8 +4,8 @@ import type { DocumentNode } from "graphql";
 export const GET_BILLING: DocumentNode = gql`
   query GetBilling($date: DateTime, $groupName: String!) {
     group(groupName: $groupName) {
-      billing(date: $date) {
-        authors {
+      authors(date: $date) {
+        data {
           actor
           commit
           groups

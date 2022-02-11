@@ -1,4 +1,4 @@
-interface IBillingAuthor {
+interface IGroupAuthor {
   actor: string;
   commit: string;
   groups: string;
@@ -6,14 +6,12 @@ interface IBillingAuthor {
   repository: string;
 }
 
-interface IBilling {
-  authors: IBillingAuthor[];
-}
-
 interface IData {
   group: {
-    billing: IBilling;
+    authors: {
+      data: IGroupAuthor[];
+    };
   };
 }
 
-export { IBillingAuthor, IBilling, IData };
+export { IGroupAuthor, IData };

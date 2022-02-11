@@ -8,11 +8,11 @@ type Group {
     documentType: String!
   ): GenericScalar
   "Authors that have contributed to the group"
-  billing(
-    """Selects bills from this Group according to the provided date
+  authors(
+    """Selects authors from this Group according to the provided date
     (year and month)"""
     date: DateTime
-  ): Billing
+  ): Authors
   "Amount of currently closed vulnerabilities in the group"
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"
