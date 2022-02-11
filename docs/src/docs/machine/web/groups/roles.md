@@ -126,3 +126,4 @@ for each role.
 |Add users            |    |         |X           |
 |Edit users           |    |         |X           |
 |Receive notifications|X   |         |X           |
+|Generate a report    |    |         |X           |
