@@ -5,11 +5,14 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.colors import (
     RISK,
+)
+from charts.utils import (
+    get_finding_name,
+    get_portfolios_groups,
+    iterate_organizations_and_groups,
+    json_dump,
 )
 from dataloaders import (
     get_new_context,
@@ -71,8 +74,8 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     merged_data: List[List[Union[int, str]]] = []
 
     for axis, columns in groupby(
-        sorted(data, key=lambda x: utils.get_finding_name([x[0]])),
-        lambda x: utils.get_finding_name([x[0]]),
+        sorted(data, key=lambda x: get_finding_name([x[0]])),
+        lambda x: get_finding_name([x[0]]),
     ):
         merged_data.append([axis, max([value for _, value in columns])])
 
@@ -98,8 +101,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
         axis=dict(
             x=dict(
                 categories=[
-                    utils.get_finding_name([str(title)])
-                    for title, _ in merged_data
+                    get_finding_name([str(title)]) for title, _ in merged_data
                 ],
                 type="category",
                 tick=dict(
@@ -120,9 +122,18 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
 
 
 async def generate_all() -> None:
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
+        json_dump(
+            document=format_data(
+                counters=await get_data_many_groups(list(org_groups)),
+            ),
+            entity="organization",
+            subject=org_id,
+        )
+
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, groups in await get_portfolios_groups(org_name):
+            json_dump(
                 document=format_data(
                     counters=await get_data_many_groups(groups),
                 ),
