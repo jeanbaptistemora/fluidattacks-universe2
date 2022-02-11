@@ -13,7 +13,6 @@ from db_model.roots.types import (
     GitRootItem,
     GitRootMetadata,
     GitRootState,
-    MachineGitRootExecution,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -39,11 +38,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                machine_execution=MachineGitRootExecution(
-                    queue_date="2021-10-08T16:58:12.499243",
-                    finding_code="F122",
-                    job_id="78c546bh-dgf5-47e4-a7b3-4a1ebbsd0623",
-                ),
                 metadata=GitRootMetadata(type="Git"),
                 state=GitRootState(
                     branch="master",
@@ -71,11 +65,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                machine_execution=MachineGitRootExecution(
-                    queue_date="2021-10-08T16:58:12.499243",
-                    finding_code="F122",
-                    job_id="78c546bh-dgf5-47e4-a7b3-4a1ebbsd0623",
-                ),
                 metadata=GitRootMetadata(type="Git"),
                 state=GitRootState(
                     branch="master",

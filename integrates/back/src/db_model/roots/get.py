@@ -29,7 +29,6 @@ from db_model.roots.types import (
     IPRootMetadata,
     IPRootState,
     MachineFindingResult,
-    MachineGitRootExecution,
     RootItem,
     RootMachineExecutionItem,
     RootState,
@@ -71,12 +70,6 @@ def _build_root(
     )
 
     if metadata["type"] == "Git":
-        queue = [
-            item
-            for item in raw_items
-            if item[key_structure.sort_key].startswith(f"{item_id}#FIN")
-            and item[key_structure.sort_key].endswith("#MACHINE")
-        ]
         cloning = historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
@@ -91,14 +84,6 @@ def _build_root(
                 status=GitCloningStatus(cloning["status"]),
                 commit=cloning.get("commit"),
             ),
-            machine_execution=[
-                MachineGitRootExecution(
-                    queue_date=item.get("queue_date"),
-                    job_id=item.get("job_id"),
-                    finding_code=item.get("finding_code"),
-                )
-                for item in queue
-            ],
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],
             metadata=GitRootMetadata(type=metadata["type"]),

@@ -226,7 +226,6 @@ async def add_git_root(
         ),
         group_name=group_name,
         id=str(uuid4()),
-        machine_execution=[],
         metadata=GitRootMetadata(type="Git"),
         state=GitRootState(
             branch=branch,
@@ -612,7 +611,6 @@ async def update_git_root(
         id=root.id,
         metadata=root.metadata,
         state=new_state,
-        machine_execution=root.machine_execution,
     )
 
 

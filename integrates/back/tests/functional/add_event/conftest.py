@@ -31,7 +31,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                machine_execution=None,
                 metadata=GitRootMetadata(type="Git"),
                 state=GitRootState(
                     branch="master",
