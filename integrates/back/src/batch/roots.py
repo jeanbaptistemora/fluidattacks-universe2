@@ -797,7 +797,14 @@ async def queue_sync_git_roots(
                 for action in await get_actions_by_name(
                     "clone_roots", group_name
                 )
-                if action.entity == group_name
+                # Check duplicated job at the group level (all roots)
+                if (roots is None and action.entity == group_name)
+                # Check duplicated job at the root level (selected roots)
+                or (
+                    roots is not None
+                    and sorted(action.additional_info.split(","))
+                    == sorted([root.state.nickname for root in roots])
+                )
             ]
         )
         > 0

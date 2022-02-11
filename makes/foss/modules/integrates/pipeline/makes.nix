@@ -321,6 +321,7 @@ in
           [ "submit_draft" ]
           [ "submit_organization_finding_policy" ]
           [ "subscribe_to_entity_report" ]
+          [ "sync_git_root" ]
           [ "toe_inputs" ]
           [ "toe_lines" ]
           [ "unsubscribe_from_group" ]

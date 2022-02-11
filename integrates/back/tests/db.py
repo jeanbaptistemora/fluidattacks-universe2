@@ -4,6 +4,9 @@ from aioextensions import (
 from authz import (
     policy as authz_policy,
 )
+from batch.dal import (
+    put_action_to_dynamodb,
+)
 from comments import (
     dal as dal_comment,
 )
@@ -428,6 +431,11 @@ async def populate_credentials(data: Tuple[CredentialItem, ...]) -> bool:
     await collect(
         (creds_model.add(credential=credential)) for credential in data
     )
+    return True
+
+
+async def populate_actions(data: Tuple[Dict[str, Any], ...]) -> bool:
+    await collect((put_action_to_dynamodb(**action)) for action in data)
     return True
 
 
