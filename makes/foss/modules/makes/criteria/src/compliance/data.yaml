@@ -2859,7 +2859,7 @@
       title: Extraneous Functionality Threat Agents
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m10-extraneous-functionality
   metadata: {}
-"018":
+"nist":
   title: NIST Cybersecurity Framework
   en:
     description: >
