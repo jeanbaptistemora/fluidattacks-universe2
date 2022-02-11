@@ -19,9 +19,6 @@ from groups import (
 from newutils import (
     logs as logs_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -36,10 +33,13 @@ from typing import (
     require_login, enforce_group_level_auth_async, require_asm
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, tags: List[str], **kwargs: Any
+    _: Any,
+    info: GraphQLResolveInfo,
+    group_name: str,
+    tags: List[str],
 ) -> SimpleGroupPayloadType:
     success = False
-    group_name = get_key_or_fallback(kwargs).lower()
+    group_name = group_name.lower()
     group_loader = info.context.loaders.group
     if await groups_domain.is_alive(group_name):
         if await groups_domain.validate_group_tags(group_name, tags):

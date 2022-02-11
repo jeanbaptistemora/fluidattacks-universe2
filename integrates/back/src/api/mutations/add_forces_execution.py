@@ -16,10 +16,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
-from newutils.utils import (
-    clean_up_kwargs,
-    get_key_or_fallback,
-)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -34,12 +30,10 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
+    group_name: str,
     log: Optional[UploadFile] = None,
     **parameters: Any,
 ) -> SimplePayload:
-    # Compatibility with old API
-    group_name: str = get_key_or_fallback(parameters)
-    parameters = clean_up_kwargs(parameters)
     success = await forces_domain.add_forces_execution(
         group_name=group_name, log=log, **parameters
     )

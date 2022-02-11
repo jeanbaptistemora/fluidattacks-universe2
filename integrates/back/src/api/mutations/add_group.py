@@ -23,9 +23,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
 )
@@ -45,14 +42,9 @@ async def mutate(
     language: str = "en",
     **parameters: Any,
 ) -> SimplePayloadType:
-    # Compatibility with old API
-    group_name = get_key_or_fallback(parameters)
-    has_squad: bool = get_key_or_fallback(
-        parameters, "has_squad", "has_drills", False
-    )
-    has_machine: bool = get_key_or_fallback(
-        parameters, "has_machine", "has_skims", False
-    )
+    group_name = parameters["group_name"]
+    has_squad = parameters.get("has_squad", False)
+    has_machine = parameters.get("has_machine", False)
 
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

@@ -20,10 +20,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    clean_up_kwargs,
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -45,21 +41,20 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
+    group_name: str,
     image: Optional[UploadFile] = None,
     file: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
     """Resolve add_event mutation."""
-    group_name: str = get_key_or_fallback(kwargs)
-    kwargs = clean_up_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
     success = await events_domain.add_event(
         info.context.loaders,
-        hacker_email,
-        group_name.lower(),
-        file,
-        image,
+        hacker_email=hacker_email,
+        group_name=group_name.lower(),
+        file=file,
+        image=image,
         **kwargs,
     )
     if success:

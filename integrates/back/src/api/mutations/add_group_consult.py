@@ -29,9 +29,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -70,9 +67,9 @@ async def send_group_consult_mail(
     require_squad,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> AddConsultPayloadType:
-    group_name: str = get_key_or_fallback(parameters, fallback="").lower()
+    group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())

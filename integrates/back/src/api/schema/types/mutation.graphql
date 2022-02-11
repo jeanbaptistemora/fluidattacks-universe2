@@ -141,7 +141,7 @@ type Mutation {
     "A JSON with description and fileName keys"
     filesData: JSONString!
     "Name of the Group to add the File to"
-    groupName: String
+    groupName: String!
   ): SimplePayload!
 
   "Adds a consult/comment in a Finding"
@@ -158,8 +158,6 @@ type Mutation {
 
   "Adds a new Forces execution results and log to a Group"
   addForcesExecution(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Identifier of the Forces execution"
     executionId: String
     "Deprecated. Use `executionId` instead"
@@ -179,7 +177,7 @@ type Mutation {
     "Grace period in days for new vulnerabilities at the time of execution"
     gracePeriod: Int
     "Name of the Group where the Forces log will be in"
-    groupName: String
+    groupName: String!
     "Applied kind of application security testing technique"
     kind: String
     "Forces execution log"
@@ -224,9 +222,9 @@ type Mutation {
     "Name of the new group"
     groupName: String!
     "Enables the Machine plan within the new group"
-    hasMachine: Boolean
+    hasMachine: Boolean!
     "Enables the Squad plan within the new group"
-    hasSquad: Boolean
+    hasSquad: Boolean!
     "Language in which findings should be reported"
     language: Language
     "Organization to which the group will belong"

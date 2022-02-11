@@ -23,9 +23,6 @@ from newutils import (
     token as token_utils,
     utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from resources.domain import (
     add_file_to_db,
 )
@@ -43,14 +40,13 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> SimplePayloadType:
     success = False
     files_data = parameters["files_data"]
     new_files_data = utils.camel_case_list_dict(files_data)
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    group_name: str = get_key_or_fallback(parameters)
 
     await put_action(
         action_name="handle_virus_scan",
