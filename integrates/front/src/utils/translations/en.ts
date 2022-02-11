@@ -617,6 +617,7 @@ export const enTranslations: ResourceKey = {
             changed:
               "This root was just updated, please review the changes and try again",
           },
+
           loading: "...",
           reason: {
             label: "Reason",
@@ -933,6 +934,9 @@ export const enTranslations: ResourceKey = {
           title: "Edit attacked lines",
         },
         filename: "Filename",
+        filtersTooltips: {
+          extension: "Filter by extension",
+        },
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",
         lastAuthor: "Last author",

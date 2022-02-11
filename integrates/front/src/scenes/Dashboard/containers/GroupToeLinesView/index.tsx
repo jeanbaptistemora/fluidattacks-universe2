@@ -21,12 +21,14 @@ import {
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import type {
+  IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
+  IFilterSet,
   IGroupToeLinesViewProps,
   IToeLinesAttr,
   IToeLinesConnection,
@@ -69,8 +71,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const canSeeDaysToAttack: boolean = permissions.can(
     "see_toe_lines_days_to_attack"
   );
+
   const { groupName } = useParams<{ groupName: string }>();
+
   const [isEditing, setEditing] = useState(false);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
+    IToeLinesData[]
+  >([]);
+
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
   >(
@@ -97,6 +106,17 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     localStorage
   );
+  const [filterGroupToeLinesTable, setFilterGroupToeLinesTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupToeLinesSet",
+      {
+        filenameExtension: "",
+      },
+      localStorage
+    );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("toeLinesCustomFilters", false);
+
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
       if (
@@ -119,26 +139,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     [checkedItems, setCheckedItems]
   );
-
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "toeLinesFilters",
-    false
-  );
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
-    IToeLinesData[]
-  >([]);
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
-  function toggleEdit(): void {
-    setEditing(!isEditing);
-  }
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const formatDate: (date: Date | undefined) => string = (
     date: Date | undefined
@@ -406,14 +409,76 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
+  function toggleEdit(): void {
+    setEditing(!isEditing);
+  }
+
+  function clearFilters(): void {
+    setFilterGroupToeLinesTable(
+      (): IFilterSet => ({
+        filenameExtension: "",
+      })
+    );
+    setSearchTextFilter("");
+  }
+
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
   const filterSearchtextResult: IToeLinesData[] = filterSearchText(
     toeLines,
     searchTextFilter
   );
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
+  function onExtensionChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    event.persist();
+    setFilterGroupToeLinesTable(
+      (value): IFilterSet => ({
+        ...value,
+        filenameExtension: event.target.value,
+      })
+    );
   }
+
+  const filterFilenameExtensions: IToeLinesData[] = _.isEmpty(
+    filterGroupToeLinesTable.filenameExtension
+  )
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return (
+          toeLinesData.extension === filterGroupToeLinesTable.filenameExtension
+        );
+      });
+
+  const extensionSelectOptions = Object.fromEntries(
+    toeLines.map((toeLinesData: IToeLinesData): string[] => [
+      toeLinesData.extension,
+      toeLinesData.extension,
+    ])
+  );
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: filterGroupToeLinesTable.filenameExtension,
+      onChangeSelect: onExtensionChange,
+      placeholder: "Extension",
+      selectOptions: extensionSelectOptions,
+      tooltipId: "group.toe.lines.filtersTooltips.extension.id",
+      tooltipMessage: "group.toe.lines.filtersTooltips.extension",
+      type: "select",
+    },
+  ];
+  const resultExecutions: IToeLinesData[] = _.intersection(
+    filterSearchtextResult,
+    filterFilenameExtensions
+  );
 
   const initialSort: string = JSON.stringify({
     dataField: "rootNickname",
@@ -455,14 +520,21 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     <React.StrictMode>
       <DataTableNext
         bordered={true}
+        clearFiltersButton={clearFilters}
         columnToggle={true}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          oneRowMessage: true,
+        }}
         customSearch={{
           customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={filterSearchtextResult}
+        dataset={resultExecutions}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeLinesSort", initialSort)
         )}
@@ -477,9 +549,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         }
         headers={headersToeLinesTable}
         id={"tblToeLines"}
-        isFilterEnabled={isFilterEnabled}
+        isFilterEnabled={undefined}
         onColumnToggle={handleChange}
-        onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={false}
         selectionMode={selectionMode}
