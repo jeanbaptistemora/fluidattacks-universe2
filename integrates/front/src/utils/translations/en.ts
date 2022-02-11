@@ -739,6 +739,11 @@ export const enTranslations: ResourceKey = {
         },
         title: "Git Roots",
       },
+      internalSurface: {
+        confirmDialog: {
+          title: "Internal surface",
+        },
+      },
       ip: {
         address: "Address",
         nickname: "Nickname",

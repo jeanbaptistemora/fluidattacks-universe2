@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import { groupContext } from "../../GroupContent/context";
 import type { IGroupContext } from "../../GroupContent/types";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -30,18 +32,27 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       {canSeeInternalToe && (canGetToeInputs || canGetToeLines) ? (
-        <TooltipWrapper
-          id={t("group.tabs.toe.tooltip.id")}
-          message={t("group.tabs.toe.tooltip")}
+        <ConfirmDialog
+          title={t("group.scope.internalSurface.confirmDialog.title")}
         >
-          <Button
-            id={"git-root-internal-surface"}
-            onClick={handleInternalSurfaceClick}
-          >
-            <i className={"icon pe-7s-note2"} />
-            &nbsp;{t("group.tabs.toe.text")}
-          </Button>
-        </TooltipWrapper>
+          {(confirm: IConfirmFn): React.ReactNode => {
+            function handleClick(): void {
+              confirm(handleInternalSurfaceClick);
+            }
+
+            return (
+              <TooltipWrapper
+                id={t("group.tabs.toe.tooltip.id")}
+                message={t("group.tabs.toe.tooltip")}
+              >
+                <Button id={"git-root-internal-surface"} onClick={handleClick}>
+                  <i className={"icon pe-7s-note2"} />
+                  &nbsp;{t("group.tabs.toe.text")}
+                </Button>
+              </TooltipWrapper>
+            );
+          }}
+        </ConfirmDialog>
       ) : undefined}
     </React.StrictMode>
   );
