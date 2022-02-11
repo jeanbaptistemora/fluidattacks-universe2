@@ -1,10 +1,10 @@
 closure:
-  boto3: 1.20.52
-  botocore: 1.23.52
+  boto3: 1.20.54
+  botocore: 1.23.54
   click: 8.0.3
   colorama: 0.4.4
   deprecated: 1.2.13
-  fa-purity: 1.1.1
+  fa-purity: 1.1.2
   jmespath: 0.10.0
   more-itertools: 8.12.0
   mypy-boto3-dynamodb: 1.20.49
@@ -19,18 +19,18 @@ closure:
   urllib3: 1.26.8
   wrapt: 1.13.3
 links:
-  - name: boto3-1.20.52-py3-none-any.whl
-    sha256: 1lw4fvi4wqz8ps2v5z20fl6ca72gwqhpvb7hg46x9qz34rik8d5p
-    url: https://files.pythonhosted.org/packages/b6/69/ca1c0ed9d5a60dd0869ecd8553c68ada8434dde8c4ea76fff63c310a670f/boto3-1.20.52-py3-none-any.whl
-  - name: boto3-1.20.52.tar.gz
-    sha256: 0l747w9g124xiadgblimh96zyxi0m946230cyqqzszz8zpr61hkd
-    url: https://files.pythonhosted.org/packages/2d/70/779a2245b444244dbb3fb085ef01ad6f8a390469aa85b4bf3424771e622e/boto3-1.20.52.tar.gz
-  - name: botocore-1.23.52-py3-none-any.whl
-    sha256: 1m2gz9q6lcqnb8zhhaz8iggqynv2vrn6hbrfy1h8fba23v81hngk
-    url: https://files.pythonhosted.org/packages/d6/3d/cbd37655cfeffdc088290a94df6a10420529b80605681d2f8409a522f54c/botocore-1.23.52-py3-none-any.whl
-  - name: botocore-1.23.52.tar.gz
-    sha256: 0s0nxdjidwdjg0wqv6fpxzixggqld38z9ia8qvyd53dxq98ak89m
-    url: https://files.pythonhosted.org/packages/5d/f9/14a1a0bd641ecb58434ca711afcd7b35b5e1c61736a0c4124e0cdc9bee61/botocore-1.23.52.tar.gz
+  - name: boto3-1.20.54-py3-none-any.whl
+    sha256: 067r47gqmqd571zi3ajclfsy0fr04l25ifs7d9ib2534scfjl9qs
+    url: https://files.pythonhosted.org/packages/f7/d7/7ccb6daf350f9b81550e3f2e25ba24672ea45975ee08f0cbca0a573417c0/boto3-1.20.54-py3-none-any.whl
+  - name: boto3-1.20.54.tar.gz
+    sha256: 0ijmg7gnn4bzk3zf1dmjhpikj50bdwnm265a7p3d2801ri1asac1
+    url: https://files.pythonhosted.org/packages/5c/b8/fe09375205c6123aa24e6f516f1ea31cdb53f59e87f2fe66d59ed677e1b8/boto3-1.20.54.tar.gz
+  - name: botocore-1.23.54-py3-none-any.whl
+    sha256: 0zld1bivbdz3lvx3pandm0c2mag4vkrfadsdxhmxgwywqiv81bh6
+    url: https://files.pythonhosted.org/packages/a6/08/3cc6858a2d9fee8538f212944cff08df325828fbfe17801974c95f51f338/botocore-1.23.54-py3-none-any.whl
+  - name: botocore-1.23.54.tar.gz
+    sha256: 1sqwl2q37prv07rnf1jmn93571mn5lzbqj90c2igbrffrhbbmfab
+    url: https://files.pythonhosted.org/packages/3f/09/a17568ac7fb096b3dd280202e4779fa7aaae2252b2e04163fc5f35e5f988/botocore-1.23.54.tar.gz
   - name: click-8.0.3-py3-none-any.whl
     sha256: 1wwfa6j4490kd2qawk68a4ikf8nbj6gjynazdc5v9bmdjmj4cgrm
     url: https://files.pythonhosted.org/packages/48/58/c8aa6a8e62cc75f39fee1092c45d6b6ba684122697d7ce7d53f64f98a129/click-8.0.3-py3-none-any.whl
@@ -49,12 +49,12 @@ links:
   - name: Deprecated-1.2.13.tar.gz
     sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
     url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
-  - name: fa_purity-1.1.1-py3-none-any.whl
-    sha256: 06ir86wj722i5j4i7m274ipr0y2v4wdqmq5ymvdvn6k5rsmgnmfq
-    url: https://files.pythonhosted.org/packages/7c/53/39902e3fef8069f0d8f7e9ad33decaeb0f30a61181370d4b38b51e63d1b2/fa_purity-1.1.1-py3-none-any.whl
-  - name: fa_purity-1.1.1.tar.gz
-    sha256: 0crsk8s03b41b0wnf2plpffxi850npyw124csrdimx2ngiqrg59x
-    url: https://files.pythonhosted.org/packages/f8/53/d012f12c3195ce4ccb65ab97c9a2d94abfbab0f7fdd2ccc7de7b2f4d1069/fa_purity-1.1.1.tar.gz
+  - name: fa_purity-1.1.2-py3-none-any.whl
+    sha256: 1pkg3rkg6iiv48vhdcmxcf7gvy7ax0zjias3n7x88cq2pd7vzij6
+    url: https://files.pythonhosted.org/packages/ed/29/08a2efbeae34461aee8e7f5b1854a3e0a000140b7d7a046a704bbb4bf9ba/fa_purity-1.1.2-py3-none-any.whl
+  - name: fa_purity-1.1.2.tar.gz
+    sha256: 19fhylq9svjh0y655nwb8nggcwqm5iw8cihqm91x6j2akh2072lr
+    url: https://files.pythonhosted.org/packages/96/ac/bc376e95963660b59e038f88c6a5761e7e805c94cb02cc43c1cf1f0d07cf/fa_purity-1.1.2.tar.gz
   - name: jmespath-0.10.0-py2.py3-none-any.whl
     sha256: 0bxp1hnjrb4vaksa43s2ghjwr3jb5rpv6q8x2hq7fnfc0icm5xnd
     url: https://files.pythonhosted.org/packages/07/cb/5f001272b6faeb23c1c9e0acc04d48eaaf5c862c17709d20e3469c6e0139/jmespath-0.10.0-py2.py3-none-any.whl
