@@ -7,7 +7,7 @@ category: attacks
 tags: cybersecurity, hacking, web, information, business, economics
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1644545785/blog/first-cyberattack/cover_first_cyberattack.webp
 alt: Photo by Chris Karidis on Unsplash
-description: Have you ever asked yourself that question? Discover in this blog post the ancient event that is considered by many as the first cyberattack in history.
+description: Have you ever asked yourself that question? Discover in this blog post the old incident that is considered by many as the first cyberattack in history.
 keywords: Cyberattack, Telegraph, Network, Chappe, Blanc, History, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
@@ -35,17 +35,15 @@ Read it carefully,
 *only* that kind of attack
 against *only* organizations or companies.
 You can already try to picture
-the disproportionate magnitude of the problem.
-Nevertheless,
-what concerns us now is the beginning,
-the first of those incidents
-that we can qualify as a cyberattack.
+the disproportionate magnitude of the problem,
+which begs the question:
+How is it that all of this started?
 
-Answering the question that titles this blog post,
+Answering this question,
 believe it or not,
 doesn't take us back to the early days of computer networks.
 [According to Tom Standage](https://www.economist.com/1843/2017/10/05/the-crooked-timber-of-humanity)
-in the 1843 Magazine,
+in the *1843* magazine,
 we have to go back to the first half of the 19th century.
 This first "cyberattack" was perpetrated in France
 on a telecommunication network,
@@ -63,7 +61,7 @@ That's very similar to what's happening today,
 even though we talk about different technology
 and cyberattacks [now go beyond](https://csrc.nist.gov/glossary/term/Cyber_Attack)
 information theft.
-Let's put ourselves in context.
+Let's put this earlier attack into context.
 
 [Following Encyclopedia Britannica's](https://www.britannica.com/technology/telegraph)
 definition,
@@ -76,7 +74,7 @@ developed in the 19th century.
 However,
 it was initially used to describe the pre-electric version
 near the end of the 18th century.
-In 1971-2,
+In 1791-2,
 the French inventor [Claude Chappe,](https://en.wikipedia.org/wiki/Claude_Chappe)
 with the help of his brother Ignace,
 developed a very successful visual telegraph
@@ -95,7 +93,7 @@ to represent numbers and letters
 <div class="title">
 
 Figure 1. Chappe's telegraph and some configurations
-(mix of two images \[[1,](https://upload.wikimedia.org/wikipedia/commons/2/21/Rees%27s_Cyclopaedia_Chappe_telegraph.png)
+(two images \[[1,](https://upload.wikimedia.org/wikipedia/commons/2/21/Rees%27s_Cyclopaedia_Chappe_telegraph.png)
 [2](https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/T%C3%A9l%C3%A9graphe_Chappe_1.jpg/438px-T%C3%A9l%C3%A9graphe_Chappe_1.jpg)\]
 taken from Wikipedia).
 
@@ -147,7 +145,7 @@ In this way,
 faster communication
 than with the use of letters
 from one end to the other.
-It was just a matter of minutes\!
+Now it just took minutes\!
 
 [The Paris-Lille](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8113174)
 line,
@@ -166,7 +164,7 @@ the bankers François and Joseph Blanc
 who sought to take advantage
 of the French network of visual telegraphs.
 
-These brothers traded [government bonds](https://www.ig.com/en/bonds/what-are-government-bonds)
+The Blancs traded [government bonds](https://www.ig.com/en/bonds/what-are-government-bonds)
 at the exchange in Bordeaux,
 ["where information](https://www.economist.com/1843/2017/10/05/the-crooked-timber-of-humanity)
 about market movements
@@ -182,7 +180,7 @@ Therefore,
 they decided to "hack" into the telegraph network.
 
 According to [Paul Ducklin](https://nakedsecurity.sophos.com/2018/05/31/forget-vpnfilter-heres-backlash-a-networking-hack-from-way-way-back/)
-in Naked Security,
+from Naked Security,
 part of that network's security depended on obscurity.
 Regular telegraph operators received no information
 on the meaning of the tower configurations,
