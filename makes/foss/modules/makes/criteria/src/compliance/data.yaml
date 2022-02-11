@@ -1410,7 +1410,7 @@
       title: Browser Cookies
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
   metadata: {}
-"012":
+"asvs":
   title: OWASP ASVS
   en:
     description: >
