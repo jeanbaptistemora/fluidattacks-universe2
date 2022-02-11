@@ -16,9 +16,6 @@ from newutils import (
     logs as logs_utils,
     resources as resources_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
 )
@@ -29,20 +26,19 @@ LOGGER = logging.getLogger(__name__)
 @convert_kwargs_to_snake_case
 @require_login
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> SignPostUrlsPayload:
     success = False
     files_data = parameters["files_data"]
-    requester: str = get_key_or_fallback(parameters)
 
     signed_url = await resources_utils.upload_file(
-        files_data[0]["file_name"], f"non_clients/{requester}"
+        files_data[0]["file_name"], f"non_clients/{group_name}"
     )
 
     if signed_url:
         msg = (
             f'Security: Uploaded file {parameters["files_data"]} '
-            f"for requester {requester} successfully"
+            f"for requester {group_name} successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
         success = True
@@ -53,7 +49,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: A Requester attempted to add resource files "
-            f"from {requester} group",
+            f"from {group_name} group",
         )
 
     return SignPostUrlsPayload(

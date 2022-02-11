@@ -20,14 +20,10 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
-    Any,
     List,
 )
 from unreliable_indicators.enums import (
@@ -52,15 +48,10 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    **parameters: Any,
+    accepted_vulnerabilities: List[str],
+    rejected_vulnerabilities: List[str],
 ) -> SimplePayload:
     try:
-        accepted_vulnerabilities: List[str] = get_key_or_fallback(
-            parameters, "accepted_vulnerabilities", "accepted_vulns"
-        )
-        rejected_vulnerabilities: List[str] = get_key_or_fallback(
-            parameters, "rejected_vulnerabilities", "rejected_vulns"
-        )
         user_info = await token_utils.get_jwt_content(info.context)
         email: str = user_info["user_email"]
         await handle_vulnerabilities_acceptance(

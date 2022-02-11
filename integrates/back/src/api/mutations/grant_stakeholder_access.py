@@ -33,7 +33,6 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    get_key_or_fallback,
     map_roles,
 )
 from redis_cluster.operations import (
@@ -59,10 +58,14 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, role: str, **query_args: str
+    _: Any,
+    info: GraphQLResolveInfo,
+    group_name: str,
+    role: str,
+    **query_args: str,
 ) -> GrantStakeholderAccessPayloadType:
     # Compatibility with old API
-    group_name: str = get_key_or_fallback(query_args, fallback="").lower()
+    group_name = group_name.lower()
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

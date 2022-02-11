@@ -21,9 +21,6 @@ from newutils import (
     resources as resources_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
 )
@@ -38,13 +35,12 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> SignPostUrlsPayload:
     success = False
     files_data = parameters["files_data"]
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    group_name: str = get_key_or_fallback(parameters)
 
     signed_url = await resources_utils.upload_file(
         files_data[0]["file_name"], group_name

@@ -19,9 +19,6 @@ from groups import (
 from newutils import (
     logs as logs_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -37,9 +34,11 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, user_email: str, **kwargs: Any
+    _: Any,
+    info: GraphQLResolveInfo,
+    user_email: str,
+    group_name: str,
 ) -> RemoveStakeholderAccessPayloadType:
-    group_name: str = get_key_or_fallback(kwargs)
     success = await groups_domain.remove_user(
         info.context.loaders, group_name, user_email
     )

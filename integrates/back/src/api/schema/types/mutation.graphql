@@ -381,10 +381,8 @@ type Mutation {
   downloadFile(
     "Name of the file to download in String form"
     filesData: JSONString!
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Name of the Group containing the file in its Scope view"
-    groupName: String
+    groupName: String!
   ): DownloadFilePayload!
 
   "Downloads a yaml file with all the vulnerabilities of this finding"
@@ -395,10 +393,8 @@ type Mutation {
 
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Name of the Group"
-    groupName: String
+    groupName: String!
     "Email address of the stakeholder that will be granted access"
     email: String!
     "Responsibility of the stakeholder e.g. Product Owner, Group Manager etc.."
@@ -505,10 +501,8 @@ type Mutation {
   removeFiles(
     "Data of the file to remove in the format {`fileName`:`file.ext`}"
     filesData: JSONString!
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Name of the group where the File to remove is"
-    groupName: String
+    groupName: String!
   ): SimplePayload!
 
   "Removes/deletes a Finding from a Group"
@@ -543,8 +537,6 @@ type Mutation {
 
   "Removes a stakeholder's access from a Group"
   removeStakeholderAccess(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
     "Name of the group where the stakeholder should be removed from"
     groupName: String
     "Email address of the stakeholder to remove"

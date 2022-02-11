@@ -100,7 +100,7 @@ async def grant_stakeholder(
     query: str = """
         mutation GrantStakeholderGroupAccess(
             $stakeholder: String!
-            $groupName: String
+            $groupName: String!
             $role: StakeholderRole!
         ) {
             grantStakeholderAccess (

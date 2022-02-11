@@ -18,9 +18,6 @@ import logging.config
 from newutils import (
     logs as logs_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 import re
 from resources import (
     domain as resources_domain,
@@ -43,9 +40,8 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     files_data: Dict[str, Any],
-    **kwargs: Any,
+    group_name: str,
 ) -> SimplePayloadType:
-    group_name: str = get_key_or_fallback(kwargs)
     files_data = {
         re.sub(r"_([a-z])", lambda x: x.group(1).upper(), k): v
         for k, v in files_data.items()

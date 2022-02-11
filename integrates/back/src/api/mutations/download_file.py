@@ -21,9 +21,6 @@ from newutils import (
     resources as resources_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
 )
@@ -38,11 +35,11 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
+    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> DownloadFilePayloadType:
     success = False
     file_info = parameters["files_data"]
-    group_name = get_key_or_fallback(parameters).lower()
+    group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     signed_url = await resources_utils.download_file(file_info, group_name)
