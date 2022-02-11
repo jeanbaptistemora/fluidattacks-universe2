@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 11, 2022, 06:50 PM",
+    "DateLastModified": "Feb 11, 2022, 06:58 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -557,6 +557,10 @@
         {
           "AttributeName": "last_commit",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "cloning",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -1150,6 +1154,22 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
+              "cloning": {
+                "M": {
+                  "status": {
+                    "S": "UNKNOWN"
+                  },
+                  "reason": {
+                    "S": "root creation"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:37:10+00:00"
+                  },
+                  "commit": {
+                    "S": "33058a900a4eac73a3a9d70b8f4121bfd127b415"
+                  }
+                }
+              },
               "state": {
                 "M": {
                   "status": {
@@ -1209,6 +1229,22 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
+              "cloning": {
+                "M": {
+                  "status": {
+                    "S": "UNKNOWN"
+                  },
+                  "reason": {
+                    "S": "root creation"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:37:10+00:00"
+                  },
+                  "commit": {
+                    "S": "cdd48a681aa96082b3095dc06fb1b15ec4b5ea7b"
+                  }
+                }
+              },
               "state": {
                 "M": {
                   "status": {
@@ -1250,7 +1286,8 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "state"
+            "state",
+            "cloning"
           ]
         },
         {
