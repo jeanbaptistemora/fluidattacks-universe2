@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 11, 2022, 01:27 PM",
+    "DateLastModified": "Feb 11, 2022, 06:50 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1150,6 +1150,54 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:37:10+00:00"
+                  },
+                  "branch": {
+                    "S": "master"
+                  },
+                  "url": {
+                    "S": "https://gitlab.com/fluidattacks/product"
+                  },
+                  "environment": {
+                    "S": "production"
+                  },
+                  "environment_urls": {
+                    "L": [
+                      {
+                        "S": "https://app.fluidattacks.com"
+                      },
+                      {
+                        "S": "https://test.com"
+                      }
+                    ]
+                  },
+                  "gitignore": {
+                    "L": [
+                      {
+                        "S": "bower_components/*"
+                      },
+                      {
+                        "S": "node_modules/*"
+                      }
+                    ]
+                  },
+                  "includes_health_check": {
+                    "BOOL": true
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "nickname": {
+                    "S": "product"
+                  }
+                }
+              },
               "type": {
                 "S": "Git"
               }
@@ -1161,13 +1209,48 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:39:56+00:00"
+                  },
+                  "branch": {
+                    "S": "develop"
+                  },
+                  "url": {
+                    "S": "https://gitlab.com/fluidattacks/integrates"
+                  },
+                  "environment": {
+                    "S": "QA"
+                  },
+                  "environment_urls": {
+                    "L": []
+                  },
+                  "gitignore": {
+                    "L": []
+                  },
+                  "includes_health_check": {
+                    "BOOL": false
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "nickname": {
+                    "S": "integrates_1"
+                  }
+                }
+              },
               "type": {
                 "S": "Git"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type"
+            "type",
+            "state"
           ]
         },
         {
@@ -1527,6 +1610,28 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:44:37+00:00"
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "nickname": {
+                    "S": "ip_root_1"
+                  },
+                  "address": {
+                    "S": "127.0.0.1"
+                  },
+                  "port": {
+                    "S": "8080"
+                  }
+                }
+              },
               "type": {
                 "S": "IP"
               }
@@ -1538,13 +1643,36 @@
               "sk": {
                 "S": "GROUP#asgard"
               },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "INACTIVE"
+                  },
+                  "modified_date": {
+                    "S": "2020-12-19T13:44:37+00:00"
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "nickname": {
+                    "S": "ip_root_2"
+                  },
+                  "address": {
+                    "S": "127.0.0.1"
+                  },
+                  "port": {
+                    "S": "8080"
+                  }
+                }
+              },
               "type": {
                 "S": "IP"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type"
+            "type",
+            "state"
           ]
         },
         {
@@ -1703,13 +1831,42 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
+              "state": {
+                "M": {
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-19T13:45:55+00:00"
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "nickname": {
+                    "S": "url_root_1"
+                  },
+                  "port": {
+                    "S": "443"
+                  },
+                  "host": {
+                    "S": "app.fluidattacks.com"
+                  },
+                  "path": {
+                    "S": "/"
+                  },
+                  "protocol": {
+                    "S": "HTTPS"
+                  }
+                }
+              },
               "type": {
                 "S": "URL"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type"
+            "type",
+            "state"
           ]
         },
         {
