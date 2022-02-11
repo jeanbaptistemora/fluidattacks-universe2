@@ -2811,7 +2811,7 @@
       title: Improper Neutralization of Special Elements used in a Command ('Command Injection')
       link: https://cwe.mitre.org/data/definitions/77.html
   metadata: {}
-"017":
+"owaspm10":
   title: OWASP-M TOP 10
   en:
     description: >
