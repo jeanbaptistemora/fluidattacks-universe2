@@ -724,7 +724,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     roots: Tuple[RootItem, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )
-    cloned_roots_id: Tuple[str, ...] = tuple()
+    cloned_roots_nicknames: Tuple[str, ...] = tuple()
     for root in roots:
         root_cred: Optional[CredentialItem] = next(
             (cred for cred in group_creds if root.id in cred.state.roots), None
@@ -742,28 +742,30 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
         if root_cred.metadata.type.value == "SSH":
             root_cloned = await ssh_clone_root(root, root_cred)
-
         if root_cloned.success:
-            findings = tuple(
-                key for key in FINDINGS.keys() if is_check_available(key)
+            await roots_domain.update_root_cloning_status(
+                loaders=dataloaders,
+                group_name=group_name,
+                root_id=root.id,
+                status="OK" if root_cloned else "FAILED",
+                message="Cloned successfully"
+                if root_cloned
+                else "Clone failed",
+                commit=root_cloned.commit,
+            )
+            cloned_roots_nicknames = (
+                *cloned_roots_nicknames,
+                root.state.nickname,
             )
 
-        await roots_domain.update_root_cloning_status(
-            loaders=dataloaders,
-            group_name=group_name,
-            root_id=root.id,
-            status="OK" if root_cloned else "FAILED",
-            message="Cloned successfully" if root_cloned else "Clone failed",
-            commit=root_cloned.commit,
+    findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
+    if cloned_roots_nicknames:
+        await queue_all_checks_new(
+            group=group_name,
+            roots=cloned_roots_nicknames,
+            finding_codes=findings,
+            queue=SkimsBatchQueue.HIGH,
         )
-        cloned_roots_id = (*cloned_roots_id, root.id)
-
-    await queue_all_checks_new(
-        group=group_name,
-        roots=cloned_roots_id,
-        finding_codes=findings,
-        queue=SkimsBatchQueue.HIGH,
-    )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,
