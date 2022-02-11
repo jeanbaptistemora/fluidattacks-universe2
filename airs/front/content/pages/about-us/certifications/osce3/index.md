@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-osce-3
 alt: Logo OSCE3
 certification: yes
-certificationid: 8
+certificationid: 4
 ---
 
 [OSCE3](https://help.offensive-security.com/hc/en-us/articles/4403282452628-What-is-OSCE3-)

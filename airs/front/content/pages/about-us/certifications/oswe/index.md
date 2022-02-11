@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-oswe
 alt: Logo OSWE
 certification: yes
-certificationid: 3
+certificationid: 7
 ---
 
 [OSWE](https://www.offensive-security.com/awae-oswe/)

@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-osce-1
 alt: Logo OSCE
 certification: yes
-certificationid: 7
+certificationid: 1
 ---
 
 [OSCE](https://www.offensive-security.com/ctp-osce/)

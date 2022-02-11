@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-emapt
 alt: Logo eMAPT
 certification: yes
-certificationid: 11
+certificationid: 13
 ---
 
 [eMAPT](https://elearnsecurity.com/product/emapt-certification/)

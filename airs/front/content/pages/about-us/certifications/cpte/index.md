@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-cpte
 alt: Logo C)PTE
 certification: yes
-certificationid: 24
+certificationid: 21
 ---
 
 [C)PTE](https://www.mile2.com/penetration-testing-engineer-outline/)

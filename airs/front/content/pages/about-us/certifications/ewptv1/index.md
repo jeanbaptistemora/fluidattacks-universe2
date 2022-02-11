@@ -8,7 +8,7 @@ keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
 certificationlogo: logo-ewptv1
 alt: Logo eWPTv1
 certification: yes
-certificationid: 12
+certificationid: 14
 ---
 
 [eWPTv1](https://elearnsecurity.com/product/ewpt-certification/)
