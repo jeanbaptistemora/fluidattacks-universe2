@@ -7,6 +7,7 @@ import aiohttp
 from aiohttp.client_exceptions import (
     ClientResponseError,
 )
+import asyncio
 import contextlib
 from contextvars import (
     ContextVar,
@@ -110,6 +111,10 @@ async def execute(
                 ]
             ) from client_error
         if "errors" in result.keys():
+            if response.status == 429 and (
+                seconds := response.headers.get("retry-after")
+            ):
+                await asyncio.sleep(int(seconds) + 1)
             raise ApiError(*result["errors"])
 
         result = result.get("data", {})
