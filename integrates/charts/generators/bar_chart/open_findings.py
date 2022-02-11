@@ -58,6 +58,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
             colors={
                 "Open Findings": RISK.neutral,
             },
+            labels=None,
             type="bar",
         ),
         legend=dict(
@@ -80,6 +81,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
             ),
         ),
         barChartYTickFormat=True,
+        firstBarLabels=True,
     )
 
 
