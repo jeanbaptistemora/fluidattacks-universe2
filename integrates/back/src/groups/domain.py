@@ -531,7 +531,7 @@ async def complete_register_for_organization_invitation(
     success = user_added and any([user_created, user_exists])
     if success:
         redis_del_by_deps_soon(
-            "confirm_access",
+            "confirm_access_organization",
             organization_id=organization_id,
         )
     return success

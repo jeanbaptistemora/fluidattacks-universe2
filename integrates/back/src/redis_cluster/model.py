@@ -144,6 +144,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         dependencies={
             "add_stakeholder",
             "confirm_access",
+            "confirm_access_organization",
             "update_organization_stakeholder",
             "grant_stakeholder_organization_access",
             "remove_stakeholder_organization_access",
