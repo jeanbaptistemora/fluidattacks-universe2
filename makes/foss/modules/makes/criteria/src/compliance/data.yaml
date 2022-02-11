@@ -448,7 +448,7 @@
       title: Leverage Vetted Modules or Services for Application Security Components
       link: https://www.cisecurity.org/controls/
   metadata: {}
-"004":
+"cwe":
   title: CWE
   en:
     description: >
