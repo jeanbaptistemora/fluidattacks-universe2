@@ -54,40 +54,12 @@ async def remove(*, group_name: str, finding_id: str) -> None:
         table=TABLE,
     )
 
-    primary_key_removed = keys.build_key(
-        facet=TABLE.facets["removed_finding_metadata"],
-        values={"group_name": group_name, "id": finding_id},
-    )
-    response_removed = await operations.query(
-        condition_expression=(
-            Key(index.primary_key.partition_key).eq(
-                primary_key_removed.sort_key
-            )
-            & Key(index.primary_key.sort_key).begins_with(
-                primary_key_removed.partition_key
-            )
-        ),
-        facets=(
-            TABLE.facets["finding_approval"],
-            TABLE.facets["finding_creation"],
-            TABLE.facets["finding_metadata"],
-            TABLE.facets["finding_state"],
-            TABLE.facets["finding_submission"],
-            TABLE.facets["finding_unreliable_indicators"],
-            TABLE.facets["finding_verification"],
-        ),
-        index=index,
-        table=TABLE,
-    )
-
     items = set(
         PrimaryKey(
             partition_key=item[TABLE.primary_key.partition_key],
             sort_key=item[TABLE.primary_key.sort_key],
         )
-        for item in response_index.items
-        + response_historics.items
-        + response_removed.items
+        for item in response_index.items + response_historics.items
     )
     await operations.batch_delete_item(
         keys=tuple(

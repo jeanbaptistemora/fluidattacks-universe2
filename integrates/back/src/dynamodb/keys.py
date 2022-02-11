@@ -30,9 +30,7 @@ def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
     return "#".join(part for part in key_parts if part)
 
 
-def build_key(
-    *, facet: Facet, values: Dict[str, str], is_removed: bool = False
-) -> PrimaryKey:
+def build_key(*, facet: Facet, values: Dict[str, str]) -> PrimaryKey:
     for key in values:
         _validate_key_words(key=key)
 
@@ -42,9 +40,6 @@ def build_key(
     composite_sk: str = _build_composite_key(
         template=facet.sk_alias, values=values
     )
-    if is_removed:
-        composite_pk = f"REMOVED#{composite_pk}"
-
     return PrimaryKey(
         partition_key=composite_pk,
         sort_key=composite_sk,

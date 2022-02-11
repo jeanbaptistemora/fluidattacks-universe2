@@ -85,7 +85,6 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
     group_name: str,
     finding_id: str,
     historic_verification: Tuple[FindingVerification, ...],
-    is_removed: bool = False,
 ) -> None:
     key_structure = TABLE.primary_key
     primary_key = keys.build_key(
@@ -113,7 +112,6 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
     verification_items = []
     verification_keys = set()
     for verification in historic_verification:
-        # The historic does not have the REMOVED prefix
         verification_item = format_verification_item(verification)
         verification_key = keys.build_key(
             facet=TABLE.facets["finding_historic_verification"],
@@ -137,7 +135,6 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
                 "group_name": group_name,
                 "id": finding_id,
             },
-            is_removed=is_removed,
         )
         latest_optional_item = format_verification_item(latest_verification)
         latest_item = {
@@ -171,13 +168,11 @@ async def update_metadata(
     group_name: str,
     finding_id: str,
     metadata: FindingMetadataToUpdate,
-    is_removed: bool = False,
 ) -> None:
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
-        is_removed=is_removed,
     )
     metadata_item = {
         key: value.value

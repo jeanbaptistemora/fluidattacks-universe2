@@ -74,7 +74,7 @@ async def _get_finding_milestones(
     finding_id: str,
     is_removed: bool = False,
 ) -> List[Item]:
-    primary_key = keys.build_key(
+    primary_key = keys.build_key_deprecated(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
         is_removed=is_removed,

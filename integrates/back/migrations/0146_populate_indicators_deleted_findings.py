@@ -77,7 +77,7 @@ async def _update_unreliable_indicators(
     finding_id: str,
     indicators: FindingUnreliableIndicators,
 ) -> None:
-    unreliable_indicators_key = keys.build_key(
+    unreliable_indicators_key = keys.build_key_deprecated(
         facet=TABLE.facets["finding_unreliable_indicators"],
         values={"group_name": group_name, "id": finding_id},
         is_removed=True,
