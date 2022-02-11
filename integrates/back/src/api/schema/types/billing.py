@@ -7,4 +7,4 @@ from ariadne import (
 
 # None
 
-BILL = ObjectType("Bill")
+BILLING = ObjectType("Billing")

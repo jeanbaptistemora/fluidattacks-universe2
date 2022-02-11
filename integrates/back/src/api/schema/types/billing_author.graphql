@@ -1,5 +1,5 @@
-"BillAuthor type definition"
-type BillAuthor {
+"BillingAuthor type definition"
+type BillingAuthor {
   "Author who has contributed"
   actor: String
   "Example contribution commit"

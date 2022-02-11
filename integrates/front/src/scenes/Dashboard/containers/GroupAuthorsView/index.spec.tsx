@@ -11,7 +11,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
-import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
+import { GET_BILLING } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 
 describe("AuthorsView", (): void => {
   const TEST_DATE = 2020;
@@ -20,7 +20,7 @@ describe("AuthorsView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
-        query: GET_BILL,
+        query: GET_BILLING,
         variables: {
           date: date.toISOString(),
           groupName: "unittesting",
@@ -29,7 +29,7 @@ describe("AuthorsView", (): void => {
       result: {
         data: {
           group: {
-            bill: {
+            billing: {
               authors: [
                 {
                   actor: "test",
@@ -50,7 +50,7 @@ describe("AuthorsView", (): void => {
   const mockError: readonly MockedResponse[] = [
     {
       request: {
-        query: GET_BILL,
+        query: GET_BILLING,
         variables: {
           groupName: "unittesting",
         },

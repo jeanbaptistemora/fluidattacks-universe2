@@ -14,9 +14,9 @@ import type {
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
-import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
+import { GET_BILLING } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
-  IBillAuthor,
+  IBillingAuthor,
   IData,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
@@ -40,7 +40,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     (month: number): Date => new Date(thisYear, thisMonth - month)
   );
 
-  const [billDate, setBillDate] = useState(dateRange[0].toISOString());
+  const [billingDate, setBillingDate] = useState(dateRange[0].toISOString());
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupAuthorsFilters", false);
@@ -82,7 +82,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => void = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      setBillDate(event.target.value);
+      setBillingDate(event.target.value);
     },
     []
   );
@@ -124,28 +124,28 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
   const { groupName } = useParams<{ groupName: string }>();
 
-  const { data } = useQuery(GET_BILL, {
+  const { data } = useQuery(GET_BILLING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred getting bill data", error);
+        Logger.warning("An error occurred getting billing data", error);
       });
     },
-    variables: { date: billDate, groupName },
+    variables: { date: billingDate, groupName },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
 
-  const dataset: IBillAuthor[] = (data as IData).group.bill.authors;
+  const dataset: IBillingAuthor[] = (data as IData).group.billing.authors;
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextDataset: IBillAuthor[] = filterSearchText(
+  const filterSearchtextDataset: IBillingAuthor[] = filterSearchText(
     dataset,
     searchTextFilter
   );
@@ -159,7 +159,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterAuthorDataset: IBillAuthor[] = filterText(
+  const filterAuthorDataset: IBillingAuthor[] = filterText(
     dataset,
     filterAuthorsTable.author,
     "actor"
@@ -175,7 +175,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterGroupsContributedDataset: IBillAuthor[] = filterText(
+  const filterGroupsContributedDataset: IBillingAuthor[] = filterText(
     dataset,
     filterAuthorsTable.groupsContributed,
     "groups"
@@ -191,7 +191,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterRepositoryDataset: IBillAuthor[] = filterText(
+  const filterRepositoryDataset: IBillingAuthor[] = filterText(
     dataset,
     filterAuthorsTable.repository,
     "repository"
@@ -208,7 +208,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     setSearchTextFilter("");
   }
 
-  const resultDataset: IBillAuthor[] = _.intersection(
+  const resultDataset: IBillingAuthor[] = _.intersection(
     filterSearchtextDataset,
     filterAuthorDataset,
     filterRepositoryDataset,
@@ -258,7 +258,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
               (date: Date, index: number): JSX.Element => (
                 <option
                   key={index.toString()}
-                  selected={date.toISOString() === billDate}
+                  selected={date.toISOString() === billingDate}
                   value={date.toISOString()}
                 >
                   {formatDate(date)}

@@ -20,6 +20,9 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -414,6 +417,15 @@ async def report_subscription_usage(
     )
 
 
+async def get_authors_data(
+    *, date: datetime, group: str
+) -> List[Dict[str, str]]:
+    return await dal.get_authors_data(
+        date=date,
+        group=group,
+    )
+
+
 async def webhook(request: Request) -> JSONResponse:
     """Parse Stripe webhook request and execute event"""
     message: str = ""
@@ -432,10 +444,11 @@ async def webhook(request: Request) -> JSONResponse:
             "customer.subscription.updated",
             "customer.subscription.deleted",
         ):
-            if event.data.object.status == "active":
+            if event.data.object.status in ("active", "trialing"):
                 tier = event.data.object.metadata.subscription
-            else:
+            elif event.data.object.status in ("canceled", "unpaid"):
                 tier = "free"
+
         else:
             message = f"Unhandled event type: {event.type}"
             status = "failed"

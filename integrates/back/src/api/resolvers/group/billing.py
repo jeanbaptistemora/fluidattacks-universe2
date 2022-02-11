@@ -1,5 +1,5 @@
-from bill import (
-    domain as bill_domain,
+from billing import (
+    domain as billing_domain,
 )
 from custom_types import (
     Group,
@@ -34,7 +34,7 @@ async def resolve(
 ) -> Dict[str, Historic]:
     group_name: str = parent["name"]
     date: datetime = kwargs.get("date", datetime_utils.get_now())
-    authors_data: List[Dict[str, str]] = await bill_domain.get_authors_data(
+    authors_data: List[Dict[str, str]] = await billing_domain.get_authors_data(
         date=date,
         group=group_name,
     )

@@ -1,28 +1,40 @@
-from bill import (
-    domain as bill_domain,
-)
 from billing.types import (
     Customer,
     PaymentMethod,
     Price,
     Subscription,
 )
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     BASE_URL,
     FI_STRIPE_API_KEY,
     FI_STRIPE_WEBHOOK_KEY,
+    SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
 )
+import csv
 from custom_exceptions import (
     CouldNotDowngradeSubscription,
 )
 from datetime import (
     datetime,
 )
+import io
+import logging
+import logging.config
 from newutils import (
     datetime as datetime_utils,
 )
 from organizations import (
     domain as orgs_domain,
+)
+import os
+from s3.operations import (
+    aio_client,
+)
+from settings import (
+    LOGGING,
 )
 from starlette.requests import (
     Request,
@@ -36,6 +48,67 @@ from typing import (
 )
 
 stripe.api_key = FI_STRIPE_API_KEY
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+
+
+async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
+    year: str = date.strftime("%Y")
+    month: str = date.strftime("%m")
+    # The day is also available after 2019-09 in case it's needed
+
+    buffer = io.BytesIO()
+
+    key: str = os.path.join("bills", year, month, f"{group}.csv")
+
+    try:
+        async with aio_client() as client:
+            await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+    else:
+        buffer.seek(0)
+
+    return buffer
+
+
+async def _pay_squad_authors_to_date(
+    *,
+    prices: Dict[str, Price],
+    subscription: Subscription,
+) -> bool:
+    """Pay squad authors to date"""
+    authors: int = await _get_subscription_usage(subscription=subscription)
+    customer: Customer = await get_customer(
+        org_billing_customer=subscription.org_billing_customer,
+    )
+
+    return (
+        stripe.PaymentIntent.create(
+            customer=subscription.org_billing_customer,
+            amount=prices["squad"].amount * authors,
+            currency=prices["squad"].currency,
+            payment_method=customer.default_payment_method,
+            confirm=True,
+        ).status
+        == "succeeded"
+    )
+
+
+async def _get_subscription_usage(
+    *,
+    subscription: Subscription,
+) -> int:
+    """Get group squad usage"""
+    date: datetime = datetime_utils.get_utc_now()
+    return len(
+        await get_authors_data(
+            date=date,
+            group=subscription.group,
+        )
+    )
 
 
 async def attach_payment_method(
@@ -302,27 +375,13 @@ async def remove_subscription(
     return result in ("canceled", "incomplete_expired")
 
 
-async def get_subscription_usage(
-    *,
-    subscription: Subscription,
-) -> int:
-    """Get group squad usage"""
-    date: datetime = datetime_utils.get_utc_now()
-    return len(
-        await bill_domain.get_authors_data(
-            date=date,
-            group=subscription.group,
-        )
-    )
-
-
 async def report_subscription_usage(
     *,
     subscription: Subscription,
 ) -> bool:
     """Report group squad usage to Stripe"""
     timestamp: int = int(datetime_utils.get_utc_timestamp())
-    authors: int = await get_subscription_usage(
+    authors: int = await _get_subscription_usage(
         subscription=subscription,
     )
     result = stripe.SubscriptionItem.create_usage_record(
@@ -332,29 +391,6 @@ async def report_subscription_usage(
         action="set",
     )
     return isinstance(result.id, str)
-
-
-async def pay_squad_authors_to_date(
-    *,
-    prices: Dict[str, Price],
-    subscription: Subscription,
-) -> bool:
-    """Pay squad authors to date"""
-    authors: int = await get_subscription_usage(subscription=subscription)
-    customer: Customer = await get_customer(
-        org_billing_customer=subscription.org_billing_customer,
-    )
-
-    return (
-        stripe.PaymentIntent.create(
-            customer=subscription.org_billing_customer,
-            amount=prices["squad"].amount * authors,
-            currency=prices["squad"].currency,
-            payment_method=customer.default_payment_method,
-            confirm=True,
-        ).status
-        == "succeeded"
-    )
 
 
 async def update_subscription(
@@ -393,7 +429,7 @@ async def update_subscription(
         data["metadata"]["subscription"] = "machine"
 
         # Pay squad authors to date
-        result = await pay_squad_authors_to_date(
+        result = await _pay_squad_authors_to_date(
             prices=prices,
             subscription=subscription,
         )
@@ -413,3 +449,30 @@ async def update_subscription(
     )
 
     return result
+
+
+async def get_authors_data(
+    *, date: datetime, group: str
+) -> List[Dict[str, str]]:
+    expected_columns: Dict[str, List[str]] = {
+        "actor": ["actor"],
+        "groups": ["groups"],
+        "commit": ["commit", "sha1"],
+        "repository": ["repository"],
+    }
+    buffer: io.BytesIO = await _get_billing_buffer(date=date, group=group)
+    buffer_str: io.StringIO = io.StringIO(buffer.read().decode())
+
+    return [
+        {
+            column: next(value_generator, "-")
+            for column, possible_names in expected_columns.items()
+            for value_generator in [
+                # This attempts to get the column value by trying the
+                # possible names the column may have
+                # this only yields truthy values (values with data)
+                filter(None, (row.get(name) for name in possible_names)),
+            ]
+        }
+        for row in csv.DictReader(buffer_str)
+    ]

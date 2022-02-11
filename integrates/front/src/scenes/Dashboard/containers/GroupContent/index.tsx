@@ -111,7 +111,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     />
                   </Can>
                   <Have I={"has_service_white"}>
-                    <Can do={"api_resolvers_group_bill_resolve"}>
+                    <Can do={"api_resolvers_group_billing_resolve"}>
                       <ContentTab
                         icon={"icon pe-7s-users"}
                         id={"authorsTab"}

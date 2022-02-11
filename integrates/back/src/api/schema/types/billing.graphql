@@ -1,7 +1,7 @@
-"Bill type definition"
-type Bill {
+"Billing type definition"
+type Billing {
   "List of authors that have contributed to the Group"
-  authors: [BillAuthor]!
+  authors: [BillingAuthor]!
   "Number of authors that have contributed to the Group"
   authorsNumber: Int!
 }
