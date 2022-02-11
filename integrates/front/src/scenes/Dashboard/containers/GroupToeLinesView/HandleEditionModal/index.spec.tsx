@@ -58,6 +58,7 @@ describe("handle toe lines edition modal", (): void => {
         comments: "comment 1",
         coverage: 0.1,
         daysToAttack: 4,
+        extension: "config",
         filename: "test/test#.config",
         firstAttackAt: new Date("2020-02-19T15:41:04+00:00"),
         hasVulnerabilities: true,

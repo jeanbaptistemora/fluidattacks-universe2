@@ -1,3 +1,6 @@
+interface IFilterSet {
+  filenameExtension: string;
+}
 interface IToeLinesEdge {
   node: IToeLinesAttr;
 }
@@ -43,6 +46,7 @@ interface IToeLinesData {
   comments: string;
   coverage: number;
   daysToAttack: number;
+  extension: string;
   filename: string;
   firstAttackAt: Date | undefined;
   hasVulnerabilities: boolean;
@@ -62,6 +66,7 @@ interface IGroupToeLinesViewProps {
 }
 
 export type {
+  IFilterSet,
   IGitRootAttr,
   IGroupToeLinesViewProps,
   IToeLinesAttr,

@@ -359,6 +359,16 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           moment(toeLinesAttr.modifiedDate),
           "days"
         );
+  const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
+    const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
+    const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
+    if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
+      return "";
+    }
+
+    return toeLinesAttr.filename.slice(lastPointindex + 1);
+  };
+
   const formatOptionalDate: (date: string | null) => Date | undefined = (
     date: string | null
   ): Date | undefined =>
@@ -370,6 +380,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       bePresentUntil: formatOptionalDate(node.bePresentUntil),
       coverage: getCoverage(node),
       daysToAttack: getDaysToAttack(node),
+      extension: getExtension(node),
       firstAttackAt: formatOptionalDate(node.firstAttackAt),
       lastCommit: commitFormatter(node.lastCommit),
       modifiedDate: formatOptionalDate(node.modifiedDate),
