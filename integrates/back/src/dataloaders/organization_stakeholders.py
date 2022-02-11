@@ -34,18 +34,19 @@ def get_invitation_state(
 
 
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
-    """stakeholder: StakeholderType = await stakeholders_domain.get_by_email(
-        email
-    )"""
-    group_access, stakeholder = await collect(
+    organization_access, stakeholder = await collect(
         (
             orgs_domain.get_user_access(org_id, email),
             stakeholders_domain.get_by_email(email),
         )
     )
-    invitation = group_access.get("invitation")
+    invitation = organization_access.get("invitation")
     invitation_state = get_invitation_state(invitation, stakeholder)
-    org_role: str = await authz.get_organization_level_role(email, org_id)
+    if invitation_state == "PENDING":
+        org_role = invitation["role"]
+    else:
+        org_role = await authz.get_organization_level_role(email, org_id)
+
     return {
         **stakeholder,
         "responsibility": "",
