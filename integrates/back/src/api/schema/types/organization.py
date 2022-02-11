@@ -5,6 +5,7 @@ from api.resolvers.organization import (
     analytics,
     billing_payment_methods,
     billing_portal,
+    billing_prices,
     finding_policies,
     groups,
     min_breaking_severity,
@@ -23,6 +24,7 @@ ORGANIZATION.set_field(
     "billingPaymentMethods", billing_payment_methods.resolve
 )
 ORGANIZATION.set_field("billingPortal", billing_portal.resolve)
+ORGANIZATION.set_field("billingPrices", billing_prices.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)
 ORGANIZATION.set_field("groups", groups.resolve)
 ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)

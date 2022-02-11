@@ -1,0 +1,17 @@
+"BillingPrice type definition"
+type BillingPrice {
+  "Amount of money the price costs"
+  amount: Int!
+  "Price currency (COP, EUR, USD, etc.)"
+  currency: String!
+  "Price type (one_time or recurring)"
+  type: String!
+}
+
+"BillingPrices type definition"
+type BillingPrices {
+  "Machine billing price"
+  machine: BillingPrice!
+  "Squad billing price"
+  squad: BillingPrice!
+}

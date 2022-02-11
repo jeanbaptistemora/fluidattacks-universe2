@@ -11,6 +11,8 @@ type Organization {
   billingPaymentMethods: [BillingPaymentMethod]
   "Portal URL for managing group tiers"
   billingPortal: String
+  "Organization billing prices"
+  billingPrices: BillingPrices!
   "Enacted and pending Finding policies within the organization"
   findingPolicies: [FindingPolicy]
   "Groups belonging to the organization"

@@ -426,6 +426,11 @@ async def get_authors_data(
     )
 
 
+async def get_prices() -> Dict[str, Price]:
+    """Get model prices"""
+    return await dal.get_prices()
+
+
 async def webhook(request: Request) -> JSONResponse:
     """Parse Stripe webhook request and execute event"""
     message: str = ""
