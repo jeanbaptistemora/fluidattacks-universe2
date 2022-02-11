@@ -30,11 +30,11 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     attacked_lines: Optional[int] = None
     be_present: Optional[bool] = None
     comments: Optional[str] = None
-    commit_author: Optional[str] = None
+    last_author: Optional[str] = None
     first_attack_at: Optional[datetime] = None
     has_vulnerabilities: Optional[bool] = None
     loc: Optional[int] = None
-    modified_commit: Optional[str] = None
+    last_commit: Optional[str] = None
     modified_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None

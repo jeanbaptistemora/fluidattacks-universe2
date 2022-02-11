@@ -286,9 +286,9 @@ async def get_present_toe_lines_to_update(
             repo_toe_lines[filename],
             ToeLinesAttributesToUpdate(
                 be_present=be_present,
-                commit_author=last_commit_info.author,
+                last_author=last_commit_info.author,
                 loc=last_loc,
-                modified_commit=last_commit_info.hash,
+                last_commit=last_commit_info.hash,
                 modified_date=last_commit_info.modified_date,
             ),
         )

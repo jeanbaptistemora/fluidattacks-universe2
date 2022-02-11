@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 10, 2022, 11:46 AM",
+    "DateLastModified": "Feb 11, 2022, 09:57 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -468,10 +468,6 @@
         },
         {
           "AttributeName": "root_id",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "commit_author",
           "AttributeType": "S"
         },
         {
@@ -2015,133 +2011,133 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
-              },
-              "modified_date": {
-                "S": "2020-11-15T15:41:04+00:00"
+              "loc": {
+                "N": "8"
               },
               "comments": {
                 "S": "comment 1"
               },
-              "loc": {
-                "N": "8"
-              },
-              "modified_commit": {
-                "S": "983466z"
-              },
               "sorts_risk_level": {
                 "N": "80"
+              },
+              "last_commit": {
+                "S": "983466z"
               },
               "group_name": {
                 "S": "unittesting"
               },
-              "first_attack_at": {
-                "S": "2020-02-19T15:41:04+00:00"
+              "last_author": {
+                "S": "user@gmail.com"
               },
-              "attacked_lines": {
-                "N": "4"
+              "has_vulnerabilities": {
+                "BOOL": false
               },
               "attacked_at": {
                 "S": "2021-02-20T05:00:00+00:00"
               },
-              "seen_at": {
-                "S": "2020-02-01T15:41:04+00:00"
-              },
               "be_present": {
                 "BOOL": true
+              },
+              "modified_date": {
+                "S": "2020-11-15T15:41:04+00:00"
               },
               "attacked_by": {
                 "S": "test2@test.com"
               },
+              "be_present_until": {
+                "S": ""
+              },
+              "attacked_lines": {
+                "N": "4"
+              },
               "filename": {
                 "S": "test/test#.config"
+              },
+              "sk": {
+                "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
-              "commit_author": {
-                "S": "user@gmail.com"
+              "first_attack_at": {
+                "S": "2020-02-19T15:41:04+00:00"
               },
-              "be_present_until": {
-                "S": ""
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "pk_2": {
+              "pk": {
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
                 "S": "LINES#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
+              },
+              "seen_at": {
+                "S": "2020-02-01T15:41:04+00:00"
               }
             },
             {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "LINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
-              },
-              "modified_date": {
-                "S": "2020-11-16T15:41:04+00:00"
+              "loc": {
+                "N": "172"
               },
               "comments": {
                 "S": "comment 2"
               },
-              "loc": {
-                "N": "172"
-              },
-              "modified_commit": {
-                "S": "273412t"
-              },
               "sorts_risk_level": {
                 "N": "0"
+              },
+              "last_commit": {
+                "S": "273412t"
               },
               "group_name": {
                 "S": "unittesting"
               },
-              "first_attack_at": {
-                "S": "2020-01-19T15:41:04+00:00"
-              },
-              "attacked_lines": {
-                "N": "120"
-              },
-              "attacked_at": {
-                "S": "2021-01-20T05:00:00+00:00"
-              },
-              "seen_at": {
-                "S": "2020-01-01T15:41:04+00:00"
-              },
-              "be_present": {
-                "BOOL": false
-              },
-              "attacked_by": {
-                "S": "test@test.com"
-              },
-              "filename": {
-                "S": "test2/test.sh"
-              },
-              "root_id": {
-                "S": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-              },
-              "commit_author": {
+              "last_author": {
                 "S": "user@gmail.com"
-              },
-              "be_present_until": {
-                "S": "2021-01-01T15:41:04+00:00"
               },
               "has_vulnerabilities": {
                 "BOOL": false
               },
+              "attacked_at": {
+                "S": "2021-01-20T05:00:00+00:00"
+              },
+              "be_present": {
+                "BOOL": false
+              },
+              "modified_date": {
+                "S": "2020-11-16T15:41:04+00:00"
+              },
+              "attacked_by": {
+                "S": "test@test.com"
+              },
+              "be_present_until": {
+                "S": "2021-01-01T15:41:04+00:00"
+              },
+              "attacked_lines": {
+                "N": "120"
+              },
+              "filename": {
+                "S": "test2/test.sh"
+              },
+              "sk": {
+                "S": "LINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
+              },
               "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "root_id": {
+                "S": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+              },
+              "first_attack_at": {
+                "S": "2020-01-19T15:41:04+00:00"
+              },
+              "pk": {
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
                 "S": "LINES#PRESENT#false#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
+              },
+              "seen_at": {
+                "S": "2020-01-01T15:41:04+00:00"
               }
             }
           ],
@@ -2149,7 +2145,6 @@
             "modified_date",
             "comments",
             "loc",
-            "modified_commit",
             "sorts_risk_level",
             "group_name",
             "first_attack_at",
@@ -2160,7 +2155,6 @@
             "attacked_by",
             "filename",
             "root_id",
-            "commit_author",
             "be_present_until",
             "pk_2",
             "sk_2",
