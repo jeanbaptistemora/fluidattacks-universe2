@@ -29,7 +29,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
         user=email,
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filenames=["test/test#.config", "test2/test.sh", "test3/test.config"],
+        filename="test/test#.config",
         attacked_at="2021-05-05T07:00:00+00:00",
         attacked_lines=8,
         comments="edited comments 1",
@@ -61,56 +61,10 @@ async def test_update_toe_lines_attacked_lines_set_lines(
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
             },
-            {
-                "node": {
-                    "attackedAt": "2021-05-05T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 8,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 1",
-                    "lastAuthor": "customer2@gmail.com",
-                    "filename": "test2/test.sh",
-                    "firstAttackAt": "2020-02-19T15:41:04+00:00",
-                    "loc": 8,
-                    "lastCommit": "983466z",
-                    "modifiedDate": "2020-11-15T15:41:04+00:00",
-                    "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
-                    },
-                    "seenAt": "2020-02-01T15:41:04+00:00",
-                    "sortsRiskLevel": -1,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
-            },
-            {
-                "node": {
-                    "attackedAt": "2021-05-05T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 8,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 1",
-                    "lastAuthor": "customer3@gmail.com",
-                    "filename": "test3/test.config",
-                    "firstAttackAt": "2020-01-14T15:41:04+00:00",
-                    "loc": 243,
-                    "lastCommit": "g545435i",
-                    "modifiedDate": "2020-11-16T15:41:04+00:00",
-                    "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
-                    },
-                    "seenAt": "2019-01-01T15:41:04+00:00",
-                    "sortsRiskLevel": 80,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
-            },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
         },
     }
 
@@ -130,40 +84,17 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,
-        group_name="group1",
-        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filenames=["test/test#.config", "test2/test.sh", "test3/test.config"],
+        group_name="group2",
+        root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+        filename="test2/test.sh",
         attacked_at="2021-05-06T07:00:00+00:00",
         attacked_lines=None,
         comments="edited comments 2",
     )
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
-    result = await query_get(user=email, group_name="group1")
+    result = await query_get(user=email, group_name="group2")
     assert result["data"]["group"]["toeLines"] == {
         "edges": [
-            {
-                "node": {
-                    "attackedAt": "2021-05-06T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 4324,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 2",
-                    "lastAuthor": "customer1@gmail.com",
-                    "filename": "test/test#.config",
-                    "firstAttackAt": "2021-05-05T07:00:00+00:00",
-                    "loc": 4324,
-                    "lastCommit": "273412t",
-                    "modifiedDate": "2020-11-16T15:41:04+00:00",
-                    "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
-                    },
-                    "seenAt": "2020-01-01T15:41:04+00:00",
-                    "sortsRiskLevel": 0,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
-            },
             {
                 "node": {
                     "attackedAt": "2021-05-06T07:00:00+00:00",
@@ -179,41 +110,18 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
                     "lastCommit": "983466z",
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
+                        "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                        "nickname": "asm_1",
                     },
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
-            },
-            {
-                "node": {
-                    "attackedAt": "2021-05-06T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 243,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 2",
-                    "lastAuthor": "customer3@gmail.com",
-                    "filename": "test3/test.config",
-                    "firstAttackAt": "2020-01-14T15:41:04+00:00",
-                    "loc": 243,
-                    "lastCommit": "g545435i",
-                    "modifiedDate": "2020-11-16T15:41:04+00:00",
-                    "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
-                    },
-                    "seenAt": "2019-01-01T15:41:04+00:00",
-                    "sortsRiskLevel": 80,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDIiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
             },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDIiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
         },
     }
 
@@ -252,7 +160,7 @@ async def test_update_toe_lines_attacked_lines_access_denied(
         user=email,
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filenames=["test/test#.config", "test2/test.sh", "test3/test.config"],
+        filename="test/test#.config",
         attacked_at="2021-05-05T07:00:00+00:00",
         attacked_lines=8,
         comments="edited comments 1",
@@ -277,10 +185,10 @@ async def test_update_toe_lines_attacked_lines_invalid_attacked_at(
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,
-        group_name="group1",
-        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filenames=["test/test#.config", "test2/test.sh", "test3/test.config"],
-        attacked_at="2021-05-05T07:00:00+00:00",
+        group_name="group3",
+        root_id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
+        filename="test3/test.config",
+        attacked_at="2020-01-14T15:40:04+00:00",
         attacked_lines=8,
         comments="edited comments 1",
     )
@@ -307,15 +215,15 @@ async def test_update_toe_lines_attacked_lines_invalid_attacked_lines(
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,
-        group_name="group1",
-        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filenames=["test/test#.config", "test2/test.sh", "test3/test.config"],
+        group_name="group3",
+        root_id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
+        filename="test3/test.config",
         attacked_at="2021-05-06T07:00:00+00:00",
         attacked_lines=5000,
         comments="edited comments 1",
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == (
-        "Exception - The attack time must be between the previous attack "
-        "and the current time"
+        "Exception - The attacked lines must be between 1 and the loc "
+        "(lines of code)"
     )

@@ -40,7 +40,7 @@ describe("handle toe lines edition modal", (): void => {
             attackedAt: "2021-02-20T06:52:00+00:00",
             attackedLines: 5,
             comments: "This is a test of updating toe lines",
-            filenames: ["test/test#.config"],
+            filename: "test/test#.config",
             groupName: "groupname",
             rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
           },

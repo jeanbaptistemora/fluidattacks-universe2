@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -38,8 +35,6 @@ from toe.lines.types import (
 )
 from typing import (
     Any,
-    List,
-    Tuple,
 )
 
 
@@ -54,7 +49,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     attacked_at: str,
     comments: str,
-    filenames: List[str],
+    filename: str,
     group_name: str,
     root_id: str,
     **kwargs: Any,
@@ -63,29 +58,19 @@ async def mutate(  # pylint: disable=too-many-arguments
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        toe_lines: Tuple[ToeLines, ...] = await loaders.toe_lines.load_many(
-            [
-                ToeLinesRequest(
-                    filename=filename, group_name=group_name, root_id=root_id
-                )
-                for filename in filenames
-            ]
-        )
-        await collect(
-            tuple(
-                toe_lines_domain.update(
-                    curren_value,
-                    ToeLinesAttributesToUpdate(
-                        attacked_at=attacked_at,
-                        attacked_by=user_email,
-                        attacked_lines=kwargs.get(
-                            "attacked_lines", curren_value.loc
-                        ),
-                        comments=comments,
-                    ),
-                )
-                for curren_value in toe_lines
+        curren_value: ToeLines = await loaders.toe_lines.load(
+            ToeLinesRequest(
+                filename=filename, group_name=group_name, root_id=root_id
             )
+        )
+        await toe_lines_domain.update(
+            curren_value,
+            ToeLinesAttributesToUpdate(
+                attacked_at=attacked_at,
+                attacked_by=user_email,
+                attacked_lines=kwargs.get("attacked_lines", curren_value.loc),
+                comments=comments,
+            ),
         )
         logs_utils.cloudwatch_log(
             info.context,

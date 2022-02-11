@@ -1,24 +1,4 @@
-import type { FetchResult } from "@apollo/client";
-import type { GraphQLError } from "graphql";
-import _ from "lodash";
-
 import type { IToeInputData } from "./types";
-
-const getErrors: <Type>(
-  results: FetchResult<Type>[]
-) => (readonly GraphQLError[])[] = <Type>(
-  results: FetchResult<Type>[]
-): (readonly GraphQLError[])[] =>
-  results
-    .map((result: FetchResult<Type>): readonly GraphQLError[] | undefined =>
-      "errors" in result ? result.errors : undefined
-    )
-    .filter(
-      (
-        optionalErrors: readonly GraphQLError[] | undefined
-      ): optionalErrors is readonly GraphQLError[] =>
-        !_.isUndefined(optionalErrors)
-    );
 
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData
@@ -89,4 +69,4 @@ const onSelectSeveralToeInputHelper = (
   );
 };
 
-export { getErrors, getToeInputIndex, onSelectSeveralToeInputHelper };
+export { getToeInputIndex, onSelectSeveralToeInputHelper };

@@ -6,6 +6,22 @@ import type { useHistory } from "react-router-dom";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+const getErrors: <Type>(
+  results: FetchResult<Type>[]
+) => (readonly GraphQLError[])[] = <Type,>(
+  results: FetchResult<Type>[]
+): (readonly GraphQLError[])[] =>
+  results
+    .map((result: FetchResult<Type>): readonly GraphQLError[] | undefined =>
+      "errors" in result ? result.errors : undefined
+    )
+    .filter(
+      (
+        optionalErrors: readonly GraphQLError[] | undefined
+      ): optionalErrors is readonly GraphQLError[] =>
+        !_.isUndefined(optionalErrors)
+    );
+
 const operationObservSubscribeComplete = (
   isForwarded: boolean,
   initialHistoryState: Record<string, unknown> | null,
@@ -52,4 +68,4 @@ const handleGraphQLError = (
   }
 };
 
-export { handleGraphQLError, operationObservSubscribeComplete };
+export { getErrors, handleGraphQLError, operationObservSubscribeComplete };

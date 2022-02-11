@@ -19,13 +19,13 @@ async def get_result(
     attacked_lines: Optional[int],
     group_name: str,
     comments: str,
-    filenames: List[str],
+    filename: List[str],
     root_id: str,
 ) -> Dict[str, Any]:
     variables: Dict[str, Any] = {
         "attackedAt": attacked_at,
         "comments": comments,
-        "filenames": filenames,
+        "filename": filename,
         "groupName": group_name,
         "rootId": root_id,
     }
@@ -36,7 +36,7 @@ async def get_result(
             $attackedAt: DateTime!,
             $attackedLines: Int,
             $comments: String!,
-            $filenames: [String!]!,
+            $filename: String!,
             $groupName: String!,
             $rootId: String!
         ) {{
@@ -44,7 +44,7 @@ async def get_result(
                 attackedLines:  $attackedLines,
                 groupName: $groupName,
                 rootId:  $rootId,
-                filenames: $filenames,
+                filename: $filename,
                 attackedAt:  $attackedAt,
                 comments: $comments
             ) {{

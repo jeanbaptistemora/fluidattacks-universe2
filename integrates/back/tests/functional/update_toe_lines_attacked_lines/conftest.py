@@ -69,8 +69,40 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason="root creation",
                     status=GitCloningStatus("UNKNOWN"),
                 ),
-                group_name="group1",
+                group_name="group2",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                machine_execution=MachineGitRootExecution(
+                    queue_date="2021-10-08T16:58:12.499243",
+                    finding_code="F122",
+                    job_id="78c546bh-dgf5-47e4-a7b3-4a1ebbsd0623",
+                ),
+                metadata=GitRootMetadata(type="Git"),
+                state=GitRootState(
+                    branch="master",
+                    environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
+                    gitignore=["node_modules/*"],
+                    includes_health_check=True,
+                    modified_by="admin@gmail.com",
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    nickname="asm_1",
+                    other=None,
+                    reason=None,
+                    status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/asm_1",
+                ),
+            ),
+            GitRootItem(
+                cloning=GitRootCloning(
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    reason="root creation",
+                    status=GitCloningStatus("UNKNOWN"),
+                ),
+                group_name="group3",
+                id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
                 machine_execution=MachineGitRootExecution(
                     queue_date="2021-10-08T16:58:12.499243",
                     finding_code="F122",
@@ -131,7 +163,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 first_attack_at=datetime.fromisoformat(
                     "2020-02-19T15:41:04+00:00"
                 ),
-                group_name="group1",
+                group_name="group2",
                 has_vulnerabilities=False,
                 last_author="customer2@gmail.com",
                 last_commit="983466z",
@@ -139,7 +171,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
-                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
             ),
@@ -156,7 +188,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-14T15:41:04+00:00"
                 ),
-                group_name="group1",
+                group_name="group3",
                 has_vulnerabilities=False,
                 last_author="customer3@gmail.com",
                 last_commit="g545435i",
@@ -164,7 +196,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
-                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                root_id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
                 seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=80,
             ),

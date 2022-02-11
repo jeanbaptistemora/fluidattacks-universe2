@@ -5,7 +5,7 @@ const UPDATE_TOE_LINES_ATTACKED_LINES: DocumentNode = gql`
   mutation UpdateToeLinesAttackedLines(
     $groupName: String!
     $rootId: String!
-    $filenames: [String!]!
+    $filename: String!
     $attackedAt: DateTime!
     $comments: String!
     $attackedLines: Int
@@ -13,7 +13,7 @@ const UPDATE_TOE_LINES_ATTACKED_LINES: DocumentNode = gql`
     updateToeLinesAttackedLines(
       groupName: $groupName
       rootId: $rootId
-      filenames: $filenames
+      filename: $filename
       attackedAt: $attackedAt
       comments: $comments
       attackedLines: $attackedLines

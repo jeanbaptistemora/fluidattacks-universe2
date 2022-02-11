@@ -1,4 +1,4 @@
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -17,6 +17,7 @@ import type {
 
 import type { IToeLinesData } from "../types";
 import { Modal } from "components/Modal";
+import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -40,17 +41,6 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
     useMutation<IUpdateToeLinesAttackedLinesResultAttr>(
       UPDATE_TOE_LINES_ATTACKED_LINES,
       {
-        onCompleted: (data: IUpdateToeLinesAttackedLinesResultAttr): void => {
-          if (data.updateToeLinesAttackedLines.success) {
-            msgSuccess(
-              t("group.toe.lines.editModal.alerts.success"),
-              t("groupAlerts.updatedTitle")
-            );
-            refetchData();
-            setSelectedToeLinesDatas([]);
-            handleCloseModal();
-          }
-        },
         onError: (errors: ApolloError): void => {
           errors.graphQLErrors.forEach((error: GraphQLError): void => {
             switch (error.message) {
@@ -82,33 +72,50 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
       }
     );
 
-  function handleSubmit(values: IFormValues): void {
-    const selectedToeLinesDatasByGroup = _.groupBy(
-      selectedToeLinesDatas,
-      (selectedToeLinesData: IToeLinesData): string =>
-        selectedToeLinesData.rootId
+  const handleOnCompleted = (
+    result: FetchResult<IUpdateToeLinesAttackedLinesResultAttr>
+  ): void => {
+    if (
+      !_.isNil(result.data) &&
+      result.data.updateToeLinesAttackedLines.success
+    ) {
+      msgSuccess(
+        t("group.toe.lines.editModal.alerts.success"),
+        t("groupAlerts.updatedTitle")
+      );
+      refetchData();
+      setSelectedToeLinesDatas([]);
+      handleCloseModal();
+    }
+  };
+
+  async function handleSubmit(values: IFormValues): Promise<void> {
+    const results = await Promise.all(
+      selectedToeLinesDatas.map(
+        async (
+          toeInputData: IToeLinesData
+        ): Promise<FetchResult<IUpdateToeLinesAttackedLinesResultAttr>> =>
+          handleUpdateToeLinesAttackedLines({
+            variables: {
+              attackedAt: values.attackedAt.format(),
+              attackedLines: _.isNumber(values.attackedLines)
+                ? values.attackedLines
+                : undefined,
+              comments: values.comments,
+              filename: toeInputData.filename,
+              groupName,
+              rootId: toeInputData.rootId,
+            },
+          })
+      )
     );
-    Object.entries(selectedToeLinesDatasByGroup).map(
-      async ([rootId, rootSelectedToeLinesDatas]: [
-        string,
-        IToeLinesData[]
-      ]): Promise<unknown> =>
-        handleUpdateToeLinesAttackedLines({
-          variables: {
-            attackedAt: values.attackedAt.format(),
-            attackedLines: _.isNumber(values.attackedLines)
-              ? values.attackedLines
-              : undefined,
-            comments: values.comments,
-            filenames: rootSelectedToeLinesDatas.map(
-              (selectedToeLinesData: IToeLinesData): string =>
-                selectedToeLinesData.filename
-            ),
-            groupName,
-            rootId,
-          },
-        })
-    );
+    const errors = getErrors<IUpdateToeLinesAttackedLinesResultAttr>(results);
+
+    if (!_.isEmpty(results) && _.isEmpty(errors)) {
+      handleOnCompleted(results[0]);
+    } else {
+      refetchData();
+    }
   }
 
   return (

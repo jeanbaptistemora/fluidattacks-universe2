@@ -1030,7 +1030,7 @@ type Mutation {
   """
   updateToeLinesAttackedLines(
     "Where source code has been attacked"
-    filenames: [String!]!
+    filename: String!
     "Name of the Group containing the ToE lines to be updated"
     groupName: String!
     "Id of the root containing the ToE lines to be updated"

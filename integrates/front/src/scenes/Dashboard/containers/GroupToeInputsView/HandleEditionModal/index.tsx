@@ -16,8 +16,8 @@ import type {
 } from "./types";
 
 import type { IToeInputData } from "../types";
-import { getErrors } from "../utils";
 import { Modal } from "components/Modal";
+import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
