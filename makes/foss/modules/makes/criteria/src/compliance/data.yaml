@@ -2270,7 +2270,7 @@
       title: Validate HTTP Request Header Requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
   metadata: {}
-"013":
+"owasp10":
   title: OWASP TOP TEN
   en:
     description: >
