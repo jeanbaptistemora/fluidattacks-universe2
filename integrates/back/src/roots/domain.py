@@ -112,6 +112,7 @@ def format_root(root: RootItem) -> Root:
             id=root.id,
             includes_health_check=root.state.includes_health_check,
             last_cloning_status_update=root.cloning.modified_date,
+            last_state_status_update=root.state.modified_date,
             nickname=root.state.nickname,
             state=root.state.status,
             url=root.state.url,
