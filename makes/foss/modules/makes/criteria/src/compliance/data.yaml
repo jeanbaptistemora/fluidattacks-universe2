@@ -306,7 +306,7 @@
       title: Signal Strength Tracking
       link: https://capec.mitre.org/data/definitions/654.html
   metadata: {}
-"003":
+"cis":
   title: CIS
   en:
     description: >
