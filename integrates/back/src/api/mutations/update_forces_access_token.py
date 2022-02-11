@@ -24,12 +24,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
-from typing import (
-    Any,
-)
 from users import (
     domain as users_domain,
 )
@@ -38,9 +32,10 @@ from users import (
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _parent: None,
+    info: GraphQLResolveInfo,
+    group_name: str,
 ) -> UpdateAccessTokenPayload:
-    group_name: str = get_key_or_fallback(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
 
     user_email = forces_domain.format_forces_user_email(group_name)

@@ -17,7 +17,6 @@ import logging
 import logging.config
 from newutils import (
     token as token_utils,
-    utils,
 )
 from typing import (
     Any,
@@ -33,7 +32,7 @@ async def mutate(
 ) -> SimplePayload:
     files_data = parameters["files_data"]
     user_info = await token_utils.get_jwt_content(info.context)
-    requester: str = utils.get_key_or_fallback(parameters)
+    requester: str = parameters["group_name"]
 
     await put_action(
         action_name="handle_virus_scan_requester",

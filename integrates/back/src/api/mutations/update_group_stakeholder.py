@@ -31,7 +31,6 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    get_key_or_fallback,
     map_roles,
 )
 from redis_cluster.operations import (
@@ -59,7 +58,7 @@ async def _update_stakeholder(
     info: GraphQLResolveInfo, updated_data: Dict[str, str]
 ) -> bool:
     success = False
-    group_name: str = get_key_or_fallback(updated_data).lower()
+    group_name: str = updated_data["group_name"].lower()
     modified_role = map_roles(updated_data["role"])
     modified_email = updated_data["email"]
     group_access = await group_access_domain.get_user_access(
@@ -100,7 +99,7 @@ async def _update_stakeholder(
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **updated_data: str
 ) -> UpdateStakeholderPayloadType:
-    group_name: str = get_key_or_fallback(updated_data).lower()
+    group_name: str = updated_data["group_name"].lower()
     modified_role: str = map_roles(updated_data["role"])
     modified_email: str = updated_data["email"]
 

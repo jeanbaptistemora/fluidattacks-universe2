@@ -34,9 +34,6 @@ from newutils import (
     logs as logs_utils,
     validations,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -65,9 +62,7 @@ async def mutate(
         )
 
         description = FindingDescriptionToUpdate(
-            attack_vector_description=get_key_or_fallback(
-                kwargs, "attack_vector_description", "attack_vector_desc"
-            ),
+            attack_vector_description=kwargs["attack_vector_description"],
             description=kwargs["description"],
             recommendation=kwargs["recommendation"],
             sorts=FindingSorts[kwargs["sorts"]]

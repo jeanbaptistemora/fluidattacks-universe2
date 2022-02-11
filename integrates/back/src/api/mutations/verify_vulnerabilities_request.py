@@ -28,14 +28,12 @@ from newutils import (
     token as token_utils,
     validations,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
     Any,
+    List,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -53,39 +51,37 @@ from unreliable_indicators.operations import (
     require_finding_access,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **kwargs: Any
+    _: Any,
+    info: GraphQLResolveInfo,
+    finding_id: str,
+    justification: str,
+    open_vulnerabilities: List[str],
+    closed_vulnerabilities: List[str],
 ) -> SimplePayloadType:
     try:
-        finding_id = kwargs["finding_id"]
         finding_loader = info.context.loaders.finding
         finding: Finding = await finding_loader.load(finding_id)
         user_info = await token_utils.get_jwt_content(info.context)
-        open_vulns_ids = get_key_or_fallback(
-            kwargs, "open_vulnerabilities", "open_vulns", []
-        )
-        closed_vulns_ids = get_key_or_fallback(
-            kwargs, "closed_vulnerabilities", "closed_vulns", []
-        )
         # Validate justification length and vet characters in it
         validations.validate_field_length(
-            kwargs.get("justification", ""),
+            justification,
             limit=10,
             is_greater_than_limit=True,
         )
         validations.validate_field_length(
-            kwargs.get("justification", ""),
+            justification,
             limit=10000,
             is_greater_than_limit=False,
         )
-        validations.validate_fields([kwargs.get("justification", "")])
+        validations.validate_fields([justification])
 
         success = await findings_domain.verify_vulnerabilities(
             context=info.context,
             finding_id=finding_id,
             user_info=user_info,
-            justification=kwargs.get("justification", ""),
-            open_vulns_ids=open_vulns_ids,
-            closed_vulns_ids=closed_vulns_ids,
+            justification=justification,
+            open_vulns_ids=open_vulnerabilities,
+            closed_vulns_ids=closed_vulnerabilities,
             vulns_to_close_from_file=[],
         )
         if success:
@@ -97,7 +93,8 @@ async def mutate(
             await update_unreliable_indicators_by_deps(
                 EntityDependency.verify_vulnerabilities_request,
                 finding_ids=[finding_id],
-                vulnerability_ids=open_vulns_ids + closed_vulns_ids,
+                vulnerability_ids=open_vulnerabilities
+                + closed_vulnerabilities,
             )
             logs_utils.cloudwatch_log(
                 info.context,

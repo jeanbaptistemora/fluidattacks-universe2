@@ -28,9 +28,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -53,7 +50,7 @@ async def mutate(
     group_name: str,
     reason: str,
     subscription: str,
-    **kwargs: Any,
+    **parameters: Any,
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
@@ -62,9 +59,9 @@ async def mutate(
     success = False
 
     # Compatibility with old API
-    has_asm: bool = get_key_or_fallback(kwargs, "has_asm", "has_integrates")
-    has_machine: bool = get_key_or_fallback(kwargs, "has_machine", "has_skims")
-    has_squad: bool = get_key_or_fallback(kwargs, "has_squad", "has_drills")
+    has_asm: bool = parameters["has_asm"]
+    has_machine: bool = parameters["has_machine"]
+    has_squad: bool = parameters["has_squad"]
 
     try:
         success = await groups_domain.update_group_attrs(
@@ -76,12 +73,12 @@ async def mutate(
             has_machine=has_machine,
             reason=reason,
             requester_email=requester_email,
-            service=kwargs.get(
+            service=parameters.get(
                 "service",
                 ("WHITE" if subscription == "continuous" else "BLACK"),
             ),
             subscription=subscription,
-            tier=kwargs.get("tier", "free"),
+            tier=parameters.get("tier", "free"),
         )
         if success and not has_asm:
             await batch_dal.put_action(
