@@ -2,6 +2,7 @@ from aws.iam.utils import (
     yield_statements_from_policy_document,
 )
 from aws.model import (
+    AWSApiGatewayStage,
     AWSCloudfrontDistribution,
     AWSDbInstance,
     AWSDynamoDBTable,
@@ -339,6 +340,16 @@ def iter_aws_launch_configuration(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_launch_configuration")
     for bucket in iterator:
         yield AWSLaunchConfiguration(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_api_gateway_stage(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_api_gateway_stage")
+    for bucket in iterator:
+        yield AWSApiGatewayStage(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
