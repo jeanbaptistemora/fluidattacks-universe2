@@ -89,7 +89,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                machine_execution=[],
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -115,7 +114,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                machine_execution=[],
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -141,7 +139,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                machine_execution=[],
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -167,7 +164,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                machine_execution=[],
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -193,7 +189,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                machine_execution=[],
             ),
         ),
     }
