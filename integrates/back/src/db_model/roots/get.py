@@ -62,7 +62,7 @@ def _build_root(
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
-    state = historics.get_latest(
+    state = metadata.get("state") or historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
         historic_suffix="STATE",
@@ -70,7 +70,7 @@ def _build_root(
     )
 
     if metadata["type"] == "Git":
-        cloning = historics.get_latest(
+        cloning = metadata.get("cloning") or historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
             historic_suffix="CLON",
