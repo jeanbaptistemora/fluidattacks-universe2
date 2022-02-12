@@ -15,6 +15,7 @@ from db_model.roots.types import (
 )
 from dynamodb import (
     historics,
+    keys,
     operations,
 )
 from dynamodb.exceptions import (
@@ -34,25 +35,28 @@ async def update_root_state(
     state: Union[GitRootState, IPRootState, URLRootState],
 ) -> None:
     key_structure = TABLE.primary_key
-    if isinstance(state, GitRootState):
-        latest_facet, historic_facet = (
+    root_facets = {
+        GitRootState: (
+            TABLE.facets["git_root_metadata"],
             TABLE.facets["git_root_state"],
             TABLE.facets["git_root_historic_state"],
-        )
-    else:
-        latest_facet, historic_facet = (
-            (
-                TABLE.facets["ip_root_state"],
-                TABLE.facets["ip_root_historic_state"],
-            )
-            if isinstance(state, IPRootState)
-            else (
-                TABLE.facets["url_root_state"],
-                TABLE.facets["url_root_historic_state"],
-            )
-        )
+        ),
+        IPRootState: (
+            TABLE.facets["ip_root_metadata"],
+            TABLE.facets["ip_root_state"],
+            TABLE.facets["ip_root_historic_state"],
+        ),
+        URLRootState: (
+            TABLE.facets["url_root_metadata"],
+            TABLE.facets["url_root_state"],
+            TABLE.facets["url_root_historic_state"],
+        ),
+    }
+    metadata_facet, latest_facet, historic_facet = root_facets[type(state)]
+    state_item = json.loads(json.dumps(state))
+
     latest, historic = historics.build_historic(
-        attributes=json.loads(json.dumps(state)),
+        attributes=state_item,
         historic_facet=historic_facet,
         key_structure=key_structure,
         key_values={
@@ -70,6 +74,12 @@ async def update_root_state(
         item=latest,
         table=TABLE,
     )
+    root_key = keys.build_key(
+        facet=metadata_facet,
+        values={"name": group_name, "uuid": root_id},
+    )
+    root_item = {"state": state_item}
+    await operations.update_item(item=root_item, key=root_key, table=TABLE)
     await operations.put_item(facet=historic_facet, item=historic, table=TABLE)
 
 
@@ -81,8 +91,9 @@ async def update_git_root_cloning(
     root_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
+    cloning_item = json.loads(json.dumps(cloning))
     latest, historic = historics.build_historic(
-        attributes=json.loads(json.dumps(cloning)),
+        attributes=cloning_item,
         historic_facet=TABLE.facets["git_root_historic_cloning"],
         key_structure=key_structure,
         key_values={
@@ -101,6 +112,13 @@ async def update_git_root_cloning(
             item=latest,
             table=TABLE,
         )
+        root_key = keys.build_key(
+            facet=TABLE.facets["git_root_metadata"],
+            values={"name": group_name, "uuid": root_id},
+        )
+        root_item = {"cloning": cloning_item}
+        await operations.update_item(item=root_item, key=root_key, table=TABLE)
+
         await operations.put_item(
             facet=TABLE.facets["git_root_historic_cloning"],
             item=historic,
