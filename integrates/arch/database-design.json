@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 11, 2022, 06:58 PM",
+    "DateLastModified": "Feb 12, 2022, 09:42 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1291,119 +1291,6 @@
           ]
         },
         {
-          "FacetName": "git_root_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#STATE",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "ACTIVE"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "branch": {
-                "S": "master"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/product"
-              },
-              "environment": {
-                "S": "production"
-              },
-              "environment_urls": {
-                "L": [
-                  {
-                    "S": "https://app.fluidattacks.com"
-                  },
-                  {
-                    "S": "https://test.com"
-                  }
-                ]
-              },
-              "gitignore": {
-                "L": [
-                  {
-                    "S": "bower_components/*"
-                  },
-                  {
-                    "S": "node_modules/*"
-                  }
-                ]
-              },
-              "includes_health_check": {
-                "BOOL": true
-              },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "product"
-              }
-            },
-            {
-              "pk": {
-                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "ACTIVE"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:39:56+00:00"
-              },
-              "branch": {
-                "S": "develop"
-              },
-              "url": {
-                "S": "https://gitlab.com/fluidattacks/integrates"
-              },
-              "environment": {
-                "S": "QA"
-              },
-              "environment_urls": {
-                "L": []
-              },
-              "gitignore": {
-                "L": []
-              },
-              "includes_health_check": {
-                "BOOL": false
-              },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "integrates_1"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "branch",
-            "url",
-            "environment",
-            "environment_urls",
-            "gitignore",
-            "includes_health_check",
-            "modified_by",
-            "nickname",
-            "other"
-          ]
-        },
-        {
           "FacetName": "git_root_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
@@ -1521,61 +1408,6 @@
             "modified_by",
             "nickname",
             "other"
-          ]
-        },
-        {
-          "FacetName": "git_root_cloning",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#CLON",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "UNKNOWN"
-              },
-              "reason": {
-                "S": "root creation"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "commit": {
-                "S": "33058a900a4eac73a3a9d70b8f4121bfd127b415"
-              }
-            },
-            {
-              "pk": {
-                "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "UNKNOWN"
-              },
-              "reason": {
-                "S": "root creation"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:37:10+00:00"
-              },
-              "commit": {
-                "S": "cdd48a681aa96082b3095dc06fb1b15ec4b5ea7b"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "commit"
           ]
         },
         {
@@ -1713,77 +1545,6 @@
           ]
         },
         {
-          "FacetName": "ip_root_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#STATE",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE"
-              },
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "status": {
-                "S": "ACTIVE"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:44:37+00:00"
-              },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "ip_root_1"
-              },
-              "address": {
-                "S": "127.0.0.1"
-              },
-              "port": {
-                "S": "8080"
-              }
-            },
-            {
-              "pk": {
-                "S": "ROOT#814addf0-316c-4415-850d-21bd3783b011#STATE"
-              },
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "status": {
-                "S": "INACTIVE"
-              },
-              "modified_date": {
-                "S": "2020-12-19T13:44:37+00:00"
-              },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "ip_root_2"
-              },
-              "address": {
-                "S": "127.0.0.1"
-              },
-              "port": {
-                "S": "8080"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
-            "nickname",
-            "address",
-            "port",
-            "other"
-          ]
-        },
-        {
           "FacetName": "ip_root_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
@@ -1904,59 +1665,6 @@
           "NonKeyAttributes": [
             "type",
             "state"
-          ]
-        },
-        {
-          "FacetName": "url_root_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ROOT#uuid#STATE",
-            "SortKeyAlias": "GROUP#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE"
-              },
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "status": {
-                "S": "ACTIVE"
-              },
-              "modified_date": {
-                "S": "2020-11-19T13:45:55+00:00"
-              },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "url_root_1"
-              },
-              "port": {
-                "S": "443"
-              },
-              "host": {
-                "S": "app.fluidattacks.com"
-              },
-              "path": {
-                "S": "/"
-              },
-              "protocol": {
-                "S": "HTTPS"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "reason",
-            "modified_date",
-            "modified_by",
-            "nickname",
-            "port",
-            "host",
-            "path",
-            "protocol",
-            "other"
           ]
         },
         {

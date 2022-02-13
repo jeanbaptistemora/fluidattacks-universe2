@@ -9,19 +9,15 @@ function main {
     credentials_historic_state
     credentials_state
     git_root_metadata
-    git_root_state
     git_root_historic_state
-    git_root_cloning
     git_root_historic_cloning
     ip_root_metadata
-    ip_root_state
     ip_root_historic_state
     machine_git_root_execution
     root_services_toe_lines
     toe_input_metadata
     toe_lines_metadata
     url_root_metadata
-    url_root_state
     url_root_historic_state
     finding_approval
     finding_creation
