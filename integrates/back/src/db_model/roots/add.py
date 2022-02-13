@@ -11,7 +11,6 @@ from db_model.roots.types import (
     RootMachineExecutionItem,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
@@ -32,33 +31,29 @@ async def add(*, root: RootItem) -> None:
         **json.loads(json.dumps(root.metadata)),
     }
 
-    historic_state = historics.build_historic(
-        attributes=json.loads(json.dumps(root.state)),
-        historic_facet=TABLE.facets["git_root_historic_state"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": root.state.modified_date,
-            "name": root.group_name,
-            "uuid": root.id,
-        },
-        latest_facet=TABLE.facets["git_root_state"],
+    state_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_state"],
+        values={"uuid": root.id, "iso8601utc": root.state.modified_date},
     )
-    items.extend(historic_state)
+    historic_state_item = {
+        key_structure.partition_key: state_key.partition_key,
+        key_structure.sort_key: state_key.sort_key,
+        **json.loads(json.dumps(root.state)),
+    }
+    items.append(historic_state_item)
 
     if isinstance(root, GitRootItem):
         initial_metadata["cloning"] = json.loads(json.dumps(root.cloning))
-        historic_cloning = historics.build_historic(
-            attributes=json.loads(json.dumps(root.cloning)),
-            historic_facet=TABLE.facets["git_root_historic_cloning"],
-            key_structure=key_structure,
-            key_values={
-                "iso8601utc": root.cloning.modified_date,
-                "name": root.group_name,
-                "uuid": root.id,
-            },
-            latest_facet=TABLE.facets["git_root_cloning"],
+        cloning_key = keys.build_key(
+            facet=TABLE.facets["git_root_historic_cloning"],
+            values={"uuid": root.id, "iso8601utc": root.cloning.modified_date},
         )
-        items.extend(historic_cloning)
+        historic_cloning_item = {
+            key_structure.partition_key: cloning_key.partition_key,
+            key_structure.sort_key: cloning_key.sort_key,
+            **json.loads(json.dumps(root.cloning)),
+        }
+        items.append(historic_cloning_item)
     items.append(initial_metadata)
 
     await operations.batch_write_item(items=items, table=TABLE)

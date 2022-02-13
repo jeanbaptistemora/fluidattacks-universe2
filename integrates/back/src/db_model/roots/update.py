@@ -14,7 +14,6 @@ from db_model.roots.types import (
     URLRootState,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
@@ -38,49 +37,49 @@ async def update_root_state(
     root_facets = {
         GitRootState: (
             TABLE.facets["git_root_metadata"],
-            TABLE.facets["git_root_state"],
             TABLE.facets["git_root_historic_state"],
         ),
         IPRootState: (
             TABLE.facets["ip_root_metadata"],
-            TABLE.facets["ip_root_state"],
             TABLE.facets["ip_root_historic_state"],
         ),
         URLRootState: (
             TABLE.facets["url_root_metadata"],
-            TABLE.facets["url_root_state"],
             TABLE.facets["url_root_historic_state"],
         ),
     }
-    metadata_facet, latest_facet, historic_facet = root_facets[type(state)]
+    metadata_facet, historic_facet = root_facets[type(state)]
     state_item = json.loads(json.dumps(state))
 
-    latest, historic = historics.build_historic(
-        attributes=state_item,
-        historic_facet=historic_facet,
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": state.modified_date,
-            "name": group_name,
-            "uuid": root_id,
-        },
-        latest_facet=latest_facet,
-    )
-    await operations.put_item(
-        condition_expression=(
-            Attr("modified_date").eq(current_value.modified_date)
-        ),
-        facet=latest_facet,
-        item=latest,
-        table=TABLE,
-    )
     root_key = keys.build_key(
         facet=metadata_facet,
         values={"name": group_name, "uuid": root_id},
     )
     root_item = {"state": state_item}
-    await operations.update_item(item=root_item, key=root_key, table=TABLE)
-    await operations.put_item(facet=historic_facet, item=historic, table=TABLE)
+    await operations.update_item(
+        condition_expression=(
+            Attr(key_structure.partition_key).exists()
+            & Attr("state.modified_date").eq(current_value.modified_date)
+        ),
+        item=root_item,
+        key=root_key,
+        table=TABLE,
+    )
+
+    historic_key = keys.build_key(
+        facet=historic_facet,
+        values={"uuid": root_id, "iso8601utc": state.modified_date},
+    )
+    historic_item = {
+        key_structure.partition_key: historic_key.partition_key,
+        key_structure.sort_key: historic_key.sort_key,
+        **state_item,
+    }
+    await operations.put_item(
+        facet=historic_facet,
+        item=historic_item,
+        table=TABLE,
+    )
 
 
 async def update_git_root_cloning(
@@ -92,35 +91,34 @@ async def update_git_root_cloning(
 ) -> None:
     key_structure = TABLE.primary_key
     cloning_item = json.loads(json.dumps(cloning))
-    latest, historic = historics.build_historic(
-        attributes=cloning_item,
-        historic_facet=TABLE.facets["git_root_historic_cloning"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": cloning.modified_date,
-            "name": group_name,
-            "uuid": root_id,
-        },
-        latest_facet=TABLE.facets["git_root_cloning"],
-    )
+
     with suppress(ConditionalCheckFailedException):
-        await operations.put_item(
-            condition_expression=(
-                Attr("modified_date").eq(current_value.modified_date)
-            ),
-            facet=TABLE.facets["git_root_cloning"],
-            item=latest,
-            table=TABLE,
-        )
         root_key = keys.build_key(
             facet=TABLE.facets["git_root_metadata"],
             values={"name": group_name, "uuid": root_id},
         )
         root_item = {"cloning": cloning_item}
-        await operations.update_item(item=root_item, key=root_key, table=TABLE)
+        await operations.update_item(
+            condition_expression=(
+                Attr(key_structure.partition_key).exists()
+                & Attr("cloning.modified_date").eq(current_value.modified_date)
+            ),
+            item=root_item,
+            key=root_key,
+            table=TABLE,
+        )
 
+        historic_key = keys.build_key(
+            facet=TABLE.facets["git_root_historic_cloning"],
+            values={"uuid": root_id, "iso8601utc": cloning.modified_date},
+        )
+        historic_item = {
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+            **cloning_item,
+        }
         await operations.put_item(
             facet=TABLE.facets["git_root_historic_cloning"],
-            item=historic,
+            item=historic_item,
             table=TABLE,
         )
