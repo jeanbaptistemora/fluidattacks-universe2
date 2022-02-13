@@ -131,24 +131,18 @@ async def _get_root(
         values={"name": group_name, "uuid": root_id},
     )
 
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).eq(primary_key.partition_key)
-        ),
+    item = await operations.get_item(
         facets=(
             TABLE.facets["git_root_metadata"],
             TABLE.facets["ip_root_metadata"],
             TABLE.facets["url_root_metadata"],
         ),
-        index=index,
+        key=primary_key,
         table=TABLE,
     )
 
-    if response.items:
-        return _format_root(item=response.items[0])
+    if item:
+        return _format_root(item=item)
 
     raise RootNotFound()
 

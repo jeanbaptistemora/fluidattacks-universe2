@@ -210,6 +210,48 @@ async def delete_item(
             handle_error(error=error)
 
 
+def _build_get_item_args(
+    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
+) -> Dict[str, Any]:
+    facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
+    attrs = {
+        table.primary_key.partition_key,
+        table.primary_key.sort_key,
+        *facet_attrs,
+    }
+    key_structure = table.primary_key
+
+    return {
+        "ExpressionAttributeNames": {f"#{attr}": attr for attr in attrs},
+        "Key": {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+        },
+        "ProjectionExpression": ",".join([f"#{attr}" for attr in attrs]),
+    }
+
+
+@newrelic.agent.function_trace()
+async def get_item(
+    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
+) -> Optional[Item]:
+    item: Optional[Item] = None
+
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource: CustomTableResource = await resource.Table(table.name)
+        get_item_args = _build_get_item_args(
+            key=key, facets=facets, table=table
+        )
+
+        try:
+            response = await table_resource.get_item(**get_item_args)
+            item = response.get("Item")
+        except ClientError as error:
+            handle_error(error=error)
+
+    return item
+
+
 @newrelic.agent.function_trace()
 async def put_item(
     *,
