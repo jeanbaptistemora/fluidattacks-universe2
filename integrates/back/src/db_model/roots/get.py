@@ -7,9 +7,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from collections import (
-    defaultdict,
-)
 from custom_exceptions import (
     RootNotFound,
 )
@@ -37,13 +34,11 @@ from db_model.roots.types import (
     URLRootState,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
 from dynamodb.types import (
     Item,
-    PrimaryKey,
 )
 from typing import (
     List,
@@ -52,30 +47,13 @@ from typing import (
 )
 
 
-def _build_root(
-    *,
-    group_name: str,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> RootItem:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    state = metadata.get("state") or historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_suffix="STATE",
-        raw_items=raw_items,
-    )
+def _format_root(*, item: Item) -> RootItem:
+    root_id = item["pk"].split("#")[1]
+    group_name = item["sk"].split("#")[1]
+    state = item["state"]
 
-    if metadata["type"] == "Git":
-        cloning = metadata.get("cloning") or historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="CLON",
-            raw_items=raw_items,
-        )
+    if item["type"] == "Git":
+        cloning = item["cloning"]
 
         return GitRootItem(
             cloning=GitRootCloning(
@@ -85,8 +63,8 @@ def _build_root(
                 commit=cloning.get("commit"),
             ),
             group_name=group_name,
-            id=metadata[key_structure.sort_key].split("#")[1],
-            metadata=GitRootMetadata(type=metadata["type"]),
+            id=root_id,
+            metadata=GitRootMetadata(type=item["type"]),
             state=GitRootState(
                 branch=state["branch"],
                 environment_urls=state["environment_urls"],
@@ -107,11 +85,11 @@ def _build_root(
             ),
         )
 
-    if metadata["type"] == "IP":
+    if item["type"] == "IP":
         return IPRootItem(
             group_name=group_name,
-            id=metadata[key_structure.sort_key].split("#")[1],
-            metadata=IPRootMetadata(type=metadata["type"]),
+            id=root_id,
+            metadata=IPRootMetadata(type=item["type"]),
             state=IPRootState(
                 address=state["address"],
                 modified_by=state["modified_by"],
@@ -126,8 +104,8 @@ def _build_root(
 
     return URLRootItem(
         group_name=group_name,
-        id=metadata[key_structure.sort_key].split("#")[1],
-        metadata=URLRootMetadata(type=metadata["type"]),
+        id=root_id,
+        metadata=URLRootMetadata(type=item["type"]),
         state=URLRootState(
             host=state["host"],
             modified_by=state["modified_by"],
@@ -158,30 +136,19 @@ async def _get_root(
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
+            & Key(key_structure.sort_key).eq(primary_key.partition_key)
         ),
         facets=(
-            TABLE.facets["git_root_cloning"],
             TABLE.facets["git_root_metadata"],
-            TABLE.facets["git_root_state"],
             TABLE.facets["ip_root_metadata"],
-            TABLE.facets["ip_root_state"],
             TABLE.facets["url_root_metadata"],
-            TABLE.facets["url_root_state"],
         ),
         index=index,
         table=TABLE,
     )
 
     if response.items:
-        return _build_root(
-            group_name=group_name,
-            item_id=primary_key.partition_key,
-            key_structure=key_structure,
-            raw_items=response.items,
-        )
+        return _format_root(item=response.items[0])
 
     raise RootNotFound()
 
@@ -213,31 +180,19 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             )
         ),
         facets=(
-            TABLE.facets["git_root_cloning"],
             TABLE.facets["git_root_metadata"],
-            TABLE.facets["git_root_state"],
             TABLE.facets["ip_root_metadata"],
-            TABLE.facets["ip_root_state"],
             TABLE.facets["url_root_metadata"],
-            TABLE.facets["url_root_state"],
         ),
         index=index,
         table=TABLE,
     )
 
-    root_items = defaultdict(list)
-    for item in response.items:
-        root_id = "#".join(item[key_structure.sort_key].split("#")[:2])
-        root_items[root_id].append(item)
-
     return tuple(
-        _build_root(
-            group_name=group_name,
-            item_id=root_id,
-            key_structure=key_structure,
-            raw_items=tuple(items),
-        )
-        for root_id, items in root_items.items()
+        _format_root(item=item)
+        for item in response.items
+        # Needed while we finish the cleanup of old items
+        if len(item["pk"].split("#")) == 2
     )
 
 
