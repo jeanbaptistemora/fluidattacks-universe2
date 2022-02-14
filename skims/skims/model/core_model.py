@@ -4141,7 +4141,7 @@ class MethodsEnum(Enum):
     )
     NPM_PKG_JSON = MethodInfo(
         file_name="npm",
-        name="npm_package_json",
+        name="npm_pkg_json",
         module="lib_path",
         finding=FindingEnum.F393,
         developer=DeveloperEnum.JUAN_RESTREPO,
