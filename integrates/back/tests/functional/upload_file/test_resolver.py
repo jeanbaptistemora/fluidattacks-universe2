@@ -47,7 +47,7 @@ async def _get_vulns(
 ) -> List[Dict[str, Any]]:
     finding_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load(finding_id)
+    ] = await loaders.finding_vulnerabilities.load(finding_id)
     return sorted(
         (
             dict(
@@ -187,7 +187,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
 
     escaper_vuln: Vulnerability = next(
         vuln
-        for vuln in await loaders.finding_vulns_typed.load(finding_id)
+        for vuln in await loaders.finding_vulnerabilities.load(finding_id)
         if vuln.specific == "4646"
         and vuln.where == "192.168.1.46"
         and vuln.type == VulnerabilityType.PORTS

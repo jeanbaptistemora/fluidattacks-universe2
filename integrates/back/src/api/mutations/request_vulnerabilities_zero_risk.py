@@ -71,7 +71,7 @@ async def mutate(
         email: str = user_info["user_email"]
         reattack_just = "Reattack cancelled due to zero risk request"
         treatment_just = "Treatment change cancelled due to zero risk request"
-        finding_vulns_loader = info.context.loaders.finding_vulns_all_typed
+        finding_vulns_loader = info.context.loaders.finding_vulnerabilities_all
         vulns_info: List[Vulnerability] = [
             vuln
             for vuln in await finding_vulns_loader.load(finding_id)

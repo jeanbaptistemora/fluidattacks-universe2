@@ -153,7 +153,7 @@ async def process_finding(
 ) -> None:
     vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_all_typed.load(finding.id)
+    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
 
     if not vulns:
         return

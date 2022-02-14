@@ -267,7 +267,7 @@ async def _process_finding(
     loaders: Dataloaders,
     finding: Finding,
 ) -> List[str]:
-    vulns = await loaders.finding_vulns_typed.load(finding.id)
+    vulns = await loaders.finding_vulnerabilities.load(finding.id)
     vulns_uuids = [vuln.id for vuln in vulns]
     return list(
         await collect(

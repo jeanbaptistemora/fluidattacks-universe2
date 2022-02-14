@@ -42,7 +42,7 @@ async def reset_group_expired_accepted_findings(
     group_findings: Tuple[Finding] = await loaders.group_findings.load(
         group_name
     )
-    vulns = await loaders.finding_vulns_typed.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
     updated_finding_ids: Set[str] = set()

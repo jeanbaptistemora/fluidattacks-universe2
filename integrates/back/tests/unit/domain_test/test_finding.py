@@ -414,7 +414,7 @@ async def test_approve_draft() -> None:
     assert isinstance(approval_date, str)
     assert approval_date == expected_date
 
-    all_vulns = await loaders.finding_vulns_all_typed.load(finding_id)
+    all_vulns = await loaders.finding_vulnerabilities_all.load(finding_id)
     vuln_ids = [vuln.id for vuln in all_vulns]
 
     for vuln_id in vuln_ids:

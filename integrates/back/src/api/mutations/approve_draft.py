@@ -64,7 +64,9 @@ async def mutate(
         finding: Finding = await finding_loader.load(finding_id)
         vulnerabilities: Tuple[
             Vulnerability, ...
-        ] = await info.context.loaders.finding_vulns_all_typed.load(finding_id)
+        ] = await info.context.loaders.finding_vulnerabilities_all.load(
+            finding_id
+        )
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(

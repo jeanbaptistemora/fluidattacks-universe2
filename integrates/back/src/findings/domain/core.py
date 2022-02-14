@@ -249,7 +249,7 @@ async def remove_vulnerabilities(
     justification: StateRemovalJustification,
     user_email: str,
 ) -> bool:
-    finding_vulns_loader = context.loaders.finding_vulns_typed
+    finding_vulns_loader = context.loaders.finding_vulnerabilities
     vulnerabilities: Tuple[Vulnerability] = await finding_vulns_loader.load(
         finding_id
     )
@@ -570,7 +570,7 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
         for file_name in list_evidences_files
     )
 
-    finding_all_vulns_loader = loaders.finding_vulns_all_typed
+    finding_all_vulns_loader = loaders.finding_vulnerabilities_all
     vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
         finding.id
     )
@@ -766,7 +766,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     if not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
 
-    finding_vulns_loader = context.loaders.finding_vulns_all_typed
+    finding_vulns_loader = context.loaders.finding_vulnerabilities_all
     vulnerability_ids: List[str] = open_vulns_ids + closed_vulns_ids
     vulnerabilities = [
         vuln

@@ -138,7 +138,7 @@ async def get_comments(
     user_email: str,
 ) -> Tuple[CommentType, ...]:
     historic_verification_loader = loaders.finding_historic_verification
-    finding_vulns_loader = loaders.finding_vulns_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities
     comments = await _get_comments("comment", finding_id)
     historic_verification: Tuple[
         FindingVerification, ...

@@ -322,7 +322,7 @@ async def handle_vulnerabilities_acceptance(
 
     all_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load(finding_id)
+    ] = await loaders.finding_vulnerabilities.load(finding_id)
     vulnerabilities = tuple(
         vuln
         for vuln in all_vulns
@@ -423,7 +423,7 @@ async def update_vulnerabilities_treatment(
 
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_all_typed.load(finding_id)
+    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
     vulnerability = next(
         iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
     )
@@ -486,7 +486,7 @@ async def validate_and_send_notification_request(
     # Validate finding with vulns in group
     finding_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_all_typed.load(finding.id)
+    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
     assigned_vulns = list(
         vuln
         for vuln in finding_vulns

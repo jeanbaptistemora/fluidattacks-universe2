@@ -1120,7 +1120,9 @@ async def get_mean_remediate_severity_cvssf(
     }
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
+        group_findings_ids
+    )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
         findings_vulns,
         finding_cvssf,
@@ -1156,7 +1158,9 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     }
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
+        group_findings_ids
+    )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )
@@ -1196,7 +1200,9 @@ async def get_mean_remediate_severity(
     ]
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
+        group_findings_ids
+    )
     return vulns_utils.get_mean_remediate_vulnerabilities(
         findings_vulns,
         min_date,
@@ -1224,7 +1230,9 @@ async def get_mean_remediate_non_treated_severity(
     ]
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load_many_chained(group_findings_ids)
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
+        group_findings_ids
+    )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )

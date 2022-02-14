@@ -47,7 +47,7 @@ async def main() -> None:
 
             vulns: Tuple[
                 Vulnerability, ...
-            ] = await dataloaders.finding_vulns_typed.load(finding_id)
+            ] = await dataloaders.finding_vulnerabilities.load(finding_id)
             vulns_to_reattack = tuple(
                 vuln
                 for vuln in vulns

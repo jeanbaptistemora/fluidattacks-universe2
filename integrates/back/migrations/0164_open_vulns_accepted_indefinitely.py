@@ -44,7 +44,7 @@ async def main() -> None:
     active_groups = await groups_domain.get_active_groups()
     groups_findings = await dataloaders.group_findings.load_many(active_groups)
     groups_vulns = await collect(
-        dataloaders.finding_vulns_typed.load_many_chained(
+        dataloaders.finding_vulnerabilities.load_many_chained(
             [finding.id for finding in findings]
         )
         for findings in groups_findings

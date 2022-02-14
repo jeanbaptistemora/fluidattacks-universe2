@@ -44,7 +44,7 @@ async def get_data_one_group(
     )
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_typed.load_many_chained(
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
     historics: Tuple[

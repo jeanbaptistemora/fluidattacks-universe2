@@ -164,7 +164,7 @@ async def _get_duplicated_findings(
 
     vulns_load = list(
         chain.from_iterable(
-            await context.loaders.finding_vulns_all_typed.load_many(
+            await context.loaders.finding_vulnerabilities_all.load_many(
                 [item.id for item in duplicated_findings]
             )
         )

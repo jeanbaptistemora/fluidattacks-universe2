@@ -91,7 +91,7 @@ async def approve_draft(
             vulnerability_id=vuln.id,
             modified_date=approval_date,
         )
-        for vuln in await loaders.finding_vulns_all_typed.load(finding_id)
+        for vuln in await loaders.finding_vulnerabilities_all.load(finding_id)
     )
     return approval_date
 
