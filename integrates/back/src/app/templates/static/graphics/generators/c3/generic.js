@@ -19,11 +19,6 @@ function render(dataDocument, height, width) {
     dataDocument.data.labels = { format: (datum, _id, index) => (index === 0 ? datum : '') };
   }
 
-  if (dataDocument.normalizedToolTip) {
-    const percentage = 100;
-    dataDocument.tooltip.format.value = (_datum, ratio) => `${ parseFloat((ratio * percentage).toFixed(2)) } %`;
-  }
-
   c3.generate({
     ...dataDocument,
     bindto: 'div',
