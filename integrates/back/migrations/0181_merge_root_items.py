@@ -143,17 +143,17 @@ async def process_group(group_name: str, progress: float) -> None:
 
 async def get_group_names() -> List[str]:
     return sorted(
-        group["project_name"] for group in await groups_dal.get_alive_groups()
+        group["project_name"] for group in await groups_dal.get_all()
     )
 
 
 async def main() -> None:
-    alive_groups = await get_group_names()
+    groups = await get_group_names()
 
     await collect(
         tuple(
-            process_group(group_name, count / len(alive_groups))
-            for count, group_name in enumerate(alive_groups)
+            process_group(group_name, count / len(groups))
+            for count, group_name in enumerate(groups)
         ),
         workers=10,
     )
