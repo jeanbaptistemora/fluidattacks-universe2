@@ -85,7 +85,8 @@ const CycleTitle = styled.p.attrs({
 
 const CycleParagraph = styled.p.attrs({
   className: `
-    f4
+    f5
+    f4-ns
     c-gray-154
     roboto
     lh-solid
@@ -116,24 +117,16 @@ const CycleParagraph = styled.p.attrs({
     min-height: 160px;
   }
 
-  @media (max-width: 452px) {
-    min-height: 180px;
+  @media (max-width: 479px) {
+    min-height: 100px;
   }
 
-  @media (max-width: 411px) {
-    min-height: 200px;
+  @media (max-width: 450px) {
+    min-height: 130px;
   }
 
-  @media (max-width: 403px) {
-    min-height: 220px;
-  }
-
-  @media (max-width: 371px) {
-    min-height: 240px;
-  }
-
-  @media (max-width: 365px) {
-    min-height: 270px;
+  @media (max-width: 387px) {
+    min-height: 160px;
   }
 `;
 
