@@ -1003,6 +1003,8 @@ type Mutation {
   updateToeInput(
     "The time when the attacked was performed"
     attackedAt: DateTime
+    "If the input has been attacked recently"
+    hasRecentAttack: Boolean
     "If the input is present in the root"
     bePresent: Boolean!
     "Input URL or PATH"
