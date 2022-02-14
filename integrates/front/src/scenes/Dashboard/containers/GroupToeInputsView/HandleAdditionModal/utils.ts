@@ -1,6 +1,12 @@
 import type { IGitRootAttr, IIPRootAttr, IURLRootAttr, Root } from "./types";
 
-const getGitRootHost = (environmentUrl: string): string => `${environmentUrl}/`;
+const getGitRootHost = (environmentUrl: string): string => {
+  if (environmentUrl.endsWith("/")) {
+    return environmentUrl;
+  }
+
+  return `${environmentUrl}/`;
+};
 
 const getIpRootHost = (root: IIPRootAttr): string =>
   root.port ? `${root.address}:${root.port}/` : `${root.address}/`;

@@ -132,8 +132,13 @@ def validate_component(root: RootItem, component: str) -> None:
         if not is_valid_url(component):
             raise InvalidUrl()
         for environment_url in root.state.environment_urls:
+            formatted_environment_url = (
+                environment_url
+                if environment_url.endswith("/")
+                else f"{environment_url}/"
+            )
             if component == environment_url or component.startswith(
-                f"{environment_url}/"
+                formatted_environment_url
             ):
                 return
 
