@@ -303,6 +303,11 @@ $gray-154: rgba(154, 154, 172, 1);
   .h-blog-card { min-height: 25rem; }
   .w-100-s { width: 100%; }
   .w-products { width: 20rem; }
+
+  .cycle-img {
+    max-height: 300px !important;
+    max-width: 300px !important;
+  }
 }
 
 // Smaller screen sizes
