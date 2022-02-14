@@ -15,9 +15,9 @@ import { AddPaymentModal } from "./AddPaymentMethodModal";
 import { Container } from "./styles";
 
 import {
-  ADD_BILLING_PAYMENT_METHOD,
-  REMOVE_BILLING_PAYMENT_METHOD,
-  UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
+  ADD_PAYMENT_METHOD,
+  REMOVE_PAYMENT_METHOD,
+  UPDATE_DEFAULT_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
@@ -30,18 +30,18 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-interface IOrganizationBillingPaymentMethodsProps {
+interface IOrganizationPaymentMethodsProps {
   organizationId: string;
   paymentMethods: IPaymentMethodAttr[];
   onUpdate: () => void;
 }
 
-export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPaymentMethodsProps> =
+export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsProps> =
   ({
     organizationId,
     paymentMethods,
     onUpdate,
-  }: IOrganizationBillingPaymentMethodsProps): JSX.Element => {
+  }: IOrganizationPaymentMethodsProps): JSX.Element => {
     const { t } = useTranslation();
     const permissions: PureAbility<string> = useAbility(
       authzPermissionsContext
@@ -88,7 +88,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
     const closeModal = useCallback((): void => {
       setAddingPaymentMethod(false);
     }, []);
-    const [addPaymentMethod] = useMutation(ADD_BILLING_PAYMENT_METHOD, {
+    const [addPaymentMethod] = useMutation(ADD_PAYMENT_METHOD, {
       onCompleted: (): void => {
         onUpdate();
         closeModal();
@@ -144,10 +144,10 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
 
     // Remove payment method
     const canDelete: boolean = permissions.can(
-      "api_mutations_remove_billing_payment_method_mutate"
+      "api_mutations_remove_payment_method_mutate"
     );
     const [removePaymentMethod, { loading: removing }] = useMutation(
-      REMOVE_BILLING_PAYMENT_METHOD,
+      REMOVE_PAYMENT_METHOD,
       {
         onCompleted: (): void => {
           onUpdate();
@@ -200,10 +200,10 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
 
     // Update default payment method
     const canUpdateDefault: boolean = permissions.can(
-      "api_mutations_update_billing_default_payment_method_mutate"
+      "api_mutations_update_default_payment_method_mutate"
     );
     const [updateDefaultPaymentMethod, { loading: updating }] = useMutation(
-      UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
+      UPDATE_DEFAULT_PAYMENT_METHOD,
       {
         onCompleted: (): void => {
           onUpdate();
@@ -294,7 +294,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                 exportCsv={false}
                 extraButtons={
                   <Row>
-                    <Can do={"api_mutations_add_billing_payment_method_mutate"}>
+                    <Can do={"api_mutations_add_payment_method_mutate"}>
                       <Button onClick={openAddModal}>
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;
@@ -303,9 +303,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                         )}
                       </Button>
                     </Can>
-                    <Can
-                      do={"api_mutations_remove_billing_payment_method_mutate"}
-                    >
+                    <Can do={"api_mutations_remove_payment_method_mutate"}>
                       <Button
                         disabled={_.isEmpty(currentRow) || removing || updating}
                         id={"removePaymentMethod"}
@@ -319,9 +317,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                       </Button>
                     </Can>
                     <Can
-                      do={
-                        "api_mutations_update_billing_default_payment_method_mutate"
-                      }
+                      do={"api_mutations_update_default_payment_method_mutate"}
                     >
                       <Button
                         disabled={_.isEmpty(currentRow) || removing || updating}
@@ -338,7 +334,7 @@ export const OrganizationBillingPaymentMethods: React.FC<IOrganizationBillingPay
                   </Row>
                 }
                 headers={tableHeaders}
-                id={"tblBillingPaymentMethods"}
+                id={"tblPaymentMethods"}
                 pageSize={10}
                 search={false}
                 selectionMode={{

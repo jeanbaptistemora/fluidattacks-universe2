@@ -30,8 +30,8 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
   }
 `;
 
-const ADD_BILLING_PAYMENT_METHOD: DocumentNode = gql`
-  mutation addBillingPaymentMethod(
+const ADD_PAYMENT_METHOD: DocumentNode = gql`
+  mutation addPaymentMethod(
     $organizationId: String!
     $cardNumber: String!
     $cardExpirationMonth: String!
@@ -39,7 +39,7 @@ const ADD_BILLING_PAYMENT_METHOD: DocumentNode = gql`
     $cardCvc: String!
     $makeDefault: Boolean!
   ) {
-    addBillingPaymentMethod(
+    addPaymentMethod(
       organizationId: $organizationId
       cardNumber: $cardNumber
       cardExpirationMonth: $cardExpirationMonth
@@ -52,12 +52,12 @@ const ADD_BILLING_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
-const REMOVE_BILLING_PAYMENT_METHOD: DocumentNode = gql`
-  mutation removeBillingPaymentMethod(
+const REMOVE_PAYMENT_METHOD: DocumentNode = gql`
+  mutation removePaymentMethod(
     $organizationId: String!
     $paymentMethodId: String!
   ) {
-    removeBillingPaymentMethod(
+    removePaymentMethod(
       organizationId: $organizationId
       paymentMethodId: $paymentMethodId
     ) {
@@ -66,12 +66,12 @@ const REMOVE_BILLING_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
-const UPDATE_BILLING_DEFAULT_PAYMENT_METHOD: DocumentNode = gql`
-  mutation updateBillingDefaultPaymentMethod(
+const UPDATE_DEFAULT_PAYMENT_METHOD: DocumentNode = gql`
+  mutation updateDefaultPaymentMethod(
     $organizationId: String!
     $paymentMethodId: String!
   ) {
-    updateBillingDefaultPaymentMethod(
+    updateDefaultPaymentMethod(
       organizationId: $organizationId
       paymentMethodId: $paymentMethodId
     ) {
@@ -80,24 +80,21 @@ const UPDATE_BILLING_DEFAULT_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
-const UPDATE_BILLING_SUBSCRIPTION: DocumentNode = gql`
-  mutation updateBillingSubscription(
+const UPDATE_SUBSCRIPTION: DocumentNode = gql`
+  mutation updateSubscription(
     $groupName: String!
     $subscription: BillingSubscriptionType!
   ) {
-    updateBillingSubscription(
-      groupName: $groupName
-      subscription: $subscription
-    ) {
+    updateSubscription(groupName: $groupName, subscription: $subscription) {
       success
     }
   }
 `;
 
 export {
-  ADD_BILLING_PAYMENT_METHOD,
+  ADD_PAYMENT_METHOD,
   GET_ORGANIZATION_BILLING,
-  REMOVE_BILLING_PAYMENT_METHOD,
-  UPDATE_BILLING_DEFAULT_PAYMENT_METHOD,
-  UPDATE_BILLING_SUBSCRIPTION,
+  REMOVE_PAYMENT_METHOD,
+  UPDATE_DEFAULT_PAYMENT_METHOD,
+  UPDATE_SUBSCRIPTION,
 };

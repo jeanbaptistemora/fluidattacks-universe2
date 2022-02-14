@@ -17,22 +17,6 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
-  "Add a payment method to an organization"
-  addBillingPaymentMethod(
-    "Organization name"
-    organizationId: String!
-    "Card number"
-    cardNumber: String!
-    "Card expiration month"
-    cardExpirationMonth: String!
-    "Card expiration year"
-    cardExpirationYear: String!
-    "Card CVC code"
-    cardCvc: String!
-    "Make payment method the default one for the customer"
-    makeDefault: Boolean!
-  ): SimplePayload!
-
   "Adds a new draft Finding to the specified Group"
   addDraft(
     """
@@ -302,6 +286,22 @@ type Mutation {
     tags: [String]
   ): SimplePayload!
 
+  "Add a payment method to an organization"
+  addPaymentMethod(
+    "Organization name"
+    organizationId: String!
+    "Card number"
+    cardNumber: String!
+    "Card expiration month"
+    cardExpirationMonth: String!
+    "Card expiration year"
+    cardExpirationYear: String!
+    "Card CVC code"
+    cardCvc: String!
+    "Make payment method the default one for the customer"
+    makeDefault: Boolean!
+  ): SimplePayload!
+
   "Authenticates an user from the mobile ASM app"
   addPushToken("Expo login token to be added" token: String!): SimplePayload
 
@@ -473,14 +473,6 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
-  "Remove a payment method for an organization"
-  removeBillingPaymentMethod(
-    "Organization id"
-    organizationId: String!
-    "Payment Method id"
-    paymentMethodId: String!
-  ): SimplePayload!
-
   "Removes evidence from an Event"
   removeEventEvidence(
     "Identifier of the event to which the Evidence belongs"
@@ -531,6 +523,14 @@ type Mutation {
     "Tag to remove"
     tag: String!
   ): SimpleGroupPayload!
+
+  "Remove a payment method for an organization"
+  removePaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Payment Method id"
+    paymentMethodId: String!
+  ): SimplePayload!
 
   "Removes/deletes your access to ASM"
   removeStakeholder: SimplePayload!
@@ -704,19 +704,11 @@ type Mutation {
   ): UpdateAccessTokenPayload!
 
   "Update a default payment method for an organization"
-  updateBillingDefaultPaymentMethod(
+  updateDefaultPaymentMethod(
     "Organization id"
     organizationId: String!
     "Payment Method id"
     paymentMethodId: String!
-  ): SimplePayload!
-
-  "Returns invoice information after updating a subscription for a group"
-  updateBillingSubscription(
-    "Group name"
-    groupName: String!
-    "Group subscription (Free, Machine or Squad)"
-    subscription: BillingSubscriptionType!
   ): SimplePayload!
 
   "Updates a Finding's description"
@@ -996,6 +988,14 @@ type Mutation {
     "User involvement needed for a successful attack"
     userInteraction: String!
   ): SimpleFindingPayload!
+
+  "Update a subscription for a group (Free, Machine or Squad)"
+  updateSubscription(
+    "Group name"
+    groupName: String!
+    "Group subscription (Free, Machine or Squad)"
+    subscription: BillingSubscriptionType!
+  ): SimplePayload!
 
   """
   Updates the input of a concrete root

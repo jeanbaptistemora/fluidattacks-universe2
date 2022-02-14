@@ -5,7 +5,6 @@ from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
     activate_root,
-    add_billing_payment_method,
     add_draft,
     add_event,
     add_event_consult,
@@ -20,6 +19,7 @@ from api.mutations import (
     add_machine_execution,
     add_organization,
     add_organization_finding_policy,
+    add_payment_method,
     add_push_token,
     add_stakeholder,
     add_toe_input,
@@ -41,13 +41,13 @@ from api.mutations import (
     refresh_toe_lines,
     reject_draft,
     reject_vulnerabilities_zero_risk,
-    remove_billing_payment_method,
     remove_event_evidence,
     remove_files,
     remove_finding,
     remove_finding_evidence,
     remove_group,
     remove_group_tag,
+    remove_payment_method,
     remove_stakeholder,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
@@ -68,8 +68,7 @@ from api.mutations import (
     sync_git_root,
     unsubscribe_from_group,
     update_access_token,
-    update_billing_default_payment_method,
-    update_billing_subscription,
+    update_default_payment_method,
     update_event_evidence,
     update_evidence,
     update_evidence_description,
@@ -86,6 +85,7 @@ from api.mutations import (
     update_organization_stakeholder,
     update_root_cloning_status,
     update_severity,
+    update_subscription,
     update_toe_input,
     update_toe_lines_attacked_lines,
     update_toe_lines_sorts,
@@ -107,9 +107,6 @@ MUTATION.set_field(
     "acknowledgeConcurrentSession", acknowledge_concurrent_session.mutate
 )
 MUTATION.set_field("activateRoot", activate_root.mutate)
-MUTATION.set_field(
-    "addBillingPaymentMethod", add_billing_payment_method.mutate
-)
 MUTATION.set_field("addDraft", add_draft.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
@@ -126,6 +123,7 @@ MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field(
     "addOrganizationFindingPolicy", add_organization_finding_policy.mutate
 )
+MUTATION.set_field("addPaymentMethod", add_payment_method.mutate)
 MUTATION.set_field("addPushToken", add_push_token.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field("addToeInput", add_toe_input.mutate)
@@ -166,9 +164,6 @@ MUTATION.set_field(
     "rejectVulnerabilitiesZeroRisk",
     reject_vulnerabilities_zero_risk.mutate,
 )
-MUTATION.set_field(
-    "removeBillingPaymentMethod", remove_billing_payment_method.mutate
-)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
 MUTATION.set_field("removeFinding", remove_finding.mutate)
@@ -181,6 +176,7 @@ MUTATION.set_field(
 MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("removeGroup", remove_group.mutate)
 MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
+MUTATION.set_field("removePaymentMethod", remove_payment_method.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field(
@@ -211,11 +207,7 @@ MUTATION.set_field("syncGitRoot", sync_git_root.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
 MUTATION.set_field(
-    "updateBillingDefaultPaymentMethod",
-    update_billing_default_payment_method.mutate,
-)
-MUTATION.set_field(
-    "updateBillingSubscription", update_billing_subscription.mutate
+    "updateDefaultPaymentMethod", update_default_payment_method.mutate
 )
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
@@ -245,6 +237,7 @@ MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
 MUTATION.set_field("updateSeverity", update_severity.mutate)
+MUTATION.set_field("updateSubscription", update_subscription.mutate)
 MUTATION.set_field("updateToeInput", update_toe_input.mutate)
 MUTATION.set_field(
     "updateToeLinesAttackedLines", update_toe_lines_attacked_lines.mutate

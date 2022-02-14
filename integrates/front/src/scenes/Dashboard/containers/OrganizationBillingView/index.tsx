@@ -4,8 +4,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 
-import { OrganizationBillingGroups } from "./Groups";
-import { OrganizationBillingPaymentMethods } from "./PaymentMethods";
+import { OrganizationGroups } from "./Groups";
+import { OrganizationPaymentMethods } from "./PaymentMethods";
 import { GET_ORGANIZATION_BILLING } from "./queries";
 import type { IGroupAttr, IPaymentMethodAttr } from "./types";
 
@@ -64,12 +64,12 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
 
   return (
     <React.Fragment>
-      <OrganizationBillingGroups
+      <OrganizationGroups
         billingPortal={billingPortal}
         groups={groups}
         onUpdate={refetch}
       />
-      <OrganizationBillingPaymentMethods
+      <OrganizationPaymentMethods
         onUpdate={refetch}
         organizationId={organizationId}
         paymentMethods={paymentMethods}

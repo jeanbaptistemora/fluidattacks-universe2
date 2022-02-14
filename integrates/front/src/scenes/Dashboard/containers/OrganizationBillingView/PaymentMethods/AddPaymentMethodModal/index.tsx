@@ -53,7 +53,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
           cardNumber: "",
           makeDefault: false,
         }}
-        name={"addBillingPaymentMethod"}
+        name={"addPaymentMethod"}
         onSubmit={onSubmit}
         validationSchema={validations}
       >

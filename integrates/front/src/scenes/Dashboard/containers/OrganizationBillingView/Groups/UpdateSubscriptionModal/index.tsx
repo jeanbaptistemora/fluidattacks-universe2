@@ -47,7 +47,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
         initialValues={{
           subscription: initialValue,
         }}
-        name={"updateBillingSubscription"}
+        name={"updateSubscription"}
         onSubmit={onSubmit}
         validationSchema={validations}
       >
