@@ -11,7 +11,7 @@ from dataclasses import (
 from decimal import (
     Decimal,
 )
-from purity.v1 import (
+from fa_purity.frozen import (
     FrozenDict,
     FrozenList,
 )

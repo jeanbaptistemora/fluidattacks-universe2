@@ -7,49 +7,52 @@ from dataclasses import (
 from decimal import (
     Decimal,
 )
-from purity.v1 import (
+from fa_purity.frozen import (
     FrozenDict,
-    InvalidType,
+)
+from fa_purity.json.errors.invalid_type import (
+    new as invalid_type,
+)
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
+from fa_purity.utils import (
+    raise_exception,
 )
 from tap_dynamo.dynamo.core import (
     DynamoSet,
     DynamoValue,
 )
 from typing import (
-    Any,
+    cast,
     FrozenSet,
-    Set,
     Type,
     TypeVar,
 )
 
+_A = TypeVar("_A")
 _T = TypeVar("_T")
 
 
-def _from_set_any(raw: FrozenSet[Any], _type: Type[_T]) -> FrozenSet[_T]:
-    temp: Set[_T] = set()
+def _from_set_any(raw: FrozenSet[_A], _type: Type[_T]) -> FrozenSet[_T]:
     for item in raw:
-        if isinstance(item, _type):
-            temp.add(item)
-        else:
-            raise InvalidType("_from_set_any", str(_type), item)
-    return frozenset(temp)
+        if not isinstance(item, _type):
+            raise invalid_type("_from_set_any", str(_type), item)
+    return cast(FrozenSet[_T], raw)
 
 
-def _assert_str(raw: Any) -> str:
-    if isinstance(raw, str):
-        return raw
-    raise InvalidType("_assert_str", "str", raw)
+def _assert_str(raw: _A) -> str:
+    return to_primitive(raw, str).alt(raise_exception).unwrap()
 
 
 @dataclass(frozen=True)
 class ItemFactory:
     @classmethod
-    def from_set(cls, raw: FrozenSet[Any]) -> DynamoSet:
+    def from_set(cls, raw: FrozenSet[_A]) -> DynamoSet:
         try:
             element = next(iter(raw))
         except StopIteration as err:
-            raise InvalidType("from_set", "NonEmpty Set[Any]", raw) from err
+            raise invalid_type("from_set", "NonEmpty Set[_A]", raw) from err
         if isinstance(element, str):
             return _from_set_any(raw, str)
         if isinstance(element, int):
@@ -58,10 +61,10 @@ class ItemFactory:
             return _from_set_any(raw, Decimal)
         if isinstance(element, Binary):
             return _from_set_any(raw, Binary)
-        raise InvalidType("from_set", "SetScalar", raw)
+        raise invalid_type("from_set", "SetScalar", raw)
 
     @classmethod
-    def from_any(cls, raw: Any) -> DynamoValue:
+    def from_any(cls, raw: _A) -> DynamoValue:
         if raw is None or isinstance(raw, (str, int, Decimal, Binary, bool)):
             return DynamoValue(raw)
         if isinstance(raw, set):
@@ -76,4 +79,4 @@ class ItemFactory:
                     {_assert_str(k): cls.from_any(v) for k, v in raw.items()}
                 )
             )
-        raise InvalidType("from_any", "unfold(DynamoValue)", raw)
+        raise invalid_type("from_any", "unfold(DynamoValue)", raw)
