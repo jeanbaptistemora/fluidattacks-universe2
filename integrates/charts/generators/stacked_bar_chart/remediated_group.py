@@ -56,7 +56,7 @@ async def get_data_one_group(group: str) -> Status:
 
 
 async def get_data_many_groups(groups: List[str]) -> List[Status]:
-    groups_data = await collect(map(get_data_one_group, groups))
+    groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sorted(
         groups_data,
@@ -183,9 +183,18 @@ def format_data(data: List[Status]) -> Dict[str, Any]:
 
 
 async def generate_all() -> None:
-    async for org_id, org_name, _ in (
+    async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        utils.json_dump(
+            document=format_data(
+                data=await get_data_many_groups(list(org_groups)),
+            ),
+            entity="organization",
+            subject=org_id,
+        )
+
+    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
