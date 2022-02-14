@@ -320,7 +320,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     nonSelectable: undefined,
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
-    selected: getToeInputIndex(selectedToeInputDatas, toeInputs),
+    selected: getToeInputIndex(selectedToeInputDatas, filterSearchtextResult),
   };
 
   useEffect((): void => {

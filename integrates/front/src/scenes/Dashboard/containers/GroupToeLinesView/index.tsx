@@ -510,10 +510,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal || !canUpdateAttackedLines,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(toeLines),
+    nonSelectable: getNonSelectable(resultExecutions),
     onSelect: onSelectOneToeLinesData,
     onSelectAll: onSelectSeveralToeLinesDatas,
-    selected: getToeLinesIndex(selectedToeLinesDatas, toeLines),
+    selected: getToeLinesIndex(selectedToeLinesDatas, resultExecutions),
   };
 
   return (
