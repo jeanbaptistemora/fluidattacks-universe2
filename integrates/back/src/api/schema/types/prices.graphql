@@ -1,0 +1,15 @@
+"Price type definition"
+type Price {
+  "Amount of money the price costs"
+  amount: Int!
+  "Price currency (COP, EUR, USD, etc.)"
+  currency: String!
+}
+
+"Prices type definition"
+type Prices {
+  "Machine price"
+  machine: Price!
+  "Squad price"
+  squad: Price!
+}

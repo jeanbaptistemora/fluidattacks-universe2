@@ -1,5 +1,8 @@
 "Main Query object"
 type Query {
+  "Billing entity"
+  billing: Billing
+
   "Event entity"
   event(
     "ID of the event to query"

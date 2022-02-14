@@ -2,6 +2,7 @@
 
 
 from api.resolvers.query import (
+    billing,
     event,
     events,
     finding,
@@ -27,6 +28,7 @@ from ariadne import (
 )
 
 QUERY = QueryType()
+QUERY.set_field("billing", billing.resolve)
 QUERY.set_field("event", event.resolve)
 QUERY.set_field("events", events.resolve)
 QUERY.set_field("finding", finding.resolve)

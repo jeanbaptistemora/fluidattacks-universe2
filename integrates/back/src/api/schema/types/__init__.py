@@ -1,8 +1,8 @@
 from .authors import (
     AUTHORS,
 )
-from .billing_prices import (
-    BILLING_PRICES,
+from .billing import (
+    BILLING,
 )
 from .consult import (
     CONSULT,
@@ -51,6 +51,9 @@ from .organization import (
 )
 from .payment_method import (
     PAYMENT_METHOD,
+)
+from .prices import (
+    PRICES,
 )
 from .query import (
     QUERY,
@@ -108,7 +111,7 @@ from typing import (
 
 TYPES: Tuple[ObjectType, ...] = (
     AUTHORS,
-    BILLING_PRICES,
+    BILLING,
     CONSULT,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
@@ -127,6 +130,7 @@ TYPES: Tuple[ObjectType, ...] = (
     MUTATION,
     ORGANIZATION,
     PAYMENT_METHOD,
+    PRICES,
     QUERY,
     REPORT,
     RESOURCE,
