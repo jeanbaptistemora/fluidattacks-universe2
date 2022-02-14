@@ -113,7 +113,7 @@ let
     in
     link {
       inherit prefix;
-      body = "${standardId}. ${standard.title}";
+      body = " ${standard.title}";
       path = "/criteria/compliance/${standardId}";
     };
 
