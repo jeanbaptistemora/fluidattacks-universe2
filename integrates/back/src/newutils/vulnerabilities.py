@@ -1,5 +1,3 @@
-# pylint:disable=too-many-lines
-
 from . import (
     datetime as datetime_utils,
 )
@@ -19,10 +17,6 @@ from datetime import (
     date as datetype,
     datetime,
 )
-from db_model.enums import (
-    Source,
-    StateRemovalJustification,
-)
 from db_model.findings.enums import (
     FindingVerificationStatus,
 )
@@ -40,7 +34,6 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityHistoric,
-    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -58,12 +51,8 @@ import itertools
 import newrelic.agent
 from newutils.datetime import (
     convert_from_iso_str,
-    convert_to_iso_str,
     get_as_utc_iso_format,
     get_plus_delta,
-)
-from newutils.requests import (
-    map_source,
 )
 from operator import (
     attrgetter,
@@ -188,21 +177,6 @@ def filter_non_confirmed_zero_risk(
         if not vulnerability.zero_risk
         or vulnerability.zero_risk.status
         != VulnerabilityZeroRiskStatus.CONFIRMED
-    )
-
-
-def filter_zero_risk(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
-    return tuple(
-        vuln
-        for vuln in vulnerabilities
-        if vuln.zero_risk
-        and vuln.zero_risk.status
-        in (
-            VulnerabilityZeroRiskStatus.CONFIRMED,
-            VulnerabilityZeroRiskStatus.REQUESTED,
-        )
     )
 
 
@@ -431,11 +405,6 @@ def get_report_dates(
     )
 
 
-def get_specific(value: Dict[str, str]) -> int:
-    """Get specific value."""
-    return int(value.get("specific", ""))
-
-
 def group_specific(
     vulns: Tuple[Vulnerability, ...], vuln_type: VulnerabilityType
 ) -> Tuple[Vulnerability, ...]:
@@ -605,17 +574,6 @@ async def get_last_reattack_date(
         ),
         None,
     )
-
-
-async def get_source(
-    loaders: Any,
-    vuln: Vulnerability,
-) -> Source:
-    """Get the source of creation."""
-    historic: Tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vuln.id)
-    return historic[0].source
 
 
 def _get_effective_reattacks(
@@ -882,30 +840,6 @@ def validate_zero_risk_requested(
     return vulnerability
 
 
-def format_vulnerability_metadata_item(
-    metadata: VulnerabilityMetadataToUpdate,
-) -> Item:
-    item = {
-        "external_bts": metadata.bug_tracking_system_url,
-        "commit_hash": metadata.commit,
-        "skims_method": metadata.skims_method,
-        "skims_technique": metadata.skims_technique,
-        "developer": metadata.developer,
-        "severity": metadata.custom_severity,
-        "repo_nickname": metadata.repo,
-        "specific": metadata.specific,
-        "stream": ",".join(metadata.stream) if metadata.stream else None,
-        "tag": metadata.tags,
-        "vuln_type": metadata.type,
-        "where": metadata.where,
-    }
-    return {
-        key: None if not value else value
-        for key, value in item.items()
-        if value is not None
-    }
-
-
 def format_vulnerability_state_item(
     state: VulnerabilityState,
 ) -> Item:
@@ -966,178 +900,3 @@ def format_vulnerability_zero_risk_item(
         "status": zero_risk.status.value,
     }
     return item
-
-
-def format_vulnerability_item(  # noqa: MC0001
-    vulnerability: Vulnerability,
-) -> Item:
-    item = {
-        "finding_id": vulnerability.finding_id,
-        "UUID": vulnerability.id,
-        "vuln_type": str(vulnerability.type.value).lower(),
-        "where": vulnerability.where,
-        "source": str(vulnerability.state.source.value).lower(),
-        "specific": vulnerability.specific,
-        "historic_state": [
-            format_vulnerability_state_item(vulnerability.state)
-        ],
-    }
-    if vulnerability.commit:
-        item["commit_hash"] = vulnerability.commit
-    if vulnerability.custom_severity:
-        item["severity"] = vulnerability.custom_severity
-    if vulnerability.bug_tracking_system_url:
-        item["external_bts"] = vulnerability.bug_tracking_system_url
-    if vulnerability.repo:
-        item["repo_nickname"] = vulnerability.repo
-    if vulnerability.skims_method:
-        item["skims_method"] = vulnerability.skims_method
-    if vulnerability.skims_technique:
-        item["skims_technique"] = vulnerability.skims_technique
-    if vulnerability.developer:
-        item["developer"] = vulnerability.developer
-    if vulnerability.stream:
-        item["stream"] = ",".join(vulnerability.stream)
-    if vulnerability.tags:
-        item["tag"] = vulnerability.tags
-    if vulnerability.treatment:
-        item["historic_treatment"] = [
-            format_vulnerability_treatment_item(vulnerability.treatment)
-        ]
-    if vulnerability.verification:
-        item["historic_verification"] = [
-            format_vulnerability_verification_item(vulnerability.verification)
-        ]
-    if vulnerability.zero_risk:
-        item["historic_zero_risk"] = [
-            format_vulnerability_zero_risk_item(vulnerability.zero_risk)
-        ]
-    return item
-
-
-def exists(key: str, item: Dict[str, Any]) -> bool:
-    return key in item and item[key] is not None
-
-
-def get_optional(key: str, item: Dict[str, Any], fallback: Any = None) -> Any:
-    if exists(key, item):
-        return item[key]
-    return fallback
-
-
-def format_vulnerability_state(state: Dict[str, Any]) -> VulnerabilityState:
-    return VulnerabilityState(
-        modified_by=state.get("analyst") or state.get("hacker") or "",
-        modified_date=convert_to_iso_str(state["date"]),
-        source=Source[map_source(state["source"]).upper()],
-        status=VulnerabilityStateStatus[state["state"].upper()],
-        justification=(
-            StateRemovalJustification[state["justification"]]
-            if exists("justification", state)
-            else None
-        ),
-    )
-
-
-def format_vulnerability_treatment(
-    treatment: Dict[str, Any],
-    default_date: str = datetime_utils.DEFAULT_STR,
-) -> VulnerabilityTreatment:
-    accepted_until: Optional[str] = get_optional("acceptance_date", treatment)
-    if accepted_until:
-        accepted_until = convert_to_iso_str(accepted_until)
-    return VulnerabilityTreatment(
-        modified_by=get_optional("user", treatment),
-        modified_date=convert_to_iso_str(treatment.get("date", default_date)),
-        status=VulnerabilityTreatmentStatus(
-            treatment["treatment"].replace(" ", "_").upper()
-        ),
-        accepted_until=accepted_until,
-        acceptance_status=(
-            VulnerabilityAcceptanceStatus[treatment["acceptance_status"]]
-            if exists("acceptance_status", treatment)
-            else None
-        ),
-        justification=get_optional("justification", treatment),
-        assigned=get_optional("assigned", treatment),
-    )
-
-
-def format_vulnerability_verification(
-    verification: Dict[str, str]
-) -> VulnerabilityVerification:
-    return VulnerabilityVerification(
-        modified_date=convert_to_iso_str(verification["date"]),
-        status=VulnerabilityVerificationStatus(verification["status"]),
-    )
-
-
-def format_vulnerability_zero_risk(
-    zero_risk: Dict[str, str]
-) -> VulnerabilityZeroRisk:
-    return VulnerabilityZeroRisk(
-        comment_id=zero_risk["comment_id"],
-        modified_by=zero_risk["email"],
-        modified_date=convert_to_iso_str(zero_risk["date"]),
-        status=VulnerabilityZeroRiskStatus(zero_risk["status"]),
-    )
-
-
-def format_vulnerability(item: Dict[str, Any]) -> Vulnerability:
-    current_state: Dict[str, str] = item["historic_state"][-1]
-    current_treatment: Optional[Dict[str, str]] = (
-        item["historic_treatment"][-1]
-        if exists("historic_treatment", item) and item["historic_treatment"]
-        else None
-    )
-    current_verification: Optional[Dict[str, str]] = (
-        item["historic_verification"][-1]
-        if exists("historic_verification", item)
-        and item["historic_verification"]
-        else None
-    )
-    current_zero_risk: Optional[Dict[str, str]] = (
-        item["historic_zero_risk"][-1]
-        if exists("historic_zero_risk", item) and item["historic_zero_risk"]
-        else None
-    )
-
-    return Vulnerability(
-        finding_id=item["finding_id"],
-        id=item["UUID"],
-        specific=item["specific"],
-        state=format_vulnerability_state(current_state),
-        treatment=(
-            format_vulnerability_treatment(
-                current_treatment, item["historic_state"][0]["date"]
-            )
-            if current_treatment
-            else None
-        ),
-        type=VulnerabilityType(item["vuln_type"].upper()),
-        where=item["where"],
-        bug_tracking_system_url=get_optional("external_bts", item),
-        commit=get_optional("commit_hash", item),
-        custom_severity=(
-            int(item["severity"])
-            if exists("severity", item) and item["severity"]
-            else None
-        ),
-        hash=None,
-        repo=get_optional("repo_nickname", item),
-        skims_method=get_optional("skims_method", item),
-        skims_technique=get_optional("skims_technique", item),
-        developer=get_optional("developer", item),
-        stream=item["stream"].split(",") if exists("stream", item) else None,
-        tags=sorted(item["tag"]) if exists("tag", item) else None,
-        verification=(
-            format_vulnerability_verification(current_verification)
-            if current_verification
-            else None
-        ),
-        zero_risk=(
-            format_vulnerability_zero_risk(current_zero_risk)
-            if current_zero_risk
-            else None
-        ),
-    )

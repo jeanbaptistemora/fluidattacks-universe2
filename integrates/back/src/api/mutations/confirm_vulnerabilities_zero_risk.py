@@ -56,7 +56,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             (
-                "Security: Confirmed zero risk vulnerabilties "
+                "Security: Confirmed zero risk vulnerabilities "
                 f"in finding_id: {finding_id}"
             ),  # pragma: no cover
         )

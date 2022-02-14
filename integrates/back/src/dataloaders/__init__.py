@@ -82,6 +82,7 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities_all: FindingVulnerabilitiesLoader
     finding_vulnerabilities_nzr: FindingVulnerabilitiesNonZeroRiskLoader
     finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
+    me_vulnerabilities: AssignedVulnerabilitiesLoader
     group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
@@ -95,11 +96,10 @@ class Dataloaders(NamedTuple):
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
-    me_vulnerabilities: AssignedVulnerabilitiesLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
-    root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
+    root_states: RootStatesLoader
     root_toe_lines: RootToeLinesLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
@@ -156,6 +156,7 @@ def get_new_context() -> Dataloaders:
         finding_vulnerabilities_all=finding_vulnerabilities_loader,
         finding_vulnerabilities_nzr=finding_vulnerabilities_nzr_loader,
         finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
+        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         group=GroupLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
@@ -169,11 +170,10 @@ def get_new_context() -> Dataloaders:
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
-        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         root=RootLoader(),
+        root_machine_executions=RootMachineExecutionsLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
-        root_machine_executions=RootMachineExecutionsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         toe_input=ToeInputLoader(),

@@ -274,7 +274,7 @@ async def test_get_group_indicators() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilties = (
+    vulnerabilities = (
         await loaders.finding_vulnerabilities_nzr.load_many_chained(
             [finding.id for finding in findings]
         )
@@ -296,14 +296,14 @@ async def test_get_group_indicators() -> None:
     assert found == len(
         [
             vulnerability
-            for vulnerability in vulnerabilties
+            for vulnerability in vulnerabilities
             if vulnerability.state.status != VulnerabilityStateStatus.DELETED
         ]
     )
     assert accepted == len(
         [
             vulnerability
-            for vulnerability in vulnerabilties
+            for vulnerability in vulnerabilities
             if (
                 vulnerability.treatment
                 and vulnerability.treatment.status
@@ -318,7 +318,7 @@ async def test_get_group_indicators() -> None:
     assert closed == len(
         [
             vulnerability
-            for vulnerability in vulnerabilties
+            for vulnerability in vulnerabilities
             if vulnerability.state.status == VulnerabilityStateStatus.CLOSED
         ]
     )

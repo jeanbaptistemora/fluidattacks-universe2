@@ -142,7 +142,7 @@ type Query {
 
   "Gets vulnerabilities pending to reattack"
   vulnerabilitiesToReattack(
-    "Name of the group to which the vulnerabilties belong to"
+    "Name of the group to which the vulnerabilities belong to"
     group: String
   ): [Vulnerability]
 
