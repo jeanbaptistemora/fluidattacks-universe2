@@ -145,7 +145,9 @@ class RootLoader(DataLoader):
     async def batch_load_fn(
         self, root_ids: List[Tuple[str, str]]
     ) -> Tuple[RootItem, ...]:
-        return await _get_roots(root_ids=root_ids)
+        roots = {root.id: root for root in await _get_roots(root_ids=root_ids)}
+
+        return tuple(roots[root_id] for _, root_id in root_ids)
 
 
 async def _get_group_roots(*, group_name: str) -> Tuple[RootItem, ...]:
