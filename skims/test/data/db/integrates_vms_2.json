@@ -103,12 +103,62 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
           "pk": {
             "S": "ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b"
           },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "cloning": {
+            "M": {
+              "modified_date": {
+                "S": "2021-09-30T21:24:30.064054+00:00"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              }
+            }
+          },
+          "state": {
+            "M": {
+              "branch": {
+                "S": "main"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "gitignore": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2021-09-30T21:24:30.064110+00:00"
+              },
+              "nickname": {
+                "S": "namespace"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/namespace-be0201bce2534a529ba578dbbd6d643c.git"
+              }
+            }
+          },
           "type": {
             "S": "Git"
           }
@@ -118,146 +168,64 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "pk": {
-            "S": "ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#CLON"
-          },
-          "modified_date": {
-            "S": "2021-09-30T21:24:30.064054+00:00"
-          },
-          "reason": {
-            "S": "root created"
-          },
-          "status": {
-            "S": "UNKNOWN"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "environment": {
-            "S": "production"
-          },
-          "environment_urls": {
-            "L": []
-          },
-          "modified_date": {
-            "S": "2021-09-30T21:24:30.064110+00:00"
-          },
-          "status": {
-            "S": "ACTIVE"
-          },
-          "includes_health_check": {
-            "BOOL": false
-          },
-          "modified_by": {
-            "S": "unittest@fluidattacks.com"
-          },
-          "url": {
-            "S": "ssh://git@gitlab.com:fluidattacks/namespace-be0201bce2534a529ba578dbbd6d643c.git"
-          },
-          "gitignore": {
-            "L": []
-          },
-          "nickname": {
-            "S": "namespace"
-          },
-          "branch": {
-            "S": "main"
-          },
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "git_environment_urls": {
-            "L": []
-          },
-          "pk": {
-            "S": "ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#STATE"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
           "pk": {
             "S": "ROOT#c41253c9-be32-447a-a8b5-554b751797c8"
           },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "cloning": {
+            "M": {
+              "modified_date": {
+                "S": "2021-09-30T21:24:32.081340+00:00"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              }
+            }
+          },
+          "state": {
+            "M": {
+              "branch": {
+                "S": "main"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "gitignore": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2021-09-30T21:24:32.081394+00:00"
+              },
+              "nickname": {
+                "S": "namespace2"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/namespace2-afef3c94f3d74cfa8a727f52c9a0628b.git"
+              }
+            }
+          },
           "type": {
             "S": "Git"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "pk": {
-            "S": "ROOT#c41253c9-be32-447a-a8b5-554b751797c8#CLON"
-          },
-          "modified_date": {
-            "S": "2021-09-30T21:24:32.081340+00:00"
-          },
-          "reason": {
-            "S": "root created"
-          },
-          "status": {
-            "S": "UNKNOWN"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "environment": {
-            "S": "production"
-          },
-          "environment_urls": {
-            "L": []
-          },
-          "modified_date": {
-            "S": "2021-09-30T21:24:32.081394+00:00"
-          },
-          "status": {
-            "S": "ACTIVE"
-          },
-          "includes_health_check": {
-            "BOOL": false
-          },
-          "modified_by": {
-            "S": "unittest@fluidattacks.com"
-          },
-          "url": {
-            "S": "ssh://git@gitlab.com:fluidattacks/namespace2-afef3c94f3d74cfa8a727f52c9a0628b.git"
-          },
-          "gitignore": {
-            "L": []
-          },
-          "nickname": {
-            "S": "namespace2"
-          },
-          "branch": {
-            "S": "main"
-          },
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "git_environment_urls": {
-            "L": []
-          },
-          "pk": {
-            "S": "ROOT#c41253c9-be32-447a-a8b5-554b751797c8#STATE"
           }
         }
       }
