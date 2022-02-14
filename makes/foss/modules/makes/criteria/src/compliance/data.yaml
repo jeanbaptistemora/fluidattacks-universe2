@@ -3411,7 +3411,7 @@
       title: Incident Response Plan
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
-"027":
+"mitre":
   title: MITRE ATT&CK® - Enterprise Mitigations
   en:
     description: >
