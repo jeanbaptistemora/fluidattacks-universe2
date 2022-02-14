@@ -63,17 +63,17 @@ async def process_root(root_id: str, items: List[Dict[str, Any]]) -> None:
     metadata = historics.get_metadata(
         item_id=root_id, key_structure=key_structure, raw_items=items
     )
-    state = historics.get_latest(
-        item_id=root_id,
-        key_structure=key_structure,
-        historic_suffix="STATE",
-        raw_items=items,
-    )
     root_key = PrimaryKey(
         partition_key=metadata["pk"], sort_key=metadata["sk"]
     )
 
     if metadata.get("state") is None:
+        state = historics.get_latest(
+            item_id=root_id,
+            key_structure=key_structure,
+            historic_suffix="STATE",
+            raw_items=items,
+        )
         with suppress(ConditionalCheckFailedException):
             await operations.update_item(
                 condition_expression=(Attr("state").not_exists()),
@@ -105,13 +105,13 @@ async def process_group(group_name: str, progress: float) -> None:
             & Key("pk").begins_with("ROOT#")
         ),
         facets=(
-            TABLE.facets["git_root_cloning"],
+            TABLE.facets["git_root_historic_cloning"],
             TABLE.facets["git_root_metadata"],
-            TABLE.facets["git_root_state"],
+            TABLE.facets["git_root_historic_state"],
             TABLE.facets["ip_root_metadata"],
-            TABLE.facets["ip_root_state"],
+            TABLE.facets["ip_root_historic_state"],
             TABLE.facets["url_root_metadata"],
-            TABLE.facets["url_root_state"],
+            TABLE.facets["url_root_historic_state"],
         ),
         index=index,
         table=TABLE,
