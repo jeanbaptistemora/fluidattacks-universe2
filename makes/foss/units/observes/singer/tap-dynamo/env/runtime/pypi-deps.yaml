@@ -1,6 +1,6 @@
 click: "^8.0.3"
 boto3: "^1.20.16"
-returns: "0.16.0"
+pathos: "^0.2.8"
 simplejson: "^3.17.6"
 fa_purity: "^1.1.2"
 mypy-boto3-dynamodb: "^1.20.49"
