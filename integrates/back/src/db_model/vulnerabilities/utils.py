@@ -131,9 +131,7 @@ def format_unreliable_indicators(
         else int(item["unreliable_reattack_cycles"]),
         unreliable_report_date=item["unreliable_report_date"],
         unreliable_source=Source[item["unreliable_source"]],
-        unreliable_treatment_changes=None
-        if item.get("unreliable_treatment_changes", None) is None
-        else int(item["unreliable_treatment_changes"]),
+        unreliable_treatment_changes=int(item["unreliable_treatment_changes"]),
     )
 
 

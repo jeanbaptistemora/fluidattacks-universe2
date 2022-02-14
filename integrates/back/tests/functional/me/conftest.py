@@ -163,6 +163,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_report_date="2018-04-08T00:45:13+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
                     ),
                     where="192.168.1.20",
                 ),
@@ -192,6 +193,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=1,
                     ),
                     where="192.168.1.1",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -222,6 +224,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_report_date="2018-04-08T00:45:15+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=1,
                     ),
                     where="192.168.1.2",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -254,6 +257,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_report_date="2018-04-08T00:45:16+00:00",
                         unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=1,
                     ),
                     where="192.168.1.3",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
