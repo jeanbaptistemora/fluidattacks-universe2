@@ -103,16 +103,13 @@ def _get_attacked_lines(
     toe_lines: ToeLines,
     new_attacked_at: Optional[datetime],
 ) -> int:
-    if new_attacked_at == toe_lines.attacked_at:
-        attacked_lines = toe_lines.attacked_lines
-    else:
-        attacked_lines = (
-            new_attacked_lines
-            if new_attacked_at
-            and toe_lines.modified_date
-            and toe_lines.modified_date <= new_attacked_at
-            else 0
-        )
+    attacked_lines = (
+        new_attacked_lines
+        if new_attacked_at
+        and toe_lines.modified_date
+        and toe_lines.modified_date <= new_attacked_at
+        else 0
+    )
     if attacked_lines > toe_lines.loc:
         attacked_lines = toe_lines.loc
     return attacked_lines
