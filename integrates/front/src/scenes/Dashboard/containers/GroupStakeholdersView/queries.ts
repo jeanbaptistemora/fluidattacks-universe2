@@ -32,7 +32,7 @@ const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
 const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderMutation(
     $email: String!
-    $groupName: String
+    $groupName: String!
     $responsibility: String
     $role: StakeholderRole!
   ) {
