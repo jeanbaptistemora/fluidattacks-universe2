@@ -31,7 +31,48 @@ from dynamodb.types import (
 from typing import (
     cast,
     Optional,
+    Tuple,
 )
+
+
+def filter_non_deleted(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.state.status != VulnerabilityStateStatus.DELETED
+    )
+
+
+def filter_non_zero_risk(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if not vuln.zero_risk
+        or vuln.zero_risk.status
+        not in (
+            VulnerabilityZeroRiskStatus.CONFIRMED,
+            VulnerabilityZeroRiskStatus.REQUESTED,
+        )
+    )
+
+
+def filter_zero_risk(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.zero_risk
+        and vuln.zero_risk.status
+        in (
+            VulnerabilityZeroRiskStatus.CONFIRMED,
+            VulnerabilityZeroRiskStatus.REQUESTED,
+        )
+    )
 
 
 def format_vulnerability(item: Item) -> Vulnerability:

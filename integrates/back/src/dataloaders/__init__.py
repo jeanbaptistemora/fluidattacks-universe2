@@ -1,15 +1,6 @@
 from .event import (
     EventLoader,
 )
-from .finding_vulns_non_deleted import (
-    FindingVulnsNonDeletedTypedLoader,
-)
-from .finding_vulns_non_zero_risk import (
-    FindingVulnsNonZeroRiskTypedLoader,
-)
-from .finding_vulns_only_zero_risk import (
-    FindingVulnsOnlyZeroRiskTypedLoader,
-)
 from .group import (
     GroupLoader,
 )
@@ -62,6 +53,9 @@ from db_model.toe_lines.get import (
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
     FindingVulnsNewLoader,
+    FindingVulnsNonDeletedTypedLoader,
+    FindingVulnsNonZeroRiskTypedLoader,
+    FindingVulnsOnlyZeroRiskTypedLoader,
     RootVulnsNewLoader,
     VulnHistoricStateNewLoader,
     VulnHistoricTreatmentNewLoader,

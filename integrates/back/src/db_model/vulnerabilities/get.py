@@ -6,6 +6,9 @@ from .types import (
     VulnerabilityZeroRisk,
 )
 from .utils import (
+    filter_non_deleted,
+    filter_non_zero_risk,
+    filter_zero_risk,
     format_state,
     format_treatment,
     format_verification,
@@ -35,7 +38,11 @@ from dynamodb import (
     keys,
     operations,
 )
+from itertools import (
+    chain,
+)
 from typing import (
+    List,
     Tuple,
 )
 
@@ -213,13 +220,16 @@ async def _get_assigned_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
-class RootVulnsNewLoader(DataLoader):
+class AssignedVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
+        self, emails: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
         return await collect(
-            _get_root_vulnerabilities(root_id=id) for id in ids
+            tuple(
+                _get_assigned_vulnerabilities(user_email=user_email)
+                for user_email in emails
+            )
         )
 
 
@@ -239,6 +249,79 @@ class FindingVulnsNewLoader(DataLoader):
             for vuln in finding_vulns:
                 self.dataloader.prime(vuln.id, vuln)
         return vulns
+
+
+class FindingVulnsNonDeletedTypedLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    def clear(self, key: str) -> DataLoader:
+        self.dataloader.clear(key)
+        return super().clear(key)
+
+    async def load_many_chained(
+        self, finding_ids: List[str]
+    ) -> Tuple[Vulnerability, ...]:
+        unchained_data = await self.load_many(finding_ids)
+        return tuple(chain.from_iterable(unchained_data))
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        findings_vulns = await self.dataloader.load_many(finding_ids)
+        return tuple(
+            filter_non_deleted(finding_vulns)
+            for finding_vulns in findings_vulns
+        )
+
+
+class FindingVulnsNonZeroRiskTypedLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    async def load_many_chained(
+        self, finding_ids: List[str]
+    ) -> Tuple[Vulnerability, ...]:
+        unchained_data = await self.load_many(finding_ids)
+        return tuple(chain.from_iterable(unchained_data))
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        findings_vulns = await self.dataloader.load_many(finding_ids)
+        return tuple(
+            filter_non_zero_risk(finding_vulns)
+            for finding_vulns in findings_vulns
+        )
+
+
+class FindingVulnsOnlyZeroRiskTypedLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding_ids: List[str]
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        findings_vulns = await self.dataloader.load_many(finding_ids)
+        return tuple(
+            filter_zero_risk(finding_vulns) for finding_vulns in findings_vulns
+        )
+
+
+class RootVulnsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, ids: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await collect(
+            _get_root_vulnerabilities(root_id=id) for id in ids
+        )
 
 
 class VulnNewLoader(DataLoader):
@@ -290,17 +373,4 @@ class VulnHistoricZeroRiskNewLoader(DataLoader):
     ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
             tuple(_get_historic_zero_risk(vulnerability_id=id) for id in ids)
-        )
-
-
-class AssignedVulnerabilitiesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(
-        self, emails: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
-        return await collect(
-            tuple(
-                _get_assigned_vulnerabilities(user_email=user_email)
-                for user_email in emails
-            )
         )
