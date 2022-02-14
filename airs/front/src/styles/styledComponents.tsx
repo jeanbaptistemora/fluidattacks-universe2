@@ -956,7 +956,7 @@ const NewRegularRedButton: StyledComponent<
     f5
     dib
     t-all-3-eio
-    br2
+    br3
     bc-fluid-red
     ba
     roboto
