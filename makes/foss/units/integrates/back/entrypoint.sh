@@ -15,6 +15,8 @@ function serve {
     --bind "${HOST}:${PORT}"
     # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
     --forwarded-allow-ips '*'
+    # Workers silent for more than this many seconds are killed and restarted. [30]
+    --timeout '60'
     # The type of workers to use. [sync]
     --worker-class 'settings.uvicorn.IntegratesWorker'
   )
