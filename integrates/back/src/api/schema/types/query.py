@@ -16,6 +16,7 @@ from api.resolvers.query import (
     organization_id,
     report,
     resources,
+    root,
     stakeholder,
     tag,
     vulnerabilities_to_reattack,
@@ -40,6 +41,7 @@ QUERY.set_field("organization", organization.resolve)
 QUERY.set_field("organizationId", organization_id.resolve)
 QUERY.set_field("report", report.resolve)
 QUERY.set_field("resources", resources.resolve)
+QUERY.set_field("root", root.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
 QUERY.set_field("vulnerability", vulnerability.resolve)

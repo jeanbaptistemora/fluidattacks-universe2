@@ -104,6 +104,14 @@ type Query {
     groupName: String
   ): Resource
 
+  "Get a root, can be Git, IP or URL"
+  root(
+    "Name of the group"
+    groupName: String!
+    "Identifier of the root"
+    rootId: ID!
+  ): Root!
+
   "Get user info from group"
   stakeholder(
     "Entity to which the user belongs to"
