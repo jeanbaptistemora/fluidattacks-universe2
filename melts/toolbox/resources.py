@@ -161,18 +161,18 @@ def has_vpn(code: Dict[str, str], subs: str) -> None:
 @contextmanager
 def setup_ssh_key() -> Iterator[str]:
     try:
-        credentials = utils.generic.get_sops_secret(
+        if credentials := utils.generic.get_sops_secret(
             "repo_key", "../config/secrets-prod.yaml", "continuous-admin"
-        )
-        key = base64.b64decode(credentials).decode("utf-8")
+        ):
+            key = base64.b64decode(credentials).decode("utf-8")
 
-        with tempfile.NamedTemporaryFile(delete=False) as keyfile:
-            os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
-            keyfile.write(key.encode())
+            with tempfile.NamedTemporaryFile(delete=False) as keyfile:
+                os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
+                keyfile.write(key.encode())
 
-        os.chmod(keyfile.name, stat.S_IREAD)
+            os.chmod(keyfile.name, stat.S_IREAD)
 
-        yield keyfile.name
+            yield keyfile.name
     finally:
         cmd_execute(
             [
@@ -191,8 +191,8 @@ def repo_url(baseurl: str) -> str:
         "repo_user_2",
         "repo_pass_2",
     ]:
-        repo_user = ""
-        repo_pass = ""
+        repo_user: Optional[str] = ""
+        repo_pass: Optional[str] = ""
         with open("../config/secrets-prod.yaml", encoding="utf8") as secrets:
             if f"{user}:" in secrets.read():
                 repo_user = utils.generic.get_sops_secret(
@@ -205,17 +205,38 @@ def repo_url(baseurl: str) -> str:
                     "../config/secrets-prod.yaml",
                     "continuous-admin",
                 )
-                repo_user = urllib.parse.quote_plus(repo_user)
-                repo_pass = urllib.parse.quote_plus(repo_pass)
-        uri = baseurl.replace("<user>", repo_user)
-        uri = uri.replace("<pass>", repo_pass)
-        # check if the user has permissions in the repo
-        remote = ls_remote(uri)
-        if remote.get("ok"):
-            return uri
-        error = remote["error"]["message"]
+                if repo_user and repo_pass:
+                    repo_user = urllib.parse.quote_plus(repo_user)
+                    repo_pass = urllib.parse.quote_plus(repo_pass)
+                    uri = baseurl.replace("<user>", repo_user)
+                    uri = uri.replace("<pass>", repo_pass)
+                    # check if the user has permissions in the repo
+                    remote = ls_remote(uri)
+                    if remote.get("ok"):
+                        return uri
+                    error = remote["error"]["message"]
 
     return error
+
+
+def _ssh_ls_remote(git_root: Dict[str, str]) -> Optional[str]:
+    baseurl = git_root["url"]
+    if "source.developers.google" not in baseurl:
+        baseurl = baseurl.replace("ssh://", "")
+
+    branch = urllib.parse.unquote(git_root["branch"])
+
+    with setup_ssh_key() as keyfile:
+        command_ls = [
+            "ssh-agent",
+            "sh",
+            "-c",
+            f"ssh-add {shq(keyfile)}; git ls-remote {shq(baseurl)} {branch}",
+        ]
+        cmd = cmd_execute(command_ls)
+        if len(cmd[0]) >= 0:
+            return cmd[0].split("\t")[0]
+    return None
 
 
 def _ssh_repo_cloning(
@@ -298,6 +319,15 @@ def _ssh_repo_cloning(
     return problem
 
 
+def _http_ls_remote(_repo_url: str, git_root: Dict[str, Any]) -> Optional[str]:
+    branch = git_root["branch"]
+    command_ls = ["git", "ls-remote", shq(_repo_url), branch]
+    cmd = cmd_execute(command_ls)
+    if len(cmd[0]) >= 0:
+        return cmd[0].split("\t")[0]
+    return None
+
+
 def _http_repo_cloning(
     group_name: str,
     git_root: Dict[str, str],
@@ -361,6 +391,45 @@ def _http_repo_cloning(
     return problem
 
 
+def action(
+    git_root: Dict[str, Any],
+    group_name: str,
+    progress_bar: Any,
+) -> Optional[Dict[str, Any]]:
+    repo_type = "ssh" if git_root["url"].startswith("ssh") else "https"
+    problem: Optional[Dict[str, str]] = None
+
+    # check if current repo is active
+    if git_root.get("state", "") != "ACTIVE":
+        return None
+
+    current_commit = git_root["cloningStatus"]["commit"]
+    if repo_type == "ssh":
+        last_commit = _ssh_ls_remote(git_root)
+        if last_commit == current_commit:
+            LOGGER.info(
+                "the las version of %s has already in s3",
+                git_root["nickname"],
+            )
+        else:
+            problem = _ssh_repo_cloning(group_name, git_root)
+    else:
+        baseurl = repo_url(git_root["url"])
+        if "fatal" not in baseurl:
+            last_commit = _http_ls_remote(baseurl, git_root)
+            if last_commit == current_commit:
+                LOGGER.info(
+                    "the las version of %s has already in s3",
+                    git_root["nickname"],
+                )
+            else:
+                problem = _http_repo_cloning(group_name, git_root)
+    if problem:
+        return problem
+    progress_bar()
+    return None
+
+
 def repo_cloning(subs: str, repo_name: str) -> bool:
     """cloning or updated a repository"""
 
@@ -395,33 +464,18 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
             if root.get("state", "") == "ACTIVE"
             and root["nickname"] == repo_name
         )
-        if not repositories:
-            LOGGER.error("There is no %s repository in %s", repo_name, subs)
-            return False
+    if not repositories:
+        LOGGER.error("There is no %s repository in %s", repo_name, subs)
+        return False
 
     utils.generic.aws_login("continuous-admin")
 
     with alive_bar(len(repositories), enrich_print=False) as progress_bar:
-
-        def action(git_root: Dict[str, str]) -> None:
-            repo_type = "ssh" if git_root["url"].startswith("ssh") else "https"
-            problem: Optional[Dict[str, str]] = None
-
-            # check if current repo is active
-            if git_root.get("state", "") != "ACTIVE":
-                return
-
-            if repo_type == "ssh":
-                problem = _ssh_repo_cloning(subs, git_root)
-            else:
-                problem = _http_repo_cloning(subs, git_root)
-            if problem:
-                problems.append(problem)
-            else:
-                progress_bar()  # pylint: disable=not-callable
-
         with ThreadPool(processes=cpu_count()) as worker:
-            worker.map(action, repositories)
+            _problems = worker.map(
+                lambda x: action(x, subs, progress_bar), repositories
+            )
+            problems.extend((problem for problem in _problems if problem))
 
     if problems:
         LOGGER.error("Some problems occured: \n")
