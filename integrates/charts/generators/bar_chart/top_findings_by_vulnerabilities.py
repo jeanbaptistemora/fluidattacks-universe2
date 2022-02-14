@@ -47,7 +47,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
     finding_ids = [finding.id for finding in group_findings]
     finding_vulns: Tuple[
         Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
+    ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     counter = Counter(
         [
             f"{finding.id}/{finding.title}"

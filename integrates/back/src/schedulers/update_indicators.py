@@ -236,7 +236,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_exposed_cvsff = OrderedDict()
 
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    vulns = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -385,7 +385,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     all_registers_exposed_cvsff = OrderedDict()
 
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    vulns_nzr = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    vulns_nzr = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {

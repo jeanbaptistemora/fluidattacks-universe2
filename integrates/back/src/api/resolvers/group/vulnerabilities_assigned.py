@@ -33,11 +33,11 @@ async def resolve(
     findings: Tuple[
         Finding, ...
     ] = await info.context.loaders.group_findings.load(group_name)
+    finding_ids = [finding.id for finding in findings]
+    vulns_nzr_loader = info.context.loaders.finding_vulnerabilities_nzr
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await info.context.loaders.finding_vulns_nzr_typed.load_many_chained(
-        finding.id for finding in findings
-    )
+    ] = await vulns_nzr_loader.load_many_chained(finding_ids)
 
     return tuple(
         vulnerability

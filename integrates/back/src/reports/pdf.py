@@ -151,7 +151,7 @@ async def format_finding(
     )
     severity_score = findings_domain.get_severity_score(finding.severity)
 
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulnerabilities = await finding_vulns_loader.load(finding.id)
     treatments: Treatments = vulns_domain.get_treatments_count(vulnerabilities)
     formated_treatments: List[str] = []

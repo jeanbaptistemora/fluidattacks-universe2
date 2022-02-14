@@ -433,7 +433,7 @@ async def get_open_vulnerabilities_specific_by_type(
 ) -> Dict[str, Tuple[Vulnerability, ...]]:
     vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
     ports_vulns = tuple(
         vuln
@@ -482,7 +482,9 @@ async def get_vulnerabilities_by_type(
     loaders: Any, finding_id: str
 ) -> Dict[str, List[Dict[str, str]]]:
     """Get vulnerabilities group by type."""
-    vulnerabilities = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    vulnerabilities = await loaders.finding_vulnerabilities_nzr.load(
+        finding_id
+    )
     vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
         vulnerabilities
     )

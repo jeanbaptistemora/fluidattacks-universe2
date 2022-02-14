@@ -275,7 +275,7 @@ async def get_closed_vulnerabilities(
     loaders: Any,
     finding_id: str,
 ) -> int:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -283,7 +283,7 @@ async def get_closed_vulnerabilities(
 
 
 async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -300,7 +300,7 @@ async def get_last_closed_vulnerability_info(
     findings: Tuple[Finding, ...],
 ) -> Tuple[Decimal, Optional[Vulnerability]]:
     """Get days since the last closed vulnerability."""
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
     ]
@@ -362,7 +362,7 @@ async def get_max_open_severity(
 async def get_newest_vulnerability_report_date(
     loaders: Any, finding_id: str
 ) -> str:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -374,7 +374,7 @@ async def get_newest_vulnerability_report_date(
 
 @newrelic.agent.function_trace()
 async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -427,7 +427,7 @@ def get_severity_score(
 
 @newrelic.agent.function_trace()
 async def get_status(loaders: Any, finding_id: str) -> str:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -442,7 +442,7 @@ async def get_total_treatment(
     findings: Tuple[Finding, ...],
 ) -> Dict[str, int]:
     """Get the total vulnerability treatment of all the findings."""
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     non_deleted_findings = tuple(
         finding for finding in findings if not is_deleted(finding)
     )
@@ -508,7 +508,7 @@ async def get_treatment_summary(
     loaders: Any,
     finding_id: str,
 ) -> Treatments:
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulnerabilities = await finding_vulns_loader.load(finding_id)
     open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
     return vulns_domain.get_treatments_count(open_vulnerabilities)
@@ -517,7 +517,7 @@ async def get_treatment_summary(
 async def _get_wheres(
     loaders: Any, finding_id: str, limit: Optional[int] = None
 ) -> List[str]:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     finding_vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -853,7 +853,7 @@ async def get_oldest_no_treatment(
     findings: Tuple[Finding, ...],
 ) -> Optional[Dict[str, str]]:
     """Get the finding with oldest "no treatment" vulnerability."""
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulns = await finding_vulns_loader.load_many_chained(
         [finding.id for finding in findings]
     )
@@ -889,7 +889,7 @@ async def get_oldest_open_vulnerability_report_date(
     loaders: Any,
     finding_id: str,
 ) -> str:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -905,7 +905,7 @@ async def get_oldest_vulnerability_report_date(
     loaders: Any,
     finding_id: str,
 ) -> str:
-    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
@@ -919,7 +919,7 @@ async def get_vulnerabilities_to_reattack(
     loaders: Any,
     finding_id: str,
 ) -> Tuple[Vulnerability, ...]:
-    finding_vulns = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    finding_vulns = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     return vulns_utils.filter_open_vulns(
         vulns_utils.filter_remediated(finding_vulns)
     )

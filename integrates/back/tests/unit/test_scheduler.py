@@ -88,7 +88,7 @@ async def test_get_status_vulns_by_time_range() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
-    vulns = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -153,8 +153,10 @@ async def test_get_accepted_vulns() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
-    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
-        [finding.id for finding in findings]
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
     findings_severity: Dict[str, Decimal] = {
         finding.id: get_severity_score(finding.severity)
@@ -272,8 +274,10 @@ async def test_get_group_indicators() -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilties = await loaders.finding_vulns_nzr_typed.load_many_chained(
-        [finding.id for finding in findings]
+    vulnerabilties = (
+        await loaders.finding_vulnerabilities_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
     test_data = await update_indicators.get_group_indicators(group_name)
     over_time = [

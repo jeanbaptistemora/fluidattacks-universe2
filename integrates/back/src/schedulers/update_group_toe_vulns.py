@@ -184,7 +184,9 @@ async def process_group(group_name: str) -> None:
         [
             vuln
             for finding in findings
-            for vuln in await loaders.finding_vulns_nzr_typed.load(finding.id)
+            for vuln in await loaders.finding_vulnerabilities_nzr.load(
+                finding.id
+            )
             if vuln.state.status
             in {
                 VulnerabilityStateStatus.OPEN,

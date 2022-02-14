@@ -18,7 +18,7 @@ from typing import (
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Vulnerability]:
-    finding_vulns_loader = info.context.loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = info.context.loaders.finding_vulnerabilities_nzr
     return [
         vuln
         for vuln in await finding_vulns_loader.load(parent.id)

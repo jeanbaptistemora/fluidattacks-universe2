@@ -386,7 +386,7 @@ async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
 ) -> bool:
     vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load(finding_id)
+    ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     changes = list(
         filter(None, [get_treatment_change(vuln, min_date) for vuln in vulns])
     )

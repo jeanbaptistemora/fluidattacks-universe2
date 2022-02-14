@@ -55,7 +55,7 @@ async def get_data_one_group(
     finding_ids = [finding.id for finding in findings]
     findings_vulns: Tuple[
         Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
+    ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     findings_cvssf = [
         utils.get_cvssf(get_severity_score(finding.severity))
         for finding in findings

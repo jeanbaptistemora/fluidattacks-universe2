@@ -128,8 +128,10 @@ async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     current_rolling_week = datetime.now(tz=timezone.utc)
     previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    vulnerabilities = await loaders.finding_vulns_nzr_typed.load_many_chained(
-        finding_ids
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_nzr.load_many_chained(
+            finding_ids
+        )
     )
 
     total_previous_open, total_previous_closed = await get_totals_by_week(

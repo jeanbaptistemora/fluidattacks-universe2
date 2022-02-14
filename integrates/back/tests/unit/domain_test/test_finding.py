@@ -63,7 +63,7 @@ pytestmark = [
 
 async def test_get_tracking_vulnerabilities() -> None:
     loaders: Dataloaders = get_new_context()
-    finding_vulns_loader = loaders.finding_vulns_nzr_typed
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     historic_state_loader = loaders.vulnerability_historic_state
     historic_treatment_loader = loaders.vulnerability_historic_treatment
 

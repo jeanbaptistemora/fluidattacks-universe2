@@ -69,7 +69,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
         for finding in group_findings
     ]
 
-    finding_vulns_loader = context.finding_vulns_nzr_typed
+    finding_vulns_loader = context.finding_vulnerabilities_nzr
     finding_vulns: Tuple[
         Tuple[Vulnerability, ...], ...
     ] = await finding_vulns_loader.load_many(finding_ids)

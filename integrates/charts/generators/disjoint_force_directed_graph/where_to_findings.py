@@ -49,7 +49,7 @@ async def generate_one(group: str) -> dict:
     for finding_id, finding_title, finding_cvss in group_findings_data:
         finding_vulns: Tuple[
             Vulnerability, ...
-        ] = await context.finding_vulns_nzr_typed.load(finding_id)
+        ] = await context.finding_vulnerabilities_nzr.load(finding_id)
         for vulnerability in finding_vulns:
             source = utils.get_vulnerability_source(vulnerability)
             target = f"{finding_title} {source}"

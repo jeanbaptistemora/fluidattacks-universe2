@@ -114,8 +114,10 @@ class ITReport:
     async def _get_findings_vulnerabilities(
         self, findings_ids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
-        return await self.loaders.finding_vulns_nzr_typed.load_many_chained(
-            findings_ids
+        return (
+            await self.loaders.finding_vulnerabilities_nzr.load_many_chained(
+                findings_ids
+            )
         )
 
     async def _get_findings_historics_verifications(

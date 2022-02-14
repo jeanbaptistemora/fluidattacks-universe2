@@ -66,7 +66,7 @@ async def get_data(group: str) -> FindingsTags:
 
     vulnerabilities: Tuple[
         Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many(finding_ids)
+    ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
 
     findings_data = await collect(
         [

@@ -80,8 +80,8 @@ class Dataloaders(NamedTuple):
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulnerabilities: FindingVulnerabilitiesNonDeletedLoader
     finding_vulnerabilities_all: FindingVulnerabilitiesLoader
-    finding_vulns_nzr_typed: FindingVulnerabilitiesNonZeroRiskLoader
-    finding_vulns_zr_typed: FindingVulnerabilitiesOnlyZeroRiskLoader
+    finding_vulnerabilities_nzr: FindingVulnerabilitiesNonZeroRiskLoader
+    finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
     group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
@@ -135,11 +135,15 @@ def get_new_context() -> Dataloaders:
     finding_vulns_non_deleted_typed_loader = (
         FindingVulnerabilitiesNonDeletedLoader(finding_vulnerabilities_loader)
     )
-    finding_vulns_nzr_typed_loader = FindingVulnerabilitiesNonZeroRiskLoader(
-        finding_vulns_non_deleted_typed_loader
+    finding_vulnerabilities_nzr_loader = (
+        FindingVulnerabilitiesNonZeroRiskLoader(
+            finding_vulns_non_deleted_typed_loader
+        )
     )
-    finding_vulns_zr_typed_loader = FindingVulnerabilitiesOnlyZeroRiskLoader(
-        finding_vulns_non_deleted_typed_loader
+    finding_vulnerabilities_zr_loader = (
+        FindingVulnerabilitiesOnlyZeroRiskLoader(
+            finding_vulns_non_deleted_typed_loader
+        )
     )
 
     return Dataloaders(
@@ -150,8 +154,8 @@ def get_new_context() -> Dataloaders:
         finding=FindingLoader(),
         finding_vulnerabilities=finding_vulns_non_deleted_typed_loader,
         finding_vulnerabilities_all=finding_vulnerabilities_loader,
-        finding_vulns_nzr_typed=finding_vulns_nzr_typed_loader,
-        finding_vulns_zr_typed=finding_vulns_zr_typed_loader,
+        finding_vulnerabilities_nzr=finding_vulnerabilities_nzr_loader,
+        finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
         group=GroupLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),

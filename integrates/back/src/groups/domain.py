@@ -1011,7 +1011,7 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     )
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
@@ -1060,7 +1060,7 @@ async def get_vulnerabilities_with_pending_attacks(
     )
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     return len(
@@ -1268,7 +1268,7 @@ async def get_open_vulnerabilities(
     )
     findings_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
@@ -1616,7 +1616,9 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
 
     group_vulns: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulns_nzr_typed.load_many_chained(findings_ids)
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        findings_ids
+    )
 
     if len(group_vulns) == 0:
         LOGGER_CONSOLE.info(f"NO vulns at {group_name}", **NOEXTRA)
