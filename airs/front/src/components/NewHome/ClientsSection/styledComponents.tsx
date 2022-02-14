@@ -1,24 +1,16 @@
-import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-const Container: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const Container = styled.div.attrs({
   className: `
     h-500
     bg-darker-blue
     center
     flex
     flex-wrap
-    items-center
   `,
 })``;
 
-const ClientsContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const ClientsContainer = styled.div.attrs({
   className: `
     w-100
     mw-1920
@@ -29,21 +21,16 @@ const ClientsContainer: StyledComponent<
   `,
 })``;
 
-const TitleContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const TitleContainer = styled.div.attrs({
   className: `
     w-100
     tc
-    mt4
+    mt5
+    ph-body
   `,
 })``;
 
-const ArrowButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
+const ArrowButton = styled.button.attrs({
   className: `
     bg-fluid-gray
     bn
@@ -54,20 +41,14 @@ const ArrowButton: StyledComponent<
   `,
 })``;
 
-const SlideShow: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const SlideShow = styled.div.attrs({
   className: `
     home-slide-track
     flex
   `,
 })``;
 
-const ArrowContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const ArrowContainer = styled.div.attrs({
   className: `
     bt
     b--light-gray
