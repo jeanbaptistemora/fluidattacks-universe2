@@ -41,4 +41,4 @@ async def add(*, credential: CredentialItem) -> None:
     )
 
     items = (initial_metadata, *historic_state)
-    await operations.batch_write_item(items=items, table=TABLE)
+    await operations.batch_put_item(items=items, table=TABLE)

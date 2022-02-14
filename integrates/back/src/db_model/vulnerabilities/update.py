@@ -239,7 +239,7 @@ async def update_historic(
         }
         for key, entry in zip(new_keys, historic)
     )
-    await operations.batch_write_item(items=new_items, table=TABLE)
+    await operations.batch_put_item(items=new_items, table=TABLE)
     await operations.batch_delete_item(
         keys=tuple(key for key in current_keys if key not in new_keys),
         table=TABLE,

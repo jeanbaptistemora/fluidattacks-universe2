@@ -145,9 +145,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
         verification_items.append(latest_item)
 
     operation_coroutines = [
-        operations.batch_write_item(
-            items=tuple(verification_items), table=TABLE
-        )
+        operations.batch_put_item(items=tuple(verification_items), table=TABLE)
     ]
     verifications_to_remove = [
         current_verification_key
@@ -257,7 +255,7 @@ async def update_state(
             **state_item,
         }
         items.append(submission)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+    await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 
 async def update_unreliable_indicators(

@@ -8,6 +8,9 @@ from aioboto3.dynamodb.table import (
     CustomTableResource,
 )
 import aioextensions
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     ConditionBase,
 )
@@ -36,6 +39,9 @@ from dynamodb.types import (
 )
 from itertools import (
     chain,
+)
+from more_itertools import (
+    chunked,
 )
 import newrelic.agent
 from typing import (
@@ -134,6 +140,7 @@ async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
+
     async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 
@@ -163,7 +170,51 @@ async def batch_delete_item(
 
 
 @newrelic.agent.function_trace()
-async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
+async def batch_get_item(
+    *, keys: Tuple[PrimaryKey, ...], table: Table
+) -> Tuple[Item, ...]:
+    key_structure = table.primary_key
+    items: List[Item] = []
+
+    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
+
+        async def _get_chunk(chunk_keys: List[PrimaryKey]) -> Tuple[Item, ...]:
+            response = await resource.batch_get_item(
+                RequestItems={
+                    table.name: {
+                        "Keys": [
+                            {
+                                key_structure.partition_key: (
+                                    primary_key.partition_key
+                                ),
+                                key_structure.sort_key: primary_key.sort_key,
+                            }
+                            for primary_key in chunk_keys
+                        ]
+                    }
+                },
+            )
+            return response["Responses"][table.name]
+
+        try:
+            items = [
+                item
+                for items_chunk in await collect(
+                    tuple(
+                        _get_chunk(keys_chunk)
+                        for keys_chunk in chunked(keys, 100)
+                    ),
+                )
+                for item in items_chunk
+            ]
+        except ClientError as error:
+            handle_error(error=error)
+
+    return tuple(items)
+
+
+@newrelic.agent.function_trace()
+async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
 

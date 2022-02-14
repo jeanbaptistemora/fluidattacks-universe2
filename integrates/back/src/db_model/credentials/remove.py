@@ -34,7 +34,7 @@ async def remove(*, credential_id: str, group_name: str) -> None:
         table=TABLE,
     )
 
-    await operations.batch_write_item(
+    await operations.batch_put_item(
         items=tuple(
             {
                 **item,

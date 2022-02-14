@@ -142,7 +142,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         )
         items.append(verification)
         items.append(historic_verification)
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+    await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 
 async def add_evidence(

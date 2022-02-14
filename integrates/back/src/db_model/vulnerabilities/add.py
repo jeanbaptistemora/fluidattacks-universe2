@@ -138,4 +138,4 @@ async def add(  # pylint: disable=too-many-locals
         }
         items.append(historic_zero_risk_item)
 
-    await operations.batch_write_item(items=tuple(items), table=TABLE)
+    await operations.batch_put_item(items=tuple(items), table=TABLE)

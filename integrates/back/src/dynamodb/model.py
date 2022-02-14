@@ -172,7 +172,7 @@ async def add_organization_finding_policy(
     )
     items = (initial_metadata, *historic_state)
 
-    await operations.batch_write_item(items=items, table=TABLE)
+    await operations.batch_put_item(items=items, table=TABLE)
 
 
 async def update_organization_finding_policy_state(
@@ -191,7 +191,7 @@ async def update_organization_finding_policy_state(
         latest_facet=TABLE.facets["org_finding_policy_state"],
     )
 
-    await operations.batch_write_item(items=historic, table=TABLE)
+    await operations.batch_put_item(items=historic, table=TABLE)
 
 
 async def create_group_metadata(*, group_metadata: GroupMetadata) -> None:

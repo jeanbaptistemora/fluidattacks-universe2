@@ -56,7 +56,7 @@ async def add(*, root: RootItem) -> None:
         items.append(historic_cloning_item)
     items.append(initial_metadata)
 
-    await operations.batch_write_item(items=items, table=TABLE)
+    await operations.batch_put_item(items=items, table=TABLE)
 
 
 async def add_machine_execution(
@@ -80,7 +80,7 @@ async def add_machine_execution(
         "commit": execution.commit,
     }
     with suppress(botocore.exceptions.ClientError):
-        await operations.batch_write_item(
+        await operations.batch_put_item(
             items=(machine_exectution,), table=TABLE
         )
         return True
