@@ -5,7 +5,7 @@
 }:
 let
   onAws = outputs."/computeOnAwsBatch/observesDynamoTableEtl";
-  onAws2 = outputs."/computeOnAwsBatch/observesDynamoV2TableEtl";
+  onAws2 = outputs."/computeOnAwsBatch/observesDynamoV2Etl";
 in
 makeScript {
   searchPaths = {

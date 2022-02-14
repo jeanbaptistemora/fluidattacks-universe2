@@ -1,11 +1,4 @@
-# pylint: skip-file
 import click
-from fa_purity.maybe import (
-    Maybe,
-)
-from purity.v1 import (
-    JsonFactory,
-)
 from tap_dynamo.auth import (
     Creds,
 )
@@ -16,32 +9,34 @@ from tap_dynamo.extractor import (
     stream_tables,
 )
 from typing import (
-    IO,
+    Any,
     NoReturn,
-    Optional,
 )
+
+pass_creds = click.make_pass_decorator(Creds)
 
 
 @click.command()
-@click.option("--auth", type=click.File("r"), required=True)
-@click.option("--conf", type=click.File("r"), required=False)
-@click.option("--table", type=str, required=False)
-def stream(  # type: ignore[misc]
-    auth: IO[str], conf: Optional[IO[str]], table: Optional[str]
-) -> NoReturn:
-    creds = Creds.from_file(auth)
-    _conf = Maybe.from_optional(conf)
-    tables = _conf.map(
-        lambda c: JsonFactory.load(c)["tables"].to_list_of(str)
-    ).or_else_call(lambda: [Maybe.from_optional(table).unwrap()])
+@click.option(
+    "--tables",
+    type=str,
+    required=True,
+    help="space separated dynamoDB source tables",
+)
+@pass_creds
+def stream(creds: Creds, tables: str) -> NoReturn:  # type: ignore[misc]
     client = new_client(creds)
-    stream_tables(client, tuple(tables)).compute()
+    stream_tables(client, tuple(tables.split())).compute()
 
 
 @click.group()
-def main() -> None:
-    # cli group entrypoint
-    pass
+@click.option("--key-id", type=str, envvar="AWS_ACCESS_KEY_ID")
+@click.option("--secret-id", type=str, envvar="AWS_SECRET_ACCESS_KEY")
+@click.option("--region", type=str, envvar="AWS_DEFAULT_REGION")
+@click.pass_context
+def main(ctx: Any, key_id: str, secret_id: str, region: str) -> None:
+    if "--help" not in click.get_os_args():
+        ctx.obj = Creds(key_id, secret_id, region)
 
 
 main.add_command(stream)

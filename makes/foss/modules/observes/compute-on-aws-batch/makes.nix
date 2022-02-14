@@ -115,9 +115,9 @@ in
       queue = "observes_soon";
     };
 
-    observesDynamoV2TableEtl = sharedConfiguration // {
+    observesDynamoV2Etl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
-      command = [ "m" "f" "/observes/etl/dynamo/v2/table" ];
+      command = [ "m" "f" "/observes/etl/dynamo/v2" ];
       queue = "observes_soon";
     };
 

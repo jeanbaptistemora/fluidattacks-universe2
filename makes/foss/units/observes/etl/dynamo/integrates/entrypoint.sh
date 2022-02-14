@@ -16,7 +16,7 @@ function dynamodb_etl {
     && while read -r table; do
       if test "${table,,}" == "fi_organizations"; then
         echo "[INFO] Submitting (V2): ${table}"
-        __argSendTableETL2__ "${table}" || return 1
+        __argSendTableETL2__ "dynamodb_${table}" "${table}" || return 1
       elif test "${table,,}" != "fi_vulnerabilities" && test "${table,,}" != "integrates_vms"; then
         echo "[INFO] Submitting: ${table}"
         __argSendTableETL__ "${table}" || return 1
