@@ -56,14 +56,15 @@ on the plan you choose.
 - How many Lines of Code (LOC) are
   included within the scope?
 
-We recommend using CLOC (Count
-Lines of Code) to carry on the
+We recommend using Tokei
+to carry on the
 quantification of LOC.
 These are the instructions for
 using this software:
 
-1. Download CLOC at http://cloc.sourceforge.net/
-1. Run CLOC using `$ cloc --csv <code path>`
+1. Download Tokei at https://github.com/XAMPPRocky/tokei
+1. Run Tokei using `$ tokei <code path> --output yaml > LOC.yaml`
+  to get a YAML file
 
 Preferably, access credentials are
 provided (e.g., access credentials
@@ -92,10 +93,11 @@ of a standard user with low-level privileges).
 The Health Check service requires
 the client to provide us with how
 many LOC are developed.
-We recommend using CLOC to carry
+We recommend using Tokei to carry
 on the quantification of LOC.
 These are the instructions for
 using this software:
 
-1. Download CLOC at http://cloc.sourceforge.net/
-1. Run CLOC using `$ cloc --csv <code path>`
+1. Download Tokei at https://github.com/XAMPPRocky/tokei
+1. Run Tokei using `$ tokei <code path> --output yaml > LOC.yaml`
+  to get a YAML file
