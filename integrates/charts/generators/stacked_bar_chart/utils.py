@@ -586,19 +586,27 @@ def get_time_range(
     )
 
 
-def round_percentage(percentages: List[Decimal], last: int) -> List[Decimal]:
+def round_percentage(
+    percentages: List[Decimal], exact_percentages: List[Decimal], last: int
+) -> List[Decimal]:
     sum_percentage = sum(percentages)
     if sum_percentage == Decimal("100.0") or sum_percentage == Decimal("0.0"):
         return percentages
 
     if last < 0:
-        return percentages
+        return round_percentage(
+            percentages, exact_percentages, len(percentages) - 1
+        )
 
     new_percentages = [
-        percentage + Decimal("1.0") if index == last else percentage
+        percentage + Decimal("1.0")
+        if index == last
+        and Decimal(exact_percentages[index] * Decimal("100.0"))
+        >= Decimal("0.5")
+        else percentage
         for index, percentage in enumerate(percentages)
     ]
-    return round_percentage(new_percentages, last - 1)
+    return round_percentage(new_percentages, exact_percentages, last - 1)
 
 
 def get_percentage(values: List[Decimal]) -> List[Decimal]:
@@ -608,7 +616,7 @@ def get_percentage(values: List[Decimal]) -> List[Decimal]:
         )
         for value in values
     ]
-    return round_percentage(percentages, len(percentages) - 1)
+    return round_percentage(percentages, values, len(percentages) - 1)
 
 
 def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:

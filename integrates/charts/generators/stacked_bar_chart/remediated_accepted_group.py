@@ -57,14 +57,17 @@ async def get_data_one_group(group: str) -> Treatment:
     accepted_vulnerabilities: int = treatment.get(
         "acceptedUndefined", 0
     ) + treatment.get("accepted", 0)
+    remaining_open_vulnerabilities: int = (
+        open_vulnerabilities - accepted_vulnerabilities
+    )
 
     return Treatment(
         group_name=group.lower(),
         accepted=treatment.get("accepted", 0),
         accepted_undefined=treatment.get("acceptedUndefined", 0),
-        remaining_open_vulnerabilities=(
-            open_vulnerabilities - accepted_vulnerabilities
-        ),
+        remaining_open_vulnerabilities=remaining_open_vulnerabilities
+        if remaining_open_vulnerabilities >= 0
+        else 0,
         open_vulnerabilities=open_vulnerabilities,
         closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
     )
@@ -89,32 +92,32 @@ def format_percentages(
 ) -> Tuple[Dict[str, str], ...]:
     if not values:
         max_percentage_values = {
-            "Temporarily Accepted": "",
             "Closed": "",
-            "Open": "",
+            "Temporarily Accepted": "",
             "Permanently accepted": "",
+            "Open": "",
         }
         percentage_values = {
-            "Temporarily Accepted": "0.0",
             "Closed": "0.0",
-            "Open": "0.0",
+            "Temporarily Accepted": "0.0",
             "Permanently accepted": "0.0",
+            "Open": "0.0",
         }
 
         return (percentage_values, max_percentage_values)
 
     total_bar: Decimal = (
-        values["Temporarily Accepted"]
-        + values["Closed"]
-        + values["Open"]
+        values["Closed"]
+        + values["Temporarily Accepted"]
         + values["Permanently accepted"]
+        + values["Open"]
     )
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
     raw_percentages: List[Decimal] = [
-        values["Temporarily Accepted"] / total_bar,
         values["Closed"] / total_bar,
-        values["Open"] / total_bar,
+        values["Temporarily Accepted"] / total_bar,
         values["Permanently accepted"] / total_bar,
+        values["Open"] / total_bar,
     ]
     percentages: List[Decimal] = get_percentage(raw_percentages)
     max_percentages = max(percentages) if max(percentages) else ""
@@ -123,17 +126,15 @@ def format_percentages(
     is_third_value_max: bool = percentages[2] == max_percentages
     is_fourth_value_max: bool = percentages[3] == max_percentages
     max_percentage_values = {
-        "Temporarily Accepted": str(percentages[0])
-        if is_first_value_max
-        else "",
-        "Closed": str(percentages[1])
+        "Closed": str(percentages[0]) if is_first_value_max else "",
+        "Temporarily Accepted": str(percentages[1])
         if is_second_value_max and not is_first_value_max
         else "",
-        "Open": str(percentages[2])
+        "Permanently accepted": str(percentages[2])
         if is_third_value_max
         and not (is_first_value_max or is_second_value_max)
         else "",
-        "Permanently accepted": str(percentages[3])
+        "Open": str(percentages[3])
         if is_fourth_value_max
         and not (
             is_first_value_max or is_second_value_max or is_third_value_max
@@ -141,10 +142,10 @@ def format_percentages(
         else "",
     }
     percentage_values = {
-        "Temporarily Accepted": str(percentages[0]),
-        "Closed": str(percentages[1]),
-        "Open": str(percentages[2]),
-        "Permanently accepted": str(percentages[3]),
+        "Closed": str(percentages[0]),
+        "Temporarily Accepted": str(percentages[1]),
+        "Permanently accepted": str(percentages[2]),
+        "Open": str(percentages[3]),
     }
 
     return (percentage_values, max_percentage_values)
@@ -154,10 +155,10 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
     percentage_values = [
         format_percentages(
             {
-                "Temporarily Accepted": Decimal(group.accepted),
                 "Closed": Decimal(group.closed_vulnerabilities),
-                "Open": Decimal(group.remaining_open_vulnerabilities),
+                "Temporarily Accepted": Decimal(group.accepted),
                 "Permanently accepted": Decimal(group.accepted_undefined),
+                "Open": Decimal(group.remaining_open_vulnerabilities),
             }
         )
         for group in data
@@ -218,38 +219,38 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
             ),
         ),
         percentageValues={
-            "Temporarily Accepted": [
-                percentage_value[0]["Temporarily Accepted"]
-                for percentage_value in percentage_values
-            ],
             "Closed": [
                 percentage_value[0]["Closed"]
                 for percentage_value in percentage_values
             ],
-            "Open": [
-                percentage_value[0]["Open"]
+            "Temporarily Accepted": [
+                percentage_value[0]["Temporarily Accepted"]
                 for percentage_value in percentage_values
             ],
             "Permanently accepted": [
                 percentage_value[0]["Permanently accepted"]
                 for percentage_value in percentage_values
             ],
-        },
-        maxPercentageValues={
-            "Temporarily Accepted": [
-                percentage_value[1]["Temporarily Accepted"]
+            "Open": [
+                percentage_value[0]["Open"]
                 for percentage_value in percentage_values
             ],
+        },
+        maxPercentageValues={
             "Closed": [
                 percentage_value[1]["Closed"]
                 for percentage_value in percentage_values
             ],
-            "Open": [
-                percentage_value[1]["Open"]
+            "Temporarily Accepted": [
+                percentage_value[1]["Temporarily Accepted"]
                 for percentage_value in percentage_values
             ],
             "Permanently accepted": [
                 percentage_value[1]["Permanently accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Open": [
+                percentage_value[1]["Open"]
                 for percentage_value in percentage_values
             ],
         },
