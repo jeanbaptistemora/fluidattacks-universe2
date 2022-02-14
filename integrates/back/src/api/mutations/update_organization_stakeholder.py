@@ -1,11 +1,12 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+import authz
 from authz.validations import (
     validate_role_fluid_reqs,
 )
 from custom_exceptions import (
-    UserNotInOrganization,
+    StakeholderNotFound,
 )
 from custom_types import (
     UpdateStakeholderPayload,
@@ -19,6 +20,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -27,14 +30,23 @@ from newutils.utils import (
     map_roles,
 )
 from organizations import (
+    dal as orgs_dal,
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from settings import (
+    LOGGING,
+)
 from typing import (
     Any,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @convert_kwargs_to_snake_case
@@ -56,18 +68,34 @@ async def mutate(
     user_email: str = str(parameters.get("user_email"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
 
+    organization_access = await orgs_dal.get_access_by_url_token(
+        organization_id, user_email
+    )
     # Validate role requirements before changing anything
     validate_role_fluid_reqs(user_email, new_role)
-    if not await orgs_domain.has_user_access(organization_id, user_email):
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} attempted to edit "
-            f"information from a not existent stakeholder {user_email} "
-            f"in organization {organization_name}",
-        )
-        raise UserNotInOrganization()
-
-    success = await orgs_domain.add_user(organization_id, user_email, new_role)
+    if organization_access:
+        invitation = organization_access.get("invitation")
+        if invitation:
+            success = await orgs_domain.update_invited_stakeholder(
+                user_email, invitation, organization_id, new_role
+            )
+            if invitation["is_used"]:
+                await authz.grant_organization_level_role(
+                    user_email, organization_id, new_role
+                )
+        else:
+            # For some users without invitation
+            if await authz.grant_organization_level_role(
+                user_email, organization_id, new_role
+            ):
+                success = True
+            else:
+                LOGGER.error(
+                    "Couldn't update stakeholder role",
+                    extra={"extra": info.context},
+                )
+    else:
+        raise StakeholderNotFound()
 
     if success:
         await redis_del_by_deps(

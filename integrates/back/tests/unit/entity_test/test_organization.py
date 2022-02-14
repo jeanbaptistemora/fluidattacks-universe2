@@ -12,6 +12,7 @@ from context import (
 )
 from custom_exceptions import (
     InvalidOrganization,
+    StakeholderNotFound,
     UserNotInOrganization,
 )
 from dataloaders import (
@@ -138,7 +139,7 @@ async def test_update_organization_stakeholder() -> None:
         )
     }
     result = await _get_result_async(data)
-    exe = UserNotInOrganization()
+    exe = StakeholderNotFound()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 

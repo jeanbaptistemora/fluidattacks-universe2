@@ -494,6 +494,26 @@ async def update(
     return await orgs_dal.update_user(organization_id, user_email, data)
 
 
+async def update_invited_stakeholder(
+    email: str,
+    invitation: Dict[str, Any],
+    organization_id: str,
+    role: str,
+) -> bool:
+    success = False
+    new_invitation = invitation.copy()
+    if validate_role_fluid_reqs(email, role):
+        new_invitation["role"] = role
+        success = await update(
+            organization_id,
+            email,
+            {
+                "invitation": new_invitation,
+            },
+        )
+    return success
+
+
 async def update_pending_deletion_date(
     organization_id: str,
     organization_name: str,
