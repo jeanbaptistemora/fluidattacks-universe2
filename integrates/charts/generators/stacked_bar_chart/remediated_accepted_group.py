@@ -131,12 +131,12 @@ def format_percentages(
         else "",
         "Open": str(percentages[2])
         if is_third_value_max
-        and not (is_first_value_max or is_first_value_max)
+        and not (is_first_value_max or is_second_value_max)
         else "",
         "Permanently accepted": str(percentages[3])
         if is_fourth_value_max
         and not (
-            is_first_value_max or is_first_value_max or is_third_value_max
+            is_first_value_max or is_second_value_max or is_third_value_max
         )
         else "",
     }
@@ -156,7 +156,7 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
             {
                 "Temporarily Accepted": Decimal(group.accepted),
                 "Closed": Decimal(group.closed_vulnerabilities),
-                "Open": Decimal(group.open_vulnerabilities),
+                "Open": Decimal(group.remaining_open_vulnerabilities),
                 "Permanently accepted": Decimal(group.accepted_undefined),
             }
         )
