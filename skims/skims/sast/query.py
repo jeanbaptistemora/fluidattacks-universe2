@@ -1,6 +1,3 @@
-from concurrent.futures.process import (
-    ProcessPoolExecutor,
-)
 from ctx import (
     CTX,
 )
@@ -21,9 +18,6 @@ from sast_symbolic_evaluation.evaluate import (
     get_possible_syntax_steps_for_n_id,
     PossibleSyntaxStepsForFinding,
     PossibleSyntaxStepsForUntrustedNId,
-)
-from symbolic_eval.analyze import (
-    analyze as symbolic_analyze,
 )
 from typing import (
     Dict,
@@ -212,35 +206,11 @@ def _partial_symbolic_analyze(function: partial) -> core_model.Vulnerabilities:
     return function()
 
 
-def analyze_lazy(
-    graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-) -> Iterator[core_model.Vulnerabilities]:
-    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-        for vulnerabilities in executor.map(
-            _partial_symbolic_analyze,
-            (
-                partial(symbolic_analyze, shard, finding)
-                for shard in graph_db.shards
-                if shard.syntax_graph
-            ),
-            chunksize=48,
-        ):
-            yield vulnerabilities
-
-
 def query(
     graph_db: graph_model.GraphDB,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable(query_lazy(graph_db, method)))
-
-
-def analyze(
-    graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-) -> core_model.Vulnerabilities:
-    return tuple(chain.from_iterable(analyze_lazy(graph_db, finding)))
 
 
 def query_f001(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -253,10 +223,6 @@ def query_f004(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 def query_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, method=core_model.MethodsEnum.QUERY_F008)
-
-
-def analyze_f008(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return analyze(graph_db, core_model.FindingEnum.F008)
 
 
 def query_f021(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -286,10 +252,6 @@ def query_f089(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 def query_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
     return query(graph_db, method=core_model.MethodsEnum.QUERY_F100)
-
-
-def analyze_f100(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return analyze(graph_db, core_model.FindingEnum.F100)
 
 
 def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
