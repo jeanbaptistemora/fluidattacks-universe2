@@ -2,6 +2,9 @@ import boto3
 from dataclasses import (
     dataclass,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
 from fa_purity.frozen import (
     FrozenDict,
 )
@@ -50,11 +53,14 @@ class TableClient(_TableClient):
     def __init__(self, obj: _TableClient) -> None:
         super().__init__(obj._raw_client)
 
-    def scan(self, args: ScanArgs) -> FrozenDict[str, Any]:
+    def _scan_action(self, args: ScanArgs) -> FrozenDict[str, Any]:
         # pylint: disable=assignment-from-no-return
         response = self._raw_client.scan(**args.to_dict())
         # TODO: unsafe cast should be removed
         return FrozenDict(cast(Dict[str, Any], response))
+
+    def scan(self, args: ScanArgs) -> Cmd[FrozenDict[str, Any]]:
+        return Cmd.from_cmd(lambda: self._scan_action(args))
 
 
 @dataclass(frozen=True)

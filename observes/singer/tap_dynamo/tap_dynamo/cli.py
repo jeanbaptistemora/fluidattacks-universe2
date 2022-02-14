@@ -1,13 +1,10 @@
 # pylint: skip-file
 import click
+from fa_purity.maybe import (
+    Maybe,
+)
 from purity.v1 import (
     JsonFactory,
-)
-from returns.io import (
-    IO,
-)
-from returns.maybe import (
-    Maybe,
 )
 from tap_dynamo.auth import (
     Creds,
@@ -19,7 +16,8 @@ from tap_dynamo.extractor import (
     stream_tables,
 )
 from typing import (
-    IO as IOFile,
+    IO,
+    NoReturn,
     Optional,
 )
 
@@ -28,16 +26,16 @@ from typing import (
 @click.option("--auth", type=click.File("r"), required=True)
 @click.option("--conf", type=click.File("r"), required=False)
 @click.option("--table", type=str, required=False)
-def stream(
-    auth: IOFile[str], conf: Optional[IOFile[str]], table: Optional[str]
-) -> IO[None]:
+def stream(  # type: ignore[misc]
+    auth: IO[str], conf: Optional[IO[str]], table: Optional[str]
+) -> NoReturn:
     creds = Creds.from_file(auth)
     _conf = Maybe.from_optional(conf)
     tables = _conf.map(
         lambda c: JsonFactory.load(c)["tables"].to_list_of(str)
     ).or_else_call(lambda: [Maybe.from_optional(table).unwrap()])
     client = new_client(creds)
-    return stream_tables(client, tuple(tables))
+    stream_tables(client, tuple(tables)).compute()
 
 
 @click.group()

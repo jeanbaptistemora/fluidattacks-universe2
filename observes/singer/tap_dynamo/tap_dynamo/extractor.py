@@ -1,25 +1,37 @@
-# pylint: skip-file
-from purity.v1 import (
+from fa_purity.cmd import (
+    Cmd,
+    unsafe_unwrap,
+)
+from fa_purity.frozen import (
     FrozenDict,
     FrozenList,
-    JsonFactory,
-    PureIter,
 )
-from purity.v1.pure_iter.factory import (
+from fa_purity.json.factory import (
+    load,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
+)
+from fa_purity.pure_iter.factory import (
     from_flist,
 )
-from purity.v1.pure_iter.transform import (
-    chain,
+from fa_purity.stream.factory import (
+    from_piter,
 )
-from purity.v1.pure_iter.transform.io import (
+from fa_purity.stream.transform import (
+    chain,
     consume,
 )
-from returns.io import (
-    IO,
+from purity.adapters.fa_purity.from_returns import (
+    to_cmd,
+)
+from purity.adapters.fa_purity.to_legacy import (
+    to_jval_v1,
 )
 import simplejson  # type: ignore
 from singer_io.singer2 import (
     SingerEmitter,
+    SingerMessage,
     SingerRecord,
 )
 from tap_dynamo.client import (
@@ -35,7 +47,11 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    TypeVar,
 )
+
+_K = TypeVar("_K")
+_P = TypeVar("_P")
 
 
 class TableSegment(NamedTuple):
@@ -59,7 +75,7 @@ def paginate_table(
     client: Client,
     table_segment: TableSegment,
     ex_start_key: Optional[Any],
-) -> ScanResponse:
+) -> Cmd[ScanResponse]:
     table = client.table(table_segment.table_name)
     scan_args = ScanArgs(
         1000,
@@ -69,7 +85,9 @@ def paginate_table(
         ex_start_key,
     )
     result = table.scan(scan_args)
-    return ScanResponse(t_segment=table_segment, response=result)
+    return result.map(
+        lambda r: ScanResponse(t_segment=table_segment, response=r)
+    )
 
 
 class SetEncoder(simplejson.JSONEncoder):
@@ -101,55 +119,83 @@ def response_to_dpage(scan_response: ScanResponse) -> Optional[PageData]:
         )
 
 
-def extract_until_end(
-    extract: Callable[[Optional[FrozenDict[str, Any]]], Optional[PageData]]
-) -> FrozenList[PageData]:
-    last_key: Optional[FrozenDict[str, Any]] = None
+def _extract_until_end_action(
+    getter: Callable[[Optional[_K]], Cmd[Optional[_P]]],
+    extract_next: Callable[[_P], Optional[_K]],
+) -> FrozenList[_P]:
+    last_key: Optional[_K] = None
     end_reached: bool = False
-    d_pages: List[PageData] = []
+    d_pages: List[_P] = []
     while not end_reached:
-        result: Optional[PageData] = extract(last_key)
+        result: Optional[_P] = unsafe_unwrap(getter(last_key))
         if not result:
             end_reached = True
             continue
 
-        last_key = result.exclusive_start_key
+        last_key = extract_next(result)
         if not last_key:
             end_reached = True
         d_pages.append(result)
     return tuple(d_pages)
 
 
+def extract_until_end(
+    getter: Callable[[Optional[_K]], Cmd[Optional[_P]]],
+    extract_next: Callable[[_P], Optional[_K]],
+) -> Cmd[FrozenList[_P]]:
+    return Cmd.from_cmd(
+        lambda: _extract_until_end_action(getter, extract_next)
+    )
+
+
 def extract_segment(
     db_client: Client, segment: TableSegment
-) -> FrozenList[PageData]:
-    def extract(
+) -> Cmd[FrozenList[PageData]]:
+    def getter(
         last_key: Optional[FrozenDict[str, Any]]
-    ) -> Optional[PageData]:
-        response: ScanResponse = paginate_table(db_client, segment, last_key)
-        return response_to_dpage(response)
+    ) -> Cmd[Optional[PageData]]:
+        response = paginate_table(db_client, segment, last_key)
+        return response.map(response_to_dpage)
 
-    return extract_until_end(extract=extract)
+    def extract(page: PageData) -> Optional[FrozenDict[str, Any]]:
+        return page.exclusive_start_key
+
+    return extract_until_end(getter, extract)
 
 
 def to_singer(page: PageData) -> FrozenList[SingerRecord]:
     with open(page.file.name, encoding="utf-8") as file:
-        data = JsonFactory.load(file)
+        data = load(file).unwrap()
         return tuple(
-            SingerRecord(page.t_segment.table_name, item.to_json())
-            for item in data["Items"].to_list()
+            SingerRecord(
+                page.t_segment.table_name,
+                {
+                    k: to_jval_v1(v)
+                    for k, v in Unfolder(item).to_json().unwrap().items()
+                },
+            )
+            for item in Unfolder(data["Items"]).to_list().unwrap()
         )
 
 
-def stream_tables(client: Client, tables: FrozenList[str]) -> IO[None]:
+def stream_tables(client: Client, tables: FrozenList[str]) -> Cmd[None]:
     # pylint: disable=unnecessary-lambda
     emitter = SingerEmitter()
-    pages: PureIter[PageData] = chain(
-        from_flist(tables)
-        .map(lambda t: extract_segment(client, TableSegment(t, 0, 1)))
+    pages = from_piter(
+        from_flist(tables).map(
+            lambda t: extract_segment(client, TableSegment(t, 0, 1)).map(
+                lambda x: from_flist(x)
+            )
+        )
+    )
+    records = (
+        chain(pages)
+        .map(to_singer)
         .map(lambda x: from_flist(x))
+        .transform(lambda x: chain(x))
     )
-    records: PureIter[SingerRecord] = chain(
-        pages.map(to_singer).map(lambda x: from_flist(x))
-    )
-    return consume(records.map(emitter.emit))
+
+    def emit(msg: SingerMessage) -> Cmd[None]:
+        return to_cmd(lambda: emitter.emit(msg))
+
+    return consume(records.map(emit))
