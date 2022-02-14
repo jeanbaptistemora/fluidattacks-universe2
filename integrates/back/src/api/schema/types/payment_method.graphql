@@ -1,5 +1,5 @@
-"BillingPaymentMethod type definition"
-type BillingPaymentMethod {
+"PaymentMethod type definition"
+type PaymentMethod {
   "Mastercard, Visa, or any other brand"
   brand: String!
   "True if the payment method is default for the customer"

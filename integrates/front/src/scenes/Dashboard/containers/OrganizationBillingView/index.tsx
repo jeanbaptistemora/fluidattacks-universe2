@@ -21,7 +21,7 @@ interface IGetOrganizationBilling {
   organization: {
     billingPortal: string;
     groups: IGroupAttr[];
-    billingPaymentMethods: IPaymentMethodAttr[];
+    paymentMethods: IPaymentMethodAttr[];
   };
 }
 
@@ -60,7 +60,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const groups: IGroupAttr[] =
     data === undefined ? [] : data.organization.groups;
   const paymentMethods: IPaymentMethodAttr[] =
-    data === undefined ? [] : data.organization.billingPaymentMethods;
+    data === undefined ? [] : data.organization.paymentMethods;
 
   return (
     <React.Fragment>

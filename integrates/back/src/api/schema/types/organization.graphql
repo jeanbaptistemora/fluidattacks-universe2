@@ -7,8 +7,6 @@ type Organization {
     "Analytics chart type"
     documentType: String!
   ): GenericScalar
-  "Payment methods belonging to the organization"
-  billingPaymentMethods: [BillingPaymentMethod]
   "Portal URL for managing group tiers"
   billingPortal: String
   "Organization billing prices"
@@ -32,6 +30,8 @@ type Organization {
   minBreakingSeverity: Float!
   "Name of the organization"
   name: String!
+  "Payment methods belonging to the organization"
+  paymentMethods: [PaymentMethod]
   "Permissions of the current user within the organization"
   permissions(
     """Identifier of the entity, if left empty it defaults to the

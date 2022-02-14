@@ -18,7 +18,7 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
           total
         }
       }
-      billingPaymentMethods {
+      paymentMethods {
         id
         brand
         default

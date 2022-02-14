@@ -1032,7 +1032,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             "api_mutations_add_billing_payment_method_mutate",
             "api_mutations_remove_billing_payment_method_mutate",
             "api_mutations_update_billing_default_payment_method_mutate",
-            "api_resolvers_organization_billing_payment_methods_resolve",
+            "api_resolvers_organization_payment_methods_resolve",
             "api_resolvers_organization_billing_portal_resolve",
             "api_resolvers_organization_billing_prices_resolve",
             "grant_organization_level_role:customer_manager",

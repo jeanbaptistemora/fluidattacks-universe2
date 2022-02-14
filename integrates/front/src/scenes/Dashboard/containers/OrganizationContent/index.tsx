@@ -184,11 +184,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
-                <Can
-                  do={
-                    "api_resolvers_organization_billing_payment_methods_resolve"
-                  }
-                >
+                <Can do={"api_resolvers_organization_payment_methods_resolve"}>
                   <ContentTab
                     icon={"icon pe-7s-cash"}
                     id={"billingTab"}
