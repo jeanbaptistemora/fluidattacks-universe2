@@ -2183,7 +2183,7 @@ class MethodsEnum(Enum):
     SYMB_INSEC_CREATE = MethodInfo(
         file_name="c_sharp",
         name="insec_create",
-        module="symbolic_eval",
+        module="lib_root",
         finding=FindingEnum.F100,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.ADVANCE_SAST,

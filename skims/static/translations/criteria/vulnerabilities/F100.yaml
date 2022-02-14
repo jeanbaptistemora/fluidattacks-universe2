@@ -1,0 +1,7 @@
+src.lib_path.f100.insec_create.description:
+  en: >
+    It is possible to induce the application’s server into making requests to
+    an arbitrary domain
+  es: >
+    Es posible inducir al servidor de la aplicación a hacer peticiones a
+    dominios arbitrarios

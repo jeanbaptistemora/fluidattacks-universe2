@@ -5,9 +5,6 @@ from model.core_model import (
 from model.graph_model import (
     GraphShard,
 )
-from symbolic_eval.f100.analyze import (
-    analyze as analyze_f100,
-)
 from symbolic_eval.types import (
     Analyzer,
     MissingAnalizer,
@@ -19,9 +16,7 @@ from utils import (
     logs,
 )
 
-ANALYZERS: Dict[FindingEnum, Analyzer] = {
-    FindingEnum.F100: analyze_f100,
-}
+ANALYZERS: Dict[FindingEnum, Analyzer] = {}
 
 
 def get_analyzer(finding: FindingEnum) -> Analyzer:
