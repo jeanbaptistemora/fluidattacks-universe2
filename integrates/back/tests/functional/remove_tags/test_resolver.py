@@ -25,7 +25,7 @@ async def test_remove_single_tag(populate: bool) -> None:
     tag_to_remove = "tag3"
 
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.tags == ["tag1", "tag2", "tag3"]
 
     result: Dict[str, Any] = await get_result(
@@ -38,8 +38,8 @@ async def test_remove_single_tag(populate: bool) -> None:
     assert "success" in result["data"]["removeTags"]
     assert result["data"]["removeTags"]["success"]
 
-    loaders.vulnerability_typed.clear(vuln_id)
-    vuln = await loaders.vulnerability_typed.load(vuln_id)
+    loaders.vulnerability.clear(vuln_id)
+    vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.tags == ["tag1", "tag2"]
 
 
@@ -67,7 +67,7 @@ async def test_remove_all_tags(populate: bool, email: str) -> None:
     assert result["data"]["removeTags"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.tags is None
 
 

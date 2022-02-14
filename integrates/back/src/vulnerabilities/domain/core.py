@@ -270,7 +270,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     source: Source,
     include_closed_vuln: bool = False,
 ) -> bool:
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
     if (
@@ -790,7 +790,7 @@ async def update_metadata(
     custom_severity: Optional[int],
     tags_to_append: Optional[List[str]],
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
     all_tags = []

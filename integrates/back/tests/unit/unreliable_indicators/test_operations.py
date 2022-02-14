@@ -67,7 +67,7 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         unreliable_where="test/data/lib_path/f060/csharp.cs",
     )
     assert finding.unreliable_indicators == expected_finding_output
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
     expected_vulnerability_output = VulnerabilityUnreliableIndicators(

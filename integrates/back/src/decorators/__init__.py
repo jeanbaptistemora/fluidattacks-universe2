@@ -91,9 +91,7 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
     loaders = context.loaders
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
-        identifier
-    )
+    vulnerability: Vulnerability = await loaders.vulnerability.load(identifier)
     group_name = await _resolve_from_finding_id(
         context, vulnerability.finding_id
     )
@@ -421,9 +419,7 @@ def require_finding_access(func: TVar) -> TVar:
             finding_id = kwargs["identifier"]
         else:
             vulnerability: Vulnerability = (
-                await context.loaders.vulnerability_typed.load(
-                    kwargs["vuln_uuid"]
-                )
+                await context.loaders.vulnerability.load(kwargs["vuln_uuid"])
             )
             finding_id = vulnerability.finding_id
 

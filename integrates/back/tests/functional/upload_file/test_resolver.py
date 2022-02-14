@@ -196,7 +196,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert escaper_vuln.state.source == Source.ESCAPE
     assert escaper_vuln.state.modified_by == "escaper@gmail.com"
 
-    vuln_loader = loaders.vulnerability_typed
+    vuln_loader = loaders.vulnerability
     open_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     vuln_open_verified: Vulnerability = await vuln_loader.load(
         open_verified_id

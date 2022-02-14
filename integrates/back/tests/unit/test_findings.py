@@ -67,7 +67,7 @@ async def test_get_records_from_file() -> None:
 
 async def test_get_reattack_requester() -> None:
     loaders = get_new_context()
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         "3bcdb384-5547-4170-a0b6-3b397a245465"
     )
     requester = await get_reattack_requester(

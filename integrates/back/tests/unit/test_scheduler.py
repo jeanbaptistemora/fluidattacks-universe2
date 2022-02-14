@@ -193,7 +193,7 @@ async def test_get_accepted_vulns() -> None:
 async def test_get_by_time_range() -> None:
     loaders = get_new_context()
     last_day = "2020-09-09 23:59:59"
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
     finding: Finding = await loaders.finding.load(vulnerability.finding_id)

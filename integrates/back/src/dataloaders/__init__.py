@@ -101,10 +101,10 @@ class Dataloaders(NamedTuple):
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
-    root_vulns: RootVulnerabilitiesLoader
+    root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    vulnerability_typed: VulnerabilityLoader
+    vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
     vulnerability_historic_verification: (
@@ -128,9 +128,9 @@ def get_new_context() -> Dataloaders:
         group_drafts_and_findings_loader
     )
 
-    vulnerability_typed = VulnerabilityLoader()
+    vulnerability = VulnerabilityLoader()
     finding_vulnerabilities_loader = FindingVulnerabilitiesLoader(
-        vulnerability_typed
+        vulnerability
     )
     finding_vulns_non_deleted_typed_loader = (
         FindingVulnerabilitiesNonDeletedLoader(finding_vulnerabilities_loader)
@@ -175,10 +175,10 @@ def get_new_context() -> Dataloaders:
         root_states=RootStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_toe_lines=RootToeLinesLoader(),
-        root_vulns=RootVulnerabilitiesLoader(),
+        root_vulnerabilities=RootVulnerabilitiesLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
-        vulnerability_typed=vulnerability_typed,
+        vulnerability=vulnerability,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
         vulnerability_historic_treatment=(
             VulnerabilityHistoricTreatmentLoader()

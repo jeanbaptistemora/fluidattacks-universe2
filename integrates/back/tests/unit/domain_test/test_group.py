@@ -188,7 +188,7 @@ async def test_get_vuln_closing_date() -> None:
     assert test_data == closing_date
 
     loaders: Dataloaders = get_new_context()
-    open_vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    open_vulnerability: Vulnerability = await loaders.vulnerability.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
     test_data = get_closing_date(open_vulnerability)
@@ -256,7 +256,7 @@ async def test_get_vuln_opening_date() -> None:
     assert result_date is None
 
     loaders: Dataloaders = get_new_context()
-    test_open_vuln = await loaders.vulnerability_typed.load(
+    test_open_vuln = await loaders.vulnerability.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
     result_date = get_opening_date(test_open_vuln)

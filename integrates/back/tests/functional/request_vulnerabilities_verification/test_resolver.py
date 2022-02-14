@@ -57,9 +57,7 @@ async def test_request_verification_vuln(
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.verification.status == FindingVerificationStatus.REQUESTED
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
-        vuln_id
-    )
+    vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert (
         vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED

@@ -57,7 +57,7 @@ async def test_request_vulnerabilities_verification(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
 
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert (
         vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED
@@ -76,7 +76,7 @@ async def test_request_vulnerabilities_verification(
     assert finding.verification.status == FindingVerificationStatus.VERIFIED
     assert vuln_id in finding.verification.vulnerability_ids
     assert finding.verification.modified_by == email
-    loaders.vulnerability_typed.clear(vuln_id)
-    vuln = await loaders.vulnerability_typed.load(vuln_id)
+    loaders.vulnerability.clear(vuln_id)
+    vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == new_status
     assert vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED

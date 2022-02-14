@@ -39,7 +39,7 @@ async def test_request_vulnerabilities_zero_risk(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk is None
 
@@ -49,8 +49,8 @@ async def test_request_vulnerabilities_zero_risk(
     assert "errors" not in result
     assert result["data"]["requestVulnerabilitiesZeroRisk"]["success"]
 
-    loaders.vulnerability_typed.clear(vuln_id)
-    vuln = await loaders.vulnerability_typed.load(vuln_id)
+    loaders.vulnerability.clear(vuln_id)
+    vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
 

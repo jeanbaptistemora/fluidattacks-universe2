@@ -88,15 +88,21 @@ async def deactivate_root(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
-    root_vulns: Tuple[Vulnerability, ...] = await loaders.root_vulns.load(
-        root.id
+    root_vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.root_vulnerabilities.load(root.id)
+    root_vulnerabilities_nzr = filter_non_zero_risk(
+        filter_non_deleted(root_vulnerabilities)
     )
-    root_vulns_nzr = filter_non_zero_risk(filter_non_deleted(root_vulns))
     sast_vulns = [
-        vuln for vuln in root_vulns_nzr if vuln.type == VulnerabilityType.LINES
+        vuln
+        for vuln in root_vulnerabilities_nzr
+        if vuln.type == VulnerabilityType.LINES
     ]
     dast_vulns = [
-        vuln for vuln in root_vulns_nzr if vuln.type != VulnerabilityType.LINES
+        vuln
+        for vuln in root_vulnerabilities_nzr
+        if vuln.type != VulnerabilityType.LINES
     ]
 
     await collect(
@@ -106,7 +112,7 @@ async def deactivate_root(
                 modified_by=user_email,
                 source=source,
             )
-            for vuln in root_vulns
+            for vuln in root_vulnerabilities
         )
     )
     await roots_domain.deactivate_root(
@@ -133,8 +139,8 @@ async def deactivate_root(
             )
     await update_unreliable_indicators_by_deps(
         EntityDependency.deactivate_root,
-        finding_ids=list({vuln.finding_id for vuln in root_vulns}),
-        vulnerability_ids=[vuln.id for vuln in root_vulns],
+        finding_ids=list({vuln.finding_id for vuln in root_vulnerabilities}),
+        vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,

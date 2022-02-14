@@ -234,7 +234,7 @@ async def update_vulnerability_unreliable_indicators(
     vulnerability_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability_typed.load(
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
     indicators = {}

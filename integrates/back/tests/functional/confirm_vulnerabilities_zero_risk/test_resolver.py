@@ -34,7 +34,7 @@ async def test_confirm_vulnerabilities_zero_risk(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
 
@@ -44,8 +44,8 @@ async def test_confirm_vulnerabilities_zero_risk(
     assert "errors" not in result
     assert result["data"]["confirmVulnerabilitiesZeroRisk"]["success"]
 
-    loaders.vulnerability_typed.clear(vuln_id)
-    vuln = await loaders.vulnerability_typed.load(vuln_id)
+    loaders.vulnerability.clear(vuln_id)
+    vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.CONFIRMED
 
@@ -65,7 +65,7 @@ async def test_confirm_vulnerabilities_zero_risk_fail(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability_typed.load(vuln_id)
+    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.zero_risk is None
 
     result: Dict[str, Any] = await get_result(
