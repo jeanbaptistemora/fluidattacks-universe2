@@ -5,6 +5,7 @@ from aioextensions import (
     collect,
 )
 from boto3.dynamodb.conditions import (
+    Attr,
     Key,
 )
 from custom_exceptions import (
@@ -167,16 +168,12 @@ async def _get_group_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             TABLE.facets["ip_root_metadata"],
             TABLE.facets["url_root_metadata"],
         ),
+        filter_expression=Attr("type").exists(),
         index=index,
         table=TABLE,
     )
 
-    return tuple(
-        _format_root(item=item)
-        for item in response.items
-        # Needed while we finish the cleanup of old items
-        if len(item["pk"].split("#")) == 2
-    )
+    return tuple(_format_root(item=item) for item in response.items)
 
 
 class GroupRootsLoader(DataLoader):
