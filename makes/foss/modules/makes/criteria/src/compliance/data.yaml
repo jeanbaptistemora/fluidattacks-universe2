@@ -3544,7 +3544,7 @@
       title: User Account Control
       link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
-"028":
+"padss":
   title: PA DSS
   en:
     description: >
