@@ -80,7 +80,7 @@
     - "cmmc.AC_L2-3_1_11"
     - "cmmc.IA_L2-3_5_6"
     - "cmmc.SC_L2-3_13_9"
-    - "034.01_t"
+    - "hitrust.01_t"
   metadata: {}
 "024":
   en:
@@ -464,8 +464,8 @@
     - "cmmc.IA_L2-3_5_5"
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_15"
-    - "034.09_s"
-    - "034.10_d"
+    - "hitrust.09_s"
+    - "hitrust.10_d"
   metadata: {}
 "031":
   en:
@@ -532,7 +532,7 @@
     - "owaspm10.M6"
     - "cmmc.AC_L2-3_1_11"
     - "cmmc.SC_L2-3_13_9"
-    - "034.01_t"
+    - "hitrust.01_t"
   metadata: {}
 "032":
   en:
@@ -621,7 +621,7 @@
     - "certj.IDS14-J"
     - "padss.5_2_10"
     - "sans25.200"
-    - "034.09_v"
+    - "hitrust.09_v"
   metadata: {}
 "033":
   en:
@@ -706,9 +706,9 @@
     - "cmmc.AC_L2-3_1_6"
     - "cmmc.CM_L2-3_4_5"
     - "cmmc.IA_L2-3_5_4"
-    - "034.01_c"
-    - "034.01_n"
-    - "034.05_k"
+    - "hitrust.01_c"
+    - "hitrust.01_n"
+    - "hitrust.05_k"
   metadata: {}
 "034":
   en:
@@ -741,7 +741,7 @@
     - "soc2.CC6_2"
     - "mitre.M1018"
     - "mitre.M1026"
-    - "034.01_c"
+    - "hitrust.01_c"
   metadata: {}
 "035":
   en:
@@ -821,7 +821,7 @@
     - "cmmc.AC_L1-3_1_1"
     - "cmmc.AC_L2-3_1_4"
     - "cmmc.AC_L2-3_1_7"
-    - "034.01_c"
+    - "hitrust.01_c"
   metadata: {}
 "036":
   en:
@@ -958,7 +958,7 @@
     - "asvs.V12_1_3"
     - "sans25.400"
     - "cmmc.CA_L2-3_12_2"
-    - "034.09_j"
+    - "hitrust.09_j"
   metadata: {}
 "040":
   en:
@@ -1031,7 +1031,7 @@
     - "cmmc.RA_L2-3_11_2"
     - "cmmc.SI_L1-3_14_2"
     - "cmmc.SI_L1-3_14_5"
-    - "034.09_j"
+    - "hitrust.09_j"
   metadata: {}
 "042":
   en:
@@ -1151,7 +1151,7 @@
     - "owasp10.A2"
     - "owasp10.A3"
     - "cmmc.AC_L1-3_1_22"
-    - "034.09_z"
+    - "hitrust.09_z"
   metadata: {}
 "046":
   en:
@@ -1303,7 +1303,7 @@
     - "asvs.V1_10_1"
     - "agile.11"
     - "nydfs.500_16"
-    - "034.10_j"
+    - "hitrust.10_j"
   metadata: {}
 "062":
   en:
@@ -1406,7 +1406,7 @@
     - "cmmc.CM_L2-3_4_2"
     - "cmmc.RA_L2-3_11_2"
     - "cmmc.SC_L2-3_13_16"
-    - "034.10_d"
+    - "hitrust.10_d"
   metadata: {}
 "072":
   en:
@@ -1458,7 +1458,7 @@
     - "asvs.V13_4_1"
     - "agile.11"
     - "sans25.400"
-    - "034.01_u"
+    - "hitrust.01_u"
   metadata: {}
 "075":
   en:
@@ -1582,10 +1582,10 @@
     - "cmmc.SC_L2-3_13_4"
     - "cmmc.SI_L2-3_14_3"
     - "cmmc.SI_L2-3_14_7"
-    - "034.03_a"
-    - "034.06_c"
-    - "034.09_aa"
-    - "034.13_s"
+    - "hitrust.03_a"
+    - "hitrust.06_c"
+    - "hitrust.09_aa"
+    - "hitrust.13_s"
   metadata: {}
 "077":
   en:
@@ -1648,9 +1648,9 @@
     - "padss.5_2_5"
     - "cmmc.AT_L2-3_2_1"
     - "cmmc.SC_L2-3_13_8"
-    - "034.07_b"
-    - "034.09_m"
-    - "034.09_ab"
+    - "hitrust.07_b"
+    - "hitrust.09_m"
+    - "hitrust.09_ab"
   metadata: {}
 "078":
   en:
@@ -1740,9 +1740,9 @@
     - "cmmc.AU_L2-3_3_7"
     - "cmmc.CA_L2-3_12_3"
     - "cmmc.SI_L2-3_14_7"
-    - "034.09_aa"
-    - "034.09_af"
-    - "034.13_s"
+    - "hitrust.09_aa"
+    - "hitrust.09_af"
+    - "hitrust.13_s"
   metadata: {}
 "080":
   en:
@@ -1807,8 +1807,8 @@
     - "sans25.200"
     - "cmmc.AC_L2-3_1_7"
     - "cmmc.AU_L2-3_3_8"
-    - "034.06_c"
-    - "034.09_ab"
+    - "hitrust.06_c"
+    - "hitrust.09_ab"
   metadata: {}
 "083":
   en:
@@ -1879,8 +1879,8 @@
     - "padss.1_1_5"
     - "padss.10_2_3"
     - "cmmc.AC_L2-3_1_7"
-    - "034.09_h"
-    - "034.09_ab"
+    - "hitrust.09_h"
+    - "hitrust.09_ab"
   metadata: {}
 "084":
   en:
@@ -1928,8 +1928,8 @@
     - "nydfs.500_6"
     - "padss.6_1"
     - "cmmc.AC_L1-3_1_2"
-    - "034.09_y"
-    - "034.13_f"
+    - "hitrust.09_y"
+    - "hitrust.13_f"
   metadata: {}
 "085":
   en:
@@ -1980,8 +1980,8 @@
     - "pdpo.5_27"
     - "cmmc.AU_L2-3_3_2"
     - "cmmc.PE_L1-3_10_4"
-    - "034.13_f"
-    - "034.13_s"
+    - "hitrust.13_f"
+    - "hitrust.13_s"
   metadata: {}
 "088":
   en:
@@ -2126,7 +2126,7 @@
     - "capec.94"
     - "cwe.300"
     - "cmmc.AC_L1-3_1_20"
-    - "034.01_j"
+    - "hitrust.01_j"
   metadata: {}
 "093":
   en:
@@ -2239,9 +2239,9 @@
     - "cmmc.AC_L2-3_1_15"
     - "cmmc.AU_L2-3_3_9"
     - "cmmc.SC_L2-3_13_3"
-    - "034.01_c"
-    - "034.05_c"
-    - "034.09_r"
+    - "hitrust.01_c"
+    - "hitrust.05_c"
+    - "hitrust.09_r"
   metadata: {}
 "096":
   en:
@@ -2325,12 +2325,12 @@
     - "cmmc.AC_L2-3_1_15"
     - "cmmc.SC_L2-3_13_3"
     - "cmmc.SC_L2-3_13_4"
-    - "034.01_c"
-    - "034.01_q"
-    - "034.07_b"
-    - "034.09_c"
-    - "034.09_r"
-    - "034.10_j"
+    - "hitrust.01_c"
+    - "hitrust.01_q"
+    - "hitrust.07_b"
+    - "hitrust.09_c"
+    - "hitrust.09_r"
+    - "hitrust.10_j"
   metadata: {}
 "114":
   en:
@@ -2389,7 +2389,7 @@
     - "soc2.CC6_6"
     - "soc2.CC6_8"
     - "mitre.M1037"
-    - "034.09_j"
+    - "hitrust.09_j"
   metadata: {}
 "116":
   en:
@@ -2567,7 +2567,7 @@
     - "popia.3A_23"
     - "pdpo.S1_4"
     - "cmmc.IA_L1-3_5_2"
-    - "034.10_c"
+    - "hitrust.10_c"
   metadata: {}
 "123":
   en:
@@ -2690,7 +2690,7 @@
     - "pci.8_2_5"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_9"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "127":
   en:
@@ -2805,7 +2805,7 @@
     - "pci.8_2_5"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_7"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "130":
   en:
@@ -2835,7 +2835,7 @@
     - "mitre.M1036"
     - "padss.3_1_7"
     - "cmmc.IA_L2-3_5_8"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "131":
   en:
@@ -2869,7 +2869,7 @@
     - "mitre.M1036"
     - "cmmc.AC_L2-3_1_8"
     - "cmmc.IA_L2-3_5_7"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "132":
   en:
@@ -2946,7 +2946,7 @@
     - "mitre.M1027"
     - "padss.3_1_6"
     - "cmmc.IA_L2-3_5_7"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "134":
   en:
@@ -3053,7 +3053,7 @@
     - "pci.8_2_6"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_9"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "137":
   en:
@@ -3113,9 +3113,9 @@
     - "pci.8_2_6"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_9"
-    - "034.01_d"
-    - "034.05_k"
-    - "034.09_g"
+    - "hitrust.01_d"
+    - "hitrust.05_k"
+    - "hitrust.09_g"
   metadata: {}
 "138":
   en:
@@ -3162,7 +3162,7 @@
     - "mitre.M1027"
     - "mitre.M1036"
     - "cmmc.IA_L2-3_5_9"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "139":
   en:
@@ -3389,8 +3389,8 @@
     - "padss.3_1_2"
     - "padss.6_1"
     - "padss.10_2_3"
-    - "034.05_k"
-    - "034.09_f"
+    - "hitrust.05_k"
+    - "hitrust.09_f"
   metadata: {}
 "143":
   en:
@@ -3420,7 +3420,7 @@
     - "nist.PR_AC-1"
     - "padss.3_1_5"
     - "padss.10_2_2"
-    - "034.01_q"
+    - "hitrust.01_q"
   metadata: {}
 "144":
   en:
@@ -3539,10 +3539,10 @@
      - "sans25.798"
      - "cmmc.SC_L1-3_13_1"
      - "cmmc.SC_L2-3_13_10"
-     - "034.09_s"
-     - "034.09_y"
-     - "034.10_d"
-     - "034.10_g"
+     - "hitrust.09_s"
+     - "hitrust.09_y"
+     - "hitrust.10_d"
+     - "hitrust.10_g"
   metadata: {}
 "146":
   en:
@@ -3578,7 +3578,7 @@
     - "padss.2_5_3"
     - "sans25.798"
     - "cmmc.SC_L2-3_13_16"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "147":
   en:
@@ -3645,12 +3645,12 @@
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_8"
     - "cmmc.SC_L2-3_13_15"
-    - "034.06_f"
-    - "034.09_m"
-    - "034.09_s"
-    - "034.09_y"
-    - "034.10_d"
-    - "034.10_f"
+    - "hitrust.06_f"
+    - "hitrust.09_m"
+    - "hitrust.09_s"
+    - "hitrust.09_y"
+    - "hitrust.10_d"
+    - "hitrust.10_f"
   metadata: {}
 "148":
   en:
@@ -3677,7 +3677,7 @@
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "149":
   en:
@@ -3704,7 +3704,7 @@
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "150":
   en:
@@ -3755,7 +3755,7 @@
     - "certj.SER02-J"
     - "mitre.M1041"
     - "cmmc.SC_L2-3_13_10"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "152":
   en:
@@ -3853,8 +3853,8 @@
     - "cmmc.AC_L2-3_1_12"
     - "cmmc.MP_L2-3_8_1"
     - "cmmc.MP_L2-3_8_5"
-    - "034.01_y"
-    - "034.09_y"
+    - "hitrust.01_y"
+    - "hitrust.09_y"
   metadata: {}
 "154":
   en:
@@ -3935,7 +3935,7 @@
     - "mitre.M1013"
     - "mitre.M1016"
     - "padss.5_1_2"
-    - "034.01_l"
+    - "hitrust.01_l"
   metadata: {}
 "155":
   en:
@@ -4016,9 +4016,9 @@
     - "cmmc.MA_L2-3_7_4"
     - "cmmc.RA_L2-3_11_2"
     - "cmmc.SI_L1-3_14_2"
-    - "034.05_k"
-    - "034.09_e"
-    - "034.09_j"
+    - "hitrust.05_k"
+    - "hitrust.09_e"
+    - "hitrust.09_j"
   metadata: {}
 "156":
   en:
@@ -4194,7 +4194,7 @@
     - "sans25.125"
     - "sans25.787"
     - "cmmc.AT_L2-3_2_1"
-    - "034.10_j"
+    - "hitrust.10_j"
   metadata: {}
 "159":
   en:
@@ -4227,9 +4227,9 @@
     - "mitre.M1013"
     - "mitre.M1048"
     - "sans25.94"
-    - "034.01_w"
-    - "034.09_d"
-    - "034.10_j"
+    - "hitrust.01_w"
+    - "hitrust.09_d"
+    - "hitrust.10_j"
   metadata: {}
 "160":
   en:
@@ -4312,8 +4312,8 @@
     - "padss.1_1_2"
     - "padss.5_2_1"
     - "sans25.79"
-    - "034.09_v"
-    - "034.10_e"
+    - "hitrust.09_v"
+    - "hitrust.10_e"
   metadata: {}
 "161":
   en:
@@ -4406,10 +4406,10 @@
     - "popia.3A_21"
     - "cmmc.AT_L2-3_2_1"
     - "cmmc.CA_L2-3_12_2"
-    - "034.03_a"
-    - "034.05_k"
-    - "034.09_e"
-    - "034.10_j"
+    - "hitrust.03_a"
+    - "hitrust.05_k"
+    - "hitrust.09_e"
+    - "hitrust.10_j"
   metadata: {}
 "162":
   en:
@@ -4597,7 +4597,7 @@
     - "misrac.2_4"
     - "mitre.M1013"
     - "cmmc.AT_L2-3_2_1"
-    - "034.10_i"
+    - "hitrust.10_i"
   metadata: {}
 "172":
   en:
@@ -4846,8 +4846,8 @@
     - "sans25.94"
     - "sans25.119"
     - "sans25.611"
-    - "034.10_b"
-    - "034.13_k"
+    - "hitrust.10_b"
+    - "hitrust.13_k"
   metadata: {}
 "174":
   en:
@@ -4880,7 +4880,7 @@
     - "padss.5_2_9"
     - "sans25.352"
     - "cmmc.AC_L1-3_1_2"
-    - "034.09_y"
+    - "hitrust.09_y"
   metadata: {}
 "175":
   en:
@@ -5045,11 +5045,11 @@
     - "cmmc.CM_L2-3_4_5"
     - "cmmc.MP_L2-3_8_2"
     - "cmmc.SC_L2-3_13_4"
-    - "034.01_h"
-    - "034.01_v"
-    - "034.06_d"
-    - "034.09_c"
-    - "034.09_r"
+    - "hitrust.01_h"
+    - "hitrust.01_v"
+    - "hitrust.06_d"
+    - "hitrust.09_c"
+    - "hitrust.09_r"
   metadata: {}
 "177":
   en:
@@ -5118,7 +5118,7 @@
     - "owasp10.A2"
     - "certj.FIO03-J"
     - "nydfs.5575_B_6"
-    - "034.09_h"
+    - "hitrust.09_h"
   metadata: {}
 "178":
   en:
@@ -5192,9 +5192,9 @@
     - "padss.11_1"
     - "pdpa.9B_48E"
     - "cmmc.SC_L2-3_13_15"
-    - "034.05_k"
-    - "034.06_d"
-    - "034.10_d"
+    - "hitrust.05_k"
+    - "hitrust.06_d"
+    - "hitrust.10_d"
   metadata: {}
 "180":
   en:
@@ -5259,9 +5259,9 @@
     - "mitre.M1048"
     - "padss.5_1_1"
     - "sans25.200"
-    - "034.01_w"
-    - "034.09_d"
-    - "034.10_i"
+    - "hitrust.01_w"
+    - "hitrust.09_d"
+    - "hitrust.10_i"
   metadata: {}
 "181":
   en:
@@ -5370,9 +5370,9 @@
     - "cmmc.AC_L2-3_1_13"
     - "cmmc.MP_L2-3_8_5"
     - "cmmc.SC_L2-3_13_8"
-    - "034.01_y"
-    - "034.06_d"
-    - "034.09_m"
+    - "hitrust.01_y"
+    - "hitrust.06_d"
+    - "hitrust.09_m"
   metadata: {}
 "183":
   en:
@@ -5450,8 +5450,8 @@
     - "pdpo.S1_4"
     - "cmmc.MA_L2-3_7_3"
     - "cmmc.MP_L1-3_8_3"
-    - "034.09_p"
-    - "034.13_l"
+    - "hitrust.09_p"
+    - "hitrust.13_l"
   metadata: {}
 "184":
   en:
@@ -5573,7 +5573,7 @@
     - "pdpo.S1_4"
     - "cmmc.AC_L2-3_1_19"
     - "cmmc.MP_L2-3_8_6"
-    - "034.06_d"
+    - "hitrust.06_d"
   metadata: {}
 "186":
   en:
@@ -5671,7 +5671,7 @@
     - "sans25.269"
     - "cmmc.AC_L2-3_1_5"
     - "cmmc.CM_L2-3_4_6"
-    - "034.09_c"
+    - "hitrust.09_c"
   metadata: {}
 "189":
   en:
@@ -5750,8 +5750,8 @@
     - "popia.3A_13"
     - "pdpo.6_31"
     - "pdpo.S1_1"
-    - "034.13_a"
-    - "034.13_d"
+    - "hitrust.13_a"
+    - "hitrust.13_d"
   metadata: {}
 "205":
   en:
@@ -5785,8 +5785,8 @@
     - "cmmc.MP_L2-3_8_7"
     - "cmmc.PE_L1-3_10_5"
     - "cmmc.SC_L2-3_13_13"
-    - "034.01_x"
-    - "034.09_k"
+    - "hitrust.01_x"
+    - "hitrust.09_k"
   metadata: {}
 "206":
   en:
@@ -5826,8 +5826,8 @@
     - "sans25.798"
     - "cmmc.AC_L2-3_1_18"
     - "cmmc.SC_L1-3_13_1"
-    - "034.09_s"
-    - "034.09_v"
+    - "hitrust.09_s"
+    - "hitrust.09_v"
   metadata: {}
 "209":
   en:
@@ -5854,7 +5854,7 @@
   references:
     - "pci.6_5_10"
     - "cmmc.IA_L2-3_5_10"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "210":
   en:
@@ -5922,7 +5922,7 @@
     - "cmmc.AC_L2-3_1_12"
     - "cmmc.AC_L2-3_1_18"
     - "cmmc.MP_L2-3_8_7"
-    - "034.08_g"
+    - "hitrust.08_g"
   metadata: {}
 "214":
   en:
@@ -5987,7 +5987,7 @@
     - "cis.4_8"
     - "mitre.M1034"
     - "cmmc.MP_L2-3_8_7"
-    - "034.01_h"
+    - "hitrust.01_h"
   metadata: {}
 "222":
   en:
@@ -6075,8 +6075,8 @@
     - "owaspm10.M3"
     - "certc.MSC32-C"
     - "certj.MSC02-J"
-    - "034.09_y"
-    - "034.10_g"
+    - "hitrust.09_y"
+    - "hitrust.10_g"
   metadata: {}
 "224":
   en:
@@ -6187,13 +6187,13 @@
     - "cmmc.MP_L2-3_8_6"
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_8"
-    - "034.01_y"
-    - "034.06_f"
-    - "034.09_m"
-    - "034.09_s"
-    - "034.09_y"
-    - "034.10_d"
-    - "034.10_f"
+    - "hitrust.01_y"
+    - "hitrust.06_f"
+    - "hitrust.09_m"
+    - "hitrust.09_s"
+    - "hitrust.09_y"
+    - "hitrust.10_d"
+    - "hitrust.10_f"
   metadata: {}
 "225":
   en:
@@ -6477,8 +6477,8 @@
     - "cmmc.AC_L1-3_1_2"
     - "cmmc.IA_L1-3_5_2"
     - "cmmc.MP_L2-3_8_2"
-    - "034.01_x"
-    - "034.08_b"
+    - "hitrust.01_x"
+    - "hitrust.08_b"
   metadata: {}
 "231":
   en:
@@ -6556,7 +6556,7 @@
     - "nydfs.500_12"
     - "mitre.M1025"
     - "padss.3_1_4"
-    - "034.08_b"
+    - "hitrust.08_b"
   metadata: {}
 "232":
   en:
@@ -6593,8 +6593,8 @@
     - "pdpo.S1_4"
     - "cmmc.MP_L2-3_8_1"
     - "cmmc.MP_L2-3_8_8"
-    - "034.01_k"
-    - "034.08_b"
+    - "hitrust.01_k"
+    - "hitrust.08_b"
   metadata: {}
 "235":
   en:
@@ -6620,7 +6620,7 @@
     - "nist80053.SC-3"
     - "owasp10.A5"
     - "pci.2_2_4"
-    - "034.08_b"
+    - "hitrust.08_b"
   metadata: {}
 "236":
   en:
@@ -6645,7 +6645,7 @@
   references:
     - "asvs.V3_6_1"
     - "pci.6_5_10"
-    - "034.01_u"
+    - "hitrust.01_u"
   metadata: {}
 "237":
   en:
@@ -6721,7 +6721,7 @@
     - "pci.6_5_10"
     - "cwe25.287"
     - "sans25.287"
-    - "034.08_b"
+    - "hitrust.08_b"
   metadata: {}
 "238":
   en:
@@ -6791,7 +6791,7 @@
     - "pci.8_2_2"
     - "nist.RC_RP-1"
     - "pdpo.S1_4"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "247":
   en:
@@ -6874,12 +6874,12 @@
     - "padss.6_2"
     - "cmmc.AC_L2-3_1_14"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_l"
-    - "034.01_n"
-    - "034.01_o"
-    - "034.08_c"
-    - "034.08_f"
-    - "034.08_g"
+    - "hitrust.01_l"
+    - "hitrust.01_n"
+    - "hitrust.01_o"
+    - "hitrust.08_c"
+    - "hitrust.08_f"
+    - "hitrust.08_g"
   metadata: {}
 "250":
   en:
@@ -6912,12 +6912,12 @@
     - "cmmc.AC_L2-3_1_17"
     - "cmmc.PE_L1-3_10_1"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_i"
-    - "034.01_l"
-    - "034.01_o"
-    - "034.08_c"
-    - "034.08_f"
-    - "034.08_g"
+    - "hitrust.01_i"
+    - "hitrust.01_l"
+    - "hitrust.01_o"
+    - "hitrust.08_c"
+    - "hitrust.08_f"
+    - "hitrust.08_g"
   metadata: {}
 "251":
   en:
@@ -6945,7 +6945,7 @@
     - "pci.2_1_1"
     - "mitre.M1031"
     - "padss.6_1"
-    - "034.09_m"
+    - "hitrust.09_m"
   metadata: {}
 "252":
   en:
@@ -6981,7 +6981,7 @@
     - "cmmc.AC_L2-3_1_17"
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_10"
-    - "034.09_m"
+    - "hitrust.09_m"
   metadata: {}
 "253":
   en:
@@ -7019,8 +7019,8 @@
     - "cmmc.AC_L2-3_1_17"
     - "cmmc.CM_L2-3_4_5"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_i"
-    - "034.09_m"
+    - "hitrust.01_i"
+    - "hitrust.09_m"
   metadata: {}
 "254":
   en:
@@ -7086,9 +7086,9 @@
     - "cmmc.MP_L2-3_8_7"
     - "cmmc.PE_L1-3_10_5"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_l"
-    - "034.08_c"
-    - "034.09_m"
+    - "hitrust.01_l"
+    - "hitrust.08_c"
+    - "hitrust.09_m"
   metadata: {}
 "257":
   en:
@@ -7126,11 +7126,11 @@
     - "cmmc.AC_L2-3_1_12"
     - "cmmc.PE_L1-3_10_1"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_i"
-    - "034.01_n"
-    - "034.08_c"
-    - "034.08_f"
-    - "034.09_m"
+    - "hitrust.01_i"
+    - "hitrust.01_n"
+    - "hitrust.08_c"
+    - "hitrust.08_f"
+    - "hitrust.09_m"
   metadata: {}
 "258":
   en:
@@ -7196,8 +7196,8 @@
     - "pci.1_3_6"
     - "mitre.M1030"
     - "cmmc.SC_L1-3_13_5"
-    - "034.01_m"
-    - "034.09_m"
+    - "hitrust.01_m"
+    - "hitrust.09_m"
   metadata: {}
 "260":
   en:
@@ -7285,7 +7285,7 @@
     - "sans25.200"
     - "pdpa.6_24"
     - "cmmc.AC_L1-3_1_22"
-    - "034.09_z"
+    - "hitrust.09_z"
   metadata: {}
 "262":
   en:
@@ -7372,11 +7372,11 @@
     - "popia.3A_21"
     - "cmmc.AC_L1-3_1_20"
     - "cmmc.CA_L2-3_12_2"
-    - "034.01_j"
-    - "034.03_a"
-    - "034.05_i"
-    - "034.09_e"
-    - "034.10_l"
+    - "hitrust.01_j"
+    - "hitrust.03_a"
+    - "hitrust.05_i"
+    - "hitrust.09_e"
+    - "hitrust.10_l"
   metadata: {}
 "264":
   en:
@@ -7454,8 +7454,8 @@
     - "cmmc.AC_L1-3_1_2"
     - "cmmc.IA_L1-3_5_2"
     - "cmmc.MP_L2-3_8_2"
-    - "034.01_q"
-    - "034.01_x"
+    - "hitrust.01_q"
+    - "hitrust.01_x"
   metadata: {}
 "265":
   en:
@@ -7535,9 +7535,9 @@
     - "cmmc.AC_L1-3_1_1"
     - "cmmc.AC_L1-3_1_2"
     - "cmmc.CM_L2-3_4_5"
-    - "034.01_v"
-    - "034.01_w"
-    - "034.09_d"
+    - "hitrust.01_v"
+    - "hitrust.01_w"
+    - "hitrust.09_d"
   metadata: {}
 "266":
   en:
@@ -7638,7 +7638,7 @@
     - "mitre.M1057"
     - "padss.5_2_8"
     - "cmmc.CM_L2-3_4_2"
-    - "034.03_a"
+    - "hitrust.03_a"
   metadata: {}
 "273":
   en:
@@ -7719,7 +7719,7 @@
     - "certj.FIO00-J"
     - "mitre.M1022"
     - "sans25.22"
-    - "034.01_v"
+    - "hitrust.01_v"
   metadata: {}
 "284":
   en:
@@ -7746,9 +7746,9 @@
     - "owasp10.A5"
     - "cmmc.AC_L1-3_1_20"
     - "cmmc.SC_L2-3_13_7"
-    - "034.01_j"
-    - "034.01_l"
-    - "034.01_n"
+    - "hitrust.01_j"
+    - "hitrust.01_l"
+    - "hitrust.01_n"
   metadata: {}
 "300":
   en:
@@ -7810,9 +7810,9 @@
     - "nydfs.5575_B_2"
     - "padss.2_2"
     - "pdpo.S1_4"
-    - "034.06_d"
-    - "034.09_y"
-    - "034.13_k"
+    - "hitrust.06_d"
+    - "hitrust.09_y"
+    - "hitrust.13_k"
   metadata: {}
 "301":
   en:
@@ -7878,7 +7878,7 @@
     - "cmmc.AC_L2-3_1_9"
     - "cmmc.AU_L2-3_3_4"
     - "cmmc.CM_L2-3_4_3"
-    - "034.13_n"
+    - "hitrust.13_n"
   metadata: {}
 "302":
   en:
@@ -7965,9 +7965,9 @@
     - "mitre.M1044"
     - "mitre.M1051"
     - "padss.5_4_6"
-    - "034.02_d"
-    - "034.05_k"
-    - "034.09_f"
+    - "hitrust.02_d"
+    - "hitrust.05_k"
+    - "hitrust.09_f"
   metadata: {}
 "305":
   en:
@@ -7997,7 +7997,7 @@
     - "mitre.M1036"
     - "padss.2_3"
     - "padss.3_1_4"
-    - "034.06_d"
+    - "hitrust.06_d"
   metadata: {}
 "310":
   en:
@@ -8084,8 +8084,8 @@
     - "popia.3A_11"
     - "pdpo.S1_1"
     - "pdpo.S1_3"
-    - "034.13_d"
-    - "034.13_m"
+    - "hitrust.13_d"
+    - "hitrust.13_m"
   metadata: {}
 "311":
   en:
@@ -8145,7 +8145,7 @@
     - "iso27001.18_1_4"
     - "soc2.P6_2"
     - "ccpa.1798_100"
-    - "034.13_a"
+    - "hitrust.13_a"
   metadata: {}
 "312":
   en:
@@ -8213,7 +8213,7 @@
     - "ccpa.1798_102"
     - "fcra.502_B"
     - "pdpa.4_16"
-    - "034.13_e"
+    - "hitrust.13_e"
   metadata: {}
 "313":
   en:
@@ -8281,7 +8281,7 @@
     - "pdpa.6A_26B"
     - "cmmc.AU_L2-3_3_4"
     - "cmmc.CM_L2-3_4_8"
-    - "034.11_a"
+    - "hitrust.11_a"
   metadata: {}
 "314":
   en:
@@ -8341,12 +8341,12 @@
     - "ccpa.1798_104"
     - "fcra.502_A"
     - "nydfs.500_10"
-    - "034.05_d"
-    - "034.09_e"
-    - "034.09_q"
-    - "034.13_a"
-    - "034.13_b"
-    - "034.13_c"
+    - "hitrust.05_d"
+    - "hitrust.09_e"
+    - "hitrust.09_q"
+    - "hitrust.13_a"
+    - "hitrust.13_b"
+    - "hitrust.13_c"
   metadata: {}
 "315":
   en:
@@ -8448,15 +8448,15 @@
     - "pdpo.S1_3"
     - "pdpo.S1_5"
     - "cmmc.MP_L1-3_8_3"
-    - "034.01_e"
-    - "034.05_d"
-    - "034.09_e"
-    - "034.09_q"
-    - "034.13_a"
-    - "034.13_b"
-    - "034.13_c"
-    - "034.13_h"
-    - "034.13_m"
+    - "hitrust.01_e"
+    - "hitrust.05_d"
+    - "hitrust.09_e"
+    - "hitrust.09_q"
+    - "hitrust.13_a"
+    - "hitrust.13_b"
+    - "hitrust.13_c"
+    - "hitrust.13_h"
+    - "hitrust.13_m"
   metadata: {}
 "316":
   en:
@@ -8512,10 +8512,10 @@
     - "pdpo.5_23"
     - "pdpo.S1_2"
     - "pdpo.S1_6"
-    - "034.05_k"
-    - "034.09_g"
-    - "034.13_m"
-    - "034.13_n"
+    - "hitrust.05_k"
+    - "hitrust.09_g"
+    - "hitrust.13_m"
+    - "hitrust.13_n"
   metadata: {}
 "317":
   en:
@@ -8577,7 +8577,7 @@
     - "nydfs.500_13"
     - "pdpo.5_26"
     - "cmmc.MP_L1-3_8_3"
-    - "034.09_e"
+    - "hitrust.09_e"
   metadata: {}
 "318":
   en:
@@ -8647,9 +8647,9 @@
     - "pdpo.S1_2"
     - "cmmc.AC_L2-3_1_9"
     - "cmmc.MP_L1-3_8_3"
-    - "034.05_k"
-    - "034.09_g"
-    - "034.13_m"
+    - "hitrust.05_k"
+    - "hitrust.09_g"
+    - "hitrust.13_m"
   metadata: {}
 "319":
   en:
@@ -8779,7 +8779,7 @@
     - "padss.5_2_8"
     - "cmmc.AC_L2-3_1_14"
     - "cmmc.CM_L2-3_4_9"
-    - "034.01_o"
+    - "hitrust.01_o"
   metadata: {}
 "321":
   en:
@@ -8853,7 +8853,7 @@
     - "padss.5_2_1"
     - "sans25.502"
     - "pdpo.S1_4"
-    - "034.10_d"
+    - "hitrust.10_d"
   metadata: {}
 "322":
   en:
@@ -8921,8 +8921,8 @@
     - "nydfs.500_6"
     - "mitre.M1047"
     - "cmmc.AU_L2-3_3_3"
-    - "034.09_h"
-    - "034.09_ab"
+    - "hitrust.09_h"
+    - "hitrust.09_ab"
   metadata: {}
 "323":
   en:
@@ -8988,7 +8988,7 @@
     - "owaspm10.M10"
     - "mitre.M1013"
     - "cmmc.SI_L1-3_14_5"
-    - "034.09_h"
+    - "hitrust.09_h"
   metadata: {}
 "324":
   en:
@@ -9052,7 +9052,7 @@
     - "cwe25.918"
     - "certj.IDS17-J"
     - "cmmc.AC_L1-3_1_20"
-    - "034.01_j"
+    - "hitrust.01_j"
   metadata: {}
 "325":
   en:
@@ -9109,7 +9109,7 @@
     - "owasp10.A4"
     - "certj.MET02-J"
     - "cmmc.AC_L1-3_1_22"
-    - "034.09_x"
+    - "hitrust.09_x"
   metadata: {}
 "326":
   en:
@@ -9168,7 +9168,7 @@
     - "nist.PR_PT-2"
     - "mitre.M1034"
     - "cmmc.MP_L2-3_8_7"
-    - "034.13_m"
+    - "hitrust.13_m"
   metadata: {}
 "327":
   en:
@@ -9357,7 +9357,7 @@
     - "cmmc.AC_L2-3_1_19"
     - "cmmc.CM_L2-3_4_9"
     - "cmmc.SC_L2-3_13_16"
-    - "034.09_q"
+    - "hitrust.09_q"
   metadata: {}
 "330":
   en:
@@ -9413,8 +9413,8 @@
     - "mitre.M1035"
     - "padss.5_1_5"
     - "cmmc.AC_L1-3_1_20"
-    - "034.01_j"
-    - "034.10_c"
+    - "hitrust.01_j"
+    - "hitrust.10_c"
   metadata: {}
 "331":
   en:
@@ -9455,15 +9455,15 @@
     - "pdpo.5_19"
     - "pdpo.S1_5"
     - "cmmc.AC_L2-3_1_3"
-    - "034.01_a"
-    - "034.02_d"
-    - "034.04_a"
-    - "034.06_a"
-    - "034.06_b"
-    - "034.06_f"
-    - "034.06_g"
-    - "034.09_i"
-    - "034.13_g"
+    - "hitrust.01_a"
+    - "hitrust.02_d"
+    - "hitrust.04_a"
+    - "hitrust.06_a"
+    - "hitrust.06_b"
+    - "hitrust.06_f"
+    - "hitrust.06_g"
+    - "hitrust.09_i"
+    - "hitrust.13_g"
   metadata: {}
 "332":
   en:
@@ -9518,7 +9518,7 @@
     - "pci.6_5_10"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_8"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "333":
   en:
@@ -9704,7 +9704,7 @@
     - "padss.1_1_4"
     - "sans25.287"
     - "cmmc.IA_L2-3_5_5"
-    - "034.09_y"
+    - "hitrust.09_y"
   metadata: {}
 "336":
   en:
@@ -9781,9 +9781,9 @@
     - "cmmc.AC_L2-3_1_13"
     - "cmmc.MP_L2-3_8_6"
     - "cmmc.SC_L1-3_13_1"
-    - "034.01_x"
-    - "034.01_y"
-    - "034.09_s"
+    - "hitrust.01_x"
+    - "hitrust.01_y"
+    - "hitrust.09_s"
   metadata: {}
 "337":
   en:
@@ -9939,8 +9939,8 @@
     - "cmmc.AC_L2-3_1_13"
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_15"
-    - "034.01_y"
-    - "034.09_s"
+    - "hitrust.01_y"
+    - "hitrust.09_s"
   metadata: {}
 "339":
   en:
@@ -10068,8 +10068,8 @@
     - "padss.5_2_7"
     - "cmmc.CA_L2-3_12_2"
     - "cmmc.SI_L1-3_14_5"
-    - "034.01_h"
-    - "034.09_j"
+    - "hitrust.01_h"
+    - "hitrust.09_j"
   metadata: {}
 "341":
   en:
@@ -10140,7 +10140,7 @@
     - "certj.FIO01-J"
     - "padss.5_2_8"
     - "cmmc.SC_L2-3_13_6"
-    - "034.09_c"
+    - "hitrust.09_c"
   metadata: {}
 "342":
   en:
@@ -10213,7 +10213,7 @@
     - "certj.IDS16-J"
     - "sans25.20"
     - "sans25.125"
-    - "034.10_b"
+    - "hitrust.10_b"
   metadata: {}
 "343":
   en:
@@ -10490,8 +10490,8 @@
     - "certj.TSM02-J"
     - "cmmc.AC_L1-3_1_2"
     - "cmmc.SC_L1-3_13_1"
-    - "034.09_y"
-    - "034.10_g"
+    - "hitrust.09_y"
+    - "hitrust.10_g"
   metadata: {}
 "347":
   en:
@@ -10621,8 +10621,8 @@
     - "owaspm10.M7"
     - "agile.11"
     - "bizec.APP-05"
-    - "034.09_v"
-    - "034.10_e"
+    - "hitrust.09_v"
+    - "hitrust.10_e"
   metadata: {}
 "349":
   en:
@@ -10763,8 +10763,8 @@
     - "cmmc.MP_L2-3_8_1"
     - "cmmc.MP_L2-3_8_2"
     - "cmmc.SC_L2-3_13_10"
-    - "034.01_k"
-    - "034.01_x"
+    - "hitrust.01_k"
+    - "hitrust.01_x"
   metadata: {}
 "352":
   en:
@@ -11136,10 +11136,10 @@
     - "pdpo.S1_2"
     - "cmmc.MA_L2-3_7_3"
     - "cmmc.MP_L1-3_8_3"
-    - "034.09_p"
-    - "034.13_j"
-    - "034.13_l"
-    - "034.13_m"
+    - "hitrust.09_p"
+    - "hitrust.13_j"
+    - "hitrust.13_l"
+    - "hitrust.13_m"
   metadata: {}
 "361":
   en:
@@ -11203,7 +11203,7 @@
     - "owaspm10.M5"
     - "padss.2_5_4"
     - "padss.2_5_5"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "362":
   en:
@@ -11333,7 +11333,7 @@
     - "agile.11"
     - "nydfs.500_16"
     - "cmmc.AU_L2-3_3_7"
-    - "034.09_af"
+    - "hitrust.09_af"
   metadata: {}
 "364":
   en:
@@ -11363,8 +11363,8 @@
     - "sans25.295"
     - "sans25.732"
     - "cmmc.AC_L1-3_1_22"
-    - "034.09_z"
-    - "034.10_c"
+    - "hitrust.09_z"
+    - "hitrust.10_c"
   metadata: {}
 "365":
   en:
@@ -11390,7 +11390,7 @@
   references:
     - "capec.116"
     - "capec.224"
-    - "034.06_d"
+    - "hitrust.06_d"
   metadata: {}
 "366":
   en:
@@ -11443,7 +11443,7 @@
     - "pci.8_2_6"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_9"
-    - "034.01_d"
+    - "hitrust.01_d"
   metadata: {}
 "368":
   en:
@@ -11500,7 +11500,7 @@
     - "pci.12_3_8"
     - "padss.5_2_10"
     - "cmmc.IA_L2-3_5_6"
-    - "034.01_u"
+    - "hitrust.01_u"
   metadata: {}
 "370":
   en:
@@ -11526,7 +11526,7 @@
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "371":
   en:
@@ -11550,7 +11550,7 @@
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "372":
   en:
@@ -11579,7 +11579,7 @@
     - "cwe.1204"
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
-    - "034.10_g"
+    - "hitrust.10_g"
   metadata: {}
 "373":
   en:
@@ -11615,7 +11615,7 @@
     - "owaspm10.M6"
     - "mitre.M1040"
     - "cmmc.PE_L1-3_10_5"
-    - "034.10_c"
+    - "hitrust.10_c"
   metadata: {}
 "374":
   en:
@@ -11642,8 +11642,8 @@
     - "owaspm10.M8"
     - "agile.11"
     - "misrac.2_1"
-    - "034.01_w"
-    - "034.09_d"
+    - "hitrust.01_w"
+    - "hitrust.09_d"
   metadata: {}
 "375":
   en:
@@ -11691,7 +11691,7 @@
     - "sans25.200"
     - "pdpo.S1_4"
     - "cmmc.CM_L2-3_4_9"
-    - "034.09_p"
+    - "hitrust.09_p"
   metadata: {}
 "376":
   en:
@@ -11730,8 +11730,8 @@
     - "cmmc.AU_L2-3_3_1"
     - "cmmc.CA_L2-3_12_3"
     - "cmmc.SI_L2-3_14_7"
-    - "034.09_aa"
-    - "034.13_s"
+    - "hitrust.09_aa"
+    - "hitrust.13_s"
   metadata: {}
 "377":
   en:
@@ -11775,10 +11775,10 @@
     - "pdpo.5_27"
     - "cmmc.AC_L2-3_1_12"
     - "cmmc.AU_L2-3_3_1"
-    - "034.01_p"
-    - "034.06_c"
-    - "034.09_ab"
-    - "034.13_s"
+    - "hitrust.01_p"
+    - "hitrust.06_c"
+    - "hitrust.09_ab"
+    - "hitrust.13_s"
   metadata: {}
 "378":
   en:
@@ -11819,8 +11819,8 @@
     - "cmmc.AU_L2-3_3_9"
     - "cmmc.CM_L2-3_4_3"
     - "cmmc.CA_L2-3_12_3"
-    - "034.01_p"
-    - "034.09_ab"
+    - "hitrust.01_p"
+    - "hitrust.09_ab"
   metadata: {}
 "379":
   en:
@@ -11911,8 +11911,8 @@
     - "certj.SEC04-J"
     - "mitre.M1027"
     - "cmmc.IA_L2-3_5_10"
-    - "034.01_d"
-    - "034.01_r"
+    - "hitrust.01_d"
+    - "hitrust.01_r"
   metadata: {}
 "381":
   en:
