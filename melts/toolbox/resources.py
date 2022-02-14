@@ -328,6 +328,17 @@ def _http_ls_remote(_repo_url: str, git_root: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+def get_head_commit(path_to_repo: str, branch: str) -> Optional[str]:
+    try:
+        return (
+            git.Repo(path_to_repo, search_parent_directories=True)
+            .heads[branch]
+            .object.hexsha
+        )
+    except GitError:
+        return None
+
+
 def _http_repo_cloning(
     group_name: str,
     git_root: Dict[str, str],

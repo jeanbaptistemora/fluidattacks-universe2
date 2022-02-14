@@ -22,6 +22,9 @@ from toolbox.constants import (
 from toolbox.logger import (
     LOGGER,
 )
+from toolbox.resources import (
+    get_head_commit,
+)
 from toolbox.utils import (
     db_client,
     generic,
@@ -102,29 +105,43 @@ def get_root_upload_dates(subs: str) -> Dict[str, str]:
     }
 
 
-def append_root_metadata(subs: str) -> None:
+def append_root_metadata(
+    subs: str, root_nickname: Optional[str] = None
+) -> None:
     # We'll be appending a small metadata file to each repository so
     # downstream components know important values about the data
     upload_dates: Dict[str, str] = get_root_upload_dates(subs)
-
-    for root in glob.glob(f"groups/{subs}/fusion/*"):
-        root_nickname: str = os.path.basename(root)
+    if root_nickname:
         if _upload_date := upload_dates.get(root_nickname):
             with open(
-                f"{root}/.git/fluidattacks_metadata", "w", encoding="utf8"
+                (
+                    f"groups/{subs}/fusion/"
+                    f"{root_nickname}/.git/fluidattacks_metadata"
+                ),
+                "w",
+                encoding="utf8",
             ) as file:
                 json.dump({"date": _upload_date}, file, indent=2)
+    else:
+        for root in glob.glob(f"groups/{subs}/fusion/*"):
+            root_nickname = os.path.basename(root)
+            if _upload_date := upload_dates.get(root_nickname):
+                with open(
+                    f"{root}/.git/fluidattacks_metadata", "w", encoding="utf8"
+                ) as file:
+                    json.dump({"date": _upload_date}, file, indent=2)
 
 
 def s3_sync_fusion_to_s3(
-    subs: str,
+    group_name: str,
+    root_nickname: str,
     bucket: str = "continuous-repositories",
     endpoint_url: Optional[str] = None,
 ) -> bool:
-    append_root_metadata(subs)
+    append_root_metadata(group_name, root_nickname)
 
-    fusion_dir: str = f"groups/{subs}/fusion"
-    s3_subs_repos_path: str = f"{subs}/"
+    fusion_dir: str = f"groups/{group_name}/fusion"
+    s3_subs_repos_path: str = group_name
     kwargs = (
         {}
         if generic.is_env_ci()
@@ -133,7 +150,7 @@ def s3_sync_fusion_to_s3(
             stderr=None,
         )
     )
-
+    base_path = os.getcwd()
     aws_sync_command: List[str] = [
         "aws",
         "s3",
@@ -142,11 +159,11 @@ def s3_sync_fusion_to_s3(
         "--sse",
         "AES256",
         "--exclude",
-        "*",
+        f"{base_path}/{fusion_dir}/{root_nickname}/*",
         "--include",
-        "*/.git/*",
-        fusion_dir,
-        f"s3://{bucket}/{s3_subs_repos_path}",
+        f"{base_path}/{fusion_dir}/{root_nickname}/.git/*",
+        f"{base_path}/{fusion_dir}/{root_nickname}",
+        f"s3://{bucket}/{s3_subs_repos_path}/{root_nickname}/",
     ]
 
     if not generic.is_env_ci():
@@ -209,16 +226,43 @@ def main(
     if "api_mutations_refresh_toe_lines_mutate" not in permissions:
         LOGGER.error("Must have permission to refresh the surface lines")
         return False
-
-    if generic.does_subs_exist(subs) and generic.does_fusion_exist(subs):
-        if aws_login:
-            generic.aws_login(aws_profile)
-
-        LOGGER.info("Syncing repositories")
-        passed = passed and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
-    else:
+    if not (generic.does_subs_exist(subs) and generic.does_fusion_exist(subs)):
         LOGGER.error("Either the subs or the fusion folder does not exist")
-        passed = False
+        return False
+
+    if aws_login:
+        generic.aws_login(aws_profile)
+
+    repo_request = integrates.Queries.git_roots(
+        API_TOKEN,
+        subs,
+    )
+    if not repo_request.ok:
+        LOGGER.error(repo_request.errors)
+        return False
+
+    roots_dict = {
+        root["nickname"]: root
+        for root in repo_request.data["group"]["roots"]
+        if root.get("state", "") == "ACTIVE"
+    }
+
+    LOGGER.info("Syncing repositories")
+    repos = os.listdir(f"groups/{subs}/fusion")
+    for repo in repos:
+        if (root := roots_dict.get(repo)) and (
+            local_commit := get_head_commit(
+                f"groups/{subs}/fusion/{repo}", root["branch"]
+            )
+        ):
+            if local_commit != root.get("cloningStatus", {}).get("commit"):
+                passed = s3_sync_fusion_to_s3(
+                    subs, root["nickname"], bucket, endpoint_url
+                )
+            else:
+                LOGGER.info("%s is already in S3", repo)
+        else:
+            passed = False
     if passed and (
         (generic.is_env_ci() and generic.is_branch_master())
         or not generic.is_env_ci()

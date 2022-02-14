@@ -54,7 +54,7 @@ def test_drills_push_repos(
         for repo in repos:
             repo_path: str = f"{SUBS_FUSION}/{repo}"
             create_repo(repo_path)
-        push_repos.s3_sync_fusion_to_s3(SUBS, BUCKET, ENDPOINT_URL)
+            push_repos.s3_sync_fusion_to_s3(SUBS, repo, BUCKET, ENDPOINT_URL)
 
     try:
         set_up_repos()
