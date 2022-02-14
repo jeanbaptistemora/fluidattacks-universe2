@@ -32,7 +32,7 @@ def _log_request(request: Request, data: Dict[str, Any]) -> None:
 
     logs_utils.cloudwatch_log(
         request,
-        f"API: {name} with parameters {variables}." f"Complete query: {query}",
+        f"API: {name} with parameters {variables}. Complete query: {query}",
     )
 
 
