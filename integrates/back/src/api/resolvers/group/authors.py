@@ -1,6 +1,9 @@
 from billing import (
     domain as billing_domain,
 )
+from billing.types import (
+    Price,
+)
 from custom_types import (
     Group,
     Historic,
@@ -36,11 +39,20 @@ async def resolve(
 ) -> Dict[str, Historic]:
     group_name: str = parent["name"]
     date: datetime = kwargs.get("date", datetime_utils.get_now())
-    authors_data: List[Dict[str, str]] = await billing_domain.get_authors_data(
+    data: List[Dict[str, str]] = await billing_domain.get_authors_data(
         date=date,
         group=group_name,
     )
+    total: int = len(data)
+    current_spend: int = 0
+    if parent["tier"] == "squad":
+        prices: Dict[str, Price] = await billing_domain.get_prices()
+        current_spend = total * prices["squad"].amount
+    else:
+        current_spend = 0
+
     return {
-        "data": authors_data,
-        "total": len(authors_data),
+        "current_spend": current_spend,
+        "data": data,
+        "total": total,
     }
