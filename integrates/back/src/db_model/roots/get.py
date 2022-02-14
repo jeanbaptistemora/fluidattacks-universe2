@@ -121,28 +121,20 @@ def _format_root(*, item: Item) -> RootItem:
     )
 
 
-async def _get_root(
-    *,
-    group_name: str,
-    root_id: str,
-) -> RootItem:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_metadata"],
-        values={"name": group_name, "uuid": root_id},
+async def _get_roots(
+    *, root_ids: List[Tuple[str, str]]
+) -> Tuple[RootItem, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["git_root_metadata"],
+            values={"name": group_name, "uuid": root_id},
+        )
+        for group_name, root_id in root_ids
     )
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    item = await operations.get_item(
-        facets=(
-            TABLE.facets["git_root_metadata"],
-            TABLE.facets["ip_root_metadata"],
-            TABLE.facets["url_root_metadata"],
-        ),
-        key=primary_key,
-        table=TABLE,
-    )
-
-    if item:
-        return _format_root(item=item)
+    if len(items) == len(root_ids):
+        return tuple(_format_root(item=item) for item in items)
 
     raise RootNotFound()
 
@@ -152,13 +144,10 @@ class RootLoader(DataLoader):
     async def batch_load_fn(
         self, root_ids: List[Tuple[str, str]]
     ) -> Tuple[RootItem, ...]:
-        return await collect(
-            _get_root(group_name=group_name, root_id=root_id)
-            for group_name, root_id in root_ids
-        )
+        return await _get_roots(root_ids=root_ids)
 
 
-async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+async def _get_group_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -196,7 +185,8 @@ class GroupRootsLoader(DataLoader):
         self, group_names: List[str]
     ) -> Tuple[Tuple[RootItem, ...], ...]:
         return await collect(
-            _get_roots(group_name=group_name) for group_name in group_names
+            _get_group_roots(group_name=group_name)
+            for group_name in group_names
         )
 
 
