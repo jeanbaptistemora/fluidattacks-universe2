@@ -15,7 +15,7 @@ type Author {
 "Authors type definition"
 type Authors {
   "Month-to-date spend"
-  currentSpend: Int
+  currentSpend: Int!
   "Authors data"
   data: [Author!]!
   "Total authors"

@@ -49,7 +49,10 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   // States
   const defaultCurrentRow: IGroupAttr = {
-    authors: { total: 0 },
+    authors: {
+      currentSpend: 0,
+      total: 0,
+    },
     forces: "",
     hasForces: false,
     hasMachine: false,
@@ -162,6 +165,13 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       dataField: "authors.total",
       formatter: pointStatusFormatter,
       header: "Authors",
+      width: "80px",
+    },
+    {
+      align: "center",
+      dataField: "authors.currentSpend",
+      formatter: pointStatusFormatter,
+      header: "Month-to-date spend ($)",
       width: "80px",
     },
   ];

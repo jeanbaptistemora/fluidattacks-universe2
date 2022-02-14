@@ -47,7 +47,7 @@ async def resolve(
     current_spend: int = 0
     if parent["tier"] == "squad":
         prices: Dict[str, Price] = await billing_domain.get_prices()
-        current_spend = total * prices["squad"].amount
+        current_spend = total * prices["squad"].amount / 100
     else:
         current_spend = 0
 

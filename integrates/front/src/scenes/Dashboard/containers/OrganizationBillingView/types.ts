@@ -1,4 +1,5 @@
 interface IGroupAuthors {
+  currentSpend: number;
   total: number;
 }
 
