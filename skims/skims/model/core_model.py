@@ -2462,7 +2462,7 @@ class MethodsEnum(Enum):
     SYMB_INSEC_ADDHEADER_WRITE = MethodInfo(
         file_name="c_sharp",
         name="insec_addheader_write",
-        module="symbolic_eval",
+        module="lib_root",
         finding=FindingEnum.F008,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.ADVANCE_SAST,

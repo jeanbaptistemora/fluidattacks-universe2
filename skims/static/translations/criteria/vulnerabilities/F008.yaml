@@ -1,0 +1,7 @@
+src.lib_path.f008.insec_addheader_write.description:
+  en: >
+    The web application dynamically generates web content without validating
+    the source of the potentially untrusted data
+  es: >
+    La aplicación web genera contenido dinámico sin validar la fuente de datos
+    potencialmente inseguros.
