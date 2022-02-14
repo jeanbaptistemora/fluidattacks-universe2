@@ -233,7 +233,7 @@ class AssignedVulnerabilitiesLoader(DataLoader):
         )
 
 
-class FindingVulnsNewLoader(DataLoader):
+class FindingVulnerabilitiesLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -251,7 +251,7 @@ class FindingVulnsNewLoader(DataLoader):
         return vulns
 
 
-class FindingVulnsNonDeletedTypedLoader(DataLoader):
+class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -277,7 +277,7 @@ class FindingVulnsNonDeletedTypedLoader(DataLoader):
         )
 
 
-class FindingVulnsNonZeroRiskTypedLoader(DataLoader):
+class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -299,7 +299,7 @@ class FindingVulnsNonZeroRiskTypedLoader(DataLoader):
         )
 
 
-class FindingVulnsOnlyZeroRiskTypedLoader(DataLoader):
+class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -314,7 +314,7 @@ class FindingVulnsOnlyZeroRiskTypedLoader(DataLoader):
         )
 
 
-class RootVulnsNewLoader(DataLoader):
+class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
@@ -324,7 +324,7 @@ class RootVulnsNewLoader(DataLoader):
         )
 
 
-class VulnNewLoader(DataLoader):
+class VulnerabilityLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
@@ -334,7 +334,7 @@ class VulnNewLoader(DataLoader):
         )
 
 
-class VulnHistoricStateNewLoader(DataLoader):
+class VulnerabilityHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
@@ -344,7 +344,7 @@ class VulnHistoricStateNewLoader(DataLoader):
         )
 
 
-class VulnHistoricTreatmentNewLoader(DataLoader):
+class VulnerabilityHistoricTreatmentLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
@@ -354,7 +354,7 @@ class VulnHistoricTreatmentNewLoader(DataLoader):
         )
 
 
-class VulnHistoricVerificationNewLoader(DataLoader):
+class VulnerabilityHistoricVerificationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
@@ -366,7 +366,7 @@ class VulnHistoricVerificationNewLoader(DataLoader):
         )
 
 
-class VulnHistoricZeroRiskNewLoader(DataLoader):
+class VulnerabilityHistoricZeroRiskLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]

@@ -52,16 +52,16 @@ from db_model.toe_lines.get import (
 )
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
-    FindingVulnsNewLoader,
-    FindingVulnsNonDeletedTypedLoader,
-    FindingVulnsNonZeroRiskTypedLoader,
-    FindingVulnsOnlyZeroRiskTypedLoader,
-    RootVulnsNewLoader,
-    VulnHistoricStateNewLoader,
-    VulnHistoricTreatmentNewLoader,
-    VulnHistoricVerificationNewLoader,
-    VulnHistoricZeroRiskNewLoader,
-    VulnNewLoader,
+    FindingVulnerabilitiesLoader,
+    FindingVulnerabilitiesNonDeletedLoader,
+    FindingVulnerabilitiesNonZeroRiskLoader,
+    FindingVulnerabilitiesOnlyZeroRiskLoader,
+    RootVulnerabilitiesLoader,
+    VulnerabilityHistoricStateLoader,
+    VulnerabilityHistoricTreatmentLoader,
+    VulnerabilityHistoricVerificationLoader,
+    VulnerabilityHistoricZeroRiskLoader,
+    VulnerabilityLoader,
 )
 from starlette.requests import (
     Request,
@@ -78,10 +78,10 @@ class Dataloaders(NamedTuple):
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
-    finding_vulns_typed: FindingVulnsNonDeletedTypedLoader
-    finding_vulns_all_typed: FindingVulnsNewLoader
-    finding_vulns_nzr_typed: FindingVulnsNonZeroRiskTypedLoader
-    finding_vulns_zr_typed: FindingVulnsOnlyZeroRiskTypedLoader
+    finding_vulns_typed: FindingVulnerabilitiesNonDeletedLoader
+    finding_vulns_all_typed: FindingVulnerabilitiesLoader
+    finding_vulns_nzr_typed: FindingVulnerabilitiesNonZeroRiskLoader
+    finding_vulns_zr_typed: FindingVulnerabilitiesOnlyZeroRiskLoader
     group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
@@ -101,14 +101,16 @@ class Dataloaders(NamedTuple):
     root_states: RootStatesLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_toe_lines: RootToeLinesLoader
-    root_vulns: RootVulnsNewLoader
+    root_vulns: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    vulnerability_typed: VulnNewLoader
-    vulnerability_historic_state: VulnHistoricStateNewLoader
-    vulnerability_historic_treatment: VulnHistoricTreatmentNewLoader
-    vulnerability_historic_verification: VulnHistoricVerificationNewLoader
-    vulnerability_historic_zero_risk: VulnHistoricZeroRiskNewLoader
+    vulnerability_typed: VulnerabilityLoader
+    vulnerability_historic_state: VulnerabilityHistoricStateLoader
+    vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
+    vulnerability_historic_verification: (
+        VulnerabilityHistoricVerificationLoader
+    )
+    vulnerability_historic_zero_risk: VulnerabilityHistoricZeroRiskLoader
 
 
 def apply_context_attrs(
@@ -126,15 +128,17 @@ def get_new_context() -> Dataloaders:
         group_drafts_and_findings_loader
     )
 
-    vulnerability_typed = VulnNewLoader()
-    finding_vulns_typed_loader = FindingVulnsNewLoader(vulnerability_typed)
-    finding_vulns_non_deleted_typed_loader = FindingVulnsNonDeletedTypedLoader(
-        finding_vulns_typed_loader
+    vulnerability_typed = VulnerabilityLoader()
+    finding_vulns_typed_loader = FindingVulnerabilitiesLoader(
+        vulnerability_typed
     )
-    finding_vulns_nzr_typed_loader = FindingVulnsNonZeroRiskTypedLoader(
+    finding_vulns_non_deleted_typed_loader = (
+        FindingVulnerabilitiesNonDeletedLoader(finding_vulns_typed_loader)
+    )
+    finding_vulns_nzr_typed_loader = FindingVulnerabilitiesNonZeroRiskLoader(
         finding_vulns_non_deleted_typed_loader
     )
-    finding_vulns_zr_typed_loader = FindingVulnsOnlyZeroRiskTypedLoader(
+    finding_vulns_zr_typed_loader = FindingVulnerabilitiesOnlyZeroRiskLoader(
         finding_vulns_non_deleted_typed_loader
     )
 
@@ -167,14 +171,16 @@ def get_new_context() -> Dataloaders:
         root_states=RootStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_toe_lines=RootToeLinesLoader(),
-        root_vulns=RootVulnsNewLoader(),
+        root_vulns=RootVulnerabilitiesLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         vulnerability_typed=vulnerability_typed,
-        vulnerability_historic_state=VulnHistoricStateNewLoader(),
-        vulnerability_historic_treatment=VulnHistoricTreatmentNewLoader(),
-        vulnerability_historic_verification=(
-            VulnHistoricVerificationNewLoader()
+        vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
+        vulnerability_historic_treatment=(
+            VulnerabilityHistoricTreatmentLoader()
         ),
-        vulnerability_historic_zero_risk=VulnHistoricZeroRiskNewLoader(),
+        vulnerability_historic_verification=(
+            VulnerabilityHistoricVerificationLoader()
+        ),
+        vulnerability_historic_zero_risk=VulnerabilityHistoricZeroRiskLoader(),
     )
