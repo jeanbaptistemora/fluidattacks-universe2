@@ -151,6 +151,18 @@ def format_percentages(
 
 
 def format_data(data: List[Treatment]) -> Dict[str, Any]:
+    percentage_values = [
+        format_percentages(
+            {
+                "Temporarily Accepted": Decimal(group.accepted),
+                "Closed": Decimal(group.closed_vulnerabilities),
+                "Open": Decimal(group.open_vulnerabilities),
+                "Permanently accepted": Decimal(group.accepted_undefined),
+            }
+        )
+        for group in data
+    ]
+
     return dict(
         data=dict(
             columns=[
@@ -171,6 +183,11 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
                 "Permanently accepted": TREATMENT.more_passive,
                 "Open": RISK.more_agressive,
             },
+            labels=dict(
+                format=dict(
+                    Closed=None,
+                ),
+            ),
             type="bar",
             groups=[
                 [
@@ -200,7 +217,42 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
                 value=None,
             ),
         ),
-        normalizedToolTip=True,
+        percentageValues={
+            "Temporarily Accepted": [
+                percentage_value[0]["Temporarily Accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Closed": [
+                percentage_value[0]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            "Open": [
+                percentage_value[0]["Open"]
+                for percentage_value in percentage_values
+            ],
+            "Permanently accepted": [
+                percentage_value[0]["Permanently accepted"]
+                for percentage_value in percentage_values
+            ],
+        },
+        maxPercentageValues={
+            "Temporarily Accepted": [
+                percentage_value[1]["Temporarily Accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Closed": [
+                percentage_value[1]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            "Open": [
+                percentage_value[1]["Open"]
+                for percentage_value in percentage_values
+            ],
+            "Permanently accepted": [
+                percentage_value[1]["Permanently accepted"]
+                for percentage_value in percentage_values
+            ],
+        },
     )
 
 
