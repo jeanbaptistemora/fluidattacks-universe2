@@ -3125,7 +3125,7 @@
       title: Properly seed pseudorandom number generators
       link: https://resources.sei.cmu.edu/downloads/secure-coding/assets/sei-cert-c-coding-standard-2016-v01.pdf
   metadata: {}
-"023":
+"certj":
   title: CERT-J
   en:
     description: >
