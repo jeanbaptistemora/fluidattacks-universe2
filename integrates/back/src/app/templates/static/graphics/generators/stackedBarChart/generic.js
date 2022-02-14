@@ -20,6 +20,8 @@ function render(dataDocument, height, width) {
       Accepted: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
       Closed: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
       Open: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
+      'Permanently accepted': (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
+      'Temporarily accepted': (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
     };
   }
 
