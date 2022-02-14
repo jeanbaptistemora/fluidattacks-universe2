@@ -22,19 +22,6 @@ const GET_ROOTS: DocumentNode = gql`
           gitignore
           id
           includesHealthCheck
-          lastCloningStatusUpdate
-          lastMachineExecutions {
-            complete {
-              stoppedAt
-            }
-            specific {
-              findingsExecuted {
-                finding
-              }
-              stoppedAt
-            }
-          }
-          lastStateStatusUpdate
           nickname
           state
           url
@@ -55,6 +42,36 @@ const GET_ROOTS: DocumentNode = gql`
           protocol
           state
         }
+      }
+    }
+  }
+`;
+
+const GET_GIT_ROOT_DETAILS = gql`
+  query GetGitRootDetails($groupName: String!, $rootId: ID!) {
+    root(groupName: $groupName, rootId: $rootId) {
+      ... on GitRoot {
+        cloningStatus {
+          message
+        }
+        environment
+        environmentUrls
+        gitignore
+        id
+        lastCloningStatusUpdate
+        lastMachineExecutions {
+          complete {
+            stoppedAt
+          }
+          specific {
+            findingsExecuted {
+              finding
+            }
+            stoppedAt
+          }
+        }
+        lastStateStatusUpdate
+        nickname
       }
     }
   }
@@ -263,9 +280,10 @@ export {
   ADD_IP_ROOT,
   ADD_URL_ROOT,
   DEACTIVATE_ROOT,
+  GET_GIT_ROOT_DETAILS,
   GET_GROUPS,
-  GET_ROOTS,
   GET_ROOTS_VULNS,
+  GET_ROOTS,
   MOVE_ROOT,
   SYNC_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,

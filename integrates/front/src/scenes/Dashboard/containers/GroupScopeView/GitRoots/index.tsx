@@ -481,7 +481,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   expanded: expandedRows,
                   onExpand: handleRowExpand,
                   onExpandAll: handleRowExpandAll,
-                  renderer: renderRepoDescription,
+                  renderer: renderRepoDescription(groupName),
                   showExpandColumn: true,
                 }}
                 exportCsv={true}

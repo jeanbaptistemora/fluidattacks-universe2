@@ -1,8 +1,13 @@
+import type { ApolloError } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { GET_GIT_ROOT_DETAILS } from "../queries";
 import { Col50, Row } from "styles/styledComponents";
 import { formatIsoDate } from "utils/date";
+import { Logger } from "utils/logger";
 
 interface ILastMachineExecutions {
   complete: {
@@ -21,9 +26,7 @@ interface IDescriptionProps {
   environment: string;
   environmentUrls: string[];
   gitignore: string[];
-  lastCloningStatusUpdate: string;
-  lastMachineExecutions: ILastMachineExecutions;
-  lastStateStatusUpdate: string;
+  id: string;
   nickname: string;
 }
 
@@ -32,12 +35,43 @@ const Description = ({
   environment,
   environmentUrls,
   gitignore,
-  lastCloningStatusUpdate,
-  lastMachineExecutions,
-  lastStateStatusUpdate,
+  groupName,
+  id,
   nickname,
-}: IDescriptionProps): JSX.Element => {
+}: IDescriptionProps & { groupName: string }): JSX.Element => {
   const { t } = useTranslation();
+
+  // GraphQL operations
+  const { data } = useQuery<{
+    root: {
+      lastCloningStatusUpdate: string;
+      lastMachineExecutions: ILastMachineExecutions;
+      lastStateStatusUpdate: string;
+    };
+  }>(GET_GIT_ROOT_DETAILS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load root details", error);
+      });
+    },
+    variables: { groupName, rootId: id },
+  });
+  const rootDetails =
+    data === undefined
+      ? {
+          lastCloningStatusUpdate: "",
+          lastMachineExecutions: {
+            complete: null,
+            specific: null,
+          },
+          lastStateStatusUpdate: "",
+        }
+      : data.root;
+  const {
+    lastCloningStatusUpdate,
+    lastMachineExecutions,
+    lastStateStatusUpdate,
+  } = rootDetails;
 
   return (
     <div>
@@ -122,17 +156,22 @@ const Description = ({
   );
 };
 
-export const renderRepoDescription = (
-  props: IDescriptionProps
+const renderDescriptionComponent = (
+  props: IDescriptionProps,
+  groupName: string
 ): JSX.Element => (
   <Description
     cloningStatus={props.cloningStatus}
     environment={props.environment}
     environmentUrls={props.environmentUrls}
     gitignore={props.gitignore}
-    lastCloningStatusUpdate={props.lastCloningStatusUpdate}
-    lastMachineExecutions={props.lastMachineExecutions}
-    lastStateStatusUpdate={props.lastStateStatusUpdate}
+    groupName={groupName}
+    id={props.id}
     nickname={props.nickname}
   />
 );
+
+export const renderRepoDescription =
+  (groupName: string): ((props: IDescriptionProps) => JSX.Element) =>
+  (props: IDescriptionProps): JSX.Element =>
+    renderDescriptionComponent(props, groupName);
