@@ -95,7 +95,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs
-  defaultValue="linux"
+  defaultValue="windows"
   values={[
     {label: 'Linux', value: 'linux'},
     {label: 'Windows', value: 'windows'},
@@ -150,7 +150,7 @@ The LOC.yaml file must be sent to the indicated email.
 **Installation**
 
 You can install Tokei on Windows
-using ***scoop*** package manager.
+using [Scoop](https://scoop.sh/) package manager.
 
 ```md
 scoop install tokei
