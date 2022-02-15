@@ -8,6 +8,7 @@ const GET_ORGANIZATION_STAKEHOLDERS: DocumentNode = gql`
       stakeholders {
         email
         firstLogin
+        invitationState
         lastLogin
         role
       }

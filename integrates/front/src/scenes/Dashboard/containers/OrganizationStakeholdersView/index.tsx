@@ -12,7 +12,10 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { getStakeHolderIndex } from "../GroupStakeholdersView/helpers";
+import {
+  getStakeHolderIndex,
+  handleGrantError,
+} from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
@@ -20,6 +23,7 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
@@ -32,6 +36,7 @@ import type {
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
+  IStakeholderDataSet,
   IUpdateStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
@@ -43,7 +48,7 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "email",
     header: translate.t("searchFindings.usersTable.usermail"),
-    width: "40%",
+    width: "33%",
   },
   {
     dataField: "role",
@@ -64,6 +69,17 @@ const tableHeaders: IHeaderConfig[] = [
     formatter: timeFromNow,
     header: translate.t("searchFindings.usersTable.lastlogin"),
     width: "20%",
+  },
+  {
+    dataField: "invitationState",
+    formatter: pointStatusFormatter,
+    header: translate.t("searchFindings.usersTable.invitation"),
+    width: "80px",
+  },
+  {
+    dataField: "invitationResend",
+    header: "",
+    width: "80px",
   },
 ];
 
@@ -152,14 +168,14 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         const { email } =
           mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
-          `${email} ${translate.t(
-            "organization.tabs.users.addButton.success"
-          )}`,
+          `${email}${translate.t("searchFindings.tabUsers.success")}`,
           translate.t("organization.tabs.users.successTitle")
         );
       }
     },
-    onError: handleMtError,
+    onError: (grantError: ApolloError): void => {
+      handleGrantError(grantError);
+    },
   });
 
   const [updateStakeholder] = useMutation(UPDATE_STAKEHOLDER_MUTATION, {
@@ -259,7 +275,32 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const stakeholdersList: IStakeholderAttrs[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? []
-      : data.organization.stakeholders;
+      : data.organization.stakeholders.map(
+          (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
+            function handleResendEmail(
+              event: React.MouseEvent<HTMLButtonElement>
+            ): void {
+              event.stopPropagation();
+
+              const resendStakeholder = {
+                ...stakeholder,
+                role: stakeholder.role.toUpperCase(),
+              };
+              setStakeholderModalAction("add");
+              handleSubmit(resendStakeholder);
+            }
+            const isPending = stakeholder.invitationState === "PENDING";
+
+            return {
+              ...stakeholder,
+              invitationResend: (
+                <Button disabled={!isPending} onClick={handleResendEmail}>
+                  {translate.t("searchFindings.usersTable.resendEmail")}
+                </Button>
+              ),
+            };
+          }
+        );
 
   const filterSearchtextResult: IStakeholderAttrs[] = filterSearchText(
     stakeholdersList,

@@ -45,6 +45,16 @@ interface ILastLogin {
 interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
+  invitationState: string;
+  lastLogin: ILastLogin;
+  role: string;
+}
+
+interface IStakeholderDataSet {
+  email: string;
+  firstLogin: string;
+  invitationResend: JSX.Element;
+  invitationState: string;
   lastLogin: ILastLogin;
   role: string;
 }
@@ -56,4 +66,5 @@ export {
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
+  IStakeholderDataSet,
 };

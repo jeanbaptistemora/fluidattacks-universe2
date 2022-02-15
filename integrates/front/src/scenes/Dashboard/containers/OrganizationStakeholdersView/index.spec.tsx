@@ -65,12 +65,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "2020-09-01",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "-",
                   role: "user_manager",
                 },
@@ -163,6 +165,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
@@ -206,12 +209,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01 13:40:37",
+                  invitationState: "CONFIRMED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01 13:40:37",
+                  invitationState: "CONFIRMED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "user",
                 },
@@ -283,8 +288,8 @@ describe("Organization users view", (): void => {
 
         expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
         expect(msgSuccess).toHaveBeenCalledWith(
-          `testuser2@gmail.com ${translate.t(
-            "organization.tabs.users.addButton.success"
+          `testuser2@gmail.com${translate.t(
+            "searchFindings.tabUsers.success"
           )}`,
           translate.t("organization.tabs.users.successTitle")
         );
@@ -314,6 +319,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[10, 35207]",
                   role: "user",
                 },
@@ -358,6 +364,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[10, 35207]",
                   role: "user_manager",
                 },
@@ -459,12 +466,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[-1, -1]",
                   role: "user_manager",
                 },
@@ -504,6 +513,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },
@@ -641,6 +651,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
+                  invitationState: "CONFIRMED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },
