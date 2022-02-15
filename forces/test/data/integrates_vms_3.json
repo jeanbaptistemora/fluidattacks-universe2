@@ -171,78 +171,62 @@
           },
           "type": {
             "S": "Git"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "sk": {
-            "S": "GROUP#herrin"
           },
-          "pk": {
-            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c#CLON"
+          "cloning": {
+            "M": {
+              "modified_date": {
+                "S": "2021-01-08T19:41:58+00:00"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              }
+            }
           },
-          "modified_date": {
-            "S": "2021-01-08T19:41:58+00:00"
-          },
-          "reason": {
-            "S": "root created"
-          },
-          "status": {
-            "S": "UNKNOWN"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "environment": {
-            "S": "production"
-          },
-          "environment_urls": {
-            "L": []
-          },
-          "modified_date": {
-            "S": "2021-01-08T19:41:58+00:00"
-          },
-          "status": {
-            "S": "ACTIVE"
-          },
-          "other": {
-            "NULL": true
-          },
-          "includes_health_check": {
-            "BOOL": false
-          },
-          "modified_by": {
-            "S": "drestrepo@fluidattacks.com"
-          },
-          "url": {
-            "S": "ssh://git@gitlab.com:fluidattacks/product"
-          },
-          "reason": {
-            "NULL": true
-          },
-          "gitignore": {
-            "L": []
-          },
-          "nickname": {
-            "S": "product"
-          },
-          "branch": {
-            "S": "master"
-          },
-          "sk": {
-            "S": "GROUP#herrin"
-          },
-          "git_environment_urls": {
-            "L": []
-          },
-          "pk": {
-            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c#STATE"
+          "state": {
+            "M": {
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "modified_date": {
+                "S": "2021-01-08T19:41:58+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "other": {
+                "NULL": true
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
+              },
+              "reason": {
+                "NULL": true
+              },
+              "gitignore": {
+                "L": []
+              },
+              "nickname": {
+                "S": "product"
+              },
+              "branch": {
+                "S": "master"
+              },
+              "git_environment_urls": {
+                "L": []
+              }
+            }
           }
         }
       }
