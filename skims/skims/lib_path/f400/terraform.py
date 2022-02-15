@@ -15,6 +15,7 @@ from parse_hcl2.common import (
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_api_gateway_stage,
     iter_aws_elb,
     iter_aws_instance,
     iter_s3_buckets,
@@ -56,6 +57,17 @@ def _tfm_ec2_monitoring_disabled(
             yield resource
         elif monitoring.val is False:
             yield monitoring
+
+
+def _tfm_api_gateway_access_logging_disabled(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if not get_argument(
+            body=resource.data,
+            key="access_log_settings",
+        ):
+            yield resource
 
 
 def tfm_elb_logging_disabled(
@@ -103,4 +115,20 @@ def tfm_ec2_monitoring_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_MONITORING_DISABLED,
+    )
+
+
+def tfm_api_gateway_access_logging_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f400.has_logging_disabled",
+        iterator=get_cloud_iterator(
+            _tfm_api_gateway_access_logging_disabled(
+                resource_iterator=iter_aws_api_gateway_stage(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_API_GATEWAY_LOGGING_DISABLED,
     )

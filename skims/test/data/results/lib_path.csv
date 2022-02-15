@@ -25377,6 +25377,14 @@ F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. 
   21 |     healthy_threshold   = 2
      ^ Col 0
 ",terraform.tfm_elb_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_api_gateway_access_logging_disabled.tf,"
+> 1 | resource ""aws_api_gateway_stage"" ""example"" {
+  2 |   deployment_id = aws_api_gateway_deployment.example.id
+  3 |   rest_api_id   = aws_api_gateway_rest_api.example.id
+  4 |   stage_name    = ""example""
+  5 | }
+    ^ Col 0
+",terraform.tfm_api_gateway_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/tfm_s3_buckets_logging_disabled.tf,1,778,skims,400. Tracebility Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_s3_buckets_logging_disabled.tf,"
 >  1 | resource ""aws_s3_bucket"" ""state_bucket"" {
    2 |   bucket        = ""${data.aws_caller_identity.current.account_id}-terraform-state""
