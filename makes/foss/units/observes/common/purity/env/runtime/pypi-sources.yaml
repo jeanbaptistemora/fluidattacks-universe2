@@ -1,6 +1,6 @@
 closure:
   deprecated: 1.2.13
-  fa-purity: 1.1.2
+  fa-purity: 1.3.0
   more-itertools: 8.12.0
   returns: 0.16.0
   simplejson: 3.17.6
@@ -15,12 +15,12 @@ links:
   - name: Deprecated-1.2.13.tar.gz
     sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
     url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
-  - name: fa_purity-1.1.2-py3-none-any.whl
-    sha256: 1pkg3rkg6iiv48vhdcmxcf7gvy7ax0zjias3n7x88cq2pd7vzij6
-    url: https://files.pythonhosted.org/packages/ed/29/08a2efbeae34461aee8e7f5b1854a3e0a000140b7d7a046a704bbb4bf9ba/fa_purity-1.1.2-py3-none-any.whl
-  - name: fa_purity-1.1.2.tar.gz
-    sha256: 19fhylq9svjh0y655nwb8nggcwqm5iw8cihqm91x6j2akh2072lr
-    url: https://files.pythonhosted.org/packages/96/ac/bc376e95963660b59e038f88c6a5761e7e805c94cb02cc43c1cf1f0d07cf/fa_purity-1.1.2.tar.gz
+  - name: fa_purity-1.3.0-py3-none-any.whl
+    sha256: 1k2rl4c1f58yw13wpnqxzdybxl441nz9g00s2llswmmpb46zcpgk
+    url: https://files.pythonhosted.org/packages/79/8c/bb9989ee5c53881968b2a107326ff8e83ec4e0307a4c28ae43bac067482c/fa_purity-1.3.0-py3-none-any.whl
+  - name: fa_purity-1.3.0.tar.gz
+    sha256: 1qvscg3lj7mh6214mx6nqgvhikiz70mf967y1r82xwlyv9bczsfj
+    url: https://files.pythonhosted.org/packages/fa/f6/89007f5cd17018711c4cf2946ad2183720df8387f5883c5ebef70d60f29a/fa_purity-1.3.0.tar.gz
   - name: more_itertools-8.12.0-py3-none-any.whl
     sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
     url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl

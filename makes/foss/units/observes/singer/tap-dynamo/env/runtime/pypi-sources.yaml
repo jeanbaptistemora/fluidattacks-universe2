@@ -5,7 +5,7 @@ closure:
   colorama: 0.4.4
   deprecated: 1.2.13
   dill: 0.3.4
-  fa-purity: 1.2.0
+  fa-purity: 1.3.0
   jmespath: 0.10.0
   more-itertools: 8.12.0
   multiprocess: 0.70.12.2
@@ -59,12 +59,12 @@ links:
   - name: dill-0.3.4.zip
     sha256: 0xg677bq9jig7pw2libqmvfvcdq20zq9mv1zmd9v7cj6a4h395wz
     url: https://files.pythonhosted.org/packages/57/b7/c4aa04a27040e6a3b09f5a652976ead00b66504c014425a7aad887aa8d7f/dill-0.3.4.zip
-  - name: fa_purity-1.2.0-py3-none-any.whl
-    sha256: 05i0rii8z46smbqskdncvgj1qj9qhilhhy7dpabwq7prcnggy544
-    url: https://files.pythonhosted.org/packages/41/84/c808f825c1a02a14784e5e56b23b0ac828e3d92c58eeec397f0589eeece0/fa_purity-1.2.0-py3-none-any.whl
-  - name: fa_purity-1.2.0.tar.gz
-    sha256: 0iy6c5szn603m2m7vk0624zxm25akmvkbd2mm1czdm4nh6y4anl8
-    url: https://files.pythonhosted.org/packages/2f/41/e6336817ed3b6d327edd40b7c74d424247e6f52bc7ddd11a7c9ea798abef/fa_purity-1.2.0.tar.gz
+  - name: fa_purity-1.3.0-py3-none-any.whl
+    sha256: 1k2rl4c1f58yw13wpnqxzdybxl441nz9g00s2llswmmpb46zcpgk
+    url: https://files.pythonhosted.org/packages/79/8c/bb9989ee5c53881968b2a107326ff8e83ec4e0307a4c28ae43bac067482c/fa_purity-1.3.0-py3-none-any.whl
+  - name: fa_purity-1.3.0.tar.gz
+    sha256: 1qvscg3lj7mh6214mx6nqgvhikiz70mf967y1r82xwlyv9bczsfj
+    url: https://files.pythonhosted.org/packages/fa/f6/89007f5cd17018711c4cf2946ad2183720df8387f5883c5ebef70d60f29a/fa_purity-1.3.0.tar.gz
   - name: jmespath-0.10.0-py2.py3-none-any.whl
     sha256: 0bxp1hnjrb4vaksa43s2ghjwr3jb5rpv6q8x2hq7fnfc0icm5xnd
     url: https://files.pythonhosted.org/packages/07/cb/5f001272b6faeb23c1c9e0acc04d48eaaf5c862c17709d20e3469c6e0139/jmespath-0.10.0-py2.py3-none-any.whl
