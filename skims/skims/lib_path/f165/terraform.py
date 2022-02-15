@@ -10,6 +10,7 @@ from parse_hcl2.common import (
     get_attribute,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_efs_file_system,
     iter_aws_secrets_manager_secret,
 )
 from typing import (
@@ -29,6 +30,17 @@ def _tfm_aws_secret_encrypted_whitouth_kms_cmk(
             yield resource
 
 
+def _tfm_aws_efs_unencrypted(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        encrypted = get_attribute(body=resource.data, key="encrypted")
+        if not encrypted:
+            yield resource
+        elif encrypted.val is False:
+            yield encrypted
+
+
 def tfm_aws_secret_encrypted_whitouth_kms_cmk(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -44,4 +56,20 @@ def tfm_aws_secret_encrypted_whitouth_kms_cmk(
         ),
         path=path,
         method=MethodsEnum.TFM_AWS_SECRET_WHITOUTH_KMS_CMK,
+    )
+
+
+def tfm_aws_efs_unencrypted(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="lib_path.f165.tfm_aws_efs_unencrypted",
+        iterator=get_cloud_iterator(
+            _tfm_aws_efs_unencrypted(
+                resource_iterator=iter_aws_efs_file_system(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_AWS_EFS_UNENCRYPTED,
     )

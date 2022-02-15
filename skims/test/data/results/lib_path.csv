@@ -1624,6 +1624,13 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_a
   64 |
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
+F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,3,16,skims,165. Insecure service configuration - AWS,Ensure EFS file system is encrypted in namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,"
+  1 | resource ""aws_efs_file_system"" ""enabled"" {
+  2 |   creation_token = ""example""
+> 3 |   encrypted      = false
+  4 | }
+    ^ Col 0
+",terraform.tfm_aws_efs_unencrypted
 F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,1,16,skims,165. Insecure service configuration - AWS,Ensure that Secrets Manager secret is encrypted using KMS CMK in namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,"
 > 1 | resource ""aws_secretsmanager_secret"" ""rotation-example"" {
   2 |   name                = ""rotation-example""
