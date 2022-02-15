@@ -25,6 +25,16 @@ from parse_common.types import (
 from parse_json import (
     loads_blocking,
 )
+from ruamel.yaml.constructor import (
+    DuplicateKeyError,
+)
+from ruamel.yaml.error import (
+    MarkedYAMLError,
+    YAMLError,
+)
+from ruamel.yaml.reader import (
+    ReaderError,
+)
 from typing import (
     Any,
     AsyncIterator,
@@ -216,7 +226,14 @@ def load_templates_blocking(
         ):
             # Exception: FP(AsyncIterator is subtype of Iterator)
             yield template  # NOSONAR
-    except MetaloaderError as exc:
+    except (
+        MetaloaderError,
+        ReaderError,
+        KeyError,
+        DuplicateKeyError,
+        YAMLError,
+        MarkedYAMLError,
+    ) as exc:
         log_exception_blocking("error", exc)
         return
 

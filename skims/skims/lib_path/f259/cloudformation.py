@@ -1,6 +1,9 @@
 from aws.model import (
     AWSDynamoDBTable,
 )
+from contextlib import (
+    suppress,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -37,8 +40,9 @@ def _cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
             ["PointInTimeRecoverySpecification", "PointInTimeRecoveryEnabled"],
         )
         if isinstance(pt_recovery, Node):
-            if pt_recovery.raw in values:
-                yield pt_recovery
+            with suppress(AttributeError):
+                if pt_recovery.raw in values:
+                    yield pt_recovery
         else:
             yield AWSDynamoDBTable(
                 data=table.data,
