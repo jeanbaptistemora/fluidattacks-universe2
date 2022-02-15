@@ -174,11 +174,11 @@ async def confirm_vulnerabilities_zero_risk(
         finding_id, comment_data, user_info
     )
     await collect(
-        vulns_dal.update_zero_risk(
-            current_value=vuln.zero_risk,
+        vulns_model.update_historic_entry(
+            current_entry=vuln.zero_risk,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
-            zero_risk=VulnerabilityZeroRisk(
+            entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
@@ -569,11 +569,11 @@ async def reject_vulnerabilities_zero_risk(
         finding_id, comment_data, user_info
     )
     await collect(
-        vulns_dal.update_zero_risk(
-            current_value=vuln.zero_risk,
+        vulns_model.update_historic_entry(
+            current_entry=vuln.zero_risk,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
-            zero_risk=VulnerabilityZeroRisk(
+            entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
@@ -589,11 +589,11 @@ async def reject_vulnerabilities_zero_risk(
 
 
 async def request_verification(vulnerability: Vulnerability) -> bool:
-    await vulns_dal.update_verification(
-        current_value=vulnerability.verification,
+    await vulns_model.update_historic_entry(
+        current_entry=vulnerability.verification,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
-        verification=VulnerabilityVerification(
+        entry=VulnerabilityVerification(
             modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.REQUESTED,
         ),
@@ -632,11 +632,11 @@ async def request_vulnerabilities_zero_risk(
         finding_id, comment_data, user_info
     )
     await collect(
-        vulns_dal.update_zero_risk(
-            current_value=vuln.zero_risk,
+        vulns_model.update_historic_entry(
+            current_entry=vuln.zero_risk,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
-            zero_risk=VulnerabilityZeroRisk(
+            entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
@@ -882,11 +882,11 @@ async def verify(
 
 
 async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
-    await vulns_dal.update_verification(
-        current_value=vulnerability.verification,
+    await vulns_model.update_historic_entry(
+        current_entry=vulnerability.verification,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
-        verification=VulnerabilityVerification(
+        entry=VulnerabilityVerification(
             modified_date=datetime_utils.get_iso_date(),
             status=VulnerabilityVerificationStatus.VERIFIED,
         ),

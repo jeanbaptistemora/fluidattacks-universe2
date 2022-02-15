@@ -88,9 +88,6 @@ from typing import (
 from users import (
     dal as dal_users,
 )
-from vulnerabilities import (
-    dal as dal_vulns,
-)
 
 
 async def populate_users(data: List[Any]) -> bool:
@@ -273,10 +270,10 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [
-            dal_vulns.update_historic_verification(
+            vulns_model.update_historic(
                 finding_id=vulnerability["vulnerability"].finding_id,
                 vulnerability_id=vulnerability["vulnerability"].id,
-                historic_verification=vulnerability["historic_verification"],
+                historic=vulnerability["historic_verification"],
             )
             for vulnerability in data
             if "historic_verification" in vulnerability
@@ -284,10 +281,10 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [
-            dal_vulns.update_historic_zero_risk(
+            vulns_model.update_historic(
                 finding_id=vulnerability["vulnerability"].finding_id,
                 vulnerability_id=vulnerability["vulnerability"].id,
-                historic_zero_risk=vulnerability["historic_zero_risk"],
+                historic=vulnerability["historic_zero_risk"],
             )
             for vulnerability in data
             if "historic_zero_risk" in vulnerability

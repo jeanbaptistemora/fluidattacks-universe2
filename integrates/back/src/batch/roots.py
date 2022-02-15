@@ -143,7 +143,6 @@ from urllib.parse import (
 )
 import uuid
 from vulnerabilities import (
-    dal as vulns_dal,
     domain as vulns_domain,
 )
 
@@ -217,16 +216,16 @@ async def process_vuln(
             historic=historic_treatment,
         )
     if historic_verification:
-        await vulns_dal.update_historic_verification(
+        await vulns_model.update_historic(
             finding_id=target_finding_id,
             vulnerability_id=new_id,
-            historic_verification=historic_verification,
+            historic=historic_verification,
         )
     if historic_zero_risk:
-        await vulns_dal.update_historic_zero_risk(
+        await vulns_model.update_historic(
             finding_id=target_finding_id,
             vulnerability_id=new_id,
-            historic_zero_risk=historic_zero_risk,
+            historic=historic_zero_risk,
         )
     await vulns_domain.close_by_exclusion(
         vulnerability=vuln,
