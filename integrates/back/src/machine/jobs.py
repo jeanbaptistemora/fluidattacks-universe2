@@ -180,7 +180,7 @@ async def list_(  # pylint: disable=too-many-locals
     jobs_details_from_batch = {
         item["jobId"]: item
         for item in (await describe_jobs(*list_jobs_from_batch.keys()))
-        if finding_code in json.loads(item["container"]["command"][-2])
+        if finding_code in json.loads(item["container"]["command"][4])
         and item["status"] in {x.name for x in statuses}
     }
     job_logs_description = await list_log_streams(group_name)
@@ -607,7 +607,15 @@ async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
             root_id=root.id,
         )
         if active_specific_job
-        and root.state.nickname
-        in specific_job_description[0]["container"]["command"][-1]
+        and (
+            root.state.nickname
+            in specific_job_description[0]["container"]["command"][-1]
+            or any(
+                env["name"] == "MAKES_AWS_BATCH_COMPAT"
+                for env in specific_job_description[0]["container"][
+                    "environment"
+                ]
+            )
+        )
         else None,
     )
