@@ -37,6 +37,12 @@ SUBS_METAVAR = "[GROUP]"
 @option("--read-dev", is_flag=True, help="read the dev secrets of a group")
 @option("--edit-prod", is_flag=True, help="edit the prod secrets of a group")
 @option("--read-prod", is_flag=True, help="read the prod secrets of a group")
+@option(
+    "--force",
+    is_flag=True,
+    help="force clone from customer git",
+    default=False,
+)
 def resources_management(  # pylint: disable=too-many-arguments
     group: str,
     o_name: str,
@@ -47,12 +53,13 @@ def resources_management(  # pylint: disable=too-many-arguments
     read_dev: bool,
     edit_prod: bool,
     read_prod: bool,
+    force: bool = False,
 ) -> None:
     """Allows administration tasks within groups"""
     success: bool = True
 
     if clone:
-        success = resources.repo_cloning(group, o_name)
+        success = resources.repo_cloning(group, o_name, force=force)
     elif fingerprint:
         success = resources.get_fingerprint(group)
     elif edit_dev:

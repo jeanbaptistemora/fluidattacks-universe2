@@ -68,10 +68,17 @@ from toolbox.drills import (
     help="Push repos from fusion to s3 for a subs",
 )
 @option(
+    "--force",
+    "o_force",
+    is_flag=True,
+    help="Push repos from fusion to s3 for a subs",
+)
+@option(
     "--count-toe",
     "o_count_toe",
     is_flag=True,
-    help="Pipelines only, count coverage data and upload it to DynamoDB",
+    help="force push repos to s3",
+    default=False,
 )
 def drills_management(  # pylint: disable=too-many-arguments
     group: str,
@@ -83,6 +90,7 @@ def drills_management(  # pylint: disable=too-many-arguments
     o_pull_repos: bool,
     o_push_repos: bool,
     o_count_toe: bool,
+    o_force: bool,
 ) -> None:
     """Perform operations with the drills service."""
     success: bool = True
@@ -99,7 +107,7 @@ def drills_management(  # pylint: disable=too-many-arguments
     elif o_pull_repos:
         success = pull_repos.main(group, o_name)
     elif o_push_repos:
-        success = push_repos.main(group)
+        success = push_repos.main(group, force=o_force)
     elif o_count_toe:
         success = count_toe.main(group)
 

@@ -203,12 +203,14 @@ def update_last_sync_date(table: str, group: str) -> None:
 
 
 @shield(retries=1)
+# pylint: disable=too-many-arguments
 def main(
     subs: str,
     bucket: str = "continuous-repositories",
     aws_login: bool = True,
     aws_profile: str = "continuous-admin",
     endpoint_url: Optional[str] = None,
+    force: bool = False,
 ) -> bool:
     """
     This function does:
@@ -255,7 +257,9 @@ def main(
                 f"groups/{subs}/fusion/{repo}", root["branch"]
             )
         ):
-            if local_commit != root.get("cloningStatus", {}).get("commit"):
+            if force or local_commit != root.get("cloningStatus", {}).get(
+                "commit"
+            ):
                 passed = s3_sync_fusion_to_s3(
                     subs, root["nickname"], bucket, endpoint_url
                 )

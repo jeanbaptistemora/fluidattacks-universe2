@@ -406,6 +406,7 @@ def action(
     git_root: Dict[str, Any],
     group_name: str,
     progress_bar: Any,
+    force: bool = False,
 ) -> Optional[Dict[str, Any]]:
     repo_type = "ssh" if git_root["url"].startswith("ssh") else "https"
     problem: Optional[Dict[str, str]] = None
@@ -416,8 +417,7 @@ def action(
 
     current_commit = git_root["cloningStatus"]["commit"]
     if repo_type == "ssh":
-        last_commit = _ssh_ls_remote(git_root)
-        if last_commit == current_commit:
+        if not force and _ssh_ls_remote(git_root) == current_commit:
             LOGGER.info(
                 "the las version of %s has already in s3",
                 git_root["nickname"],
@@ -427,8 +427,10 @@ def action(
     else:
         baseurl = repo_url(git_root["url"])
         if "fatal" not in baseurl:
-            last_commit = _http_ls_remote(baseurl, git_root)
-            if last_commit == current_commit:
+            if (
+                not force
+                and _http_ls_remote(baseurl, git_root) == current_commit
+            ):
                 LOGGER.info(
                     "the las version of %s has already in s3",
                     git_root["nickname"],
@@ -441,7 +443,7 @@ def action(
     return None
 
 
-def repo_cloning(subs: str, repo_name: str) -> bool:
+def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
     """cloning or updated a repository"""
 
     success = True
@@ -484,7 +486,8 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
     with alive_bar(len(repositories), enrich_print=False) as progress_bar:
         with ThreadPool(processes=cpu_count()) as worker:
             _problems = worker.map(
-                lambda x: action(x, subs, progress_bar), repositories
+                lambda x: action(x, subs, progress_bar, force=force),
+                repositories,
             )
             problems.extend((problem for problem in _problems if problem))
 
