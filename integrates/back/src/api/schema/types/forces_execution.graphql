@@ -4,9 +4,6 @@ type ForcesExecution {
   date: DateTime!
   "Identifier of the Forces execution"
   executionId: String!
-  "Deprecated. Use `executionId` instead"
-  execution_id: String! @deprecated(reason: """This field will
-    be removed after 2022/02/09. Use `executionId` instead.""")
   "Forces exit code, 0 for success, 1 for anything else"
   exitCode: String
   "Tested repo branch"

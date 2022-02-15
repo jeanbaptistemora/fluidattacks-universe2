@@ -144,8 +144,6 @@ type Mutation {
   addForcesExecution(
     "Identifier of the Forces execution"
     executionId: String
-    "Deprecated. Use `executionId` instead"
-    execution_id: String
     "DateTime in the format yyyy-MM-ddThh:mm:ssZ"
     date: DateTime!
     "Exit code of the execution"
