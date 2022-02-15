@@ -753,6 +753,13 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 else "Clone failed",
                 commit=root_cloned.commit,
             )
+            await put_action(
+                action_name="refresh_toe_lines",
+                entity=group_name,
+                subject="integrates@fluidattacks.com",
+                additional_info="*",
+                queue="spot_later",
+            )
             cloned_roots_nicknames = (
                 *cloned_roots_nicknames,
                 root.state.nickname,
@@ -764,7 +771,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             group=group_name,
             roots=cloned_roots_nicknames,
             finding_codes=findings,
-            queue=SkimsBatchQueue.HIGH,
+            queue=SkimsBatchQueue.LOW,
         )
     await delete_action(
         action_name=item.action_name,
