@@ -61,7 +61,7 @@ from urllib.parse import (
     unquote,
     urlparse,
 )
-from vulnerabilities.dal import (
+from vulnerabilities import (
     update,
 )
 

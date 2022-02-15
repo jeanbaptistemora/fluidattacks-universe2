@@ -38,7 +38,7 @@ from typing import (
     Set,
     Tuple,
 )
-from vulnerabilities.dal import (
+from vulnerabilities import (
     _update,
 )
 

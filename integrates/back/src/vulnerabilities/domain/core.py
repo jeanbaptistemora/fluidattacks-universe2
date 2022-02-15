@@ -72,9 +72,6 @@ from settings import (
     LOGGING,
     NOEXTRA,
 )
-from starlette.datastructures import (
-    UploadFile,
-)
 from time import (
     time,
 )
@@ -88,16 +85,11 @@ from typing import (
     Set,
     Tuple,
 )
-import uuid
-from vulnerabilities import (
-    dal as vulns_dal,
-)
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
     GroupedVulnerabilitiesInfo,
     Treatments,
 )
-import yaml  # type: ignore
 
 logging.config.dictConfig(LOGGING)
 
@@ -444,42 +436,6 @@ def get_treatments_count(
         ],
         new=treatment_counter[VulnerabilityTreatmentStatus.NEW],
     )
-
-
-async def get_vulnerabilities_by_type(
-    loaders: Any, finding_id: str
-) -> Dict[str, List[Dict[str, str]]]:
-    """Get vulnerabilities group by type."""
-    vulnerabilities = await loaders.finding_vulnerabilities_nzr.load(
-        finding_id
-    )
-    vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
-        vulnerabilities
-    )
-    return vulnerabilities_formatted
-
-
-async def get_vulnerabilities_file(
-    loaders: Any, finding_id: str, group_name: str
-) -> str:
-    vulnerabilities = await get_vulnerabilities_by_type(loaders, finding_id)
-    # FP: the generated filename is unpredictable
-    file_name = f"/tmp/{group_name}-{finding_id}_{str(uuid.uuid4())}.yaml"  # NOSONAR # nosec # noqa: E501
-    with open(  # pylint: disable=unspecified-encoding
-        file_name, "w"
-    ) as stream:
-        yaml.safe_dump(vulnerabilities, stream, default_flow_style=False)
-
-    uploaded_file_url = ""
-    with open(file_name, "rb") as bstream:
-        uploaded_file = UploadFile(
-            filename=bstream.name, content_type="application/yaml"
-        )
-        await uploaded_file.write(bstream.read())
-        await uploaded_file.seek(0)
-        uploaded_file_name = await vulns_dal.upload_file(uploaded_file)
-        uploaded_file_url = await vulns_dal.sign_url(uploaded_file_name)
-    return uploaded_file_url
 
 
 def group_vulnerabilities(
