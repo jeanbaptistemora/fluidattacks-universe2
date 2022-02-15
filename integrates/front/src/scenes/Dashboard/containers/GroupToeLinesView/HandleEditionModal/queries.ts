@@ -6,7 +6,6 @@ const UPDATE_TOE_LINES_ATTACKED_LINES: DocumentNode = gql`
     $groupName: String!
     $rootId: String!
     $filename: String!
-    $attackedAt: DateTime!
     $comments: String!
     $attackedLines: Int
   ) {
@@ -14,7 +13,6 @@ const UPDATE_TOE_LINES_ATTACKED_LINES: DocumentNode = gql`
       groupName: $groupName
       rootId: $rootId
       filename: $filename
-      attackedAt: $attackedAt
       comments: $comments
       attackedLines: $attackedLines
     ) {

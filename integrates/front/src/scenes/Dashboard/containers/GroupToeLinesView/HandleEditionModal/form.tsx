@@ -2,7 +2,6 @@ import { Form, useFormikContext } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { AttackedAtField } from "./AttackedAtField";
 import { AttackedLinesField } from "./AttackedLinesField";
 import { CommentsField } from "./CommentsField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
@@ -22,9 +21,6 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   return (
     <Form id={"updateToeLinesAttackedLines"}>
       <Row>
-        <Col50>
-          <AttackedAtField selectedToeLinesDatas={selectedToeLinesDatas} />
-        </Col50>
         <Col50>
           <AttackedLinesField selectedToeLinesDatas={selectedToeLinesDatas} />
         </Col50>

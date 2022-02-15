@@ -1,9 +1,6 @@
-import type { Moment } from "moment";
-
 import type { IToeLinesData } from "../types";
 
 interface IFormValues {
-  attackedAt: Moment;
   attackedLines: number | undefined;
   comments: string;
 }

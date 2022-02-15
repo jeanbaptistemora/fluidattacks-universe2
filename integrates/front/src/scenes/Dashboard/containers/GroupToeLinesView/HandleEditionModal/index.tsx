@@ -97,7 +97,6 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
         ): Promise<FetchResult<IUpdateToeLinesAttackedLinesResultAttr>> =>
           handleUpdateToeLinesAttackedLines({
             variables: {
-              attackedAt: values.attackedAt.format(),
               attackedLines: _.isNumber(values.attackedLines)
                 ? values.attackedLines
                 : undefined,

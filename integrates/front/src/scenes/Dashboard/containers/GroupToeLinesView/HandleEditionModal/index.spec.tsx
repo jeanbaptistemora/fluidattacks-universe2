@@ -37,7 +37,6 @@ describe("handle toe lines edition modal", (): void => {
         request: {
           query: UPDATE_TOE_LINES_ATTACKED_LINES,
           variables: {
-            attackedAt: "2021-02-20T06:52:00+00:00",
             attackedLines: 5,
             comments: "This is a test of updating toe lines",
             filename: "test/test#.config",
@@ -94,16 +93,6 @@ describe("handle toe lines edition modal", (): void => {
       }
     );
 
-    const attackedAtFieldInput: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "attackedAt" })
-      .find("input");
-    attackedAtFieldInput.simulate("change", {
-      target: {
-        name: "attackedAt",
-        value: "02/20/2021 6:52 AM",
-      },
-    });
     const attackedLinesFieldInput: ReactWrapper = wrapper
       .find(Field)
       .filter({ name: "attackedLines" })
