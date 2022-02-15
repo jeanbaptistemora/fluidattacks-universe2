@@ -26,6 +26,7 @@ class GitRootCloning(NamedTuple):
     reason: str
     status: GitCloningStatus
     commit: Optional[str] = None
+    commit_date: Optional[str] = None
 
 
 class GitEnvironmentUrl(NamedTuple):

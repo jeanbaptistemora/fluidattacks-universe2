@@ -31,6 +31,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     findings as findings_model,
     vulnerabilities as vulns_model,
@@ -78,6 +81,9 @@ from dynamodb.exceptions import (
 import git
 from git.exc import (
     GitError,
+)
+from git.objects.commit import (
+    Commit,
 )
 import itertools
 import json
@@ -682,7 +688,7 @@ async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
         _, stderr = await proc.communicate()
 
         os.remove(ssh_file_name)
-        commit: Optional[str] = None
+        commit: Optional[Commit] = None
         if proc.returncode != 0:
             LOGGER.error(
                 "Root SSH cloning failed with error: %s",
@@ -698,8 +704,16 @@ async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
             with suppress(GitError, AttributeError):
                 commit = git.Repo(
                     folder_to_clone_root, search_parent_directories=True
-                ).head.object.hexsha
-    return CloneResult(success=success, commit=commit)
+                ).head.object
+    if commit:
+        return CloneResult(
+            success=success,
+            commit=commit.hexsha,
+            commit_date=datetime.fromtimestamp(
+                commit.authored_date
+            ).isoformat(),
+        )
+    return CloneResult(success=success)
 
 
 async def clone_roots(*, item: BatchProcessing) -> None:
@@ -742,28 +756,29 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
         if root_cred.metadata.type.value == "SSH":
             root_cloned = await ssh_clone_root(root, root_cred)
-        if root_cloned.success:
             await roots_domain.update_root_cloning_status(
                 loaders=dataloaders,
                 group_name=group_name,
                 root_id=root.id,
-                status="OK" if root_cloned else "FAILED",
+                status="OK" if root_cloned.success else "FAILED",
                 message="Cloned successfully"
-                if root_cloned
+                if root_cloned.success
                 else "Clone failed",
                 commit=root_cloned.commit,
+                commit_date=root_cloned.commit_date,
             )
-            await put_action(
-                action_name="refresh_toe_lines",
-                entity=group_name,
-                subject="integrates@fluidattacks.com",
-                additional_info="*",
-                queue="spot_later",
-            )
-            cloned_roots_nicknames = (
-                *cloned_roots_nicknames,
-                root.state.nickname,
-            )
+            if root_cloned.success:
+                await put_action(
+                    action_name="refresh_toe_lines",
+                    entity=group_name,
+                    subject="integrates@fluidattacks.com",
+                    additional_info="*",
+                    queue="spot_later",
+                )
+                cloned_roots_nicknames = (
+                    *cloned_roots_nicknames,
+                    root.state.nickname,
+                )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:

@@ -76,6 +76,7 @@ def _format_root(*, item: Item) -> RootItem:
                 reason=cloning["reason"],
                 status=GitCloningStatus(cloning["status"]),
                 commit=cloning.get("commit"),
+                commit_date=cloning.get("commit_date"),
             ),
             group_name=group_name,
             id=root_id,
