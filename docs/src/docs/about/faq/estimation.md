@@ -62,9 +62,75 @@ quantification of LOC.
 These are the instructions for
 using this software:
 
-1. Download Tokei at https://github.com/XAMPPRocky/tokei
-1. Run Tokei using `$ tokei <code path> --output yaml > LOC.yaml`
-  to get a YAML file
+<Tabs
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'Windows', value: 'windows'},
+  ]}>
+<TabItem value="linux">
+
+**Installation**
+
+You can install Tokei on Linux distributions using any of the following package managers.
+
+```md
+# Alpine Linux (since 3.13)
+apk add tokei
+# Arch Linux
+pacman -S tokei
+# Cargo
+cargo install tokei
+# Conda
+conda install -c conda-forge tokei
+# Fedora
+sudo dnf install tokei
+# FreeBSD
+pkg install tokei
+# NetBSD
+pkgin install tokei
+# Nix/NixOS
+nix-env -i tokei
+# OpenSUSE
+sudo zypper install tokei
+```
+
+Or in other case you can download prebuilt binaries in the
+[releases section](https://github.com/XAMPPRocky/tokei/releases)
+
+**How to use Tokei**
+
+To generate a YAML file with the LOC report you can use the following command.
+
+```md
+tokei <code path> --output yaml > LOC.yaml
+```
+
+</TabItem>
+
+<TabItem value="windows">
+
+**Installation**
+
+You can install Tokei on Windows using ***scoop*** package manager
+
+```md
+scoop install tokei
+```
+
+Or in other case you can download prebuilt binaries in the
+[releases section](https://github.com/XAMPPRocky/tokei/releases)
+
+**How to use Tokei**
+
+To generate a YAML file with the LOC report you can use the following command.
+
+```md
+tokei <code path> --output yaml > LOC.yaml
+```
+
+</TabItem>
+</Tabs>
 
 Preferably, access credentials are
 provided (e.g., access credentials
@@ -98,6 +164,80 @@ on the quantification of LOC.
 These are the instructions for
 using this software:
 
-1. Download Tokei at https://github.com/XAMPPRocky/tokei
-1. Run Tokei using `$ tokei <code path> --output yaml > LOC.yaml`
-  to get a YAML file
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'Windows', value: 'windows'},
+  ]}>
+<TabItem value="linux">
+
+**Installation**
+
+You can install Tokei on Linux distributions
+using any of the following package managers.
+
+```md
+# Alpine Linux (since 3.13)
+apk add tokei
+# Arch Linux
+pacman -S tokei
+# Cargo
+cargo install tokei
+# Conda
+conda install -c conda-forge tokei
+# Fedora
+sudo dnf install tokei
+# FreeBSD
+pkg install tokei
+# NetBSD
+pkgin install tokei
+# Nix/NixOS
+nix-env -i tokei
+# OpenSUSE
+sudo zypper install tokei
+```
+
+Or in other case you can download prebuilt binaries in the
+[releases section](https://github.com/XAMPPRocky/tokei/releases)
+
+**How to use Tokei**
+
+To generate a YAML file
+with the LOC report,
+you can use the following command.
+
+```md
+tokei <code path> --output yaml > LOC.yaml
+```
+
+</TabItem>
+
+<TabItem value="windows">
+
+**Installation**
+
+You can install Tokei on Windows
+using ***scoop*** package manager.
+
+```md
+scoop install tokei
+```
+
+Or in other case you can download prebuilt binaries in the
+[releases section](https://github.com/XAMPPRocky/tokei/releases)
+
+**How to use Tokei**
+
+To generate a YAML file
+with the LOC report you can use the following command.
+
+```md
+tokei <code path> --output yaml > LOC.yaml
+```
+
+</TabItem>
+</Tabs>
