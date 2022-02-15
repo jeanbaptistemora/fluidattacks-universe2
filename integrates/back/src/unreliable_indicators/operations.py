@@ -45,9 +45,6 @@ from findings import (
     domain as findings_domain,
 )
 import newrelic.agent
-from newutils import (
-    vulnerabilities as vulns_utils,
-)
 from roots import (
     domain as roots_domain,
 )
@@ -303,17 +300,17 @@ async def update_vulnerability_unreliable_indicators(
     if EntityAttr.last_reattack_date in attrs_to_update:
         indicators[
             EntityAttr.last_reattack_date
-        ] = vulns_utils.get_last_reattack_date(loaders, vulnerability)
+        ] = vulns_domain.get_last_reattack_date(loaders, vulnerability)
 
     if EntityAttr.last_reattack_requester in attrs_to_update:
         indicators[
             EntityAttr.last_reattack_requester
-        ] = vulns_utils.get_reattack_requester(loaders, vulnerability)
+        ] = vulns_domain.get_reattack_requester(loaders, vulnerability)
 
     if EntityAttr.last_requested_reattack_date in attrs_to_update:
         indicators[
             EntityAttr.last_requested_reattack_date
-        ] = vulns_utils.get_last_requested_reattack_date(
+        ] = vulns_domain.get_last_requested_reattack_date(
             loaders, vulnerability
         )
 

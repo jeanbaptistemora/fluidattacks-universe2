@@ -17,12 +17,6 @@ from datetime import (
     date as datetype,
     datetime,
 )
-from db_model.findings.enums import (
-    FindingVerificationStatus,
-)
-from db_model.findings.types import (
-    FindingVerification,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -33,11 +27,13 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityHistoric,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
+)
+from db_model.vulnerabilities.utils import (
+    adjust_historic_dates,
 )
 from decimal import (
     Decimal,
@@ -48,11 +44,8 @@ from dynamodb.types import (
 )
 import html
 import itertools
-import newrelic.agent
 from newutils.datetime import (
     convert_from_iso_str,
-    get_as_utc_iso_format,
-    get_plus_delta,
 )
 from operator import (
     attrgetter,
@@ -67,24 +60,6 @@ from typing import (
     Tuple,
     Union,
 )
-
-
-def adjust_historic_dates(
-    historic: VulnerabilityHistoric,
-) -> VulnerabilityHistoric:
-    """Ensure dates are not the same and in ascending order."""
-    new_historic = []
-    comparison_date = ""
-    for entry in historic:
-        if entry.modified_date > comparison_date:
-            comparison_date = entry.modified_date
-        else:
-            fixed_date = get_plus_delta(
-                datetime.fromisoformat(comparison_date), seconds=1
-            )
-            comparison_date = get_as_utc_iso_format(fixed_date)
-        new_historic.append(entry._replace(modified_date=comparison_date))
-    return tuple(new_historic)
 
 
 def as_range(iterable: Iterable[Any]) -> str:
@@ -374,25 +349,6 @@ def get_ranges(numberlist: List[int]) -> str:
     return range_str
 
 
-@newrelic.agent.function_trace()
-async def get_reattack_requester(
-    loaders: Any,
-    vuln: Vulnerability,
-) -> Optional[str]:
-    historic_verification: Tuple[
-        FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load(vuln.finding_id)
-    reversed_historic_verification = tuple(reversed(historic_verification))
-    for verification in reversed_historic_verification:
-        if (
-            verification.status == FindingVerificationStatus.REQUESTED
-            and verification.vulnerability_ids is not None
-            and vuln.id in verification.vulnerability_ids
-        ):
-            return verification.modified_by
-    return None
-
-
 def get_report_dates(
     vulns: Tuple[Vulnerability, ...],
 ) -> Tuple[datetime, ...]:
@@ -528,52 +484,6 @@ def get_total_treatment_date(
         ],
         "undefined_treatment": status_count[VulnerabilityTreatmentStatus.NEW],
     }
-
-
-@newrelic.agent.function_trace()
-async def get_last_requested_reattack_date(
-    loaders: Any,
-    vuln: Vulnerability,
-) -> Optional[str]:
-    """Get last requested reattack date in ISO8601 UTC format."""
-    if not vuln.verification:
-        return None
-    if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
-        return vuln.verification.modified_date
-    historic: Tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
-    return next(
-        (
-            verification.modified_date
-            for verification in reversed(historic)
-            if verification.status == VulnerabilityVerificationStatus.REQUESTED
-        ),
-        None,
-    )
-
-
-@newrelic.agent.function_trace()
-async def get_last_reattack_date(
-    loaders: Any,
-    vuln: Vulnerability,
-) -> Optional[str]:
-    """Get last reattack date in ISO8601 UTC format."""
-    if not vuln.verification:
-        return None
-    if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
-        return vuln.verification.modified_date
-    historic: Tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
-    return next(
-        (
-            verification.modified_date
-            for verification in reversed(historic)
-            if verification.status == VulnerabilityVerificationStatus.VERIFIED
-        ),
-        None,
-    )
 
 
 def _get_effective_reattacks(

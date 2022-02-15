@@ -43,6 +43,9 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
 )
+from db_model.vulnerabilities.utils import (
+    adjust_historic_dates,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -61,7 +64,6 @@ from itertools import (
 import logging
 import logging.config
 from newutils.vulnerabilities import (
-    adjust_historic_dates,
     format_vulnerability_state,
 )
 from redshift import (

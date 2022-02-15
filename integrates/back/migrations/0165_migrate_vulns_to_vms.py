@@ -43,6 +43,9 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityHistoric,
 )
+from db_model.vulnerabilities.utils import (
+    adjust_historic_dates,
+)
 from dynamodb import (
     keys,
     operations,
@@ -56,9 +59,6 @@ from itertools import (
 )
 from newutils import (
     vulnerabilities as vulns_utils,
-)
-from newutils.vulnerabilities import (
-    adjust_historic_dates,
 )
 import simplejson as json  # type: ignore
 import time

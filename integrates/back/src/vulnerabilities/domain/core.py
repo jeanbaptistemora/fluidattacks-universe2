@@ -22,9 +22,11 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingVerificationStatus,
 )
 from db_model.findings.types import (
     Finding,
+    FindingVerification,
 )
 from db_model.vulnerabilities import (
     enums as vulns_enums,
@@ -55,6 +57,7 @@ import logging.config
 from mailer import (
     vulnerabilities as vulns_mail,
 )
+import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     requests as requests_utils,
@@ -672,7 +675,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
     historic_state = cast(
         Tuple[VulnerabilityState, VulnerabilityState],
-        vulns_utils.adjust_historic_dates(
+        vulns_model.utils.adjust_historic_dates(
             tuple(
                 state._replace(modified_date=modified_date)
                 for state in historic_state
@@ -691,7 +694,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
     historic_treatment = cast(
         Tuple[VulnerabilityTreatment, VulnerabilityTreatment],
-        vulns_utils.adjust_historic_dates(
+        vulns_model.utils.adjust_historic_dates(
             tuple(
                 treatment._replace(modified_date=modified_date)
                 for treatment in historic_treatment
@@ -873,3 +876,68 @@ async def close_by_exclusion(
         )
         if vulns_utils.is_reattack_requested(vulnerability):
             await verify_vulnerability(vulnerability)
+
+
+@newrelic.agent.function_trace()
+async def get_reattack_requester(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> Optional[str]:
+    historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await loaders.finding_historic_verification.load(vuln.finding_id)
+    reversed_historic_verification = tuple(reversed(historic_verification))
+    for verification in reversed_historic_verification:
+        if (
+            verification.status == FindingVerificationStatus.REQUESTED
+            and verification.vulnerability_ids is not None
+            and vuln.id in verification.vulnerability_ids
+        ):
+            return verification.modified_by
+    return None
+
+
+@newrelic.agent.function_trace()
+async def get_last_requested_reattack_date(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> Optional[str]:
+    """Get last requested reattack date in ISO8601 UTC format."""
+    if not vuln.verification:
+        return None
+    if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
+        return vuln.verification.modified_date
+    historic: Tuple[
+        VulnerabilityVerification, ...
+    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    return next(
+        (
+            verification.modified_date
+            for verification in reversed(historic)
+            if verification.status == VulnerabilityVerificationStatus.REQUESTED
+        ),
+        None,
+    )
+
+
+@newrelic.agent.function_trace()
+async def get_last_reattack_date(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> Optional[str]:
+    """Get last reattack date in ISO8601 UTC format."""
+    if not vuln.verification:
+        return None
+    if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
+        return vuln.verification.modified_date
+    historic: Tuple[
+        VulnerabilityVerification, ...
+    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    return next(
+        (
+            verification.modified_date
+            for verification in reversed(historic)
+            if verification.status == VulnerabilityVerificationStatus.VERIFIED
+        ),
+        None,
+    )

@@ -98,13 +98,13 @@ async def populate_indicators_by_vuln(
     )
     indicators[
         EntityAttr.last_reattack_date
-    ] = vulns_utils.get_last_reattack_date(loaders, vulnerability)
+    ] = vulns_domain.get_last_reattack_date(loaders, vulnerability)
     indicators[
         EntityAttr.last_reattack_requester
-    ] = vulns_utils.get_reattack_requester(loaders, vulnerability)
+    ] = vulns_domain.get_reattack_requester(loaders, vulnerability)
     indicators[
         EntityAttr.last_requested_reattack_date
-    ] = vulns_utils.get_last_requested_reattack_date(loaders, vulnerability)
+    ] = vulns_domain.get_last_requested_reattack_date(loaders, vulnerability)
     indicators[EntityAttr.reattack_cycles] = vulns_domain.get_reattack_cycles(
         loaders, vulnerability
     )

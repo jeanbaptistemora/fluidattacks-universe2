@@ -52,7 +52,6 @@ from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
-    vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -296,7 +295,9 @@ async def _handle_vulnerability_acceptance(
     if treatments_to_add:
         current_value = vulnerability.treatment
         # Use for-await as update order is relevant for typed vuln
-        for treatment in vulns_utils.adjust_historic_dates(treatments_to_add):
+        for treatment in vulns_model.utils.adjust_historic_dates(
+            treatments_to_add
+        ):
             await vulns_model.update_treatment(
                 current_value=current_value,
                 finding_id=finding_id,

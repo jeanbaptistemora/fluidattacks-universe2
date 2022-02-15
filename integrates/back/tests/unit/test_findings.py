@@ -11,11 +11,11 @@ from findings.domain import (
     download_evidence_file,
     get_records_from_file,
 )
-from newutils.vulnerabilities import (
-    get_reattack_requester,
-)
 import os
 import pytest
+from vulnerabilities.domain import (
+    get_reattack_requester,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
