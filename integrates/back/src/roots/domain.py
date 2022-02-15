@@ -904,9 +904,7 @@ def get_root_ids_by_nicknames(
 
 
 @newrelic.agent.function_trace()
-async def get_last_status_update(
-    loaders: Any, root_id: str, current_status: str
-) -> str:
+async def get_last_status_update(loaders: Any, root_id: str) -> str:
     historic_state: Tuple[RootState, ...] = await loaders.root_states.load(
         root_id
     )
@@ -915,7 +913,7 @@ async def get_last_status_update(
         (
             state.modified_date
             for state in reversed(historic_state)
-            if state.status != current_status
+            if state.status != historic_state[-1].status
         ),
         historic_state[0].modified_date,
     )

@@ -125,6 +125,19 @@ ENTITIES = {
             ),
         },
     ),
+    Entity.root: dict(
+        args={
+            EntityId.ids,
+        },
+        attrs={
+            EntityAttr.last_status_update: dict(
+                dependencies={
+                    EntityDependency.activate_root,
+                    EntityDependency.deactivate_root,
+                }
+            ),
+        },
+    ),
     Entity.vulnerability: dict(
         args={
             EntityId.ids,

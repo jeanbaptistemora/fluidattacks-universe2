@@ -35,6 +35,12 @@ from typing import (
     Any,
     Dict,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 
 
 @require_service_white
@@ -103,6 +109,11 @@ async def mutate(
         await activate_ip_root(info, root, user_email, **kwargs)
     else:
         await activate_url_root(info, root, user_email, **kwargs)
+
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.activate_root,
+        root_ids=[(root.group_name, root.id)],
+    )
 
     if root.state.status != "ACTIVE":
         if isinstance(root, GitRootItem):

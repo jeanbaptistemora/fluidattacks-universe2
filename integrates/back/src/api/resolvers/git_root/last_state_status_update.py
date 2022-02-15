@@ -13,5 +13,5 @@ async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     return await roots_domain.get_last_status_update(
-        info.context.loaders, parent.id, parent.state
+        info.context.loaders, parent.id
     )

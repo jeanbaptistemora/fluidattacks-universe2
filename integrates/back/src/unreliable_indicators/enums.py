@@ -6,6 +6,7 @@ from enum import (
 
 class Entity(Enum):
     finding: str = "finding"
+    root: str = "root"
     vulnerability: str = "vulnerability"
 
 
@@ -20,6 +21,7 @@ class EntityAttr(Enum):
     last_reattack_date: str = "last_reattack_date"
     last_reattack_requester: str = "last_reattack_requester"
     last_requested_reattack_date: str = "last_requested_reattack_date"
+    last_status_update: str = "last_status_update"
     newest_vulnerability_report_date: str = "last_vulnerability_report_date"
     oldest_open_vulnerability_report_date: str = (
         "oldest_open_vulnerability_report_date"
@@ -36,6 +38,7 @@ class EntityAttr(Enum):
 
 
 class EntityDependency(Enum):
+    activate_root: str = "activate_root"
     approve_draft: str = "approve_draft"
     deactivate_root: str = "deactivate_root"
     handle_vulnerabilities_acceptance: str = (

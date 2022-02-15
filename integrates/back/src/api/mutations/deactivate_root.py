@@ -140,6 +140,7 @@ async def deactivate_root(
     await update_unreliable_indicators_by_deps(
         EntityDependency.deactivate_root,
         finding_ids=list({vuln.finding_id for vuln in root_vulnerabilities}),
+        root_ids=[(root.group_name, root.id)],
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
     await groups_mail.send_mail_deactivated_root(

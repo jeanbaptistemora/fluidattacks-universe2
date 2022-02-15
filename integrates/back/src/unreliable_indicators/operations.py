@@ -4,6 +4,9 @@ from . import (
 from aioextensions import (
     collect,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     IndicatorAlreadyUpdated,
 )
@@ -13,6 +16,7 @@ from dataloaders import (
 )
 from db_model import (
     findings as findings_model,
+    roots as roots_model,
     vulnerabilities as vulns_model,
 )
 from db_model.findings.enums import (
@@ -22,6 +26,10 @@ from db_model.findings.types import (
     Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
+)
+from db_model.roots.types import (
+    RootItem,
+    RootUnreliableIndicatorsToUpdate,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -40,10 +48,14 @@ import newrelic.agent
 from newutils import (
     vulnerabilities as vulns_utils,
 )
+from roots import (
+    domain as roots_domain,
+)
 from typing import (
     List,
     Optional,
     Set,
+    Tuple,
 )
 from unreliable_indicators.enums import (
     Entity,
@@ -224,6 +236,50 @@ async def update_vulnerabilities_unreliable_indicators(
     )
 
 
+async def update_root_unreliable_indicators(
+    loaders: Dataloaders,
+    root_id: Tuple[str, str],
+    attrs_to_update: Set[EntityAttr],
+) -> None:
+    root: RootItem = await loaders.root.load(root_id)
+    indicators = {}
+
+    if EntityAttr.last_status_update in attrs_to_update:
+        indicators[
+            EntityAttr.last_status_update
+        ] = roots_domain.get_last_status_update(loaders, root.id)
+
+    result = dict(zip(indicators.keys(), await collect(indicators.values())))
+
+    with suppress(IndicatorAlreadyUpdated):
+        await roots_model.update_unreliable_indicators(
+            current_value=root,
+            indicators=RootUnreliableIndicatorsToUpdate(
+                unreliable_last_status_update=result.get(
+                    EntityAttr.last_status_update
+                ),
+            ),
+        )
+
+
+@newrelic.agent.function_trace()
+async def update_roots_unreliable_indicators(
+    root_ids: List[Tuple[str, str]],
+    attrs_to_update: Set[EntityAttr],
+) -> None:
+    loaders = get_new_context()
+    await collect(
+        tuple(
+            update_root_unreliable_indicators(
+                loaders,
+                root_id,
+                attrs_to_update,
+            )
+            for root_id in set(root_ids)
+        )
+    )
+
+
 @retry_on_exceptions(
     exceptions=(UnavailabilityError,),
     max_attempts=20,
@@ -300,18 +356,26 @@ async def update_unreliable_indicators_by_deps(
             dependency, **args
         )
     )
-    updations = []
+    updates = []
 
     if Entity.finding in entities_to_update:
-        updations.append(
+        updates.append(
             update_findings_unreliable_indicators(
                 entities_to_update[Entity.finding].entity_ids[EntityId.ids],
                 entities_to_update[Entity.finding].attributes_to_update,
             )
         )
 
+    if Entity.root in entities_to_update:
+        updates.append(
+            update_roots_unreliable_indicators(
+                entities_to_update[Entity.root].entity_ids[EntityId.ids],
+                entities_to_update[Entity.root].attributes_to_update,
+            )
+        )
+
     if Entity.vulnerability in entities_to_update:
-        updations.append(
+        updates.append(
             update_vulnerabilities_unreliable_indicators(
                 entities_to_update[Entity.vulnerability].entity_ids[
                     EntityId.ids
@@ -320,4 +384,4 @@ async def update_unreliable_indicators_by_deps(
             )
         )
 
-    await collect(updations)
+    await collect(updates)
