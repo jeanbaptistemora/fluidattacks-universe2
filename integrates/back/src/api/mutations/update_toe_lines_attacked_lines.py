@@ -24,6 +24,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
 )
@@ -44,10 +45,9 @@ from typing import (
     enforce_group_level_auth_async,
     require_asm,
 )
-async def mutate(  # pylint: disable=too-many-arguments
+async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    attacked_at: str,
     comments: str,
     filename: str,
     group_name: str,
@@ -66,7 +66,8 @@ async def mutate(  # pylint: disable=too-many-arguments
         await toe_lines_domain.update(
             curren_value,
             ToeLinesAttributesToUpdate(
-                attacked_at=attacked_at,
+                attacked_at=kwargs.get("attacked_at")
+                or datetime_utils.get_utc_now(),
                 attacked_by=user_email,
                 attacked_lines=kwargs.get("attacked_lines", curren_value.loc),
                 comments=comments,

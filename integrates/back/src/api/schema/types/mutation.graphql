@@ -1026,7 +1026,7 @@ type Mutation {
     "Number of lines that have been attacked"
     attackedLines: Int
     "The time when the attacked was performed"
-    attackedAt: DateTime!
+    attackedAt: DateTime
     "Comments related with the attack"
     comments: String
   ): SimplePayload!
