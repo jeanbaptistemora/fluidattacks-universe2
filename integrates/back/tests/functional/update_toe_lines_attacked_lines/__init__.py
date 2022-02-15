@@ -15,7 +15,6 @@ from typing import (
 async def get_result(
     *,
     user: str,
-    attacked_at: str,
     attacked_lines: Optional[int],
     group_name: str,
     comments: str,
@@ -23,7 +22,6 @@ async def get_result(
     root_id: str,
 ) -> Dict[str, Any]:
     variables: Dict[str, Any] = {
-        "attackedAt": attacked_at,
         "comments": comments,
         "filename": filename,
         "groupName": group_name,
@@ -33,7 +31,6 @@ async def get_result(
         variables["attackedLines"] = attacked_lines
     query: str = f"""
         mutation UpdateToeLinesAttackedLinesMutation(
-            $attackedAt: DateTime!,
             $attackedLines: Int,
             $comments: String!,
             $filename: String!,
@@ -45,7 +42,6 @@ async def get_result(
                 groupName: $groupName,
                 rootId:  $rootId,
                 filename: $filename,
-                attackedAt:  $attackedAt,
                 comments: $comments
             ) {{
                 success

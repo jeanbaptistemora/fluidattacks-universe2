@@ -66,8 +66,7 @@ async def mutate(
         await toe_lines_domain.update(
             curren_value,
             ToeLinesAttributesToUpdate(
-                attacked_at=kwargs.get("attacked_at")
-                or datetime_utils.get_utc_now(),
+                attacked_at=datetime_utils.get_utc_now(),
                 attacked_by=user_email,
                 attacked_lines=kwargs.get("attacked_lines", curren_value.loc),
                 comments=comments,
