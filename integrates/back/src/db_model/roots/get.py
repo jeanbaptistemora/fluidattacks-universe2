@@ -53,7 +53,7 @@ def format_unreliable_indicators(
     item: Item,
 ) -> RootUnreliableIndicators:
     return RootUnreliableIndicators(
-        unreliable_last_status_update=item.get("unreliable_last_status_update")
+        unreliable_last_status_update=item["unreliable_last_status_update"]
     )
 
 

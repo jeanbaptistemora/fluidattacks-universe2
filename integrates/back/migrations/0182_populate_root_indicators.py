@@ -3,8 +3,8 @@
 This migration populates the last status update of a root as a precalculated
 attribute.
 
-Execution Time:
-Finalization Time:
+Execution Time: 2022-02-15 at 17:32:42 UTC
+Finalization Time: 2022-02-15 at 17:37:02 UTC
 """
 
 from aioextensions import (
