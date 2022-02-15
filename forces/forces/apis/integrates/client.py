@@ -98,8 +98,25 @@ async def execute(
                 operation=operation_name,
             )
 
+            if response.status == 429 and (
+                seconds := response.headers.get("retry-after")
+            ):
+                await asyncio.sleep(int(seconds) + 1)
+                raise ApiError(
+                    *[
+                        dict(
+                            status=getattr(response, "status", "unknown"),
+                            reason=getattr(response, "reason", "unknown"),
+                            ok=getattr(response, "ok", False),
+                        )
+                    ]
+                )
             result = await response.json()
         except ClientResponseError as client_error:
+            if response.status == 429 and (
+                seconds := response.headers.get("retry-after")
+            ):
+                await asyncio.sleep(int(seconds) + 1)
             raise ApiError(
                 *[
                     dict(
@@ -111,10 +128,6 @@ async def execute(
                 ]
             ) from client_error
         if "errors" in result.keys():
-            if response.status == 429 and (
-                seconds := response.headers.get("retry-after")
-            ):
-                await asyncio.sleep(int(seconds) + 1)
             raise ApiError(*result["errors"])
 
         result = result.get("data", {})
