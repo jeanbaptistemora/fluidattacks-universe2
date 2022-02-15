@@ -175,6 +175,21 @@ locals {
       launch_template_id      = aws_launch_template.batch_instance_regular.id
       launch_template_version = aws_launch_template.batch_instance_regular.latest_version
     }
+    reports = {
+      bid_percentage      = 100
+      instances           = 6
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+
+      tags = {
+        "Name"               = "reports"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+      launch_template_id      = aws_launch_template.batch_instance_regular.id
+      launch_template_version = aws_launch_template.batch_instance_regular.latest_version
+    }
     spot = {
       bid_percentage      = 100
       instances           = 6
