@@ -934,8 +934,10 @@ export const enTranslations: ResourceKey = {
           title: "Edit attacked lines",
         },
         filename: "Filename",
-        filtersTooltips: {
-          extension: "Filter by extension",
+        filters: {
+          extension: {
+            tooltip: "Filter by extension",
+          },
         },
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",

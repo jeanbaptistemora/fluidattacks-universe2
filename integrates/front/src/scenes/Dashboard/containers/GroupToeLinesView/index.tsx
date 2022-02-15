@@ -40,6 +40,8 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
+const NOEXTENSION = ".no.extension.";
+
 const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   props: IGroupToeLinesViewProps
 ): JSX.Element => {
@@ -366,7 +368,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
     const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
     if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
-      return "";
+      return NOEXTENSION;
     }
 
     return toeLinesAttr.filename.slice(lastPointindex + 1);
@@ -459,10 +461,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       });
 
   const extensionSelectOptions = Object.fromEntries(
-    toeLines.map((toeLinesData: IToeLinesData): string[] => [
-      toeLinesData.extension,
-      toeLinesData.extension,
-    ])
+    toeLines
+      .map((toeLinesData: IToeLinesData): string[] => [
+        toeLinesData.extension,
+        toeLinesData.extension,
+      ])
+      .map(([key, val]): (string | unknown)[] => [
+        key,
+        val === NOEXTENSION ? "" : val,
+      ])
   );
   const customFiltersProps: IFilterProps[] = [
     {
@@ -470,8 +477,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       onChangeSelect: onExtensionChange,
       placeholder: "Extension",
       selectOptions: extensionSelectOptions,
-      tooltipId: "group.toe.lines.filtersTooltips.extension.id",
-      tooltipMessage: "group.toe.lines.filtersTooltips.extension",
+      tooltipId: "group.toe.lines.filters.extension.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.extension.tooltip",
       type: "select",
     },
   ];
