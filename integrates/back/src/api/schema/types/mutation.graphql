@@ -999,8 +999,6 @@ type Mutation {
   Updates the input of a concrete root
   """
   updateToeInput(
-    "The time when the attacked was performed"
-    attackedAt: DateTime
     "If the input has been attacked recently"
     hasRecentAttack: Boolean
     "If the input is present in the root"

@@ -12,7 +12,6 @@ from typing import (
 
 async def get_result(
     *,
-    attacked_at: str,
     be_present: bool,
     component: str,
     entry_point: str,
@@ -22,7 +21,6 @@ async def get_result(
     query: str = f"""
         mutation {{
             updateToeInput(
-                attackedAt: "{attacked_at}",
                 bePresent: {str(be_present).lower()},
                 component: "{component}",
                 groupName: "{group_name}",

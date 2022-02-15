@@ -69,9 +69,7 @@ async def mutate(
             None if be_present is current_value.be_present else be_present
         )
         attacked_at_to_update = (
-            kwargs.get("attacked_at")
-            if kwargs.get("has_recent_attack") is None
-            else datetime_utils.get_utc_now()
+            datetime_utils.get_utc_now()
             if kwargs.get("has_recent_attack") is True
             else None
         )
