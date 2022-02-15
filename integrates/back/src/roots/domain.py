@@ -40,6 +40,7 @@ from db_model.roots.types import (
     RootItem,
     RootMachineExecutionItem,
     RootState,
+    RootUnreliableIndicators,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
@@ -219,6 +220,7 @@ async def add_git_root(
     ):
         raise RepeatedRoot()
 
+    modified_date = datetime_utils.get_iso_date()
     root = GitRootItem(
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
@@ -236,12 +238,15 @@ async def add_git_root(
             gitignore=gitignore,
             includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=modified_date,
             nickname=nickname,
             other=None,
             reason=None,
             status="ACTIVE",
             url=url,
+        ),
+        unreliable_indicators=RootUnreliableIndicators(
+            unreliable_last_status_update=modified_date,
         ),
     )
 
@@ -297,6 +302,7 @@ async def add_ip_root(
         nickname, await loaders.group_roots.load(group_name)
     )
 
+    modified_date = datetime_utils.get_iso_date()
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
@@ -304,12 +310,15 @@ async def add_ip_root(
         state=IPRootState(
             address=address,
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=modified_date,
             nickname=nickname,
             other=None,
             port=port,
             reason=None,
             status="ACTIVE",
+        ),
+        unreliable_indicators=RootUnreliableIndicators(
+            unreliable_last_status_update=modified_date,
         ),
     )
     await roots_model.add(root=root)
@@ -352,13 +361,13 @@ async def add_url_root(
     ):
         raise RepeatedRoot()
 
-    nickname = kwargs["nickname"]
     loaders.group_roots.clear(group_name)
-    validations.validate_nickname(nickname)
+    validations.validate_nickname(kwargs["nickname"])
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        kwargs["nickname"], await loaders.group_roots.load(group_name)
     )
 
+    modified_date = datetime_utils.get_iso_date()
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
@@ -366,14 +375,17 @@ async def add_url_root(
         state=URLRootState(
             host=host,
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
-            nickname=nickname,
+            modified_date=modified_date,
+            nickname=kwargs["nickname"],
             other=None,
             path=path,
             port=port,
             protocol=protocol,
             reason=None,
             status="ACTIVE",
+        ),
+        unreliable_indicators=RootUnreliableIndicators(
+            unreliable_last_status_update=modified_date,
         ),
     )
     await roots_model.add(root=root)
@@ -612,6 +624,7 @@ async def update_git_root(
         id=root.id,
         metadata=root.metadata,
         state=new_state,
+        unreliable_indicators=root.unreliable_indicators,
     )
 
 

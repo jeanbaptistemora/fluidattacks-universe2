@@ -9,6 +9,14 @@ from typing import (
 )
 
 
+class RootUnreliableIndicators(NamedTuple):
+    unreliable_last_status_update: str = ""
+
+
+class RootUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_last_status_update: Optional[str] = None
+
+
 class GitRootMetadata(NamedTuple):
     type: str
 
@@ -46,6 +54,9 @@ class GitRootItem(NamedTuple):
     id: str
     metadata: GitRootMetadata
     state: GitRootState
+    unreliable_indicators: RootUnreliableIndicators = (
+        RootUnreliableIndicators()
+    )
 
 
 class IPRootMetadata(NamedTuple):
@@ -68,6 +79,9 @@ class IPRootItem(NamedTuple):
     id: str
     metadata: IPRootMetadata
     state: IPRootState
+    unreliable_indicators: RootUnreliableIndicators = (
+        RootUnreliableIndicators()
+    )
 
 
 class URLRootMetadata(NamedTuple):
@@ -92,6 +106,9 @@ class URLRootItem(NamedTuple):
     id: str
     metadata: URLRootMetadata
     state: URLRootState
+    unreliable_indicators: RootUnreliableIndicators = (
+        RootUnreliableIndicators()
+    )
 
 
 RootItem = Union[GitRootItem, IPRootItem, URLRootItem]

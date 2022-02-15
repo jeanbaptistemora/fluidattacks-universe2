@@ -30,6 +30,7 @@ from db_model.roots.types import (
     RootItem,
     RootMachineExecutionItem,
     RootState,
+    RootUnreliableIndicators,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
@@ -48,10 +49,23 @@ from typing import (
 )
 
 
+def format_unreliable_indicators(
+    item: Item,
+) -> RootUnreliableIndicators:
+    return RootUnreliableIndicators(
+        unreliable_last_status_update=item.get("unreliable_last_status_update")
+    )
+
+
 def _format_root(*, item: Item) -> RootItem:
     root_id = item["pk"].split("#")[1]
     group_name = item["sk"].split("#")[1]
     state = item["state"]
+    unreliable_indicators = (
+        format_unreliable_indicators(item["unreliable_indicators"])
+        if "unreliable_indicators" in item
+        else RootUnreliableIndicators()
+    )
 
     if item["type"] == "Git":
         cloning = item["cloning"]
@@ -84,6 +98,7 @@ def _format_root(*, item: Item) -> RootItem:
                 status=state["status"],
                 url=state["url"],
             ),
+            unreliable_indicators=unreliable_indicators,
         )
 
     if item["type"] == "IP":
@@ -101,6 +116,7 @@ def _format_root(*, item: Item) -> RootItem:
                 reason=state.get("reason"),
                 status=state["status"],
             ),
+            unreliable_indicators=unreliable_indicators,
         )
 
     return URLRootItem(
@@ -119,6 +135,7 @@ def _format_root(*, item: Item) -> RootItem:
             reason=state.get("reason"),
             status=state["status"],
         ),
+        unreliable_indicators=unreliable_indicators,
     )
 
 
