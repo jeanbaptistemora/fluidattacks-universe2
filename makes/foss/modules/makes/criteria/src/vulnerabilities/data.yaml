@@ -2604,11 +2604,15 @@
   en:
     title: Insecure or unset HTTP headers - Content-Security-Policy
     description: >
-      The server is missing
-      the Content-Security-Policy HTTP header.
-      Alternatively,
-      the headers configuration
-      is not secure enough.
+      The application has unnsafe configurations
+      regarding the Content-Security-Policy header.
+      This may be because:
+
+      - Header is missing from server responses.
+
+      - The header has not defined mandatory security policies.
+
+      - Defined security policies contain insecure values.
     impact: >
       - Embed content, scripts, blobs
       or images from potentially
@@ -2625,10 +2629,15 @@
   es:
     title: Insecure or unset HTTP headers - Content-Security-Policy
     description: >
-      El servidor carece del encabezado
-      HTTP Content-Security-Policy.
-      Alternativamente,
-      el valor del mismo no es suficientemente fuerte.
+      La aplicación contiene configuraciones inadecuadas
+      referentes a la cabecera Content-Security-Policy.
+      Esto puede deberse a que:
+
+      - La cabecera está ausente de las respuestas del servidor.
+
+      - La cabecera no ha definido políticas de seguridad obligatorias.
+
+      - Las políticas de seguridad definidas contienen valores inseguros.
     impact: >
       - Incluir contenido, scripts,
       binarios o imágenes desde fuentes
