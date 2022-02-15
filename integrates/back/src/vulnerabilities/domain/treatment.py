@@ -15,6 +15,7 @@ import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
+    InvalidDateFormat,
     InvalidNotificationRequest,
     InvalidNumberAcceptances,
     SameValues,
@@ -50,7 +51,6 @@ from mailer import (
 import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
-    findings as finding_utils,
     validations,
 )
 from newutils.utils import (
@@ -66,16 +66,32 @@ from typing import (
 )
 
 
+def _validate_acceptance_date(values: Dict[str, str]) -> bool:
+    """Check that the date set to temporarily accept a vuln is logical."""
+    valid: bool = True
+    if values["treatment"] == "ACCEPTED":
+        if values.get("acceptance_date"):
+            today = datetime_utils.get_now_as_str()
+            values[
+                "acceptance_date"
+            ] = f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
+            if not datetime_utils.is_valid_format(values["acceptance_date"]):
+                raise InvalidDateFormat()
+        else:
+            raise InvalidDateFormat()
+    return valid
+
+
 async def _validate_acceptance_days(
     loaders: Any, values: Dict[str, str], organization: str
 ) -> bool:
     """
     Check that the date during which the finding will be temporarily accepted
-    complies with organization settings
+    complies with organization settings.
     """
     valid: bool = True
     is_valid_acceptance_date = await in_thread(
-        finding_utils.validate_acceptance_date, values
+        _validate_acceptance_date, values
     )
     if values.get("treatment") == "ACCEPTED" and is_valid_acceptance_date:
         today = datetime_utils.get_now()
@@ -103,7 +119,7 @@ async def _validate_acceptance_severity(
 ) -> bool:
     """
     Check that the severity of the finding to temporaryly accept is inside
-    the range set by the organization
+    the range set by the organization.
     """
     valid: bool = True
     if values.get("treatment") == "ACCEPTED":
@@ -127,7 +143,7 @@ async def _validate_number_acceptances(
 ) -> bool:
     """
     Check that a finding to temporarily accept does not exceed the maximum
-    number of acceptances the organization set
+    number of acceptances the organization set.
     """
     valid: bool = True
     if values["treatment"] == "ACCEPTED":

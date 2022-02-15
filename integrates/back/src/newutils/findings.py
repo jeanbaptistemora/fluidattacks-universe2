@@ -1,10 +1,6 @@
 from custom_exceptions import (
-    InvalidDateFormat,
     InvalidFileStructure,
     InvalidFindingTitle,
-)
-from custom_types import (
-    Datetime,
 )
 from datetime import (
     datetime,
@@ -23,7 +19,6 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
-    Any,
     cast,
     Dict,
     List,
@@ -67,42 +62,8 @@ async def append_records_to_file(
     return uploaded_file
 
 
-def filter_by_date(
-    historic_items: List[Dict[str, str]], cycle_date: Datetime
-) -> List[Dict[str, str]]:
-    return list(
-        filter(
-            lambda historic: historic.get("date")
-            and get_item_date(historic) <= cycle_date,
-            historic_items,
-        )
-    )
-
-
-def get_item_date(item: Any) -> Datetime:
-    return datetime_utils.get_from_str(item["date"].split(" ")[0], "%Y-%m-%d")
-
-
-def validate_acceptance_date(values: Dict[str, str]) -> bool:
-    """
-    Check that the date set to temporarily accept a finding is logical
-    """
-    valid: bool = True
-    if values["treatment"] == "ACCEPTED":
-        if values.get("acceptance_date"):
-            today = datetime_utils.get_now_as_str()
-            values[
-                "acceptance_date"
-            ] = f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
-            if not datetime_utils.is_valid_format(values["acceptance_date"]):
-                raise InvalidDateFormat()
-        else:
-            raise InvalidDateFormat()
-    return valid
-
-
 def get_vulns_file() -> Dict:
-    """Parses the vulns info yaml from the repo into a dictionary"""
+    """Parses the vulns info yaml from the repo into a dictionary."""
     base_url: str = (
         "https://gitlab.com/api/v4/projects/20741933/repository/files"
     )
@@ -117,8 +78,10 @@ def get_vulns_file() -> Dict:
 
 
 def is_valid_finding_title(title: str) -> bool:
-    """Validates that new Draft and Finding titles conform to the standard
-    format and are present in the whitelist"""
+    """
+    Validates that new Draft and Finding titles conform to the standard
+    format and are present in the whitelist.
+    """
     if re.match(r"^[0-9]{3}\. .+", title):
         vulns_info: Dict = get_vulns_file()
         try:

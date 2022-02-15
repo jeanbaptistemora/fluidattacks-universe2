@@ -429,7 +429,7 @@ class InvalidCvssVersion(CustomBaseException):
 
 
 class InvalidDate(CustomBaseException):
-    """Exception to control the date inserted in an Accepted finding"""
+    """Exception to control the date inserted in an Accepted vulnerability"""
 
     def __init__(self) -> None:
         """Constructor"""
@@ -438,7 +438,8 @@ class InvalidDate(CustomBaseException):
 
 
 class InvalidDateFormat(CustomBaseException):
-    """Exception to control the date format inserted in an Accepted finding"""
+    """Exception to control the date format inserted in an Accepted
+    vulnerability"""
 
     def __init__(self) -> None:
         """Constructor"""
