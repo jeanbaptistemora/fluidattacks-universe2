@@ -89,6 +89,7 @@ async def _get_url_group_report(
         additional_info=additional_info,
         vcpus=4,
         attempt_duration_seconds=7200,
+        queue="reports_soon",
     )
     if not success:
         raise RequestedReportError()
