@@ -83,13 +83,11 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
         ): Promise<FetchResult<IUpdateToeInputResultAttr>> =>
           handleUpdateToeInput({
             variables: {
-              attackedAt: _.isEmpty(values.attackedAt)
-                ? undefined
-                : values.attackedAt.format(),
               bePresent: values.bePresent,
               component: toeInputData.component,
               entryPoint: toeInputData.entryPoint,
               groupName,
+              hasRecentAttack: values.hasRecentAttack,
             },
           })
       )
@@ -114,14 +112,12 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
           initialValues={{
             attackedAt: moment(),
             bePresent: true,
+            hasRecentAttack: true,
           }}
           name={"updateToeInput"}
           onSubmit={handleSubmit}
         >
-          <HandleEditionModalForm
-            handleCloseModal={handleCloseModal}
-            selectedToeInputDatas={selectedToeInputDatas}
-          />
+          <HandleEditionModalForm handleCloseModal={handleCloseModal} />
         </Formik>
       </Modal>
     </React.StrictMode>

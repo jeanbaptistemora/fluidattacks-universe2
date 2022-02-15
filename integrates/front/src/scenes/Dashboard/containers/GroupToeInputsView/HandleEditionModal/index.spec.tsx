@@ -2,7 +2,6 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
-import { Field } from "formik";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import waitForExpect from "wait-for-expect";
@@ -37,11 +36,11 @@ describe("handle toe input edition modal", (): void => {
         request: {
           query: UPDATE_TOE_INPUT,
           variables: {
-            attackedAt: "2021-02-20T06:52:00+00:00",
             bePresent: true,
             component: "https://test.test.com/test/path",
             entryPoint: "-",
             groupName: "groupname",
+            hasRecentAttack: true,
           },
         },
         result: { data: { updateToeInput: { success: true } } },
@@ -77,17 +76,6 @@ describe("handle toe input edition modal", (): void => {
         wrappingComponent: authzPermissionsContext.Provider,
       }
     );
-
-    const attackedAtFieldInput: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "attackedAt" })
-      .find("input");
-    attackedAtFieldInput.simulate("change", {
-      target: {
-        name: "attackedAt",
-        value: "02/20/2021 6:52 AM",
-      },
-    });
 
     const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");

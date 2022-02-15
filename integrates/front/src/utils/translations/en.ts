@@ -878,8 +878,8 @@ export const enTranslations: ResourceKey = {
           },
           close: "Close",
           fields: {
-            attackedAt: "Attacked at",
             bePresent: "Be present",
+            hasRecentAttack: "Has it been attacked recently?",
           },
           procced: "Proceed",
           title: "Edit input",

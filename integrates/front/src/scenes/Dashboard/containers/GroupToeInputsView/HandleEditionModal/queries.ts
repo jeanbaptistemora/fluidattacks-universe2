@@ -3,18 +3,18 @@ import type { DocumentNode } from "graphql";
 
 const UPDATE_TOE_INPUT: DocumentNode = gql`
   mutation UpdateToeInput(
-    $attackedAt: DateTime
     $bePresent: Boolean!
     $component: String!
     $entryPoint: String!
     $groupName: String!
+    $hasRecentAttack: Boolean
   ) {
     updateToeInput(
-      attackedAt: $attackedAt
       bePresent: $bePresent
       component: $component
       entryPoint: $entryPoint
       groupName: $groupName
+      hasRecentAttack: $hasRecentAttack
     ) {
       success
     }

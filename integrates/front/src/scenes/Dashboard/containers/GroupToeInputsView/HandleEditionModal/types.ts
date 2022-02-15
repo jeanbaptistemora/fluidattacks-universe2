@@ -1,14 +1,11 @@
-import type { Moment } from "moment";
-
 import type { IToeInputData } from "../types";
 
 interface IFormValues {
-  attackedAt: Moment;
   bePresent: boolean;
+  hasRecentAttack: boolean | undefined;
 }
 
 interface IHandleEditionModalFormProps {
-  selectedToeInputDatas: IToeInputData[];
   handleCloseModal: () => void;
 }
 
