@@ -1,3 +1,4 @@
+import aioboto3
 from aioextensions import (
     collect,
 )
@@ -803,6 +804,22 @@ async def _ssh_ls_remote_root(
     return (root.id, await ssh_ls_remote_root(root, cred))
 
 
+async def is_in_s3(group_name: str, root_nickname: str) -> Tuple[str, bool]:
+    async with aioboto3.client(service_name="s3") as client:
+        return (
+            root_nickname,
+            any(
+                object["Key"].startswith(f"{group_name}/{root_nickname}/.git/")
+                for object in (
+                    await client.list_objects(
+                        Bucket="continuous-repositories",
+                        Prefix=f"{group_name}/{root_nickname}/",
+                    )
+                ).get("Contents", [])
+            ),
+        )
+
+
 async def queue_sync_git_roots(
     *,
     loaders: Dataloaders,
@@ -843,31 +860,31 @@ async def queue_sync_git_roots(
     group_creds: Tuple[
         CredentialItem, ...
     ] = await loaders.group_credentials.load(group_name)
-    roots_cred: Tuple[CredentialItem, ...] = tuple(
+    roots_creds: Tuple[CredentialItem, ...] = tuple(
         cred
         for cred in group_creds
         if set(cred.state.roots).intersection(set(roots_dict.keys()))
     )
 
-    creds_by_root = {
+    roots_with_creds = {
         root_id: tuple(
-            cred for cred in roots_cred if root_id in cred.state.roots
+            cred for cred in roots_creds if root_id in cred.state.roots
         )
         for root_id in roots_dict.keys()
     }
-    creds_by_root = {
+    roots_with_creds = {
         root_id: creds[0]
-        for root_id, creds in creds_by_root.items()
+        for root_id, creds in roots_with_creds.items()
         if creds and creds[0].metadata.type.value == "SSH"
     }
 
-    if not creds_by_root:
+    if not roots_with_creds:
         raise CredentialNotFound()
 
     last_commits_dict = dict(
         await collect(
             _ssh_ls_remote_root(roots_dict[root_id], cred)
-            for root_id, cred in creds_by_root.items()
+            for root_id, cred in roots_with_creds.items()
         )
     )
 
@@ -886,19 +903,14 @@ async def queue_sync_git_roots(
             if not commit
         )
     )
-    await collect(
-        roots_domain.update_root_cloning_status(
-            loaders=loaders,
-            group_name=group_name,
-            root_id=root_id,
-            status="OK",
-            message="Already up to date",
-            commit=roots_dict[root_id].cloning.commit,
-        )
-        for root_id in (
-            root_id
-            for root_id, commit in last_commits_dict.items()
-            if commit and commit == roots_dict[root_id].cloning.commit
+
+    is_in_s3_dict = dict(
+        await (
+            collect(
+                is_in_s3(group_name, root.state.nickname)
+                for root in roots
+                if root.id in roots_with_creds
+            )
         )
     )
 
@@ -907,7 +919,8 @@ async def queue_sync_git_roots(
         for root_id in (
             root_id
             for root_id, commit in last_commits_dict.items()
-            if commit and commit != roots_dict[root_id].cloning.commit
+            if (commit and commit != roots_dict[root_id].cloning.commit)
+            or roots_dict[root_id].state.nickname not in is_in_s3_dict
         )
     )
 
