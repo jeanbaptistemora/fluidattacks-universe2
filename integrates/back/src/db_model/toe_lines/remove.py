@@ -16,4 +16,4 @@ async def remove(*, filename: str, group_name: str, root_id: str) -> None:
             "filename": filename,
         },
     )
-    await operations.delete_item(primary_key=toe_lines_key, table=TABLE)
+    await operations.delete_item(key=toe_lines_key, table=TABLE)

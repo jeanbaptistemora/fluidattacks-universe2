@@ -22,4 +22,4 @@ async def remove(
             "group_name": group_name,
         },
     )
-    await operations.delete_item(primary_key=toe_input_key, table=TABLE)
+    await operations.delete_item(key=toe_input_key, table=TABLE)

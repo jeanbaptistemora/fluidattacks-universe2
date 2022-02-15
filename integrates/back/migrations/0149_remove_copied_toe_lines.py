@@ -42,7 +42,7 @@ async def remove_lines(group_name: str) -> None:
     await collect(
         tuple(
             operations.delete_item(
-                primary_key=PrimaryKey(
+                key=PrimaryKey(
                     partition_key=item[TABLE.primary_key.partition_key],
                     sort_key=item[TABLE.primary_key.sort_key],
                 ),

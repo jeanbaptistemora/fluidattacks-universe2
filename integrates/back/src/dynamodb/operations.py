@@ -240,7 +240,7 @@ async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
 async def delete_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
-    primary_key: PrimaryKey,
+    key: PrimaryKey,
     table: Table,
 ) -> None:
     key_structure = table.primary_key
@@ -250,8 +250,8 @@ async def delete_item(
         args = {
             "ConditionExpression": condition_expression,
             "Key": {
-                key_structure.partition_key: primary_key.partition_key,
-                key_structure.sort_key: primary_key.sort_key,
+                key_structure.partition_key: key.partition_key,
+                key_structure.sort_key: key.sort_key,
             },
         }
 
