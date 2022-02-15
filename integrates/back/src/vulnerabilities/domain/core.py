@@ -723,10 +723,10 @@ async def update_historics_dates(
             )
         ),
     )
-    await vulns_dal.update_historic_state(
+    await vulns_model.update_historic(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
-        historic_state=historic_state,
+        historic=historic_state,
     )
 
     loaders.vulnerability_historic_treatment.clear(vulnerability_id)
@@ -742,10 +742,10 @@ async def update_historics_dates(
             )
         ),
     )
-    await vulns_dal.update_historic_treatment(
+    await vulns_model.update_historic(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
-        historic_treatment=historic_treatment,
+        historic=historic_treatment,
     )
 
 
@@ -810,13 +810,13 @@ async def update_metadata_and_state(
                     user_email=finding_policy.state.modified_by,
                 )
             )
-            await vulns_dal.update_treatment(
+            await vulns_model.update_treatment(
                 current_value=vulnerability.treatment,
                 finding_id=vulnerability.finding_id,
                 vulnerability_id=vulnerability.id,
                 treatment=treatment_to_update[0],
             )
-            await vulns_dal.update_treatment(
+            await vulns_model.update_treatment(
                 current_value=treatment_to_update[0],
                 finding_id=vulnerability.finding_id,
                 vulnerability_id=vulnerability.id,

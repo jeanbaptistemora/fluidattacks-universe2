@@ -16,6 +16,9 @@ from custom_exceptions import (
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
+from db_model import (
+    vulnerabilities as vulns_model,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -55,7 +58,6 @@ from uuid import (
     uuid4,
 )
 from vulnerabilities import (
-    dal as vulns_dal,
     domain as vulns_domain,
 )
 
@@ -301,7 +303,7 @@ async def _add_accepted_treatment(
     )
     await collect(
         [
-            vulns_dal.update_treatment(
+            vulns_model.update_treatment(
                 current_value=vuln.treatment,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
@@ -313,7 +315,7 @@ async def _add_accepted_treatment(
     )
     await collect(
         [
-            vulns_dal.update_treatment(
+            vulns_model.update_treatment(
                 current_value=acceptance_submitted,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
@@ -354,7 +356,7 @@ async def _add_new_treatment(
     ]
     await collect(
         [
-            vulns_dal.update_treatment(
+            vulns_model.update_treatment(
                 current_value=vuln.treatment,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,

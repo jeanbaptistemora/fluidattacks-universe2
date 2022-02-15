@@ -3,8 +3,6 @@ from context import (
 )
 import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.types import (
-    VulnerabilityState,
-    VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
@@ -33,54 +31,6 @@ async def upload_file(vuln_file: UploadFile) -> str:
         file_name,
     )
     return file_name
-
-
-async def update_historic_state(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    historic_state: Tuple[VulnerabilityState, ...],
-) -> None:
-    await vulns_model.update_historic(
-        finding_id=finding_id,
-        historic=historic_state,
-        vulnerability_id=vulnerability_id,
-    )
-
-
-async def update_treatment(
-    *,
-    current_value: Optional[VulnerabilityTreatment],
-    finding_id: str,
-    vulnerability_id: str,
-    treatment: VulnerabilityTreatment,
-) -> None:
-    await vulns_model.update_historic_entry(
-        current_entry=current_value,
-        entry=treatment,
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-    )
-    await vulns_model.update_assigned_index(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        entry=treatment,
-    )
-
-
-async def update_historic_treatment(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
-    deleted: Optional[bool] = False,
-) -> None:
-    if not deleted:
-        await vulns_model.update_historic(
-            finding_id=finding_id,
-            historic=historic_treatment,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_verification(

@@ -205,16 +205,16 @@ async def process_vuln(
             state=vuln.state,
         ),
     )
-    await vulns_dal.update_historic_state(
+    await vulns_model.update_historic(
         finding_id=target_finding_id,
         vulnerability_id=new_id,
-        historic_state=historic_state,
+        historic=historic_state,
     )
     if historic_treatment:
-        await vulns_dal.update_historic_treatment(
+        await vulns_model.update_historic(
             finding_id=target_finding_id,
             vulnerability_id=new_id,
-            historic_treatment=historic_treatment,
+            historic=historic_treatment,
         )
     if historic_verification:
         await vulns_dal.update_historic_verification(

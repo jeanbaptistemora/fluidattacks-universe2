@@ -27,6 +27,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    vulnerabilities as vulns_model,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -61,9 +64,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-)
-from vulnerabilities import (
-    dal as vulns_dal,
 )
 
 
@@ -208,7 +208,7 @@ async def add_vulnerability_treatment(
         modified_date=datetime_utils.get_iso_date(),
         status=new_status,
     )
-    await vulns_dal.update_treatment(
+    await vulns_model.update_treatment(
         current_value=vuln.treatment,
         finding_id=finding_id,
         vulnerability_id=vuln.id,
@@ -297,7 +297,7 @@ async def _handle_vulnerability_acceptance(
         current_value = vulnerability.treatment
         # Use for-await as update order is relevant for typed vuln
         for treatment in vulns_utils.adjust_historic_dates(treatments_to_add):
-            await vulns_dal.update_treatment(
+            await vulns_model.update_treatment(
                 current_value=current_value,
                 finding_id=finding_id,
                 vulnerability_id=vulnerability.id,

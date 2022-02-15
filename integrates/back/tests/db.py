@@ -251,10 +251,10 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [
-            dal_vulns.update_historic_state(
+            vulns_model.update_historic(
                 finding_id=vulnerability["vulnerability"].finding_id,
                 vulnerability_id=vulnerability["vulnerability"].id,
-                historic_state=vulnerability["historic_state"],
+                historic=vulnerability["historic_state"],
             )
             for vulnerability in data
             if "historic_state" in vulnerability
@@ -262,10 +262,10 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [
-            dal_vulns.update_historic_treatment(
+            vulns_model.update_historic(
                 finding_id=vulnerability["vulnerability"].finding_id,
                 vulnerability_id=vulnerability["vulnerability"].id,
-                historic_treatment=vulnerability["historic_treatment"],
+                historic=vulnerability["historic_treatment"],
             )
             for vulnerability in data
             if "historic_treatment" in vulnerability

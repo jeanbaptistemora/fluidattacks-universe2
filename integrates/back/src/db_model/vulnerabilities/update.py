@@ -114,6 +114,26 @@ async def update_assigned_index(
         raise VulnNotFound() from ex
 
 
+async def update_treatment(
+    *,
+    current_value: Optional[VulnerabilityTreatment],
+    finding_id: str,
+    vulnerability_id: str,
+    treatment: VulnerabilityTreatment,
+) -> None:
+    await update_historic_entry(
+        current_entry=current_value,
+        entry=treatment,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+    )
+    await update_assigned_index(
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        entry=treatment,
+    )
+
+
 async def update_historic_entry(
     *,
     current_entry: Optional[VulnerabilityHistoricEntry],
