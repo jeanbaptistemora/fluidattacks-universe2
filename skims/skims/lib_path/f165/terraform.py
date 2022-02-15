@@ -14,6 +14,7 @@ from parse_hcl2.common import (
 from parse_hcl2.structure.aws import (
     iter_aws_dynambodb_table,
     iter_aws_efs_file_system,
+    iter_aws_launch_configuration,
     iter_aws_secrets_manager_secret,
 )
 from typing import (
@@ -53,6 +54,23 @@ def _tfm_aws_dynamodb_table_unencrypted(
             key="server_side_encryption",
         ):
             encrypted = get_block_attribute(block=root_block, key="enabled")
+            if not encrypted:
+                yield root_block
+            if encrypted.val is False:
+                yield encrypted
+        else:
+            yield resource
+
+
+def _tfm_aws_ebs_volumes_unencrypted(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if root_block := get_argument(
+            body=resource.data,
+            key="root_block_device",
+        ):
+            encrypted = get_block_attribute(block=root_block, key="encrypted")
             if not encrypted:
                 yield root_block
             if encrypted.val is False:
@@ -108,4 +126,20 @@ def tfm_aws_dynamodb_table_unencrypted(
         ),
         path=path,
         method=MethodsEnum.TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED,
+    )
+
+
+def tfm_aws_ebs_volumes_unencrypted(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="lib_path.f165.tfm_aws_ebs_volumes_unencrypted",
+        iterator=get_cloud_iterator(
+            _tfm_aws_ebs_volumes_unencrypted(
+                resource_iterator=iter_aws_launch_configuration(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_AWS_EBS_VOLUMES_UNENCRYPTED,
     )

@@ -2380,6 +2380,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_ebs_volumes_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_dynamodb_table_unencrypted",
