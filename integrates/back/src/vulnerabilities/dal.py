@@ -1,8 +1,3 @@
-import aioboto3
-from boto3.dynamodb.conditions import (
-    Attr,
-    Key,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -11,7 +6,6 @@ from context import (
 )
 from custom_exceptions import (
     UnavailabilityError,
-    VulnNotFound,
 )
 import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.enums import (
@@ -42,7 +36,6 @@ from starlette.datastructures import (
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
     Tuple,
 )
@@ -57,65 +50,6 @@ TABLE_NAME: str = "FI_vulnerabilities"
 async def add(vulnerability: Vulnerability) -> None:
     """Add vulnerability."""
     await vulns_model.add(vulnerability=vulnerability)
-
-
-async def get_by_finding(
-    finding_id: str,
-    vuln_type: str = "",
-    where: str = "",
-    specific: str = "",
-    uuid: str = "",
-) -> List[Dict[str, Any]]:
-    """Get a vulnerability."""
-    hash_key = "finding_id"
-    query_attrs = {"KeyConditionExpression": Key(hash_key).eq(finding_id)}
-    if finding_id and uuid:
-        range_key = "UUID"
-        query_attrs.update(
-            {
-                "KeyConditionExpression": (
-                    Key(hash_key).eq(finding_id) & Key(range_key).eq(uuid)
-                )
-            }
-        )
-    elif finding_id and vuln_type and where and specific:
-        filtering_exp = (
-            Attr("vuln_type").eq(vuln_type)
-            & Attr("where").eq(where)
-            & Attr("specific").eq(specific)
-        )
-        query_attrs.update({"FilterExpression": filtering_exp})
-    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
-
-
-async def get_vulnerability_by_id(
-    vulnerability_uuid: str,
-    table: aioboto3.session.Session.client,
-) -> List[Dict[str, Any]]:
-    hash_key = "UUID"
-    query_attrs = {
-        "IndexName": "gsi_uuid",
-        "KeyConditionExpression": Key(hash_key).eq(vulnerability_uuid),
-    }
-    response = await table.query(**query_attrs)
-    vulnerabilities = response.get("Items", [])
-    while "LastEvaluatedKey" in response:
-        query_attrs.update(
-            {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
-        )
-        response = await table.query(**query_attrs)
-        vulnerabilities += response.get("Items", [])
-
-    if not vulnerabilities:
-        raise VulnNotFound()
-    first_vuln = vulnerabilities[0]
-    if (
-        first_vuln.get("historic_state", [{}])[-1].get("state", "")
-        == "DELETED"
-    ):
-        raise VulnNotFound()
-
-    return [vulnerabilities[0]]
 
 
 async def sign_url(vuln_file_name: str) -> str:
