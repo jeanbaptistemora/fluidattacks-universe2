@@ -10,9 +10,6 @@ from datetime import (
 from enum import (
     Enum,
 )
-from model import (
-    cvss3_model,
-)
 from typing import (
     Any,
     Dict,
@@ -117,7 +114,6 @@ class FindingMetadata(NamedTuple):
     impact: str
     recommendation: str
     requirements: List[int]
-    score: cvss3_model.Score
     threat: str
     title: str
 
@@ -130,7 +126,6 @@ class FindingMetadata(NamedTuple):
         execution_queue: ExecutionQueue,
         auto_approve: bool,
         requirements: List[int],
-        score: cvss3_model.Score,
     ) -> FindingMetadata:
         return FindingMetadata(
             auto_approve=auto_approve,
@@ -140,7 +135,6 @@ class FindingMetadata(NamedTuple):
             impact=f"criteria.vulns.{code[1:]}.impact",
             recommendation=f"criteria.vulns.{code[1:]}.recommendation",
             requirements=requirements,
-            score=score,
             threat=f"criteria.vulns.{code[1:]}.threat",
             title=f"criteria.vulns.{code[1:]}.title",
         )
@@ -153,19 +147,6 @@ class FindingEnum(Enum):
         cwe=89,
         execution_queue=ExecutionQueue.sql,
         requirements=[169],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F004: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -173,19 +154,6 @@ class FindingEnum(Enum):
         cwe=78,
         execution_queue=ExecutionQueue.injection,
         requirements=[173, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F008: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -193,19 +161,6 @@ class FindingEnum(Enum):
         cwe=79,
         execution_queue=ExecutionQueue.xss,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F009: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -213,19 +168,6 @@ class FindingEnum(Enum):
         cwe=798,
         execution_queue=ExecutionQueue.leak,
         requirements=[156],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F011: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -233,19 +175,6 @@ class FindingEnum(Enum):
         cwe=937,
         execution_queue=ExecutionQueue.sca,
         requirements=[262],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F012: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -253,19 +182,6 @@ class FindingEnum(Enum):
         cwe=89,
         execution_queue=ExecutionQueue.sql,
         requirements=[169],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F015: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -273,19 +189,6 @@ class FindingEnum(Enum):
         cwe=287,
         execution_queue=ExecutionQueue.http,
         requirements=[228, 319],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.C,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F016: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -293,19 +196,6 @@ class FindingEnum(Enum):
         cwe=326,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F017: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -313,19 +203,6 @@ class FindingEnum(Enum):
         cwe=319,
         execution_queue=ExecutionQueue.http,
         requirements=[32, 181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.C,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F020: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -333,19 +210,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.crypto,
         requirements=[134, 135, 185, 229, 264, 300],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F021: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -353,19 +217,6 @@ class FindingEnum(Enum):
         cwe=643,
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F022: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -373,19 +224,6 @@ class FindingEnum(Enum):
         cwe=319,
         execution_queue=ExecutionQueue.f014,
         requirements=[181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F023: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -393,19 +231,6 @@ class FindingEnum(Enum):
         cwe=601,
         execution_queue=ExecutionQueue.http,
         requirements=[173, 324],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F024: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -413,19 +238,6 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.cloud,
         requirements=[255, 266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.C,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F031: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -433,19 +245,6 @@ class FindingEnum(Enum):
         cwe=250,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F034: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -453,19 +252,6 @@ class FindingEnum(Enum):
         cwe=330,
         execution_queue=ExecutionQueue.crypto,
         requirements=[223, 224],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F035: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -473,19 +259,6 @@ class FindingEnum(Enum):
         cwe=521,
         execution_queue=ExecutionQueue.f014,
         requirements=[130, 132, 133, 139, 332],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F036: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -493,19 +266,6 @@ class FindingEnum(Enum):
         cwe=319,
         execution_queue=ExecutionQueue.http,
         requirements=[26],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F042: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -513,19 +273,6 @@ class FindingEnum(Enum):
         cwe=614,
         execution_queue=ExecutionQueue.cookie,
         requirements=[29],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F043: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -533,19 +280,6 @@ class FindingEnum(Enum):
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F046: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -553,19 +287,6 @@ class FindingEnum(Enum):
         cwe=1269,
         execution_queue=ExecutionQueue.apk,
         requirements=[159],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F048: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -573,19 +294,6 @@ class FindingEnum(Enum):
         cwe=250,
         execution_queue=ExecutionQueue.apk,
         requirements=[326],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F052: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -593,19 +301,6 @@ class FindingEnum(Enum):
         cwe=310,
         execution_queue=ExecutionQueue.crypto,
         requirements=[158, 149, 150, 181, 336],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F055: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -613,19 +308,6 @@ class FindingEnum(Enum):
         cwe=530,
         execution_queue=ExecutionQueue.apk,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F058: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -633,19 +315,6 @@ class FindingEnum(Enum):
         cwe=489,
         execution_queue=ExecutionQueue.apk,
         requirements=[77, 78],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F060: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -653,19 +322,6 @@ class FindingEnum(Enum):
         cwe=396,
         execution_queue=ExecutionQueue.none,
         requirements=[359],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F061: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -673,19 +329,6 @@ class FindingEnum(Enum):
         cwe=390,
         execution_queue=ExecutionQueue.none,
         requirements=[75],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F063: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -693,19 +336,6 @@ class FindingEnum(Enum):
         cwe=22,
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F064: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -713,19 +343,6 @@ class FindingEnum(Enum):
         cwe=778,
         execution_queue=ExecutionQueue.http,
         requirements=[75],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F070: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -733,19 +350,6 @@ class FindingEnum(Enum):
         cwe=266,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F071: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -753,19 +357,6 @@ class FindingEnum(Enum):
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F073: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -773,19 +364,6 @@ class FindingEnum(Enum):
         cwe=478,
         execution_queue=ExecutionQueue.cloud,
         requirements=[161],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F075: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -793,19 +371,6 @@ class FindingEnum(Enum):
         cwe=284,
         execution_queue=ExecutionQueue.apk,
         requirements=[176],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F079: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -813,19 +378,6 @@ class FindingEnum(Enum):
         cwe=829,
         execution_queue=ExecutionQueue.f117,
         requirements=[302],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F080: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -833,19 +385,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.cloud,
         requirements=[185],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F082: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -853,19 +392,6 @@ class FindingEnum(Enum):
         cwe=459,
         execution_queue=ExecutionQueue.apk,
         requirements=[183],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F085: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -873,19 +399,6 @@ class FindingEnum(Enum):
         cwe=922,
         execution_queue=ExecutionQueue.leak,
         requirements=[329],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.F,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F086: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -893,19 +406,6 @@ class FindingEnum(Enum):
         cwe=353,
         execution_queue=ExecutionQueue.http,
         requirements=[178, 262, 330],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F089: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -913,19 +413,6 @@ class FindingEnum(Enum):
         cwe=501,
         execution_queue=ExecutionQueue.control,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F091: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -933,19 +420,6 @@ class FindingEnum(Enum):
         cwe=117,
         execution_queue=ExecutionQueue.f014,
         requirements=[80, 173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F092: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -953,19 +427,6 @@ class FindingEnum(Enum):
         cwe=757,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.F,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F094: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -973,19 +434,6 @@ class FindingEnum(Enum):
         cwe=757,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F096: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -993,19 +441,6 @@ class FindingEnum(Enum):
         cwe=502,
         execution_queue=ExecutionQueue.f014,
         requirements=[173, 321],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F099: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1013,19 +448,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.cloud,
         requirements=[134, 135, 185, 227, 229, 264, 300],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.H,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F100: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1033,19 +455,6 @@ class FindingEnum(Enum):
         cwe=918,
         execution_queue=ExecutionQueue.f014,
         requirements=[173, 324],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F101: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1053,19 +462,6 @@ class FindingEnum(Enum):
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.H,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F103: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1073,19 +469,6 @@ class FindingEnum(Enum):
         cwe=325,
         execution_queue=ExecutionQueue.apk,
         requirements=[178],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F107: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1093,19 +476,6 @@ class FindingEnum(Enum):
         cwe=90,
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F109: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1113,19 +483,6 @@ class FindingEnum(Enum):
         cwe=681,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F112: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1133,19 +490,6 @@ class FindingEnum(Enum):
         cwe=89,
         execution_queue=ExecutionQueue.sql,
         requirements=[169],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F117: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1153,19 +497,6 @@ class FindingEnum(Enum):
         cwe=377,
         execution_queue=ExecutionQueue.f117,
         requirements=[323],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F127: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1173,19 +504,6 @@ class FindingEnum(Enum):
         cwe=843,
         execution_queue=ExecutionQueue.control,
         requirements=[342],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F128: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1193,19 +511,6 @@ class FindingEnum(Enum):
         cwe=1004,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F129: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1213,19 +518,6 @@ class FindingEnum(Enum):
         cwe=1275,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F130: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1233,19 +525,6 @@ class FindingEnum(Enum):
         cwe=614,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.H,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F131: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1253,19 +532,6 @@ class FindingEnum(Enum):
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62, 181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F132: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1273,19 +539,6 @@ class FindingEnum(Enum):
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F133: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1293,19 +546,6 @@ class FindingEnum(Enum):
         cwe=310,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F134: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1313,19 +553,6 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.http,
         requirements=[62, 266, 349],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F157: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1333,19 +560,6 @@ class FindingEnum(Enum):
         cwe=923,
         execution_queue=ExecutionQueue.cloud,
         requirements=[255],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.C,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F160: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1353,19 +567,6 @@ class FindingEnum(Enum):
         cwe=378,
         execution_queue=ExecutionQueue.control,
         requirements=[95, 96, 186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F165: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1373,19 +574,6 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.control,
         requirements=[185, 265, 266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.X,
-            report_confidence=cvss3_model.ReportConfidence.X,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F177: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1393,19 +581,6 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F200: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1413,19 +588,6 @@ class FindingEnum(Enum):
         cwe=778,
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 320],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F203: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1433,19 +595,6 @@ class FindingEnum(Enum):
         cwe=284,
         execution_queue=ExecutionQueue.cloud,
         requirements=[96, 176, 264, 320],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F206: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1453,19 +602,6 @@ class FindingEnum(Enum):
         cwe=295,
         execution_queue=ExecutionQueue.apk,
         requirements=[62, 266, 273],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F207: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1473,19 +609,6 @@ class FindingEnum(Enum):
         cwe=295,
         execution_queue=ExecutionQueue.apk,
         requirements=[93],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F211: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1493,19 +616,6 @@ class FindingEnum(Enum):
         cwe=405,
         execution_queue=ExecutionQueue.control,
         requirements=[72],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F237: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1513,19 +623,6 @@ class FindingEnum(Enum):
         cwe=209,
         execution_queue=ExecutionQueue.leak,
         requirements=[77, 176],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F241: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1533,19 +630,6 @@ class FindingEnum(Enum):
         cwe=306,
         execution_queue=ExecutionQueue.none,
         requirements=[227, 228, 229, 231, 235, 264, 319],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F246: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1553,19 +637,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.crypto,
         requirements=[134, 135, 185, 229, 264, 300],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F247: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1573,19 +644,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.cloud,
         requirements=[134, 135, 185, 229, 264, 300],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F250: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1593,19 +651,6 @@ class FindingEnum(Enum):
         cwe=313,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F252: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1613,19 +658,6 @@ class FindingEnum(Enum):
         cwe=284,
         execution_queue=ExecutionQueue.cloud,
         requirements=[237, 266, 327],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F256: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1633,19 +665,6 @@ class FindingEnum(Enum):
         cwe=693,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F257: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1653,19 +672,6 @@ class FindingEnum(Enum):
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F258: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1673,19 +679,6 @@ class FindingEnum(Enum):
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F259: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1693,19 +686,6 @@ class FindingEnum(Enum):
         cwe=463,
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F267: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1713,19 +693,6 @@ class FindingEnum(Enum):
         cwe=250,
         execution_queue=ExecutionQueue.cloud,
         requirements=[95, 97, 186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F268: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1733,19 +700,6 @@ class FindingEnum(Enum):
         cwe=749,
         execution_queue=ExecutionQueue.apk,
         requirements=[173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F277: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1753,19 +707,6 @@ class FindingEnum(Enum):
         cwe=521,
         execution_queue=ExecutionQueue.cloud,
         requirements=[130, 132, 133, 139, 332],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F281: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1773,19 +714,6 @@ class FindingEnum(Enum):
         cwe=311,
         execution_queue=ExecutionQueue.cloud,
         requirements=[181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F300: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1793,19 +721,6 @@ class FindingEnum(Enum):
         cwe=284,
         execution_queue=ExecutionQueue.cloud,
         requirements=[227, 228, 229, 231, 235, 264, 323],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F313: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1813,19 +728,6 @@ class FindingEnum(Enum):
         cwe=295,
         execution_queue=ExecutionQueue.apk,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.X,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F320: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1833,19 +735,6 @@ class FindingEnum(Enum):
         cwe=90,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F325: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1853,19 +742,6 @@ class FindingEnum(Enum):
         cwe=250,
         execution_queue=ExecutionQueue.cloud,
         requirements=[95, 96, 186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F333: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1873,19 +749,6 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F335: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1893,19 +756,6 @@ class FindingEnum(Enum):
         cwe=922,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.H,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.X,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F338: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1913,19 +763,6 @@ class FindingEnum(Enum):
         cwe=749,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F346: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1933,19 +770,6 @@ class FindingEnum(Enum):
         cwe=272,
         execution_queue=ExecutionQueue.apk,
         requirements=[95, 96, 186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.L,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F363: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1953,19 +777,6 @@ class FindingEnum(Enum):
         cwe=521,
         execution_queue=ExecutionQueue.cloud,
         requirements=[130, 132, 133, 139, 332],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.U,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F366: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -1973,19 +784,6 @@ class FindingEnum(Enum):
         cwe=749,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.U,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F372: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -1993,19 +791,6 @@ class FindingEnum(Enum):
         cwe=650,
         execution_queue=ExecutionQueue.cloud,
         requirements=[181],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.L,
-            attack_vector=cvss3_model.AttackVector.A,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F380: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -2013,19 +798,6 @@ class FindingEnum(Enum):
         cwe=749,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.U,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.R,
-        ),
     )
     F393: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -2033,19 +805,6 @@ class FindingEnum(Enum):
         cwe=937,
         execution_queue=ExecutionQueue.sca,
         requirements=[48, 262],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.L,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F394: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -2053,19 +812,6 @@ class FindingEnum(Enum):
         cwe=117,
         execution_queue=ExecutionQueue.cloud,
         requirements=[80],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F396: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -2073,19 +819,6 @@ class FindingEnum(Enum):
         cwe=255,
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.N,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F398: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -2093,19 +826,6 @@ class FindingEnum(Enum):
         cwe=470,
         execution_queue=ExecutionQueue.apk,
         requirements=[266, 173],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F400: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -2113,19 +833,6 @@ class FindingEnum(Enum):
         cwe=778,
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.C,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F401: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -2133,19 +840,6 @@ class FindingEnum(Enum):
         cwe=521,
         execution_queue=ExecutionQueue.cloud,
         requirements=[130, 138, 140],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.H,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.N,
-            privileges_required=cvss3_model.PrivilegesRequired.H,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
     F402: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -2153,19 +847,6 @@ class FindingEnum(Enum):
         cwe=778,
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.H,
-            attack_vector=cvss3_model.AttackVector.N,
-            availability_impact=cvss3_model.AvailabilityImpact.N,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
-            exploitability=cvss3_model.Exploitability.P,
-            integrity_impact=cvss3_model.IntegrityImpact.L,
-            privileges_required=cvss3_model.PrivilegesRequired.L,
-            remediation_level=cvss3_model.RemediationLevel.O,
-            report_confidence=cvss3_model.ReportConfidence.R,
-            severity_scope=cvss3_model.SeverityScope.U,
-            user_interaction=cvss3_model.UserInteraction.N,
-        ),
     )
 
 

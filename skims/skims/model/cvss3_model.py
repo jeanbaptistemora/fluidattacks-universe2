@@ -1,10 +1,16 @@
 from enum import (
     Enum,
 )
+from model import (
+    core_model,
+)
 from typing import (
     Any,
     Dict,
     NamedTuple,
+)
+from zone import (
+    t,
 )
 
 
@@ -119,3 +125,74 @@ class Score(NamedTuple):
             modifiedUserInteraction=str(self.user_interaction.value),
             modifiedSeverityScope=str(self.severity_scope.value),
         )
+
+
+def find_score_data(code: str) -> Score:
+    return Score(
+        attack_complexity=AttackComplexity[
+            t(
+                f"criteria.vulns.{code}.attack_complexity",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        attack_vector=AttackVector[
+            t(
+                f"criteria.vulns.{code}.attack_vector",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        availability_impact=AvailabilityImpact[
+            t(
+                f"criteria.vulns.{code}.availability",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        confidentiality_impact=ConfidentialityImpact[
+            t(
+                f"criteria.vulns.{code}.confidentiality",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        exploitability=Exploitability[
+            t(
+                f"criteria.vulns.{code}.exploit_code_maturity",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        integrity_impact=IntegrityImpact[
+            t(
+                f"criteria.vulns.{code}.integrity",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        privileges_required=PrivilegesRequired[
+            t(
+                f"criteria.vulns.{code}.privileges_required",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        remediation_level=RemediationLevel[
+            t(
+                f"criteria.vulns.{code}.remediation_level",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        report_confidence=ReportConfidence[
+            t(
+                f"criteria.vulns.{code}.report_confidence",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        severity_scope=SeverityScope[
+            t(
+                f"criteria.vulns.{code}.scope",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+        user_interaction=UserInteraction[
+            t(
+                f"criteria.vulns.{code}.user_interaction",
+                locale=core_model.LocalesEnum.EN,
+            )
+        ],
+    )

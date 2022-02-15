@@ -24,6 +24,7 @@ from itertools import (
 )
 from model import (
     core_model,
+    cvss3_model,
 )
 import os
 import pytest
@@ -119,6 +120,51 @@ def check_that_csv_results_match(
                 fillvalue=None,
             ):
                 assert producted_item == expected_item
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_find_score_data() -> None:
+    assert cvss3_model.find_score_data("001") == cvss3_model.Score(
+        attack_complexity=cvss3_model.AttackComplexity.L,
+        attack_vector=cvss3_model.AttackVector.N,
+        availability_impact=cvss3_model.AvailabilityImpact.N,
+        confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
+        exploitability=cvss3_model.Exploitability.X,
+        integrity_impact=cvss3_model.IntegrityImpact.N,
+        privileges_required=cvss3_model.PrivilegesRequired.N,
+        remediation_level=cvss3_model.RemediationLevel.X,
+        report_confidence=cvss3_model.ReportConfidence.X,
+        severity_scope=cvss3_model.SeverityScope.U,
+        user_interaction=cvss3_model.UserInteraction.N,
+    )
+
+    assert cvss3_model.find_score_data("172") == cvss3_model.Score(
+        attack_complexity=cvss3_model.AttackComplexity.H,
+        attack_vector=cvss3_model.AttackVector.L,
+        availability_impact=cvss3_model.AvailabilityImpact.N,
+        confidentiality_impact=cvss3_model.ConfidentialityImpact.L,
+        exploitability=cvss3_model.Exploitability.X,
+        integrity_impact=cvss3_model.IntegrityImpact.N,
+        privileges_required=cvss3_model.PrivilegesRequired.N,
+        remediation_level=cvss3_model.RemediationLevel.O,
+        report_confidence=cvss3_model.ReportConfidence.X,
+        severity_scope=cvss3_model.SeverityScope.U,
+        user_interaction=cvss3_model.UserInteraction.N,
+    )
+
+    assert cvss3_model.find_score_data("402") == cvss3_model.Score(
+        attack_complexity=cvss3_model.AttackComplexity.H,
+        attack_vector=cvss3_model.AttackVector.N,
+        availability_impact=cvss3_model.AvailabilityImpact.N,
+        confidentiality_impact=cvss3_model.ConfidentialityImpact.N,
+        exploitability=cvss3_model.Exploitability.P,
+        integrity_impact=cvss3_model.IntegrityImpact.L,
+        privileges_required=cvss3_model.PrivilegesRequired.L,
+        remediation_level=cvss3_model.RemediationLevel.O,
+        report_confidence=cvss3_model.ReportConfidence.R,
+        severity_scope=cvss3_model.SeverityScope.U,
+        user_interaction=cvss3_model.UserInteraction.N,
+    )
 
 
 async def get_group_data(

@@ -21,6 +21,7 @@ from integrates.dal import (
 )
 from model import (
     core_model,
+    cvss3_model,
 )
 from state.ephemeral import (
     EphemeralStore,
@@ -175,7 +176,9 @@ async def get_closest_finding_id(
         if finding_id:
             await do_update_finding_severity(
                 finding_id=finding_id,
-                severity=finding.value.score.as_dict(),
+                severity=cvss3_model.find_score_data(
+                    finding.name[1:]
+                ).as_dict(),
                 client=client,
             )
         else:
