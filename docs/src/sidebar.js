@@ -509,6 +509,7 @@ const Machine = [
         label: 'Groups',
         items: [
           'machine/web/groups/vulnerabilities',
+          'machine/web/groups/reports',
           'machine/web/groups/events',
           'machine/web/groups/stakeholders',
           'machine/web/groups/roles',

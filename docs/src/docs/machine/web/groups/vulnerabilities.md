@@ -100,56 +100,6 @@ described here:
   and access the **Location** tab
   to see them all.
 
-## Reports
-
-In the Vulnerabilities tab,
-you can also request
-various vulnerability reports
-by clicking on the **Reports** button
-shown in the following image:
-
-![Reports Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_button_yzszmw.webp)
-
-When you click on it,
-the following window will appear:
-
-![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_modal_h26dmp.webp)
-
-There are three types of reports
-you can request:
-
-- **Executive:**
-  This will give you a more summary report
-  of all vulnerabilities
-  in line with necessary knowledge
-  from a management perspective.
-- **Technical:**
-  This will give a much more in-depth look
-  at all the group's vulnerabilities,
-  being suitable for those
-  that want all the technical details.
-- **Export:**
-  This will give you a zip file
-  with an export of all vulnerabilities
-  in the group.
-
-Lastly,
-in order to download the report,
-you need to check your email
-and click on the **Download** button
-that you can see in the following image:
-
-![Reports Mail](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_mail_zjkigl.webp)
-
-The downloaded file will be protected
-with a passphrase
-that we will send
-to your mobile device.
-You can refer
-to our [mobile app documentation](/machine/web/groups/vulnerabilities#reports)
-if you encounter any problems
-with this part of the process.
-
 ## Tracking tab
 
 Knowing what happened with each
