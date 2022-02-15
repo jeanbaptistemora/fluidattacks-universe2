@@ -181,7 +181,7 @@ and the worst organization.
 
 ## Total exposure
 
-![Total Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
+![Total Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1644932532/docs/web/analytics/common/common_total_exposur.png)
 
 One of the main dilemmas organizations face
 every day is which vulnerability they
@@ -256,7 +256,7 @@ to their assigned treatment:
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
 
-## Vulnerabilities by number of changes in treatment
+## Vulnerabilities by treatments
 
 ![Vulner Numb Of Changes](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932187/docs/web/analytics/common/common_vulner_nchanges_treatm.png)
 
