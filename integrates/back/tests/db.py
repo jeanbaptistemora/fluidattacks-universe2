@@ -12,11 +12,12 @@ from comments import (
 )
 from db_model import (
     credentials as creds_model,
-    findings,
+    findings as findings_model,
     roots as roots_model,
     services_toe_lines as services_toe_lines_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
+    vulnerabilities as vulns_model,
 )
 from db_model.credentials.types import (
     CredentialItem,
@@ -178,7 +179,7 @@ async def populate_groups(data: List[Any]) -> bool:
 async def _populate_finding_unreliable_indicator(data: Dict[str, Any]) -> None:
     finding = data["finding"]
     if data.get("unreliable_indicator"):
-        await findings.update_unreliable_indicators(
+        await findings_model.update_unreliable_indicators(
             current_value=FindingUnreliableIndicators(),
             group_name=finding.group_name,
             finding_id=finding.id,
@@ -192,7 +193,7 @@ async def _populate_finding_historic_state(data: Dict[str, Any]) -> None:
     finding: Finding = data["finding"]
     historic = (finding.state, *data["historic_state"])
     for previous, current in zip(historic, historic[1:]):
-        await findings.update_state(
+        await findings_model.update_state(
             current_value=previous,
             group_name=finding.group_name,
             finding_id=finding.id,
@@ -208,7 +209,7 @@ async def _populate_finding_historic_verification(
     finding: Finding = data["finding"]
     historic = (finding.verification, *data["historic_verification"])
     for previous, current in zip(historic, historic[1:]):
-        await findings.update_verification(
+        await findings_model.update_verification(
             current_value=previous,
             group_name=finding.group_name,
             finding_id=finding.id,
@@ -217,7 +218,9 @@ async def _populate_finding_historic_verification(
 
 
 async def populate_findings(data: List[Dict[str, Any]]) -> bool:
-    await collect([findings.add(finding=item["finding"]) for item in data])
+    await collect(
+        [findings_model.add(finding=item["finding"]) for item in data]
+    )
     await collect([_populate_finding_historic_state(item) for item in data])
     await collect(
         [_populate_finding_unreliable_indicator(item) for item in data]
@@ -227,7 +230,7 @@ async def populate_findings(data: List[Dict[str, Any]]) -> bool:
     )
     await collect(
         [
-            findings.remove(
+            findings_model.remove(
                 group_name=item["finding"].group_name,
                 finding_id=item["finding"].id,
             )
@@ -242,7 +245,7 @@ async def populate_findings(data: List[Dict[str, Any]]) -> bool:
 async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     await collect(
         [
-            dal_vulns.add(vulnerability=vulnerability["vulnerability"])
+            vulns_model.add(vulnerability=vulnerability["vulnerability"])
             for vulnerability in data
         ]
     )

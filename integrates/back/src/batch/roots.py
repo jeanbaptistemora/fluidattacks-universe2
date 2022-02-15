@@ -33,6 +33,7 @@ from dataloaders import (
 )
 from db_model import (
     findings as findings_model,
+    vulnerabilities as vulns_model,
 )
 from db_model.credentials.types import (
     CredentialItem,
@@ -196,7 +197,7 @@ async def process_vuln(
     historic_verification = await verification_loader.load(vuln.id)
     historic_zero_risk = await zero_risk_loader.load(vuln.id)
     new_id = str(uuid.uuid4())
-    await vulns_dal.add(
+    await vulns_model.add(
         vulnerability=vuln._replace(
             finding_id=target_finding_id,
             id=new_id,

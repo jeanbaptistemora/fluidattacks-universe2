@@ -1,127 +1,31 @@
-from botocore.exceptions import (
-    ClientError,
-)
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
-)
-from custom_exceptions import (
-    UnavailabilityError,
 )
 import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
-from dynamodb import (
-    operations_legacy as dynamodb_ops,
-)
-import logging
-import logging.config
 from s3 import (
     operations as s3_ops,
-)
-from settings import (
-    LOGGING,
 )
 from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
     Tuple,
 )
 
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
-TABLE_NAME: str = "FI_vulnerabilities"
-
-
-async def add(vulnerability: Vulnerability) -> None:
-    """Add vulnerability."""
-    await vulns_model.add(vulnerability=vulnerability)
-
 
 async def sign_url(vuln_file_name: str) -> str:
     return await s3_ops.sign_url(vuln_file_name, 10, VULNS_BUCKET)
-
-
-async def update(finding_id: str, vuln_id: str, data: Dict[str, Any]) -> bool:
-    set_expression = ""
-    remove_expression = ""
-    expression_names = {}
-    expression_values = {}
-    for attr, value in data.items():
-        if value is None:
-            remove_expression += f"#{attr}, "
-            expression_names.update({f"#{attr}": attr})
-        else:
-            set_expression += f"#{attr} = :{attr}, "
-            expression_names.update({f"#{attr}": attr})
-            expression_values.update({f":{attr}": value})
-
-    if set_expression:
-        set_expression = f'SET {set_expression.strip(", ")}'
-    if remove_expression:
-        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
-
-    update_attrs = {
-        "Key": {
-            "finding_id": finding_id,
-            "UUID": vuln_id,
-        },
-        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
-    }
-    if expression_values:
-        update_attrs.update({"ExpressionAttributeValues": expression_values})
-    if expression_names:
-        update_attrs.update({"ExpressionAttributeNames": expression_names})
-    try:
-        return await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-        raise UnavailabilityError() from ex
-
-
-async def append(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    elements: Dict[str, Tuple[Dict[str, Any], ...]],
-) -> None:
-    expression = ",".join(
-        (
-            f"#{attr} = list_append(if_not_exists(#{attr}, :_empty), :{attr})"
-            for attr in elements
-        )
-    )
-    expression_names = {f"#{attr}": attr for attr in elements}
-    utility_values: Dict[str, list] = {":_empty": []}
-    expression_values = {
-        f":{attr}": list(values) for attr, values in elements.items()
-    }
-    await dynamodb_ops.update_item(
-        TABLE_NAME,
-        {
-            "Key": {"finding_id": finding_id, "UUID": vulnerability_id},
-            "UpdateExpression": f"SET {expression}",
-            "ExpressionAttributeNames": expression_names,
-            "ExpressionAttributeValues": {
-                **utility_values,
-                **expression_values,
-            },
-        },
-    )
 
 
 async def upload_file(vuln_file: UploadFile) -> str:
