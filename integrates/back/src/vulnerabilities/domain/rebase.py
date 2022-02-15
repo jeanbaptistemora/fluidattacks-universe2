@@ -1,6 +1,9 @@
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
 )
+from db_model import (
+    vulnerabilities as vulns_model,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
@@ -10,9 +13,6 @@ from db_model.vulnerabilities.types import (
 )
 from typing import (
     Tuple,
-)
-from vulnerabilities.dal import (
-    update_metadata,
 )
 from vulnerabilities.domain.validations import (
     validate_commit_hash,
@@ -45,7 +45,7 @@ async def rebase(
     )
     validate_where(vulnerability_where)
 
-    await update_metadata(
+    await vulns_model.update_metadata(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         metadata=VulnerabilityMetadataToUpdate(

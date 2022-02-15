@@ -13,6 +13,9 @@ from custom_exceptions import (
 from custom_types import (
     User as UserType,
 )
+from db_model import (
+    vulnerabilities as vulns_model,
+)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -23,7 +26,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
-import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
@@ -199,7 +201,7 @@ async def add_tags(
         return
     if vulnerability.tags:
         tags.extend(vulnerability.tags)
-    await vulns_dal.update_metadata(
+    await vulns_model.update_metadata(
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         metadata=VulnerabilityMetadataToUpdate(
@@ -211,7 +213,7 @@ async def add_tags(
 async def _remove_all_tags(
     vulnerability: Vulnerability,
 ) -> None:
-    await vulns_dal.update_metadata(
+    await vulns_model.update_metadata(
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         metadata=VulnerabilityMetadataToUpdate(
@@ -227,7 +229,7 @@ async def _remove_tag(
     tags: Optional[List[str]] = vulnerability.tags
     if tags and tag_to_remove in tags:
         tags.remove(tag_to_remove)
-        await vulns_dal.update_metadata(
+        await vulns_model.update_metadata(
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             metadata=VulnerabilityMetadataToUpdate(
@@ -764,7 +766,7 @@ async def update_metadata(
         all_tags.extend(vulnerability.tags)
     if tags_to_append:
         all_tags.extend(tags_to_append)
-    await vulns_dal.update_metadata(
+    await vulns_model.update_metadata(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         metadata=VulnerabilityMetadataToUpdate(
@@ -789,11 +791,11 @@ async def update_metadata_and_state(
         vulnerability.state.source != new_state.source
         or vulnerability.state.status != new_state.status
     ):
-        await vulns_dal.update_state(
-            current_value=vulnerability.state,
+        await vulns_model.update_historic_entry(
+            current_entry=vulnerability.state,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
-            state=new_state,
+            entry=new_state,
         )
         if (
             finding_policy
@@ -821,7 +823,7 @@ async def update_metadata_and_state(
                 treatment=treatment_to_update[1],
             )
 
-    await vulns_dal.update_metadata(
+    await vulns_model.update_metadata(
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         metadata=new_metadata,
@@ -901,11 +903,11 @@ async def close_by_exclusion(
         VulnerabilityStateStatus.CLOSED,
         VulnerabilityStateStatus.DELETED,
     }:
-        await vulns_dal.update_state(
-            current_value=vulnerability.state,
+        await vulns_model.update_historic_entry(
+            current_entry=vulnerability.state,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
-            state=VulnerabilityState(
+            entry=VulnerabilityState(
                 modified_by=modified_by,
                 modified_date=datetime_utils.get_iso_date(),
                 source=source,

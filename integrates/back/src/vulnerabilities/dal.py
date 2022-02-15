@@ -2,11 +2,7 @@ from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
 )
 import db_model.vulnerabilities as vulns_model
-from db_model.vulnerabilities.enums import (
-    VulnerabilityStateStatus,
-)
 from db_model.vulnerabilities.types import (
-    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -37,42 +33,6 @@ async def upload_file(vuln_file: UploadFile) -> str:
         file_name,
     )
     return file_name
-
-
-async def update_metadata(
-    *,
-    finding_id: str,
-    vulnerability_id: str,
-    metadata: VulnerabilityMetadataToUpdate,
-    deleted: Optional[bool] = False,
-) -> None:
-    if not deleted:
-        await vulns_model.update_metadata(
-            finding_id=finding_id,
-            metadata=metadata,
-            vulnerability_id=vulnerability_id,
-        )
-
-
-async def update_state(
-    *,
-    current_value: VulnerabilityState,
-    finding_id: str,
-    vulnerability_id: str,
-    state: VulnerabilityState,
-) -> None:
-    if state.status == VulnerabilityStateStatus.DELETED:
-        # Keep deleted items out of the new model while we define the path
-        # going forward for archived data
-        # details at https://gitlab.com/fluidattacks/product/-/issues/5690
-        await vulns_model.remove(vulnerability_id=vulnerability_id)
-    else:
-        await vulns_model.update_historic_entry(
-            current_entry=current_value,
-            entry=state,
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-        )
 
 
 async def update_historic_state(
