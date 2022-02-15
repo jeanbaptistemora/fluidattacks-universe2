@@ -23,10 +23,18 @@ pass_creds = click.make_pass_decorator(Creds)
     required=True,
     help="space separated dynamoDB source tables",
 )
+@click.option(
+    "--segments",
+    type=int,
+    default=1,
+    help="tables segmentation for fast extraction",
+)
 @pass_creds
-def stream(creds: Creds, tables: str) -> NoReturn:  # type: ignore[misc]
+def stream(  # type: ignore[misc]
+    creds: Creds, tables: str, segments: int
+) -> NoReturn:
     client = new_client(creds)
-    stream_tables(client, tuple(tables.split())).compute()
+    stream_tables(client, tuple(tables.split()), segments).compute()
 
 
 @click.group()

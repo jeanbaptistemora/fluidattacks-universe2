@@ -1,8 +1,15 @@
+from dataclasses import (
+    dataclass,
+)
 from fa_purity.cmd import (
     Cmd,
     unsafe_unwrap,
 )
+from fa_purity.cmd.transform import (
+    merge,
+)
 from fa_purity.frozen import (
+    chain as chain_list,
     FrozenDict,
     FrozenList,
 )
@@ -14,6 +21,7 @@ from fa_purity.json.value.transform import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
+    from_range,
 )
 from fa_purity.stream.factory import (
     from_piter,
@@ -21,6 +29,9 @@ from fa_purity.stream.factory import (
 from fa_purity.stream.transform import (
     chain,
     consume,
+)
+from pathos.pools import (
+    ThreadPool,
 )
 from purity.adapters.fa_purity.from_returns import (
     to_cmd,
@@ -42,10 +53,10 @@ import tempfile
 from typing import (
     Any,
     Callable,
+    cast,
     Dict,
     IO as FILE,
     List,
-    NamedTuple,
     Optional,
     TypeVar,
 )
@@ -54,19 +65,22 @@ _K = TypeVar("_K")
 _P = TypeVar("_P")
 
 
-class TableSegment(NamedTuple):
+@dataclass(frozen=True)
+class TableSegment:
     table_name: str
     segment: int
     total_segments: int
 
 
-class PageData(NamedTuple):
+@dataclass(frozen=True)
+class PageData:
     t_segment: TableSegment
     file: FILE[str]
     exclusive_start_key: Optional[FrozenDict[str, Any]]
 
 
-class ScanResponse(NamedTuple):
+@dataclass(frozen=True)
+class ScanResponse:
     t_segment: TableSegment
     response: FrozenDict[str, Any]
 
@@ -163,6 +177,28 @@ def extract_segment(
     return extract_until_end(getter, extract)
 
 
+def extract_table(
+    db_client: Client, table_name: str, segments: int
+) -> Cmd[FrozenList[PageData]]:
+    pool = ThreadPool()
+    cmds = (
+        from_range(range(segments))
+        .map(
+            lambda i: extract_segment(
+                db_client, TableSegment(table_name, i, segments)
+            )
+        )
+        .to_list()
+    )
+    merged = merge(
+        lambda u, l: cast(FrozenList[FrozenList[PageData]], pool.map(u, l)),
+        cmds,
+    ).map(
+        lambda i: chain_list(i)  # pylint: disable=unnecessary-lambda
+    )
+    return merged
+
+
 def to_singer(page: PageData) -> FrozenList[SingerRecord]:
     with open(page.file.name, encoding="utf-8") as file:
         data = load(file).unwrap()
@@ -178,12 +214,14 @@ def to_singer(page: PageData) -> FrozenList[SingerRecord]:
         )
 
 
-def stream_tables(client: Client, tables: FrozenList[str]) -> Cmd[None]:
+def stream_tables(
+    client: Client, tables: FrozenList[str], segmentation: int
+) -> Cmd[None]:
     # pylint: disable=unnecessary-lambda
     emitter = SingerEmitter()
     pages = from_piter(
         from_flist(tables).map(
-            lambda t: extract_segment(client, TableSegment(t, 0, 1)).map(
+            lambda t: extract_table(client, t, segmentation).map(
                 lambda x: from_flist(x)
             )
         )

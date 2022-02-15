@@ -8,6 +8,7 @@ from fa_purity.cmd import (
 from fa_purity.frozen import (
     FrozenDict,
 )
+import logging
 from mypy_boto3_dynamodb.service_resource import (
     DynamoDBServiceResource,
     Table as DynamoTable,
@@ -21,6 +22,8 @@ from typing import (
     Dict,
     Optional,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -55,6 +58,7 @@ class TableClient(_TableClient):
 
     def _scan_action(self, args: ScanArgs) -> FrozenDict[str, Any]:
         # pylint: disable=assignment-from-no-return
+        LOG.info("SCAN: %s", args)
         response = self._raw_client.scan(**args.to_dict())
         # TODO: unsafe cast should be removed
         return FrozenDict(cast(Dict[str, Any], response))
