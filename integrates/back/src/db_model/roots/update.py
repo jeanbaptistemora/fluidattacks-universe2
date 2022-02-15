@@ -4,6 +4,9 @@ from boto3.dynamodb.conditions import (
 from contextlib import (
     suppress,
 )
+from custom_exceptions import (
+    IndicatorAlreadyUpdated,
+)
 from db_model import (
     TABLE,
 )
@@ -11,7 +14,12 @@ from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
+    RootItem,
+    RootUnreliableIndicatorsToUpdate,
     URLRootState,
+)
+from decimal import (
+    Decimal,
 )
 from dynamodb import (
     keys,
@@ -19,6 +27,7 @@ from dynamodb import (
 )
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
+    ValidationException,
 )
 import simplejson as json  # type: ignore
 from typing import (
@@ -120,5 +129,63 @@ async def update_git_root_cloning(
         await operations.put_item(
             facet=TABLE.facets["git_root_historic_cloning"],
             item=historic_item,
+            table=TABLE,
+        )
+
+
+async def update_unreliable_indicators(
+    *,
+    current_value: RootItem,
+    indicators: RootUnreliableIndicatorsToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    root_key = keys.build_key(
+        facet=TABLE.facets["git_root_metadata"],
+        values={
+            "name": current_value.group_name,
+            "uuid": current_value.id,
+        },
+    )
+
+    unreliable_indicators = {
+        f"unreliable_indicators.{key}": (
+            Decimal(str(value)) if isinstance(value, float) else value
+        )
+        for key, value in json.loads(json.dumps(indicators)).items()
+        if value is not None
+    }
+    current_indicators = {
+        f"unreliable_indicators.{key}": (
+            Decimal(str(value)) if isinstance(value, float) else value
+        )
+        for key, value in json.loads(
+            json.dumps(current_value.unreliable_indicators)
+        ).items()
+        if value is not None
+    }
+
+    conditions = (
+        Attr(indicator_name).not_exists()
+        | Attr(indicator_name).eq(current_indicators[indicator_name])
+        for indicator_name in unreliable_indicators
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    for condition in conditions:
+        condition_expression &= condition
+
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=unreliable_indicators,
+            key=root_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise IndicatorAlreadyUpdated() from ex
+    except ValidationException:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item={"unreliable_indicators": json.loads(json.dumps(indicators))},
+            key=root_key,
             table=TABLE,
         )
