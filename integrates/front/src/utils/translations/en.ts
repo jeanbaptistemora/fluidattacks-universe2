@@ -885,6 +885,12 @@ export const enTranslations: ResourceKey = {
           title: "Edit input",
         },
         entryPoint: "Entry point",
+        filters: {
+          bePresent: {
+            placeholder: "Be present",
+            tooltip: "Filter by be present",
+          },
+        },
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",
         no: "No",

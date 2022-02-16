@@ -442,14 +442,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   }
 
   const onBasicFilterValueChange = (
-    valueName: string
+    filterName: keyof IFilterSet
   ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
     return (event: React.ChangeEvent<HTMLSelectElement>): void => {
       event.persist();
       setFilterGroupToeLinesTable(
         (value): IFilterSet => ({
           ...value,
-          [valueName]: event.target.value,
+          [filterName]: event.target.value,
         })
       );
     };
@@ -503,11 +503,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     ["false", formatBoolean(false)],
     ["true", formatBoolean(true)],
   ]);
-  const filteredData: IToeLinesData[] = getFilteredData(
-    filterGroupToeLinesTable,
-    searchTextFilter,
-    toeLines
-  );
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterGroupToeLinesTable.root,
@@ -561,11 +556,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       type: "select",
     },
   ];
-
-  const initialSort: string = JSON.stringify({
-    dataField: "rootNickname",
-    order: "asc",
-  });
+  const filteredData: IToeLinesData[] = getFilteredData(
+    filterGroupToeLinesTable,
+    searchTextFilter,
+    toeLines
+  );
 
   function onSelectSeveralToeLinesDatas(
     isSelect: boolean,
@@ -578,7 +573,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       setSelectedToeLinesDatas
     );
   }
-
   function onSelectOneToeLinesData(
     toeLinesdata: IToeLinesData,
     isSelect: boolean
@@ -587,7 +581,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
 
     return true;
   }
-
   const selectionMode: ISelectRowProps = {
     clickToSelect: false,
     hideSelectColumn: !isInternal || !canUpdateAttackedLines,
@@ -597,6 +590,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     onSelectAll: onSelectSeveralToeLinesDatas,
     selected: getToeLinesIndex(selectedToeLinesDatas, filteredData),
   };
+
+  const initialSort: string = JSON.stringify({
+    dataField: "rootNickname",
+    order: "asc",
+  });
 
   return (
     <React.StrictMode>

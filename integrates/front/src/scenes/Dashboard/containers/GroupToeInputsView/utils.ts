@@ -1,4 +1,8 @@
-import type { IToeInputData } from "./types";
+import _ from "lodash";
+
+import type { IFilterSet, IToeInputData } from "./types";
+
+import { filterSearchText } from "components/DataTableNext/utils/filters";
 
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData
@@ -69,4 +73,50 @@ const onSelectSeveralToeInputHelper = (
   );
 };
 
-export { getToeInputIndex, onSelectSeveralToeInputHelper };
+const filterBePresent: (
+  filterGroupToeInputTable: IFilterSet,
+  toeInput: IToeInputData[]
+) => IToeInputData[] = (
+  filterGroupToeInputTable: IFilterSet,
+  toeInput: IToeInputData[]
+): IToeInputData[] => {
+  const bePresent = filterGroupToeInputTable.bePresent === "true";
+
+  return _.isEmpty(filterGroupToeInputTable.bePresent)
+    ? toeInput
+    : toeInput.filter((toeInputData): boolean => {
+        return toeInputData.bePresent === bePresent;
+      });
+};
+
+const filterSearchtextResult: (
+  searchTextFilter: string,
+  toeInputs: IToeInputData[]
+) => IToeInputData[] = (
+  searchTextFilter: string,
+  toeInputs: IToeInputData[]
+): IToeInputData[] => filterSearchText(toeInputs, searchTextFilter);
+
+const getFilteredData: (
+  filterGroupToeInputTable: IFilterSet,
+  searchTextFilter: string,
+  toeInput: IToeInputData[]
+) => IToeInputData[] = (
+  filterGroupToeInputTable: IFilterSet,
+  searchTextFilter: string,
+  toeInput: IToeInputData[]
+): IToeInputData[] => {
+  const filteredBePresent = filterBePresent(filterGroupToeInputTable, toeInput);
+  const filteredSearchtextResult = filterSearchtextResult(
+    searchTextFilter,
+    toeInput
+  );
+  const filteredData: IToeInputData[] = _.intersection(
+    filteredBePresent,
+    filteredSearchtextResult
+  );
+
+  return filteredData;
+};
+
+export { getFilteredData, getToeInputIndex, onSelectSeveralToeInputHelper };

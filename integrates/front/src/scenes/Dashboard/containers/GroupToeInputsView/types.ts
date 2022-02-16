@@ -1,3 +1,7 @@
+interface IFilterSet {
+  bePresent: string;
+}
+
 interface IGroupToeInputsViewProps {
   isInternal: boolean;
 }
@@ -48,6 +52,7 @@ interface IToeInputData {
 }
 
 export type {
+  IFilterSet,
   IGroupToeInputsViewProps,
   IRemoveToeInputResultAttr,
   IToeInputAttr,

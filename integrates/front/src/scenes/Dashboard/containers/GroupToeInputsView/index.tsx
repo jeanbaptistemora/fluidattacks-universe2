@@ -5,6 +5,7 @@ import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
+import type { ChangeEvent } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
@@ -13,16 +14,21 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
-import { getToeInputIndex, onSelectSeveralToeInputHelper } from "./utils";
+import {
+  getFilteredData,
+  getToeInputIndex,
+  onSelectSeveralToeInputHelper,
+} from "./utils";
 
 import { DataTableNext } from "components/DataTableNext";
 import type {
+  IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
+  IFilterSet,
   IGroupToeInputsViewProps,
   IToeInputData,
   IToeInputEdge,
@@ -61,6 +67,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
+    IToeInputData[]
+  >([]);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -81,7 +91,16 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
     localStorage
   );
-  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [filterGroupToeInputTable, setFilterGroupToeInputTable] =
+    useStoredState<IFilterSet>(
+      "filterGroupToeInputSet",
+      {
+        bePresent: "",
+      },
+      localStorage
+    );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("toeInputCustomFilters", false);
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
       if (
@@ -104,23 +123,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
     [checkedItems, setCheckedItems]
   );
-
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "toeInputsFilters",
-    false
-  );
-  const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
-    IToeInputData[]
-  >([]);
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
-  function toggleAdd(): void {
-    setIsAdding(!isAdding);
-  }
-  function toggleEdit(): void {
-    setIsEditing(!isEditing);
-  }
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // // GraphQL operations
   const { data, fetchMore, refetch } = useQuery<{
@@ -277,52 +282,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
   ];
 
-  const filterSearchtextResult: IToeInputData[] = filterSearchText(
-    toeInputs,
-    searchTextFilter
-  );
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-
-  const initialSort: string = JSON.stringify({
-    dataField: "component",
-    order: "asc",
-  });
-
-  function onSelectSeveralToeInputDatas(
-    isSelect: boolean,
-    toeInputDatasSelected: IToeInputData[]
-  ): string[] {
-    return onSelectSeveralToeInputHelper(
-      isSelect,
-      toeInputDatasSelected,
-      selectedToeInputDatas,
-      setSelectedToeInputDatas
+  function clearFilters(): void {
+    setFilterGroupToeInputTable(
+      (): IFilterSet => ({
+        bePresent: "",
+      })
     );
+    setSearchTextFilter("");
   }
-
-  function onSelectOneToeInputData(
-    toeInputdata: IToeInputData,
-    isSelect: boolean
-  ): boolean {
-    onSelectSeveralToeInputDatas(isSelect, [toeInputdata]);
-
-    return true;
-  }
-
-  const selectionMode: ISelectRowProps = {
-    clickToSelect: false,
-    hideSelectColumn: !isInternal || !canUpdateToeInput,
-    mode: "checkbox",
-    nonSelectable: undefined,
-    onSelect: onSelectOneToeInputData,
-    onSelectAll: onSelectSeveralToeInputDatas,
-    selected: getToeInputIndex(selectedToeInputDatas, filterSearchtextResult),
-  };
-
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
@@ -339,23 +306,117 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     // It is important to run only during the first render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect((): void => {
+    clearFilters();
+    // It is important to run only during the first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
 
+  function toggleAdd(): void {
+    setIsAdding(!isAdding);
+  }
+  function toggleEdit(): void {
+    setIsEditing(!isEditing);
+  }
+
+  const onBasicFilterValueChange = (
+    filterName: keyof IFilterSet
+  ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
+    return (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      event.persist();
+      setFilterGroupToeInputTable(
+        (value): IFilterSet => ({
+          ...value,
+          [filterName]: event.target.value,
+        })
+      );
+    };
+  };
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const booleanSelectOptions = Object.fromEntries([
+    ["false", formatBoolean(false)],
+    ["true", formatBoolean(true)],
+  ]);
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: filterGroupToeInputTable.bePresent,
+      onChangeSelect: onBasicFilterValueChange("bePresent"),
+      placeholder: translate.t(
+        "group.toe.inputs.filters.bePresent.placeholder"
+      ),
+      selectOptions: booleanSelectOptions,
+      tooltipId: "group.toe.inputs.filters.bePresent.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.bePresent.tooltip",
+      type: "select",
+    },
+  ];
+  const filteredData: IToeInputData[] = getFilteredData(
+    filterGroupToeInputTable,
+    searchTextFilter,
+    toeInputs
+  );
+
+  function onSelectSeveralToeInputDatas(
+    isSelect: boolean,
+    toeInputDatasSelected: IToeInputData[]
+  ): string[] {
+    return onSelectSeveralToeInputHelper(
+      isSelect,
+      toeInputDatasSelected,
+      selectedToeInputDatas,
+      setSelectedToeInputDatas
+    );
+  }
+  function onSelectOneToeInputData(
+    toeInputdata: IToeInputData,
+    isSelect: boolean
+  ): boolean {
+    onSelectSeveralToeInputDatas(isSelect, [toeInputdata]);
+
+    return true;
+  }
+  const selectionMode: ISelectRowProps = {
+    clickToSelect: false,
+    hideSelectColumn: !isInternal || !canUpdateToeInput,
+    mode: "checkbox",
+    nonSelectable: undefined,
+    onSelect: onSelectOneToeInputData,
+    onSelectAll: onSelectSeveralToeInputDatas,
+    selected: getToeInputIndex(selectedToeInputDatas, filteredData),
+  };
+
+  const initialSort: string = JSON.stringify({
+    dataField: "component",
+    order: "asc",
+  });
+
   return (
     <React.StrictMode>
       <DataTableNext
         bordered={true}
+        clearFiltersButton={clearFilters}
         columnToggle={true}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          oneRowMessage: true,
+        }}
         customSearch={{
           customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={filterSearchtextResult}
+        dataset={filteredData}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeInputsSort", initialSort)
         )}
@@ -372,9 +433,8 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         }
         headers={headersToeInputsTable}
         id={"tblToeInputs"}
-        isFilterEnabled={isFilterEnabled}
+        isFilterEnabled={undefined}
         onColumnToggle={handleChange}
-        onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={false}
         selectionMode={selectionMode}
