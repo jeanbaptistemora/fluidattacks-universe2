@@ -109,6 +109,12 @@
           "sk": {
             "S": "GROUP#jessup"
           },
+          "pk_2": {
+            "S": "ORG#okada"
+          },
+          "sk_2": {
+            "S": "ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b"
+          },
           "cloning": {
             "M": {
               "modified_date": {
@@ -173,6 +179,12 @@
           },
           "sk": {
             "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "ORG#okada"
+          },
+          "sk_2": {
+            "S": "ROOT#c41253c9-be32-447a-a8b5-554b751797c8"
           },
           "cloning": {
             "M": {
