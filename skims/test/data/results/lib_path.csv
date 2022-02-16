@@ -1624,16 +1624,8 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_a
   64 |
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_dynamodb_table_unencrypted.tf,3,16,skims,165. Insecure service configuration - AWS,Ensure DynamoDB tables are encrypted in namespace/skims/test/data/lib_path/f165/tfm_aws_dynamodb_table_unencrypted.tf,"
-  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-  2 |   server_side_encryption {
-> 3 |     enabled     = false
-  4 |     kms_key_arn = aws_kms_key.dynamo.arn
-  5 |   }
-  6 | }
-    ^ Col 0
-",terraform.tfm_aws_dynamodb_table_unencrypted
-F165,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,1,16,skims,165. Insecure service configuration - AWS,Ensure DynamoDB tables are encrypted in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,"
+F409,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,1,16,skims,409. Non-encrypted confidential information - DynamoDB,"Ensure DynamoDB tables are encrypted
+ in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf","
 >  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
    2 |   name           = ""GameScores""
    3 |   billing_mode   = ""PROVISIONED""
@@ -1656,6 +1648,16 @@ F165,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,1,16,skims,165
   20 |     type = ""S""
   21 |   }
      ^ Col 0
+",terraform.tfm_aws_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,3,16,skims,409. Non-encrypted confidential information - DynamoDB,"Ensure DynamoDB tables are encrypted
+ in namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf","
+  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+  2 |   server_side_encryption {
+> 3 |     enabled     = false
+  4 |     kms_key_arn = aws_kms_key.dynamo.arn
+  5 |   }
+  6 | }
+    ^ Col 0
 ",terraform.tfm_aws_dynamodb_table_unencrypted
 F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,3,16,skims,165. Insecure service configuration - AWS,Ensure EFS file system is encrypted in namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,"
   1 | resource ""aws_efs_file_system"" ""enabled"" {
@@ -21093,16 +21095,6 @@ F257,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,463,skims,257.
   36 |   }
      ^ Col 0
 ",terraform.ec2_has_not_termination_protection
-F259,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_dynamodb_table_unencrypted.tf,1,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
- in namespace/skims/test/data/lib_path/f165/tfm_aws_dynamodb_table_unencrypted.tf","
-> 1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-  2 |   server_side_encryption {
-  3 |     enabled     = false
-  4 |     kms_key_arn = aws_kms_key.dynamo.arn
-  5 |   }
-  6 | }
-    ^ Col 0
-",terraform.tfm_db_no_point_in_time_recovery
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String
@@ -21227,6 +21219,16 @@ F259,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,10,463,skims,2
   20 |     type = ""S""
   21 |   }
      ^ Col 0
+",terraform.tfm_db_no_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,1,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf","
+> 1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+  2 |   server_side_encryption {
+  3 |     enabled     = false
+  4 |     kms_key_arn = aws_kms_key.dynamo.arn
+  5 |   }
+  6 | }
+    ^ Col 0
 ",terraform.tfm_db_no_point_in_time_recovery
 F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,19,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    9 |         Value: True

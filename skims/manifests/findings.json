@@ -798,5 +798,13 @@
     "ES": {
       "title": "408. Tracebility Loss - API Gateway"
     }
+  },
+  "F409": {
+    "EN": {
+      "title": "409. Non-encrypted confidential information - DynamoDB"
+    },
+    "ES": {
+      "title": "409. Non-encrypted confidential information - DynamoDB"
+    }
   }
 }

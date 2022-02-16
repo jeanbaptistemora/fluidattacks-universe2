@@ -862,6 +862,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
     )
+    F409: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F409",
+        cwe=16,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[185, 265, 266],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
@@ -2394,14 +2401,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_dynamodb_table_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",
@@ -2999,6 +2998,14 @@ class MethodsEnum(Enum):
         name="tfm_api_gateway_access_logging_disabled",
         module="lib_path",
         finding=FindingEnum.F408,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_dynamodb_table_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F409,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
