@@ -1,0 +1,5 @@
+lib_path.f407.tfm_aws_ebs_volumes_unencrypted:
+  en: >
+    Ensure Instances and Launch configurations use encrypted EBS volumes
+  es: >
+    Asegúrese de que las configuraciones de instancias y lanzamiento utilicen volúmenes de EBS cifrados

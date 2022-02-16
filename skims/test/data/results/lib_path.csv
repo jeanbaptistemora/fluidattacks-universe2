@@ -1664,7 +1664,8 @@ F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,3,
   4 | }
     ^ Col 0
 ",terraform.tfm_aws_efs_unencrypted
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,165. Insecure service configuration - AWS,Ensure Instances and Launch configurations use encrypted EBS volumes in namespace/skims/test/data/lib_path/f165/tfm_aws_ebs_volumes_unencrypted.tf,"
+F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,"Ensure Instances and Launch configurations use encrypted EBS volumes
+ in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf","
   1 | resource ""aws_launch_configuration"" ""example"" {
   2 |   instance_type = ""t2.micro""
   3 |   root_block_device {

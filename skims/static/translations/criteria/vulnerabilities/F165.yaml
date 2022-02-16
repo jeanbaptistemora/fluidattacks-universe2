@@ -7,6 +7,3 @@ lib_path.f165.tfm_aws_efs_unencrypted:
 lib_path.f165.tfm_aws_dynamodb_table_unencrypted:
   en: Ensure DynamoDB tables are encrypted
   es: Asegúrese de que las tablas de DynamoDB estén cifradas
-lib_path.f165.tfm_aws_ebs_volumes_unencrypted:
-  en: Ensure Instances and Launch configurations use encrypted EBS volumes
-  es: Asegúrese de que las configuraciones de instancias y lanzamiento utilicen volúmenes de EBS cifrados

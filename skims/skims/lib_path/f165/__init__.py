@@ -4,7 +4,6 @@ from lib_path.common import (
 )
 from lib_path.f165.terraform import (
     tfm_aws_dynamodb_table_unencrypted,
-    tfm_aws_ebs_volumes_unencrypted,
     tfm_aws_efs_unencrypted,
     tfm_aws_secret_encrypted_whitouth_kms_cmk,
 )
@@ -52,16 +51,6 @@ def run_tfm_aws_dynamodb_table_unencrypted(
     )
 
 
-@CACHE_ETERNALLY
-@SHIELD_BLOCKING
-def run_tfm_aws_ebs_volumes_unencrypted(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_aws_ebs_volumes_unencrypted(
-        content=content, path=path, model=model
-    )
-
-
 @SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
@@ -77,7 +66,6 @@ def analyze(
             *results,
             run_tfm_aws_efs_unencrypted(content, path, model),
             run_tfm_aws_dynamodb_table_unencrypted(content, path, model),
-            run_tfm_aws_ebs_volumes_unencrypted(content, path, model),
             run_tfm_aws_secret_encrypted_whitouth_kms_cmk(
                 content, path, model
             ),

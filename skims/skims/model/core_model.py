@@ -848,6 +848,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
     )
+    F407: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F407",
+        cwe=16,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[185, 265, 266],
+    )
     F408: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F408",
@@ -2387,14 +2394,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_ebs_volumes_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_dynamodb_table_unencrypted",
@@ -2984,6 +2983,14 @@ class MethodsEnum(Enum):
         name="tfm_azure_sql_server_audit_log_retention",
         module="lib_path",
         finding=FindingEnum.F402,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_ebs_volumes_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F407,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

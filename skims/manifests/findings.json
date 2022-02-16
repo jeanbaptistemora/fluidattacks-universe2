@@ -783,6 +783,14 @@
       "title": "402. Tracebility Loss - Azure"
     }
   },
+  "F407": {
+    "EN": {
+      "title": "407. Non-encrypted confidential information - EBS Volumes"
+    },
+    "ES": {
+      "title": "407. Non-encrypted confidential information - EBS Volumes"
+    }
+  },
   "F408": {
     "EN": {
       "title": "408. Tracebility Loss - API Gateway"
