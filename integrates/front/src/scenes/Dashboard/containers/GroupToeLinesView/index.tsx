@@ -5,6 +5,7 @@ import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
+import type { ChangeEvent } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
@@ -114,6 +115,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       {
         bePresent: "",
         filenameExtension: "",
+        hasVulnerabilities: "",
         priority: { max: "", min: "" },
         root: "",
       },
@@ -402,6 +404,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       (): IFilterSet => ({
         bePresent: "",
         filenameExtension: "",
+        hasVulnerabilities: "",
         priority: { max: "", min: "" },
         root: "",
       })
@@ -438,40 +441,19 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     setEditing(!isEditing);
   }
 
-  function onBePresenChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupToeLinesTable(
-      (value): IFilterSet => ({
-        ...value,
-        bePresent: event.target.value,
-      })
-    );
-  }
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  function onRootChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterGroupToeLinesTable(
-      (value): IFilterSet => ({
-        ...value,
-        root: event.target.value,
-      })
-    );
-  }
-  function onExtensionChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupToeLinesTable(
-      (value): IFilterSet => ({
-        ...value,
-        filenameExtension: event.target.value,
-      })
-    );
-  }
+  const onBasicFilterValueChange = (
+    valueName: string
+  ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
+    return (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      event.persist();
+      setFilterGroupToeLinesTable(
+        (value): IFilterSet => ({
+          ...value,
+          [valueName]: event.target.value,
+        })
+      );
+    };
+  };
   function onPriorityMinChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -494,6 +476,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       })
     );
   }
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
 
   const extensionSelectOptions = Object.fromEntries(
     toeLines
@@ -512,7 +499,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       toeLinesData.rootNickname,
     ])
   );
-  const bePresentSelectOptions = Object.fromEntries([
+  const booleanSelectOptions = Object.fromEntries([
     ["false", formatBoolean(false)],
     ["true", formatBoolean(true)],
   ]);
@@ -524,7 +511,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterGroupToeLinesTable.root,
-      onChangeSelect: onRootChange,
+      onChangeSelect: onBasicFilterValueChange("root"),
       placeholder: translate.t("group.toe.lines.filters.root.placeholder"),
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.lines.filters.root.tooltip.id",
@@ -532,21 +519,23 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       type: "select",
     },
     {
-      defaultValue: filterGroupToeLinesTable.bePresent,
-      onChangeSelect: onBePresenChange,
-      placeholder: translate.t("group.toe.lines.filters.bePresent.placeholder"),
-      selectOptions: bePresentSelectOptions,
-      tooltipId: "group.toe.lines.filters.bePresent.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.bePresent.tooltip",
-      type: "select",
-    },
-    {
       defaultValue: filterGroupToeLinesTable.filenameExtension,
-      onChangeSelect: onExtensionChange,
+      onChangeSelect: onBasicFilterValueChange("filenameExtension"),
       placeholder: translate.t("group.toe.lines.filters.extension.placeholder"),
       selectOptions: extensionSelectOptions,
       tooltipId: "group.toe.lines.filters.extension.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.extension.tooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterGroupToeLinesTable.hasVulnerabilities,
+      onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
+      placeholder: translate.t(
+        "group.toe.lines.filters.hasVulnerabilities.placeholder"
+      ),
+      selectOptions: booleanSelectOptions,
+      tooltipId: "group.toe.lines.filters.hasVulnerabilities.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.hasVulnerabilities.tooltip",
       type: "select",
     },
     {
@@ -561,6 +550,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       tooltipId: "group.toe.lines.filters.priority.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.priority.tooltip",
       type: "range",
+    },
+    {
+      defaultValue: filterGroupToeLinesTable.bePresent,
+      onChangeSelect: onBasicFilterValueChange("bePresent"),
+      placeholder: translate.t("group.toe.lines.filters.bePresent.placeholder"),
+      selectOptions: booleanSelectOptions,
+      tooltipId: "group.toe.lines.filters.bePresent.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.bePresent.tooltip",
+      type: "select",
     },
   ];
 

@@ -117,6 +117,23 @@ const filterFilenameExtensions: (
         );
       });
 
+const filterHasVulnerabilities: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => {
+  const hasVulnerabilities =
+    filterGroupToeLinesTable.hasVulnerabilities === "true";
+
+  return _.isEmpty(filterGroupToeLinesTable.hasVulnerabilities)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return toeLinesData.hasVulnerabilities === hasVulnerabilities;
+      });
+};
+
 const filterPriority: (
   filterGroupToeLinesTable: IFilterSet,
   toeLines: IToeLinesData[]
@@ -180,6 +197,10 @@ const getFilteredData: (
     filterGroupToeLinesTable,
     toeLines
   );
+  const filteredHasVulnerabilities = filterHasVulnerabilities(
+    filterGroupToeLinesTable,
+    toeLines
+  );
   const filteredPriority = filterPriority(filterGroupToeLinesTable, toeLines);
   const filteredRoot = filterRoot(filterGroupToeLinesTable, toeLines);
   const filteredSearchtextResult = filterSearchtextResult(
@@ -189,6 +210,7 @@ const getFilteredData: (
   const filteredData: IToeLinesData[] = _.intersection(
     filteredBePresent,
     filteredFilenameExtensions,
+    filteredHasVulnerabilities,
     filteredPriority,
     filteredRoot,
     filteredSearchtextResult

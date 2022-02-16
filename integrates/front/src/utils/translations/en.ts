@@ -943,6 +943,10 @@ export const enTranslations: ResourceKey = {
             placeholder: "Extension",
             tooltip: "Filter by extension",
           },
+          hasVulnerabilities: {
+            placeholder: "Has vulnerabilities",
+            tooltip: "Filter by has vulnerabilities",
+          },
           priority: {
             placeholder: "Priority % (range)",
             tooltip: "Filter by priority %",

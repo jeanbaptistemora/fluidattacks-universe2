@@ -1,6 +1,7 @@
 interface IFilterSet {
   bePresent: string;
   filenameExtension: string;
+  hasVulnerabilities: string;
   priority: { max: string; min: string };
   root: string;
 }
