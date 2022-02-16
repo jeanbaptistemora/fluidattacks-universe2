@@ -135,12 +135,21 @@ class AlreadyPendingDeletion(CustomBaseException):
 
 
 class AlreadyRequested(CustomBaseException):
-    """Exception to control verification already requested"""
+    """Exception to control verifications already requested"""
 
     def __init__(self) -> None:
         """Constructor"""
         msg = "Exception - Request verification already requested"
         super(AlreadyRequested, self).__init__(msg)
+
+
+class AlreadyOnHold(CustomBaseException):
+    """Exception to control requested verifications already put on hold"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Request verification already on hold"
+        super(AlreadyOnHold, self).__init__(msg)
 
 
 class AlreadySubmitted(CustomBaseException):

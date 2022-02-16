@@ -31,6 +31,7 @@ class VulnerabilityAcceptanceStatus(str, Enum):
 class VulnerabilityVerificationStatus(str, Enum):
     MASKED: str = "MASKED"
     REQUESTED: str = "REQUESTED"
+    ON_HOLD: str = "ON_HOLD"
     VERIFIED: str = "VERIFIED"
 
 

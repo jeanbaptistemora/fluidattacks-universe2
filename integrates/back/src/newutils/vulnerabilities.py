@@ -2,6 +2,7 @@ from . import (
     datetime as datetime_utils,
 )
 from custom_exceptions import (
+    AlreadyOnHold,
     AlreadyRequested,
     AlreadyZeroRiskRequested,
     InvalidJustificationMaxLength,
@@ -694,13 +695,33 @@ def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
 def validate_requested_verification(
     vulnerability: Vulnerability,
 ) -> Vulnerability:
-    """Validate if the vulnerability is not resquested."""
+    """Validate if the vulnerability is not requested."""
     if (
         vulnerability.verification
         and vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
     ):
         raise AlreadyRequested()
+    return vulnerability
+
+
+def validate_requested_hold(
+    vulnerability: Vulnerability,
+) -> Vulnerability:
+    """Validate if the vulnerability is not on hold and a reattack has been
+    requested beforehand"""
+    if (
+        vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.ON_HOLD
+    ):
+        raise AlreadyOnHold()
+    if (
+        vulnerability.verification
+        and vulnerability.verification.status
+        != VulnerabilityVerificationStatus.REQUESTED
+    ):
+        raise NotVerificationRequested()
     return vulnerability
 
 
