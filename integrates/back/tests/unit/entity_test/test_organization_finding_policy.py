@@ -62,17 +62,11 @@ async def _get_batch_job(*, finding_policy_id: str) -> BatchProcessing:
     )
 
 
-async def _run(
-    *, finding_policy_id: str, org_name: str, user_email: str
-) -> int:
+async def _run(*, finding_policy_id: str) -> int:
     batch_action = await _get_batch_job(finding_policy_id=finding_policy_id)
     cmd_args: List[str] = [
         "test",
-        "handle_finding_policy",
-        finding_policy_id,
-        user_email,
-        batch_action.time,
-        org_name,
+        batch_action.key,
     ]
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
         environ["BATCH_BIN"],
@@ -173,14 +167,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert (
-        await _run(
-            finding_policy_id=finding_policy.id,
-            org_name=org_name,
-            user_email=approver_user,
-        )
-        == 0
-    )
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -285,14 +272,7 @@ async def test_deactivate_org_finding_policy() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert (
-        await _run(
-            finding_policy_id=finding_policy.id,
-            org_name=org_name,
-            user_email=approver_user,
-        )
-        == 0
-    )
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -341,14 +321,7 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["deactivateOrganizationFindingPolicy"]["success"]
-    assert (
-        await _run(
-            finding_policy_id=finding_policy.id,
-            org_name=org_name,
-            user_email=approver_user,
-        )
-        == 0
-    )
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         deactivate_mutation_data, stakeholder="integratesuser2@gmail.com"

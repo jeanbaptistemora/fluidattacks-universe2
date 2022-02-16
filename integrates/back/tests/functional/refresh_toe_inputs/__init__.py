@@ -39,11 +39,7 @@ async def refresh_toe_inputs(
         "argv",
         [
             "test",
-            batch_action.action_name,
-            batch_action.subject,
-            batch_action.entity,
-            batch_action.time,
-            batch_action.additional_info,
+            batch_action.key,
         ],
     )
     await dispatch.main()

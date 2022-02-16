@@ -77,10 +77,7 @@ async def requeue_actions() -> None:
         [
             batch_dal.put_action_to_batch(
                 action_name=action.action_name,
-                entity=action.entity,
-                subject=action.subject,
-                time=action.time,
-                additional_info=action.additional_info,
+                action_dynamo_pk=action.key,
                 queue=action.queue,
                 **(
                     report_additional_info

@@ -69,11 +69,7 @@ async def get_result(
             "argv",
             [
                 "test",
-                batch_action.action_name,
-                batch_action.subject,
-                batch_action.entity,
-                batch_action.time,
-                batch_action.additional_info,
+                batch_action.key,
             ],
         )
         monkeypatch.setattr(

@@ -50,11 +50,7 @@ async def _run(*, entity: str, additional_info: str) -> int:
     )
     cmd_args: List[str] = [
         "test",
-        "report",
-        entity,
-        batch_action.subject,
-        batch_action.time,
-        batch_action.additional_info,
+        batch_action.key,
     ]
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
         os.environ["BATCH_BIN"],

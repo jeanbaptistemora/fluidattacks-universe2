@@ -42,21 +42,19 @@ LOGGER = logging.getLogger(__name__)
 
 async def main() -> None:  # noqa: MC0001
     try:
-        action = sys.argv[1]
-        subject = sys.argv[2]
-        entity = sys.argv[3]
-        time = sys.argv[4]
-        additional_info = sys.argv[5]
+        action_dynamo_pk = sys.argv[1]
 
         item = await get_action(
-            action_name=action,
-            additional_info=additional_info,
-            entity=entity,
-            subject=subject,
-            time=time,
+            action_dynamo_pk=action_dynamo_pk,
         )
+
         if not item:
-            return
+            raise Exception(
+                f"No jobs were found for the key {action_dynamo_pk}"
+            )
+
+        action = item.action_name
+
         if action == "report":
             await generate_report(item=item)
         elif action == "move_root":

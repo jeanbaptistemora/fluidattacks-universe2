@@ -444,16 +444,9 @@ async def is_action_by_key(*, key: str) -> bool:
 
 async def get_action(
     *,
-    action_name: str,
-    additional_info: str,
-    entity: str,
-    subject: str,
-    time: str,
+    action_dynamo_pk: str,
 ) -> Optional[BatchProcessing]:
-    key: str = mapping_to_key(
-        [action_name, additional_info, entity, subject, time]
-    )
-    query_attrs = dict(KeyConditionExpression=Key("pk").eq(key))
+    query_attrs = dict(KeyConditionExpression=Key("pk").eq(action_dynamo_pk))
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if not response_items:
         return None
@@ -520,19 +513,20 @@ async def put_action_to_dynamodb(
     time: str,
     additional_info: str,
     queue: str = "spot_soon",
-) -> bool:
+) -> Optional[str]:
     try:
-        return await dynamodb_ops.put_item(
+        key = mapping_to_key(
+            [
+                action_name,
+                additional_info,
+                entity,
+                subject,
+                time,
+            ]
+        )
+        success = await dynamodb_ops.put_item(
             item=dict(
-                pk=mapping_to_key(
-                    [
-                        action_name,
-                        additional_info,
-                        entity,
-                        subject,
-                        time,
-                    ]
-                ),
+                pk=key,
                 action_name=action_name,
                 additional_info=additional_info,
                 entity=entity,
@@ -542,18 +536,18 @@ async def put_action_to_dynamodb(
             ),
             table=TABLE_NAME,
         )
+        if success:
+            return key
     except ClientError as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
-    return False
+
+    return None
 
 
 async def put_action_to_batch(
     *,
     action_name: str,
-    entity: str,
-    subject: str,
-    time: str,
-    additional_info: str,
+    action_dynamo_pk: str,
     queue: str = "spot_soon",
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
@@ -574,13 +568,7 @@ async def put_action_to_batch(
                 jobDefinition="makes",
                 containerOverrides={
                     "vcpus": vcpus,
-                    "command": format_command(
-                        action_name=action_name,
-                        subject=subject,
-                        entity=entity,
-                        time=time,
-                        additional_info=additional_info,
-                    ),
+                    "command": action_dynamo_pk,
                     "environment": [
                         {"name": "CI", "value": "true"},
                         {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
@@ -602,10 +590,7 @@ async def put_action_to_batch(
             extra=dict(
                 extra=dict(
                     action_name=action_name,
-                    subject=subject,
-                    entity=entity,
-                    time=time,
-                    additional_info=additional_info,
+                    action_dynamo_pk=action_dynamo_pk,
                 )
             ),
         )
@@ -634,18 +619,14 @@ async def put_action(
         queue=queue,
     )
 
-    return all(
-        await collect(
-            (
-                put_action_to_batch(
-                    **action,
-                    vcpus=vcpus,
-                    attempt_duration_seconds=attempt_duration_seconds,
-                ),
-                put_action_to_dynamodb(**action),
-            )
+    if action_id := await put_action_to_dynamodb(**action):
+        return await put_action_to_batch(
+            action_name=action_name,
+            vcpus=vcpus,
+            attempt_duration_seconds=attempt_duration_seconds,
+            action_dynamo_pk=action_id,
         )
-    )
+    return False
 
 
 def format_command(
