@@ -1,4 +1,7 @@
 import boto3
+from concurrent.futures.thread import (
+    ThreadPoolExecutor,
+)
 import git
 from git.exc import (
     GitCommandError,
@@ -251,22 +254,36 @@ def main(
 
     LOGGER.info("Syncing repositories")
     repos = os.listdir(f"groups/{subs}/fusion")
-    for repo in repos:
-        if (root := roots_dict.get(repo)) and (
-            local_commit := get_head_commit(
-                f"groups/{subs}/fusion/{repo}", root["branch"]
-            )
-        ):
-            if force or local_commit != root.get("cloningStatus", {}).get(
-                "commit"
-            ):
-                passed = s3_sync_fusion_to_s3(
-                    subs, root["nickname"], bucket, endpoint_url
+    with ThreadPoolExecutor() as executor:
+        for repo in repos:
+            if (root := roots_dict.get(repo)) and (
+                local_commit := get_head_commit(
+                    f"groups/{subs}/fusion/{repo}", root["branch"]
                 )
+            ):
+                if force or local_commit != root.get("cloningStatus", {}).get(
+                    "commit"
+                ):
+                    LOGGER.info(
+                        (
+                            "Syncing %s to s3, local commit: %s,"
+                            " remote commit: %s"
+                        ),
+                        root["nickname"],
+                        local_commit,
+                        root.get("cloningStatus", {}).get("commit"),
+                    )
+                    executor.submit(
+                        s3_sync_fusion_to_s3,
+                        subs,
+                        root["nickname"],
+                        bucket,
+                        endpoint_url,
+                    )
+                else:
+                    LOGGER.info("%s is already in S3", repo)
             else:
-                LOGGER.info("%s is already in S3", repo)
-        else:
-            passed = False
+                passed = False
     if passed and (
         (generic.is_env_ci() and generic.is_branch_master())
         or not generic.is_env_ci()
