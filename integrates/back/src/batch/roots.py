@@ -706,14 +706,14 @@ async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
                 commit = git.Repo(
                     folder_to_clone_root, search_parent_directories=True
                 ).head.object
-    if commit:
-        return CloneResult(
-            success=success,
-            commit=commit.hexsha,
-            commit_date=datetime.fromtimestamp(
-                commit.authored_date
-            ).isoformat(),
-        )
+        if commit:
+            return CloneResult(
+                success=success,
+                commit=commit.hexsha,
+                commit_date=datetime.fromtimestamp(
+                    commit.authored_date
+                ).isoformat(),
+            )
     return CloneResult(success=success)
 
 
