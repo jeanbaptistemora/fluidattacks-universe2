@@ -1,6 +1,5 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, {
   useCallback,
@@ -269,6 +268,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       width: "60px",
     },
   ];
+  const sortPreference = sessionStorage.getItem("vulnerabilitiesSort");
 
   return (
     <React.StrictMode>
@@ -278,9 +278,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         customFilters={customFilters}
         customSearch={customSearch}
         dataset={formatVulnerabilities(vulnerabilities)}
-        defaultSorted={JSON.parse(
-          _.get(sessionStorage, "vulnerabilitiesSort", "{}") as string
-        )}
+        defaultSorted={
+          sortPreference === null ? undefined : JSON.parse(sortPreference)
+        }
         exportCsv={false}
         extraButtonsRight={
           <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
