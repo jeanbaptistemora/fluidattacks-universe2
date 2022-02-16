@@ -462,55 +462,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col50>
           </RowCenter>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"topOldestFindings"}
-                documentType={"barChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}portfolio#top-oldest-findings`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.topOldestFindings")}
-              />
-            </Col100>
-          </RowCenter>
-          <RowCenter>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"vulnerabilitiesWithUndefinedTreatment"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}portfolio#treatmentless-by-group`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.undefinedTitle")}
-              />
-            </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"vulnerabilitiesByTreatments"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}common#vulnerabilities-by-treatments`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
-              />
-            </Col50>
-          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (
@@ -568,7 +519,62 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          {doesEntityMatch(["group", "organization"]) ? (
+          {doesEntityMatch(["organization", "portfolio"]) ? (
+            <React.Fragment>
+              <RowCenter>
+                <Col100>
+                  <Graphic
+                    bsHeight={320}
+                    className={"g1"}
+                    documentName={"topOldestFindings"}
+                    documentType={"barChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"c3"}
+                    infoLink={`${graphInfoLink}portfolio#top-oldest-findings`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.topOldestFindings")}
+                  />
+                </Col100>
+              </RowCenter>
+              <RowCenter>
+                <Col50>
+                  <Graphic
+                    bsHeight={160}
+                    className={"g2"}
+                    documentName={"vulnerabilitiesWithUndefinedTreatment"}
+                    documentType={"pieChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"c3"}
+                    infoLink={`${graphInfoLink}portfolio#treatmentless-by-group`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.undefinedTitle")}
+                  />
+                </Col50>
+                <Col50>
+                  <Graphic
+                    bsHeight={160}
+                    className={"g2"}
+                    documentName={"vulnerabilitiesByTreatments"}
+                    documentType={"pieChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"c3"}
+                    infoLink={`${graphInfoLink}common#vulnerabilities-by-treatments`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t(
+                      "tagIndicator.vulnerabilitiesByTreatments"
+                    )}
+                  />
+                </Col50>
+              </RowCenter>
+            </React.Fragment>
+          ) : undefined}
+          {doesEntityMatch(["group"]) ? (
             <Row>
               <Col50>
                 <Graphic
