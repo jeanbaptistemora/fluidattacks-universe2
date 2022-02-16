@@ -6,7 +6,7 @@ from decimal import (
     Decimal,
 )
 from newutils import (
-    cvss_new,
+    cvss as cvss_utils,
     utils,
 )
 from typing import (
@@ -32,7 +32,7 @@ def test_calculate_cvss2_basescore() -> None:
     }
     cvss_basescore_test = Decimal(4.3).quantize(Decimal("0.1"))
     severity_new = Finding20Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
+    cvss_basescore_new = cvss_utils.get_cvss2_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
 
 
@@ -50,8 +50,8 @@ def test_calculate_cvss2_temporal() -> None:
     }
     cvss_temporal_test = Decimal(3.7).quantize(Decimal("0.1"))
     severity_new = Finding20Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
-    cvss_temporal_new = cvss_new.get_cvss2_temporal(
+    cvss_basescore_new = cvss_utils.get_cvss2_basescore(severity_new)
+    cvss_temporal_new = cvss_utils.get_cvss2_temporal(
         severity_new, cvss_basescore_new
     )
     assert cvss_temporal_new == cvss_temporal_test
@@ -70,7 +70,7 @@ def test_calculate_cvss3_scope_changed_basescore() -> None:
     }
     cvss_basescore_test = Decimal(6.4).quantize(Decimal("0.1"))
     severity_new = Finding31Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    cvss_basescore_new = cvss_utils.get_cvss3_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
 
 
@@ -87,7 +87,7 @@ def test_calculate_cvss3_scope_unchanged_basescore() -> None:
     }
     cvss_basescore_test = Decimal(5.4).quantize(Decimal("0.1"))
     severity_new = Finding31Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    cvss_basescore_new = cvss_utils.get_cvss3_basescore(severity_new)
     assert cvss_basescore_new == cvss_basescore_test
 
 
@@ -107,8 +107,8 @@ def test_calculate_cvss3_scope_changed_temporal() -> None:
     }
     cvss_temporal_test = Decimal(6.1).quantize(Decimal("0.1"))
     severity_new = Finding31Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
-    cvss_temporal_new = cvss_new.get_cvss3_temporal(
+    cvss_basescore_new = cvss_utils.get_cvss3_basescore(severity_new)
+    cvss_temporal_new = cvss_utils.get_cvss3_temporal(
         severity_new, cvss_basescore_new
     )
     assert cvss_temporal_new == cvss_temporal_test
@@ -130,8 +130,8 @@ def test_calculate_cvss3_scope_unchanged_temporal() -> None:
     }
     cvss_temporal_test = Decimal(5.1).quantize(Decimal("0.1"))
     severity_new = Finding31Severity(**format_severity(severity))
-    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
-    cvss_temporal_new = cvss_new.get_cvss3_temporal(
+    cvss_basescore_new = cvss_utils.get_cvss3_basescore(severity_new)
+    cvss_temporal_new = cvss_utils.get_cvss3_temporal(
         severity_new, cvss_basescore_new
     )
     assert cvss_temporal_new == cvss_temporal_test

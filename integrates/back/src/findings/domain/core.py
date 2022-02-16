@@ -87,7 +87,7 @@ from mailer import (
 )
 import newrelic.agent
 from newutils import (
-    cvss_new,
+    cvss as cvss_utils,
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
@@ -418,11 +418,11 @@ def get_severity_score(
     severity: Union[Finding20Severity, Finding31Severity]
 ) -> Decimal:
     if isinstance(severity, Finding31Severity):
-        base_score = cvss_new.get_cvss3_basescore(severity)
-        return cvss_new.get_cvss3_temporal(severity, base_score)
+        base_score = cvss_utils.get_cvss3_basescore(severity)
+        return cvss_utils.get_cvss3_temporal(severity, base_score)
 
-    base_score = cvss_new.get_cvss2_basescore(severity)
-    return cvss_new.get_cvss2_temporal(severity, base_score)
+    base_score = cvss_utils.get_cvss2_basescore(severity)
+    return cvss_utils.get_cvss2_temporal(severity, base_score)
 
 
 @newrelic.agent.function_trace()
@@ -719,12 +719,12 @@ async def update_severity(
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if isinstance(severity, Finding31Severity):
-        privileges = cvss_new.calculate_privileges(
+        privileges = cvss_utils.calculate_privileges(
             float(severity.privileges_required),
             float(severity.severity_scope),
         )
         privileges_required = Decimal(privileges).quantize(Decimal("0.01"))
-        modified_privileges = cvss_new.calculate_privileges(
+        modified_privileges = cvss_utils.calculate_privileges(
             float(severity.modified_privileges_required),
             float(severity.modified_severity_scope),
         )
