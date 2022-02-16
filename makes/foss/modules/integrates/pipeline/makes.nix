@@ -120,6 +120,7 @@ in
         })
         [
           "0179_rename_toe_lines_attrs.py"
+          "0185_remove_deprecated_finding_attrs.py"
         ])
         ++ (builtins.map
         (name: {
