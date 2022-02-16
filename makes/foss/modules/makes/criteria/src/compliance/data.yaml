@@ -4531,3 +4531,15 @@
       title: Privacy Monitoring and Auditing
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
+"fedramp":
+  title: FedRAMP
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "AC-2_3":
+      title: Account Management - Disable Inactive Accounts
+      link: https://www.fedramp.gov/documents-templates/
+  metadata: {}
