@@ -17,7 +17,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.findings.types import (
-    Finding as FindingNew,
+    Finding,
 )
 from decimal import (
     Decimal,
@@ -42,9 +42,7 @@ class Severity(NamedTuple):
     max_severity_found: MaxSeverity
 
 
-def get_max_severity_one(
-    findings: Tuple[FindingNew, ...]
-) -> Tuple[int, Decimal]:
+def get_max_severity_one(findings: Tuple[Finding, ...]) -> Tuple[int, Decimal]:
     return max(
         enumerate(
             map(
@@ -70,7 +68,7 @@ def get_max_severity_many(groups: List[Decimal]) -> Tuple[int, Decimal]:
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Severity:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[FindingNew, ...] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group.lower()
     )
     max_found_index, max_found_value = get_max_severity_one(group_findings)
@@ -80,20 +78,18 @@ async def generate_one(group: str, loaders: Dataloaders) -> Severity:
             for finding in group_findings
         ]
     )
-    open_group_findings_new = tuple(
+    open_group_findings = tuple(
         finding
         for finding, open_vulnerabilities in zip(
             group_findings, open_findings_vulnerabilities
         )
         if open_vulnerabilities > 0
     )
-    max_open_index, max_open_value = get_max_severity_one(
-        open_group_findings_new
-    )
+    max_open_index, max_open_value = get_max_severity_one(open_group_findings)
     severity = Severity(
         max_open_severity=MaxSeverity(
             value=max_open_value,
-            name=(open_group_findings_new[max_open_index].title)
+            name=(open_group_findings[max_open_index].title)
             if max_open_index >= 0
             else "",
         ),

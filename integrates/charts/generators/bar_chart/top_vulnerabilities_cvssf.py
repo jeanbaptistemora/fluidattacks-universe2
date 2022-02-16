@@ -18,7 +18,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.findings.types import (
-    Finding as FindingNew,
+    Finding,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -46,7 +46,7 @@ from typing import (
 
 
 def get_finding_severity(
-    findings: Tuple[FindingNew, ...], finding_id: str
+    findings: Tuple[Finding, ...], finding_id: str
 ) -> Decimal:
     return findings_domain.get_severity_score(
         next(
@@ -57,7 +57,7 @@ def get_finding_severity(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: Tuple[FindingNew, ...] = await loaders.group_findings.load(
+    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]

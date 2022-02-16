@@ -308,7 +308,7 @@ async def test_get_mean_remediate_cvssf(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mean_remediate_cvssf_new = await get_mean_remediate_severity_cvssf(
+    mean_remediate_cvssf = await get_mean_remediate_severity_cvssf(
         loaders,
         group_name,
         Decimal("0.0"),
@@ -317,7 +317,7 @@ async def test_get_mean_remediate_cvssf(
         if min_days
         else None,
     )
-    assert mean_remediate_cvssf_new == expected_output
+    assert mean_remediate_cvssf == expected_output
 
 
 @freeze_time("2020-12-01")
@@ -334,7 +334,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
-    mttr_no_treated_cvssf_new = (
+    mttr_no_treated_cvssf = (
         await get_mean_remediate_non_treated_severity_cvssf(
             loaders,
             group_name,
@@ -345,7 +345,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
             else None,
         )
     )
-    assert mttr_no_treated_cvssf_new == expected_output
+    assert mttr_no_treated_cvssf == expected_output
 
 
 async def test_get_total_treatment() -> None:
