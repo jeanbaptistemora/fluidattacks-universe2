@@ -12574,33 +12574,27 @@
   en:
     title: Unauthorized access to files - S3 Bucket
     description: >
-      When the strings of the files stored in
-      the device at the time of installing the
-      application are analyzed, there is evidence
-      of url access to buckets, where it is evident
-      that they can all be listed without any
-      type of authentication.
+      Some buckets used by the application
+      can be publicly accessed, without requiring any authentication,
+      allowing an attacker to download its content,
+      modify or delete the stored information
     impact: >
-      Obtain information stored in the buckets.
+      Compromise the information stored in the buckets.
     recommendation: >
-      Securely configure the vulnerable service so
-      that it can only be accessed by authorized users.
+      Restrict the access of the public buckets of the system
     threat: >
       Anonymous attacker from the Internet.
   es:
     title: Unauthorized access to files - S3 Bucket
     description: >
-      Cuando se analizan los strings de los archivos
-      almacenados en el dispositivo al momento de
-      instalar la aplicación, se evidencia url de
-      acceso a buckets, donde se evidencia que pueden
-      ser listados todos sin ningún tipo de autenticación.
+      Algunos buckets utilizados por la aplicación
+      pueden ser accedidos públicamente sin ninguna autenticación,
+      permitiendo a un atacante descargar su contenido,
+      modificar o eliminar la información allí almacenada
     impact: >
-      Obtener información almacenada en los buckets.
+      Comprometer la información almacenada en los buckets
     recommendation: >
-      Configurar de manera segura el servicio
-      vulnerable permitiendo así que solo sea
-      accedido por usuarios autorizados.
+      Restringir el acceso de los buckets públicos del sistema.
     threat: >
       Anónimo desde Internet.
   category: Subvert Access
@@ -20085,31 +20079,27 @@
   en:
     title: Insecure service configuration - EC2
     description: >
-      The EC2 instance does not define the API
-      termination resource which by default is
-      set to false, allowing it to be terminated
-      or stopped at any time from the AWS console,
-      the client or the API.
+      Some EC2 instances have insecure configurations
+      that an attacker can use to access
+      or interrupt critical aplication processes
     impact: >
-      Disrupt critical operations on the EC2 instance.
+      Compromise the security of one or several EC2 Instances
     recommendation: >
-      Securely configure the EC2 instance by
-      disabling the API termination resource.
+      Perform a hardening process over all the EC2 instances,
+      by following the recomended best practices
     threat: >
       Internet attacker with access to the AWS console.
   es:
     title: Insecure service configuration - EC2
     description: >
-      La instancia de EC2 no define el recurso
-      API termination que por defecto se establece
-      en false, lo que permite que esta pueda ser
-      terminada o detenida en cualquier momento desde
-      la consola de AWS, el cliente o el API.
+      Algunas instancias de EC2 cuentan con configuraciones
+      inseguras que pueden ser utilizadas para
+      acceder o interrumpir procesos críticos de la aplicación
     impact: >
-      Interrumpir operaciones críticas en la instancia de EC2.
+      Comprometer la seguridad de una o varias instancias de EC2
     recommendation: >
-      Configurar de manera segura la instancia de
-      EC2 deshabilitando el recurso API termination.
+      Realizar un proceso de hardening en todas las instancias de EC2.
+      Siguiendo las prácticas recomendadas
     threat: >
       Atacante en internet con acceso a la consola de AWS.
   category: Abuse Functionality
