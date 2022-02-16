@@ -1011,3 +1011,48 @@ async def do_add_execution(
         return result["data"]["addMachineExecution"]["success"]
 
     return False
+
+
+@SHIELD
+async def do_add_finding_consult(
+    *,
+    content: str,
+    finding_id: str,
+    parent: str,
+    comment_id: str,
+    client: Optional[GraphQLClient] = None,
+) -> bool:
+
+    result = await _execute(
+        query="""
+            mutation SkimsAddFindingConsult(
+                $content: String!
+                $findingId: String!
+                $parent: GenericScalar!
+                $type: FindingConsultType!
+            ) {
+                addFindingConsult(
+                    content: $content
+                    findingId: $finding_id
+                    parent: $parent
+                    type: $comment_id
+                ) {
+                    commentId
+                    success
+                }
+            }
+        """,
+        operation="SkimsAddFindingConsult",
+        variables=dict(
+            content=content,
+            finding_id=finding_id,
+            parent=parent,
+            comment_id=comment_id,
+        ),
+        client=client,
+    )
+
+    with suppress(AttributeError, KeyError, TypeError):
+        return result["data"]["addFindingConsult"]["success"]
+
+    return False
