@@ -1506,6 +1506,14 @@ export const enTranslations: ResourceKey = {
     lowSeverity: "Low",
     mediumSeverity: "Medium",
     noneSeverity: "None",
+    notificationTable: {
+      email: "Email",
+      notification: "Notification",
+      push: "Push",
+      sms: "SMS",
+      voice: "Voice",
+      whatsapp: "Whatsapp",
+    },
     openVulnsLabel: "Open vulnerabilities",
     repositoriesTable: {
       state: "State",
