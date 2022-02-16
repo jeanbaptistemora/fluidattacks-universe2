@@ -8,6 +8,7 @@ alias job-last-success="observes-service-job-last-success-bin"
 function dynamodb_etl {
   local schema="${1}"
   local tables="${2}"
+  local segments="${3}"
   local db_creds
 
   db_creds=$(mktemp) \
@@ -17,7 +18,9 @@ function dynamodb_etl {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running streamer' \
-    && tap-dynamo stream --tables "${tables}" \
+    && tap-dynamo stream \
+      --tables "${tables}" \
+      --segments "${segments}" \
     | tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
       | target-redshift \
