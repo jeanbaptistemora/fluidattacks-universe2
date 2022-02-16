@@ -27864,30 +27864,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (acorn v7.1.0) [
    21 |     ""crypto-js"": ""3.3.0"",
       ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (adm-zip v0.4.11) [GHSL-2020-198],6,937,skims,011. Use of software with known vulnerabilities,Use of adm-zip at version 0.4.11 with GHSL-2020-198 in namespace/skims/test/data/lib_path/f011/package.json,"
-    1 | {
-    2 |   ""dependencies"": {
-    3 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+="",
-    4 |     ""@angular/core"": ""11.0.4"",
-    5 |     ""acorn"": ""7.1.0"",
->   6 |     ""adm-zip"": ""0.4.11"",
-    7 |     ""ammo"": ""2.0.4"",
-    8 |     ""angular"": ""1.6.5"",
-    9 |     ""ansi-html"": ""0.0.7"",
-   10 |     ""ansi-regex"": ""5.0.0"",
-   11 |     ""apexcharts"": ""3.17.0"",
-   12 |     ""aws-sdk"": ""2.813.0"",
-   13 |     ""axios"": ""0.18.0"",
-   14 |     ""bcrypt"": ""3.0.8"",
-   15 |     ""browserslist"": ""4.12.0"",
-   16 |     ""chart"": ""2.9.3"",
-   17 |     ""class-validator"": ""0.10.2"",
-   18 |     ""color-string"": ""1.1.4"",
-   19 |     ""connect"": ""2.8.0"",
-   20 |     ""cookies"": ""0.4.0"",
-   21 |     ""crypto-js"": ""3.3.0"",
-      ^ Col 0
-",npm.npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (adm-zip v0.4.11) [SNYK-JS-ADMZIP-1065796],6,937,skims,011. Use of software with known vulnerabilities,Use of adm-zip at version 0.4.11 with SNYK-JS-ADMZIP-1065796 in namespace/skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
@@ -27936,30 +27912,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ammo v2.0.4) [w
    21 |     ""crypto-js"": ""3.3.0"",
       ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5) [CVE-2018-1002204],8,937,skims,011. Use of software with known vulnerabilities,Use of angular at version 1.6.5 with CVE-2018-1002204 in namespace/skims/test/data/lib_path/f011/package.json,"
-    1 | {
-    2 |   ""dependencies"": {
-    3 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+="",
-    4 |     ""@angular/core"": ""11.0.4"",
-    5 |     ""acorn"": ""7.1.0"",
-    6 |     ""adm-zip"": ""0.4.11"",
-    7 |     ""ammo"": ""2.0.4"",
->   8 |     ""angular"": ""1.6.5"",
-    9 |     ""ansi-html"": ""0.0.7"",
-   10 |     ""ansi-regex"": ""5.0.0"",
-   11 |     ""apexcharts"": ""3.17.0"",
-   12 |     ""aws-sdk"": ""2.813.0"",
-   13 |     ""axios"": ""0.18.0"",
-   14 |     ""bcrypt"": ""3.0.8"",
-   15 |     ""browserslist"": ""4.12.0"",
-   16 |     ""chart"": ""2.9.3"",
-   17 |     ""class-validator"": ""0.10.2"",
-   18 |     ""color-string"": ""1.1.4"",
-   19 |     ""connect"": ""2.8.0"",
-   20 |     ""cookies"": ""0.4.0"",
-   21 |     ""crypto-js"": ""3.3.0"",
-      ^ Col 0
-",npm.npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5) [CVE-2019-10768],8,937,skims,011. Use of software with known vulnerabilities,Use of angular at version 1.6.5 with CVE-2019-10768 in namespace/skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
@@ -27984,31 +27936,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5)
    21 |     ""crypto-js"": ""3.3.0"",
       ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5) [CVE-2020-7676],8,937,skims,011. Use of software with known vulnerabilities,Use of angular at version 1.6.5 with CVE-2020-7676 in namespace/skims/test/data/lib_path/f011/package.json,"
-    1 | {
-    2 |   ""dependencies"": {
-    3 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+="",
-    4 |     ""@angular/core"": ""11.0.4"",
-    5 |     ""acorn"": ""7.1.0"",
-    6 |     ""adm-zip"": ""0.4.11"",
-    7 |     ""ammo"": ""2.0.4"",
->   8 |     ""angular"": ""1.6.5"",
-    9 |     ""ansi-html"": ""0.0.7"",
-   10 |     ""ansi-regex"": ""5.0.0"",
-   11 |     ""apexcharts"": ""3.17.0"",
-   12 |     ""aws-sdk"": ""2.813.0"",
-   13 |     ""axios"": ""0.18.0"",
-   14 |     ""bcrypt"": ""3.0.8"",
-   15 |     ""browserslist"": ""4.12.0"",
-   16 |     ""chart"": ""2.9.3"",
-   17 |     ""class-validator"": ""0.10.2"",
-   18 |     ""color-string"": ""1.1.4"",
-   19 |     ""connect"": ""2.8.0"",
-   20 |     ""cookies"": ""0.4.0"",
-   21 |     ""crypto-js"": ""3.3.0"",
-      ^ Col 0
-",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5) [GMS-2018-9],8,937,skims,011. Use of software with known vulnerabilities,Use of angular at version 1.6.5 with GMS-2018-9 in namespace/skims/test/data/lib_path/f011/package.json,"
+F011,lines,namespace/skims/test/data/lib_path/f011/package.json (angular v1.6.5) [SNYK-JS-ANGULAR-572020],8,937,skims,011. Use of software with known vulnerabilities,Use of angular at version 1.6.5 with SNYK-JS-ANGULAR-572020 in namespace/skims/test/data/lib_path/f011/package.json,"
     1 | {
     2 |   ""dependencies"": {
     3 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+="",
@@ -28043,30 +27971,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ansi-html v0.0.
     8 |     ""angular"": ""1.6.5"",
 >   9 |     ""ansi-html"": ""0.0.7"",
    10 |     ""ansi-regex"": ""5.0.0"",
-   11 |     ""apexcharts"": ""3.17.0"",
-   12 |     ""aws-sdk"": ""2.813.0"",
-   13 |     ""axios"": ""0.18.0"",
-   14 |     ""bcrypt"": ""3.0.8"",
-   15 |     ""browserslist"": ""4.12.0"",
-   16 |     ""chart"": ""2.9.3"",
-   17 |     ""class-validator"": ""0.10.2"",
-   18 |     ""color-string"": ""1.1.4"",
-   19 |     ""connect"": ""2.8.0"",
-   20 |     ""cookies"": ""0.4.0"",
-   21 |     ""crypto-js"": ""3.3.0"",
-      ^ Col 0
-",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ansi-regex v5.0.0) [CVE-2018-1002204],10,937,skims,011. Use of software with known vulnerabilities,Use of ansi-regex at version 5.0.0 with CVE-2018-1002204 in namespace/skims/test/data/lib_path/f011/package.json,"
-    1 | {
-    2 |   ""dependencies"": {
-    3 |     ""!@#$%^&*()_+="": ""!@#$%^&*()_+="",
-    4 |     ""@angular/core"": ""11.0.4"",
-    5 |     ""acorn"": ""7.1.0"",
-    6 |     ""adm-zip"": ""0.4.11"",
-    7 |     ""ammo"": ""2.0.4"",
-    8 |     ""angular"": ""1.6.5"",
-    9 |     ""ansi-html"": ""0.0.7"",
->  10 |     ""ansi-regex"": ""5.0.0"",
    11 |     ""apexcharts"": ""3.17.0"",
    12 |     ""aws-sdk"": ""2.813.0"",
    13 |     ""axios"": ""0.18.0"",
