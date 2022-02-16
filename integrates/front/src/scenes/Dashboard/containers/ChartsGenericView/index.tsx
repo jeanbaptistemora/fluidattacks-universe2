@@ -49,7 +49,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   return (
     <React.StrictMode>
       <div className={`center ${reportClassName}`.trim()}>
-        {doesEntityMatch(["organization"]) ? (
+        {doesEntityMatch(["organization", "portfolio"]) ? (
           <RowCenter>
             <Col100>
               <Graphic
