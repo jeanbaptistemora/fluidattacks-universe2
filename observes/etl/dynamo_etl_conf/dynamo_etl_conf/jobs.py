@@ -18,10 +18,6 @@ from fa_purity.frozen import (
     FrozenList,
 )
 import os
-from typing import (
-    Literal,
-    Union,
-)
 
 
 @dataclass(frozen=True)
@@ -36,27 +32,23 @@ class Jobs:
             tuple([self._ELT_bin, schema, " ".join(tables), str(segments)])
         )
 
+    def default_run(self, table: TargetTables) -> Cmd[None]:
+        return self.run(
+            f"{self._schema_prefix}{table.value}",
+            (table.value,),
+            SEGMENTATION[table],
+        )
+
     def standard_group(self) -> Cmd[None]:
         cmds = tuple(
-            self.run(
-                f"{self._schema_prefix}{table.value}",
-                (table.value,),
-                SEGMENTATION[table],
-            )
+            self.default_run(table)
             for table in TargetTables
             if table not in (TargetTables.CORE, TargetTables.FORCES)
         )
         return serial_merge(cmds).map(lambda _: None)
 
-    def non_grouped(
-        self,
-        target: Union[
-            Literal[TargetTables.CORE], Literal[TargetTables.FORCES]
-        ],
-    ) -> Cmd[None]:
-        target_str: str = target.value
-        return self.run(
-            f"{self._schema_prefix}{target_str}",
-            (target_str,),
-            SEGMENTATION[target],
-        )
+    def forces(self) -> Cmd[None]:
+        return self.default_run(TargetTables.FORCES)
+
+    def core(self) -> Cmd[None]:
+        return self.default_run(TargetTables.CORE)
