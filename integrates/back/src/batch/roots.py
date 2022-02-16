@@ -920,7 +920,7 @@ async def queue_sync_git_roots(
             root_id
             for root_id, commit in last_commits_dict.items()
             if (commit and commit != roots_dict[root_id].cloning.commit)
-            or roots_dict[root_id].state.nickname not in is_in_s3_dict
+            or not is_in_s3_dict.get(roots_dict[root_id].state.nickname, False)
         )
     )
 
