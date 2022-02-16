@@ -4,6 +4,7 @@ export { EditableField } from "utils/forms/fields/EditableField";
 export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { FormikDateTime } from "utils/forms/fields/DateTime/FormikDateTime";
 export { FormikAutocompleteText } from "utils/forms/fields/AutoCompleteText/FormikAutocompleteText";
+export { FormikRadioGroup } from "utils/forms/fields/RadioGroup/FormikRadioGroup";
 export { FormikTagInput } from "utils/forms/fields/TagInput/FormikTagInput";
 export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { FormikDropdown } from "utils/forms/fields/Dropdown/FormikDropdown";

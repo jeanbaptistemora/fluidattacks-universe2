@@ -509,6 +509,11 @@ const hasSshFormat: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
+const selected: Validator = (value: unknown): string | undefined =>
+  value === true || value === false
+    ? undefined
+    : translate.t("validations.required");
+
 export {
   composeValidators,
   checked,
@@ -551,4 +556,5 @@ export {
   isLowerDate,
   excludeFormat,
   hasSshFormat,
+  selected,
 };

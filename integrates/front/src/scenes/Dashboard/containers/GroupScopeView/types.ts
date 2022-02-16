@@ -14,7 +14,7 @@ interface IGitRootAttr {
   environment: string;
   environmentUrls: string[];
   gitignore: string[];
-  includesHealthCheck: boolean;
+  includesHealthCheck: boolean | null;
   id: string;
   nickname: string;
   state: "ACTIVE" | "INACTIVE";

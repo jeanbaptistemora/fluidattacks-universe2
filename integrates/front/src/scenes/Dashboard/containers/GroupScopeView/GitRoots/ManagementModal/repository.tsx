@@ -17,7 +17,6 @@ import { VALIDATE_GIT_ACCESS } from "../../queries";
 import type { IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
-import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Alert,
@@ -33,6 +32,7 @@ import {
   FormikArrayField,
   FormikCheckbox,
   FormikDropdown,
+  FormikRadioGroup,
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
@@ -44,6 +44,7 @@ import {
   composeValidators,
   hasSshFormat,
   required,
+  selected,
 } from "utils/validations";
 
 interface IRepositoryProps {
@@ -104,7 +105,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   };
 
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
-    initialValues.includesHealthCheck
+    isEditing ? initialValues.includesHealthCheck : null
   );
 
   const goToDocumentation = useCallback((): void => {
@@ -326,18 +327,27 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <ControlLabel>
                       {t("group.scope.git.healthCheck.confirm")}
                     </ControlLabel>
-                    <SwitchButton
-                      checked={confirmHealthCheck}
-                      offlabel={t("No")}
-                      onChange={setConfirmHealthCheck}
-                      onlabel={t("Yes")}
+                    <Field
+                      component={FormikRadioGroup}
+                      initialState={
+                        isEditing
+                          ? confirmHealthCheck ?? false
+                            ? "Yes"
+                            : "No"
+                          : null
+                      }
+                      labels={["Yes", "No"]}
+                      name={"includesHealthCheck"}
+                      onSelect={setConfirmHealthCheck}
+                      type={"Radio"}
+                      validate={selected}
                     />
-                    {confirmHealthCheck ? (
+                    {confirmHealthCheck ?? false ? (
                       <Alert>
                         <Field
                           component={FormikCheckbox}
                           label={""}
-                          name={"includesHealthCheck"}
+                          name={"includesHealthCheckA"}
                           type={"checkbox"}
                           validate={checked}
                         >
@@ -345,7 +355,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                           <RequiredField>{"*"}&nbsp;</RequiredField>
                         </Field>
                       </Alert>
-                    ) : (
+                    ) : undefined}
+                    {confirmHealthCheck ?? true ? undefined : (
                       <Alert>
                         <Field
                           component={FormikCheckbox}

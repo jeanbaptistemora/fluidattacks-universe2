@@ -150,6 +150,12 @@ def test_group_scope_repositories(
     url.send_keys(repo_url)
     branch.send_keys("master")
     environment.send_keys("production")
+    reject_health_check = utils.wait_for_id(
+        driver,
+        "No",
+        timeout,
+    )
+    reject_health_check.click()
     reject_health_a = utils.wait_for_name(
         driver,
         "rejectHealthCheckA",

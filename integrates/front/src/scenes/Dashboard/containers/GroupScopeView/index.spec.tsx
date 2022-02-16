@@ -22,7 +22,6 @@ import {
 import { GroupScopeView } from ".";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { SwitchButton } from "components/SwitchButton";
 import { getCache } from "utils/apollo";
 import { authContext } from "utils/auth";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
@@ -228,23 +227,23 @@ describe("GroupScopeView", (): void => {
       target: { name: "environment", value: "production" },
     });
 
+    wrapper.find({ id: "No" }).find("div").at(0).simulate("click");
+    wrapper.update();
+
     const rejectHealthCheckA = (): ReactWrapper =>
       wrapper.find({ name: "rejectHealthCheckA" }).find("input");
-
     rejectHealthCheckA().simulate("change", {
       target: { checked: true },
     });
 
     const rejectHealthCheckB = (): ReactWrapper =>
       wrapper.find({ name: "rejectHealthCheckB" }).find("input");
-
     rejectHealthCheckB().simulate("change", {
       target: { checked: true },
     });
 
     const rejectHealthCheckC = (): ReactWrapper =>
       wrapper.find({ name: "rejectHealthCheckC" }).find("input");
-
     rejectHealthCheckC().simulate("change", {
       target: { checked: true },
     });
@@ -414,12 +413,14 @@ describe("GroupScopeView", (): void => {
       target: { name: "environment", value: "staging" },
     });
 
-    wrapper.find(SwitchButton).at(0).simulate("click");
-    wrapper.update();
-    const includesHealthCheck = (): ReactWrapper =>
-      wrapper.find({ name: "includesHealthCheck" }).find("input");
+    wrapper.find({ id: "Yes" }).find("div").at(0).simulate("click");
 
-    includesHealthCheck().simulate("change", {
+    wrapper.update();
+
+    const includesHealthCheckA = (): ReactWrapper =>
+      wrapper.find({ name: "includesHealthCheckA" }).find("input");
+
+    includesHealthCheckA().simulate("change", {
       target: { checked: true },
     });
 
@@ -437,7 +438,6 @@ describe("GroupScopeView", (): void => {
     const delay = 150;
     await wait(delay);
 
-    expect(includesHealthCheck().prop("value")).toStrictEqual(true);
     expect(getFirstTableRow().text()).toStrictEqual(
       [
         // Url

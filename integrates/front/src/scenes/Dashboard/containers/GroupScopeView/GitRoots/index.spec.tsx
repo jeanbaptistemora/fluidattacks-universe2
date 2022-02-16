@@ -12,7 +12,6 @@ import { ManagementModal } from "./ManagementModal";
 import { GitRoots } from ".";
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
-import { SwitchButton } from "components/SwitchButton";
 import { ButtonToolbar } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -133,13 +132,13 @@ describe("GitRoots", (): void => {
     expect(wrapper.find({ name: "environment" }).find("input")).toHaveLength(1);
 
     // Health Check
-    expect(wrapper.find({ name: "includesHealthCheck" })).toHaveLength(0);
+    expect(wrapper.find({ name: "includesHealthCheck" })).toHaveLength(4);
 
-    wrapper.find(SwitchButton).at(0).simulate("click");
+    wrapper.find({ id: "Yes" }).find("div").at(0).simulate("click");
 
     expect(
       wrapper.find({ name: "includesHealthCheck" }).find("input")
-    ).toHaveLength(1);
+    ).toHaveLength(2);
 
     // Filters
     expect(wrapper.find({ name: "gitignore" }).find("input")).toHaveLength(0);
