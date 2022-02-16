@@ -1,0 +1,60 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1644343489,
+        "narHash": "sha256-dpHKuZDqXKRk/MR8aMelqSCNmm0+BapSgk6tuiiI02E=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d24b8431aaed3f7e959bef5cf155cc58a9e6be07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1644343489,
+        "narHash": "sha256-dpHKuZDqXKRk/MR8aMelqSCNmm0+BapSgk6tuiiI02E=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d24b8431aaed3f7e959bef5cf155cc58a9e6be07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "purity": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1644932367,
+        "narHash": "sha256-rwOCyZbSDT5xKrAc7v0DWWKO1u9vZdFWfQlktj+bCig=",
+        "owner": "dmurciaatfluid",
+        "repo": "purity",
+        "rev": "fd6bcbdd3bce4685ae577bd554663f842f88fb2d",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "dmurciaatfluid",
+        "repo": "purity",
+        "type": "gitlab"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "purity": "purity"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
