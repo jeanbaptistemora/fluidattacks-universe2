@@ -205,6 +205,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     organization = await loaders.organization.load(group["organization"])
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
+        branch,
         await loaders.organization_roots.load(organization["name"]),
     ):
         raise RepeatedRoot()
@@ -559,6 +560,7 @@ async def update_git_root(
         organization = await loaders.organization.load(group["organization"])
         if not validations.is_git_unique(
             url,
+            branch,
             await loaders.organization_roots.load(organization["name"]),
         ):
             raise RepeatedRoot()
@@ -664,7 +666,9 @@ async def activate_root(
         org_roots = await loaders.organization_roots.load(organization["name"])
 
         if isinstance(root, GitRootItem):
-            if not validations.is_git_unique(root.state.url, org_roots):
+            if not validations.is_git_unique(
+                root.state.url, root.state.branch, org_roots
+            ):
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
@@ -942,7 +946,9 @@ async def move_root(
     )
 
     if isinstance(root, GitRootItem):
-        if not validations.is_git_unique(root.state.url, target_group_roots):
+        if not validations.is_git_unique(
+            root.state.url, root.state.branch, target_group_roots
+        ):
             raise RepeatedRoot()
 
         new_root = await add_git_root(
