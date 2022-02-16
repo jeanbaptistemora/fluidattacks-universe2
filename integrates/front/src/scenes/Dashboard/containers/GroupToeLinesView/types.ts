@@ -1,4 +1,5 @@
 interface IFilterSet {
+  bePresent: string;
   filenameExtension: string;
   priority: { max: string; min: string };
   root: string;

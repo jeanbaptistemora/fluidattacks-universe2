@@ -112,6 +112,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     useStoredState<IFilterSet>(
       "filterGroupToeLinesSet",
       {
+        bePresent: "",
         filenameExtension: "",
         priority: { max: "", min: "" },
         root: "",
@@ -399,6 +400,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   function clearFilters(): void {
     setFilterGroupToeLinesTable(
       (): IFilterSet => ({
+        bePresent: "",
         filenameExtension: "",
         priority: { max: "", min: "" },
         root: "",
@@ -436,6 +438,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     setEditing(!isEditing);
   }
 
+  function onBePresenChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterGroupToeLinesTable(
+      (value): IFilterSet => ({
+        ...value,
+        bePresent: event.target.value,
+      })
+    );
+  }
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -501,7 +512,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       toeLinesData.rootNickname,
     ])
   );
-
+  const bePresentSelectOptions = Object.fromEntries([
+    ["false", formatBoolean(false)],
+    ["true", formatBoolean(true)],
+  ]);
   const filteredData: IToeLinesData[] = getFilteredData(
     filterGroupToeLinesTable,
     searchTextFilter,
@@ -515,6 +529,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.lines.filters.root.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.root.tooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterGroupToeLinesTable.bePresent,
+      onChangeSelect: onBePresenChange,
+      placeholder: translate.t("group.toe.lines.filters.bePresent.placeholder"),
+      selectOptions: bePresentSelectOptions,
+      tooltipId: "group.toe.lines.filters.bePresent.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.bePresent.tooltip",
       type: "select",
     },
     {

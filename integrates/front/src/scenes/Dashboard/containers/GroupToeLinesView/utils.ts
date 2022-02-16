@@ -86,6 +86,22 @@ function getNonSelectable(toeLinesDatas: IToeLinesData[]): number[] {
   return nonSelectable;
 }
 
+const filterBePresent: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => {
+  const bePresent = filterGroupToeLinesTable.bePresent === "true";
+
+  return _.isEmpty(filterGroupToeLinesTable.bePresent)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return toeLinesData.bePresent === bePresent;
+      });
+};
+
 const filterFilenameExtensions: (
   filterGroupToeLinesTable: IFilterSet,
   toeLines: IToeLinesData[]
@@ -159,6 +175,7 @@ const getFilteredData: (
   searchTextFilter: string,
   toeLines: IToeLinesData[]
 ): IToeLinesData[] => {
+  const filteredBePresent = filterBePresent(filterGroupToeLinesTable, toeLines);
   const filteredFilenameExtensions = filterFilenameExtensions(
     filterGroupToeLinesTable,
     toeLines
@@ -170,6 +187,7 @@ const getFilteredData: (
     toeLines
   );
   const filteredData: IToeLinesData[] = _.intersection(
+    filteredBePresent,
     filteredFilenameExtensions,
     filteredPriority,
     filteredRoot,

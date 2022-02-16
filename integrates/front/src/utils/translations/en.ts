@@ -935,6 +935,10 @@ export const enTranslations: ResourceKey = {
         },
         filename: "Filename",
         filters: {
+          bePresent: {
+            placeholder: "Be present",
+            tooltip: "Filter by be present",
+          },
           extension: {
             placeholder: "Extension",
             tooltip: "Filter by extension",
