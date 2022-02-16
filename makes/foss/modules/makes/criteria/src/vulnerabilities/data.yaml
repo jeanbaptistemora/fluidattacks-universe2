@@ -24270,3 +24270,222 @@
   metadata:
     en:
       details: __empty__
+"406":
+  en:
+    title: Non-encrypted confidential information - EFS
+    description: >
+      The AWS Elastic File System (EFS) service
+      is encrypted with a default KMS key.
+      Best practices recommend encrypting EFS instances
+      using Customer Managed Keys (CMKs)
+      to reduce risk of exposure
+      and give full control of encrypted information.
+    impact: >
+      Obtain confidential information from file system
+    recommendation: >
+      Enable the EFS encryption
+      using a KMS Customer Managed Key (CMK)
+    threat: >
+      Anonymous attacker with local access
+      to one or more EFS instances
+  category: Collect Information
+  remediation_time: "20"
+  es:
+    title: Non-encrypted confidential information - EFS
+    description: >
+      El servicio de AWS Elastic File System (EFS)
+      se encuentra cifrado con una llave por defecto de KMS.
+      Las mejores prácticas recomiendan encriptar las instancias de EFS
+      utilizando llaves gestionadas por el cliente (CMK)
+      para reducir el riesgo de exposición
+      y otorgar control total de la información encriptada
+    impact: >
+      Obtener información confidencial de los archivos del sistema
+    recommendation: >
+      Habilitar el cifrado de instancias de EFS
+      utilizando llaves gestionadas pr el cliente (CMK).
+    threat: >
+      Atacante anónimo con acceso local a una o más instancias de EFS
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["185", "300"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/bc_aws_general_104
+"407":
+  en:
+    title: Non-encrypted confidential information - EBS Volumes
+    description: >
+      One or more Elastic Block Store (EBS) instances
+      are no encrypted,
+      allowing an attacker to read
+      potencially sensitive information
+      regarding the launch configuration of EC2 Instances
+    impact: >
+      Obtain information related to EC2 launch configuration
+      to craft more complex attack vectors
+    recommendation: >
+      Enable the encryption of all the EBS instances
+      by setting the property _Encrypted_ to _true_
+    threat: >
+      Anonymous attacker with local access to a EBS instance
+  category: Collect Information
+  remediation_time: "20"
+  es:
+    title: Non-encrypted confidential information - EBS Volumes
+    description: >
+      Una o más instancias de Elastic Block Store (EBS)
+      no se encuentran cifradas,
+      permitiendo a un atacante visualizar
+      información potencialmente sensible
+      relacionada al despliege de instancias de EC2
+    impact: >
+      Obtener información de despliegue de instancias de EC2
+      para generar vectores de ataque más complejos
+    recommendation: >
+      Habilitar el cifrado de todas las instancias
+      de EBS al establecer el valor de _Encrypted_ en _true_
+    threat: >
+      Atacante anónimo con acceso local a una instancia de EBS
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["185", "300"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/general_13
+"408":
+  en:
+    title: Tracebility Loss - API Gateway
+    description: >
+      Some AWS API Gateway instances
+      do not enable the logging feature,
+      discarding information that can be managed
+      by other AWS services such as Cloudwatch
+      to detect possible system anomalies
+    impact: >
+      Lose traceability of events of interest
+      to detect potential security breaches
+    recommendation: >
+      - Enable the logging feature for all the API gateway instances
+
+      - Set a destination for the log files
+      using other log services such as CloudWatch or Cloudtrail
+    threat: >
+      Authenticated attacker from the Internet
+      with access to the AWS console
+  category: Deceptive Interactions
+  remediation_time: "20"
+  es:
+    title: Tracebility Loss - API Gateway
+    description: >
+      Algunas instancias de API Gateway de AWS
+      no tienen habilitada la funcionalidad de logging,
+      descartando información que puede ser administrada
+      por otros servicios como CloudWatch
+      para detectar posibles anomalías en el sistema.
+    impact: >
+      Perder trazabilidad de eventos de interés
+      ante posibles brechas de seguridad
+    recommendation: >
+      - Habilitar la funcionalidad de Logging en las instancias
+      de API gateway
+
+      - Definir un destino para los archivos de log
+      usando otros servicios como CloudWatch o CloudTrail
+    threat: >
+      Atacante autenticado en la consola de AWS desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["075", "079", "376"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/logging_17
+"409":
+  en:
+    title: Non-encrypted confidential information - DynamoDB
+    description: >
+      Some AWS DyanmoDB instances are not encrypted
+      or use the default KMS encryption
+      which do not use a Customer Managed Key (CMK)
+    impact: >
+      Obtain critical information from the databases in plaintext
+    recommendation: >
+      Enable the DynamoDB encryption for all their instances
+      using a custom KMS key
+    threat: >
+      Authenticated attacker from the Internet
+      with access to the Database
+  category: Collect Information
+  remediation_time: "20"
+  es:
+    title: Non-encrypted confidential information - DynamoDB
+    description: >
+      Algunas instancias de DynamoDB no se encuentran cifradas
+      o utilizan el cifrado por defecto de KMS
+      que no utiliza llaves administradas por el usuario (CMK)
+    impact: >
+      Obtener información crítica
+      de las bases de datos en texto plano
+    recommendation: >
+      Habilitar el cifrado de las instancias de DynamoDB
+      utilizando una llave KMS personalizada
+    threat: >
+      Atacante autenticado desde Internet con acceso a la base de Datos
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "H"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "H"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["185", "300"]
+  metadata:
+    en:
+      details: >
+        https://docs.bridgecrew.io/docs/ensure-that-dynamodb-tables-are-encrypted
