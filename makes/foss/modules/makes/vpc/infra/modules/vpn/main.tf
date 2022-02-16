@@ -13,9 +13,15 @@ variable "aws_cidr" {}
 variable "client_cidr" {}
 variable "client_endpoint" {}
 variable "client_name" {}
-variable "vpn_gateway_id" {}
+variable "vpc_id" {}
 
 variable "tags" {}
+
+resource "aws_vpn_gateway" "main" {
+  vpc_id = var.vpc_id
+
+  tags = var.tags
+}
 
 resource "aws_customer_gateway" "main" {
   bgp_asn     = 65000
@@ -27,7 +33,7 @@ resource "aws_customer_gateway" "main" {
 }
 
 resource "aws_vpn_connection" "main" {
-  vpn_gateway_id      = var.vpn_gateway_id
+  vpn_gateway_id      = aws_vpn_gateway.main.id
   customer_gateway_id = aws_customer_gateway.main.id
   type                = "ipsec.1"
 
