@@ -568,7 +568,13 @@ async def put_action_to_batch(
                 jobDefinition="makes",
                 containerOverrides={
                     "vcpus": vcpus,
-                    "command": action_dynamo_pk,
+                    "command": [
+                        "m",
+                        "f",
+                        "/integrates/batch",
+                        "prod",
+                        action_dynamo_pk,
+                    ],
                     "environment": [
                         {"name": "CI", "value": "true"},
                         {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
