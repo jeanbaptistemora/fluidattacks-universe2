@@ -740,6 +740,8 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         root for root in group_roots if root.id in root_ids
     )
     cloned_roots_nicknames: Tuple[str, ...] = tuple()
+
+    LOGGER.info("%s roots will be cloned", len(roots))
     for root in roots:
         root_cred: Optional[CredentialItem] = next(
             (cred for cred in group_creds if root.id in cred.state.roots), None
@@ -756,6 +758,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         root_cloned: CloneResult = CloneResult(success=False)
 
         if root_cred.metadata.type.value == "SSH":
+            LOGGER.info("Cloning %s", root.state.nickname)
             root_cloned = await ssh_clone_root(root, root_cred)
             await roots_domain.update_root_cloning_status(
                 loaders=dataloaders,
@@ -769,17 +772,18 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 commit_date=root_cloned.commit_date,
             )
             if root_cloned.success:
-                await put_action(
-                    action_name="refresh_toe_lines",
-                    entity=group_name,
-                    subject="integrates@fluidattacks.com",
-                    additional_info="*",
-                    queue="spot_later",
-                )
                 cloned_roots_nicknames = (
                     *cloned_roots_nicknames,
                     root.state.nickname,
                 )
+    if cloned_roots_nicknames:
+        await put_action(
+            action_name="refresh_toe_lines",
+            entity=group_name,
+            subject="integrates@fluidattacks.com",
+            additional_info="*",
+            queue="spot_later",
+        )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
