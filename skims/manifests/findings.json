@@ -782,5 +782,13 @@
     "ES": {
       "title": "402. Tracebility Loss - Azure"
     }
+  },
+  "F408": {
+    "EN": {
+      "title": "408. Tracebility Loss - API Gateway"
+    },
+    "ES": {
+      "title": "408. Tracebility Loss - API Gateway"
+    }
   }
 }

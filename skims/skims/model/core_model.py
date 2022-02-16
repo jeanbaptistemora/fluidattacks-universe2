@@ -848,6 +848,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
     )
+    F408: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F408",
+        cwe=778,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[75, 376, 377, 378],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
@@ -2948,14 +2955,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
-        file_name="terraform",
-        name="tfm_api_gateway_access_logging_disabled",
-        module="lib_path",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_secret_no_expiration_date",
@@ -2985,6 +2984,14 @@ class MethodsEnum(Enum):
         name="tfm_azure_sql_server_audit_log_retention",
         module="lib_path",
         finding=FindingEnum.F402,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_api_gateway_access_logging_disabled",
+        module="lib_path",
+        finding=FindingEnum.F408,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
