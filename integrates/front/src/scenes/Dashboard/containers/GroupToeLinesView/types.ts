@@ -1,6 +1,7 @@
 interface IFilterSet {
   filenameExtension: string;
   priority: { max: string; min: string };
+  root: string;
 }
 interface IToeLinesEdge {
   node: IToeLinesAttr;

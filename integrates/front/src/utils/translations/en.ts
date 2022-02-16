@@ -936,7 +936,16 @@ export const enTranslations: ResourceKey = {
         filename: "Filename",
         filters: {
           extension: {
+            placeholder: "Extension",
             tooltip: "Filter by extension",
+          },
+          priority: {
+            placeholder: "Priority % (range)",
+            tooltip: "Filter by priority %",
+          },
+          root: {
+            placeholder: "Root",
+            tooltip: "Filter by root",
           },
         },
         firstAttackAt: "First attack at",

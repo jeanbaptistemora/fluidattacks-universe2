@@ -129,6 +129,19 @@ const filterPriority: (
       });
 };
 
+const filterRoot: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] =>
+  _.isEmpty(filterGroupToeLinesTable.root)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return toeLinesData.rootNickname === filterGroupToeLinesTable.root;
+      });
+
 const filterSearchtextResult: (
   searchTextFilter: string,
   toeLines: IToeLinesData[]
@@ -151,6 +164,7 @@ const getFilteredData: (
     toeLines
   );
   const filteredPriority = filterPriority(filterGroupToeLinesTable, toeLines);
+  const filteredRoot = filterRoot(filterGroupToeLinesTable, toeLines);
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
     toeLines
@@ -158,6 +172,7 @@ const getFilteredData: (
   const filteredData: IToeLinesData[] = _.intersection(
     filteredFilenameExtensions,
     filteredPriority,
+    filteredRoot,
     filteredSearchtextResult
   );
 

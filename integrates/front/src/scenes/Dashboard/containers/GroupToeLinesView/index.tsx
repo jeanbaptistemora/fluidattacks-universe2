@@ -114,6 +114,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       {
         filenameExtension: "",
         priority: { max: "", min: "" },
+        root: "",
       },
       localStorage
     );
@@ -400,6 +401,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       (): IFilterSet => ({
         filenameExtension: "",
         priority: { max: "", min: "" },
+        root: "",
       })
     );
     setSearchTextFilter("");
@@ -438,6 +440,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
+  }
+  function onRootChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    event.persist();
+    setFilterGroupToeLinesTable(
+      (value): IFilterSet => ({
+        ...value,
+        root: event.target.value,
+      })
+    );
   }
   function onExtensionChange(
     event: React.ChangeEvent<HTMLSelectElement>
@@ -484,6 +495,12 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         val === NOEXTENSION ? "" : val,
       ])
   );
+  const rootSelectOptions = Object.fromEntries(
+    toeLines.map((toeLinesData: IToeLinesData): string[] => [
+      toeLinesData.rootNickname,
+      toeLinesData.rootNickname,
+    ])
+  );
 
   const filteredData: IToeLinesData[] = getFilteredData(
     filterGroupToeLinesTable,
@@ -492,9 +509,18 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   );
   const customFiltersProps: IFilterProps[] = [
     {
+      defaultValue: filterGroupToeLinesTable.root,
+      onChangeSelect: onRootChange,
+      placeholder: translate.t("group.toe.lines.filters.root.placeholder"),
+      selectOptions: rootSelectOptions,
+      tooltipId: "group.toe.lines.filters.root.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.root.tooltip",
+      type: "select",
+    },
+    {
       defaultValue: filterGroupToeLinesTable.filenameExtension,
       onChangeSelect: onExtensionChange,
-      placeholder: "Extension",
+      placeholder: translate.t("group.toe.lines.filters.extension.placeholder"),
       selectOptions: extensionSelectOptions,
       tooltipId: "group.toe.lines.filters.extension.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.extension.tooltip",
@@ -502,15 +528,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     {
       defaultValue: "",
-      placeholder: "Priority % (range)",
+      placeholder: translate.t("group.toe.lines.filters.priority.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.priority,
         onChangeMax: onPriorityMaxChange,
         onChangeMin: onPriorityMinChange,
         step: 1,
       },
-      tooltipId: "group.findings.filtersTooltips.severity.id",
-      tooltipMessage: "group.findings.filtersTooltips.severity",
+      tooltipId: "group.toe.lines.filters.priority.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.priority.tooltip",
       type: "range",
     },
   ];
