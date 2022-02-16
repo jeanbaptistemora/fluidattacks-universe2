@@ -108,7 +108,10 @@ def format_percentages(
     return (percentage_values, max_percentage_values)
 
 
-def format_data(data: List[Status]) -> Dict[str, Any]:
+def format_data(data: List[Status], size_limit: int = 0) -> Dict[str, Any]:
+    limited_data = (
+        list(reversed(data))[:size_limit] if size_limit else list(data)
+    )
     percentage_values = [
         format_percentages(
             {
@@ -116,15 +119,18 @@ def format_data(data: List[Status]) -> Dict[str, Any]:
                 "Open": Decimal(group.open_vulnerabilities),
             }
         )
-        for group in data
+        for group in limited_data
     ]
 
     return dict(
         data=dict(
             columns=[
                 ["Closed"]
-                + [str(group.closed_vulnerabilities) for group in data],
-                ["Open"] + [str(group.open_vulnerabilities) for group in data],
+                + [
+                    str(group.closed_vulnerabilities) for group in limited_data
+                ],
+                ["Open"]
+                + [str(group.open_vulnerabilities) for group in limited_data],
             ],
             colors={
                 "Closed": RISK.more_passive,
@@ -149,7 +155,7 @@ def format_data(data: List[Status]) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[group.group_name for group in data],
+                categories=[group.group_name for group in limited_data],
                 type="category",
                 tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
             ),
@@ -189,6 +195,7 @@ async def generate_all() -> None:
         utils.json_dump(
             document=format_data(
                 data=await get_data_many_groups(list(org_groups)),
+                size_limit=24,
             ),
             entity="organization",
             subject=org_id,

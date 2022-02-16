@@ -151,7 +151,8 @@ def format_percentages(
     return (percentage_values, max_percentage_values)
 
 
-def format_data(data: List[Treatment]) -> Dict[str, Any]:
+def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
+    limited_data = list(reversed(data))[:limit] if limit else list(data)
     percentage_values = [
         format_percentages(
             {
@@ -161,21 +162,24 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
                 "Open": Decimal(group.remaining_open_vulnerabilities),
             }
         )
-        for group in data
+        for group in limited_data
     ]
 
     return dict(
         data=dict(
             columns=[
                 ["Closed"]
-                + [str(group.closed_vulnerabilities) for group in data],
+                + [
+                    str(group.closed_vulnerabilities) for group in limited_data
+                ],
                 ["Temporarily Accepted"]
-                + [str(group.accepted) for group in data],
+                + [str(group.accepted) for group in limited_data],
                 ["Permanently accepted"]
-                + [str(group.accepted_undefined) for group in data],
+                + [str(group.accepted_undefined) for group in limited_data],
                 ["Open"]
                 + [
-                    str(group.remaining_open_vulnerabilities) for group in data
+                    str(group.remaining_open_vulnerabilities)
+                    for group in limited_data
                 ],
             ],
             colors={
@@ -208,7 +212,7 @@ def format_data(data: List[Treatment]) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[group.group_name for group in data],
+                categories=[group.group_name for group in limited_data],
                 type="category",
                 tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
             ),
@@ -264,6 +268,7 @@ async def generate_all() -> None:
         utils.json_dump(
             document=format_data(
                 data=await get_data_many_groups(list(org_groups)),
+                limit=24,
             ),
             entity="organization",
             subject=org_id,
