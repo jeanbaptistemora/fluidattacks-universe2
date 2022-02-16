@@ -3,8 +3,8 @@
 This migration populates the attributes to be used as index keys for the new
 get_organization_roots access pattern.
 
-Execution Time:
-Finalization Time:
+Execution Time: 2022-02-16 at 14:03:23 UTC
+Finalization Time: 2022-02-16 at 14:05:18 UTC
 """
 
 from aioextensions import (

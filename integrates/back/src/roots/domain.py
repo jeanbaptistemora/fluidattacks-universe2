@@ -143,17 +143,6 @@ def format_root(root: RootItem) -> Root:
     )
 
 
-@newrelic.agent.function_trace()
-async def get_org_roots(*, loaders: Any, org_id: str) -> Tuple[RootItem, ...]:
-    org_groups = await orgs_domain.get_groups(org_id)
-
-    return tuple(
-        root
-        for group_roots in await loaders.group_roots.load_many(org_groups)
-        for root in group_roots
-    )
-
-
 async def _notify_health_check(
     *, group_name: str, request: bool, root: GitRootItem, user_email: str
 ) -> None:
@@ -219,7 +208,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     organization = await loaders.organization.load(group["organization"])
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
-        await get_org_roots(loaders=loaders, org_id=group["organization"]),
+        await loaders.organization_roots.load(organization["name"]),
     ):
         raise RepeatedRoot()
 
@@ -296,7 +285,7 @@ async def add_ip_root(
     if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
         port,
-        await get_org_roots(loaders=loaders, org_id=group["organization"]),
+        await loaders.organization_roots.load(organization["name"]),
     ):
         raise RepeatedRoot()
 
@@ -364,7 +353,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         path,
         port,
         protocol,
-        await get_org_roots(loaders=loaders, org_id=group["organization"]),
+        await loaders.organization_roots.load(organization["name"]),
     ):
         raise RepeatedRoot()
 
@@ -570,9 +559,10 @@ async def update_git_root(
         ):
             raise HasVulns()
         group = await loaders.group.load(group_name)
+        organization = await loaders.organization.load(group["organization"])
         if not validations.is_git_unique(
             url,
-            await get_org_roots(loaders=loaders, org_id=group["organization"]),
+            await loaders.organization_roots.load(organization["name"]),
         ):
             raise RepeatedRoot()
 
@@ -673,9 +663,8 @@ async def activate_root(
 
     if root.state.status != new_status:
         group = await loaders.group.load(group_name)
-        org_roots = await get_org_roots(
-            loaders=loaders, org_id=group["organization"]
-        )
+        organization = await loaders.organization.load(group["organization"])
+        org_roots = await loaders.organization_roots.load(organization["name"])
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(root.state.url, org_roots):

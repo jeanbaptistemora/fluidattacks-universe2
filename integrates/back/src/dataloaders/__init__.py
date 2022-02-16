@@ -33,6 +33,7 @@ from db_model.findings.get import (
 )
 from db_model.roots.get import (
     GroupRootsLoader,
+    OrganizationRootsLoader,
     RootLoader,
     RootMachineExecutionsLoader,
     RootStatesLoader,
@@ -94,6 +95,7 @@ class Dataloaders(NamedTuple):
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     organization: OrganizationLoader
+    organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
@@ -168,6 +170,7 @@ def get_new_context() -> Dataloaders:
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         organization=OrganizationLoader(),
+        organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
         root=RootLoader(),

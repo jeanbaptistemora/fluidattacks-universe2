@@ -17,6 +17,9 @@ from db_model import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.constants import (
+    ORG_INDEX_METADATA,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -60,7 +63,7 @@ def format_unreliable_indicators(
 def _format_root(*, item: Item) -> RootItem:
     root_id = item["pk"].split("#")[1]
     group_name = item["sk"].split("#")[1]
-    organization_name = item["pk_2"].split("#")[1] if "pk_2" in item else str()
+    organization_name = item["pk_2"].split("#")[1]
     state = item["state"]
     unreliable_indicators = (
         format_unreliable_indicators(item["unreliable_indicators"])
@@ -208,6 +211,45 @@ class GroupRootsLoader(DataLoader):
         return await collect(
             _get_group_roots(group_name=group_name)
             for group_name in group_names
+        )
+
+
+async def _get_organization_roots(
+    *, organization_name: str
+) -> Tuple[RootItem, ...]:
+    primary_key = keys.build_key(
+        facet=ORG_INDEX_METADATA,
+        values={"name": organization_name},
+    )
+
+    index = TABLE.indexes["gsi_2"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(
+            TABLE.facets["git_root_metadata"],
+            TABLE.facets["ip_root_metadata"],
+            TABLE.facets["url_root_metadata"],
+        ),
+        filter_expression=Attr("type").exists(),
+        index=index,
+        table=TABLE,
+    )
+
+    return tuple(_format_root(item=item) for item in response.items)
+
+
+class OrganizationRootsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_names: List[str]
+    ) -> Tuple[Tuple[RootItem, ...], ...]:
+        return await collect(
+            _get_organization_roots(organization_name=organization_name)
+            for organization_name in organization_names
         )
 
 
