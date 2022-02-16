@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { HandleEditionModal } from "./HandleEditionModal";
 import {
+  getFilteredData,
   getNonSelectable,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
@@ -25,7 +26,6 @@ import type {
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
   IFilterSet,
@@ -113,6 +113,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       "filterGroupToeLinesSet",
       {
         filenameExtension: "",
+        priority: { max: "", min: "" },
       },
       localStorage
     );
@@ -394,6 +395,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
+  function clearFilters(): void {
+    setFilterGroupToeLinesTable(
+      (): IFilterSet => ({
+        filenameExtension: "",
+        priority: { max: "", min: "" },
+      })
+    );
+    setSearchTextFilter("");
+  }
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
@@ -410,6 +420,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     // It is important to run only during the first render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect((): void => {
+    clearFilters();
+    // It is important to run only during the first render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -419,25 +434,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     setEditing(!isEditing);
   }
 
-  function clearFilters(): void {
-    setFilterGroupToeLinesTable(
-      (): IFilterSet => ({
-        filenameExtension: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextResult: IToeLinesData[] = filterSearchText(
-    toeLines,
-    searchTextFilter
-  );
-
   function onExtensionChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
@@ -449,16 +450,28 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       })
     );
   }
-
-  const filterFilenameExtensions: IToeLinesData[] = _.isEmpty(
-    filterGroupToeLinesTable.filenameExtension
-  )
-    ? toeLines
-    : toeLines.filter((toeLinesData): boolean => {
-        return (
-          toeLinesData.extension === filterGroupToeLinesTable.filenameExtension
-        );
-      });
+  function onPriorityMinChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    event.persist();
+    setFilterGroupToeLinesTable(
+      (value): IFilterSet => ({
+        ...value,
+        priority: { ...value.priority, min: event.target.value },
+      })
+    );
+  }
+  function onPriorityMaxChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    event.persist();
+    setFilterGroupToeLinesTable(
+      (value): IFilterSet => ({
+        ...value,
+        priority: { ...value.priority, max: event.target.value },
+      })
+    );
+  }
 
   const extensionSelectOptions = Object.fromEntries(
     toeLines
@@ -471,6 +484,12 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         val === NOEXTENSION ? "" : val,
       ])
   );
+
+  const filteredData: IToeLinesData[] = getFilteredData(
+    filterGroupToeLinesTable,
+    searchTextFilter,
+    toeLines
+  );
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterGroupToeLinesTable.filenameExtension,
@@ -481,11 +500,20 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       tooltipMessage: "group.toe.lines.filters.extension.tooltip",
       type: "select",
     },
+    {
+      defaultValue: "",
+      placeholder: "Priority % (range)",
+      rangeProps: {
+        defaultValue: filterGroupToeLinesTable.priority,
+        onChangeMax: onPriorityMaxChange,
+        onChangeMin: onPriorityMinChange,
+        step: 1,
+      },
+      tooltipId: "group.findings.filtersTooltips.severity.id",
+      tooltipMessage: "group.findings.filtersTooltips.severity",
+      type: "range",
+    },
   ];
-  const resultExecutions: IToeLinesData[] = _.intersection(
-    filterSearchtextResult,
-    filterFilenameExtensions
-  );
 
   const initialSort: string = JSON.stringify({
     dataField: "rootNickname",
@@ -517,10 +545,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     clickToSelect: false,
     hideSelectColumn: !isInternal || !canUpdateAttackedLines,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(resultExecutions),
+    nonSelectable: getNonSelectable(filteredData),
     onSelect: onSelectOneToeLinesData,
     onSelectAll: onSelectSeveralToeLinesDatas,
-    selected: getToeLinesIndex(selectedToeLinesDatas, resultExecutions),
+    selected: getToeLinesIndex(selectedToeLinesDatas, filteredData),
   };
 
   return (
@@ -541,7 +569,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={resultExecutions}
+        dataset={filteredData}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "toeLinesSort", initialSort)
         )}

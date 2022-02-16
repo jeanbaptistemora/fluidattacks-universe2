@@ -1,4 +1,8 @@
-import type { IToeLinesData } from "./types";
+import _ from "lodash";
+
+import type { IFilterSet, IToeLinesData } from "./types";
+
+import { filterSearchText } from "components/DataTableNext/utils/filters";
 
 const getToeLinesId: (toeLinesData: IToeLinesData) => string = (
   toeLinesData: IToeLinesData
@@ -82,4 +86,87 @@ function getNonSelectable(toeLinesDatas: IToeLinesData[]): number[] {
   return nonSelectable;
 }
 
-export { getNonSelectable, getToeLinesIndex, onSelectSeveralToeLinesHelper };
+const filterFilenameExtensions: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] =>
+  _.isEmpty(filterGroupToeLinesTable.filenameExtension)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return (
+          toeLinesData.extension === filterGroupToeLinesTable.filenameExtension
+        );
+      });
+
+const filterPriority: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => {
+  const priorityMax = parseFloat(filterGroupToeLinesTable.priority.max);
+  const priorityMin = parseFloat(filterGroupToeLinesTable.priority.min);
+  const filteredPriorityMax: IToeLinesData[] = isNaN(priorityMax)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return (
+          toeLinesData.sortsRiskLevel >= 0 &&
+          toeLinesData.sortsRiskLevel <= priorityMax
+        );
+      });
+
+  return isNaN(priorityMin)
+    ? filteredPriorityMax
+    : filteredPriorityMax.filter((toeLinesData): boolean => {
+        return (
+          toeLinesData.sortsRiskLevel >= 0 &&
+          priorityMin <= toeLinesData.sortsRiskLevel
+        );
+      });
+};
+
+const filterSearchtextResult: (
+  searchTextFilter: string,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  searchTextFilter: string,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => filterSearchText(toeLines, searchTextFilter);
+
+const getFilteredData: (
+  filterGroupToeLinesTable: IFilterSet,
+  searchTextFilter: string,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  searchTextFilter: string,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => {
+  const filteredFilenameExtensions = filterFilenameExtensions(
+    filterGroupToeLinesTable,
+    toeLines
+  );
+  const filteredPriority = filterPriority(filterGroupToeLinesTable, toeLines);
+  const filteredSearchtextResult = filterSearchtextResult(
+    searchTextFilter,
+    toeLines
+  );
+  const filteredData: IToeLinesData[] = _.intersection(
+    filteredFilenameExtensions,
+    filteredPriority,
+    filteredSearchtextResult
+  );
+
+  return filteredData;
+};
+
+export {
+  getFilteredData,
+  getNonSelectable,
+  getToeLinesIndex,
+  onSelectSeveralToeLinesHelper,
+};
