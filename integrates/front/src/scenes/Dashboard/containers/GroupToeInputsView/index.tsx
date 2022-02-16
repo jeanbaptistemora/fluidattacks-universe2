@@ -39,6 +39,8 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
+const NOROOT = "no root";
+
 const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   props: IGroupToeInputsViewProps
 ): JSX.Element => {
@@ -96,6 +98,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       "filterGroupToeInputSet",
       {
         bePresent: "",
+        root: "",
       },
       localStorage
     );
@@ -155,12 +158,16 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const formatOptionalDate: (date: string | null) => Date | undefined = (
     date: string | null
   ): Date | undefined => (_.isNull(date) ? undefined : new Date(date));
+  const markNickname: (rootNickname: string) => string = (
+    rootNickname: string
+  ): string => (_.isEmpty(rootNickname) ? NOROOT : rootNickname);
   const toeInputs: IToeInputData[] = toeInputsEdges.map(
     ({ node }): IToeInputData => ({
       ...node,
       attackedAt: formatOptionalDate(node.attackedAt),
       bePresentUntil: formatOptionalDate(node.bePresentUntil),
       firstAttackAt: formatOptionalDate(node.firstAttackAt),
+      markedRootNickname: markNickname(node.unreliableRootNickname),
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
@@ -286,6 +293,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     setFilterGroupToeInputTable(
       (): IFilterSet => ({
         bePresent: "",
+        root: "",
       })
     );
     setSearchTextFilter("");
@@ -341,11 +349,26 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   ): void {
     setSearchTextFilter(event.target.value);
   }
+  const rootSelectOptions = Object.fromEntries(
+    toeInputs.map((toeInputData: IToeInputData): string[] => [
+      toeInputData.markedRootNickname,
+      toeInputData.unreliableRootNickname,
+    ])
+  );
   const booleanSelectOptions = Object.fromEntries([
     ["false", formatBoolean(false)],
     ["true", formatBoolean(true)],
   ]);
   const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: filterGroupToeInputTable.root,
+      onChangeSelect: onBasicFilterValueChange("root"),
+      placeholder: translate.t("group.toe.inputs.filters.root.placeholder"),
+      selectOptions: rootSelectOptions,
+      tooltipId: "group.toe.inputs.filters.root.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.root.tooltip",
+      type: "select",
+    },
     {
       defaultValue: filterGroupToeInputTable.bePresent,
       onChangeSelect: onBasicFilterValueChange("bePresent"),

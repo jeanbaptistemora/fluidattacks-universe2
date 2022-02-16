@@ -56,6 +56,7 @@ describe("handle toe input edition modal", (): void => {
         entryPoint: "-",
         firstAttackAt: new Date("2020-02-19T15:41:04+00:00"),
         hasVulnerabilities: true,
+        markedRootNickname: "nickname",
         seenAt: new Date("2020-02-01T15:41:04+00:00"),
         seenFirstTimeBy: "test1@test.com",
         unreliableRootNickname: "nickname",

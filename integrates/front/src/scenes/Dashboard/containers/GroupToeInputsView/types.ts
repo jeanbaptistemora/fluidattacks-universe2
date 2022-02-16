@@ -1,5 +1,6 @@
 interface IFilterSet {
   bePresent: string;
+  root: string;
 }
 
 interface IGroupToeInputsViewProps {
@@ -46,6 +47,7 @@ interface IToeInputData {
   entryPoint: string;
   firstAttackAt: Date | undefined;
   hasVulnerabilities: boolean;
+  markedRootNickname: string;
   seenAt: Date | undefined;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;

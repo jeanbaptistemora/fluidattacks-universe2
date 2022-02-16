@@ -75,19 +75,33 @@ const onSelectSeveralToeInputHelper = (
 
 const filterBePresent: (
   filterGroupToeInputTable: IFilterSet,
-  toeInput: IToeInputData[]
+  toeInputs: IToeInputData[]
 ) => IToeInputData[] = (
   filterGroupToeInputTable: IFilterSet,
-  toeInput: IToeInputData[]
+  toeInputs: IToeInputData[]
 ): IToeInputData[] => {
   const bePresent = filterGroupToeInputTable.bePresent === "true";
 
   return _.isEmpty(filterGroupToeInputTable.bePresent)
-    ? toeInput
-    : toeInput.filter((toeInputData): boolean => {
+    ? toeInputs
+    : toeInputs.filter((toeInputData): boolean => {
         return toeInputData.bePresent === bePresent;
       });
 };
+const filterRoot: (
+  filterGroupToeInputTable: IFilterSet,
+  toeInput: IToeInputData[]
+) => IToeInputData[] = (
+  filterGroupToeInputTable: IFilterSet,
+  toeInput: IToeInputData[]
+): IToeInputData[] =>
+  _.isEmpty(filterGroupToeInputTable.root)
+    ? toeInput
+    : toeInput.filter((toeInputData): boolean => {
+        return (
+          toeInputData.markedRootNickname === filterGroupToeInputTable.root
+        );
+      });
 
 const filterSearchtextResult: (
   searchTextFilter: string,
@@ -107,12 +121,14 @@ const getFilteredData: (
   toeInput: IToeInputData[]
 ): IToeInputData[] => {
   const filteredBePresent = filterBePresent(filterGroupToeInputTable, toeInput);
+  const filteredRoot = filterRoot(filterGroupToeInputTable, toeInput);
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
     toeInput
   );
   const filteredData: IToeInputData[] = _.intersection(
     filteredBePresent,
+    filteredRoot,
     filteredSearchtextResult
   );
 
