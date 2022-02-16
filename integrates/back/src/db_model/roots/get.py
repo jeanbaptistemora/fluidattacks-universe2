@@ -60,6 +60,7 @@ def format_unreliable_indicators(
 def _format_root(*, item: Item) -> RootItem:
     root_id = item["pk"].split("#")[1]
     group_name = item["sk"].split("#")[1]
+    organization_name = item["pk_2"].split("#")[1] if "pk_2" in item else str()
     state = item["state"]
     unreliable_indicators = (
         format_unreliable_indicators(item["unreliable_indicators"])
@@ -80,6 +81,7 @@ def _format_root(*, item: Item) -> RootItem:
             ),
             group_name=group_name,
             id=root_id,
+            organization_name=organization_name,
             metadata=GitRootMetadata(type=item["type"]),
             state=GitRootState(
                 branch=state["branch"],
@@ -107,6 +109,7 @@ def _format_root(*, item: Item) -> RootItem:
             group_name=group_name,
             id=root_id,
             metadata=IPRootMetadata(type=item["type"]),
+            organization_name=organization_name,
             state=IPRootState(
                 address=state["address"],
                 modified_by=state["modified_by"],
@@ -124,6 +127,7 @@ def _format_root(*, item: Item) -> RootItem:
         group_name=group_name,
         id=root_id,
         metadata=URLRootMetadata(type=item["type"]),
+        organization_name=organization_name,
         state=URLRootState(
             host=state["host"],
             modified_by=state["modified_by"],

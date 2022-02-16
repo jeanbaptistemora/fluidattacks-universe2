@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 12, 2022, 09:42 PM",
+    "DateLastModified": "Feb 16, 2022, 07:26 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1296,6 +1296,8 @@
           ],
           "NonKeyAttributes": [
             "type",
+            "pk_2",
+            "sk_2",
             "state",
             "cloning"
           ]
@@ -1478,7 +1480,8 @@
             "status",
             "reason",
             "modified_date",
-            "commit"
+            "commit",
+            "commit_date"
           ]
         },
         {
@@ -1557,7 +1560,9 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "state"
+            "state",
+            "pk_2",
+            "sk_2"
           ]
         },
         {
@@ -1680,7 +1685,9 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "state"
+            "state",
+            "pk_2",
+            "sk_2"
           ]
         },
         {

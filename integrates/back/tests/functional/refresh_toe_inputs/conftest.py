@@ -42,6 +42,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment="production",
@@ -64,6 +65,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 metadata=URLRootMetadata(type="URL"),
+                organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
                     modified_by="admin@gmail.com",
@@ -81,6 +83,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                 metadata=URLRootMetadata(type="URL"),
+                organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
                     modified_by="admin@gmail.com",

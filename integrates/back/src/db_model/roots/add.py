@@ -5,6 +5,9 @@ from contextlib import (
 from db_model import (
     TABLE,
 )
+from db_model.roots.constants import (
+    ORG_INDEX_METADATA,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
@@ -24,9 +27,16 @@ async def add(*, root: RootItem) -> None:
         facet=TABLE.facets["git_root_metadata"],
         values={"name": root.group_name, "uuid": root.id},
     )
+    gsi_2_index = TABLE.indexes["gsi_2"]
+    gsi_2_key = keys.build_key(
+        facet=ORG_INDEX_METADATA,
+        values={"name": root.organization_name, "uuid": root.id},
+    )
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         "state": json.loads(json.dumps(root.state)),
         **json.loads(json.dumps(root.metadata)),
     }

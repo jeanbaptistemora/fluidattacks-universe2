@@ -491,6 +491,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment="production",

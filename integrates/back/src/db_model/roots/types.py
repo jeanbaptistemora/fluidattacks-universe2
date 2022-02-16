@@ -54,6 +54,7 @@ class GitRootItem(NamedTuple):
     group_name: str
     id: str
     metadata: GitRootMetadata
+    organization_name: str
     state: GitRootState
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
@@ -79,6 +80,7 @@ class IPRootItem(NamedTuple):
     group_name: str
     id: str
     metadata: IPRootMetadata
+    organization_name: str
     state: IPRootState
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
@@ -106,6 +108,7 @@ class URLRootItem(NamedTuple):
     group_name: str
     id: str
     metadata: URLRootMetadata
+    organization_name: str
     state: URLRootState
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()

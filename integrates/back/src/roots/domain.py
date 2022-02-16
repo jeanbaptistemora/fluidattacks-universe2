@@ -186,7 +186,7 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
-async def add_git_root(
+async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
@@ -216,6 +216,7 @@ async def add_git_root(
         raise InvalidRootExclusion()
 
     group = await loaders.group.load(group_name)
+    organization = await loaders.organization.load(group["organization"])
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
         await get_org_roots(loaders=loaders, org_id=group["organization"]),
@@ -232,6 +233,7 @@ async def add_git_root(
         group_name=group_name,
         id=str(uuid4()),
         metadata=GitRootMetadata(type="Git"),
+        organization_name=organization["name"],
         state=GitRootState(
             branch=branch,
             environment_urls=[],
@@ -289,6 +291,7 @@ async def add_ip_root(
         raise InvalidParameter()
 
     group = await loaders.group.load(group_name)
+    organization = await loaders.organization.load(group["organization"])
 
     if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
@@ -309,6 +312,7 @@ async def add_ip_root(
         group_name=group_name,
         id=str(uuid4()),
         metadata=IPRootMetadata(type="IP"),
+        organization_name=organization["name"],
         state=IPRootState(
             address=address,
             modified_by=user_email,
@@ -328,7 +332,7 @@ async def add_ip_root(
     return root.id
 
 
-async def add_url_root(
+async def add_url_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
@@ -353,6 +357,7 @@ async def add_url_root(
     port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
     group = await loaders.group.load(group_name)
+    organization = await loaders.organization.load(group["organization"])
 
     if ensure_org_uniqueness and not validations.is_url_unique(
         host,
@@ -374,6 +379,7 @@ async def add_url_root(
         group_name=group_name,
         id=str(uuid4()),
         metadata=URLRootMetadata(type="URL"),
+        organization_name=organization["name"],
         state=URLRootState(
             host=host,
             modified_by=user_email,
@@ -624,6 +630,7 @@ async def update_git_root(
         cloning=root.cloning,
         group_name=root.group_name,
         id=root.id,
+        organization_name=root.organization_name,
         metadata=root.metadata,
         state=new_state,
         unreliable_indicators=root.unreliable_indicators,

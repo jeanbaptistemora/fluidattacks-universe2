@@ -74,6 +74,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="e22a3a0d-05ac-4d13-8c81-7c829f8f96e3",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment_urls=[],
@@ -99,6 +100,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="888648ed-a71c-42e5-b3e5-c3a370d26c68",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment_urls=[],
@@ -124,6 +126,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="3626aca5-099c-42b9-aa25-d8c6e0aab98f",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment_urls=[],
@@ -149,6 +152,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="58167a02-08c2-4cdf-a5e4-568398cbe7cb",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment_urls=[],
@@ -174,6 +178,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="c75f9c2c-1984-49cf-bd3f-c628175a569c",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment_urls=[],

@@ -1,14 +1,10 @@
 # pylint: disable=invalid-name
 """
-This migration merges metadata, state and cloning into the same item,
-which translates to faster queries due to less returned items and enables
-get item operations that allow developers to load roots in an efficient way.
+This migration removes the items previously used to store the current states
+of a root as they have been replaced by a single item strategy.
 
-Execution Time: 2022-02-13 at 01:07:44 UTC
-Finalization Time: 2022-02-13 at 01:09:28 UTC
-
-Execution Time: 2022-02-14 at 23:09:50 UTC
-Finalization Time: 2022-02-14 at 23:10:29 UTC
+Execution Time: 2022-02-15 at 20:21:54 UTC
+Finalization Time: 2022-02-15 at 20:26:37 UTC
 """
 
 from aioextensions import (

@@ -71,6 +71,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment="production",
@@ -93,6 +94,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group2",
                 id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                 metadata=IPRootMetadata(type="IP"),
+                organization_name="orgtest",
                 state=IPRootState(
                     address="192.168.1.1",
                     modified_by=test_email,
@@ -108,6 +110,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group2",
                 id="eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
                 metadata=URLRootMetadata(type="URL"),
+                organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
                     modified_by=test_email,
@@ -130,6 +133,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group2",
                 id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
                 metadata=GitRootMetadata(type="Git"),
+                organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
                     environment="production",
@@ -152,6 +156,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
                 metadata=IPRootMetadata(type="IP"),
+                organization_name="orgtest",
                 state=IPRootState(
                     # FP: local testing
                     address="192.168.1.2",  # NOSONAR
@@ -168,6 +173,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="bd4e5e66-da26-4274-87ed-17de7c3bc2f1",
                 metadata=URLRootMetadata(type="URL"),
+                organization_name="orgtest",
                 state=URLRootState(
                     host="test.fluidattacks.com",
                     modified_by=test_email,
