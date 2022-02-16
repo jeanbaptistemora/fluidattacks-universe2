@@ -3,8 +3,8 @@
 Remove compromised_attributes and compromised_records attrs from
 findings in DynamoDB.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-02-16 at 17:54:58 UTC
+Finalization Time:  2022-02-16 at 17:56:29 UTC
 """
 
 from aioextensions import (
