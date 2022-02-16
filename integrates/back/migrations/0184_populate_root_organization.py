@@ -75,7 +75,7 @@ async def process_group(
     group = await loaders.group.load(group_name)
     roots = await loaders.group_roots.load(group_name)
 
-    if roots:
+    if roots and group.get("organization"):
         organization = await loaders.organization.load(group["organization"])
         organization_name = organization["name"]
 
