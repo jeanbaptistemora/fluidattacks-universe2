@@ -23,13 +23,10 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
     IPRootItem,
-    IPRootMetadata,
     IPRootState,
     URLRootItem,
-    URLRootMetadata,
     URLRootState,
 )
 from db_model.vulnerabilities.enums import (
@@ -70,7 +67,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -89,11 +85,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=test_status,
                     url="https://gitlab.com/fluidattacks/product",
                 ),
+                type="Git",
             ),
             IPRootItem(
                 group_name="group2",
                 id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
-                metadata=IPRootMetadata(type="IP"),
                 organization_name="orgtest",
                 state=IPRootState(
                     address="192.168.1.1",
@@ -105,11 +101,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
+                type="IP",
             ),
             URLRootItem(
                 group_name="group2",
                 id="eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
-                metadata=URLRootMetadata(type="URL"),
                 organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
@@ -123,6 +119,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
+                type="URL",
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -132,7 +129,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group2",
                 id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -151,11 +147,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=test_status,
                     url="https://gitlab.com/fluidattacks/repo",
                 ),
+                type="Git",
             ),
             IPRootItem(
                 group_name="group1",
                 id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
-                metadata=IPRootMetadata(type="IP"),
                 organization_name="orgtest",
                 state=IPRootState(
                     # FP: local testing
@@ -168,11 +164,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
+                type="IP",
             ),
             URLRootItem(
                 group_name="group1",
                 id="bd4e5e66-da26-4274-87ed-17de7c3bc2f1",
-                metadata=URLRootMetadata(type="URL"),
                 organization_name="orgtest",
                 state=URLRootState(
                     host="test.fluidattacks.com",
@@ -186,6 +182,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
+                type="URL",
             ),
         ),
         "findings": [

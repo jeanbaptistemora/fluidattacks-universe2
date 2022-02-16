@@ -24,10 +24,8 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
     IPRootItem,
-    IPRootMetadata,
     IPRootState,
     MachineFindingResult,
     RootItem,
@@ -35,7 +33,6 @@ from db_model.roots.types import (
     RootState,
     RootUnreliableIndicators,
     URLRootItem,
-    URLRootMetadata,
     URLRootState,
 )
 from dynamodb import (
@@ -85,7 +82,6 @@ def _format_root(*, item: Item) -> RootItem:
             group_name=group_name,
             id=root_id,
             organization_name=organization_name,
-            metadata=GitRootMetadata(type=item["type"]),
             state=GitRootState(
                 branch=state["branch"],
                 environment_urls=state["environment_urls"],
@@ -104,6 +100,7 @@ def _format_root(*, item: Item) -> RootItem:
                 status=state["status"],
                 url=state["url"],
             ),
+            type=item["type"],
             unreliable_indicators=unreliable_indicators,
         )
 
@@ -111,7 +108,6 @@ def _format_root(*, item: Item) -> RootItem:
         return IPRootItem(
             group_name=group_name,
             id=root_id,
-            metadata=IPRootMetadata(type=item["type"]),
             organization_name=organization_name,
             state=IPRootState(
                 address=state["address"],
@@ -123,13 +119,13 @@ def _format_root(*, item: Item) -> RootItem:
                 reason=state.get("reason"),
                 status=state["status"],
             ),
+            type=item["type"],
             unreliable_indicators=unreliable_indicators,
         )
 
     return URLRootItem(
         group_name=group_name,
         id=root_id,
-        metadata=URLRootMetadata(type=item["type"]),
         organization_name=organization_name,
         state=URLRootState(
             host=state["host"],
@@ -143,6 +139,7 @@ def _format_root(*, item: Item) -> RootItem:
             reason=state.get("reason"),
             status=state["status"],
         ),
+        type=item["type"],
         unreliable_indicators=unreliable_indicators,
     )
 

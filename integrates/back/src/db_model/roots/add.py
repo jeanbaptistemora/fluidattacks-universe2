@@ -37,9 +37,9 @@ async def add(*, root: RootItem) -> None:
         key_structure.sort_key: metadata_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
-        "state": json.loads(json.dumps(root.state)),
-        **json.loads(json.dumps(root.metadata)),
+        **json.loads(json.dumps(root)),
     }
+    items.append(initial_metadata)
 
     state_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_state"],
@@ -53,7 +53,6 @@ async def add(*, root: RootItem) -> None:
     items.append(historic_state_item)
 
     if isinstance(root, GitRootItem):
-        initial_metadata["cloning"] = json.loads(json.dumps(root.cloning))
         cloning_key = keys.build_key(
             facet=TABLE.facets["git_root_historic_cloning"],
             values={"uuid": root.id, "iso8601utc": root.cloning.modified_date},
@@ -64,7 +63,6 @@ async def add(*, root: RootItem) -> None:
             **json.loads(json.dumps(root.cloning)),
         }
         items.append(historic_cloning_item)
-    items.append(initial_metadata)
 
     await operations.batch_put_item(items=items, table=TABLE)
 

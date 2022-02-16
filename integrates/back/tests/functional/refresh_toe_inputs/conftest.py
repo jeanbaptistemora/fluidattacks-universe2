@@ -11,10 +11,8 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
     URLRootItem,
-    URLRootMetadata,
     URLRootState,
 )
 from db_model.toe_inputs.types import (
@@ -41,7 +39,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -60,11 +57,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
+                type="Git",
             ),
             URLRootItem(
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                metadata=URLRootMetadata(type="URL"),
                 organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
@@ -78,11 +75,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status="INACTIVE",
                 ),
+                type="URL",
             ),
             URLRootItem(
                 group_name="group1",
                 id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                metadata=URLRootMetadata(type="URL"),
                 organization_name="orgtest",
                 state=URLRootState(
                     host="app.fluidattacks.com",
@@ -96,6 +93,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status="ACTIVE",
                 ),
+                type="URL",
             ),
         ),
         "toe_inputs": (

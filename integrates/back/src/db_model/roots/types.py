@@ -17,10 +17,6 @@ class RootUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_last_status_update: Optional[str] = None
 
 
-class GitRootMetadata(NamedTuple):
-    type: str
-
-
 class GitRootCloning(NamedTuple):
     modified_date: str
     reason: str
@@ -53,16 +49,12 @@ class GitRootItem(NamedTuple):
     cloning: GitRootCloning
     group_name: str
     id: str
-    metadata: GitRootMetadata
     organization_name: str
     state: GitRootState
+    type: str
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
-
-
-class IPRootMetadata(NamedTuple):
-    type: str
 
 
 class IPRootState(NamedTuple):
@@ -79,16 +71,12 @@ class IPRootState(NamedTuple):
 class IPRootItem(NamedTuple):
     group_name: str
     id: str
-    metadata: IPRootMetadata
     organization_name: str
     state: IPRootState
+    type: str
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
-
-
-class URLRootMetadata(NamedTuple):
-    type: str
 
 
 class URLRootState(NamedTuple):
@@ -107,9 +95,9 @@ class URLRootState(NamedTuple):
 class URLRootItem(NamedTuple):
     group_name: str
     id: str
-    metadata: URLRootMetadata
     organization_name: str
     state: URLRootState
+    type: str
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )

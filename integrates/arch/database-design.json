@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 16, 2022, 07:28 AM",
+    "DateLastModified": "Feb 16, 2022, 02:43 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1215,6 +1215,13 @@
                   }
                 }
               },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_last_status_update": {
+                    "S": "2020-11-19T13:37:10+00:00"
+                  }
+                }
+              },
               "cloning": {
                 "M": {
                   "status": {
@@ -1285,6 +1292,13 @@
                   }
                 }
               },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_last_status_update": {
+                    "S": "2020-11-19T13:39:56+00:00"
+                  }
+                }
+              },
               "cloning": {
                 "M": {
                   "status": {
@@ -1311,7 +1325,8 @@
             "pk_2",
             "sk_2",
             "state",
-            "cloning"
+            "cloning",
+            "unreliable_indicators"
           ]
         },
         {
@@ -1584,9 +1599,10 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "state",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "state",
+            "unreliable_indicators"
           ]
         },
         {
@@ -1715,9 +1731,10 @@
           ],
           "NonKeyAttributes": [
             "type",
-            "state",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "state",
+            "unreliable_indicators"
           ]
         },
         {

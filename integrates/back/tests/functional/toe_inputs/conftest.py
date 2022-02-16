@@ -11,7 +11,6 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
 )
 from db_model.toe_inputs.types import (
@@ -38,7 +37,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -57,6 +55,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
+                type="Git",
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -66,7 +65,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -85,6 +83,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/asm_1",
                 ),
+                type="Git",
             ),
         ),
         "toe_inputs": (

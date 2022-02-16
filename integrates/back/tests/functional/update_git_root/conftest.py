@@ -13,7 +13,6 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
 )
 import pytest
@@ -63,7 +62,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -80,6 +78,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="https://gitlab.com/fluidattacks/nickname",
                 ),
+                type="Git",
             ),
             GitRootItem(
                 cloning=GitRootCloning(
@@ -89,7 +88,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="9059f0cb-3b55-404b-8fc5-627171f424ad",
-                metadata=GitRootMetadata(type="Git"),
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -106,6 +104,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="ACTIVE",
                     url="https://gitlab.com/fluidattacks/nickname2",
                 ),
+                type="Git",
             ),
         ),
     }

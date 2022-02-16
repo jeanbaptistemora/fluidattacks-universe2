@@ -32,17 +32,14 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
-    GitRootMetadata,
     GitRootState,
     IPRootItem,
-    IPRootMetadata,
     IPRootState,
     RootItem,
     RootMachineExecutionItem,
     RootState,
     RootUnreliableIndicators,
     URLRootItem,
-    URLRootMetadata,
     URLRootState,
 )
 import newrelic.agent
@@ -221,7 +218,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
         ),
         group_name=group_name,
         id=str(uuid4()),
-        metadata=GitRootMetadata(type="Git"),
         organization_name=organization["name"],
         state=GitRootState(
             branch=branch,
@@ -238,6 +234,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             status="ACTIVE",
             url=url,
         ),
+        type="Git",
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
@@ -300,7 +297,6 @@ async def add_ip_root(
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=IPRootMetadata(type="IP"),
         organization_name=organization["name"],
         state=IPRootState(
             address=address,
@@ -315,6 +311,7 @@ async def add_ip_root(
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
+        type="IP",
     )
     await roots_model.add(root=root)
 
@@ -367,7 +364,6 @@ async def add_url_root(  # pylint: disable=too-many-locals
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=URLRootMetadata(type="URL"),
         organization_name=organization["name"],
         state=URLRootState(
             host=host,
@@ -384,6 +380,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
+        type="URL",
     )
     await roots_model.add(root=root)
 
@@ -621,8 +618,8 @@ async def update_git_root(
         group_name=root.group_name,
         id=root.id,
         organization_name=root.organization_name,
-        metadata=root.metadata,
         state=new_state,
+        type=root.type,
         unreliable_indicators=root.unreliable_indicators,
     )
 
