@@ -61,6 +61,32 @@ const pageTexts: ResourceKey = {
     phrase: "HACKING WITH SPEED AND PRECISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
+  numbersSection: {
+    card1Description:
+      "Remediation rate for critical vulnerabilities " +
+      "in Continuous Hacking projects.",
+    card2Description:
+      "Continuous Hacking projects with at least " +
+      "one high or critical vulnerability.",
+    card3Description:
+      "Remediation rate for critical vulnerabilities " +
+      "in the first seven days.",
+    card4Description:
+      "Remediation rate for all reported severity " +
+      "(CVSSF*) in Continuous  Hacking projects.",
+    card5Description:
+      "Remediation rate for mature DevSecOps companies " +
+      "in Continuous Hacking projects.",
+    card6Description: "Vulnerabilities discovered per year.",
+    card6Title: "100K+",
+    card7Description:
+      "Vulnerability remediation costs during the development phase " +
+      "compared to during the production phase.",
+    card7Title: "10%",
+    card8Description: "OWASP Benchmark Accuracy Score.",
+    card8Title: "100",
+    title: "Fluid Attacks in numbers",
+  },
   people: {
     fluidAttacks: {
       description:
