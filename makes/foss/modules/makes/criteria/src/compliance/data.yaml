@@ -467,7 +467,7 @@
       title: Improper Input Validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "22":
-      title: Improper Limitation of a Pathname to a Restricted Directory ('Path traversal')
+      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
       link: https://cwe.mitre.org/data/definitions/22.html
     "23":
       title: Relative Path Traversal
@@ -962,9 +962,9 @@
     description: >
       ePrivacy Directive is an important legal
       instrument for privacy in the digital age,
-      and more specifically the confidentiality
-      of communications and the rules
-      regarding tracking and monitoring.
+      and more specifically
+      for the confidentiality of communications
+      and the rules regarding tracking and monitoring.
       The version used in this section is
       Directive 2002 58 EC
       (amended by E-privacy Directive 2009 136 EC).
@@ -991,7 +991,7 @@
   title: GDPR
   en:
     description: >
-      This Regulation lays down rules relating
+      This regulation lays down rules relating
       to the protection of natural persons
       with regard to the processing
       of personal data and rules relating
@@ -1107,7 +1107,7 @@
       protecting the privacy and security
       of certain health information.
       The version used in this section
-      is HIPAA Rules 2013 update.
+      is the HIPAA Rules 2013 update.
   es:
     description: __empty__
   definitions:
@@ -1155,7 +1155,7 @@
   title: ISO/IEC 27001
   en:
     description: >
-      It is widely known,
+      ISO/IEC 27001 is widely known,
       providing requirements
       for an information security
       management system (ISMS),
@@ -1176,7 +1176,7 @@
       title: Access to Networks and Network Services
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_2_1":
-      title: User registration and de-registration
+      title: User Registration and De-registration
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_2_2":
       title: User Access Provisioning
@@ -1221,7 +1221,7 @@
       title: System Change Control Procedures
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "14_3_1":
-      title: Protection of test data
+      title: Protection of Test Data
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "18_1_2":
       title: Intellectual Property Rights
