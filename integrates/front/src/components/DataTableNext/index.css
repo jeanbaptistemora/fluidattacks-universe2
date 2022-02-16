@@ -39,6 +39,13 @@
   padding: 8px;
 }
 
+:local .tableHeader input,
+.tableHeader select {
+  color: #898787;
+  background-color: white;
+  border: none;
+}
+
 :local .tableBody {
   cursor: pointer;
 }
