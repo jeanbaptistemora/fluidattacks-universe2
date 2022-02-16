@@ -33,6 +33,7 @@ locals {
           "lambda:*",
           "logs:*",
           "pricing:*",
+          "ram:*",
           "rds:*",
           "redshift:*",
           "route53:*",
