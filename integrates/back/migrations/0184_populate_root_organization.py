@@ -11,6 +11,12 @@ from aioextensions import (
     collect,
     run,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    OrganizationNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -76,13 +82,16 @@ async def process_group(
     roots = await loaders.group_roots.load(group_name)
 
     if roots and group.get("organization"):
-        organization = await loaders.organization.load(group["organization"])
-        organization_name = organization["name"]
+        with suppress(OrganizationNotFound):
+            organization = await loaders.organization.load(
+                group["organization"]
+            )
+            organization_name = organization["name"]
 
-        await collect(
-            tuple(process_root(organization_name, root) for root in roots),
-            workers=10,
-        )
+            await collect(
+                tuple(process_root(organization_name, root) for root in roots),
+                workers=10,
+            )
 
     LOGGER_CONSOLE.info(
         "Group processed",
