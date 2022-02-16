@@ -11,6 +11,20 @@ export const enTranslations: ResourceLanguage = {
       title: "Third-party licenses",
     },
   },
+  avatar: {
+    alert: {
+      buttons: {
+        cancel: "Cancel",
+        continue: "Continue",
+      },
+      title: "Delete Account from ASM",
+      warning: {
+        firstText: "This action will immediately delete the account from ASM.",
+        secondText: "This is a destructive action",
+        text: "Warning!",
+      },
+    },
+  },
   common: {
     error: {
       msg: "There is an error :(",
