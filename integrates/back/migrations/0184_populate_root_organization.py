@@ -73,14 +73,16 @@ async def process_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
     group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group["organization"])
-    organization_name = organization["name"]
     roots = await loaders.group_roots.load(group_name)
 
-    await collect(
-        tuple(process_root(organization_name, root) for root in roots),
-        workers=10,
-    )
+    if roots:
+        organization = await loaders.organization.load(group["organization"])
+        organization_name = organization["name"]
+
+        await collect(
+            tuple(process_root(organization_name, root) for root in roots),
+            workers=10,
+        )
 
     LOGGER_CONSOLE.info(
         "Group processed",
