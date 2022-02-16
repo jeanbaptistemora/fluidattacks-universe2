@@ -53,6 +53,7 @@ from typing import (
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
+TRIAL_DAYS: int = 14
 
 
 async def _customer_has_payment_method(
@@ -71,26 +72,45 @@ async def _format_create_subscription_data(
     org_billing_customer: str,
     org_name: str,
     group_name: str,
+    trial: bool,
 ) -> Dict[str, Any]:
     """Format create subscription session data according to stripe API"""
-    billing_cycle_anchor: int = int(
-        datetime_utils.get_first_day_next_month_timestamp()
-    )
     prices: Dict[str, Price] = await dal.get_prices()
+    now: datetime = datetime_utils.get_utc_now()
 
-    items: List[Dict[str, Any]] = [
-        {
-            "price": prices["machine"].id,
-            "quantity": 1,
-            "metadata": {
-                "group": group_name,
-                "name": "machine",
-                "organization": org_name,
+    result: Dict[str, Any] = {
+        "customer": org_billing_customer,
+        "items": [
+            {
+                "price": prices["machine"].id,
+                "quantity": 1,
+                "metadata": {
+                    "group": group_name,
+                    "name": "machine",
+                    "organization": org_name,
+                },
             },
+        ],
+        "metadata": {
+            "group": group_name,
+            "organization": org_name,
+            "subscription": subscription,
         },
-    ]
+    }
+
+    if trial:
+        after_trial: datetime = datetime_utils.get_plus_delta(
+            now, days=TRIAL_DAYS
+        )
+        now = after_trial
+        result["trial_end"] = int(after_trial.timestamp())
+
+    result["billing_cycle_anchor"] = int(
+        datetime_utils.get_first_day_next_month(now).timestamp()
+    )
+
     if subscription == "squad":
-        items.append(
+        result["items"].append(
             {
                 "price": prices["squad"].id,
                 "metadata": {
@@ -101,25 +121,16 @@ async def _format_create_subscription_data(
             },
         )
 
-    return {
-        "customer": org_billing_customer,
-        "items": items,
-        "metadata": {
-            "group": group_name,
-            "organization": org_name,
-            "subscription": subscription,
-        },
-        "billing_cycle_anchor": billing_cycle_anchor,
-    }
+    return result
 
 
-async def _has_pending_subscription(
+async def _has_subscription(
     *,
+    statuses: List[str],
     subscriptions: List[Subscription],
 ) -> bool:
-    pending: List[str] = ["incomplete", "past_due", "unpaid"]
     for subscription in subscriptions:
-        if subscription.status in pending:
+        if subscription.status in statuses:
             return True
     return False
 
@@ -131,7 +142,7 @@ async def _get_active_subscription(
     result: List[Subscription] = [
         subscription
         for subscription in subscriptions
-        if subscription.status == "active"
+        if subscription.status in ("active", "trialing")
     ]
     if len(result) > 0:
         return result[0]
@@ -159,11 +170,14 @@ async def update_subscription(
     subscriptions: List[Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
-        status="",
+        status="all",
     )
 
     # Raise exception if group has incomplete, past_due or unpaid subscriptions
-    if await _has_pending_subscription(subscriptions=subscriptions):
+    if await _has_subscription(
+        statuses=["incomplete", "past_due", "unpaid"],
+        subscriptions=subscriptions,
+    ):
         raise CouldNotUpdateSubscription()
 
     current: Optional[Subscription] = await _get_active_subscription(
@@ -178,11 +192,16 @@ async def update_subscription(
 
     result: bool = False
     if current is None:
+        trial: bool = not await _has_subscription(
+            statuses=["canceled"],
+            subscriptions=subscriptions,
+        )
         data: Dict[str, Any] = await _format_create_subscription_data(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
             group_name=group_name,
+            trial=trial,
         )
         result = await dal.create_subscription(**data)
     elif subscription != "free":
@@ -358,17 +377,17 @@ async def remove_payment_method(
     ]:
         raise InvalidBillingPaymentMethod()
 
-    subscriptions: Dict[
-        str, Subscription
-    ] = await dal.get_customer_subscriptions(
+    subscriptions: List[Subscription] = await dal.get_customer_subscriptions(
         org_billing_customer=org_billing_customer,
         limit=1000,
-        status="active",
+        status="",
     )
 
     # Raise exception if payment method is the last one
-    # and there are active subscriptions
-    if len(payment_methods) == 1 and len(subscriptions) > 0:
+    # and there are active or trialing subscriptions
+    if len(payment_methods) == 1 and await _has_subscription(
+        statuses=["active", "trialing"], subscriptions=subscriptions
+    ):
         raise BillingCustomerHasActiveSubscription()
 
     result: bool = True

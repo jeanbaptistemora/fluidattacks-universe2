@@ -174,7 +174,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                   )
                 );
                 break;
-              case "Exception - Cannot perform action. The organization has active subscriptions":
+              case "Exception - Cannot perform action. The organization has active or trialing subscriptions":
                 msgError(
                   t(
                     "organization.tabs.billing.paymentMethods.remove.errors.activeSubscriptions"

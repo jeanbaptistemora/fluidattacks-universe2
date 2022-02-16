@@ -194,20 +194,11 @@ async def create_payment_method(
 
 
 async def create_subscription(
-    *,
-    customer: str,
-    items: List[Dict[str, Any]],
-    metadata: Dict[str, str],
-    billing_cycle_anchor: int,
+    **kwargs: Any,
 ) -> bool:
     """Create stripe subscription"""
-    sub = stripe.Subscription.create(
-        customer=customer,
-        items=items,
-        metadata=metadata,
-        billing_cycle_anchor=billing_cycle_anchor,
-    )
-    return sub.status == "active"
+    sub = stripe.Subscription.create(**kwargs)
+    return sub.status in ("active", "trialing")
 
 
 async def create_portal(
@@ -246,15 +237,18 @@ async def get_customer_subscriptions(
     *,
     org_billing_customer: str,
     limit: int = 1000,
-    status: str = "active",
-) -> Dict[str, Subscription]:
-    subs = stripe.Subscription.list(
-        customer=org_billing_customer,
-        limit=limit,
-        status=status,
-    ).data
-    return {
-        f"{sub.metadata.group}__{sub.metadata.subscription}": Subscription(
+    status: str = "",
+) -> List[Subscription]:
+    """Return subscriptions for a customer"""
+    data: Dict[str, Any] = {
+        "customer": org_billing_customer,
+        "limit": limit,
+    }
+    if status != "":
+        data["status"] = status
+    subs = stripe.Subscription.list(**data).data
+    return [
+        Subscription(
             id=sub.id,
             group=sub.metadata.group,
             org_billing_customer=sub.customer,
@@ -267,7 +261,7 @@ async def get_customer_subscriptions(
             },
         )
         for sub in subs
-    }
+    ]
 
 
 async def get_group_subscriptions(
@@ -276,7 +270,7 @@ async def get_group_subscriptions(
     org_billing_customer: str,
     status: str = "",
 ) -> List[Subscription]:
-    """Return subscription history for a group"""
+    """Return subscriptions for a group"""
     data: Dict[str, Any] = {
         "customer": org_billing_customer,
         "limit": 1000,
@@ -444,7 +438,7 @@ async def update_subscription(
             subscription.id,
             **data,
         ).status
-        == "active"
+        in ("active", "trialing")
     )
 
     return result

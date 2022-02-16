@@ -213,7 +213,5 @@ def convert_from_iso_str(iso8601utc_str: str) -> str:
     return get_as_str(iso8601utc)
 
 
-def get_first_day_next_month_timestamp() -> float:
-    return (
-        get_utc_now().replace(day=1) + relativedelta(months=+1)
-    ).timestamp()
+def get_first_day_next_month(date: datetime) -> datetime:
+    return date.replace(day=1) + relativedelta(months=+1)

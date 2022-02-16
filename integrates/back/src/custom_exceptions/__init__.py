@@ -1186,7 +1186,7 @@ class BillingCustomerHasActiveSubscription(CustomBaseException):
     def __init__(self) -> None:
         msg = (
             "Exception - Cannot perform action. "
-            "The organization has active subscriptions"
+            "The organization has active or trialing subscriptions"
         )
         super(BillingCustomerHasActiveSubscription, self).__init__(msg)
 
