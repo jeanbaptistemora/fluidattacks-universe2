@@ -629,6 +629,7 @@ async def put_action(
         return await put_action_to_batch(
             action_name=action_name,
             vcpus=vcpus,
+            queue=queue,
             attempt_duration_seconds=attempt_duration_seconds,
             action_dynamo_pk=action_id,
         )
