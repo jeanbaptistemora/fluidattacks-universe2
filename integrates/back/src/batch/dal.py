@@ -128,9 +128,8 @@ def _get_signature_key(
     return k_signing
 
 
-async def list_jobs_filter(  # pylint: disable=too-many-locals
+async def list_jobs(  # pylint: disable=too-many-locals
     queue: str,
-    filters: Tuple[str, ...],
     next_token: Optional[str] = None,
     **kwargs: Any,
 ) -> Dict[str, Any]:
@@ -146,7 +145,6 @@ async def list_jobs_filter(  # pylint: disable=too-many-locals
     amz_target = "Batch_20120810.ListJobs"
     request_parameters = {
         "jobQueue": queue,
-        "filters": [{"name": "JOB_NAME", "values": list(filters)}],
         **kwargs,
     }
     if next_token:
@@ -254,25 +252,28 @@ async def list_jobs_filter(  # pylint: disable=too-many-locals
     return {}
 
 
+async def _get_all_jobs(**kwargs: Any) -> List[Dict[str, Any]]:
+    _response = await list_jobs(**kwargs)
+    for _job in _response["jobSummaryList"]:
+        _job["jobQueue"] = kwargs.get("queue")
+
+    result = _response["jobSummaryList"]
+
+    if _next_token := _response.get("nextToken"):
+        kwargs["nextToken"] = _next_token
+        result.extend(await _get_all_jobs(**kwargs))
+    return result
+
+
 async def list_jobs_by_group(queue: str, group: str) -> List[Dict[str, Any]]:
-    async def _request(
-        next_token: Optional[str] = None,
-    ) -> List[Dict[str, Any]]:
-        _response = await list_jobs_filter(
-            queue=queue,
-            next_token=next_token,
-            filters=(f"skims-process-{group}*",),
-        )
-        for _job in _response["jobSummaryList"]:
-            _job["jobQueue"] = queue
+    return await _get_all_jobs(
+        queue=queue,
+        filters=[{"name": "JOB_NAME", "values": [f"skims-process-{group}*"]}],
+    )
 
-        result = _response["jobSummaryList"]
 
-        if _next_token := _response.get("nextToken"):
-            result.extend(await _request(next_token=_next_token))
-        return result
-
-    return await _request()
+async def list_jobs_by_status(queue: str, status: str) -> List[Dict[str, Any]]:
+    return await _get_all_jobs(queue=queue, jobStatus=status)
 
 
 async def list_log_streams(
@@ -317,6 +318,9 @@ async def describe_jobs(*job_ids: str) -> Tuple[Dict[str, Any], ...]:
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
+    if not job_ids:
+        return ()
+
     async with aioboto3.Session().client(**resource_options) as batch:
         return tuple(
             flatten(

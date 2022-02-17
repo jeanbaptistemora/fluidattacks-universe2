@@ -34,7 +34,7 @@ async def resolve(
 ) -> List[Dict[str, Any]]:
     finding_code: Optional[str] = get_finding_code_from_title(parent.title)
     root_nicknames: Dict[str, str] = {
-        root.state.nickname: root.id
+        root.id: root.state.nickname
         for root in await info.context.loaders.group_roots.load(
             parent.group_name
         )
@@ -48,7 +48,13 @@ async def resolve(
             group_name=parent.group_name,
             include_non_urgent=True,
             include_urgent=True,
-            statuses=list(JobStatus),
+            statuses=[
+                JobStatus.RUNNABLE,
+                JobStatus.RUNNING,
+                JobStatus.STARTING,
+                JobStatus.PENDING,
+                JobStatus.SUBMITTED,
+            ],
             group_roots=root_nicknames,
         )
 

@@ -6,8 +6,8 @@ from batch.dal import (
     describe_jobs,
     Job,
     JobStatus,
-    list_jobs_by_group,
-    list_jobs_filter,
+    list_jobs,
+    list_jobs_by_status,
     list_log_streams,
 )
 from batch.types import (
@@ -29,6 +29,7 @@ from dateutil.parser import (  # type: ignore
     parse as date_parse,
 )
 from db_model.roots.get import (
+    get_machine_executions,
     get_machine_executions_by_job_id,
 )
 from db_model.roots.types import (
@@ -164,92 +165,112 @@ async def list_(  # pylint: disable=too-many-locals
     statuses: List[JobStatus],
     group_roots: Dict[str, str],
 ) -> List[Job]:
-    list_jobs_from_batch: Dict[str, Dict[str, Any]] = {
+    jobs_runnable_from_batch: Dict[str, Dict[str, Any]] = {
         item["jobId"]: item
         for item in more_itertools.flatten(
-            [
-                await list_jobs_by_group(_queue, group_name)
-                for _queue in [
-                    *(["skims_all_later"] if include_non_urgent else []),
-                    *(["skims_all_soon"] if include_urgent else []),
-                ]
-            ]
+            await collect(
+                (
+                    list_jobs_by_status(_queue, status=status)
+                    for _queue in [
+                        *(["skims_all_later"] if include_non_urgent else []),
+                        *(["skims_all_soon"] if include_urgent else []),
+                    ]
+                    for status in (x.name for x in statuses)
+                )
+            )
         )
+        if item["jobName"].startswith == f"skims-process-{group_name}"
     }
-
     jobs_details_from_batch = {
         item["jobId"]: item
-        for item in (await describe_jobs(*list_jobs_from_batch.keys()))
+        for item in (await describe_jobs(*jobs_runnable_from_batch.keys()))
         if finding_code in json.loads(item["container"]["command"][4])
         and item["status"] in {x.name for x in statuses}
     }
-    job_logs_description = await list_log_streams(group_name)
+    jobs_from_db: Dict[str, RootMachineExecutionItem] = {
+        execution.job_id: execution
+        for execution in collapse(
+            await collect(
+                get_machine_executions(root_id=root_id)
+                for root_id in group_roots.keys()
+            ),
+            base_type=RootMachineExecutionItem,
+        )
+        if any(
+            find.finding == finding_code
+            for find in execution.findings_executed
+        )
+    }
 
     job_items = []
     jobs_listed: List[str] = []
 
-    root_machine_executions: Dict[str, Dict[str, RootMachineExecutionItem]] = {
-        job_id: {execution.root_id: execution for execution in executions}
-        for job_id, executions in await collect(
-            _get_machine_executions_by_job_id(
-                job_id=job_id,
-            )
-            for job_id in list_jobs_from_batch.keys()
-        )
-    }
-    for job_item in job_logs_description:
-        group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
-        jobs_listed.append(job_id)
-        if job_id not in jobs_details_from_batch:
-            continue
-
-        db_execution: Optional[RootMachineExecutionItem] = None
-        vulns_summary: Optional[RootMachineExecutionItem] = None
-
-        if git_root_nickname in group_roots:
-            db_execution = root_machine_executions.get(job_id, {}).get(
-                group_roots[git_root_nickname]
-            )
-            if db_execution and (
-                _vulns := [
-                    x
-                    for x in db_execution.findings_executed
-                    if x.finding == finding_code
-                ]
-            ):
-                vulns_summary = VulnerabilitiesSummary(
-                    modified=_vulns[0].modified, open=_vulns[0].open
-                )
-
+    for job_execution in jobs_from_db.values():
+        jobs_listed.append(job_execution.job_id)
+        _vulns = [
+            x
+            for x in job_execution.findings_executed
+            if x.finding == finding_code
+        ]
         job_items.append(
             Job(
-                created_at=jobs_details_from_batch[job_id].get("createdAt"),
-                exit_code=jobs_details_from_batch[job_id]
-                .get("container", {})
-                .get("exitCode"),
-                exit_reason=jobs_details_from_batch[job_id]
-                .get("container", {})
-                .get("reason"),
-                id=jobs_details_from_batch[job_id]["jobId"],
-                name=f"skims-process-{group}-{git_root_nickname}",
-                root_nickname=job_item["logStreamName"].split("/")[-1],
-                queue=jobs_details_from_batch[job_id]["jobQueue"].split("/")[
-                    -1
-                ],
+                created_at=job_execution.created_at,
+                exit_code=0,
+                exit_reason="",
+                id=job_execution.job_id,
+                name=job_execution.name,
+                root_nickname=group_roots[job_execution.root_id],
+                queue=job_execution.queue,
                 started_at=int(
-                    date_parse(db_execution.started_at).timestamp() * 1000
-                )
-                if db_execution
-                else job_item.get("firstEventTimestamp", 0),
+                    date_parse(job_execution.started_at).timestamp() * 1000
+                ),
                 stopped_at=int(
-                    date_parse(db_execution.stopped_at).timestamp() * 1000
-                )
-                if db_execution
-                else job_item.get("lastEventTimestamp", 0),
-                status=jobs_details_from_batch[job_id]["status"],
-                vulnerabilities=vulns_summary,
+                    date_parse(job_execution.stopped_at).timestamp() * 1000
+                ),
+                status="SUCCESS" if job_execution.success else "FAILED",
+                vulnerabilities=VulnerabilitiesSummary(
+                    modified=_vulns[0].modified, open=_vulns[0].open
+                ),
             )
         )
+    job_logs_description = (
+        await list_log_streams(group_name, *jobs_runnable_from_batch.keys())
+        if len(jobs_runnable_from_batch.keys()) > 0
+        else []
+    )
+
+    for job_item in job_logs_description:
+        group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
+        if job_id not in jobs_details_from_batch:
+            continue
+        jobs_listed.append(job_id)
+
+        vulns_summary: Optional[RootMachineExecutionItem] = None
+
+        if git_root_nickname in group_roots.values():
+            job_items.append(
+                Job(
+                    created_at=jobs_details_from_batch[job_id].get(
+                        "createdAt"
+                    ),
+                    exit_code=jobs_details_from_batch[job_id]
+                    .get("container", {})
+                    .get("exitCode"),
+                    exit_reason=jobs_details_from_batch[job_id]
+                    .get("container", {})
+                    .get("reason"),
+                    id=jobs_details_from_batch[job_id]["jobId"],
+                    name=f"skims-process-{group}-{git_root_nickname}",
+                    root_nickname=job_item["logStreamName"].split("/")[-1],
+                    queue=jobs_details_from_batch[job_id]["jobQueue"].split(
+                        "/"
+                    )[-1],
+                    started_at=job_item.get("firstEventTimestamp", 0),
+                    stopped_at=job_item.get("lastEventTimestamp", 0),
+                    status=jobs_details_from_batch[job_id]["status"],
+                    vulnerabilities=vulns_summary,
+                )
+            )
     job_items.extend(
         _get_jobs_that_have_no_logs(
             jobs_details_from_batch=jobs_details_from_batch,
@@ -269,9 +290,9 @@ async def _list_jobs_by_name(
     next_token = "dummy"  # nosec
     jobs = []
     while next_token:
-        response = await list_jobs_filter(
+        response = await list_jobs(
             queue=queue,
-            filters=filters,
+            filters=[{"name": "JOB_NAME", "values": [filters]}],
             **(
                 {"next_token": next_token}
                 if next_token and next_token != "dummy"  # nosec
@@ -313,8 +334,10 @@ async def queue_boto3(
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
     async with aioboto3.Session().client(**resource_options) as batch:
-        current_jobs = await list_jobs_filter(
-            queue=queue_name, filters=(job_name,), maxResults=1
+        current_jobs = await list_jobs(
+            queue=queue_name,
+            filters=[{"name": "JOB_NAME", "values": [job_name]}],
+            maxResults=1,
         )
         if len(current_jobs["jobSummaryList"]) > 0:
             current_job = current_jobs["jobSummaryList"][0]
@@ -406,7 +429,10 @@ async def queue_all_checks_new(
         current_jobs = [
             job
             for job in (
-                await list_jobs_filter(queue=queue_name, filters=(job_name,))
+                await list_jobs(
+                    queue=queue_name,
+                    filters=[{"name": "JOB_NAME", "values": [job_name]}],
+                )
             )["jobSummaryList"]
             if job["status"]
             in {
@@ -516,14 +542,16 @@ async def queue_all_checks_new(
 async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
     group: str = root.group_name
     complete_jobs_response = await collect(
-        list_jobs_filter(
+        list_jobs(
             queue=queue.value,
-            filters=(f"skims-process-{group}",),
+            filters=[
+                {"name": "JOB_NAME", "values": [f"skims-process-{group}"]}
+            ],
             maxResults=1,
         )
         for queue in SkimsBatchQueue
     )
-    specific_jobs_response = await list_jobs_filter(
+    specific_jobs_response = await list_jobs(
         queue=SkimsBatchQueue.HIGH.value,
         filters=(f"skims-process-{group}-*",),
         maxResults=1,

@@ -130,6 +130,7 @@ class RootMachineExecutionItem(NamedTuple):
     queue: str
     root_id: str
     commit: Optional[str] = None
+    success: bool = True
 
 
 class LastMachineExecutions(NamedTuple):
