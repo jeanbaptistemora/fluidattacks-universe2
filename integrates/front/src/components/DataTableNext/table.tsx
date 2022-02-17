@@ -153,6 +153,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       selectOptions,
       placeholder = "",
       tooltipId,
+      translateSelectOptions = true,
       type,
     } = filter;
 
@@ -219,7 +220,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           {Object.entries(selectOptions ?? {}).map(
             ([key, value]): JSX.Element => (
               <option key={value} value={key}>
-                {t(value.toString())}
+                {translateSelectOptions
+                  ? t(value.toString())
+                  : value.toString()}
               </option>
             )
           )}

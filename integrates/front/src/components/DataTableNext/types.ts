@@ -33,6 +33,7 @@ interface IFilterProps {
   placeholder?: string;
   tooltipId: string;
   tooltipMessage: string;
+  translateSelectOptions?: boolean;
   type: "date" | "dateRange" | "number" | "range" | "select" | "text";
 }
 
