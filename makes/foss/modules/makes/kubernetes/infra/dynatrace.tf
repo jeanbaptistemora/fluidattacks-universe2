@@ -1,4 +1,5 @@
 variable "dynatraceApiToken" {}
+variable "dynatraceApiUrl" {}
 variable "dynatracePaasToken" {}
 
 resource "helm_release" "dynatrace" {
@@ -14,8 +15,18 @@ resource "helm_release" "dynatrace" {
   }
 
   set_sensitive {
+    name  = "apiUrl"
+    value = var.dynatraceApiUrl
+  }
+
+  set_sensitive {
     name  = "paasToken"
     value = var.dynatracePaasToken
+  }
+
+  set {
+    name  = "classicFullStack.enabled"
+    value = true
   }
 
   set {

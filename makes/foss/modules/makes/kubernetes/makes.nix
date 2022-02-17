@@ -46,6 +46,7 @@ in
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
         "DYNATRACE_API_TOKEN"
+        "DYNATRACE_API_URL"
         "DYNATRACE_PAAS_TOKEN"
         "NEW_RELIC_LICENSE_KEY"
       ];
@@ -57,6 +58,7 @@ in
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
         "DYNATRACE_API_TOKEN"
+        "DYNATRACE_API_URL"
         "DYNATRACE_PAAS_TOKEN"
         "NEW_RELIC_LICENSE_KEY"
       ];
@@ -74,6 +76,7 @@ in
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       dynatraceApiToken = "DYNATRACE_API_TOKEN";
+      dynatraceApiUrl = "DYNATRACE_API_URL";
       dynatracePaasToken = "DYNATRACE_PAAS_TOKEN";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
       kubeConfig = "KUBECONFIG";
