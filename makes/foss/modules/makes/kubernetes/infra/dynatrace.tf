@@ -22,4 +22,9 @@ resource "helm_release" "dynatrace" {
     name  = "name"
     value = var.cluster_name
   }
+
+  set {
+    name  = "activeGate.capabilities"
+    value = yamlencode(["routing", "kubernetes-monitoring"])
+  }
 }
