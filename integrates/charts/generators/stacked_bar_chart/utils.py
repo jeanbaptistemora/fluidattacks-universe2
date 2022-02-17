@@ -643,13 +643,12 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
         values["Open"] / total_bar,
     ]
     percentages: List[Decimal] = get_percentage(raw_percentages)
-    min_percentage: Decimal = Decimal("15.0")
     max_percentage_values = dict(
-        Closed=str(percentages[0]) if percentages[0] >= min_percentage else "",
+        Closed=str(percentages[0]) if percentages[0] >= MIN_PERCENTAGE else "",
         Accepted=str(percentages[1])
-        if percentages[1] >= min_percentage
+        if percentages[1] >= MIN_PERCENTAGE
         else "",
-        Open=str(percentages[2]) if percentages[2] >= min_percentage else "",
+        Open=str(percentages[2]) if percentages[2] >= MIN_PERCENTAGE else "",
     )
     percentage_values = dict(
         Closed=str(percentages[0]),
