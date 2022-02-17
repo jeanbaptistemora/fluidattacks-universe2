@@ -44,11 +44,9 @@ class Jobs(Enum):
     GITLAB_CHALLENGES = os.environ["gitlabEtlChallenges"]
     GITLAB_DEFAULT = os.environ["gitlabEtlDefault"]
     GITLAB_SERVICES = os.environ["gitlabEtlServices"]
-    DYNAMO_FORCES = os.environ["dynamoDbForcesEtl"]
-    DYNAMO_INTEGRATES = os.environ["dynamoDbIntegratesEtl"]
-    DYNAMO_INTEGRATES_MAIN = (
-        os.environ["dynamoTableEtlBig"] + " integrates_vms"
-    )
+    DYNAMO_FORCES = f'{os.environ["dynamoDbEtls"]} FORCES'
+    DYNAMO_INTEGRATES = f'{os.environ["dynamoDbEtls"]} GROUP'
+    DYNAMO_INTEGRATES_MAIN = f'{os.environ["dynamoDbEtls"]} CORE'
 
 
 def new_job(raw: str) -> Result[Jobs, InvalidJob]:
