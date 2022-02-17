@@ -8724,14 +8724,12 @@
   en:
     title: Insecure exceptions - Empty or no catch
     description: >
-      The lifetime of objects containing
-      sensitive information should be more
-      limited than other variables, meaning
-      that objects with sensitive information
-      such as usernames and passwords should
-      be overwritten once used and not left in
-      memory until the garbage collector
-      deletes them.
+      The application does not perform proper exception handling.
+      Empty _catch_ statements are found,
+      or _try_ statements without their respective _catch_.
+      This behavior can make the application temporarily
+      or permanently unavailable
+      by presenting errors that are not being handled.
     impact: >
       - Generate the crash of the
       application due to errors that
@@ -8740,27 +8738,20 @@
       - Lose the traceability of the
       errors presented.
     recommendation: >
-      Use the libraries that allow to execute
-      the concatenation and storage functions in
-      collections in an optimised way.
-      (ArrayList and StringBuilder or
-      SyncronizedList).
+      For every _try_ sentence define its respective _catch_
+      handling the exception accordingly
     threat: >
-      An attacker who has access to the
-      application and can debug it, will
-      be able to get sensitive information
-      stored in memory.
+      Authenticated attacker from the Internet
   es:
     title: Insecure exceptions - Empty or no catch
     description: >
-      El tiempo de vida de las objetos que
-      contienen información sensible debe ser
-      más limitado que el resto de variables,
-      es decir que objetos con información
-      sensible como nombres de usuarios y
-      contraseña deben ser sobreescritas una
-      vez usadas y no dejarlas en memoria hasta
-      que el garbage collector las elimine.
+      La aplicación no realiza
+      un manejo adecuado de excepciones.
+      Se encuentran sentencias _catch_ vacías,
+      o sentencias _try_ sin su respectivo _catch_.
+      Este comportamiendo puede llevar la aplicación
+      a una indisponibilidad temporal o permanente
+      al presentarse errores que no se están manejando
     impact: >
       - Generar la caída de la aplicación
       a causa de los errores que no están
@@ -8769,30 +8760,25 @@
       - Perder la trazabilidad de los
       errores presentados.
     recommendation: >
-      Utilizar las librerías que permiten ejecutar
-      las funciones de concatenado y almacenamiento
-      en colecciones de manera optimizada.
-      (ArrayList y StringBuilder o SyncronizedList).
+      Para toda sentencia _try_ definir su respectivo _catch_
+      con un manejo adecuado de la excepción presentada
     threat: >
-      Un atacante que tenga acceso a la
-      aplicación y pueda hacer debug sobre
-      esta, podrá conseguir información
-      sensible almacenada en memoria.
+      Atacante autenticado en la aplicación desde Internet
   category: Abuse Functionality
-  remediation_time: "15"
+  remediation_time: "40"
   score:
     base:
-      attack_vector: "A"
+      attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "F"
-      remediation_level: "O"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
       report_confidence: "C"
   requirements: ["161" ,"266" ,"359"]
   metadata:
