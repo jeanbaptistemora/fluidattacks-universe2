@@ -47,7 +47,7 @@ function main {
   export REPLICAS
   export UUID
 
-  aws_login_prod_new integrates \
+  aws_login_prod integrates \
     && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \

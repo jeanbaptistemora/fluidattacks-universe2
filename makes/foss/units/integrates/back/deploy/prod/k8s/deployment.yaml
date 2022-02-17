@@ -69,7 +69,7 @@ spec:
               - sh
               - -c
               - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
-                aws_login_prod_new
+                aws_login_prod
                 prod_integrates
                 FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
@@ -83,7 +83,7 @@ spec:
               - sh
               - -c
               - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
-                aws_login_prod_new
+                aws_login_prod
                 prod_integrates
                 FluidIntegrates http://localhost:8001
                 https://app.fluidattacks.com
