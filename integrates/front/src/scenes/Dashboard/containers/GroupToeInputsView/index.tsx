@@ -98,6 +98,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       "filterGroupToeInputSet",
       {
         bePresent: "",
+        hasVulnerabilities: "",
         root: "",
       },
       localStorage
@@ -293,6 +294,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     setFilterGroupToeInputTable(
       (): IFilterSet => ({
         bePresent: "",
+        hasVulnerabilities: "",
         root: "",
       })
     );
@@ -367,6 +369,17 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.inputs.filters.root.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.root.tooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterGroupToeInputTable.hasVulnerabilities,
+      onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
+      placeholder: translate.t(
+        "group.toe.inputs.filters.hasVulnerabilities.placeholder"
+      ),
+      selectOptions: booleanSelectOptions,
+      tooltipId: "group.toe.inputs.filters.hasVulnerabilities.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.hasVulnerabilities.tooltip",
       type: "select",
     },
     {

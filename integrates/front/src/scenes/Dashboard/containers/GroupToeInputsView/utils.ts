@@ -88,6 +88,22 @@ const filterBePresent: (
         return toeInputData.bePresent === bePresent;
       });
 };
+const filterHasVulnerabilities: (
+  filterGroupToeInputTable: IFilterSet,
+  toeInputs: IToeInputData[]
+) => IToeInputData[] = (
+  filterGroupToeInputTable: IFilterSet,
+  toeInputs: IToeInputData[]
+): IToeInputData[] => {
+  const hasVulnerabilities =
+    filterGroupToeInputTable.hasVulnerabilities === "true";
+
+  return _.isEmpty(filterGroupToeInputTable.hasVulnerabilities)
+    ? toeInputs
+    : toeInputs.filter((toeInputData): boolean => {
+        return toeInputData.hasVulnerabilities === hasVulnerabilities;
+      });
+};
 const filterRoot: (
   filterGroupToeInputTable: IFilterSet,
   toeInput: IToeInputData[]
@@ -121,6 +137,10 @@ const getFilteredData: (
   toeInput: IToeInputData[]
 ): IToeInputData[] => {
   const filteredBePresent = filterBePresent(filterGroupToeInputTable, toeInput);
+  const filteredHasVulnerabilities = filterHasVulnerabilities(
+    filterGroupToeInputTable,
+    toeInput
+  );
   const filteredRoot = filterRoot(filterGroupToeInputTable, toeInput);
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
@@ -128,6 +148,7 @@ const getFilteredData: (
   );
   const filteredData: IToeInputData[] = _.intersection(
     filteredBePresent,
+    filteredHasVulnerabilities,
     filteredRoot,
     filteredSearchtextResult
   );
