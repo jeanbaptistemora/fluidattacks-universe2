@@ -1,6 +1,7 @@
 let
   commonPath = "/observes/common";
   singerPath = "/observes/singer";
+  etlsPath = "/observes/etl";
   std_data = root: {
     inherit root;
     env = {
@@ -14,6 +15,14 @@ let
   streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in
 {
+  etl = {
+    dynamo = (std_data "${etlsPath}/dynamo_etl_conf") // {
+      env = {
+        runtime = "/observes/etl/dynamo/conf/env/runtime";
+        dev = "/observes/etl/dynamo/conf/env/development";
+      };
+    };
+  };
   common = {
     paginator = "${commonPath}/paginator";
     postgresClient = "${commonPath}/postgres_client";

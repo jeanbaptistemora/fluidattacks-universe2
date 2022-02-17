@@ -1,4 +1,5 @@
-{ outputs
+{ inputs
+, outputs
 , ...
 }:
 {
@@ -36,6 +37,11 @@
     observesTapDynamo = {
       source = [
         outputs."/observes/singer/tap-dynamo/env/development"
+      ];
+    };
+    observesEtlDynamoConf = {
+      source = [
+        outputs."${inputs.observesIndex.etl.dynamo.env.dev}"
       ];
     };
   };
