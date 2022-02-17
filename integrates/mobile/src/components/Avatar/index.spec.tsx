@@ -2,6 +2,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { mount } from "enzyme";
 import type { ReactWrapper } from "enzyme";
+import { GraphQLError } from "graphql/error/GraphQLError";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
@@ -113,8 +114,19 @@ describe("Avatar", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should render profile picture", (): void => {
+  it("should render profile picture and error while removing account", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.mock("react-native/Libraries/Alert/Alert");
+
+    const removeAccountMock: Readonly<MockedResponse> = {
+      request: {
+        query: REMOVE_ACCOUNT_MUTATION,
+      },
+      result: {
+        errors: [new GraphQLError("Unexpected error")],
+      },
+    };
 
     const wrapper: ReactWrapper = mount(
       <PaperProvider>
@@ -124,7 +136,7 @@ describe("Avatar", (): void => {
               { pathname: "/Dashboard", state: { user: { fullName: "Test" } } },
             ]}
           >
-            <MockedProvider addTypename={false} mocks={[]}>
+            <MockedProvider addTypename={false} mocks={[removeAccountMock]}>
               <Avatar
                 photoUrl={"https://some.com/image.png"}
                 size={40}
@@ -138,5 +150,33 @@ describe("Avatar", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find(PaperAvatar.Image)).toHaveLength(1);
+
+    const avatarTouchable: ReactWrapper<
+      React.ComponentProps<typeof TouchableOpacity>
+    > = wrapper.find(TouchableOpacity).first();
+    (avatarTouchable.invoke("onPress") as () => void)();
+
+    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(true);
+
+    const deleteBtn: ReactWrapper<
+      React.ComponentProps<typeof TouchableOpacity>
+    > = wrapper.find(TouchableOpacity).last();
+    (deleteBtn.invoke("onPress") as () => void)();
+
+    expect(Alert.alert).toHaveBeenCalledTimes(1);
+
+    await act(async (): Promise<void> => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      await (Alert.alert as jest.Mock).mock.calls[0][2][1].onPress();
+      await wait(0);
+      wrapper.update();
+    });
+
+    expect(wrapper).toHaveLength(1);
+    expect(mockHistoryReplace).toHaveBeenCalledWith("/Dashboard", {
+      user: { fullName: "Test" },
+    });
+
+    jest.clearAllMocks();
   });
 });
