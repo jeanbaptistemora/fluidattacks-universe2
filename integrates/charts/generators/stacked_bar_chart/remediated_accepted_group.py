@@ -14,6 +14,7 @@ from charts.colors import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
+    MIN_PERCENTAGE,
 )
 from decimal import (
     Decimal,
@@ -120,25 +121,18 @@ def format_percentages(
         values["Open"] / total_bar,
     ]
     percentages: List[Decimal] = get_percentage(raw_percentages)
-    max_percentages = max(percentages) if max(percentages) else ""
-    is_first_value_max: bool = percentages[0] == max_percentages
-    is_second_value_max: bool = percentages[1] == max_percentages
-    is_third_value_max: bool = percentages[2] == max_percentages
-    is_fourth_value_max: bool = percentages[3] == max_percentages
     max_percentage_values = {
-        "Closed": str(percentages[0]) if is_first_value_max else "",
+        "Closed": str(percentages[0])
+        if percentages[0] >= MIN_PERCENTAGE
+        else "",
         "Temporarily Accepted": str(percentages[1])
-        if is_second_value_max and not is_first_value_max
+        if percentages[1] >= MIN_PERCENTAGE
         else "",
         "Permanently accepted": str(percentages[2])
-        if is_third_value_max
-        and not (is_first_value_max or is_second_value_max)
+        if percentages[2] >= MIN_PERCENTAGE
         else "",
         "Open": str(percentages[3])
-        if is_fourth_value_max
-        and not (
-            is_first_value_max or is_second_value_max or is_third_value_max
-        )
+        if percentages[3] >= MIN_PERCENTAGE
         else "",
     }
     percentage_values = {

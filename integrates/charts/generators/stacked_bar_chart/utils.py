@@ -27,6 +27,7 @@ from typing import (
 
 # Constants
 DATE_FMT: str = "%Y - %m - %d"
+MIN_PERCENTAGE: Decimal = Decimal("15.0")
 # Let's no over think it
 MONTH_TO_NUMBER = {
     "Jan": 1,
@@ -642,18 +643,13 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
         values["Open"] / total_bar,
     ]
     percentages: List[Decimal] = get_percentage(raw_percentages)
-    max_percentages = max(percentages) if max(percentages) else ""
-    is_first_value_max: bool = percentages[0] == max_percentages
-    is_second_value_max: bool = percentages[1] == max_percentages
+    min_percentage: Decimal = Decimal("15.0")
     max_percentage_values = dict(
-        Closed=str(percentages[0]) if is_first_value_max else "",
+        Closed=str(percentages[0]) if percentages[0] >= min_percentage else "",
         Accepted=str(percentages[1])
-        if is_second_value_max and not is_first_value_max
+        if percentages[1] >= min_percentage
         else "",
-        Open=str(percentages[2])
-        if percentages[2] == max_percentages
-        and not (is_first_value_max or is_second_value_max)
-        else "",
+        Open=str(percentages[2]) if percentages[2] >= min_percentage else "",
     )
     percentage_values = dict(
         Closed=str(percentages[0]),

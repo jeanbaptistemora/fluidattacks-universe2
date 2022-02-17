@@ -18,6 +18,7 @@ from charts.generators.bar_chart.utils import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
+    MIN_PERCENTAGE,
 )
 from dataloaders import (
     Dataloaders,
@@ -205,7 +206,7 @@ def get_valid_organizations(
     ]
 
 
-def format_data(  # pylint: disable=too-many-locals
+def format_data(
     *,
     organization: OrganizationCvssfBenchmarking,
     best_cvssf: OrganizationCvssfBenchmarking,
@@ -249,48 +250,42 @@ def format_data(  # pylint: disable=too-many-locals
     best_organization = get_percentage(percentage_values[1])
     average_organization = get_percentage(percentage_values[2])
     worst_organization = get_percentage(percentage_values[3])
-    max_organization = max(my_organization) if max(my_organization) else ""
-    max_best = max(best_organization) if max(best_organization) else ""
-    max_average = (
-        max(average_organization) if max(average_organization) else ""
-    )
-    max_worst = max(worst_organization) if max(worst_organization) else ""
 
     max_percentage_values = dict(
         Closed=[
-            my_organization[0]
-            if my_organization[0] == max_organization
+            my_organization[0] if my_organization[0] >= MIN_PERCENTAGE else "",
+            best_organization[0]
+            if best_organization[0] >= MIN_PERCENTAGE
             else "",
-            best_organization[0] if best_organization[0] == max_best else "",
             average_organization[0]
-            if average_organization[0] == max_average
+            if average_organization[0] >= MIN_PERCENTAGE
             else "",
             worst_organization[0]
-            if worst_organization[0] == max_worst
+            if worst_organization[0] >= MIN_PERCENTAGE
             else "",
         ],
         Accepted=[
-            my_organization[1]
-            if my_organization[1] == max_organization
+            my_organization[1] if my_organization[1] >= MIN_PERCENTAGE else "",
+            best_organization[1]
+            if best_organization[1] >= MIN_PERCENTAGE
             else "",
-            best_organization[1] if best_organization[1] == max_best else "",
             average_organization[1]
-            if average_organization[1] == max_average
+            if average_organization[1] >= MIN_PERCENTAGE
             else "",
             worst_organization[1]
-            if worst_organization[1] == max_worst
+            if worst_organization[1] >= MIN_PERCENTAGE
             else "",
         ],
         Open=[
-            my_organization[2]
-            if my_organization[2] == max_organization
+            my_organization[2] if my_organization[2] >= MIN_PERCENTAGE else "",
+            best_organization[2]
+            if best_organization[2] >= MIN_PERCENTAGE
             else "",
-            best_organization[2] if best_organization[2] == max_best else "",
             average_organization[2]
-            if average_organization[2] == max_average
+            if average_organization[2] >= MIN_PERCENTAGE
             else "",
             worst_organization[2]
-            if worst_organization[2] == max_worst
+            if worst_organization[2] >= MIN_PERCENTAGE
             else "",
         ],
     )
