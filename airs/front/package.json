@@ -69,6 +69,7 @@
     "react-icons": "4.3.1",
     "react-instantsearch-core": "6.12.1",
     "react-instantsearch-dom": "6.12.1",
+    "react-media": "1.10.0",
     "react-share": "4.4.0",
     "sass": "1.42.1",
     "styled-components": "5.3.1",
