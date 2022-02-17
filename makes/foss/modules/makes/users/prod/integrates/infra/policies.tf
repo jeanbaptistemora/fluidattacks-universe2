@@ -108,6 +108,7 @@ locals {
         Effect = "Allow"
         Action = [
           "logs:Describe*",
+          "logs:Filter*",
           "logs:Get*",
           "logs:List*",
         ]

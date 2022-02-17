@@ -38,6 +38,7 @@ locals {
           "redshift:*",
           "route53:*",
           "s3:*",
+          "sagemaker:*",
           "savingsplans:*",
           "secretsmanager:*",
           "sns:*",

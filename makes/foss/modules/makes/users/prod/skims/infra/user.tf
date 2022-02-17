@@ -18,10 +18,6 @@ resource "aws_iam_access_key" "skims_prod_key-2" {
   user = "skims_prod"
 }
 
-provider "gitlab" {
-  token = var.gitlab_token
-}
-
 module "publish_credentials_prod" {
   source    = "../../../modules/publish_credentials"
   key_1     = aws_iam_access_key.skims_prod_key-1
