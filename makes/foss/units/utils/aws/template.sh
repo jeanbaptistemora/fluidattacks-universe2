@@ -19,7 +19,7 @@ function aws_login_dev {
     && TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 }
 
-function aws_login_prod_new {
+function aws_login_prod {
   local key="PROD_${1^^}_AWS_ACCESS_KEY_ID"
   local secret="PROD_${1^^}_AWS_SECRET_ACCESS_KEY"
   export AWS_ACCESS_KEY_ID
@@ -36,6 +36,10 @@ function aws_login_prod_new {
     && aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
     && TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
     && TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
+}
+
+function aws_login_prod_new {
+  aws_login_prod "${@}"
 }
 
 function aws_s3_sync {

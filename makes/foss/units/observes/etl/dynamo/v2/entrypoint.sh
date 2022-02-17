@@ -12,7 +12,7 @@ function dynamodb_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && aws_login_prod_new 'observes' \
+    && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \

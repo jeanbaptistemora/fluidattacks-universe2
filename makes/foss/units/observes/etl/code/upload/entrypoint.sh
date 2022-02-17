@@ -13,7 +13,7 @@ function job_code_upload {
     && creds=$(mktemp) \
     && migration_groups_file=$(mktemp) \
     && migrated_groups_file=$(mktemp) \
-    && aws_login_prod_new 'observes' \
+    && aws_login_prod 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && sops_export_vars 'observes/conf/code_migration.json' \

@@ -1,5 +1,5 @@
 # shellcheck shell=bash
 alias scheduler="observes-service-jobs-scheduler-bin"
 
-aws_login_prod_new 'observes' \
+aws_login_prod 'observes' \
   && scheduler run-job "MIRROR"
