@@ -1735,11 +1735,16 @@ export const enTranslations: ResourceKey = {
         tooltip: "General suggestion to solve the vulnerability",
       },
       remediationModal: {
+        holdMessage:
+          "Verification will be requested for {{vulns}} vulnerabilities",
+        holds: "How does this event affect the selected reattacks?",
         justification: "Which was the applied solution?",
-        message: "Verification will be requested for {{vulns}} vulnerabilities",
         observations: "What observations do you have?",
+        titleHold: "Hold Reattacks",
         titleObservations: "Observations",
         titleRequest: "Justification",
+        verificationMessage:
+          "Verification will be requested for {{vulns}} vulnerabilities",
       },
       requestVerify: {
         text: "Reattack",
