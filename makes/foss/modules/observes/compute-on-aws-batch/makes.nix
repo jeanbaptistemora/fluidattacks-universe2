@@ -115,13 +115,19 @@ in
       queue = "observes_soon";
     };
 
+    observesDynamoTableEtlBig = sharedConfiguration // {
+      attemptDurationSeconds = 86400;
+      command = [ "m" "f" "/observes/etl/dynamo/table" ];
+      queue = "observes_soon";
+    };
+
     observesDynamoV2Etl = sharedConfiguration // {
       attemptDurationSeconds = 7200;
       command = [ "m" "f" "/observes/etl/dynamo/v2" ];
       queue = "observes_soon";
     };
 
-    observesDynamoTableEtlBig = sharedConfiguration // {
+    observesDynamoV2EtlBig = sharedConfiguration // {
       attemptDurationSeconds = 86400;
       command = [ "m" "f" "/observes/etl/dynamo/table" ];
       queue = "observes_soon";
