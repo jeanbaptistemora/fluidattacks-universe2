@@ -9,6 +9,7 @@ from api.resolvers.group import (
     events,
     findings,
     forces_token,
+    last_closed_vulnerability,
     last_closed_vulnerability_finding,
     max_open_severity_finding,
     max_severity,
@@ -55,9 +56,4 @@ GROUP.set_field("toeLines", toe_lines.resolve)
 GROUP.set_field("totalFindings", total_findings.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
-GROUP.set_alias("lastClosedVulnerability", "last_closing_vuln")
-
-# --------------------Deprecated fields------------------------------------
-GROUP.set_field(
-    "lastClosingVulnFinding", last_closed_vulnerability_finding.resolve
-)
+GROUP.set_field("lastClosedVulnerability", last_closed_vulnerability.resolve)

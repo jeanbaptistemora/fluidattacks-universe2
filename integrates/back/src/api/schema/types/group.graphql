@@ -51,12 +51,6 @@ type Group {
   lastClosedVulnerability: Int
   "Identifier of the last closed finding"
   lastClosedVulnerabilityFinding: Finding
-  "Time since last closed vulnerability in days"
-  lastClosingVuln: Int @deprecated(reason: """This field will
-    be removed after 2022/02/06. Use `lastClosedVulnerability` instead.""")
-  "Identifier of the last closed finding"
-  lastClosingVulnFinding: Finding @deprecated(reason: """This field will be
-    removed after 2022/02/06. Use `lastClosedVulnerabilityFinding` instead.""")
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float
   "Current open vulnerability with the highest severity"
