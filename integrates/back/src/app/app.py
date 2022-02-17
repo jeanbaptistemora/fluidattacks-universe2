@@ -379,6 +379,7 @@ STARLETTE_APP = Starlette(
             name="static",
         ),
         Route("/billing", webhook, methods=["POST"]),
+        Route("/crashtest-0b9079cc.html", templates.crashtest),
         Route("/{full_path:path}", app),
     ],
     middleware=[
