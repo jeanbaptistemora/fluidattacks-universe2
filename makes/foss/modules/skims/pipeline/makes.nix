@@ -22,11 +22,6 @@ let
     gitlabTitleMatchingSkims
   ];
 
-  gitlabDeployApp = {
-    rules = gitlabOnlyMaster;
-    stage = "deploy-app";
-    tags = [ "autoscaling" ];
-  };
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
@@ -76,10 +71,6 @@ in
             stage = "scheduler";
             tags = [ "autoscaling" ];
           };
-        }
-        {
-          output = "/deployContainerImage/skimsProd";
-          gitlabExtra = gitlabDeployApp;
         }
         {
           output = "/deployTerraform/skims";

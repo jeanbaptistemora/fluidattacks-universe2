@@ -7,10 +7,8 @@ data "aws_iam_policy_document" "key_skims_dev" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/skims_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/skims_prod",
       ]
     }
     actions = [
@@ -28,10 +26,8 @@ data "aws_iam_policy_document" "key_skims_dev" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/skims_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/skims_prod",
       ]
     }
     actions = [
@@ -53,10 +49,8 @@ data "aws_iam_policy_document" "key_skims_dev" {
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/skims_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_skims",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user_provision/skims_prod",
       ]
     }
     actions = [

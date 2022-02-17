@@ -16,26 +16,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployContainerImage/skimsProd:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH != "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /deployContainerImage/skimsProd
-  stage: deploy-app
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /deployTerraform/skims:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: true

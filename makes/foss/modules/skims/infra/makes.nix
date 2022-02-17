@@ -3,15 +3,6 @@
 , ...
 }:
 {
-  deployContainerImage = {
-    images = {
-      skimsProd = {
-        src = outputs."/skims/container";
-        registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/skims:latest";
-      };
-    };
-  };
   deployTerraform = {
     modules = {
       skims = {
