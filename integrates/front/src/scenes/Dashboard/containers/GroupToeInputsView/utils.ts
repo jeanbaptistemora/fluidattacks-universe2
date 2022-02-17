@@ -2,7 +2,10 @@ import _ from "lodash";
 
 import type { IFilterSet, IToeInputData } from "./types";
 
-import { filterSearchText } from "components/DataTableNext/utils/filters";
+import {
+  filterSearchText,
+  filterSelect,
+} from "components/DataTableNext/utils/filters";
 
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData
@@ -137,6 +140,11 @@ const getFilteredData: (
   toeInput: IToeInputData[]
 ): IToeInputData[] => {
   const filteredBePresent = filterBePresent(filterGroupToeInputTable, toeInput);
+  const filteredComponent: IToeInputData[] = filterSelect(
+    toeInput,
+    filterGroupToeInputTable.component,
+    "component"
+  );
   const filteredHasVulnerabilities = filterHasVulnerabilities(
     filterGroupToeInputTable,
     toeInput
@@ -148,6 +156,7 @@ const getFilteredData: (
   );
   const filteredData: IToeInputData[] = _.intersection(
     filteredBePresent,
+    filteredComponent,
     filteredHasVulnerabilities,
     filteredRoot,
     filteredSearchtextResult

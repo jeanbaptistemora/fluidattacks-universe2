@@ -1,5 +1,6 @@
 interface IFilterSet {
   bePresent: string;
+  component: string;
   hasVulnerabilities: string;
   root: string;
 }

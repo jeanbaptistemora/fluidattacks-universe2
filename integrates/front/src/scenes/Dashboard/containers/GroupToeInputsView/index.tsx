@@ -98,6 +98,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       "filterGroupToeInputSet",
       {
         bePresent: "",
+        component: "",
         hasVulnerabilities: "",
         root: "",
       },
@@ -294,6 +295,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     setFilterGroupToeInputTable(
       (): IFilterSet => ({
         bePresent: "",
+        component: "",
         hasVulnerabilities: "",
         root: "",
       })
@@ -351,6 +353,12 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   ): void {
     setSearchTextFilter(event.target.value);
   }
+  const componentSelectOptions = Object.fromEntries(
+    toeInputs.map((toeInputData: IToeInputData): string[] => [
+      toeInputData.component,
+      toeInputData.component,
+    ])
+  );
   const rootSelectOptions = Object.fromEntries(
     toeInputs.map((toeInputData: IToeInputData): string[] => [
       toeInputData.markedRootNickname,
@@ -369,6 +377,18 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.inputs.filters.root.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.root.tooltip",
+      type: "select",
+    },
+    {
+      defaultValue: filterGroupToeInputTable.component,
+      onChangeSelect: onBasicFilterValueChange("component"),
+      placeholder: translate.t(
+        "group.toe.inputs.filters.component.placeholder"
+      ),
+      selectOptions: componentSelectOptions,
+      tooltipId: "group.toe.inputs.filters.component.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.component.tooltip",
+      translateSelectOptions: false,
       type: "select",
     },
     {
