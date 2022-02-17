@@ -634,24 +634,3 @@ async def put_action(
             action_dynamo_pk=action_id,
         )
     return False
-
-
-def format_command(
-    *,
-    action_name: str,
-    subject: str,
-    entity: str,
-    time: str,
-    additional_info: str,
-) -> List[str]:
-    return [
-        "m",
-        "f",
-        "/integrates/batch",
-        "prod",
-        action_name,
-        subject,
-        entity,
-        time,
-        additional_info,
-    ]

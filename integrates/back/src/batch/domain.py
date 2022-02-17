@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from batch import (
     dal as batch_dal,
 )
@@ -5,7 +8,7 @@ from batch.enums import (
     JobStatus,
 )
 from batch.types import (
-    JobDescription,
+    BatchProcessing,
     JobPayload,
 )
 from typing import (
@@ -14,13 +17,13 @@ from typing import (
 )
 
 
-def format_job_payload(job_description: JobDescription) -> JobPayload:
+def format_job_payload(job_description: BatchProcessing) -> JobPayload:
     return JobPayload(
-        action_name=job_description.container.command[4],
-        subject=job_description.container.command[5],
-        entity=job_description.container.command[6],
-        time=job_description.container.command[7],
-        additional_info=job_description.container.command[8],
+        action_name=job_description.action_name,
+        subject=job_description.subject,
+        entity=job_description.entity,
+        time=job_description.time,
+        additional_info=job_description.additional_info,
     )
 
 
@@ -33,6 +36,17 @@ async def get_job_payloads(
     loaded_jobs = await batch_dal.decribe_jobs(
         set(queues_jobs.id for queues_jobs in queues_jobs)
     )
+    dynamo_jobs = await collect(
+        tuple(
+            batch_dal.get_action(
+                action_dynamo_pk=job_description.container.command[4]
+            )
+            for job_description in loaded_jobs
+        ),
+        workers=32,
+    )
     return {
-        format_job_payload(job_description) for job_description in loaded_jobs
+        format_job_payload(dynamo_job)
+        for _, dynamo_job in zip(loaded_jobs, dynamo_jobs)
+        if dynamo_job
     }
