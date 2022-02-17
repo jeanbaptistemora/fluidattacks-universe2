@@ -65,10 +65,11 @@ async def get_data_many_groups(
     groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
     groups_data: Tuple[Remediate, ...] = await collect(
-        [
+        tuple(
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
             for group in groups
-        ]
+        ),
+        workers=24,
     )
 
     return sum_mttr_many_groups(groups_data=groups_data)

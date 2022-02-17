@@ -286,7 +286,7 @@ async def get_oldest_open_age(
             _get_oldest_open_age(group=group, loaders=loaders)
             for group in groups
         ],
-        workers=32,
+        workers=24,
     )
 
     return (
@@ -308,7 +308,10 @@ async def get_data_many_groups_mttr(
     min_date: Optional[datetype],
 ) -> Benchmarking:
     groups_data: Tuple[Benchmarking, ...] = await collect(
-        [get_data_one_group(group, loaders, min_date) for group in groups]
+        tuple(
+            get_data_one_group(group, loaders, min_date) for group in groups
+        ),
+        workers=24,
     )
 
     mttr: Decimal = (
