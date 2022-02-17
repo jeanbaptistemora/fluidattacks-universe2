@@ -1,6 +1,16 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const GET_SUBSCRIPTIONS: DocumentNode = gql`
+  query GetSubscriptions {
+    __type(name: "SubscriptionReportEntity") {
+      enumValues {
+        name
+      }
+    }
+  }
+`;
+
 const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
   query SubscriptionsToEntityReport {
     me {
@@ -30,4 +40,8 @@ const SUBSCRIBE_TO_ENTITY_REPORT: DocumentNode = gql`
   }
 `;
 
-export { SUBSCRIPTIONS_TO_ENTITY_REPORT, SUBSCRIBE_TO_ENTITY_REPORT };
+export {
+  GET_SUBSCRIPTIONS,
+  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+  SUBSCRIBE_TO_ENTITY_REPORT,
+};
