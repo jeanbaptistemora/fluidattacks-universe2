@@ -60,8 +60,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_configuration": [
                     {
                         "date": "2020-05-20 17:00:00",
-                        "has_drills": True,
+                        "has_squad": True,
                         "has_forces": True,
+                        "has_machine": True,
                         "requester": "unknown",
                         "service": "WHITE",
                         "type": "continuous",

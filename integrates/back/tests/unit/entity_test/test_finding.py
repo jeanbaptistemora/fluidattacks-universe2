@@ -188,7 +188,6 @@ async def test_finding() -> None:
           reportDate
           hacker
           currentState
-          newRemediated
           verified
           minTimeToRemediate
           vulnerabilities {
@@ -266,7 +265,6 @@ async def test_finding() -> None:
     assert "reportDate" in result["data"]["finding"]
     assert "hacker" in result["data"]["finding"]
     assert "currentState" in result["data"]["finding"]
-    assert "newRemediated" in result["data"]["finding"]
     assert "verified" in result["data"]["finding"]
     assert "observations" in result["data"]["finding"]
     assert result["data"]["finding"]["state"] == "open"

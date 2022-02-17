@@ -22,7 +22,6 @@ async def get_result(
             ){{
                 age
                 hacker
-                attackVectorDesc
                 attackVectorDescription
                 closedVulnerabilities
                 consulting {{
@@ -71,34 +70,23 @@ async def get_result(
                 groupName
                 historicState
                 id
-                inputsVulns {{
-                    specific
-                }}
                 inputsVulnerabilities {{
                     specific
                 }}
                 isExploitable
                 lastVulnerability
-                linesVulns {{
-                    specific
-                }}
                 linesVulnerabilities {{
                     specific
                 }}
                 minTimeToRemediate
-                newRemediated
                 observations{{
                     content
                 }}
                 openAge
                 openVulnerabilities
-                portsVulns {{
-                    specific
-                }}
                 portsVulnerabilities {{
                     specific
                 }}
-                projectName
                 recommendation
                 records
                 releaseDate
@@ -152,9 +140,6 @@ async def get_result(
                 }}
                 verified
                 vulnerabilities {{
-                    id
-                }}
-                vulnsToReattack {{
                     id
                 }}
                 vulnerabilitiesToReattack {{

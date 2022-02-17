@@ -38,6 +38,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["hasSquad"]
     assert result["data"]["group"]["hasForces"]
     assert result["data"]["group"]["hasAsm"]
+    assert result["data"]["group"]["hasMachine"]
     assert result["data"]["group"]["openVulnerabilities"] == 2
     assert result["data"]["group"]["closedVulnerabilities"] == 1
     assert result["data"]["group"]["lastClosedVulnerability"] == 40

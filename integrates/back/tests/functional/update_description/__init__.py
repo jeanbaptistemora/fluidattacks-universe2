@@ -55,7 +55,6 @@ async def get_result(
                     linesVulnerabilities {{
                         specific
                     }}
-                    newRemediated
                     openAge
                     openVulnerabilities
                     portsVulnerabilities {{

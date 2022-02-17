@@ -23,6 +23,7 @@ async def get_result(
                 hasSquad
                 hasForces
                 hasAsm
+                hasMachine
                 openVulnerabilities
                 closedVulnerabilities
                 lastClosedVulnerability
