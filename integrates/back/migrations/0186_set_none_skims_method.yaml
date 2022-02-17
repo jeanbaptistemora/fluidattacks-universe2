@@ -1,0 +1,185 @@
+F004:
+    - query.query_f004: ["*"]
+
+F008:
+    - query.query_f008: ["*"]
+
+F009:
+    - aws.aws_credentials: ["*.groovy", "*.java", "*.jpage", "*.kt", "*.py", "*.sbt", "*.sql", "*.swift"]
+    - docker.dockerfile_env_secrets: ["*Dockerfile"]
+    - docker.docker_compose_env_secrets: ["*docker-compose.yaml", "*docker-compose.yml"]
+    - javascript.javascript_crypto_js_credentials: ["*.jsx"]
+
+F011:
+    - maven.maven_pom_xml: ["*pom.xml*"]
+    - maven.maven_gradle: ["*.gradle*"]
+    - maven.maven_sbt: ["*build.sbt*"]
+    - npm.npm_package_json: ["*package.json*"]
+    - npm.npm_package_lock_json: ["*package-lock.json*"]
+    - npm.npm_yarn_lock: ["*yarn.lock*"]
+    - nuget.nuget_csproj: ["*.csproj*"]
+    - nuget.nuget_packages_config: ["*packages.config*"]
+
+F012:
+    - java.java_jpa_like: ["*.java"]
+
+F016:
+    - cloudformation.cfn_serves_content_over_insecure_protocols: ["*.yaml", "*.yml", "*.json"]
+
+F021:
+    - query.query_f021: ["*"]
+
+F022:
+    - java.java_properties_unencrypted_transport: ["*.properties"]
+    - kotlin.kotlin_unencrypted_channel: ["*.kt", "*.ktm", "*.kts"]
+
+F055:
+    - android.apk_backups_enabled: ["*AndroidManifest.xml"]
+
+F058:
+    - android.apk_debugging_enabled: ["*AndroidManifest.xml"]
+
+F063:
+    - query.query_f063: ["*"]
+
+F070:
+    - cloudformation.cfn_elb2_uses_insecure_security_policy: ["*.yaml", "*.yml", "*.json"]
+    - terraform.tfm_lb_target_group_insecure_port: ["*.tf"]
+
+F073:
+    - cloudformation.cfn_rds_is_publicly_accessible: ["*.yaml", "*.yml", "*.json"]
+
+F075:
+    - android.apk_exported_cp: ["*AndroidManifest.xml"]
+
+F079:
+    - generic.non_upgradeable_deps: [
+                                        "*Scripts/_references.js",
+                                        "*/Assets*/vendor/*",
+                                        "*/Assets*/lib/*",
+                                        "*/Assets*/js/*",
+                                        "*/Content*/jquery*",
+                                        "*/GoogleMapping*.js",
+                                        "*/Scripts*/bootstrap*",
+                                        "*/Scripts*/modernizr*",
+                                        "*/Scripts*/jquery*",
+                                        "*/Scripts*/popper*",
+                                        "*/Scripts*/vue*",
+                                        "*/wwwroot/lib*",
+                                    ]
+
+F085:
+    - javascript.javascript_client_storage: ["*.js", "*.jsx"]
+
+F089:
+    - query.query_f089: ["*"]
+
+F091:
+    - c_sharp.c_sharp_insecure_logging: ["*.cs"]
+
+F099:
+    - terraform.tfm_unencrypted_buckets: ["*.tf"]
+
+F101:
+    - terraform.tfm_azure_key_vault_not_recoverable: ["*.tf"]
+
+F107:
+    - query.query_f107: ["*"]
+
+F109:
+    - cloudformation.cfn_rds_is_not_inside_a_db_subnet_group: ["*.yaml", "*.yml", "*.json"]
+
+F112:
+    - query.query_f112: ["*"]
+
+F117:
+    - generic.unverifiable_files: [
+                                    "*.aar",
+                                    "*.apk",
+                                    "*.bin",
+                                    "*.class",
+                                    "*.dll",
+                                    "*.DS_Store",
+                                    "*.exec",
+                                    "*.hprof",
+                                    "*.jar",
+                                    "*.jasper",
+                                    "*.pdb",
+                                    "*.pyc",
+                                    "*.exe",
+                                    "*debug.log",
+                                    "*org.eclipse.buildship.core.prefs",
+                                    "*.classpath",
+                                    "*.project",
+                                    "*.vscode",
+                                    "*.cs.bak",
+                                    "*.csproj.bak",
+                                    "*.min.js",
+                                    "*.serverless_plugins*",
+                                    "*/.settings/*",
+                                  ]
+
+F127:
+    - query.query_f127: ["*"]
+
+F134:
+    - c_sharp.csharp_insecure_cors: ["*.cs"]
+
+F160:
+    - c_sharp.c_sharp_file_create_temp_file: ["*.cs"]
+    - java.java_file_create_temp_file: ["*.java"]
+
+F177:
+    - terraform.ec2_use_default_security_group: ["*.tf"]
+
+F203:
+    - cloudformation.cfn_public_buckets: ["*.yaml", "*.yml", "*.json"]
+    - terraform.tfm_public_buckets: ["*.tf"]
+
+F211:
+    - c_sharp.csharp_vuln_regular_expression: ["*.cs"]
+
+F237:
+    - java.java_info_leak_stacktrace: ["*.java"]
+
+F246:
+    - cloudformation.cfn_rds_has_unencrypted_storage: ["*.yaml", "*.yml", "*.json"]
+
+F257:
+    - cloudformation.cfn_ec2_has_not_termination_protection: ["*.yaml", "*.yml", "*.json"]
+    - terraform.ec2_has_not_termination_protection: ["*.tf"]
+
+F258:
+    - cloudformation.cfn_elb2_has_not_deletion_protection: ["*.yaml", "*.yml", "*.json"]
+
+F259:
+    - cloudformation.cfn_has_not_point_in_time_recovery: ["*.yaml", "*.yml", "*.json"]
+    - terraform.tfm_db_no_point_in_time_recovery: ["*.tf"]
+
+F338:
+    - c_sharp.csharp_check_hashes_salt: ["*.cs"]
+
+F346:
+    - android.has_dangerous_permissions: ["*AndroidManifest.xml"]
+
+F363:
+    - cloudformation.cfn_insecure_generate_secret_string: ["*.yaml", "*.yml", "*.json"]
+
+F366:
+    - c_sharp.csharp_conflicting_annotations: ["*.cs"]
+
+F380:
+    - docker.unpinned_docker_image: ["*Dockerfile"]
+
+F393:
+    - npm.npm_pkg_json: ["*package.json*"]
+    - npm.npm_pkg_lock_json: ["*package-lock.json*"]
+
+F394:
+    - cloudformation.cfn_log_files_not_validated: ["*.yaml", "*.yml", "*.json"]
+
+F396:
+    - cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled: ["*.yaml", "*.yml", "*.json"]
+
+F401:
+    - terraform.tfm_azure_kv_secret_no_expiration_date: ["*.tf"]
