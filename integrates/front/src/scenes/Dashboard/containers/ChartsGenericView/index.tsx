@@ -430,38 +430,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          <RowCenter>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"totalVulnerabilitiesStatus"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}portfolio#vulnerabilities-by-group`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.vulnsGroups")}
-              />
-            </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"openVulnerabilitiesStatus"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}portfolio#open-vulnerabilities-by-group`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.openVulnsGroups")}
-              />
-            </Col50>
-          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (
@@ -569,6 +537,38 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     title={translate.t(
                       "tagIndicator.vulnerabilitiesByTreatments"
                     )}
+                  />
+                </Col50>
+              </RowCenter>
+              <RowCenter>
+                <Col50>
+                  <Graphic
+                    bsHeight={160}
+                    className={"g2"}
+                    documentName={"totalVulnerabilitiesStatus"}
+                    documentType={"pieChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"c3"}
+                    infoLink={`${graphInfoLink}portfolio#vulnerabilities-by-group`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.vulnsGroups")}
+                  />
+                </Col50>
+                <Col50>
+                  <Graphic
+                    bsHeight={160}
+                    className={"g2"}
+                    documentName={"openVulnerabilitiesStatus"}
+                    documentType={"pieChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"c3"}
+                    infoLink={`${graphInfoLink}portfolio#open-vulnerabilities-by-group`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.openVulnsGroups")}
                   />
                 </Col50>
               </RowCenter>
