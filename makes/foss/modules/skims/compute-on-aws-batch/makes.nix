@@ -11,7 +11,7 @@
       environment = [ "PRODUCT_API_TOKEN" ];
       memory = vcpus * 1800;
       queue = "dedicated_later";
-      setup = [ outputs."/secretsForAwsFromEnv/skimsProd" ];
+      setup = [ outputs."/secretsForAwsFromEnv/prodSkims" ];
       vcpus = 4;
     };
     skimsProcessGroupAll = rec {

@@ -7,30 +7,13 @@
   imports = [
     ./compute-on-aws-batch/makes.nix
     ./dev/makes.nix
+    ./infra/makes.nix
     ./inputs/makes.nix
     ./tests/makes.nix
     ./pipeline/makes.nix
   ];
   inputs = {
     observesIndex = import (projectPath "/observes/architecture/index.nix");
-  };
-  deployContainerImage = {
-    images = {
-      skimsProd = {
-        src = outputs."/skims/container";
-        registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/skims:latest";
-      };
-    };
-  };
-  deployTerraform = {
-    modules = {
-      skims = {
-        setup = [ outputs."/secretsForAwsFromEnv/skimsProd" ];
-        src = "/skims/infra";
-        version = "1.0";
-      };
-    };
   };
   lintPython = {
     dirsOfModules = {
@@ -72,19 +55,10 @@
       };
     };
   };
-  lintTerraform = {
-    modules = {
-      skims = {
-        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
-        src = "/skims/infra";
-        version = "1.0";
-      };
-    };
-  };
   secretsForAwsFromEnv = {
-    skimsProd = {
-      accessKeyId = "SKIMS_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "SKIMS_PROD_AWS_SECRET_ACCESS_KEY";
+    prodSkims = {
+      accessKeyId = "PROD_SKIMS_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "PROD_SKIMS_AWS_SECRET_ACCESS_KEY";
       sessionToken = "AWS_SESSION_TOKEN";
     };
   };
@@ -92,15 +66,6 @@
     skims = {
       python = "3.8";
       target = "/skims/skims";
-    };
-  };
-  testTerraform = {
-    modules = {
-      skims = {
-        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
-        src = "/skims/infra";
-        version = "1.0";
-      };
     };
   };
   dynamoDb = {
