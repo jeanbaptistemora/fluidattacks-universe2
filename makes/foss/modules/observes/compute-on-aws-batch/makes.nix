@@ -129,7 +129,7 @@ in
 
     observesDynamoV2EtlBig = sharedConfiguration // {
       attemptDurationSeconds = 86400;
-      command = [ "m" "f" "/observes/etl/dynamo/table" ];
+      command = [ "m" "f" "/observes/etl/dynamo/v2" ];
       queue = "observes_soon";
     };
   };
