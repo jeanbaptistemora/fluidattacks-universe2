@@ -14,9 +14,34 @@ terraform {
 
   backend "s3" {
     bucket         = "fluidattacks-terraform-states-prod"
-    key            = "user-provision-sorts.tfstate"
+    key            = "makes-users-prod-sorts.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform_state_lock"
   }
+}
+
+module "aws" {
+  source = "../../../modules/aws"
+  name   = "prod_sorts"
+  policy = jsonencode(local.aws)
+
+  tags = {
+    "Name"               = "prod_sorts"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
+  }
+}
+
+provider "gitlab" {
+  token = var.gitlab_token
+}
+
+module "publish_credentials" {
+  source    = "../../../modules/publish_credentials"
+  key_1     = module.aws.keys.1
+  key_2     = module.aws.keys.2
+  prefix    = "PROD_SORTS"
+  protected = true
 }
