@@ -1,0 +1,94 @@
+from .enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateRemovalJustification,
+    GroupStateStatus,
+    GroupStateUpdationJustification,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from decimal import (
+    Decimal,
+)
+from typing import (
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Set,
+    Union,
+)
+
+GroupStatusJustification = Union[
+    GroupStateRemovalJustification,
+    GroupStateUpdationJustification,
+]
+RegisterByTime = List[List[Dict[str, Union[str, Decimal]]]]
+
+
+class GroupState(NamedTuple):
+    has_machine: bool
+    has_squad: bool
+    modified_by: str
+    modified_date: str
+    service: GroupService
+    status: GroupStateStatus
+    tier: GroupTier
+    type: GroupSubscriptionType
+    comments: Optional[str] = None
+    justification: Optional[GroupStatusJustification] = None
+
+
+class GroupTreatmentSummary(NamedTuple):
+    accepted: int = 0
+    accepted_undefined: int = 0
+    in_progress: int = 0
+    new: int = 0
+
+
+class GroupUnreliableIndicators(NamedTuple):
+    closed_vulnerabilities: Optional[int] = None
+    exposed_over_time_cvssf: Optional[RegisterByTime] = None
+    exposed_over_time_month_cvssf: Optional[RegisterByTime] = None
+    exposed_over_time_year_cvssf: Optional[RegisterByTime] = None
+    last_closing_date: Optional[str] = None
+    last_closing_vuln_finding: Optional[str] = None
+    max_open_severity: Optional[Decimal] = None
+    max_open_severity_finding: Optional[str] = None
+    mean_remediate: Optional[Decimal] = None
+    mean_remediate_critical_severity: Optional[str] = None
+    mean_remediate_high_severity: Optional[str] = None
+    mean_remediate_low_severity: Optional[str] = None
+    mean_remediate_medium_severity: Optional[str] = None
+    open_findings: Optional[int] = None
+    open_vulnerabilities: Optional[str] = None
+    remediated_over_time: Optional[RegisterByTime] = None
+    remediated_over_time_30: Optional[RegisterByTime] = None
+    remediated_over_time_90: Optional[RegisterByTime] = None
+    remediated_over_time_cvssf: Optional[RegisterByTime] = None
+    remediated_over_time_cvssf_30: Optional[RegisterByTime] = None
+    remediated_over_time_cvssf_90: Optional[RegisterByTime] = None
+    remediated_over_time_month: Optional[RegisterByTime] = None
+    remediated_over_time_month_cvssf: Optional[RegisterByTime] = None
+    remediated_over_time_year: Optional[RegisterByTime] = None
+    remediated_over_time_year_cvssf: Optional[RegisterByTime] = None
+    total_treatment: Optional[GroupTreatmentSummary] = None
+
+
+class GroupFile(NamedTuple):
+    description: str
+    filename: str
+    modified_by: str
+    modified_date: str
+
+
+class Group(NamedTuple):
+    description: str
+    language: GroupLanguage
+    name: str
+    organization_name: str
+    agent_token: Optional[str] = None
+    context: Optional[str] = None
+    disambiguation: Optional[str] = None
+    files: Optional[List[GroupFile]] = None
+    tags: Optional[Set[str]] = None
