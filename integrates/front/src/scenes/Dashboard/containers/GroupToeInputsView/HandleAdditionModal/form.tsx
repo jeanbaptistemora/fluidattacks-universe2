@@ -30,24 +30,30 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   const {
     values: { environmentUrl, rootId },
     submitForm,
+    setFieldValue,
   } = useFormikContext<IFormValues>();
 
-  const seletedRoot = _.isUndefined(rootId)
+  const selectedRoot = _.isUndefined(rootId)
     ? undefined
     : roots.filter((root: Root): boolean => root.id === rootId)[0];
 
   useEffect((): void => {
-    const newHost = _.isUndefined(seletedRoot)
+    const newHost = _.isUndefined(selectedRoot)
       ? undefined
-      : isGitRoot(seletedRoot) && !_.isUndefined(environmentUrl)
+      : isGitRoot(selectedRoot) && !_.isUndefined(environmentUrl)
       ? getGitRootHost(environmentUrl)
-      : isIPRoot(seletedRoot)
-      ? getIpRootHost(seletedRoot)
-      : isURLRoot(seletedRoot)
-      ? getUrlRootHost(seletedRoot)
+      : isIPRoot(selectedRoot)
+      ? getIpRootHost(selectedRoot)
+      : isURLRoot(selectedRoot)
+      ? getUrlRootHost(selectedRoot)
       : undefined;
     setHost(newHost);
-  }, [environmentUrl, seletedRoot, setHost]);
+  }, [environmentUrl, selectedRoot, setHost]);
+  useEffect((): void => {
+    if (!_.isUndefined(selectedRoot)) {
+      setFieldValue("environmentUrl", undefined);
+    }
+  }, [selectedRoot, setFieldValue]);
 
   return (
     <Form id={"addToeInput"}>
@@ -56,7 +62,7 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
           <RootField roots={roots} />
         </Col50>
         <Col50>
-          <EnvironmentUrlField selectedRoot={seletedRoot} />
+          <EnvironmentUrlField selectedRoot={selectedRoot} />
         </Col50>
       </Row>
       <Row>
