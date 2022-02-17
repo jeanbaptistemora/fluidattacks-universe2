@@ -116,6 +116,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         bePresent: "",
         filenameExtension: "",
         hasVulnerabilities: "",
+        modifiedDate: { max: "", min: "" },
         priority: { max: "", min: "" },
         root: "",
       },
@@ -405,6 +406,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         bePresent: "",
         filenameExtension: "",
         hasVulnerabilities: "",
+        modifiedDate: { max: "", min: "" },
         priority: { max: "", min: "" },
         root: "",
       })
@@ -454,28 +456,21 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       );
     };
   };
-  function onPriorityMinChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupToeLinesTable(
-      (value): IFilterSet => ({
-        ...value,
-        priority: { ...value.priority, min: event.target.value },
-      })
-    );
-  }
-  function onPriorityMaxChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    event.persist();
-    setFilterGroupToeLinesTable(
-      (value): IFilterSet => ({
-        ...value,
-        priority: { ...value.priority, max: event.target.value },
-      })
-    );
-  }
+  const onRangeFilterValueChange = (
+    filterName: keyof Pick<IFilterSet, "modifiedDate" | "priority">,
+    key: "max" | "min"
+  ): ((event: ChangeEvent<HTMLInputElement>) => void) => {
+    return (event: React.ChangeEvent<HTMLInputElement>): void => {
+      event.persist();
+
+      setFilterGroupToeLinesTable(
+        (value): IFilterSet => ({
+          ...value,
+          [filterName]: { ...value[filterName], [key]: event.target.value },
+        })
+      );
+    };
+  };
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -538,13 +533,27 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       placeholder: translate.t("group.toe.lines.filters.priority.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.priority,
-        onChangeMax: onPriorityMaxChange,
-        onChangeMin: onPriorityMinChange,
+        onChangeMax: onRangeFilterValueChange("priority", "max"),
+        onChangeMin: onRangeFilterValueChange("priority", "min"),
         step: 1,
       },
       tooltipId: "group.toe.lines.filters.priority.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.priority.tooltip",
       type: "range",
+    },
+    {
+      defaultValue: "",
+      placeholder: translate.t(
+        "group.toe.lines.filters.modifiedDate.placeholder"
+      ),
+      rangeProps: {
+        defaultValue: filterGroupToeLinesTable.modifiedDate,
+        onChangeMax: onRangeFilterValueChange("modifiedDate", "max"),
+        onChangeMin: onRangeFilterValueChange("modifiedDate", "min"),
+      },
+      tooltipId: "group.toe.lines.filters.modifiedDate.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.modifiedDate.tooltip",
+      type: "dateRange",
     },
     {
       defaultValue: filterGroupToeLinesTable.bePresent,

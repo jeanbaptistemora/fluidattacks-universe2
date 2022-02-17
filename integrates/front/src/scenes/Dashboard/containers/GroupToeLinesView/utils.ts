@@ -2,7 +2,11 @@ import _ from "lodash";
 
 import type { IFilterSet, IToeLinesData } from "./types";
 
-import { filterSearchText } from "components/DataTableNext/utils/filters";
+import {
+  filterDateRange,
+  filterSearchText,
+  filterSelect,
+} from "components/DataTableNext/utils/filters";
 
 const getToeLinesId: (toeLinesData: IToeLinesData) => string = (
   toeLinesData: IToeLinesData
@@ -86,51 +90,25 @@ function getNonSelectable(toeLinesDatas: IToeLinesData[]): number[] {
   return nonSelectable;
 }
 
-const filterBePresent: (
+const filterBooleanValue: (
   filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
+  filterName: keyof IFilterSet,
+  toeLines: IToeLinesData[],
+  columnKey: keyof IToeLinesData
 ) => IToeLinesData[] = (
   filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
+  filterName: keyof IFilterSet,
+  toeLines: IToeLinesData[],
+  columnKey: keyof IToeLinesData
 ): IToeLinesData[] => {
-  const bePresent = filterGroupToeLinesTable.bePresent === "true";
+  const filterValue = _.isEmpty(filterGroupToeLinesTable[filterName])
+    ? undefined
+    : filterGroupToeLinesTable[filterName] === "true";
 
-  return _.isEmpty(filterGroupToeLinesTable.bePresent)
+  return _.isUndefined(filterValue)
     ? toeLines
     : toeLines.filter((toeLinesData): boolean => {
-        return toeLinesData.bePresent === bePresent;
-      });
-};
-
-const filterFilenameExtensions: (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-) => IToeLinesData[] = (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-): IToeLinesData[] =>
-  _.isEmpty(filterGroupToeLinesTable.filenameExtension)
-    ? toeLines
-    : toeLines.filter((toeLinesData): boolean => {
-        return (
-          toeLinesData.extension === filterGroupToeLinesTable.filenameExtension
-        );
-      });
-
-const filterHasVulnerabilities: (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-) => IToeLinesData[] = (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-): IToeLinesData[] => {
-  const hasVulnerabilities =
-    filterGroupToeLinesTable.hasVulnerabilities === "true";
-
-  return _.isEmpty(filterGroupToeLinesTable.hasVulnerabilities)
-    ? toeLines
-    : toeLines.filter((toeLinesData): boolean => {
-        return toeLinesData.hasVulnerabilities === hasVulnerabilities;
+        return toeLinesData[columnKey] === filterValue;
       });
 };
 
@@ -162,19 +140,6 @@ const filterPriority: (
       });
 };
 
-const filterRoot: (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-) => IToeLinesData[] = (
-  filterGroupToeLinesTable: IFilterSet,
-  toeLines: IToeLinesData[]
-): IToeLinesData[] =>
-  _.isEmpty(filterGroupToeLinesTable.root)
-    ? toeLines
-    : toeLines.filter((toeLinesData): boolean => {
-        return toeLinesData.rootNickname === filterGroupToeLinesTable.root;
-      });
-
 const filterSearchtextResult: (
   searchTextFilter: string,
   toeLines: IToeLinesData[]
@@ -192,17 +157,34 @@ const getFilteredData: (
   searchTextFilter: string,
   toeLines: IToeLinesData[]
 ): IToeLinesData[] => {
-  const filteredBePresent = filterBePresent(filterGroupToeLinesTable, toeLines);
-  const filteredFilenameExtensions = filterFilenameExtensions(
+  const filteredBePresent = filterBooleanValue(
     filterGroupToeLinesTable,
-    toeLines
+    "bePresent",
+    toeLines,
+    "bePresent"
   );
-  const filteredHasVulnerabilities = filterHasVulnerabilities(
+  const filteredFilenameExtensions: IToeLinesData[] = filterSelect(
+    toeLines,
+    filterGroupToeLinesTable.filenameExtension,
+    "extension"
+  );
+  const filteredHasVulnerabilities = filterBooleanValue(
     filterGroupToeLinesTable,
-    toeLines
+    "hasVulnerabilities",
+    toeLines,
+    "hasVulnerabilities"
+  );
+  const filteredModifiedDate: IToeLinesData[] = filterDateRange(
+    toeLines,
+    filterGroupToeLinesTable.modifiedDate,
+    "modifiedDate"
   );
   const filteredPriority = filterPriority(filterGroupToeLinesTable, toeLines);
-  const filteredRoot = filterRoot(filterGroupToeLinesTable, toeLines);
+  const filteredRoot: IToeLinesData[] = filterSelect(
+    toeLines,
+    filterGroupToeLinesTable.root,
+    "rootNickname"
+  );
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
     toeLines
@@ -211,6 +193,7 @@ const getFilteredData: (
     filteredBePresent,
     filteredFilenameExtensions,
     filteredHasVulnerabilities,
+    filteredModifiedDate,
     filteredPriority,
     filteredRoot,
     filteredSearchtextResult

@@ -898,6 +898,7 @@ export const enTranslations: ResourceKey = {
             placeholder: "Has vulnerabilities",
             tooltip: "Filter by has vulnerabilities",
           },
+
           root: {
             placeholder: "Root",
             tooltip: "Filter by root",
@@ -964,6 +965,10 @@ export const enTranslations: ResourceKey = {
           hasVulnerabilities: {
             placeholder: "Has vulnerabilities",
             tooltip: "Filter by has vulnerabilities",
+          },
+          modifiedDate: {
+            placeholder: "Modified date (Range)",
+            tooltip: "Filter by modified date",
           },
           priority: {
             placeholder: "Priority % (range)",
