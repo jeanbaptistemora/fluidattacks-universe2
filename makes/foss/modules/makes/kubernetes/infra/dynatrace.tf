@@ -15,18 +15,8 @@ resource "helm_release" "dynatrace" {
   }
 
   set_sensitive {
-    name  = "apiUrl"
-    value = var.dynatraceApiUrl
-  }
-
-  set_sensitive {
     name  = "paasToken"
     value = var.dynatracePaasToken
-  }
-
-  set {
-    name  = "classicFullStack.enabled"
-    value = true
   }
 
   set {
@@ -37,5 +27,15 @@ resource "helm_release" "dynatrace" {
   set {
     name  = "activeGate.capabilities"
     value = yamlencode(["routing", "kubernetes-monitoring"])
+  }
+
+  set_sensitive {
+    name  = "apiUrl"
+    value = var.dynatraceApiUrl
+  }
+
+  set {
+    name  = "classicFullStack.enabled"
+    value = true
   }
 }
