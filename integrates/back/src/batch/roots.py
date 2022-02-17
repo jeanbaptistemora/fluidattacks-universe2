@@ -1,9 +1,6 @@
-import aioboto3
 from aioextensions import (
     collect,
 )
-import asyncio
-import base64
 from batch.dal import (
     delete_action,
     get_actions_by_name,
@@ -13,11 +10,12 @@ from batch.types import (
     BatchProcessing,
     CloneResult,
 )
-from context import (
-    FI_AWS_S3_MIRRORS_BUCKET,
+from batch.utils.git_self import (
+    ssh_clone_root,
+    ssh_ls_remote_root,
 )
-from contextlib import (
-    suppress,
+from batch.utils.s3 import (
+    is_in_s3,
 )
 from custom_exceptions import (
     CredentialNotFound,
@@ -31,9 +29,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from datetime import (
-    datetime,
 )
 from db_model import (
     findings as findings_model,
@@ -79,15 +74,7 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
-import git
-from git.exc import (
-    GitError,
-)
-from git.objects.commit import (
-    Commit,
-)
 import itertools
-import json
 import logging
 import logging.config
 from machine.availability import (
@@ -108,7 +95,6 @@ from newutils import (
 from operator import (
     attrgetter,
 )
-import os
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -118,7 +104,6 @@ from roots import (
 from settings import (
     LOGGING,
 )
-import tempfile
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
@@ -144,9 +129,6 @@ from unreliable_indicators.enums import (
 )
 from unreliable_indicators.operations import (
     update_unreliable_indicators_by_deps,
-)
-from urllib.parse import (
-    urlparse,
 )
 import uuid
 from vulnerabilities import (
@@ -547,176 +529,6 @@ async def move_root(*, item: BatchProcessing) -> None:
     )
 
 
-async def _upload_cloned_repo_to_s3(
-    *,
-    repo_path: str,
-    group_name: str,
-    nickname: str,
-) -> bool:
-    success: bool = False
-
-    # Add metadata about the last cloning date, which is right now
-    with open(
-        os.path.join(repo_path, ".git/fluidattacks_metadata"),
-        "w",
-        encoding="utf-8",
-    ) as metadata:
-        json.dump(
-            {
-                "date": datetime_utils.convert_to_iso_str(
-                    datetime_utils.get_now_as_str()
-                )
-            },
-            metadata,
-            indent=2,
-        )
-
-    # Create .keep files in empty directories so the structure is kept in S3
-    empty_dirs = [
-        root
-        for root, dirs, files in os.walk(repo_path)
-        if not dirs and not files
-    ]
-    for _dir in empty_dirs:
-        with open(os.path.join(_dir, ".keep"), "w", encoding="utf-8") as file:
-            file.close()
-
-    proc = await asyncio.create_subprocess_exec(
-        "aws",
-        "s3",
-        "sync",
-        "--delete",
-        "--sse",
-        "AES256",
-        "--exclude",
-        f"{repo_path}/*",
-        "--include",
-        f"{repo_path}/.git/*",
-        repo_path,
-        f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}/{nickname}/",
-        stderr=asyncio.subprocess.PIPE,
-        stdout=asyncio.subprocess.PIPE,
-        env={**os.environ.copy()},
-    )
-    _, stderr = await proc.communicate()
-    if proc.returncode != 0:
-        LOGGER.error(
-            "Uploading root to S3 failed with error: %s",
-            stderr.decode(),
-            extra=dict(extra=locals()),
-        )
-    else:
-        success = True
-    return success
-
-
-async def ssh_ls_remote_root(
-    root: RootItem, cred: CredentialItem
-) -> Optional[str]:
-    root_url: str = root.state.url
-    parsed_url = urlparse(root_url)
-    raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
-    with tempfile.TemporaryDirectory() as temp_dir:
-        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
-        with open(
-            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
-            "w",
-            encoding="utf-8",
-        ) as ssh_file:
-            ssh_file.write(base64.b64decode(cred.state.key).decode())
-
-        proc = await asyncio.create_subprocess_exec(
-            "git",
-            "ls-remote",
-            "-h",
-            raw_root_url,
-            root.state.branch,
-            stderr=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            env={
-                **os.environ.copy(),
-                "GIT_SSH_COMMAND": (
-                    f"ssh -i {ssh_file_name} -o"
-                    "UserKnownHostsFile=/dev/null -o "
-                    "StrictHostKeyChecking=no"
-                ),
-            },
-        )
-        stdout, _ = await proc.communicate()
-
-        os.remove(ssh_file_name)
-
-        if proc.returncode != 0:
-            return None
-
-        return stdout.decode().split("\t")[0]
-
-
-async def ssh_clone_root(root: RootItem, cred: CredentialItem) -> CloneResult:
-    success: bool = False
-    group_name: str = root.group_name
-    root_url: str = root.state.url
-    raw_root_url = root_url.replace(f"{urlparse(root_url).scheme}://", "")
-    branch: str = root.state.branch
-    with tempfile.TemporaryDirectory() as temp_dir:
-        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
-        with open(
-            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
-            "w",
-            encoding="utf-8",
-        ) as ssh_file:
-            ssh_file.write(base64.b64decode(cred.state.key).decode())
-
-        folder_to_clone_root = f"{temp_dir}/{root.state.nickname}"
-        proc = await asyncio.create_subprocess_exec(
-            "git",
-            "clone",
-            "--branch",
-            branch,
-            raw_root_url,
-            folder_to_clone_root,
-            stderr=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            env={
-                **os.environ.copy(),
-                "GIT_SSH_COMMAND": (
-                    f"ssh -i {ssh_file_name} -o"
-                    "UserKnownHostsFile=/dev/null -o "
-                    "StrictHostKeyChecking=no"
-                ),
-            },
-        )
-        _, stderr = await proc.communicate()
-
-        os.remove(ssh_file_name)
-        commit: Optional[Commit] = None
-        if proc.returncode != 0:
-            LOGGER.error(
-                "Root SSH cloning failed with error: %s",
-                stderr.decode(),
-                extra=dict(extra=locals()),
-            )
-        else:
-            success = await _upload_cloned_repo_to_s3(
-                repo_path=folder_to_clone_root,
-                group_name=group_name,
-                nickname=root.state.nickname,
-            )
-            with suppress(GitError, AttributeError):
-                commit = git.Repo(
-                    folder_to_clone_root, search_parent_directories=True
-                ).head.object
-        if commit:
-            return CloneResult(
-                success=success,
-                commit=commit.hexsha,
-                commit_date=datetime.fromtimestamp(
-                    commit.authored_date
-                ).isoformat(),
-            )
-    return CloneResult(success=success)
-
-
 async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     root_nicknames: List[str] = item.additional_info.split(",")
@@ -759,7 +571,13 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
         if root_cred.metadata.type.value == "SSH":
             LOGGER.info("Cloning %s", root.state.nickname)
-            root_cloned = await ssh_clone_root(root, root_cred)
+            root_cloned = await ssh_clone_root(
+                group_name=root.group_name,
+                root_nickname=root.state.nickname,
+                branch=root.state.branch,
+                root_url=root.state.url,
+                cred=root,
+            )
             await roots_domain.update_root_cloning_status(
                 loaders=dataloaders,
                 group_name=group_name,
@@ -805,23 +623,12 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 async def _ssh_ls_remote_root(
     root: RootItem, cred: CredentialItem
 ) -> Tuple[str, Optional[str]]:
-    return (root.id, await ssh_ls_remote_root(root, cred))
-
-
-async def is_in_s3(group_name: str, root_nickname: str) -> Tuple[str, bool]:
-    async with aioboto3.client(service_name="s3") as client:
-        return (
-            root_nickname,
-            any(
-                object["Key"].startswith(f"{group_name}/{root_nickname}/.git/")
-                for object in (
-                    await client.list_objects(
-                        Bucket="continuous-repositories",
-                        Prefix=f"{group_name}/{root_nickname}/",
-                    )
-                ).get("Contents", [])
-            ),
-        )
+    return (
+        root.id,
+        await ssh_ls_remote_root(
+            root_url=root.state.url, cred=cred, branch=root.state.branch
+        ),
+    )
 
 
 async def queue_sync_git_roots(
