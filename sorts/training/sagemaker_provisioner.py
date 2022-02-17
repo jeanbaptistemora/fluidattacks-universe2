@@ -42,7 +42,7 @@ def get_estimator(
         framework_version="0.23-1",
         instance_type=instance_type,
         instance_count=1,
-        role="arn:aws:iam::205810638802:role/sorts_prod",
+        role="arn:aws:iam::205810638802:role/prod_sorts",
         output_path="s3://sorts/training-output",
         base_job_name=f"sorts-training-test-{model.lower()}",
         hyperparameters={"model": model},

@@ -1,12 +1,10 @@
 # shellcheck shell=bash
 
 function upload_sorts_results_to_s3 {
-  export SORTS_PROD_AWS_ACCESS_KEY_ID
-  export SORTS_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
   local target="s3://sorts/features/"
 
-  aws_login_prod 'sorts' \
+  aws_login_prod_new 'sorts' \
     && echo "[INFO] Uploading Sorts feature extraction results to S3" \
     && aws_s3_sync "${PWD}" "${target}" --exclude "*" --include "${group}*.csv" \
     && rm -rf "${group}"*".csv"
@@ -38,7 +36,7 @@ function extract_features {
 function main {
   local groups_file
 
-  aws_login_prod 'sorts' \
+  aws_login_prod_new 'sorts' \
     && sops_export_vars 'sorts/secrets.yaml' \
       'MIXPANEL_API_TOKEN_SORTS' \
       'REDSHIFT_DATABASE' \
