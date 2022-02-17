@@ -187,8 +187,8 @@ async def list_(  # pylint: disable=too-many-locals
         if finding_code in json.loads(item["container"]["command"][4])
         and item["status"] in {x.name for x in statuses}
     }
-    jobs_from_db: Dict[str, RootMachineExecutionItem] = {
-        execution.job_id: execution
+    jobs_from_db: Tuple[RootMachineExecutionItem, ...] = tuple(
+        execution
         for execution in collapse(
             await collect(
                 get_machine_executions(root_id=root_id)
@@ -200,12 +200,12 @@ async def list_(  # pylint: disable=too-many-locals
             find.finding == finding_code
             for find in execution.findings_executed
         )
-    }
+    )
 
     job_items = []
     jobs_listed: List[str] = []
 
-    for job_execution in jobs_from_db.values():
+    for job_execution in jobs_from_db:
         jobs_listed.append(job_execution.job_id)
         _vulns = [
             x
