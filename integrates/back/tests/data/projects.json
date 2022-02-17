@@ -9,18 +9,6 @@
           "closed_vulnerabilities": {
             "N": "0"
           },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "unittest@fluidattacks.com"
-            ]
-          },
           "description": {
             "S": "oneshot testing"
           },
@@ -246,156 +234,6 @@
               }
             ]
           },
-          "repositories": {
-            "L": [
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fintegrates"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fsomeoneatfluid.integrates.env.fluidattacks.com%2Findex"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      },
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 15:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "SSH"
-                  },
-                  "urlRepo": {
-                    "S": "git%40gitlab.com%3Afluidattacks%2Fproduct.git"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "test"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 11:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      },
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 15:45"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidattacks%2Fweb"
-                  }
-                }
-              }
-            ]
-          },
           "tag": {
             "SS": [
               "another-tag",
@@ -429,19 +267,6 @@
           },
           "closed_vulnerabilities": {
             "N": "8"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "unittest@fluidattacks.com",
-              "continuoushacking@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates unit test group"
@@ -479,118 +304,6 @@
                   },
                   "type": {
                     "S": "continuous"
-                  }
-                }
-              }
-            ]
-          },
-          "environments": {
-            "L": [
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fsomeoneatfluid.integrates.env."
-                  }
-                }
-              },
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      },
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:43"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      },
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:49"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fsomeoneatfluid2.integrates.env."
-                  }
-                }
-              },
-              {
-                "M": {
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Ffluidattacks.com%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Funittesting.fluidattacks.com%2F"
                   }
                 }
               }
@@ -1180,89 +893,6 @@
               }
             ]
           },
-          "repositories": {
-            "L": [
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      },
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 13:48"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
-                  }
-                }
-              }
-            ]
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -1296,18 +926,6 @@
           "closed_vulnerabilities": {
             "N": "0"
           },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "doesnotexist@fluidattacks.com"
-            ]
-          },
           "description": {
             "S": "Integrates continuous group"
           },
@@ -1338,68 +956,6 @@
                   },
                   "type": {
                     "S": "continuous"
-                  }
-                }
-              }
-            ]
-          },
-          "environments": {
-            "L": [
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fsomeoneatfluid.integrates.env."
-                  }
-                }
-              },
-              {
-                "M": {
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Ffluidattacks.com%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fcontinuous.fluidattacks.com%2F"
                   }
                 }
               }
@@ -1480,73 +1036,6 @@
           "project_status": {
             "S": "ACTIVE"
           },
-          "repositories": {
-            "L": [
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 13:40"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
-                  }
-                }
-              }
-            ]
-          },
           "tag": {
             "SS": [
               "another-tag"
@@ -1576,18 +1065,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "doesnotexist@fluidattacks.com"
-            ]
           },
           "description": {
             "S": "Integrates continuous group"
@@ -1619,68 +1096,6 @@
                   },
                   "type": {
                     "S": "continuous"
-                  }
-                }
-              }
-            ]
-          },
-          "environments": {
-            "L": [
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "SUSPENDED"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fsomeoneatfluid.integrates.env."
-                  }
-                }
-              },
-              {
-                "M": {
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Ffluidattacks.com%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-11-27 13:40"
-                          },
-                          "state": {
-                            "S": "INACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlEnv": {
-                    "S": "https%3A%2F%2Fcontinuous.fluidattacks.com%2F"
                   }
                 }
               }
@@ -1761,56 +1176,6 @@
           "project_status": {
             "S": "SUSPENDED"
           },
-          "repositories": {
-            "L": [
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "historic_state": {
-                    "L": [
-                      {
-                        "M": {
-                          "date": {
-                            "S": "2019-10-29 11:10"
-                          },
-                          "state": {
-                            "S": "ACTIVE"
-                          },
-                          "user": {
-                            "S": "unittest@fluidattacks.com"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Fengineering%2F"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "branch": {
-                    "S": "master"
-                  },
-                  "protocol": {
-                    "S": "HTTPS"
-                  },
-                  "uploadDate": {
-                    "S": "2019-10-29 13:40"
-                  },
-                  "urlRepo": {
-                    "S": "https%3A%2F%2Fgitlab.com%2Ffluidsignal%2Funittest"
-                  }
-                }
-              }
-            ]
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -1840,18 +1205,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "org_testuser1@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates deleted group"
@@ -1887,9 +1240,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -1936,9 +1286,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "another-tag"
@@ -1968,18 +1315,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "integratesuser@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2015,9 +1350,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2064,9 +1396,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2096,18 +1425,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "integratesuser@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2143,9 +1460,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2192,9 +1506,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2224,18 +1535,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "integratesuser@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2271,9 +1570,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2320,9 +1616,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2352,18 +1645,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "integratesuser@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2399,9 +1680,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2448,9 +1726,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2480,18 +1755,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
-          },
-          "customeradmin": {
-            "SS": [
-              "integratesuser@gmail.com"
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2527,9 +1790,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2576,9 +1836,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2608,13 +1865,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2650,9 +1900,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2699,9 +1946,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2731,13 +1975,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2773,9 +2010,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2822,9 +2056,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "repositories": {
-            "L": []
-          },
           "tag": {
             "SS": [
               "test-groups"
@@ -2854,13 +2085,6 @@
           },
           "closed_vulnerabilities": {
             "N": "0"
-          },
-          "companies": {
-            "L": [
-              {
-                "S": "FLUID"
-              }
-            ]
           },
           "description": {
             "S": "Integrates group"
@@ -2899,9 +2123,6 @@
                 }
               }
             ]
-          },
-          "environments": {
-            "L": []
           },
           "files": {
             "L": []
@@ -2946,9 +2167,6 @@
             "S": "ACTIVE"
           },
           "remediated_over_time": {
-            "L": []
-          },
-          "repositories": {
             "L": []
           },
           "tag": {
