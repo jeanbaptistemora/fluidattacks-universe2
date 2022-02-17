@@ -1,3 +1,6 @@
+from aioextensions import (
+    schedule,
+)
 from ariadne.asgi import (
     GraphQL,
 )
@@ -13,6 +16,12 @@ from dynamodb.exceptions import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.analytics import (
+    mixpanel_track,
+)
+from newutils.token import (
+    get_jwt_content,
+)
 from starlette.requests import (
     Request,
 )
@@ -24,8 +33,11 @@ from typing import (
 APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 
 
-def _log_request(request: Request, data: Dict[str, Any]) -> None:
-    """Log request to AWS Cloudwatch"""
+async def _log_request(request: Request, data: Dict[str, Any]) -> None:
+    """
+    Sends API operation metadata to cloud logging services for
+    analytical purposes.
+    """
     name: str = data.get("operationName") or "External (unnamed)"
     query: str = data.get("query", "").replace("\n", "") or "-"
     variables: str = data.get("variables") or "-"
@@ -34,6 +46,8 @@ def _log_request(request: Request, data: Dict[str, Any]) -> None:
         request,
         f"API: {name} with parameters {variables}. Complete query: {query}",
     )
+    user_data = await get_jwt_content(request)
+    await mixpanel_track(user_data["user_email"], f"API/{name}", query=query)
 
 
 class IntegratesAPI(GraphQL):
@@ -45,6 +59,6 @@ class IntegratesAPI(GraphQL):
     ) -> Dict[str, Any]:
         """Hook before the execution process begins"""
         data: Dict[str, Any] = await super().extract_data_from_request(request)
-        _log_request(request, data)
+        schedule(_log_request(request, data))
 
         return data
