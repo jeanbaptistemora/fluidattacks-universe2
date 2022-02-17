@@ -220,7 +220,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         additionalInfo={
           isReattacking
             ? translate.t(
-                "searchFindings.tabDescription.remediationModal.verificationMessage",
+                "searchFindings.tabDescription.remediationModal.message",
                 { vulns: vulns.length }
               )
             : undefined

@@ -1656,6 +1656,11 @@ export const enTranslations: ResourceKey = {
       acceptanceJustification: "Acceptance Justification",
       acceptanceUser: "Acceptance User",
       action: "Action",
+      affectedReattackModal: {
+        message: "Reattacks will be put on hold for {{vulns}} vulnerabilities",
+        selectEvent: "Please select the relevant Event:",
+        title: "Reattacks to be put on hold",
+      },
       approvalMessage:
         "Remember that the indefinite acceptance of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",
@@ -1735,16 +1740,11 @@ export const enTranslations: ResourceKey = {
         tooltip: "General suggestion to solve the vulnerability",
       },
       remediationModal: {
-        holdMessage:
-          "Verification will be requested for {{vulns}} vulnerabilities",
-        holds: "How does this event affect the selected reattacks?",
         justification: "Which was the applied solution?",
+        message: "Verification will be requested for {{vulns}} vulnerabilities",
         observations: "What observations do you have?",
-        titleHold: "Hold Reattacks",
         titleObservations: "Observations",
         titleRequest: "Justification",
-        verificationMessage:
-          "Verification will be requested for {{vulns}} vulnerabilities",
       },
       requestVerify: {
         text: "Reattack",
