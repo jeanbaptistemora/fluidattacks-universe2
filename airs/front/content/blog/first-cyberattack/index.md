@@ -45,7 +45,7 @@ doesn't take us back to the early days of computer networks.
 [According to Tom Standage](https://www.economist.com/1843/2017/10/05/the-crooked-timber-of-humanity)
 in the *1843* magazine,
 we have to go back to the first half of the 19th century.
-This first "cyberattack" was perpetrated in France
+The first "cyberattack" was perpetrated in France
 on a telecommunication network,
 specifically,
 a **mechanical telegraph system**.
