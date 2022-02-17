@@ -54,5 +54,4 @@ def work_days(minute: CronItem, hour: CronItem) -> Result[Cron, InvalidCron]:
 def week_days(
     minute: CronItem, hour: CronItem, days: CronItem
 ) -> Result[Cron, InvalidCron]:
-    days = range(1, 6)  # Monday - Friday
     return new(CronDraft(minute, hour, AnyTime(), AnyTime(), days))
