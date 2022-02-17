@@ -1019,7 +1019,7 @@ async def do_add_finding_consult(
     content: str,
     finding_id: str,
     parent: str,
-    comment_id: str,
+    comment_type: str,
     client: Optional[GraphQLClient] = None,
 ) -> bool:
 
@@ -1027,15 +1027,15 @@ async def do_add_finding_consult(
         query="""
             mutation SkimsAddFindingConsult(
                 $content: String!
-                $findingId: String!
+                $finding_id: String!
                 $parent: GenericScalar!
-                $type: FindingConsultType!
+                $comment_type: FindingConsultType!
             ) {
                 addFindingConsult(
                     content: $content
                     findingId: $finding_id
                     parent: $parent
-                    type: $comment_id
+                    type: $comment_type
                 ) {
                     commentId
                     success
@@ -1047,7 +1047,7 @@ async def do_add_finding_consult(
             content=content,
             finding_id=finding_id,
             parent=parent,
-            comment_id=comment_id,
+            comment_type=comment_type,
         ),
         client=client,
     )
