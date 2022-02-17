@@ -361,6 +361,7 @@ def _http_repo_cloning(
 
     branch = git_root["branch"]
     folder = nickname
+
     if os.path.isdir(folder):
         # Update already existing repo
         try:
@@ -437,6 +438,10 @@ def action(
                 )
             else:
                 problem = _http_repo_cloning(group_name, git_root)
+        else:
+            problem = format_repo_problem(
+                git_root["nickname"], git_root["branch"], baseurl
+            )
     if problem:
         return problem
     progress_bar()

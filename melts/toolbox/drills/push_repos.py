@@ -81,7 +81,7 @@ def fill_empty_folders(path: str) -> None:
 
 def git_optimize_all(path: str) -> None:
     git_files = tuple(Path(path).glob("**/.git"))
-    LOGGER.info("Git files: %s", git_files)
+    LOGGER.info("Git files: %s", tuple(x.name for x in git_files))
     git_folders = {x.parent for x in git_files}
     for folder in git_folders:
         LOGGER.info("Git optimize at %s", folder)
@@ -170,7 +170,7 @@ def s3_sync_fusion_to_s3(
     ]
 
     if not generic.is_env_ci():
-        git_optimize_all(fusion_dir)
+        git_optimize_all(f"{base_path}/{fusion_dir}/{root_nickname}/")
 
     # Allow upload empty folders to keep .git structure
     # and avoid errors
