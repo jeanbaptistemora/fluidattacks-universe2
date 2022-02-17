@@ -848,6 +848,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
     )
+    F406: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F406",
+        cwe=16,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[185, 265, 266],
+    )
     F407: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F407",
@@ -2393,14 +2400,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_AWS_EFS_UNENCRYPTED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_efs_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",
@@ -2982,6 +2981,14 @@ class MethodsEnum(Enum):
         name="tfm_azure_sql_server_audit_log_retention",
         module="lib_path",
         finding=FindingEnum.F402,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AWS_EFS_UNENCRYPTED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_efs_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F406,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

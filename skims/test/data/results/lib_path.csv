@@ -1659,7 +1659,8 @@ F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencr
   6 | }
     ^ Col 0
 ",terraform.tfm_aws_dynamodb_table_unencrypted
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,3,16,skims,165. Insecure service configuration - AWS,Ensure EFS file system is encrypted in namespace/skims/test/data/lib_path/f165/tfm_aws_efs_unencrypted.tf,"
+F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,"Ensure EFS file system is encrypted
+ in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf","
   1 | resource ""aws_efs_file_system"" ""enabled"" {
   2 |   creation_token = ""example""
 > 3 |   encrypted      = false

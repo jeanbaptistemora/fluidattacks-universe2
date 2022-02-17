@@ -2,8 +2,8 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
-from lib_path.f165.terraform import (
-    tfm_aws_secret_encrypted_whitouth_kms_cmk,
+from lib_path.f406.terraform import (
+    tfm_aws_efs_unencrypted,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -23,12 +23,10 @@ from typing import (
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
-def run_tfm_aws_secret_encrypted_whitouth_kms_cmk(
+def run_tfm_aws_efs_unencrypted(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    return tfm_aws_secret_encrypted_whitouth_kms_cmk(
-        content=content, path=path, model=model
-    )
+    return tfm_aws_efs_unencrypted(content=content, path=path, model=model)
 
 
 @SHIELD_BLOCKING
@@ -44,9 +42,7 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             *results,
-            run_tfm_aws_secret_encrypted_whitouth_kms_cmk(
-                content, path, model
-            ),
+            run_tfm_aws_efs_unencrypted(content, path, model),
         )
 
     return results

@@ -783,6 +783,14 @@
       "title": "402. Tracebility Loss - Azure"
     }
   },
+  "F406": {
+    "EN": {
+      "title": "406. Non-encrypted confidential information - EFS"
+    },
+    "ES": {
+      "title": "406. Non-encrypted confidential information - EFS"
+    }
+  },
   "F407": {
     "EN": {
       "title": "407. Non-encrypted confidential information - EBS Volumes"
