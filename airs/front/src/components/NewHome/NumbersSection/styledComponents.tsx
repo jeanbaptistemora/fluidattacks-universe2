@@ -26,7 +26,6 @@ const CardsContainer = styled.div.attrs({
     flex-l
     flex-wrap-l
     justify-around-l
-    mb5
   `,
 })``;
 
@@ -40,6 +39,7 @@ const CardContainer = styled.div.attrs({
     tc
   `,
 })`
+  min-height: 15rem;
   width: 20rem;
 `;
 
