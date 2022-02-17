@@ -507,6 +507,14 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "skims_technique",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "developer",
+          "AttributeType": "S"
+        },
+        {
           "AttributeName": "state",
           "AttributeType": "M"
         },
@@ -12113,6 +12121,8 @@
             "pk_2",
             "sk_2",
             "skims_method",
+            "skims_technique",
+            "developer",
             "state",
             "treatment",
             "verification",
