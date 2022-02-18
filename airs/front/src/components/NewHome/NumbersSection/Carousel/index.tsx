@@ -1,14 +1,18 @@
 import React from "react";
 
 import { NumberCard } from "../NumberCard";
-import { CardsContainer } from "../styledComponents";
+import { CardsContainer, ProgressContainer } from "../styledComponents";
 import type { INumberCard } from "../types";
 
 interface IProps {
   data: INumberCard;
+  progressValue: number;
 }
 
-const Carousel: React.FC<IProps> = ({ data }: IProps): JSX.Element => {
+const Carousel: React.FC<IProps> = ({
+  data,
+  progressValue,
+}: IProps): JSX.Element => {
   return (
     <CardsContainer>
       <NumberCard
@@ -19,6 +23,9 @@ const Carousel: React.FC<IProps> = ({ data }: IProps): JSX.Element => {
         title={data.title}
         typeIcon={data.typeIcon}
       />
+      <ProgressContainer>
+        <progress max={"100"} value={`${progressValue}`} />
+      </ProgressContainer>
     </CardsContainer>
   );
 };

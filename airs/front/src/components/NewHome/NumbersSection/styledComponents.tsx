@@ -26,6 +26,7 @@ const CardsContainer = styled.div.attrs({
     flex-l
     flex-wrap-l
     justify-around-l
+    mw-1920
   `,
 })``;
 

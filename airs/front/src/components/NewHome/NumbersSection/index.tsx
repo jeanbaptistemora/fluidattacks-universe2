@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Media from "react-media";
 
@@ -71,22 +71,33 @@ const NumbersSection: React.FC = (): JSX.Element => {
       typeIcon: "1",
     },
   ];
-  const cardLimit = 7;
+  const progressLimit = 100;
   const timePerCard = 5000;
   const [cardIndex, setCardIndex] = useState(0);
-  const changeCardIndex = (): void => {
-    setCardIndex(cardIndex === cardLimit ? 0 : cardIndex + 1);
-  };
-  setTimeout(changeCardIndex, timePerCard);
+  const progressValue = (cardIndex / (data.length - 1)) * progressLimit;
+
+  useEffect((): void => {
+    const changeCardIndex = (): void => {
+      setCardIndex((currentIndex): number =>
+        currentIndex === data.length - 1 ? 0 : currentIndex + 1
+      );
+    };
+
+    setInterval(changeCardIndex, timePerCard);
+  }, [data.length]);
 
   return (
     <Container>
       <TitleContainer>
         <WhiteBigParagraph>{t("numbersSection.title")}</WhiteBigParagraph>
       </TitleContainer>
-      <Media query={{ maxWidth: 959 }}>
+      <Media query={{ minWidth: 960 }}>
         {(matches): JSX.Element =>
-          matches ? <Carousel data={data[cardIndex]} /> : <Grid data={data} />
+          matches ? (
+            <Grid data={data} />
+          ) : (
+            <Carousel data={data[cardIndex]} progressValue={progressValue} />
+          )
         }
       </Media>
     </Container>
