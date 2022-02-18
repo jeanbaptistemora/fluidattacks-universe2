@@ -576,7 +576,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 root_nickname=root.state.nickname,
                 branch=root.state.branch,
                 root_url=root.state.url,
-                cred=root,
+                cred=root_cred,
             )
             await roots_domain.update_root_cloning_status(
                 loaders=dataloaders,
