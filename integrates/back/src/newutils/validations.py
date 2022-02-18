@@ -109,6 +109,11 @@ def validate_finding_id(finding_id: str) -> None:
         raise InvalidField("finding id")
 
 
+def validate_group_language(language: str) -> None:
+    if language.upper() not in {"EN", "ES"}:
+        raise InvalidField("group language")
+
+
 def validate_group_name(group_name: str) -> None:
     if not group_name.isalnum():
         raise InvalidField("group name")

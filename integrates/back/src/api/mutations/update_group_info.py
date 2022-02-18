@@ -21,6 +21,7 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+    validations as validations_utils,
 )
 from typing import (
     Any,
@@ -44,6 +45,8 @@ async def mutate(
     success = False
 
     try:
+        validations_utils.validate_field_length(description, 200)
+        validations_utils.validate_group_language(language)
         success = await groups_domain.update_group_info(
             description,
             group_name,
