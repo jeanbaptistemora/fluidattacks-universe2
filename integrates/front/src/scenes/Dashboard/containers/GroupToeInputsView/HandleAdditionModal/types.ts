@@ -1,6 +1,6 @@
 interface IFormValues {
   entryPoint: string;
-  environmentUrl: string | undefined;
+  environmentUrl: string;
   path: string;
   rootId: string | undefined;
 }

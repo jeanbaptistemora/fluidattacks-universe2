@@ -51,7 +51,7 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   }, [environmentUrl, selectedRoot, setHost]);
   useEffect((): void => {
     if (!_.isUndefined(selectedRoot)) {
-      setFieldValue("environmentUrl", undefined);
+      setFieldValue("environmentUrl", "");
     }
   }, [selectedRoot, setFieldValue]);
 

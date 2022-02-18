@@ -7,9 +7,13 @@ import type { IEnvironmentUrlFieldProps } from "./types";
 import type { IFormValues } from "../types";
 import { isGitRoot } from "../utils";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { required } from "utils/validations";
+import {
+  composeValidators,
+  isValidEnvironmentUrl,
+  required,
+} from "utils/validations";
 
 const EnvironmentUrlField: React.FC<IEnvironmentUrlFieldProps> = (
   props: IEnvironmentUrlFieldProps
@@ -20,17 +24,17 @@ const EnvironmentUrlField: React.FC<IEnvironmentUrlFieldProps> = (
     setFieldValue,
   } = useFormikContext<IFormValues>();
   if (
-    !_.isUndefined(environmentUrlValue) &&
+    !_.isEmpty(environmentUrlValue) &&
     (_.isUndefined(selectedRoot) ||
       !isGitRoot(selectedRoot) ||
       (!_.isUndefined(selectedRoot) &&
         isGitRoot(selectedRoot) &&
         _.isEmpty(selectedRoot.environmentUrls)))
   ) {
-    setFieldValue("environmentUrl", undefined);
+    setFieldValue("environmentUrl", "");
   }
   if (
-    _.isUndefined(environmentUrlValue) &&
+    _.isEmpty(environmentUrlValue) &&
     !_.isUndefined(selectedRoot) &&
     isGitRoot(selectedRoot) &&
     !_.isEmpty(selectedRoot.environmentUrls)
@@ -47,20 +51,22 @@ const EnvironmentUrlField: React.FC<IEnvironmentUrlFieldProps> = (
               {translate.t("group.toe.inputs.addModal.fields.environmentUrl")}
             </b>
           </ControlLabel>
+
           <Field
-            component={FormikDropdown}
+            alignField={"horizontal"}
+            component={FormikAutocompleteText}
+            focus={true}
+            id={"environmentUrl"}
+            key={`environmentUrl-${selectedRoot.id}`}
             name={"environmentUrl"}
+            renderAsEditable={false}
+            suggestions={selectedRoot.environmentUrls}
             type={"text"}
-            validate={required}
-          >
-            {selectedRoot.environmentUrls.map(
-              (environmentUrl: string): JSX.Element => (
-                <option key={environmentUrl} value={environmentUrl}>
-                  {environmentUrl}
-                </option>
-              )
-            )}
-          </Field>
+            validate={composeValidators([
+              isValidEnvironmentUrl(selectedRoot.environmentUrls),
+              required,
+            ])}
+          />
         </React.Fragment>
       ) : undefined}
     </FormGroup>

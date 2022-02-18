@@ -426,6 +426,13 @@ const validPath: (host: string | undefined) => Validator =
     return undefined;
   };
 
+const isValidEnvironmentUrl: (validEnvironmentUrls: string[]) => Validator =
+  (validEnvironmentUrls: string[]): Validator =>
+  (value: string): string | undefined =>
+    validEnvironmentUrls.includes(value)
+      ? undefined
+      : translate.t("validations.invalidEnvironmentUrl");
+
 const isValidFileName: Validator = (file: FileList): string | undefined => {
   const fileName: string = _.isEmpty(file) ? "" : file[0].name;
   const name: string[] = fileName.split(".");
@@ -536,6 +543,7 @@ export {
   validPath,
   isPositive,
   isZeroOrPositive,
+  isValidEnvironmentUrl,
   isValidVulnSeverity,
   isFloatOrInteger,
   validDatetime,

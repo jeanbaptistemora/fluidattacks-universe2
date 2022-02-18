@@ -2778,6 +2778,7 @@ export const enTranslations: ResourceKey = {
       "Invalid characters, use: alphanumerics, spaces and punctuations",
     invalidCommentParent: "The comment parent is invalid",
     invalidEmailInField: "The email address inserted is not valid",
+    invalidEnvironmentUrl: "The environment URL is invalid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidMarkdown: "Invalid or malformed markdown",
     invalidSshFormat: "Invalid or malformed SSH private key",

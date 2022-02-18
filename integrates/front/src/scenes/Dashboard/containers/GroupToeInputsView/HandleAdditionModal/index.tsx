@@ -110,7 +110,7 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = (
                 isGitRoot(roots[0]) &&
                 !_.isEmpty(roots[0].environmentUrls)
                   ? roots[0].environmentUrls[0]
-                  : undefined,
+                  : "",
               path: "",
               rootId: _.isEmpty(roots) ? undefined : roots[0].id,
             }}
