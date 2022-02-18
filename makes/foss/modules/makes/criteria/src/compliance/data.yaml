@@ -4542,4 +4542,22 @@
     "AC-2_3":
       title: Account Management - Disable Inactive Accounts
       link: https://www.fedramp.gov/documents-templates/
+    "AC-2_5":
+      title: Account Management - Inactivity Logout
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-2_7":
+      title: Account Management - Role-Based Schemes
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-2_12":
+      title: Account Management - Account Monitoring, Atypical Usage
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-6_1":
+      title: Least Privilege - Authorize Access to Security Functions
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-6_2":
+      title: Least Privilege - Non-Privileged Access for Nonsecurity Functions
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-6_3":
+      title: Least Privilege - Network Access to Privileged Commands
+      link: https://www.fedramp.gov/documents-templates/
   metadata: {}
