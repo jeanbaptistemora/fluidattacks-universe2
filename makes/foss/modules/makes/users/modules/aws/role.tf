@@ -1,15 +1,3 @@
-resource "aws_iam_role" "main" {
-  name                 = var.name
-  assume_role_policy   = jsonencode(local.assume_role_policy)
-  max_session_duration = "32400"
-  tags                 = var.tags
-}
-
-resource "aws_iam_role_policy_attachment" "main" {
-  role       = aws_iam_role.main.name
-  policy_arn = aws_iam_policy.main.arn
-}
-
 data "aws_caller_identity" "current" {}
 locals {
   assume_role_policy = {
@@ -33,4 +21,16 @@ locals {
       var.extra_assume_role_policies,
     )
   }
+}
+
+resource "aws_iam_role" "main" {
+  name                 = var.name
+  assume_role_policy   = jsonencode(local.assume_role_policy)
+  max_session_duration = "32400"
+  tags                 = var.tags
+}
+
+resource "aws_iam_role_policy_attachment" "main" {
+  role       = aws_iam_role.main.name
+  policy_arn = aws_iam_policy.main.arn
 }

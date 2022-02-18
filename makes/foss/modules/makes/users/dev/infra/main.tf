@@ -39,6 +39,24 @@ module "aws" {
   }
 }
 
+module "key" {
+  source = "../../modules/key"
+
+  name = "dev"
+  admins = [
+    "dev",
+    "prod_makes",
+  ]
+  users = []
+
+  tags = {
+    "Name"               = "dev"
+    "management:area"    = "innovation"
+    "management:product" = "makes"
+    "management:type"    = "product"
+  }
+}
+
 module "cloudflare" {
   source = "../../modules/cloudflare"
   name   = "dev"
