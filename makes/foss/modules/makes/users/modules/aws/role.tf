@@ -1,6 +1,6 @@
 resource "aws_iam_role" "main" {
   name                 = var.name
-  assume_role_policy   = data.aws_iam_policy_document.okta_assume_role_policy.json
+  assume_role_policy   = jsonencode(local.assume_role_policy)
   max_session_duration = "32400"
   tags                 = var.tags
 }
@@ -11,37 +11,26 @@ resource "aws_iam_role_policy_attachment" "main" {
 }
 
 data "aws_caller_identity" "current" {}
-data "aws_iam_policy_document" "okta_assume_role_policy" {
-  statement {
-    sid    = "OktaSAMLAccess"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRoleWithSAML"
-    ]
-    principals {
-      type        = "Federated"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"]
-    }
-    condition {
-      test     = "StringEquals"
-      variable = "SAML:aud"
-
-      values = [
-        "https://signin.aws.amazon.com/saml"
-      ]
-    }
-  }
-  statement {
-    sid    = "SageMakerAssumeRolePolicy"
-    effect = "Allow"
-    actions = [
-      "sts:AssumeRole",
-    ]
-    principals {
-      type = "Service"
-      identifiers = [
-        "sagemaker.amazonaws.com"
-      ]
-    }
+locals {
+  assume_role_policy = {
+    Version = "2012-10-17",
+    Statement = concat(
+      [
+        {
+          Sid    = "OktaSAMLAccess",
+          Effect = "Allow",
+          Principal = {
+            Federated = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider",
+          },
+          Action = "sts:AssumeRoleWithSAML",
+          Condition = {
+            StringEquals = {
+              "SAML:aud" = "https://signin.aws.amazon.com/saml",
+            },
+          },
+        },
+      ],
+      var.extra_assume_role_policies,
+    )
   }
 }

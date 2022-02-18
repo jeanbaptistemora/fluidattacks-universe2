@@ -28,7 +28,7 @@ terraform {
 module "aws" {
   source = "../../../modules/aws"
   name   = "prod_integrates"
-  policy = jsonencode(local.aws)
+  policy = local.aws
 
   tags = {
     "Name"               = "prod_integrates"

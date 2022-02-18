@@ -24,7 +24,17 @@ terraform {
 module "aws" {
   source = "../../../modules/aws"
   name   = "prod_sorts"
-  policy = jsonencode(local.aws)
+  policy = local.aws
+  extra_assume_role_policies = [
+    {
+      Sid    = "SageMakerAssumeRolePolicy",
+      Effect = "Allow",
+      Principal = {
+        Service = "sagemaker.amazonaws.com",
+      },
+      Action = "sts:AssumeRole",
+    },
+  ]
 
   tags = {
     "Name"               = "prod_sorts"

@@ -12,3 +12,6 @@ terraform {
 variable "name" {}
 variable "policy" {}
 variable "tags" {}
+variable "extra_assume_role_policies" {
+  default = []
+}

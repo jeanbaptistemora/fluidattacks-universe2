@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "main" {
   name   = var.name
-  policy = var.policy
+  policy = jsonencode(var.policy)
   tags   = var.tags
 }
 
