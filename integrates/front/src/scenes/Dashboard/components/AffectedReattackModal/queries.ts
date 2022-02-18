@@ -1,6 +1,20 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const GET_UNSOLVED_EVENTS: DocumentNode = gql`
+  query GetUnsolvedEventsQuery($groupName: String!) {
+    group(groupName: $groupName) {
+      events(filter: { eventStatus: "CREATED" }) {
+        description
+        detail
+        id
+        eventStatus
+        eventType
+      }
+    }
+  }
+`;
+
 const UPDATE_EVENT_AFFECTATIONS: DocumentNode = gql`
   mutation updateEventAffectations(
     $eventId: String!
@@ -19,4 +33,4 @@ const UPDATE_EVENT_AFFECTATIONS: DocumentNode = gql`
   }
 `;
 
-export { UPDATE_EVENT_AFFECTATIONS };
+export { GET_UNSOLVED_EVENTS, UPDATE_EVENT_AFFECTATIONS };
