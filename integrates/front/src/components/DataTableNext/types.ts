@@ -30,6 +30,7 @@ interface IFilterProps {
     step?: number;
   };
   selectOptions?: Record<string, number | string>;
+  omit?: boolean;
   placeholder?: string;
   tooltipId: string;
   tooltipMessage: string;

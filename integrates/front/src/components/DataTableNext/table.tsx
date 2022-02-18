@@ -502,24 +502,31 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           ) : undefined}
           {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
             <Filters>
-              {customFiltersProps?.map((filter: IFilterProps): JSX.Element => {
-                const { tooltipId, tooltipMessage, placeholder = "" } = filter;
+              {customFiltersProps?.map(
+                (filter: IFilterProps): JSX.Element | undefined => {
+                  const {
+                    tooltipId,
+                    tooltipMessage,
+                    placeholder = "",
+                  } = filter;
 
-                return (
-                  <SelectContainer key={`container.${filter.tooltipId}`}>
-                    <TooltipWrapper
-                      id={tooltipId}
-                      message={t(tooltipMessage)}
-                      placement={"top"}
-                    >
-                      {filterOption(filter)}
-                    </TooltipWrapper>
-                    {filter.type === "dateRange" || filter.type === "range" ? (
-                      <Small>{t(placeholder)}</Small>
-                    ) : undefined}
-                  </SelectContainer>
-                );
-              })}
+                  return _.isUndefined(filter.omit) || !filter.omit ? (
+                    <SelectContainer key={`container.${filter.tooltipId}`}>
+                      <TooltipWrapper
+                        id={tooltipId}
+                        message={t(tooltipMessage)}
+                        placement={"top"}
+                      >
+                        {filterOption(filter)}
+                      </TooltipWrapper>
+                      {filter.type === "dateRange" ||
+                      filter.type === "range" ? (
+                        <Small>{t(placeholder)}</Small>
+                      ) : undefined}
+                    </SelectContainer>
+                  ) : undefined;
+                }
+              )}
               <SelectContainer />
 
               <SelectContainer>
