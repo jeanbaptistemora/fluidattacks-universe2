@@ -46,6 +46,8 @@ describe("Avatar", (): void => {
   it("should render initials and successfully remove account", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     jest.mock("react-native/Libraries/Alert/Alert");
 
     const removeAccountMock: Readonly<MockedResponse> = {
@@ -90,9 +92,12 @@ describe("Avatar", (): void => {
     const avatarTouchable: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
     > = wrapper.find(TouchableOpacity).first();
-    (avatarTouchable.invoke("onPress") as () => void)();
 
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(true);
+    await act(async (): Promise<void> => {
+      await (avatarTouchable.invoke("onPress") as () => Promise<void>)();
+      await wait(1);
+      wrapper.update();
+    });
 
     const deleteBtn: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
@@ -110,12 +115,12 @@ describe("Avatar", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Login");
-
-    jest.clearAllMocks();
   });
 
   it("should render profile picture and error while removing account", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     jest.mock("react-native/Libraries/Alert/Alert");
 
@@ -154,9 +159,12 @@ describe("Avatar", (): void => {
     const avatarTouchable: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
     > = wrapper.find(TouchableOpacity).first();
-    (avatarTouchable.invoke("onPress") as () => void)();
 
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(true);
+    await act(async (): Promise<void> => {
+      await (avatarTouchable.invoke("onPress") as () => Promise<void>)();
+      await wait(1);
+      wrapper.update();
+    });
 
     const deleteBtn: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
@@ -176,7 +184,71 @@ describe("Avatar", (): void => {
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Dashboard", {
       user: { fullName: "Test" },
     });
+  });
+
+  it("should render profile picture and close alert", async (): Promise<void> => {
+    expect.hasAssertions();
 
     jest.clearAllMocks();
+
+    jest.mock("react-native/Libraries/Alert/Alert");
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <MemoryRouter
+            initialEntries={[
+              { pathname: "/Dashboard", state: { user: { fullName: "Test" } } },
+            ]}
+          >
+            <MockedProvider addTypename={false} mocks={[]}>
+              <Avatar
+                photoUrl={undefined}
+                size={40}
+                userName={
+                  "Simón José Antonio de la Santísima Trinidad Bolívar y Palacios Ponte-Andrade y Blanco"
+                }
+              />
+            </MockedProvider>
+          </MemoryRouter>
+        </I18nextProvider>
+      </PaperProvider>
+    );
+
+    await act(async (): Promise<void> => {
+      await wait(1);
+      wrapper.update();
+    });
+
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find(PaperAvatar.Text).text()).toStrictEqual("SJ");
+    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+
+    const avatarTouchable: ReactWrapper<
+      React.ComponentProps<typeof TouchableOpacity>
+    > = wrapper.find(TouchableOpacity).first();
+
+    await act(async (): Promise<void> => {
+      await (avatarTouchable.invoke("onPress") as () => Promise<void>)();
+      await wait(1);
+      wrapper.update();
+    });
+
+    const deleteBtn: ReactWrapper<
+      React.ComponentProps<typeof TouchableOpacity>
+    > = wrapper.find(TouchableOpacity).last();
+    (deleteBtn.invoke("onPress") as () => void)();
+
+    expect(Alert.alert).toHaveBeenCalledTimes(1);
+
+    await act(async (): Promise<void> => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      await (Alert.alert as jest.Mock).mock.calls[0][2][0].onPress();
+      await wait(1);
+      wrapper.update();
+    });
+
+    expect(wrapper).toHaveLength(1);
+    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
   });
 });
