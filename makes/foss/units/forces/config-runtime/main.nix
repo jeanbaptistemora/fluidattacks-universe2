@@ -14,6 +14,9 @@ makeTemplate {
       inputs.nixpkgs.git
       inputs.nixpkgs.python38
     ];
+    pythonMypy = [
+      (projectPath "/forces")
+    ];
     source = [
       (makePythonPypiEnvironment {
         name = "forces-runtime";
