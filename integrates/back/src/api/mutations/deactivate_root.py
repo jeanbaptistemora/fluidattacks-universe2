@@ -146,6 +146,7 @@ async def deactivate_root(
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,
         group_name=group_name,
+        reason=reason,
         root_nickname=root.state.nickname,
         sast_vulns=len(sast_vulns),
         dast_vulns=len(dast_vulns),
