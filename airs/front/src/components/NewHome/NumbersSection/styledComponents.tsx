@@ -65,11 +65,37 @@ const CardText = styled.p.attrs({
   color: ${({ gray }): string => (gray ? "#a5a5b6" : "#f4f4f6")};
 `;
 
+const ProgressContainer = styled.div.attrs({
+  className: `
+    tc
+    mb5
+    w-100
+  `,
+})`
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  progress[value]::-webkit-progress-bar {
+    height: 10px;
+    border-radius: 20px;
+    background-color: #5c5c70;
+  }
+
+  progress[value]::-webkit-progress-value {
+    height: 10px;
+    border-radius: 20px;
+    background-color: #ff3435;
+  }
+`;
+
 export {
   CardContainer,
   CardText,
   CardTitle,
   CardsContainer,
   Container,
+  ProgressContainer,
   TitleContainer,
 };
