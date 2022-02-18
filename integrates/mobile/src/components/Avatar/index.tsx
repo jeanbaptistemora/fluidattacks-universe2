@@ -77,13 +77,16 @@ const Avatar: React.FC<IAvatarProps> = ({
   });
 
   const openDropdown = useCallback((): void => {
-    const topValue = 5;
     AvatarModal.current?.measure(
       (_fx, _fy, _w, modalHeight, _px, pageY): void => {
-        setDropdownTop(pageY + modalHeight - topValue);
+        const topValue = 5;
+        setDropdownTop((_current: number): number => {
+          setVisible(true);
+
+          return pageY + modalHeight - topValue;
+        });
       }
     );
-    setVisible(true);
   }, []);
 
   const toggleDropdown = useCallback((): void => {
