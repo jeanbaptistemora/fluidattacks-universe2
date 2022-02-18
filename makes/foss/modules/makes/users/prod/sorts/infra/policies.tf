@@ -6,11 +6,8 @@ locals {
         Sid    = "batchRead"
         Effect = "Allow"
         Action = [
-          "batch:DescribeComputeEnvironments",
-          "batch:DescribeJobDefinitions",
-          "batch:DescribeJobQueues",
-          "batch:DescribeJobs",
-          "batch:ListJobs",
+          "batch:Describe*",
+          "batch:List*",
         ]
         Resource = ["*"]
       },
@@ -25,6 +22,25 @@ locals {
           "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
           "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
         ]
+      },
+      {
+        Sid    = "iamWrite"
+        Effect = "Allow"
+        Action = ["*"]
+        Resource = [
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/*sorts*",
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*sorts*",
+        ]
+      },
+      {
+        Sid    = "cloudwatchRead"
+        Effect = "Allow"
+        Action = [
+          "cloudwatch:Describe*",
+          "cloudwatch:Get*",
+          "cloudwatch:List*",
+        ]
+        Resource = ["*"]
       },
       {
         Sid    = "logsRead"
