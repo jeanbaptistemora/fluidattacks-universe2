@@ -8,6 +8,8 @@ import {
   filterSelect,
 } from "components/DataTableNext/utils/filters";
 
+const PERCENTBASE = 100;
+
 const getToeLinesId: (toeLinesData: IToeLinesData) => string = (
   toeLinesData: IToeLinesData
 ): string => toeLinesData.rootId + toeLinesData.filename;
@@ -112,6 +114,30 @@ const filterBooleanValue: (
       });
 };
 
+const filterCoverage: (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+) => IToeLinesData[] = (
+  filterGroupToeLinesTable: IFilterSet,
+  toeLines: IToeLinesData[]
+): IToeLinesData[] => {
+  const coverageMax =
+    parseFloat(filterGroupToeLinesTable.coverage.max) / PERCENTBASE;
+  const coverageMin =
+    parseFloat(filterGroupToeLinesTable.coverage.min) / PERCENTBASE;
+  const filteredcoverageMax: IToeLinesData[] = isNaN(coverageMax)
+    ? toeLines
+    : toeLines.filter((toeLinesData): boolean => {
+        return toeLinesData.coverage <= coverageMax;
+      });
+
+  return isNaN(coverageMin)
+    ? filteredcoverageMax
+    : filteredcoverageMax.filter((toeLinesData): boolean => {
+        return coverageMin <= toeLinesData.coverage;
+      });
+};
+
 const filterPriority: (
   filterGroupToeLinesTable: IFilterSet,
   toeLines: IToeLinesData[]
@@ -163,6 +189,10 @@ const getFilteredData: (
     toeLines,
     "bePresent"
   );
+  const filteredCoverage: IToeLinesData[] = filterCoverage(
+    filterGroupToeLinesTable,
+    toeLines
+  );
   const filteredFilenameExtensions: IToeLinesData[] = filterSelect(
     toeLines,
     filterGroupToeLinesTable.filenameExtension,
@@ -191,6 +221,7 @@ const getFilteredData: (
   );
   const filteredData: IToeLinesData[] = _.intersection(
     filteredBePresent,
+    filteredCoverage,
     filteredFilenameExtensions,
     filteredHasVulnerabilities,
     filteredModifiedDate,

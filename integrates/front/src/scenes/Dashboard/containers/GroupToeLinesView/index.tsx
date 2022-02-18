@@ -114,6 +114,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       "filterGroupToeLinesSet",
       {
         bePresent: "",
+        coverage: { max: "", min: "" },
         filenameExtension: "",
         hasVulnerabilities: "",
         modifiedDate: { max: "", min: "" },
@@ -404,6 +405,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     setFilterGroupToeLinesTable(
       (): IFilterSet => ({
         bePresent: "",
+        coverage: { max: "", min: "" },
         filenameExtension: "",
         hasVulnerabilities: "",
         modifiedDate: { max: "", min: "" },
@@ -457,7 +459,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     };
   };
   const onRangeFilterValueChange = (
-    filterName: keyof Pick<IFilterSet, "modifiedDate" | "priority">,
+    filterName: keyof Pick<
+      IFilterSet,
+      "coverage" | "modifiedDate" | "priority"
+    >,
     key: "max" | "min"
   ): ((event: ChangeEvent<HTMLInputElement>) => void) => {
     return (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -518,6 +523,34 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       type: "select",
     },
     {
+      defaultValue: "",
+      omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
+      placeholder: translate.t("group.toe.lines.filters.coverage.placeholder"),
+      rangeProps: {
+        defaultValue: filterGroupToeLinesTable.coverage,
+        onChangeMax: onRangeFilterValueChange("coverage", "max"),
+        onChangeMin: onRangeFilterValueChange("coverage", "min"),
+        step: 1,
+      },
+      tooltipId: "group.toe.lines.filters.coverage.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.coverage.tooltip",
+      type: "range",
+    },
+    {
+      defaultValue: "",
+      placeholder: translate.t(
+        "group.toe.lines.filters.modifiedDate.placeholder"
+      ),
+      rangeProps: {
+        defaultValue: filterGroupToeLinesTable.modifiedDate,
+        onChangeMax: onRangeFilterValueChange("modifiedDate", "max"),
+        onChangeMin: onRangeFilterValueChange("modifiedDate", "min"),
+      },
+      tooltipId: "group.toe.lines.filters.modifiedDate.tooltip.id",
+      tooltipMessage: "group.toe.lines.filters.modifiedDate.tooltip",
+      type: "dateRange",
+    },
+    {
       defaultValue: filterGroupToeLinesTable.hasVulnerabilities,
       onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
       placeholder: translate.t(
@@ -540,20 +573,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       tooltipId: "group.toe.lines.filters.priority.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.priority.tooltip",
       type: "range",
-    },
-    {
-      defaultValue: "",
-      placeholder: translate.t(
-        "group.toe.lines.filters.modifiedDate.placeholder"
-      ),
-      rangeProps: {
-        defaultValue: filterGroupToeLinesTable.modifiedDate,
-        onChangeMax: onRangeFilterValueChange("modifiedDate", "max"),
-        onChangeMin: onRangeFilterValueChange("modifiedDate", "min"),
-      },
-      tooltipId: "group.toe.lines.filters.modifiedDate.tooltip.id",
-      tooltipMessage: "group.toe.lines.filters.modifiedDate.tooltip",
-      type: "dateRange",
     },
     {
       defaultValue: filterGroupToeLinesTable.bePresent,

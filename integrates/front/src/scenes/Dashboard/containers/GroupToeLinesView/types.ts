@@ -1,5 +1,6 @@
 interface IFilterSet {
   bePresent: string;
+  coverage: { max: string; min: string };
   filenameExtension: string;
   hasVulnerabilities: string;
   modifiedDate: { max: string; min: string };

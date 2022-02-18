@@ -959,6 +959,10 @@ export const enTranslations: ResourceKey = {
             placeholder: "Be present",
             tooltip: "Filter by be present",
           },
+          coverage: {
+            placeholder: "Coverage % (range)",
+            tooltip: "Filter by coverage %",
+          },
           extension: {
             placeholder: "Extension",
             tooltip: "Filter by extension",
