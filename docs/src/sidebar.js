@@ -612,6 +612,7 @@ const Squad = [
   'squad/consulting',
   'squad/false-negatives',
   'squad/weapons',
+  'squad/counting-authors',
 ]
 
 module.exports = {
