@@ -3418,9 +3418,10 @@
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
 "mitre":
-  title: MITRE ATT&CK® - Enterprise Mitigations
+  title: MITRE ATT&CK®
   en:
     description: >
+      MITRE ATT&CK® - Enterprise Mitigations.
       MITRE ATT&CK® is a globally-accessible
       knowledge base of adversary tactics
       and techniques based on real-world
@@ -3833,7 +3834,7 @@
       link: https://www.sans.org/top25-software-errors/
   metadata: {}
 "pdpa":
-  title: Singapore PDPA Compliance and Cybersecurity
+  title: Singapore PDPA
   en:
     description: >
       Singapore’s Personal Data Protection
@@ -3896,7 +3897,7 @@
       link: https://sso.agc.gov.sg/Act/PDPA2012
   metadata: {}
 "popia":
-  title: South Africa POPIA Compliance and Cybersecurity
+  title: South Africa POPIA
   en:
     description: >
       The South Africa's Protection of
@@ -3946,7 +3947,7 @@
       link: https://popia.co.za/
   metadata: {}
 "pdpo":
-  title: Hong Kong PDPO Compliance and Cybersecurity
+  title: Hong Kong PDPO
   en:
     description: >
       The Hong Kong's Personal Data Privacy
