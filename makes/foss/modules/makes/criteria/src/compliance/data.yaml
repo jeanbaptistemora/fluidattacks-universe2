@@ -2860,13 +2860,14 @@
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m10-extraneous-functionality
   metadata: {}
 "nist":
-  title: NIST Cybersecurity Framework
+  title: NIST Framework
   en:
     description: >
-      The Framework is a guidance based
-      on existing standards, guidelines,
-      and practices for organizations to
-      better manage and reduce cybersecurity risk.
+      The NIST Cybersecurity Framework is a
+      guidance based on existing standards,
+      guidelines, and practices for
+      organizations to better manage and
+      reduce cybersecurity risk.
       This set of requirements was developed
       by the National Institute of Standards
       and Technology (NIST) in close
@@ -3036,9 +3037,11 @@
       link: https://bizec.org
   metadata: {}
 "ccpa":
-  title: California CCPA Compliance, CPRA and Cybersecurity
+  title: CCPA/CPRA
   en:
     description: >
+      California CCPA Compliance, CPRA and
+      Cybersecurity.
       The California Consumer Privacy
       Act of 2018 (CCPA) gives users and
       consumers more control over the
@@ -3340,9 +3343,12 @@
       link: http://caxapa.ru/thumbs/468328/misra-c-2004.pdf
   metadata: {}
 "nydfs":
-  title: New York SHIELD Act and NYDFS Cybersecurity Regulation
+  title: NYDFS
   en:
     description: >
+      New York SHIELD Act and NYDFS
+      Cybersecurity Regulation.
+
       Stop Hacks and Improve Electronic
       Data Security Act (SHIELD ACT) was
       developed in july of 2019.
