@@ -33,6 +33,8 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+const DOCS_URL = "https://docs.fluidattacks.com/machine/web/groups/reports";
+
 interface IDeactivationModalProps {
   hasMobileApp: boolean;
   isOpen: boolean;
@@ -209,6 +211,12 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                 </p>
               </React.Fragment>
             )}
+            <p>
+              {translate.t("group.findings.report.passphraseOptOut")}&nbsp;
+              <ExternalLink href={`${DOCS_URL}#remove-passphrase`}>
+                {`${DOCS_URL}#remove-passphrase`}
+              </ExternalLink>
+            </p>
           </Col100>
         </div>
         <hr />

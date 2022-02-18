@@ -478,6 +478,7 @@ export const enTranslations: ResourceKey = {
           "sent through a notification to your mobile device. In order to receive it, " +
           "you will need to download and set up the ASM mobile app, please " +
           "download it and try again.",
+        passphraseOptOut: "If you want remove passphrase protection, follow",
         pdf: "  Executive",
         pdfTooltip:
           "Receive a pdf file with an executive report that gives you summarized information " +
