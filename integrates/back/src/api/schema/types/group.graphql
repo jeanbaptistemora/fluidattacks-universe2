@@ -56,9 +56,11 @@ type Group {
   "Current open vulnerability with the highest severity"
   maxOpenSeverityFinding: Finding
   "All-time highest severity ever found in the group"
-  maxSeverity: Float
+  maxSeverity: Float @deprecated(reason: """This field will be removed after
+    2022/08/18. Use `maxOpenSeverity` instead.""")
   "Vulnerability with the all-time highest severity ever found in the group"
-  maxSeverityFinding: Finding
+  maxSeverityFinding: Finding @deprecated(reason: """This field will be removed after
+    2022/08/18. Use `maxOpenSeverityFinding` instead.""")
   "Mean time to remediate vulnerabilities in days"
   meanRemediate: Int
   "Mean time to remediate critical vulnerabilities in days"
@@ -112,7 +114,9 @@ type Group {
     first: Int
   ): ToeLinesConnection!
   "Amount of Findings in the group"
-  totalFindings: Int
+  totalFindings: Int @deprecated(reason: """This field will be removed after
+    2022/08/18. Use `closedVulnerabilities` or `openVulnerabilities`
+    instead.""")
   "Total amount of treatments, divided by category"
   totalTreatment: GenericScalar
   "Last removed user from the group"
@@ -120,6 +124,7 @@ type Group {
   "Role of the current user within the group"
   userRole: String
   "Assigned vulnerabilities of the current user within the group"
-  vulnerabilitiesAssigned: [Vulnerability!] @deprecated(reason: """This field will be
-    removed after 2022/06/28. Use `vulnerabilitiesAssigned` from `Me` instead.""")
+  vulnerabilitiesAssigned: [Vulnerability!] @deprecated(reason: """This field
+    will be removed after 2022/06/28. Use `vulnerabilitiesAssigned` from `Me`
+    instead.""")
 }
