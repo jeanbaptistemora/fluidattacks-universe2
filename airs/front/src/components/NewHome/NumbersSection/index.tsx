@@ -70,10 +70,10 @@ const NumbersSection: React.FC = (): JSX.Element => {
       typeIcon: "1",
     },
   ];
-  const progressLimit = 100;
-  const timePerCard = 5000;
+  const timePerProgress = 1000;
+  const progressLimit = 5;
   const [cardIndex, setCardIndex] = useState(0);
-  const progressValue = (cardIndex / (data.length - 1)) * progressLimit;
+  const [progressValue, setprogressValue] = useState(0);
 
   useEffect((): void => {
     const changeCardIndex = (): void => {
@@ -82,7 +82,16 @@ const NumbersSection: React.FC = (): JSX.Element => {
       );
     };
 
-    setInterval(changeCardIndex, timePerCard);
+    const changeprogressValue = (): void => {
+      setprogressValue((currentTime): number => {
+        if (currentTime === progressLimit) {
+          changeCardIndex();
+        }
+
+        return currentTime === progressLimit ? 0 : currentTime + 1;
+      });
+    };
+    setInterval(changeprogressValue, timePerProgress);
   }, [data.length]);
 
   return (

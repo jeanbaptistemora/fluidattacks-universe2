@@ -27,7 +27,7 @@ const Carousel: React.FC<IProps> = ({
         typeIcon={data.typeIcon}
       />
       <ProgressContainer>
-        <progress max={"100"} value={`${progressValue}`} />
+        <progress max={"5"} value={`${progressValue}`} />
       </ProgressContainer>
     </CarrouselCardsContainer>
   );
