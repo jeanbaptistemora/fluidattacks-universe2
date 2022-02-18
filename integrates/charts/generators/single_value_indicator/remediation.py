@@ -33,10 +33,28 @@ from decimal import (
 from findings.domain.core import (
     get_severity_score,
 )
+from more_itertools import (
+    chunked,
+)
 from typing import (
     Dict,
+    Optional,
     Tuple,
 )
+
+
+def get_last_state(
+    historic_state: Tuple[VulnerabilityState, ...],
+    last_day: datetime,
+) -> Optional[VulnerabilityState]:
+    return next(
+        (
+            item
+            for item in list(reversed(historic_state))
+            if datetime.fromisoformat(item.modified_date) <= last_day
+        ),
+        None,
+    )
 
 
 async def had_state_by_then(
@@ -45,25 +63,29 @@ async def had_state_by_then(
     findings_cvssf: Dict[str, Decimal],
     loaders: Dataloaders,
     state: VulnerabilityStateStatus,
-    vulnerability: Vulnerability,
+    vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Decimal:
-    historic_state: Tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vulnerability.id)
 
-    last_state = next(
-        filter(
-            lambda item: datetime.fromisoformat(item.modified_date)
-            <= last_day,
-            reversed(historic_state),
-        ),
-        None,
+    historics_states: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        tuple(vulnerability.id for vulnerability in vulnerabilities)
     )
 
-    return (
-        findings_cvssf[str(vulnerability.finding_id)]
-        if last_state and last_state.status == state
-        else Decimal("0.0")
+    lasts_valid_states: Tuple[Optional[VulnerabilityState], ...] = tuple(
+        get_last_state(historic_state, last_day)
+        for historic_state in historics_states
+    )
+
+    return Decimal(
+        sum(
+            findings_cvssf[str(vulnerability.finding_id)]
+            if last_valid_state and last_valid_state.status == state
+            else Decimal("0.0")
+            for vulnerability, last_valid_state in zip(
+                vulnerabilities, lasts_valid_states
+            )
+        )
     )
 
 
@@ -81,12 +103,12 @@ async def get_totals_by_week(
                     last_day=last_day,
                     loaders=loaders,
                     state=VulnerabilityStateStatus.OPEN,
-                    vulnerability=vulnerability,
+                    vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
                 )
-                for vulnerability in vulnerabilities
+                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
-            workers=32,
+            workers=16,
         )
     )
 
@@ -97,12 +119,12 @@ async def get_totals_by_week(
                     last_day=last_day,
                     loaders=loaders,
                     state=VulnerabilityStateStatus.CLOSED,
-                    vulnerability=vulnerability,
+                    vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
                 )
-                for vulnerability in vulnerabilities
+                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
-            workers=32,
+            workers=16,
         )
     )
 
@@ -128,10 +150,10 @@ async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     current_rolling_week = datetime.now(tz=timezone.utc)
     previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    vulnerabilities = (
-        await loaders.finding_vulnerabilities_nzr.load_many_chained(
-            finding_ids
-        )
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        finding_ids
     )
 
     total_previous_open, total_previous_closed = await get_totals_by_week(

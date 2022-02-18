@@ -90,7 +90,7 @@ async def get_data_one_group(group: str) -> Treatment:
 
 async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
     groups_data: Tuple[Treatment, ...] = await collect(
-        map(get_data_one_group, groups)
+        map(get_data_one_group, groups), workers=32
     )
 
     return Treatment(

@@ -18,6 +18,7 @@ from groups import (
 )
 from typing import (
     List,
+    Tuple,
 )
 
 
@@ -34,7 +35,9 @@ async def get_data_group(group: str) -> PortfoliosGroupsInfo:
 
 
 async def get_data_groups(groups: List[str]) -> List[PortfoliosGroupsInfo]:
-    groups_data = await collect(map(get_data_group, groups), workers=32)
+    groups_data: Tuple[PortfoliosGroupsInfo, ...] = await collect(
+        map(get_data_group, groups), workers=32
+    )
     accepted_undefined_vulnerabilities = sum(
         [group.value for group in groups_data]
     )

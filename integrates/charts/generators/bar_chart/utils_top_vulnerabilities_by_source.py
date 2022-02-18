@@ -84,7 +84,8 @@ async def get_data_many_groups(
 ) -> Counter[str]:
 
     groups_data = await collect(
-        [get_data_one_group(group, loaders, source) for group in groups]
+        tuple(get_data_one_group(group, loaders, source) for group in groups),
+        workers=32,
     )
 
     return sum(groups_data, Counter())

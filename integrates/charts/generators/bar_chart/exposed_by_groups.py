@@ -83,7 +83,11 @@ async def get_data_many_groups(
     loaders: Dataloaders,
 ) -> List[PortfoliosGroupsInfo]:
     groups_data = await collect(
-        [get_data_one_group(group=group, loaders=loaders) for group in groups]
+        tuple(
+            get_data_one_group(group=group, loaders=loaders)
+            for group in groups
+        ),
+        workers=32,
     )
 
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
