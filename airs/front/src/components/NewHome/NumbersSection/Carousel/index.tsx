@@ -1,7 +1,10 @@
 import React from "react";
 
 import { NumberCard } from "../NumberCard";
-import { CardsContainer, ProgressContainer } from "../styledComponents";
+import {
+  CarrouselCardsContainer,
+  ProgressContainer,
+} from "../styledComponents";
 import type { INumberCard } from "../types";
 
 interface IProps {
@@ -14,7 +17,7 @@ const Carousel: React.FC<IProps> = ({
   progressValue,
 }: IProps): JSX.Element => {
   return (
-    <CardsContainer>
+    <CarrouselCardsContainer>
       <NumberCard
         hasTitle={data.hasTitle}
         image={data.image}
@@ -26,7 +29,7 @@ const Carousel: React.FC<IProps> = ({
       <ProgressContainer>
         <progress max={"100"} value={`${progressValue}`} />
       </ProgressContainer>
-    </CardsContainer>
+    </CarrouselCardsContainer>
   );
 };
 

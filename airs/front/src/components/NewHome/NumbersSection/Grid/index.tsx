@@ -1,7 +1,7 @@
 import React from "react";
 
 import { NumberCard } from "../NumberCard";
-import { CardsContainer } from "../styledComponents";
+import { GridCardsContainer } from "../styledComponents";
 import type { INumberCard } from "../types";
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
 
 const Grid: React.FC<IProps> = ({ data }: IProps): JSX.Element => {
   return (
-    <CardsContainer>
+    <GridCardsContainer>
       {data.map((card): JSX.Element => {
         return (
           <NumberCard
@@ -24,7 +24,7 @@ const Grid: React.FC<IProps> = ({ data }: IProps): JSX.Element => {
           />
         );
       })}
-    </CardsContainer>
+    </GridCardsContainer>
   );
 };
 

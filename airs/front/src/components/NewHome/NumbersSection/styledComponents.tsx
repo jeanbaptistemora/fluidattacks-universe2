@@ -18,15 +18,25 @@ const TitleContainer = styled.div.attrs({
   `,
 })``;
 
-const CardsContainer = styled.div.attrs({
+const GridCardsContainer = styled.div.attrs({
+  className: `
+    cardgrid
+    center
+    flex-l
+    flex-wrap
+    justify-around
+    mw-1920
+    dn
+  `,
+})``;
+
+const CarrouselCardsContainer = styled.div.attrs({
   className: `
     cardgrid
     db
     center
-    flex-l
-    flex-wrap-l
-    justify-around-l
     mw-1920
+    dn-l
   `,
 })``;
 
@@ -95,8 +105,9 @@ export {
   CardContainer,
   CardText,
   CardTitle,
-  CardsContainer,
+  CarrouselCardsContainer,
   Container,
+  GridCardsContainer,
   ProgressContainer,
   TitleContainer,
 };

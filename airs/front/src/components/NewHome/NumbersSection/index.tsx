@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Media from "react-media";
 
 import { Carousel } from "./Carousel";
 import { Grid } from "./Grid";
@@ -91,15 +90,8 @@ const NumbersSection: React.FC = (): JSX.Element => {
       <TitleContainer>
         <WhiteBigParagraph>{t("numbersSection.title")}</WhiteBigParagraph>
       </TitleContainer>
-      <Media query={{ minWidth: 960 }}>
-        {(matches): JSX.Element =>
-          matches ? (
-            <Grid data={data} />
-          ) : (
-            <Carousel data={data[cardIndex]} progressValue={progressValue} />
-          )
-        }
-      </Media>
+      <Grid data={data} />
+      <Carousel data={data[cardIndex]} progressValue={progressValue} />
     </Container>
   );
 };
