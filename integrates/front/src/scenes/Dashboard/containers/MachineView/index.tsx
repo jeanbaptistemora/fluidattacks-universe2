@@ -267,6 +267,7 @@ const MachineView: React.FC = (): JSX.Element => {
           <DataTableNext
             bordered={false}
             dataset={tableDataset}
+            defaultSorted={undefined}
             exportCsv={false}
             headers={headers}
             id={"tblMachineJobs"}
