@@ -73,7 +73,7 @@ async def get_data_one_group(
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
-        value=Decimal(counter["open"]).quantize(Decimal("0.1")),
+        value=utils.format_cvssf(Decimal(counter["open"])),
     )
 
 

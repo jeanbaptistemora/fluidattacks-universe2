@@ -11,6 +11,7 @@ from charts.colors import (
     RISK,
 )
 from charts.utils import (
+    format_cvssf,
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
@@ -105,10 +106,7 @@ def format_data(
             columns=[
                 [
                     legend,
-                    *[
-                        Decimal(value).quantize(Decimal("0.1"))
-                        for _, value in data
-                    ],
+                    *[format_cvssf(Decimal(value)) for _, value in data],
                 ],
             ],
             colors={

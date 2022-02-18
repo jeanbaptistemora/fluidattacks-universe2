@@ -117,7 +117,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 [
                     "Open Severity",
                     *[
-                        Decimal(value).quantize(Decimal("0.1"))
+                        utils.format_cvssf(Decimal(value))
                         for _, value in merged_data
                     ],
                 ],
