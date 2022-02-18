@@ -8,12 +8,7 @@ import type { IComponentFieldProps } from "./types";
 
 import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
-import {
-  composeValidators,
-  validPath,
-  validTextField,
-  validUrlField,
-} from "utils/validations";
+import { validPath } from "utils/validations";
 
 const ComponentField: React.FC<IComponentFieldProps> = (
   props: IComponentFieldProps
@@ -36,11 +31,7 @@ const ComponentField: React.FC<IComponentFieldProps> = (
           name={"path"}
           placeholder={t("group.toe.inputs.addModal.fields.path")}
           type={"text"}
-          validate={composeValidators([
-            validUrlField,
-            validTextField,
-            validatePath,
-          ])}
+          validate={validatePath}
         />
       </Row>
     </FormGroup>
