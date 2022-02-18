@@ -150,12 +150,12 @@ async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
 
     return {
         "current": {
-            "closed": total_current_closed,
-            "open": total_current_open,
+            "closed": utils.format_cvssf(total_current_closed),
+            "open": utils.format_cvssf(total_current_open),
         },
         "previous": {
-            "closed": total_previous_closed,
-            "open": total_previous_open,
+            "closed": utils.format_cvssf(total_previous_closed),
+            "open": utils.format_cvssf(total_previous_open),
         },
         "totalGroups": len(groups),
     }

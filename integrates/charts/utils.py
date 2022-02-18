@@ -17,6 +17,7 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+    ROUND_FLOOR,
 )
 from forces import (
     domain as forces_domain,
@@ -68,6 +69,7 @@ PortfoliosGroups = NamedTuple(
 )
 
 TICK_ROTATION = -45  # display group name at that rotation
+MAX_WITH_DECIMALS = Decimal("10.0")
 
 
 async def get_all_time_forces_executions(
@@ -255,3 +257,9 @@ def get_subject_days(days: Optional[int]) -> str:
     if days:
         return f"_{days}"
     return ""
+
+
+def format_cvssf(cvssf: Decimal) -> Decimal:
+    if cvssf >= MAX_WITH_DECIMALS:
+        return cvssf.to_integral_exact(rounding=ROUND_FLOOR)
+    return cvssf.quantize(Decimal("0.1"))
