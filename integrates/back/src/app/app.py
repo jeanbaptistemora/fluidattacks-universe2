@@ -54,6 +54,7 @@ from bugsnag.asgi import (
 )
 from context import (
     FI_ENVIRONMENT,
+    FI_SCOUT_APM_KEY,
     FI_STARLETTE_SESSION_KEY,
 )
 from custom_exceptions import (
@@ -83,6 +84,12 @@ from organizations import (
 )
 from redis_cluster.operations import (
     redis_del_entity_attr,
+)
+from scout_apm.api import (
+    Config as ScoutApmConfig,
+)
+from scout_apm.async_.starlette import (
+    ScoutMiddleware,
 )
 from sessions import (
     dal as sessions_dal,
@@ -323,6 +330,12 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
     return templates.error500(request)
 
 
+ScoutApmConfig.set(
+    key=FI_SCOUT_APM_KEY,
+    name="Integrates",
+    monitor=DEBUG == False,
+)
+
 exception_handlers = {404: not_found, 500: server_error}
 
 API_VALIDATIONS = [
@@ -383,6 +396,7 @@ STARLETTE_APP = Starlette(
         Route("/{full_path:path}", app),
     ],
     middleware=[
+        Middleware(ScoutMiddleware),
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
         Middleware(CustomRequestMiddleware),
     ],

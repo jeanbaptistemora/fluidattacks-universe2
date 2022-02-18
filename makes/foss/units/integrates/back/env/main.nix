@@ -28,8 +28,6 @@ makeTemplate {
       inputs.nixpkgs.git
       # The binary for ssh
       inputs.nixpkgs.openssh
-      # The binary for the ASGI
-      inputs.nixpkgs.python39Packages.gunicorn
       # The binary to zip the data report
       inputs.nixpkgs.p7zip
     ];
