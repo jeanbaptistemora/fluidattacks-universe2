@@ -4560,4 +4560,37 @@
     "AC-6_3":
       title: Least Privilege - Network Access to Privileged Commands
       link: https://www.fedramp.gov/documents-templates/
+    "AC-6_8":
+      title: Least Privilege - Privilege Levels for Code Execution
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-7_2":
+      title: Unsuccessful Logon - Purge, Wipe Mobile Device
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-8":
+      title: System Use Notification
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-10":
+      title: Concurrent Session Control
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-11":
+      title: Session Lock
+      link: https://www.fedramp.gov/documents-templates/
+    "AC-22":
+      title: Publicly Accessible Content
+      link: https://www.fedramp.gov/documents-templates/
+    "AU-3_2":
+      title: Centralized Management of Planned Audit Record Content
+      link: https://www.fedramp.gov/documents-templates/
+    "AU-8":
+      title: Time Stamps
+      link: https://www.fedramp.gov/documents-templates/
+    "AU-8_1":
+      title: Synchronization with Authoritative Time Source
+      link: https://www.fedramp.gov/documents-templates/
+    "AU-12_3":
+      title: Audit Regeneration - Changes by Authorized Individuals
+      link: https://www.fedramp.gov/documents-templates/
+    "CA-2_2":
+      title: Security Assesment - Specialized Assesments
+      link: https://www.fedramp.gov/documents-templates/
   metadata: {}
