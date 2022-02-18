@@ -4593,4 +4593,58 @@
     "CA-2_2":
       title: Security Assesment - Specialized Assesments
       link: https://www.fedramp.gov/documents-templates/
+    "CA-2_3":
+      title: Security Assesment - External Organizations
+      link: https://www.fedramp.gov/documents-templates/
+    "CA-3":
+      title: System Interconnections
+      link: https://www.fedramp.gov/documents-templates/
+    "CA-3_3":
+      title: Unclassified Non-National Security System Connections
+      link: https://www.fedramp.gov/documents-templates/
+    "CA-6":
+      title: Security Authorization
+      link: https://www.fedramp.gov/documents-templates/
+    "CA-7":
+      title: Continuous Monitoring
+      link: https://www.fedramp.gov/documents-templates/
+    "CM-2_1":
+      title: Baseline Configuration - Reviews and Updates
+      link: https://www.fedramp.gov/documents-templates/
+    "CM-3_6":
+      title: Baseline Configuration - Cryptography Management
+      link: https://www.fedramp.gov/documents-templates/
+    "CM-5_5":
+      title: Access Restrictions for Change - Limit Production, Operational Privileges
+      link: https://www.fedramp.gov/documents-templates/
+    "CM-7":
+      title: Least Functionality
+      link: https://www.fedramp.gov/documents-templates/
+    "CM-7_5":
+      title: Least Functionality - Authorized Software, Whitelisting
+      link: https://www.fedramp.gov/documents-templates/
+    "IA-2_11":
+      title: Identification and Authentication - Remote Access, Separate Device
+      link: https://www.fedramp.gov/documents-templates/
+    "IA-4":
+      title: Identifier Management
+      link: https://www.fedramp.gov/documents-templates/
+    "IA-5_1":
+      title: Authenticator Management - Password-Based Authentication
+      link: https://www.fedramp.gov/documents-templates/
+    "IA-5_3":
+      title: Authenticator Management - In-Person or Trusted Third-Party Registration
+      link: https://www.fedramp.gov/documents-templates/
+    "IA-5_8":
+      title: Authenticator Management - Multiple Information System Accounts
+      link: https://www.fedramp.gov/documents-templates/
+    "MP-2":
+      title: Media Access
+      link: https://www.fedramp.gov/documents-templates/
+    "MP-5":
+      title: Media Transport
+      link: https://www.fedramp.gov/documents-templates/
+    "MP-6":
+      title: Media Sanitization
+      link: https://www.fedramp.gov/documents-templates/
   metadata: {}
