@@ -4647,4 +4647,58 @@
     "MP-6":
       title: Media Sanitization
       link: https://www.fedramp.gov/documents-templates/
+    "PE-3":
+      title: Physical Access Control
+      link: https://www.fedramp.gov/documents-templates/
+    "PE-16":
+      title: Delivery and Removal
+      link: https://www.fedramp.gov/documents-templates/
+    "PS-3_3":
+      title: Personnel Screening - Information with Special Protection Measures
+      link: https://www.fedramp.gov/documents-templates/
+    "PS-7":
+      title: Third-Party Personnel Security
+      link: https://www.fedramp.gov/documents-templates/
+    "RA-5":
+      title: Vulnerability Scanning
+      link: https://www.fedramp.gov/documents-templates/
+    "RA-5_4":
+      title: Privileged Access
+      link: https://www.fedramp.gov/documents-templates/
+    "SA-1":
+      title: System and Services Acquisition Policy and Procedures
+      link: https://www.fedramp.gov/documents-templates/
+    "SA-9":
+      title: External Information System Services
+      link: https://www.fedramp.gov/documents-templates/
+    "SA-10":
+      title: Developer Configuration Management
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-1":
+      title: System and Communications Protection Policy and Procedures
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-8":
+      title: Transmission Confidentiality and Integrity
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-8_1":
+      title: Cryptographic or Alternate Physical Protection
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-10":
+      title: Network Disconnect
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-12_2":
+      title: Cryptographic Key Establishment and Management - Symmetric Keys
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-13":
+      title: Cryptographic Protection
+      link: https://www.fedramp.gov/documents-templates/
+    "SC-28":
+      title: Protection of Information al Rest
+      link: https://www.fedramp.gov/documents-templates/
+    "SI-3":
+      title: Malicious Code Protection
+      link: https://www.fedramp.gov/documents-templates/
+    "SI-5":
+      title: Security Alerts, Advisories, and Directives
+      link: https://www.fedramp.gov/documents-templates/
   metadata: {}
