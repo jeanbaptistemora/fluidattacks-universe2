@@ -1113,6 +1113,9 @@
   "org.apache.camel:camel-http": {
     "SNYK-JAVA-ORGAPACHECAMEL-474289": ">=2.12.0 <2.15.5 || >=2.16.0 <2.16.1"
   },
+  "org.apache.camel:camel-http4": {
+    "SNYK-JAVA-ORGAPACHECAMEL-30539": ">=2.16.0 <2.16.1 || >=2.6.0 <2.15.5"
+  },
   "org.apache.camel:camel-jackson": {
     "CVE-2016-8749": ">=2.16.0 <=2.16.4 || >=2.17.0 <=2.17.4 || >=2.18.0 <=2.18.1",
     "CVE-2016-9571": ">=0 <=2.16.4 || >=2.17-alpha0 <=2.17.4 || >=2.18-alpha0 <=2.18.1"
