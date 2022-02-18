@@ -74,3 +74,38 @@ When you open the file, you
 will be asked for the passphrase.
 Type the passphrase and you’ll
 have your report!
+
+## Remove passphrase
+
+To remove the passphrase from the PDF
+file, you can use one of the follow instructions.
+
+- Print to PDF: After opening the
+  encrypted PDF file, you can print
+  the file in PDF format.
+  This will create a new file without
+  passphrase protection.
+
+![Print Pdf](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213317/docs/web/groups/reports/remove_passphrase_print_pdf.png)
+
+- Remove security method using Adobe
+  Acrobat PRO.
+  In security settings, you can disable
+  or change the security method.
+  Selecting “No security” you will
+  remove protection.
+
+![Document Properties](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213461/docs/web/groups/reports/remove_passphrase_doc_properties.png)
+
+To remove the passphrase from the XLS file,
+you can follow these instructions.
+
+- Open XLS file with passphrase provided
+  in the Fluid Attacks mobile application.
+- In the File tab, you will find Info.
+- Look for Encrypt with password in Protect
+  Workbook drop-down menu.
+
+![Properties Xls](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213462/docs/web/groups/reports/remove_passphrase_xls.png)
+
+- Delete passphrase and save the file.
