@@ -22,6 +22,9 @@ from newutils.analytics import (
 from newutils.token import (
     get_jwt_content,
 )
+from scout_apm.api import (
+    rename_transaction,
+)
 from starlette.requests import (
     Request,
 )
@@ -42,6 +45,7 @@ async def _log_request(request: Request, data: Dict[str, Any]) -> None:
     query: str = data.get("query", "").replace("\n", "") or "-"
     variables: str = data.get("variables") or "-"
 
+    rename_transaction(name)
     logs_utils.cloudwatch_log(
         request,
         f"API: {name} with parameters {variables}. Complete query: {query}",
