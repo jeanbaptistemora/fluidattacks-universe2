@@ -10,7 +10,7 @@ import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
-  numeric,
+  isInteger,
   optionalNumberBetween,
 } from "utils/validations";
 
@@ -40,8 +40,8 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
         name={"attackedLines"}
         type={"number"}
         validate={composeValidators([
+          isInteger,
           optionalNumberBetween(1, maxSelectedLoc),
-          numeric,
         ])}
       />
     </FormGroup>

@@ -2774,6 +2774,7 @@ export const enTranslations: ResourceKey = {
     inactiveSessionDismiss: "Dismiss",
     inactiveSessionModal: "Inactive Session Detected",
     infectedFile: "Our system detected that the uploaded file is infected",
+    integer: "This field can only contain an integer",
     invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",
     invalidCommentParent: "The comment parent is invalid",
