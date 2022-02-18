@@ -22,7 +22,6 @@ module "external" {
   source = "../../../../../units/utils/terraform-modules/external-data"
 
   aws_iam_roles = [
-    "dev",
     "prod_makes",
     "prod_integrates",
   ]
@@ -31,7 +30,6 @@ module "external" {
     "cloudwatch-push" = ["aws", "service-role/AmazonAPIGatewayPushToCloudWatchLogs"]
   }
   aws_iam_users = [
-    "dev",
     "prod_integrates",
   ]
 }
