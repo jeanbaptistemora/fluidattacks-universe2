@@ -28,7 +28,7 @@ class NullOrEmptyType(Exception):
 
 raw_type_map: Dict[str, RedshiftDataType] = {
     "boolean": RedshiftDataType.BOOLEAN,
-    "integer": RedshiftDataType.INTEGER,
+    "integer": RedshiftDataType.BIGINT,
     "number": RedshiftDataType.DOUBLE_PRECISION,
     "string": RedshiftDataType.VARCHAR,
 }
