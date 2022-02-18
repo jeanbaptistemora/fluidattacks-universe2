@@ -38,10 +38,6 @@ function aws_login_prod {
     && TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 }
 
-function aws_login_prod_new {
-  aws_login_prod "${@}"
-}
-
 function aws_s3_sync {
   local flags=(
     --follow-symlinks

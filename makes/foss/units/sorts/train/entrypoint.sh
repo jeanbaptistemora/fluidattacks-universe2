@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  aws_login_prod_new 'sorts' \
+  aws_login_prod 'sorts' \
     && sops_export_vars 'sorts/secrets.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

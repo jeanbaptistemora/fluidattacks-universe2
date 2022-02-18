@@ -25,7 +25,7 @@ function execute {
 function main {
   local groups_file
 
-  aws_login_prod_new 'sorts' \
+  aws_login_prod 'sorts' \
     && sops_export_vars 'sorts/secrets.yaml' \
       'MIXPANEL_API_TOKEN_SORTS' \
       'REDSHIFT_DATABASE' \

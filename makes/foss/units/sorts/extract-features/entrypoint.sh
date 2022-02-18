@@ -4,7 +4,7 @@ function upload_sorts_results_to_s3 {
   local group="${1}"
   local target="s3://sorts/features/"
 
-  aws_login_prod_new 'sorts' \
+  aws_login_prod 'sorts' \
     && echo "[INFO] Uploading Sorts feature extraction results to S3" \
     && aws_s3_sync "${PWD}" "${target}" --exclude "*" --include "${group}*.csv" \
     && rm -rf "${group}"*".csv"
@@ -36,7 +36,7 @@ function extract_features {
 function main {
   local groups_file
 
-  aws_login_prod_new 'sorts' \
+  aws_login_prod 'sorts' \
     && sops_export_vars 'sorts/secrets.yaml' \
       'MIXPANEL_API_TOKEN_SORTS' \
       'REDSHIFT_DATABASE' \

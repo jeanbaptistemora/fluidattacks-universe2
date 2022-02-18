@@ -31,14 +31,12 @@ data "aws_iam_policy_document" "okta_assume_role_policy" {
       ]
     }
   }
-
   statement {
     sid    = "SageMakerAssumeRolePolicy"
     effect = "Allow"
     actions = [
       "sts:AssumeRole",
     ]
-
     principals {
       type = "Service"
       identifiers = [

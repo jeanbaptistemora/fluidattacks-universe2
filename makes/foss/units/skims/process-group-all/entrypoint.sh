@@ -182,7 +182,7 @@ function main {
     && roots="$(jq -r -c '.[]' <<< "${roots}")" \
     && use_git_repo_services \
     && clone_group "${group}" \
-    && aws_login_prod_new 'skims' \
+    && aws_login_prod 'skims' \
     && parallel "${parallel_args[@]}" execute_skims_combination "${group}" ::: "${roots}" \
     && skims_cache push "${group}" \
     && popd \
