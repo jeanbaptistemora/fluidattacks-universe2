@@ -186,7 +186,7 @@ describe("Avatar", (): void => {
     });
   });
 
-  it("should render profile picture and close alert", async (): Promise<void> => {
+  it("should initials and close alert", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
