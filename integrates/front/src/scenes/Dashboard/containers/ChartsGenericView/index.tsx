@@ -360,44 +360,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         ) : undefined}
       </div>
-      {doesEntityMatch(["portfolio"]) ? (
-        <div className={reportClassName}>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"remediatedGroup"}
-                documentType={"stackedBarChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"stackedBarChart"}
-                infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-closed`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.remediatedVuln")}
-              />
-            </Col100>
-          </RowCenter>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"remediatedAcceptedGroup"}
-                documentType={"stackedBarChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"stackedBarChart"}
-                infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-and-accepted`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.remediatedAcceptedVuln")}
-              />
-            </Col100>
-          </RowCenter>
-        </div>
-      ) : undefined}
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (
         <div className={reportClassName}>
           <RowCenter>
@@ -455,6 +417,40 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
           {doesEntityMatch(["organization", "portfolio"]) ? (
             <React.Fragment>
+              <RowCenter>
+                <Col100>
+                  <Graphic
+                    bsHeight={320}
+                    className={"g1"}
+                    documentName={"remediatedGroup"}
+                    documentType={"stackedBarChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"stackedBarChart"}
+                    infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-closed`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.remediatedVuln")}
+                  />
+                </Col100>
+              </RowCenter>
+              <RowCenter>
+                <Col100>
+                  <Graphic
+                    bsHeight={320}
+                    className={"g1"}
+                    documentName={"remediatedAcceptedGroup"}
+                    documentType={"stackedBarChart"}
+                    entity={entity}
+                    generatorName={"generic"}
+                    generatorType={"stackedBarChart"}
+                    infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-and-accepted`}
+                    reportMode={reportMode}
+                    subject={subject}
+                    title={translate.t("tagIndicator.remediatedAcceptedVuln")}
+                  />
+                </Col100>
+              </RowCenter>
               <RowCenter>
                 <Col100>
                   <Graphic
