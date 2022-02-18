@@ -72,7 +72,6 @@ closure:
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.0.1
-  psutil: 5.9.0
   psycopg2: 2.9.3
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -81,7 +80,6 @@ closure:
   pyjwt: 2.3.0
   pykwalify: 1.8.0
   pymeeus: 0.5.11
-  pyopenssl: 21.0.0
   pyparsing: 2.4.7
   pypdf4: 1.27.0
   python-dateutil: 2.8.2
@@ -102,7 +100,7 @@ closure:
   ruamel.yaml: 0.17.21
   ruamel.yaml.clib: 0.2.6
   s3transfer: 0.3.7
-  scout-apm: 2.24.1
+  sentry-sdk: 1.5.5
   simplejson: 3.17.0
   six: 1.16.0
   smmap: 5.0.0
@@ -805,18 +803,6 @@ links:
   - name: Pillow-9.0.1.tar.gz
     sha256: 1ykmxlg5wj90wy3rz8z5cz1zhws17xk5mv7mfmxazzbxi8iwi2vc
     url: https://files.pythonhosted.org/packages/03/a3/f61a9a7ff7969cdef2a6e0383a346eb327495d20d25a2de5a088dbb543a6/Pillow-9.0.1.tar.gz
-  - name: psutil-5.9.0-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1kxw0zqc1nbn317pnm55d0wgry2pc2466dcflpajfpcwljfl57jk
-    url: https://files.pythonhosted.org/packages/48/6a/c6e88a5584544033dbb8318c380e7e1e3796e5ac336577eb91dc75bdecd7/psutil-5.9.0-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: psutil-5.9.0-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 01vg8wkv0csribpi3g1imfqk7sp898nalwzc19h2b4i0vhixkisq
-    url: https://files.pythonhosted.org/packages/f7/b1/82e95f6368dbde6b7e54ea6b18cf8ac3958223540d0bcbde23ba7be19478/psutil-5.9.0-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: psutil-5.9.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 0zb9knk7wlhykgd3sclxghb027ab2rmb94mi6nd7fgrrx9zfh49n
-    url: https://files.pythonhosted.org/packages/c4/35/7cec9647be077784d20913404f914fffd8fe6dfd0673e29f7bd822ac1331/psutil-5.9.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: psutil-5.9.0.tar.gz
-    sha256: 09fa4vfhansixvxd3lv664xcrbnfdyfn53hm2wr0rf3bsvdl5646
-    url: https://files.pythonhosted.org/packages/47/b6/ea8a7728f096a597f0032564e8013b705aa992a0990becd773dcc4d7b4a7/psutil-5.9.0.tar.gz
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
@@ -859,12 +845,6 @@ links:
   - name: PyMeeus-0.5.11.tar.gz
     sha256: 0mgdiwf026jf0pr3n9j4ad75k802xanpv2ml2x1mkc6q3046g7dv
     url: https://files.pythonhosted.org/packages/c7/ff/0f0a0becf088281c6bc6c75b7d7c03a2481d486ef6cc7c8899bbcab0a88d/PyMeeus-0.5.11.tar.gz
-  - name: pyOpenSSL-21.0.0-py2.py3-none-any.whl
-    sha256: 1mhyp94bhi20j691mg84gzbpwh4nhbss8hbwn3mvz6mb414vsdc9
-    url: https://files.pythonhosted.org/packages/85/3a/fe3c98435856a1ed798977981f3da82d2685cf9df97e4d9546340d2b83db/pyOpenSSL-21.0.0-py2.py3-none-any.whl
-  - name: pyOpenSSL-21.0.0.tar.gz
-    sha256: 1cqcc20fwl521z3fxsc1c98gbnhb14q55vrvjfp6bn6h8rg8qbay
-    url: https://files.pythonhosted.org/packages/54/9a/2a43c5dbf4507f86f7c43cba4195d5e25a81c988fd7b0ea779dfc9c6973f/pyOpenSSL-21.0.0.tar.gz
   - name: pyparsing-2.4.7-py2.py3-none-any.whl
     sha256: 12y8xwjb118a4jqvvfg9k90kqg03n4d3ygb5csz0l81wxy4pb7gg
     url: https://files.pythonhosted.org/packages/8a/bb/488841f56197b13700afd5658fc279a2025a39e22449b7cf29864669b15d/pyparsing-2.4.7-py2.py3-none-any.whl
@@ -976,42 +956,12 @@ links:
   - name: s3transfer-0.3.7.tar.gz
     sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
     url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 1zhgdhdawwd7p8vv2lfrqlb8qf8pq4v1zq3zcr9sfn35aq9lavxz
-    url: https://files.pythonhosted.org/packages/ad/ca/2f4f821b80ca9ebf5ac7328e179f8975ae8e0748a3e70f4b01b6a6d9c0c6/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 1qxpb701hfy84va6v2k5w3538f3s1s311im6kmxp1dig984zszjl
-    url: https://files.pythonhosted.org/packages/6c/5e/7ce9b96edc111b6a46ca6f8dc32aea71feaa0e8a16ebaa6f8ec89ca261b8/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_24_i686.whl
-    sha256: 0pdjml3ir09brcnw0rddsgihv633kv6zvkdgh95xb6xwzfxvj72f
-    url: https://files.pythonhosted.org/packages/a1/cf/92526a1f958deae64910503b8c0dd60488decea40d6a983d784aba61deaa/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_24_i686.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
-    sha256: 18wdb9hw29jl70dmhraxjs6817zbyw5kdyg0vqvvxk9h6g681igs
-    url: https://files.pythonhosted.org/packages/c2/71/632377c49e7bd4ed1a296a0907201e56559067a4c6d16a65bbbd0b634f71/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 0sjvjmr0yjrd86pawxnm7a8xf1bjh7n3707c4svaf4zf4k9mcj7m
-    url: https://files.pythonhosted.org/packages/3f/39/0710b16bc464670e1301dad2c13b46461cbe9a7c779c41a2b69718c9edc3/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1c8xs00ms9l0gksyzbjc78f2rh2vwy7i7f5q9mv14rmlpg1l97fi
-    url: https://files.pythonhosted.org/packages/cd/01/9f5bd571c02fcf6dc3f4d150b71a1dbacc314f0b75f51917330cd5e204dc/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_24_x86_64.whl
-    sha256: 0skp7pdvnbj1zh641kr71x0rr4wd3glil1p15w8p8zi9bkjf0a4m
-    url: https://files.pythonhosted.org/packages/cc/25/108e6473cd10338c54404a92679102757dbd2eb724b4d033b66f86501e21/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_24_x86_64.whl
-  - name: scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-    sha256: 0m18h3xj8y33fwp30187wdy5p0w7r8p55y8sq2gq9prymr0p8a67
-    url: https://files.pythonhosted.org/packages/8b/9a/f959f36eb07f32e122d05b20ab3dcfa9ebfcc7cbb2cdb09b7b992c4fab57/scout_apm-2.24.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - name: scout_apm-2.24.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 12f3fia15vpycknd2jyhsm7yzn9f3qv70igc87vmyrzvgg82sd50
-    url: https://files.pythonhosted.org/packages/2c/83/93c60c9f589a6e02fe402b9d0913fa567aa839c88d151c70b607eb61f83b/scout_apm-2.24.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: scout_apm-2.24.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 18z9bs8f0wl3570ww7nqwi0awi6idxrdypvix7npq6y07h51813s
-    url: https://files.pythonhosted.org/packages/fb/33/100c7adccf6cf32e18c21030978fd1f91c6faa75320c97bc4641963e1128/scout_apm-2.24.1-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: scout_apm-2.24.1-py3-none-any.whl
-    sha256: 0aqrvqshgd90liyk8r2lwqhcks64r7x9nz9rzdy66w9l8dsqjdm6
-    url: https://files.pythonhosted.org/packages/46/2e/d2938e291253580e3e4ebed78f1ce93774b7a43d25bbb5234e08fd6e6f4b/scout_apm-2.24.1-py3-none-any.whl
-  - name: scout_apm-2.24.1.tar.gz
-    sha256: 00f52n64ia70n34g68i65bzm5542inis7fnfb1s9mdnhkd1k192l
-    url: https://files.pythonhosted.org/packages/d3/99/c4c4f3861ca6c4e32a20dbfdf1678409baf2ecc34ffdfcddcd6ae8d9a8c4/scout_apm-2.24.1.tar.gz
+  - name: sentry_sdk-1.5.5-py2.py3-none-any.whl
+    sha256: 0cfq62xz4yy0d0r5fh33f2c5av4imjcfx5mqyvmwi614p97jf5rq
+    url: https://files.pythonhosted.org/packages/3f/6a/01fb4e5417f5d2ef6279883a9deedabb6b6f223aa706892ea9caa6d7c1e4/sentry_sdk-1.5.5-py2.py3-none-any.whl
+  - name: sentry-sdk-1.5.5.tar.gz
+    sha256: 0ng762x898v2gdzlxbjxmbnz2197msja2cpdmgdw3znmlmgibzcq
+    url: https://files.pythonhosted.org/packages/57/c6/02ed46220d11a0912bd0b0e919fba0842f20b35b3976f492f53c028190cc/sentry-sdk-1.5.5.tar.gz
   - name: simplejson-3.17.0.tar.gz
     sha256: 108yf3252fy4ndqab7h46raksxfhcn113bzy2yd8369vidrjnjrb
     url: https://files.pythonhosted.org/packages/98/87/a7b98aa9256c8843f92878966dc3d8d914c14aad97e2c5ce4798d5743e07/simplejson-3.17.0.tar.gz

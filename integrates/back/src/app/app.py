@@ -54,6 +54,7 @@ from bugsnag.asgi import (
 )
 from context import (
     FI_ENVIRONMENT,
+    FI_SENTRY_DSN,
     FI_STARLETTE_SESSION_KEY,
 )
 from custom_exceptions import (
@@ -83,6 +84,10 @@ from organizations import (
 )
 from redis_cluster.operations import (
     redis_del_entity_attr,
+)
+import sentry_sdk
+from sentry_sdk.integrations.asgi import (
+    SentryAsgiMiddleware,
 )
 from sessions import (
     dal as sessions_dal,
@@ -390,8 +395,11 @@ STARLETTE_APP = Starlette(
     exception_handlers=exception_handlers,
 )
 
+sentry_sdk.init(dsn=FI_SENTRY_DSN)
+
 # ASGI wrappers
-NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(STARLETTE_APP)
+SENTRY_WRAPPER = SentryAsgiMiddleware(STARLETTE_APP)
+NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(SENTRY_WRAPPER)
 BUGSNAG_WRAPPER = BugsnagMiddleware(NEWRELIC_WRAPPER)
 
 APP = BUGSNAG_WRAPPER
