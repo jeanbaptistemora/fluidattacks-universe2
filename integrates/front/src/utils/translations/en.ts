@@ -348,6 +348,8 @@ export const enTranslations: ResourceKey = {
           testOther: "Test other part of ToE",
           title: "Action before blocking",
         },
+        affectsReattacks:
+          "Does this event have an impact on any ongoing reattack?",
         blockingHours: "Working hours until getting blocked",
         components: {
           clientStation: "Client's test station",
@@ -381,11 +383,13 @@ export const enTranslations: ResourceKey = {
         evidence: "Evidence image",
         evidenceFile: "Evidence file",
         invalidFileName: "Evidence filename must not have invalid chars",
+        noSelectedReattacks: "You must select at least one affected reattack",
         none: "None",
         other: "Other",
         responsible: "Person in charge (client)",
         root: "Root",
         rootPlaceholder: "Search by nickname...",
+        selectAffectedReattacks: "Please select the affected reattacks",
         type: {
           detectsAttack: "Client detects the attack",
           highAvailability: "High availability approval",
@@ -1661,11 +1665,6 @@ export const enTranslations: ResourceKey = {
       acceptanceJustification: "Acceptance Justification",
       acceptanceUser: "Acceptance User",
       action: "Action",
-      affectedReattackModal: {
-        message: "Reattacks will be put on hold for {{vulns}} vulnerabilities",
-        selectEvent: "Please select the relevant Event:",
-        title: "Reattacks to be put on hold",
-      },
       approvalMessage:
         "Remember that the indefinite acceptance of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",

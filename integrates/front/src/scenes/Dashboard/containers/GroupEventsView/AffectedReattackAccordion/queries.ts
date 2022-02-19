@@ -4,13 +4,13 @@ import type { DocumentNode } from "graphql";
 const GET_UNSOLVED_EVENTS: DocumentNode = gql`
   query GetUnsolvedEventsQuery($groupName: String!) {
     group(groupName: $groupName) {
-      events(filter: { eventStatus: "CREATED" }) {
-        description
+      events {
         detail
         id
         eventStatus
         eventType
       }
+      name
     }
   }
 `;
