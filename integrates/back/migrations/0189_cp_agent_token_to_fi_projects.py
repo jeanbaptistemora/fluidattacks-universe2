@@ -5,8 +5,8 @@ agent token, currently in vms, to the old table with the rest of the data.
 This is prior to removing unwanted group items in vms, as the primary key
 will change.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-02-21 at 16:35:34 UTC
+Finalization Time: 2022-02-21 at 16:37:43 UTC
 """
 
 from aioextensions import (
