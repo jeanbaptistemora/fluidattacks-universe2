@@ -24,13 +24,13 @@ function job_code_mirror {
     && { USER=nobody melts resources --clone-from-customer-git "${group}" || true; } \
     && if find "groups/${group}/fusion/"* -maxdepth 0 -type d; then
       echo '[INFO] Pushing repositories to S3' \
-        && USER=nobody melts drills --push-repos "${group}"
+        && USER=nobody melts drills --push-repos "${group}" \
+        && rm -rf "groups/${group}/fusion/"
     else
-      echo '[INFO] Unable to clone repositories from source' \
-        && echo '[INFO] Skipping push to S3' \
-        && return 1
+      echo '[WARNING] Unable to clone repositories from source' \
+        && echo '[WARNING] Connection failed or repo has not been updated' \
+        && echo '[WARNING] Skipping push to S3'
     fi \
-    && rm -rf "groups/${group}/fusion/" \
     && popd \
     || return 1
 }
