@@ -3,6 +3,7 @@ interface IFilterSet {
   component: string;
   hasVulnerabilities: string;
   root: string;
+  seenAt: { max: string; min: string };
 }
 
 interface IGroupToeInputsViewProps {

@@ -903,10 +903,13 @@ export const enTranslations: ResourceKey = {
             placeholder: "Has vulnerabilities",
             tooltip: "Filter by has vulnerabilities",
           },
-
           root: {
             placeholder: "Root",
             tooltip: "Filter by root",
+          },
+          seenAt: {
+            placeholder: "Seen at (Range)",
+            tooltip: "Filter by seen at",
           },
         },
         firstAttackAt: "First attack at",

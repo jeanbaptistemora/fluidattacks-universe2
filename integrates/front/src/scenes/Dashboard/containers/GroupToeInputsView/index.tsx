@@ -101,6 +101,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         component: "",
         hasVulnerabilities: "",
         root: "",
+        seenAt: { max: "", min: "" },
       },
       localStorage
     );
@@ -298,6 +299,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         component: "",
         hasVulnerabilities: "",
         root: "",
+        seenAt: { max: "", min: "" },
       })
     );
     setSearchTextFilter("");
@@ -344,6 +346,21 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         (value): IFilterSet => ({
           ...value,
           [filterName]: event.target.value,
+        })
+      );
+    };
+  };
+  const onRangeFilterValueChange = (
+    filterName: keyof Pick<IFilterSet, "seenAt">,
+    key: "max" | "min"
+  ): ((event: ChangeEvent<HTMLInputElement>) => void) => {
+    return (event: React.ChangeEvent<HTMLInputElement>): void => {
+      event.persist();
+
+      setFilterGroupToeInputTable(
+        (value): IFilterSet => ({
+          ...value,
+          [filterName]: { ...value[filterName], [key]: event.target.value },
         })
       );
     };
@@ -401,6 +418,18 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       tooltipId: "group.toe.inputs.filters.hasVulnerabilities.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.hasVulnerabilities.tooltip",
       type: "select",
+    },
+    {
+      defaultValue: "",
+      placeholder: translate.t("group.toe.inputs.filters.seenAt.placeholder"),
+      rangeProps: {
+        defaultValue: filterGroupToeInputTable.seenAt,
+        onChangeMax: onRangeFilterValueChange("seenAt", "max"),
+        onChangeMin: onRangeFilterValueChange("seenAt", "min"),
+      },
+      tooltipId: "group.toe.inputs.filters.seenAt.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.seenAt.tooltip",
+      type: "dateRange",
     },
     {
       defaultValue: filterGroupToeInputTable.bePresent,

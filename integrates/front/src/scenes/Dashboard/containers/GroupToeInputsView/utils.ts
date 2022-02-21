@@ -3,6 +3,7 @@ import _ from "lodash";
 import type { IFilterSet, IToeInputData } from "./types";
 
 import {
+  filterDateRange,
   filterSearchText,
   filterSelect,
 } from "components/DataTableNext/utils/filters";
@@ -154,12 +155,18 @@ const getFilteredData: (
     searchTextFilter,
     toeInput
   );
+  const filteredSeenAt: IToeInputData[] = filterDateRange(
+    toeInput,
+    filterGroupToeInputTable.seenAt,
+    "seenAt"
+  );
   const filteredData: IToeInputData[] = _.intersection(
     filteredBePresent,
     filteredComponent,
     filteredHasVulnerabilities,
     filteredRoot,
-    filteredSearchtextResult
+    filteredSearchtextResult,
+    filteredSeenAt
   );
 
   return filteredData;
