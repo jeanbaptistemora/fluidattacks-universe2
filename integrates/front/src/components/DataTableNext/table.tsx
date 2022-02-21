@@ -40,6 +40,7 @@ import {
   ButtonGroup,
   ButtonToolbarRow,
   Filters,
+  FlexAutoContainer,
   InputDateRange,
   InputNumber,
   InputRange,
@@ -529,7 +530,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               )}
               <SelectContainer />
 
-              <SelectContainer>
+              <FlexAutoContainer>
                 <Button
                   className={"lh-copy fr"}
                   onClick={handleClearFiltersButton}
@@ -538,7 +539,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   &nbsp;
                   {t("dataTableNext.clearFilters")}
                 </Button>
-              </SelectContainer>
+              </FlexAutoContainer>
             </Filters>
           )}
         </div>

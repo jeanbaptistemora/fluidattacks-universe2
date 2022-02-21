@@ -246,6 +246,10 @@ const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "flex flex-wrap",
 })``;
 
+const FlexAutoContainer = styled.div.attrs({
+  className: "flex-auto mh1 mv1",
+})``;
+
 const FormGroup: StyledComponent<
   "div",
   Record<string, unknown>
@@ -679,6 +683,7 @@ export {
   ExpandableLabel,
   Filters,
   Flex,
+  FlexAutoContainer,
   FormGroup,
   HintFieldText,
   InputDateRange,
