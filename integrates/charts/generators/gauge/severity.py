@@ -73,10 +73,11 @@ async def generate_one(group: str, loaders: Dataloaders) -> Severity:
     )
     max_found_index, max_found_value = get_max_severity_one(group_findings)
     open_findings_vulnerabilities = await collect(
-        [
+        tuple(
             findings_domain.get_open_vulnerabilities(loaders, finding.id)
             for finding in group_findings
-        ]
+        ),
+        workers=32,
     )
     open_group_findings = tuple(
         finding
@@ -107,7 +108,7 @@ async def get_data_many_groups(
     groups: List[str], loaders: Dataloaders
 ) -> Severity:
     groups_data: List[Severity] = await collect(
-        [generate_one(group, loaders) for group in groups]
+        tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 
     max_found_index, max_found_value = get_max_severity_many(

@@ -263,10 +263,11 @@ async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
         group.lower()
     )
     findings_open_age = await collect(
-        [
+        tuple(
             get_finding_open_age(loaders, finding.id)
             for finding in group_findings
-        ]
+        ),
+        workers=24,
     )
 
     return (

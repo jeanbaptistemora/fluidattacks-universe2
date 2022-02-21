@@ -63,7 +63,7 @@ async def get_many_groups_document(
     days: int,
 ) -> Dict[str, Dict[datetime, float]]:
     group_documents: Tuple[RiskOverTime, ...] = await collect(
-        [get_group_document(group, days) for group in groups]
+        tuple(get_group_document(group, days) for group in groups), workers=32
     )
 
     return sum_over_time_many_groups(
