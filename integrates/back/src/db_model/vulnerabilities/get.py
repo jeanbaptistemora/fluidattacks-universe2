@@ -60,6 +60,7 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(TABLE.facets["vulnerability_metadata"],),
+        limit=1,
         table=TABLE,
     )
 
