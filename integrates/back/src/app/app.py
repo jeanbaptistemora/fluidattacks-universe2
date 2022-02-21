@@ -395,7 +395,10 @@ STARLETTE_APP = Starlette(
     exception_handlers=exception_handlers,
 )
 
-sentry_sdk.init(dsn=FI_SENTRY_DSN)
+sentry_sdk.init(
+    dsn=FI_SENTRY_DSN,
+    traces_sample_rate=0.2,
+)
 
 # ASGI wrappers
 SENTRY_WRAPPER = SentryAsgiMiddleware(STARLETTE_APP)
