@@ -9,6 +9,40 @@ from typing import (
 )
 import utils
 
+EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
+    "Remediation Rate Benchmarking",
+    "MTTR Benchmarking",
+    "Total Exposure",
+    "Open Severity by type",
+    "Open Severity by groups",
+    "Severity over time",
+    "Distribution over time",
+    "Vulnerabilities treatment",
+    "Vulnerabilities by source",
+    "Total types",
+    "Vulnerabilities with not-defined treatment",
+    "Vulnerabilities being re-attacked",
+    "Days since last remediation",
+    "Total vulnerabilities",
+    "Severity",
+    "Active resources distribution",
+    "Vulnerabilities by tag",
+    "Vulnerabilities by level",
+    "Accepted vulnerabilities by user",
+    "How many vulnerabilities are remediated (closed)?",
+    "How many vulnerabilities are remediated and accepted?",
+    "Findings by group",
+    "Open findings by group",
+    "Top oldest findings",
+    "Treatmentless by group",
+    "Vulnerabilities by treatments",
+    "Vulnerabilities by group",
+    "Open vulnerabilities by group",
+    "Accepted vulnerabilities by severity",
+    "Mean (average) days to remediate",
+    "Tags by groups",
+]
+
 
 def test_org_analytics(
     driver: WebDriver,
@@ -16,26 +50,13 @@ def test_org_analytics(
     asm_endpoint: str,
     timeout: int,
 ) -> None:
-    expected_charts: List[str] = [
-        "Remediation Rate Benchmarking",
-        "MTTR Benchmarking",
-        "Severity over time",
-        "Distribution over time",
-        "Vulnerabilities treatment",
-        "Total types",
-        "Severity",
-        "Days since last remediation",
-        "Open Severity by type",
-        "Total vulnerabilities",
-    ]
-
     # Login
     utils.login(driver, asm_endpoint, credentials)
 
     # Enter Analytics
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
 
-    for expected_chart in expected_charts:
+    for expected_chart in EXPECTED_MANY_GROUPS_CHARTS:
         assert utils.wait_for_text(
             driver,
             expected_chart,
@@ -82,24 +103,6 @@ def test_org_portfolios(
     asm_endpoint: str,
     timeout: int,
 ) -> None:
-    expected_charts: List[str] = [
-        "MTTR Benchmarking",
-        "Severity over time",
-        "How many vulnerabilities are remediated (closed)?",
-        "How many vulnerabilities are remediated and accepted?",
-        "Findings by group",
-        "Open findings by group",
-        "Vulnerabilities treatment",
-        "Vulnerabilities by group",
-        "Open vulnerabilities by group",
-        "Mean (average) days to remediate",
-        "Treatmentless by group",
-        "Severity",
-        "Days since last remediation",
-        "Total vulnerabilities",
-        "Total types",
-        "Vulnerabilities with not-defined treatment",
-    ]
     # Login
     utils.login(driver, asm_endpoint, credentials)
 
@@ -111,7 +114,7 @@ def test_org_portfolios(
         timeout,
     )
     test_groups.click()
-    for expected_chart in expected_charts:
+    for expected_chart in EXPECTED_MANY_GROUPS_CHARTS:
         assert utils.wait_for_text(
             driver,
             expected_chart,
