@@ -45,6 +45,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 from utils.http import (
     request_blocking,
@@ -112,7 +113,9 @@ def _create_ssl_vuln(
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],
     method: core_model.MethodsEnum,
-    check_kwargs: Optional[Dict[str, str]] = None,
+    check_kwargs: Optional[
+        Dict[str, Union[str, core_model.LocalesEnum]]
+    ] = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(
         ssl_settings=ssl_settings,

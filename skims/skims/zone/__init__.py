@@ -112,7 +112,7 @@ IGNORED_CHARS = str.maketrans(
 def t(  # pylint: disable=invalid-name
     key: str,
     *args: Any,
-    locale: Optional[LocalesEnum] = None,
+    locale: Optional[Enum] = None,
     **kwargs: Any,
 ) -> str:
     return (

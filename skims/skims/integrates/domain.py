@@ -74,10 +74,10 @@ def _build_vulnerabilities_stream(
                 skims_method=result.skims_metadata.source_method
                 if result.skims_metadata
                 else None,
-                skims_technique=result.skims_metadata.technique
+                skims_technique=result.skims_metadata.technique.value
                 if result.skims_metadata
                 else None,
-                developer=result.skims_metadata.developer
+                developer=result.skims_metadata.developer.value
                 if result.skims_metadata
                 else None,
             )
@@ -95,10 +95,10 @@ def _build_vulnerabilities_stream(
                 skims_method=result.skims_metadata.source_method
                 if result.skims_metadata
                 else None,
-                skims_technique=result.skims_metadata.technique
+                skims_technique=result.skims_metadata.technique.value
                 if result.skims_metadata
                 else None,
-                developer=result.skims_metadata.developer
+                developer=result.skims_metadata.developer.value
                 if result.skims_metadata
                 else None,
             )

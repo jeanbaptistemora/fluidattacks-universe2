@@ -32,11 +32,6 @@ class Grammar(Enum):
     SCALA: str = "Scala"
 
 
-class LocalesEnum(Enum):
-    EN: str = "EN"
-    ES: str = "ES"
-
-
 class AvailabilityEnum(Enum):
     ALWAYS = "ALWAYS"
     WORKING_HOURS = "WORKING_HOURS"
@@ -46,6 +41,11 @@ class AvailabilityEnum(Enum):
 class ExecutionQueueConfig(NamedTuple):
     availability: AvailabilityEnum
     name: str
+
+
+class LocalesEnum(Enum):
+    EN: str = "EN"
+    ES: str = "ES"
 
 
 class ExecutionQueue(Enum):
@@ -1003,7 +1003,7 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     snippet: str
     source_method: str
     developer: DeveloperEnum
-    technique: DeveloperEnum
+    technique: TechniqueEnum
 
 
 class IntegratesVulnerabilitiesLines(NamedTuple):

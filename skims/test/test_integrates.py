@@ -42,13 +42,13 @@ async def test_client(
 @run_decorator
 @pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
-    sast_developer = "drestrepo@fluidattacks.com"
+    sast_developer = core_model.DeveloperEnum.DIEGO_RESTREPO
     sast_method = "query.query_f034"
-    sast_technique = "ASAST"
+    sast_technique = core_model.TechniqueEnum.ADVANCE_SAST
 
-    dast_developer = "asalgado@fluidattacks.com"
+    dast_developer = core_model.DeveloperEnum.ALEJANDRO_SALGADO
     dast_method = "analyze_protocol.pfs_disabled"
-    dast_technique = "DAST"
+    dast_technique = core_model.TechniqueEnum.DAST
 
     commit_hash = get_repo_head_hash(CTX.config.working_dir)
 
@@ -103,22 +103,22 @@ async def test_build_vulnerabilities_stream() -> None:
         == dedent(
             f"""
         inputs:
-        - developer: {dast_developer}
+        - developer: {dast_developer.value}
           field: server refuses connections with PFS support
           repo_nickname: test
           skims_method: {dast_method}
-          skims_technique: {dast_technique}
+          skims_technique: {dast_technique.value}
           state: open
           stream: home,socket-send,socket-response
           url: https://example.com:443 (test)
         lines:
         - commit_hash: {commit_hash}
-          developer: {sast_developer}
+          developer: {sast_developer.value}
           line: '11'
           path: test/what
           repo_nickname: test
           skims_method: {sast_method}
-          skims_technique: {sast_technique}
+          skims_technique: {sast_technique.value}
           state: open
     """
         )[1:]

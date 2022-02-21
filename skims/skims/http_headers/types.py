@@ -90,5 +90,6 @@ Header = Optional[
         XCacheHeader,
         XContentTypeOptionsHeader,
         XFrameOptionsHeader,
+        SetCookieHeader,
     ]
 ]

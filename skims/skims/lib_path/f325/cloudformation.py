@@ -47,7 +47,7 @@ def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
 
 
 def _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
-    keys_iterator: Iterator[Union[AWSKmsKey, Node]],
+    keys_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSKmsKey, Node]]:
     for key in keys_iterator:
         statements = get_node_by_keys(key, ["KeyPolicy", "Statement"])
@@ -114,7 +114,7 @@ def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
 
 
 def _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         policies = (
@@ -150,7 +150,7 @@ def _iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
 
 
 def _cfn_iam_has_privileges_over_iam_iter_vulns(
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         policies = (
@@ -193,7 +193,7 @@ def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
 
 def _cfn_iam_is_policy_miss_configured_iter_vulns(
     file_ext: str,
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         pol_document = iam_res.inner.get("PolicyDocument")
@@ -283,7 +283,7 @@ def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
 
 def _cfn_iam_is_role_over_privileged_iter_vulns(
     file_ext: str,
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         managed_policies = iam_res.inner.get("ManagedPolicyArns")

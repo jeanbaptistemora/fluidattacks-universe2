@@ -13,6 +13,7 @@ from model import (
     core_model,
 )
 from model.core_model import (
+    LocalesEnum,
     MethodsEnum,
 )
 from typing import (
@@ -22,6 +23,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Union,
 )
 from urllib.parse import (
     urlparse,
@@ -50,7 +52,7 @@ class Location(NamedTuple):
         cls: Any,
         tag: Tag,
         desc: str,
-        desc_kwargs: Optional[Dict[str, str]] = None,
+        desc_kwargs: Optional[Dict[str, Union[LocalesEnum, Any]]] = None,
     ) -> Location:
         return Location(
             column=tag.sourcepos,
