@@ -11,14 +11,26 @@ interface ITextProps extends FieldProps<string, Record<string, string>> {
   min: number | string;
   placeholder: string;
   type: string;
+  customKeyDown:
+    | ((event: React.KeyboardEvent<HTMLInputElement>) => void)
+    | undefined;
   customBlur: FormikHandlers["handleBlur"] | undefined;
 }
 
 export const FormikText: React.FC<ITextProps> = (
   props: ITextProps
 ): JSX.Element => {
-  const { customBlur, disabled, field, id, max, min, placeholder, type } =
-    props;
+  const {
+    customBlur,
+    customKeyDown,
+    disabled,
+    field,
+    id,
+    max,
+    min,
+    placeholder,
+    type,
+  } = props;
   const { name, onBlur, onChange, value } = field;
 
   function handleBlur(event: unknown): void {
@@ -40,6 +52,7 @@ export const FormikText: React.FC<ITextProps> = (
         name={name}
         onBlur={handleBlur}
         onChange={onChange}
+        onKeyDown={customKeyDown}
         placeholder={placeholder}
         type={type}
         value={value}

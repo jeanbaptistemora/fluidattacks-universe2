@@ -426,8 +426,10 @@ const validPath: (host: string | undefined) => Validator =
     return undefined;
   };
 
-const isInteger = (value: unknown): string | undefined =>
-  _.isInteger(value) ? undefined : translate.t("validations.integer");
+const isOptionalInteger = (value: unknown): string | undefined =>
+  _.isInteger(value) || _.isEmpty(value)
+    ? undefined
+    : translate.t("validations.integer");
 
 const isValidEnvironmentUrl: (validEnvironmentUrls: string[]) => Validator =
   (validEnvironmentUrls: string[]): Validator =>
@@ -544,7 +546,7 @@ export {
   validEmail,
   validDraftTitle,
   validPath,
-  isInteger,
+  isOptionalInteger,
   isPositive,
   isZeroOrPositive,
   isValidEnvironmentUrl,

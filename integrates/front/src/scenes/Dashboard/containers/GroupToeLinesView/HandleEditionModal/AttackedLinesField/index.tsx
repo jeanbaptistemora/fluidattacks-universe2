@@ -10,7 +10,7 @@ import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
-  isInteger,
+  isOptionalInteger,
   optionalNumberBetween,
 } from "utils/validations";
 
@@ -27,6 +27,11 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
       )
     ) ?? 1;
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
+    if (event.key.length > 1 || /\d/u.test(event.key)) return;
+    event.preventDefault();
+  }
+
   return (
     <FormGroup>
       <ControlLabel>
@@ -37,10 +42,13 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
       </ControlLabel>
       <Field
         component={FormikText}
+        customKeyDown={handleKeyDown}
+        min={"0"}
         name={"attackedLines"}
+        step={"1"}
         type={"number"}
         validate={composeValidators([
-          isInteger,
+          isOptionalInteger,
           optionalNumberBetween(1, maxSelectedLoc),
         ])}
       />

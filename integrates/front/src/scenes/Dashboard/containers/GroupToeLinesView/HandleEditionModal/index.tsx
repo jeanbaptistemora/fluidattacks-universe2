@@ -127,9 +127,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
         <Formik
           initialValues={{
             attackedAt: moment(),
-            attackedLines: isOneSelected
-              ? selectedToeLinesDatas[0].loc
-              : undefined,
+            attackedLines: isOneSelected ? selectedToeLinesDatas[0].loc : "",
             comments: "",
           }}
           name={"updateToeLinesAttackedLines"}

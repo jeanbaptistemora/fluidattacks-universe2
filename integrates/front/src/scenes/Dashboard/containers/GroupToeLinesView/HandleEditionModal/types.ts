@@ -1,7 +1,7 @@
 import type { IToeLinesData } from "../types";
 
 interface IFormValues {
-  attackedLines: number | undefined;
+  attackedLines: number | string;
   comments: string;
 }
 
