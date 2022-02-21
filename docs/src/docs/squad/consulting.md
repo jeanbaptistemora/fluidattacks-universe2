@@ -48,7 +48,7 @@ reported in that category
 or if you have questions about that type of vulnerability in general.
 Furthermore,
 in this section
-you will find comments referencing your requests for [reattacks](/squad)
+you will find comments referencing your requests for [reattacks](/squad/reattacks)
 and the results of those reattacks.
 
 ## Concerning events
