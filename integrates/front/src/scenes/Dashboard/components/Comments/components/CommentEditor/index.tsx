@@ -7,8 +7,10 @@ import { Button } from "components/Button";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import "scenes/Dashboard/components/Comments/index.css";
+import { validTextField } from "utils/validations";
 
 interface ICommentEditorProps {
   id: number;
@@ -39,6 +41,12 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
   }, [id, setReplying]);
 
   const clickHandler: () => void = useCallback((): void => {
+    const validate: string | undefined = validTextField(editorText);
+    if (validate !== undefined) {
+      msgError(validate);
+
+      return;
+    }
     if (replying !== id) {
       setEditorText("");
 
