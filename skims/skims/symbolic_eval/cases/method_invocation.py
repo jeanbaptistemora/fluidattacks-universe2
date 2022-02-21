@@ -8,7 +8,7 @@ from model.graph_model import (
 from symbolic_eval.context.method import (
     solve_invocation,
 )
-from symbolic_eval.f100.cases.method_invocation import (
+from symbolic_eval.f100.method_invocation import (
     evaluate as evaluate_method_invocation_f100,
 )
 from symbolic_eval.types import (

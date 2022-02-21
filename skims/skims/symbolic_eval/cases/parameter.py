@@ -1,10 +1,10 @@
 from model.core_model import (
     FindingEnum,
 )
-from symbolic_eval.f008.cases.parameter import (
+from symbolic_eval.f008.parameter import (
     evaluate as evaluate_parameter_f008,
 )
-from symbolic_eval.f100.cases.parameter import (
+from symbolic_eval.f100.parameter import (
     evaluate as evaluate_parameter_f100,
 )
 from symbolic_eval.types import (
