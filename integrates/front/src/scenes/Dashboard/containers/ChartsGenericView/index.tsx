@@ -126,24 +126,28 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 />
               </Col100>
             </RowCenter>
-            {doesEntityMatch(["organization", "portfolio"]) ? (
-              <RowCenter>
-                <Col100>
-                  <Graphic
-                    bsHeight={320}
-                    className={"g1"}
-                    documentName={"exposedByGroups"}
-                    documentType={"barChart"}
-                    entity={entity}
-                    generatorName={"generic"}
-                    generatorType={"c3"}
-                    reportMode={reportMode}
-                    subject={subject}
-                    title={translate.t("analytics.barChart.exposureByGroups")}
-                  />
-                </Col100>
-              </RowCenter>
-            ) : undefined}
+          </React.Fragment>
+        ) : undefined}
+        {doesEntityMatch(["organization", "portfolio"]) ? (
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"exposedByGroups"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("analytics.barChart.exposureByGroups")}
+              />
+            </Col100>
+          </RowCenter>
+        ) : undefined}
+        {doesEntityMatch(["group", "organization", "portfolio"]) ? (
+          <React.Fragment>
             <RowCenter>
               <Col100>
                 <Graphic
@@ -213,10 +217,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 />
               </Col50>
             </RowCenter>
-          </React.Fragment>
-        ) : undefined}
-        {doesEntityMatch(["group", "organization", "portfolio"]) ? (
-          <React.Fragment>
             <RowCenter>
               <Col50>
                 <Graphic
