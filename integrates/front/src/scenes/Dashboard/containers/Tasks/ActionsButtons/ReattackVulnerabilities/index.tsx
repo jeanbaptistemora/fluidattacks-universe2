@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -48,6 +48,27 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
       );
     }
   };
+
+  const DisplayIcon = useCallback((): JSX.Element => {
+    if (isRequestingReattack) {
+      return (
+        <React.Fragment>
+          <FontAwesomeIcon icon={faTimes} />
+          &nbsp;
+          {t("searchFindings.tabDescription.cancelVerify")}
+        </React.Fragment>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <FluidIcon icon={"verified"} />
+        &nbsp;
+        {t("searchFindings.tabDescription.requestVerify.text")}
+      </React.Fragment>
+    );
+  }, [isRequestingReattack, t]);
+
   useEffect(displayMessage, [isRequestingReattack, isOpen, t]);
 
   return (
@@ -75,19 +96,7 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
               id={"start-reattack"}
               onClick={onRequestReattack}
             >
-              {isRequestingReattack ? (
-                <React.Fragment>
-                  <FontAwesomeIcon icon={faTimes} />
-                  &nbsp;
-                  {t("searchFindings.tabDescription.cancelVerify")}
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <FluidIcon icon={"verified"} />
-                  &nbsp;
-                  {t("searchFindings.tabDescription.requestVerify.text")}
-                </React.Fragment>
-              )}
+              <DisplayIcon />
             </Button>
           </TooltipWrapper>
         ) : undefined}
