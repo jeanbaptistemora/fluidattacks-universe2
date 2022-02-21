@@ -84,13 +84,8 @@ async def remove_file(bucket: str, name: str) -> None:
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
-    client_options: Dict[str, str] = {
-        key: value
-        for key, value in OPTIONS.items()
-        if key != "aws_session_token"
-    }
     async with aioboto3.Session().client(
-        **client_options,
+        **OPTIONS,
         config=Config(signature_version="s3v4"),
     ) as s3_client:
         try:
