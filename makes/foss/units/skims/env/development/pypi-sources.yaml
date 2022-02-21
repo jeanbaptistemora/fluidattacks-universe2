@@ -1,25 +1,26 @@
 closure:
   atomicwrites: 1.4.0
-  attrs: 21.2.0
-  certifi: 2021.5.30
-  charset-normalizer: 2.0.4
+  attrs: 21.4.0
+  certifi: 2021.10.8
+  charset-normalizer: 2.0.12
   colorama: 0.4.4
-  colorclass: 2.2.0
+  colorclass: 2.2.2
   docopt: 0.6.2
-  idna: "3.2"
-  more-itertools: 8.8.0
-  packaging: "21.0"
+  idna: "3.3"
+  more-itertools: 8.12.0
+  packaging: "21.3"
   pip-upgrader: 1.4.15
   pluggy: 0.13.1
-  py: 1.10.0
+  py: 1.11.0
   pydeps: 1.9.4
-  pyparsing: 2.4.7
+  pyparsing: 3.0.7
   pytest: 5.4.3
   pytest-rerunfailures: "9.0"
-  requests: 2.26.0
+  pytz: "2020.1"
+  requests: 2.27.1
   stdlib-list: 0.8.0
-  terminaltables: 3.1.0
-  urllib3: 1.26.6
+  terminaltables: 3.1.10
+  urllib3: 1.26.8
   wcwidth: 0.2.5
 links:
   - name: atomicwrites-1.4.0-py2.py3-none-any.whl
@@ -28,54 +29,57 @@ links:
   - name: atomicwrites-1.4.0.tar.gz
     sha256: 0yla2svfhfqrcj8qbyqzx7wi4jy0dwcxvlkg0k3zjd54s5m3jw5f
     url: https://files.pythonhosted.org/packages/55/8d/74a75635f2c3c914ab5b3850112fd4b0c8039975ecb320e4449aa363ba54/atomicwrites-1.4.0.tar.gz
-  - name: attrs-21.2.0-py2.py3-none-any.whl
-    sha256: 1cdh2v3scv9mi00195khsch3y6l8wvq0rmjsjmxdn85cv3b917hl
-    url: https://files.pythonhosted.org/packages/20/a9/ba6f1cd1a1517ff022b35acd6a7e4246371dfab08b8e42b829b6d07913cc/attrs-21.2.0-py2.py3-none-any.whl
-  - name: attrs-21.2.0.tar.gz
-    sha256: 1yzmwi5d197p0qhl7rl4xi9q1w8mk9i3zn6hrl22knbcrb1slspg
-    url: https://files.pythonhosted.org/packages/ed/d6/3ebca4ca65157c12bd08a63e20ac0bdc21ac7f3694040711f9fd073c0ffb/attrs-21.2.0.tar.gz
-  - name: certifi-2021.5.30-py2.py3-none-any.whl
-    sha256: 1n57ixzaln34d2qw55g7vh0hd6g033dkhqyxwwdz81kb8kwf9cah
-    url: https://files.pythonhosted.org/packages/05/1b/0a0dece0e8aa492a6ec9e4ad2fe366b511558cdc73fd3abc82ba7348e875/certifi-2021.5.30-py2.py3-none-any.whl
-  - name: certifi-2021.5.30.tar.gz
-    sha256: 1vm9gf8p3wxsc274av2lz35jfkslw3fs7pgn7s5i6q198gypdgrb
-    url: https://files.pythonhosted.org/packages/6d/78/f8db8d57f520a54f0b8a438319c342c61c22759d8f9a1cd2e2180b5e5ea9/certifi-2021.5.30.tar.gz
-  - name: charset_normalizer-2.0.4-py3-none-any.whl
-    sha256: 12sx2xiqnjzmq37a5g32m5aj0c4s149sb551cqrj46axs7ni328c
-    url: https://files.pythonhosted.org/packages/33/53/b7f6126a2b9fd878b025fe3c40266cfaad696f312165008ce045bffa3fe7/charset_normalizer-2.0.4-py3-none-any.whl
-  - name: charset-normalizer-2.0.4.tar.gz
-    sha256: 1ws8lc1cshngraxyir4p81a0cll6b958wlz0d9gy8jq8w7mnfdpj
-    url: https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz
+  - name: attrs-21.4.0-py2.py3-none-any.whl
+    sha256: 1d185347kgm169c8fs1i8rmcvv65hx4fj7w5mcv5smks9mwf69rd
+    url: https://files.pythonhosted.org/packages/be/be/7abce643bfdf8ca01c48afa2ddf8308c2308b0c3b239a44e57d020afa0ef/attrs-21.4.0-py2.py3-none-any.whl
+  - name: attrs-21.4.0.tar.gz
+    sha256: 1zg2fvq1ddzmsm2mqi3j5nhl0k3w2c526xnzd7l9inqi88ishsv2
+    url: https://files.pythonhosted.org/packages/d7/77/ebb15fc26d0f815839ecd897b919ed6d85c050feeb83e100e020df9153d2/attrs-21.4.0.tar.gz
+  - name: certifi-2021.10.8-py2.py3-none-any.whl
+    sha256: 0scm6gbbk4gfwb1flivxihnim9wragvvvcia0jn488scxdih2ann
+    url: https://files.pythonhosted.org/packages/37/45/946c02767aabb873146011e665728b680884cd8fe70dde973c640e45b775/certifi-2021.10.8-py2.py3-none-any.whl
+  - name: certifi-2021.10.8.tar.gz
+    sha256: 0wl8ln7acd797i1q7mmb430l6hqwhmk4bd37x8ycw02b3my4x23q
+    url: https://files.pythonhosted.org/packages/6c/ae/d26450834f0acc9e3d1f74508da6df1551ceab6c2ce0766a593362d6d57f/certifi-2021.10.8.tar.gz
+  - name: charset_normalizer-2.0.12-py3-none-any.whl
+    sha256: 1pxim0sfz7gq157k9kv88kxxzvgnid1ip0maxas3jyxipnzfv0b8
+    url: https://files.pythonhosted.org/packages/06/b3/24afc8868eba069a7f03650ac750a778862dc34941a4bebeb58706715726/charset_normalizer-2.0.12-py3-none-any.whl
+  - name: charset-normalizer-2.0.12.tar.gz
+    sha256: 15r5hf9p6v7s3h3zplz6dvwrg9ni942j78vwrm1bhkfky2gy4mr8
+    url: https://files.pythonhosted.org/packages/56/31/7bcaf657fafb3c6db8c787a865434290b726653c912085fbd371e9b92e1c/charset-normalizer-2.0.12.tar.gz
   - name: colorama-0.4.4-py2.py3-none-any.whl
     sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
     url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
   - name: colorama-0.4.4.tar.gz
     sha256: 16w62sm95hmh55rqxn4zwdz0bkh3fqm1qnz9cwi3s510iasb4har
     url: https://files.pythonhosted.org/packages/1f/bb/5d3246097ab77fa083a61bd8d3d527b7ae063c7d8e8671b1cf8c4ec10cbe/colorama-0.4.4.tar.gz
-  - name: colorclass-2.2.0.tar.gz
-    sha256: 12z1x2g8w391h586raclva2jyzkvbf5df9r5a0nzy6pwils2lp5h
-    url: https://files.pythonhosted.org/packages/37/ea/ae8dbb956939d4392e6a7fdef87fda273854da1128edae016c4104240be8/colorclass-2.2.0.tar.gz
+  - name: colorclass-2.2.2-py2.py3-none-any.whl
+    sha256: 0mcsz6xh09bsjpyd1mfz6v7yas6xrfan02qjn5812ypgl1rw443g
+    url: https://files.pythonhosted.org/packages/30/b6/daf3e2976932da4ed3579cff7a30a53d22ea9323ee4f0d8e43be60454897/colorclass-2.2.2-py2.py3-none-any.whl
+  - name: colorclass-2.2.2.tar.gz
+    sha256: 0rj3mg052h28fdqkx97dn60h8jphv8966vxwly6ajrk1fs3y4kvd
+    url: https://files.pythonhosted.org/packages/d7/1a/31ff00a33569a3b59d65bbdc445c73e12f92ad28195b7ace299f68b9af70/colorclass-2.2.2.tar.gz
   - name: docopt-0.6.2.tar.gz
     sha256: 14f4hn6d1j4b99svwbaji8n2zj58qicyz19mm0x6pmhb50jsics9
     url: https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz
-  - name: idna-3.2-py3-none-any.whl
-    sha256: 0ynxnv3raplspvcsqly99m6b33s2a5l6zq28rcs116c4w9150iql
-    url: https://files.pythonhosted.org/packages/d7/77/ff688d1504cdc4db2a938e2b7b9adee5dd52e34efbd2431051efc9984de9/idna-3.2-py3-none-any.whl
-  - name: idna-3.2.tar.gz
-    sha256: 1wr5s7ngfdwp4fap4r95liihxyvidj137qsc2j2hg4b7j3cvlzs6
-    url: https://files.pythonhosted.org/packages/cb/38/4c4d00ddfa48abe616d7e572e02a04273603db446975ab46bbcd36552005/idna-3.2.tar.gz
-  - name: more_itertools-8.8.0-py3-none-any.whl
-    sha256: 0kdy6r68cf1nf64mj3f1zf3sbq20zkg0b2jn9pf2sbwnk72rxy1c
-    url: https://files.pythonhosted.org/packages/5f/3c/e3ee43177a86b448c3fea1d090238c365ea1a80f015836a8a18fbbaccd63/more_itertools-8.8.0-py3-none-any.whl
-  - name: more-itertools-8.8.0.tar.gz
-    sha256: 0fl1ixnbmrq8fnvdsai87idmvvbq5hbqia53dvsnhz270n731w43
-    url: https://files.pythonhosted.org/packages/03/0a/4769cc0557fbe690f86bc4c183faa116f1050e5c9296f1b7b5806f063cdb/more-itertools-8.8.0.tar.gz
-  - name: packaging-21.0-py3-none-any.whl
-    sha256: 057z2kyp5f66w7gz9ph0h3d4f20gfvgblsadr4ff6m8d4bwm8qn8
-    url: https://files.pythonhosted.org/packages/3c/77/e2362b676dc5008d81be423070dd9577fa03be5da2ba1105811900fda546/packaging-21.0-py3-none-any.whl
-  - name: packaging-21.0.tar.gz
-    sha256: 1rzvq94xyygpf5s7px23nc5xs1hi52j402b7q32wwk1symln5jbx
-    url: https://files.pythonhosted.org/packages/df/86/aef78bab3afd461faecf9955a6501c4999933a48394e90f03cd512aad844/packaging-21.0.tar.gz
+  - name: idna-3.3-py3-none-any.whl
+    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
+    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
+  - name: idna-3.3.tar.gz
+    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
+    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: more_itertools-8.12.0-py3-none-any.whl
+    sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
+    url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl
+  - name: more-itertools-8.12.0.tar.gz
+    sha256: 0r30gwj7s37afnqyrkxkjxxq59449vxqv7nm1n85ym2zy13avikx
+    url: https://files.pythonhosted.org/packages/dc/b5/c216ffeace7b89b7387fe08e1b39a07c6da38ea82c60e2e630dd5883813b/more-itertools-8.12.0.tar.gz
+  - name: packaging-21.3-py3-none-any.whl
+    sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
+    url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
+  - name: packaging-21.3.tar.gz
+    sha256: 1sygirdrqgv4f1ckh9nhpcw1yfidrh3qjl86wq8vk6nq4wlw8iyx
+    url: https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz
   - name: pip_upgrader-1.4.15-py2.py3-none-any.whl
     sha256: 1jmx9basv410spwjj1xxp8b1pml2s0z3zljh1g06ji36nsixzpvx
     url: https://files.pythonhosted.org/packages/b2/42/36c09ad93ddbf10406e301f3d4d7d063cf27fa5cf7a881ccea78bb22cdc7/pip_upgrader-1.4.15-py2.py3-none-any.whl
@@ -88,21 +92,21 @@ links:
   - name: pluggy-0.13.1.tar.gz
     sha256: 1c35qyhvy27q9ih9n899f3h4sdnpgq027dbiilly2qb5cvgarchm
     url: https://files.pythonhosted.org/packages/f8/04/7a8542bed4b16a65c2714bf76cf5a0b026157da7f75e87cc88774aa10b14/pluggy-0.13.1.tar.gz
-  - name: py-1.10.0-py2.py3-none-any.whl
-    sha256: 12l1326xbn82inp4b1a6lvnnr3xb4djdlip012hymznilrm8701v
-    url: https://files.pythonhosted.org/packages/67/32/6fe01cfc3d1a27c92fdbcdfc3f67856da8cbadf0dd9f2e18055202b2dc62/py-1.10.0-py2.py3-none-any.whl
-  - name: py-1.10.0.tar.gz
-    sha256: 1lqvkqk3b440g9z82gqbzlzas84wrm6ir8kplzhzavmn2pd1pf11
-    url: https://files.pythonhosted.org/packages/0d/8c/50e9f3999419bb7d9639c37e83fa9cdcf0f601a9d407162d6c37ad60be71/py-1.10.0.tar.gz
+  - name: py-1.11.0-py2.py3-none-any.whl
+    sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
+    url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
+  - name: py-1.11.0.tar.gz
+    sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
+    url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
   - name: pydeps-1.9.4.tar.gz
     sha256: 113vsgv5dxa72v475ws96446fyylx108206dapd28jdghmwqh3zd
     url: https://files.pythonhosted.org/packages/9c/bd/57e5205b5ec2ca8d0e5ad575816e9bba39813579387ea37be6579cf0d50f/pydeps-1.9.4.tar.gz
-  - name: pyparsing-2.4.7-py2.py3-none-any.whl
-    sha256: 12y8xwjb118a4jqvvfg9k90kqg03n4d3ygb5csz0l81wxy4pb7gg
-    url: https://files.pythonhosted.org/packages/8a/bb/488841f56197b13700afd5658fc279a2025a39e22449b7cf29864669b15d/pyparsing-2.4.7-py2.py3-none-any.whl
-  - name: pyparsing-2.4.7.tar.gz
-    sha256: 1hgc8qrbq1ymxbwfbjghv01fm3fbpjwpjwi0bcailxxzhf3yq0y2
-    url: https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz
+  - name: pyparsing-3.0.7-py3-none-any.whl
+    sha256: 1164cc6c66qw9i9f1v7spm8kn88nid0qzbszyqic7rjjya46mh56
+    url: https://files.pythonhosted.org/packages/80/c1/23fd82ad3121656b585351aba6c19761926bb0db2ebed9e4ff09a43a3fcc/pyparsing-3.0.7-py3-none-any.whl
+  - name: pyparsing-3.0.7.tar.gz
+    sha256: 1siyxm70kws5fhszpl6h6w5vcg88c1j9acvp31ahq9sxfwi91vhq
+    url: https://files.pythonhosted.org/packages/d6/60/9bed18f43275b34198eb9720d4c1238c68b3755620d20df0afd89424d32b/pyparsing-3.0.7.tar.gz
   - name: pytest-5.4.3-py3-none-any.whl
     sha256: 18c9nlgk0d6f9bk1x6y7sky5b4li90i4jajqlh5ig3wfd5mvh3aw
     url: https://files.pythonhosted.org/packages/9f/f3/0a83558da436a081344aa6c8b85ea5b5f05071214106036ce341b7769b0b/pytest-5.4.3-py3-none-any.whl
@@ -115,27 +119,36 @@ links:
   - name: pytest-rerunfailures-9.0.tar.gz
     sha256: 1r5qnkkhkfvx1jbi1wfyxpyggwyr32w6h5z3i93a03bc92kc4nl9
     url: https://files.pythonhosted.org/packages/c6/2b/5ae05d35e018f60b29e21f18da531d9fdf767a64886b0b879f865135a31e/pytest-rerunfailures-9.0.tar.gz
-  - name: requests-2.26.0-py2.py3-none-any.whl
-    sha256: 097xdqddqm6ikzf30867irmrq3wg1s8nz450512wspnd7r8lc4kc
-    url: https://files.pythonhosted.org/packages/92/96/144f70b972a9c0eabbd4391ef93ccd49d0f2747f4f6a2a2738e99e5adc65/requests-2.26.0-py2.py3-none-any.whl
-  - name: requests-2.26.0.tar.gz
-    sha256: 19q73fq7hip7b74fwls3p9x6zwvfwqcwpn6kha3zsgvrrzw5iamq
-    url: https://files.pythonhosted.org/packages/e7/01/3569e0b535fb2e4a6c384bdbed00c55b9d78b5084e0fb7f4d0bf523d7670/requests-2.26.0.tar.gz
+  - name: pytz-2020.1-py2.py3-none-any.whl
+    sha256: 1vbrpdzhalwjb45q1gwvybj0ahz16rrj7v1v9kjcdhrrdlxxb554
+    url: https://files.pythonhosted.org/packages/4f/a4/879454d49688e2fad93e59d7d4efda580b783c745fd2ec2a3adf87b0808d/pytz-2020.1-py2.py3-none-any.whl
+  - name: pytz-2020.1.tar.gz
+    sha256: 0j50ykmiz93k3lx3jd0spvb7aqlhik6d6gk6xczb4cff2386anf3
+    url: https://files.pythonhosted.org/packages/f4/f6/94fee50f4d54f58637d4b9987a1b862aeb6cd969e73623e02c5c00755577/pytz-2020.1.tar.gz
+  - name: requests-2.27.1-py2.py3-none-any.whl
+    sha256: 0bg7c13nfm400gx7wn5kjbjfjyz1b6bwf6p4wqbgvpf9akjs2bzj
+    url: https://files.pythonhosted.org/packages/2d/61/08076519c80041bc0ffa1a8af0cbd3bf3e2b62af10435d269a9d0f40564d/requests-2.27.1-py2.py3-none-any.whl
+  - name: requests-2.27.1.tar.gz
+    sha256: 0qcsbi919d689xqlgyhw9zkppp1fs6k09wwffa3ri6d8smpwbmv8
+    url: https://files.pythonhosted.org/packages/60/f3/26ff3767f099b73e0efa138a9998da67890793bfa475d8278f84a30fec77/requests-2.27.1.tar.gz
   - name: stdlib_list-0.8.0-py3-none-any.whl
     sha256: 0gnxkw533lwlbx4mnx29iwc65826nshnz3g5r6xkz3xnalm73q1a
     url: https://files.pythonhosted.org/packages/7a/b1/52f59dcf31ead2f0ceff8976288449608d912972b911f55dff712cef5719/stdlib_list-0.8.0-py3-none-any.whl
   - name: stdlib-list-0.8.0.tar.gz
     sha256: 17vdn4q0sdlndc2fr9svapxx6366hnrhkn0fswp1xmr0jxqh7rd1
     url: https://files.pythonhosted.org/packages/bb/01/237cea071fd305f162ebbe1db18a59b56b0b5fdff19533c9a1beea0bdee7/stdlib-list-0.8.0.tar.gz
-  - name: terminaltables-3.1.0.tar.gz
-    sha256: 109vhldk6nv1z3hzp4dyqf6rjvlhl0y2k5k7qcm9fcrq5swhxszk
-    url: https://files.pythonhosted.org/packages/9b/c4/4a21174f32f8a7e1104798c445dacdc1d4df86f2f26722767034e4de4bff/terminaltables-3.1.0.tar.gz
-  - name: urllib3-1.26.6-py2.py3-none-any.whl
-    sha256: 1m6823gifpdhma46q3rg3vn4s406138qswd776qsqnb129r8dyrr
-    url: https://files.pythonhosted.org/packages/5f/64/43575537846896abac0b15c3e5ac678d787a4021e906703f1766bfb8ea11/urllib3-1.26.6-py2.py3-none-any.whl
-  - name: urllib3-1.26.6.tar.gz
-    sha256: 0brlisgwwcms6q7p6nd2b5mzn4jm4mdw75rxgq5pd8igqqb4qyzm
-    url: https://files.pythonhosted.org/packages/4f/5a/597ef5911cb8919efe4d86206aa8b2658616d676a7088f0825ca08bd7cb8/urllib3-1.26.6.tar.gz
+  - name: terminaltables-3.1.10-py2.py3-none-any.whl
+    sha256: 0x580h4bydhabr8ai666znb6nhzsfsfz102dcxgsnjlykhbw9zg4
+    url: https://files.pythonhosted.org/packages/c4/fb/ea621e0a19733e01fe4005d46087d383693c0f4a8f824b47d8d4122c87e0/terminaltables-3.1.10-py2.py3-none-any.whl
+  - name: terminaltables-3.1.10.tar.gz
+    sha256: 0hvmwian4f2l04cwvkwlrzfc6kn5h2pqbyglr6jbn0msnmfclvms
+    url: https://files.pythonhosted.org/packages/f5/fc/0b73d782f5ab7feba8d007573a3773c58255f223c5940a7b7085f02153c3/terminaltables-3.1.10.tar.gz
+  - name: urllib3-1.26.8-py2.py3-none-any.whl
+    sha256: 1v976ijsh5zxyjziwqhqvyzj2mrhhpp26w3c3hjw4cx2f7saf300
+    url: https://files.pythonhosted.org/packages/4e/b8/f5a25b22e803f0578e668daa33ba3701bb37858ec80e08a150bd7d2cf1b1/urllib3-1.26.8-py2.py3-none-any.whl
+  - name: urllib3-1.26.8.tar.gz
+    sha256: 0g18xk7gfm88gr4bp3f58vgvsbzwps3sq2kqhv5xyz9ylvck6z0f
+    url: https://files.pythonhosted.org/packages/b0/b1/7bbf5181f8e3258efae31702f5eab87d8a74a72a0aa78bc8c08c1466e243/urllib3-1.26.8.tar.gz
   - name: wcwidth-0.2.5-py2.py3-none-any.whl
     sha256: 1177pfa343r378020a85l3b16ak479qgyvh8k5719fgbkhm81d5y
     url: https://files.pythonhosted.org/packages/59/7c/e39aca596badaf1b78e8f547c807b04dae603a433d3e7a7e04d67f2ef3e5/wcwidth-0.2.5-py2.py3-none-any.whl
