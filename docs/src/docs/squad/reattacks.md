@@ -2,7 +2,7 @@
 id: reattacks
 title: Reattack
 sidebar_label: Reattack
-slug: /squad
+slug: /squad/reattacks
 ---
 When you have applied a solution for an existing vulnerability,
 you can request a reattack
