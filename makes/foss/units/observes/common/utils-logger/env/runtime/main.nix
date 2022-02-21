@@ -10,9 +10,6 @@ in
 makeTemplate {
   name = "observes-common-utils-logger-env-runtime";
   searchPaths = {
-    pythonMypy = [
-      self
-    ];
     pythonPackage = [
       self
     ];
