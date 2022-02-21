@@ -44,10 +44,11 @@ module "key" {
 
   name = "dev"
   admins = [
-    "dev",
     "prod_makes",
   ]
-  users = []
+  users = [
+    "dev",
+  ]
 
   tags = {
     "Name"               = "dev"
