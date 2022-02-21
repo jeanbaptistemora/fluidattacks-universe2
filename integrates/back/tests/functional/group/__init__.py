@@ -19,6 +19,7 @@ async def get_result(
         query {{
             group(groupName: "{group}"){{
                 analytics(documentName: "", documentType: "")
+                forcesToken
                 name
                 hasSquad
                 hasForces

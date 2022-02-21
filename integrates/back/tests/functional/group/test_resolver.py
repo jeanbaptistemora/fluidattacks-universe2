@@ -98,6 +98,26 @@ async def test_get_group(populate: bool, email: str) -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("group")
 @pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["user@gmail.com"],
+        ["user_manager@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
+    ],
+)
+async def test_get_group_forces_token(populate: bool, email: str) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    assert result["data"]["group"]["forcesToken"] is not None
+    test_token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ"
+    assert result["data"]["group"]["forcesToken"] == test_token
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
     ["email", "length"],
     [
         ["user@gmail.com", 1],

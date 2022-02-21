@@ -80,6 +80,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "mean_remediate_low_severity": 3,
                 "mean_remediate_medium_severity": 4,
                 "tag": ["testing"],
+                "agent_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ",
             },
         ],
         "findings": [

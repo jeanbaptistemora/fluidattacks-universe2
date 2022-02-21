@@ -2,7 +2,6 @@ from typing import (
     Any,
     Dict,
     NamedTuple,
-    Optional,
     Set,
     Tuple,
 )
@@ -49,13 +48,6 @@ class OrgFindingPolicyItem(NamedTuple):
     org_name: str
     metadata: OrgFindingPolicyMetadata
     state: OrgFindingPolicyState
-
-
-class GroupMetadata(NamedTuple):
-    name: str
-    description: str
-    language: str
-    agent_token: Optional[str] = None
 
 
 class PageInfo(NamedTuple):

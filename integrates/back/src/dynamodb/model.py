@@ -1,5 +1,4 @@
 from boto3.dynamodb.conditions import (
-    Attr,
     Key,
 )
 from collections import (
@@ -15,7 +14,6 @@ from dynamodb import (
     tables,
 )
 from dynamodb.types import (
-    GroupMetadata,
     Item,
     OrgFindingPolicyItem,
     OrgFindingPolicyMetadata,
@@ -192,63 +190,3 @@ async def update_organization_finding_policy_state(
     )
 
     await operations.batch_put_item(items=historic, table=TABLE)
-
-
-async def create_group_metadata(*, group_metadata: GroupMetadata) -> None:
-    key_structure = TABLE.primary_key
-    facet = TABLE.facets["group_metadata"]
-    metadata_key = keys.build_key(
-        facet=facet, values={"name": group_metadata.name}
-    )
-    metadata = {
-        key_structure.partition_key: metadata_key.partition_key,
-        key_structure.sort_key: metadata_key.sort_key,
-        **dict(group_metadata._asdict()),
-    }
-    condition_expression = Attr(key_structure.partition_key).not_exists()
-    await operations.put_item(
-        condition_expression=condition_expression,
-        facet=facet,
-        item=metadata,
-        table=TABLE,
-    )
-
-
-async def update_group_agent_token(
-    *,
-    group_name: str,
-    agent_token: str,
-) -> None:
-    key_structure = TABLE.primary_key
-    key = keys.build_key(
-        facet=TABLE.facets["group_metadata"],
-        values={"name": group_name},
-    )
-    item = {"agent_token": agent_token}
-    condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.update_item(
-        condition_expression=condition_expression,
-        item=item,
-        key=key,
-        table=TABLE,
-    )
-
-
-async def get_agent_token(*, group_name: str) -> Optional[str]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["group_metadata"],
-        values={"name": group_name},
-    )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["group_metadata"],),
-        table=TABLE,
-    )
-    if response.items:
-        return response.items[0].get("agent_token")
-
-    return None
