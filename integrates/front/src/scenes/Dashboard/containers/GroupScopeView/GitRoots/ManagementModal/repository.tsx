@@ -28,6 +28,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { Have } from "utils/authz/Have";
 import {
   FormikArrayField,
   FormikCheckbox,
@@ -318,81 +319,83 @@ const Repository: React.FC<IRepositoryProps> = ({
                 </div>
                 <br />
               </fieldset>
-              <fieldset className={"bn"}>
-                <legend className={"f3 b"}>
-                  {t("group.scope.git.healthCheck.title")}
-                </legend>
-                <div className={"flex"}>
-                  <div className={"w-100"}>
-                    <ControlLabel>
-                      {t("group.scope.git.healthCheck.confirm")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikRadioGroup}
-                      initialState={
-                        isEditing
-                          ? confirmHealthCheck ?? false
-                            ? "Yes"
-                            : "No"
-                          : null
-                      }
-                      labels={["Yes", "No"]}
-                      name={"includesHealthCheck"}
-                      onSelect={setConfirmHealthCheck}
-                      type={"Radio"}
-                      validate={selected}
-                    />
-                    {confirmHealthCheck ?? false ? (
-                      <Alert>
-                        <Field
-                          component={FormikCheckbox}
-                          label={""}
-                          name={"includesHealthCheckA"}
-                          type={"checkbox"}
-                          validate={checked}
-                        >
-                          {t("group.scope.git.healthCheck.accept")}
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                        </Field>
-                      </Alert>
-                    ) : undefined}
-                    {confirmHealthCheck ?? true ? undefined : (
-                      <Alert>
-                        <Field
-                          component={FormikCheckbox}
-                          label={""}
-                          name={"rejectHealthCheckA"}
-                          type={"checkbox"}
-                          validate={checked}
-                        >
-                          {t("group.scope.git.healthCheck.rejectA")}
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                        </Field>
-                        <Field
-                          component={FormikCheckbox}
-                          label={""}
-                          name={"rejectHealthCheckB"}
-                          type={"checkbox"}
-                          validate={checked}
-                        >
-                          {t("group.scope.git.healthCheck.rejectB")}
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                        </Field>
-                        <Field
-                          component={FormikCheckbox}
-                          label={""}
-                          name={"rejectHealthCheckC"}
-                          type={"checkbox"}
-                          validate={checked}
-                        >
-                          {t("group.scope.git.healthCheck.rejectC")}
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                        </Field>
-                      </Alert>
-                    )}
+              <Have I={"is_continuous"}>
+                <fieldset className={"bn"}>
+                  <legend className={"f3 b"}>
+                    {t("group.scope.git.healthCheck.title")}
+                  </legend>
+                  <div className={"flex"}>
+                    <div className={"w-100"}>
+                      <ControlLabel>
+                        {t("group.scope.git.healthCheck.confirm")}
+                      </ControlLabel>
+                      <Field
+                        component={FormikRadioGroup}
+                        initialState={
+                          isEditing
+                            ? confirmHealthCheck ?? false
+                              ? "Yes"
+                              : "No"
+                            : null
+                        }
+                        labels={["Yes", "No"]}
+                        name={"includesHealthCheck"}
+                        onSelect={setConfirmHealthCheck}
+                        type={"Radio"}
+                        validate={selected}
+                      />
+                      {confirmHealthCheck ?? false ? (
+                        <Alert>
+                          <Field
+                            component={FormikCheckbox}
+                            label={""}
+                            name={"includesHealthCheckA"}
+                            type={"checkbox"}
+                            validate={checked}
+                          >
+                            {t("group.scope.git.healthCheck.accept")}
+                            <RequiredField>{"*"}&nbsp;</RequiredField>
+                          </Field>
+                        </Alert>
+                      ) : undefined}
+                      {confirmHealthCheck ?? true ? undefined : (
+                        <Alert>
+                          <Field
+                            component={FormikCheckbox}
+                            label={""}
+                            name={"rejectHealthCheckA"}
+                            type={"checkbox"}
+                            validate={checked}
+                          >
+                            {t("group.scope.git.healthCheck.rejectA")}
+                            <RequiredField>{"*"}&nbsp;</RequiredField>
+                          </Field>
+                          <Field
+                            component={FormikCheckbox}
+                            label={""}
+                            name={"rejectHealthCheckB"}
+                            type={"checkbox"}
+                            validate={checked}
+                          >
+                            {t("group.scope.git.healthCheck.rejectB")}
+                            <RequiredField>{"*"}&nbsp;</RequiredField>
+                          </Field>
+                          <Field
+                            component={FormikCheckbox}
+                            label={""}
+                            name={"rejectHealthCheckC"}
+                            type={"checkbox"}
+                            validate={checked}
+                          >
+                            {t("group.scope.git.healthCheck.rejectC")}
+                            <RequiredField>{"*"}&nbsp;</RequiredField>
+                          </Field>
+                        </Alert>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </fieldset>
+                </fieldset>
+              </Have>
               <Can do={"update_git_root_filter"}>
                 <fieldset className={"bn"}>
                   <TooltipWrapper

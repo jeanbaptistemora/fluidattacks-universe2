@@ -178,7 +178,12 @@ describe("GroupScopeView", (): void => {
     const wrapper: ReactWrapper = mount(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
-          value={new PureAbility([{ action: "has_service_white" }])}
+          value={
+            new PureAbility([
+              { action: "has_service_white" },
+              { action: "is_continuous" },
+            ])
+          }
         >
           <authzPermissionsContext.Provider
             value={
@@ -366,7 +371,12 @@ describe("GroupScopeView", (): void => {
     const wrapper: ReactWrapper = mount(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
-          value={new PureAbility([{ action: "has_service_white" }])}
+          value={
+            new PureAbility([
+              { action: "has_service_white" },
+              { action: "is_continuous" },
+            ])
+          }
         >
           <authzPermissionsContext.Provider
             value={
@@ -687,7 +697,12 @@ describe("GroupScopeView", (): void => {
       const wrapper = mount(
         <authContext.Provider value={{ userEmail: "", userName: "" }}>
           <authzGroupContext.Provider
-            value={new PureAbility([{ action: "has_service_white" }])}
+            value={
+              new PureAbility([
+                { action: "has_service_white" },
+                { action: "is_continuous" },
+              ])
+            }
           >
             <authzPermissionsContext.Provider
               value={

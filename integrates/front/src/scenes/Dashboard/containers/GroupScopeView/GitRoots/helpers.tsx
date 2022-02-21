@@ -216,7 +216,7 @@ function useGitSubmit(
               environment,
               gitignore,
               groupName,
-              includesHealthCheck,
+              includesHealthCheck: includesHealthCheck ?? false,
               nickname,
               url: url.trim(),
             },

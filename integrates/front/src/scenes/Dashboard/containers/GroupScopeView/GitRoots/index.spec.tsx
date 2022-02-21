@@ -13,7 +13,7 @@ import { GitRoots } from ".";
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ButtonToolbar } from "styles/styledComponents";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GitRoots", (): void => {
   it("should return a function", (): void => {
@@ -108,20 +108,24 @@ describe("GitRoots", (): void => {
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <authzPermissionsContext.Provider
-        value={new PureAbility([{ action: "update_git_root_filter" }])}
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "is_continuous" }])}
       >
-        <MockedProvider>
-          <ManagementModal
-            groupName={""}
-            initialValues={undefined}
-            nicknames={[]}
-            onClose={handleClose}
-            onSubmitEnvs={handleSubmit}
-            onSubmitRepo={handleSubmit}
-          />
-        </MockedProvider>
-      </authzPermissionsContext.Provider>
+        <authzPermissionsContext.Provider
+          value={new PureAbility([{ action: "update_git_root_filter" }])}
+        >
+          <MockedProvider>
+            <ManagementModal
+              groupName={""}
+              initialValues={undefined}
+              nicknames={[]}
+              onClose={handleClose}
+              onSubmitEnvs={handleSubmit}
+              onSubmitRepo={handleSubmit}
+            />
+          </MockedProvider>
+        </authzPermissionsContext.Provider>
+      </authzGroupContext.Provider>
     );
 
     expect(wrapper).toHaveLength(1);
