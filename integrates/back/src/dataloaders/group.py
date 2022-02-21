@@ -76,7 +76,6 @@ async def _batch_load_fn(
             disambiguation=group.get("disambiguation", ""),
             files=group.get("files", []),
             group_context=group.get("group_context", ""),
-            has_forces=historic_configuration[-1].get("has_forces", False),
             language=group.get("language", "en"),
             last_closing_vuln=group.get("last_closing_date", 0),
             last_closing_vuln_finding=group.get("last_closing_vuln_finding"),
@@ -148,6 +147,9 @@ async def _batch_load_fn(
             has_skims=has_machine,
             has_asm=has_asm,
             has_integrates=has_asm,
+            # Forces related
+            has_forces=historic_configuration[-1].get("has_forces", False),
+            agent_token=group.get("agent_token", None),
         )
     return [groups.get(group_name, {}) for group_name in group_names]
 

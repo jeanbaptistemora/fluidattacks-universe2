@@ -30,5 +30,5 @@ async def resolve(
     __: GraphQLResolveInfo,
 ) -> Optional[str]:
     group_name: str = parent["name"]
-    token: Optional[str] = await forces_domain.get_token(group_name)
-    return token
+    token: Optional[str] = parent.get("agent_token")
+    return token if token else await forces_domain.get_token(group_name)

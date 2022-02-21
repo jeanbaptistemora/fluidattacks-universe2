@@ -221,4 +221,7 @@ def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
 
 
 async def update_token(group_name: str, token: str) -> bool:
-    return await forces_dal.update_secret_token(group_name, token)
+    success = await groups_domain.update(group_name, {"agent_token": token})
+    if success:
+        return await forces_dal.update_secret_token(group_name, token)
+    return False
