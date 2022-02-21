@@ -6,6 +6,7 @@ interface IFilterSet {
   modifiedDate: { max: string; min: string };
   priority: { max: string; min: string };
   root: string;
+  seenAt: { max: string; min: string };
 }
 interface IToeLinesEdge {
   node: IToeLinesAttr;

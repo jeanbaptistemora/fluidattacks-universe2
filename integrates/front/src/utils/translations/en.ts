@@ -992,6 +992,10 @@ export const enTranslations: ResourceKey = {
             placeholder: "Root",
             tooltip: "Filter by root",
           },
+          seenAt: {
+            placeholder: "Seen at (Range)",
+            tooltip: "Filter by seen at",
+          },
         },
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",

@@ -219,6 +219,11 @@ const getFilteredData: (
     searchTextFilter,
     toeLines
   );
+  const filteredSeenAt: IToeLinesData[] = filterDateRange(
+    toeLines,
+    filterGroupToeLinesTable.seenAt,
+    "seenAt"
+  );
   const filteredData: IToeLinesData[] = _.intersection(
     filteredBePresent,
     filteredCoverage,
@@ -227,7 +232,8 @@ const getFilteredData: (
     filteredModifiedDate,
     filteredPriority,
     filteredRoot,
-    filteredSearchtextResult
+    filteredSearchtextResult,
+    filteredSeenAt
   );
 
   return filteredData;
