@@ -83,6 +83,7 @@
     - "hitrust.01_t"
     - "fedramp.AC-2_3"
     - "fedramp.IA-4"
+    - "fedramp.SC-10"
   metadata: {}
 "024":
   en:
@@ -1044,6 +1045,7 @@
     - "hitrust.09_j"
     - "fedramp.CA-2_2"
     - "fedramp.RA-5"
+    - "fedramp.SI-3"
   metadata: {}
 "042":
   en:
@@ -1422,6 +1424,7 @@
     - "hitrust.10_d"
     - "fedramp.RA-5"
     - "fedramp.SA-10"
+    - "fedramp.SC-28"
   metadata: {}
 "072":
   en:
@@ -1602,6 +1605,7 @@
     - "hitrust.09_aa"
     - "hitrust.13_s"
     - "fedramp.CA-7"
+    - "fedramp.SI-5"
   metadata: {}
 "077":
   en:
@@ -3586,6 +3590,8 @@
      - "hitrust.09_y"
      - "hitrust.10_d"
      - "hitrust.10_g"
+     - "fedramp.SC-12_2"
+     - "fedramp.SC-13"
   metadata: {}
 "146":
   en:
@@ -3622,6 +3628,7 @@
     - "sans25.798"
     - "cmmc.SC_L2-3_13_16"
     - "hitrust.10_g"
+    - "fedramp.SC-13"
   metadata: {}
 "147":
   en:
@@ -3695,6 +3702,7 @@
     - "hitrust.10_d"
     - "hitrust.10_f"
     - "fedramp.CM-3_6"
+    - "fedramp.SC-8_1"
   metadata: {}
 "148":
   en:
@@ -3749,6 +3757,7 @@
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
     - "hitrust.10_g"
+    - "fedramp.SC-12_2"
   metadata: {}
 "150":
   en:
@@ -4069,6 +4078,7 @@
     - "hitrust.09_j"
     - "fedramp.CA-2_2"
     - "fedramp.RA-5"
+    - "fedramp.SI-3"
   metadata: {}
 "156":
   en:
@@ -4901,6 +4911,7 @@
     - "hitrust.10_b"
     - "hitrust.13_k"
     - "fedramp.PE-16"
+    - "fedramp.SI-5"
   metadata: {}
 "174":
   en:
@@ -5104,6 +5115,8 @@
     - "hitrust.09_c"
     - "hitrust.09_r"
     - "fedramp.MP-2"
+    - "fedramp.SC-8"
+    - "fedramp.SC-28"
   metadata: {}
 "177":
   en:
@@ -5429,6 +5442,7 @@
     - "hitrust.09_m"
     - "fedramp.CA-3"
     - "fedramp.MP-5"
+    - "fedramp.SC-8"
   metadata: {}
 "183":
   en:
@@ -6256,6 +6270,8 @@
     - "hitrust.10_d"
     - "hitrust.10_f"
     - "fedramp.CM-3_6"
+    - "fedramp.SC-8_1"
+    - "fedramp.SC-13"
   metadata: {}
 "225":
   en:
@@ -6433,6 +6449,7 @@
     - "cmmc.AC_L2-3_1_8"
     - "cmmc.AC_L2-3_1_9"
     - "fedramp.AC-8"
+    - "fedramp.SI-5"
   metadata: {}
 "228":
   en:
@@ -6983,6 +7000,7 @@
     - "hitrust.08_c"
     - "hitrust.08_f"
     - "hitrust.08_g"
+    - "fedramp.SC-8_1"
   metadata: {}
 "251":
   en:
@@ -7197,6 +7215,7 @@
     - "hitrust.08_c"
     - "hitrust.08_f"
     - "hitrust.09_m"
+    - "fedramp.SC-8_1"
   metadata: {}
 "258":
   en:
@@ -7952,7 +7971,7 @@
     - "cmmc.AU_L2-3_3_4"
     - "cmmc.CM_L2-3_4_3"
     - "hitrust.13_n"
-    - "fedramp.SA-10"
+    - "fedramp.SI-5"
   metadata: {}
 "302":
   en:
@@ -8726,6 +8745,7 @@
     - "hitrust.09_g"
     - "hitrust.13_m"
     - "fedramp.PS-7"
+    - "fedramp.SI-5"
   metadata: {}
 "319":
   en:
@@ -8931,6 +8951,7 @@
     - "pdpo.S1_4"
     - "hitrust.10_d"
     - "fedramp.CA-3"
+    - "fedramp.SC-8"
   metadata: {}
 "322":
   en:
@@ -9438,6 +9459,7 @@
     - "cmmc.CM_L2-3_4_9"
     - "cmmc.SC_L2-3_13_16"
     - "hitrust.09_q"
+    - "fedramp.SC-28"
   metadata: {}
 "330":
   en:
@@ -9545,6 +9567,7 @@
     - "hitrust.09_i"
     - "hitrust.13_g"
     - "fedramp.SA-1"
+    - "fedramp.SC-1"
   metadata: {}
 "332":
   en:
@@ -9787,6 +9810,7 @@
     - "cmmc.IA_L2-3_5_5"
     - "hitrust.09_y"
     - "fedramp.MP-5"
+    - "fedramp.SC-10"
   metadata: {}
 "336":
   en:
@@ -9867,6 +9891,7 @@
     - "hitrust.01_y"
     - "hitrust.09_s"
     - "fedramp.CA-3_3"
+    - "fedramp.SC-8"
   metadata: {}
 "337":
   en:
@@ -10024,6 +10049,7 @@
     - "cmmc.SC_L2-3_13_15"
     - "hitrust.01_y"
     - "hitrust.09_s"
+    - "fedramp.SC-8"
   metadata: {}
 "339":
   en:
@@ -10154,6 +10180,7 @@
     - "hitrust.01_h"
     - "hitrust.09_j"
     - "fedramp.CA-2_2"
+    - "fedramp.SI-3"
   metadata: {}
 "341":
   en:
@@ -11107,6 +11134,7 @@
     - "cwe.263"
     - "asvs.V2_3_3"
     - "cmmc.AC_L2-3_1_9"
+    - "fedramp.SI-5"
   metadata: {}
 "359":
   en:
@@ -11293,6 +11321,7 @@
     - "padss.2_5_4"
     - "padss.2_5_5"
     - "hitrust.10_g"
+    - "fedramp.SC-13"
   metadata: {}
 "362":
   en:
@@ -11672,6 +11701,7 @@
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
     - "hitrust.10_g"
+    - "fedramp.SC-12_2"
   metadata: {}
 "373":
   en:
