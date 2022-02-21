@@ -474,7 +474,7 @@ def get_data_risk_over_time_group(
                     accepted=accepted["y"],
                     closed=closed["y"],
                     opened=opened["y"],
-                    date=get_min_date_unformatted(str(accepted["x"])),
+                    date=get_min_date_formatted(str(accepted["x"])),
                     total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
