@@ -4,8 +4,8 @@ In the context of migrating groups to the single table, remove unwanted group
 items in vms, as the primary key will change and their data could contain
 inconsistencies.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-02-21 at 19:57:17 UTC
+Finalization Time: 2022-02-21 at 19:58:50 UTC
 """
 
 from aioextensions import (
