@@ -33,14 +33,19 @@ def get_estimator(
     model: str,
     training_script: str = "training/training_script/train.py",
 ) -> SKLearnEstimator:
-    instance_type = "ml.m5.2xlarge"
-    if model == "mlpclassifier":
-        instance_type = "ml.m5.4xlarge"
+    kwargs = (
+        dict(
+            instance_type="ml.m5.2xlarge",
+            use_spot_instances=True,
+            max_wait=86400,
+        )
+        if model != "mlpclassifier"
+        else dict(instance_type="ml.m5.4xlarge")
+    )
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
         dependencies=["sorts", "training", "training/requirements.txt"],
         framework_version="0.23-1",
-        instance_type=instance_type,
         instance_count=1,
         role="arn:aws:iam::205810638802:role/prod_sorts",
         output_path="s3://sorts/training-output",
@@ -48,13 +53,12 @@ def get_estimator(
         hyperparameters={"model": model},
         metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         debugger_hook_config=False,
-        use_spot_instances=True,
-        max_wait=86400,
         tags=[
             {"Key": "management:area", "Value": "cost"},
             {"Key": "management:product", "Value": "sorts"},
             {"Key": "management:type", "Value": "product"},
         ],
+        **kwargs,
     )
 
     return sklearn_estimator
