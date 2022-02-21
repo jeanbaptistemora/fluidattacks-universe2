@@ -25,7 +25,7 @@ closure:
   cffi: 1.15.0
   chardet: 4.0.0
   charset-normalizer: 2.0.12
-  click: 8.0.3
+  click: 8.0.4
   cloudmersive-virus-api-client: 3.0.5
   colorama: 0.4.4
   convertdate: 2.4.0
@@ -100,7 +100,6 @@ closure:
   ruamel.yaml: 0.17.21
   ruamel.yaml.clib: 0.2.6
   s3transfer: 0.3.7
-  sentry-sdk: 1.5.5
   simplejson: 3.17.0
   six: 1.16.0
   smmap: 5.0.0
@@ -117,7 +116,7 @@ closure:
   watchgod: "0.7"
   watchtower: 0.7.3
   webencodings: 0.5.1
-  websockets: "10.1"
+  websockets: "10.2"
   wrapt: 1.13.3
   yarl: 1.7.2
   zenpy: 2.0.24
@@ -323,12 +322,12 @@ links:
   - name: charset-normalizer-2.0.12.tar.gz
     sha256: 15r5hf9p6v7s3h3zplz6dvwrg9ni942j78vwrm1bhkfky2gy4mr8
     url: https://files.pythonhosted.org/packages/56/31/7bcaf657fafb3c6db8c787a865434290b726653c912085fbd371e9b92e1c/charset-normalizer-2.0.12.tar.gz
-  - name: click-8.0.3-py3-none-any.whl
-    sha256: 1wwfa6j4490kd2qawk68a4ikf8nbj6gjynazdc5v9bmdjmj4cgrm
-    url: https://files.pythonhosted.org/packages/48/58/c8aa6a8e62cc75f39fee1092c45d6b6ba684122697d7ce7d53f64f98a129/click-8.0.3-py3-none-any.whl
-  - name: click-8.0.3.tar.gz
-    sha256: 0nybbsgaff8ihfh74nhmng6qj74pfpg99njc7ivysphg0lmr63j1
-    url: https://files.pythonhosted.org/packages/f4/09/ad003f1e3428017d1c3da4ccc9547591703ffea548626f47ec74509c5824/click-8.0.3.tar.gz
+  - name: click-8.0.4-py3-none-any.whl
+    sha256: 1cfrsra6bkayc34zcxmx1a69fdaavfhj6c4glfizvaxz7db64yka
+    url: https://files.pythonhosted.org/packages/4a/a8/0b2ced25639fb20cc1c9784de90a8c25f9504a7f18cd8b5397bd61696d7d/click-8.0.4-py3-none-any.whl
+  - name: click-8.0.4.tar.gz
+    sha256: 1nqa17zdd16fhiizziznx95ygkcxz4f3h8qfr4lb2pvw52qxfn44
+    url: https://files.pythonhosted.org/packages/dd/cf/706c1ad49ab26abed0b77a2f867984c1341ed7387b8030a6aa914e2942a0/click-8.0.4.tar.gz
   - name: cloudmersive_virus_api_client-3.0.5.tar.gz
     sha256: 0lbzl1dn97yazn6gl0h7634v5sdv1gndfdj46qj0rjq6gnmm9s9r
     url: https://files.pythonhosted.org/packages/4e/ce/59eb2af5920c5d642e39241b05770431faa8284180d330df39c584b7f3f8/cloudmersive_virus_api_client-3.0.5.tar.gz
@@ -956,12 +955,6 @@ links:
   - name: s3transfer-0.3.7.tar.gz
     sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
     url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
-  - name: sentry_sdk-1.5.5-py2.py3-none-any.whl
-    sha256: 0cfq62xz4yy0d0r5fh33f2c5av4imjcfx5mqyvmwi614p97jf5rq
-    url: https://files.pythonhosted.org/packages/3f/6a/01fb4e5417f5d2ef6279883a9deedabb6b6f223aa706892ea9caa6d7c1e4/sentry_sdk-1.5.5-py2.py3-none-any.whl
-  - name: sentry-sdk-1.5.5.tar.gz
-    sha256: 0ng762x898v2gdzlxbjxmbnz2197msja2cpdmgdw3znmlmgibzcq
-    url: https://files.pythonhosted.org/packages/57/c6/02ed46220d11a0912bd0b0e919fba0842f20b35b3976f492f53c028190cc/sentry-sdk-1.5.5.tar.gz
   - name: simplejson-3.17.0.tar.gz
     sha256: 108yf3252fy4ndqab7h46raksxfhcn113bzy2yd8369vidrjnjrb
     url: https://files.pythonhosted.org/packages/98/87/a7b98aa9256c8843f92878966dc3d8d914c14aad97e2c5ce4798d5743e07/simplejson-3.17.0.tar.gz
@@ -1064,36 +1057,36 @@ links:
   - name: webencodings-0.5.1.tar.gz
     sha256: 08qrgrc4hrximb2gqnl69g01s93rhf2842jfxdjljc1dbwj1qsmk
     url: https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz
-  - name: websockets-10.1-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 128snqfiv951z9bs5p1nq4k0h9pfdyxxgsdz9p3jgbp5kv32vayx
-    url: https://files.pythonhosted.org/packages/50/6d/6728d41f21cb1a46a3896f3b368f6f1e73a997f2ebcf9b1913b4f40e74c4/websockets-10.1-cp39-cp39-macosx_10_9_universal2.whl
-  - name: websockets-10.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1aaxhkfpdj1mj3hkl8sxj8fknixsxwd20jcm2115s6ldl1lczs8l
-    url: https://files.pythonhosted.org/packages/b3/5f/786c0d3007f0141b3a2e472910aadd040a4b76f5a07ae983debfb2983d7d/websockets-10.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: websockets-10.1-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 0n3gviaxxh9g38yr2rlfyvrnb8gkn5bbab1pi19zsdpkniprr0g4
-    url: https://files.pythonhosted.org/packages/45/21/cf8eab8fc5e7a337a00130101579e5e26928ba49e7991b57411a73ef14e4/websockets-10.1-cp39-cp39-macosx_11_0_arm64.whl
-  - name: websockets-10.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 176v7vn9ar7p1hfxcj2ixzqikph6jy7vp435f51lf2kbqycg1rq5
-    url: https://files.pythonhosted.org/packages/05/40/735d7bfe28ca48a716c3ab1176154246f983ff549490f85a4e0dce030f1e/websockets-10.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: websockets-10.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 0kzjy9dn31kix5dl5l3mbnb94v3hd0i4wyvlnd11vyx4wmnjbdjv
-    url: https://files.pythonhosted.org/packages/ca/29/9cdafe3779b2793b33c6a35fc0a95b89800c9915fbe285097f6e68e9f1cd/websockets-10.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: websockets-10.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 17my6mbgzi7m0vk04qvb4wdhz63mcisnr0pr8jww5q3plsi5z2l8
-    url: https://files.pythonhosted.org/packages/f8/ad/97acfaccdc96c0305337164d47d34478c377549d53c1e8a67459f0bbe56d/websockets-10.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: websockets-10.1-cp39-cp39-musllinux_1_1_aarch64.whl
-    sha256: 0wnaipg4gz3xr440kd4hrsgr4y6624h4sw6qwdc0qqz5nfhc3pkg
-    url: https://files.pythonhosted.org/packages/c7/34/7de70125a2c8e0f6ac04835d5573554cb34a71ada405b05cb44b9696e30e/websockets-10.1-cp39-cp39-musllinux_1_1_aarch64.whl
-  - name: websockets-10.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 0c6mhlms110dgzq6vichn6adjvcvma182n01s4x6pg592fq8w7ak
-    url: https://files.pythonhosted.org/packages/71/1f/673f3ac7ace63b45b419925ebd13dca940cc40e9c31324709bb0b1d7353e/websockets-10.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: websockets-10.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 175dzqixlg1yjw9x5vhwdw4v4waw1f9w2bm1ipclf4vnvk5bg4qd
-    url: https://files.pythonhosted.org/packages/07/c7/21d632039a17c4afde555473c04bff6fd3a88a24269a6374589f8d15a0db/websockets-10.1-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: websockets-10.1.tar.gz
-    sha256: 0vgzsgwk4pz1vmn27h4f6ahkmymnxh3g1npymqv7nhssvqjjn78q
-    url: https://files.pythonhosted.org/packages/69/77/591bbc51a5ed6a906a7813e60a9627f988f9546513fcf9d250eb31ec8689/websockets-10.1.tar.gz
+  - name: websockets-10.2-cp39-cp39-macosx_10_9_universal2.whl
+    sha256: 1apg5a25jiqcbngxrwnxa6nqsv3kbj9jf1zzqmiks9kz62h1l25c
+    url: https://files.pythonhosted.org/packages/cf/f2/58494345bbfd7d4166c4a0ca93dff49d43556d2813b0c4207c6ad527dc5a/websockets-10.2-cp39-cp39-macosx_10_9_universal2.whl
+  - name: websockets-10.2-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 0apl6b5n5v65jvm6w1x4za2ainga97yba7d0r5npnn76rcn9w1dl
+    url: https://files.pythonhosted.org/packages/44/52/07a529d482ab25e7fc5fa2fc94e139aafcb7e5a6874183af77c94ae01265/websockets-10.2-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: websockets-10.2-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 1fbcms53shc487gwjgk2cbd2ilm5vd2pnwpndkq7k4f2lh2wm8lw
+    url: https://files.pythonhosted.org/packages/01/1a/da5abede8ebcd07f079bc970ab65e704058386e925d26d3c3e5541335a0c/websockets-10.2-cp39-cp39-macosx_11_0_arm64.whl
+  - name: websockets-10.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1y2cj6dwszjy1p90jpl815m3m7mr32p562a4jb9giijfhiy0r5cp
+    url: https://files.pythonhosted.org/packages/73/9e/399e6ad1009d5f957270f5cd99a0b3f3dcea3aba86f6bff178b85c936273/websockets-10.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: websockets-10.2-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 0wbxlialjxbb3ypp996s5xiy7xblcivhxghd8kbiqczq40qppxcq
+    url: https://files.pythonhosted.org/packages/a0/57/9c1d09f5295d0f97d3e9a6d65a267baa39a49079a71ca3b20261875b0e9f/websockets-10.2-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: websockets-10.2-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 07s11irs23966z3s6bqmcggyibcrw5337vlrv9fhsm2ydvwr4ax7
+    url: https://files.pythonhosted.org/packages/ec/6e/99b55bbb97f8126262845f0ed74addb9e4148d56732d9509199579a4f745/websockets-10.2-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: websockets-10.2-cp39-cp39-musllinux_1_1_aarch64.whl
+    sha256: 0f110vzmd8znk7z1wzil8rf13g8jy6sxpnys226mg4sql3rgx2h3
+    url: https://files.pythonhosted.org/packages/77/83/e9e2f3016ad89420df6c57e80f4be3f682b0f70b3ed9948b707b81f7b9d4/websockets-10.2-cp39-cp39-musllinux_1_1_aarch64.whl
+  - name: websockets-10.2-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 1m9mm36jyz3i69hp4qyvpcpd1xrwj38hpi8ng0fb02bdzyqld7zh
+    url: https://files.pythonhosted.org/packages/61/4c/449658d875bb5aaffe7ddfd47bf18625e8723caf7e5f5d807285f4f9c9b9/websockets-10.2-cp39-cp39-musllinux_1_1_i686.whl
+  - name: websockets-10.2-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 00zv361s389plpwa0iknk1lblw7bp765d9dxn95lhndrns0zlj93
+    url: https://files.pythonhosted.org/packages/cb/64/a07a60b838c89ffe8efcf1473c48824e727ff1b7a225ce5141c77176cd47/websockets-10.2-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: websockets-10.2.tar.gz
+    sha256: 163086ckr8ijd2cm12afs7y02gpcqpiy1v74n0vn6588dg4c6lc3
+    url: https://files.pythonhosted.org/packages/b4/7b/0960d02701f783bb052ec69ea32789d878d2cce05a03950adbd75f164758/websockets-10.2.tar.gz
   - name: wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 1jzjwqni04rk0qnqb77802kbg2yzrqi2j7k0l13r5fxy49ks47cq
     url: https://files.pythonhosted.org/packages/d6/4a/0a9b71f13be3b5c7616365913a89e601f1d152c1b60b268358685ea94f09/wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl
