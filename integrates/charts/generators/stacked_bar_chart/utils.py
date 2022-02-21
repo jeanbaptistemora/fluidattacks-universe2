@@ -420,7 +420,7 @@ def get_risk_over_rangetime(
     }
 
 
-def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
+def get_data_risk_over_time_group(
     *,
     over_time_weekly: List[List[Dict[str, float]]],
     over_time_monthly: List[List[Dict[str, float]]],
@@ -432,14 +432,10 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
     data_monthly: List[GroupDocumentData] = []
     data_yearly: List[GroupDocumentData] = []
     if over_time_weekly:
-        group_opened_over_time = over_time_weekly[4]
-        group_closed_over_time = over_time_weekly[1]
-        group_accepted_over_time = over_time_weekly[2]
-
         for accepted, closed, opened in zip(
-            group_accepted_over_time,
-            group_closed_over_time,
-            group_opened_over_time,
+            over_time_weekly[2],
+            over_time_weekly[1],
+            over_time_weekly[4],
         ):
             data.append(
                 GroupDocumentData(
@@ -452,64 +448,37 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
             )
 
     if over_time_monthly:
-        group_opened_over_time = over_time_monthly[4]
-        group_closed_over_time = over_time_monthly[1]
-        group_accepted_over_time = over_time_monthly[2]
-
         for accepted, closed, opened in zip(
-            group_accepted_over_time,
-            group_closed_over_time,
-            group_opened_over_time,
+            over_time_monthly[2],
+            over_time_monthly[1],
+            over_time_monthly[4],
         ):
             data_monthly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
                     opened=opened["y"],
-                    date=(
-                        translate_date_last(str(accepted["x"]))
-                        if translate_date_last(str(accepted["x"]))
-                        < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    date=get_min_date_unformatted(str(accepted["x"])),
                     total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
     if over_time_yearly:
-        group_opened_over_time = over_time_yearly[4]
-        group_closed_over_time = over_time_yearly[1]
-        group_accepted_over_time = over_time_yearly[2]
-
         for accepted, closed, opened in zip(
-            group_accepted_over_time,
-            group_closed_over_time,
-            group_opened_over_time,
+            over_time_yearly[2],
+            over_time_yearly[1],
+            over_time_yearly[4],
         ):
             data_yearly.append(
                 GroupDocumentData(
                     accepted=accepted["y"],
                     closed=closed["y"],
                     opened=opened["y"],
-                    date=(
-                        datetime.strptime(str(accepted["x"]), DATE_FMT)
-                        if datetime.strptime(str(accepted["x"]), DATE_FMT)
-                        < datetime.now()
-                        else datetime.combine(
-                            datetime.now(),
-                            datetime.min.time(),
-                        )
-                    ),
+                    date=get_min_date_unformatted(str(accepted["x"])),
                     total=opened["y"] + closed["y"] + accepted["y"],
                 )
             )
 
-    monthly_data_size: int = len(
-        over_time_monthly[0] if over_time_monthly else []
-    )
     monthly: Dict[str, Dict[datetime, float]] = {
         "date": {datum.date: 0 for datum in data_monthly},
         "Closed": {datum.date: datum.closed for datum in data_monthly},
@@ -537,13 +506,14 @@ def get_data_risk_over_time_group(  # pylint: disable=too-many-locals
     )
 
     return RiskOverTime(
-        time_range=TimeRangeType.WEEKLY
-        if limited_days
-        else get_time_range(
+        time_range=get_time_range(
             weekly_size=weekly_data_size,
-            monthly_size=monthly_data_size,
+            monthly_size=len(
+                over_time_monthly[0] if over_time_monthly else []
+            ),
             quarterly_size=len(quarterly["date"]),
             semesterly_size=len(semesterly["date"]),
+            limited_days=limited_days,
         ),
         monthly=monthly,
         quarterly=quarterly,
@@ -567,8 +537,9 @@ def get_time_range(
     monthly_size: int,
     quarterly_size: int,
     semesterly_size: int,
+    limited_days: bool = False,
 ) -> TimeRangeType:
-    if weekly_size <= 12:
+    if weekly_size <= 12 or limited_days:
         return TimeRangeType.WEEKLY
 
     if monthly_size <= 12:

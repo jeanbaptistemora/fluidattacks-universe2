@@ -288,7 +288,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     severity_score: float = 4.1
     report_date: str = "2018-04-01 00:45:00"
     current_state: str = "APPROVED"
-    new_remediated: bool = False
     verified: bool = False
     ports_vulnerabilities: List[Any] = [
         {"specific": "2321"},
