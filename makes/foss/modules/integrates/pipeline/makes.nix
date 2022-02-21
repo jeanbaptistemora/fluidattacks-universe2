@@ -174,10 +174,6 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/integratesSecrets";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/integrates/back/authz-matrix";
           gitlabExtra = gitlabDeployAppDev // {
             artifacts = {
@@ -665,10 +661,6 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/integratesSecrets";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/pipelineOnGitlab/integrates";
           gitlabExtra = gitlabLint;
         }
@@ -694,10 +686,6 @@ in
         }
         {
           output = "/testTerraform/integratesResources";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/testTerraform/integratesSecrets";
           gitlabExtra = gitlabTestInfra;
         }
       ];
