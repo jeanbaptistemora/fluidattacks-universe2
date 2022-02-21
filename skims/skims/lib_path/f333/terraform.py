@@ -51,7 +51,7 @@ def _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
 
 def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
+) -> Iterator[Attribute]:
     for resource in resource_iterator:
         if isinstance(resource, AWSLaunchTemplate):
             if network_interfaces := get_argument(
@@ -61,7 +61,12 @@ def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
                 net_public_ip = get_block_attribute(
                     block=network_interfaces, key="associate_public_ip_address"
                 )
-                if net_public_ip.val is True:
+                if (
+                    net_public_ip := get_block_attribute(
+                        block=network_interfaces,
+                        key="associate_public_ip_address",
+                    )
+                ) and (net_public_ip.val is True):
                     yield net_public_ip
         elif (
             isinstance(resource, AWSInstance)

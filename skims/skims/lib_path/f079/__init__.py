@@ -8,7 +8,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Awaitable,
     Callable,
     Tuple,
 )
@@ -17,7 +16,7 @@ from typing import (
 @SHIELD_BLOCKING
 def analyze(
     path: str,
-    raw_content_generator: Callable[[], Awaitable[bytes]],
+    raw_content_generator: Callable[[], bytes],
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
 

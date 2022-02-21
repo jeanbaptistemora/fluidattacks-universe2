@@ -1,6 +1,5 @@
 from aws.model import (
     AWSS3Bucket,
-    AWSS3BucketPolicy,
 )
 from lib_path.common import (
     FALSE_OPTIONS,
@@ -22,7 +21,6 @@ from parse_cfn.structure import (
 from typing import (
     Any,
     Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -30,26 +28,39 @@ from utils.function import (
 
 
 def _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
-    policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
-) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
+    policies_iterator: Iterator[Node],
+) -> Iterator[Node]:
     for policy in policies_iterator:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
+        if not statements:
+            continue
         for statement in statements.data:
             effect = statement.raw.get("Effect", "")
             sse = get_node_by_keys(
                 statement,
                 ["Condition", "Null", "s3:x-amz-server-side-encryption"],
             )
-            if isinstance(sse, Node) and (
-                effect == "Allow" and sse.raw in FALSE_OPTIONS
+            if (
+                (
+                    sse := get_node_by_keys(
+                        statement,
+                        [
+                            "Condition",
+                            "Null",
+                            "s3:x-amz-server-side-encryption",
+                        ],
+                    )
+                )
+                and (isinstance(sse, Node))
+                and ((effect == "Allow" and sse.raw in FALSE_OPTIONS))
             ):
                 yield sse
 
 
 def _cfn_unencrypted_buckets_iterate_vulnerabilities(
     file_ext: str,
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]],
-) -> Iterator[Union[AWSS3Bucket, Node]]:
+    buckets_iterator: Iterator[Node],
+) -> Iterator[AWSS3Bucket]:
     for bucket in buckets_iterator:
         bck_encrypt = bucket.inner.get("BucketEncryption")
         if not isinstance(bck_encrypt, Node):

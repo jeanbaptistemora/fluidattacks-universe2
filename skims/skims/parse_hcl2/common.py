@@ -10,8 +10,11 @@ from typing import (
     Iterator,
     List,
     Optional,
+    TypeVar,
     Union,
 )
+
+TDefault = TypeVar("TDefault", covariant=True)
 
 
 def get_block_attribute(block: Block, key: str) -> Optional[Attribute]:
@@ -83,8 +86,10 @@ def get_argument(
 
 
 def get_attribute(
-    body: List[Union[Attribute, Block]], key: str, default: Any = None
-) -> Union[Any, Block]:
+    body: List[Union[Attribute, Block]],
+    key: str,
+    default: Optional[TDefault] = None,
+) -> Union[Optional[TDefault], Attribute]:
     for item in body:
         if isinstance(item, Block):
             continue

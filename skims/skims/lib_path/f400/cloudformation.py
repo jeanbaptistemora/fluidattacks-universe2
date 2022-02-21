@@ -37,8 +37,8 @@ from utils.function import (
 
 def _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
     file_ext: str,
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]],
-) -> Iterator[Union[AWSS3Bucket, Node]]:
+    buckets_iterator: Iterator[Node],
+) -> Iterator[AWSS3Bucket]:
     for bucket in buckets_iterator:
         logging = bucket.inner.get("LoggingConfiguration")
         if not isinstance(logging, Node):
@@ -51,7 +51,7 @@ def _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
 
 def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
     file_ext: str,
-    load_balancers_iterator: Iterator[Union[AWSElb, Node]],
+    load_balancers_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElb, Node]]:
     for elb in load_balancers_iterator:
         access_log = get_node_by_keys(elb, ["AccessLoggingPolicy", "Enabled"])
@@ -67,8 +67,8 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
 
 def _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
     file_ext: str,
-    distributions_iterator: Iterator[Union[AWSCloudfrontDistribution, Node]],
-) -> Iterator[Union[AWSCloudfrontDistribution, Node]]:
+    distributions_iterator: Iterator[Node],
+) -> Iterator[AWSCloudfrontDistribution]:
     for dist in distributions_iterator:
         dist_config = dist.inner["DistributionConfig"]
         if isinstance(dist_config, Node):
@@ -85,7 +85,7 @@ def _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
 
 def _cfn_trails_not_multiregion_iterate_vulnerabilities(
     file_ext: str,
-    trails_iterator: Iterator[Union[AWSCTrail, Node]],
+    trails_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSCTrail, Node]]:
     for trail in trails_iterator:
         multi_reg = trail.inner.get("IsMultiRegionTrail")
@@ -101,7 +101,7 @@ def _cfn_trails_not_multiregion_iterate_vulnerabilities(
 
 def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
     file_ext: str,
-    load_balancers_iterator: Iterator[Union[AWSElbV2, Node]],
+    load_balancers_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for elb in load_balancers_iterator:
         attrs = elb.inner.get("LoadBalancerAttributes")

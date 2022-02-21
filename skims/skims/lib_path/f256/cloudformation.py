@@ -38,7 +38,7 @@ def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
 
 def _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
     file_ext: str,
-    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
+    rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
         del_protection = rds_res.raw.get("DeletionProtection", False)

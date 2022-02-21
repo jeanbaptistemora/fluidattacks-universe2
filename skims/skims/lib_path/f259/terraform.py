@@ -34,11 +34,11 @@ def _tfm_db_no_point_in_time_recovery_iterate_vulnerabilities(
         ):
             recovery_attr = True
             if (
-                recovery_attr := get_block_attribute(
+                _recovery_attr := get_block_attribute(
                     block=recovery, key="enabled"
                 )
-            ) and recovery_attr.val is False:
-                yield recovery_attr
+            ) and _recovery_attr.val is False:
+                yield _recovery_attr
         if not recovery_attr:
             yield resource
 

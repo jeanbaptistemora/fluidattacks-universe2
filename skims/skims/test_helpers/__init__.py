@@ -4,10 +4,20 @@ from ctx import (
 from model import (
     core_model,
 )
+from model.core_model import (
+    LocalesEnum,
+)
 import os
+from typing import (
+    Tuple,
+)
 
 
-def create_test_context(debug: bool = True) -> None:
+def create_test_context(
+    debug: bool = True,
+    include: Tuple[str, ...] = (),
+    exclude: Tuple[str, ...] = (),
+) -> None:
     CTX.debug = debug
     CTX.config = core_model.SkimsConfig(
         apk=core_model.SkimsAPKConfig(
@@ -19,12 +29,12 @@ def create_test_context(debug: bool = True) -> None:
         http=core_model.SkimsHttpConfig(
             include=(),
         ),
-        language=core_model.LocalesEnum.EN,
+        language=LocalesEnum.EN,
         namespace="test",
         output=None,
         path=core_model.SkimsPathConfig(
-            include=(),
-            exclude=(),
+            include=include,
+            exclude=exclude,
             lib_path=True,
             lib_root=True,
         ),

@@ -16,7 +16,6 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
     Tuple,
 )
@@ -34,7 +33,7 @@ def run_tfm_api_gateway_access_logging_disabled(
 
 @SHIELD_BLOCKING
 def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,

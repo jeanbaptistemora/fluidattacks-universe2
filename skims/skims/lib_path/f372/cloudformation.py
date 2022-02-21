@@ -56,7 +56,7 @@ def _cfn_content_over_http_iterate_vulnerabilities(
 
 def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
     file_ext: str,
-    t_groups_iterator: Iterator[Union[AWSElbV2, Node]],
+    t_groups_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for t_group in t_groups_iterator:
         unsafe_protos = ("HTTP",)

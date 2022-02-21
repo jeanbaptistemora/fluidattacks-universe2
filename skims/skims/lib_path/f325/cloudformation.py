@@ -51,6 +51,8 @@ def _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
 ) -> Iterator[Union[AWSKmsKey, Node]]:
     for key in keys_iterator:
         statements = get_node_by_keys(key, ["KeyPolicy", "Statement"])
+        if not statements:
+            continue
         for stmt in statements.data:
             effect = stmt.raw.get("Effect")
             principal = get_node_by_keys(stmt, ["Principal", "AWS"])
@@ -105,7 +107,8 @@ def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
         action = get_node_by_keys(stm, ["Action"])
         wild_res_node = _resource_all(resource) if resource else None
         if (
-            effect.raw == "Allow"
+            effect
+            and effect.raw == "Allow"
             and wild_res_node
             and action
             and _policy_actions_has_privilege(action, "write")

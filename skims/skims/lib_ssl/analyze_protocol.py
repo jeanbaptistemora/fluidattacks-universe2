@@ -40,6 +40,7 @@ from model import (
     core_model,
 )
 from typing import (
+    Any,
     Callable,
     Dict,
     List,
@@ -114,7 +115,7 @@ def _create_ssl_vuln(
     server_response: Optional[SSLServerResponse],
     method: core_model.MethodsEnum,
     check_kwargs: Optional[
-        Dict[str, Union[str, core_model.LocalesEnum]]
+        Dict[str, Union[str, core_model.LocalesEnum, Any]]
     ] = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(

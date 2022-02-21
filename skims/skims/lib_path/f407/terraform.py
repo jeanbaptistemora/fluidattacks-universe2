@@ -30,7 +30,7 @@ def _tfm_aws_ebs_volumes_unencrypted(
             encrypted = get_block_attribute(block=root_block, key="encrypted")
             if not encrypted:
                 yield root_block
-            if encrypted.val is False:
+            if encrypted and encrypted.val is False:
                 yield encrypted
         else:
             yield resource

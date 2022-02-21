@@ -28,7 +28,7 @@ from utils.function import (
 
 def _cfn_log_files_not_validated_iterate_vulnerabilities(
     file_ext: str,
-    trails_iterator: Iterator[Union[AWSCTrail, Node]],
+    trails_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSCTrail, Node]]:
     values = ["true", "True", True, "1", 1]
     for trail in trails_iterator:

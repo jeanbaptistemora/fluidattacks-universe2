@@ -35,6 +35,8 @@ def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
     for policy in policies_iterator:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
+        if not statements:
+            continue
         for statement in statements.data:
             effect = statement.raw.get("Effect", "")
             secure_transport = get_node_by_keys(

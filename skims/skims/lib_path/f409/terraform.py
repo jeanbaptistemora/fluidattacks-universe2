@@ -30,7 +30,7 @@ def _tfm_aws_dynamodb_table_unencrypted(
             encrypted = get_block_attribute(block=root_block, key="enabled")
             if not encrypted:
                 yield root_block
-            if encrypted.val is False:
+            if encrypted and encrypted.val is False:
                 yield encrypted
         else:
             yield resource

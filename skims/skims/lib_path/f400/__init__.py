@@ -29,7 +29,6 @@ from state.cache import (
 )
 from typing import (
     Any,
-    Awaitable,
     Callable,
     Tuple,
 )
@@ -113,7 +112,7 @@ def run_tfm_ec2_monitoring_disabled(
 
 @SHIELD_BLOCKING
 def analyze(
-    content_generator: Callable[[], Awaitable[str]],
+    content_generator: Callable[[], str],
     file_extension: str,
     path: str,
     **_: None,

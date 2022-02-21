@@ -26,7 +26,7 @@ from typing import (
 
 def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
     file_ext: str,
-    keys_iterator: Iterator[Union[AWSKmsKey, Node]],
+    keys_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSKmsKey, Node]]:
     key_spec_symmetric = "SYMMETRIC_DEFAULT"
     for key in keys_iterator:

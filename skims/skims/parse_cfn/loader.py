@@ -211,9 +211,7 @@ async def load_templates(
         return
 
 
-def load_templates_blocking(
-    content: str, fmt: str
-) -> Union[Iterator[Node], None]:
+def load_templates_blocking(content: str, fmt: str) -> Iterator[Node]:
     try:
         templates: Node = load_cfn(
             stream=content,
@@ -235,7 +233,6 @@ def load_templates_blocking(
         MarkedYAMLError,
     ) as exc:
         log_exception_blocking("error", exc)
-        return
 
 
 async def load(content: str, fmt: str) -> Any:
