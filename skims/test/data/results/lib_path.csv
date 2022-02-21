@@ -30053,6 +30053,17 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ini v1.3.5) [CV
    68 |     ""jsrsasign"": ""8.0.0"",
       ^ Col 0
 ",npm.npm_package_json
+F011,lines,namespace/skims/test/data/lib_path/f011/build.gradle (io.springfox:springfox-swagger-ui v2.6.1) [SNYK-JAVA-IOSPRINGFOX-1075064],2,937,skims,011. Use of software with known vulnerabilities,Use of io.springfox:springfox-swagger-ui at version 2.6.1 with SNYK-JAVA-IOSPRINGFOX-1075064 in namespace/skims/test/data/lib_path/f011/build.gradle,"
+  1 | dependencies {
+> 2 |     compile ""io.springfox:springfox-swagger-ui:2.6.1""
+  3 |     compile(""io.springfox:springfox-swagger-ui"")
+  4 |     compile(group: 'javax.mail', name: 'mail')
+  5 |     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
+  6 |     implementation group: 'org.json', name: 'json', version: '20160810'
+  7 |     implementation(group: 'javax.mail', name: 'mail', version: '1.4')
+  8 | }
+    ^ Col 0
+",maven.maven_gradle
 F011,lines,namespace/skims/test/data/lib_path/f011/package.json (ip v1.0.1) [npm:ip:20170304],59,937,skims,011. Use of software with known vulnerabilities,Use of ip at version 1.0.1 with npm:ip:20170304 in namespace/skims/test/data/lib_path/f011/package.json,"
    49 |     ""hosted-git-info"": ""2.8.5"",
    50 |     ""hot-object"": ""1.7.0"",

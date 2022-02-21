@@ -856,6 +856,12 @@
   "io.really:jwt-scala": {
     "CVE-2017-10862": ">=0 <=1.2.2"
   },
+  "io.springfox:springfox-swagger-ui": {
+    "SNYK-JAVA-IOSPRINGFOX-1075064": "<2.10.0"
+  },
+  "io.springfox:springfox-swagger2": {
+    "SNYK-JAVA-IOSPRINGFOX-1317096": ">=2.10.0 <=3.0.0"
+  },
   "io.swagger:swagger-codegen-maven-plugin": {
     "CVE-2021-21363": ">=0 <2.4.19",
     "CVE-2021-21364": ">=0 <2.4.19",
@@ -3663,6 +3669,9 @@
   "org.springframework.webflow:spring-webflow": {
     "CVE-2017-4971": "2.4.4 || >=2.4.0 <=2.4.2",
     "CVE-2017-8039": ">=2.4.0 <=2.4.2 || >=2.4.4 <=2.4.5"
+  },
+  "org.springframework.ws:spring-ws-core": {
+    "SNYK-JAVA-ORGSPRINGFRAMEWORKWS-73516": "<2.4.4.release || >=3.0.0.release <3.0.6.release"
   },
   "org.springframework:spring": {
     "CVE-2016-9878": ">=0 <0"
