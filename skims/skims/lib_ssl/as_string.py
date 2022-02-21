@@ -149,7 +149,10 @@ class SnippetConstructorEN(SnippetConstructor):
                 f"Description: {description}"
             )
 
-        if response.handshake is not None:
+        if (
+            response.handshake is not None
+            and response.handshake.cipher_suite is not None
+        ):
             version = ssl_id2ssl_name(response.handshake.version_id)
             iana = response.handshake.cipher_suite.iana_name
             openssl = response.handshake.cipher_suite.get_openssl_name()
@@ -242,7 +245,10 @@ class SnippetConstructorES(SnippetConstructor):
                 f"Descripción: {description}"
             )
 
-        if response.handshake is not None:
+        if (
+            response.handshake is not None
+            and response.handshake.cipher_suite is not None
+        ):
             version = ssl_id2ssl_name(response.handshake.version_id)
             iana = response.handshake.cipher_suite.iana_name
             openssl = response.handshake.cipher_suite.get_openssl_name()

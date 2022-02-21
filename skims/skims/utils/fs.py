@@ -49,7 +49,7 @@ class FileTooLarge(Exception):
 
 
 def decide_language(path: str) -> GraphShardMetadataLanguage:
-    language_extensions_map: Dict[str, List[str]] = {
+    language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
         GraphShardMetadataLanguage.CSHARP: [".cs"],
         GraphShardMetadataLanguage.GO: [".go"],
         GraphShardMetadataLanguage.JAVA: [".java"],

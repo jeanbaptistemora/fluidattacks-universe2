@@ -2,7 +2,6 @@ from more_itertools import (
     chunked,
 )
 from typing import (
-    Any,
     Dict,
     Optional,
 )
@@ -19,7 +18,6 @@ def snippet(
     headers: Dict[str, str],
     columns_per_line: int = SNIPPETS_COLUMNS,
     value: str = "",
-    **kwargs: Any,
 ) -> str:
     line: int = 3
     found: bool = False
@@ -51,5 +49,4 @@ def snippet(
             line=line,
             wrap=True,
         ),
-        **kwargs,
     )

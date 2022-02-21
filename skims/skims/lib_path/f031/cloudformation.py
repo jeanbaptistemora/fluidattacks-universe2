@@ -58,10 +58,12 @@ def _is_s3_action_writeable(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
 
 
 def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
-    policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
+    policies_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
     for policy in policies_iterator:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
+        if not statements:
+            continue
         for statement in statements.data:
             effect = statement.raw.get("Effect", "")
             principal = statement.raw.get("Principal", "")
@@ -74,7 +76,7 @@ def _cfn_bucket_policy_allows_public_access_iterate_vulnerabilities(
 
 
 def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
-    users_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    users_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for user in users_iterator:
         policies_node = user.inner.get("Policies", None)
@@ -85,7 +87,7 @@ def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
 
 def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
     file_ext: str,
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         if "IamInstanceProfile" not in ec2_res.inner:
@@ -97,7 +99,7 @@ def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
 
 
 def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
-    iam_iterator: Iterator[Union[AWSIamManagedPolicy, Node]],
+    iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for stmt in iam_iterator:
         effect = stmt.inner.get("Effect")

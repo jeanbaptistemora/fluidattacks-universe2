@@ -391,7 +391,7 @@ def _add_has_fragment_injection_location(
 def _has_fragment_injection(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
-    if ctx.apk_ctx.apk_obj is not None:
+    if ctx.apk_ctx.apk_obj is not None and ctx.apk_ctx.analysis is not None:
         sdk_version = ctx.apk_ctx.apk_obj.get_target_sdk_version()
         target_sdk_version = int(sdk_version) if sdk_version else 0
 
@@ -546,7 +546,12 @@ def _has_frida(
     locations: Locations = Locations([])
 
     apk_obj = ctx.apk_ctx.apk_obj
-
+    if not apk_obj:
+        return _create_vulns(
+            ctx=ctx,
+            locations=locations,
+            method=core_model.MethodsEnum.HAS_FRIDA,
+        )
     frida_gadgets: List[str] = [x for x in apk_obj.get_files() if "frida" in x]
     is_frida_gadget_in_files: bool = bool(frida_gadgets)
 
@@ -817,9 +822,8 @@ def _improper_certificate_validation(
 ) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
-    if ctx.apk_ctx.analysis is not None:
+    if ctx.apk_ctx.analysis is not None and (apk_obj := ctx.apk_ctx.apk_obj):
         dex = ctx.apk_ctx.analysis
-        apk_obj = ctx.apk_ctx.apk_obj
         method_names: List[str] = _get_method_names(dex)
         net_conf: str = ""
 

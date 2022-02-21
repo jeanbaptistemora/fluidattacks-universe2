@@ -108,7 +108,7 @@ class SSLAlert(NamedTuple):
 class SSLServerHandshake(NamedTuple):
     record: SSLHandshakeRecord
     version_id: SSLVersionId
-    cipher_suite: SSLSuiteInfo
+    cipher_suite: Optional[SSLSuiteInfo] = None
 
 
 class SSLServerResponse(NamedTuple):

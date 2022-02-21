@@ -238,20 +238,22 @@ def read_handshake_header(
     return packet_type, version_id, bytes_to_num(b_length)
 
 
-def read_random_val(sock: socket.socket) -> bytes:
+def read_random_val(sock: socket.socket) -> Optional[bytes]:
     return tcp_read(sock, 32)
 
 
-def read_session_id(sock: socket.socket) -> bytes:
-    b_session_id_length = tcp_read(sock, 1)
-    [session_id_length] = unpack(">B", b_session_id_length)
-    return tcp_read(sock, session_id_length)
+def read_session_id(sock: socket.socket) -> Optional[bytes]:
+    if b_session_id_length := tcp_read(sock, 1):
+        [session_id_length] = unpack(">B", b_session_id_length)
+        return tcp_read(sock, session_id_length)
+    return None
 
 
-def read_cipher_suite(sock: socket.socket) -> SSLSuiteInfo:
-    b_cipher_suite = tcp_read(sock, 2)
-    first_byte, second_byte = unpack(">BB", b_cipher_suite)
-    return get_suite_by_code(code=(first_byte, second_byte))
+def read_cipher_suite(sock: socket.socket) -> Optional[SSLSuiteInfo]:
+    if b_cipher_suite := tcp_read(sock, 2):
+        first_byte, second_byte = unpack(">BB", b_cipher_suite)
+        return get_suite_by_code(code=(first_byte, second_byte))
+    return None
 
 
 def parse_server_alert(

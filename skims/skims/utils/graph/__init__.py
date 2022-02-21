@@ -19,7 +19,6 @@ import os
 from typing import (
     Any,
     Callable,
-    cast,
     Dict,
     Iterable,
     Iterator,
@@ -475,10 +474,10 @@ def lookup_first_cfg_parent(
     # Lookup first parent who is connected to the CFG
     for p_id in chain([n_id], pred_ast_lazy(graph, n_id, depth=-1)):
         if is_connected_to_cfg(graph, p_id):
-            return cast(str, p_id)
+            return p_id
 
     # Base case, pass through
-    return cast(str, n_id)
+    return n_id
 
 
 def ast_filter_sink_connected_n_ids(

@@ -19,13 +19,18 @@ import lxml.etree  # nosec
 from model import (
     core_model,
 )
+from model.core_model import (
+    LocalesEnum,
+)
 from parse_android_manifest.types import (
     APKContext,
 )
 from typing import (
+    Any,
     List,
     NamedTuple,
     Optional,
+    Union,
 )
 from utils.string import (
     make_snippet,
@@ -57,7 +62,7 @@ class Locations(NamedTuple):
         self,
         desc: str,
         snippet: str,
-        **desc_kwargs: str,
+        **desc_kwargs: Union[LocalesEnum, Any],
     ) -> None:
         self.locations.append(
             Location(

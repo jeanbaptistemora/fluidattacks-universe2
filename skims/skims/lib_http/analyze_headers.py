@@ -15,7 +15,9 @@ from http_headers import (
     x_content_type_options,
 )
 from http_headers.types import (
+    ContentSecurityPolicyHeader,
     Header,
+    SetCookieHeader,
 )
 from lib_http.types import (
     URLContext,
@@ -27,11 +29,13 @@ from multidict import (
     MultiDict,
 )
 from typing import (
+    Any,
     Callable,
     Dict,
     List,
     NamedTuple,
     Optional,
+    Union,
 )
 from vulnerabilities import (
     build_inputs_vuln,
@@ -58,7 +62,9 @@ class Locations(NamedTuple):
     def append(
         self,
         desc: str,
-        desc_kwargs: Optional[Dict[str, str]] = None,
+        desc_kwargs: Optional[
+            Dict[str, Union[core_model.LocalesEnum, Any]]
+        ] = None,
         identifier: str = "",
     ) -> None:
         self.locations.append(
@@ -115,7 +121,10 @@ def _content_security_policy_block_all_mixed_content(
     locations: Locations,
     header: Header,
 ) -> None:
-    if "block-all-mixed-content" in header.directives:
+    if (
+        isinstance(header, ContentSecurityPolicyHeader)
+        and "block-all-mixed-content" in header.directives
+    ):
         locations.append("content_security_policy.mixed_content_deprecated")
 
 
@@ -123,18 +132,19 @@ def _content_security_policy_frame_acestors(
     locations: Locations,
     header: Header,
 ) -> None:
-    if values := header.directives.get("frame-ancestors"):
-        for value in values:
-            _content_security_policy_wild_uri(locations, value)
-    else:
-        locations.append("content_security_policy.missing_frame_ancestors")
+    if isinstance(header, ContentSecurityPolicyHeader):
+        if values := header.directives.get("frame-ancestors"):
+            for value in values:
+                _content_security_policy_wild_uri(locations, value)
+        else:
+            locations.append("content_security_policy.missing_frame_ancestors")
 
 
 def _content_security_policy_object_src(
     locations: Locations,
     header: Header,
 ) -> None:
-    if (
+    if isinstance(header, ContentSecurityPolicyHeader) and (
         "object-src" not in header.directives
         and "default-src" not in header.directives
     ):
@@ -145,6 +155,8 @@ def _content_security_policy_script_src(
     locations: Locations,
     header: Header,
 ) -> None:
+    if not isinstance(header, ContentSecurityPolicyHeader):
+        return
     if values := (
         header.directives.get("script-src")
         or header.directives.get("default-src")
@@ -338,7 +350,11 @@ def _set_cookie_httponly(
     )
 
     for header in headers:
-        if _is_sensitive_cookie(header.cookie_name) and not header.httponly:
+        if (
+            isinstance(header, SetCookieHeader)
+            and _is_sensitive_cookie(header.cookie_name)
+            and not header.httponly
+        ):
             locations.append(
                 desc="set_cookie_httponly.missing_httponly",
                 desc_kwargs={"cookie_name": header.cookie_name},
@@ -364,7 +380,8 @@ def _set_cookie_samesite(
 
     for header in headers:
         if (
-            _is_sensitive_cookie(header.cookie_name)
+            isinstance(header, SetCookieHeader)
+            and _is_sensitive_cookie(header.cookie_name)
             and header.samesite.lower() != "strict"
         ):
             locations.append(
@@ -391,7 +408,11 @@ def _set_cookie_secure(
     )
 
     for header in headers:
-        if _is_sensitive_cookie(header.cookie_name) and not header.secure:
+        if (
+            isinstance(header, SetCookieHeader)
+            and _is_sensitive_cookie(header.cookie_name)
+            and not header.secure
+        ):
             locations.append(
                 desc="set_cookie_secure.missing_secure",
                 desc_kwargs={"cookie_name": header.cookie_name},
