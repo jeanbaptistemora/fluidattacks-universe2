@@ -4542,7 +4542,18 @@
   title: FedRAMP
   en:
     description: >
-      ...
+      FedRAMP is a U.S. Government program to
+      standarize how the Federal Information
+      Security Management Act (FISMA) applies
+      to cloud computing services, it provides
+      a standardized approach to security
+      assessment, authorization, and continous
+      monitoring of cloud based services.
+
+      FedRAMP defines a set of security control
+      implementations and security impact level
+      systems based on NIST baseline controls
+      (NIST SP 800-53).
   es:
     description: __empty__
   definitions:
