@@ -38,7 +38,7 @@ module.exports = {
         },
         {
           to: 'squad',
-          activeBasePath: 'squad/reattacks',
+          activeBasePath: 'squad/',
           label: 'Squad',
           position: 'left',
         },
