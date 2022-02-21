@@ -348,8 +348,12 @@ export const enTranslations: ResourceKey = {
           testOther: "Test other part of ToE",
           title: "Action before blocking",
         },
-        affectsReattacks:
-          "Does this event have an impact on any ongoing reattack?",
+        affectedReattacks: {
+          checkbox: "Does this event have an impact on any ongoing reattack?",
+          description: "Please select the affected reattacks",
+          noSelectedReattacks: "You must select at least one affected reattack",
+          title: "Affected Reattacks",
+        },
         blockingHours: "Working hours until getting blocked",
         components: {
           clientStation: "Client's test station",
@@ -383,13 +387,11 @@ export const enTranslations: ResourceKey = {
         evidence: "Evidence image",
         evidenceFile: "Evidence file",
         invalidFileName: "Evidence filename must not have invalid chars",
-        noSelectedReattacks: "You must select at least one affected reattack",
         none: "None",
         other: "Other",
         responsible: "Person in charge (client)",
         root: "Root",
         rootPlaceholder: "Search by nickname...",
-        selectAffectedReattacks: "Please select the affected reattacks",
         type: {
           detectsAttack: "Client detects the attack",
           highAvailability: "High availability approval",

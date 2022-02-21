@@ -8,27 +8,27 @@ interface IReattackVuln {
   where: string;
 }
 
-interface IEvent {
-  detail: string;
+interface IFinding {
   id: string;
-  eventStatus: string;
-  eventType: string;
+  title: string;
+  vulnerabilitiesToReattack: IReattackVuln[];
 }
 
-interface IEventsQuery {
-  group: { events: IEvent[] };
+interface IFindingsQuery {
+  name: string;
+  findings: IFinding[];
 }
 
 interface IAffectedReattackModal {
-  vulns: IReattackVuln[];
+  findings: IReattackVuln[];
   clearSelected: () => void;
   handleCloseModal: () => void;
   setRequestState: () => void;
 }
 
 interface IAffectedAccordionProps {
-  findings: string[];
-  vulnerabilities: IReattackVuln[];
+  findings: IFinding[];
+  groupName: string;
 }
 
 interface IUpdateEventAffectations {
@@ -43,7 +43,7 @@ export {
   IAffectedAccordionProps,
   IReattackVuln,
   UpdateEventAffectationsResult,
-  IEvent,
-  IEventsQuery,
+  IFinding,
+  IFindingsQuery,
   IAffectedReattackModal,
 };

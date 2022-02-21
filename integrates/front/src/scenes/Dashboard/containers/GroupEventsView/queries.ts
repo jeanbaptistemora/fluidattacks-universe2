@@ -58,22 +58,4 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
-const GET_REATTACK_VULNS: DocumentNode = gql`
-  query GetReattackVulns($groupName: String!) {
-    group(groupName: $groupName) {
-      findings {
-        id
-        title
-        vulnerabilitiesToReattack {
-          findingId
-          id
-          where
-          specific
-        }
-      }
-      name
-    }
-  }
-`;
-
-export { ADD_EVENT_MUTATION, GET_EVENTS, GET_REATTACK_VULNS };
+export { ADD_EVENT_MUTATION, GET_EVENTS };
