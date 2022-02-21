@@ -249,6 +249,6 @@ async def get_agent_token(*, group_name: str) -> Optional[str]:
         table=TABLE,
     )
     if response.items:
-        return response.items[0]["agent_token"]
+        return response.items[0].get("agent_token")
 
     return None
