@@ -160,13 +160,19 @@ const getFilteredData: (
     filterGroupToeInputTable.seenAt,
     "seenAt"
   );
+  const filteredSeenFirstTimeBy: IToeInputData[] = filterSelect(
+    toeInput,
+    filterGroupToeInputTable.seenFirstTimeBy,
+    "markedSeenFirstTimeBy"
+  );
   const filteredData: IToeInputData[] = _.intersection(
     filteredBePresent,
     filteredComponent,
     filteredHasVulnerabilities,
     filteredRoot,
     filteredSearchtextResult,
-    filteredSeenAt
+    filteredSeenAt,
+    filteredSeenFirstTimeBy
   );
 
   return filteredData;

@@ -4,6 +4,7 @@ interface IFilterSet {
   hasVulnerabilities: string;
   root: string;
   seenAt: { max: string; min: string };
+  seenFirstTimeBy: string;
 }
 
 interface IGroupToeInputsViewProps {
@@ -51,6 +52,7 @@ interface IToeInputData {
   firstAttackAt: Date | undefined;
   hasVulnerabilities: boolean;
   markedRootNickname: string;
+  markedSeenFirstTimeBy: string;
   seenAt: Date | undefined;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;

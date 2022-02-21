@@ -913,6 +913,10 @@ export const enTranslations: ResourceKey = {
             placeholder: "Seen at (Range)",
             tooltip: "Filter by seen at",
           },
+          seenFirstTimeBy: {
+            placeholder: "Seen first time by",
+            tooltip: "Filter by seen first time by",
+          },
         },
         firstAttackAt: "First attack at",
         hasVulnerabilities: "Has vulnerabilities",

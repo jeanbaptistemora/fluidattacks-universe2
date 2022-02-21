@@ -40,6 +40,7 @@ import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
 const NOROOT = "no root";
+const NOSEENFIRSTTIMEBY = "no seen first time by";
 
 const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   props: IGroupToeInputsViewProps
@@ -102,6 +103,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         hasVulnerabilities: "",
         root: "",
         seenAt: { max: "", min: "" },
+        seenFirstTimeBy: "",
       },
       localStorage
     );
@@ -164,6 +166,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const markNickname: (rootNickname: string) => string = (
     rootNickname: string
   ): string => (_.isEmpty(rootNickname) ? NOROOT : rootNickname);
+  const markSeenFirstTimeBy: (seenFirstTimeBy: string) => string = (
+    seenFirstTimeBy: string
+  ): string =>
+    _.isEmpty(seenFirstTimeBy) ? NOSEENFIRSTTIMEBY : seenFirstTimeBy;
   const toeInputs: IToeInputData[] = toeInputsEdges.map(
     ({ node }): IToeInputData => ({
       ...node,
@@ -171,6 +177,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       bePresentUntil: formatOptionalDate(node.bePresentUntil),
       firstAttackAt: formatOptionalDate(node.firstAttackAt),
       markedRootNickname: markNickname(node.unreliableRootNickname),
+      markedSeenFirstTimeBy: markSeenFirstTimeBy(node.seenFirstTimeBy),
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
@@ -300,6 +307,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         hasVulnerabilities: "",
         root: "",
         seenAt: { max: "", min: "" },
+        seenFirstTimeBy: "",
       })
     );
     setSearchTextFilter("");
@@ -386,6 +394,12 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     ["false", formatBoolean(false)],
     ["true", formatBoolean(true)],
   ]);
+  const seenFirstTimeBySelectOptions = Object.fromEntries(
+    toeInputs.map((toeInputData: IToeInputData): string[] => [
+      toeInputData.markedSeenFirstTimeBy,
+      toeInputData.seenFirstTimeBy,
+    ])
+  );
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterGroupToeInputTable.root,
@@ -430,6 +444,18 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       tooltipId: "group.toe.inputs.filters.seenAt.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.seenAt.tooltip",
       type: "dateRange",
+    },
+    {
+      defaultValue: filterGroupToeInputTable.seenFirstTimeBy,
+      omit: !isInternal || !canGetSeenFirstTimeBy,
+      onChangeSelect: onBasicFilterValueChange("seenFirstTimeBy"),
+      placeholder: translate.t(
+        "group.toe.inputs.filters.seenFirstTimeBy.placeholder"
+      ),
+      selectOptions: seenFirstTimeBySelectOptions,
+      tooltipId: "group.toe.inputs.filters.seenFirstTimeBy.tooltip.id",
+      tooltipMessage: "group.toe.inputs.filters.seenFirstTimeBy.tooltip",
+      type: "select",
     },
     {
       defaultValue: filterGroupToeInputTable.bePresent,
