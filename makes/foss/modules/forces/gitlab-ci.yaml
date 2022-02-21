@@ -40,27 +40,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: true
-  needs: []
-  resource_group: $CI_JOB_NAME
-  rules:
-    - if: $CI_COMMIT_BRANCH != "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
-  script:
-    - m . /deployTerraform/forces
-  stage: deploy-infra
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /forces/process-groups:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: true
@@ -162,28 +141,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
-  script:
-    - m . /lintTerraform/forces
-  stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/forces:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: true
@@ -201,28 +158,6 @@
   script:
     - m . /pipelineOnGitlab/forces
   stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/testTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
-  script:
-    - m . /testTerraform/forces
-  stage: test-infra
   tags:
     - autoscaling
   variables:

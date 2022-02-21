@@ -31,12 +31,6 @@ let
     stage = "build";
     tags = [ "autoscaling" ];
   };
-  gitlabDeployInfra = {
-    resource_group = "$CI_JOB_NAME";
-    rules = gitlabOnlyMaster;
-    stage = "deploy-infra";
-    tags = [ "autoscaling" ];
-  };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
@@ -45,11 +39,6 @@ let
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = [ "autoscaling" ];
-  };
-  gitlabTestInfra = {
-    rules = gitlabOnlyDev;
-    stage = "test-infra";
     tags = [ "autoscaling" ];
   };
 in
@@ -65,10 +54,6 @@ in
         {
           output = "/deployContainerImage/forcesProd";
           gitlabExtra = gitlabDeployApp;
-        }
-        {
-          output = "/deployTerraform/forces";
-          gitlabExtra = gitlabDeployInfra;
         }
         {
           output = "/forces/process-groups";
@@ -103,16 +88,8 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/forces";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/pipelineOnGitlab/forces";
           gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/testTerraform/forces";
-          gitlabExtra = gitlabTestInfra;
         }
       ];
     };

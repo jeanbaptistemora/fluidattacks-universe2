@@ -6,7 +6,6 @@
 {
   imports = [
     ./dev/makes.nix
-    ./infra/makes.nix
     ./pipeline/makes.nix
   ];
   deployContainerImage = {
