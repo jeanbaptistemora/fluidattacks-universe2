@@ -552,6 +552,7 @@ async def put_action_to_batch(
     *,
     action_name: str,
     action_dynamo_pk: str,
+    entity: str,
     queue: str = "spot_soon",
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
@@ -567,7 +568,7 @@ async def put_action_to_batch(
         )
         async with aioboto3.Session().client(**resource_options) as batch:
             await batch.submit_job(
-                jobName=f"integrates-{action_name}",
+                jobName=f"integrates-{action_name}-{entity}",
                 jobQueue=queue,
                 jobDefinition="makes",
                 containerOverrides={
@@ -634,6 +635,7 @@ async def put_action(
             action_name=action_name,
             vcpus=vcpus,
             queue=queue,
+            entity=entity,
             attempt_duration_seconds=attempt_duration_seconds,
             action_dynamo_pk=action_id,
         )

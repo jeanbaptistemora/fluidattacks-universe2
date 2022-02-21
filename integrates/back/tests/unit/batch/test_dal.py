@@ -80,6 +80,7 @@ async def test_requeue_actions() -> None:
         await collect(
             [
                 batch_dal.put_action_to_batch(
+                    entity=action.entity,
                     action_name=action.action_name,
                     action_dynamo_pk=action.key,
                     queue=action.queue,
