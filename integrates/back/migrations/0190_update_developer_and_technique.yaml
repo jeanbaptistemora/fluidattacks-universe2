@@ -1,0 +1,705 @@
+analyze_bytecodes.apk_backups_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_debugging_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_exported_cp:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_unsigned:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.has_fragment_injection:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.has_frida:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.improper_certificate_validation:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_certs_pinning:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_obfuscation:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_root_check:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.not_verifies_ssl_hostname:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.socket_uses_get_insecure:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.uses_http_resources:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.uses_insecure_delete:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.webview_vulnerabilities:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_content.sub_resource_integrity:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_content.view_state:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.content_security_policy:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.date:
+  developer: acuberos@fluidattacks.com
+  technique: DAST
+analyze_headers.location:
+  developer: jecheverri@fluidattacks.com
+  technique: DAST
+analyze_headers.referrer_policy:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_httponly:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_samesite:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_secure:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.strict_transport_security:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.upgrade_insecure_requests:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.www_authenticate:
+  developer: jecheverri@fluidattacks.com
+  technique: DAST
+analyze_headers.x_content_type_options:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_protocol.breach_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.cbc_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.fallback_scsv_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.freak_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.heartbleed_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.pfs_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.raccoon_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.sslv3_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_1_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_2_or_higher_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_3_downgrade:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.weak_ciphers_allowed:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+android.apk_backups_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: BSAST
+android.apk_debugging_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: BSAST
+android.apk_exported_cp:
+  developer: bagudelo@fluidattacks.com
+  technique: BSAST
+android.has_dangerous_permissions:
+  developer: lsaavedra@fluidattacks.com
+  technique: BSAST
+aws.aws_credentials:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_aesmanaged_secure_mode:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_check_xml_serializer:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_file_create_temp_file:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_insecure_cipher:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_insecure_deserialization:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_insecure_hash:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_insecure_keys:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_insecure_logging:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_jwt_signed:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_rsa_secure_mode:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_sql_injection:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.c_sharp_verify_decoder:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_check_hashes_salt:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_conflicting_annotations:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_insecure_cors:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_insecurely_generated_cookies:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_ldap_connections_authenticated:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_no_password:
+  developer: asalgado@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_vuln_regular_expression:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+c_sharp.csharp_weak_credential_policy:
+  developer: asalgado@fluidattacks.com
+  technique: ASAST
+c_sharp.insec_addheader_write:
+  developer: asalgado@fluidattacks.com
+  technique: ASAST
+c_sharp.insec_create:
+  developer: asalgado@fluidattacks.com
+  technique: ASAST
+cloudformation.cfn_admin_policy_attached:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_allows_anyone_to_admin_ports:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_bucket_has_logging_conf_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_bucket_policy_allows_public_access:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_bucket_policy_has_secure_transport:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_cf_distribution_has_logging_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_not_an_iam_instance_profile:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_not_termination_protection:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_open_all_ports_to_the_public:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_security_groups_ip_ranges_in_rfc1918:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_unencrypted_volumes:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_unrestricted_dns_access:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_unrestricted_ftp_access:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_ec2_has_unrestricted_ports:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb2_has_access_logs_s3_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb2_has_not_deletion_protection:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb2_uses_insecure_port:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb2_uses_insecure_protocol:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb2_uses_insecure_security_policy:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_elb_has_access_logging_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_fsx_has_unencrypted_volumes:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_groups_without_egress:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_has_not_point_in_time_recovery:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_has_full_access_to_ssm:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_has_privileges_over_iam:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_has_wildcard_resource_on_write_action:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_is_policy_miss_configured:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_is_role_over_privileged:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_iam_user_missing_role_based_security:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_insecure_generate_secret_string:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_instances_without_profile:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_kms_key_has_master_keys_exposed_to_everyone:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_log_files_not_validated:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_negative_statement:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_open_passrole:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_permissive_policy:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_public_buckets:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_rds_has_not_automated_backups:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_rds_has_not_termination_protection:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_rds_has_unencrypted_storage:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_rds_is_not_inside_a_db_subnet_group:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_rds_is_publicly_accessible:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_serves_content_over_http:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_serves_content_over_insecure_protocols:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_trails_not_multiregion:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_unencrypted_buckets:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_unrestricted_cidrs:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_unrestricted_ip_protocols:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+cloudformation.cfn_unrestricted_ports:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+conf_files.jwt_token:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+conf_files.sensitive_key_in_json:
+  developer: asalgado@fluidattacks.com
+  technique: BSAST
+conf_files.web_config_db_connection:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+conf_files.web_config_user_pass:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+docker.docker_compose_env_secrets:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+docker.dockerfile_env_secrets:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+docker.unpinned_docker_image:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+generic.non_upgradeable_deps:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+generic.unverifiable_files:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+go.go_insecure_cipher:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+go.go_insecure_hash:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+java.java_file_create_temp_file:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_info_leak_stacktrace:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+java.java_insecure_cipher:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_insecure_hash:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_insecure_key:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_insecure_pass:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_jpa_like:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_properties_missing_ssl:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+java.java_properties_sensitive_data:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+java.java_properties_unencrypted_transport:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+java.java_properties_weak_cipher_suite:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+javascript.javascript_client_storage:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+javascript.javascript_crypto_js_credentials:
+  developer: jrestrepo@fluidattacks.com
+  technique: BSAST
+javascript.javascript_insecure_cipher:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+javascript.javascript_insecure_hash:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+javascript.javascript_insecure_key:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+javascript.javascript_weak_random:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+kotlin.kotlin_insecure_cipher:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+kotlin.kotlin_insecure_hash:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+kotlin.kotlin_insecure_key:
+  developer: drestrepo@fluidattacks.com
+  technique: BSAST
+kotlin.kotlin_unencrypted_channel:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+kubernetes.k8s_allow_privilege_escalation_enabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+kubernetes.k8s_sys_admin_linux_cap_used:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+maven.maven_gradle:
+  developer: acuberos@fluidattacks.com
+  technique: SCA
+maven.maven_pom_xml:
+  developer: acuberos@fluidattacks.com
+  technique: SCA
+maven.maven_sbt:
+  developer: acuberos@fluidattacks.com
+  technique: SCA
+npm.npm_package_json:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+npm.npm_package_lock_json:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+npm.npm_pkg_json:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+npm.npm_pkg_lock_json:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+npm.npm_yarn_lock:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+nuget.nuget_csproj:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+nuget.nuget_packages_config:
+  developer: jrestrepo@fluidattacks.com
+  technique: SCA
+query.query_f001:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f004:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f008:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f021:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f034:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f042:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f052:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f063:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f089:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f100:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f107:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f112:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f127:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+query.query_f320:
+  developer: drestrepo@fluidattacks.com
+  technique: ASAST
+terraform.ec2_has_not_termination_protection:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.ec2_has_terminate_shutdown_behavior:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.ec2_use_default_security_group:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.terraform_admin_policy_attached:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+terraform.terraform_negative_statement:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+terraform.terraform_open_passrole:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+terraform.terraform_permissive_policy:
+  developer: acuberos@fluidattacks.com
+  technique: BSAST
+terraform.tfm_api_gateway_access_logging_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_dynamodb_table_unencrypted:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_ebs_volumes_unencrypted:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_ec2_allows_all_outbound_traffic:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_ec2_unrestricted_cidrs:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_efs_unencrypted:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_s3_versioning_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_secret_encrypted_whitouth_kms_cmk:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_aws_serves_content_over_insecure_protocols:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_app_authentication_off:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_app_service_logging_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_as_client_certificates_enabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_key_vault_not_recoverable:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_kv_danger_bypass:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_kv_default_network_access:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_kv_only_accessible_over_https:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_kv_secret_no_expiration_date:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_linux_vm_insecure_authentication:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_sa_default_network_access:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_sa_insecure_transfer:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_serves_content_over_insecure_protocols:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_sql_server_audit_log_retention:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_storage_logging_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_unrestricted_access_network_segments:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_azure_virtual_machine_insecure_authentication:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_cluster_inside_subnet:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_cluster_publicly_accessible:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_has_not_automated_backups:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_has_unencrypted_storage:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_instance_publicly_accessible:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_no_deletion_protection:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_db_no_point_in_time_recovery:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ebs_unencrypted_by_default:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ebs_unencrypted_volumes:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ec2_associate_public_ip_address:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ec2_has_not_an_iam_instance_profile:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ec2_has_unrestricted_ports:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ec2_monitoring_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_ec2_unencrypted_volumes:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_elb_logging_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_fsx_unencrypted_volumes:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_lb_target_group_insecure_port:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_public_buckets:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
+terraform.tfm_rds_has_not_automated_backups:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_rds_has_unencrypted_storage:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_rds_instance_inside_subnet:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_rds_no_deletion_protection:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_s3_bucket_logging_disabled:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_serves_content_over_http:
+  developer: jecheverri@fluidattacks.com
+  technique: BSAST
+terraform.tfm_unencrypted_buckets:
+  developer: atrujillo@fluidattacks.com
+  technique: BSAST
