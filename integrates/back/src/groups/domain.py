@@ -63,14 +63,8 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from dynamodb import (
-    model as dynamomodel,
-)
 from dynamodb.operations_legacy import (
     start_context,
-)
-from dynamodb.types import (
-    GroupMetadata,
 )
 from events import (
     domain as events_domain,
@@ -616,13 +610,6 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                 "group_status": "ACTIVE",
             }
             success = await groups_dal.add(group)
-            await dynamomodel.create_group_metadata(
-                group_metadata=GroupMetadata(
-                    name=group_name,
-                    description=description,
-                    language=language,
-                ),
-            )
             if success:
                 await collect(
                     (

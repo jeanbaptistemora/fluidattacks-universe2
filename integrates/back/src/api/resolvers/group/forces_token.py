@@ -9,9 +9,6 @@ from decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from forces import (
-    domain as forces_domain,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -29,6 +26,4 @@ async def resolve(
     parent: Group,
     __: GraphQLResolveInfo,
 ) -> Optional[str]:
-    group_name: str = parent["name"]
-    token: Optional[str] = parent.get("agent_token")
-    return token if token else await forces_domain.get_token(group_name)
+    return parent.get("agent_token")

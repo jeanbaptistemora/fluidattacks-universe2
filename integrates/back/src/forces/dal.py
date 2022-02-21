@@ -17,10 +17,6 @@ from datetime import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
-from dynamodb.model import (
-    get_agent_token,
-    update_group_agent_token,
-)
 import json
 import logging
 import logging.config
@@ -37,7 +33,6 @@ import tempfile
 from typing import (
     Any,
     AsyncIterator,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -97,14 +92,6 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
             return reader.read()
 
 
-async def get_secret_token(group_name: str) -> Optional[str]:
-    try:
-        return await get_agent_token(group_name=group_name)
-    except ClientError as error:
-        LOGGER.exception(error, extra={"extra": locals()})
-        return None
-
-
 async def get_vulns_execution(group_name: str, execution_id: str) -> Any:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
@@ -130,18 +117,6 @@ async def save_vulns_execution(file_object: object, file_name: str) -> None:
         file_object,
         file_name,
     )
-
-
-async def update_secret_token(group_name: str, secret: str) -> bool:
-    try:
-        await update_group_agent_token(
-            group_name=group_name,
-            agent_token=secret,
-        )
-    except ClientError as error:
-        LOGGER.exception(error, extra={"extra": locals()})
-        return False
-    return True
 
 
 async def yield_executions(

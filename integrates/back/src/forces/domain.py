@@ -42,7 +42,6 @@ from typing import (
     AsyncIterable,
     cast,
     Dict,
-    Optional,
     Union,
 )
 
@@ -175,10 +174,6 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
     return await forces_dal.get_log_execution(group_name, execution_id)
 
 
-async def get_token(group_name: str) -> Optional[str]:
-    return await forces_dal.get_secret_token(group_name)
-
-
 async def get_vulns_execution(
     group_name: str, execution_id: str
 ) -> ExecutionVulnerabilities:
@@ -221,7 +216,4 @@ def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
 
 
 async def update_token(group_name: str, token: str) -> bool:
-    success = await groups_domain.update(group_name, {"agent_token": token})
-    if success:
-        return await forces_dal.update_secret_token(group_name, token)
-    return False
+    return await groups_domain.update(group_name, {"agent_token": token})
