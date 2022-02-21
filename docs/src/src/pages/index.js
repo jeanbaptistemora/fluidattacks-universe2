@@ -33,7 +33,7 @@ const features = [
         Guides and information about our Squad plan
       </>
     ),
-    link: 'squad'
+    link: 'squad/reattacks'
   },
   {
     title: 'Criteria',
