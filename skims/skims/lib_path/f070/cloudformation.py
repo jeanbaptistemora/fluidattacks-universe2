@@ -28,7 +28,7 @@ from utils.function import (
 
 def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
     file_ext: str,
-    listeners_iterator: Iterator[Union[AWSElbV2, Node]],
+    listeners_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for listener in listeners_iterator:
         acceptable = (

@@ -31,7 +31,7 @@ from utils.function import (
 
 
 def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
-    policies_iterator: Iterator[Union[AWSS3BucketPolicy, Node]],
+    policies_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
     for policy in policies_iterator:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
@@ -51,7 +51,7 @@ def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
 
 def _cfn_elb2_uses_insecure_port_iterate_vulnerabilities(
     file_ext: str,
-    t_groups_iterator: Iterator[Union[AWSElbV2, Node]],
+    t_groups_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for t_group in t_groups_iterator:
         safe_ports = (443,)

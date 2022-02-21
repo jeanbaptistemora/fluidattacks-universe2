@@ -28,7 +28,7 @@ from typing import (
 
 def _cfn_fsx_has_unencrypted_volumes_iter_vulns(
     file_ext: str,
-    fsx_iterator: Iterator[Union[AWSFSxFileSystem, Node]],
+    fsx_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSFSxFileSystem, Node]]:
     for fsx in fsx_iterator:
         kms_key_id = fsx.inner.get("KmsKeyId")
@@ -42,7 +42,7 @@ def _cfn_fsx_has_unencrypted_volumes_iter_vulns(
 
 def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
     file_ext: str,
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         if "Encrypted" not in ec2_res.raw:

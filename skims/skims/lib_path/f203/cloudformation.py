@@ -23,7 +23,7 @@ from typing import (
 
 
 def _cfn_public_buckets_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
+    buckets_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSS3Bucket, Node]]:
     for bucket in buckets_iterator:
         if bucket.raw.get("AccessControl", "Private") == "PublicReadWrite":

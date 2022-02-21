@@ -94,7 +94,7 @@ def _cfn_iter_vulnerable_admin_ports(
 
 
 def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         rfc1918 = {
@@ -112,7 +112,7 @@ def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
 
 
 def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         from_port = ec2_res.inner.get("FromPort")
@@ -195,7 +195,7 @@ def _range_port_iter_vulnerabilities(
 
 
 def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
@@ -214,7 +214,7 @@ def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
 
 
 def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
@@ -233,7 +233,7 @@ def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
 
 
 def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
         cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(

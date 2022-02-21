@@ -29,7 +29,7 @@ from utils.function import (
 
 def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
     file_ext: str,
-    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
+    rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for red_res in rds_iterator:
         storage_encrypted = red_res.raw.get("StorageEncrypted", False)

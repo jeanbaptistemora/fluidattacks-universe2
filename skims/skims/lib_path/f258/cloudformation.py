@@ -29,7 +29,7 @@ from utils.function import (
 
 def _cfn_elb2_has_not_deletion_protection_iterate_vulnerabilities(
     file_ext: str,
-    load_balancers_iterator: Iterator[Union[AWSElbV2, Node]],
+    load_balancers_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for elb in load_balancers_iterator:
         attrs = get_node_by_keys(elb, ["LoadBalancerAttributes"])

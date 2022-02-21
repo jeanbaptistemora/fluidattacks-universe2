@@ -26,7 +26,7 @@ from typing import (
 
 def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
     file_ext: str,
-    ec2_iterator: Iterator[Union[AWSEC2, Node]],
+    ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2 in ec2_iterator:
         ec2_res_data = ec2.inner.get("LaunchTemplateData") or ec2
