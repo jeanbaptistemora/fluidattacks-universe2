@@ -9,6 +9,7 @@ from dataloaders import (
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
+    RootToeLinesRequest,
     ToeLinesConnection,
 )
 from decorators import (
@@ -27,7 +28,20 @@ async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: None
 ) -> ToeLinesConnection:
     loaders: Dataloaders = info.context.loaders
-    response: ToeLinesConnection = await loaders.group_toe_lines.load(
+    if kwargs.get("root_id") is not None:
+        response: ToeLinesConnection = await loaders.root_toe_lines.load(
+            RootToeLinesRequest(
+                group_name=parent["name"],
+                root_id=kwargs["root_id"],
+                after=kwargs.get("after"),
+                be_present=kwargs.get("be_present"),
+                first=kwargs.get("first"),
+                paginate=True,
+            )
+        )
+        return response
+
+    response = await loaders.group_toe_lines.load(
         GroupToeLinesRequest(
             group_name=parent["name"],
             after=kwargs.get("after"),
@@ -36,5 +50,4 @@ async def resolve(
             paginate=True,
         )
     )
-
     return response

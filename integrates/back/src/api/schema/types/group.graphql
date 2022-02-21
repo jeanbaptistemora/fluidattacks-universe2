@@ -112,6 +112,8 @@ type Group {
     bePresent: Boolean
     "Amount of element to return"
     first: Int
+    "Id of the root the lines is associated with"
+    rootId: ID
   ): ToeLinesConnection!
   "Amount of Findings in the group"
   totalFindings: Int @deprecated(reason: """This field will be removed after
