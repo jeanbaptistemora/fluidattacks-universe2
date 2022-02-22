@@ -44,10 +44,5 @@
         outputs."${inputs.observesIndex.etl.dynamo.env.dev}"
       ];
     };
-    observesCommonUtilsLogger = {
-      source = [
-        outputs."${inputs.observesIndex.common.utils_logger.env.dev}"
-      ];
-    };
   };
 }
