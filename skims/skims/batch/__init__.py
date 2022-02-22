@@ -194,8 +194,7 @@ def main() -> None:
     delete_action(action_dynamo_pk=action_dynamo_pk)
 
     group_name = item.entity
-    if not _clone_with_melts(group_name):
-        return
+    _clone_with_melts(group_name)
 
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]

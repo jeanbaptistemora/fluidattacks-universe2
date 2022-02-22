@@ -9,6 +9,7 @@ from batch.dal import (
     list_jobs,
     list_jobs_by_status,
     list_log_streams,
+    put_action,
 )
 from batch.types import (
     VulnerabilitiesSummary,
@@ -27,6 +28,9 @@ from contextlib import (
 import datetime
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
+)
+from db_model.enums import (
+    GitCloningStatus,
 )
 from db_model.roots.get import (
     get_machine_executions,
@@ -62,6 +66,7 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
+    Union,
 )
 
 
@@ -190,9 +195,11 @@ async def list_(  # pylint: disable=too-many-locals
     jobs_from_db: Tuple[RootMachineExecutionItem, ...] = tuple(
         execution
         for execution in collapse(
-            await collect(
-                get_machine_executions(root_id=root_id)
-                for root_id in group_roots.keys()
+            (
+                await collect(
+                    get_machine_executions(root_id=root_id)
+                    for root_id in group_roots.keys()
+                )
             ),
             base_type=RootMachineExecutionItem,
         )
@@ -318,6 +325,51 @@ async def _list_jobs_by_name(
             ]
         )
     return jobs
+
+
+async def queue_job_new(
+    group_name: str,
+    finding_codes: Union[Tuple[str, ...], List[str]],
+    queue: SkimsBatchQueue = SkimsBatchQueue.HIGH,
+    roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
+    dataloaders: Any = None,
+    **kwargs: Any,
+) -> bool:
+    if not roots:
+        if not dataloaders:
+            raise Exception(
+                (
+                    "If you don't provide the roots parameter, you must"
+                    " provide the dataloaders parameter to load the roots"
+                )
+            )
+        roots = list(
+            root.state.nickname
+            for root in await dataloaders.group_roots.load(group_name)
+            if isinstance(root, GitRootItem)
+            and root.state.status == "ACTIVE"
+            and root.cloning.status == GitCloningStatus.OK
+        )
+
+    if not roots:
+        return False
+
+    return await put_action(
+        action_name="execute-machine",
+        vcpus=4,
+        product_name="skims",
+        queue=queue.value,
+        entity=group_name,
+        additional_info=json.dumps(
+            {
+                "roots": list(roots),
+                "checks": list(finding_codes),
+            }
+        ),
+        attempt_duration_seconds=86400,
+        subject="integrates@fluidattacks.com",
+        **kwargs,
+    )
 
 
 async def queue_boto3(

@@ -80,7 +80,7 @@ from machine.availability import (
 )
 from machine.jobs import (
     get_finding_code_from_title,
-    queue_boto3,
+    queue_job_new,
 )
 from mailer import (
     findings as findings_mail,
@@ -637,10 +637,12 @@ async def request_vulnerabilities_verification(
                 await clone_roots_in_batch(finding.group_name, *root_nicknames)
             )["jobId"]
             if finding_code := get_finding_code_from_title(finding.title):
-                await queue_boto3(
-                    group=finding.group_name,
-                    namespaces=tuple(root_nicknames),
-                    finding_code=finding_code,
+                await queue_job_new(
+                    group_name=finding.group_name,
+                    roots=list(root_nicknames),
+                    finding_codes=[
+                        finding_code,
+                    ],
                     dependsOn=[
                         {"jobId": clone_job_id, "type": "SEQUENTIAL"},
                     ],

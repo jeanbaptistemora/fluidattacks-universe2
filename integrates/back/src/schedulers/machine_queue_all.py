@@ -25,7 +25,7 @@ from machine.availability import (
 )
 from machine.jobs import (
     FINDINGS,
-    list_jobs_filter,
+    list_jobs,
     queue_all_checks_new,
     SkimsBatchQueue,
 )
@@ -103,7 +103,7 @@ async def get_job_groups_from_bach(*groups: str) -> List[Dict[str, Any]]:
     jobs = []
     next_token: Optional[str] = None
     while True:
-        result = await list_jobs_filter(
+        result = await list_jobs(
             "skims_all_later",
             filters=[
                 {

@@ -556,6 +556,8 @@ async def put_action_to_batch(
     queue: str = "spot_soon",
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
+    product_name: str = "integrates",
+    **kwargs: Any,
 ) -> bool:
     if FI_ENVIRONMENT == "development":
         return True
@@ -568,7 +570,7 @@ async def put_action_to_batch(
         )
         async with aioboto3.Session().client(**resource_options) as batch:
             await batch.submit_job(
-                jobName=f"integrates-{action_name}-{entity}",
+                jobName=f"{product_name}-{action_name}-{entity}",
                 jobQueue=queue,
                 jobDefinition="makes",
                 containerOverrides={
@@ -576,7 +578,7 @@ async def put_action_to_batch(
                     "command": [
                         "m",
                         "f",
-                        "/integrates/batch",
+                        f"/{product_name}/batch",
                         "prod",
                         action_dynamo_pk,
                     ],
@@ -594,6 +596,7 @@ async def put_action_to_batch(
                     "attempts": 1,
                 },
                 timeout={"attemptDurationSeconds": attempt_duration_seconds},
+                **kwargs,
             )
     except ClientError as exc:
         LOGGER.exception(
@@ -619,6 +622,8 @@ async def put_action(
     queue: str = "spot_soon",
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
+    product_name: str = "integrates",
+    **kwargs: Any,
 ) -> bool:
     time: str = str(get_as_epoch(get_now()))
     action = dict(
@@ -638,5 +643,7 @@ async def put_action(
             entity=entity,
             attempt_duration_seconds=attempt_duration_seconds,
             action_dynamo_pk=action_id,
+            product_name=product_name,
+            **kwargs,
         )
     return False

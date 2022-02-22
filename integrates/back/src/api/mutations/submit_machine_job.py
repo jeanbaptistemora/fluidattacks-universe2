@@ -27,7 +27,7 @@ from graphql.type.definition import (
 )
 from machine.jobs import (
     get_finding_code_from_title,
-    queue_boto3,
+    queue_job_new,
 )
 from typing import (
     List,
@@ -72,14 +72,10 @@ async def mutate(
     message = ""
     with suppress(ClientError):
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
-        result = await queue_boto3(
-            finding_code=finding_code,
-            group=group_name,
-            namespaces=tuple(roots_to_execute),
+        success = await queue_job_new(
+            finding_codes=[finding_code],
+            group_name=group_name,
+            roots=list(roots_to_execute),
         )
-        success = bool(result)
-        if error_message := result.get("error"):
-            message = error_message
-            success = False
 
     return SimplePayloadMessage(success=success, message=message)

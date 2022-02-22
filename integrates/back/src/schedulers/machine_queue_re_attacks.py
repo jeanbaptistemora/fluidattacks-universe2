@@ -18,10 +18,10 @@ from groups.domain import (
 )
 from machine.jobs import (
     get_finding_code_from_title,
+    queue_job_new,
 )
 from schedulers.common import (
     info,
-    machine_queue,
 )
 from typing import (
     Tuple,
@@ -59,10 +59,10 @@ async def main() -> None:
 
             finding_code = get_finding_code_from_title(finding_title)
             if vulns_to_reattack and finding_code is not None:
-                await machine_queue(
-                    finding_code=finding_code,
+                await queue_job_new(
+                    finding_codes=[finding_code],
                     group_name=group,
-                    namespaces=tuple(
+                    roots=list(
                         await get_root_nicknames_for_skims(
                             dataloaders=dataloaders,
                             group=group,
