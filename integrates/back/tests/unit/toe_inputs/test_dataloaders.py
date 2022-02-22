@@ -32,6 +32,29 @@ async def test_get_by_group() -> None:
             ToeInputEdge(
                 node=ToeInput(
                     attacked_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    be_present=True,
+                    be_present_until=None,
+                    component="https://test.com/test2/test.aspx",
+                    entry_point="-",
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    group_name="unittesting",
+                    has_vulnerabilities=False,
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-11T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test2@test.com",
+                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                ),
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThlMTkjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdDIvdGVzdC5hc3B4I0VOVFJZUE9JTlQjLSJ9",
+            ),
+            ToeInputEdge(
+                node=ToeInput(
+                    attacked_at=datetime.fromisoformat(
                         "2020-01-02T05:00:00+00:00"
                     ),
                     attacked_by="test@test.com",
@@ -50,7 +73,7 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="",
                     unreliable_root_id="",
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vYXBpL1Rlc3QjRU5UUllQT0lOVCNpZFRlc3QifQ==",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS9hcGkvVGVzdCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
             ),
             ToeInputEdge(
                 node=ToeInput(
@@ -75,30 +98,7 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test@test.com",
                     unreliable_root_id="",
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdC90ZXN0LmFzcHgjRU5UUllQT0lOVCNidG5UZXN0In0=",
-            ),
-            ToeInputEdge(
-                node=ToeInput(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    be_present=True,
-                    be_present_until=None,
-                    component="https://test.com/test2/test.aspx",
-                    entry_point="-",
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
-                    group_name="unittesting",
-                    has_vulnerabilities=False,
-                    seen_at=datetime.fromisoformat(
-                        "2020-01-11T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="test2@test.com",
-                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdDIvdGVzdC5hc3B4I0VOVFJZUE9JTlQjLSJ9",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS90ZXN0L3Rlc3QuYXNweCNFTlRSWVBPSU5UI2J0blRlc3QifQ==",
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),

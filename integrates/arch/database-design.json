@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 22, 2022, 11:39 AM",
+    "DateLastModified": "Feb 22, 2022, 06:04 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2151,38 +2151,67 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "INPUTS#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
               "seen_first_time_by": {
-                "S": ""
-              },
-              "component": {
-                "S": "https://test.com/api/Test"
-              },
-              "entry_point": {
-                "S": "idTest"
+                "S": "test2@test.com"
               },
               "group_name": {
                 "S": "unittesting"
               },
-              "unreliable_root_id": {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "attacked_at": {
+                "S": "2021-02-11T05:00:00+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "be_present_until": {
                 "S": ""
               },
+              "component": {
+                "S": "https://test.com/test2/test.aspx"
+              },
+              "unreliable_root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "INPUTS#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
               "first_attack_at": {
-                "S": "2020-01-02T05:00:00+00:00"
+                "S": "2021-02-11T05:00:00+00:00"
+              },
+              "entry_point": {
+                "S": "-"
+              },
+              "sk_2": {
+                "S": "INPUTS#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
+              },
+              "seen_at": {
+                "S": "2020-01-11T05:00:00+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": ""
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
               },
               "attacked_at": {
                 "S": "2020-01-02T05:00:00+00:00"
-              },
-              "seen_at": {
-                "S": "2000-01-01T05:00:00+00:00"
               },
               "be_present": {
                 "BOOL": true
@@ -2193,46 +2222,46 @@
               "be_present_until": {
                 "S": ""
               },
-              "pk_2": {
-                "S": "GROUP#unittesting"
-              },
-              "sk_2": {
-                "S": "INPUTS#PRESENT#true#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
-              }
-            },
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "INPUTS#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "seen_first_time_by": {
-                "S": "test@test.com"
-              },
               "component": {
-                "S": "https://test.com/test/test.aspx"
-              },
-              "entry_point": {
-                "S": "btnTest"
-              },
-              "group_name": {
-                "S": "unittesting"
+                "S": "https://test.com/api/Test"
               },
               "unreliable_root_id": {
                 "S": ""
               },
+              "sk": {
+                "S": "INPUTS#ROOT#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
               "first_attack_at": {
-                "S": "2021-01-02T05:00:00+00:00"
+                "S": "2020-01-02T05:00:00+00:00"
+              },
+              "entry_point": {
+                "S": "idTest"
+              },
+              "sk_2": {
+                "S": "INPUTS#PRESENT#true#ROOT#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
+              },
+              "seen_at": {
+                "S": "2000-01-01T05:00:00+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test@test.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
               },
               "attacked_at": {
                 "S": "2021-02-02T05:00:00+00:00"
-              },
-              "seen_at": {
-                "S": "2020-03-14T05:00:00+00:00"
               },
               "be_present": {
                 "BOOL": false
@@ -2243,61 +2272,32 @@
               "be_present_until": {
                 "S": "2021-03-20T15:41:04+00:00"
               },
+              "component": {
+                "S": "https://test.com/test/test.aspx"
+              },
+              "unreliable_root_id": {
+                "S": ""
+              },
+              "sk": {
+                "S": "INPUTS#ROOT#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
+              },
               "pk_2": {
                 "S": "GROUP#unittesting"
               },
-              "sk_2": {
-                "S": "INPUTS#PRESENT#false#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
-              }
-            },
-            {
               "pk": {
                 "S": "GROUP#unittesting"
               },
-              "sk": {
-                "S": "INPUTS#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "seen_first_time_by": {
-                "S": "test2@test.com"
-              },
-              "component": {
-                "S": "https://test.com/test2/test.aspx"
+              "first_attack_at": {
+                "S": "2021-01-02T05:00:00+00:00"
               },
               "entry_point": {
-                "S": "-"
-              },
-              "group_name": {
-                "S": "unittesting"
-              },
-              "unreliable_root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
-              },
-              "first_attack_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
-              "attacked_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
-              "seen_at": {
-                "S": "2020-01-11T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
-              "attacked_by": {
-                "S": "test2@test.com"
-              },
-              "be_present_until": {
-                "S": ""
-              },
-              "pk_2": {
-                "S": "GROUP#unittesting"
+                "S": "btnTest"
               },
               "sk_2": {
-                "S": "INPUTS#PRESENT#true#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
+                "S": "INPUTS#PRESENT#false#ROOT#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
+              },
+              "seen_at": {
+                "S": "2020-03-14T05:00:00+00:00"
               }
             }
           ],
