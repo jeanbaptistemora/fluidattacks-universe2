@@ -48,6 +48,33 @@ const GET_GROUP_LEVEL_PERMISSIONS: DocumentNode = gql`
   }
 `;
 
+const GET_ROOT_IDS: DocumentNode = gql`
+  query GetRootIds($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      roots {
+        ... on GitRoot {
+          __typename
+          id
+          nickname
+          state
+        }
+        ... on IPRoot {
+          __typename
+          id
+          nickname
+          state
+        }
+        ... on URLRoot {
+          __typename
+          id
+          nickname
+          state
+        }
+      }
+    }
+  }
+`;
 const GET_USER: DocumentNode = gql`
   query GetUser {
     me(callerOrigin: "FRONT") {
@@ -111,6 +138,7 @@ export {
   GET_USER,
   GET_ORG_LEVEL_PERMISSIONS,
   GET_GROUP_LEVEL_PERMISSIONS,
+  GET_ROOT_IDS,
   GET_USER_ORGANIZATIONS_GROUPS,
   GET_VULNS_GROUPS,
 };

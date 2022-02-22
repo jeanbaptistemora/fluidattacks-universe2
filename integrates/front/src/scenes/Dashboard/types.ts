@@ -56,12 +56,24 @@ interface IAssignedVulnerabilitiesContext
   1: React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>;
 }
 
+interface IRootIdAttr {
+  id: string;
+  nickname: string;
+  state: "ACTIVE" | "INACTIVE";
+}
+
+interface IGroupRootIdsAttr {
+  group: { name: string; roots: IRootIdAttr[] };
+}
+
 export {
   IAddStakeholderAttr,
   IAssignedVulnerabilitiesContext,
   IGetMeVulnerabilitiesAssigned,
   IGetUserOrganizationsGroups,
   IGetVulnsGroups,
+  IGroupRootIdsAttr,
+  IRootIdAttr,
   IOrganizationGroups,
   IUser,
 };
