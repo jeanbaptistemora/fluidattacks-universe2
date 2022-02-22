@@ -24,7 +24,9 @@ async def generate_one(group: str) -> int:
 
 
 async def get_undefined_count_many_groups(groups: Tuple[str, ...]) -> int:
-    groups_undefined_vulns = await collect(map(generate_one, list(groups)))
+    groups_undefined_vulns = await collect(
+        map(generate_one, groups), workers=32
+    )
 
     return sum(groups_undefined_vulns)
 

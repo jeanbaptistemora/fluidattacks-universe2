@@ -30,7 +30,7 @@ async def generate_one(group: str, loaders: Any) -> int:
 
 async def get_many_groups(groups: Tuple[str, ...], loaders: Any) -> int:
     groups_data = await collect(
-        [generate_one(group, loaders) for group in list(groups)]
+        tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 
     return sum(groups_data)

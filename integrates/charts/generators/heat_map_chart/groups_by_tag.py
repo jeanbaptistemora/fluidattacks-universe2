@@ -67,7 +67,7 @@ async def get_data_one_group(group: str) -> GroupsTags:
 
 
 async def get_data_many_groups(groups: List[str]) -> GroupsTags:
-    groups_data = await collect(map(get_data_one_group, groups))
+    groups_data = await collect(map(get_data_one_group, groups), workers=32)
     all_tags = [group_data.tags for group_data in groups_data]
 
     return GroupsTags(

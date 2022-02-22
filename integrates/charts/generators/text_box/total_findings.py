@@ -31,7 +31,7 @@ async def generate_one(group: str) -> int:
 
 
 async def get_findings_count_many_groups(groups: Tuple[str, ...]) -> int:
-    groups_findings = await collect(map(generate_one, list(groups)))
+    groups_findings = await collect(map(generate_one, groups), workers=32)
 
     return sum(groups_findings)
 

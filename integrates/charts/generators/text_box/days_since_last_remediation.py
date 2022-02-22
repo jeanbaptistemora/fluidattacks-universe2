@@ -15,7 +15,7 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    Iterable,
+    Tuple,
 )
 
 
@@ -28,8 +28,8 @@ async def generate_one(group: str) -> Decimal:
     return group_data["last_closing_vuln"]
 
 
-async def get_many_groups(groups: Iterable[str]) -> Decimal:
-    groups_data = await collect(map(generate_one, list(groups)))
+async def get_many_groups(groups: Tuple[str, ...]) -> Decimal:
+    groups_data = await collect(map(generate_one, groups), workers=32)
 
     return min(groups_data) if groups_data else Decimal("Infinity")
 
@@ -63,7 +63,7 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
-                    last_closing_date=await get_many_groups(groups),
+                    last_closing_date=await get_many_groups(tuple(groups)),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
