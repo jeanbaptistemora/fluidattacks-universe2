@@ -72,7 +72,7 @@ class GroupUnreliableIndicators(NamedTuple):
     remediated_over_time_month_cvssf: Optional[RegisterByTime] = None
     remediated_over_time_year: Optional[RegisterByTime] = None
     remediated_over_time_year_cvssf: Optional[RegisterByTime] = None
-    total_treatment: Optional[GroupTreatmentSummary] = None
+    treatment_summary: Optional[GroupTreatmentSummary] = None
 
 
 class GroupFile(NamedTuple):

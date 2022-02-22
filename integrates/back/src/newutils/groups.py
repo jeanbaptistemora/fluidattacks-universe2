@@ -16,6 +16,11 @@ from db_model.groups.types import (
     GroupStateRemovalJustification,
     GroupStateUpdationJustification,
     GroupStatusJustification,
+    GroupTreatmentSummary,
+    GroupUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
 )
 from dynamodb.types import (
     Item,
@@ -135,4 +140,68 @@ def format_group(item: Item, organization_name: str) -> Group:
         disambiguation=item.get("disambiguation"),
         files=format_group_files(item["files"]) if item.get("files") else None,
         tags=set(item["tag"]) if item.get("tag") else None,
+    )
+
+
+def format_group_treatment_summary(
+    treatment_data: Dict[str, Decimal]
+) -> GroupTreatmentSummary:
+    return GroupTreatmentSummary(
+        accepted=int(treatment_data["accepted"]),
+        accepted_undefined=int(treatment_data["acceptedUndefined"]),
+        in_progress=int(treatment_data["inProgress"]),
+        new=int(treatment_data["undefined"]),
+    )
+
+
+def format_group_unreliable_indicators(
+    item: Item,
+) -> GroupUnreliableIndicators:
+    return GroupUnreliableIndicators(
+        closed_vulnerabilities=item.get("closed_vulnerabilities"),
+        exposed_over_time_cvssf=item.get("exposed_over_time_cvssf"),
+        exposed_over_time_month_cvssf=item.get(
+            "exposed_over_time_month_cvssf"
+        ),
+        exposed_over_time_year_cvssf=item.get("exposed_over_time_year_cvssf"),
+        last_closed_vulnerability_days=item.get("last_closing_date"),
+        last_closed_vulnerability_finding=item.get(
+            "last_closing_vuln_finding"
+        ),
+        max_open_severity=item.get("max_open_severity"),
+        max_open_severity_finding=item.get("max_open_severity_finding"),
+        mean_remediate=item.get("mean_remediate"),
+        mean_remediate_critical_severity=item.get(
+            "mean_remediate_critical_severity"
+        ),
+        mean_remediate_high_severity=item.get("mean_remediate_high_severity"),
+        mean_remediate_low_severity=item.get("mean_remediate_low_severity"),
+        mean_remediate_medium_severity=item.get(
+            "mean_remediate_medium_severity"
+        ),
+        open_findings=item.get("open_findings"),
+        open_vulnerabilities=item.get("open_vulnerabilities"),
+        remediated_over_time=item.get("remediated_over_time"),
+        remediated_over_time_30=item.get("remediated_over_time_30"),
+        remediated_over_time_90=item.get("remediated_over_time_90"),
+        remediated_over_time_cvssf=item.get("remediated_over_time_cvssf"),
+        remediated_over_time_cvssf_30=item.get(
+            "remediated_over_time_cvssf_30"
+        ),
+        remediated_over_time_cvssf_90=item.get(
+            "remediated_over_time_cvssf_90"
+        ),
+        remediated_over_time_month=item.get("remediated_over_time_month"),
+        remediated_over_time_month_cvssf=item.get(
+            "remediated_over_time_month_cvssf"
+        ),
+        remediated_over_time_year=item.get("remediated_over_time_year"),
+        remediated_over_time_year_cvssf=item.get(
+            "remediated_over_time_year_cvssf"
+        ),
+        treatment_summary=format_group_treatment_summary(
+            item["total_treatment"]
+        )
+        if item.get("total_treatment")
+        else None,
     )
