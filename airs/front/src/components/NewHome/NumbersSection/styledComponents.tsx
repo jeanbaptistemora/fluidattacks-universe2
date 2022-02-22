@@ -80,7 +80,8 @@ const ProgressContainer = styled.div.attrs({
   className: `
     tc
     mb5
-    w-100
+    w-60
+    center
     relative
     br3
     bg-black-gray
