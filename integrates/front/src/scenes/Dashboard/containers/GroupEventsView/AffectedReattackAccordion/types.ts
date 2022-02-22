@@ -15,8 +15,10 @@ interface IFinding {
 }
 
 interface IFindingsQuery {
-  name: string;
-  findings: IFinding[];
+  group: {
+    name: string;
+    findings: IFinding[];
+  };
 }
 
 interface IAffectedReattackModal {
