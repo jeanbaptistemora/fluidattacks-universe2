@@ -110,13 +110,16 @@ def to_date(date_time: Any) -> Any:
 
 
 def stru_type(stru: STRU) -> str:
+    # pylint: disable=too-many-return-statements
     """Return the python type of a Structura."""
     if to_date(stru):
         return "datetime"
     if isinstance(stru, bool):
         return bool.__name__
     if isinstance(stru, int):
-        return int.__name__
+        if stru in range(-2147483648, 2147483648):
+            return int.__name__
+        return str.__name__
     if isinstance(stru, float):
         return float.__name__
     if isinstance(stru, str):
