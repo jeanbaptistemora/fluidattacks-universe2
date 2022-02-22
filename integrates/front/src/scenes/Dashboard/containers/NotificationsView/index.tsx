@@ -1,27 +1,30 @@
 /* eslint-disable no-underscore-dangle */
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 
-import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { GET_SUBSCRIPTIONS } from "scenes/Dashboard/containers/NotificationsView/queries";
+import {
+  GET_SUBSCRIPTIONS,
+  SUBSCRIBE_TO_ENTITY_REPORT,
+  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+} from "scenes/Dashboard/containers/NotificationsView/queries";
 import type {
   ISubscriptionName,
   ISubscriptionNameDataSet,
+  ISubscriptionToEntityReport,
   ISubscriptionsNames,
+  ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/containers/NotificationsView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const NotificationsView: React.FC = (): JSX.Element => {
-  const [fieldValue] = useState();
-
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
@@ -47,16 +50,75 @@ const NotificationsView: React.FC = (): JSX.Element => {
     },
   });
 
+  const { data: dataSubscriptions } = useQuery<ISubscriptionsToEntityReport>(
+    SUBSCRIPTIONS_TO_ENTITY_REPORT,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("configuration.errorText"));
+          Logger.warning(
+            "An error occurred loading the subscriptions info",
+            error
+          );
+        });
+      },
+    }
+  );
+
+  const [subscribe] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
+    onError: (updateError: ApolloError): void => {
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        msgError(translate.t("configuration.errorText"));
+        Logger.warning(
+          "An error occurred changing the subscriptions info",
+          message
+        );
+      });
+    },
+  });
+
+  const handleSubmit = useCallback(
+    (entityName: string, isSubscribe: boolean): void => {
+      void subscribe({
+        variables: {
+          frequency: isSubscribe ? "DAILY" : "NEVER",
+          reportEntity: entityName,
+          reportSubject: "ALL_GROUPS",
+        },
+      });
+    },
+    [subscribe]
+  );
+
+  const subscriptionsToEntity: ISubscriptionToEntityReport[] =
+    _.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)
+      ? []
+      : dataSubscriptions.me.subscriptionsToEntityReport;
+
   const subscriptions: ISubscriptionName[] =
     _.isUndefined(dataEnum) || _.isEmpty(dataEnum)
       ? []
       : dataEnum.__type.enumValues.map(
-          (name: ISubscriptionName): ISubscriptionNameDataSet => {
+          (subscription: ISubscriptionName): ISubscriptionNameDataSet => {
+            const isSubscribe =
+              _.size(
+                _.filter(subscriptionsToEntity, {
+                  entity: subscription.name,
+                })
+              ) > 0;
+            function onChange(): void {
+              handleSubmit(subscription.name, !isSubscribe);
+            }
+
             return {
-              ...name,
+              ...subscription,
               subscribeEmail: (
                 <Col100>
-                  <input checked={fieldValue} type={"checkbox"} />
+                  <input
+                    checked={isSubscribe}
+                    onChange={onChange}
+                    type={"checkbox"}
+                  />
                 </Col100>
               ),
             };
@@ -77,16 +139,6 @@ const NotificationsView: React.FC = (): JSX.Element => {
               pageSize={10}
               search={false}
             />
-          </Col100>
-        </Row>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button disabled={false} id={"config-confirm"} type={"submit"}>
-                {translate.t("configuration.confirm")}
-              </Button>
-            </ButtonToolbar>
           </Col100>
         </Row>
       </div>

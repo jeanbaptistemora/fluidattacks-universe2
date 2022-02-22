@@ -7,7 +7,7 @@ interface ISubscriptionNameDataSet {
 }
 
 interface ISubscriptionToEntityReport {
-  entity: EntityType;
+  entity: ISubscriptionName;
   frequency: FrequencyType;
   subject: string;
 }
