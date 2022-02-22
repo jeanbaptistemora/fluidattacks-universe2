@@ -31,12 +31,12 @@ class GroupState(NamedTuple):
     has_squad: bool
     modified_by: str
     modified_date: str
-    service: GroupService
     status: GroupStateStatus
     tier: GroupTier
     type: GroupSubscriptionType
     comments: Optional[str] = None
     justification: Optional[GroupStatusJustification] = None
+    service: Optional[GroupService] = None
 
 
 class GroupTreatmentSummary(NamedTuple):

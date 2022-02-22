@@ -98,7 +98,9 @@ def format_state_justification(
     return None
 
 
-def format_group_state(state: Dict[str, Any], state_status: str) -> GroupState:
+def format_group_state(
+    state: Dict[str, Any], state_status: GroupStateStatus
+) -> GroupState:
     has_machine: bool = get_key_or_fallback(
         state, "has_machine", "has_skims", False
     )
@@ -110,19 +112,27 @@ def format_group_state(state: Dict[str, Any], state_status: str) -> GroupState:
         has_squad=has_squad,
         modified_by=state.get("requester") or state.get("user"),
         modified_date=convert_to_iso_str(state["date"]),
-        service=GroupService[str(state["service"]).upper()],
-        status=GroupStateStatus.ACTIVE
-        if state_status.upper() == GroupStateStatus.ACTIVE.value
-        else GroupStateStatus.DELETED,
+        status=state_status,
         tier=GroupTier[str(state["tier"]).upper()],
         type=GroupSubscriptionType[str(state["type"]).upper()],
         comments=state.get("comments"),
         justification=format_state_justification(state.get("reason")),
+        service=GroupService[str(state["service"]).upper()]
+        if state.get("service")
+        else None,
     )
 
 
 def format_group(item: Item, organization_name: str) -> Group:
-    if "historic_deletion" in item:
+    state_status = (
+        GroupStateStatus.ACTIVE
+        if str(item["project_status"]).upper() == GroupStateStatus.ACTIVE.value
+        else GroupStateStatus.DELETED
+    )
+    if (
+        state_status == GroupStateStatus.DELETED
+        and "historic_deletion" in item
+    ):
         current_configuration: Dict[str, Any] = item["historic_deletion"][-1]
     else:
         current_configuration = item["historic_configuration"][-1]
@@ -133,7 +143,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         organization_name=organization_name,
         state=format_group_state(
             state=current_configuration,
-            state_status=item["project_status"],
+            state_status=state_status,
         ),
         agent_token=item.get("agent_token"),
         context=item.get("group_context"),
