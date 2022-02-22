@@ -41,6 +41,7 @@ describe("handle toe input edition modal", (): void => {
             entryPoint: "-",
             groupName: "groupname",
             hasRecentAttack: true,
+            rootId: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
           },
         },
         result: { data: { updateToeInput: { success: true } } },
@@ -58,6 +59,10 @@ describe("handle toe input edition modal", (): void => {
         hasVulnerabilities: true,
         markedRootNickname: "nickname",
         markedSeenFirstTimeBy: "test1@test.com",
+        root: {
+          id: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+          nickname: "nickname",
+        },
         seenAt: new Date("2020-02-01T15:41:04+00:00"),
         seenFirstTimeBy: "test1@test.com",
         unreliableRootNickname: "nickname",

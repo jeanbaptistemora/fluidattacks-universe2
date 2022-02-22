@@ -29,6 +29,23 @@ const GET_TOE_INPUTS: DocumentNode = gql`
             seenAt
             seenFirstTimeBy @include(if: $canGetSeenFirstTimeBy)
             unreliableRootNickname
+            root {
+              ... on GitRoot {
+                __typename
+                id
+                nickname
+              }
+              ... on IPRoot {
+                __typename
+                id
+                nickname
+              }
+              ... on URLRoot {
+                __typename
+                id
+                nickname
+              }
+            }
           }
         }
         pageInfo {

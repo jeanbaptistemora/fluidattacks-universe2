@@ -88,6 +88,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
               entryPoint: toeInputData.entryPoint,
               groupName,
               hasRecentAttack: values.hasRecentAttack,
+              rootId: _.isNil(toeInputData.root) ? "" : toeInputData.root.id,
             },
           })
       )

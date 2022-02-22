@@ -37,9 +37,15 @@ interface IToeInputAttr {
   entryPoint: string;
   firstAttackAt: string | null;
   hasVulnerabilities: boolean;
+  root: IGitRootAttr | null;
   seenAt: string | null;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;
+}
+
+interface IGitRootAttr {
+  id: string;
+  nickname: string;
 }
 
 interface IToeInputData {
@@ -53,6 +59,7 @@ interface IToeInputData {
   hasVulnerabilities: boolean;
   markedRootNickname: string;
   markedSeenFirstTimeBy: string;
+  root: IGitRootAttr | null;
   seenAt: Date | undefined;
   seenFirstTimeBy: string;
   unreliableRootNickname: string;

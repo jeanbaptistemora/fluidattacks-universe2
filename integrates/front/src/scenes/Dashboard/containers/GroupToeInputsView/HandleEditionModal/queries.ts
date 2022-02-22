@@ -8,6 +8,7 @@ const UPDATE_TOE_INPUT: DocumentNode = gql`
     $entryPoint: String!
     $groupName: String!
     $hasRecentAttack: Boolean
+    $rootId: String!
   ) {
     updateToeInput(
       bePresent: $bePresent
@@ -15,6 +16,7 @@ const UPDATE_TOE_INPUT: DocumentNode = gql`
       entryPoint: $entryPoint
       groupName: $groupName
       hasRecentAttack: $hasRecentAttack
+      rootId: $rootId
     ) {
       success
     }
