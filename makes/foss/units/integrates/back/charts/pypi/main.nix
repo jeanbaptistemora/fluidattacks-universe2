@@ -1,7 +1,23 @@
 { makePythonPypiEnvironment
+, makeTemplate
+, outputs
+, projectPath
 , ...
 }:
-makePythonPypiEnvironment {
-  name = "integrates-back-charts-pypi";
-  sourcesYaml = ./pypi-sources.yaml;
+makeTemplate {
+  name = "integrates-back-charts";
+  searchPaths = {
+    pythonMypy = [
+      (projectPath "/integrates/charts")
+    ];
+    source = [
+      (makePythonPypiEnvironment {
+        name = "integrates-back-charts-pypi";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+    ];
+    pythonPackage = [
+      (projectPath "/integrates/charts")
+    ];
+  };
 }
