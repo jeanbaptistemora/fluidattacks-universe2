@@ -2419,6 +2419,10 @@
   "org.jasig.cas:cas-client-core": {
     "CVE-2014-4172": ">=3 <=3.3.1"
   },
+  "org.jasypt:jasypt": {
+    "CVE-2014-9970": "<=1.9.1",
+    "SNYK-JAVA-ORGJASYPT-31668": "<1.9.2"
+  },
   "org.java-websocket:java-websocket": {
     "CVE-2020-11050": ">=0 <=1.4.1",
     "GHSA-gw55-jm4h-x339": ">=0 <=1.4.1"
