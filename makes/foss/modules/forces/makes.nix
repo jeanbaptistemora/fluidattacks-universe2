@@ -11,11 +11,27 @@
   deployContainerImage = {
     images = {
       forcesDev = {
+        credentials = {
+          token = "DOCKER_HUB_PASS";
+          user = "DOCKER_HUB_USER";
+        };
+        setup = [
+          outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/forcesDev"
+        ];
         src = outputs."/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:$CI_COMMIT_REF_NAME";
       };
       forcesProd = {
+        credentials = {
+          token = "DOCKER_HUB_PASS";
+          user = "DOCKER_HUB_USER";
+        };
+        setup = [
+          outputs."/secretsForAwsFromEnv/prodForces"
+          outputs."/secretsForEnvFromSops/forcesProd"
+        ];
         src = outputs."/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:new";
@@ -46,6 +62,16 @@
       accessKeyId = "PROD_FORCES_AWS_ACCESS_KEY_ID";
       secretAccessKey = "PROD_FORCES_AWS_SECRET_ACCESS_KEY";
       sessionToken = "AWS_SESSION_TOKEN";
+    };
+  };
+  secretsForEnvFromSops = {
+    forcesDev = {
+      vars = [ "DOCKER_HUB_PASS" "DOCKER_HUB_USER" ];
+      manifest = "/forces/secrets-dev.yaml";
+    };
+    forcesProd = {
+      vars = [ "DOCKER_HUB_PASS" "DOCKER_HUB_USER" ];
+      manifest = "/forces/secrets-prod.yaml";
     };
   };
   dynamoDb = {
