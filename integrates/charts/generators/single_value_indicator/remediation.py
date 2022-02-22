@@ -5,9 +5,6 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from charts.types import (
-    RemediationReport,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -40,6 +37,18 @@ from typing import (
     Dict,
     Optional,
     Tuple,
+)
+from typing_extensions import (
+    TypedDict,
+)
+
+RemediationReport = TypedDict(
+    "RemediationReport",
+    {
+        "current": Dict[str, int],
+        "previous": Dict[str, int],
+        "totalGroups": int,
+    },
 )
 
 
