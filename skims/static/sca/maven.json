@@ -365,6 +365,9 @@
   "com.oracle:ojdbc7": {
     "SNYK-JAVA-COMORACLE-572380": "<=12.1.0.2"
   },
+  "com.oracle:ojdbc8": {
+    "SNYK-JAVA-COMORACLE-572379": ">=12.1.0 <12.2.0.1"
+  },
   "com.parasoft:environment-manager": {
     "CVE-2020-2132": ">=0 <=2.14"
   },
