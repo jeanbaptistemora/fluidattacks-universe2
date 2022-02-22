@@ -32,6 +32,7 @@ from model.core_model import (
     SkimsConfig,
 )
 import os
+import shutil
 import sys
 from typing import (
     List,
@@ -108,6 +109,34 @@ async def _should_run(
     )
 
 
+def _clone_with_melts(group_name: str) -> None:
+    if "services" not in os.getcwd():
+        return
+
+    melts_path = shutil.which("melts")
+    if not melts_path:
+        return
+
+    os.execle(  # nosec
+        melts_path,
+        "drills",
+        "drills",
+        "--pull-repos",
+        group_name,
+        {
+            **os.environ.copy(),
+            "CI": "true",
+            "CI_COMMIT_REF_NAME": "master",
+            "PROD_AWS_ACCESS_KEY_ID": os.environ[
+                "PROD_SERVICES_AWS_ACCESS_KEY_ID"
+            ],
+            "PROD_AWS_SECRET_ACCESS_KEY": os.environ[
+                "PROD_SERVICES_AWS_SECRET_ACCESS_KEY"
+            ],
+        },
+    )
+
+
 async def _gererate_configs(
     *, group_name: str, roots: List[str], checks: List[str], token: str
 ) -> Tuple[SkimsConfig, ...]:
@@ -151,7 +180,12 @@ def main() -> None:
     if not item:
         raise Exception(f"No jobs were found for the key {action_dynamo_pk}")
 
+    if item.action_name != "execute-machine":
+        raise Exception("Invalid action name", item.action_name)
+
     group_name = item.entity
+    _clone_with_melts(group_name)
+
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
