@@ -1,3 +1,21 @@
+/computeOnAwsBatch/integratesMigration__prod__0192_add_root_to_toe_input_keys.py:
+  image: ghcr.io/fluidattacks/makes:22.03
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_migration_0192_add_root_to_toe_input_keys == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesMigration 'prod' '0192_add_root_to_toe_input_keys.py'
+  stage: scheduler
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: false

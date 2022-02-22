@@ -119,6 +119,7 @@ in
           };
         })
         [
+          "0192_add_root_to_toe_input_keys.py"
         ])
         ++ (builtins.map
         (name: {
