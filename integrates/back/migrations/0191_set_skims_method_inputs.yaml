@@ -1,0 +1,53 @@
+Strict-Transport-Security: analyze_headers.strict_transport_security
+max-age menor que: analyze_headers.strict_transport_security
+Strict-Transport-Security ausente: analyze_headers.strict_transport_security
+Missing Strict-Transport-Security: analyze_headers.strict_transport_security
+No se encontró la cabecera upgrade-insecure-requests ni la directiva CSP: analyze_headers.upgrade_insecure_requests
+upgrade-insecure-requests ausente: analyze_headers.upgrade_insecure_requests
+Missing upgrade-insecure-requests: analyze_headers.upgrade_insecure_requests
+Could not found upgrade-insecure-requests header or CSP directive: analyze_headers.upgrade_insecure_requests
+Reloj del servidor está desfasado: analyze_headers.date
+X-Content-Type-Options ausente: analyze_headers.x_content_type_options
+Missing X-Content-Type-Options: analyze_headers.x_content_type_options
+script-src contiene unsafe-inline: analyze_headers.content_security_policy
+aloja JSONP: analyze_headers.content_security_policy
+Content-Security-Policy ausente: analyze_headers.content_security_policy
+Missing frame-ancestors: analyze_headers.content_security_policy
+Uso de comodín: analyze_headers.content_security_policy
+frame-ancestors ausente: analyze_headers.content_security_policy
+script-src ausente: analyze_headers.content_security_policy
+object-src ausente: analyze_headers.content_security_policy
+hosts JSONP: analyze_headers.content_security_policy
+Missing Content-Security-Policy: analyze_headers.content_security_policy
+Missing object-src: analyze_headers.content_security_policy
+block-all-mixed-content esta deprecada: analyze_headers.content_security_policy
+script-src has unsafe-inline: analyze_headers.content_security_policy
+Missing script-src: analyze_headers.content_security_policy
+Referrer-Policy ausente: analyze_headers.referrer_policy
+Missing Referrer-Policy: analyze_headers.referrer_policy
+La cabecera Referrer-Policy posee un valor debil: analyze_headers.referrer_policy
+el servidor acepta conexiones con métodos cifrados débiles: analyze_protocol.weak_ciphers_allowed
+server accepts connections with weak ciphers: analyze_protocol.weak_ciphers_allowed
+server accepts connections with ciphers that supports CBC: analyze_protocol.cbc_enabled
+el servidor acepta conexiones con métodos de encripción que soportan CBC: analyze_protocol.cbc_enabled
+el servidor acepta conexiones con métodos de encriptado que soportan CBC: analyze_protocol.cbc_enabled
+el servidor descarta conexiones con soporte PFS: analyze_protocol.pfs_disabled
+server refuses connections with PFS support: analyze_protocol.pfs_disabled
+sin Secure: analyze_headers.set_cookie_secure
+el servidor acepta conexiones con TLSv1.1: analyze_protocol.tlsv1_1_enabled
+server accepts connections with TLSv1.1: analyze_protocol.tlsv1_1_enabled
+is not obfuscated: analyze_bytecodes.no_obfuscation
+no esta ofuscado: analyze_bytecodes.no_obfuscation
+server accepts connections with TLSv1.0: analyze_protocol.tlsv1_enabled
+el servidor acepta conexiones con TLSv1.0: analyze_protocol.tlsv1_enabled
+application.android:allowBackup está habilitado de forma predeterminada: analyze_bytecodes.apk_backups_enabled
+application.android:allowBackup habilitado: analyze_bytecodes.apk_backups_enabled
+application.android:allowBackup enabled: analyze_bytecodes.apk_backups_enabled
+el servidor permite degradar TLSv1.3 a: analyze_protocol.tlsv1_3_downgrade
+Missing rooted device detection: analyze_bytecodes.no_root_check
+Detección de dispositivo rooteado ausente: analyze_bytecodes.no_root_check
+application.android:grantUriPermissions habilitado: analyze_bytecodes.apk_exported_cp
+application.android:exported habilitado: analyze_bytecodes.apk_exported_cp
+el servidor es vulnerable a ataques BREACH: analyze_protocol.breach_possible
+no tiene SameSite correctamente inicializado: analyze_headers.set_cookie_samesite
+La aplicación usa autenticación de tipo Basic sobre HTTP: analyze_headers.www_authenticate
