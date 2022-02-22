@@ -233,12 +233,13 @@ async def cli_expected_code_date_wrapped(
         group=group,
         token=token,
     )
-    return await core.expected_code_date.main(
+    await core.expected_code_date.main(
         finding_code=finding_code,
         group=group,
         namespace=namespace,
         token=token,
     )
+    return True
 
 
 @shield(on_error_return=False)

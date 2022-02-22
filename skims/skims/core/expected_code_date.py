@@ -33,8 +33,7 @@ async def main(
     group: str,
     namespace: str,
     token: str,
-) -> bool:
-    success: bool = True
+) -> datetime:
 
     create_session(api_token=token)
 
@@ -84,4 +83,4 @@ async def main(
     sys.stdout.write(str(int(max_reattack_date.timestamp())))
     sys.stdout.write("\n")
 
-    return success
+    return max_reattack_date
