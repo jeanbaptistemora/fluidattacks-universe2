@@ -97,7 +97,7 @@ let
       body = "${standard.title}-${definitionId}. ${definition.title}";
       path = "/criteria/compliance/${standardId}";
     };
-  linkDefinition = { prefix ? "- ", standardId, definitionId }:
+  linkDefinition = { prefix ? "", standardId, definitionId }:
     let
       standard = compliance.${standardId};
       definition = standard.definitions.${definitionId};
@@ -176,9 +176,9 @@ let
         requirements
       );
     in
-    builtins.concatStringsSep "\n" (builtins.map
+    builtins.concatStringsSep "<br>" (builtins.map
       (id: linkRequirement {
-        prefix = "  - ";
+        prefix = "";
         inherit id;
       })
       filtered
@@ -264,11 +264,9 @@ let
       result =
         if requirements != ""
         then
-          builtins.concatStringsSep "\n" [
-            definition
-            requirements
-          ]
-        else definition;
+          "| ${definition} | ${requirements} |"
+        else
+          "| ${definition} | - |";
     in
     result;
 
@@ -277,6 +275,11 @@ let
     let
       definitions = builtins.attrNames compliance.${standardId}.definitions;
     in
+    ''
+      | Standard | Requirements |
+      | : -----: | :----------: |
+    ''
+    +
     builtins.concatStringsSep "\n" (builtins.map
       (definitionId: definitionWithRequirements {
         inherit standardId;
