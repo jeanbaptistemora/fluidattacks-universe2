@@ -16,6 +16,7 @@ async def get_result(
     component: str,
     entry_point: str,
     group_name: str,
+    root_id: str,
     user: str,
 ) -> Dict[str, Any]:
     query: str = f"""
@@ -24,6 +25,7 @@ async def get_result(
                 bePresent: {str(be_present).lower()},
                 component: "{component}",
                 groupName: "{group_name}",
+                rootId: "{root_id}",
                 entryPoint: "{entry_point}",
             ) {{
                 success

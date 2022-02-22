@@ -75,12 +75,13 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 5
+    assert len(group_toe_inputs) == 4
     current_value = await loaders.toe_input.load(
         ToeInputRequest(
             component="https://test.com/test/new.aspx",
             entry_point="btnTest",
             group_name=group_name,
+            root_id="",
         )
     )
     await toe_inputs_domain.remove(current_value)
@@ -88,7 +89,7 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 4
+    assert len(group_toe_inputs) == 3
 
 
 @pytest.mark.changes_db
@@ -99,7 +100,10 @@ async def test_update() -> None:
     loaders = get_new_context()
     current_value = await loaders.toe_input.load(
         ToeInputRequest(
-            component=component, entry_point=entry_point, group_name=group_name
+            component=component,
+            entry_point=entry_point,
+            group_name=group_name,
+            root_id="",
         )
     )
     attributes = ToeInputAttributesToUpdate(
@@ -117,7 +121,10 @@ async def test_update() -> None:
     loaders = get_new_context()
     toe_input = await loaders.toe_input.load(
         ToeInputRequest(
-            component=component, entry_point=entry_point, group_name=group_name
+            component=component,
+            entry_point=entry_point,
+            group_name=group_name,
+            root_id="",
         )
     )
     assert toe_input == ToeInput(

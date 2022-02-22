@@ -35,6 +35,7 @@ async def add(*, toe_input: ToeInput) -> None:
             "component": toe_input.component,
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
+            "root_id": toe_input.unreliable_root_id,
         },
     )
     gsi_2_key = keys.build_key(
@@ -44,6 +45,7 @@ async def add(*, toe_input: ToeInput) -> None:
             "component": toe_input.component,
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
+            "root_id": toe_input.unreliable_root_id,
         },
     )
     toe_input_item = format_toe_input_item(

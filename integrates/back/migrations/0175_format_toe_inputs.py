@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,missing-kwoa
 """
 Format toe input component with port and protocol.
 

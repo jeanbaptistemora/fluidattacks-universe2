@@ -1,5 +1,6 @@
 from .constants import (
     GSI_2_FACET,
+    OLD_INPUT_FACET,
 )
 from .types import (
     GroupToeInputsRequest,
@@ -47,6 +48,7 @@ async def _get_toe_input(request: ToeInputRequest) -> ToeInput:
             "component": request.component,
             "entry_point": request.entry_point,
             "group_name": request.group_name,
+            "root_id": request.root_id,
         },
     )
     key_structure = TABLE.primary_key
@@ -59,7 +61,25 @@ async def _get_toe_input(request: ToeInputRequest) -> ToeInput:
         table=TABLE,
     )
     if not response.items:
-        raise ToeInputNotFound()
+        primary_key = keys.build_key(
+            facet=OLD_INPUT_FACET,
+            values={
+                "component": request.component,
+                "entry_point": request.entry_point,
+                "group_name": request.group_name,
+            },
+        )
+        key_structure = TABLE.primary_key
+        response = await operations.query(
+            condition_expression=(
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                & Key(key_structure.sort_key).eq(primary_key.sort_key)
+            ),
+            facets=(OLD_INPUT_FACET,),
+            table=TABLE,
+        )
+        if not response.items:
+            raise ToeInputNotFound()
     return format_toe_input(request.group_name, response.items[0])
 
 
@@ -100,7 +120,9 @@ async def _get_toe_inputs_by_group(
             condition_expression=(
                 Key(key_structure.partition_key).eq(primary_key.partition_key)
                 & Key(key_structure.sort_key).begins_with(
-                    primary_key.sort_key.replace("#COMPONENT#ENTRYPOINT", "")
+                    primary_key.sort_key.replace(
+                        "#COMPONENT#ENTRYPOINT", ""
+                    ).replace("#ROOT", "")
                 )
             ),
             facets=(TABLE.facets["toe_input_metadata"],),

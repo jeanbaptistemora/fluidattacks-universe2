@@ -46,22 +46,7 @@ async def test_refresh_toe_inputs(
                     "seenFirstTimeBy": "",
                     "unreliableRootNickname": "test_nickname_1",
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS9hcGkvVGVzdCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
-            },
-            {
-                "node": {
-                    "attackedAt": "2021-02-02T05:00:00+00:00",
-                    "attackedBy": "",
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "component": "test.com/test/test.aspx",
-                    "entryPoint": "btnTest",
-                    "firstAttackAt": "2021-02-02T05:00:00+00:00",
-                    "seenAt": "2020-03-14T05:00:00+00:00",
-                    "seenFirstTimeBy": "test@test.com",
-                    "unreliableRootNickname": "",
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0L3Rlc3QuYXNweCNFTlRSWVBPSU5UI2J0blRlc3QifQ==",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI1JPT1QjNjMyOThhNzMtOWRmZi00NmNmLWI0MmQtOWIyZjAxYTU2NjkwI0NPTVBPTkVOVCN0ZXN0LmNvbS9hcGkvVGVzdCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
             },
             {
                 "node": {
@@ -76,7 +61,22 @@ async def test_refresh_toe_inputs(
                     "seenFirstTimeBy": "test2@test.com",
                     "unreliableRootNickname": "test_nickname_2",
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI1JPT1QjNzY1YjFkMGYtYjZmYi00NDg1LWI0ZTItMmMyY2IxNTU1YjFhI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0Mi90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+            },
+            {
+                "node": {
+                    "attackedAt": "2021-02-02T05:00:00+00:00",
+                    "attackedBy": "",
+                    "bePresent": True,
+                    "bePresentUntil": None,
+                    "component": "test.com/test/test.aspx",
+                    "entryPoint": "btnTest",
+                    "firstAttackAt": "2021-02-02T05:00:00+00:00",
+                    "seenAt": "2020-03-14T05:00:00+00:00",
+                    "seenFirstTimeBy": "test@test.com",
+                    "unreliableRootNickname": "",
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI1JPT1QjQ09NUE9ORU5UI3Rlc3QuY29tL3Rlc3QvdGVzdC5hc3B4I0VOVFJZUE9JTlQjYnRuVGVzdCJ9",
             },
             {
                 "node": {
@@ -91,11 +91,11 @@ async def test_refresh_toe_inputs(
                     "seenFirstTimeBy": "test3@test.com",
                     "unreliableRootNickname": "test_nickname_3",
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI1JPT1QjYmUwOWVkYjctY2Q1Yy00N2VkLWJlZTQtOTdjNjQ1YWNkY2U4I0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
             },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiSU5QVVRTI1JPT1QjYmUwOWVkYjctY2Q1Yy00N2VkLWJlZTQtOTdjNjQ1YWNkY2U4I0NPTVBPTkVOVCN0ZXN0LmNvbS90ZXN0My90ZXN0LmFzcHgjRU5UUllQT0lOVCMtIn0=",
         },
     }

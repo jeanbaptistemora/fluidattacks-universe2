@@ -11,16 +11,18 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_input")
 @pytest.mark.parametrize(
-    ["email", "component", "entry_point", "be_present"],
+    ["email", "root_id", "component", "entry_point", "be_present"],
     [
         [
             "admin@fluidattacks.com",
+            "63298a73-9dff-46cf-b42d-9b2f01a56690",
             "https://test.com/test",
             "idTest",
             True,
         ],
         [
             "admin@fluidattacks.com",
+            "63298a73-9dff-46cf-b42d-9b2f01a56690",
             "https://test.com/test",
             "idTest",
             False,
@@ -30,6 +32,7 @@ from typing import (
 async def test_update_toe_input(
     populate: bool,
     email: str,
+    root_id: str,
     component: str,
     entry_point: str,
     be_present: bool,
@@ -41,6 +44,7 @@ async def test_update_toe_input(
         component=component,
         entry_point=entry_point,
         group_name=group_name,
+        root_id=root_id,
         user=email,
     )
     assert "errors" not in result
@@ -51,16 +55,18 @@ async def test_update_toe_input(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_input")
 @pytest.mark.parametrize(
-    ["email", "component", "entry_point", "be_present"],
+    ["email", "root_id", "component", "entry_point", "be_present"],
     [
         [
             "user@gmail.com",
+            "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "https://app.fluidattacks.com:8080/test",
             "-",
             True,
         ],
         [
             "executive@gmail.com",
+            "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "https://app.fluidattacks.com:8080/test",
             "-",
             True,
@@ -70,6 +76,7 @@ async def test_update_toe_input(
 async def test_update_toe_input_fail_3(
     populate: bool,
     email: str,
+    root_id: str,
     component: str,
     entry_point: str,
     be_present: bool,
@@ -81,6 +88,7 @@ async def test_update_toe_input_fail_3(
         component=component,
         entry_point=entry_point,
         group_name=group_name,
+        root_id=root_id,
         user=email,
     )
     assert "errors" in result

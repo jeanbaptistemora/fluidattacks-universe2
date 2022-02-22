@@ -63,6 +63,7 @@ async def mutate(
                 component=component,
                 entry_point=entry_point,
                 group_name=group_name,
+                root_id=kwargs.get("root_id", ""),
             )
         )
         be_present_to_update = (

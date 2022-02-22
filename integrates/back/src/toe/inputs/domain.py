@@ -232,6 +232,7 @@ async def remove(
         entry_point=current_value.entry_point,
         component=current_value.component,
         group_name=current_value.group_name,
+        root_id=current_value.unreliable_root_id,
     )
 
 

@@ -43,6 +43,7 @@ class ToeInputRequest(NamedTuple):
     component: str
     entry_point: str
     group_name: str
+    root_id: str
 
 
 class GroupToeInputsRequest(NamedTuple):

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 16, 2022, 02:43 PM",
+    "DateLastModified": "Feb 22, 2022, 11:39 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2147,7 +2147,7 @@
           "FacetName": "toe_input_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#group_name",
-            "SortKeyAlias": "INPUTS#COMPONENT#component#ENTRYPOINT#entry_point"
+            "SortKeyAlias": "INPUTS#ROOT#root_id#COMPONENT#component#ENTRYPOINT#entry_point"
           },
           "TableData": [
             {

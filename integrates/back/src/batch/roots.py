@@ -358,6 +358,7 @@ async def process_toe_input(
                 component=toe_input.component,
                 entry_point=toe_input.entry_point,
                 group_name=target_group_name,
+                root_id=target_root_id,
             )
         )
         attributes_to_update = ToeInputAttributesToUpdate(

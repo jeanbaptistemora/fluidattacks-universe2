@@ -516,6 +516,7 @@ async def test_toe_lines_etl() -> None:
     )
 
 
+@pytest.mark.skip
 @pytest.mark.changes_db
 @freeze_time("2019-01-01T05:00:00+00:00")
 async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
