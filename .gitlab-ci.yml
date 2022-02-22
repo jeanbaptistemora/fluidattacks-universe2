@@ -34,16 +34,6 @@ workflow:
   rules:
     - when: always
 
-.makes: &makes
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/makes"
-  needs: []
-  interruptible: true
-  script:
-    - ./m "${CI_JOB_NAME% *}"
-  variables:
-    GIT_DEPTH: 5
-
 .makes4: &makes4
   tags: [autoscaling]
   image: ghcr.io/fluidattacks/makes:21.11
@@ -59,16 +49,6 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-
-.common_in_dev_and_master_branch: &common_in_dev_and_master_branch
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - when: always
 
 .common_in_dev_branch: &common_in_dev_branch
   rules:
@@ -95,11 +75,6 @@ workflow:
 .common_in_master_branch: &common_in_master_branch
   <<: *common_rules_in_master_branch
   resource_group: "${CI_JOB_NAME}"
-
-/deployContainerImage/makesProd:
-  <<: *makes4
-  <<: *common_in_master_branch
-  stage: build
 
 /formatBash:
   <<: *makes4

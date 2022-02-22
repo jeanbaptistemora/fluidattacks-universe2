@@ -1,17 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, ...
-}:
 {
-  deployContainerImage = {
-    images = {
-      makesProd = {
-        src = outputs."/makes/container";
-        registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:latest";
-      };
-    };
-  };
   imports = [
     ./ci/makes.nix
     ./compute/makes.nix
