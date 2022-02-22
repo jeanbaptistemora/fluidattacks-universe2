@@ -49,6 +49,7 @@ from state.ephemeral import (
 from typing import (
     Dict,
     Optional,
+    Union,
 )
 from utils.bugs import (
     add_bugsnag_data,
@@ -216,12 +217,12 @@ def notify_findings_as_csv(
 
 
 def main(
-    config: str,
+    config: Union[str, core_model.SkimsConfig],
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
     try:
-        CTX.config = load(group, config)
+        CTX.config = load(group, config) if isinstance(config, str) else config
         configure_logs()
 
         add_bugsnag_data(namespace=CTX.config.namespace)

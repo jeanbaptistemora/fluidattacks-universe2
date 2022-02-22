@@ -2,18 +2,35 @@ from aioextensions import (
     collect,
     run,
 )
+from batch.get_config import (
+    generate_config,
+)
 import boto3
+from contextlib import (
+    suppress,
+)
 from core.expected_code_date import (
     main as get_expected_code_date,
+)
+from core.scan import (
+    main as execute_skims,
+)
+from ctx import (
+    CTX,
 )
 from dateutil.parser import (  # type: ignore
     parse as date_parser,
 )
+from integrates.dal import (
+    get_group_language,
+)
 from integrates.graphql import (
-    API_TOKEN,
     create_session,
 )
 import json
+from model.core_model import (
+    SkimsConfig,
+)
 import os
 import sys
 from typing import (
@@ -68,7 +85,7 @@ async def should_run(
         check, group, namespace, token
     )
     metadata_path = (
-        f"groups/${group}/fusion/${namespace}/.git/fluidattacks_metadata"
+        f"groups/{group}/fusion/{namespace}/.git/fluidattacks_metadata"
     )
     try:
         with open(metadata_path, encoding="utf-8") as handler:
@@ -91,12 +108,46 @@ async def _should_run(
     )
 
 
+async def _gererate_configs(
+    *, group_name: str, roots: List[str], checks: List[str], token: str
+) -> Tuple[SkimsConfig, ...]:
+    group_language = await get_group_language(group_name)
+    should_run_dict = {
+        root: {check: False for check in checks} for root in roots
+    }
+
+    for _, root, check, should in await collect(
+        _should_run(group_name, root, check, token)
+        for root in roots
+        for check in checks
+    ):
+        should_run_dict[root][check] = should
+
+    return tuple(
+        await collect(
+            generate_config(
+                group_name=group_name,
+                namespace=root,
+                checks=tuple(
+                    check for check, should in checks_dict.items() if should
+                ),
+                language=group_language,
+                working_dir=f"groups/{group_name}/fusion/{root}",
+            )
+            for root, checks_dict in should_run_dict.items()
+        )
+    )
+
+
 def main() -> None:
     action_dynamo_pk = sys.argv[1]
-    create_session(os.environ["INTEGRATES_API_TOKEN"])
+    CTX.debug = False
+    token = os.environ["INTEGRATES_API_TOKEN"]
+    create_session(token)
     item = get_action(
         action_dynamo_pk=action_dynamo_pk,
     )
+
     if not item:
         raise Exception(f"No jobs were found for the key {action_dynamo_pk}")
 
@@ -104,16 +155,15 @@ def main() -> None:
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
-    should_run_dict = {
-        root: {check: False for check in checks} for root in roots
-    }
-    for _, root, check, should in run(
-        collect(
-            (
-                _should_run(group_name, root, check, API_TOKEN.get())
-                for root in roots
-                for check in checks
-            )
+    configs = run(
+        _gererate_configs(
+            group_name=group_name, roots=roots, checks=checks, token=token
         )
-    ):
-        should_run_dict[root][check] = should
+    )
+    for config in configs:
+        with suppress(Exception):
+            execute_skims(config, group_name, token)
+
+
+if __name__ == "__main__":
+    main()
