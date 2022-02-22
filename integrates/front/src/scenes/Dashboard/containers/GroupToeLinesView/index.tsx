@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { HandleEditionModal } from "./HandleEditionModal";
 import {
+  formatBePresent,
+  formatRootId,
   getFilteredData,
   getNonSelectable,
   getToeLinesIndex,
@@ -36,6 +38,8 @@ import type {
   IToeLinesData,
   IToeLinesEdge,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
+import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
+import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -119,7 +123,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         hasVulnerabilities: "",
         modifiedDate: { max: "", min: "" },
         priority: { max: "", min: "" },
-        root: "",
+        rootId: "",
         seenAt: { max: "", min: "" },
       },
       localStorage
@@ -342,13 +346,25 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       });
     },
     variables: {
+      bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
       canGetAttackedAt,
       canGetAttackedBy,
       canGetAttackedLines,
       canGetBePresentUntil,
       canGetComments,
       canGetFirstAttackAt,
-      first: 300,
+      first: 150,
+      groupName,
+      rootId: formatRootId(filterGroupToeLinesTable.rootId),
+    },
+  });
+  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group root ids", error);
+      });
+    },
+    variables: {
       groupName,
     },
   });
@@ -402,6 +418,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
+
+  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
   function clearFilters(): void {
     setFilterGroupToeLinesTable(
       (): IFilterSet => ({
@@ -411,7 +429,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         hasVulnerabilities: "",
         modifiedDate: { max: "", min: "" },
         priority: { max: "", min: "" },
-        root: "",
+        rootId: "",
         seenAt: { max: "", min: "" },
       })
     );
@@ -428,6 +446,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   }, [pageInfo, fetchMore]);
   useEffect((): void => {
     if (!_.isUndefined(data)) {
+      setSelectedToeLinesDatas([]);
       void refetch();
     }
     // It is important to run only during the first render
@@ -438,6 +457,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     // It is important to run only during the first render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect((): void => {
+    setSelectedToeLinesDatas([]);
+    void refetch();
+  }, [
+    filterGroupToeLinesTable.bePresent,
+    filterGroupToeLinesTable.rootId,
+    refetch,
+  ]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -496,9 +523,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       ])
   );
   const rootSelectOptions = Object.fromEntries(
-    toeLines.map((toeLinesData: IToeLinesData): string[] => [
-      toeLinesData.rootNickname,
-      toeLinesData.rootNickname,
+    roots.map((root: IRootIdAttr): string[] => [
+      root.id,
+      `${root.nickname} (${root.state.toLowerCase()})`,
     ])
   );
   const booleanSelectOptions = Object.fromEntries([
@@ -507,8 +534,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   ]);
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: filterGroupToeLinesTable.root,
-      onChangeSelect: onBasicFilterValueChange("root"),
+      defaultValue: filterGroupToeLinesTable.rootId,
+      onChangeSelect: onBasicFilterValueChange("rootId"),
       placeholder: translate.t("group.toe.lines.filters.root.placeholder"),
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.lines.filters.root.tooltip.id",

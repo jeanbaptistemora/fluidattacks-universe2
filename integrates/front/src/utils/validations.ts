@@ -427,7 +427,7 @@ const validPath: (host: string | undefined) => Validator =
   };
 
 const isOptionalInteger = (value: unknown): string | undefined =>
-  _.isInteger(value) || _.isEmpty(value)
+  _.isInteger(value) || (_.isString(value) && _.isEmpty(value))
     ? undefined
     : translate.t("validations.integer");
 

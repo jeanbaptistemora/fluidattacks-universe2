@@ -5,7 +5,7 @@ interface IFilterSet {
   hasVulnerabilities: string;
   modifiedDate: { max: string; min: string };
   priority: { max: string; min: string };
-  root: string;
+  rootId: string;
   seenAt: { max: string; min: string };
 }
 interface IToeLinesEdge {

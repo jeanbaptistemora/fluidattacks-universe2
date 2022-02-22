@@ -13,10 +13,16 @@ const GET_TOE_LINES: DocumentNode = gql`
     $canGetComments: Boolean!
     $canGetFirstAttackAt: Boolean!
     $first: Int
+    $rootId: ID
   ) {
     group(groupName: $groupName) {
       name
-      toeLines(bePresent: $bePresent, after: $after, first: $first) {
+      toeLines(
+        bePresent: $bePresent
+        after: $after
+        first: $first
+        rootId: $rootId
+      ) {
         edges {
           node {
             attackedAt @include(if: $canGetAttackedAt)

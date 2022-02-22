@@ -910,7 +910,7 @@ export const enTranslations: ResourceKey = {
             tooltip: "Filter by root",
           },
           seenAt: {
-            placeholder: "Seen at (Range)",
+            placeholder: "Seen at (range)",
             tooltip: "Filter by seen at",
           },
           seenFirstTimeBy: {
@@ -969,7 +969,7 @@ export const enTranslations: ResourceKey = {
         filename: "Filename",
         filters: {
           bePresent: {
-            placeholder: "Be present",
+            placeholder: "Be present (refetch)",
             tooltip: "Filter by be present",
           },
           coverage: {
@@ -985,7 +985,7 @@ export const enTranslations: ResourceKey = {
             tooltip: "Filter by has vulnerabilities",
           },
           modifiedDate: {
-            placeholder: "Modified date (Range)",
+            placeholder: "Modified date (range)",
             tooltip: "Filter by modified date",
           },
           priority: {
@@ -993,11 +993,11 @@ export const enTranslations: ResourceKey = {
             tooltip: "Filter by priority %",
           },
           root: {
-            placeholder: "Root",
+            placeholder: "Root (refetch)",
             tooltip: "Filter by root",
           },
           seenAt: {
-            placeholder: "Seen at (Range)",
+            placeholder: "Seen at (range)",
             tooltip: "Filter by seen at",
           },
         },

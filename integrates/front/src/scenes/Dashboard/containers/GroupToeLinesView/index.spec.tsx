@@ -34,7 +34,7 @@ describe("GroupToeLinesView", (): void => {
           canGetBePresentUntil: true,
           canGetComments: true,
           canGetFirstAttackAt: true,
-          first: 300,
+          first: 150,
           groupName: "unittesting",
         },
       },

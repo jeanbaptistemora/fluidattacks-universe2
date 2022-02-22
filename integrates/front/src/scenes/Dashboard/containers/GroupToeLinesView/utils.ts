@@ -183,12 +183,6 @@ const getFilteredData: (
   searchTextFilter: string,
   toeLines: IToeLinesData[]
 ): IToeLinesData[] => {
-  const filteredBePresent = filterBooleanValue(
-    filterGroupToeLinesTable,
-    "bePresent",
-    toeLines,
-    "bePresent"
-  );
   const filteredCoverage: IToeLinesData[] = filterCoverage(
     filterGroupToeLinesTable,
     toeLines
@@ -210,11 +204,6 @@ const getFilteredData: (
     "modifiedDate"
   );
   const filteredPriority = filterPriority(filterGroupToeLinesTable, toeLines);
-  const filteredRoot: IToeLinesData[] = filterSelect(
-    toeLines,
-    filterGroupToeLinesTable.root,
-    "rootNickname"
-  );
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
     toeLines
@@ -225,13 +214,11 @@ const getFilteredData: (
     "seenAt"
   );
   const filteredData: IToeLinesData[] = _.intersection(
-    filteredBePresent,
     filteredCoverage,
     filteredFilenameExtensions,
     filteredHasVulnerabilities,
     filteredModifiedDate,
     filteredPriority,
-    filteredRoot,
     filteredSearchtextResult,
     filteredSeenAt
   );
@@ -239,7 +226,15 @@ const getFilteredData: (
   return filteredData;
 };
 
+const formatBePresent = (bePresent: string): boolean | undefined =>
+  bePresent === "" ? undefined : bePresent === "true";
+
+const formatRootId = (rootId: string): string | undefined =>
+  rootId === "" ? undefined : rootId;
+
 export {
+  formatBePresent,
+  formatRootId,
   getFilteredData,
   getNonSelectable,
   getToeLinesIndex,
