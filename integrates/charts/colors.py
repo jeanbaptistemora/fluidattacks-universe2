@@ -4,7 +4,7 @@ from typing import (
 
 # Containers
 _SCALE = NamedTuple(
-    "Scale",
+    "_SCALE",
     [
         ("more_passive", str),
         ("passive", str),
@@ -15,7 +15,7 @@ _SCALE = NamedTuple(
 )
 
 _SEVERITYSCALE = NamedTuple(
-    "SeverityScale",
+    "_SEVERITYSCALE",
     [
         ("low", str),
         ("medium", str),

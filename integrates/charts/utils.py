@@ -22,7 +22,7 @@ from decimal import (
 from forces import (
     domain as forces_domain,
 )
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 import functools

@@ -1240,8 +1240,11 @@ async def get_open_findings(loaders: Any, group_name: str) -> int:
         group_name
     )
     finding_status = await collect(
-        findings_domain.get_status(loaders, finding.id)
-        for finding in group_findings
+        tuple(
+            findings_domain.get_status(loaders, finding.id)
+            for finding in group_findings
+        ),
+        workers=32,
     )
     return finding_status.count("open")
 

@@ -152,7 +152,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         );
       });
     },
-    pollInterval: 5000,
   });
 
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
