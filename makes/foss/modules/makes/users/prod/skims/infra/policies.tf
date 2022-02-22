@@ -128,6 +128,7 @@ locals {
         Action = [
           "dynamodb:GetItem",
           "dynamodb:Query",
+          "dynamodb:DeleteItem",
         ]
         Resource = [
           "arn:aws:dynamodb:us-east-1:205810638802:table/fi_async_processing",

@@ -32,7 +32,7 @@ from model.core_model import (
     SkimsConfig,
 )
 import os
-import shutil
+import subprocess  # nosec
 import sys
 from typing import (
     List,
@@ -64,19 +64,31 @@ def get_action(
         "ExpressionAttributeValues": {":69240": {"S": action_dynamo_pk}},
     }
     response_items = client.query(**query_payload)
-    if not response_items:
+    if not response_items or not response_items["Items"]:
         return None
 
-    item = response_items[0]
+    item = response_items["Items"][0]
     return BatchProcessing(
-        key=item["pk"],
-        action_name=item["action_name"].lower(),
-        entity=item["entity"].lower(),
-        subject=item["subject"].lower(),
-        time=item["time"],
-        additional_info=item.get("additional_info", ""),
-        queue=item["queue"],
+        key=item["pk"]["S"],
+        action_name=item["action_name"]["S"].lower(),
+        entity=item["entity"]["S"].lower(),
+        subject=item["subject"]["S"].lower(),
+        time=item["time"]["S"],
+        additional_info=item.get("additional_info", {}).get("S"),
+        queue=item["queue"]["S"],
     )
+
+
+def delete_action(
+    *,
+    action_dynamo_pk: str,
+) -> None:
+    client = boto3.client("dynamodb", "us-east-1")
+    operation_payload = {
+        "TableName": "fi_async_processing",
+        "Key": {"pk": {"S": action_dynamo_pk}},
+    }
+    client.delete_item(**operation_payload)
 
 
 async def should_run(
@@ -109,21 +121,14 @@ async def _should_run(
     )
 
 
-def _clone_with_melts(group_name: str) -> None:
+def _clone_with_melts(group_name: str) -> bool:
     if "services" not in os.getcwd():
-        return
+        return False
 
-    melts_path = shutil.which("melts")
-    if not melts_path:
-        return
-
-    os.execle(  # nosec
-        melts_path,
-        "drills",
-        "drills",
-        "--pull-repos",
-        group_name,
-        {
+    result = subprocess.run(  # nosec
+        ["melts", "drills", "--pull-repos", group_name],
+        shell=False,
+        env={
             **os.environ.copy(),
             "CI": "true",
             "CI_COMMIT_REF_NAME": "master",
@@ -134,7 +139,10 @@ def _clone_with_melts(group_name: str) -> None:
                 "PROD_SERVICES_AWS_SECRET_ACCESS_KEY"
             ],
         },
+        cwd=".",
+        check=True,
     )
+    return result.returncode == 0
 
 
 async def _gererate_configs(
@@ -183,8 +191,11 @@ def main() -> None:
     if item.action_name != "execute-machine":
         raise Exception("Invalid action name", item.action_name)
 
+    delete_action(action_dynamo_pk=action_dynamo_pk)
+
     group_name = item.entity
-    _clone_with_melts(group_name)
+    if not _clone_with_melts(group_name):
+        return
 
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
