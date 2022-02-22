@@ -19,6 +19,8 @@ type ToeInput {
   This field is eventually consistent.
   """
   hasVulnerabilities: Boolean
+  "Toe input Root"
+  root: Root
   "First time the input was seen"
   seenAt: DateTime
   "Hacker who found the application input"
