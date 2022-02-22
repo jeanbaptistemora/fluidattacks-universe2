@@ -87,6 +87,7 @@ class Group(NamedTuple):
     language: GroupLanguage
     name: str
     organization_name: str
+    state: GroupState
     agent_token: Optional[str] = None
     context: Optional[str] = None
     disambiguation: Optional[str] = None
