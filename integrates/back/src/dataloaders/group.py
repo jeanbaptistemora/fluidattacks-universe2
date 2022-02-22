@@ -9,6 +9,7 @@ from custom_types import (
 )
 from db_model.groups.types import (
     Group,
+    GroupUnreliableIndicators,
 )
 from dynamodb.types import (
     Item,
@@ -18,6 +19,7 @@ from groups import (
 )
 from newutils.groups import (
     format_group,
+    format_group_unreliable_indicators,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -210,4 +212,18 @@ class GroupTypedLoader(DataLoader):
         return tuple(
             format_group(item=group, organization_name=organization)
             for group, organization in zip(groups_items, organizations_names)
+        )
+
+
+class GroupIndicatorsTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: Tuple[str, ...]
+    ) -> Tuple[GroupUnreliableIndicators, ...]:
+        groups_items: List[Item] = await groups_domain.get_many_groups(
+            list(group_names)
+        )
+        return tuple(
+            format_group_unreliable_indicators(item=item)
+            for item in groups_items
         )
