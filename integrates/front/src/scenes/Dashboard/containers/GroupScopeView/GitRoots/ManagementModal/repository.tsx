@@ -109,6 +109,8 @@ const Repository: React.FC<IRepositoryProps> = ({
     isEditing ? initialValues.includesHealthCheck : null
   );
 
+  const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
+
   const goToDocumentation = useCallback((): void => {
     openUrl(
       "https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitignore.html#_pattern_format"
@@ -342,12 +344,14 @@ const Repository: React.FC<IRepositoryProps> = ({
                         name={"includesHealthCheck"}
                         onSelect={setConfirmHealthCheck}
                         type={"Radio"}
+                        uncheck={setIsCheckedHealthCheck}
                         validate={selected}
                       />
                       {confirmHealthCheck ?? false ? (
                         <Alert>
                           <Field
                             component={FormikCheckbox}
+                            isChecked={isCheckedHealthCheck}
                             label={""}
                             name={"includesHealthCheckA"}
                             type={"checkbox"}
@@ -362,6 +366,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         <Alert>
                           <Field
                             component={FormikCheckbox}
+                            isChecked={isCheckedHealthCheck}
                             label={""}
                             name={"rejectHealthCheckA"}
                             type={"checkbox"}
@@ -372,6 +377,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                           </Field>
                           <Field
                             component={FormikCheckbox}
+                            isChecked={isCheckedHealthCheck}
                             label={""}
                             name={"rejectHealthCheckB"}
                             type={"checkbox"}
@@ -382,6 +388,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                           </Field>
                           <Field
                             component={FormikCheckbox}
+                            isChecked={isCheckedHealthCheck}
                             label={""}
                             name={"rejectHealthCheckC"}
                             type={"checkbox"}
