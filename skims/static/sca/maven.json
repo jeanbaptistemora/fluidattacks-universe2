@@ -1,5 +1,11 @@
 {
   "aopalliance:aopalliance": {},
+  "axis:axis": {
+    "CVE-2012-5784": "<=1.4",
+    "CVE-2014-3596": "<=1.4",
+    "SNYK-JAVA-AXIS-30071": "<=1.4",
+    "SNYK-JAVA-AXIS-30189": "<=1.4"
+  },
   "ballerina:ballerina-lang": {
     "CVE-2021-32700": ">=0 <1.2.14",
     "GHSA-f5qg-fqrw-v5ww": ">=0 <1.2.14"
