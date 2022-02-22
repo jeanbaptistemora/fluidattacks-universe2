@@ -1,6 +1,5 @@
 { makePythonPypiEnvironment
 , makeTemplate
-, outputs
 , projectPath
 , ...
 }:

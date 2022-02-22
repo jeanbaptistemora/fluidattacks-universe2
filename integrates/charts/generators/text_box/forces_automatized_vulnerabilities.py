@@ -4,7 +4,7 @@ from aioextensions import (
 from charts import (
     utils,
 )
-from charts.types import (
+from charts.generators.text_box.utils import (
     ForcesReport,
 )
 
