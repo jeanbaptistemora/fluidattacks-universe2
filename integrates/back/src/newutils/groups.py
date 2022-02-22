@@ -24,6 +24,8 @@ import logging
 import logging.config
 from newutils.datetime import (
     convert_to_iso_str,
+    get_as_utc_iso_format,
+    get_from_str,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -63,7 +65,12 @@ def format_group_files(files: List[Dict[str, str]]) -> List[GroupFile]:
             description=file["description"],
             filename=file["fileName"],
             modified_by=file["uploader"],
-            modified_date=file["uploadDate"],
+            modified_date=get_as_utc_iso_format(
+                get_from_str(
+                    date_str=file["uploadDate"],
+                    date_format="%Y-%m-%d %H:%M",
+                )
+            ),
         )
         for file in files
     ]

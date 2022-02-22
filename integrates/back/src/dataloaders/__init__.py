@@ -3,6 +3,7 @@ from .event import (
 )
 from .group import (
     GroupLoader,
+    GroupTypedLoader,
 )
 from .group_stakeholders import (
     GroupStakeholdersLoader,
@@ -85,6 +86,7 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     group: GroupLoader
+    group_typed: GroupTypedLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
@@ -160,6 +162,7 @@ def get_new_context() -> Dataloaders:
         finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         group=GroupLoader(),
+        group_typed=GroupTypedLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,

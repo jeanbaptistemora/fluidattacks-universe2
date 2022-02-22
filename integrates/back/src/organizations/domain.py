@@ -304,6 +304,11 @@ async def get_id_for_group(group_name: str) -> str:
     return await orgs_dal.get_id_for_group(group_name)
 
 
+async def get_name_for_group(group_name: str) -> str:
+    organization_id: str = await get_id_for_group(group_name)
+    return await get_name_by_id(organization_id)
+
+
 async def get_name_by_id(organization_id: str) -> str:
     result: OrganizationType = await orgs_dal.get_by_id(
         organization_id, ["name"]

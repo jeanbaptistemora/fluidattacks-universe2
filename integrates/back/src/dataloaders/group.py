@@ -7,8 +7,17 @@ from aioextensions import (
 from custom_types import (
     Group as GroupType,
 )
+from db_model.groups.types import (
+    Group,
+)
+from dynamodb.types import (
+    Item,
+)
 from groups import (
     domain as groups_domain,
+)
+from newutils.groups import (
+    format_group,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -174,3 +183,31 @@ class GroupLoader(DataLoader):
         )
 
         return await _batch_load_fn(groups_names, parent_org_id)
+
+
+class GroupTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, groups_info: Union[Tuple[str, ...], Tuple[Tuple[str, str], ...]]
+    ) -> Tuple[Group, ...]:
+        if isinstance(groups_info[0], str):
+            # Given info is Tuple[group_name, ...]
+            groups_names = groups_info
+            organizations_names = await collect(
+                orgs_domain.get_name_for_group(group_name)
+                for group_name in groups_info
+            )
+        else:
+            # Given info is Tuple[Tuple[group_name, organization_name], ...]
+            groups_names = tuple(group_info[0] for group_info in groups_info)
+            organizations_names = tuple(
+                group_info[1] for group_info in groups_info
+            )
+
+        groups_items: List[Item] = await groups_domain.get_many_groups(
+            list(groups_names)
+        )
+        return tuple(
+            format_group(item=group, organization_name=organization)
+            for group, organization in zip(groups_items, organizations_names)
+        )
