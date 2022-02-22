@@ -122,6 +122,17 @@ locals {
           var.terraform_state_lock_arn,
         ]
       },
+      {
+        Sid    = "dynamoReadJobs"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+        ]
+        Resource = [
+          "arn:aws:dynamodb:us-east-1:205810638802:table/fi_async_processing",
+        ]
+      },
     ]
   }
 }
