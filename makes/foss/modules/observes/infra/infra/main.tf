@@ -17,16 +17,3 @@ terraform {
   }
 
 }
-
-module "external" {
-  source = "../../../../units/utils/terraform-modules/external-data"
-
-  aws_iam_roles = [
-    "prod_makes",
-    "prod_observes",
-  ]
-  aws_iam_users = [
-    "prod_makes",
-    "prod_observes",
-  ]
-}
