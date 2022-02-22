@@ -28,7 +28,9 @@ in
     postgresClient = "${commonPath}/postgres_client";
     purity = "${commonPath}/purity";
     singerIO = "${commonPath}/singer_io";
-    utils_logger = std_data "${commonPath}/utils_logger";
+    utils_logger = std_data "${commonPath}/utils_logger" // {
+      flakes_env.dev = builtins.replaceStrings [ "_" ] [ "-" ] "${commonPath}/utils_logger/flakes_env/dev";
+    };
   };
   tap = {
     announcekit = std_data "${singerPath}/tap_announcekit";
