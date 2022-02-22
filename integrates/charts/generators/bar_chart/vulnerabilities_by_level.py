@@ -17,9 +17,6 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from operator import (
-    attrgetter,
-)
 from typing import (
     Counter,
     List,
@@ -42,7 +39,12 @@ async def get_data_one_group(group: str) -> Counter[str]:
     )
 
     return Counter(
-        filter(None, map(attrgetter("custom_severity"), vulnerabilities))
+        [
+            vulnerability.custom_severity
+            for vulnerability in vulnerabilities
+            if vulnerability.custom_severity is not None
+            and vulnerability.custom_severity >= 0
+        ]
     )
 
 
