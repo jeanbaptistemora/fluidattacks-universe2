@@ -5,17 +5,22 @@ sidebar_label: Introduction
 slug: /machine/agent
 ---
 
-The DevSecOps Agent is constituted
-as an essential element for the implementation
-of DevSecOps in projects.
-It verifies the status of your vulnerabilities
-and breaks the build to force
-the remediation of open and unaccepted vulnerabilities.
-The agent can be included in CI/CD
-(Continuous Integration/Continuous Deployment)
-environments as a security gate.
-Thus,
-any changes to the
-[ToE](/about/glossary#toe "Target of Evaluation")
-can be continuously tested
-against the closing of confirmed vulnerabilities.
+We have a component called the
+**DevSecOps agent**, which is an
+essential element for implementing
+DevSecOps in projects.
+The agent is included in CI/CD (Continuous
+Integration/Continuous Deployment)
+environments as a security gate, preventing
+vulnerable code from reaching production.
+Any change to the Target of Evaluation is
+continuously verified.
+The agent verifies the status of
+vulnerabilities and breaks the build to
+force the remediation of those that are
+open and unaccepted.
+
+In the [Policies section](/machine/web/organization/policies)
+on the ASM, you can select and configure
+the conditions or policies that the agent
+must validate for breaking the build.
