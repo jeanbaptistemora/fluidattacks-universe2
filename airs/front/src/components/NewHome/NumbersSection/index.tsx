@@ -70,8 +70,8 @@ const NumbersSection: React.FC = (): JSX.Element => {
       typeIcon: "1",
     },
   ];
-  const timePerProgress = 1000;
-  const progressLimit = 5;
+  const timePerProgress = 100;
+  const progressLimit = 100;
   const [cardIndex, setCardIndex] = useState(0);
   const [progressValue, setprogressValue] = useState(0);
 

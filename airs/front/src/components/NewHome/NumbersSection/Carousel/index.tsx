@@ -3,6 +3,7 @@ import React from "react";
 import { NumberCard } from "../NumberCard";
 import {
   CarrouselCardsContainer,
+  ProgressBar,
   ProgressContainer,
 } from "../styledComponents";
 import type { INumberCard } from "../types";
@@ -27,7 +28,7 @@ const Carousel: React.FC<IProps> = ({
         typeIcon={data.typeIcon}
       />
       <ProgressContainer>
-        <progress max={"5"} value={`${progressValue}`} />
+        <ProgressBar width={`${progressValue}%`} />
       </ProgressContainer>
     </CarrouselCardsContainer>
   );

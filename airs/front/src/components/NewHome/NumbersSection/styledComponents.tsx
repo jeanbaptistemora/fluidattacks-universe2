@@ -81,24 +81,24 @@ const ProgressContainer = styled.div.attrs({
     tc
     mb5
     w-100
+    relative
+    br3
+    bg-black-gray
   `,
 })`
-  progress[value] {
-    -webkit-appearance: none;
-    appearance: none;
-  }
+  height: 10px;
+`;
 
-  progress[value]::-webkit-progress-bar {
-    height: 10px;
-    border-radius: 20px;
-    background-color: #5c5c70;
-  }
-
-  progress[value]::-webkit-progress-value {
-    height: 10px;
-    border-radius: 20px;
-    background-color: #ff3435;
-  }
+const ProgressBar = styled.div.attrs({
+  className: `
+    relative
+    br3
+    bg-fluid-red
+  `,
+})<{ width: string }>`
+  height: 100%;
+  width: ${({ width }): string => width};
+  transition: width 0.25s;
 `;
 
 export {
@@ -108,6 +108,7 @@ export {
   CarrouselCardsContainer,
   Container,
   GridCardsContainer,
+  ProgressBar,
   ProgressContainer,
   TitleContainer,
 };
