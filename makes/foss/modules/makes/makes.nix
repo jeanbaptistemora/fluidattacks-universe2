@@ -21,7 +21,6 @@
     ./kubernetes/makes.nix
     ./okta/makes.nix
     ./pipeline/makes.nix
-    ./secrets/makes.nix
     ./status/makes.nix
     ./users/makes.nix
     ./vpc/makes.nix

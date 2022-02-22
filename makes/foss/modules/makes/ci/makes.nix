@@ -58,7 +58,7 @@ in
         "GITLAB_TOKEN_AUTONOMICMIND"
         "GITLAB_TOKEN_AUTONOMICJUMP"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
+      manifest = "/makes/secrets/prod.yaml";
     };
     makesCiDev = {
       vars = [
@@ -66,7 +66,7 @@ in
         "GITLAB_TOKEN_AUTONOMICMIND"
         "GITLAB_TOKEN_AUTONOMICJUMP"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/dev.yaml";
+      manifest = "/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {

@@ -95,10 +95,6 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesSecrets";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/makesStatus";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -172,10 +168,6 @@ in
         }
         {
           output = "/lintTerraform/makesOkta";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintTerraform/makesSecrets";
           gitlabExtra = gitlabLint;
         }
         {
@@ -372,10 +364,6 @@ in
         }
         {
           output = "/testTerraform/makesOkta";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/testTerraform/makesSecrets";
           gitlabExtra = gitlabTestInfra;
         }
         {

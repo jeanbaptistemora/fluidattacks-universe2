@@ -47,7 +47,7 @@ in
         "CLOUDFLARE_EMAIL"
         "NEW_RELIC_LICENSE_KEY"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/dev.yaml";
+      manifest = "/makes/secrets/dev.yaml";
     };
     makesKubernetesProd = {
       vars = [
@@ -56,7 +56,7 @@ in
         "CLOUDFLARE_EMAIL"
         "NEW_RELIC_LICENSE_KEY"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
+      manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForKubernetesConfigFromAws = {

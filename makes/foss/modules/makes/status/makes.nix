@@ -38,7 +38,7 @@
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/prod.yaml";
+      manifest = "/makes/secrets/prod.yaml";
     };
     makesStatusDev = {
       vars = [
@@ -48,7 +48,7 @@
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
       ];
-      manifest = "/makes/foss/modules/makes/secrets/dev.yaml";
+      manifest = "/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
