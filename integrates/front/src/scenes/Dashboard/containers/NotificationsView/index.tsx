@@ -19,7 +19,7 @@ import type {
   ISubscriptionsNames,
   ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/containers/NotificationsView/types";
-import { Col100, Row } from "styles/styledComponents";
+import { Col40, RowCenter } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -114,13 +114,13 @@ const NotificationsView: React.FC = (): JSX.Element => {
             return {
               ...subscription,
               subscribeEmail: (
-                <Col100>
+                <Col40>
                   <input
                     checked={isSubscribe}
                     onChange={onChange}
                     type={"checkbox"}
                   />
-                </Col100>
+                </Col40>
               ),
             };
           }
@@ -129,8 +129,8 @@ const NotificationsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Row>
-          <Col100>
+        <RowCenter>
+          <Col40>
             <DataTableNext
               bordered={true}
               dataset={subscriptions}
@@ -140,8 +140,8 @@ const NotificationsView: React.FC = (): JSX.Element => {
               pageSize={10}
               search={false}
             />
-          </Col100>
-        </Row>
+          </Col40>
+        </RowCenter>
       </div>
     </React.StrictMode>
   );
