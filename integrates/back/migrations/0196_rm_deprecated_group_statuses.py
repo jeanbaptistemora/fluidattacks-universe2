@@ -36,6 +36,9 @@ from groups import (
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -44,6 +47,8 @@ from settings import (
 )
 import time
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
@@ -66,22 +71,57 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    success = False
+    group_data = await groups_dal.get_attributes(
+        group_name, ["historic_deletion"]
+    )
+    historic_deletion = group_data.get("historic_deletion", [{}])
+    user_deletion = historic_deletion[-1].get("user", "jmesa@fluidattacks.com")
+    organization_id = await orgs_domain.get_id_for_group(group_name)
+
     all_resources_removed = await groups_domain.remove_resources(
         loaders, group_name
     )
-    if all_resources_removed:
-        user_email = "jmesa@fluidattacks.com"
-        organization_id = await orgs_domain.get_id_for_group(group_name)
-        success = await groups_domain.remove_group(
-            loaders, group_name, user_email, organization_id
-        )
+    are_comments_masked = await groups_domain.mask_comments(group_name)
+    are_roots_deactivated = await groups_domain.deactivate_all_roots(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=user_deletion,
+        other="",
+        reason="GROUP_DELETED",
+    )
+    is_removed_from_org = await orgs_domain.remove_group(
+        group_name, organization_id
+    )
+    success = [
+        all_resources_removed,
+        are_comments_masked,
+        are_roots_deactivated,
+        is_removed_from_org,
+    ]
+
+    if all(success):
+        new_data: Dict[str, Any] = {
+            "group_status": "DELETED",
+            "project_status": "DELETED",
+        }
+        if not historic_deletion[-1]:
+            today = datetime_utils.get_now_as_str()
+            new_data["historic_deletion"] = [
+                {
+                    "date": today,
+                    "deletion_date": today,
+                    "user": user_deletion,
+                }
+            ]
+            new_data["deletion_date"] = today
+        is_updated = await groups_domain.update(group_name, new_data)
+        success.append(is_updated)
+
     LOGGER_CONSOLE.info(
         "Group processed",
         extra={
             "extra": {
                 "group_name": group_name,
-                "all_resources_removed": all_resources_removed,
                 "success": success,
                 "progress": round(progress, 2),
             }
