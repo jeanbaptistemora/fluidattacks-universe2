@@ -22,8 +22,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
         group
     )
     count = len(group_findings)

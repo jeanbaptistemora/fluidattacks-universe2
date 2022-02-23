@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     run,
 )
 from async_lru import (
@@ -35,6 +36,14 @@ from typing import (
 )
 
 
+async def _get_historic_verification(
+    loaders: Dataloaders, vulnerability: Vulnerability
+) -> Tuple[int, ...]:
+    return await loaders.vulnerability_historic_verification.load(
+        vulnerability.id
+    )
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype] = None
@@ -47,10 +56,14 @@ async def get_data_one_group(
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
-    historics: Tuple[
-        Tuple[VulnerabilityVerification, ...], ...
-    ] = await loaders.vulnerability_historic_verification.load_many(
-        [vuln.id for vuln in vulnerabilities]
+    historics_verification: Tuple[
+        VulnerabilityVerification, ...
+    ] = await collect(
+        tuple(
+            _get_historic_verification(loaders, vulnerability)
+            for vulnerability in vulnerabilities
+        ),
+        workers=32,
     )
 
     if min_date:
@@ -58,12 +71,12 @@ async def get_data_one_group(
             get_vulnerability_reattacks_date(
                 historic_verification=historic, min_date=min_date
             )
-            for historic in historics
+            for historic in historics_verification
         )
     else:
         number_of_reattacks = sum(
             get_vulnerability_reattacks(historic_verification=historic)
-            for historic in historics
+            for historic in historics_verification
         )
 
     mttr: Decimal = await get_mean_remediate_severity_cvssf(

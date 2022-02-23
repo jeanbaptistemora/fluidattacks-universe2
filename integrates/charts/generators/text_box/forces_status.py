@@ -14,8 +14,7 @@ from dataloaders import (
 
 async def generate_one(group: str) -> ForcesReport:
     context = get_new_context()
-    group_loader = context.group
-    group_data = await group_loader.load(group)
+    group_data = await context.group.load(group)
 
     has_forces = group_data["has_forces"]
 
