@@ -88,7 +88,6 @@ async def raise_errors(
         pass
 
 
-@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _request(
     *,
     query: str,
@@ -112,6 +111,7 @@ async def _request(
     return response
 
 
+@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _execute(
     *,
     query: str,

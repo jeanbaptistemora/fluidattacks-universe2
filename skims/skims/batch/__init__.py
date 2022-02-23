@@ -183,7 +183,7 @@ async def _gererate_configs(
     )
 
 
-def main() -> None:
+async def main() -> None:
     action_dynamo_pk = sys.argv[1]
     CTX.debug = False
     token = os.environ["INTEGRATES_API_TOKEN"]
@@ -205,17 +205,18 @@ def main() -> None:
 
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
-    checks: List[str] = job_details["checks"]
-    group_language = run(get_group_language(group_name))
-    configs = run(
-        _gererate_configs(
+    group_language = await get_group_language(group_name)
+    configs = await collect(
+        generate_config(
             group_name=group_name,
-            roots=roots,
-            checks=checks,
-            token=token,
-            group_language=group_language,
+            namespace=root,
+            checks=tuple(roots),
+            language=group_language,
+            working_dir=f"groups/{group_name}/fusion/{root}",
         )
+        for root in roots
     )
+
     for config in configs:
         with suppress(Exception):
             log_blocking("info", "Running skims for %s", config.namespace)
@@ -223,4 +224,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run(main())
