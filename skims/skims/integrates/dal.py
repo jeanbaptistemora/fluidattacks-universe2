@@ -3,6 +3,10 @@ from aiogqlc import (
     GraphQLClient,
 )
 import aiohttp
+from aiohttp.client_reqrep import (
+    ClientResponse,
+)
+import asyncio
 from contextlib import (
     suppress,
 )
@@ -40,7 +44,6 @@ from utils.function import (
     StopRetrying,
 )
 from utils.limits import (
-    INTEGRATES_DEFAULT as DEFAULT_RATE_LIMIT,
     INTEGRATES_DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
 from utils.logs import (
@@ -84,14 +87,13 @@ async def raise_errors(
         pass
 
 
-@rate_limited(rpm=DEFAULT_RATE_LIMIT)
-async def _execute(
+async def _request(
     *,
     query: str,
     operation: str,
     variables: Dict[str, Any],
     client: Optional[GraphQLClient] = None,
-) -> Dict[str, Any]:
+) -> ClientResponse:
     if client and not client.session.closed:
         response: aiohttp.ClientResponse = await client.execute(
             query=query,
@@ -105,6 +107,29 @@ async def _execute(
                 operation=operation,
                 variables=variables,
             )
+    return response
+
+
+async def _execute(
+    *,
+    query: str,
+    operation: str,
+    variables: Dict[str, Any],
+    client: Optional[GraphQLClient] = None,
+) -> Dict[str, Any]:
+    while True:
+        response = await _request(
+            query=query,
+            operation=operation,
+            variables=variables,
+            client=client,
+        )
+        if response.status == 429 and (
+            seconds := response.headers.get("retry-after")
+        ):
+            await asyncio.sleep(int(seconds) + 1)
+        else:
+            break
 
     if response.status >= 400:
         await log("debug", "query: %s", query)
