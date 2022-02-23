@@ -1,5 +1,6 @@
 from datetime import (
     datetime,
+    timezone,
 )
 import pytz  # type: ignore
 
@@ -40,3 +41,7 @@ def format_justification_date(date_string: str) -> str:
 def get_datetime_from_iso_str(iso8601utc_str: str) -> datetime:
     iso8601utc = datetime.fromisoformat(iso8601utc_str)
     return get_from_str(get_as_str(iso8601utc))
+
+
+def get_iso_date() -> str:
+    return datetime.now(tz=timezone.utc).isoformat()

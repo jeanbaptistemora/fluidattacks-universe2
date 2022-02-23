@@ -32,15 +32,20 @@ def get_vulnerability_justification(
     reattacked_store: EphemeralStore,
     store: EphemeralStore,
 ) -> str:
+
     today = get_iso_date()
+    commits = []
+    commit_hash: str = ""
+    line_content: str
+    justification: str = ""
 
     if reattacked_store:
         justification = f"Reattack request was executed in \
             {format_justification_date(today)}. "
-        commits = []
+
         for reattacked_vuln in reattacked_store.iterate():
             commit_hash = reattacked_vuln.integrates_metadata.commit_hash
-            line_content = None
+            line_content = ""
             for vuln in store.iterate():
                 if (
                     vuln.where == reattacked_vuln.where
@@ -54,12 +59,10 @@ def get_vulnerability_justification(
                         )
                     )[0]
 
-            if commit_hash is not None and line_content is not None:
+            if commit_hash and line_content:
                 commits.append(
                     f"- Non-compliant code, Line {reattacked_vuln.where} \
                     with content: {line_content}"
-                    if line_content is not None
-                    else ""
                     if reattacked_vuln.where is not None
                     else commit_hash
                 )
