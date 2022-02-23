@@ -43,10 +43,10 @@ async def get_data_one_group(group: str) -> Counter[str]:
         group.lower()
     )
     findings_open_age = await collect(
-        [
+        tuple(
             get_finding_open_age(loaders, finding.id)
             for finding in group_findings
-        ],
+        ),
         workers=32,
     )
     counter: Counter[str] = Counter(

@@ -101,10 +101,10 @@ async def get_data_one_organization(
     *, organization_id: str, groups: Tuple[str, ...], loaders: Dataloaders
 ) -> OrganizationCvssfBenchmarking:
     groups_data = await collect(
-        [
+        tuple(
             get_group_data(group=group.lower(), loaders=loaders)
             for group in groups
-        ],
+        ),
         workers=24,
     )
 
