@@ -77,13 +77,6 @@ def filter_ast(
             yield c_id
 
 
-def search_method_invocation(graph: Graph, methods: Set[str]) -> Iterator[NId]:
-    for n_id in filter_ast(graph, "1", {"MethodInvocation"}):
-        for method in methods:
-            if method in graph.nodes[n_id]["expression"]:
-                yield n_id
-
-
 def get_lookup_path(graph: Graph, path: Path, symbol_id: NId) -> Path:
     cfg_parent = g.lookup_first_cfg_parent(graph, symbol_id)
     cfg_parent_idx = path.index(cfg_parent)  # current instruction idx

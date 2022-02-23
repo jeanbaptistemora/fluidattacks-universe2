@@ -1,3 +1,6 @@
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -15,7 +18,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-    search_method_invocation,
 )
 
 
@@ -32,7 +34,7 @@ def insec_addheader_write(graph_db: GraphDB) -> Vulnerabilities:
                 continue
 
             graph = shard.syntax_graph
-            for n_id in search_method_invocation(graph, danger_methods):
+            for n_id in search_method_invocation_naive(graph, danger_methods):
                 for path in get_backward_paths(graph, n_id):
                     if evaluate(c_sharp, finding, graph, path, n_id):
                         yield shard, n_id
