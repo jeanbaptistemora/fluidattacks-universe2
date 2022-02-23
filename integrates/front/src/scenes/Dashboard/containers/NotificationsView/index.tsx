@@ -50,9 +50,8 @@ const NotificationsView: React.FC = (): JSX.Element => {
     },
   });
 
-  const { data: dataSubscriptions } = useQuery<ISubscriptionsToEntityReport>(
-    SUBSCRIPTIONS_TO_ENTITY_REPORT,
-    {
+  const { data: dataSubscriptions, refetch } =
+    useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(translate.t("configuration.errorText"));
@@ -62,10 +61,12 @@ const NotificationsView: React.FC = (): JSX.Element => {
           );
         });
       },
-    }
-  );
+    });
 
   const [subscribe] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
+    onCompleted: (): void => {
+      void refetch();
+    },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         msgError(translate.t("configuration.errorText"));
