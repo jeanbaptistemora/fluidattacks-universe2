@@ -3,8 +3,8 @@
 Set missing developer and skims_technique on INPUTS vulnerabilities with
 skims_method set.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-02-23 at 14:29:47 UTC
+Finalization Time: 2022-02-23 at 15:13:41 UTC
 """
 
 
