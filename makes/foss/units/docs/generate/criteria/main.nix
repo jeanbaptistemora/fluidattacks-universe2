@@ -176,7 +176,7 @@ let
         requirements
       );
     in
-    builtins.concatStringsSep "<br>" (builtins.map
+    builtins.concatStringsSep "<br />" (builtins.map
       (id: linkRequirement {
         prefix = "";
         inherit id;
@@ -276,8 +276,8 @@ let
       definitions = builtins.attrNames compliance.${standardId}.definitions;
     in
     ''
-      | Standard | Requirements |
-      | : -----: | :----------: |
+      | Definition | Requirements |
+      | : -------  | :----------- |
     ''
     +
     builtins.concatStringsSep "\n" (builtins.map
