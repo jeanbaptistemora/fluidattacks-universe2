@@ -4,6 +4,9 @@ from model import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
+from typing import (
+    Tuple,
+)
 import utils
 
 
@@ -87,16 +90,46 @@ def test_group_analytics(
     asm_endpoint: str,
     timeout: int,
 ) -> None:
+    expected_charts: Tuple[str, ...] = tuple(
+        (
+            "MTTR Benchmarking",
+            "Total Exposure",
+            "Open Severity by type",
+            "Severity over time",
+            "Distribution over time",
+            "Vulnerabilities treatment",
+            "Vulnerabilities by source",
+            "Total types",
+            "Vulnerabilities with not-defined treatment",
+            "Vulnerabilities being re-attacked",
+            "Days since last remediation",
+            "Total vulnerabilities",
+            "Severity",
+            "Active resources distribution",
+            "Systems Risk",
+            "Vulnerabilities by tag",
+            "Vulnerabilities by level",
+            "Accepted vulnerabilities by user",
+            "Vulnerabilities by treatments",
+            "Accepted vulnerabilities by severity",
+            "Mean (average) days to remediate",
+            "Finding by tags",
+            "Your commitment towards security",
+            "Builds risk",
+        )
+    )
     # Login
     utils.login(driver, asm_endpoint, credentials)
 
     # Enter Analytics
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/analytics")
-    assert utils.wait_for_text(
-        driver,
-        "Severity over time",
-        timeout,
-    )
+
+    for expected_chart in expected_charts:
+        assert utils.wait_for_text(
+            driver,
+            expected_chart,
+            timeout,
+        )
 
 
 def test_group_forces(
