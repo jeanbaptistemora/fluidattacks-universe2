@@ -135,7 +135,13 @@ async def _execute(
         await log("debug", "query: %s", query)
         await log("debug", "variables: %s", variables)
         await log("debug", "response status: %s", response.status)
-        raise aiohttp.ClientError()
+        raise aiohttp.ClientResponseError(
+            response.request_info,
+            (response,),
+            status=response.status,
+            headers=response.headers,
+            message=f"query: {query}\nvariables: {variables}",
+        )
 
     result: Dict[str, Any] = (await response.json()) or {}
 

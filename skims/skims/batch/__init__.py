@@ -1,9 +1,9 @@
+from .config import (
+    generate_config,
+)
 from aioextensions import (
     collect,
     run,
-)
-from batch.get_config import (
-    generate_config,
 )
 import boto3
 from contextlib import (
@@ -39,6 +39,9 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
+)
+from utils.logs import (
+    log_blocking,
 )
 
 
@@ -151,9 +154,8 @@ async def _gererate_configs(
     roots: List[str],
     checks: List[str],
     token: str,
-    language: Optional[str] = None,
+    group_language: str,
 ) -> Tuple[SkimsConfig, ...]:
-    group_language = language or await get_group_language(group_name)
     should_run_dict = {
         root: {check: False for check in checks} for root in roots
     }
@@ -211,11 +213,12 @@ def main() -> None:
             roots=roots,
             checks=checks,
             token=token,
-            language=group_language,
+            group_language=group_language,
         )
     )
     for config in configs:
         with suppress(Exception):
+            log_blocking("info", "Running skims for %s", config.namespace)
             execute_skims(config, group_name, token)
 
 
