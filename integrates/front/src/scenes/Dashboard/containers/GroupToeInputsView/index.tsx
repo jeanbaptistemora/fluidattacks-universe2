@@ -99,7 +99,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   );
   const [filterGroupToeInputTable, setFilterGroupToeInputTable] =
     useStoredState<IFilterSet>(
-      "filterGroupToeInputSet",
+      `filterGroupToeInputSet-${groupName}`,
       {
         bePresent: "",
         component: "",
@@ -343,11 +343,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     filterGroupToeInputTable.rootId,
     refetch,
   ]);
-  useEffect((): void => {
-    clearFilters();
-    // It is important to run only during the first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;

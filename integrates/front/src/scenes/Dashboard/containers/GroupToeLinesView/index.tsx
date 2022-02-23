@@ -115,7 +115,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   );
   const [filterGroupToeLinesTable, setFilterGroupToeLinesTable] =
     useStoredState<IFilterSet>(
-      "filterGroupToeLinesSet",
+      `filterGroupToeLinesSet-${groupName}`,
       {
         bePresent: "",
         coverage: { max: "", min: "" },
@@ -445,11 +445,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       }
     }
   }, [pageInfo, fetchMore]);
-  useEffect((): void => {
-    clearFilters();
-    // It is important to run only during the first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect((): void => {
     setSelectedToeLinesDatas([]);
     void refetch();
