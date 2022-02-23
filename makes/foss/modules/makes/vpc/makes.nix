@@ -1,12 +1,20 @@
 # https://github.com/fluidattacks/makes
-{ outputs
+{ inputs
+, makeSearchPaths
+, outputs
 , ...
 }:
+let
+  searchPaths = makeSearchPaths {
+    bin = [ inputs.nixpkgs.git ];
+  };
+in
 {
   deployTerraform = {
     modules = {
       makesVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesVpcProd"
           outputs."/secretsForEnvFromSops/makesVpcVpnData"
@@ -21,6 +29,7 @@
     modules = {
       makesVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
           outputs."/secretsForEnvFromSops/makesVpcVpnData"
@@ -56,6 +65,7 @@
     modules = {
       makesVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
           outputs."/secretsForEnvFromSops/makesVpcVpnData"
