@@ -129,7 +129,7 @@ async def main() -> None:
     groups = await get_active_groups()
     n_groups = len(groups)
 
-    methods = read_yaml("migration/specifics.yaml")
+    methods = read_yaml("0194_set_none_skims_method_in_inputs.yaml")
 
     await collect(
         tuple(
