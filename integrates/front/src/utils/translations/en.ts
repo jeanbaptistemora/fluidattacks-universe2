@@ -894,7 +894,7 @@ export const enTranslations: ResourceKey = {
         entryPoint: "Entry point",
         filters: {
           bePresent: {
-            placeholder: "Be present",
+            placeholder: "Be present (refetch)",
             tooltip: "Filter by be present",
           },
           component: {
@@ -906,7 +906,7 @@ export const enTranslations: ResourceKey = {
             tooltip: "Filter by has vulnerabilities",
           },
           root: {
-            placeholder: "Root",
+            placeholder: "Root (refetch)",
             tooltip: "Filter by root",
           },
           seenAt: {

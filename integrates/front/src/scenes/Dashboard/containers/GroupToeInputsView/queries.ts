@@ -12,10 +12,16 @@ const GET_TOE_INPUTS: DocumentNode = gql`
     $canGetSeenFirstTimeBy: Boolean!
     $first: Int
     $groupName: String!
+    $rootId: ID
   ) {
     group(groupName: $groupName) {
       name
-      toeInputs(bePresent: $bePresent, after: $after, first: $first) {
+      toeInputs(
+        bePresent: $bePresent
+        after: $after
+        first: $first
+        rootId: $rootId
+      ) {
         edges {
           node {
             attackedAt @include(if: $canGetAttackedAt)
@@ -28,7 +34,6 @@ const GET_TOE_INPUTS: DocumentNode = gql`
             hasVulnerabilities
             seenAt
             seenFirstTimeBy @include(if: $canGetSeenFirstTimeBy)
-            unreliableRootNickname
             root {
               ... on GitRoot {
                 __typename

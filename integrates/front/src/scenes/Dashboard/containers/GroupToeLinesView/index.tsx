@@ -339,7 +339,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeLines: IToeLinesConnection };
   }>(GET_TOE_LINES, {
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load group toe lines", error);
@@ -444,14 +445,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       }
     }
   }, [pageInfo, fetchMore]);
-  useEffect((): void => {
-    if (!_.isUndefined(data)) {
-      setSelectedToeLinesDatas([]);
-      void refetch();
-    }
-    // It is important to run only during the first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect((): void => {
     clearFilters();
     // It is important to run only during the first render

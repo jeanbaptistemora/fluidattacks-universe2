@@ -2,7 +2,7 @@ interface IFilterSet {
   bePresent: string;
   component: string;
   hasVulnerabilities: string;
-  root: string;
+  rootId: string;
   seenAt: { max: string; min: string };
   seenFirstTimeBy: string;
 }
@@ -40,7 +40,6 @@ interface IToeInputAttr {
   root: IGitRootAttr | null;
   seenAt: string | null;
   seenFirstTimeBy: string;
-  unreliableRootNickname: string;
 }
 
 interface IGitRootAttr {
@@ -57,12 +56,12 @@ interface IToeInputData {
   entryPoint: string;
   firstAttackAt: Date | undefined;
   hasVulnerabilities: boolean;
-  markedRootNickname: string;
   markedSeenFirstTimeBy: string;
   root: IGitRootAttr | null;
+  rootId: string;
+  rootNickname: string;
   seenAt: Date | undefined;
   seenFirstTimeBy: string;
-  unreliableRootNickname: string;
 }
 
 export type {

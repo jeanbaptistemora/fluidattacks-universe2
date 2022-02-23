@@ -11,9 +11,7 @@ import {
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData
 ): string =>
-  toeInputData.unreliableRootNickname +
-  toeInputData.component +
-  toeInputData.entryPoint;
+  toeInputData.rootId + toeInputData.component + toeInputData.entryPoint;
 
 const getToeInputIds: (toeInputs: IToeInputData[]) => string[] = (
   toeInputs: IToeInputData[]
@@ -77,21 +75,6 @@ const onSelectSeveralToeInputHelper = (
   );
 };
 
-const filterBePresent: (
-  filterGroupToeInputTable: IFilterSet,
-  toeInputs: IToeInputData[]
-) => IToeInputData[] = (
-  filterGroupToeInputTable: IFilterSet,
-  toeInputs: IToeInputData[]
-): IToeInputData[] => {
-  const bePresent = filterGroupToeInputTable.bePresent === "true";
-
-  return _.isEmpty(filterGroupToeInputTable.bePresent)
-    ? toeInputs
-    : toeInputs.filter((toeInputData): boolean => {
-        return toeInputData.bePresent === bePresent;
-      });
-};
 const filterHasVulnerabilities: (
   filterGroupToeInputTable: IFilterSet,
   toeInputs: IToeInputData[]
@@ -108,20 +91,6 @@ const filterHasVulnerabilities: (
         return toeInputData.hasVulnerabilities === hasVulnerabilities;
       });
 };
-const filterRoot: (
-  filterGroupToeInputTable: IFilterSet,
-  toeInput: IToeInputData[]
-) => IToeInputData[] = (
-  filterGroupToeInputTable: IFilterSet,
-  toeInput: IToeInputData[]
-): IToeInputData[] =>
-  _.isEmpty(filterGroupToeInputTable.root)
-    ? toeInput
-    : toeInput.filter((toeInputData): boolean => {
-        return (
-          toeInputData.markedRootNickname === filterGroupToeInputTable.root
-        );
-      });
 
 const filterSearchtextResult: (
   searchTextFilter: string,
@@ -140,7 +109,6 @@ const getFilteredData: (
   searchTextFilter: string,
   toeInput: IToeInputData[]
 ): IToeInputData[] => {
-  const filteredBePresent = filterBePresent(filterGroupToeInputTable, toeInput);
   const filteredComponent: IToeInputData[] = filterSelect(
     toeInput,
     filterGroupToeInputTable.component,
@@ -150,7 +118,6 @@ const getFilteredData: (
     filterGroupToeInputTable,
     toeInput
   );
-  const filteredRoot = filterRoot(filterGroupToeInputTable, toeInput);
   const filteredSearchtextResult = filterSearchtextResult(
     searchTextFilter,
     toeInput
@@ -166,10 +133,8 @@ const getFilteredData: (
     "markedSeenFirstTimeBy"
   );
   const filteredData: IToeInputData[] = _.intersection(
-    filteredBePresent,
     filteredComponent,
     filteredHasVulnerabilities,
-    filteredRoot,
     filteredSearchtextResult,
     filteredSeenAt,
     filteredSeenFirstTimeBy
@@ -178,4 +143,16 @@ const getFilteredData: (
   return filteredData;
 };
 
-export { getFilteredData, getToeInputIndex, onSelectSeveralToeInputHelper };
+const formatBePresent = (bePresent: string): boolean | undefined =>
+  bePresent === "" ? undefined : bePresent === "true";
+
+const formatRootId = (rootId: string): string | undefined =>
+  rootId === "" ? undefined : rootId;
+
+export {
+  getFilteredData,
+  getToeInputIndex,
+  onSelectSeveralToeInputHelper,
+  formatBePresent,
+  formatRootId,
+};

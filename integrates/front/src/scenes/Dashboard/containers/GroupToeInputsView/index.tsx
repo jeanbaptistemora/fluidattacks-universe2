@@ -15,6 +15,8 @@ import { ActionButtons } from "./ActionButtons";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import {
+  formatBePresent,
+  formatRootId,
   getFilteredData,
   getToeInputIndex,
   onSelectSeveralToeInputHelper,
@@ -34,12 +36,13 @@ import type {
   IToeInputEdge,
   IToeInputsConnection,
 } from "scenes/Dashboard/containers/GroupToeInputsView/types";
+import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
+import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
-const NOROOT = "no root";
 const NOSEENFIRSTTIMEBY = "no seen first time by";
 
 const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
@@ -88,9 +91,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       entryPoint: true,
       firstAttackAt: false,
       hasVulnerabilities: true,
+      rootNickname: true,
       seenAt: true,
       seenFirstTimeBy: true,
-      unreliableRootNickname: true,
     },
     localStorage
   );
@@ -101,7 +104,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         bePresent: "",
         component: "",
         hasVulnerabilities: "",
-        root: "",
+        rootId: "",
         seenAt: { max: "", min: "" },
         seenFirstTimeBy: "",
       },
@@ -139,23 +142,35 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeInputs: IToeInputsConnection };
   }>(GET_TOE_INPUTS, {
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load toe inputs", error);
       });
     },
     variables: {
+      bePresent: formatBePresent(filterGroupToeInputTable.bePresent),
       canGetAttackedAt,
       canGetAttackedBy,
       canGetBePresentUntil,
       canGetFirstAttackAt,
       canGetSeenFirstTimeBy,
-      first: 300,
+      first: 150,
+      groupName,
+      rootId: formatRootId(filterGroupToeInputTable.rootId),
+    },
+  });
+  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group root ids", error);
+      });
+    },
+    variables: {
       groupName,
     },
   });
-
   const pageInfo =
     data === undefined ? undefined : data.group.toeInputs.pageInfo;
   const toeInputsEdges: IToeInputEdge[] =
@@ -163,9 +178,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const formatOptionalDate: (date: string | null) => Date | undefined = (
     date: string | null
   ): Date | undefined => (_.isNull(date) ? undefined : new Date(date));
-  const markNickname: (rootNickname: string) => string = (
-    rootNickname: string
-  ): string => (_.isEmpty(rootNickname) ? NOROOT : rootNickname);
   const markSeenFirstTimeBy: (seenFirstTimeBy: string) => string = (
     seenFirstTimeBy: string
   ): string =>
@@ -176,8 +188,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       attackedAt: formatOptionalDate(node.attackedAt),
       bePresentUntil: formatOptionalDate(node.bePresentUntil),
       firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      markedRootNickname: markNickname(node.unreliableRootNickname),
       markedSeenFirstTimeBy: markSeenFirstTimeBy(node.seenFirstTimeBy),
+      rootId: _.isNil(node.root) ? "" : node.root.id,
+      rootNickname: _.isNil(node.root) ? "" : node.root.nickname,
       seenAt: formatOptionalDate(node.seenAt),
     })
   );
@@ -207,10 +220,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "unreliableRootNickname",
+      dataField: "rootNickname",
       header: translate.t("group.toe.inputs.root"),
       onSort,
-      visible: checkedItems.unreliableRootNickname,
+      visible: checkedItems.rootNickname,
     },
     {
       align: "left",
@@ -299,13 +312,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
   ];
 
+  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
   function clearFilters(): void {
     setFilterGroupToeInputTable(
       (): IFilterSet => ({
         bePresent: "",
         component: "",
         hasVulnerabilities: "",
-        root: "",
+        rootId: "",
         seenAt: { max: "", min: "" },
         seenFirstTimeBy: "",
       })
@@ -322,12 +336,13 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     }
   }, [pageInfo, fetchMore]);
   useEffect((): void => {
-    if (!_.isUndefined(data)) {
-      void refetch();
-    }
-    // It is important to run only during the first render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setSelectedToeInputDatas([]);
+    void refetch();
+  }, [
+    filterGroupToeInputTable.bePresent,
+    filterGroupToeInputTable.rootId,
+    refetch,
+  ]);
   useEffect((): void => {
     clearFilters();
     // It is important to run only during the first render
@@ -385,9 +400,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     ])
   );
   const rootSelectOptions = Object.fromEntries(
-    toeInputs.map((toeInputData: IToeInputData): string[] => [
-      toeInputData.markedRootNickname,
-      toeInputData.unreliableRootNickname,
+    roots.map((root: IRootIdAttr): string[] => [
+      root.id,
+      `${root.nickname} (${root.state.toLowerCase()})`,
     ])
   );
   const booleanSelectOptions = Object.fromEntries([
@@ -402,8 +417,8 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   );
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: filterGroupToeInputTable.root,
-      onChangeSelect: onBasicFilterValueChange("root"),
+      defaultValue: filterGroupToeInputTable.rootId,
+      onChangeSelect: onBasicFilterValueChange("rootId"),
       placeholder: translate.t("group.toe.inputs.filters.root.placeholder"),
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.inputs.filters.root.tooltip.id",
