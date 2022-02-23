@@ -146,9 +146,14 @@ def _clone_with_melts(group_name: str) -> bool:
 
 
 async def _gererate_configs(
-    *, group_name: str, roots: List[str], checks: List[str], token: str
+    *,
+    group_name: str,
+    roots: List[str],
+    checks: List[str],
+    token: str,
+    language: Optional[str] = None,
 ) -> Tuple[SkimsConfig, ...]:
-    group_language = await get_group_language(group_name)
+    group_language = language or await get_group_language(group_name)
     should_run_dict = {
         root: {check: False for check in checks} for root in roots
     }
@@ -199,9 +204,14 @@ def main() -> None:
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
+    group_language = run(get_group_language(group_name))
     configs = run(
         _gererate_configs(
-            group_name=group_name, roots=roots, checks=checks, token=token
+            group_name=group_name,
+            roots=roots,
+            checks=checks,
+            token=token,
+            language=group_language,
         )
     )
     for config in configs:

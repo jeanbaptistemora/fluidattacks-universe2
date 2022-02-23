@@ -1,3 +1,4 @@
+import asyncio
 from datetime import (
     datetime,
 )
@@ -21,7 +22,6 @@ from model import (
     core_model,
     time_model,
 )
-import sys
 from typing import (
     Optional,
     Tuple,
@@ -47,14 +47,18 @@ async def main(
     )
 
     max_reattack_date: datetime = time_model.min_posible()
-
-    for finding_id in finding_ids:
+    for result in asyncio.as_completed(
+        [
+            get_finding_vulnerabilities(
+                # Any finding works well
+                finding=core_model.FindingEnum.F004,
+                finding_id=finding_id,
+            )
+            for finding_id in finding_ids
+        ]
+    ):
+        vulnerabilities_store = await result
         vulnerability: core_model.Vulnerability
-        vulnerabilities_store = await get_finding_vulnerabilities(
-            # Any finding works well
-            finding=core_model.FindingEnum.F004,
-            finding_id=finding_id,
-        )
         for vulnerability in vulnerabilities_store.iterate():
             verification = vulnerability.integrates_metadata.verification
             verification_date: Optional[datetime] = None
@@ -79,8 +83,7 @@ async def main(
                 > max_reattack_date.timestamp()
             ):
                 max_reattack_date = verification_date
-
-    sys.stdout.write(str(int(max_reattack_date.timestamp())))
-    sys.stdout.write("\n")
+                if int(max_reattack_date.timestamp()) == 0:
+                    return max_reattack_date
 
     return max_reattack_date

@@ -233,12 +233,14 @@ async def cli_expected_code_date_wrapped(
         group=group,
         token=token,
     )
-    await core.expected_code_date.main(
+    result = await core.expected_code_date.main(
         finding_code=finding_code,
         group=group,
         namespace=namespace,
         token=token,
     )
+    sys.stdout.write(str(int(result.timestamp())))
+    sys.stdout.write("\n")
     return True
 
 
