@@ -205,12 +205,13 @@ async def main() -> None:
 
     job_details = json.loads(item.additional_info)
     roots: List[str] = job_details["roots"]
+    checks: List[str] = job_details["checks"]
     group_language = await get_group_language(group_name)
     configs = await collect(
         generate_config(
             group_name=group_name,
             namespace=root,
-            checks=tuple(roots),
+            checks=tuple(checks),
             language=group_language,
             working_dir=f"groups/{group_name}/fusion/{root}",
         )
