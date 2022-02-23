@@ -54,6 +54,15 @@ class GroupToeInputsRequest(NamedTuple):
     paginate: bool = False
 
 
+class RootToeInputsRequest(NamedTuple):
+    group_name: str
+    root_id: str
+    after: Optional[str] = None
+    be_present: Optional[bool] = None
+    first: Optional[int] = None
+    paginate: bool = False
+
+
 class ToeInputMetadataToUpdate(NamedTuple):
     attacked_at: Optional[datetime] = None
     attacked_by: Optional[str] = None

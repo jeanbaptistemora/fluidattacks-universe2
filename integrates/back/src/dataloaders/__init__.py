@@ -46,6 +46,7 @@ from db_model.services_toe_lines.get import (
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
+    RootToeInputsLoader,
     ToeInputLoader,
 )
 from db_model.toe_lines.get import (
@@ -106,6 +107,7 @@ class Dataloaders(NamedTuple):
     root_machine_executions: RootMachineExecutionsLoader
     root_services_toe_lines: RootServicesToeLinesLoader
     root_states: RootStatesLoader
+    root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
@@ -183,6 +185,7 @@ def get_new_context() -> Dataloaders:
         root_machine_executions=RootMachineExecutionsLoader(),
         root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
+        root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         toe_input=ToeInputLoader(),
