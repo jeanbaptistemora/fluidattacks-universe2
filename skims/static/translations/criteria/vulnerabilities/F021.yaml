@@ -1,0 +1,3 @@
+src.lib_path.f021.xpath_injection:
+  en: Potentially untrusted HTTP request input reaches an XPath query
+  es: La entrada de solicitud HTTP potencialmente no confiable llega a una consulta XPath

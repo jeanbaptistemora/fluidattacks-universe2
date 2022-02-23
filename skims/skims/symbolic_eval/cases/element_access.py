@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f021.element_access import (
+    evaluate as evaluate_element_access_f021,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -9,7 +12,9 @@ from typing import (
     Dict,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+    FindingEnum.F021: evaluate_element_access_f021,
+}
 
 
 def evaluate(args: SymbolicEvalArgs) -> bool:

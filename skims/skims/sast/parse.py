@@ -275,7 +275,6 @@ def _parse_one_cached(
     content: bytes,
     language: GraphShardMetadataLanguage,
     _: int,
-    syntax_graph_enabled: bool = False,
 ) -> Optional[GraphShardCacheable]:
     raw_tree: Tree = parse_content(content, language)
     node: Node = raw_tree.root_node
@@ -288,9 +287,8 @@ def _parse_one_cached(
     except ParsingError:
         return None
 
-    if syntax_graph_enabled:
-        if syntax_graph := build_syntax_graph(language, graph):
-            syntax_graph = add_syntax_cfg(syntax_graph)
+    if syntax_graph := build_syntax_graph(language, graph):
+        syntax_graph = add_syntax_cfg(syntax_graph)
     else:
         syntax_graph = None
 
