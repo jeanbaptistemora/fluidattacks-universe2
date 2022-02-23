@@ -46,9 +46,6 @@ from newutils import (
     datetime as datetime_utils,
     reports,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -343,31 +340,15 @@ async def _should_not_send_report(
 ) -> bool:
     if report_entity.lower() == "group":
         group_data = await groups_domain.get_attributes(
-            report_subject.lower(),
-            [
-                "deletion_date",
-                "historic_deletion",
-                "project_name",
-                "project_status",
-            ],
+            report_subject.lower(), ["project_status"]
         )
-        if not await groups_domain.is_alive(
-            report_subject.lower(), group_data
-        ):
-            if (
-                get_key_or_fallback(
-                    group_data, "group_status", "project_status"
-                )
-                == "FINISHED"
-            ):
-                await unsubscribe_user_to_entity_report(
-                    report_entity=report_entity,
-                    report_subject=report_subject,
-                    user_email=user_email,
-                )
-
+        if group_data["project_status"] == "DELETED":
+            await unsubscribe_user_to_entity_report(
+                report_entity=report_entity,
+                report_subject=report_subject,
+                user_email=user_email,
+            )
             return True
-
     return False
 
 
