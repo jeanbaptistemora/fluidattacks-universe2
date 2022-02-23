@@ -6,9 +6,9 @@ module "eks" {
   enable_irsa     = true
 
   subnets = [
-    aws_subnet.region_a.id,
-    aws_subnet.region_b.id,
-    aws_subnet.region_d.id,
+    "subnet-0df4178d0c9354aad",
+    "subnet-08849bfa044faf25a",
+    "subnet-0412793dec0eddea9",
   ]
 
   worker_additional_security_group_ids = [
