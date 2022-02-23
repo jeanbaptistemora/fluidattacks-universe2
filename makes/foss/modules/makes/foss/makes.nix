@@ -7,8 +7,9 @@
     modules = {
       makesFoss = {
         setup = [
-          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForEnvFromSops/makesFossProd"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";
@@ -19,12 +20,23 @@
     modules = {
       makesFoss = {
         setup = [
-          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/makesFossDev"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";
       };
+    };
+  };
+  secretsForEnvFromSops = {
+    makesFossDev = {
+      vars = [ "GITHUB_API_TOKEN" ];
+      manifest = "/makes/secrets/dev.yaml";
+    };
+    makesFossProd = {
+      vars = [ "GITHUB_API_TOKEN" ];
+      manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
@@ -36,8 +48,9 @@
     modules = {
       makesFoss = {
         setup = [
-          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/makesFossDev"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
         ];
         src = "/makes/foss/modules/makes/foss/infra";
         version = "1.0";

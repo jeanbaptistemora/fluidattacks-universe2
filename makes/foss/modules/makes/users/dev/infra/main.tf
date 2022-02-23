@@ -48,6 +48,15 @@ module "key" {
   ]
   users = [
     "dev",
+    "prod_airs",
+    "prod_docs",
+    "prod_forces",
+    "prod_integrates",
+    "prod_melts",
+    "prod_observes",
+    "prod_services",
+    "prod_skims",
+    "prod_sorts",
   ]
 
   tags = {
