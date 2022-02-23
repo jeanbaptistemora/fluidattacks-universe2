@@ -23,6 +23,7 @@ import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
+import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
@@ -286,6 +287,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
                     {/* Necessary to support old group URLs */}
                     <Route path={`/groups/${groupRegex}`}>
                       <OrganizationRedirect type={"groups"} />
+                    </Route>
+                    <Route exact={true} path={"/user/config"}>
+                      <NotificationsView />
                     </Route>
                     <Redirect to={"/home"} />
                   </Switch>

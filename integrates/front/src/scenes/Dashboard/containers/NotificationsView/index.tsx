@@ -126,6 +126,13 @@ const NotificationsView: React.FC = (): JSX.Element => {
           }
         );
 
+  const exceptions = ["GROUP", "ORGANIZATION", "PORTFOLIO"];
+
+  const filterByName = (subscription: ISubscriptionName): boolean =>
+    !exceptions.includes(subscription.name);
+
+  const subscriptionsFiltered = subscriptions.filter(filterByName);
+
   return (
     <React.StrictMode>
       <div>
@@ -133,7 +140,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
           <Col40>
             <DataTableNext
               bordered={true}
-              dataset={subscriptions}
+              dataset={subscriptionsFiltered}
               exportCsv={false}
               headers={tableHeaders}
               id={"tblNotifications"}
