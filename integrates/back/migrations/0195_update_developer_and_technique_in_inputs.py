@@ -1,9 +1,10 @@
 # pylint: disable=invalid-name
 """
-Set missing developer and skims_technique in vulnerabilities with skims_method.
+Set missing developer and skims_technique on INPUTS vulnerabilities with
+skims_method set.
 
-Execution Time:    2022-02-17 at 21:12:32 UTC
-Finalization Time: 2022-02-19 at 05:34:02 UTC
+Execution Time:
+Finalization Time:
 """
 
 
@@ -67,8 +68,8 @@ def vuln_is_machine(vuln: Vulnerability) -> bool:
     return vuln.state.source == Source.MACHINE
 
 
-def vuln_is_line(vuln: Vulnerability) -> bool:
-    return vuln.type == VulnerabilityType.LINES
+def vuln_is_input(vuln: Vulnerability) -> bool:
+    return vuln.type == VulnerabilityType.INPUTS
 
 
 def meth_is_set(vuln: Vulnerability) -> bool:
@@ -83,7 +84,7 @@ async def vulns_to_update(
     return tuple(
         v
         for v in await loaders.finding_vulnerabilities.load_many_chained(f_ids)
-        if vuln_is_machine(v) and vuln_is_line(v) and meth_is_set(v)
+        if vuln_is_machine(v) and vuln_is_input(v) and meth_is_set(v)
     )
 
 
@@ -122,7 +123,7 @@ async def main() -> None:
     groups = await get_active_groups()
     n_groups = len(groups)
 
-    methods = read_yaml("0193_update_developer_and_technique_in_lines.yaml")
+    methods = read_yaml("0195_update_developer_and_technique_in_inputs.yaml")
 
     await collect(
         tuple(

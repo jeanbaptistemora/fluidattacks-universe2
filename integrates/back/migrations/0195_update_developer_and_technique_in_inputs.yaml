@@ -1,0 +1,123 @@
+analyze_bytecodes.apk_backups_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_debugging_enabled:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_exported_cp:
+  developer: bagudelo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.apk_unsigned:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.has_fragment_injection:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.has_frida:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.improper_certificate_validation:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_certs_pinning:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_obfuscation:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.no_root_check:
+  developer: jrestrepo@fluidattacks.com
+  technique: APK
+analyze_bytecodes.not_verifies_ssl_hostname:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.socket_uses_get_insecure:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.uses_http_resources:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.uses_insecure_delete:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_bytecodes.webview_vulnerabilities:
+  developer: lsaavedra@fluidattacks.com
+  technique: APK
+analyze_content.sub_resource_integrity:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_content.view_state:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.content_security_policy:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.date:
+  developer: acuberos@fluidattacks.com
+  technique: DAST
+analyze_headers.location:
+  developer: jecheverri@fluidattacks.com
+  technique: DAST
+analyze_headers.referrer_policy:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_httponly:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_samesite:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.set_cookie_secure:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.strict_transport_security:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_headers.upgrade_insecure_requests:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_headers.www_authenticate:
+  developer: jecheverri@fluidattacks.com
+  technique: DAST
+analyze_headers.x_content_type_options:
+  developer: jrestrepo@fluidattacks.com
+  technique: DAST
+analyze_protocol.breach_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.cbc_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.fallback_scsv_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.freak_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.heartbleed_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.pfs_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.raccoon_possible:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.sslv3_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_1_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_2_or_higher_disabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_3_downgrade:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.tlsv1_enabled:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
+analyze_protocol.weak_ciphers_allowed:
+  developer: asalgado@fluidattacks.com
+  technique: DAST
