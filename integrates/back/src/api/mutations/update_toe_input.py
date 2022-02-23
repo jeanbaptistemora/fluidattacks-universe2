@@ -45,13 +45,14 @@ from typing import (
     enforce_group_level_auth_async,
     require_asm,
 )
-async def mutate(
+async def mutate(  # pylint: disable=too-many-arguments
     _parent: None,
     info: GraphQLResolveInfo,
     be_present: bool,
     component: str,
     entry_point: str,
     group_name: str,
+    root_id: str,
     **kwargs: Any,
 ) -> SimplePayloadType:
     try:
@@ -63,7 +64,7 @@ async def mutate(
                 component=component,
                 entry_point=entry_point,
                 group_name=group_name,
-                root_id=kwargs.get("root_id", ""),
+                root_id=root_id,
             )
         )
         be_present_to_update = (

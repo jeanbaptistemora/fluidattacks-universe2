@@ -1010,7 +1010,7 @@ type Mutation {
     "Name of the group the input is associated with"
     groupName: String!
     "Id of the root containing the ToE input to be updated"
-    rootId: String
+    rootId: String!
   ): SimplePayload!
 
   """
