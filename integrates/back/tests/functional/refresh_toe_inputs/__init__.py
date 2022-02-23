@@ -64,7 +64,23 @@ async def query_get(
                         firstAttackAt
                         seenAt
                         seenFirstTimeBy
-                        unreliableRootNickname
+                        root {{
+                            ... on GitRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                            ... on IPRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                            ... on URLRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                        }}
                     }}
                     cursor
                 }}

@@ -25,11 +25,6 @@ type ToeInput {
   seenAt: DateTime
   "Hacker who found the application input"
   seenFirstTimeBy: String!
-  """
-  Root nickname of the toe input if there is enough information to
-  determine it
-  """
-  unreliableRootNickname: String!
 }
 
 "Toe Input Edge type definition"
