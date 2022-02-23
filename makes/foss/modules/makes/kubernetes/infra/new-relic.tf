@@ -1,4 +1,6 @@
 variable "newRelicLicenseKey" {}
+variable "newRelicPixieApiKey" {}
+variable "newRelicPixieDeployKey" {}
 
 variable "pixie_crd_commit" {
   default = "eea8fff0ec9032ef47bc862baae6470812352d44"
@@ -24,7 +26,7 @@ resource "helm_release" "newrelic" {
   name       = "newrelic"
   repository = "https://helm-charts.newrelic.com"
   chart      = "nri-bundle"
-  version    = "3.3.2"
+  version    = "3.4.0"
   namespace  = "kube-system"
 
   set_sensitive {
@@ -60,5 +62,30 @@ resource "helm_release" "newrelic" {
   set {
     name  = "logging.enabled"
     value = "true"
+  }
+
+  set_sensitive {
+    name  = "newrelic-pixie.apiKey"
+    value = var.newRelicPixieApiKey
+  }
+
+  set_sensitive {
+    name  = "pixie-chart.deployKey"
+    value = var.newRelicPixieDeployKey
+  }
+
+  set {
+    name  = "newrelic-pixie.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "pixie-chart.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "pixie-chart.clusterName"
+    value = var.cluster_name
   }
 }
