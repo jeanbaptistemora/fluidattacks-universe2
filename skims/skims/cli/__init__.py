@@ -301,10 +301,12 @@ def cli_scan_wrapped(
         group=group or "",
         token="set" if token else "",
     )
-    success: bool = core.scan.main(
-        config=config,
-        group=group,
-        token=token,
+    success: bool = run(
+        core.scan.main(
+            config=config,
+            group=group,
+            token=token,
+        )
     )
 
     return success

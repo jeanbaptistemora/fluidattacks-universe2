@@ -1,6 +1,3 @@
-from aioextensions import (
-    run,
-)
 from config import (
     load,
 )
@@ -66,7 +63,7 @@ from zone import (
 )
 
 
-def execute_skims(token: Optional[str] = None) -> bool:
+async def execute_skims(token: Optional[str] = None) -> bool:
     """Execute skims according to the provided config.
 
     :param token: Integrates API token
@@ -87,14 +84,14 @@ def execute_skims(token: Optional[str] = None) -> bool:
     if CTX.config.apk.include:
         analyze_apk(stores=stores)
     if CTX.config.http.include:
-        run(analyze_http(stores=stores))
+        await analyze_http(stores=stores)
     if CTX.config.path.include:
         if CTX.config.path.lib_path:
             analyze_paths(stores=stores)
         if CTX.config.path.lib_root:
             analyze_root(stores=stores)
     if CTX.config.ssl.include:
-        run(analyze_ssl(stores=stores))
+        await analyze_ssl(stores=stores)
 
     if CTX.config.output:
         notify_findings_as_csv(stores, CTX.config.output)
@@ -109,13 +106,12 @@ def execute_skims(token: Optional[str] = None) -> bool:
         msg = "Results will be synced to group: %s"
         log_blocking("info", msg, CTX.config.group)
 
-        result_persist = run(
-            persist(
-                group=CTX.config.group,
-                stores=stores,
-                token=token,
-            )
+        result_persist = await persist(
+            group=CTX.config.group,
+            stores=stores,
+            token=token,
         )
+
         success = all(result_persist.values())
 
         end_date = datetime.utcnow()
@@ -134,16 +130,14 @@ def execute_skims(token: Optional[str] = None) -> bool:
                 for finding in core_model.FindingEnum
                 if finding in CTX.config.checks
             ]
-            run(
-                do_add_skims_execution(
-                    root=CTX.config.namespace,
-                    group_name=CTX.config.group,
-                    job_id=batch_job_id,
-                    start_date=start_date,
-                    end_date=end_date,
-                    findings_executed=tuple(executed),
-                    commit_hash=get_repo_head_hash(CTX.config.working_dir),
-                )
+            await do_add_skims_execution(
+                root=CTX.config.namespace,
+                group_name=CTX.config.group,
+                job_id=batch_job_id,
+                start_date=start_date,
+                end_date=end_date,
+                findings_executed=tuple(executed),
+                commit_hash=get_repo_head_hash(CTX.config.working_dir),
             )
     else:
         success = True
@@ -216,7 +210,7 @@ def notify_findings_as_csv(
     log_blocking("info", "An output file has been written: %s", output)
 
 
-def main(
+async def main(
     config: Union[str, core_model.SkimsConfig],
     group: Optional[str],
     token: Optional[str],
@@ -235,7 +229,7 @@ def main(
             "info", "Moving working dir to: %s", CTX.config.working_dir
         )
         os.chdir(CTX.config.working_dir)
-        return execute_skims(token)
+        return await execute_skims(token)
     finally:
         if CTX and CTX.config and CTX.config.start_dir:
             os.chdir(CTX.config.start_dir)

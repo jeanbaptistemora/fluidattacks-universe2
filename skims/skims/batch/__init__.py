@@ -220,7 +220,7 @@ async def main() -> None:
     for config in configs:
         with suppress(Exception):
             log_blocking("info", "Running skims for %s", config.namespace)
-            execute_skims(config, group_name, token)
+            await execute_skims(config, group_name, token)
 
 
 if __name__ == "__main__":
