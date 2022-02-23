@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/cloudinit"
       version = "~> 2.2.0"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "~> 1.13.1"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.8.0"
@@ -43,6 +47,14 @@ provider "aws" {}
 provider "cloudflare" {
   email   = var.cloudflareEmail
   api_key = var.cloudflareApiKey
+}
+
+provider "kubectl" {
+  config_path            = split(":", var.kubeConfig)[0]
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  load_config_file       = false
 }
 
 provider "kubernetes" {
