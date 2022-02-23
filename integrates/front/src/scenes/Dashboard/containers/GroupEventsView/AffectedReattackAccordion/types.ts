@@ -30,7 +30,6 @@ interface IAffectedReattackModal {
 
 interface IAffectedAccordionProps {
   findings: IFinding[];
-  groupName: string;
 }
 
 interface IUpdateEventAffectations {
