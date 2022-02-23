@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 """
-Set missing developer and skims_technique on INPUTS vulnerabilities with
+Set missing developer and skims_technique for INPUTS vulnerabilities with
 skims_method set.
 
 Execution Time:    2022-02-23 at 14:29:47 UTC

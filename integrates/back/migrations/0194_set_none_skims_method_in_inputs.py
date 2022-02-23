@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 """
 Set skims_method for INPUTS vulnerabilities based on
-0191_set_skims_method_inputs.yaml.
+0194_set_none_skims_method_in_inputs.yaml
 
 Execution Time:    2022-02-22 at 21:31:28 UTC
 Finalization Time: 2022-02-22 at 22:40:15 UTC

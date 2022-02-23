@@ -1,10 +1,11 @@
 # pylint: disable=invalid-name
 """
 Update skims_method in None state based on 0186_set_none_skims_method.yaml
+for LINES vulnerabilities
 
 Initially this migration ran without parallelism, but the execution time was
 not acceptable. This version was then used to reduce that time. The runtime
-is goes from the start of the serial run to the end of the parallel one.
+goes from the start of the serial run to the end of the parallel one.
 
 Execution Time:     2022-02-16 at 05:32:35 UTC
 Finalization Time:  2022-02-17 at 08:20:27 UTC

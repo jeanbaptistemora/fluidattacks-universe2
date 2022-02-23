@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 """
 Update vulnerabilities with old skims_methods based on
-0189_update_old_names_skims_methods.yaml
+0189_update_old_names_skims_methods.yaml for LINES vulnerabilities
 
 Execution Time:    2022-02-18 at 20:01:21 UTC
 Finalization Time: 2022-02-18 at 20:19:08 UTC
