@@ -529,7 +529,6 @@ in
           "machine_queue_re_attacks"
           "move_services_toe_lines"
           "report_squad_usage"
-          "send_treatment_change"
           "update_group_toe_vulns"
           "toe_inputs_etl"
           "services_toe_lines_etl"

@@ -2943,24 +2943,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/scheduler__prod__schedulers.send_treatment_change.main:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_scheduler_send_treatment_change == null
-      when: never
-    - when: always
-  script:
-    - m . /integrates/scheduler 'prod' 'schedulers.send_treatment_change.main'
-  stage: scheduler
-  tags:
-    - autoscaling-large
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.services_toe_lines_etl.main:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: false
