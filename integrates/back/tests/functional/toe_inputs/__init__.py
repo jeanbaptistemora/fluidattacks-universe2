@@ -29,7 +29,23 @@ async def get_result(
                         firstAttackAt
                         seenAt
                         seenFirstTimeBy
-                        unreliableRootNickname
+                        root {{
+                            ... on GitRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                            ... on IPRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                            ... on URLRoot {{
+                            __typename
+                            id
+                            nickname
+                            }}
+                        }}
                     }}
                     cursor
                 }}

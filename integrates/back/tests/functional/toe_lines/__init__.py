@@ -34,6 +34,7 @@ async def get_result(
                         lastCommit
                         modifiedDate
                         root {{
+                            id
                             nickname
                         }}
                         seenAt
