@@ -353,6 +353,9 @@
   "com.newrelic.agent.java:newrelic-agent": {
     "NR21-03": ">=4.12.0 <6.5.2 || >=7.0.0 <7.4.2"
   },
+  "com.newrelic.agent.java:newrelic-java": {
+    "NR21-03": ">=4.12.0 <6.5.2 || >=7.0.0 <7.4.2"
+  },
   "com.nimbusds:nimbus-jose-jwt": {
     "CVE-2017-12972": ">=0 <4.39",
     "CVE-2017-12973": ">=0 <4.39",
