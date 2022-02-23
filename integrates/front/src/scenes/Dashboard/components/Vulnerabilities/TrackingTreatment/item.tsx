@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index.css";
@@ -21,6 +21,30 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
     treatment === "ACCEPTED_UNDEFINED" && acceptanceStatus !== "APPROVED";
   const assignedUser: string =
     _.isEmpty(assigned) || assigned === undefined ? user : assigned;
+
+  const AcceptedUndefinedTrack = useCallback((): JSX.Element => {
+    if (_.isEmpty(acceptanceDate) || _.isUndefined(acceptanceDate)) {
+      return (
+        <TrackingLabel>
+          {t("searchFindings.tabVuln.contentTab.tracking.requestApproval")}
+          &nbsp;{user}
+        </TrackingLabel>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <TrackingLabel>
+          {t("searchFindings.tabVuln.contentTab.tracking.requestDate")}
+          &nbsp;{acceptanceDate.split(" ")[0]}
+        </TrackingLabel>
+        <TrackingLabel>
+          {t("searchFindings.tabVuln.contentTab.tracking.requestApproval")}
+          &nbsp;{user}
+        </TrackingLabel>
+      </React.Fragment>
+    );
+  }, [acceptanceDate, t, user]);
 
   return (
     <React.StrictMode>
@@ -49,21 +73,7 @@ export const TrackingTreatment: React.FC<IHistoricTreatment> = ({
             </TrackingLabel>
           )}
           {treatment === "ACCEPTED_UNDEFINED" && !isPendingToApproval ? (
-            <React.Fragment>
-              {_.isEmpty(acceptanceDate) ||
-              _.isUndefined(acceptanceDate) ? undefined : (
-                <TrackingLabel>
-                  {t("searchFindings.tabVuln.contentTab.tracking.requestDate")}
-                  &nbsp;{acceptanceDate.split(" ")[0]}
-                </TrackingLabel>
-              )}
-              <TrackingLabel>
-                {t(
-                  "searchFindings.tabVuln.contentTab.tracking.requestApproval"
-                )}
-                &nbsp;{user}
-              </TrackingLabel>
-            </React.Fragment>
+            <AcceptedUndefinedTrack />
           ) : undefined}
         </div>
       </li>
