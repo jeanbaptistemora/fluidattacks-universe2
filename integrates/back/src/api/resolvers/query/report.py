@@ -82,15 +82,17 @@ async def _get_url_group_report(
     ):
         raise ReportAlreadyRequested()
 
-    success: bool = await batch_dal.put_action(
-        action_name="report",
-        entity=group_name,
-        subject=user_email,
-        additional_info=additional_info,
-        vcpus=4,
-        attempt_duration_seconds=7200,
-        queue="reports_soon",
-    )
+    success: bool = (
+        await batch_dal.put_action(
+            action_name="report",
+            entity=group_name,
+            subject=user_email,
+            additional_info=additional_info,
+            vcpus=4,
+            attempt_duration_seconds=7200,
+            queue="reports_soon",
+        )
+    ).success
     if not success:
         raise RequestedReportError()
     return success

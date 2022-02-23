@@ -60,3 +60,9 @@ class CloneResult(NamedTuple):
     success: bool
     commit: Optional[str] = None
     commit_date: Optional[str] = None
+
+
+class PutActionResult(NamedTuple):
+    success: bool
+    batch_job_id: Optional[str] = None
+    dynamo_pk: Optional[str] = None

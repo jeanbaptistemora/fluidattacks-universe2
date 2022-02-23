@@ -13,6 +13,7 @@ from batch.types import (
     Job,
     JobContainer,
     JobDescription,
+    PutActionResult,
 )
 import boto3
 from boto3.dynamodb.conditions import (
@@ -509,6 +510,25 @@ async def get_actions() -> List[BatchProcessing]:
     ]
 
 
+def generate_key_to_dynamod(
+    *,
+    action_name: str,
+    additional_info: str,
+    entity: str,
+    subject: str,
+    time: str,
+) -> str:
+    return mapping_to_key(
+        [
+            action_name,
+            additional_info,
+            entity,
+            subject,
+            time,
+        ]
+    )
+
+
 async def put_action_to_dynamodb(
     *,
     action_name: str,
@@ -516,17 +536,17 @@ async def put_action_to_dynamodb(
     subject: str,
     time: str,
     additional_info: str,
+    batch_job_id: Optional[str] = None,
     queue: str = "spot_soon",
+    key: Optional[str] = None,
 ) -> Optional[str]:
     try:
-        key = mapping_to_key(
-            [
-                action_name,
-                additional_info,
-                entity,
-                subject,
-                time,
-            ]
+        key = key or generate_key_to_dynamod(
+            action_name=action_name,
+            additional_info=additional_info,
+            entity=entity,
+            subject=subject,
+            time=time,
         )
         success = await dynamodb_ops.put_item(
             item=dict(
@@ -537,6 +557,7 @@ async def put_action_to_dynamodb(
                 subject=subject,
                 time=time,
                 queue=queue,
+                batch_job_id=batch_job_id,
             ),
             table=TABLE_NAME,
         )
@@ -558,9 +579,9 @@ async def put_action_to_batch(
     attempt_duration_seconds: int = 3600,
     product_name: str = "integrates",
     **kwargs: Any,
-) -> bool:
+) -> Optional[str]:
     if FI_ENVIRONMENT == "development":
-        return True
+        return None
     try:
         resource_options = dict(
             service_name="batch",
@@ -569,35 +590,42 @@ async def put_action_to_batch(
             aws_session_token=FI_AWS_SESSION_TOKEN,
         )
         async with aioboto3.Session().client(**resource_options) as batch:
-            await batch.submit_job(
-                jobName=f"{product_name}-{action_name}-{entity}",
-                jobQueue=queue,
-                jobDefinition="makes",
-                containerOverrides={
-                    "vcpus": vcpus,
-                    "command": [
-                        "m",
-                        "f",
-                        f"/{product_name}/batch",
-                        "prod",
-                        action_dynamo_pk,
-                    ],
-                    "environment": [
-                        {"name": "CI", "value": "true"},
-                        {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-                        {
-                            "name": "PRODUCT_API_TOKEN",
-                            "value": PRODUCT_API_TOKEN,
-                        },
-                    ],
-                    "memory": 7200,
-                },
-                retryStrategy={
-                    "attempts": 1,
-                },
-                timeout={"attemptDurationSeconds": attempt_duration_seconds},
-                **kwargs,
-            )
+            return (
+                await batch.submit_job(
+                    jobName=f"{product_name}-{action_name}-{entity}",
+                    jobQueue=queue,
+                    jobDefinition="makes",
+                    containerOverrides={
+                        "vcpus": vcpus,
+                        "command": [
+                            "m",
+                            "f",
+                            f"/{product_name}/batch",
+                            "prod",
+                            action_dynamo_pk,
+                        ],
+                        "environment": [
+                            {"name": "CI", "value": "true"},
+                            {
+                                "name": "MAKES_AWS_BATCH_COMPAT",
+                                "value": "true",
+                            },
+                            {
+                                "name": "PRODUCT_API_TOKEN",
+                                "value": PRODUCT_API_TOKEN,
+                            },
+                        ],
+                        "memory": 7200,
+                    },
+                    retryStrategy={
+                        "attempts": 1,
+                    },
+                    timeout={
+                        "attemptDurationSeconds": attempt_duration_seconds
+                    },
+                    **kwargs,
+                )
+            )["jobId"]
     except ClientError as exc:
         LOGGER.exception(
             exc,
@@ -608,9 +636,7 @@ async def put_action_to_batch(
                 )
             ),
         )
-        return False
-    else:
-        return True
+        return None
 
 
 async def put_action(
@@ -624,7 +650,7 @@ async def put_action(
     attempt_duration_seconds: int = 3600,
     product_name: str = "integrates",
     **kwargs: Any,
-) -> bool:
+) -> PutActionResult:
     time: str = str(get_as_epoch(get_now()))
     action = dict(
         action_name=action_name,
@@ -634,16 +660,28 @@ async def put_action(
         additional_info=additional_info,
         queue=queue,
     )
-
-    if action_id := await put_action_to_dynamodb(**action):
-        return await put_action_to_batch(
-            action_name=action_name,
-            vcpus=vcpus,
-            queue=queue,
-            entity=entity,
-            attempt_duration_seconds=attempt_duration_seconds,
-            action_dynamo_pk=action_id,
-            product_name=product_name,
-            **kwargs,
-        )
-    return False
+    possible_key = generate_key_to_dynamod(
+        action_name=action_name,
+        additional_info=additional_info,
+        entity=entity,
+        subject=subject,
+        time=time,
+    )
+    job_id = await put_action_to_batch(
+        action_name=action_name,
+        vcpus=vcpus,
+        queue=queue,
+        entity=entity,
+        attempt_duration_seconds=attempt_duration_seconds,
+        action_dynamo_pk=possible_key,
+        product_name=product_name,
+        **kwargs,
+    )
+    dynamo_pk = await put_action_to_dynamodb(
+        key=possible_key, **action, batch_job_id=job_id
+    )
+    return PutActionResult(
+        success=True,
+        batch_job_id=job_id,
+        dynamo_pk=dynamo_pk,
+    )

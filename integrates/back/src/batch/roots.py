@@ -82,7 +82,7 @@ from machine.availability import (
 )
 from machine.jobs import (
     FINDINGS,
-    queue_all_checks_new,
+    queue_job_new,
     SkimsBatchQueue,
 )
 from mailer.common import (
@@ -606,8 +606,8 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
-        await queue_all_checks_new(
-            group=group_name,
+        await queue_job_new(
+            group_name=group_name,
             roots=cloned_roots_nicknames,
             finding_codes=findings,
             queue=SkimsBatchQueue.LOW,

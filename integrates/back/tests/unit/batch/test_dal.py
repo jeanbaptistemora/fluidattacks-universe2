@@ -77,7 +77,8 @@ async def test_requeue_actions() -> None:
     pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
 
     assert all(
-        await collect(
+        result is None
+        for result in await collect(
             [
                 batch_dal.put_action_to_batch(
                     entity=action.entity,

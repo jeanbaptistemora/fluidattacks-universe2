@@ -26,7 +26,7 @@ from machine.availability import (
 from machine.jobs import (
     FINDINGS,
     list_jobs,
-    queue_all_checks_new,
+    queue_job_new,
     SkimsBatchQueue,
 )
 from newutils.utils import (
@@ -60,14 +60,16 @@ class PreparedJob(NamedTuple):
 async def _queue_all_checks(
     group: str,
     finding_codes: Tuple[str, ...],
+    dataloaders: Any,
 ) -> Dict[str, Any]:
-    result = await queue_all_checks_new(
-        group=group,
+    result = await queue_job_new(
+        group_name=group,
         finding_codes=finding_codes,
         queue=SkimsBatchQueue.LOW,
+        dataloaders=dataloaders,
     )
     if result:
-        info("Queued %s", group)
+        info("Queued %s with the follow identifier %s", group, result)
     else:
         error("A queuing error has occurred %s", group)
     return result
@@ -206,6 +208,7 @@ async def main() -> None:
         _queue_all_checks(
             group=prepared_job.group_name,
             finding_codes=tuple(findings),
+            dataloaders=dataloaders,
         )
         for prepared_job in sorted_jobs
         if len(prepared_job.roots) > 0

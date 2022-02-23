@@ -6,18 +6,13 @@ from custom_types import (
 )
 import logging
 import logging.config
-from machine.jobs import (
-    queue_boto3,
-)
 from settings import (
     LOGGING,
 )
 from typing import (
     Any,
     Callable,
-    Dict,
     List,
-    Tuple,
 )
 
 # FP: local testing
@@ -31,15 +26,6 @@ def info(*args: Any, extra: Any = None) -> None:
 
 def error(*args: Any, extra: Any = None) -> None:
     LOGGER_CONSOLE.error(*args, extra=dict(extra=extra))
-
-
-async def machine_queue(
-    *,
-    finding_code: str,
-    group_name: str,
-    namespaces: Tuple[str, ...],
-) -> Dict[str, Any]:
-    return await queue_boto3(group_name, finding_code, namespaces)
 
 
 def scheduler_send_mail(

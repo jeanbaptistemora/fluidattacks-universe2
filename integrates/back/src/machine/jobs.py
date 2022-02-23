@@ -1,4 +1,3 @@
-import aioboto3
 from aioextensions import (
     collect,
 )
@@ -13,17 +12,6 @@ from batch.dal import (
 )
 from batch.types import (
     VulnerabilitiesSummary,
-)
-from botocore.exceptions import (
-    ClientError,
-)
-from context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-    PRODUCT_API_TOKEN,
-)
-from contextlib import (
-    suppress,
 )
 import datetime
 from dateutil.parser import (  # type: ignore
@@ -334,7 +322,7 @@ async def queue_job_new(
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
     dataloaders: Any = None,
     **kwargs: Any,
-) -> bool:
+) -> Optional[str]:
     if not roots:
         if not dataloaders:
             raise Exception(
@@ -352,243 +340,32 @@ async def queue_job_new(
         )
 
     if not roots:
-        return False
+        return None
 
-    return await put_action(
-        action_name="execute-machine",
-        vcpus=4,
-        product_name="skims",
-        queue=queue.value,
-        entity=group_name,
-        additional_info=json.dumps(
-            {
-                "roots": list(roots),
-                "checks": list(finding_codes),
-            }
-        ),
-        attempt_duration_seconds=86400,
-        subject="integrates@fluidattacks.com",
-        **kwargs,
-    )
-
-
-async def queue_boto3(
-    group: str,
-    finding_code: str,
-    namespaces: Tuple[str, ...],
-    **kwargs: Any,
-) -> Dict[str, Any]:
-    queue_name = "skims_all_soon"
-    job_name = f"skims-process-{group}-{finding_code}"
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
-    async with aioboto3.Session().client(**resource_options) as batch:
-        current_jobs = await list_jobs(
-            queue=queue_name,
-            filters=[{"name": "JOB_NAME", "values": [job_name]}],
-            maxResults=1,
-        )
-        if len(current_jobs["jobSummaryList"]) > 0:
-            current_job = current_jobs["jobSummaryList"][0]
-
-            if current_job["status"] in {
-                "SUBMITTED",
-                "PENDING",
-                "RUNNABLE",
-                "STARTING",
-                "RUNNING",
-            }:
-                current_job_description = (
-                    await describe_jobs(current_job["jobId"])
-                )[0]
-                roots_to_execute = json.loads(
-                    current_job_description["container"]["command"][-1]
-                )
-                if tuple(roots_to_execute) == namespaces:
-                    return {"error": "The job is already running"}
-                if current_job["status"] in {
-                    "STARTING",
-                    "RUNNING",
-                }:
-                    # only run the roots that are not in the current job
-                    namespaces = tuple(
-                        set(namespaces).difference(set(roots_to_execute))
-                    )
-                else:
-                    # cancel the queued job and create a new one by
-                    # joining the roots
-                    namespaces = tuple(set((*namespaces, *roots_to_execute)))
-                    await batch.cancel_job(
-                        jobId=current_job["jobId"],
-                        reason="another job was queued",
-                    )
-
-        return await batch.submit_job(
-            jobName=job_name,
-            jobQueue=queue_name,
-            jobDefinition="makes",
-            containerOverrides={
-                "vcpus": 4 if len(namespaces) >= 4 else len(namespaces),
-                "command": [
-                    "m",
-                    "f",
-                    "/skims/process-group-all",
-                    group,
-                    json.dumps([finding_code]),
-                    json.dumps(list(namespaces)),
-                ],
-                "environment": [
-                    {"name": "CI", "value": "true"},
-                    {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-                    {
-                        "name": "PRODUCT_API_TOKEN",
-                        "value": PRODUCT_API_TOKEN,
-                    },
-                ],
-                "memory": 1 * 1800,
-            },
-            retryStrategy={
-                "attempts": 1,
-            },
-            timeout={"attemptDurationSeconds": 86400},
+    return (
+        await put_action(
+            action_name="execute-machine",
+            vcpus=4,
+            product_name="skims",
+            queue=queue.value,
+            entity=group_name,
+            additional_info=json.dumps(
+                {
+                    "roots": list(roots),
+                    "checks": list(finding_codes),
+                }
+            ),
+            attempt_duration_seconds=86400,
+            subject="integrates@fluidattacks.com",
             **kwargs,
         )
+    ).success
 
 
 def _get_seconds_ago(timestamp: int) -> float:
     date = datetime.datetime.fromtimestamp(int(timestamp / 1000))
     now = datetime.datetime.utcnow()
     return (now - date).seconds
-
-
-async def queue_all_checks_new(
-    group: str,
-    finding_codes: Tuple[str, ...],
-    queue: SkimsBatchQueue,
-    roots: Optional[Tuple[str, ...]] = None,
-) -> Dict[str, Any]:
-    queue_name = queue.value
-    job_name = f"skims-process-{group}"
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
-    async with aioboto3.Session().client(**resource_options) as batch:
-        current_jobs = [
-            job
-            for job in (
-                await list_jobs(
-                    queue=queue_name,
-                    filters=[{"name": "JOB_NAME", "values": [job_name]}],
-                )
-            )["jobSummaryList"]
-            if job["status"]
-            in {
-                "SUBMITTED",
-                "PENDING",
-                "RUNNABLE",
-                "STARTING",
-                "RUNNING",
-            }
-        ]
-        jobs_description = (
-            [
-                job
-                for job in await describe_jobs(
-                    *[job["jobId"] for job in current_jobs]
-                )
-                if job["status"] != "RUNNING"
-                or (
-                    job["status"] == "RUNNING"
-                    and "startedAt" in job
-                    and (_get_seconds_ago(job["startedAt"]) / 60) <= 5
-                    # jobs that have been running for four minutes are still
-                    # installing makes
-                )
-            ]
-            if current_jobs
-            else ()
-        )
-        roots_to_execute = set(
-            collapse(
-                [
-                    json.loads(job["container"]["command"][5])
-                    for job in jobs_description
-                    if len(job["container"]["command"]) == 6
-                ],
-                base_type=str,
-            )
-        )
-        findings_to_execute = set(
-            collapse(
-                [
-                    json.loads(job["container"]["command"][4])
-                    for job in jobs_description
-                ],
-                base_type=str,
-            )
-        )
-
-        if (roots and tuple(roots_to_execute)) == roots and (
-            tuple(findings_to_execute) == finding_codes
-        ):
-            return {"error": "The job is already running"}
-
-        if roots:
-            roots = tuple(set((*roots, *roots_to_execute)))
-        finding_codes = tuple(set((*finding_codes, *findings_to_execute)))
-
-        for job in jobs_description:
-            with suppress(ClientError):
-                await batch.cancel_job(
-                    jobId=job["jobId"],
-                    reason="another job was queued",
-                )
-            with suppress(ClientError):
-                await batch.terminate_job(
-                    jobId=job["jobId"],
-                    reason="another job was queued",
-                )
-        envars = [
-            {"name": "CI", "value": "true"},
-            {"name": "MAKES_AWS_BATCH_COMPAT", "value": "true"},
-            {
-                "name": "PRODUCT_API_TOKEN",
-                "value": PRODUCT_API_TOKEN,
-            },
-        ]
-        command = [
-            "m",
-            "f",
-            "/skims/process-group-all",
-            group,
-            json.dumps(list(finding_codes)),
-        ]
-        if not roots:
-            envars.append(
-                {"name": "MACHINE_ALL_ROOTS", "value": "true"},
-            )
-        else:
-            command.append(json.dumps(list(roots)))
-        return await batch.submit_job(
-            jobName=job_name,
-            jobQueue=queue_name,
-            jobDefinition="makes",
-            containerOverrides={
-                "vcpus": 4,
-                "command": command,
-                "environment": envars,
-                "memory": 1 * 1800,
-            },
-            retryStrategy={
-                "attempts": 1,
-            },
-            timeout={"attemptDurationSeconds": 86400},
-        )
 
 
 async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
