@@ -692,22 +692,20 @@ async def deactivate_all_roots(
     user_email: str,
     other: str = "",
     reason: str = "",
-) -> bool:
+) -> None:
     group_roots_loader: DataLoader = loaders.group_roots
     all_group_roots = await group_roots_loader.load(group_name)
-    return all(
-        await collect(
-            [
-                roots_domain.deactivate_root(
-                    group_name=group_name,
-                    other=other,
-                    reason=reason,
-                    root=root,
-                    user_email=user_email,
-                )
-                for root in all_group_roots
-            ]
-        )
+    await collect(
+        [
+            roots_domain.deactivate_root(
+                group_name=group_name,
+                other=other,
+                reason=reason,
+                root=root,
+                user_email=user_email,
+            )
+            for root in all_group_roots
+        ]
     )
 
 
@@ -735,7 +733,7 @@ async def remove_group(
     all_resources_removed = True
     if FI_ENVIRONMENT == "development":
         all_resources_removed = await remove_resources(loaders, group_name)
-    is_group_masked = await mask(group_name)
+    are_comments_masked = await mask_comments(group_name)
     today = datetime_utils.get_now()
     new_state = {
         "date": datetime_utils.get_as_str(today),
@@ -751,11 +749,12 @@ async def remove_group(
         "group_status": "DELETED",
         "project_status": "DELETED",
         "reason": reason,
+        "deletion_date": datetime_utils.get_as_str(today),
     }
     success = all(
         [
             all_resources_removed,
-            is_group_masked,
+            are_comments_masked,
             await update(group_name, new_data),
         ]
     )
@@ -1321,18 +1320,6 @@ async def is_alive(
     group: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     return await groups_dal.is_alive(group, pre_computed_group_data)
-
-
-async def mask(group_name: str) -> bool:
-    today = datetime_utils.get_now()
-    are_comments_masked = await mask_comments(group_name)
-    update_data: Dict[str, Union[str, List[str], object]] = {
-        "group_status": "FINISHED",
-        "project_status": "FINISHED",
-        "deletion_date": datetime_utils.get_as_str(today),
-    }
-    is_group_finished = await update(group_name, update_data)
-    return are_comments_masked and is_group_finished
 
 
 async def mask_resources(group_name: str) -> NamedTuple:
