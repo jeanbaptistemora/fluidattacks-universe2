@@ -108,3 +108,86 @@ you can get more information
 about this treatment
 by clicking
 [this link](/machine/web/vulnerabilities/management/zero-risk).
+
+## Reattacking a permanently accepted vulnerability
+
+Over time, you may request
+a reattack —which is a request
+for us to validate the
+effectiveness of remediation— on
+a vulnerability that has been
+permanently accepted.
+This may happen, as it is possible
+that you may have found a solution
+to this vulnerability and would
+therefore like our hackers to test
+whether or not its implementation
+was effective.
+Thus, the **permanently accepted**
+treatment represents an open
+location for which you can request
+a reattack on the ASM with no problem.
+
+To request a reattack on a
+permanently accepted vulnerability,
+you must go to the vulnerability
+type, tick the check box on the
+left of the location you want to
+reattack, and click **Reattack**.
+
+![Request Reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1645628305/docs/web/vulnerabilities/management/treatment_vuln_type_to_request.png)
+
+A pop-up window will appear asking
+you to provide a description of
+the solution you applied to this
+vulnerability.
+
+![Justification Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_just_window.png)
+
+Click **Proceed**, and the description
+saying **Reattack: Requested** will
+appear in front of the previously
+selected location.
+
+![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_reattack_requested.png)
+
+For the purpose of traceability, you
+can go to the **Consulting** section,
+where all the history of reattack
+requests, along with their respective
+justifications, persons in charge and
+submission dates are recorded.
+
+![Consulting Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_consulting_sect.png)
+
+A hacker will be responsible for
+verifying the effectiveness of the
+remediation, with a response deadline
+of 16 business hours.
+In case the evaluation results show
+that the vulnerability is still open,
+this means that the hacker found a
+way to exploit it.
+Evidence of this will be provided
+by the hacker.
+You can access this evidence by
+going to the **Evidence** tab.
+
+![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_evidence_tab.png)
+
+To know the status of the reattack,
+you simply need to go to the
+**Locations** tab and see what is
+next to **Reattack**.
+The **gray** circle with the description
+**Requested** will appear at the
+beginning when the reattack is about
+to be carried out or is in progress.
+The **red** circle and the description
+**Verified** will appear if the
+vulnerability remains open in the
+corresponding location after the reattack.
+Conversely, the **green** circle and
+the description **Verified** will appear
+if the vulnerability is closed in the
+corresponding location after the reattack.
