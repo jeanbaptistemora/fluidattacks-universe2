@@ -2,20 +2,6 @@ data "aws_ec2_instance_type" "instance" {
   instance_type = "c5ad.xlarge"
 }
 
-resource "aws_subnet" "default" {
-  availability_zone       = "${var.region}a"
-  cidr_block              = "192.168.8.0/23"
-  map_public_ip_on_launch = true
-  vpc_id                  = var.batch_vpc_id
-
-  tags = {
-    "Name"               = "batch"
-    "management:area"    = "cost"
-    "management:product" = "makes"
-    "management:type"    = "product"
-  }
-}
-
 resource "aws_iam_role" "aws_ecs_instance_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -270,7 +256,7 @@ resource "aws_batch_compute_environment" "default" {
     ]
     spot_iam_fleet_role = each.value.spot_iam_fleet_role
     subnets = [
-      aws_subnet.default.id,
+      "subnet-06326784973787c13",
     ]
     type = each.value.type
     tags = each.value.tags
