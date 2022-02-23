@@ -44,6 +44,7 @@ from utils.function import (
     StopRetrying,
 )
 from utils.limits import (
+    INTEGRATES_DEFAULT as DEFAULT_RATE_LIMIT,
     INTEGRATES_DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
 from utils.logs import (
@@ -87,6 +88,7 @@ async def raise_errors(
         pass
 
 
+@rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _request(
     *,
     query: str,
