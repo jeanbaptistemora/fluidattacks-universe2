@@ -81,7 +81,6 @@ async def process_group(
     all_resources_removed = await groups_domain.remove_resources(
         loaders, group_name
     )
-    are_comments_masked = await groups_domain.mask_comments(group_name)
     await groups_domain.deactivate_all_roots(
         loaders=loaders,
         group_name=group_name,
@@ -94,7 +93,6 @@ async def process_group(
     )
     success = [
         all_resources_removed,
-        are_comments_masked,
         is_removed_from_org,
     ]
 

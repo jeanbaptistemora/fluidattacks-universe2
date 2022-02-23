@@ -733,11 +733,32 @@ async def remove_group(
     all_resources_removed = True
     if FI_ENVIRONMENT == "development":
         all_resources_removed = await remove_resources(loaders, group_name)
-    are_comments_masked = await mask_comments(group_name)
-    today = datetime_utils.get_now()
+    are_policies_revoked = await authz.revoke_cached_group_service_policies(
+        group_name
+    )
+    is_removed_from_org = await orgs_domain.remove_group(
+        group_name, organization_id
+    )
+    await deactivate_all_roots(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=user_email,
+        other="",
+        reason="GROUP_DELETED",
+    )
+    if not all(
+        [
+            all_resources_removed,
+            are_policies_revoked,
+            is_removed_from_org,
+        ]
+    ):
+        return False
+
+    today = datetime_utils.get_now_as_str()
     new_state = {
-        "date": datetime_utils.get_as_str(today),
-        "deletion_date": datetime_utils.get_as_str(today),
+        "date": today,
+        "deletion_date": today,
         "user": user_email.lower(),
     }
     historic_deletion = cast(
@@ -749,32 +770,9 @@ async def remove_group(
         "group_status": "DELETED",
         "project_status": "DELETED",
         "reason": reason,
-        "deletion_date": datetime_utils.get_as_str(today),
+        "deletion_date": today,
     }
-    success = all(
-        [
-            all_resources_removed,
-            are_comments_masked,
-            await update(group_name, new_data),
-        ]
-    )
-    if success:
-        await deactivate_all_roots(
-            loaders=loaders,
-            group_name=group_name,
-            user_email=user_email,
-            other="",
-            reason="GROUP_DELETED",
-        )
-        success = all(
-            await collect(
-                (
-                    authz.revoke_cached_group_service_policies(group_name),
-                    orgs_domain.remove_group(group_name, organization_id),
-                )
-            )
-        )
-    return success
+    return await update(group_name, new_data)
 
 
 async def validate_open_roots(loaders: Any, group_name: str) -> None:
@@ -1411,12 +1409,14 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
     are_resources_masked = all(
         list(cast(List[bool], await mask_resources(group_name)))
     )
+    are_comments_masked = await mask_comments(group_name)
     return all(
         [
             are_findings_masked,
             are_users_removed,
             are_events_masked,
             are_resources_masked,
+            are_comments_masked,
         ]
     )
 
