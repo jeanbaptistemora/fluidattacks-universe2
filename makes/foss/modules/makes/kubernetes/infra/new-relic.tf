@@ -14,12 +14,22 @@ data "http" "pixie_olm_yaml" {
   url = "https://raw.githubusercontent.com/pixie-io/pixie/${var.pixie_crd_commit}/k8s/operator/helm/crds/olm_crd.yaml"
 }
 
+data "kubectl_file_documents" "pixie_viziers_documents" {
+  content = data.http.pixie_viziers_yaml.body
+}
+
+data "kubectl_file_documents" "pixie_olm_documents" {
+  content = data.http.pixie_olm_yaml.body
+}
+
 resource "kubectl_manifest" "pixie_viziers_crd" {
-  yaml_body = data.http.pixie_viziers_yaml.body
+  for_each  = data.kubectl_file_documents.pixie_viziers_documents.manifests
+  yaml_body = each.value
 }
 
 resource "kubectl_manifest" "pixie_olm_crd" {
-  yaml_body = data.http.pixie_olm_yaml.body
+  for_each  = data.kubectl_file_documents.pixie_olm_documents.manifests
+  yaml_body = each.value
 }
 
 resource "helm_release" "newrelic" {
