@@ -103,6 +103,8 @@ type Group {
     bePresent: Boolean
     "Amount of element to return"
     first: Int
+    "Id of the root the input is associated with"
+    rootId: ID
   ): ToeInputsConnection!
   "Target of Evaluation lines information which is paginated"
   toeLines(
