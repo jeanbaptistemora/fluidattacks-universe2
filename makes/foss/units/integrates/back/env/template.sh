@@ -26,12 +26,6 @@ function main {
     && export CI_COMMIT_SHA \
     && export MACHINE_QUEUES='__argManifestQueues__' \
     && export MACHINE_FINDINGS='__argManifestFindings__' \
-    && if test "${env}" = 'prod'; then
-      # Needed to preserve the continuity of data already reported with the old name
-      export NEW_RELIC_APP_NAME="Fluid Integrates"
-    else
-      export NEW_RELIC_APP_NAME="integrates-${CI_COMMIT_REF_NAME}"
-    fi \
     && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
     && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
@@ -45,6 +39,12 @@ function main {
     && if test -z "${CI_COMMIT_SHA:-}"; then
       # Local environments specific
       CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
+    fi \
+    && if test "${env}" = 'prod'; then
+      # Needed to preserve the continuity of data already reported with the old name
+      export NEW_RELIC_APP_NAME="Fluid Integrates"
+    else
+      export NEW_RELIC_APP_NAME="integrates-${CI_COMMIT_REF_NAME}"
     fi \
     && if ! test -e 'integrates'; then
       # Kubernetes specific
