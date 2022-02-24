@@ -217,6 +217,12 @@ def get_worst_mttr(
     )
 
 
+def format_value(data: List[Tuple[str, int]]) -> Decimal:
+    if data:
+        return Decimal(data[0][1]) if data[0][1] else Decimal("1.0")
+    return Decimal("1.0")
+
+
 def format_vulnerabilities_by_data(
     *, counters: Counter[str], column: str, tick_rotation: int, categories: int
 ) -> Dict[str, Any]:
@@ -253,7 +259,7 @@ def format_vulnerabilities_by_data(
             ),
         ),
         barChartYTickFormat=True,
-        firstBarLabels=True,
+        maxValue=format_value(data),
     )
 
 
