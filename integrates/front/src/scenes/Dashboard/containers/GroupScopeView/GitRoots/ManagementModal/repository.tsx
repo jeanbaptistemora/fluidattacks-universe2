@@ -161,6 +161,8 @@ const Repository: React.FC<IRepositoryProps> = ({
     }
   }
 
+  const checkedValidation = isCheckedHealthCheck ? undefined : checked;
+
   return (
     <div>
       <Formik
@@ -355,7 +357,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             label={""}
                             name={"includesHealthCheckA"}
                             type={"checkbox"}
-                            validate={checked}
+                            validate={checkedValidation}
                           >
                             {t("group.scope.git.healthCheck.accept")}
                             <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -370,7 +372,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             label={""}
                             name={"rejectHealthCheckA"}
                             type={"checkbox"}
-                            validate={checked}
+                            validate={checkedValidation}
                           >
                             {t("group.scope.git.healthCheck.rejectA")}
                             <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -381,7 +383,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             label={""}
                             name={"rejectHealthCheckB"}
                             type={"checkbox"}
-                            validate={checked}
+                            validate={checkedValidation}
                           >
                             {t("group.scope.git.healthCheck.rejectB")}
                             <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -392,7 +394,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             label={""}
                             name={"rejectHealthCheckC"}
                             type={"checkbox"}
-                            validate={checked}
+                            validate={checkedValidation}
                           >
                             {t("group.scope.git.healthCheck.rejectC")}
                             <RequiredField>{"*"}&nbsp;</RequiredField>
