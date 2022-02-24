@@ -120,6 +120,7 @@ in
         })
         [
           "0192_add_root_to_toe_input_keys.py"
+          "0196_rm_deprecated_group_statuses.py"
         ])
         ++ (builtins.map
         (name: {
