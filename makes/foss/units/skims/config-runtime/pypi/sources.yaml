@@ -9,8 +9,8 @@ closure:
   async-timeout: 3.0.1
   attrs: 21.4.0
   beautifulsoup4: 4.9.3
-  boto3: 1.21.3
-  botocore: 1.24.3
+  boto3: 1.21.6
+  botocore: 1.24.6
   certifi: 2021.10.8
   cfn-flip: 1.2.3
   chardet: 3.0.4
@@ -41,6 +41,7 @@ closure:
   numpy: 1.22.2
   oyaml: "1.0"
   packaging: "21.3"
+  pathspec: 0.8.1
   pexpect: 4.8.0
   pickleshare: 0.7.5
   pillow: 9.0.0
@@ -157,18 +158,18 @@ links:
   - name: beautifulsoup4-4.9.3.tar.gz
     sha256: 09gbd49mwz86k572r1231x2rdp82p42zlnw0bz9b9mfi58r9wwl4
     url: https://files.pythonhosted.org/packages/6b/c3/d31704ae558dcca862e4ee8e8388f357af6c9d9acb0cad4ba0fbbd350d9a/beautifulsoup4-4.9.3.tar.gz
-  - name: boto3-1.21.3-py3-none-any.whl
-    sha256: 0mz5dnhb5713n26vg7xxwrg5fnmnnps6s3p4wqfc083m5wwv4jmb
-    url: https://files.pythonhosted.org/packages/4b/87/d1fed61bb95ec368178c2efe7a59ba77e1fc03d7bb316ca775a9ed3bfac1/boto3-1.21.3-py3-none-any.whl
-  - name: boto3-1.21.3.tar.gz
-    sha256: 12898vn6fx76nbq157bgpjl8sg0pmbdxbr6s30ilplpkq560405a
-    url: https://files.pythonhosted.org/packages/b3/41/bf307ce8c5c0d75fe53d09adb20918bbc5561a0623f5e0c60e443fab38be/boto3-1.21.3.tar.gz
-  - name: botocore-1.24.3-py3-none-any.whl
-    sha256: 0il0nlfqzprr721gkqf1abrjs6lcqcwqsfdrz84y3l3wqr3zfcya
-    url: https://files.pythonhosted.org/packages/4e/bf/ac3c39ca27a8e86a84b345ece5afd74478579e7f33f0192033c9454fa802/botocore-1.24.3-py3-none-any.whl
-  - name: botocore-1.24.3.tar.gz
-    sha256: 1izgcgz224hfj5zp8jk9kwi0jf0z35xqis9zj3s1bwbgh9g5r7lp
-    url: https://files.pythonhosted.org/packages/36/ae/e2a16367140d66a5b45df2f831da20dcb2cb8824e0e334554294647a2ac0/botocore-1.24.3.tar.gz
+  - name: boto3-1.21.6-py3-none-any.whl
+    sha256: 0kf4mwms152pp0pljshsjkgdaciqqar2nk2s0d3ij0wl9y0lv38f
+    url: https://files.pythonhosted.org/packages/c5/24/3e6eafb86827388a42d7202a4ce99691f7619646e75a5b5dcd5be4d8931c/boto3-1.21.6-py3-none-any.whl
+  - name: boto3-1.21.6.tar.gz
+    sha256: 11w8bgyn16rk65q02sa3il9ymcykb0igcn1xygwgp0rkzsvbbncm
+    url: https://files.pythonhosted.org/packages/b7/a0/c5b7927a3e24077e6ed9541887eafa3f92df42986e5d59227ae2fcf8b6ed/boto3-1.21.6.tar.gz
+  - name: botocore-1.24.6-py3-none-any.whl
+    sha256: 0jb9723rljz8h0izi3mhz913q8b2p4gyafs67rbiydy7iaksbak9
+    url: https://files.pythonhosted.org/packages/19/ab/a7cae9c1b58c82239f9ce4da21ed8f2d4508b8ebf78e24bfe7927b001353/botocore-1.24.6-py3-none-any.whl
+  - name: botocore-1.24.6.tar.gz
+    sha256: 0g5kwyk7qbisys55spgfihgbz55adchv3c1w25j847qahyirx6rm
+    url: https://files.pythonhosted.org/packages/3e/3d/7e4a557e74b162058c04a35cfe70a9b85df0f1aafea6a5a501e2a5526049/botocore-1.24.6.tar.gz
   - name: certifi-2021.10.8-py2.py3-none-any.whl
     sha256: 0scm6gbbk4gfwb1flivxihnim9wragvvvcia0jn488scxdih2ann
     url: https://files.pythonhosted.org/packages/37/45/946c02767aabb873146011e665728b680884cd8fe70dde973c640e45b775/certifi-2021.10.8-py2.py3-none-any.whl
@@ -433,6 +434,9 @@ links:
   - name: packaging-21.3.tar.gz
     sha256: 1sygirdrqgv4f1ckh9nhpcw1yfidrh3qjl86wq8vk6nq4wlw8iyx
     url: https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz
+  - name: pathspec-0.8.1.tar.gz
+    sha256: 1zb8rg2ysyffr49xcxmvjgmrsim3lfqn8zkipax1cn6phrmrsdw6
+    url: https://files.pythonhosted.org/packages/b7/64/e097eea8dcd2b2f7df6e4425fc98e7494e37b1a6e149603c31d327080a05/pathspec-0.8.1.tar.gz
   - name: pexpect-4.8.0-py2.py3-none-any.whl
     sha256: 0dq9f7irmml1nm9a2rx8dd6m2dqmzjj1x40mk0rg619wrdfsaj0b
     url: https://files.pythonhosted.org/packages/39/7b/88dbb785881c28a102619d46423cb853b46dbccc70d3ac362d99773a78ce/pexpect-4.8.0-py2.py3-none-any.whl

@@ -33,6 +33,7 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    Iterator,
     List,
     Set,
     Tuple,
@@ -377,3 +378,25 @@ def resolve_paths(
         log_blocking("info", "Files to be tested: %s", len(unique_paths))
 
     return unique_paths, unique_nu_paths, unique_nv_paths
+
+
+def _iter_full_paths(path: str) -> Iterator[str]:
+    """Recursively yield full paths to files for a given starting path."""
+    if os.path.isfile(path):
+        yield path
+    elif os.path.exists(path):
+        for entry in os.scandir(path):
+            full_path = entry.path
+            if entry.is_dir(follow_symlinks=False):
+                yield f"{entry.path}/"
+                yield from _iter_full_paths(full_path)
+            else:
+                yield full_path
+
+
+def iter_rel_paths(starting_path: str) -> Iterator[str]:
+    """Recursively yield relative paths to files for a given starting path."""
+    yield from (
+        path.replace(starting_path, "")[1:]
+        for path in _iter_full_paths(starting_path)
+    )
