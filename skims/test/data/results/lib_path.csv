@@ -22616,23 +22616,6 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
   22 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12,643,skims,021. XPath injection,Potentially untrusted HTTP request input reaches an XPath query in namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,"
-   1 | sing System;
-   2 | sing System.Xml.XPath;
-   3 |
-   4 | ublic partial class WebForm : System.Web.UI.Page
-   5 |
-   6 |
-   7 |    protected void Page_Load()
-   8 |    {
-   9 |        string operation = Request.Form[""operation""];
-  10 |        XPathNavigator AuthorizedOperations  = new XPathNavigator();
-  11 |        // Must report
-> 12 |        XPathNavigator node = AuthorizedOperations.SelectSingleNode(operation);
-  13 |    }
-  14 |
-     ^ Col 1
-",c_sharp.xpath_injection
 F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,24,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
   14 |   https_only          = true
   15 |   tags                = var.modtags
