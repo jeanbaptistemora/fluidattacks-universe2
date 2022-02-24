@@ -9,6 +9,7 @@ import {
   FindingHeaderLabel,
 } from "./styles";
 
+import { TooltipWrapper } from "components/TooltipWrapper";
 import calendarIcon from "resources/calendar.svg";
 import clockIcon from "resources/clock-light.svg";
 import defaultIcon from "resources/default_finding_state.svg";
@@ -46,10 +47,21 @@ const severityConfigs: Record<string, { color: string; text: string }> = {
   },
 };
 
-const statusConfigs: Record<string, { icon: string; text: string }> = {
-  closed: { icon: okIcon, text: translate.t("searchFindings.status.closed") },
-  default: { icon: defaultIcon, text: "" },
-  open: { icon: failIcon, text: translate.t("searchFindings.status.open") },
+const statusConfigs: Record<
+  string,
+  { icon: string; text: string; tooltip: string }
+> = {
+  closed: {
+    icon: okIcon,
+    text: translate.t("searchFindings.header.status.stateLabel.closed"),
+    tooltip: translate.t("searchFindings.header.status.stateTooltip.closed"),
+  },
+  default: { icon: defaultIcon, text: "", tooltip: "" },
+  open: {
+    icon: failIcon,
+    text: translate.t("searchFindings.header.status.stateLabel.open"),
+    tooltip: translate.t("searchFindings.header.status.stateTooltip.open"),
+  },
 };
 
 const FindingHeader: React.FC<IFindingHeaderProps> = (
@@ -61,27 +73,39 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
   const SEVERITY_THRESHOLD_HIGH: number = 6.9;
   const SEVERITY_THRESHOLD_MED: number = 3.9;
   const SEVERITY_THRESHOLD_LOW: number = 0.1;
-  function setSeverityLevel(): "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" {
+  function setSeverityLevel(): [
+    "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE",
+    string
+  ] {
     if (severity >= SEVERITY_THRESHOLD_CRITICAL) {
-      return "CRITICAL";
+      return [
+        "CRITICAL",
+        translate.t("searchFindings.header.severity.level.critical"),
+      ];
     }
     if (severity > SEVERITY_THRESHOLD_HIGH) {
-      return "HIGH";
+      return ["HIGH", translate.t("searchFindings.header.severity.level.high")];
     }
     if (severity > SEVERITY_THRESHOLD_MED) {
-      return "MED";
+      return [
+        "MED",
+        translate.t("searchFindings.header.severity.level.medium"),
+      ];
     }
     if (severity >= SEVERITY_THRESHOLD_LOW) {
-      return "LOW";
+      return ["LOW", translate.t("searchFindings.header.severity.level.low")];
     }
 
-    return "NONE";
+    return ["NONE", translate.t("searchFindings.header.severity.level.none")];
   }
-  const severityLevel: "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" =
-    setSeverityLevel();
+  const [severityLevel, severityLevelTooltip] = setSeverityLevel();
   const { color: severityColor, text: severityText } =
     severityConfigs[severityLevel];
-  const { icon: statusIcon, text: statusText } = statusConfigs[status];
+  const {
+    icon: statusIcon,
+    text: statusText,
+    tooltip: statusTooltip,
+  } = statusConfigs[status];
   const severityStyles: CircularProgressbarDefaultProps["classes"] = {
     background: style.severityCircleBg,
     path: style.severityCirclePath,
@@ -94,56 +118,90 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
 
   return (
     <FindingHeaderContainer>
-      <FindingHeaderDetail>
-        <CircularProgressbar
-          classes={severityStyles}
-          styles={{
-            path: { stroke: severityColor },
-            text: { fill: severityColor },
-          }}
-          text={`${severity}`}
-          value={
-            (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
-            CIRCULAR_PROGRESS_BAR_PARAM2
-          }
-        />
-        <FindingHeaderLabel>
-          {translate.t("searchFindings.severityLabel")}
-          <FindingHeaderIndicator>
-            <b>{severityText}</b>
-          </FindingHeaderIndicator>
-        </FindingHeaderLabel>
-      </FindingHeaderDetail>
-      <FindingHeaderDetail>
-        <img alt={""} height={45} src={statusIcon} width={45} />
-        <FindingHeaderLabel>
-          {translate.t("searchFindings.statusLabel")}
-          <FindingHeaderIndicator>
-            <b>{statusText}</b>
-          </FindingHeaderIndicator>
-        </FindingHeaderLabel>
-      </FindingHeaderDetail>
-      <FindingHeaderDetail>
-        <img alt={""} height={45} src={vulnerabilitiesIcon} width={45} />
-        <FindingHeaderLabel>
-          {translate.t("searchFindings.openVulnsLabel")}
-          <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
-        </FindingHeaderLabel>
-      </FindingHeaderDetail>
-      <FindingHeaderDetail>
-        <img alt={""} height={40} src={calendarIcon} width={40} />
-        <FindingHeaderLabel>
-          {translate.t("searchFindings.discoveryDateLabel")}
-          <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
-        </FindingHeaderLabel>
-      </FindingHeaderDetail>
-      <FindingHeaderDetail>
-        <img alt={""} height={40} src={clockIcon} width={40} />
-        <FindingHeaderLabel>
-          {translate.t("searchFindings.estRemediationTimeLabel")}
-          <FindingHeaderIndicator>{estRemediationTime}</FindingHeaderIndicator>
-        </FindingHeaderLabel>
-      </FindingHeaderDetail>
+      <TooltipWrapper
+        id={"severityTooltip"}
+        message={
+          translate.t("searchFindings.header.severity.tooltip") +
+          severityLevelTooltip
+        }
+      >
+        <FindingHeaderDetail>
+          <CircularProgressbar
+            classes={severityStyles}
+            styles={{
+              path: { stroke: severityColor },
+              text: { fill: severityColor },
+            }}
+            text={`${severity}`}
+            value={
+              (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
+              CIRCULAR_PROGRESS_BAR_PARAM2
+            }
+          />
+          <FindingHeaderLabel>
+            {translate.t("searchFindings.header.severity.label")}
+            <FindingHeaderIndicator>
+              <b>{severityText}</b>
+            </FindingHeaderIndicator>
+          </FindingHeaderLabel>
+        </FindingHeaderDetail>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"statusTooltip"}
+        message={
+          translate.t("searchFindings.header.status.tooltip") + statusTooltip
+        }
+      >
+        <FindingHeaderDetail>
+          <img alt={""} height={45} src={statusIcon} width={45} />
+          <FindingHeaderLabel>
+            {translate.t("searchFindings.header.status.label")}
+            <FindingHeaderIndicator>
+              <b>{statusText}</b>
+            </FindingHeaderIndicator>
+          </FindingHeaderLabel>
+        </FindingHeaderDetail>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"openVulnsTooltip"}
+        message={translate.t("searchFindings.header.openVulns.tooltip")}
+      >
+        <FindingHeaderDetail>
+          <img alt={""} height={45} src={vulnerabilitiesIcon} width={45} />
+          <FindingHeaderLabel>
+            {translate.t("searchFindings.header.openVulns.label")}
+            <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
+          </FindingHeaderLabel>
+        </FindingHeaderDetail>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"discoveryDateTooltip"}
+        message={translate.t("searchFindings.header.discoveryDate.tooltip")}
+      >
+        <FindingHeaderDetail>
+          <img alt={""} height={40} src={calendarIcon} width={40} />
+          <FindingHeaderLabel>
+            {translate.t("searchFindings.header.discoveryDate.label")}
+            <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
+          </FindingHeaderLabel>
+        </FindingHeaderDetail>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"estRemediationTime"}
+        message={translate.t(
+          "searchFindings.header.estRemediationTime.tooltip"
+        )}
+      >
+        <FindingHeaderDetail>
+          <img alt={""} height={40} src={clockIcon} width={40} />
+          <FindingHeaderLabel>
+            {translate.t("searchFindings.header.estRemediationTime.label")}
+            <FindingHeaderIndicator>
+              {estRemediationTime}
+            </FindingHeaderIndicator>
+          </FindingHeaderLabel>
+        </FindingHeaderDetail>
+      </TooltipWrapper>
     </FindingHeaderContainer>
   );
 };

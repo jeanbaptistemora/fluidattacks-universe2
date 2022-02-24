@@ -27,8 +27,8 @@ const formatState: (state: string) => JSX.Element = (
   state: string
 ): JSX.Element => {
   const stateParameters: Record<string, string> = {
-    closed: "searchFindings.status.closed",
-    open: "searchFindings.status.open",
+    closed: "searchFindings.header.status.stateLabel.closed",
+    open: "searchFindings.header.status.stateLabel.open",
   };
 
   return pointStatusFormatter(translate.t(stateParameters[state]));

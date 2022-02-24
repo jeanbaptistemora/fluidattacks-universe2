@@ -1513,7 +1513,6 @@ export const enTranslations: ResourceKey = {
       },
       title: "Delete Finding",
     },
-    discoveryDateLabel: "Discovery date",
     draftApproved: "This finding was approved",
     draftStatus: {
       created: "Created",
@@ -1531,7 +1530,6 @@ export const enTranslations: ResourceKey = {
       environment: "Environment",
       uploadDate: "Since",
     },
-    estRemediationTimeLabel: "Est. Remediation Time",
     filesTable: {
       description: "Description",
       file: "File",
@@ -1554,6 +1552,80 @@ export const enTranslations: ResourceKey = {
         editGroupContext: "Edit group context information",
       },
     },
+    header: {
+      discoveryDate: {
+        label: "Discovery date",
+        tooltip:
+          "<strong>Discovery date:</strong> " +
+          "Is the year, month, and day we first identified and reported that type of vulnerability for the group in question. ",
+      },
+      estRemediationTime: {
+        label: "Est. Remediation Time",
+        tooltip:
+          "<strong>Est. Remediation Time:</strong> " +
+          "Is the MMTR (Mean Time to Repair) this represents the average time needed to fix a vulnerability." +
+          "This indicator shows the number of hours that, through our calculations, " +
+          "we estimate it will take you to remediate the selected type of vulnerability.",
+      },
+      openVulns: {
+        label: "Open vulnerabilities",
+        tooltip:
+          "<strong>Open vulnerabilities:</strong> " +
+          "How many locations in your system still have that type of vulnerability. ",
+      },
+      severity: {
+        label: "Severity",
+        level: {
+          critical:
+            "<strong>Critical:</strong> " +
+            "Vulnerabilities that have most of the following characteristics: : " +
+            "exploitation of the vulnerability likely results in root-level compromise of servers or infrastructure devices, " +
+            "the attacker does not need any special authentication credentials or knowledge about individual victims. " +
+            "Is advised that you patch or upgrade as soon as possible, unless you have other mitigating measures in place. ",
+          high:
+            "<strong>High:</strong> " +
+            "Vulnerabilities that have some of the following characteristics: " +
+            "Is difficult to exploit, exploitation could result in elevated privileges, " +
+            "exploitation could result in a significant data loss or downtime. ",
+          low:
+            "<strong>Low:</strong> " +
+            "Vulnerabilities that have very little impact on an organization's business. " +
+            "Exploitation of such vulnerabilities usually requires local or physical system access.",
+          medium:
+            "<strong>Medium:</strong> " +
+            "Vulnerabilities that have some of the following characteristics: " +
+            "Require an attacker to manipulate individual victims, " +
+            "have denial of service vulnerabilities that are difficult to set up, " +
+            "require that attacker reside on the same local network as the victim, " +
+            "an exploitation provides only very limited access, " +
+            "require user privileges for successful exploitation. ",
+          none:
+            "<strong>None:</strong> " +
+            "Vulnerabilities that not have impact on an organization's business.",
+        },
+        tooltip:
+          "<strong>Severity level:</strong> " +
+          "Based on the renowned Common Vulnerability Scoring System (CVSS). " +
+          "An open standard for assessing the severity of security vulnerabilities in IT systems. ",
+      },
+      status: {
+        label: "Status",
+        stateLabel: {
+          closed: "Closed",
+          open: "Open",
+        },
+        stateTooltip: {
+          closed:
+            "<strong>Closed:</strong> " +
+            "You remediated that security issue in all those locations.",
+          open:
+            "<strong>Open:</strong> " +
+            "At least one of the locations where we reported that type of vulnerability has it without being fixed.",
+        },
+        tooltip:
+          "<strong>Status:</strong> Remediation state of your locations. ",
+      },
+    },
     highSeverity: "High",
     infoTable: {
       EN: "English",
@@ -1574,7 +1646,6 @@ export const enTranslations: ResourceKey = {
       voice: "Voice",
       whatsapp: "Whatsapp",
     },
-    openVulnsLabel: "Open vulnerabilities",
     repositoriesTable: {
       state: "State",
     },
@@ -1669,12 +1740,6 @@ export const enTranslations: ResourceKey = {
       },
       white: "White",
     },
-    severityLabel: "Severity",
-    status: {
-      closed: "Closed",
-      open: "Open",
-    },
-    statusLabel: "Status",
     tabComments: {
       tabTitle: "Consulting",
       tooltip:
