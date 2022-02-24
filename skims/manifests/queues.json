@@ -168,7 +168,8 @@
   "skims_xss": {
     "availability": "ALWAYS",
     "findings": [
-      "F008"
+      "F008",
+      "F010"
     ]
   }
 }

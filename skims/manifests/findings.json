@@ -31,6 +31,14 @@
       "title": "009. Sensitive information in source code"
     }
   },
+  "F010": {
+    "EN": {
+      "title": "010. Stored cross-site scripting (XSS)"
+    },
+    "ES": {
+      "title": "010. Stored cross-site scripting (XSS)"
+    }
+  },
   "F011": {
     "EN": {
       "title": "011. Use of software with known vulnerabilities"
