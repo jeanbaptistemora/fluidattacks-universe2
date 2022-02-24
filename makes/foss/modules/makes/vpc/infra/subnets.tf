@@ -11,12 +11,33 @@ locals {
       name                    = "observes_1"
       availability_zone       = "us-east-1a"
       map_public_ip_on_launch = false
-      new_bits                = 7
+      new_bits                = 9
       tags                    = {}
     },
     {
       name                    = "observes_2"
       availability_zone       = "us-east-1b"
+      map_public_ip_on_launch = false
+      new_bits                = 9
+      tags                    = {}
+    },
+    {
+      name                    = "observes_3"
+      availability_zone       = "us-east-1d"
+      map_public_ip_on_launch = false
+      new_bits                = 9
+      tags                    = {}
+    },
+    {
+      name                    = "observes_4"
+      availability_zone       = "us-east-1e"
+      map_public_ip_on_launch = false
+      new_bits                = 9
+      tags                    = {}
+    },
+    {
+      name                    = "free"
+      availability_zone       = "us-east-1a"
       map_public_ip_on_launch = false
       new_bits                = 7
       tags                    = {}
