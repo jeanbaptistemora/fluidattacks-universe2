@@ -86,6 +86,19 @@ locals {
         ]
       },
       {
+        Sid    = "s3ReadRepos"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:ListObjectsV2",
+          "s3:GetObject",
+        ]
+        Resource = [
+          "arn:aws:s3:::continuous-repositories",
+          "arn:aws:s3:::continuous-repositories/*",
+        ]
+      },
+      {
         Sid    = "s3Write"
         Effect = "Allow"
         Action = ["*"]
