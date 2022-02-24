@@ -79,19 +79,16 @@ async def process_group(
     organization_id = await orgs_domain.get_id_for_group(group_name)
 
     all_resources_removed = await groups_domain.remove_resources(
-        loaders, group_name
+        loaders, group_name, user_deletion
     )
-    await groups_domain.deactivate_all_roots(
-        loaders=loaders,
-        group_name=group_name,
-        user_email=user_deletion,
-        other="",
-        reason="GROUP_DELETED",
+    are_users_removed = await groups_domain.remove_all_users(
+        loaders, group_name
     )
     is_removed_from_org = await orgs_domain.remove_group(
         group_name, organization_id
     )
     success = [
+        are_users_removed,
         all_resources_removed,
         is_removed_from_org,
     ]

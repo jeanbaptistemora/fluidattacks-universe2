@@ -38,6 +38,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     success = await groups_domain.remove_resources(
         loaders=loaders,
         group_name=group_name,
+        user_email=user_email,
     )
     message = f"Removal result: {success}"
     LOGGER_CONSOLE.info(

@@ -732,22 +732,19 @@ async def remove_group(
 
     all_resources_removed = True
     if FI_ENVIRONMENT == "development":
-        all_resources_removed = await remove_resources(loaders, group_name)
+        all_resources_removed = await remove_resources(
+            loaders, group_name, user_email
+        )
+    are_users_removed = await remove_all_users(loaders, group_name)
     are_policies_revoked = await authz.revoke_cached_group_service_policies(
         group_name
     )
     is_removed_from_org = await orgs_domain.remove_group(
         group_name, organization_id
     )
-    await deactivate_all_roots(
-        loaders=loaders,
-        group_name=group_name,
-        user_email=user_email,
-        other="",
-        reason="GROUP_DELETED",
-    )
     if not all(
         [
+            are_users_removed,
             all_resources_removed,
             are_policies_revoked,
             is_removed_from_org,
@@ -1390,8 +1387,9 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
     )
 
 
-async def remove_resources(loaders: Any, group_name: str) -> bool:
-    are_users_removed = await remove_all_users(loaders, group_name)
+async def remove_resources(
+    loaders: Any, group_name: str, user_email: str
+) -> bool:
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     are_findings_masked = all(
         await collect(
@@ -1410,10 +1408,16 @@ async def remove_resources(loaders: Any, group_name: str) -> bool:
         list(cast(List[bool], await mask_resources(group_name)))
     )
     are_comments_masked = await mask_comments(group_name)
+    await deactivate_all_roots(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=user_email,
+        other="",
+        reason="GROUP_DELETED",
+    )
     return all(
         [
             are_findings_masked,
-            are_users_removed,
             are_events_masked,
             are_resources_masked,
             are_comments_masked,
