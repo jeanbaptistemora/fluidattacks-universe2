@@ -17,6 +17,8 @@ locals {
           "dynamodb:List*",
           "dynamodb:Query*",
           "dynamodb:Scan*",
+          "ec2:Describe*",
+          "ec2:Get*",
           "iam:Get*",
           "iam:List*",
           "kms:CreateAlias",
