@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 22, 2022, 06:04 PM",
+    "DateLastModified": "Feb 24, 2022, 09:38 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -573,6 +573,10 @@
         {
           "AttributeName": "commit_date",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "notifications_preferences",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -632,7 +636,8 @@
             "last_login_date",
             "name",
             "legal_remember",
-            "email"
+            "email",
+            "notifications_preferences"
           ]
         },
         {
@@ -1333,8 +1338,8 @@
             "pk_2",
             "sk_2",
             "state",
-            "cloning",
-            "unreliable_indicators"
+            "unreliable_indicators",
+            "cloning"
           ]
         },
         {

@@ -1520,6 +1520,13 @@ export const enTranslations: ResourceKey = {
       rejected: "Rejected",
       submitted: "Submitted",
     },
+    enumValues: {
+      COMMENTS: "Consulting",
+      DIGEST: "Daily digest",
+      GROUP: "GROUP",
+      ORGANIZATION: "ORGANIZATION",
+      PORTFOLIO: "PORTFOLIO",
+    },
     environmentTable: {
       environment: "Environment",
       uploadDate: "Since",

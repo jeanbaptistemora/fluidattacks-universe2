@@ -112,7 +112,9 @@ const NotificationsView: React.FC = (): JSX.Element => {
             }
 
             return {
-              ...subscription,
+              name: translate.t(
+                `searchFindings.enumValues.${subscription.name}`
+              ),
               subscribeEmail: (
                 <Col40>
                   <input
