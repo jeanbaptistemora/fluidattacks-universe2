@@ -14,7 +14,6 @@ from db_model import (
     credentials as creds_model,
     findings as findings_model,
     roots as roots_model,
-    services_toe_lines as services_toe_lines_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
     vulnerabilities as vulns_model,
@@ -31,9 +30,6 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     RootItem,
-)
-from db_model.services_toe_lines.types import (
-    ServicesToeLines,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -399,18 +395,6 @@ async def populate_executions(data: List[Any]) -> bool:
         [dal_forces.add_execution(**execution) for execution in data]
     )
     return all(await collect(coroutines))
-
-
-async def populate_services_toe_lines(
-    data: Tuple[ServicesToeLines, ...]
-) -> bool:
-    await collect(
-        [
-            services_toe_lines_model.add(services_toe_lines=services_toe_lines)
-            for services_toe_lines in data
-        ]
-    )
-    return True
 
 
 async def populate_toe_inputs(data: Tuple[ToeInput, ...]) -> bool:
