@@ -389,6 +389,7 @@
     - "padss.5_2_9"
     - "padss.5_2_10"
     - "sans25.352"
+    - "iso27002.8_26"
   metadata: {}
 "030":
   en:
@@ -859,6 +860,7 @@
     - "capec.155"
     - "nist.PR_DS-7"
     - "certj.FIO03-J"
+    - "iso27002.8_25"
   metadata: {}
 "037":
   en:
@@ -1294,6 +1296,7 @@
     - "owaspm10.M9"
     - "padss.5_2_1"
     - "sans25.94"
+    - "iso27002.8_26"
   metadata: {}
 "051":
   en:
@@ -1321,6 +1324,7 @@
     - "agile.11"
     - "nydfs.500_16"
     - "hitrust.10_j"
+    - "iso27002.8_25"
   metadata: {}
 "062":
   en:
@@ -1428,6 +1432,7 @@
     - "fedramp.SA-10"
     - "fedramp.SC-28"
     - "iso27002.8_9"
+    - "iso27002.8_27"
   metadata: {}
 "072":
   en:
@@ -1676,6 +1681,7 @@
     - "hitrust.09_m"
     - "hitrust.09_ab"
     - "iso27002.8_8"
+    - "iso27002.8_26"
   metadata: {}
 "078":
   en:
@@ -3610,6 +3616,7 @@
      - "hitrust.10_g"
      - "fedramp.SC-12_2"
      - "fedramp.SC-13"
+     - "iso27002.8_24"
   metadata: {}
 "146":
   en:
@@ -3647,6 +3654,7 @@
     - "cmmc.SC_L2-3_13_16"
     - "hitrust.10_g"
     - "fedramp.SC-13"
+    - "iso27002.8_24"
   metadata: {}
 "147":
   en:
@@ -3748,6 +3756,7 @@
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
     - "hitrust.10_g"
+    - "iso27002.8_24"
   metadata: {}
 "149":
   en:
@@ -3776,6 +3785,7 @@
     - "asvs.V1_6_1"
     - "hitrust.10_g"
     - "fedramp.SC-12_2"
+    - "iso27002.8_24"
   metadata: {}
 "150":
   en:
@@ -3828,6 +3838,7 @@
     - "cmmc.SC_L2-3_13_10"
     - "hitrust.10_g"
     - "fedramp.CM-3_6"
+    - "iso27002.8_24"
   metadata: {}
 "152":
   en:
@@ -4097,6 +4108,7 @@
     - "fedramp.CA-2_2"
     - "fedramp.RA-5"
     - "fedramp.SI-3"
+    - "iso27002.8_26"
   metadata: {}
 "156":
   en:
@@ -4170,6 +4182,7 @@
     - "nydfs.5575_B_2"
     - "mitre.M1013"
     - "cmmc.AT_L2-3_2_1"
+    - "iso27002.8_28"
   metadata: {}
 "157":
   en:
@@ -4273,6 +4286,7 @@
     - "sans25.787"
     - "cmmc.AT_L2-3_2_1"
     - "hitrust.10_j"
+    - "iso27002.8_28"
   metadata: {}
 "159":
   en:
@@ -4308,6 +4322,7 @@
     - "hitrust.01_w"
     - "hitrust.09_d"
     - "hitrust.10_j"
+    - "iso27002.8_25"
   metadata: {}
 "160":
   en:
@@ -4490,6 +4505,8 @@
     - "hitrust.09_e"
     - "hitrust.10_j"
     - "fedramp.CA-2_3"
+    - "iso27002.8_26"
+    - "iso27002.8_28"
   metadata: {}
 "162":
   en:
@@ -4517,6 +4534,7 @@
     - "owaspm10.M7"
     - "agile.9"
     - "mitre.M1013"
+    - "iso27002.8_28"
   metadata: {}
 "164":
   en:
@@ -4549,6 +4567,7 @@
     - "sans25.94"
     - "sans25.119"
     - "cmmc.CA_L2-3_12_2"
+    - "iso27002.8_28"
   metadata: {}
 "167":
   en:
@@ -4607,6 +4626,7 @@
     - "cwe.457"
     - "certc.EXP33-C"
     - "mitre.M1013"
+    - "iso27002.8_28"
   metadata: {}
 "169":
   en:
@@ -4678,6 +4698,8 @@
     - "mitre.M1013"
     - "cmmc.AT_L2-3_2_1"
     - "hitrust.10_i"
+    - "iso27002.8_25"
+    - "iso27002.8_28"
   metadata: {}
 "172":
   en:
@@ -4745,6 +4767,7 @@
     - "certj.IDS01-J"
     - "mitre.M1013"
     - "cmmc.AC_L2-3_1_13"
+    - "iso27002.8_28"
   metadata: {}
 "173":
   en:
@@ -4930,6 +4953,8 @@
     - "hitrust.13_k"
     - "fedramp.PE-16"
     - "fedramp.SI-5"
+    - "iso27002.8_20"
+    - "iso27002.8_26"
   metadata: {}
 "174":
   en:
@@ -5136,6 +5161,7 @@
     - "fedramp.SC-8"
     - "fedramp.SC-28"
     - "iso27002.8_4"
+    - "iso27002.8_26"
   metadata: {}
 "177":
   en:
@@ -5348,6 +5374,8 @@
     - "hitrust.01_w"
     - "hitrust.09_d"
     - "hitrust.10_i"
+    - "iso27002.8_25"
+    - "iso27002.8_31"
   metadata: {}
 "181":
   en:
@@ -5572,6 +5600,7 @@
     - "cwe25.200"
     - "owaspm10.M9"
     - "sans25.200"
+    - "iso27002.8_26"
   metadata: {}
 "185":
   en:
@@ -5951,6 +5980,7 @@
     - "cmmc.IA_L2-3_5_10"
     - "hitrust.01_d"
     - "iso27002.8_1"
+    - "iso27002.8_26"
   metadata: {}
 "210":
   en:
@@ -6179,6 +6209,7 @@
     - "certj.MSC02-J"
     - "hitrust.09_y"
     - "hitrust.10_g"
+    - "iso27002.8_24"
   metadata: {}
 "224":
   en:
@@ -6299,6 +6330,7 @@
     - "fedramp.CM-3_6"
     - "fedramp.SC-8_1"
     - "fedramp.SC-13"
+    - "iso27002.8_24"
   metadata: {}
 "225":
   en:
@@ -6993,6 +7025,7 @@
     - "hitrust.08_c"
     - "hitrust.08_f"
     - "hitrust.08_g"
+    - "iso27002.8_21"
   metadata: {}
 "250":
   en:
@@ -7032,6 +7065,7 @@
     - "hitrust.08_f"
     - "hitrust.08_g"
     - "fedramp.SC-8_1"
+    - "iso27002.8_21"
   metadata: {}
 "251":
   en:
@@ -7060,6 +7094,7 @@
     - "mitre.M1031"
     - "padss.6_1"
     - "hitrust.09_m"
+    - "iso27002.8_20"
   metadata: {}
 "252":
   en:
@@ -7096,6 +7131,7 @@
     - "cmmc.SC_L1-3_13_1"
     - "cmmc.SC_L2-3_13_10"
     - "hitrust.09_m"
+    - "iso27002.8_20"
   metadata: {}
 "253":
   en:
@@ -7135,6 +7171,7 @@
     - "cmmc.SC_L1-3_13_1"
     - "hitrust.01_i"
     - "hitrust.09_m"
+    - "iso27002.8_21"
   metadata: {}
 "254":
   en:
@@ -7158,6 +7195,7 @@
     oneshot: false
   references:
     - "capec.613"
+    - "iso27002.8_20"
   metadata: {}
 "255":
   en:
@@ -7204,6 +7242,7 @@
     - "hitrust.08_c"
     - "hitrust.09_m"
     - "fedramp.CM-7"
+    - "iso27002.8_21"
   metadata: {}
 "257":
   en:
@@ -7248,6 +7287,7 @@
     - "hitrust.09_m"
     - "fedramp.SC-8_1"
     - "iso27002.7_3"
+    - "iso27002.8_21"
   metadata: {}
 "258":
   en:
@@ -7277,6 +7317,7 @@
     - "cis.9_2"
     - "mitre.M1021"
     - "mitre.M1037"
+    - "iso27002.8_22"
   metadata: {}
 "259":
   en:
@@ -7316,6 +7357,7 @@
     - "hitrust.01_m"
     - "hitrust.09_m"
     - "iso27002.8_8"
+    - "iso27002.8_23"
   metadata: {}
 "260":
   en:
@@ -7767,6 +7809,8 @@
     - "padss.5_2_8"
     - "cmmc.CM_L2-3_4_2"
     - "hitrust.03_a"
+    - "iso27002.8_26"
+    - "iso27002.8_27"
   metadata: {}
 "273":
   en:
@@ -7820,6 +7864,7 @@
     - "cmmc.PE_L2-3_10_6"
     - "cmmc.CA_L2-3_12_2"
     - "iso27002.8_7"
+    - "iso27002.8_27"
   metadata: {}
 "280":
   en:
@@ -8099,6 +8144,7 @@
     - "hitrust.02_d"
     - "hitrust.05_k"
     - "hitrust.09_f"
+    - "iso27002.8_28"
   metadata: {}
 "305":
   en:
@@ -9062,6 +9108,7 @@
     - "hitrust.09_h"
     - "hitrust.09_ab"
     - "fedramp.AU-12_3"
+    - "iso27002.8_25"
   metadata: {}
 "323":
   en:
@@ -9128,6 +9175,7 @@
     - "mitre.M1013"
     - "cmmc.SI_L1-3_14_5"
     - "hitrust.09_h"
+    - "iso27002.8_28"
   metadata: {}
 "324":
   en:
@@ -9311,6 +9359,7 @@
     - "hitrust.13_m"
     - "fedramp.CM-7_5"
     - "iso27002.7_9"
+    - "iso27002.8_26"
   metadata: {}
 "327":
   en:
@@ -10367,6 +10416,7 @@
     - "sans25.20"
     - "sans25.125"
     - "hitrust.10_b"
+    - "iso27002.8_28"
   metadata: {}
 "343":
   en:
@@ -10490,6 +10540,7 @@
     - "mitre.M1038"
     - "padss.5_2_7"
     - "fedramp.CM-7_5"
+    - "iso27002.8_28"
   metadata: {}
 "345":
   en:
@@ -10646,6 +10697,7 @@
     - "cmmc.SC_L1-3_13_1"
     - "hitrust.09_y"
     - "hitrust.10_g"
+    - "iso27002.8_24"
   metadata: {}
 "347":
   en:
@@ -10777,6 +10829,7 @@
     - "bizec.APP-05"
     - "hitrust.09_v"
     - "hitrust.10_e"
+    - "iso27002.8_28"
   metadata: {}
 "349":
   en:
@@ -10958,6 +11011,7 @@
     - "cmmc.SI_L1-3_14_5"
     - "fedramp.AC-6_8"
     - "fedramp.CM-7_5"
+    - "iso27002.8_19"
   metadata: {}
 "353":
   en:
@@ -10995,6 +11049,7 @@
     - "fedramp.CM-2_1"
     - "iso27002.8_7"
     - "iso27002.8_8"
+    - "iso27002.8_19"
   metadata: {}
 "354":
   en:
@@ -11115,6 +11170,7 @@
   references:
     - "cwe.350"
     - "asvs.V10_3_3"
+    - "iso27002.8_20"
   metadata: {}
 "357":
   en:
@@ -11370,6 +11426,7 @@
     - "padss.2_5_5"
     - "hitrust.10_g"
     - "fedramp.SC-13"
+    - "iso27002.8_24"
   metadata: {}
 "362":
   en:
@@ -11535,6 +11592,7 @@
     - "cmmc.AC_L1-3_1_22"
     - "hitrust.09_z"
     - "hitrust.10_c"
+    - "iso27002.8_26"
   metadata: {}
 "365":
   en:
@@ -11586,6 +11644,7 @@
     - "cwe25.476"
     - "agile.9"
     - "sans25.476"
+    - "iso27002.8_28"
   metadata: {}
 "367":
   en:
@@ -11698,6 +11757,7 @@
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
     - "hitrust.10_g"
+    - "iso27002.8_24"
   metadata: {}
 "371":
   en:
@@ -11722,6 +11782,7 @@
     - "hipaa.164_312_a_2_iv"
     - "asvs.V1_6_1"
     - "hitrust.10_g"
+    - "iso27002.8_24"
   metadata: {}
 "372":
   en:
@@ -11752,6 +11813,7 @@
     - "asvs.V1_6_1"
     - "hitrust.10_g"
     - "fedramp.SC-12_2"
+    - "iso27002.8_24"
   metadata: {}
 "373":
   en:
@@ -11789,6 +11851,7 @@
     - "cmmc.PE_L1-3_10_5"
     - "hitrust.10_c"
     - "iso27002.8_1"
+    - "iso27002.8_26"
   metadata: {}
 "374":
   en:
@@ -11818,6 +11881,7 @@
     - "hitrust.01_w"
     - "hitrust.09_d"
     - "iso27002.8_7"
+    - "iso27002.8_26"
   metadata: {}
 "375":
   en:
@@ -11866,6 +11930,7 @@
     - "pdpo.S1_4"
     - "cmmc.CM_L2-3_4_9"
     - "hitrust.09_p"
+    - "iso27002.8_26"
   metadata: {}
 "376":
   en:
