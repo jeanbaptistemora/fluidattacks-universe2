@@ -5,6 +5,9 @@ from aioextensions import (
     collect,
     run,
 )
+from batch.repositories import (
+    get_namespace,
+)
 import boto3
 from contextlib import (
     suppress,
@@ -32,7 +35,6 @@ from model.core_model import (
     SkimsConfig,
 )
 import os
-import subprocess  # nosec
 import sys
 from typing import (
     List,
@@ -124,30 +126,6 @@ async def _should_run(
     )
 
 
-def _clone_with_melts(group_name: str) -> bool:
-    if "services" not in os.getcwd():
-        return False
-
-    result = subprocess.run(  # nosec
-        ["melts", "drills", "--pull-repos", group_name],
-        shell=False,
-        env={
-            **os.environ.copy(),
-            "CI": "true",
-            "CI_COMMIT_REF_NAME": "master",
-            "PROD_AWS_ACCESS_KEY_ID": os.environ[
-                "PROD_SERVICES_AWS_ACCESS_KEY_ID"
-            ],
-            "PROD_AWS_SECRET_ACCESS_KEY": os.environ[
-                "PROD_SERVICES_AWS_SECRET_ACCESS_KEY"
-            ],
-        },
-        cwd=".",
-        check=True,
-    )
-    return result.returncode == 0
-
-
 async def _gererate_configs(
     *,
     group_name: str,
@@ -183,6 +161,12 @@ async def _gererate_configs(
     )
 
 
+async def _get_namespace(
+    group_name: str, root_nickname: str
+) -> Tuple[str, Optional[str]]:
+    return (root_nickname, await get_namespace(group_name, root_nickname))
+
+
 async def main() -> None:
     action_dynamo_pk = sys.argv[1]
     CTX.debug = False
@@ -201,21 +185,30 @@ async def main() -> None:
     delete_action(action_dynamo_pk=action_dynamo_pk)
 
     group_name = item.entity
-    _clone_with_melts(group_name)
 
     job_details = json.loads(item.additional_info)
-    roots: List[str] = job_details["roots"]
+    roots_nicknames: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
+
+    namespaces_path_dict = dict(
+        await collect(
+            [
+                _get_namespace(group_name, root_nickname)
+                for root_nickname in roots_nicknames
+            ]
+        )
+    )
     group_language = await get_group_language(group_name)
     configs = await collect(
         generate_config(
             group_name=group_name,
-            namespace=root,
+            namespace=root_nickname,
             checks=tuple(checks),
             language=group_language,
-            working_dir=f"groups/{group_name}/fusion/{root}",
+            working_dir=namespaces_path_dict[root_nickname],
         )
-        for root in roots
+        for root_nickname in roots_nicknames
+        if namespaces_path_dict.get(root_nickname) is not None
     )
 
     for config in configs:
