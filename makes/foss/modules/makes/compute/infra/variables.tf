@@ -13,6 +13,16 @@ variable "terraform_state_lock_arn" {
 
 # Reused infrastructure
 
-variable "batch_vpc_id" {
-  default = "vpc-0ea1c7bd6be683d2d"
+data "aws_vpc" "main" {
+  filter {
+    name   = "tag:Name"
+    values = ["fluid-vpc"]
+  }
+}
+data "aws_subnet" "main" {
+  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "tag:Name"
+    values = ["batch"]
+  }
 }

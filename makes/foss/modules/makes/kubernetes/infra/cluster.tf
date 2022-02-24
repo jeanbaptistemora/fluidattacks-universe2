@@ -6,9 +6,7 @@ module "eks" {
   enable_irsa     = true
 
   subnets = [
-    "subnet-0df4178d0c9354aad",
-    "subnet-08849bfa044faf25a",
-    "subnet-0412793dec0eddea9",
+    for subnet in data.aws_subnet.main : subnet.id
   ]
 
   worker_additional_security_group_ids = [
@@ -25,7 +23,7 @@ module "eks" {
     "management:type"    = "product"
   }
 
-  vpc_id = var.fluid_vpc_id
+  vpc_id = data.aws_vpc.main.id
 
   worker_groups_launch_template = [
     {

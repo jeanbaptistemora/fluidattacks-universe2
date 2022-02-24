@@ -36,6 +36,7 @@ locals {
           "ram:*",
           "rds:*",
           "redshift:*",
+          "redshift-serverless:*",
           "route53:*",
           "s3:*",
           "sagemaker:*",

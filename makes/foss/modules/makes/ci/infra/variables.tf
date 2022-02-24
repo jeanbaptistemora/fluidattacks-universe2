@@ -75,10 +75,16 @@ variable "runner_timeout" {
 # Reused infrastructure from other services
 #
 
-variable "autostaling_ci_vpc_id" {
-  default = "vpc-0ea1c7bd6be683d2d"
+data "aws_vpc" "main" {
+  filter {
+    name   = "tag:Name"
+    values = ["fluid-vpc"]
+  }
 }
-
-variable "autoscaling_ci_subnet_id" {
-  default = "subnet-0bceb7aa2c900324a"
+data "aws_subnet" "main" {
+  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "tag:Name"
+    values = ["ci"]
+  }
 }

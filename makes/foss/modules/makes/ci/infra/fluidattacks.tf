@@ -27,7 +27,7 @@ module "fluidattacks_ci" {
 
   # AWS
   aws_region                             = "us-east-1"
-  vpc_id                                 = var.autostaling_ci_vpc_id
+  vpc_id                                 = data.aws_vpc.main.id
   allow_iam_service_linked_role_creation = true
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
@@ -48,7 +48,7 @@ module "fluidattacks_ci" {
   runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
-  subnet_ids_gitlab_runner          = [var.autoscaling_ci_subnet_id]
+  subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
   runner_root_block_device          = var.runner_block_device
@@ -89,7 +89,7 @@ module "fluidattacks_ci" {
   runners_request_spot_instance = true
   runners_use_private_address   = false
   runners_machine_autoscaling   = var.off_peak_periods
-  subnet_id_runners             = var.autoscaling_ci_subnet_id
+  subnet_id_runners             = data.aws_subnet.main.id
 
   # Tags
   environment = "makes-fluidattacks-ci-${each.key}"
@@ -113,7 +113,7 @@ module "fluidattacks_ci_large" {
 
   # AWS
   aws_region                             = "us-east-1"
-  vpc_id                                 = var.autostaling_ci_vpc_id
+  vpc_id                                 = data.aws_vpc.main.id
   allow_iam_service_linked_role_creation = true
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
@@ -134,7 +134,7 @@ module "fluidattacks_ci_large" {
   runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
-  subnet_ids_gitlab_runner          = [var.autoscaling_ci_subnet_id]
+  subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
   runner_root_block_device          = var.runner_block_device
@@ -174,7 +174,7 @@ module "fluidattacks_ci_large" {
   runners_request_spot_instance = true
   runners_use_private_address   = false
   runners_machine_autoscaling   = var.off_peak_periods
-  subnet_id_runners             = var.autoscaling_ci_subnet_id
+  subnet_id_runners             = data.aws_subnet.main.id
 
   # Tags
   environment = "makes-fluidattacks-ci-large-${each.key}"

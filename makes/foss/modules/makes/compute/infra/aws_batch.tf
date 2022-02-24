@@ -72,7 +72,7 @@ resource "aws_iam_role_policy_attachment" "aws_batch_service_role" {
 
 resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   name   = "aws_batch_compute_environment_security_group"
-  vpc_id = var.batch_vpc_id
+  vpc_id = data.aws_vpc.main.id
 
   # AWS manage this things and it's unknown what source port, protocol or ip
   # will access the machine
@@ -256,7 +256,7 @@ resource "aws_batch_compute_environment" "default" {
     ]
     spot_iam_fleet_role = each.value.spot_iam_fleet_role
     subnets = [
-      "subnet-06326784973787c13",
+      data.aws_subnet.main.id,
     ]
     type = each.value.type
     tags = each.value.tags

@@ -13,9 +13,26 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
 
-variable "fluid_vpc_id" {
-  default = "vpc-0ea1c7bd6be683d2d"
+data "aws_vpc" "main" {
+  filter {
+    name   = "tag:Name"
+    values = ["fluid-vpc"]
+  }
 }
+data "aws_subnet" "main" {
+  for_each = toset([
+    "k8s_1",
+    "k8s_2",
+    "k8s_3",
+  ])
+
+  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "tag:Name"
+    values = [each.key]
+  }
+}
+
 variable "cluster_name" {
   default = "makes-k8s"
 }
