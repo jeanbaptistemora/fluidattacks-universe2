@@ -4863,3 +4863,15 @@
       title: Separation of development, test and production environments
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
   metadata: {}
+"lgpd":
+  title: LGPD
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "7_I":
+      title: Chances of Carrying Out Personal Data Processing (1)
+      link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
+  metadata: {}
