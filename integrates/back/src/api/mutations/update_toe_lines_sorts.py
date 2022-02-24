@@ -7,12 +7,6 @@ from api import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-from contextlib import (
-    suppress,
-)
-from custom_exceptions import (
-    ToeLinesNotFound,
-)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -46,9 +40,6 @@ from toe.lines import (
 )
 from toe.lines.types import (
     ToeLinesAttributesToUpdate,
-)
-from toe.services_lines import (
-    domain as services_toe_lines_domain,
 )
 from typing import (
     Any,
@@ -87,13 +78,6 @@ async def mutate(
             toe_lines,
             ToeLinesAttributesToUpdate(sorts_risk_level=sorts_risk_level),
         )
-        with suppress(ToeLinesNotFound):
-            await services_toe_lines_domain.update_risk_level(
-                group_name=group_name,
-                filename=filename,
-                root_id=root_id,
-                sorts_risk_level=sorts_risk_level,
-            )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Successfully updated sorts risk level "
