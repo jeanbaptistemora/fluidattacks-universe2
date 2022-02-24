@@ -12,14 +12,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { reset, track } from "mixpanel-browser";
+import { reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { APITokenModal } from "./APITokenModal";
-import { GlobalConfigModal } from "./GlobalConfigModal";
 import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
@@ -66,15 +65,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   }, []);
   const closeTokenModal = useCallback((): void => {
     setTokenModalOpen(false);
-  }, []);
-
-  const [isConfigModalOpen, setConfigModalOpen] = useState(false);
-  const openConfigModal: () => void = useCallback((): void => {
-    setConfigModalOpen(true);
-    track("OpenGlobalConfig");
-  }, []);
-  const closeConfigModal: () => void = useCallback((): void => {
-    setConfigModalOpen(false);
   }, []);
 
   const [addStakeholder, isStakeholderModalOpen, setStakeholderModalOpen] =
@@ -150,18 +140,17 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             ) : undefined}
           </li>
           <li>
-            <TooltipWrapper
-              id={"globalConfig"}
-              message={t("navbar.config.tooltip")}
-            >
-              <DropdownButton onClick={openConfigModal}>
-                <FontAwesomeIcon icon={faUserCog} />
-                &nbsp;{t("navbar.config.text")}
-              </DropdownButton>
-            </TooltipWrapper>
-            {isConfigModalOpen ? (
-              <GlobalConfigModal onClose={closeConfigModal} open={true} />
-            ) : undefined}
+            <a href={"/user/config"}>
+              <TooltipWrapper
+                id={"globalConfig"}
+                message={t("navbar.config.tooltip")}
+              >
+                <DropdownButton>
+                  <FontAwesomeIcon icon={faUserCog} />
+                  &nbsp;{t("navbar.config.text")}
+                </DropdownButton>
+              </TooltipWrapper>
+            </a>
           </li>
           <Can do={"api_mutations_add_stakeholder_mutate"}>
             <li>
