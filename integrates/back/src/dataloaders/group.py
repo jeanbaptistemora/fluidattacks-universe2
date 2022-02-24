@@ -58,7 +58,7 @@ async def _batch_load_fn(
     for index, group in enumerate(groups_by_names):
         group_name = group_names[index].lower()
         status = get_key_or_fallback(
-            group, "group_status", "project_status", "FINISHED"
+            group, "group_status", "project_status", "DELETED"
         )
         historic_configuration: List[Dict[str, str]] = cast(
             List[Dict[str, str]], group.get("historic_configuration", [{}])
