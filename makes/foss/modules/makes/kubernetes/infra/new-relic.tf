@@ -96,6 +96,11 @@ resource "helm_release" "newrelic" {
 
   set {
     name  = "pixie-chart.pemMemoryLimit"
-    value = "500m"
+    value = "1Gi"
+  }
+
+  set {
+    name  = "newrelic-pixie.excludeNamespacesRegex"
+    value = "default|development|kube-system"
   }
 }
