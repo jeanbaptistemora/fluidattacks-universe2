@@ -4785,4 +4785,58 @@
     "8_7":
       title: Protection against malware
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_8":
+      title: Management of technical vulnerabilities
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_9":
+      title: Configuration management
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_10":
+      title: Information deletion
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_11":
+      title: Data masking
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_15":
+      title: Logging
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_16":
+      title: Monitoring activities
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_17":
+      title: Clock synchronisation
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_19":
+      title: Installation of software on operational systems
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_20":
+      title: Network controls
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_21":
+      title: Security of network services
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_22":
+      title: Web filtering
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_23":
+      title: Segregation in networks
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_24":
+      title: Use of cryptography
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_25":
+      title: Secure development lifecycle
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_26":
+      title: Application security requirements
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_27":
+      title: Secure system architecture and engineering principles
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_28":
+      title: Secure coding
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_31":
+      title: Separation of development, test and production environments
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
   metadata: {}
