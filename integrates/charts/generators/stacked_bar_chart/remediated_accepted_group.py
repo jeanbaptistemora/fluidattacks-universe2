@@ -94,13 +94,13 @@ def format_percentages(
     if not values:
         max_percentage_values = {
             "Closed": "",
-            "Temporarily Accepted": "",
+            "Temporarily accepted": "",
             "Permanently accepted": "",
             "Open": "",
         }
         percentage_values = {
             "Closed": "0.0",
-            "Temporarily Accepted": "0.0",
+            "Temporarily accepted": "0.0",
             "Permanently accepted": "0.0",
             "Open": "0.0",
         }
@@ -109,14 +109,14 @@ def format_percentages(
 
     total_bar: Decimal = (
         values["Closed"]
-        + values["Temporarily Accepted"]
+        + values["Temporarily accepted"]
         + values["Permanently accepted"]
         + values["Open"]
     )
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
     raw_percentages: List[Decimal] = [
         values["Closed"] / total_bar,
-        values["Temporarily Accepted"] / total_bar,
+        values["Temporarily accepted"] / total_bar,
         values["Permanently accepted"] / total_bar,
         values["Open"] / total_bar,
     ]
@@ -125,7 +125,7 @@ def format_percentages(
         "Closed": str(percentages[0])
         if percentages[0] >= MIN_PERCENTAGE
         else "",
-        "Temporarily Accepted": str(percentages[1])
+        "Temporarily accepted": str(percentages[1])
         if percentages[1] >= MIN_PERCENTAGE
         else "",
         "Permanently accepted": str(percentages[2])
@@ -137,7 +137,7 @@ def format_percentages(
     }
     percentage_values = {
         "Closed": str(percentages[0]),
-        "Temporarily Accepted": str(percentages[1]),
+        "Temporarily accepted": str(percentages[1]),
         "Permanently accepted": str(percentages[2]),
         "Open": str(percentages[3]),
     }
@@ -151,7 +151,7 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
         format_percentages(
             {
                 "Closed": Decimal(group.closed_vulnerabilities),
-                "Temporarily Accepted": Decimal(group.accepted),
+                "Temporarily accepted": Decimal(group.accepted),
                 "Permanently accepted": Decimal(group.accepted_undefined),
                 "Open": Decimal(group.remaining_open_vulnerabilities),
             }
@@ -166,7 +166,7 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
                 + [
                     str(group.closed_vulnerabilities) for group in limited_data
                 ],
-                ["Temporarily Accepted"]
+                ["Temporarily accepted"]
                 + [str(group.accepted) for group in limited_data],
                 ["Permanently accepted"]
                 + [str(group.accepted_undefined) for group in limited_data],
@@ -178,7 +178,7 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
             ],
             colors={
                 "Closed": RISK.more_passive,
-                "Temporarily Accepted": TREATMENT.passive,
+                "Temporarily accepted": TREATMENT.passive,
                 "Permanently accepted": TREATMENT.more_passive,
                 "Open": RISK.more_agressive,
             },
@@ -191,7 +191,7 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
             groups=[
                 [
                     "Closed",
-                    "Temporarily Accepted",
+                    "Temporarily accepted",
                     "Permanently accepted",
                     "Open",
                 ],
@@ -221,8 +221,8 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
                 percentage_value[0]["Closed"]
                 for percentage_value in percentage_values
             ],
-            "Temporarily Accepted": [
-                percentage_value[0]["Temporarily Accepted"]
+            "Temporarily accepted": [
+                percentage_value[0]["Temporarily accepted"]
                 for percentage_value in percentage_values
             ],
             "Permanently accepted": [
@@ -239,8 +239,8 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
                 percentage_value[1]["Closed"]
                 for percentage_value in percentage_values
             ],
-            "Temporarily Accepted": [
-                percentage_value[1]["Temporarily Accepted"]
+            "Temporarily accepted": [
+                percentage_value[1]["Temporarily accepted"]
                 for percentage_value in percentage_values
             ],
             "Permanently accepted": [
