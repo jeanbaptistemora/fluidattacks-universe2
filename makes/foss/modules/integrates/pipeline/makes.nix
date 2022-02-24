@@ -119,7 +119,6 @@ in
           };
         })
         [
-          "0196_rm_deprecated_group_statuses.py"
           "0197_remove_services_toe_lines.py"
         ])
         ++ (builtins.map
