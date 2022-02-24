@@ -1,21 +1,3 @@
-/computeOnAwsBatch/integratesMigration__prod__0192_add_root_to_toe_input_keys.py:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_migration_0192_add_root_to_toe_input_keys == null
-      when: never
-    - when: always
-  script:
-    - m . /computeOnAwsBatch/integratesMigration 'prod' '0192_add_root_to_toe_input_keys.py'
-  stage: scheduler
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesMigration__prod__0196_rm_deprecated_group_statuses.py:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: false
@@ -28,6 +10,24 @@
     - when: always
   script:
     - m . /computeOnAwsBatch/integratesMigration 'prod' '0196_rm_deprecated_group_statuses.py'
+  stage: scheduler
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/computeOnAwsBatch/integratesMigration__prod__0197_remove_services_toe_lines.py:
+  image: ghcr.io/fluidattacks/makes:22.03
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_migration_0197_remove_services_toe_lines == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesMigration 'prod' '0197_remove_services_toe_lines.py'
   stage: scheduler
   tags:
     - autoscaling
