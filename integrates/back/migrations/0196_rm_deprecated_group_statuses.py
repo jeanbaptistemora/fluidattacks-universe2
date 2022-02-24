@@ -36,9 +36,6 @@ from groups import (
 )
 import logging
 import logging.config
-from newutils import (
-    datetime as datetime_utils,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -98,16 +95,6 @@ async def process_group(
             "group_status": "DELETED",
             "project_status": "DELETED",
         }
-        if not historic_deletion[-1]:
-            today = datetime_utils.get_now_as_str()
-            new_data["historic_deletion"] = [
-                {
-                    "date": today,
-                    "deletion_date": today,
-                    "user": user_deletion,
-                }
-            ]
-            new_data["deletion_date"] = today
         is_updated = await groups_domain.update(group_name, new_data)
         success.append(is_updated)
 
