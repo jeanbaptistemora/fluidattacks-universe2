@@ -415,6 +415,12 @@ enum StakeholderRole {
   USER_MANAGER
 }
 
+"notifications name enum definition"
+enum NotificationsName {
+  "vulnerability_assigned"
+  VULNERABILITY_ASSIGNED
+}
+
 "Subscription report entity enum definition"
 enum SubscriptionReportEntity {
   "Comments"

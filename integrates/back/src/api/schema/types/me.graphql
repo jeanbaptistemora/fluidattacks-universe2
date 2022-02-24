@@ -8,6 +8,8 @@ type Me {
   hasMobileApp: Boolean!
   "Indicator to see if there's more than one open session currently"
   isConcurrentSession: Boolean!
+  "User preferences to notifications"
+  notificationsPreferences: NotificationsPreferences!
   "List of Organizations the user is a member of"
   organizations: [Organization!]
   "Gets the  user-level permissions of the current stakeholder/user"

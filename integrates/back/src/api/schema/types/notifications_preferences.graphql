@@ -1,0 +1,5 @@
+"Notifications preferences type definition"
+type NotificationsPreferences {
+  "Email chanel to notifications preferences"
+  email: [NotificationsName!]!
+}

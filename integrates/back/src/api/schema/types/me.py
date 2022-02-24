@@ -5,6 +5,7 @@ from api.resolvers.me import (
     access_token,
     has_mobile_app,
     is_concurrent_session,
+    notifications_preferences,
     organizations,
     permissions,
     remember,
@@ -30,3 +31,4 @@ ME.set_field(
 )
 ME.set_field("tags", tags.resolve)
 ME.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
+ME.set_field("notificationsPreferences", notifications_preferences.resolve)
