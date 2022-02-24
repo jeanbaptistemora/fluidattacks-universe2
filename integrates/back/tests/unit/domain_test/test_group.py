@@ -426,7 +426,6 @@ async def test_get_alive_group_names() -> None:
         "monteria",
         "oneshottest",
         "setpendingdeletion",
-        "suspendedtest",
         "unittesting",
     ]
 
