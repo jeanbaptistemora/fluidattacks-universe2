@@ -12,13 +12,11 @@ makeScript {
     ];
     bin = [
       inputs.nixpkgs.python38
-      outputs."/melts"
       outputs."/skims"
     ];
     source = [
       outputs."/utils/aws"
       outputs."/utils/env"
-      outputs."/utils/git"
       outputs."/skims/config-runtime"
     ];
   };
