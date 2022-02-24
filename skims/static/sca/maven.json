@@ -218,6 +218,9 @@
   "com.fasterxml.jackson.dataformat:jackson-dataformats-binary": {
     "CVE-2020-28491": "2.12.0 || >=0 <2.11.4 || >=2.12.0 <2.12.1"
   },
+  "com.fasterxml.jackson.datatype:jackson-datatype-jsr310": {
+    "SNYK-JAVA-COMFASTERXMLJACKSONDATATYPE-173759": "<2.9.8"
+  },
   "com.fasterxml.jackson:jackson-base": {
     "CVE-2020-8840": ">2.8.11.5 <2.9.10.3 || >=2.0.0 <2.8.11.5"
   },
@@ -1165,6 +1168,10 @@
   },
   "org.apache.camel:camel-snakeyaml": {
     "CVE-2017-3159": ">=0 <=2.14.4 || >=2.17.0 <=2.17.4 || >=2.18.0 <=2.18.1"
+  },
+  "org.apache.camel:camel-xmljson": {
+    "CVE-2019-0188": "<2.24.0",
+    "SNYK-JAVA-ORGAPACHECAMEL-174808": "<2.24.0"
   },
   "org.apache.camel:camel-xstream": {
     "CVE-2015-5344": "2.16.0 || >=0 <=2.15.4"
