@@ -1,8 +1,11 @@
+import aioboto3
 from aioextensions import (
     collect,
 )
 from batch.dal import (
+    delete_action,
     describe_jobs,
+    get_actions_by_name,
     Job,
     JobStatus,
     list_jobs,
@@ -12,6 +15,10 @@ from batch.dal import (
 )
 from batch.types import (
     VulnerabilitiesSummary,
+)
+from context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
 )
 import datetime
 from dateutil.parser import (  # type: ignore
@@ -342,6 +349,32 @@ async def queue_job_new(
     if not roots:
         return None
 
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    )
+
+    current_executions = await get_actions_by_name(
+        action_name="execute-machine", entity=group_name
+    )
+    current_executions = tuple(
+        sorted(current_executions, key=lambda x: int(x.time))
+    )
+    for execution in current_executions:
+        exc_info = json.loads(execution.additional_info)
+        roots = tuple({*roots, *exc_info["roots"]})
+        finding_codes = tuple({*finding_codes, *exc_info["checks"]})
+
+    dynamodb_pk = current_executions[-1].key if current_executions else None
+
+    async with aioboto3.Session().client(**resource_options) as batch:
+        for execution in current_executions[:-1]:
+            await delete_action(dynamodb_pk=execution.key)
+            if job_id := execution.batch_job_id:
+                await batch.terminate_job(jobId=job_id, reason="not required")
+                await batch.cancel_job(jobId=job_id, reason="not required")
+
     return (
         await put_action(
             action_name="execute-machine",
@@ -357,6 +390,7 @@ async def queue_job_new(
             ),
             attempt_duration_seconds=86400,
             subject="integrates@fluidattacks.com",
+            dynamodb_pk=dynamodb_pk,
             **kwargs,
         )
     ).success

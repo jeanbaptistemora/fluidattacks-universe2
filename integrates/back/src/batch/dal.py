@@ -415,22 +415,40 @@ async def decribe_jobs(
 
 async def delete_action(
     *,
-    action_name: str,
-    additional_info: str,
-    entity: str,
-    subject: str,
-    time: str,
+    action_name: Optional[str] = None,
+    additional_info: Optional[str] = None,
+    entity: Optional[str] = None,
+    subject: Optional[str] = None,
+    time: Optional[str] = None,
+    dynamodb_pk: Optional[str] = None,
 ) -> bool:
     try:
-        return await dynamodb_ops.delete_item(
-            delete_attrs=DynamoDelete(
-                Key=dict(
-                    pk=mapping_to_key(
-                        [action_name, additional_info, entity, subject, time]
-                    ),
+        if not dynamodb_pk and any(
+            [
+                not action_name,
+                not additional_info,
+                not entity,
+                not subject,
+                not time,
+            ]
+        ):
+            raise Exception(
+                (
+                    "you must supply the dynamodb pk argument"
+                    " or any other arguments to build pk"
                 )
-            ),
-            table=TABLE_NAME,
+            )
+        key = dynamodb_pk or mapping_to_key(
+            [
+                action_name,  # type: ignore
+                additional_info,  # type: ignore
+                entity,  # type: ignore
+                subject,  # type: ignore
+                time,  # type: ignore
+            ]
+        )
+        return await dynamodb_ops.delete_item(
+            delete_attrs=DynamoDelete(Key=dict(pk=key)), table=TABLE_NAME
         )
     except ClientError as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
@@ -488,6 +506,7 @@ async def get_actions_by_name(
             time=item["time"],
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
+            batch_job_id=item.get("batch_job_id"),
         )
         for item in response_items
     )
@@ -505,6 +524,7 @@ async def get_actions() -> List[BatchProcessing]:
             time=item["time"],
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
+            batch_job_id=item.get("batch_job_id"),
         )
         for item in items
     ]
@@ -649,6 +669,7 @@ async def put_action(
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
     product_name: str = "integrates",
+    dynamodb_pk: Optional[str] = None,
     **kwargs: Any,
 ) -> PutActionResult:
     time: str = str(get_as_epoch(get_now()))
@@ -660,7 +681,7 @@ async def put_action(
         additional_info=additional_info,
         queue=queue,
     )
-    possible_key = generate_key_to_dynamod(
+    possible_key = dynamodb_pk or generate_key_to_dynamod(
         action_name=action_name,
         additional_info=additional_info,
         entity=entity,

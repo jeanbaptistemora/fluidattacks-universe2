@@ -16,6 +16,7 @@ class BatchProcessing(NamedTuple):
     time: str
     additional_info: str
     queue: str
+    batch_job_id: Optional[str] = None
 
 
 class VulnerabilitiesSummary(NamedTuple):
