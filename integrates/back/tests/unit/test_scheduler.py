@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from _pytest.monkeypatch import (
-    MonkeyPatch,
-)
 from collections import (
     OrderedDict,
 )
@@ -9,15 +6,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.findings.types import (
     Finding,
-)
-from db_model.toe_inputs.types import (
-    GroupToeInputsRequest,
-    ToeInput,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -40,7 +30,6 @@ from groups import (
 )
 from newutils import (
     datetime as datetime_utils,
-    git as git_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -51,22 +40,16 @@ from organizations.domain import (
     iterate_organizations,
     update_pending_deletion_date,
 )
-import os
 import pytest
 from schedulers import (
     delete_imamura_stakeholders,
     delete_obsolete_groups,
     delete_obsolete_orgs,
-    toe_inputs_etl,
     update_indicators,
 )
-import shutil
 from typing import (
     Dict,
     Tuple,
-)
-from unittest.mock import (
-    patch,
 )
 from users import (
     dal as users_dal,

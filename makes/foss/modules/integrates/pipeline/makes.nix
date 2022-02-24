@@ -531,7 +531,6 @@ in
           "move_services_toe_lines"
           "report_squad_usage"
           "update_group_toe_vulns"
-          "toe_inputs_etl"
         ])
         ++ (builtins.map
         (frequency: {
