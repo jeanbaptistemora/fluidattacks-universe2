@@ -4266,14 +4266,20 @@
   title: HITRUST CSF
   en:
     description: >
-      HITRUST CSF is both risk- and compliance-based,
-      includes data protection compliance and the
-      challenges of assembling and maintaining
-      the many and varied programs.
-      Provides the structure, transparency, guidance,
-      and cross-references to authoritative sources
-      organizations need to be certain of their data
-      protection compliance.
+      HITRUST CSF is both risk and compliance-based,
+      making it possible for organizations of
+      varying risk profiles to customize their
+      security and privacy control baselines.
+      It is sensitive to data protection compliance
+      and the challenges of assembling and
+      maintaining various programs.
+      Therefore, it provides the structure,
+      transparency, guidance and cross-references
+      to authoritative sources organizations need
+      to check their data protection compliance,
+      as well as an approach to ensure the proper
+      alignment, maintenance and comprehensiveness
+      of components.
       The version used in this section is
       HITRUST CSF v9.6.0.
   es:
