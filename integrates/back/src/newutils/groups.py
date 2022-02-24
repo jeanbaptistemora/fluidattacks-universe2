@@ -99,7 +99,9 @@ def format_state_justification(
 
 
 def format_group_state(
-    state: Dict[str, Any], state_status: GroupStateStatus
+    state: Dict[str, Any],
+    state_status: GroupStateStatus,
+    pending_deletion_date: Optional[str],
 ) -> GroupState:
     has_machine: bool = get_key_or_fallback(
         state, "has_machine", "has_skims", False
@@ -117,6 +119,9 @@ def format_group_state(
         type=GroupSubscriptionType[str(state["type"]).upper()],
         comments=state.get("comments"),
         justification=format_state_justification(state.get("reason")),
+        pending_deletion_date=convert_to_iso_str(pending_deletion_date)
+        if pending_deletion_date
+        else None,
         service=GroupService[str(state["service"]).upper()]
         if state.get("service")
         else None,
@@ -144,6 +149,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         state=format_group_state(
             state=current_configuration,
             state_status=state_status,
+            pending_deletion_date=item.get("pending_deletion_date"),
         ),
         agent_token=item.get("agent_token"),
         context=item.get("group_context"),
