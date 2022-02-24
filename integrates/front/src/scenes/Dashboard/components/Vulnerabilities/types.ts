@@ -26,6 +26,7 @@ interface IVulnRowAttr {
   treatmentAcceptanceStatus: string | null;
   treatmentAssigned: string | null;
   treatmentJustification: string | null;
+  treatmentUser: string | null;
   assigned: string;
   verification: string | null;
   vulnerabilityType: string;

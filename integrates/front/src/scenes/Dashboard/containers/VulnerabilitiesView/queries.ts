@@ -20,6 +20,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     treatmentAcceptanceStatus
     treatmentAssigned
     treatmentJustification
+    treatmentUser
     verification
     vulnerabilityType
     where

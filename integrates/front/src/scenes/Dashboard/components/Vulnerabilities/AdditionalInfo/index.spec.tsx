@@ -56,6 +56,7 @@ describe("AdditionalInfo", (): void => {
     treatmentAssigned: "assigned-user-4",
     treatmentDate: "2019-07-05 09:56:40",
     treatmentJustification: "test progress justification",
+    treatmentUser: "usertreatment@test.test",
     verification: "Verified",
     vulnerabilityType: "lines",
     where: "https://example.com/lines",

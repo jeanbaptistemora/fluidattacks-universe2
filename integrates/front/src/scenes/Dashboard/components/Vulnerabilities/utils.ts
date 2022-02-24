@@ -127,6 +127,7 @@ const formatVulnerabilities: (
       treatmentDate: isVulnOpen
         ? vulnerability.lastTreatmentDate.split(" ")[0]
         : "-",
+      treatmentUser: isVulnOpen ? (vulnerability.treatmentUser as string) : "-",
       verification: shouldDisplayVerification ? verification : "",
       vulnerabilityType: translate.t(
         `searchFindings.tabVuln.vulnTable.vulnerabilityType.${vulnerability.vulnerabilityType}`
@@ -153,7 +154,9 @@ const formatVulnerabilitiesTreatment: (
         ? undefined
         : vulnerability.treatmentJustification,
       treatment: vulnerability.treatment,
-      user: "",
+      user: _.isNull(vulnerability.treatmentUser)
+        ? ""
+        : vulnerability.treatmentUser,
     };
 
     return {
