@@ -4730,7 +4730,24 @@
   title: ISO/IEC 27002
   en:
     description: >
-      ...
+      ISO/IEC 27002 is used as a reference
+      for determining and implementing
+      controls for information security risk
+      treatment in an information security
+      management system (ISMS) based on
+      ISO/IEC 27001.
+      It describes a suite of information
+      security controls to mitigate unacceptable
+      risks to the confidentiality, integrity
+      and availability of information.
+
+      Organizations identify and evaluate
+      their own information risks, selecting
+      and applying suitable information
+      security controls to mitigate unacceptable
+      risks using ISO/IEC 27002 for guidance.
+      The version used in this section is
+      ISO/IEC 27002:2022.
   es:
     description: __empty__
   definitions:
