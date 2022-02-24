@@ -81,9 +81,13 @@ async def process_group(
     are_users_removed = await groups_domain.remove_all_users(
         loaders, group_name
     )
-    is_removed_from_org = await orgs_domain.remove_group(
-        group_name, organization_id
-    )
+    try:
+        is_removed_from_org = await orgs_domain.remove_group(
+            group_name, organization_id
+        )
+    except CustomUnavailabilityError:
+        # This group has no organization assigned
+        is_removed_from_org = True
     success = [
         are_users_removed,
         all_resources_removed,
