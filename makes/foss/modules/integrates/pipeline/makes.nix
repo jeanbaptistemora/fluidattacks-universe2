@@ -528,7 +528,6 @@ in
           "requeue_actions"
           "machine_queue_all"
           "machine_queue_re_attacks"
-          "move_services_toe_lines"
           "report_squad_usage"
           "update_group_toe_vulns"
         ])
