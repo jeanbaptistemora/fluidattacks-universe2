@@ -35,6 +35,7 @@ resource "aws_redshift_cluster" "main" {
 
   cluster_subnet_group_name = aws_redshift_subnet_group.main.name
 
+  preferred_maintenance_window        = "sun:04:00-sun:05:00"
   automated_snapshot_retention_period = 7
 
   tags = {
