@@ -1,14 +1,21 @@
 data "aws_caller_identity" "current" {}
 
-variable "fluid_vpc_id" {
-  default = "vpc-0ea1c7bd6be683d2d"
+data "aws_vpc" "main" {
+  filter {
+    name   = "tag:Name"
+    values = ["fluid-vpc"]
+  }
 }
+data "aws_subnet" "main" {
+  for_each = toset([
+    "k8s_1",
+    "k8s_2",
+    "k8s_3",
+  ])
 
-variable "subnets" {
-  type = list(string)
-  default = [
-    "subnet-0df4178d0c9354aad",
-    "subnet-0412793dec0eddea9",
-    "subnet-08849bfa044faf25a",
-  ]
+  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "tag:Name"
+    values = [each.key]
+  }
 }
