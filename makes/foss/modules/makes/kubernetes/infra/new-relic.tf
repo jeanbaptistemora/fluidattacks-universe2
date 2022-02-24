@@ -98,4 +98,9 @@ resource "helm_release" "newrelic" {
     name  = "pixie-chart.clusterName"
     value = var.cluster_name
   }
+
+  set {
+    name  = "pixie-chart.pemMemoryLimit"
+    value = "500m"
+  }
 }
