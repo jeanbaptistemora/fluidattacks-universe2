@@ -1015,6 +1015,15 @@ class UnexpectedUserRole(CustomBaseException):
         super(UnexpectedUserRole, self).__init__(f"Exception - {msg}")
 
 
+class UserNotFound(CustomBaseException):
+    """Exception to control user data availability"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - User not found"
+        super(UserNotFound, self).__init__(msg)
+
+
 class UserNotInOrganization(CustomBaseException):
     """
     Exception to control user access to organizations
