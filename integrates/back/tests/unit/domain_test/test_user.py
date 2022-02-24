@@ -104,7 +104,7 @@ async def test_remove_user() -> None:
 
     await remove_user_all_organizations(loaders=get_new_context(), email=email)
 
-    assert await users_domain.get_data(email, "email") == ""
+    assert await users_domain.get_data(email, "email") == {}
     assert await get_user_organizations(email) == []
     assert await get_user_subscriptions(user_email=email) == []
 

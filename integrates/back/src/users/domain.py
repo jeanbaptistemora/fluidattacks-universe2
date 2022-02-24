@@ -55,7 +55,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Union,
 )
 from users import (
     dal as users_dal,
@@ -227,11 +226,11 @@ async def get_by_email(email: str) -> UserType:
     return stakeholder_data
 
 
-async def get_data(email: str, attr: str) -> Union[str, UserType]:
+async def get_data(email: str, attr: str) -> UserType:
     data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
         return cast(UserType, data_attr[attr])
-    return str()
+    return {}
 
 
 async def get_stakeholders(

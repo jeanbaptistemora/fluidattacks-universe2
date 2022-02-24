@@ -33,6 +33,7 @@ async def send_mail_access_granted(
         GENERAL_TAG,
         f'Access granted to [{context["group"]}] in ASM by Fluid Attacks',
         "access_granted",
+        is_access_granted=True,
     )
 
 

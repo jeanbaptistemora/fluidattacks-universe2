@@ -29,7 +29,7 @@ from typing import (
     Tuple,
 )
 from users.domain import (
-    get_by_email,
+    is_registered,
 )
 from uuid import (
     uuid4 as uuid,
@@ -100,8 +100,8 @@ async def get_valid_assigned(
     if not is_manager:
         assigned = user_email
     enforcer = await authz.get_group_level_enforcer(assigned)
-    if not enforcer(group_name, "valid_assigned") or not (
-        (await get_by_email(assigned)).get("is_registered", False)
+    if not enforcer(group_name, "valid_assigned") or not await is_registered(
+        assigned
     ):
         raise InvalidAssigned()
     return assigned

@@ -339,7 +339,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "last_name": "",
                 "legal_remember": False,
                 "push_tokens": [],
-                "is_registered": True,
+                "registered": True,
             },
         ],
     }

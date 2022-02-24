@@ -4,6 +4,10 @@ from aioextensions import (
 )
 from context import (
     FI_EMAIL_TEMPLATES,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_CUSTOMER_SUCCESS,
+    FI_MAIL_PROJECTS,
+    FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
@@ -36,6 +40,7 @@ from simplejson.errors import (  # type: ignore
 from typing import (
     Any,
     List,
+    Optional,
 )
 from users import (
     domain as users_domain,
@@ -61,12 +66,29 @@ def get_content(template_name: str, context: MailContentType) -> str:
     return template.render(context)
 
 
-async def get_recipient_first_name(email: str) -> str:
+async def get_recipient_first_name(
+    email: str,
+    is_access_granted: bool = False,
+) -> Optional[str]:
     first_name = email.split("@")[0]
-    user_attr = await users_domain.get_attributes(email, ["first_name"])
-    if user_attr and user_attr.get("first_name"):
-        first_name = user_attr["first_name"]
-    return str(first_name)
+    user_attr = await users_domain.get(email)
+    is_constant: bool = email.lower() in {
+        *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
+        *[
+            fi_email.lower()
+            for fi_email in FI_MAIL_CUSTOMER_SUCCESS.split(",")
+        ],
+        FI_MAIL_PROJECTS.lower(),
+        *[fi_email.lower() for fi_email in FI_MAIL_REVIEWERS.split(",")],
+    }
+    is_registered = (
+        bool(user_attr.get("registered", False)) if user_attr else False
+    )
+    if is_constant or is_registered or is_access_granted:
+        if user_attr and user_attr.get("first_name"):
+            return str(user_attr["first_name"])
+        return str(first_name)
+    return None
 
 
 async def log(msg: str, **kwargs: Any) -> None:
@@ -74,14 +96,20 @@ async def log(msg: str, **kwargs: Any) -> None:
 
 
 async def send_mail_async(
+    *,
     email_to: str,
     context: MailContentType,
     tags: List[str],
     subject: str,
     template_name: str,
+    is_access_granted: bool = False,
 ) -> None:
     mandrill_client = mailchimp_transactional.Client(FI_MANDRILL_API_KEY)
-    first_name = await get_recipient_first_name(email_to)
+    first_name = await get_recipient_first_name(
+        email_to, is_access_granted=is_access_granted
+    )
+    if not first_name:
+        return
     year = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y")
     context["name"] = first_name
     context["year"] = year
@@ -123,18 +151,26 @@ async def send_mail_async(
         raise UnableToSendMail() from ex
 
 
-async def send_mails_async(
+async def send_mails_async(  # pylint: disable=too-many-arguments
     email_to: List[str],
     context: MailContentType,
     tags: List[str],
     subject: str,
     template_name: str,
+    is_access_granted: bool = False,
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",")
     await collect(
-        [
-            send_mail_async(email, context, tags, subject, template_name)
+        tuple(
+            send_mail_async(
+                email_to=email,
+                context=context,
+                tags=tags,
+                subject=subject,
+                template_name=template_name,
+                is_access_granted=is_access_granted,
+            )
             for email in email_to
             if context.get("group", "").lower() not in test_group_list
-        ]
+        )
     )

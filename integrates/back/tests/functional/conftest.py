@@ -168,7 +168,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": admin_fluid_email,
@@ -178,7 +178,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": architect_email,
@@ -188,7 +188,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": architect_fluid_email,
@@ -198,7 +198,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": user_email,
@@ -208,7 +208,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": user_fluid_email,
@@ -218,7 +218,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": user_manager_email,
@@ -228,7 +228,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": user_manager_fluid_email,
@@ -238,7 +238,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": executive_email,
@@ -248,7 +248,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": executive_fluid_email,
@@ -258,7 +258,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": hacker_email,
@@ -268,7 +268,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": hacker_fluid_email,
@@ -278,7 +278,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": resourcer_email,
@@ -288,7 +288,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": reattacker_email,
@@ -298,7 +298,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": reattacker_fluid_email,
@@ -308,7 +308,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": resourcer_fluid_email,
@@ -318,7 +318,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": reviewer_email,
@@ -328,7 +328,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": reviewer_fluid_email,
@@ -338,7 +338,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": service_forces_email,
@@ -348,7 +348,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": service_forces_fluid_email,
@@ -358,7 +358,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
                 {
                     "email": customer_manager_fluid_email,
@@ -368,7 +368,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "last_name": "",
                     "legal_remember": False,
                     "push_tokens": [],
-                    "is_registered": True,
+                    "registered": True,
                 },
             ],
             "orgs": [
