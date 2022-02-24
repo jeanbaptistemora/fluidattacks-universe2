@@ -60,11 +60,6 @@ resource "helm_release" "newrelic" {
   }
 
   set {
-    name  = "prometheus.enabled"
-    value = "true"
-  }
-
-  set {
     name  = "kubeEvents.enabled"
     value = "true"
   }
@@ -86,12 +81,12 @@ resource "helm_release" "newrelic" {
 
   set {
     name  = "newrelic-pixie.enabled"
-    value = "false"
+    value = "true"
   }
 
   set {
     name  = "pixie-chart.enabled"
-    value = "false"
+    value = "true"
   }
 
   set {
