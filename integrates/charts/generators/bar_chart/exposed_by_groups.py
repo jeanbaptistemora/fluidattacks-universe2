@@ -41,6 +41,12 @@ from typing import (
 )
 
 
+def format_max_value(data: List[PortfoliosGroupsInfo]) -> Decimal:
+    if data:
+        return data[0].value if data[0].value else Decimal("1.0")
+    return Decimal("1.0")
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
@@ -128,7 +134,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                 ),
             ),
         ),
-        firstBarLabels=True,
+        maxValue=format_max_value(data),
     )
 
 

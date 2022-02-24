@@ -19,6 +19,13 @@ function render(dataDocument, height, width) {
     dataDocument.data.labels = { format: (datum, _id, index) => (index === 0 ? datum : '') };
   }
 
+  if (dataDocument.maxValue) {
+    const minValue = 0.15;
+    dataDocument.data.labels = {
+      format: (datum) => (datum / dataDocument.maxValue > minValue ? datum : ''),
+    };
+  }
+
   c3.generate({
     ...dataDocument,
     bindto: 'div',
