@@ -46,6 +46,12 @@ from typing import (
 )
 
 
+def format_max_value(data: List[Tuple[str, Decimal]]) -> Decimal:
+    if data:
+        return data[0][1] if data[0][1] else Decimal("1.0")
+    return Decimal("1.0")
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     group: str, loaders: Dataloaders, source: VulnerabilityType
@@ -139,7 +145,9 @@ def format_data(
                 ),
             ),
         ),
-        firstBarLabels=True,
+        maxValue=format_max_value(
+            [(key, Decimal(value)) for key, value in data]
+        ),
     )
 
 

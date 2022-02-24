@@ -14,6 +14,9 @@ from charts.colors import (
 from charts.generators.bar_chart.utils import (
     generate_all_top_vulnerabilities,
 )
+from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
+    format_max_value,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -155,7 +158,9 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ),
             ),
         ),
-        firstBarLabels=True,
+        maxValue=format_max_value(
+            [(key, Decimal(value)) for key, value in merged_data]
+        ),
     )
 
 
