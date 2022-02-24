@@ -4731,4 +4731,58 @@
     "5_16":
       title: Identity management
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_17":
+      title: Authentication information
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_22":
+      title: Monitoring, review and change management of supplier services
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_28":
+      title: Collection of evidence
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_33":
+      title: Protection of records
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_34":
+      title: Privacy and protection of Personal Identifiable Information (PII)
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_35":
+      title: Independent review of information security
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "5_37":
+      title: Documented operating procedures
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "7_2":
+      title: Physical entry controls
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "7_3":
+      title: Securing offices, rooms and facilities
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "7_9":
+      title: Security of assets off-premises
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "7_10":
+      title: Storage media
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "7_14":
+      title: Secure disposal or re-use of equipment
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_1":
+      title: User endpoint devices
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_2":
+      title: Privileged access rights
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_3":
+      title: Information access restriction
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_4":
+      title: Access to source code
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_5":
+      title: Secure authentication
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+    "8_7":
+      title: Protection against malware
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
   metadata: {}
