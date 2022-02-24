@@ -8,6 +8,9 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
+    format_max_value,
+)
 from charts.utils import (
     get_finding_name,
     get_portfolios_groups,
@@ -19,6 +22,9 @@ from dataloaders import (
 )
 from db_model.findings.types import (
     Finding,
+)
+from decimal import (
+    Decimal,
 )
 from findings.domain import (
     get_finding_open_age,
@@ -117,7 +123,9 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             ),
         ),
         barChartYTickFormat=True,
-        firstBarLabels=True,
+        maxValue=format_max_value(
+            [(key, Decimal(value)) for key, value in merged_data]
+        ),
     )
 
 

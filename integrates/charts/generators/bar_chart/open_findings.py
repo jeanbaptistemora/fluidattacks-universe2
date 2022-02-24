@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.exposed_by_groups import (
+    format_max_value,
+)
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
@@ -81,7 +84,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
             ),
         ),
         barChartYTickFormat=True,
-        firstBarLabels=True,
+        maxValue=format_max_value(data),
     )
 
 
