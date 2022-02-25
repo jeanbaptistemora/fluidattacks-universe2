@@ -131,9 +131,14 @@ async def ssh_clone_root(
         commit: Optional[Commit] = None
         if proc.returncode != 0:
             LOGGER.error(
-                "Root SSH cloning failed with error: %s",
-                stderr.decode(),
-                extra=dict(extra=locals()),
+                "Root SSH cloning failed",
+                extra=dict(
+                    extra={
+                        "group_name": group_name,
+                        "root_nickname": root_nickname,
+                        "stderr": stderr.decode(),
+                    }
+                ),
             )
         else:
             success = await upload_cloned_repo_to_s3(
