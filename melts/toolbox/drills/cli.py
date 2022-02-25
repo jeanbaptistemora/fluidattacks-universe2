@@ -8,12 +8,9 @@ from toolbox import (
     utils,
 )
 from toolbox.drills import (
-    count_toe,
-    generate_commit_msg,
     pull_repos,
     push_repos,
     to_reattack,
-    update_lines,
     upload_history,
 )
 
@@ -30,18 +27,6 @@ from toolbox.drills import (
     help="Specific name of repository",
     default="*",
     type=str,
-)
-@option(
-    "--generate-commit-msg",
-    "o_generate_commit_msg",
-    is_flag=True,
-    help="Generate drills commit message",
-)
-@option(
-    "--update-lines",
-    "o_update_lines",
-    is_flag=True,
-    help="Update a group lines.csv with the latest repo info",
 )
 @option(
     "--upload-history",
@@ -73,33 +58,19 @@ from toolbox.drills import (
     is_flag=True,
     help="Push repos from fusion to s3 for a subs",
 )
-@option(
-    "--count-toe",
-    "o_count_toe",
-    is_flag=True,
-    help="force push repos to s3",
-    default=False,
-)
 def drills_management(  # pylint: disable=too-many-arguments
     group: str,
     o_name: str,
-    o_generate_commit_msg: bool,
-    o_update_lines: bool,
     o_upload_history: bool,
     o_to_reattack: bool,
     o_pull_repos: bool,
     o_push_repos: bool,
-    o_count_toe: bool,
     o_force: bool,
 ) -> None:
     """Perform operations with the drills service."""
     success: bool = True
 
-    if o_generate_commit_msg:
-        success = generate_commit_msg.main(group)
-    elif o_update_lines:
-        update_lines.main(group)
-    elif o_upload_history:
+    if o_upload_history:
         upload_history.main()
     elif o_to_reattack:
         group = "all" if group == "unspecified-subs" else group
@@ -108,7 +79,5 @@ def drills_management(  # pylint: disable=too-many-arguments
         success = pull_repos.main(group, o_name)
     elif o_push_repos:
         success = push_repos.main(group, force=o_force)
-    elif o_count_toe:
-        success = count_toe.main(group)
 
     sys.exit(0 if success else 1)
