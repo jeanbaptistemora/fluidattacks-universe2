@@ -304,18 +304,6 @@ def _ssh_repo_cloning(
             "FAILED",
             message,
         )
-    else:
-        commit: Optional[str] = None
-        with suppress(GitError, AttributeError):
-            git_repo = git.Repo(folder, search_parent_directories=True)
-            commit = git_repo.head.object.hexsha
-        utils.integrates.update_root_cloning_status(
-            group_name,
-            git_root["id"],
-            "OK",
-            "Cloned successfully",
-            commit=commit,
-        )
     return problem
 
 
@@ -387,18 +375,6 @@ def _http_repo_cloning(
             git_root["id"],
             "FAILED",
             message,
-        )
-    else:
-        commit: Optional[str] = None
-        with suppress(GitError, AttributeError):
-            git_repo = git.Repo(folder, search_parent_directories=True)
-            commit = git_repo.head.object.hexsha
-        utils.integrates.update_root_cloning_status(
-            group_name,
-            git_root["id"],
-            "OK",
-            "Cloned successfully",
-            commit=commit,
         )
     return problem
 

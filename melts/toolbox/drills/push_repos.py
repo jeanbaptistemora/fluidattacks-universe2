@@ -2,9 +2,13 @@ import boto3
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from contextlib import (
+    suppress,
+)
 import git
 from git.exc import (
     GitCommandError,
+    GitError,
 )
 import glob
 import json
@@ -138,6 +142,7 @@ def append_root_metadata(
 def s3_sync_fusion_to_s3(
     group_name: str,
     root_nickname: str,
+    root_id: str,
     bucket: str = "continuous-repositories",
     endpoint_url: Optional[str] = None,
 ) -> bool:
@@ -154,6 +159,7 @@ def s3_sync_fusion_to_s3(
         )
     )
     base_path = os.getcwd()
+    repo_path = f"{base_path}/{fusion_dir}/{root_nickname}"
     aws_sync_command: List[str] = [
         "aws",
         "s3",
@@ -162,10 +168,10 @@ def s3_sync_fusion_to_s3(
         "--sse",
         "AES256",
         "--exclude",
-        f"{base_path}/{fusion_dir}/{root_nickname}/*",
+        f"{repo_path}/*",
         "--include",
-        f"{base_path}/{fusion_dir}/{root_nickname}/.git/*",
-        f"{base_path}/{fusion_dir}/{root_nickname}",
+        f"{repo_path}/.git/*",
+        repo_path,
         f"s3://{bucket}/{s3_subs_repos_path}/{root_nickname}/",
     ]
 
@@ -194,6 +200,16 @@ def s3_sync_fusion_to_s3(
         LOGGER.info("stdout: %s", stdout)
         LOGGER.info("stderr: %s", stderr)
         return False
+    with suppress(GitError, AttributeError):
+        utils.integrates.update_root_cloning_status(
+            group_name,
+            root_id,
+            "OK",
+            "Cloned successfully",
+            commit=git.Repo(
+                repo_path, search_parent_directories=True
+            ).head.object.hexsha,
+        )
     return True
 
 
@@ -277,6 +293,7 @@ def main(
                         s3_sync_fusion_to_s3,
                         subs,
                         root["nickname"],
+                        root["id"],
                         bucket,
                         endpoint_url,
                     )
