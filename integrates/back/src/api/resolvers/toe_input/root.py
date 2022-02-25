@@ -10,7 +10,6 @@ from db_model.toe_inputs.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import newrelic.agent
 from roots import (
     domain as roots_domain,
 )
@@ -22,7 +21,6 @@ from typing import (
 )
 
 
-@newrelic.agent.function_trace()
 async def resolve(
     parent: ToeInput, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[Root]:

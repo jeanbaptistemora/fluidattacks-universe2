@@ -10,7 +10,6 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
-import newrelic.agent
 from newutils import (
     token as token_utils,
 )
@@ -42,7 +41,6 @@ async def _get_group_permissions(
     return actions
 
 
-@newrelic.agent.function_trace()
 async def resolve(parent: Group, info: GraphQLResolveInfo) -> Set[str]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]

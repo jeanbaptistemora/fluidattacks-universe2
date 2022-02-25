@@ -8,13 +8,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import newrelic.agent
 from typing import (
     List,
 )
 
 
-@newrelic.agent.function_trace()
 @enforce_group_level_auth_async
 async def resolve(
     parent: Group, _info: GraphQLResolveInfo, **_kwargs: None

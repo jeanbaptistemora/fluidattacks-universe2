@@ -35,7 +35,7 @@ from aioextensions import (
 from api import (
     IntegratesAPI,
 )
-from api.observability.new_relic import (
+from api.extensions.new_relic import (
     NewRelicTracingExtension,
 )
 from api.schema import (

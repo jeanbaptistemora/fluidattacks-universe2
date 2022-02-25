@@ -10,14 +10,12 @@ from db_model.vulnerabilities.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import newrelic.agent
 from typing import (
     List,
     Tuple,
 )
 
 
-@newrelic.agent.function_trace()
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: None
 ) -> List[Vulnerability]:
