@@ -145,7 +145,7 @@ code or the infrastructure.
 
 ## Accepted vulnerabilities by severity
 
-![Accepted By Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443231/docs/web/analytics/common/accepted_vulns_by_severity_weloug.png)
+![Accepted By Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1645810726/docs/web/analytics/common/common_vuln_by_severity.png)
 
 Here you can see information
 about the vulnerabilities
