@@ -43,8 +43,6 @@ makeTemplate {
             projectPath "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
           __argSkimsLegal__ =
             projectPath "/skims/LEGAL.md";
-          __argSkimsProcessGroupOnAws__ =
-            outputs."/computeOnAwsBatch/skimsProcessGroupAll";
           __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";
           __argSrcSkimsStatic__ = projectPath "/skims/static";
           __argSrcSkimsToolsSemverMatch__ =
@@ -61,7 +59,6 @@ makeTemplate {
           export SKIMS_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__'
           export SKIMS_FLUID_WATERMARK='__argSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
           export SKIMS_LEGAL='__argSkimsLegal__'
-          export SKIMS_PROCESS_GROUP_ON_AWS='__argSkimsProcessGroupOnAws__/bin/compute-on-aws-batch-for-skimsProcessGroup'
           export SKIMS_ROBOTO_FONT='__argSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
           export SKIMS_STATIC='__argSrcSkimsStatic__'
           export SKIMS_TOOLS_SEMVER_MATCH='__argSrcSkimsToolsSemverMatch__/bin/semver-match'

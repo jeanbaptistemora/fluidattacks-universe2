@@ -46,13 +46,6 @@
         python = "3.8";
         src = "/makes/foss/units/skims/test/mocks/http/src";
       };
-      skimsProcessGroupAll = {
-        searchPaths.source = [
-          outputs."/skims/config-runtime"
-        ];
-        python = "3.8";
-        src = "/makes/foss/units/skims/process-group-all/src";
-      };
     };
   };
   secretsForAwsFromEnv = {

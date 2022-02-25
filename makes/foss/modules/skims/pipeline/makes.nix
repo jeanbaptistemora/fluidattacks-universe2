@@ -93,10 +93,6 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/skimsProcessGroupAll";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/lintTerraform/skims";
           gitlabExtra = gitlabLint;
         }

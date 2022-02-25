@@ -14,16 +14,5 @@
       setup = [ outputs."/secretsForAwsFromEnv/prodSkims" ];
       vcpus = 4;
     };
-    skimsProcessGroupAll = rec {
-      attempts = 1;
-      attemptDurationSeconds = 86400;
-      command = [ "m" "f" "/skims/process-group-all" ];
-      definition = "makes";
-      environment = [ "PRODUCT_API_TOKEN" ];
-      memory = vcpus * 1800;
-      queue = null;
-      setup = [ outputs."/secretsForAwsFromEnv/__default__" ];
-      vcpus = 1;
-    };
   };
 }
