@@ -975,6 +975,7 @@ const NewRegularRedButton: StyledComponent<
     ba
     roboto
     justify-center
+    bw1
   `,
 })``;
 

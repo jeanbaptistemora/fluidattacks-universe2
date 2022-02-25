@@ -25,7 +25,7 @@ const BlackParagraph = styled.p.attrs({
     lh-copy
     fw6
     ma0
-    mr3
+    mr3-l
   `,
 })``;
 

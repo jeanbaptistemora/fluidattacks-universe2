@@ -45,7 +45,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
           );
         })}
       </FlexCenterItemsContainer>
-      <FlexCenterItemsContainer className={"flex-wrap mb5"}>
+      <FlexCenterItemsContainer className={"flex-wrap mb5 tc"}>
         <BlackParagraph>{t("resources.home.phrase")}</BlackParagraph>
         <Link to={"/subscription"}>
           <NewRegularRedButton className={"w-auto-ns w-100"}>
