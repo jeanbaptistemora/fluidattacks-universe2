@@ -55,6 +55,15 @@ def get_as_str(
     return date.astimezone(tz=pytz.timezone(zone)).strftime(date_format)
 
 
+def get_datetime_from_batch(
+    timestamp: int,
+    zone: str = TIME_ZONE,
+) -> datetime:
+    return datetime.fromtimestamp(int(timestamp / 1000)).astimezone(
+        pytz.timezone(zone)
+    )
+
+
 def get_now(zone: str = TIME_ZONE) -> datetime:
     return datetime.now(tz=pytz.timezone(zone))
 
