@@ -18,7 +18,7 @@ import {
 
 import { WhiteBigParagraph } from "../../../styles/styledComponents";
 
-const SolutionSection: React.FC = (): JSX.Element => {
+const SolutionsSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const data = [
     {
@@ -138,4 +138,4 @@ const SolutionSection: React.FC = (): JSX.Element => {
   );
 };
 
-export { SolutionSection };
+export { SolutionsSection };

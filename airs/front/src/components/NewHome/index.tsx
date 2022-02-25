@@ -5,6 +5,7 @@ import { ClientsSection } from "./ClientsSection";
 import { NumbersSection } from "./NumbersSection";
 import { Portrait } from "./Portrait";
 import { ServiceSection } from "./ServiceSection";
+import { SolutionsSection } from "./SolutionsSection";
 
 const Home: React.FC = (): JSX.Element => (
   <React.Fragment>
@@ -18,6 +19,7 @@ const Home: React.FC = (): JSX.Element => (
     <ClientsSection />
     <ServiceSection />
     <NumbersSection />
+    <SolutionsSection />
   </React.Fragment>
 );
 
