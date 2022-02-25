@@ -45,10 +45,13 @@ const pageTexts: ResourceKey = {
     titleHome: "CLIENTS WHO TRUST OUR TEAM",
   },
   contactUs: {
+    clutch: "Public reviews",
     contactFluidAttacks: "Contact Fluid Attacks",
     follow: "FOLLOW US",
     formButton: "Make your inquiry",
     formMessage: "FILL OUT OUR FORM TO GET IN TOUCH",
+    lowerFollow: "Follow us",
+    owasp: " Corporate member of",
     subTitle: "TALK TO OUR EXPERTS",
     subscribeMessage: "SUBSCRIBE TO OUR NEWSLETTER",
   },
