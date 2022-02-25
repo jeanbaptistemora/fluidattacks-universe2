@@ -96,6 +96,21 @@ def delete_action(
     client.delete_item(**operation_payload)
 
 
+def set_running(
+    *,
+    action_dynamo_pk: str,
+) -> None:
+    client = boto3.client("dynamodb", "us-east-1")
+    operation_payload = {
+        "TableName": "fi_async_processing",
+        "Key": {"pk": {"S": action_dynamo_pk}},
+        "UpdateExpression": "SET #25fb0 = :25fb0",
+        "ExpressionAttributeNames": {"#25fb0": "running"},
+        "ExpressionAttributeValues": {":25fb0": {"BOOL": True}},
+    }
+    client.update_item(**operation_payload)
+
+
 async def should_run(
     group: str, namespace: str, check: str, token: str
 ) -> bool:
@@ -182,8 +197,7 @@ async def main() -> None:
     if item.action_name != "execute-machine":
         raise Exception("Invalid action name", item.action_name)
 
-    delete_action(action_dynamo_pk=action_dynamo_pk)
-
+    set_running(action_dynamo_pk=action_dynamo_pk)
     group_name = item.entity
 
     job_details = json.loads(item.additional_info)
@@ -215,6 +229,8 @@ async def main() -> None:
         with suppress(Exception):
             log_blocking("info", "Running skims for %s", config.namespace)
             await execute_skims(config, group_name, token)
+
+    delete_action(action_dynamo_pk=action_dynamo_pk)
 
 
 if __name__ == "__main__":
