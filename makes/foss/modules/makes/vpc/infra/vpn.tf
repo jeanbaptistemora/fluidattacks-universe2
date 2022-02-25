@@ -14,9 +14,9 @@ module "vpn" {
 
   source          = "./modules/vpn"
   aws_cidr        = each.value.aws_cidr
-  client_cidr     = each.value.client_cidr
   client_endpoint = each.value.client_endpoint
   client_name     = each.key
+  routes          = each.value.routes
   vpn_gateway_id  = aws_vpn_gateway.main.id
 
   tags = {
