@@ -5,21 +5,6 @@ sidebar_label: Group
 slug: /machine/web/analytics/groups
 ---
 
-## Total types
-
-A type is
-a group of vulnerabilities
-on your system
-related to
-the same attack vector.
-
-## Vulnerabilities with not-defined treatment
-
-Number of vulnerabilities
-without a remediation plan
-specified by
-one of your managers.
-
 ## Systems risk
 
 ![Systems Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984583/docs/web/analytics/groups/groups_system_risk.png)
