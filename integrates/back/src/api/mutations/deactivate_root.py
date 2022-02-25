@@ -113,7 +113,8 @@ async def deactivate_root(
                 source=source,
             )
             for vuln in root_vulnerabilities
-        )
+        ),
+        workers=32,
     )
     await roots_domain.deactivate_root(
         group_name=group_name,

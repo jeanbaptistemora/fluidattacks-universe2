@@ -24,6 +24,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
+    VulnerabilityVerification,
 )
 from findings import (
     domain as findings_domain,
@@ -151,7 +152,7 @@ class ITReport:
         vulnerabilities_historics: Tuple[
             Tuple[
                 Tuple[VulnerabilityTreatment, ...],
-                Tuple[VulnerabilityVerificationStatus, ...],
+                Tuple[VulnerabilityVerification, ...],
             ],
             ...,
         ] = await collect(
@@ -302,7 +303,7 @@ class ITReport:
     def set_reattack_data(
         self,
         vuln: Vulnerability,
-        historic_verification: Tuple[VulnerabilityVerificationStatus, ...],
+        historic_verification: Tuple[VulnerabilityVerification, ...],
         finding_verification: Tuple[FindingVerification, ...],
     ) -> None:
         reattack_requested = None
@@ -311,8 +312,11 @@ class ITReport:
         n_requested_reattacks = None
         remediation_effectiveness: str = EMPTY
         if historic_verification:
+            vuln_verification: VulnerabilityVerification = (
+                historic_verification[-1]
+            )
             reattack_requested = (
-                vuln.verification.status
+                vuln_verification.status
                 == VulnerabilityVerificationStatus.REQUESTED
             )
             n_requested_reattacks = len(
@@ -328,9 +332,9 @@ class ITReport:
                 remediation_effectiveness = (
                     f"{f'{effectiveness:.2f}'.rstrip('0').rstrip('.')}%"
                 )
-            if reattack_requested and vuln.verification.modified_date:
+            if reattack_requested and vuln_verification.modified_date:
                 reattack_date = datetime_utils.as_zone(
-                    datetime.fromisoformat(vuln.verification.modified_date)
+                    datetime.fromisoformat(vuln_verification.modified_date)
                 )
                 reattack_requester = self._get_reattack_requester(
                     vuln, finding_verification
@@ -450,7 +454,7 @@ class ITReport:
 
     async def _get_historic_verification(
         self, vulnerability_id: str
-    ) -> Tuple[VulnerabilityVerificationStatus, ...]:
+    ) -> Tuple[VulnerabilityVerification, ...]:
         return await self.loaders.vulnerability_historic_verification.load(
             vulnerability_id
         )
@@ -459,7 +463,7 @@ class ITReport:
         self, vuln: Vulnerability
     ) -> Tuple[
         Tuple[VulnerabilityTreatment, ...],
-        Tuple[VulnerabilityVerificationStatus, ...],
+        Tuple[VulnerabilityVerification, ...],
     ]:
         return await collect(
             (
@@ -487,7 +491,7 @@ class ITReport:
         self,
         row: Vulnerability,
         finding: Finding,
-        historic_verification: Tuple[VulnerabilityVerificationStatus, ...],
+        historic_verification: Tuple[VulnerabilityVerification, ...],
         historic_treatment: Tuple[VulnerabilityTreatment, ...],
         finding_verification: Tuple[FindingVerification, ...],
     ) -> None:
