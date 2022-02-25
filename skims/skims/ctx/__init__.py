@@ -45,4 +45,4 @@ VENDOR = _get_artifact("SKIMS_VENDOR")
 
 makedirs(STATE_FOLDER, mode=0o700, exist_ok=True)
 makedirs(STATE_FOLDER_DEBUG, mode=0o700, exist_ok=True)
-makedirs(STATE_FOLDER_DEBUG, mode=0o700, exist_ok=True)
+makedirs(NAMESPACES_FOLDER, mode=0o700, exist_ok=True)

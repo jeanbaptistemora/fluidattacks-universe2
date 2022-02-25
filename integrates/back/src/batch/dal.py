@@ -269,7 +269,9 @@ async def _get_all_jobs(**kwargs: Any) -> List[Dict[str, Any]]:
 async def list_jobs_by_group(queue: str, group: str) -> List[Dict[str, Any]]:
     return await _get_all_jobs(
         queue=queue,
-        filters=[{"name": "JOB_NAME", "values": [f"skims-process-{group}*"]}],
+        filters=[
+            {"name": "JOB_NAME", "values": [f"skims-execute-machine-{group}*"]}
+        ],
     )
 
 
@@ -483,6 +485,8 @@ async def get_action(
         time=item["time"],
         additional_info=item.get("additional_info", ""),
         queue=item["queue"],
+        batch_job_id=item.get("batch_job_id"),
+        running=item.get("running", False),
     )
 
 
@@ -507,6 +511,7 @@ async def get_actions_by_name(
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
             batch_job_id=item.get("batch_job_id"),
+            running=item.get("running", False),
         )
         for item in response_items
     )
@@ -525,6 +530,7 @@ async def get_actions() -> List[BatchProcessing]:
             additional_info=item.get("additional_info", ""),
             queue=item["queue"],
             batch_job_id=item.get("batch_job_id"),
+            running=item.get("running", False),
         )
         for item in items
     ]

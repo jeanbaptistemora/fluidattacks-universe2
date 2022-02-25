@@ -17,6 +17,7 @@ class BatchProcessing(NamedTuple):
     additional_info: str
     queue: str
     batch_job_id: Optional[str] = None
+    running: bool = False
 
 
 class VulnerabilitiesSummary(NamedTuple):

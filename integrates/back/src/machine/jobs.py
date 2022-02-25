@@ -285,14 +285,21 @@ async def queue_job_new(
         roots = tuple({*roots, *exc_info["roots"]})
         finding_codes = tuple({*finding_codes, *exc_info["checks"]})
 
-    dynamodb_pk = current_executions[-1].key if current_executions else None
+    dynamodb_pk = (
+        current_executions[-1].key
+        if current_executions and not current_executions[-1].running
+        else None
+    )
 
     async with aioboto3.Session().client(**resource_options) as batch:
         for execution in current_executions[:-1]:
-            await delete_action(dynamodb_pk=execution.key)
-            if job_id := execution.batch_job_id:
-                await batch.terminate_job(jobId=job_id, reason="not required")
-                await batch.cancel_job(jobId=job_id, reason="not required")
+            if not execution.running:
+                await delete_action(dynamodb_pk=execution.key)
+                if job_id := execution.batch_job_id:
+                    await batch.terminate_job(
+                        jobId=job_id, reason="not required"
+                    )
+                    await batch.cancel_job(jobId=job_id, reason="not required")
 
     return (
         await put_action(
