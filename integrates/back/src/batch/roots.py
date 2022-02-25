@@ -579,30 +579,36 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 root_url=root.state.url,
                 cred=root_cred,
             )
-            await roots_domain.update_root_cloning_status(
-                loaders=dataloaders,
-                group_name=group_name,
-                root_id=root.id,
-                status="OK" if root_cloned.success else "FAILED",
-                message="Cloned successfully"
-                if root_cloned.success
-                else "Clone failed",
-                commit=root_cloned.commit,
-                commit_date=root_cloned.commit_date,
-            )
-            if root_cloned.success:
+            if root_cloned.success and root_cloned.commit is not None:
+                await roots_domain.update_root_cloning_status(
+                    loaders=dataloaders,
+                    group_name=group_name,
+                    root_id=root,
+                    status="OK",
+                    message="Cloned successfully",
+                    commit=root_cloned.commit,
+                    commit_date=root_cloned.commit_date,
+                )
                 cloned_roots_nicknames = (
                     *cloned_roots_nicknames,
                     root.state.nickname,
                 )
-    if cloned_roots_nicknames:
-        await put_action(
-            action_name="refresh_toe_lines",
-            entity=group_name,
-            subject="integrates@fluidattacks.com",
-            additional_info="*",
-            queue="spot_later",
-        )
+            else:
+                await roots_domain.update_root_cloning_status(
+                    loaders=dataloaders,
+                    group_name=group_name,
+                    root_id=root.id,
+                    status="FAILED",
+                    message="Clone failed",
+                )
+
+    await put_action(
+        action_name="refresh_toe_lines",
+        entity=group_name,
+        subject="integrates@fluidattacks.com",
+        additional_info="*",
+        queue="spot_later",
+    )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
@@ -693,7 +699,7 @@ async def queue_sync_git_roots(
     if not roots_with_creds:
         raise CredentialNotFound()
 
-    last_commits_dict = dict(
+    last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
             _ssh_ls_remote_root(roots_dict[root_id], cred)
             for root_id, cred in roots_with_creds.items()
@@ -701,19 +707,21 @@ async def queue_sync_git_roots(
     )
 
     await collect(
-        roots_domain.update_root_cloning_status(
-            loaders=loaders,
-            group_name=group_name,
-            root_id=root_id,
-            status="FAILED",
-            message="Credentials does not work",
-            commit=roots_dict[root_id].cloning.commit,
-        )
-        for root_id in (
-            root_id
-            for root_id, commit in last_commits_dict.items()
-            if not commit
-        )
+        [
+            roots_domain.update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                status="FAILED",
+                message="Credentials does not work",
+                commit=roots_dict[root_id].cloning.commit,
+            )
+            for root_id in (
+                root_id
+                for root_id, commit in last_commits_dict.items()
+                if not commit
+            )
+        ]
     )
 
     is_in_s3_dict = dict(
