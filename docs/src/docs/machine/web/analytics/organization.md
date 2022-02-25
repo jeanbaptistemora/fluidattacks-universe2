@@ -53,3 +53,65 @@ average and the worst organization.
 
 For each of your groups, you can find out
 the severity (CVSSF) of open vulnerabilities.
+
+## How many vulnerabilities are remediated (closed)?
+
+![Vulnerabilities Remediated Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_closed.png)
+
+The percentage of closed and open
+vulnerabilities categorized by group.
+
+## How many vulnerabilities are remediated and accepted?
+
+![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_acceptd.png)
+
+The percentage of closed, open,
+temporarily accepted and permanently
+accepted vulnerabilities categorized
+by group.
+
+## Findings by group​
+
+![Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_finding_by_group.png)
+
+Number of findings
+categorized by group.
+
+## Open findings by group
+
+![Open Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_finding_by_group.png)
+
+Number of open findings
+categorized by group.
+
+## Top oldest findings
+
+![Oldest Findings](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_top_oldest_finding.png)
+
+These graph shows the findings
+that have been open for the
+highest amount of days.
+
+## Treatmentless by group
+
+![Treatmentless By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
+
+The percentage of treatmentless
+vulnerabilities that each group
+has compared with the whole portfolio.
+
+## Vulnerabilities by group
+
+![Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_by_group.png)
+
+The percentage of vulnerabilities
+that each group has compared with
+the whole portfolio.
+
+## Open vulnerabilities by group
+
+![Open Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_vuln_by_group.png)
+
+The percentage of open vulnerabilities
+that each group has compared with
+the whole portfolio.
