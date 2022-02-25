@@ -13,6 +13,7 @@ from context import (
     FI_REDIS_SERVER,
 )
 import logging
+import newrelic.agent
 from redis.exceptions import (  # type: ignore
     RedisError,
 )
@@ -93,6 +94,7 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
         return await _redis_cmd_base(cmd, *args, **kwargs)
 
 
+@newrelic.agent.datastore_trace("Redis", "cluster", "delete")
 async def redis_del_by_deps(dependency: str, **args: str) -> bool:
     keys: Set[str] = redis_model.build_keys_by_dependencies(dependency, **args)
     response: bool = (
@@ -115,6 +117,7 @@ def redis_del_entity_attr_soon(
     asyncio.create_task(redis_del_entity_attr(entity, attr, **args))
 
 
+@newrelic.agent.datastore_trace("Redis", "cluster", "delete")
 async def redis_del_entity_attr(
     entity: str,
     attr: str,
@@ -126,6 +129,7 @@ async def redis_del_entity_attr(
     return response
 
 
+@newrelic.agent.datastore_trace("Redis", "cluster", "get")
 async def redis_get_entity_attr(
     *,
     entity: str,
@@ -173,6 +177,7 @@ async def redis_get_or_set_entity_attr(
     return response
 
 
+@newrelic.agent.datastore_trace("Redis", "cluster", "setex")
 async def redis_set_entity_attr(
     *,
     entity: str,

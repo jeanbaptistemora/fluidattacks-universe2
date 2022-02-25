@@ -56,6 +56,7 @@ async def client() -> aioboto3.session.Session.client:
         yield dynamodb_client
 
 
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "delete_item")
 async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
     success: bool = False
     async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
@@ -65,6 +66,7 @@ async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
     return success
 
 
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "put_item")
 async def put_item(table: str, item: Dict[str, Any]) -> bool:
     success: bool = False
     async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
@@ -74,7 +76,7 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
     return success
 
 
-@newrelic.agent.function_trace()
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "query")
 async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     try:
@@ -96,7 +98,7 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     return response_items
 
 
-@newrelic.agent.function_trace()
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "get_item")
 async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
     response_items: Dict[str, Any]
     try:
@@ -109,6 +111,7 @@ async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
     return response_items
 
 
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "scan")
 async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
@@ -145,6 +148,7 @@ async def start_context() -> aioboto3.session.Session.resource:
         yield dynamodb_resource
 
 
+@newrelic.agent.datastore_trace("DynamoDB", "legacy", "update_item")
 async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
     success: bool = False
     async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
