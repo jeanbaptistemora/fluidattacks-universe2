@@ -342,7 +342,6 @@ async def process_toe_input(
         seen_first_time_by=toe_input.seen_first_time_by,
         unreliable_root_id=target_root_id,
         seen_at=toe_input.seen_at,
-        is_moving_toe_input=True,
     )
     try:
         await toe_inputs_add(
@@ -351,6 +350,7 @@ async def process_toe_input(
             toe_input.component,
             toe_input.entry_point,
             attributes_to_add,
+            is_moving_toe_input=True,
         )
     except RepeatedToeInput:
         current_value: ToeInput = await loaders.toe_input.load(
@@ -369,9 +369,12 @@ async def process_toe_input(
             seen_at=toe_input.seen_at,
             seen_first_time_by=toe_input.seen_first_time_by,
             unreliable_root_id=target_root_id,
+        )
+        await toe_inputs_update(
+            current_value,
+            attributes_to_update,
             is_moving_toe_input=True,
         )
-        await toe_inputs_update(current_value, attributes_to_update)
 
 
 @retry_on_exceptions(
@@ -423,9 +426,12 @@ async def process_toe_lines(
             has_vulnerabilities=toe_lines.has_vulnerabilities,
             seen_at=toe_lines.seen_at,
             sorts_risk_level=toe_lines.sorts_risk_level,
+        )
+        await toe_lines_update(
+            current_value,
+            attributes_to_update,
             is_moving_toe_lines=True,
         )
-        await toe_lines_update(current_value, attributes_to_update)
 
 
 async def move_root(*, item: BatchProcessing) -> None:

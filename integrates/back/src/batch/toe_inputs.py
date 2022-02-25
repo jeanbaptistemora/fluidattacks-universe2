@@ -80,9 +80,7 @@ def get_non_present_toe_inputs_to_update(
     return tuple(
         (
             toe_input,
-            ToeInputAttributesToUpdate(
-                be_present=False, is_moving_toe_input=True
-            ),
+            ToeInputAttributesToUpdate(be_present=False),
         )
         for toe_input in root_toe_inputs
         if root.state.status == "INACTIVE"
@@ -125,9 +123,7 @@ def get_present_toe_inputs_to_update(
     return tuple(
         (
             toe_input,
-            ToeInputAttributesToUpdate(
-                be_present=True, is_moving_toe_input=True
-            ),
+            ToeInputAttributesToUpdate(be_present=True),
         )
         for toe_input in root_toe_inputs
         if root.state.status == "ACTIVE" and not toe_input.be_present
@@ -160,7 +156,9 @@ async def refresh_active_root_toe_inputs(
     )
     await collect(
         tuple(
-            toe_inputs_update(current_value, attrs_to_update)
+            toe_inputs_update(
+                current_value, attrs_to_update, is_moving_toe_input=True
+            )
             for current_value, attrs_to_update in (
                 present_toe_inputs_to_update
             )
@@ -202,7 +200,9 @@ async def refresh_inactive_root_toe_inputs(
     )
     await collect(
         tuple(
-            toe_inputs_update(current_value, attrs_to_update)
+            toe_inputs_update(
+                current_value, attrs_to_update, is_moving_toe_input=True
+            )
             for current_value, attrs_to_update in (
                 non_present_toe_inputs_to_update
             )

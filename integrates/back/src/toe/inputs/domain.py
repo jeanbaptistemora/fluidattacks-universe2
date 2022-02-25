@@ -49,18 +49,19 @@ def _get_optional_be_present_until(
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
-async def add(
+async def add(  # pylint: disable=too-many-arguments
     loaders: Any,
     group_name: str,
     component: str,
     entry_point: str,
     attributes: ToeInputAttributesToAdd,
+    is_moving_toe_input: bool = False,
 ) -> None:
     formatted_component = component.strip()
     while formatted_component.endswith("/"):
         formatted_component = formatted_component[:-1].strip()
 
-    if attributes.is_moving_toe_input is False:
+    if is_moving_toe_input is False:
         root: RootItem = await loaders.root.load(
             (group_name, attributes.unreliable_root_id)
         )
@@ -239,8 +240,9 @@ async def remove(
 async def update(
     current_value: ToeInput,
     attributes: ToeInputAttributesToUpdate,
+    is_moving_toe_input: bool = False,
 ) -> None:
-    if attributes.is_moving_toe_input is False:
+    if is_moving_toe_input is False:
         if (
             attributes.be_present is None
             and current_value.be_present is False

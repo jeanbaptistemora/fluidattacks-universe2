@@ -80,7 +80,11 @@ def _strip_first_dir(where: str) -> Tuple[str, str]:
 async def update_toe_input(
     current_value: ToeInput, attributes: ToeInputAttributesToUpdate
 ) -> None:
-    await toe_inputs_domain.update(current_value, attributes)
+    await toe_inputs_domain.update(
+        current_value,
+        attributes,
+        is_moving_toe_input=True,
+    )
 
 
 @retry_on_exceptions(
@@ -111,7 +115,6 @@ async def process_toe_inputs(
                     toe_input,
                     ToeInputAttributesToUpdate(
                         has_vulnerabilities=has_vulnerabilities,
-                        is_moving_toe_input=True,
                     ),
                 )
             )
@@ -125,7 +128,11 @@ async def process_toe_inputs(
 async def update_toe_lines(
     current_value: ToeLines, attributes: ToeLinesAttributesToUpdate
 ) -> None:
-    await toe_lines_domain.update(current_value, attributes)
+    await toe_lines_domain.update(
+        current_value,
+        attributes,
+        is_moving_toe_lines=True,
+    )
 
 
 @retry_on_exceptions(
@@ -160,7 +167,6 @@ async def process_toe_lines(
                     toe_line,
                     ToeLinesAttributesToUpdate(
                         has_vulnerabilities=has_vulnerabilities,
-                        is_moving_toe_lines=True,
                     ),
                 )
             )

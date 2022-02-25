@@ -38,4 +38,3 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     modified_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
-    is_moving_toe_lines: bool = False

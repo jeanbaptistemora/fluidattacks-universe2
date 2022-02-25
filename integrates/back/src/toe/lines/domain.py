@@ -93,15 +93,16 @@ async def remove(
 async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
+    is_moving_toe_lines: bool = False,
 ) -> None:
     if (
-        attributes.is_moving_toe_lines is False
+        is_moving_toe_lines is False
         and attributes.be_present is None
         and current_value.be_present is False
     ):
         raise ToeLinesNotPresent()
 
-    condition = attributes.is_moving_toe_lines is False and (
+    condition = is_moving_toe_lines is False and (
         attributes.attacked_at is not None
         and current_value.attacked_at is not None
     )
@@ -113,16 +114,13 @@ async def update(
         raise InvalidToeLinesAttackAt()
 
     if (
-        attributes.is_moving_toe_lines is False
+        is_moving_toe_lines is False
         and attributes.attacked_lines is not None
         and not (1 <= attributes.attacked_lines <= current_value.loc)
     ):
         raise InvalidToeLinesAttackedLines()
 
-    if (
-        attributes.is_moving_toe_lines is False
-        and attributes.comments is not None
-    ):
+    if is_moving_toe_lines is False and attributes.comments is not None:
         validate_field_length(attributes.comments, 200)
 
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
