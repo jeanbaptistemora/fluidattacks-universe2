@@ -27,6 +27,7 @@ const GridCardsContainer = styled.div.attrs({
     justify-around
     mw-1920
     dn
+    mb5
   `,
 })``;
 
@@ -37,6 +38,7 @@ const CarrouselCardsContainer = styled.div.attrs({
     center
     mw-1920
     dn-l
+    mb5
   `,
 })``;
 
