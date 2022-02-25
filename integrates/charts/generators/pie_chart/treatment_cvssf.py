@@ -106,8 +106,8 @@ async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
 def format_data(data: Treatment) -> dict:
     translations: Dict[str, str] = {
         "acceptedUndefined": "Permanently accepted",
-        "accepted": "Temporarily Accepted",
-        "inProgress": "In Progress",
+        "accepted": "Temporarily accepted",
+        "inProgress": "In progress",
         "undefined": "Not defined",
     }
 
@@ -120,8 +120,8 @@ def format_data(data: Treatment) -> dict:
             "type": "pie",
             "colors": {
                 "Permanently accepted": TREATMENT.more_passive,
-                "Temporarily Accepted": TREATMENT.passive,
-                "In Progress": TREATMENT.neutral,
+                "Temporarily accepted": TREATMENT.passive,
+                "In progress": TREATMENT.neutral,
                 "Not defined": TREATMENT.more_agressive,
             },
         },
