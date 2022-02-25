@@ -492,7 +492,7 @@ const HomeImageContainer: StyledComponent<
     fr-l
     w-100
     w-home-image
-    mt3-l
+    mt3
     center
     pt0-ns
     pt4
@@ -987,6 +987,7 @@ const PhantomRegularRedButton: StyledComponent<
     ba
     roboto
     justify-center
+    bw1
   `,
 })``;
 

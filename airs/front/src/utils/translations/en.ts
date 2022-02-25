@@ -286,6 +286,57 @@ const pageTexts: ResourceKey = {
         "discover what unethical hackers might exploit in your IT systems.",
       subtitle: "Ethical Hacking",
     },
+    homeCards: {
+      attackSimulation: {
+        paragraph:
+          "You can discover through simulated attack scenarios whether " +
+          "your company’s cybersecurity is ready to respond to current threats.",
+        title: "Attack Simulation",
+      },
+      devSecOps: {
+        paragraph:
+          "We offer the integration of security into the development + operations (DevOps) " +
+          "methodology during Software Development Lifecycle (SDLC).",
+        title: "DevSecOps",
+      },
+      ethicalHacking: {
+        paragraph:
+          "Consists of attacking diverse systems with the aim of discovering " +
+          "vulnerabilities that could be exploited by malicious hackers.",
+        title: "Ethical Hacking",
+      },
+      penetrationTesting: {
+        paragraph:
+          "You can have simulated attacks on your systems performed by our pentesters " +
+          "to discover unseen vulnerabilities via automated tools.",
+        title: "Penetration Testing",
+      },
+      redTeaming: {
+        paragraph:
+          "Our core is testing and attacking infrastructures, applications, and source codes " +
+          "to find vulnerabilities that may pose risks to systems.",
+        title: "Red Teaming",
+      },
+      secureCode: {
+        paragraph:
+          "You can verify if your code lines comply with various required standards " +
+          "and if there are security vulnerabilities to remediate.",
+        title: "Secure Code Review",
+      },
+      securityTesting: {
+        paragraph:
+          "Allows the comprehensive and accurate detection of security vulnerabilities " +
+          "in your IT infrastructure, applications, or source code.",
+        title: "Security Testing",
+      },
+      title: "Solutions",
+      vulnerabilityManagement: {
+        paragraph:
+          "You can examine data on the identification, classification and prioritization " +
+          "of vulnerabilities in your systems and software.",
+        title: "Vulnerability Management",
+      },
+    },
     penetrationTesting: {
       paragraph:
         "You can have simulated attacks on your systems performed by our " +
