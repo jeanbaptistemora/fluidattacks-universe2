@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 import { ClientsSection } from "./ClientsSection";
+import { ContactSection } from "./ContactSection";
 import { NumbersSection } from "./NumbersSection";
 import { Portrait } from "./Portrait";
 import { ResourcesSection } from "./ResourcesSection";
@@ -22,6 +23,7 @@ const Home: React.FC = (): JSX.Element => (
     <NumbersSection />
     <SolutionsSection />
     <ResourcesSection />
+    <ContactSection />
   </React.Fragment>
 );
 
