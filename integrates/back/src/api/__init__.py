@@ -13,6 +13,9 @@ from dataloaders import (
 from dynamodb.exceptions import (
     DynamoDbBaseException,
 )
+from graphql import (
+    version,
+)
 import newrelic.agent
 from newutils import (
     logs as logs_utils,
@@ -66,7 +69,8 @@ class IntegratesAPI(GraphQL):
         variables: str = data.get("variables") or "-"
 
         newrelic.agent.set_transaction_name(name, "GraphQL")
-        newrelic.agent.add_framework_info("GraphQL")
+        newrelic.agent.add_framework_info("GraphQL", version)
+        newrelic.agent.add_custom_parameters(tuple(data.items()))
         schedule(_log_request(request, name, query, variables))
 
         return data
