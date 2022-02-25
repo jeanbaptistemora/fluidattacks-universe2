@@ -799,6 +799,15 @@ class NotVerificationRequested(CustomBaseException):
         super(NotVerificationRequested, self).__init__(msg)
 
 
+class NoHoldRequested(CustomBaseException):
+    """Exception to control finding (vulnerability) hold"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Error hold not requested"
+        super(NoHoldRequested, self).__init__(msg)
+
+
 class NotSubmitted(CustomBaseException):
     """Exception to control unsubmitted drafts"""
 

@@ -15,6 +15,8 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
     InvalidParameter,
+    NoHoldRequested,
+    VulnNotFound,
 )
 from custom_types import (
     Comment as CommentType,
@@ -22,6 +24,16 @@ from custom_types import (
 )
 from datetime import (
     datetime,
+)
+from db_model import (
+    findings as findings_model,
+)
+from db_model.findings.enums import (
+    FindingVerificationStatus,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingVerification,
 )
 from db_model.roots.types import (
     RootItem,
@@ -32,11 +44,13 @@ from events import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import logging
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
     files as files_utils,
     validations,
+    vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -44,10 +58,15 @@ from newutils.utils import (
 import pytz  # type: ignore
 import random
 from settings import (
+    LOGGING,
+    NOEXTRA,
     TIME_ZONE,
 )
 from starlette.datastructures import (
     UploadFile,
+)
+from time import (
+    time,
 )
 from typing import (
     Any,
@@ -55,12 +74,22 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     Union,
 )
 from users import (
     domain as users_domain,
 )
+from vulnerabilities import (
+    domain as vulns_domain,
+)
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def add_comment(
@@ -358,3 +387,55 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
     else:
         raise InvalidFileSize()
     return success
+
+
+async def request_vulnerabilities_hold(
+    loaders: Any,
+    finding_id: str,
+    user_info: Dict[str, str],
+    justification: str,
+    vulnerability_ids: Set[str],
+) -> None:
+    finding: Finding = await loaders.finding.load(finding_id)
+    vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
+        loaders,
+        finding_id,
+        vulnerability_ids,
+    )
+    vulnerabilities = [
+        vulns_utils.validate_requested_hold(vuln) for vuln in vulnerabilities
+    ]
+    vulnerabilities = [
+        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
+    ]
+    if not vulnerabilities:
+        raise VulnNotFound()
+
+    comment_id = str(round(time() * 1000))
+    user_email: str = user_info["user_email"]
+    verification = FindingVerification(
+        comment_id=comment_id,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        status=FindingVerificationStatus.ON_HOLD,
+        vulnerability_ids=vulnerability_ids,
+    )
+    await findings_model.update_verification(
+        current_value=finding.verification,
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        verification=verification,
+    )
+    comment_data = {
+        "comment_type": "verification",
+        "content": justification,
+        "parent": "0",
+        "comment_id": comment_id,
+    }
+    await comments_domain.add(finding_id, comment_data, user_info)
+    success = all(
+        await collect(map(vulns_domain.request_hold, vulnerabilities))
+    )
+    if not success:
+        LOGGER.error("An error occurred requesting hold", **NOEXTRA)
+        raise NoHoldRequested()
