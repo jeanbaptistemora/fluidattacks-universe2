@@ -32,6 +32,10 @@
     "CVE-2021-23427": ">=0",
     "CVE-2021-23428": ">=0"
   },
+  "google.protobuf": {
+    "CVE-2015-5237": "<=3.1.0",
+    "CVE-2021-22570": "<3.15.0"
+  },
   "haemmerelectronics.sepppenner.windowshello": {
     "CVE-2020-11005": ">=0 <1.0.4",
     "GHSA-wvpv-ffcv-r6cw": ">=0 <1.0.4"
