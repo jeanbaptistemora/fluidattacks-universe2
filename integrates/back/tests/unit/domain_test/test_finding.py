@@ -4,6 +4,7 @@ from back.tests.unit.utils import (
 )
 from custom_exceptions import (
     FindingNotFound,
+    InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidFileType,
     InvalidNumberAcceptances,
@@ -334,6 +335,39 @@ async def test_validate_evidence_records_invalid_type() -> None:
         uploaded_file = UploadFile(test_file.name, test_file, mime_type)
         with pytest.raises(InvalidFileType):
             await validate_evidence(evidence_id, uploaded_file)
+
+
+@freeze_time("2020-10-08")
+@pytest.mark.parametrize(
+    ["acceptance_date"],
+    [
+        ["2020-10-06 23:59:59"],  # In the past
+        ["2020-12-31 00:00:00"],  # Over org's max_acceptance_days
+    ],
+)
+async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
+    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+    historic_treatment = (
+        VulnerabilityTreatment(
+            modified_date="2020-02-01T17:00:00+00:00",
+            status=VulnerabilityTreatmentStatus.NEW,
+        ),
+    )
+    severity = 5
+    values_accepted = {
+        "justification": "This is a test treatment justification",
+        "bts_url": "",
+        "treatment": "ACCEPTED",
+        "acceptance_date": acceptance_date,
+    }
+    with pytest.raises(InvalidAcceptanceDays):
+        assert await validate_treatment_change(
+            severity,
+            historic_treatment,
+            get_new_context(),
+            org_id,
+            values_accepted,
+        )
 
 
 async def test_validate_acceptance_severity() -> None:
