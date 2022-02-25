@@ -40,10 +40,6 @@ from db_model.roots.get import (
     RootMachineExecutionsLoader,
     RootStatesLoader,
 )
-from db_model.services_toe_lines.get import (
-    GroupServicesToeLinesLoader,
-    RootServicesToeLinesLoader,
-)
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
     RootToeInputsLoader,
@@ -98,7 +94,6 @@ class Dataloaders(NamedTuple):
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
     group_roots: GroupRootsLoader
-    group_services_toe_lines: GroupServicesToeLinesLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
@@ -108,7 +103,6 @@ class Dataloaders(NamedTuple):
     organization_tags: OrganizationTagsLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
-    root_services_toe_lines: RootServicesToeLinesLoader
     root_states: RootStatesLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
@@ -177,7 +171,6 @@ def get_new_context() -> Dataloaders:
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
         group_roots=GroupRootsLoader(),
-        group_services_toe_lines=GroupServicesToeLinesLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
@@ -187,7 +180,6 @@ def get_new_context() -> Dataloaders:
         organization_tags=OrganizationTagsLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
-        root_services_toe_lines=RootServicesToeLinesLoader(),
         root_states=RootStatesLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
