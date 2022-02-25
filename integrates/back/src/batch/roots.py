@@ -583,7 +583,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 await roots_domain.update_root_cloning_status(
                     loaders=dataloaders,
                     group_name=group_name,
-                    root_id=root,
+                    root_id=root.id,
                     status="OK",
                     message="Cloned successfully",
                     commit=root_cloned.commit,
