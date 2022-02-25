@@ -21,6 +21,18 @@ of only that specific group.
 The following are
 the common analytics:
 
+## Total types
+
+A type is a group of vulnerabilities
+on your system related to the same
+attack vector.
+
+## Vulnerabilities with not-defined treatment
+
+Number of vulnerabilities without
+a remediation plan specified by
+one of your managers.
+
 ## Severity over time
 
 ![Severity Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
