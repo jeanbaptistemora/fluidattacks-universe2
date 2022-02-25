@@ -1,23 +1,15 @@
-from lib_root.utilities.common import (
-    get_method_name,
-)
 from model import (
     graph_model,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShard,
     GraphShardMetadataLanguage,
     GraphShardNodes,
     NId,
 )
-from symbolic_eval.utils import (
-    filter_ast,
-)
 from typing import (
     Iterator,
-    Optional,
     Set,
     Tuple,
 )
@@ -145,54 +137,3 @@ def get_object_argument_list(
         "argument",
     )[0]
     return node_to_str(shard.graph, n_args)
-
-
-def search_member_method_invocation(graph: Graph, n_id: str) -> Optional[str]:
-    for node in filter_ast(graph, "1", {"MethodInvocation"}):
-        if node == n_id:
-            return graph.nodes[node]["expression"].split(".")[0]
-    return None
-
-
-def get_object_from_var(
-    shard: GraphShard, var_name: str, n_id: str
-) -> Optional[str]:
-    for member in g.filter_nodes(
-        shard.graph,
-        nodes=shard.graph.nodes,
-        predicate=g.pred_has_labels(label_type="method_declaration"),
-    ):
-        method_node = g.match_ast(shard.graph, member, "identifier")[
-            "identifier"
-        ]
-        if shard.graph.nodes[method_node]["label_text"] == get_method_name(
-            shard.graph, n_id
-        ):
-            params = g.get_ast_childs(
-                shard.graph, member, "parameter", depth=2
-            )
-            if len(params) > 0:
-                for param in params:
-                    param_nodes = g.get_ast_childs(
-                        shard.graph, param, "identifier"
-                    )
-                    if (
-                        len(param_nodes) > 1
-                        and shard.graph.nodes[param_nodes[1]]["label_text"]
-                        == var_name
-                    ):
-                        return shard.graph.nodes[param_nodes[0]]["label_text"]
-    for member in g.filter_nodes(
-        shard.graph,
-        nodes=shard.graph.nodes,
-        predicate=g.pred_has_labels(label_type="object_creation_expression"),
-    ):
-        var_dec = g.pred_ast(shard.graph, member, 2)
-        match_var = g.match_ast(shard.graph, var_dec[1], "identifier")
-        if (
-            shard.graph.nodes[match_var["identifier"]]["label_text"]
-            == var_name
-        ):
-            match_obj = g.match_ast(shard.graph, member, "identifier")
-            return shard.graph.nodes[match_obj["identifier"]]["label_text"]
-    return None

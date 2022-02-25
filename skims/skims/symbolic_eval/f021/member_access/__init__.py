@@ -1,7 +1,7 @@
 from model.graph_model import (
     GraphShardMetadataLanguage as GraphLanguage,
 )
-from symbolic_eval.f021.element_access.c_sharp import (
+from symbolic_eval.f021.member_access.c_sharp import (
     evaluate as c_sharp_evaluate,
 )
 from symbolic_eval.types import (
