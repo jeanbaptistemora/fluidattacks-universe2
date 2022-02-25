@@ -25,7 +25,11 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
+import {
+  FormikAutocompleteText,
+  FormikDropdown,
+  FormikText,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -163,6 +167,10 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
           .map((group): string => group.name);
 
   const validations = object().shape({
+    other: string().when("reason", {
+      is: "OTHER",
+      then: string().required(t("validations.required")),
+    }),
     reason: string().required(t("validations.required")),
     targetGroupName: string().when("reason", {
       is: "MOVED_TO_ANOTHER_GROUP",
@@ -187,6 +195,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
           variables: {
             groupName,
             id: rootId,
+            other: values.other,
             reason: values.reason,
           },
         });
@@ -246,7 +255,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
             return (
               <Formik
-                initialValues={{ reason: "", targetGroupName: "" }}
+                initialValues={{ other: "", reason: "", targetGroupName: "" }}
                 onSubmit={confirmAndSubmit}
                 validationSchema={validations}
               >
@@ -277,8 +286,21 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                                 )}
                               </option>
                             </Can>
+                            <option value={"OTHER"}>
+                              {t(
+                                "group.scope.common.deactivation.reason.other"
+                              )}
+                            </option>
                           </Field>
                         </FormGroup>
+                        {values.reason === "OTHER" ? (
+                          <FormGroup>
+                            <ControlLabel>
+                              {t("group.scope.common.deactivation.other")}
+                            </ControlLabel>
+                            <Field component={FormikText} name={"other"} />
+                          </FormGroup>
+                        ) : undefined}
                         {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
                           <FormGroup>
                             <ControlLabel>

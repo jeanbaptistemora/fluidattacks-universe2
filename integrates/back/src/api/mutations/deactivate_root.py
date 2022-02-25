@@ -55,6 +55,7 @@ from roots import (
 from typing import (
     Any,
     Dict,
+    Optional,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -68,7 +69,7 @@ from vulnerabilities import (
 )
 
 
-async def deactivate_root(
+async def deactivate_root(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
     root: RootItem,
     user_email: str,
@@ -77,6 +78,7 @@ async def deactivate_root(
     group_name: str = kwargs["group_name"]
     loaders = info.context.loaders
     reason: str = kwargs["reason"]
+    other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
     source = requests_utils.get_source_new(info.context)
 
     users = await group_access_domain.get_group_users(group_name, active=True)
@@ -118,7 +120,7 @@ async def deactivate_root(
     )
     await roots_domain.deactivate_root(
         group_name=group_name,
-        other=None,
+        other=other,
         reason=reason,
         root=root,
         user_email=user_email,
@@ -147,6 +149,7 @@ async def deactivate_root(
     await groups_mail.send_mail_deactivated_root(
         email_to=email_list,
         group_name=group_name,
+        other=other,
         reason=reason,
         root_nickname=root.state.nickname,
         sast_vulns=len(sast_vulns),

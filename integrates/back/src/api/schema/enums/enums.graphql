@@ -501,6 +501,8 @@ enum URLProtocol {
 
 "Reasons to deactivate a Root enum definition"
 enum RootDeactivationReason {
+  "Other reason not covered"
+  OTHER
   "The Root is out of the scope for this group"
   OUT_OF_SCOPE
   "The Root was registered by mistake"

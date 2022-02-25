@@ -363,6 +363,8 @@ type Mutation {
     groupName: String!
     "ID of the root"
     id: ID!
+    "Custom reason provided"
+    other: String
     "Reason for this change"
     reason: RootDeactivationReason!
   ): SimplePayload!

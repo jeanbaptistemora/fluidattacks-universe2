@@ -626,10 +626,12 @@ export const enTranslations: ResourceKey = {
           },
 
           loading: "...",
+          other: "What?",
           reason: {
             label: "Reason",
             mistake: "Registered by mistake",
             moved: "Moved to another group",
+            other: "Other",
             scope: "Out of scope",
           },
           success: {
