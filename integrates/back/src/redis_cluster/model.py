@@ -48,6 +48,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         dependencies={
             "add_event_consult",
+            "request_vulnerabilities_hold",
         },
     ),
     finding=dict(

@@ -48,6 +48,7 @@ class EntityDependency(Enum):
     move_root: str = "move_root"
     reject_vulnerabilities_zero_risk: str = "reject_vulnerabilities_zero_risk"
     remove_vulnerability: str = "remove_vulnerability"
+    request_vulnerabilities_hold: str = "request_vulnerabilities_hold"
     request_vulnerabilities_verification: str = (
         "request_vulnerabilities_verification"
     )
