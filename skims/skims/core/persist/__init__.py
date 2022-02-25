@@ -7,10 +7,15 @@ from aiogqlc.client import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from core.vulnerabilities import (
+    get_vulnerability_justification,
+    vulns_with_reattack_requested,
+)
 from ctx import (
     CTX,
 )
 from integrates.dal import (
+    do_add_finding_consult,
     do_update_evidence,
     do_update_evidence_description,
     get_finding_vulnerabilities,
@@ -263,10 +268,14 @@ async def persist_finding(
     if finding_id:
         await log("info", "finding for: %s = %s", finding.name, finding_id)
 
+        integrates_store = await get_finding_vulnerabilities(
+            finding=finding, finding_id=finding_id, client=client
+        )
+        # Get vulnerabilities with a reattack requested before verification
+        reattacked_store = vulns_with_reattack_requested(integrates_store)
+
         diff_store = await diff_results(
-            integrates_store=await get_finding_vulnerabilities(
-                finding=finding, finding_id=finding_id, client=client
-            ),
+            integrates_store=integrates_store,
             skims_store=store,
             namespace=CTX.config.namespace,
         )
@@ -274,6 +283,20 @@ async def persist_finding(
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id, store=diff_store, client=client
         )
+
+        justification = get_vulnerability_justification(
+            reattacked_store=reattacked_store,
+            store=diff_store,
+        )
+
+        if reattacked_store and justification:
+            await do_add_finding_consult(
+                content=justification,
+                finding_id=finding_id,
+                parent="0",
+                comment_type="CONSULT",
+                client=client,
+            )
 
         # Evidences and draft submit only make sense if there are results
         if has_results:
