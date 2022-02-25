@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     run,
 )
 from async_lru import (
@@ -38,6 +39,14 @@ from typing import (
 )
 
 
+async def get_historic_verification(
+    loaders: Dataloaders, vulnerability_id: str
+) -> Tuple[int, ...]:
+    return await loaders.vulnerability_historic_verification.load(
+        vulnerability_id
+    )
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype]
@@ -48,18 +57,23 @@ async def get_data_one_group(
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        [finding.id for finding in group_findings]
+        tuple(finding.id for finding in group_findings)
     )
 
-    vulnerabilities_excluding_permanently_accepted = [
+    vulnerabilities_excluding_permanently_accepted: Tuple[str, ...] = tuple(
         vulnerability.id
         for vulnerability in vulnerabilities
         if not is_accepted_undefined_vulnerability(vulnerability)
-    ]
-    historics: Tuple[
-        Tuple[VulnerabilityVerification, ...], ...
-    ] = await loaders.vulnerability_historic_verification.load_many(
-        vulnerabilities_excluding_permanently_accepted
+    )
+
+    historics_verification: Tuple[
+        VulnerabilityVerification, ...
+    ] = await collect(
+        tuple(
+            get_historic_verification(loaders, vulnerability)
+            for vulnerability in vulnerabilities_excluding_permanently_accepted
+        ),
+        workers=32,
     )
 
     if min_date:
@@ -67,12 +81,12 @@ async def get_data_one_group(
             get_vulnerability_reattacks_date(
                 historic_verification=historic, min_date=min_date
             )
-            for historic in historics
+            for historic in historics_verification
         )
     else:
         number_of_reattacks = sum(
             get_vulnerability_reattacks(historic_verification=historic)
-            for historic in historics
+            for historic in historics_verification
         )
 
     mttr: Decimal = await get_mean_remediate_non_treated_severity_cvssf(
