@@ -35,6 +35,9 @@ from aioextensions import (
 from api import (
     IntegratesAPI,
 )
+from api.observability.new_relic import (
+    NewRelicTracingExtension,
+)
 from api.schema import (
     SCHEMA,
 )
@@ -325,6 +328,10 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 
 exception_handlers = {404: not_found, 500: server_error}
 
+API_EXTENSIONS = [
+    NewRelicTracingExtension,
+]
+
 API_VALIDATIONS = [
     QueryBreadthValidation,
     QueryDepthValidation,
@@ -339,6 +346,7 @@ STARLETTE_APP = Starlette(
             IntegratesAPI(
                 SCHEMA,
                 debug=DEBUG,
+                extensions=API_EXTENSIONS,
                 validation_rules=API_VALIDATIONS,
             ),
         ),

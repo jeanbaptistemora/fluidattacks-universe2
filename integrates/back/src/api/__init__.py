@@ -13,6 +13,7 @@ from dataloaders import (
 from dynamodb.exceptions import (
     DynamoDbBaseException,
 )
+import newrelic.agent
 from newutils import (
     logs as logs_utils,
 )
@@ -33,15 +34,16 @@ from typing import (
 APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 
 
-async def _log_request(request: Request, data: Dict[str, Any]) -> None:
+async def _log_request(
+    request: Request,
+    name: str,
+    query: str,
+    variables: str,
+) -> None:
     """
     Sends API operation metadata to cloud logging services for
     analytical purposes.
     """
-    name: str = data.get("operationName") or "External (unnamed)"
-    query: str = data.get("query", "").replace("\n", "") or "-"
-    variables: str = data.get("variables") or "-"
-
     logs_utils.cloudwatch_log(
         request,
         f"API: {name} with parameters {variables}. Complete query: {query}",
@@ -59,6 +61,12 @@ class IntegratesAPI(GraphQL):
     ) -> Dict[str, Any]:
         """Hook before the execution process begins"""
         data: Dict[str, Any] = await super().extract_data_from_request(request)
-        schedule(_log_request(request, data))
+        name: str = data.get("operationName") or "External (unnamed)"
+        query: str = data.get("query", "").replace("\n", "") or "-"
+        variables: str = data.get("variables") or "-"
+
+        newrelic.agent.set_transaction_name(name, "GraphQL")
+        newrelic.agent.add_framework_info("GraphQL")
+        schedule(_log_request(request, name, query, variables))
 
         return data
