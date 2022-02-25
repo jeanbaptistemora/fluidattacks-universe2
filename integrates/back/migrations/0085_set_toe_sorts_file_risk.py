@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration sets all toe's new sorts_risk_level attribute
 to zero

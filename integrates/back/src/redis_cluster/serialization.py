@@ -19,9 +19,6 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
     FindingVerification,
 )
-from db_model.services_toe_lines.types import (
-    ServicesToeLines,
-)
 from db_model.toe_inputs.types import (
     ToeInput,
 )
@@ -67,7 +64,6 @@ safe_pickle.register_namedtuple(FindingUnreliableIndicators)
 safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
 safe_pickle.register_namedtuple(ToeInput)
-safe_pickle.register_namedtuple(ServicesToeLines)
 
 # Exported members
 __all__ = ["dump", "load"]

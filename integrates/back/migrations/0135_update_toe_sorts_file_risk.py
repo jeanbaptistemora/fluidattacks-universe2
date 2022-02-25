@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration sets all toe's sorts_risk_level attribute
 with negative or zero values to -1 so, after executing the
