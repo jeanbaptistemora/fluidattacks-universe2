@@ -8,9 +8,6 @@ from model.graph_model import (
 from symbolic_eval.context.method import (
     solve_invocation,
 )
-from symbolic_eval.f100.method_invocation import (
-    evaluate as evaluate_method_invocation_f100,
-)
 from symbolic_eval.types import (
     BadMethodInvocation,
     Evaluator,
@@ -28,9 +25,7 @@ from utils import (
     logs,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
-    FindingEnum.F100: evaluate_method_invocation_f100,
-}
+FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def _get_invocation_eval(
