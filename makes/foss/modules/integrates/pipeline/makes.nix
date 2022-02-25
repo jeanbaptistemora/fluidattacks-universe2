@@ -119,7 +119,6 @@ in
           };
         })
         [
-          "0197_remove_services_toe_lines.py"
         ])
         ++ (builtins.map
         (name: {
