@@ -146,7 +146,22 @@ def format_percentages(
 
 
 def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
-    limited_data = list(reversed(data))[:limit] if limit else list(data)
+    limited_data = (
+        list(
+            sorted(
+                data,
+                key=lambda x: (
+                    x.closed_vulnerabilities
+                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
+                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
+                    else 0
+                ),
+                reverse=True,
+            )
+        )[:limit]
+        if limit
+        else list(data)
+    )
     percentage_values = [
         format_percentages(
             {
@@ -262,7 +277,7 @@ async def generate_all() -> None:
         utils.json_dump(
             document=format_data(
                 data=await get_data_many_groups(list(org_groups)),
-                limit=24,
+                limit=18,
             ),
             entity="organization",
             subject=org_id,
