@@ -67,6 +67,7 @@ const CardsContainer = styled.div.attrs({
     relative
     center
     overflow-hidden
+    mb5
   `,
 })`
   width: 1528px;

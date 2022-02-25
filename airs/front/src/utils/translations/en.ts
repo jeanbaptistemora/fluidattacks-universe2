@@ -193,6 +193,11 @@ const pageTexts: ResourceKey = {
         rulesTitle: "Criteria is a set of security requirements",
       },
     },
+    home: {
+      buttonText: "Subscribe to our newsletter",
+      phrase: "Stay updated on cybersecurity trends",
+      title: "Free Resources",
+    },
   },
   sastCategoryParagraph: {
     bold1: "the best possible result ",

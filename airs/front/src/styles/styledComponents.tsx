@@ -551,6 +551,20 @@ const BlackBigParagraph: StyledComponent<
   `,
 })``;
 
+const NewBlackBigParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    f1
+    c-fluid-bk
+    fw6
+    neue
+    lh-solid
+    ma0
+  `,
+})``;
+
 const WhiteBigParagraph: StyledComponent<
   "p",
   Record<string, unknown>
@@ -1847,6 +1861,7 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
+  NewBlackBigParagraph,
   NewGrayBigParagraph,
   NewInnerMainContentHome,
   NewMainCoverHome,
