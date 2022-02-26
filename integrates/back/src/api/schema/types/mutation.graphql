@@ -583,6 +583,17 @@ type Mutation {
     groupNames: [String!]!
   ): SimplePayload!
 
+  """Request a hold on ongoing vulnerability reattacks. Usually because of an
+  Event blocking access to them"""
+  requestVulnerabilitiesHold(
+    "Identifier of the blocking Event"
+    eventId: String!
+    "Identifier of the affected Finding"
+    findingId: String!
+    "Identifier of the affected vulnerabilities within the Finding"
+    vulnerabilities: [String!]!
+  ): SimplePayload!
+
   "Requests a reattack on the provided Vulnerabilities"
   requestVulnerabilitiesVerification(
     "Identifier of Finding containing the vulnerabilities"
