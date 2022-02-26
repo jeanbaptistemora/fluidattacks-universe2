@@ -54,7 +54,7 @@ const ContactSection: React.FC = (): JSX.Element => {
             to={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
           >
             <SocialButton>
-              <FaFacebookF className={"f3 c-gray-64 mh1"} />
+              <FaFacebookF className={"f3 c-gray-64"} />
             </SocialButton>
           </Link>
           <Link

@@ -29,14 +29,8 @@ const Portrait: React.FC = (): JSX.Element => (
         <NewGrayBigParagraph>
           {"Effective Automation + IA + Expert Intelligence"}
         </NewGrayBigParagraph>
-        <GrayMediumParagraph>
-          {`"Overall we like and enjoy the experience and the service.`}
-          <br />
-          {`The more we use it the more value we get from it."`}
-        </GrayMediumParagraph>
-        <GrayLittleParagraph>
-          {`Andrew Chung, VP of Information Technology at GESA `}
-        </GrayLittleParagraph>
+        <GrayMediumParagraph>{`"Quote"`}</GrayMediumParagraph>
+        <GrayLittleParagraph>{`Name, position, company`}</GrayLittleParagraph>
         <div className={"cf mt4 mb5"}>
           <Link className={"no-underline"} to={"/newHome"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>

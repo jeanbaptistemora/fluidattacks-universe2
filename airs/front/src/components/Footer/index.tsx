@@ -4,7 +4,7 @@ import React from "react";
 import { InfoSection } from "./InfoSection";
 import { LinksSection } from "./LinksSection";
 import { LogosSection } from "./LogosSection";
-import { DarkBlueFooter, MainFooterContainer } from "./styles/styledComponents";
+import { Container, MainFooterContainer } from "./styles/styledComponents";
 
 import {
   CenteredMaxWidthContainer,
@@ -12,7 +12,7 @@ import {
 } from "../../styles/styledComponents";
 
 const Footer: React.FC = (): JSX.Element => (
-  <DarkBlueFooter>
+  <Container>
     <MainFooterContainer>
       <LogosSection />
       <LinksSection />
@@ -22,7 +22,7 @@ const Footer: React.FC = (): JSX.Element => (
         </CenteredMaxWidthContainer>
       </MainFooterInfoContainer>
     </MainFooterContainer>
-  </DarkBlueFooter>
+  </Container>
 );
 
 export { Footer };

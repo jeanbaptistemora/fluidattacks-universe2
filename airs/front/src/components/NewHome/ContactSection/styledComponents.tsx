@@ -45,6 +45,7 @@ const SocialButton = styled.button.attrs({
   ba
   br3
   bc-gray-64
+  social-button
   bg-transparent
   pointer
 `,

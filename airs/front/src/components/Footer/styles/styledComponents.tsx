@@ -40,12 +40,12 @@ const FluidLogoContainer: StyledComponent<
     text-center
   `,
 })``;
-const DarkBlueFooter: StyledComponent<
+const Container: StyledComponent<
   "footer",
   Record<string, unknown>
 > = styled.footer.attrs({
   className: `
-    bg-darker-blue
+    bg-black-18
   `,
 })``;
 
@@ -54,6 +54,7 @@ const MainFooterContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
+    bg-black-18
     mw-1366
     ph-body
     center
@@ -64,14 +65,13 @@ const MainFooterContainer: StyledComponent<
     pb4
     pt4-ns
     pt2
-    ba
     bw2
     bc-darker-blue
   `,
 })``;
 
 export {
-  DarkBlueFooter,
+  Container,
   FluidLogoContainer,
   FooterMenuContainer,
   LinksContainer,

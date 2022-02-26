@@ -24,13 +24,14 @@ const ServiceParagraph = styled.p.attrs({
     f3
     c-gray-154
     roboto
-    lh-solid
     ma0
     mt3
     center
     mw-1038
   `,
-})``;
+})`
+  line-height: 2rem;
+`;
 
 const CycleContainer = styled.div.attrs({
   className: `

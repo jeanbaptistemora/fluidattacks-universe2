@@ -104,7 +104,9 @@ const ArrowButton = styled.button.attrs({
     pointer
     outline-transparent
   `,
-})``;
+})<{ limit: boolean }>`
+  opacity: ${({ limit }): string => (limit ? "50%" : "100%")};
+`;
 
 const IconContainerSmall = styled.div.attrs({
   className: `

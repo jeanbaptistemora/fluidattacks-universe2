@@ -14,7 +14,11 @@ const ResourceCard: React.FC<IProps> = ({
   url,
 }: IProps): JSX.Element => (
   <Link to={`${url}`}>
-    <CloudImage alt={image} src={`/airs/home/${image}`} styles={"ma3"} />
+    <CloudImage
+      alt={image}
+      src={`/airs/home/${image}`}
+      styles={"ma3 resources-card-animation"}
+    />
   </Link>
 );
 

@@ -109,12 +109,12 @@ const SolutionsSection: React.FC = (): JSX.Element => {
       </TitleContainer>
       <CardsContainer>
         <ArrowContainer>
-          <ArrowButton onClick={scrollLeft}>
+          <ArrowButton limit={scroll === 0} onClick={scrollLeft}>
             <IconContainerSmall>
               <IoIosArrowBack className={"f3 white"} />
             </IconContainerSmall>
           </ArrowButton>
-          <ArrowButton onClick={scrollRight}>
+          <ArrowButton limit={scroll === width} onClick={scrollRight}>
             <IconContainerSmall>
               <IoIosArrowForward className={"f3 white"} />
             </IconContainerSmall>

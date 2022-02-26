@@ -965,19 +965,19 @@ const NewRegularRedButton: StyledComponent<
     hv-bd-fluid-dkred
     pointer
     white
-    pv3
-    ph4
     f5
     dib
     t-all-3-eio
-    br3
+    br2
     bc-fluid-red
     ba
     roboto
     justify-center
     bw1
   `,
-})``;
+})`
+  padding: 10px 16px;
+`;
 
 const PhantomRegularRedButton: StyledComponent<
   "button",
@@ -992,8 +992,6 @@ const PhantomRegularRedButton: StyledComponent<
     pointer
     c-dkred
     hover-white
-    pv3
-    ph4
     f5
     dib
     t-all-3-eio
@@ -1004,7 +1002,9 @@ const PhantomRegularRedButton: StyledComponent<
     justify-center
     bw1
   `,
-})``;
+})`
+  padding: 10px 16px;
+`;
 
 const SquaredCardContainer: StyledComponent<
   "div",
