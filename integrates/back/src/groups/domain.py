@@ -961,23 +961,9 @@ async def get_active_groups() -> List[str]:
     return groups
 
 
-async def get_alive_group_names() -> List[str]:
-    attributes = ["project_name"]
-    groups = await get_alive_groups(attributes)
-    return [get_key_or_fallback(group) for group in groups]
-
-
 async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
     data_attr = ",".join(attributes or [])
     return await groups_dal.get_all(data_attr=data_attr)
-
-
-async def get_alive_groups(
-    attributes: Optional[List[str]] = None,
-) -> List[GroupType]:
-    data_attr = ",".join(attributes or [])
-    groups = await groups_dal.get_alive_groups(data_attr)
-    return groups
 
 
 async def get_active_groups_attributes(
@@ -1319,10 +1305,10 @@ async def invite_to_group(
     return success
 
 
-async def is_alive(
+async def is_valid(
     group: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
-    return await groups_dal.is_alive(group, pre_computed_group_data)
+    return await groups_dal.is_valid(group, pre_computed_group_data)
 
 
 async def mask_resources(group_name: str) -> NamedTuple:

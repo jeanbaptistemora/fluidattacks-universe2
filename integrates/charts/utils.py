@@ -141,9 +141,7 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
 
 
 async def iterate_groups() -> AsyncIterator[str]:
-    for group in sorted(
-        await groups_domain.get_alive_group_names(), reverse=True
-    ):
+    for group in sorted(await groups_domain.get_active_groups(), reverse=True):
         log_info(f"Working on group: {group}")
         # Exception: WF(AsyncIterator is subtype of iterator)
         yield group  # NOSONAR
@@ -153,12 +151,12 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    alive_groups: Set[str] = set(
-        sorted(await groups_domain.get_alive_group_names())
+    active_groups: Set[str] = set(
+        sorted(await groups_domain.get_active_groups())
     )
     groups: Set[str] = {
         group["name"]
-        for group in await GroupLoader().load_many(alive_groups)
+        for group in await GroupLoader().load_many(active_groups)
         if group["subscription"] == "continuous"
     }
     async for org_id, org_name, org_groups in (

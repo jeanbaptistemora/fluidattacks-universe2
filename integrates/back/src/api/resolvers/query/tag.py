@@ -40,13 +40,13 @@ async def resolve(
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     user_groups: List[str] = await groups_domain.get_groups_by_user(user_email)
-    are_alive_groups = await collect(
-        tuple(groups_domain.is_alive(group) for group in user_groups)
+    are_valid_groups = await collect(
+        tuple(groups_domain.is_valid(group) for group in user_groups)
     )
     groups_filtered = [
         group
-        for group, is_alive in zip(user_groups, are_alive_groups)
-        if is_alive
+        for group, is_valid in zip(user_groups, are_valid_groups)
+        if is_valid
     ]
 
     if groups_filtered:

@@ -383,10 +383,10 @@ async def test_remove_obsolete_groups() -> None:
         "project_status",
         "pending_deletion_date",
     }
-    alive_groups = await groups_domain.get_active_groups_attributes(
+    active_groups = await groups_domain.get_active_groups_attributes(
         group_attributes
     )
-    assert len(alive_groups) == 12
+    assert len(active_groups) == 12
     expected_groups = [
         {
             "project_status": "ACTIVE",
@@ -401,14 +401,14 @@ async def test_remove_obsolete_groups() -> None:
         },
     ]
     for expected_group in expected_groups:
-        assert expected_group in alive_groups
+        assert expected_group in active_groups
 
     await delete_obsolete_groups.main()
 
-    alive_groups = await groups_domain.get_active_groups_attributes(
+    active_groups = await groups_domain.get_active_groups_attributes(
         group_attributes
     )
-    assert len(alive_groups) == 11
+    assert len(active_groups) == 11
     groups = await groups_domain.get_all(group_attributes)
     setpendingdeletion = [
         group

@@ -50,7 +50,7 @@ async def can_user_access(
         table,
     )
     is_user_allowed = False
-    if await is_alive(group_name, group_data):
+    if await is_valid(group_name, group_data):
         is_user_allowed = bool(role)
     return is_user_allowed
 
@@ -82,22 +82,6 @@ async def get_active_groups() -> List[str]:
     )
     groups = await get_all(filtering_exp, "project_name")
     return cast(List[str], [get_key_or_fallback(group) for group in groups])
-
-
-async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
-    """Get active and suspended groups in DynamoDB."""
-    filtering_exp = Attr("project_status").eq("ACTIVE") | Attr(
-        "project_status"
-    ).eq("SUSPENDED")
-    groups: List[GroupType] = await get_all(filtering_exp, data_attr)
-    # Compatibility with old API
-    if "project_name" in groups[0]:
-        groups_with_gn: List[GroupType] = [
-            duplicate_dict_keys(group, "group_name", "project_name")
-            for group in groups
-        ]
-        return groups_with_gn
-    return groups
 
 
 async def get_active_groups_attributes(data_attr: str = "") -> List[GroupType]:
@@ -190,7 +174,7 @@ async def get_groups_with_forces() -> List[str]:
     return groups
 
 
-async def is_alive(
+async def is_valid(
     group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     """Validate if a group exist and is not deleted."""

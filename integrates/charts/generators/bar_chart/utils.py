@@ -38,7 +38,7 @@ from findings.domain.core import (
     get_finding_open_age,
 )
 from groups.domain import (
-    get_alive_group_names,
+    get_active_groups,
 )
 from newutils.datetime import (
     get_date_from_iso_str,
@@ -354,9 +354,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     ]
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
-    groups: List[str] = list(
-        sorted(await get_alive_group_names(), reverse=True)
-    )
+    groups: List[str] = list(sorted(await get_active_groups(), reverse=True))
     oldest_open_age: Decimal = await get_oldest_open_age(
         groups=groups, loaders=loaders
     )

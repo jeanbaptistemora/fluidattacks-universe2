@@ -71,7 +71,7 @@ from groups.domain import (
     get_open_findings,
     get_open_vulnerabilities,
     get_vulnerabilities_with_pending_attacks,
-    is_alive,
+    is_valid,
     update_group_attrs,
     validate_group_services_config,
     validate_group_tags,
@@ -133,9 +133,9 @@ async def test_validate_tags() -> None:
         assert await validate_group_tags("unittesting", ["test-groups"])
 
 
-async def test_is_alive() -> None:
-    assert await is_alive("unittesting")
-    assert not await is_alive("nonexistent_group")
+async def test_is_valid() -> None:
+    assert await is_valid("unittesting")
+    assert not await is_valid("nonexistent_group")
 
 
 async def test_get_vulnerabilities_with_pending_attacks() -> None:
@@ -407,7 +407,7 @@ async def test_add_comment() -> None:
     )
 
 
-async def test_get_alive_group_names() -> None:
+async def test_get_active_group_names() -> None:
     test_data = await get_active_groups()
     expected_output = [
         "asgard",

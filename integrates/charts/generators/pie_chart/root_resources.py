@@ -72,8 +72,8 @@ def format_resources(roots: List[GitRootItem]) -> Resources:
 
 
 async def generate_all() -> None:  # pylint: disable=too-many-locals
-    alive_groups: Set[str] = set(
-        sorted(await groups_domain.get_alive_group_names())
+    active_groups: Set[str] = set(
+        sorted(await groups_domain.get_active_groups())
     )
     context = get_new_context()
     async for group in utils.iterate_groups():
@@ -116,7 +116,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         )
 
         all_org_groups = await orgs_domain.get_groups(org_id)
-        valid_org_groups = alive_groups.intersection(all_org_groups)
+        valid_org_groups = active_groups.intersection(all_org_groups)
         grouped_roots = [
             [
                 root

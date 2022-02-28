@@ -52,7 +52,7 @@ async def mutate(
     success = False
     group_name = group_name.lower()
     group_loader = info.context.loaders.group
-    if await groups_domain.is_alive(group_name):
+    if await groups_domain.is_valid(group_name):
         group_attrs = await group_loader.load(group_name)
         group_tags = {"tag": group_attrs["tags"]}
         cast(Set[str], group_tags.get("tag")).remove(tag)
