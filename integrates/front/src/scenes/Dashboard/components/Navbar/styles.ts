@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 const NavbarContainer = styled.nav.attrs({
-  className: "flex flex-wrap ph3",
+  className: "flex flex-wrap",
 })`
-  background-color: #f5f5f5;
-  border-bottom: 2px #e4e4e4 solid;
+  background-color: #f4f4f6;
+  border-bottom: 1px solid #bfbfb0;
   font-size: 18px;
-  height 100%;
-  min-height: 50px;
+  padding: 12px 24px;
 `;
 
 const NavbarHeader = styled.div.attrs({

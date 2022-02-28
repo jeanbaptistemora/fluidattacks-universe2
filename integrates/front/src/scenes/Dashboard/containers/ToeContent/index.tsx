@@ -11,11 +11,7 @@ import type { IGroupContext } from "../GroupContent/types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import {
-  StickyContainer,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
@@ -37,7 +33,7 @@ const toeContent: React.FC<IToeContentProps> = (
 
   return (
     <React.StrictMode>
-      <StickyContainer>
+      <div>
         <TabsContainer>
           <Can do={"api_resolvers_group_toe_lines_resolve"}>
             <ContentTab
@@ -58,7 +54,7 @@ const toeContent: React.FC<IToeContentProps> = (
             />
           </Can>
         </TabsContainer>
-      </StickyContainer>
+      </div>
       <TabContent>
         <Switch>
           <Route exact={true} path={`${path}/lines`}>

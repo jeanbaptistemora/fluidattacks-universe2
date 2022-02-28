@@ -34,11 +34,7 @@ import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPo
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
-import {
-  StickyContainer,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useTabTracking } from "utils/hooks";
@@ -138,7 +134,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
       <div>
         <div>
           <div>
-            <StickyContainer>
+            <div>
               <TabsContainer>
                 <ContentTab
                   icon={"icon pe-7s-graph3"}
@@ -193,7 +189,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   />
                 </Can>
               </TabsContainer>
-            </StickyContainer>
+            </div>
             <TabContent>
               <Switch>
                 <Route exact={true} path={`${path}/analytics`}>

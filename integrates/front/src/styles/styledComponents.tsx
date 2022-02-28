@@ -549,15 +549,6 @@ const SelectDate = styled.input.attrs({
   type: `date`,
 })``;
 
-const StickyContainer = styled.div.attrs({
-  className: "z-4",
-})`
-  @media (min-width: 768px) {
-    position: sticky;
-    top: 50px;
-  }
-`;
-
 const Switch: StyledComponent<
   "div",
   Record<string, unknown>
@@ -720,7 +711,6 @@ export {
   Row,
   RowCenter,
   Small,
-  StickyContainer,
   SearchText,
   Select,
   SelectContainer,

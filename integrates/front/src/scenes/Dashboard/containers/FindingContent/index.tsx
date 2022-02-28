@@ -51,7 +51,6 @@ import {
   ControlLabel,
   FormGroup,
   Row,
-  StickyContainer,
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
@@ -254,7 +253,7 @@ const findingContent: React.FC = (): JSX.Element => {
                   />
                 </ButtonCol>
               </Row>
-              <StickyContainer>
+              <div>
                 <FindingHeader
                   discoveryDate={
                     headerData.finding.releaseDate?.split(" ")[0] ?? "-"
@@ -349,7 +348,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     />
                   </Can>
                 </TabsContainer>
-              </StickyContainer>
+              </div>
               <TabContent>
                 <Switch>
                   <Route

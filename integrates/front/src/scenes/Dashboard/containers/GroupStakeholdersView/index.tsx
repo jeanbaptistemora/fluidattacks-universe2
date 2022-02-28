@@ -46,7 +46,7 @@ import type {
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import type { IStakeholderAttrs as IGenericStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -412,10 +412,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <Row>
-          <Col100>
-            <Row>
-              <Col100>
+        <div>
+          <div>
+            <div>
+              <div>
                 <DataTableNext
                   bordered={true}
                   clearFiltersButton={clearFilters}
@@ -542,10 +542,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                   }}
                   striped={true}
                 />
-              </Col100>
-            </Row>
-          </Col100>
-        </Row>
+              </div>
+            </div>
+          </div>
+        </div>
         <AddUserModal
           action={userModalAction}
           editTitle={translate.t(

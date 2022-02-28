@@ -9,14 +9,18 @@ const DashboardContent = styled.div.attrs({
 })`
   padding-left: 24px;
   padding-right: 24px;
+
+  // Hide scrollbar for Chrome, Safari and Opera
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  // Hide scrollbar for IE, Edge and Firefox
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const DashboardHeader = styled.header.attrs({
   className: "top-0 z-5",
-})`
-  @media (min-width: 768px) {
-    position: sticky;
-  }
-`;
+})``;
 
 export { DashboardContainer, DashboardContent, DashboardHeader };

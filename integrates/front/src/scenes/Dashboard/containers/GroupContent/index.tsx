@@ -17,11 +17,7 @@ import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/ind
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
-import {
-  StickyContainer,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -48,7 +44,7 @@ const GroupContent: React.FC = (): JSX.Element => {
         <div>
           <div>
             <div>
-              <StickyContainer>
+              <div>
                 <TabsContainer>
                   <ContentTab
                     icon={"icon pe-7s-graph3"}
@@ -137,7 +133,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     tooltip={translate.t("group.tabs.resources.tooltip")}
                   />
                 </TabsContainer>
-              </StickyContainer>
+              </div>
 
               <TabContent>
                 <groupContext.Provider value={{ path, url }}>

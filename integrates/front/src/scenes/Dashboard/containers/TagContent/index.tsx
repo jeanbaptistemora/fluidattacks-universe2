@@ -19,7 +19,6 @@ import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import {
   Col100,
   Row,
-  StickyContainer,
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
@@ -52,7 +51,7 @@ const TagContent: React.FC = (): JSX.Element => {
       <div>
         <Row>
           <Col100>
-            <StickyContainer>
+            <div>
               <TabsContainer>
                 <ContentTab
                   icon={"icon pe-7s-graph3"}
@@ -77,7 +76,7 @@ const TagContent: React.FC = (): JSX.Element => {
                   )}
                 />
               </TabsContainer>
-            </StickyContainer>
+            </div>
             <TabContent>
               <Switch>
                 <Route exact={true} path={`${path}/analytics`}>
