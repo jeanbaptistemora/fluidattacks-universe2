@@ -304,10 +304,6 @@ in
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/etl/toe-files";
-          gitlabExtra = gitlabScheduled;
-        }
-        {
           output = "/observes/etl/zoho-crm/fluid";
           gitlabExtra = gitlabScheduled;
         }

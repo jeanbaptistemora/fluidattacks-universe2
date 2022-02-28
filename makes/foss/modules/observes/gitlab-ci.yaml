@@ -1245,24 +1245,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/etl/toe-files:
-  image: ghcr.io/fluidattacks/makes:22.03
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $observes_scheduled_job != $CI_JOB_NAME
-      when: never
-    - when: always
-  script:
-    - m . /observes/etl/toe-files
-  stage: analytics
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /observes/etl/zoho-crm/fluid:
   image: ghcr.io/fluidattacks/makes:22.03
   interruptible: false
