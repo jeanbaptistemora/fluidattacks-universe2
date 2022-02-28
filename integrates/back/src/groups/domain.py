@@ -980,6 +980,14 @@ async def get_alive_groups(
     return groups
 
 
+async def get_active_groups_attributes(
+    attributes: Optional[List[str]] = None,
+) -> List[GroupType]:
+    data_attr = ",".join(attributes or [])
+    groups = await groups_dal.get_active_groups_attributes(data_attr)
+    return groups
+
+
 async def get_attributes(
     group_name: str, attributes: List[str]
 ) -> Dict[str, Union[str, List[str]]]:

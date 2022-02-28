@@ -210,7 +210,7 @@ async def process_group(group_name: str) -> None:
 
 
 async def main() -> None:
-    group_names = await groups_domain.get_alive_group_names()
+    group_names = await groups_domain.get_active_groups()
 
     await collect(
         tuple(process_group(group_name) for group_name in group_names),

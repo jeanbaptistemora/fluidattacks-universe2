@@ -59,7 +59,7 @@ from groups.domain import (
     add_group,
     filter_active_groups,
     get_active_groups,
-    get_alive_group_names,
+    get_active_groups_attributes,
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,
@@ -407,13 +407,8 @@ async def test_add_comment() -> None:
     )
 
 
-async def test_get_active_groups() -> None:
-    test_data = await get_active_groups()
-    assert test_data is not None
-
-
 async def test_get_alive_group_names() -> None:
-    test_data = await get_alive_group_names()
+    test_data = await get_active_groups()
     expected_output = [
         "asgard",
         "barranquilla",

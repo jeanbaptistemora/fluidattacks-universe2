@@ -150,7 +150,7 @@ async def delete_obsolete_groups() -> None:
         "historic_configuration",
         "pending_deletion_date",
     }
-    groups = await groups_domain.get_alive_groups(group_attributes)
+    groups = await groups_domain.get_active_groups_attributes(group_attributes)
     inactive_groups = [
         group for group in groups if not groups_utils.has_asm_services(group)
     ]

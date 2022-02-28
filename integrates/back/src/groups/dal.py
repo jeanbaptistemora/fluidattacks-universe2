@@ -76,7 +76,7 @@ async def exists(
 
 
 async def get_active_groups() -> List[str]:
-    """Get active group in DynamoDB"""
+    """Get active groups names in DynamoDB."""
     filtering_exp = (
         Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
@@ -85,7 +85,7 @@ async def get_active_groups() -> List[str]:
 
 
 async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
-    """Get active and suspended groups in DynamoDB"""
+    """Get active and suspended groups in DynamoDB."""
     filtering_exp = Attr("project_status").eq("ACTIVE") | Attr(
         "project_status"
     ).eq("SUSPENDED")
@@ -100,10 +100,24 @@ async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
     return groups
 
 
+async def get_active_groups_attributes(data_attr: str = "") -> List[GroupType]:
+    """Get active groups attributes in DynamoDB."""
+    filtering_exp = Attr("project_status").eq("ACTIVE")
+    groups: List[GroupType] = await get_all(filtering_exp, data_attr)
+    # Compatibility with old API
+    if "project_name" in groups[0]:
+        groups_with_gn: List[GroupType] = [
+            duplicate_dict_keys(group, "group_name", "project_name")
+            for group in groups
+        ]
+        return groups_with_gn
+    return groups
+
+
 async def get_all(
     filtering_exp: object = "", data_attr: str = ""
 ) -> List[GroupType]:
-    """Get all groups"""
+    """Get all groups."""
     scan_attrs = {}
     if filtering_exp:
         scan_attrs["FilterExpression"] = filtering_exp
