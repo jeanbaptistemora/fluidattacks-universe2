@@ -5,7 +5,7 @@
 }:
 makeRubyGemsEnvironment {
   name = "integrates-mobile-tools-fastlane";
-  ruby = "2.6";
+  ruby = "2.7";
   rubyGems = [
     {
       name = "addressable";

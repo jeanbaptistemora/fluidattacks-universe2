@@ -3,7 +3,7 @@
 }:
 makeRubyGemsEnvironment {
   name = "integrates-tools-concurrent-ruby";
-  ruby = "2.6";
+  ruby = "2.7";
   rubyGems = [
     {
       name = "concurrent-ruby";

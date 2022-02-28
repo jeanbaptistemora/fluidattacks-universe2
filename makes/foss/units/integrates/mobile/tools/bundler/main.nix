@@ -3,7 +3,7 @@
 }:
 makeRubyGemsEnvironment {
   name = "integrates-mobile-tools-bundler";
-  ruby = "2.6";
+  ruby = "2.7";
   rubyGems = [
     {
       name = "bundler";
