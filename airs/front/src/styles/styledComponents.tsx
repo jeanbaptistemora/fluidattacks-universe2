@@ -996,7 +996,6 @@ const PhantomRegularRedButton: StyledComponent<
     dib
     t-all-3-eio
     br2
-    bc-fluid-red
     ba
     roboto
     justify-center
