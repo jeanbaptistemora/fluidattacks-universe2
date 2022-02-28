@@ -37,12 +37,10 @@ import shutil
 import stat
 import subprocess
 from subprocess import (
-    check_output,
     DEVNULL,
     PIPE,
     Popen,
 )
-import sys
 import tempfile
 from toolbox import (
     utils,
@@ -573,33 +571,3 @@ def print_inactive_missing_repos(
             }
         )
     )
-
-
-def fluidcounts(path: str) -> str:
-    """Count lines of code using cloc."""
-    filepaths = ""
-    doc_langs = ["Markdown"]
-    style_langs = ["CSS", "SASS", "LESS", "Stylus"]
-    format_langs = ["XML", "XAML"]
-    rules_file = os.environ["MELTS_FLUIDCOUNTS_RULES"]
-    force_lang_def = "--force-lang-def=" + rules_file
-    exclude_list = ",".join(doc_langs + style_langs + format_langs)
-    exclude_lang = "--exclude-lang=" + exclude_list
-    call_cloc = ["cloc", force_lang_def, exclude_lang]
-    call_cloc += [path, "--ignored", "ignored.txt", "--timeout", "900"]
-    try:
-        myenv = os.environ.copy()
-        myenv["LC_ALL"] = "C"
-        check_output(call_cloc, env=myenv)
-        with open("ignored.txt", "r", encoding="utf8") as outfile:
-            filepaths = outfile.read()
-    except OSError:
-        print(
-            "You need to have Cloc installed and in your system path "
-            + "for this task to work"
-        )
-        sys.exit(1)
-    finally:
-        if os.path.exists("ignored.txt"):
-            os.remove("ignored.txt")
-    return filepaths
