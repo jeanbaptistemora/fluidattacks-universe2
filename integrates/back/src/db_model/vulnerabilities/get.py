@@ -32,6 +32,7 @@ from db_model import (
 )
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
+    EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
 )
 from dynamodb import (
@@ -221,6 +222,29 @@ async def _get_assigned_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
+async def _get_affected_reattacks(
+    *, event_id: str
+) -> Tuple[Vulnerability, ...]:
+    primary_key = keys.build_key(
+        facet=EVENT_INDEX_METADATA,
+        values={"event_id": event_id},
+    )
+
+    index = TABLE.indexes["gsi_4"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(EVENT_INDEX_METADATA,),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_vulnerability(item) for item in response.items)
+
+
 class AssignedVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -322,6 +346,16 @@ class RootVulnerabilitiesLoader(DataLoader):
     ) -> Tuple[Vulnerability, ...]:
         return await collect(
             _get_root_vulnerabilities(root_id=id) for id in ids
+        )
+
+
+class EventVulnerabilitiesLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, ids: Tuple[str, ...]
+    ) -> Tuple[Vulnerability, ...]:
+        return await collect(
+            _get_affected_reattacks(event_id=id) for id in ids
         )
 
 

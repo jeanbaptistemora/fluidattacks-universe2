@@ -15,6 +15,7 @@ from db_model import (
 )
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
+    EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
 )
 from dynamodb import (
@@ -31,6 +32,7 @@ async def add(  # pylint: disable=too-many-locals
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     gsi_3_index = TABLE.indexes["gsi_3"]
+    gsi_4_index = TABLE.indexes["gsi_4"]
     vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={
@@ -68,6 +70,16 @@ async def add(  # pylint: disable=too-many-locals
             "vuln_id": vulnerability.id,
         },
     )
+    gsi_4_key = keys.build_key(
+        facet=EVENT_INDEX_METADATA,
+        values={
+            "event_id": ""
+            if vulnerability.verification is None
+            or vulnerability.verification.event_id is None
+            else vulnerability.verification.event_id,
+            "vuln_id": vulnerability.id,
+        },
+    )
     vulnerability_item = {
         key_structure.partition_key: vulnerability_key.partition_key,
         key_structure.sort_key: vulnerability_key.sort_key,
@@ -75,6 +87,8 @@ async def add(  # pylint: disable=too-many-locals
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         gsi_3_index.primary_key.partition_key: gsi_3_key.partition_key,
         gsi_3_index.primary_key.sort_key: gsi_3_key.sort_key,
+        gsi_4_index.primary_key.partition_key: gsi_4_key.partition_key,
+        gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
         **json.loads(json.dumps(vulnerability)),
     }
     items.append(vulnerability_item)

@@ -16,3 +16,9 @@ ASSIGNED_INDEX_METADATA = Facet(
     pk_alias="USER#email",
     sk_alias="VULN#vuln_id",
 )
+
+EVENT_INDEX_METADATA = Facet(
+    attrs=TABLE.facets["vulnerability_metadata"].attrs,
+    pk_alias="EVENT#event_id",
+    sk_alias="VULN#vuln_id",
+)
