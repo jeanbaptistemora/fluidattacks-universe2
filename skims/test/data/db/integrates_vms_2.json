@@ -137,7 +137,14 @@
                 "S": "production"
               },
               "environment_urls": {
-                "L": []
+                "L": [
+                  {
+                    "S": "https://fluidattacks.com/"
+                  },
+                  {
+                    "S": "https://app.fluidattacks.com/"
+                  }
+                ]
               },
               "git_environment_urls": {
                 "L": []
