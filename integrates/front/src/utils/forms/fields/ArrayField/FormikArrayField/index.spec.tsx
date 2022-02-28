@@ -48,14 +48,14 @@ describe("Array field", (): void => {
 
     expect(addButton).toHaveLength(1);
 
-    expect(wrapper.find(".fa-trash-alt")).toHaveLength(0);
+    expect(wrapper.find(".fa-trash-can")).toHaveLength(0);
 
     addButton.simulate("click");
     wrapper.update();
 
     expect(wrapper.find(FormikArrayField).find("input")).toHaveLength(2);
 
-    const removeButton: ReactWrapper = wrapper.find(".fa-trash-alt");
+    const removeButton: ReactWrapper = wrapper.find(".fa-trash-can");
 
     expect(removeButton).toHaveLength(1);
 

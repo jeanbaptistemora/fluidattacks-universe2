@@ -69,7 +69,7 @@ describe("Add Tags modal", (): void => {
 
     const deleteButton: ReactWrapper = modal
       .find("FormikArrayField")
-      .find(".fa-trash-alt");
+      .find(".fa-trash-can");
 
     deleteButton.simulate("click");
 

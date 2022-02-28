@@ -11,6 +11,7 @@ interface ITextProps extends FieldProps<string, Record<string, string>> {
   min: number | string;
   placeholder: string;
   type: string;
+  className: string;
   customKeyDown:
     | ((event: React.KeyboardEvent<HTMLInputElement>) => void)
     | undefined;
@@ -21,6 +22,7 @@ export const FormikText: React.FC<ITextProps> = (
   props: ITextProps
 ): JSX.Element => {
   const {
+    className,
     customBlur,
     customKeyDown,
     disabled,
@@ -45,6 +47,8 @@ export const FormikText: React.FC<ITextProps> = (
     <React.Fragment>
       <StyledInput
         autoComplete={"off"}
+        // eslint-disable-next-line react/forbid-component-props
+        className={className}
         disabled={disabled}
         id={id}
         max={max}

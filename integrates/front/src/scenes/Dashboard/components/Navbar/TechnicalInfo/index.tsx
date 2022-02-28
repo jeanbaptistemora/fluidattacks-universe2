@@ -30,7 +30,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faInfoCircle} />
         &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"sm"} />
+        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>

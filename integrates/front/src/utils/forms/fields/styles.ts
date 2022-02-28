@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input.attrs({
+const StyledInput = styled.input.attrs<{ className: string }>({
   className: "w-100 pa2 lh-copy gray bw1 b--light-gray b--solid",
 })`
   font-size: 16px;

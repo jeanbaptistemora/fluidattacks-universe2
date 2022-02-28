@@ -159,7 +159,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faQuestionCircle} />
         &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"sm"} />
+        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>

@@ -222,7 +222,7 @@ describe("GroupFindingsView", (): void => {
 
     expect(reportPdf).toStrictEqual("file-pdf");
     expect(reportXls).toStrictEqual("file-excel");
-    expect(reportZip).toStrictEqual("file-archive");
+    expect(reportZip).toStrictEqual("file-zipper");
 
     const reporButtontPdf: ReactWrapper = wrapper.find("Button#report-pdf");
 

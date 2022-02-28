@@ -200,7 +200,7 @@ describe("EventsView", (): void => {
       wrapper.find({ name: "actionAfterBlocking" }).find("select");
 
     const evidenceFiles = (): ReactWrapper =>
-      wrapper.find("span").find(".fa-search");
+      wrapper.find("span").find(".fa-magnifying-glass");
 
     expect(wrapper.containsMatchingElement(<h4>{"group.events.new"}</h4>)).toBe(
       true

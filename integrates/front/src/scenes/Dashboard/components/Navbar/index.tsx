@@ -68,10 +68,10 @@ export const Navbar: React.FC<INavbarProps> = ({
             <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
           </li>
           <li>
-            <HelpWidget groups={groups} />
+            <TechnicalInfo />
           </li>
           <li>
-            <TechnicalInfo />
+            <HelpWidget groups={groups} />
           </li>
           <li>
             <UserProfile userRole={userRole} />

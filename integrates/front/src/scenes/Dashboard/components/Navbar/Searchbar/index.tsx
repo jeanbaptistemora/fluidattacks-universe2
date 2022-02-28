@@ -1,10 +1,13 @@
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { FormikText } from "utils/forms/fields";
+import { SearchContainer, SearchInput } from "./styles";
+
 import { alphaNumeric, composeValidators } from "utils/validations";
 
 export const Searchbar: React.FC = (): JSX.Element => {
@@ -29,12 +32,15 @@ export const Searchbar: React.FC = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <Form>
-        <Field
-          component={FormikText}
-          name={"groupName"}
-          placeholder={t("navbar.searchPlaceholder")}
-          validate={composeValidators([alphaNumeric])}
-        />
+        <SearchContainer>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <Field
+            component={SearchInput}
+            name={"groupName"}
+            placeholder={t("navbar.searchPlaceholder")}
+            validate={composeValidators([alphaNumeric])}
+          />
+        </SearchContainer>
       </Form>
     </Formik>
   );

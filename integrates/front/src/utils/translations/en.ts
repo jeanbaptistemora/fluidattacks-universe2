@@ -1169,7 +1169,7 @@ export const enTranslations: ResourceKey = {
     },
     newsTooltip: "Latest updates about ASM",
     role: "Role:",
-    searchPlaceholder: "Search Group Name",
+    searchPlaceholder: "Search group",
     task: {
       text: "Todos",
       tooltip: "To-Do List",

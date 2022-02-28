@@ -105,7 +105,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUserCircle} />
         &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"sm"} />
+        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>
