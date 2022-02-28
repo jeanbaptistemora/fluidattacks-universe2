@@ -6,8 +6,8 @@ at mutation "update_vulnerabilities_treatment".
 
 Swap these found dates and update vuln's historic.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-02-28 at 17:19:07 UTC
+Finalization Time:  2022-02-28 at 20:15:08 UTC
 """
 
 from aioextensions import (
