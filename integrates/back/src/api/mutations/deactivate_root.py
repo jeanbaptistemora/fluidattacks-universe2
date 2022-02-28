@@ -83,7 +83,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
 
     users = await group_access_domain.get_group_users(group_name, active=True)
     user_roles = await collect(
-        authz.get_group_level_role(user, group_name) for user in users
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
     )
     email_list = [
         str(user)

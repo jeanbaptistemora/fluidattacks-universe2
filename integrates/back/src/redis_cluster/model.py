@@ -149,6 +149,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "confirm_access_organization",
             "update_organization_stakeholder",
             "grant_stakeholder_organization_access",
+            "reject_access_organization",
             "remove_stakeholder_organization_access",
             "unsubscribe_from_group",
         },

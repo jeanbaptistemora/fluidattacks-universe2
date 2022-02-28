@@ -272,6 +272,11 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                 )
             )
             if success:
+                organization_id: str = organization_access["pk"]
+                redis_del_by_deps_soon(
+                    "reject_access_organization",
+                    organization_id=organization_id,
+                )
                 response = await templates.reject_invitation(
                     request, organization_access
                 )
