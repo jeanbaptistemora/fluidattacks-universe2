@@ -50,6 +50,8 @@ locals {
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/analytics/analytics",
           "arn:aws:s3:::continuous-repositories",
           "arn:aws:s3:::continuous-repositories/*",
+          "arn:aws:s3:::continuous-data",
+          "arn:aws:s3:::continuous-data/*",
           "arn:aws:s3:::fluidanalytics",
           "arn:aws:s3:::fluidanalytics/*",
           "arn:aws:s3:::fluidattacks-terraform-states-prod/observes-*",
