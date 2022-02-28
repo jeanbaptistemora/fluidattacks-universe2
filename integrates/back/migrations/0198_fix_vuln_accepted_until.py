@@ -18,7 +18,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from decimal import Decimal
 from db_model.findings.types import (
     Finding,
 )
@@ -29,6 +28,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
+)
+from decimal import (
+    Decimal,
 )
 import groups.domain as groups_domain
 import logging

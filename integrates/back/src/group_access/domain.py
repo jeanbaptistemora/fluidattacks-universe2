@@ -109,30 +109,6 @@ async def get_users_to_notify(
     ]
 
 
-async def list_customer_managers(group: str) -> List[str]:
-    users_active, users_inactive = await collect(
-        [get_group_users(group, True), get_group_users(group, False)]
-    )
-    all_users = users_active + users_inactive
-    users_roles = await collect(
-        [authz.get_group_level_role(user, group) for user in all_users]
-    )
-    managers = [
-        user
-        for user, role in zip(all_users, users_roles)
-        if role == "customer_manager"
-    ]
-    return managers
-
-
-async def list_internal_owners(group_name: str) -> List[str]:
-    all_managers = await list_customer_managers(group_name)
-    internal_managers = [
-        user for user in all_managers if user.endswith("@fluidattacks.com")
-    ]
-    return internal_managers
-
-
 async def remove_access(
     loaders: Any, user_email: str, group_name: str
 ) -> bool:
