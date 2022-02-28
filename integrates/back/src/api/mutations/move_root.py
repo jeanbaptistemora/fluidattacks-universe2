@@ -24,6 +24,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import json
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -64,9 +65,16 @@ async def mutate(
     )
     await batch_dal.put_action(
         action_name="move_root",
-        entity=f"{target_group_name}/{new_root_id}",
+        entity=group_name,
         subject=user_email,
-        additional_info=f"{group_name}/{root_id}",
+        additional_info=json.dumps(
+            {
+                "target_group_name": target_group_name,
+                "target_root_id": new_root_id,
+                "source_group_name": group_name,
+                "source_root_id": root_id,
+            },
+        ),
         queue="dedicated_soon",
     )
     root: RootItem = await loaders.root.load((group_name, root_id))

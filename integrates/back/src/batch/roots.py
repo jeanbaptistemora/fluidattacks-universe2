@@ -75,6 +75,7 @@ from dynamodb.exceptions import (
     UnavailabilityError,
 )
 import itertools
+import json
 import logging
 import logging.config
 from machine.availability import (
@@ -435,7 +436,11 @@ async def process_toe_lines(
 
 
 async def move_root(*, item: BatchProcessing) -> None:
-    target_group_name, target_root_id = item.entity.split("/")
+    info = json.loads(item.additional_info)
+    target_group_name = info["target_group_name"]
+    target_root_id = info["target_root_id"]
+    source_group_name = info["source_group_name"]
+    source_root_id = info["source_root_id"]
     source_group_name, source_root_id = item.additional_info.split("/")
     loaders: Dataloaders = get_new_context()
     root: RootItem = await loaders.root.load(
