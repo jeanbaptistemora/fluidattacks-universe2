@@ -12,7 +12,6 @@ class TargetTables(Enum):
     FORCES = "FI_forces"
     ACCESS = "FI_project_access"
     PROJECTS = "FI_projects"
-    TOE = "FI_toe"
     USERS = "FI_users"
     AUTHZ = "fi_authz"
     ORGANIZATIONS = "fi_organizations"
@@ -28,7 +27,6 @@ SEGMENTATION: FrozenDict[TargetTables, int] = FrozenDict(
         _tt.FORCES: 11,
         _tt.ACCESS: 2,
         _tt.PROJECTS: 1,
-        _tt.TOE: 1,
         _tt.USERS: 1,
         _tt.AUTHZ: 2,
         _tt.ORGANIZATIONS: 1,
