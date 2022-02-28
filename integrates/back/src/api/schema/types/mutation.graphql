@@ -590,6 +590,8 @@ type Mutation {
     eventId: String!
     "Identifier of the affected Finding"
     findingId: String!
+    "Name of the Group to which the Event belongs"
+    groupName: String!
     "Identifier of the affected vulnerabilities within the Finding"
     vulnerabilities: [String!]!
   ): SimplePayload!

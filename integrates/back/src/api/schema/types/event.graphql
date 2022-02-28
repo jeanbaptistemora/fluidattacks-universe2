@@ -10,6 +10,9 @@ type Event {
   affectation: String
   "Components involved or affected by the event, if applicable"
   affectedComponents: String
+  """Vulnerabilities requested for a reattack that had to be put on hold
+  because of this Event"""
+  affectedReattacks: [Vulnerability!]!
   "Hacker"
   analyst: String @deprecated(reason: """This field will
     be removed after 2022/03/02. Use `hacker` instead.""")

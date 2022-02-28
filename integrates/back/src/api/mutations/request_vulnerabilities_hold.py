@@ -4,6 +4,9 @@ from api import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    EventNotFound,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -52,11 +55,16 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     event_id: str,
+    group_name: str,
     finding_id: str,
     vulnerabilities: List[str],
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
+        event_loader = info.context.loaders.event
+        event = await event_loader.load(event_id)
+        if "group_name" not in event or group_name != event["group_name"]:
+            raise EventNotFound()
         justification: str = (
             "These reattacks were put on hold because of " f"Event {event_id}"
         )

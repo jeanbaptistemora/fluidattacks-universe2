@@ -55,6 +55,7 @@ from db_model.users.get import (
 )
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
+    EventVulnerabilitiesLoader,
     FindingVulnerabilitiesLoader,
     FindingVulnerabilitiesNonDeletedLoader,
     FindingVulnerabilitiesNonZeroRiskLoader,
@@ -78,6 +79,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     credential: CredentialLoader
     event: EventLoader
+    event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
@@ -155,6 +157,7 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         credential=CredentialLoader(),
         event=EventLoader(),
+        event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
         finding=FindingLoader(),

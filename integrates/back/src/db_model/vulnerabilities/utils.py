@@ -180,6 +180,7 @@ def format_unreliable_indicators(
 
 def format_verification(item: Item) -> VulnerabilityVerification:
     return VulnerabilityVerification(
+        event_id=item.get("event_id", None),
         modified_date=item["modified_date"],
         status=VulnerabilityVerificationStatus[item["status"]],
     )
