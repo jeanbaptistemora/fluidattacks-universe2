@@ -363,7 +363,7 @@ const ModalTitle: StyledComponent<
   "h4",
   Record<string, unknown>
 > = styled.h4.attrs({
-  className: "color-inherit fw3 f3 lh-solid ma0 montserrat tc",
+  className: "color-inherit fw3 f3 lh-solid ma0 tc",
 })``;
 
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(

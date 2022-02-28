@@ -16,11 +16,6 @@ body,
   overflow: hidden;
 }
 
-body {
-  font-family: Source Sans Pro, sans-serif;
-  font-size: 16px;
-}
-
 hr {
   border: 0;
   border-top: 1px solid #eee;
@@ -32,7 +27,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Montserrat, sans-serif;
   font-weight: bold;
 }
 
@@ -192,10 +186,9 @@ label {
   flex-wrap: wrap;
 }
 
-:global .breadcrumb > li + li::before {
-  color: #ccc;
-  content: "/\00a0";
-  padding: 0 2px;
+:global .breadcrumb > li + li:not(:last-child)::after {
+  content: "/";
+  padding: 0 4px;
 }
 
 :global .btn {
@@ -304,10 +297,8 @@ label {
 :global .split-button > div > button {
   background: transparent !important;
   border: none;
-  color: #ff3435;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: none !important;
+  color: #2e2e38;
+  font-size: 1rem;
   text-transform: capitalize;
 }
 
@@ -359,15 +350,6 @@ label {
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   box-shadow: inset 6px 24px -16px rgba(0, 0, 0, 0.75);
-}
-
-.text {
-  font-family: Source Sans Pro, sans-serif;
-  font-size: 16px !important;
-}
-
-.title {
-  font-family: Montserrat, sans-serif;
 }
 
 .textarea {
@@ -498,10 +480,6 @@ label {
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
-}
-
-:global .bg-btn {
-  background-color: #fff;
 }
 
 :global .bg-bh:active,
@@ -695,10 +673,6 @@ label {
 
 :global .modalf-bt {
   border-top: 1px solid #e5e5e5;
-}
-
-:global .montserrat {
-  font-family: 'Montserrat', sans-serif;
 }
 
 :global .mt-3-25 {

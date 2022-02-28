@@ -6,7 +6,9 @@ const BreadcrumbContainer = styled.div.attrs({
 
 const NavSplitButtonContainer = styled.div.attrs({
   className: "split-button",
-})``;
+})`
+  padding-right: 24px;
+`;
 
 const SplitItems = styled.div.attrs({
   className: "splitItems mr3 flex-wrap fixed",

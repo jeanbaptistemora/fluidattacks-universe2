@@ -15,8 +15,8 @@ const StyledButton: StyledComponent<
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
     className:
-      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd " +
-      "color-bd color-bh hover-white fw100 ml2 montserrat orgred " +
+      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-transparent cna-bd " +
+      "color-bd color-bh hover-white fw100 ml2 orgred " +
       `btn-pa svg-box pointer ${className ?? ""}`,
     type: type ?? "button",
   })

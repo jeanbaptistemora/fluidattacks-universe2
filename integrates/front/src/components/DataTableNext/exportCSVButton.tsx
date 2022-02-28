@@ -27,7 +27,7 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
           {...csvProps}
           // We need className to override default styles
           // eslint-disable-next-line react/forbid-component-props
-          className={`${style.exportCsv} b--orgred ba btn-pa bg-bh bg-btn fw100 montserrat orgred svg-box`}
+          className={`${style.exportCsv} b--orgred ba btn-pa bg-bh bg-transparent fw100 orgred svg-box`}
         >
           <FontAwesomeIcon icon={faDownload} />
           &nbsp;{t("group.findings.exportCsv.text")}

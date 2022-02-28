@@ -5,7 +5,6 @@ const NavbarContainer = styled.nav.attrs({
 })`
   background-color: #f4f4f6;
   border-bottom: 1px solid #bfbfb0;
-  font-size: 18px;
   padding: 12px 24px;
 `;
 
