@@ -15,6 +15,9 @@ from context import (
 from custom_types import (
     SignInPayload as SignInPayloadType,
 )
+from db_model import (
+    users as user_model,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -69,6 +72,11 @@ LOGGER = logging.getLogger(__name__)
 async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = "user"
     new_user_group_level_role: str = "user"
+
+    await user_model.update_user(
+        user_email=email,
+        notifications_preferences={"email": ["VULNERABILITY_ASSIGNED"]},
+    )
 
     await groups_domain.add_without_group(
         email=email, role=new_user_user_level_role
