@@ -7,9 +7,8 @@ const DashboardContainer = styled.div.attrs({
 const DashboardContent = styled.div.attrs({
   className: "flex flex-auto flex-column overflow-container",
 })`
-  @media (max-width: 768px) {
-    margin-left: 50px;
-  }
+  padding-left: 24px;
+  padding-right: 24px;
 `;
 
 const DashboardHeader = styled.header.attrs({

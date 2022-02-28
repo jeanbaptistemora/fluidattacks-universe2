@@ -9,6 +9,7 @@ const SidebarContainer = styled.aside.attrs({
   background-color: #2e2e38;
   border-right: 1px solid #5c5c70;
   height: 100%;
+  min-width: 72px;
   width: 72px;
 `;
 
