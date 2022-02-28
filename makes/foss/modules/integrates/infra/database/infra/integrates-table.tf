@@ -86,6 +86,16 @@ resource "aws_dynamodb_table" "integrates_vms" {
     type = "S"
   }
 
+  attribute {
+    name = "pk_4"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk_4"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "inverted_index"
     hash_key        = "sk"
@@ -104,6 +114,13 @@ resource "aws_dynamodb_table" "integrates_vms" {
     name            = "gsi_3"
     hash_key        = "pk_3"
     range_key       = "sk_3"
+    projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "gsi_4"
+    hash_key        = "pk_4"
+    range_key       = "sk_4"
     projection_type = "ALL"
   }
 
