@@ -432,11 +432,6 @@ label {
   box-shadow: 0.1px 6px 24px -16px rgba(0, 0, 0, 0.75);
 }
 
-:local .tabContent {
-  background: #fff;
-  padding-top: 10px;
-}
-
 :local .active {
   background-color: #eee !important;
 }

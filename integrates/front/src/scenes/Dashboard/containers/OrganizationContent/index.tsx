@@ -34,10 +34,9 @@ import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPo
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
-import globalStyle from "styles/global.css";
 import {
-  Col100,
   StickyContainer,
+  TabContent,
   TabsContainer,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -138,7 +137,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
     <React.StrictMode>
       <div>
         <div>
-          <Col100>
+          <div>
             <StickyContainer>
               <TabsContainer>
                 <ContentTab
@@ -195,7 +194,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Can>
               </TabsContainer>
             </StickyContainer>
-            <div className={globalStyle.tabContent}>
+            <TabContent>
               <Switch>
                 <Route exact={true} path={`${path}/analytics`}>
                   <ChartsForOrganizationView
@@ -234,8 +233,8 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Route>
                 <Redirect to={`${path}/groups`} />
               </Switch>
-            </div>
-          </Col100>
+            </TabContent>
+          </div>
         </div>
       </div>
     </React.StrictMode>

@@ -5,13 +5,12 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { filterSearchText } from "components/DataTableNext/utils";
-import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,
   IPortfoliosTable,
 } from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
-import { Col100, Row } from "styles/styledComponents";
+import { Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
@@ -109,12 +108,12 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
 
   return (
     <React.StrictMode>
-      <div className={style.container}>
+      <div>
         {_.isEmpty(portfolios) ? (
           <div />
         ) : (
-          <Row>
-            <Col100>
+          <div>
+            <div>
               <Row>
                 <DataTableNext
                   bordered={true}
@@ -133,8 +132,8 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
                   search={false}
                 />
               </Row>
-            </Col100>
-          </Row>
+            </div>
+          </div>
         )}
       </div>
     </React.StrictMode>

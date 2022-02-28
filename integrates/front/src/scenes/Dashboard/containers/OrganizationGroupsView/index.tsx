@@ -17,14 +17,13 @@ import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -365,12 +364,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   return (
     <React.StrictMode>
-      <div className={style.container}>
+      <div>
         {_.isUndefined(data) || _.isEmpty(data) ? (
           <div />
         ) : (
-          <Row>
-            <Col100>
+          <div>
+            <div>
               <Row>
                 <DataTableNext
                   bordered={true}
@@ -428,7 +427,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   search={false}
                 />
               </Row>
-            </Col100>
+            </div>
             {isGroupModalOpen ? (
               <AddGroupModal
                 isOpen={true}
@@ -436,7 +435,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                 organization={organizationName}
               />
             ) : undefined}
-          </Row>
+          </div>
         )}
       </div>
     </React.StrictMode>

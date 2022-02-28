@@ -40,7 +40,6 @@ import type {
 } from "scenes/Dashboard/containers/Tasks/types";
 import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/utils";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
-import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
@@ -586,7 +585,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   return (
     <React.StrictMode>
-      <div className={globalStyle.tabContent}>
+      <div>
         <Col100>
           <VulnComponent
             canDisplayHacker={canRetrieveHacker}

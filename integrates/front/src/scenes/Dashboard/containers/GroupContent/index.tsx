@@ -17,10 +17,9 @@ import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/ind
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
-import globalStyle from "styles/global.css";
 import {
-  Col100,
   StickyContainer,
+  TabContent,
   TabsContainer,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -47,8 +46,8 @@ const GroupContent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <div>
         <div>
-          <Col100>
-            <React.Fragment>
+          <div>
+            <div>
               <StickyContainer>
                 <TabsContainer>
                   <ContentTab
@@ -140,7 +139,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                 </TabsContainer>
               </StickyContainer>
 
-              <div className={globalStyle.tabContent}>
+              <TabContent>
                 <groupContext.Provider value={{ path, url }}>
                   <Switch>
                     <Route
@@ -196,9 +195,9 @@ const GroupContent: React.FC = (): JSX.Element => {
                     <Redirect to={`${path}/vulns`} />
                   </Switch>
                 </groupContext.Provider>
-              </div>
-            </React.Fragment>
-          </Col100>
+              </TabContent>
+            </div>
+          </div>
         </div>
       </div>
     </React.StrictMode>

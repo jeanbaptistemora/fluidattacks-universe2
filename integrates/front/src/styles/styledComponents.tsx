@@ -550,7 +550,7 @@ const SelectDate = styled.input.attrs({
 })``;
 
 const StickyContainer = styled.div.attrs({
-  className: "bg-white z-4",
+  className: "z-4",
 })`
   @media (min-width: 768px) {
     position: sticky;

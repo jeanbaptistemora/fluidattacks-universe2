@@ -16,11 +16,11 @@ import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPor
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import globalStyle from "styles/global.css";
 import {
   Col100,
   Row,
   StickyContainer,
+  TabContent,
   TabsContainer,
 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -78,7 +78,7 @@ const TagContent: React.FC = (): JSX.Element => {
                 />
               </TabsContainer>
             </StickyContainer>
-            <div className={globalStyle.tabContent}>
+            <TabContent>
               <Switch>
                 <Route exact={true} path={`${path}/analytics`}>
                   <ChartsForPortfolioView
@@ -92,7 +92,7 @@ const TagContent: React.FC = (): JSX.Element => {
                 />
                 <Redirect to={`${path}/analytics`} />
               </Switch>
-            </div>
+            </TabContent>
           </Col100>
         </Row>
       </div>
