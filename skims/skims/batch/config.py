@@ -1,4 +1,3 @@
-import csv
 from integrates.dal import (
     get_group_roots,
 )
@@ -14,9 +13,6 @@ from model.core_model import (
     SkimsPathConfig,
     SkimsSslConfig,
     SkimsSslTarget,
-)
-from operator import (
-    itemgetter,
 )
 import os
 from typing import (
@@ -38,37 +34,9 @@ async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
     }
 
 
-def get_components_from_group(group: str) -> List[str]:
-    path: str = f"groups/{group}/toe/inputs.csv"
-
-    if not os.path.exists(path):
-        return []
-
-    with open(path, encoding="utf-8") as inputs_handle:
-        components = list(
-            map(
-                itemgetter("component"),
-                csv.DictReader(inputs_handle),
-            )
-        )
-    return components
-
-
-def get_urls_from_scopes(scopes: Set[str], components: List[str]) -> List[str]:
+def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
     urls: Set[str] = set()
     urls.update(scopes)
-
-    for scope in scopes:
-        scope_c = urlparse(scope)
-
-        for component in components:
-            component_c = urlparse(f"schema://{component}")
-
-            if (
-                scope_c.netloc == component_c.netloc
-                and component_c.path.startswith(scope_c.path)
-            ):
-                urls.add(f"{scope_c.scheme}://{component}")
 
     for scope in scopes:
         # FP: switch the type of protocol
@@ -106,8 +74,7 @@ async def generate_config(
     create_session(os.environ["INTEGRATES_API_TOKEN"])
 
     scopes: Set[str] = await get_scopes_from_group(group_name, namespace)
-    components: List[str] = get_components_from_group(group_name)
-    urls: List[str] = get_urls_from_scopes(scopes, components)
+    urls: List[str] = get_urls_from_scopes(scopes)
     ssl_targets: List[Tuple[str, str]] = get_ssl_targets(urls)
 
     return SkimsConfig(
