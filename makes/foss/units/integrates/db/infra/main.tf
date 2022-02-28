@@ -263,16 +263,6 @@ resource "aws_dynamodb_table" "fi_subscriptions" {
   range_key = "sk"
 }
 
-resource "aws_dynamodb_table" "FI_toe" {
-  attribute {
-    name = "project"
-    type = "S"
-  }
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "project"
-  name         = "FI_toe"
-}
-
 resource "aws_dynamodb_table" "FI_users" {
   attribute {
     name = "email"

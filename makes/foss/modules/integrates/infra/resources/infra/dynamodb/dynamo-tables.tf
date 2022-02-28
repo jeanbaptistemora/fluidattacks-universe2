@@ -175,28 +175,6 @@ resource "aws_dynamodb_table" "events" {
   }
 }
 
-resource "aws_dynamodb_table" "toe" {
-  name         = "FI_toe"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "project"
-
-  attribute {
-    name = "project"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-
-  tags = {
-    "Name"               = "FI_toe"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
-  }
-}
-
 resource "aws_dynamodb_table" "projects" {
   name         = "FI_projects"
   billing_mode = "PAY_PER_REQUEST"
