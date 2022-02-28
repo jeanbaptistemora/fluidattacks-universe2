@@ -7,6 +7,9 @@ the agent package must be imported first.
 """
 # flake8: noqa
 import newrelic.agent
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from settings import (
     DEBUG,
     JWT_COOKIE_NAME,
@@ -85,6 +88,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
+    redis_del_by_deps_soon,
     redis_del_entity_attr,
 )
 from sessions import (
@@ -229,6 +233,11 @@ async def reject_access(request: Request) -> HTMLResponse:
                 get_new_context(), group_access
             )
             if success:
+                group_name: str = str(get_key_or_fallback(group_access))
+                redis_del_by_deps_soon(
+                    "reject_access",
+                    group_name=group_name,
+                )
                 response = await templates.reject_invitation(
                     request, group_access
                 )

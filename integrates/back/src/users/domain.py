@@ -252,8 +252,10 @@ async def get_stakeholders(
     group_stakeholders = cast(
         List[StakeholderType],
         await collect(
-            format_stakeholder(email, group_name)
-            for email in group_stakeholders_emails
+            tuple(
+                format_stakeholder(email, group_name)
+                for email in group_stakeholders_emails
+            )
         ),
     )
     return group_stakeholders

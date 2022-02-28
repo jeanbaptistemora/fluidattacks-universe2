@@ -121,6 +121,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "approve_draft",
             "confirm_access",
             "grant_stakeholder_access",
+            "reject_access",
             "remove_finding",
             "remove_group",
             "remove_group_tag",
