@@ -11,7 +11,7 @@ const Sidebar: React.FC = (): JSX.Element => {
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
   return (
-    <SidebarContainer collapsed={true}>
+    <SidebarContainer>
       <SidebarMenu>
         <li>
           <Link to={"/home"}>
