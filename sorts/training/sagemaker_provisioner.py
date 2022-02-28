@@ -28,6 +28,11 @@ from typing import (
 
 JOB_CREATION_DELAY_MULTIPLIER: int = 30
 
+ON_DEMAND_NEEDED: List[str] = [
+    "kneighborsclassifier",
+    "mlpclassifier",
+]
+
 
 def get_estimator(
     model: str,
@@ -39,7 +44,7 @@ def get_estimator(
             use_spot_instances=True,
             max_wait=86400,
         )
-        if model != "mlpclassifier"
+        if model not in ON_DEMAND_NEEDED
         else dict(instance_type="ml.m5.4xlarge")
     )
     sklearn_estimator: SKLearnEstimator = SKLearn(
