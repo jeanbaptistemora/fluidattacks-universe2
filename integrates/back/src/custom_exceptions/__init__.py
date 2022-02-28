@@ -1242,6 +1242,15 @@ class CouldNotCreatePaymentMethod(CustomBaseException):
         super(CouldNotCreatePaymentMethod, self).__init__(msg)
 
 
+class PaymentMethodAlreadyExists(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - Provided payment method already exists. "
+            "Please update or delete it first"
+        )
+        super(PaymentMethodAlreadyExists, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

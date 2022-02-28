@@ -16,6 +16,7 @@ from custom_exceptions import (
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
     NoActiveBillingSubscription,
+    PaymentMethodAlreadyExists,
 )
 from dataloaders import (
     get_new_context,
@@ -281,7 +282,7 @@ async def create_payment_method(
 
     try:
         # Create payment method
-        payment_method: PaymentMethod = await dal.create_payment_method(
+        created: PaymentMethod = await dal.create_payment_method(
             card_number=card_number,
             card_expiration_month=card_expiration_month,
             card_expiration_year=card_expiration_year,
@@ -289,9 +290,19 @@ async def create_payment_method(
             default=make_default,
         )
 
+        # Raise exception if payment method already exists for customer
+        payment_methods: List[PaymentMethod] = await customer_payment_methods(
+            org_billing_customer=customer.id,
+            limit=1000,
+        )
+        if created.fingerprint in [
+            payment_method.fingerprint for payment_method in payment_methods
+        ]:
+            raise PaymentMethodAlreadyExists()
+
         # Attach payment method to customer
         result: bool = await dal.attach_payment_method(
-            payment_method_id=payment_method.id,
+            payment_method_id=created.id,
             org_billing_customer=customer.id,
         )
     except CardError as ex:
@@ -301,7 +312,7 @@ async def create_payment_method(
     # then make it default
     if not customer.default_payment_method or make_default:
         await dal.update_default_payment_method(
-            payment_method_id=payment_method.id,
+            payment_method_id=created.id,
             org_billing_customer=customer.id,
         )
 
