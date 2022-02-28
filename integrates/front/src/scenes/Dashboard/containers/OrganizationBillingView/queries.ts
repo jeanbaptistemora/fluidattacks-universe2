@@ -81,6 +81,24 @@ const UPDATE_DEFAULT_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
+const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
+  mutation updatePaymentMethod(
+    $organizationId: String!
+    $paymentMethodId: String!
+    $cardExpirationMonth: String!
+    $cardExpirationYear: String!
+  ) {
+    updatePaymentMethod(
+      organizationId: $organizationId
+      paymentMethodId: $paymentMethodId
+      cardExpirationMonth: $cardExpirationMonth
+      cardExpirationYear: $cardExpirationYear
+    ) {
+      success
+    }
+  }
+`;
+
 const UPDATE_SUBSCRIPTION: DocumentNode = gql`
   mutation updateSubscription(
     $groupName: String!
@@ -97,5 +115,6 @@ export {
   GET_ORGANIZATION_BILLING,
   REMOVE_PAYMENT_METHOD,
   UPDATE_DEFAULT_PAYMENT_METHOD,
+  UPDATE_PAYMENT_METHOD,
   UPDATE_SUBSCRIPTION,
 };

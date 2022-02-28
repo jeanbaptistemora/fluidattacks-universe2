@@ -13,11 +13,13 @@ import { useTranslation } from "react-i18next";
 
 import { AddPaymentModal } from "./AddPaymentMethodModal";
 import { Container } from "./styles";
+import { UpdatePaymentModal } from "./UpdatePaymentMethodModal";
 
 import {
   ADD_PAYMENT_METHOD,
   REMOVE_PAYMENT_METHOD,
   UPDATE_DEFAULT_PAYMENT_METHOD,
+  UPDATE_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
@@ -85,13 +87,13 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const openAddModal = useCallback((): void => {
       setAddingPaymentMethod({ mode: "ADD" });
     }, []);
-    const closeModal = useCallback((): void => {
+    const closeAddModal = useCallback((): void => {
       setAddingPaymentMethod(false);
     }, []);
     const [addPaymentMethod] = useMutation(ADD_PAYMENT_METHOD, {
       onCompleted: (): void => {
         onUpdate();
-        closeModal();
+        closeAddModal();
         msgSuccess(
           t("organization.tabs.billing.paymentMethods.add.success.body"),
           t("organization.tabs.billing.paymentMethods.add.success.title")
@@ -114,7 +116,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         });
       },
     });
-    const handlePaymentMethodSubmit = useCallback(
+    const handleAddPaymentMethodSubmit = useCallback(
       async ({
         cardCvc,
         cardExpirationMonth,
@@ -198,13 +200,61 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       });
     }, [organizationId, currentRow.id, removePaymentMethod]);
 
+    // Update payment method
+    const [isUpdatingPaymentMethod, setUpdatingPaymentMethod] = useState<
+      false | { mode: "UPDATE" }
+    >(false);
+    const openUpdateModal = useCallback((): void => {
+      setUpdatingPaymentMethod({ mode: "UPDATE" });
+    }, []);
+    const closeUpdateModal = useCallback((): void => {
+      setUpdatingPaymentMethod(false);
+    }, []);
+    const [updatePaymentMethod, { loading: updating }] = useMutation(
+      UPDATE_PAYMENT_METHOD,
+      {
+        onCompleted: (): void => {
+          onUpdate();
+          closeUpdateModal();
+          msgSuccess(
+            t("organization.tabs.billing.paymentMethods.update.success.body"),
+            t("organization.tabs.billing.paymentMethods.update.success.title")
+          );
+        },
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't update payment method", error);
+          });
+        },
+      }
+    );
+    const handleUpdatePaymentMethodSubmit = useCallback(
+      async ({
+        cardExpirationMonth,
+        cardExpirationYear,
+      }: {
+        cardExpirationMonth: string;
+        cardExpirationYear: string;
+      }): Promise<void> => {
+        await updatePaymentMethod({
+          variables: {
+            cardExpirationMonth,
+            cardExpirationYear,
+            organizationId,
+            paymentMethodId: currentRow.id,
+          },
+        });
+      },
+      [updatePaymentMethod, organizationId, currentRow.id]
+    );
+
     // Update default payment method
     const canUpdateDefault: boolean = permissions.can(
       "api_mutations_update_default_payment_method_mutate"
     );
-    const [updateDefaultPaymentMethod, { loading: updating }] = useMutation(
-      UPDATE_DEFAULT_PAYMENT_METHOD,
-      {
+    const [updateDefaultPaymentMethod, { loading: updatingDefault }] =
+      useMutation(UPDATE_DEFAULT_PAYMENT_METHOD, {
         onCompleted: (): void => {
           onUpdate();
           msgSuccess(
@@ -239,8 +289,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             }
           });
         },
-      }
-    );
+      });
     const handleUpdateDefaultPaymentMethod: () => void =
       useCallback((): void => {
         void updateDefaultPaymentMethod({
@@ -295,7 +344,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                 extraButtons={
                   <Row>
                     <Can do={"api_mutations_add_payment_method_mutate"}>
-                      <Button onClick={openAddModal}>
+                      <Button id={"addPaymentMethod"} onClick={openAddModal}>
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;
                         {t(
@@ -303,9 +352,32 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                         )}
                       </Button>
                     </Can>
+                    <Can do={"api_mutations_update_payment_method_mutate"}>
+                      <Button
+                        disabled={
+                          _.isEmpty(currentRow) ||
+                          removing ||
+                          updating ||
+                          updatingDefault
+                        }
+                        id={"updatePaymentMethod"}
+                        onClick={openUpdateModal}
+                      >
+                        <FontAwesomeIcon icon={faUserEdit} />
+                        &nbsp;
+                        {t(
+                          "organization.tabs.billing.paymentMethods.update.button"
+                        )}
+                      </Button>
+                    </Can>
                     <Can do={"api_mutations_remove_payment_method_mutate"}>
                       <Button
-                        disabled={_.isEmpty(currentRow) || removing || updating}
+                        disabled={
+                          _.isEmpty(currentRow) ||
+                          removing ||
+                          updating ||
+                          updatingDefault
+                        }
                         id={"removePaymentMethod"}
                         onClick={handleRemovePaymentMethod}
                       >
@@ -320,7 +392,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                       do={"api_mutations_update_default_payment_method_mutate"}
                     >
                       <Button
-                        disabled={_.isEmpty(currentRow) || removing || updating}
+                        disabled={
+                          _.isEmpty(currentRow) ||
+                          removing ||
+                          updating ||
+                          updatingDefault
+                        }
                         id={"updateDefaultPaymentMethod"}
                         onClick={handleUpdateDefaultPaymentMethod}
                       >
@@ -350,8 +427,14 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         </Row>
         {isAddingPaymentMethod === false ? undefined : (
           <AddPaymentModal
-            onClose={closeModal}
-            onSubmit={handlePaymentMethodSubmit}
+            onClose={closeAddModal}
+            onSubmit={handleAddPaymentMethodSubmit}
+          />
+        )}
+        {isUpdatingPaymentMethod === false ? undefined : (
+          <UpdatePaymentModal
+            onClose={closeUpdateModal}
+            onSubmit={handleUpdatePaymentMethodSubmit}
           />
         )}
       </Container>

@@ -1223,6 +1223,8 @@ export const enTranslations: ResourceKey = {
           add: {
             button: "Add",
             errors: {
+              alreadyExists:
+                "Provided payment method already exists. Please update or delete it first",
               couldNotBeCreated:
                 "Payment method could not be created. Please make sure all the details you provided are correct",
             },
@@ -1253,6 +1255,18 @@ export const enTranslations: ResourceKey = {
             },
           },
           title: "Payment Methods",
+          update: {
+            button: "Update",
+            modal: {
+              expirationMonth: "Card expiration month",
+              expirationYear: "Card expiration year",
+              update: "Update payment method",
+            },
+            success: {
+              body: "Payment method successfuly updated",
+              title: "Success",
+            },
+          },
           updateDefault: {
             button: "Set as default",
             errors: {
