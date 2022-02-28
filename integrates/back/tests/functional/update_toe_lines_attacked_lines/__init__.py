@@ -18,7 +18,7 @@ async def get_result(
     attacked_lines: Optional[int],
     group_name: str,
     comments: str,
-    filename: List[str],
+    filename: str,
     root_id: str,
 ) -> Dict[str, Any]:
     variables: Dict[str, Any] = {
