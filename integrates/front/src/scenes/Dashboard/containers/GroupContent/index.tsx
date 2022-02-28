@@ -47,16 +47,16 @@ const GroupContent: React.FC = (): JSX.Element => {
               <div>
                 <TabsContainer>
                   <ContentTab
-                    id={"analyticsTab"}
-                    link={`${url}/analytics`}
-                    title={translate.t("group.tabs.analytics.text")}
-                    tooltip={translate.t("group.tabs.indicators.tooltip")}
-                  />
-                  <ContentTab
                     id={"findingsTab"}
                     link={`${url}/vulns`}
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
+                  />
+                  <ContentTab
+                    id={"analyticsTab"}
+                    link={`${url}/analytics`}
+                    title={translate.t("group.tabs.analytics.text")}
+                    tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
                   <Can do={"api_resolvers_group_drafts_resolve"}>
                     <ContentTab

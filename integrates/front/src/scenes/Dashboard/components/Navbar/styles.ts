@@ -13,7 +13,7 @@ const NavbarHeader = styled.div.attrs({
 })``;
 
 const NavbarMenu = styled.ul.attrs({
-  className: "f4 flex items-center list mb0 ph0",
+  className: "f4 flex items-center list ma0 ph0",
 })`
   & li {
     position: relative;

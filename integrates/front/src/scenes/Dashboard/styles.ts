@@ -3,6 +3,7 @@ import styled from "styled-components";
 const DashboardContainer = styled.div.attrs({
   className: "flex flex-row h-100",
 })`
+  color: #2e2e38;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
 `;

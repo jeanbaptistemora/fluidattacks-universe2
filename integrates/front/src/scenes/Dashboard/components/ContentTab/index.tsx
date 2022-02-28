@@ -16,11 +16,13 @@ const ContentTab: React.FC<IContentTabProps> = (
   const { tooltip, id, title, link } = props;
 
   return (
-    <TooltipWrapper id={`${id}Tooltip`} message={tooltip}>
-      <Tab id={id} to={link}>
-        {title}
-      </Tab>
-    </TooltipWrapper>
+    <li>
+      <TooltipWrapper id={`${id}Tooltip`} message={tooltip}>
+        <Tab id={id} to={link}>
+          {title}
+        </Tab>
+      </TooltipWrapper>
+    </li>
   );
 };
 

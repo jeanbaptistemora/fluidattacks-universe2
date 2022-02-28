@@ -7,9 +7,8 @@ const SearchContainer = styled.div`
   border-radius: 4px;
   color: #b0b0bf;
   font-size: 16px;
-  margin-right: 8px;
+  margin-right: 5px;
   padding-left: 12px;
-  padding-right: 3px;
 `;
 
 const SearchInput = styled(FormikText)`
