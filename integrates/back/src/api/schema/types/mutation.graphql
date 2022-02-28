@@ -286,7 +286,7 @@ type Mutation {
 
   "Add a payment method to an organization"
   addPaymentMethod(
-    "Organization name"
+    "Organization id"
     organizationId: String!
     "Card number"
     cardNumber: String!
@@ -915,6 +915,18 @@ type Mutation {
     "Email address of the stakeholder to be updated"
     userEmail: String!
   ): UpdateStakeholderPayload!
+
+  "Update a payment method from an organization"
+  updatePaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Payment Method id"
+    paymentMethodId: String!
+    "Card expiration month"
+    cardExpirationMonth: String!
+    "Card expiration year"
+    cardExpirationYear: String!
+  ): SimplePayload!
 
   "Updates the Root cloning status"
   updateRootCloningStatus(

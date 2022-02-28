@@ -242,6 +242,7 @@ async def customer_payment_methods(
     return [
         PaymentMethod(
             id=payment_method["id"],
+            fingerprint=payment_method["card"]["fingerprint"],
             last_four_digits=payment_method["card"]["last4"],
             expiration_month=str(payment_method["card"]["exp_month"]),
             expiration_year=str(payment_method["card"]["exp_year"]),
@@ -327,6 +328,34 @@ async def create_portal(
     return await dal.create_portal(
         org_billing_customer=org_billing_customer,
         org_name=org_name,
+    )
+
+
+async def update_payment_method(
+    *,
+    org_billing_customer: str,
+    payment_method_id: str,
+    card_expiration_month: str,
+    card_expiration_year: str,
+) -> bool:
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    # Raise exception if payment method does not belong to organization
+    payment_methods: List[PaymentMethod] = await customer_payment_methods(
+        org_billing_customer=org_billing_customer,
+        limit=1000,
+    )
+    if payment_method_id not in [
+        payment_method.id for payment_method in payment_methods
+    ]:
+        raise InvalidBillingPaymentMethod()
+
+    return await dal.update_payment_method(
+        payment_method_id=payment_method_id,
+        card_expiration_month=card_expiration_month,
+        card_expiration_year=card_expiration_year,
     )
 
 

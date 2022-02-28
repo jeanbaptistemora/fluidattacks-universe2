@@ -14,6 +14,7 @@ class Customer(NamedTuple):
 
 class PaymentMethod(NamedTuple):
     id: str
+    fingerprint: str
     last_four_digits: str
     expiration_month: str
     expiration_year: str

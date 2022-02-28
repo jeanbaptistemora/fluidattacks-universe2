@@ -184,11 +184,12 @@ async def create_payment_method(
     )
 
     return PaymentMethod(
-        id=data.id,
-        last_four_digits=data.card.last4,
-        expiration_month=str(data.card.exp_month),
-        expiration_year=str(data.card.exp_year),
-        brand=data.card.brand,
+        id=data["id"],
+        fingerprint=data["card"]["fingerprint"],
+        last_four_digits=data["card"]["last4"],
+        expiration_month=str(data["card"]["exp_month"]),
+        expiration_year=str(data["card"]["exp_year"]),
+        brand=data["card"]["brand"],
         default=default,
     )
 
@@ -325,6 +326,25 @@ async def get_customer_payment_methods(
         type="card",
         limit=limit,
     ).data
+
+
+async def update_payment_method(
+    *,
+    payment_method_id: str,
+    card_expiration_month: str,
+    card_expiration_year: str,
+) -> bool:
+    data = stripe.PaymentMethod.modify(
+        payment_method_id,
+        card={
+            "exp_month": int(card_expiration_month),
+            "exp_year": int(card_expiration_year),
+        },
+    )
+    return (
+        int(card_expiration_month) == data["card"]["exp_month"]
+        and int(card_expiration_year) == data["card"]["exp_year"]
+    )
 
 
 async def update_default_payment_method(

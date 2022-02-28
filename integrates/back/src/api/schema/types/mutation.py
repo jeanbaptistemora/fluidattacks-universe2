@@ -84,6 +84,7 @@ from api.mutations import (
     update_group_stakeholder,
     update_organization_policies,
     update_organization_stakeholder,
+    update_payment_method,
     update_root_cloning_status,
     update_severity,
     update_subscription,
@@ -237,6 +238,7 @@ MUTATION.set_field(
 MUTATION.set_field(
     "updateOrganizationStakeholder", update_organization_stakeholder.mutate
 )
+MUTATION.set_field("updatePaymentMethod", update_payment_method.mutate)
 MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
