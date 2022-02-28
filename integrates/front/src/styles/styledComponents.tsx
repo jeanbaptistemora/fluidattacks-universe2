@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -602,11 +603,21 @@ const SwitchOn: StyledComponent<
     "absolute bg-switch bottom-0 br0 left-0 ma0 ph3 pv2 r-50 top-0 white",
 })``;
 
-const Tab: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "a-bg-white a-db a-gray a-pv a-relative tc nowrap",
-})``;
+const Tab = styled(NavLink)`
+  color: #b0b0bf;
+  font-size: 20px;
+  padding: 12px 24px;
+  text-decoration: none;
+
+  &.active {
+    border-bottom: 2px solid #5c5c70;
+    color: #2e2e38;
+  }
+
+  :hover {
+    color: #2e2e38;
+  }
+`;
 
 const TabContent = styled.div.attrs({
   className: "mt3",
@@ -621,14 +632,12 @@ const TableOptionsColBar: StyledComponent<
   className: "dib ma0 pa0 w-20",
 })``;
 
-const TabsContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "grid mb0 menu-grid pl0 tc-shadow w-100",
-})``;
+const TabsContainer = styled.ul.attrs({
+  className: "flex justify-around list ma0",
+})`
+  background-color: #f4f4f6;
+  padding: 12px 0;
+`;
 
 const TrackingLabel: StyledComponent<
   "p",

@@ -17,7 +17,6 @@ describe("ContentTab", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter>
         <ContentTab
-          icon={"test-icon"}
           id={"test-id"}
           link={"test-link"}
           title={"Tab-Title"}

@@ -679,10 +679,6 @@ label {
   margin-top: 3.25rem;
 }
 
-:global .nav-active-bg {
-  background-color: #eee !important;
-}
-
 :global .noresize {
   resize: none;
 }

@@ -265,14 +265,12 @@ const findingContent: React.FC = (): JSX.Element => {
                 />
                 <TabsContainer>
                   <ContentTab
-                    icon={"icon pe-7s-menu"}
                     id={"vulnItem"}
                     link={`${url}/locations`}
                     title={translate.t("searchFindings.tabVuln.tabTitle")}
                     tooltip={translate.t("searchFindings.tabVuln.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-note"}
                     id={"infoItem"}
                     link={`${url}/description`}
                     title={translate.t(
@@ -283,28 +281,24 @@ const findingContent: React.FC = (): JSX.Element => {
                     )}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-calculator"}
                     id={"cssv2Item"}
                     link={`${url}/severity`}
                     title={translate.t("searchFindings.tabSeverity.tabTitle")}
                     tooltip={translate.t("searchFindings.tabSeverity.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-photo"}
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
                     title={translate.t("searchFindings.tabEvidence.tabTitle")}
                     tooltip={translate.t("searchFindings.tabEvidence.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-graph1"}
                     id={"trackingItem"}
                     link={`${url}/tracking`}
                     title={translate.t("searchFindings.tabTracking.tabTitle")}
                     tooltip={translate.t("searchFindings.tabTracking.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-notebook"}
                     id={"recordsItem"}
                     link={`${url}/records`}
                     title={translate.t("searchFindings.tabRecords.tabTitle")}
@@ -312,7 +306,6 @@ const findingContent: React.FC = (): JSX.Element => {
                   />
                   <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
                     <ContentTab
-                      icon={"icon pe-7s-rocket"}
                       id={"machineItem"}
                       link={`${url}/machine`}
                       title={translate.t("searchFindings.tabMachine.tabTitle")}
@@ -322,7 +315,6 @@ const findingContent: React.FC = (): JSX.Element => {
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_finding_consulting_resolve"}>
                       <ContentTab
-                        icon={"icon pe-7s-comment"}
                         id={"commentItem"}
                         link={`${url}/consulting`}
                         title={translate.t(
@@ -336,7 +328,6 @@ const findingContent: React.FC = (): JSX.Element => {
                   </Have>
                   <Can do={"api_resolvers_finding_observations_resolve"}>
                     <ContentTab
-                      icon={"icon pe-7s-note"}
                       id={"observationsItem"}
                       link={`${url}/observations`}
                       title={translate.t(

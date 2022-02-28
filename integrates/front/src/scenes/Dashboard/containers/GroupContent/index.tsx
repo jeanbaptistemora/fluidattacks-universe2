@@ -47,14 +47,12 @@ const GroupContent: React.FC = (): JSX.Element => {
               <div>
                 <TabsContainer>
                   <ContentTab
-                    icon={"icon pe-7s-graph3"}
                     id={"analyticsTab"}
                     link={`${url}/analytics`}
                     title={translate.t("group.tabs.analytics.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-light"}
                     id={"findingsTab"}
                     link={`${url}/vulns`}
                     title={translate.t("group.tabs.findings.text")}
@@ -62,7 +60,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                   />
                   <Can do={"api_resolvers_group_drafts_resolve"}>
                     <ContentTab
-                      icon={"icon pe-7s-stopwatch"}
                       id={"draftsTab"}
                       link={`${url}/drafts`}
                       title={translate.t("group.tabs.drafts.text")}
@@ -70,14 +67,12 @@ const GroupContent: React.FC = (): JSX.Element => {
                     />
                   </Can>
                   <ContentTab
-                    icon={"icon pe-7s-light"}
                     id={"forcesTab"}
                     link={`${url}/devsecops`}
                     title={translate.t("group.tabs.forces.text")}
                     tooltip={translate.t("group.tabs.forces.tooltip")}
                   />
                   <ContentTab
-                    icon={"icon pe-7s-star"}
                     id={"eventsTab"}
                     link={`${url}/events`}
                     title={translate.t("group.tabs.events.text")}
@@ -86,7 +81,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_group_consulting_resolve"}>
                       <ContentTab
-                        icon={"icon pe-7s-comment"}
                         id={"commentsTab"}
                         link={`${url}/consulting`}
                         title={translate.t("group.tabs.comments.text")}
@@ -98,7 +92,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                     do={"api_resolvers_query_stakeholder__resolve_for_group"}
                   >
                     <ContentTab
-                      icon={"icon pe-7s-users"}
                       id={"usersTab"}
                       link={`${url}/stakeholders`}
                       title={translate.t("group.tabs.users.text")}
@@ -108,7 +101,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                   <Have I={"has_service_white"}>
                     <Can do={"api_resolvers_group_authors_resolve"}>
                       <ContentTab
-                        icon={"icon pe-7s-users"}
                         id={"authorsTab"}
                         link={`${url}/authors`}
                         title={translate.t("group.tabs.authors.text")}
@@ -118,7 +110,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                   </Have>
                   {!canGetToeInputs && !canGetToeLines ? undefined : (
                     <ContentTab
-                      icon={"icon pe-7s-note2"}
                       id={"toeTab"}
                       link={`${url}/surface`}
                       title={translate.t("group.tabs.toe.text")}
@@ -126,7 +117,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                     />
                   )}
                   <ContentTab
-                    icon={"icon pe-7s-box1"}
                     id={"resourcesTab"}
                     link={`${url}/scope`}
                     title={translate.t("group.tabs.resources.text")}

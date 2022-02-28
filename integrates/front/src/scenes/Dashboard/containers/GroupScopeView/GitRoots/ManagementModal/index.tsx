@@ -63,7 +63,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
         {isEditing ? (
           <TabsContainer>
             <ContentTab
-              icon={"icon pe-7s-note2"}
               id={"repoTab"}
               link={"/repository"}
               title={t("group.scope.git.repo.title")}
@@ -71,7 +70,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
             />
             <Can do={"api_mutations_update_git_environments_mutate"}>
               <ContentTab
-                icon={"icon pe-7s-cloud"}
                 id={"envsTab"}
                 link={"/environments"}
                 title={t("group.scope.git.envUrls")}

@@ -4,7 +4,6 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import {
-  NavLink,
   Redirect,
   Route,
   Switch,
@@ -73,32 +72,14 @@ const EventContent: React.FC = (): JSX.Element => {
               id={id}
             />
             <TabsContainer>
-              <Tab id={"resourcesTab"}>
-                <NavLink
-                  activeClassName={"nav-active-bg"}
-                  to={`${url}/description`}
-                >
-                  <i className={"icon pe-7s-note2"} />
-                  &nbsp;{translate.t("searchFindings.tabEvents.description")}
-                </NavLink>
+              <Tab id={"resourcesTab"} to={`${url}/description`}>
+                {translate.t("searchFindings.tabEvents.description")}
               </Tab>
-              <Tab id={"evidenceTab"}>
-                <NavLink
-                  activeClassName={"nav-active-bg"}
-                  to={`${url}/evidence`}
-                >
-                  <i className={"icon pe-7s-note2"} />
-                  &nbsp;{translate.t("searchFindings.tabEvents.evidence")}
-                </NavLink>
+              <Tab id={"evidenceTab"} to={`${url}/evidence`}>
+                {translate.t("searchFindings.tabEvents.evidence")}
               </Tab>
-              <Tab id={"commentsTab"}>
-                <NavLink
-                  activeClassName={"nav-active-bg"}
-                  to={`${url}/comments`}
-                >
-                  <i className={"icon pe-7s-comment"} />
-                  &nbsp;{translate.t("searchFindings.tabEvents.comments")}
-                </NavLink>
+              <Tab id={"commentsTab"} to={`${url}/comments`}>
+                {translate.t("searchFindings.tabEvents.comments")}
               </Tab>
             </TabsContainer>
             <TabContent>

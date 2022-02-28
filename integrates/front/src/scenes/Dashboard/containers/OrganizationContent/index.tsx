@@ -137,14 +137,12 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
             <div>
               <TabsContainer>
                 <ContentTab
-                  icon={"icon pe-7s-graph3"}
                   id={"analyticsTab"}
                   link={`${url}/analytics`}
                   title={translate.t("organization.tabs.analytics.text")}
                   tooltip={translate.t("organization.tabs.analytics.tooltip")}
                 />
                 <ContentTab
-                  icon={"icon pe-7s-folder"}
                   id={"groupsTab"}
                   link={`${url}/groups`}
                   title={translate.t("organization.tabs.groups.text")}
@@ -154,7 +152,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 !_.isEmpty(portfoliosData) &&
                 portfoliosData.me.tags.length > 0 ? (
                   <ContentTab
-                    icon={"icon pe-7s-display2"}
                     id={"portfoliosTab"}
                     link={`${url}/portfolios`}
                     title={translate.t("organization.tabs.portfolios.text")}
@@ -165,7 +162,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 ) : null}
                 <Can do={"api_resolvers_organization_stakeholders_resolve"}>
                   <ContentTab
-                    icon={"icon pe-7s-users"}
                     id={"usersTab"}
                     link={`${url}/stakeholders`}
                     title={translate.t("organization.tabs.users.text")}
@@ -173,7 +169,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   />
                 </Can>
                 <ContentTab
-                  icon={"icon pe-7s-box1"}
                   id={"policiesTab"}
                   link={`${url}/policies`}
                   title={translate.t("organization.tabs.policies.text")}
@@ -181,7 +176,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 />
                 <Can do={"api_resolvers_organization_payment_methods_resolve"}>
                   <ContentTab
-                    icon={"icon pe-7s-cash"}
                     id={"billingTab"}
                     link={`${url}/billing`}
                     title={translate.t("organization.tabs.billing.text")}

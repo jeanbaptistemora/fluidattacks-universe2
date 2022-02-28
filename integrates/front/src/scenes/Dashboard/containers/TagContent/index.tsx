@@ -54,7 +54,6 @@ const TagContent: React.FC = (): JSX.Element => {
             <div>
               <TabsContainer>
                 <ContentTab
-                  icon={"icon pe-7s-graph3"}
                   id={"tagIndicatorsTab"}
                   link={`${url}/analytics`}
                   title={translate.t(
@@ -65,7 +64,6 @@ const TagContent: React.FC = (): JSX.Element => {
                   )}
                 />
                 <ContentTab
-                  icon={"icon pe-7s-albums"}
                   id={"tagGroupsTab"}
                   link={`${url}/groups`}
                   title={translate.t(

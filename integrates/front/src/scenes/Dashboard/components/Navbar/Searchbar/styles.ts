@@ -24,6 +24,10 @@ const SearchInput = styled(FormikText)`
     border-color: transparent !important;
     width: 180px !important;
   }
+
+  ::placeholder {
+    color: #b0b0bf;
+  }
 `;
 
 export { SearchContainer, SearchInput };

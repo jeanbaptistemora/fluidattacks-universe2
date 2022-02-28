@@ -313,14 +313,12 @@ const Execution: React.FC<IExecution> = (
       <MemoryRouter initialEntries={["/summary", "/log"]} initialIndex={0}>
         <TabsContainer>
           <ContentTab
-            icon={"icon pe-7s-graph3"}
             id={"forcesExecutionSummaryTab"}
             link={"/summary"}
             title={translate.t("group.forces.tabs.summary.text")}
             tooltip={translate.t("group.forces.tabs.summary.tooltip")}
           />
           <ContentTab
-            icon={"icon pe-7s-file"}
             id={"forcesExecutionLogTab"}
             link={"/log"}
             title={translate.t("group.forces.tabs.log.text")}

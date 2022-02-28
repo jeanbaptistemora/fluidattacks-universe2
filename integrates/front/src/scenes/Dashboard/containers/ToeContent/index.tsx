@@ -37,7 +37,6 @@ const toeContent: React.FC<IToeContentProps> = (
         <TabsContainer>
           <Can do={"api_resolvers_group_toe_lines_resolve"}>
             <ContentTab
-              icon={"icon pe-7s-menu"}
               id={"toeLinesTab"}
               link={`${url}/lines`}
               title={translate.t("group.toe.tabs.lines.text")}
@@ -46,7 +45,6 @@ const toeContent: React.FC<IToeContentProps> = (
           </Can>
           <Can do={"api_resolvers_group_toe_inputs_resolve"}>
             <ContentTab
-              icon={"icon pe-7s-target"}
               id={"toeInputsTab"}
               link={`${url}/inputs`}
               title={translate.t("group.toe.tabs.inputs.text")}
