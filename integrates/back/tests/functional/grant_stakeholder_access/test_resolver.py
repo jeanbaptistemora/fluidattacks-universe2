@@ -1,5 +1,9 @@
 from . import (
     get_result,
+    get_stakeholders,
+)
+from back.tests.functional.utils import (
+    complete_register,
 )
 import pytest
 from typing import (
@@ -35,6 +39,27 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
         result["data"]["grantStakeholderAccess"]["grantedStakeholder"]["email"]
         == stakeholder_email
     )
+
+    stakeholders: Dict[str, Any] = await get_stakeholders(
+        user=email, group=group_name
+    )
+
+    assert "errors" not in stakeholders
+    for stakeholder in stakeholders["data"]["group"]["stakeholders"]:
+        if stakeholder["email"] == stakeholder_email:
+            assert stakeholder["invitationState"] == "PENDING"
+
+    await complete_register(stakeholder_email, group_name)
+    stakeholders_after_complete: Dict[str, Any] = await get_stakeholders(
+        user=email, group=group_name
+    )
+
+    assert "errors" not in stakeholders_after_complete
+    for stakeholder in stakeholders_after_complete["data"]["group"][
+        "stakeholders"
+    ]:
+        if stakeholder["email"] == stakeholder_email:
+            assert stakeholder["invitationState"] == "CONFIRMED"
 
 
 @pytest.mark.asyncio

@@ -41,3 +41,31 @@ async def get_result(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_stakeholders(
+    *,
+    user: str,
+    group: str,
+) -> Dict[str, Any]:
+    query: str = """
+        query GetStakeholders($groupName: String!) {
+            group (groupName: $groupName) {
+                stakeholders {
+                    email
+                    invitationState
+                }
+            }
+        }
+    """
+    data: Dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "groupName": group,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
