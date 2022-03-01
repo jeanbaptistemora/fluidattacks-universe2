@@ -424,6 +424,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               <Graphic
                 bsHeight={320}
                 className={"g1"}
+                documentName={"eventualities"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("analytics.barChart.eventualities")}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
                 documentName={"remediatedGroup"}
                 documentType={"stackedBarChart"}
                 entity={entity}
