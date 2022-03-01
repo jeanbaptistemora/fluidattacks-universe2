@@ -1,6 +1,3 @@
-from aioextensions import (
-    run_decorator,
-)
 from batch import (
     config,
 )
@@ -49,7 +46,7 @@ def test_get_ssl_targets() -> None:
     assert expected == result
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_get_scopes_from_group(test_group: str) -> None:
@@ -61,7 +58,7 @@ async def test_get_scopes_from_group(test_group: str) -> None:
     assert expected == result
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 async def test_generate_config(test_group: str) -> None:
     expected = SkimsConfig(

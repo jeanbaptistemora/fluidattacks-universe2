@@ -1,6 +1,3 @@
-from aioextensions import (
-    run_decorator,
-)
 import pytest
 from utils.system import (
     read,
@@ -17,7 +14,7 @@ def test_read_blocking() -> None:
     assert not stderr, stderr
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("unittesting")
 async def test_read() -> None:
     code, stdout, stderr = await read("echo", "test")

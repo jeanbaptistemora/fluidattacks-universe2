@@ -1,6 +1,5 @@
 from aioextensions import (
     collect,
-    run_decorator,
 )
 from cli import (
     cli,
@@ -441,7 +440,7 @@ def _run_no_group(
     check_that_csv_results_match(suite, snippet_filter=snippet_filter)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 @pytest.mark.usefixtures("test_mocks_ssl_unsafe")
@@ -459,7 +458,7 @@ async def test_integrates_group_is_pristine_run(
     assert all(findings_deleted)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_integrates_group_is_pristine_check(
@@ -469,7 +468,7 @@ async def test_integrates_group_is_pristine_check(
     assert await get_group_data(test_group) == set()
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_integrates_group_has_required_roots(
@@ -510,7 +509,7 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     assert not stderr, stderr
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_report_nothing_to_integrates_verify(
@@ -539,7 +538,7 @@ def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     check_that_csv_results_match(suite)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_report_vulns_to_namespace_verify(
@@ -593,7 +592,7 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     check_that_csv_results_match(suite)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_report_vulns_to_namespace2_verify(
@@ -649,7 +648,7 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     check_that_csv_results_match(suite)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_close_vulns_to_namespace_verify(
@@ -702,7 +701,7 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     check_that_csv_results_match(suite)
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_close_vulns_on_namespace2_verify(

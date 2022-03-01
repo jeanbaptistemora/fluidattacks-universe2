@@ -1,6 +1,3 @@
-from aioextensions import (
-    run_decorator,
-)
 from model import (
     core_model,
 )
@@ -20,8 +17,8 @@ from utils.encodings import (
 )
 
 
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("unittesting")
-@run_decorator
 @pytest.mark.parametrize(
     "files_to_test,suffix_out",
     [

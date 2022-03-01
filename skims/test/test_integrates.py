@@ -1,6 +1,3 @@
-from aioextensions import (
-    run_decorator,
-)
 from ctx import (
     CTX,
 )
@@ -25,7 +22,7 @@ from utils.repositories import (
 )
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_client(
@@ -39,7 +36,7 @@ async def test_client(
         }
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 async def test_build_vulnerabilities_stream() -> None:
     sast_developer = core_model.DeveloperEnum.DIEGO_RESTREPO
@@ -125,7 +122,7 @@ async def test_build_vulnerabilities_stream() -> None:
     )
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_get_group_level_role(

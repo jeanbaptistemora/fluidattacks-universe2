@@ -158,7 +158,7 @@
                     "S": "front/components/**/*.spec.js"
                   },
                   {
-                    "S": "front/node_modules/*"
+                    "S": "front/node_modules/"
                   },
                   {
                     "S": "back/src/static/*"

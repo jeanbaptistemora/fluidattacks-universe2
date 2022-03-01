@@ -1,6 +1,3 @@
-from aioextensions import (
-    run_decorator,
-)
 from core.persist import (
     diff_results,
 )
@@ -14,7 +11,7 @@ from state.ephemeral import (
 )
 
 
-@run_decorator
+@pytest.mark.asyncio
 @pytest.mark.skims_test_group("unittesting")
 async def test_diff_results() -> None:
     namespace = "test"
