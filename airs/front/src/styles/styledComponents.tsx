@@ -513,7 +513,6 @@ const NewInnerMainContentHome: StyledComponent<
     center
     pt0-ns
     pt4
-    pl3
     cf
     tl
   `,
