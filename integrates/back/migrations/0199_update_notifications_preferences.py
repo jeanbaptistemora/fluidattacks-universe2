@@ -1,4 +1,12 @@
 # pylint: disable=invalid-name
+"""
+Update notifications preferences to users
+
+Execution Time: 2022-03-01 at 14:00:24 UTC
+Finalization Time: 2022-03-01 at 14:01:42 UTC
+"""
+
+
 from aioextensions import (
     run,
 )
