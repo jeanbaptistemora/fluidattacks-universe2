@@ -32,14 +32,14 @@ const Portrait: React.FC = (): JSX.Element => (
         <GrayMediumParagraph>{`"Quote"`}</GrayMediumParagraph>
         <GrayLittleParagraph>{`Name, position, company`}</GrayLittleParagraph>
         <div className={"cf mt4 mb5"}>
-          <Link className={"no-underline"} to={"/newHome"}>
+          <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
-              {"Start your free trial"}
+              {"Get a free demo"}
             </NewRegularRedButton>
           </Link>
           <Link className={"no-underline"} to={"/newHome"}>
             <PhantomRegularRedButton className={"fl mh1 w-auto-ns w-100"}>
-              {"Product overview"}
+              {"Contact an expert"}
             </PhantomRegularRedButton>
           </Link>
         </div>
