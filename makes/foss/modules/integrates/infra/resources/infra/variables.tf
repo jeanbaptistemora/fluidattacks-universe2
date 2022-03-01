@@ -27,3 +27,7 @@ variable "aws_s3_forces_bucket" {
   type    = string
   default = "fluidintegrates.forces"
 }
+
+variable "twilio_account_sid" {}
+
+variable "twilio_auth_token" {}

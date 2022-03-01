@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.23.0"
     }
+    twilio = {
+      source  = "twilio/twilio"
+      version = ">=0.4.0"
+    }
   }
 
   backend "s3" {
@@ -16,6 +20,11 @@ terraform {
     dynamodb_table = "terraform_state_lock"
   }
 
+}
+
+provider "twilio" {
+  username = var.twilio_account_sid
+  password = var.twilio_auth_token
 }
 
 module "dynamodb" {
@@ -34,4 +43,8 @@ module "cloudfront" {
 module "s3" {
   source                = "./s3"
   analytics_bucket_name = var.aws_s3_analytics_bucket
+}
+
+module "verify-services" {
+  source = "./verify-services"
 }
