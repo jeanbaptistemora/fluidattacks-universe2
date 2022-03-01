@@ -7,15 +7,10 @@ from aiogqlc.client import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
-from core.vulnerabilities import (
-    get_vulnerability_justification,
-    vulns_with_reattack_requested,
-)
 from ctx import (
     CTX,
 )
 from integrates.dal import (
-    do_add_finding_consult,
     do_update_evidence,
     do_update_evidence_description,
     get_finding_vulnerabilities,
@@ -272,7 +267,6 @@ async def persist_finding(
             finding=finding, finding_id=finding_id, client=client
         )
         # Get vulnerabilities with a reattack requested before verification
-        reattacked_store = vulns_with_reattack_requested(integrates_store)
 
         diff_store = await diff_results(
             integrates_store=integrates_store,
