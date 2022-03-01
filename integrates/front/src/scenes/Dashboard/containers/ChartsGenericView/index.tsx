@@ -218,7 +218,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               </Col50>
             </RowCenter>
             <RowCenter>
-              <Col50>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -232,8 +232,24 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   subject={subject}
                   title={translate.t("analytics.textBox.totalTypes.title")}
                 />
-              </Col50>
-              <Col50>
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"daysUntilZeroExposition"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"raw"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t(
+                    "analytics.textBox.daysUntilZeroExposition.title"
+                  )}
+                />
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -249,7 +265,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     "analytics.textBox.vulnsWithUndefinedTreatment.title"
                   )}
                 />
-              </Col50>
+              </Col33>
             </RowCenter>
             <RowCenter>
               <Col33>

@@ -180,7 +180,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
               </LastOrg>
             </ButtonGroup>
           </NavSplitButtonContainer>
-          <li>
+          <li className={"nl2"}>
             <Link to={"/todos"}>{t("navbar.task.text")}</Link>
           </li>
         </React.Fragment>

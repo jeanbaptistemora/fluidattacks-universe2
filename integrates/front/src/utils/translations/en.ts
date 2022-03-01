@@ -154,6 +154,9 @@ export const enTranslations: ResourceKey = {
       daysSinceLastRemediation: {
         title: "Days since last remediation",
       },
+      daysUntilZeroExposition: {
+        title: "Days until zero exposition",
+      },
       findingsBeingReattacked: {
         title: "Vulnerabilities being re-attacked",
       },
