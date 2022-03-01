@@ -101,7 +101,7 @@ const SeverityTile: React.FC<ISeverityTile> = ({
         </div>
         <div className={"dtc v-mid w-70"}>
           <span className={"f5"}>
-            <b>{t(`searchFindings.tabSeverity.${name}`)}</b>
+            <b>{t(`searchFindings.tabSeverity.${name}.label`)}</b>
           </span>
           <div>
             <span className={`dib br-100 pa1 ${color}`} />

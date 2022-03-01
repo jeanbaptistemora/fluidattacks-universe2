@@ -122,7 +122,7 @@ describe("SeverityView", (): void => {
       )
     );
     expect(reportConfidence.find("b").first().text()).toStrictEqual(
-      t("searchFindings.tabSeverity.reportConfidence")
+      t("searchFindings.tabSeverity.reportConfidence.label")
     );
 
     const editButton: ReactWrapper = wrapper

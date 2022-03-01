@@ -8,14 +8,14 @@ const castPrivileges: (scope: string) => Record<string, string> = (
   scope: string
 ): Record<string, string> => {
   const privilegesRequiredScope: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.privilegesRequiredOptions.high.text",
-    0.68: "searchFindings.tabSeverity.privilegesRequiredOptions.low.text",
-    0.85: "searchFindings.tabSeverity.privilegesRequiredOptions.none.text",
+    0.5: "searchFindings.tabSeverity.privilegesRequired.options.high.label",
+    0.68: "searchFindings.tabSeverity.privilegesRequired.options.low.label",
+    0.85: "searchFindings.tabSeverity.privilegesRequired.options.none.label",
   };
   const privilegesRequiredNoScope: Record<string, string> = {
-    0.27: "searchFindings.tabSeverity.privilegesRequiredOptions.high.text",
-    0.62: "searchFindings.tabSeverity.privilegesRequiredOptions.low.text",
-    0.85: "searchFindings.tabSeverity.privilegesRequiredOptions.none.text",
+    0.27: "searchFindings.tabSeverity.privilegesRequired.options.high.label",
+    0.62: "searchFindings.tabSeverity.privilegesRequired.options.low.label",
+    0.85: "searchFindings.tabSeverity.privilegesRequired.options.none.label",
   };
 
   if (parseInt(scope, 10) === 1) {
@@ -31,8 +31,8 @@ const attackComplexityBgColor: Record<string, string> = {
 };
 
 const attackComplexityOptions: Record<string, string> = {
-  0.44: "searchFindings.tabSeverity.attackComplexityOptions.high.text",
-  0.77: "searchFindings.tabSeverity.attackComplexityOptions.low.text",
+  0.44: "searchFindings.tabSeverity.attackComplexity.options.high.label",
+  0.77: "searchFindings.tabSeverity.attackComplexity.options.low.label",
 };
 
 const attackVectorBgColor: Record<string, string> = {
@@ -43,10 +43,10 @@ const attackVectorBgColor: Record<string, string> = {
 };
 
 const attackVectorOptions: Record<string, string> = {
-  0.2: "searchFindings.tabSeverity.attackVectorOptions.physical.text",
-  0.55: "searchFindings.tabSeverity.attackVectorOptions.local.text",
-  0.62: "searchFindings.tabSeverity.attackVectorOptions.adjacent.text",
-  0.85: "searchFindings.tabSeverity.attackVectorOptions.network.text",
+  0.2: "searchFindings.tabSeverity.attackVector.options.physical.label",
+  0.55: "searchFindings.tabSeverity.attackVector.options.local.label",
+  0.62: "searchFindings.tabSeverity.attackVector.options.adjacent.label",
+  0.85: "searchFindings.tabSeverity.attackVector.options.network.label",
 };
 
 const availabilityImpactBgColor: Record<string, string> = {
@@ -56,9 +56,9 @@ const availabilityImpactBgColor: Record<string, string> = {
 };
 
 const availabilityImpactOptions: Record<string, string> = {
-  0: "searchFindings.tabSeverity.availabilityImpactOptions.none.text",
-  0.22: "searchFindings.tabSeverity.availabilityImpactOptions.low.text",
-  0.56: "searchFindings.tabSeverity.availabilityImpactOptions.high.text",
+  0: "searchFindings.tabSeverity.availabilityImpact.options.none.label",
+  0.22: "searchFindings.tabSeverity.availabilityImpact.options.low.label",
+  0.56: "searchFindings.tabSeverity.availabilityImpact.options.high.label",
 };
 
 const confidentialityImpactBgColor: Record<string, string> = {
@@ -68,9 +68,9 @@ const confidentialityImpactBgColor: Record<string, string> = {
 };
 
 const confidentialityImpactOptions: Record<string, string> = {
-  0: "searchFindings.tabSeverity.confidentialityImpactOptions.none.text",
-  0.22: "searchFindings.tabSeverity.confidentialityImpactOptions.low.text",
-  0.56: "searchFindings.tabSeverity.confidentialityImpactOptions.high.text",
+  0: "searchFindings.tabSeverity.confidentialityImpact.options.none.label",
+  0.22: "searchFindings.tabSeverity.confidentialityImpact.options.low.label",
+  0.56: "searchFindings.tabSeverity.confidentialityImpact.options.high.label",
 };
 
 const exploitabilityBgColor: Record<string, string> = {
@@ -81,10 +81,10 @@ const exploitabilityBgColor: Record<string, string> = {
 };
 
 const exploitabilityOptions: Record<string, string> = {
-  0.91: "searchFindings.tabSeverity.exploitabilityOptions.unproven.text",
-  0.94: "searchFindings.tabSeverity.exploitabilityOptions.proofOfConcept.text",
-  0.97: "searchFindings.tabSeverity.exploitabilityOptions.functional.text",
-  1: "searchFindings.tabSeverity.exploitabilityOptions.high.text",
+  0.91: "searchFindings.tabSeverity.exploitability.options.unproven.label",
+  0.94: "searchFindings.tabSeverity.exploitability.options.proofOfConcept.label",
+  0.97: "searchFindings.tabSeverity.exploitability.options.functional.label",
+  1: "searchFindings.tabSeverity.exploitability.options.high.label",
 };
 
 const integrityImpactBgColor: Record<string, string> = {
@@ -94,9 +94,9 @@ const integrityImpactBgColor: Record<string, string> = {
 };
 
 const integrityImpactOptions: Record<string, string> = {
-  0: "searchFindings.tabSeverity.integrityImpactOptions.none.text",
-  0.22: "searchFindings.tabSeverity.integrityImpactOptions.low.text",
-  0.56: "searchFindings.tabSeverity.integrityImpactOptions.high.text",
+  0: "searchFindings.tabSeverity.integrityImpact.options.none.label",
+  0.22: "searchFindings.tabSeverity.integrityImpact.options.low.label",
+  0.56: "searchFindings.tabSeverity.integrityImpact.options.high.label",
 };
 
 const remediationLevelBgColor: Record<string, string> = {
@@ -107,10 +107,10 @@ const remediationLevelBgColor: Record<string, string> = {
 };
 
 const remediationLevelOptions: Record<string, string> = {
-  0.95: "searchFindings.tabSeverity.remediationLevelOptions.officialFix.text",
-  0.96: "searchFindings.tabSeverity.remediationLevelOptions.temporaryFix.text",
-  0.97: "searchFindings.tabSeverity.remediationLevelOptions.workaround.text",
-  1: "searchFindings.tabSeverity.remediationLevelOptions.unavailable.text",
+  0.95: "searchFindings.tabSeverity.remediationLevel.options.officialFix.label",
+  0.96: "searchFindings.tabSeverity.remediationLevel.options.temporaryFix.label",
+  0.97: "searchFindings.tabSeverity.remediationLevel.options.workaround.label",
+  1: "searchFindings.tabSeverity.remediationLevel.options.unavailable.label",
 };
 
 const reportConfidenceBgColor: Record<string, string> = {
@@ -120,9 +120,9 @@ const reportConfidenceBgColor: Record<string, string> = {
 };
 
 const reportConfidenceOptions: Record<string, string> = {
-  0.92: "searchFindings.tabSeverity.reportConfidenceOptions.unknown.text",
-  0.96: "searchFindings.tabSeverity.reportConfidenceOptions.reasonable.text",
-  1: "searchFindings.tabSeverity.reportConfidenceOptions.confirmed.text",
+  0.92: "searchFindings.tabSeverity.reportConfidence.options.unknown.label",
+  0.96: "searchFindings.tabSeverity.reportConfidence.options.reasonable.label",
+  1: "searchFindings.tabSeverity.reportConfidence.options.confirmed.label",
 };
 
 const severityScopeBgColor: Record<string, string> = {
@@ -131,8 +131,8 @@ const severityScopeBgColor: Record<string, string> = {
 };
 
 const severityScopeOptions: Record<string, string> = {
-  0: "searchFindings.tabSeverity.severityScopeOptions.unchanged.text",
-  1: "searchFindings.tabSeverity.severityScopeOptions.changed.text",
+  0: "searchFindings.tabSeverity.severityScope.options.unchanged.label",
+  1: "searchFindings.tabSeverity.severityScope.options.changed.label",
 };
 
 const userInteractionBgColor: Record<string, string> = {
@@ -141,8 +141,8 @@ const userInteractionBgColor: Record<string, string> = {
 };
 
 const userInteractionOptions: Record<string, string> = {
-  0.62: "searchFindings.tabSeverity.userInteractionOptions.required.text",
-  0.85: "searchFindings.tabSeverity.userInteractionOptions.none.text",
+  0.62: "searchFindings.tabSeverity.userInteraction.options.required.label",
+  0.85: "searchFindings.tabSeverity.userInteraction.options.none.label",
 };
 
 /**
@@ -163,86 +163,88 @@ const castFieldsCVSS3: (
       currentValue: dataset.attackVector,
       name: "attackVector",
       options: attackVectorOptions,
-      title: translate.t("searchFindings.tabSeverity.attackVector"),
+      title: translate.t("searchFindings.tabSeverity.attackVector.label"),
     },
     {
       currentValue: dataset.attackComplexity,
       name: "attackComplexity",
       options: attackComplexityOptions,
-      title: translate.t("searchFindings.tabSeverity.attackComplexity"),
+      title: translate.t("searchFindings.tabSeverity.attackComplexity.label"),
     },
     {
       currentValue: dataset.userInteraction,
       name: "userInteraction",
       options: userInteractionOptions,
-      title: translate.t("searchFindings.tabSeverity.userInteraction"),
+      title: translate.t("searchFindings.tabSeverity.userInteraction.label"),
     },
     {
       currentValue: dataset.severityScope,
       name: "severityScope",
       options: severityScopeOptions,
-      title: translate.t("searchFindings.tabSeverity.severityScope"),
+      title: translate.t("searchFindings.tabSeverity.severityScope.label"),
     },
     {
       currentValue: dataset.confidentialityImpact,
       name: "confidentialityImpact",
       options: confidentialityImpactOptions,
-      title: translate.t("searchFindings.tabSeverity.confidentialityImpact"),
+      title: translate.t(
+        "searchFindings.tabSeverity.confidentialityImpact.label"
+      ),
     },
     {
       currentValue: dataset.integrityImpact,
       name: "integrityImpact",
       options: integrityImpactOptions,
-      title: translate.t("searchFindings.tabSeverity.integrityImpact"),
+      title: translate.t("searchFindings.tabSeverity.integrityImpact.label"),
     },
     {
       currentValue: dataset.availabilityImpact,
       name: "availabilityImpact",
       options: availabilityImpactOptions,
-      title: translate.t("searchFindings.tabSeverity.availabilityImpact"),
+      title: translate.t("searchFindings.tabSeverity.availabilityImpact.label"),
     },
     {
       currentValue: dataset.exploitability,
       name: "exploitability",
       options: exploitabilityOptions,
-      title: translate.t("searchFindings.tabSeverity.exploitability"),
+      title: translate.t("searchFindings.tabSeverity.exploitability.label"),
     },
     {
       currentValue: dataset.remediationLevel,
       name: "remediationLevel",
       options: remediationLevelOptions,
-      title: translate.t("searchFindings.tabSeverity.remediationLevel"),
+      title: translate.t("searchFindings.tabSeverity.remediationLevel.label"),
     },
     {
       currentValue: dataset.reportConfidence,
       name: "reportConfidence",
       options: reportConfidenceOptions,
-      title: translate.t("searchFindings.tabSeverity.reportConfidence"),
+      title: translate.t("searchFindings.tabSeverity.reportConfidence.label"),
     },
     {
       currentValue: dataset.privilegesRequired,
       name: "privilegesRequired",
       options: castPrivileges(formValues.severityScope),
-      title: translate.t("searchFindings.tabSeverity.privilegesRequired"),
+      title: translate.t("searchFindings.tabSeverity.privilegesRequired.label"),
     },
   ];
 
   const confidentialityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.confidentialityRequirementOptions.low.text",
-    1: "searchFindings.tabSeverity.confidentialityRequirementOptions.medium.text",
-    1.5: "searchFindings.tabSeverity.confidentialityRequirementOptions.high.text",
+    0.5: "searchFindings.tabSeverity.confidentialityRequirement.options.low.label",
+    1: "searchFindings.tabSeverity.confidentialityRequirement.options.medium.label",
+    1.5: "searchFindings.tabSeverity.confidentialityRequirement.options.high.label",
   };
 
   const integrityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.integrityRequirementOptions.low.text",
-    1: "searchFindings.tabSeverity.integrityRequirementOptions.medium.text",
-    1.5: "searchFindings.tabSeverity.integrityRequirementOptions.high.text",
+    0.5: "searchFindings.tabSeverity.integrityRequirement.options.low.label",
+    1: "searchFindings.tabSeverity.integrityRequirement.options.medium.label",
+    1.5: "searchFindings.tabSeverity.integrityRequirement.options.high.label",
   };
 
   const availabilityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.availabilityRequirementOptions.low.text",
-    1: "searchFindings.tabSeverity.availabilityRequirementOptions.medium.text",
-    1.5: "searchFindings.tabSeverity.availabilityRequirementOptions.high.text",
+    0.5: "searchFindings.tabSeverity.availabilityRequirement.options.low.label",
+    1: "searchFindings.tabSeverity.availabilityRequirement.options.medium.label",
+    1.5: "searchFindings.tabSeverity.availabilityRequirement.options.high.label",
   };
 
   const environmentFields: ISeverityField[] = [
@@ -251,20 +253,24 @@ const castFieldsCVSS3: (
       name: "confidentialityRequirement",
       options: confidentialityRequirement,
       title: translate.t(
-        "searchFindings.tabSeverity.confidentialityRequirement"
+        "searchFindings.tabSeverity.confidentialityRequirement.label"
       ),
     },
     {
       currentValue: dataset.integrityRequirement,
       name: "integrityRequirement",
       options: integrityRequirement,
-      title: translate.t("searchFindings.tabSeverity.integrityRequirement"),
+      title: translate.t(
+        "searchFindings.tabSeverity.integrityRequirement.label"
+      ),
     },
     {
       currentValue: dataset.availabilityRequirement,
       name: "availabilityRequirement",
       options: availabilityRequirement,
-      title: translate.t("searchFindings.tabSeverity.availabilityRequirement"),
+      title: translate.t(
+        "searchFindings.tabSeverity.availabilityRequirement.label"
+      ),
     },
     {
       currentValue: dataset.modifiedAttackVector,

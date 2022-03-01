@@ -2113,70 +2113,71 @@ export const enTranslations: ResourceKey = {
         "<br /> Deleted groups cannot be restored.",
     },
     tabSeverity: {
-      attackComplexity: "Attack Complexity",
-      attackComplexityOptions: {
-        high: {
-          text: "High",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "A successful attack depends on conditions beyond the attacker's control. " +
-            "That is, a successful attack cannot be accomplished at will, " +
-            "but requires the attacker to invest in some measurable amount of effort in preparation or " +
-            "execution against the vulnerable component before a successful attack can be expected.",
+      attackComplexity: {
+        label: "Attack Complexity",
+        options: {
+          high: {
+            label: "High",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "A successful attack cannot be achieved at will. " +
+              "Instead, it requires the attacker to spend a measurable amount of effort, " +
+              "preparing or executing against the vulnerable component, " +
+              "before a successful attack can be expected.",
+          },
+          low: {
+            label: "Low (L)",
+            tooltip:
+              "<strong>Low:</strong> " +
+              "There are no special access conditions or extenuating circumstances. " +
+              "An attacker can expect repeatable success by attacking the vulnerable component.",
+          },
         },
-        low: {
-          text: "Low",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "Specialized access conditions or extenuating circumstances do not exist. " +
-            "An attacker can expect repeatable success when attacking the vulnerable component.",
-        },
+        tooltip:
+          "<strong>Attack Complexity (AC):</strong> " +
+          "Describes the conditions outside the attacker's control that must exist in order to exploit the vulnerability. " +
+          "Such conditions may require the collection of more information about the target or computational exceptions.",
       },
-      attackVector: "Attack Vector",
-      attackVectorOptions: {
-        adjacent: {
-          text: "Adjacent network",
-          tooltip:
-            "<strong>Worse:</strong> " +
-            "The vulnerable component is bound to the network stack, " +
-            "but the attack is limited at the protocol level to a logically adjacent topology. " +
-            "This can mean an attack must be launched from the same shared physical (e.g., Bluetooth or IEEE 802.11) " +
-            "or logical (e.g., local IP subnet) network, or from within a secure or otherwise limited administrative domain " +
-            "(e.g., MPLS, secure VPN to an administrative network zone). " +
-            "One example of an Adjacent attack would be an ARP (IPv4) or neighbor discovery (IPv6) " +
-            "flood leading to a denial of service on the local LAN segment.",
+      attackVector: {
+        label: "Attack Vector",
+        options: {
+          adjacent: {
+            label: "Adjacent network",
+            tooltip:
+              "<strong>Adjacent (A):</strong> " +
+              "The vulnerable component is bound to the network stack, " +
+              "but the attack is limited at the protocol level to a logically adjacent topology. " +
+              "This may mean that an attack must be launched from the same shared physical or logical network, " +
+              "or from within a limited or secure administrative domain.",
+          },
+          local: {
+            label: "Local",
+            tooltip:
+              "<strong>Local (L):</strong> " +
+              "The vulnerable component is not bound to the network stack. " +
+              "The attacker exploits the vulnerability by accessing it locally (eg, keyboard, console), remotely (eg, SSH), " +
+              "or by relying on user interaction with another person to perform the actions necessary to exploit the vulnerability.",
+          },
+          network: {
+            label: "Network",
+            tooltip:
+              "<strong>Network (N):</strong> " +
+              "The vulnerable component is bound to the network stack and includes the entire Internet. " +
+              "Such vulnerability is often referred as a remote exploitable and, " +
+              "can be thought of as an attack exploitable at the protocol level one or more network hops away.",
+          },
+          physical: {
+            label: "Physical",
+            tooltip:
+              "<strong>Physical (P):</strong> " +
+              "The attack requires the attacker to physically touch or manipulate the vulnerable component. " +
+              "The physical interaction can be brief or persistent.",
+          },
         },
-        local: {
-          text: "Local",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "The vulnerable component is not bound to the network stack " +
-            "and the attacker’s path is via read/write/execute capabilities. Either: " +
-            "the attacker exploits the vulnerability by accessing the target system locally " +
-            "(e.g., keyboard, console), or remotely (e.g., SSH); or " +
-            "the attacker relies on User Interaction by another person to perform actions required " +
-            "to exploit the vulnerability (e.g., using social engineering techniques to trick a legitimate user " +
-            "into opening a malicious document).",
-        },
-        network: {
-          text: "Network",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "The vulnerable component is bound to the network stack and the set of possible attackers " +
-            "extends beyond the other options listed below, up to and including the entire internet. " +
-            'Such a vulnerability is often termed "remotely exploitable" and can be thought of as an attack being ' +
-            "exploitable at the protocol level one or more network hops away (e.g., across one or more routers).",
-        },
-        physical: {
-          text: "Physical",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "The attack requires the attacker to physically touch or manipulate the vulnerable component. " +
-            "Physical interaction may be brief (e.g., evil maid attack) or persistent. " +
-            "An example of such an attack is a cold boot attack in which an attacker gains access " +
-            "to disk encryption keys after physically accessing the target system. " +
-            "Other examples include peripheral attacks via FireWire/USB Direct Memory Access (DMA).",
-        },
+        tooltip:
+          "<strong>Attack Vector (AV):</strong> " +
+          "It reflects the context in which the exploitation of vulnerabilities is possible. " +
+          "This metric value will be higher the more remote (logically and physically) an attacker can be to exploit the vulnerable component.",
       },
       authentication: "Authentication",
       authenticationOptions: {
@@ -2184,212 +2185,196 @@ export const enTranslations: ResourceKey = {
         noAuth: "None: Authentication is not required",
         singleAuth: "Single: Single authentication point",
       },
-      availability: "Availability Impact",
-      availabilityImpact: "Availability Impact",
-      availabilityImpactOptions: {
-        high: {
-          text: "High",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "There is a total loss of availability, " +
-            "resulting in the attacker being able to fully deny access to resources in the impacted component; " +
-            "this loss is either sustained (while the attacker continues to deliver the attack) " +
-            "or persistent (the condition persists even after the attack has completed). " +
-            "Alternatively, the attacker has the ability to deny some availability, " +
-            "but the loss of availability presents a direct, serious consequence to the impacted component " +
-            "(e.g., the attacker cannot disrupt existing connections, but can prevent new connections; " +
-            "the attacker can repeatedly exploit a vulnerability that, " +
-            "in each instance of a successful attack, leaks a only small amount of memory, " +
-            "but after repeated exploitation causes a service to become completely unavailable).",
+      availabilityImpact: {
+        label: "Availability Impact",
+        options: {
+          high: {
+            label: "High",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "It is a total loss of availability, " +
+              "which makes it possible for the attacker to completely deny access to resources on the impacted component. " +
+              "Alternatively, the attacker has the ability to deny some availability, " +
+              "but the loss of availability presents a direct and serious consequence for the impacted component.",
+          },
+          low: {
+            label: "Low",
+            tooltip:
+              "<strong>Low (L):</strong> " +
+              "Performance is reduced or there are interruptions in the availability of resources. " +
+              "Even if repeated exploitation of the vulnerability is possible, " +
+              "the attacker does not have the ability to completely deny service to legitimate users. " +
+              "Often there are no direct and serious consequences for the impacted component.",
+          },
+          none: {
+            label: "None",
+            tooltip:
+              "<strong>None (N):</strong> " +
+              "There is no impact to availability within the impacted component.",
+          },
         },
-        low: {
-          text: "Low",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "Performance is reduced or there are interruptions in resource availability. " +
-            "Even if repeated exploitation of the vulnerability is possible, " +
-            "the attacker does not have the ability to completely deny service to legitimate users. " +
-            "The resources in the impacted component are either partially available all of the time, " +
-            "or fully available only some of the time, but overall there is no direct, " +
-            "serious consequence to the impacted component.",
-        },
-        none: {
-          text: "None",
-          tooltip:
-            "<strong>Good:</strong> " +
-            "There is no impact to availability within the impacted component.",
+        tooltip:
+          "<strong>Availability (A):</strong> " +
+          "It measures the impact on the availability of the affected component such as a network service " +
+          "(eg, web, database, email). It refers to the accessibility of information resources, " +
+          "attacks that consume network bandwidth, processor cycles or disk space can affect availability.",
+      },
+      availabilityRequirement: {
+        label: "Availability Requirement",
+        options: {
+          high: {
+            label: "High",
+          },
+          low: {
+            label: "Low",
+          },
+          medium: {
+            label: "Medium",
+          },
         },
       },
-      availabilityOptions: {
-        complete: "Complete: There is a completely down target",
-        none: "None: There is no impact",
-        partial: "Partial: There is intermittency in the access to the target",
+      confidentialityImpact: {
+        label: "Confidentiality Impact",
+        options: {
+          high: {
+            label: "High",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "There is a complete loss of confidentiality, " +
+              "resulting in all resources within the impacted component being disclosed to the attacker. Alternatively, " +
+              "only certain restricted information is accessed, but the information disclosed has a direct and serious impact.",
+          },
+          low: {
+            label: "Low",
+            tooltip:
+              "<strong>Low (L):</strong> " +
+              "There is some loss of confidentiality. Some restricted information is accessed, " +
+              "but the attacker has no control over what information is obtained, or the amount or type of loss is limited. " +
+              "The disclosure of information does not cause a direct and serious loss to the impacted component.",
+          },
+          none: {
+            label: "None",
+            tooltip:
+              "<strong>None (N):</strong> " +
+              "There is no loss of confidentiality within the impacted component.",
+          },
+        },
+        tooltip:
+          "<strong>Confidentiality (C):</strong> " +
+          "Measures the impact on the confidentiality of information resources " +
+          "managed by a software component due to a successfully exploited vulnerability. " +
+          "Confidentiality refers to limiting access and disclosure of information to authorized users only, " +
+          "as well as preventing access or disclosure to unauthorized persons.",
       },
-      availabilityRequirement: "Availability Requirement",
-      availabilityRequirementOptions: {
-        high: {
-          text: "High",
-        },
-        low: {
-          text: "Low",
-        },
-        medium: {
-          text: "Medium",
-        },
-      },
-      complexity: "Access Complexity",
-      complexityOptions: {
-        highComplex:
-          "High: Special conditions such as administrative access are required",
-        lowComplex: "Low: No special conditions are required",
-        mediumComplex:
-          "Medium: Some conditions such as system access are required",
-      },
-      confidence: "Confidence Level",
-      confidenceOptions: {
-        confirmed:
-          "Confirmed: The vulnerability is recognized by the manufacturer",
-        notConfirm:
-          "Not confirmed: There are few sources that recognize vulnerability",
-        notCorrob:
-          "Not corroborated: Vulnerability is recognized by unofficial sources",
-      },
-      confidentiality: "Confidentiality Impact",
-      confidentialityImpact: "Confidentiality Impact",
-      confidentialityImpactOptions: {
-        high: {
-          text: "High",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "There is a total loss of confidentiality, " +
-            "resulting in all resources within the impacted component being divulged to the attacker. " +
-            "Alternatively, access to only some restricted information is obtained, " +
-            "but the disclosed information presents a direct, serious impact. For example, " +
-            "an attacker steals the administrator's password, or private encryption keys of a web server.",
-        },
-        low: {
-          text: "Low",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "There is some loss of confidentiality. Access to some restricted information is obtained, " +
-            "but the attacker does not have control over what information is obtained, " +
-            "or the amount or kind of loss is limited. " +
-            "The information disclosure does not cause a direct, serious loss to the impacted component.",
-        },
-        none: {
-          text: "None",
-          tooltip:
-            "<strong>Good:</strong> " +
-            "There is no loss of confidentiality within the impacted component.",
-        },
-      },
-      confidentialityOptions: {
-        complete:
-          "Complete: Total control over information related with the target",
-        none: "None: There is no impact",
-        partial: "Partial: Access to information but no control over it",
-      },
-      confidentialityRequirement: "Confidentiality Requirement",
-      confidentialityRequirementOptions: {
-        high: {
-          text: "High",
-        },
-        low: {
-          text: "Low",
-        },
-        medium: {
-          text: "Medium",
+      confidentialityRequirement: {
+        label: "Confidentiality Requirement",
+        options: {
+          high: {
+            label: "High",
+          },
+          low: {
+            label: "Low",
+          },
+          medium: {
+            label: "Medium",
+          },
         },
       },
       cvssVersion: "CVSS Version",
-      editable: "Edit",
-      editableTooltip: "Modify severity metrics",
-      exploitability: "Exploitability",
-      exploitabilityOptions: {
-        conceptual: {
-          text: "Conceptual: There are laboratory tests",
-        },
-        functional: {
-          text: "Functional: There is an exploit",
-          tooltip:
-            "<strong>Worse:</strong> " +
-            "Functional exploit code is available. " +
-            "The code works in most situations where the vulnerability exists.",
-        },
-        high: {
-          text: "High: Exploit is not required or it can be automated",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "Functional autonomous code exists, " +
-            "or no exploit is required (manual trigger) and details are widely available. " +
-            "Exploit code works in every situation, " +
-            "or is actively being delivered via an autonomous agent (such as a worm or virus). " +
-            "Network-connected systems are likely to encounter scanning or exploitation attempts." +
-            " Exploit development has reached the level of reliable, " +
-            "widely available, easy-to-use automated tools.",
-        },
-        improbable: {
-          text: "Improbable: There is no exploit",
-        },
-        proofOfConcept: {
-          text: "Proof of Concept",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "Proof-of-concept exploit code is available, " +
-            "or an attack demonstration is not practical for most systems. " +
-            "The code or technique is not functional in all situations and " +
-            "may require substantial modification by a skilled attacker.",
-        },
-        unproven: {
-          text: "Unproven",
-          tooltip:
-            "<strong>Good:</strong> " +
-            "No exploit code is available, or an exploit is theoretical.",
-        },
+      editable: {
+        label: "Edit",
+        tooltip: "Modify severity metrics",
       },
-      integrity: "Integrity Impact",
-      integrityImpact: "Integrity Impact",
-      integrityImpactOptions: {
-        high: {
-          text: "High",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "There is a total loss of integrity, or a complete loss of protection. " +
-            "For example, the attacker is able to modify any/all files protected by the impacted component. " +
-            "Alternatively, only some files can be modified, but malicious modification would present a direct, " +
-            "serious consequence to the impacted component.",
+      exploitability: {
+        label: "Exploitability",
+        options: {
+          conceptual: {
+            label: "Conceptual: There are laboratory tests",
+          },
+          functional: {
+            label: "Functional: There is an exploit",
+            tooltip:
+              "<strong>Functional (F):</strong> " +
+              "Functional exploit code is available. The code works in most situations where the vulnerability exists.",
+          },
+          high: {
+            label: "High: Exploit is not required or it can be automated",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "Functional autonomous code exists, or no exploit is required (manual trigger). " +
+              "Such code works in all situations or is actively delivered through an autonomous agent " +
+              "(such as a worm or virus). Exploit development has reached the level of reliable, " +
+              "widely available, and easy-to-use automated tools.",
+          },
+          improbable: {
+            label: "Improbable: There is no exploit",
+          },
+          proofOfConcept: {
+            label: "Proof of Concept",
+            tooltip:
+              "<strong>Proof-of-Concept (P):</strong> " +
+              "Proof-of-concept exploit code is available, " +
+              "or an attack demonstration is not practical for most systems. " +
+              "The code or technique is not functional in all situations and " +
+              "may require substantial modification by a skilled attacker.",
+          },
+          unproven: {
+            label: "Unproven",
+            tooltip:
+              "<strong>Unproven (U):</strong> " +
+              "No exploit code is available, or an exploit is theoretical.",
+          },
         },
-        low: {
-          text: "Low",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "Modification of data is possible, " +
-            "but the attacker does not have control over the consequence of a modification, " +
-            "or the amount of modification is limited. The data modification does not have a direct, " +
-            "serious impact on the impacted component.",
-        },
-        none: {
-          text: "None",
-          tooltip:
-            "<strong>Good:</strong> " +
-            "There is no loss of integrity within the impacted component.",
-        },
+        tooltip:
+          "<strong>Exploitability (E):</strong> " +
+          "It measures the likelihood that the vulnerability will be attacked, " +
+          "and is typically based on the current state of exploitation techniques, " +
+          "the availability of exploit code, or active “in-the-wild” exploitation.",
       },
-      integrityOptions: {
-        complete: "Complete: Possibility to modify all target information",
-        none: "None: There is no impact",
-        partial: "Partial: Possibility to modify some target information",
+      integrityImpact: {
+        label: "Integrity Impact",
+        options: {
+          high: {
+            label: "High",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "There is a total loss of integrity, or a complete loss of protection. " +
+              "The attacker is able to modify some or any/all data protected by the impacted component. " +
+              "A malicious modification would present a direct, serious consequence to the impacted component.",
+          },
+          low: {
+            label: "Low",
+            tooltip:
+              "<strong>Low (L):</strong> " +
+              "Modification of data is possible, " +
+              "but the attacker does not have control over the consequence of a modification, " +
+              "or the amount of modification is limited. " +
+              "The data modification does not have a direct, serious impact on the impacted component.",
+          },
+          none: {
+            label: "None",
+            tooltip:
+              "<strong>None (N):</strong> " +
+              "There is no loss of integrity within the impacted component.",
+          },
+        },
+        tooltip:
+          "<strong>Integrity (I):</strong> " +
+          "Measures the impact to integrity of a successfully exploited vulnerability. " +
+          "Integrity refers to the trustworthiness and veracity of information.",
       },
-      integrityRequirement: "Integrity Requirement",
-      integrityRequirementOptions: {
-        high: {
-          text: "High",
-        },
-        low: {
-          text: "Low",
-        },
-        medium: {
-          text: "Medium",
+      integrityRequirement: {
+        label: "Integrity Requirement",
+        options: {
+          high: {
+            label: "High",
+          },
+          low: {
+            label: "Low",
+          },
+          medium: {
+            label: "Medium",
+          },
         },
       },
       modifiedAttackComplexity: "Modified Attack Complexity",
@@ -2400,153 +2385,158 @@ export const enTranslations: ResourceKey = {
       modifiedPrivilegesRequired: "Modified Privileges Required",
       modifiedSeverityScope: "Modified Scope",
       modifiedUserInteraction: "Modified User Interaction",
-      privilegesRequired: "Privileges Required",
-      privilegesRequiredOptions: {
-        high: {
-          text: "High",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "The attacker requires privileges that provide significant (e.g., administrative) control " +
-            "over the vulnerable component allowing access to component-wide settings and files.",
+      privilegesRequired: {
+        label: "Privileges Required",
+        options: {
+          high: {
+            label: "High",
+            tooltip:
+              "<strong>High (H):</strong> " +
+              "The attacker requires privileges that provide significant (eg, administrative) " +
+              "control over the vulnerable component allowing access to component-wide settings and files.",
+          },
+          low: {
+            label: "Low",
+            tooltip:
+              "<strong>Low (L)</strong> " +
+              "The attacker requires privileges that provide basic user capabilities " +
+              "that could normally affect only settings and files owned by a user. Alternatively, " +
+              "an attacker with Low privileges has the ability to access only non-sensitive resources.",
+          },
+          none: {
+            label: "None",
+            tooltip:
+              "<strong>None (N):</strong> " +
+              "The attacker is unauthorized prior to attack, and therefore, " +
+              "does not require any access to settings or files of the vulnerable system to carry out an attack.",
+          },
         },
-        low: {
-          text: "Low",
-          tooltip:
-            "<strong>Worse:</strong> " +
-            "The attacker requires privileges that provide basic user capabilities " +
-            "that could normally affect only settings and files owned by a user. " +
-            "Alternatively, an attacker with Low privileges has the ability to access only non-sensitive resources.",
-        },
-        none: {
-          text: "None",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "The attacker is unauthorized prior to attack, and therefore does not require any access to settings " +
-            "or files of the vulnerable system to carry out an attack.",
-        },
+        tooltip:
+          "<strong>Privileges Required (PR):</strong> " +
+          "This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability. " +
+          "The Base Score is greatest if no privileges are required.",
       },
-      remediationLevel: "Remediation Level",
-      remediationLevelOptions: {
-        officialFix: {
-          text: "Official Fix",
-          tooltip:
-            "<strong>Good:</strong> " +
-            "A complete vendor solution is available. " +
-            "Either the vendor has issued an official patch, or an upgrade is available.",
+      remediationLevel: {
+        label: "Remediation Level",
+        options: {
+          officialFix: {
+            label: "Official Fix",
+            tooltip:
+              "<strong>Official Fix (O):</strong> " +
+              "A complete vendor solution is available. " +
+              "Either the vendor has issued an official patch, or an upgrade is available.",
+          },
+          temporaryFix: {
+            label: "Temporary Fix",
+            tooltip:
+              "<strong>Temporary Fix (T):</strong> " +
+              "There is an official but temporary fix available. " +
+              "This includes instances where the vendor issues a temporary hotfix, tool, or workaround.",
+          },
+          unavailable: {
+            label: "Unavailable",
+            tooltip:
+              "<strong>Unavailable (U):</strong> " +
+              "There is either no solution available or it is impossible to apply.",
+          },
+          workaround: {
+            label: "Workaround",
+            tooltip:
+              "<strong>Workaround (W):</strong> " +
+              "There is an unofficial, non-vendor solution available. In some cases, " +
+              "users of the affected technology will create a patch of their own " +
+              "or provide steps to work around or otherwise mitigate the vulnerability.",
+          },
         },
-        temporaryFix: {
-          text: "Temporary Fix",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "There is an official but temporary fix available. " +
-            "This includes instances where the vendor issues a temporary hotfix, tool, or workaround.",
-        },
-        unavailable: {
-          text: "Unavailable",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "There is either no solution available or it is impossible to apply.",
-        },
-        workaround: {
-          text: "Workaround",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "There is an unofficial, non-vendor solution available. " +
-            "In some cases, users of the affected technology will create a patch of their own or " +
-            "provide steps to work around or otherwise mitigate the vulnerability.",
-        },
+        tooltips:
+          "<strong>Remediation Level (RL):</strong> " +
+          "It is an important factor for prioritization. " +
+          "The typical vulnerability is unpatched when initially published. " +
+          "Workarounds or hotfixes may offer interim remediation until an official patch or upgrade is issued.",
       },
-      reportConfidence: "Report Confidence",
-      reportConfidenceOptions: {
-        confirmed: {
-          text: "Confirmed",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "Detailed reports exist, " +
-            "or functional reproduction is possible (functional exploits may provide this). " +
-            "Source code is available to independently verify the assertions of the research, " +
-            "or the author or vendor of the affected code has confirmed the presence of the vulnerability.",
+      reportConfidence: {
+        label: "Report Confidence",
+        options: {
+          confirmed: {
+            label: "Confirmed",
+            tooltip:
+              "<strong>Confirmed (C):</strong> " +
+              "Detailed reports exist, or functional reproduction is possible. " +
+              "Source code is available to independently verify the assertions of the research, " +
+              "or the author or vendor of the affected code has confirmed the presence of the vulnerability.",
+          },
+          reasonable: {
+            label: "Reasonable",
+            tooltip:
+              "<strong>Reasonable (R):</strong> " +
+              "Significant details are published, but researchers either do not have full confidence in the root cause, " +
+              "or do not have access to source code to confirm the result. Reasonable confidence exists, however, " +
+              "that the bug is reproducible and at least one impact is able to be verified.",
+          },
+          unknown: {
+            label: "Unknown",
+            tooltip:
+              "<strong>Unknown (U):</strong> " +
+              "There are reports of impacts that indicate a vulnerability is present. " +
+              "The reports indicate that the cause of the vulnerability is unknown, " +
+              "or reports may differ on the cause or impacts of the vulnerability. ",
+          },
         },
-        reasonable: {
-          text: "Reasonable",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "Significant details are published, " +
-            "but researchers either do not have full confidence in the root cause, or " +
-            "do not have access to source code to fully confirm all of the interactions that may lead to the result. " +
-            "Reasonable confidence exists, however, that the bug is reproducible and " +
-            "at least one impact is able to be verified (proof-of-concept exploits may provide this). " +
-            "An example is a detailed write-up of research into a vulnerability with an explanation " +
-            '(possibly obfuscated or "left as an exercise to the reader") ' +
-            "that gives assurances on how to reproduce the results.",
-        },
-        unknown: {
-          text: "Unknown",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "There are reports of impacts that indicate a vulnerability is present. " +
-            "The reports indicate that the cause of the vulnerability is unknown, " +
-            "or reports may differ on the cause or impacts of the vulnerability. " +
-            "Reporters are uncertain of the true nature of the vulnerability, " +
-            "and there is little confidence in the validity of the reports or " +
-            "whether a static Base Score can be applied given the differences described. " +
-            "An example is a bug report which notes that an intermittent but non-reproducible crash occurs, " +
-            "with evidence of memory corruption suggesting that denial of service, " +
-            "or possible more serious impacts, may result.",
-        },
+        tooltips:
+          "<strong>Report Confidence (RC):</strong> " +
+          "Measures the degree of confidence in the existence of the vulnerability " +
+          "and the credibility of the known technical details. Sometimes, " +
+          "only the existence of vulnerabilities is publicized, but without specific details. ",
       },
-      resolution: "Resolution Level",
-      resolutionOptions: {
-        nonExistent: "Non-existent: There is no solution",
-        official: "Official: There is a manufacturer available patch",
-        palliative:
-          "Palliative: There is a patch that was not published by the manufacturer",
-        temporal: "Temporal: There are temporary solutions",
-      },
-      severityScope: "Scope",
-      severityScopeOptions: {
-        changed: {
-          text: "Changed",
-          tooltip:
-            "<strong>Worst:</strong> " +
-            "An exploited vulnerability can affect resources beyond the security scope" +
-            " managed by the security authority of the vulnerable component. " +
-            "In this case, the vulnerable component and the impacted component are different " +
-            "and managed by different security authorities.",
+      severityScope: {
+        label: "Scope",
+        options: {
+          changed: {
+            label: "Changed",
+            tooltip:
+              "<strong>Changed (C):</strong> " +
+              "An exploited vulnerability can affect resources beyond the security scope " +
+              "managed by the security authority of the vulnerable component. In this case, " +
+              "the vulnerable component and the impacted component are different and managed by different security authorities.",
+          },
+          unchanged: {
+            label: "Unchanged",
+            tooltip:
+              "<strong>Unchanged (U):</strong> " +
+              "An exploited vulnerability can only affect resources managed by the same security authority. In this case, " +
+              "the vulnerable component and the impacted component are either the same, " +
+              "or both are managed by the same security authority.",
+          },
         },
-        unchanged: {
-          text: "Unchanged",
-          tooltip:
-            "<strong>Bad:</strong> " +
-            "An exploited vulnerability can only affect resources managed by the same security authority. " +
-            "In this case, the vulnerable component and the impacted component are either the same, " +
-            "or both are managed by the same security authority.",
-        },
+        tooltip:
+          "<strong>Scope (S):</strong> " +
+          "The Scope metric captures whether a vulnerability in one vulnerable component " +
+          "impacts resources in components beyond its security scope. ",
       },
       solve: "Mark as solved",
       tabTitle: "Severity",
       tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",
-      userInteraction: "User Interaction",
-      userInteractionOptions: {
-        none: {
-          text: "None",
-          tooltip:
-            "<strong>Worst:</strong> The vulnerable system can be exploited without interaction from any user.",
+      userInteraction: {
+        label: "User Interaction",
+        options: {
+          none: {
+            label: "None",
+            tooltip:
+              "<strong>None (N):</strong> The vulnerable system can be exploited without interaction from any user.",
+          },
+          required: {
+            label: "Required",
+            tooltip:
+              "<strong>Required (R):</strong> " +
+              "Successful exploitation of this vulnerability requires a user to take some action before the vulnerability can be exploited. " +
+              "For example, a successful exploit may only be possible during the installation of an application by a system administrator.",
+          },
         },
-        required: {
-          text: "Required",
-          tooltip:
-            "<strong>Bad:</strong> Successful exploitation of this vulnerability requires a user to take some " +
-            "action before the vulnerability can be exploited. For example, a successful exploit may only be possible" +
-            " during the installation of an application by a system administrator.",
-        },
-      },
-      vector: "Access Vector",
-      vectorOptions: {
-        adjacent: "Adjacent network: Exploitable from same network segment",
-        local: "Local: Exploitable with local access to the target",
-        network: "Network: Exploitable from Internet",
+        tooltip:
+          "<strong>User Interaction (UI):</strong> " +
+          "This metric determines whether the vulnerability can be exploited solely at the will of the attacker, " +
+          "or whether a separate user (or user-initiated process) must participate in some manner.",
       },
     },
     tabTracking: {

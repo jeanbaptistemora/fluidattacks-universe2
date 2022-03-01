@@ -88,7 +88,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"userInteractionTooltip"}
                   message={t(
                     userInteractionOptions[userInteraction].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -106,7 +106,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"privilegesRequiredTooltip"}
                   message={t(
                     castPrivileges(severityScope)[privilegesRequired].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -130,7 +130,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"attackVectorTooltip"}
                   message={t(
                     attackVectorOptions[attackVector].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -148,7 +148,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"attackComplexityTooltip"}
                   message={t(
                     attackComplexityOptions[attackComplexity].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -166,7 +166,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"exploitabilityTooltip"}
                   message={t(
                     exploitabilityOptions[exploitability].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -184,7 +184,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"severityScopeTooltip"}
                   message={t(
                     severityScopeOptions[severityScope].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -206,7 +206,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"availabilityImpactTooltip"}
                   message={t(
                     availabilityImpactOptions[availabilityImpact].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -224,7 +224,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"integrityImpactTooltip"}
                   message={t(
                     integrityImpactOptions[integrityImpact].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -242,7 +242,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"confidentialityImpactTooltip"}
                   message={t(
                     confidentialityImpactOptions[confidentialityImpact].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -266,7 +266,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"remediationLevelTooltip"}
                   message={t(
                     remediationLevelOptions[remediationLevel].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
@@ -284,7 +284,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                   id={"reportConfidenceTooltip"}
                   message={t(
                     reportConfidenceOptions[reportConfidence].replace(
-                      /text/u,
+                      /label/u,
                       "tooltip"
                     )
                   )}
