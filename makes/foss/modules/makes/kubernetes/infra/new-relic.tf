@@ -81,12 +81,12 @@ resource "helm_release" "newrelic" {
 
   set {
     name  = "newrelic-pixie.enabled"
-    value = "true"
+    value = "false"
   }
 
   set {
     name  = "pixie-chart.enabled"
-    value = "true"
+    value = "false"
   }
 
   set {
