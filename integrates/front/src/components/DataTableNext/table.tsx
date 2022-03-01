@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { createRef, useEffect } from "react";
+import React from "react";
 import type {
   PaginationOptions,
   SelectRowProps,
@@ -24,6 +24,7 @@ import { Search } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
 import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
+import { TableContainer } from "./styles";
 
 import { Button } from "components/Button";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
@@ -53,6 +54,7 @@ import {
   Small,
   TableOptionsColBar,
 } from "styles/styledComponents";
+
 // eslint-disable-next-line complexity
 export const TableWrapper: React.FC<ITableWrapperProps> = (
   props: Readonly<ITableWrapperProps>
@@ -330,47 +332,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     );
   };
 
-  const scrollbar: React.RefObject<HTMLDivElement> = createRef();
-  const table: React.RefObject<HTMLDivElement> = createRef();
-  const tableMimic: React.RefObject<HTMLDivElement> = createRef();
-
-  function scrollTable(): void {
-    if (table.current && scrollbar.current) {
-      // eslint-disable-next-line fp/no-mutation
-      table.current.children[0].scrollLeft = scrollbar.current.scrollLeft;
-    }
-  }
-
-  function syncScrollbar(): void {
-    const tableChild: HTMLElement | undefined = table.current?.children[0]
-      ?.children[0] as HTMLElement;
-
-    if (
-      table.current &&
-      tableMimic.current &&
-      scrollbar.current &&
-      !_.isUndefined(tableChild)
-    ) {
-      if (scrollbar.current.offsetWidth === tableChild.offsetWidth) {
-        // eslint-disable-next-line fp/no-mutation
-        scrollbar.current.style.visibility = "hidden";
-      } else {
-        // eslint-disable-next-line fp/no-mutation
-        scrollbar.current.style.visibility = "visible";
-      }
-
-      // eslint-disable-next-line fp/no-mutation
-      tableMimic.current.style.width = `${tableChild.offsetWidth}px`;
-    }
-  }
-
-  useEffect(syncScrollbar, [
-    scrollbar,
-    scrollbar.current?.offsetWidth,
-    table,
-    tableMimic,
-  ]);
-
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
@@ -394,7 +355,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 {columnToggle && (
                   <ButtonGroup>
                     <CustomToggleList
-                      onUpdate={syncScrollbar}
                       propsTable={tableProps}
                       propsToggle={columnToggleProps}
                     />
@@ -564,7 +524,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           )} ${resultSize.total}`}
         </div>
       )}
-      <div ref={table}>
+      <TableContainer>
         <BootstrapTable
           {...baseProps}
           bootstrap4={true}
@@ -594,14 +554,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           striped={striped}
           wrapperClasses={`f6 mw-100 overflow-hidden ${style.tableWrapper}`}
         />
-      </div>
-      <div
-        className={`overflow-x-scroll overflow-y-hidden ${style.scrollbar}`}
-        onScroll={scrollTable}
-        ref={scrollbar}
-      >
-        <div className={style.tableMimic} ref={tableMimic} />
-      </div>
+      </TableContainer>
     </div>
   );
 };

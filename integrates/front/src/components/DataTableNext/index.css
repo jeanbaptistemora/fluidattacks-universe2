@@ -1,42 +1,35 @@
-:local .borderNone {
-  border: none;
-}
-
 :local .wFull {
   width: 100%;
 }
 
 :local .tableWrapper table {
   border-spacing: 0;
-  border: 1px solid #ddd;
+  border: none;
+  height: 100%;
   table-layout: auto !important;
   width: 100%;
-  height: 100%;
-  margin-bottom: 10px;
-  border-collapse: collapse;
-  -webkit-backface-visibility: hidden;
 }
 
 :local .tableHeader > th,
 .tableBody > td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-top: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  white-space: pre-wrap;
-}
-
-:local .tableHeader {
-  background-color: #898787;
-  border: none;
-  color: white;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: rgba(0, 0, 0, 0.2);
+  padding-bottom: 1rem;
+  padding-right: 1rem;
 }
 
 :local .tableHeader > th {
-  text-align: center !important;
-  vertical-align: middle !important;
-  font-weight: bold;
-  padding: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+:local .tableBody > td {
+  padding-top: 1rem;
+}
+
+:local .tableHeader {
+  border: none;
 }
 
 :local .tableHeader input,
@@ -48,14 +41,6 @@
 
 :local .tableBody {
   cursor: pointer;
-}
-
-:local .tableBody > td,
-:local .tableBody > tr {
-  vertical-align: middle;
-  padding: 8px;
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
 
 :local .label {
@@ -130,14 +115,4 @@
   border-color: #ff3435;
   color: #fff;
   margin-left: -1px;
-}
-
-:local .scrollbar {
-  margin-top: 10px;
-  position: sticky;
-  bottom: 1px;
-}
-
-:local .tableMimic {
-  height: 10px;
 }
