@@ -4,19 +4,15 @@
 */
 import _ from "lodash";
 import React from "react";
-import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
 import { getBgColor } from "utils/colors";
 
-const Point: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs<{
-  className: string;
-}>({
-  className: "br-100 f5 paPoint",
-})``;
+const Point = styled.span`
+  border-radius: 50px;
+  font-weight: 400;
+  padding: 4px 12px;
+`;
 
 interface IPointStatus {
   status: string;
@@ -30,23 +26,14 @@ const PointStatus: React.FC<IPointStatus> = ({
   const currentStateBgColor: string = getBgColor(_.capitalize(status));
 
   return (
-    <React.StrictMode>
-      <span>
-        <Point className={`v-mid ${currentStateBgColor}`} />
-        <span className={"v-mid"}>&nbsp;{formatedStatus.split(" ")[0]}</span>
-      </span>
-    </React.StrictMode>
+    <Point className={`v-mid ${currentStateBgColor}`}>
+      {formatedStatus.split(" ")[0]}
+    </Point>
   );
 };
 
 const pointStatusFormatter = (value: string): JSX.Element => (
-  <div className={"flex flex-wrap"}>
-    <div>
-      <p className={"dib ma0 v-btm"}>
-        <PointStatus status={value} />
-      </p>
-    </div>
-  </div>
+  <PointStatus status={value} />
 );
 
 export { pointStatusFormatter, Point, PointStatus };

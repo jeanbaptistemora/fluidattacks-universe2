@@ -38,6 +38,7 @@ export const Searchbar: React.FC = (): JSX.Element => {
             component={SearchInput}
             name={"groupName"}
             placeholder={t("navbar.searchPlaceholder")}
+            type={"text"}
             validate={composeValidators([alphaNumeric])}
           />
         </SearchContainer>

@@ -7,8 +7,9 @@ const SearchContainer = styled.div`
   border-radius: 4px;
   color: #b0b0bf;
   font-size: 16px;
-  margin-right: 5px;
+  margin-right: 8px;
   padding-left: 12px;
+  padding-right: 2px;
 `;
 
 const SearchInput = styled(FormikText)`
@@ -16,6 +17,8 @@ const SearchInput = styled(FormikText)`
   border-color: transparent !important;
   border: none;
   color: #2e2e38 !important;
+  line-height: 1.15;
+  padding: 12px 6px;
   transition: ease-in-out, width 0.35s ease-in-out !important;
   width: 120px !important;
 

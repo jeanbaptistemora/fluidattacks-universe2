@@ -26,8 +26,9 @@ const statusFormatter: (value: string) => JSX.Element = (
       <span className={"br0 dib pa1"}>
         {/* Use className to override default styles */}
         {/* eslint-disable-next-line react/forbid-component-props */}
-        <Point className={`v-mid ${bgColor}`} />
-        <span className={"v-mid"}>&nbsp;{capitalizedValue.split(" ")[0]}</span>
+        <Point className={`v-mid ${bgColor}`}>
+          {capitalizedValue.split(" ")[0]}
+        </Point>
       </span>
     </React.StrictMode>
   );

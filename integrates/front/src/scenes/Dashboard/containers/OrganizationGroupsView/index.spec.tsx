@@ -144,18 +144,10 @@ describe("Organization groups view", (): void => {
     expect(oneshottestRow.text()).toContain("Oneshot");
     expect(oneshottestRow.text()).toContain("User Manager");
     expect(
-      oneshottestRow
-        .find({ className: "v-mid" })
-        .filterWhere((element: ReactWrapper): boolean =>
-          element.contains("Enabled")
-        )
+      oneshottestRow.find("span").find({ children: "Enabled" })
     ).toHaveLength(2);
     expect(
-      oneshottestRow
-        .find({ className: "v-mid" })
-        .filterWhere((element: ReactWrapper): boolean =>
-          element.contains("Disabled")
-        )
+      oneshottestRow.find("span").find({ children: "Disabled" })
     ).toHaveLength(0);
 
     const PENDING_GROUP_ROW_LENGTH = 1;
@@ -164,11 +156,7 @@ describe("Organization groups view", (): void => {
     expect(pendingGroupRow.text()).toContain("Continuous");
     expect(pendingGroupRow.text()).toContain("Customer Manager");
     expect(
-      pendingGroupRow
-        .find({ className: "v-mid" })
-        .filterWhere((element: ReactWrapper): boolean =>
-          element.contains("Disabled")
-        )
+      pendingGroupRow.find("span").find({ children: "Disabled" })
     ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
 
     const UNIT_TESTING_ROW_LENGTH = 2;
@@ -177,11 +165,7 @@ describe("Organization groups view", (): void => {
     expect(unittestingRow.text()).toContain("User");
     expect(unittestingRow.text()).toContain("Continuous");
     expect(
-      unittestingRow
-        .find({ className: "v-mid" })
-        .filterWhere((element: ReactWrapper): boolean =>
-          element.contains("Enabled")
-        )
+      unittestingRow.find("span").find({ children: "Enabled" })
     ).toHaveLength(UNIT_TESTING_ROW_LENGTH);
 
     unittestingRow.simulate("click");

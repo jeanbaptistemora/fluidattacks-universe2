@@ -102,7 +102,7 @@ describe("GroupScopeView", (): void => {
         // Branch
         "master",
         // State
-        "\u00a0Active\u00a0",
+        "Active",
         // Cloning status
         "Unknown",
       ].join("")
@@ -267,7 +267,7 @@ describe("GroupScopeView", (): void => {
             // Branch
             "master",
             // State
-            "\u00a0Active\u00a0",
+            "Active",
             // Cloning status
             "Unknown",
           ].join("")
@@ -455,7 +455,7 @@ describe("GroupScopeView", (): void => {
         // Branch
         "master",
         // State
-        "\u00a0Active\u00a0",
+        "Active",
         // Cloning status
         "Unknown",
       ].join("")
