@@ -19,6 +19,8 @@ import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
 import { MenuItem } from "components/DropdownButton";
+import { LastOrg } from "scenes/Dashboard/components/Navbar/Breadcrumb/SplitButton/styles";
+import { ButtonGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -75,6 +77,10 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   const handleOrganizationClick: () => void = useCallback((): void => {
     push(`/orgs/${lastOrganization.name}/`);
   }, [lastOrganization.name, push]);
+
+  const handleHome = useCallback((): void => {
+    push("/home");
+  }, [push]);
 
   const HANDLE_BLUR_EVENT_TIMEOUT: number = 250;
   const handleBlurEvent: (event: FocusEvent) => void = (
@@ -167,9 +173,13 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     <BreadcrumbContainer>
       {path === "/todos" ? (
         <React.Fragment>
-          <li>
-            <Link to={"/home"}>{t("navbar.home.text")}</Link>
-          </li>
+          <NavSplitButtonContainer>
+            <ButtonGroup>
+              <LastOrg id={"home.text"} onClick={handleHome}>
+                <div className={"pointer"}>{t("navbar.home.text")}</div>
+              </LastOrg>
+            </ButtonGroup>
+          </NavSplitButtonContainer>
           <li>
             <Link to={"/todos"}>{t("navbar.task.text")}</Link>
           </li>
