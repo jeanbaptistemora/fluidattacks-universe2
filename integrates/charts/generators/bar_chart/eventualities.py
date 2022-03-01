@@ -79,7 +79,7 @@ async def get_data_many_groups(
 
 
 def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
-    limited_data = data[:18]
+    limited_data = [group for group in data if group.value > 0]
 
     return dict(
         data=dict(
@@ -98,7 +98,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[group.group_name for group in data],
+                categories=[group.group_name for group in limited_data],
                 type="category",
                 tick=dict(
                     multiline=False,
