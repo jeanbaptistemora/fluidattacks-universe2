@@ -4,6 +4,7 @@ from . import (
 )
 from back.tests.functional.utils import (
     complete_register,
+    reject_register,
 )
 import pytest
 from typing import (
@@ -15,15 +16,17 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("grant_stakeholder_access")
 @pytest.mark.parametrize(
-    ["email"],
+    ["email", "stakeholder_email", "confirm"],
     [
-        ["admin@gmail.com"],
+        ["admin@gmail.com", "hacker@gmail.com", True],
+        ["admin@gmail.com", "reattacker@gmail.com", False],
     ],
 )
-async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
+async def test_grant_stakeholder_access(
+    populate: bool, email: str, stakeholder_email: str, confirm: bool
+) -> None:
     assert populate
     group_name: str = "group2"
-    stakeholder_email: str = "hacker@gmail.com"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
     result: Dict[str, Any] = await get_result(
@@ -49,17 +52,30 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
         if stakeholder["email"] == stakeholder_email:
             assert stakeholder["invitationState"] == "PENDING"
 
-    await complete_register(stakeholder_email, group_name)
-    stakeholders_after_complete: Dict[str, Any] = await get_stakeholders(
-        user=email, group=group_name
-    )
+    if confirm:
+        await complete_register(stakeholder_email, group_name)
+        stakeholders_after_confirm: Dict[str, Any] = await get_stakeholders(
+            user=email, group=group_name
+        )
 
-    assert "errors" not in stakeholders_after_complete
-    for stakeholder in stakeholders_after_complete["data"]["group"][
-        "stakeholders"
-    ]:
-        if stakeholder["email"] == stakeholder_email:
-            assert stakeholder["invitationState"] == "CONFIRMED"
+        assert "errors" not in stakeholders_after_confirm
+        for stakeholder in stakeholders_after_confirm["data"]["group"][
+            "stakeholders"
+        ]:
+            if stakeholder["email"] == stakeholder_email:
+                assert stakeholder["invitationState"] == "CONFIRMED"
+    else:
+        await reject_register(stakeholder_email, group_name)
+        stakeholders_after_reject: Dict[str, Any] = await get_stakeholders(
+            user=email, group=group_name
+        )
+
+        assert "errors" not in stakeholders_after_reject
+        for stakeholder in stakeholders_after_reject["data"]["group"][
+            "stakeholders"
+        ]:
+            if stakeholder["email"] == stakeholder_email:
+                assert stakeholder["invitationState"] == "REJECTED"
 
 
 @pytest.mark.asyncio

@@ -24,6 +24,12 @@ from group_access import (
 from groups import (
     domain as groups_domain,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
 from typing import (
     Any,
     Dict,
@@ -38,6 +44,22 @@ async def complete_register(
     group_access = await group_access_domain.get_user_access(email, group_name)
     success = await groups_domain.complete_register_for_group_invitation(
         group_access
+    )
+
+    return success
+
+
+async def reject_register(
+    email: str,
+    group_name: str,
+) -> bool:
+    group_access = await group_access_domain.get_user_access(email, group_name)
+    redis_del_by_deps_soon(
+        "reject_access",
+        group_name=group_name,
+    )
+    success = await groups_domain.reject_register_for_group_invitation(
+        get_new_context(), group_access
     )
 
     return success
