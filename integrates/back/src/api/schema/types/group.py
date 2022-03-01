@@ -2,6 +2,7 @@ from api.resolvers.group import (
     analytics,
     authors,
     consulting,
+    context,
     description,
     drafts,
     events,
@@ -38,6 +39,7 @@ GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
+GROUP.set_field("groupContext", context.resolve)
 GROUP.set_field("language", language.resolve)
 GROUP.set_field(
     "lastClosedVulnerabilityFinding",
