@@ -4,7 +4,7 @@ from analytics import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
+from db_model.groups.types import (
     Group,
 )
 from decorators import (
@@ -15,6 +15,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Any,
+    Dict,
+    Union,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -23,9 +28,13 @@ from graphql.type.definition import (
     require_asm,
 )
 async def resolve(
-    parent: Group, _info: GraphQLResolveInfo, **kwargs: str
+    parent: Union[Group, Dict[str, Any]],
+    _info: GraphQLResolveInfo,
+    **kwargs: str,
 ) -> object:
-    group_name: str = parent["name"]
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]
 
