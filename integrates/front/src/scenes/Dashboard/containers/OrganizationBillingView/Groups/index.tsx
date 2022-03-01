@@ -125,50 +125,42 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "name",
       header: "Group Name",
     },
     {
-      align: "center",
       dataField: "tier",
       header: "Tier",
     },
     {
-      align: "center",
       dataField: "service",
       header: "Service",
     },
     {
-      align: "left",
       dataField: "machine",
       formatter: pointStatusFormatter,
       header: "Machine",
       width: "90px",
     },
     {
-      align: "left",
       dataField: "squad",
       formatter: pointStatusFormatter,
       header: "Squad",
       width: "90px",
     },
     {
-      align: "left",
       dataField: "forces",
       formatter: pointStatusFormatter,
       header: "Forces",
       width: "90px",
     },
     {
-      align: "center",
       dataField: "authors.total",
       formatter: pointStatusFormatter,
       header: "Authors",
       width: "80px",
     },
     {
-      align: "center",
       dataField: "authors.currentSpend",
       formatter: pointStatusFormatter,
       header: "Month-to-date spend ($)",

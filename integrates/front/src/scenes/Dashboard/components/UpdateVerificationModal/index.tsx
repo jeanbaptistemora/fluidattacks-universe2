@@ -177,21 +177,18 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     };
     const vulnsHeader: IHeaderConfig[] = [
       {
-        align: "left",
         dataField: "where",
         header: "Where",
         width: "55%",
         wrapped: true,
       },
       {
-        align: "left",
         dataField: "specific",
         header: "Specific",
         width: "25%",
         wrapped: true,
       },
       {
-        align: "left",
         changeFunction: handleUpdateRepo,
         dataField: "currentState",
         formatter: changeVulnStateFormatter,

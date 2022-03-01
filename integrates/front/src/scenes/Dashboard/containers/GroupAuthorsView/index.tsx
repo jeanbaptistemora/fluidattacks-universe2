@@ -89,7 +89,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
   const headersAuthorsTable: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "actor",
       formatter: formatText,
       header: translate.t("group.authors.actor"),
@@ -97,7 +96,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "groups",
       formatter: formatText,
       header: translate.t("group.authors.groupsContributed"),
@@ -105,7 +103,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "commit",
       formatter: formatCommit,
       header: translate.t("group.authors.commit"),
@@ -113,7 +110,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "repository",
       formatter: formatText,
       header: translate.t("group.authors.repository"),

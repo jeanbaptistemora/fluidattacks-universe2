@@ -219,28 +219,24 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
 
   const headersToeInputsTable: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "rootNickname",
       header: translate.t("group.toe.inputs.root"),
       onSort,
       visible: checkedItems.rootNickname,
     },
     {
-      align: "left",
       dataField: "component",
       header: translate.t("group.toe.inputs.component"),
       onSort,
       visible: checkedItems.component,
     },
     {
-      align: "left",
       dataField: "entryPoint",
       header: translate.t("group.toe.inputs.entryPoint"),
       onSort,
       visible: checkedItems.entryPoint,
     },
     {
-      align: "center",
       dataField: "hasVulnerabilities",
       formatter: formatBoolean,
       header: translate.t("group.toe.inputs.hasVulnerabilities"),
@@ -248,7 +244,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.hasVulnerabilities,
     },
     {
-      align: "center",
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -258,7 +253,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.attackedAt,
     },
     {
-      align: "center",
       dataField: "attackedBy",
       header: translate.t("group.toe.inputs.attackedBy"),
       omit: !isInternal || !canGetAttackedBy,
@@ -266,7 +260,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.attackedBy,
     },
     {
-      align: "center",
       dataField: "firstAttackAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -276,7 +269,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.firstAttackAt,
     },
     {
-      align: "center",
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -285,7 +277,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.seenAt,
     },
     {
-      align: "left",
       dataField: "seenFirstTimeBy",
       header: translate.t("group.toe.inputs.seenFirstTimeBy"),
       omit: !isInternal || !canGetSeenFirstTimeBy,
@@ -293,7 +284,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.seenFirstTimeBy,
     },
     {
-      align: "center",
       dataField: "bePresent",
       formatter: formatBoolean,
       header: translate.t("group.toe.inputs.bePresent"),
@@ -301,7 +291,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       visible: checkedItems.bePresent,
     },
     {
-      align: "center",
       dataField: "bePresentUntil",
       filter: dateFilter({}),
       formatter: formatDate,

@@ -85,14 +85,12 @@ describe("Data table next", (): void => {
     ];
     const testHeaders: IHeaderConfig[] = [
       {
-        align: "center",
         dataField: "testHeader",
         header: "Prueba 1",
         width: "5%",
         wrapped: false,
       },
       {
-        align: "center",
         dataField: "testHeader2",
         header: "Prueba 2",
         width: "5%",
@@ -130,14 +128,12 @@ describe("Data table next", (): void => {
     );
     const testHeaders: IHeaderConfig[] = [
       {
-        align: "center",
         dataField: "statusHeader",
         formatter: pointStatusFormatter,
         header: "Prueba 1",
         width: "25%",
       },
       {
-        align: "center",
         dataField: "deleteHeader",
         deleteFunction: handleDelete,
         formatter: deleteFormatter,
@@ -145,7 +141,6 @@ describe("Data table next", (): void => {
         width: "25%",
       },
       {
-        align: "center",
         changeFunction: handleChange,
         dataField: "changeHeader",
         formatter: changeFormatter,

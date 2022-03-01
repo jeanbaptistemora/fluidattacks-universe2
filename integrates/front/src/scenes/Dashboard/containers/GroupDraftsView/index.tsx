@@ -97,14 +97,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "reportDate",
       header: "Date",
       onSort: onSortState,
       width: "10%",
     },
     {
-      align: "center",
       dataField: "title",
       header: "Type",
       onSort: onSortState,
@@ -112,7 +110,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "description",
       header: "Description",
       onSort: onSortState,
@@ -120,21 +117,18 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "severityScore",
       header: "Severity",
       onSort: onSortState,
       width: "10%",
     },
     {
-      align: "center",
       dataField: "openVulnerabilities",
       header: "Open Vulns.",
       onSort: onSortState,
       width: "10%",
     },
     {
-      align: "left",
       dataField: "currentState",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "draftStatusFilter"),

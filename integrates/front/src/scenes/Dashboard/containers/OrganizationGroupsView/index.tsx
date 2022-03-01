@@ -150,37 +150,31 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "name",
       header: "Group Name",
     },
-    { align: "center", dataField: "description", header: "Description" },
+    { dataField: "description", header: "Description" },
     {
-      align: "center",
       dataField: "subscription",
       header: "Subscription",
     },
     {
-      align: "center",
       dataField: "service",
       header: "Service",
     },
     {
-      align: "left",
       dataField: "machine",
       formatter: pointStatusFormatter,
       header: "Machine",
       width: "90px",
     },
     {
-      align: "left",
       dataField: "squad",
       formatter: pointStatusFormatter,
       header: "Squad",
       width: "90px",
     },
     {
-      align: "center",
       dataField: "userRole",
       formatter: (value: string): string =>
         translate.t(`userModal.roles.${_.camelCase(value)}`, {

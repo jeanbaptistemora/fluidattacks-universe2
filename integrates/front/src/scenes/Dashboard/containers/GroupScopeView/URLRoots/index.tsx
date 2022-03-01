@@ -191,7 +191,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                     header: t("group.scope.ip.nickname"),
                   },
                   {
-                    align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",
                     formatter: canUpdateRootState

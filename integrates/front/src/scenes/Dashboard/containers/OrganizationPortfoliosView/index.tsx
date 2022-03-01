@@ -79,21 +79,18 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "left",
       dataField: "portfolio",
       header: translate.t("organization.tabs.portfolios.table.portfolio"),
       width: "20%",
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "nGroups",
       header: translate.t("organization.tabs.portfolios.table.nGroups"),
       width: "10%",
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "groups",
       header: translate.t("organization.tabs.portfolios.table.groups"),
       width: "70%",

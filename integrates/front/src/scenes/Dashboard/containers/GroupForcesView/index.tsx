@@ -117,13 +117,11 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   const headersExecutionTable: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "date",
       header: translate.t("group.forces.date"),
       onSort: onSortState,
     },
     {
-      align: "left",
       dataField: "status",
       formatter: pointStatusFormatter,
       header: translate.t("group.forces.status.title"),
@@ -132,35 +130,30 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "foundVulnerabilities.total",
       header: translate.t("group.forces.status.vulnerabilities"),
       onSort: onSortState,
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "strictness",
       header: translate.t("group.forces.strictness.title"),
       onSort: onSortState,
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "kind",
       header: translate.t("group.forces.kind.title"),
       onSort: onSortState,
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "gitRepo",
       header: translate.t("group.forces.gitRepo"),
       onSort: onSortState,
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "executionId",
       header: translate.t("group.forces.identifier"),
       onSort: onSortState,

@@ -52,7 +52,6 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
 
   const vulnsHeader: IHeaderConfig[] = [
     {
-      align: "left",
       dataField: "where",
       header: "Where",
       width: "45%",
@@ -60,7 +59,6 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "specific",
       header: "Specific",
       width: "25%",
@@ -68,7 +66,6 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       wrapped: true,
     },
     {
-      align: "left",
       approveFunction: handleConfirmZeroRisk,
       dataField: "acceptance",
       deleteFunction: handleRejectZeroRisk,

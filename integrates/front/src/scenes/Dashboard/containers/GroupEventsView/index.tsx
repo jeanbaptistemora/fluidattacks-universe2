@@ -157,7 +157,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "id",
       header: translate.t("searchFindings.tabEvents.id"),
       onSort: onSortState,
@@ -166,7 +165,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "eventDate",
       header: translate.t("searchFindings.tabEvents.date"),
       onSort: onSortState,
@@ -175,7 +173,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "detail",
       header: translate.t("searchFindings.tabEvents.description"),
       onSort: onSortState,
@@ -184,7 +181,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "accessibility",
       header: translate.t("searchFindings.tabEvents.accessibility"),
       onSort: onSortState,
@@ -193,7 +189,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "affectedComponents",
       header: translate.t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
@@ -202,7 +197,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "actionAfterBlocking",
       header: translate.t("searchFindings.tabEvents.actionAfterBlocking"),
       onSort: onSortState,
@@ -211,7 +205,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "actionBeforeBlocking",
       header: translate.t("searchFindings.tabEvents.actionBeforeBlocking"),
       onSort: onSortState,
@@ -220,7 +213,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "eventType",
       header: translate.t("searchFindings.tabEvents.type"),
       onSort: onSortState,
@@ -229,7 +221,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "eventStatus",
       formatter: pointStatusFormatter,
       header: translate.t("searchFindings.tabEvents.status"),
@@ -239,7 +230,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "closingDate",
       header: translate.t("searchFindings.tabEvents.closingDate"),
       onSort: onSortState,

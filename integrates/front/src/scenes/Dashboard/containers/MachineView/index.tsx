@@ -163,33 +163,28 @@ const MachineView: React.FC = (): JSX.Element => {
 
   const headers: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "status",
       header: translate.t("searchFindings.tabMachine.headerStatus"),
       width: "10%",
     },
     {
-      align: "center",
       dataField: "startedAt",
       formatter: (date: string): string => formatDate(parseFloat(date)),
       header: translate.t("searchFindings.tabMachine.headerStartedAt"),
       width: "10%",
     },
     {
-      align: "center",
       dataField: "duration",
       formatter: formatDuration,
       header: translate.t("searchFindings.tabMachine.headerDuration"),
       width: "10%",
     },
     {
-      align: "center",
       dataField: "rootNickname",
       header: translate.t("searchFindings.tabMachine.headerRoot"),
       width: "60%",
     },
     {
-      align: "center",
       dataField: "priority",
       header: translate.t("searchFindings.tabMachine.headerPriority"),
       width: "10%",

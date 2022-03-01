@@ -302,22 +302,18 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
 
     const tableHeaders: IHeaderConfig[] = [
       {
-        align: "center",
         dataField: "brand",
         header: "Brand",
       },
       {
-        align: "center",
         dataField: "lastFourDigits",
         header: "Last four digits",
       },
       {
-        align: "center",
         dataField: "expirationMonth",
         header: "Expiration Month",
       },
       {
-        align: "center",
         dataField: "expirationYear",
         header: "Expiration Year",
       },

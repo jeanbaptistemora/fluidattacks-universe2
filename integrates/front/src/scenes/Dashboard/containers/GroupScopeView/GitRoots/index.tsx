@@ -514,7 +514,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     visible: checkedItems.branch,
                   },
                   {
-                    align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",
                     formatter: canUpdateRootState
@@ -525,7 +524,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     width: canUpdateRootState ? "10%" : "100px",
                   },
                   {
-                    align: "left",
                     dataField: "cloningStatus.status",
                     formatter: pointStatusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
@@ -533,7 +531,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     width: "105px",
                   },
                   {
-                    align: "left",
                     changeFunction: handleSyncClick,
                     dataField: "sync",
                     formatter: syncButtonFormatter,

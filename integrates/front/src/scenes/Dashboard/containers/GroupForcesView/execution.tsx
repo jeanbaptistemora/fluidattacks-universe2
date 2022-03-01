@@ -158,7 +158,6 @@ const Execution: React.FC<IExecution> = (
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "state",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusExecutionFilter"),

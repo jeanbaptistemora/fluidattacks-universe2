@@ -30,21 +30,18 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   };
   const vulnsHeader: IHeaderConfig[] = [
     {
-      align: "left",
       dataField: "where",
       header: "Where",
       width: "50%",
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "specific",
       header: "Specific",
       width: "25%",
       wrapped: true,
     },
     {
-      align: "left",
       changeFunction: handleUpdateAcceptance,
       dataField: "acceptance",
       formatter: changeVulnTreatmentFormatter,

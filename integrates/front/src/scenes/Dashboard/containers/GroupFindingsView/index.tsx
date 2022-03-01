@@ -222,7 +222,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "lastVulnerability",
       header: "Last report",
       headerFormatter: tooltipFormatter,
@@ -234,7 +233,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "title",
       header: "Type",
       headerFormatter: tooltipFormatter,
@@ -244,7 +242,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "left",
       dataField: "state",
       formatter: formatState,
       header: "Status",
@@ -256,7 +253,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "severityScore",
       header: "Severity",
       headerFormatter: tooltipFormatter,
@@ -266,7 +262,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "openVulnerabilities",
       header: "Locations",
       headerFormatter: tooltipFormatter,
@@ -276,7 +271,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "where",
       formatter: limitFormatter,
       header: "Where",
@@ -287,7 +281,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
       dataField: "remediated",
       header: "Reattack",
       headerFormatter: tooltipFormatter,

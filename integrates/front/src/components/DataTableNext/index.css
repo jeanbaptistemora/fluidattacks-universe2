@@ -21,7 +21,7 @@
 
 :local .tableHeader > th {
   font-weight: 600;
-  text-align: center;
+  text-align: left;
 }
 
 :local .tableBody > td {

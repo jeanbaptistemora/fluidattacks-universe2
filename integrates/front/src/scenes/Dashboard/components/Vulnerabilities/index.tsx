@@ -259,7 +259,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   ];
   const deleteHeader: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "id",
       deleteFunction: handleDeleteVulnerability,
       formatter: deleteFormatter,

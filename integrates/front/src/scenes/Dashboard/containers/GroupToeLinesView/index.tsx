@@ -186,21 +186,18 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
 
   const headersToeLinesTable: IHeaderConfig[] = [
     {
-      align: "center",
       dataField: "rootNickname",
       header: translate.t("group.toe.lines.root"),
       onSort,
       visible: checkedItems.rootNickname,
     },
     {
-      align: "left",
       dataField: "filename",
       header: translate.t("group.toe.lines.filename"),
       onSort,
       visible: checkedItems.filename,
     },
     {
-      align: "center",
       dataField: "coverage",
       formatter: formatPercentage,
       header: translate.t("group.toe.lines.coverage"),
@@ -209,14 +206,12 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.coverage,
     },
     {
-      align: "center",
       dataField: "loc",
       header: translate.t("group.toe.lines.loc"),
       onSort,
       visible: checkedItems.loc,
     },
     {
-      align: "center",
       dataField: "attackedLines",
       header: translate.t("group.toe.lines.attackedLines"),
       omit: !isInternal || !canGetAttackedLines,
@@ -224,7 +219,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.attackedLines,
     },
     {
-      align: "center",
       dataField: "hasVulnerabilities",
       formatter: formatBoolean,
       header: translate.t("group.toe.lines.hasVulnerabilities"),
@@ -232,7 +226,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.hasVulnerabilities,
     },
     {
-      align: "center",
       dataField: "modifiedDate",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -241,21 +234,18 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.modifiedDate,
     },
     {
-      align: "center",
       dataField: "lastCommit",
       header: translate.t("group.toe.lines.lastCommit"),
       onSort,
       visible: checkedItems.lastCommit,
     },
     {
-      align: "center",
       dataField: "lastAuthor",
       header: translate.t("group.toe.lines.lastAuthor"),
       onSort,
       visible: checkedItems.lastAuthor,
     },
     {
-      align: "center",
       dataField: "daysToAttack",
       header: translate.t("group.toe.lines.daysToAttack"),
       omit: !isInternal || !canSeeDaysToAttack || !canGetAttackedAt,
@@ -263,7 +253,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.daysToAttack,
     },
     {
-      align: "center",
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -273,7 +262,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.attackedAt,
     },
     {
-      align: "center",
       dataField: "attackedBy",
       header: translate.t("group.toe.lines.attackedBy"),
       omit: !isInternal || !canGetAttackedBy,
@@ -281,7 +269,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.attackedBy,
     },
     {
-      align: "center",
       dataField: "firstAttackAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -291,7 +278,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.firstAttackAt,
     },
     {
-      align: "center",
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
@@ -300,7 +286,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.seenAt,
     },
     {
-      align: "left",
       dataField: "comments",
       header: translate.t("group.toe.lines.comments"),
       omit: !isInternal || !canGetComments,
@@ -308,7 +293,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.comments,
     },
     {
-      align: "center",
       dataField: "sortsRiskLevel",
       formatter: formatRiskLevel,
       header: translate.t("group.toe.lines.sortsRiskLevel"),
@@ -316,7 +300,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.sortsRiskLevel,
     },
     {
-      align: "center",
       dataField: "bePresent",
       formatter: formatBoolean,
       header: translate.t("group.toe.lines.bePresent"),
@@ -324,7 +307,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       visible: checkedItems.bePresent,
     },
     {
-      align: "center",
       dataField: "bePresentUntil",
       filter: dateFilter({}),
       formatter: formatDate,
