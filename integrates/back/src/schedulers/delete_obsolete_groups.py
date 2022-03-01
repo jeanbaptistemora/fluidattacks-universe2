@@ -7,6 +7,9 @@ from aioextensions import (
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     Group as GroupType,
 )
@@ -52,6 +55,7 @@ async def _remove_group(
             subject=user_email,
             additional_info="obsolete_groups",
             queue="dedicated_later",
+            product_name=Product.INTEGRATES,
         )
     return success
 

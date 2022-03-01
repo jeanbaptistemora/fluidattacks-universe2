@@ -6,6 +6,9 @@ from batch.dal import (
     get_actions_by_name,
     put_action,
 )
+from batch.enums import (
+    Product,
+)
 from batch.types import (
     BatchProcessing,
     CloneResult,
@@ -441,7 +444,6 @@ async def move_root(*, item: BatchProcessing) -> None:
     target_root_id = info["target_root_id"]
     source_group_name = info["source_group_name"]
     source_root_id = info["source_root_id"]
-    source_group_name, source_root_id = item.additional_info.split("/")
     loaders: Dataloaders = get_new_context()
     root: RootItem = await loaders.root.load(
         (source_group_name, source_root_id)
@@ -495,6 +497,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,
+            product_name=Product.INTEGRATES,
         )
     if isinstance(root, GitRootItem):
         repo_toe_lines = await loaders.root_toe_lines.load_nodes(
@@ -518,6 +521,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,
+            product_name=Product.INTEGRATES,
         )
     await send_mails_async(
         email_to=[item.subject],
@@ -619,6 +623,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         subject="integrates@fluidattacks.com",
         additional_info="*",
         queue="spot_later",
+        product_name=Product.INTEGRATES,
     )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
@@ -766,6 +771,7 @@ async def queue_sync_git_roots(
                 for root_id in roots_to_clone
             ),
             queue=queue,
+            product_name=Product.INTEGRATES,
         )
         await collect(
             roots_domain.update_root_cloning_status(

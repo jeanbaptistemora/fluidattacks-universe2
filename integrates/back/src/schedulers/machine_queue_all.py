@@ -25,7 +25,6 @@ from machine.availability import (
 )
 from machine.jobs import (
     FINDINGS,
-    list_jobs,
     queue_job_new,
     SkimsBatchQueue,
 )
@@ -69,7 +68,9 @@ async def _queue_all_checks(
         dataloaders=dataloaders,
     )
     if result:
-        info("Queued %s with the follow identifier %s", group, result)
+        info(
+            "Queued %s with the follow identifier %s", group, result.dynamo_pk
+        )
     else:
         error("A queuing error has occurred %s", group)
     return result
@@ -96,36 +97,6 @@ async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
             return result["jobs"]
         except ClientError:
             return []
-
-
-async def get_job_groups_from_bach(*groups: str) -> List[Dict[str, Any]]:
-    if not groups:
-        return []
-
-    jobs = []
-    next_token: Optional[str] = None
-    while True:
-        result = await list_jobs(
-            "skims_all_later",
-            filters=[
-                {
-                    "name": "JOB_NAME",
-                    "values": [f"skims-process-{group}" for group in groups],
-                }
-            ],
-        )
-        next_token = result.get("nextToken")
-        jobs.extend(
-            [
-                {"group": data.split("-")[-1], **data}
-                for data in result.get("jobSummaryList", [])
-            ]
-        )
-
-        if not next_token:
-            break
-
-    return jobs
 
 
 async def _roots_by_group(
@@ -185,18 +156,6 @@ async def main() -> None:
         if root
     }
     info("Computing jobs")
-
-    jobs_batch = await get_job_groups_from_bach(*(job[0] for job in jobs))
-
-    for job_batch in jobs_batch:
-        group = job_batch["group"]
-        if jobs[group].last_queue != 0:
-            continue
-        jobs[group] = PreparedJob(
-            group_name=jobs[group].group_name,
-            roots=jobs[group].roots,
-            last_queue=job_batch.get("createdAt", 0),
-        )
 
     sorted_jobs: List[PreparedJob] = list(
         sorted(

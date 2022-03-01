@@ -4,6 +4,9 @@ from ariadne.utils import (
 from batch.dal import (
     put_action,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -51,6 +54,7 @@ async def mutate(
         entity=finding_policy_id,
         subject=user_email,
         additional_info=organization_name,
+        product_name=Product.INTEGRATES,
     )
 
     return SimplePayload(success=True)

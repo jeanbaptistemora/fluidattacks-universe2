@@ -4,6 +4,9 @@ from ariadne.utils import (
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from batch.types import (
     BatchProcessing,
 )
@@ -91,6 +94,7 @@ async def _get_url_group_report(
             vcpus=4,
             attempt_duration_seconds=7200,
             queue="reports_soon",
+            product_name=Product.INTEGRATES,
         )
     ).success
     if not success:

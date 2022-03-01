@@ -7,6 +7,7 @@ import aiohttp
 import asyncio
 from batch.enums import (
     JobStatus,
+    Product,
 )
 from batch.types import (
     BatchProcessing,
@@ -601,9 +602,9 @@ async def put_action_to_batch(
     action_dynamo_pk: str,
     entity: str,
     queue: str = "spot_soon",
+    product_name: str,
     vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
-    product_name: str = "integrates",
     **kwargs: Any,
 ) -> Optional[str]:
     if FI_ENVIRONMENT == "development":
@@ -673,8 +674,8 @@ async def put_action(
     additional_info: str,
     queue: str = "spot_soon",
     vcpus: int = 2,
+    product_name: Product,
     attempt_duration_seconds: int = 3600,
-    product_name: str = "integrates",
     dynamodb_pk: Optional[str] = None,
     **kwargs: Any,
 ) -> PutActionResult:
@@ -701,7 +702,7 @@ async def put_action(
         entity=entity,
         attempt_duration_seconds=attempt_duration_seconds,
         action_dynamo_pk=possible_key,
-        product_name=product_name,
+        product_name=product_name.value,
         **kwargs,
     )
     dynamo_pk = await put_action_to_dynamodb(

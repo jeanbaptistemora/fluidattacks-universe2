@@ -13,7 +13,11 @@ from batch.dal import (
     list_log_streams,
     put_action,
 )
+from batch.enums import (
+    Product,
+)
 from batch.types import (
+    PutActionResult,
     VulnerabilitiesSummary,
 )
 from context import (
@@ -248,7 +252,7 @@ async def queue_job_new(
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
     dataloaders: Any = None,
     **kwargs: Any,
-) -> Optional[str]:
+) -> Optional[PutActionResult]:
     if not roots:
         if not dataloaders:
             raise Exception(
@@ -301,25 +305,23 @@ async def queue_job_new(
                     )
                     await batch.cancel_job(jobId=job_id, reason="not required")
 
-    return (
-        await put_action(
-            action_name="execute-machine",
-            vcpus=4,
-            product_name="skims",
-            queue=queue.value,
-            entity=group_name,
-            additional_info=json.dumps(
-                {
-                    "roots": list(roots),
-                    "checks": list(finding_codes),
-                }
-            ),
-            attempt_duration_seconds=86400,
-            subject="integrates@fluidattacks.com",
-            dynamodb_pk=dynamodb_pk,
-            **kwargs,
-        )
-    ).success
+    return await put_action(
+        action_name="execute-machine",
+        vcpus=4,
+        product_name=Product.SKIMS,
+        queue=queue.value,
+        entity=group_name,
+        additional_info=json.dumps(
+            {
+                "roots": list(roots),
+                "checks": list(finding_codes),
+            }
+        ),
+        attempt_duration_seconds=86400,
+        subject="integrates@fluidattacks.com",
+        dynamodb_pk=dynamodb_pk,
+        **kwargs,
+    )
 
 
 def _get_seconds_ago(timestamp: int) -> float:

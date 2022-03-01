@@ -8,6 +8,9 @@ from batch import (
     dal as batch_dal,
     domain as batch_domain,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -66,6 +69,7 @@ async def mutate(
                 subject=user_info["user_email"],
                 additional_info="*",
                 queue=queue,
+                product_name=Product.INTEGRATES,
             )
         logs_utils.cloudwatch_log(
             info.context,

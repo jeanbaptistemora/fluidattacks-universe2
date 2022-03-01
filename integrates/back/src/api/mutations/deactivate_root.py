@@ -11,6 +11,9 @@ import authz
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -132,6 +135,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 entity=group_name,
                 subject=user_email,
                 additional_info=root.state.nickname,
+                product_name=Product.INTEGRATES,
             )
         if isinstance(root, (GitRootItem, URLRootItem)):
             await batch_dal.put_action(
@@ -139,6 +143,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 entity=group_name,
                 subject=user_email,
                 additional_info=root.state.nickname,
+                product_name=Product.INTEGRATES,
             )
     await update_unreliable_indicators_by_deps(
         EntityDependency.deactivate_root,

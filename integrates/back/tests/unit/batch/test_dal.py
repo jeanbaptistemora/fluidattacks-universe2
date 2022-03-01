@@ -4,6 +4,9 @@ from aioextensions import (
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from batch.types import (
     BatchProcessing,
 )
@@ -85,6 +88,11 @@ async def test_requeue_actions() -> None:
                     action_name=action.action_name,
                     action_dynamo_pk=action.key,
                     queue=action.queue,
+                    product_name=(
+                        Product.SKIMS
+                        if action.action_name == "execute-machine"
+                        else Product.INTEGRATES
+                    ).value,
                 )
                 for action in pending_actions
             ],

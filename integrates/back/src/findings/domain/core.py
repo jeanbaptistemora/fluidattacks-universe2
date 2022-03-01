@@ -757,7 +757,9 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     open_vulns_ids: List[str],
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
-    is_reattack_open: Optional[bool] = False,
+    is_reattack_open: Optional[  # pylint: disable=unused-argument
+        bool
+    ] = False,
 ) -> bool:
     # All vulns must be open before verifying them
     # we will just keep them open or close them

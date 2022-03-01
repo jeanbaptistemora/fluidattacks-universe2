@@ -9,6 +9,9 @@ from batch import (
     dal as batch_dal,
     dispatch,
 )
+from batch.enums import (
+    Product,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -30,6 +33,7 @@ async def refresh_toe_inputs(
         entity=group_name,
         subject=user,
         additional_info="*",
+        product_name=Product.INTEGRATES,
     )
     batch_action = await get_batch_job(
         action_name="refresh_toe_inputs", entity=group_name

@@ -4,6 +4,9 @@ from ariadne import (
 from batch.dal import (
     put_action,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -54,6 +57,7 @@ async def mutate(
         subject=user_email,
         additional_info=files_data[0]["file_name"],
         queue="dedicated_soon",
+        product_name=Product.INTEGRATES,
     )
 
     success = await add_file_to_db(new_files_data, group_name, user_email)

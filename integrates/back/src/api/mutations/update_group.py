@@ -5,6 +5,9 @@ import authz
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -87,6 +90,7 @@ async def mutate(
                 subject=requester_email,
                 additional_info="mutation_update_group",
                 queue="dedicated_later",
+                product_name=Product.INTEGRATES,
             )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

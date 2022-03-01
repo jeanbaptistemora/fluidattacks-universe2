@@ -11,3 +11,8 @@ class JobStatus(Enum):
     RUNNING: str = "RUNNING"
     SUCCEEDED: str = "SUCCEEDED"
     FAILED: str = "FAILED"
+
+
+class Product(Enum):
+    INTEGRATES: str = "integrates"
+    SKIMS: str = "skims"

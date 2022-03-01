@@ -7,6 +7,9 @@ from ariadne.utils import (
 from batch import (
     dal as batch_dal,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -122,6 +125,7 @@ async def mutate(
                 entity=kwargs["group_name"],
                 subject=user_email,
                 additional_info=root.state.nickname,
+                product_name=Product.INTEGRATES,
             )
         if isinstance(root, (GitRootItem, URLRootItem)):
             await batch_dal.put_action(
@@ -129,6 +133,7 @@ async def mutate(
                 entity=kwargs["group_name"],
                 subject=user_email,
                 additional_info=root.state.nickname,
+                product_name=Product.INTEGRATES,
             )
 
     return SimplePayload(success=True)

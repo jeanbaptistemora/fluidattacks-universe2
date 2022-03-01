@@ -5,6 +5,9 @@ from batch import (
     dal as batch_dal,
     domain as batch_domain,
 )
+from batch.enums import (
+    Product,
+)
 from batch.types import (
     BatchProcessing,
     JobPayload,
@@ -80,6 +83,11 @@ async def requeue_actions() -> None:
                 action_dynamo_pk=action.key,
                 entity=action.entity,
                 queue=action.queue,
+                product_name=(
+                    Product.SKIMS
+                    if action.action_name == "execute-machine"
+                    else Product.INTEGRATES
+                ).value,
                 **(
                     report_additional_info
                     if action.action_name == "report"

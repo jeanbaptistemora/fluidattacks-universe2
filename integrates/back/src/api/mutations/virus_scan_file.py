@@ -4,6 +4,9 @@ from ariadne import (
 from batch.dal import (
     put_action,
 )
+from batch.enums import (
+    Product,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -40,6 +43,7 @@ async def mutate(
         subject=user_info["user_email"],
         additional_info=files_data[0]["file_name"],
         queue="dedicated_soon",
+        product_name=Product.INTEGRATES,
     )
 
     return SimplePayload(success=True)
