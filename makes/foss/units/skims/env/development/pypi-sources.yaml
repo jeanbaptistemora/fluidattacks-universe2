@@ -7,21 +7,23 @@ closure:
   colorclass: 2.2.2
   docopt: 0.6.2
   idna: "3.3"
-  more-itertools: 8.12.0
+  iniconfig: 1.1.1
   packaging: "21.3"
   pip-upgrader: 1.4.15
-  pluggy: 0.13.1
+  pluggy: 1.0.0
   py: 1.11.0
   pydeps: 1.9.4
   pyparsing: 3.0.7
-  pytest: 5.4.3
-  pytest-rerunfailures: "9.0"
+  pytest: 7.0.1
+  pytest-asyncio: 0.18.1
+  pytest-mock: 3.7.0
+  pytest-rerunfailures: "10.2"
   pytz: "2020.1"
   requests: 2.27.1
   stdlib-list: 0.8.0
   terminaltables: 3.1.10
+  tomli: 2.0.1
   urllib3: 1.26.8
-  wcwidth: 0.2.5
 links:
   - name: atomicwrites-1.4.0-py2.py3-none-any.whl
     sha256: 15z1i1xjlc71ya8kcy3dz7ywpr5n807n4v1b2yjx9j60lzg885vd
@@ -68,12 +70,12 @@ links:
   - name: idna-3.3.tar.gz
     sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
     url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
-  - name: more_itertools-8.12.0-py3-none-any.whl
-    sha256: 12v8190sp0v0ganjgab8x6iyd8bxmn1z6kic39k75zfz8acxvrj3
-    url: https://files.pythonhosted.org/packages/e5/c3/48e2c81038f57e8caab9a6e6fb6c2fc23536c59b092abefc447e6b5d1903/more_itertools-8.12.0-py3-none-any.whl
-  - name: more-itertools-8.12.0.tar.gz
-    sha256: 0r30gwj7s37afnqyrkxkjxxq59449vxqv7nm1n85ym2zy13avikx
-    url: https://files.pythonhosted.org/packages/dc/b5/c216ffeace7b89b7387fe08e1b39a07c6da38ea82c60e2e630dd5883813b/more-itertools-8.12.0.tar.gz
+  - name: iniconfig-1.1.1-py2.py3-none-any.whl
+    sha256: 1cx8kpp3akxwadzsmv2cdnifkyzj8fki5frmv3mzcivz9g3287h1
+    url: https://files.pythonhosted.org/packages/9b/dd/b3c12c6d707058fa947864b67f0c4e0c39ef8610988d7baea9578f3c48f3/iniconfig-1.1.1-py2.py3-none-any.whl
+  - name: iniconfig-1.1.1.tar.gz
+    sha256: 0ckzngs3scaa1mcfmsi1w40a1l8cxxnncscrxzjjwjyisx8z0fmw
+    url: https://files.pythonhosted.org/packages/23/a2/97899f6bd0e873fed3a7e67ae8d3a08b21799430fb4da15cfedf10d6e2c2/iniconfig-1.1.1.tar.gz
   - name: packaging-21.3-py3-none-any.whl
     sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
     url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
@@ -86,12 +88,12 @@ links:
   - name: pip_upgrader-1.4.15.tar.gz
     sha256: 0isknrnnlh5skb5l16s7dd28iln93w18wnj71zs9qpc20qzbj1zc
     url: https://files.pythonhosted.org/packages/3c/54/d3d6fdc8f5379bb2c0cd2da286796a2bd77e0fdea20b43e37ef1e46f1c46/pip_upgrader-1.4.15.tar.gz
-  - name: pluggy-0.13.1-py2.py3-none-any.whl
-    sha256: 0b8x12j6394w3spk8xzp991khyv8102gas1q7hn515iwv1f18v4n
-    url: https://files.pythonhosted.org/packages/a0/28/85c7aa31b80d150b772fbe4a229487bc6644da9ccb7e427dd8cc60cb8a62/pluggy-0.13.1-py2.py3-none-any.whl
-  - name: pluggy-0.13.1.tar.gz
-    sha256: 1c35qyhvy27q9ih9n899f3h4sdnpgq027dbiilly2qb5cvgarchm
-    url: https://files.pythonhosted.org/packages/f8/04/7a8542bed4b16a65c2714bf76cf5a0b026157da7f75e87cc88774aa10b14/pluggy-0.13.1.tar.gz
+  - name: pluggy-1.0.0-py2.py3-none-any.whl
+    sha256: 1lvvnc39v43v5jawq2wz0765rg9lkx8f25l4sqv1l0vz8nzln4vl
+    url: https://files.pythonhosted.org/packages/9e/01/f38e2ff29715251cf25532b9082a1589ab7e4f571ced434f98d0139336dc/pluggy-1.0.0-py2.py3-none-any.whl
+  - name: pluggy-1.0.0.tar.gz
+    sha256: 0n8iadlas2z1b4h0fc73b043c7iwfvx9rgvqm1azjmffmhxkf922
+    url: https://files.pythonhosted.org/packages/a1/16/db2d7de3474b6e37cbb9c008965ee63835bba517e22cdb8c35b5116b5ce1/pluggy-1.0.0.tar.gz
   - name: py-1.11.0-py2.py3-none-any.whl
     sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
     url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
@@ -107,18 +109,30 @@ links:
   - name: pyparsing-3.0.7.tar.gz
     sha256: 1siyxm70kws5fhszpl6h6w5vcg88c1j9acvp31ahq9sxfwi91vhq
     url: https://files.pythonhosted.org/packages/d6/60/9bed18f43275b34198eb9720d4c1238c68b3755620d20df0afd89424d32b/pyparsing-3.0.7.tar.gz
-  - name: pytest-5.4.3-py3-none-any.whl
-    sha256: 18c9nlgk0d6f9bk1x6y7sky5b4li90i4jajqlh5ig3wfd5mvh3aw
-    url: https://files.pythonhosted.org/packages/9f/f3/0a83558da436a081344aa6c8b85ea5b5f05071214106036ce341b7769b0b/pytest-5.4.3-py3-none-any.whl
-  - name: pytest-5.4.3.tar.gz
-    sha256: 1n67lk8iwlsmfdm8663k8l7isllg1xd3n9p1yla7885szhdk6ybr
-    url: https://files.pythonhosted.org/packages/8f/c4/e4a645f8a3d6c6993cb3934ee593e705947dfafad4ca5148b9a0fde7359c/pytest-5.4.3.tar.gz
-  - name: pytest_rerunfailures-9.0-py3-none-any.whl
-    sha256: 0ssfv79308j4zhd59vgg5hcg1xnphxbc44hd5vgh2vw6vavg45gj
-    url: https://files.pythonhosted.org/packages/25/91/a0d1ff828e6da1915e4972d76ea2b5f9a1b520f078b4197ef93eb8427b65/pytest_rerunfailures-9.0-py3-none-any.whl
-  - name: pytest-rerunfailures-9.0.tar.gz
-    sha256: 1r5qnkkhkfvx1jbi1wfyxpyggwyr32w6h5z3i93a03bc92kc4nl9
-    url: https://files.pythonhosted.org/packages/c6/2b/5ae05d35e018f60b29e21f18da531d9fdf767a64886b0b879f865135a31e/pytest-rerunfailures-9.0.tar.gz
+  - name: pytest-7.0.1-py3-none-any.whl
+    sha256: 1nw088g2q4ajahzw8f8l18mcy39c7awkgqqz6bvfq4zrg93zzqww
+    url: https://files.pythonhosted.org/packages/38/93/c7c0bd1e932b287fb948eb9ce5a3d6307c9fc619db1e199f8c8bc5dad95f/pytest-7.0.1-py3-none-any.whl
+  - name: pytest-7.0.1.tar.gz
+    sha256: 0wgia2cd9sz0v1kih5fvzfi0ngpcmz2iqjk2i55xklriq6h0a2g3
+    url: https://files.pythonhosted.org/packages/3e/2c/a67ad48759051c7abf82ce182a4e6d766de371b183182d2dde03089e8dfb/pytest-7.0.1.tar.gz
+  - name: pytest_asyncio-0.18.1-py3-none-any.whl
+    sha256: 0zjalbmvm4s08rhqzb7lqp4kx107d6ydii0qbrsn5k7mpgl4iv69
+    url: https://files.pythonhosted.org/packages/fc/8a/14ecccaa48a2a8d05a9623d084e58b8aa8eeacb52dcdabe4f5ef546941a6/pytest_asyncio-0.18.1-py3-none-any.whl
+  - name: pytest-asyncio-0.18.1.tar.gz
+    sha256: 17mhzf86lyyl31hyb0cfiakzxpc50bj789qgzqpxhp9klbzcsgy4
+    url: https://files.pythonhosted.org/packages/ed/e6/aea6b1b0203aea401693ed95b0c79fa9b67c2fd222cacf4fc7826baa7ad3/pytest-asyncio-0.18.1.tar.gz
+  - name: pytest_mock-3.7.0-py3-none-any.whl
+    sha256: 0cb2lz5k2hx0j15yrd8626jwsyw05c9hfzz8bvf83grnr772gzvc
+    url: https://files.pythonhosted.org/packages/11/40/8fcb3c0f72e11dc44e1102b2adf5f160b8a00e84d915798c60aabcd9257a/pytest_mock-3.7.0-py3-none-any.whl
+  - name: pytest-mock-3.7.0.tar.gz
+    sha256: 0d4mqr61qhhgqlwsvbn3754lksk9974fz4hsdvlnw64zrj9bs4ji
+    url: https://files.pythonhosted.org/packages/96/e1/fb53b62056e6840a36d9a4beb4e42726155594c567b574103435a7131c60/pytest-mock-3.7.0.tar.gz
+  - name: pytest_rerunfailures-10.2-py3-none-any.whl
+    sha256: 1qizfamiczbc2b1ib7x86fjcf1pmgcc91lwwv4x3cfgxin18w7fk
+    url: https://files.pythonhosted.org/packages/ee/cc/f8782fb91a6a9e1b593c22e3b1a7354a9dbd6d632e63ddf122b2da49037b/pytest_rerunfailures-10.2-py3-none-any.whl
+  - name: pytest-rerunfailures-10.2.tar.gz
+    sha256: 15v68kggjvkflbqr0vz8gp5yp3pcsk0rz05bpg2l4xp0a6nin7ly
+    url: https://files.pythonhosted.org/packages/83/07/4b24f61f9700bd0d11cad641180898d48f602f156254a43376ee759fb904/pytest-rerunfailures-10.2.tar.gz
   - name: pytz-2020.1-py2.py3-none-any.whl
     sha256: 1vbrpdzhalwjb45q1gwvybj0ahz16rrj7v1v9kjcdhrrdlxxb554
     url: https://files.pythonhosted.org/packages/4f/a4/879454d49688e2fad93e59d7d4efda580b783c745fd2ec2a3adf87b0808d/pytz-2020.1-py2.py3-none-any.whl
@@ -143,16 +157,16 @@ links:
   - name: terminaltables-3.1.10.tar.gz
     sha256: 0hvmwian4f2l04cwvkwlrzfc6kn5h2pqbyglr6jbn0msnmfclvms
     url: https://files.pythonhosted.org/packages/f5/fc/0b73d782f5ab7feba8d007573a3773c58255f223c5940a7b7085f02153c3/terminaltables-3.1.10.tar.gz
+  - name: tomli-2.0.1-py3-none-any.whl
+    sha256: 1k0fqfdylinb57s2aqwprahwbrsk3babg4gghz4g06hnlvky77ck
+    url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
+  - name: tomli-2.0.1.tar.gz
+    sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
+    url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
   - name: urllib3-1.26.8-py2.py3-none-any.whl
     sha256: 1v976ijsh5zxyjziwqhqvyzj2mrhhpp26w3c3hjw4cx2f7saf300
     url: https://files.pythonhosted.org/packages/4e/b8/f5a25b22e803f0578e668daa33ba3701bb37858ec80e08a150bd7d2cf1b1/urllib3-1.26.8-py2.py3-none-any.whl
   - name: urllib3-1.26.8.tar.gz
     sha256: 0g18xk7gfm88gr4bp3f58vgvsbzwps3sq2kqhv5xyz9ylvck6z0f
     url: https://files.pythonhosted.org/packages/b0/b1/7bbf5181f8e3258efae31702f5eab87d8a74a72a0aa78bc8c08c1466e243/urllib3-1.26.8.tar.gz
-  - name: wcwidth-0.2.5-py2.py3-none-any.whl
-    sha256: 1177pfa343r378020a85l3b16ak479qgyvh8k5719fgbkhm81d5y
-    url: https://files.pythonhosted.org/packages/59/7c/e39aca596badaf1b78e8f547c807b04dae603a433d3e7a7e04d67f2ef3e5/wcwidth-0.2.5-py2.py3-none-any.whl
-  - name: wcwidth-0.2.5.tar.gz
-    sha256: 10vc257v1r9hhmwxyxw0v79kwh81gyz4zanwggdrz4kjk2wlgmn4
-    url: https://files.pythonhosted.org/packages/89/38/459b727c381504f361832b9e5ace19966de1a235d73cdbdea91c771a1155/wcwidth-0.2.5.tar.gz
 python: "3.8"

@@ -1,4 +1,10 @@
 import contextlib
+from ctx import (
+    NAMESPACES_FOLDER,
+)
+from git import (
+    Repo,
+)
 from glob import (
     iglob,
 )
@@ -15,6 +21,12 @@ from parse_cfn.loader import (
     load_as_yaml_without_line_number,
 )
 import pytest
+from pytest_mock import (
+    MockerFixture,
+)
+from shutil import (
+    rmtree,
+)
 import subprocess  # nosec
 from test_helpers import (
     create_test_context,
@@ -155,3 +167,50 @@ def test_mocks_ssl_safe() -> Iterator[None]:
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_unsafe() -> Iterator[None]:
     yield from _exec_mock_server(["skims-test-mocks-ssl-unsafe"], "4446")
+
+
+@pytest.fixture(scope="function")
+def mock_pull_namespace_from_s3(
+    mocker: MockerFixture,
+    test_group: str,  # pylint: disable=redefined-outer-name
+) -> Iterator[None]:
+    repo_path = os.path.join(NAMESPACES_FOLDER, test_group, "namespace")
+    files = {
+        f"{repo_path}/back/test/conftest.py",
+        f"{repo_path}/back/test/test_utils.py",
+        f"{repo_path}/back/test/test_generic.py",
+        f"{repo_path}/back/test/controlles/test_user.py",
+        f"{repo_path}/back/test/controlles/test_client.py",
+        f"{repo_path}/back/test/controlles/test_admin.py",
+        f"{repo_path}/back/test/conftest.py",
+        f"{repo_path}/back/src/controlles/user.py",
+        f"{repo_path}/back/src/controlles/client.py",
+        f"{repo_path}/back/src/controlles/admin.py",
+        f"{repo_path}/back/src/controlles/admin.py",
+        f"{repo_path}/back/src/statics/key.ssh",
+        f"{repo_path}/back/src/statics/log.img",
+        f"{repo_path}/README.md",
+        f"{repo_path}/front/node_modules/colors/index.js",
+        f"{repo_path}/front/node_modules/babel/index.js",
+        f"{repo_path}/front/index.js",
+        f"{repo_path}/front/www.html",
+        f"{repo_path}/front/components/user/index.js",
+        f"{repo_path}/front/components/user/index.spec.js",
+        f"{repo_path}/front/components/admin/index.js",
+        f"{repo_path}/front/components/admin/index.spec.js",
+    }
+    try:
+        os.makedirs(repo_path, exist_ok=True)
+        repo = Repo.init(repo_path)
+        for file in files:
+            os.makedirs(os.path.split(file)[0], exist_ok=True)
+            with open(file, "w", encoding="utf-8") as handler:
+                handler.write(f"# {file.split('/')[-1]}")
+            repo.index.add(file)
+        repo.index.commit("Initial commit")
+        mocker.patch(
+            "batch.repositories.pull_namespace_from_s3", return_value=repo_path
+        )
+        yield
+    finally:
+        rmtree(repo_path)

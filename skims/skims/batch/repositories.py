@@ -43,7 +43,7 @@ def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
 
 
 async def get_namespace(group_name: str, root_nickname: str) -> Optional[str]:
-    path = await _pull_namespace_from_s3(group_name, root_nickname)
+    path = await pull_namespace_from_s3(group_name, root_nickname)
     await delete_out_of_scope_files(group_name, root_nickname)
     return path
 
@@ -77,7 +77,7 @@ async def delete_out_of_scope_files(
     return True
 
 
-async def _pull_namespace_from_s3(
+async def pull_namespace_from_s3(
     group_name: str, root_nickname: str
 ) -> Optional[str]:
     local_path = os.path.join(NAMESPACES_FOLDER, group_name, root_nickname)
