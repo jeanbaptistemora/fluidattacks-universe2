@@ -17,6 +17,9 @@ from custom_exceptions import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -198,9 +201,9 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context"):
+        if hasattr(args[0], "context") and not isinstance(args[0], Group):
             context = args[0].context
-        elif hasattr(args[1], "context"):
+        elif hasattr(args[1], "context") and not isinstance(args[1], Group):
             context = args[1].context
         else:
             GraphQLError("Could not get context from request.")  # NOSONAR
@@ -345,9 +348,11 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
         @functools.wraps(_func)
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
-            if hasattr(args[0], "context"):
+            if hasattr(args[0], "context") and not isinstance(args[0], Group):
                 context = args[0].context
-            elif hasattr(args[1], "context"):
+            elif hasattr(args[1], "context") and not isinstance(
+                args[1], Group
+            ):
                 context = args[1].context
             else:
                 GraphQLError("Could not get context from request.")
@@ -543,6 +548,9 @@ async def resolve_group_name(  # noqa: MC0001
     if args and args[0] and isinstance(args[0], Vulnerability):
         vuln: Vulnerability = args[0]
         name = await _resolve_from_finding_id(context, vuln.finding_id)
+    elif args and args[0] and isinstance(args[0], Group):
+        group: Group = args[0]
+        name = group.name
     elif args and args[0] and hasattr(args[0], "group_name"):
         name = getattr(args[0], "group_name")
     elif args and args[0] and isinstance(args[0], dict) and "name" in args[0]:

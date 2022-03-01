@@ -1,5 +1,7 @@
 from custom_types import (
     Comment,
+)
+from db_model.groups.types import (
     Group,
 )
 from decorators import (
@@ -24,9 +26,11 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
+    Union,
 )
 
 
@@ -34,21 +38,27 @@ from typing import (
     enforce_group_level_auth_async, require_asm, require_squad
 )
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> List[Comment]:
     response: List[Comment] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="consulting",
-        name=parent["name"],
+        name=parent["name"] if isinstance(parent, dict) else parent.name,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> List[Comment]:
-    group_name: str = parent["name"]
+    group_name: str = str(
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
