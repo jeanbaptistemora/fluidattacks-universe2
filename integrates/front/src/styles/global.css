@@ -876,11 +876,11 @@ label {
 }
 
 :global .react-bootstrap-table td > .selection-input-4 {
-  margin: 0;
+  margin: 0 !important;
 }
 
 :global .react-bootstrap-table th > .selection-input-4 {
-  margin: 0;
+  margin: 0 !important;
 }
 
 :global .w-md-editor-text-input {

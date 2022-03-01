@@ -264,11 +264,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             value={rangeProps?.defaultValue.min}
           />
           <div>
-            <FontAwesomeIcon
-              className={" h-100 mvh-auto mh2"}
-              color={"gray"}
-              icon={faMinus}
-            />
+            <FontAwesomeIcon color={"gray"} icon={faMinus} />
           </div>
           <InputDateRange
             onChange={handleChangeMax}
@@ -302,11 +298,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             value={rangeProps?.defaultValue.min}
           />
           <div>
-            <FontAwesomeIcon
-              className={" h-100 mvh-auto"}
-              color={"gray"}
-              icon={faMinus}
-            />
+            <FontAwesomeIcon color={"gray"} icon={faMinus} />
           </div>
           <InputRange
             onChange={handleChangeMax}
@@ -488,7 +480,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   ) : undefined;
                 }
               )}
-              <SelectContainer />
 
               <FlexAutoContainer>
                 <Button

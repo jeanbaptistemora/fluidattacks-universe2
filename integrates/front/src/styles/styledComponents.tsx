@@ -238,7 +238,7 @@ const ExpandableLabel: StyledComponent<
 })``;
 
 const Filters = styled.div.attrs({
-  className: "flex flex-wrap flex-auto mt2",
+  className: "flex flex-wrap flex-auto mt2 justify-around",
 })``;
 
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
@@ -465,7 +465,7 @@ const RangeContainer: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "flex flex-wrap",
+  className: "flex items-center",
 })``;
 
 const RemoveItem: StyledComponent<
