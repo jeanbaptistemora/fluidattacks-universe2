@@ -560,15 +560,22 @@ async def request_verification(vulnerability: Vulnerability) -> bool:
     return True
 
 
-async def request_hold(vulnerability: Vulnerability) -> bool:
+async def request_hold(event_id: str, vulnerability: Vulnerability) -> bool:
+    verification = VulnerabilityVerification(
+        event_id=event_id,
+        modified_date=datetime_utils.get_iso_date(),
+        status=VulnerabilityVerificationStatus.ON_HOLD,
+    )
     await vulns_model.update_historic_entry(
         current_entry=vulnerability.verification,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
-        entry=VulnerabilityVerification(
-            modified_date=datetime_utils.get_iso_date(),
-            status=VulnerabilityVerificationStatus.ON_HOLD,
-        ),
+        entry=verification,
+    )
+    await vulns_model.update_event_index(
+        finding_id=vulnerability.finding_id,
+        entry=verification,
+        vulnerability_id=vulnerability.id,
     )
     return True
 

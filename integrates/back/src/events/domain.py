@@ -392,10 +392,13 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
 async def request_vulnerabilities_hold(
     loaders: Any,
     finding_id: str,
+    event_id: str,
     user_info: Dict[str, str],
-    justification: str,
     vulnerability_ids: Set[str],
 ) -> None:
+    justification: str = (
+        f"These reattacks were put on hold because of Event #{event_id}"
+    )
     finding: Finding = await loaders.finding.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
@@ -426,6 +429,12 @@ async def request_vulnerabilities_hold(
         finding_id=finding.id,
         verification=verification,
     )
+    success = all(
+        await collect(
+            vulns_domain.request_hold(event_id, vuln)
+            for vuln in vulnerabilities
+        )
+    )
     comment_data = {
         "comment_type": "verification",
         "content": justification,
@@ -433,9 +442,6 @@ async def request_vulnerabilities_hold(
         "comment_id": comment_id,
     }
     await comments_domain.add(finding_id, comment_data, user_info)
-    success = all(
-        await collect(map(vulns_domain.request_hold, vulnerabilities))
-    )
     if not success:
         LOGGER.error("An error occurred requesting hold", **NOEXTRA)
         raise NoHoldRequested()

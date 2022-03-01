@@ -717,7 +717,8 @@ def validate_requested_hold(
     ):
         raise AlreadyOnHold()
     if (
-        vulnerability.verification
+        vulnerability.verification is None
+        or vulnerability.verification
         and vulnerability.verification.status
         != VulnerabilityVerificationStatus.REQUESTED
     ):
@@ -728,7 +729,7 @@ def validate_requested_hold(
 def validate_reattack_requested(
     vulnerability: Vulnerability,
 ) -> Vulnerability:
-    """Validate if the vulnerability does not have a reattack resquested."""
+    """Validate if the vulnerability does not have a reattack requested."""
     if (
         not vulnerability.verification
         or vulnerability.verification.status

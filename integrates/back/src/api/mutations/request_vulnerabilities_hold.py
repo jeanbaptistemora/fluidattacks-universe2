@@ -65,16 +65,13 @@ async def mutate(
         event = await event_loader.load(event_id)
         if "group_name" not in event or group_name != event["group_name"]:
             raise EventNotFound()
-        justification: str = (
-            "These reattacks were put on hold because of " f"Event {event_id}"
-        )
 
         await events_domain.request_vulnerabilities_hold(
-            info.context.loaders,
-            finding_id,
-            user_info,
-            justification,
-            set(vulnerabilities),
+            loaders=info.context.loaders,
+            event_id=event_id,
+            finding_id=finding_id,
+            user_info=user_info,
+            vulnerability_ids=set(vulnerabilities),
         )
         redis_del_by_deps_soon(
             "request_vulnerabilities_hold",

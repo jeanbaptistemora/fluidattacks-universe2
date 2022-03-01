@@ -8,6 +8,7 @@ from .types import (
     VulnerabilityMetadataToUpdate,
     VulnerabilityTreatment,
     VulnerabilityUnreliableIndicatorsToUpdate,
+    VulnerabilityVerification,
 )
 from .utils import (
     adjust_historic_dates,
@@ -28,6 +29,7 @@ from db_model import (
 )
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
+    EVENT_INDEX_METADATA,
 )
 from decimal import (
     Decimal,
@@ -103,6 +105,45 @@ async def update_assigned_index(
         vulnerability_item = {
             gsi_3_index.primary_key.partition_key: gsi_3_key.partition_key,
             gsi_3_index.primary_key.sort_key: gsi_3_key.sort_key,
+        }
+        await operations.update_item(
+            condition_expression=(base_condition),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+
+async def update_event_index(
+    *,
+    finding_id: str,
+    entry: VulnerabilityVerification,
+    vulnerability_id: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    gsi_4_index = TABLE.indexes["gsi_4"]
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={"finding_id": finding_id, "id": vulnerability_id},
+        )
+        base_condition = (
+            Attr(key_structure.partition_key).exists()
+            & Attr("verification").exists()
+        )
+        gsi_4_key = keys.build_key(
+            facet=EVENT_INDEX_METADATA,
+            values={
+                "event_id": entry.event_id,
+                "vuln_id": vulnerability_id,
+            },
+        )
+        vulnerability_item = {
+            gsi_4_index.primary_key.partition_key: gsi_4_key.partition_key,
+            gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
         }
         await operations.update_item(
             condition_expression=(base_condition),
