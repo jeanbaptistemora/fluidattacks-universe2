@@ -452,7 +452,7 @@ const NewMainCoverHome: StyledComponent<
   `,
 })`
   background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1643995540/airs/home/dark-cover-main.webp");
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const MainContentHome: StyledComponent<
