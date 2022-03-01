@@ -14,8 +14,6 @@ variable "client_endpoint" {}
 variable "client_name" {}
 variable "routes" {}
 variable "vpn_gateway_id" {}
-variable "vpc_route_table_id" {}
-variable "nat_gateway_id" {}
 
 variable "tags" {}
 
@@ -45,10 +43,4 @@ resource "aws_vpn_connection_route" "main" {
 
   destination_cidr_block = each.key
   vpn_connection_id      = aws_vpn_connection.main.id
-}
-
-resource "aws_route" "main" {
-  route_table_id         = var.vpc_route_table_id
-  destination_cidr_block = "${var.client_endpoint}/32"
-  gateway_id             = var.nat_gateway_id
 }
