@@ -3,9 +3,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     nix_filter.url = "github:numtide/nix-filter";
+    purity.url = "gitlab:dmurciaatfluid/purity";
+    purity.inputs.nixpkgs.follows = "nixpkgs";
     redshift_client.url = "gitlab:dmurciaatfluid/redshift_client";
+    redshift_client.inputs.nixpkgs.follows = "nixpkgs";
+    redshift_client.inputs.purity.follows = "purity";
   };
-  outputs = { self, nixpkgs, nix_filter, redshift_client }:
+  outputs = { self, nixpkgs, nix_filter, redshift_client, ... }:
     let
       system = "x86_64-linux";
       metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).tool.poetry;
@@ -19,7 +23,7 @@
       };
       path_filter = nix_filter.outputs.lib;
       src = path_filter {
-        root = self;
+        root = "${self}/observes/services/db_migration";
         include = [
           "pyproject.toml"
           (path_filter.inDirectory metadata.name)

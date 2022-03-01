@@ -1,6 +1,7 @@
 { lib
 , pythonPkgs
 , src
+, metadata
 }:
 let
   runtime_deps = [
@@ -11,7 +12,7 @@ let
   ];
   build_pkg = propagatedBuildInputs: (import ./build.nix) {
     nativeBuildInputs = [ pythonPkgs.poetry ] ++ dev_deps;
-    inherit lib src propagatedBuildInputs;
+    inherit lib src metadata propagatedBuildInputs;
   };
 in
 {

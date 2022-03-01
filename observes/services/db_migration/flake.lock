@@ -60,40 +60,12 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1644433990,
-        "narHash": "sha256-c33t0Bsy29EJ6T9VL2hSHGqErJgemC1scyh/YhaAhxs=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "7a6506fc79e0f2efc63bf2a62c5b8c56186e2926",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1644343489,
-        "narHash": "sha256-dpHKuZDqXKRk/MR8aMelqSCNmm0+BapSgk6tuiiI02E=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d24b8431aaed3f7e959bef5cf155cc58a9e6be07",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "purity": {
       "inputs": {
-        "nix_filter": "nix_filter_3",
-        "nixpkgs": "nixpkgs_3"
+        "nix_filter": "nix_filter_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1646052341,
@@ -111,9 +83,13 @@
     },
     "redshift_client": {
       "inputs": {
-        "nix_filter": "nix_filter_2",
-        "nixpkgs": "nixpkgs_2",
-        "purity": "purity"
+        "nix_filter": "nix_filter_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "purity": [
+          "purity"
+        ]
       },
       "locked": {
         "lastModified": 1646158916,
@@ -133,6 +109,7 @@
       "inputs": {
         "nix_filter": "nix_filter",
         "nixpkgs": "nixpkgs",
+        "purity": "purity",
         "redshift_client": "redshift_client"
       }
     }
