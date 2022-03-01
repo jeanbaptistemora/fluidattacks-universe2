@@ -7,6 +7,9 @@ variable "bitbucketPwd" {
 variable "bitbucketUser" {
   sensitive = true
 }
+variable "checklyAccountId" {
+  sensitive = true
+}
 variable "checklyApiKey" {
   sensitive = true
 }
