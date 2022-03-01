@@ -9,6 +9,33 @@ resource "aws_vpn_gateway" "main" {
   }
 }
 
+resource "aws_eip" "vpn" {
+  vpc = true
+
+  depends_on = [aws_internet_gateway.fluid-vpc]
+
+  tags = {
+    "Name"               = "vpn"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
+  }
+}
+
+resource "aws_nat_gateway" "main" {
+  allocation_id = aws_eip.vpn.id
+  subnet_id     = aws_subnet.main["batch"].id
+
+  tags = {
+    "Name"               = "main"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
+  }
+
+  depends_on = [aws_internet_gateway.fluid-vpc]
+}
+
 module "vpn" {
   for_each = local.vpnData
 
