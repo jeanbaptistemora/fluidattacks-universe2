@@ -284,20 +284,6 @@ async def persist_finding(
             finding_id=finding_id, store=diff_store, client=client
         )
 
-        justification = get_vulnerability_justification(
-            reattacked_store=reattacked_store,
-            store=diff_store,
-        )
-
-        if reattacked_store and justification:
-            await do_add_finding_consult(
-                content=justification,
-                finding_id=finding_id,
-                parent="0",
-                comment_type="CONSULT",
-                client=client,
-            )
-
         # Evidences and draft submit only make sense if there are results
         if has_results:
             success_release = await do_release_finding(

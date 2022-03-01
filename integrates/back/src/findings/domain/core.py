@@ -811,8 +811,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         "comment_id": comment_id,
     }
 
-    if not is_reattack_open:
-        await comments_domain.add(finding_id, comment_data, user_info)
+    await comments_domain.add(finding_id, comment_data, user_info)
 
     # Modify the verification state to mark all passed vulns as verified
     success = all(
