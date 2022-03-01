@@ -25,5 +25,5 @@ provider "aws" {}
 
 provider "checkly" {
   account_id = var.checklyAccountId
-  api_key = var.checklyApiKey
+  api_key    = var.checklyApiKey
 }
