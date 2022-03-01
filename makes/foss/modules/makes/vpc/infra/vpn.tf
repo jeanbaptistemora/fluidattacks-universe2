@@ -39,12 +39,14 @@ resource "aws_nat_gateway" "main" {
 module "vpn" {
   for_each = local.vpnData
 
-  source          = "./modules/vpn"
-  aws_cidr        = each.value.aws_cidr
-  client_endpoint = each.value.client_endpoint
-  client_name     = each.key
-  routes          = each.value.routes
-  vpn_gateway_id  = aws_vpn_gateway.main.id
+  source             = "./modules/vpn"
+  aws_cidr           = each.value.aws_cidr
+  client_endpoint    = each.value.client_endpoint
+  client_name        = each.key
+  routes             = each.value.routes
+  vpn_gateway_id     = aws_vpn_gateway.main.id
+  vpc_route_table_id = aws_vpc.fluid-vpc.default_route_table_id
+  nat_gateway_id     = aws_nat_gateway.main.id
 
   tags = {
     "Name"               = each.key
