@@ -875,6 +875,14 @@ label {
   transition: max-height 0.2s ease !important;
 }
 
+:global .react-bootstrap-table td > .selection-input-4 {
+  margin: 0;
+}
+
+:global .react-bootstrap-table th > .selection-input-4 {
+  margin: 0;
+}
+
 :global .w-md-editor-text-input {
   border: 0 !important;
 }
