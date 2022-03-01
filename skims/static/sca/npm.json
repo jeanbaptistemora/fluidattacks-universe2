@@ -692,6 +692,9 @@
   "co-cli-installer": {
     "GMS-2017-42": ">=0.0.0-alpha"
   },
+  "coa": {
+    "SNYK-JS-COA-1911118": ">2.0.2"
+  },
   "cobalt-cli": {
     "GMS-2017-102": ">=0.0.0-alpha"
   },
