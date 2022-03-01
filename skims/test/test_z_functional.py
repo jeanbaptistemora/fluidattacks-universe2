@@ -503,7 +503,7 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     )
     assert code == 0
     assert "[INFO] Startup working dir is:" in stdout
-    assert f"[INFO] Results will be synced to group: {test_group}" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
@@ -531,7 +531,7 @@ def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     assert code == 0
     assert "[INFO] Startup working dir is:" in stdout
     assert "[INFO] Files to be tested:" in stdout
-    assert f"[INFO] Results will be synced to group: {test_group}" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
@@ -585,7 +585,7 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     assert code == 0
     assert "[INFO] Startup working dir is:" in stdout
     assert "[INFO] Files to be tested:" in stdout
-    assert f"[INFO] Results will be synced to group: {test_group}" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
@@ -641,7 +641,7 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     )
     assert code == 0
     assert "[INFO] Startup working dir is:" in stdout
-    assert f"[INFO] Results will be synced to group: {test_group}" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
@@ -694,7 +694,7 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     )
     assert code == 0
     assert "[INFO] Startup working dir is:" in stdout
-    assert f"[INFO] Results will be synced to group: {test_group}" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr

@@ -63,18 +63,13 @@ from zone import (
 )
 
 
-async def execute_skims(token: Optional[str] = None) -> bool:
-    """Execute skims according to the provided config.
+async def execute_skims() -> Dict[core_model.FindingEnum, EphemeralStore]:
+    """
+    Execute skims according to the provided config.
 
-    :param token: Integrates API token
-    :type token: str
     :raises MemoryError: If not enough memory can be allocated by the runtime
     :raises SystemExit: If any critical error occurs
-    :return: A boolean indicating success
-    :rtype: bool
     """
-    success: bool = True
-    start_date = datetime.utcnow()
     CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())
 
     stores: Dict[core_model.FindingEnum, EphemeralStore] = {
@@ -100,57 +95,7 @@ async def execute_skims(token: Optional[str] = None) -> bool:
 
     log_blocking("info", "Value missing to add:\n%s", CTX.value_to_add)
 
-    if CTX.config.group and token:
-        create_session(token)
-
-        msg = "Results will be synced to group: %s"
-        log_blocking("info", msg, CTX.config.group)
-
-        result_persist = await persist(
-            group=CTX.config.group,
-            stores=stores,
-            token=token,
-        )
-
-        success = all(result_persist.values())
-
-        end_date = datetime.utcnow()
-        if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
-            executed = [
-                {
-                    "finding": finding.name,
-                    "open": get_ephemeral_store().length(),
-                    "modified": (
-                        result_persist[finding].diff_result.length()
-                        if finding in result_persist
-                        and result_persist[finding].diff_result
-                        else 0
-                    ),
-                }
-                for finding in core_model.FindingEnum
-                if finding in CTX.config.checks
-            ]
-            await do_add_skims_execution(
-                root=CTX.config.namespace,
-                group_name=CTX.config.group,
-                job_id=batch_job_id,
-                start_date=start_date,
-                end_date=end_date,
-                findings_executed=tuple(executed),
-                commit_hash=get_repo_head_hash(CTX.config.working_dir),
-            )
-    else:
-        success = True
-        log_blocking(
-            "info",
-            (
-                "In case you want to persist results to Integrates "
-                "please make sure you set the --token and --group flag "
-                "in the CLI"
-            ),
-        )
-
-    return success
+    return stores
 
 
 def notify_findings_as_snippets(
@@ -210,11 +155,51 @@ def notify_findings_as_csv(
     log_blocking("info", "An output file has been written: %s", output)
 
 
+async def persist_to_integrates(
+    token: str,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
+    create_session(token)
+    log_blocking("info", f"Results will be sync to group: {CTX.config.group}")
+    return await persist(group=CTX.config.group, stores=stores, token=token)
+
+
+async def notify_end(
+    start_date: datetime,
+    persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
+) -> None:
+    if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
+        executed = [
+            {
+                "finding": finding.name,
+                "open": get_ephemeral_store().length(),
+                "modified": (
+                    persisted_results[finding].diff_result.length()
+                    if finding in persisted_results
+                    and persisted_results[finding].diff_result
+                    else 0
+                ),
+            }
+            for finding in core_model.FindingEnum
+            if finding in CTX.config.checks
+        ]
+        await do_add_skims_execution(
+            root=CTX.config.namespace,
+            group_name=CTX.config.group,
+            job_id=batch_job_id,
+            start_date=start_date,
+            end_date=datetime.utcnow(),
+            findings_executed=tuple(executed),
+            commit_hash=get_repo_head_hash(CTX.config.working_dir),
+        )
+
+
 async def main(
     config: Union[str, core_model.SkimsConfig],
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
+    success = True
     try:
         CTX.config = load(group, config) if isinstance(config, str) else config
         configure_logs()
@@ -229,7 +214,25 @@ async def main(
             "info", "Moving working dir to: %s", CTX.config.working_dir
         )
         os.chdir(CTX.config.working_dir)
-        return await execute_skims(token)
+
+        start_date = datetime.utcnow()
+        stores = await execute_skims()
+
+        if group and token:
+            persisted_results = await persist_to_integrates(token, stores)
+            await notify_end(start_date, persisted_results)
+            success = all(persisted_results.values())
+        else:
+            log_blocking(
+                "info",
+                (
+                    "In case you want to persist results to Integrates "
+                    "please make sure you set the --token and --group flag "
+                    "in the CLI"
+                ),
+            )
+
+        return success
     finally:
         if CTX and CTX.config and CTX.config.start_dir:
             os.chdir(CTX.config.start_dir)
