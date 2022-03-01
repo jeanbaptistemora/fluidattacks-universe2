@@ -606,7 +606,7 @@ const SwitchOn: StyledComponent<
 const Tab = styled(NavLink)`
   color: #b0b0bf;
   font-size: 20px;
-  padding: 12px 24px;
+  padding-bottom: 12px;
   text-decoration: none;
 
   &.active {

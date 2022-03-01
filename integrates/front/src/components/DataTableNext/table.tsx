@@ -592,7 +592,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           rowEvents={rowEvents}
           selectRow={selectionMode as SelectRowProps<unknown>}
           striped={striped}
-          wrapperClasses={`f6 mw-100 ${style.tableWrapper}`}
+          wrapperClasses={`f6 mw-100 overflow-hidden ${style.tableWrapper}`}
         />
       </div>
       <div
