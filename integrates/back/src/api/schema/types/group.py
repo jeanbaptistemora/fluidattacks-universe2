@@ -1,14 +1,13 @@
-# None
-
-
 from api.resolvers.group import (
     analytics,
     authors,
     consulting,
+    description,
     drafts,
     events,
     findings,
     forces_token,
+    language,
     last_closed_vulnerability,
     last_closed_vulnerability_finding,
     max_open_severity_finding,
@@ -34,10 +33,12 @@ GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("authors", authors.resolve)
 GROUP.set_field("consulting", consulting.resolve)
+GROUP.set_field("description", description.resolve)
 GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
+GROUP.set_field("language", language.resolve)
 GROUP.set_field(
     "lastClosedVulnerabilityFinding",
     last_closed_vulnerability_finding.resolve,

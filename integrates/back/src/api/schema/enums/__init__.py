@@ -173,7 +173,7 @@ ENUMS: Tuple[EnumType, ...] = (
             "WEEKLY": "WEEKLY",
         },
     ),
-    EnumType("Language", {"EN": "en", "ES": "es"}),
+    EnumType("Language", {"EN": "EN", "ES": "ES"}),
     EnumType("NameEntity", {"GROUP": "GROUP", "ORGANIZATION": "ORGANIZATION"}),
     EnumType(
         "OrganizationFindingPolicy",
