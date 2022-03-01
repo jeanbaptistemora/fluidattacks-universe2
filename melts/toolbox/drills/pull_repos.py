@@ -200,10 +200,6 @@ def main(subs: str, repository_name: str) -> bool:
     """
     bucket: str = "continuous-repositories"
     passed: bool = True
-    if not utils.generic.does_subs_exist(subs):
-        LOGGER.error("group %s does not exist on services.", subs)
-        passed = False
-        return passed
 
     utils.generic.aws_login(f"continuous-{subs}")
 
