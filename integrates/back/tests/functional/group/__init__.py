@@ -83,6 +83,8 @@ async def get_result(
                 maxSeverityFinding {{
                     id
                 }}
+                language
+                groupContext
                 __typename
             }}
         }}

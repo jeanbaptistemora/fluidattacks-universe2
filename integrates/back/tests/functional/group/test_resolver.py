@@ -93,6 +93,8 @@ async def test_get_group(populate: bool, email: str) -> None:
             ],
         }
     ]
+    assert result["data"]["group"]["language"] == "EN"
+    assert result["data"]["group"]["groupContext"] == "This is a dummy context"
 
 
 @pytest.mark.asyncio

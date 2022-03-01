@@ -57,6 +57,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "project_name": "group1",
                 "description": "this is group1",
                 "language": "en",
+                "group_context": "This is a dummy context",
                 "historic_configuration": [
                     {
                         "date": "2020-05-20 17:00:00",
