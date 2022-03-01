@@ -5,7 +5,7 @@ closure:
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
   aiohttp: 3.8.1
-  aioitertools: 0.9.0
+  aioitertools: 0.10.0
   aiosignal: 1.2.0
   anyio: 3.5.0
   ariadne: 0.14.1
@@ -107,6 +107,7 @@ closure:
   social-auth-core: 3.3.3
   starlette: 0.17.1
   stripe: 2.63.0
+  twilio: 7.7.0
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
   typing-extensions: 4.1.1
@@ -190,12 +191,12 @@ links:
   - name: aiohttp-3.8.1.tar.gz
     sha256: 0y3m1dzl4h6frg8vys0fc3m83ijd1plfpihv3kvmxqadlphp2m7w
     url: https://files.pythonhosted.org/packages/5a/86/5f63de7a202550269a617a5d57859a2961f3396ecd1739a70b92224766bc/aiohttp-3.8.1.tar.gz
-  - name: aioitertools-0.9.0-py3-none-any.whl
-    sha256: 153g27rsd6ywx55vq8rxclxd79hqira45r5xfiv47c72ggq479kh
-    url: https://files.pythonhosted.org/packages/92/a0/d7addf01e207e91076c7529b52515355c3d91ef67be8a498ebe394cac364/aioitertools-0.9.0-py3-none-any.whl
-  - name: aioitertools-0.9.0.tar.gz
-    sha256: 1b3ii3wk7r039r5clhddi21k529n1m7s27z7r9rkj6cj67ah7lhg
-    url: https://files.pythonhosted.org/packages/a7/c5/fe985d8eab13f168341a80bba99bdc2608f7788050f87722786a80583873/aioitertools-0.9.0.tar.gz
+  - name: aioitertools-0.10.0-py3-none-any.whl
+    sha256: 1s56zzzvij6z2li0ij5vxn36dsxf3lzbgzcbnpxs4wpjxcwjmsm2
+    url: https://files.pythonhosted.org/packages/b4/20/8af729fab3df6827407b060211ffffe79e0d220fba0c4f768de599f3cbe3/aioitertools-0.10.0-py3-none-any.whl
+  - name: aioitertools-0.10.0.tar.gz
+    sha256: 080lbb2cpy7q60xq72ykw13mh4lg17gx71q7hjhcaqnl0d51s7bx
+    url: https://files.pythonhosted.org/packages/c2/9c/36180745f894257a50b1473fa348daf996b959d66f5985bbc868e44ef3ee/aioitertools-0.10.0.tar.gz
   - name: aiosignal-1.2.0-py3-none-any.whl
     sha256: 0fjfsrsspwlg2cjbj33dw5gx1kqd3zwldmkadvgq3lbc0c4j3ri6
     url: https://files.pythonhosted.org/packages/3b/87/fe94898f2d44a93a35d5aa74671ed28094d80753a1113d68b799fab6dc22/aiosignal-1.2.0-py3-none-any.whl
@@ -994,6 +995,12 @@ links:
   - name: stripe-2.63.0.tar.gz
     sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
     url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
+  - name: twilio-7.7.0-py2.py3-none-any.whl
+    sha256: 0dfqcdwry91n908rl050z267gqfaza9x9cf39c6lsbmiayskvgsp
+    url: https://files.pythonhosted.org/packages/58/ab/1b8dc84bf6593e247b18b59ef582d24f3632e5bd43a864342ff29a120cf8/twilio-7.7.0-py2.py3-none-any.whl
+  - name: twilio-7.7.0.tar.gz
+    sha256: 0h532bky1p8r6yqh5skpyqsqy1hbr7qhxmzi0jyj1rpwa3avfn0w
+    url: https://files.pythonhosted.org/packages/f7/92/69aa8752a08997a32475e865270a01200bfdee826b230a671c02d178e951/twilio-7.7.0.tar.gz
   - name: types_aiofiles-0.7.0-py3-none-any.whl
     sha256: 10fcqlp8jmr0hr15kjbc3vrppk8lp54bxk42mllhmizwsjbxyd03
     url: https://files.pythonhosted.org/packages/e3/7d/ea29842bee4877e69aac2309fcbeffdb855ef0f1e22c0bf739040391a189/types_aiofiles-0.7.0-py3-none-any.whl
