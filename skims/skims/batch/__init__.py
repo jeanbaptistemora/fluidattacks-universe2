@@ -182,8 +182,8 @@ async def _get_namespace(
     return (root_nickname, await get_namespace(group_name, root_nickname))
 
 
-async def main() -> None:
-    action_dynamo_pk = sys.argv[1]
+async def main(action_dynamo_pk: Optional[str] = None) -> None:
+    action_dynamo_pk = action_dynamo_pk or sys.argv[1]
     CTX.debug = False
     token = os.environ["INTEGRATES_API_TOKEN"]
     create_session(token)
