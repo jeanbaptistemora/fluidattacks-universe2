@@ -8718,8 +8718,14 @@
               "sk_3": {
                 "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
               },
+              "sk_4": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
               "pk_2": {
                 "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "pk_4": {
+                "S": "EVENT#418900971"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -8751,6 +8757,19 @@
               },
               "sk_2": {
                 "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
+              "verification": {
+                "M": {
+                  "event_id": {
+                    "S": "418900971"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "ON_HOLD"
+                  }
+                }
               }
             },
             {
@@ -8781,6 +8800,9 @@
               },
               "pk_3": {
                 "S": "USER"
+              },
+              "pk_4": {
+                "S": "EVENT#418900971"
               },
               "state": {
                 "M": {
@@ -8825,6 +8847,22 @@
               },
               "sk_2": {
                 "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "sk_4": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "verification": {
+                "M": {
+                  "event_id": {
+                    "S": "418900971"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "ON_HOLD"
+                  }
+                }
               }
             },
             {
@@ -12055,7 +12093,9 @@
             "bug_tracking_system_url",
             "unreliable_indicators",
             "pk_3",
-            "sk_3"
+            "sk_3",
+            "pk_4",
+            "sk_4"
           ]
         },
         {

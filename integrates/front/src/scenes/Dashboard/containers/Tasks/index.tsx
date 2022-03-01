@@ -480,6 +480,8 @@ export const TasksContent: React.FC<ITasksContent> = ({
       onChangeSelect: onVerificationChange,
       placeholder: "Reattacks",
       selectOptions: {
+        // eslint-disable-next-line camelcase
+        On_hold: "searchFindings.tabVuln.onHold",
         Requested: "searchFindings.tabVuln.requested",
         Verified: "searchFindings.tabVuln.verified",
       },

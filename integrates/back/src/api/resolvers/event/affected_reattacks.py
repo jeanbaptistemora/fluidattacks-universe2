@@ -25,7 +25,7 @@ async def resolve(
     event_vulns_loader: DataLoader = (
         info.context.loaders.event_vulnerabilities_loader
     )
-    vulns = await event_vulns_loader.load([event_id])
+    vulns = await event_vulns_loader.load((event_id))
 
     if vulns is None:
         return []

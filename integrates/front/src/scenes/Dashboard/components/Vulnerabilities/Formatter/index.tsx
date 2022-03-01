@@ -4,6 +4,7 @@
 */
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import { getBgColor } from "utils/colors";
@@ -21,13 +22,16 @@ interface IPointStatus {
 const PointStatus: React.FC<IPointStatus> = ({
   status,
 }: IPointStatus): JSX.Element => {
+  const { t } = useTranslation();
   const formatedStatus: string =
     _.upperCase(status) === "OK" ? _.upperCase(status) : _.capitalize(status);
   const currentStateBgColor: string = getBgColor(_.capitalize(status));
 
   return (
     <Point className={`v-mid ${currentStateBgColor}`}>
-      {formatedStatus.split(" ")[0]}
+      {formatedStatus === "On_hold"
+        ? t("searchFindings.tabVuln.onHold")
+        : formatedStatus.split(" ")[0]}
     </Point>
   );
 };

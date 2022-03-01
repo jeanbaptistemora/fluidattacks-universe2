@@ -2664,6 +2664,7 @@ export const enTranslations: ResourceKey = {
         title: "Info",
       },
       notApplicable: "n/a",
+      onHold: "On Hold",
       open: "Open",
       requested: "Requested",
       searchTag: "Search Tag",

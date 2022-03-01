@@ -15,6 +15,7 @@ const statusOrangeColor: string[] = [
   "Accepted",
   "Cloning",
   "Created",
+  "On_hold",
   "Pending",
   "Partially closed",
 ];
