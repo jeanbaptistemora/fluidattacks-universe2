@@ -2,7 +2,7 @@
 
 function main {
   source __argIntegratesBackEnv__/template dev \
-    && mypy __argIntegratesPackage__
+    && mypy --config-file __argSettingsMypy__ __argIntegratesPackage__
 }
 
 main "${@}"
