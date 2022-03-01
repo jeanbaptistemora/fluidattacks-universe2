@@ -5,6 +5,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from batch.types import (
@@ -87,7 +88,7 @@ async def _get_url_group_report(
 
     success: bool = (
         await batch_dal.put_action(
-            action_name="report",
+            action=Action.REPORT,
             entity=group_name,
             subject=user_email,
             additional_info=additional_info,

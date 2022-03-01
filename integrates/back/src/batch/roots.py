@@ -7,6 +7,7 @@ from batch.dal import (
     put_action,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from batch.types import (
@@ -493,7 +494,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             )
         )
         await put_action(
-            action_name="refresh_toe_inputs",
+            action=Action.REFRESH_TOE_INPUTS,
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,
@@ -517,7 +518,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             )
         )
         await put_action(
-            action_name="refresh_toe_lines",
+            action=Action.REFRESH_TOE_LINES,
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,
@@ -618,7 +619,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 )
 
     await put_action(
-        action_name="refresh_toe_lines",
+        action=Action.REFRESH_TOE_LINES,
         entity=group_name,
         subject="integrates@fluidattacks.com",
         additional_info="*",
@@ -763,7 +764,7 @@ async def queue_sync_git_roots(
     success: bool = False
     if roots_to_clone:
         await put_action(
-            action_name="clone_roots",
+            action=Action.CLONE_ROOTS,
             entity=group_name,
             subject=user_email,
             additional_info=",".join(

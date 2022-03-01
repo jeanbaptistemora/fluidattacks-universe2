@@ -6,6 +6,7 @@ from aioextensions import (
 import aiohttp
 import asyncio
 from batch.enums import (
+    Action,
     JobStatus,
     Product,
 )
@@ -668,7 +669,7 @@ async def put_action_to_batch(
 
 async def put_action(
     *,
-    action_name: str,
+    action: Action,
     entity: str,
     subject: str,
     additional_info: str,
@@ -680,8 +681,8 @@ async def put_action(
     **kwargs: Any,
 ) -> PutActionResult:
     time: str = str(get_as_epoch(get_now()))
-    action = dict(
-        action_name=action_name,
+    action_dict = dict(
+        action_name=action.value,
         entity=entity,
         subject=subject,
         time=time,
@@ -689,14 +690,14 @@ async def put_action(
         queue=queue,
     )
     possible_key = dynamodb_pk or generate_key_to_dynamod(
-        action_name=action_name,
+        action_name=action.value,
         additional_info=additional_info,
         entity=entity,
         subject=subject,
         time=time,
     )
     job_id = await put_action_to_batch(
-        action_name=action_name,
+        action_name=action.value,
         vcpus=vcpus,
         queue=queue,
         entity=entity,
@@ -706,7 +707,7 @@ async def put_action(
         **kwargs,
     )
     dynamo_pk = await put_action_to_dynamodb(
-        key=possible_key, **action, batch_job_id=job_id
+        key=possible_key, **action_dict, batch_job_id=job_id
     )
     return PutActionResult(
         success=True,

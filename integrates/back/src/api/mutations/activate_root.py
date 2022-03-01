@@ -8,6 +8,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -121,7 +122,7 @@ async def mutate(
     if root.state.status != "ACTIVE":
         if isinstance(root, GitRootItem):
             await batch_dal.put_action(
-                action_name="refresh_toe_lines",
+                action=Action.REFRESH_TOE_LINES,
                 entity=kwargs["group_name"],
                 subject=user_email,
                 additional_info=root.state.nickname,
@@ -129,7 +130,7 @@ async def mutate(
             )
         if isinstance(root, (GitRootItem, URLRootItem)):
             await batch_dal.put_action(
-                action_name="refresh_toe_inputs",
+                action=Action.REFRESH_TOE_INPUTS,
                 entity=kwargs["group_name"],
                 subject=user_email,
                 additional_info=root.state.nickname,

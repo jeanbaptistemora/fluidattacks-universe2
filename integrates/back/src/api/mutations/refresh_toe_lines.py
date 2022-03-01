@@ -9,6 +9,7 @@ from batch import (
     domain as batch_domain,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -42,7 +43,7 @@ async def mutate(
     try:
         group_name = parameters["group_name"]
         user_info = await token_utils.get_jwt_content(info.context)
-        action_name = "refresh_toe_lines"
+        action = Action.REFRESH_TOE_LINES
         queue = "spot_later"
         job_payloads = await batch_domain.get_job_payloads(
             queues=[queue],
@@ -57,14 +58,14 @@ async def mutate(
             iter(
                 job_payload
                 for job_payload in job_payloads
-                if job_payload.action_name == action_name
+                if job_payload.action_name == action.value
                 and job_payload.entity == group_name
             ),
             None,
         )
         if current_job_payload is None:
             await batch_dal.put_action(
-                action_name=action_name,
+                action=action,
                 entity=group_name,
                 subject=user_info["user_email"],
                 additional_info="*",

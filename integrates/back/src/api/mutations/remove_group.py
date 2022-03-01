@@ -9,6 +9,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_exceptions import (
@@ -72,7 +73,7 @@ async def mutate(
         )
         if success:
             await batch_dal.put_action(
-                action_name="remove_group_resources",
+                action=Action.REMOVE_GROUP_RESOURCES,
                 entity=group_name,
                 subject=requester_email,
                 additional_info="mutation_remove_group",

@@ -14,6 +14,7 @@ from batch.dal import (
     put_action,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from batch.types import (
@@ -306,7 +307,7 @@ async def queue_job_new(
                     await batch.cancel_job(jobId=job_id, reason="not required")
 
     return await put_action(
-        action_name="execute-machine",
+        action=Action.EXECUTE_MACHINE,
         vcpus=4,
         product_name=Product.SKIMS,
         queue=queue.value,

@@ -5,6 +5,7 @@ from batch.dal import (
     put_action,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -50,7 +51,7 @@ async def mutate(
     )
 
     await put_action(
-        action_name="handle_finding_policy",
+        action=Action.HANDLE_FINDING_POLICY,
         entity=finding_policy_id,
         subject=user_email,
         additional_info=organization_name,

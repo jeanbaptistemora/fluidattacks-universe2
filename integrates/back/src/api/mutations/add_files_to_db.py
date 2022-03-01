@@ -5,6 +5,7 @@ from batch.dal import (
     put_action,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -52,7 +53,7 @@ async def mutate(
     user_email = user_info["user_email"]
 
     await put_action(
-        action_name="handle_virus_scan",
+        action=Action.HANDLE_VIRUS_SCAN,
         entity=group_name,
         subject=user_email,
         additional_info=files_data[0]["file_name"],

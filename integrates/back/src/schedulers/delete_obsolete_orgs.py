@@ -5,6 +5,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from dataloaders import (
@@ -33,7 +34,7 @@ async def _remove_group(
     )
     if success:
         await batch_dal.put_action(
-            action_name="remove_group_resources",
+            action=Action.REMOVE_GROUP_RESOURCES,
             entity=group_name,
             subject=user_email,
             additional_info="obsolete_orgs",

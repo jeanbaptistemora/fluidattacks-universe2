@@ -5,6 +5,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -67,7 +68,7 @@ async def mutate(
         target_group_name,
     )
     await batch_dal.put_action(
-        action_name="move_root",
+        action=Action.MOVE_ROOT,
         entity=group_name,
         subject=user_email,
         additional_info=json.dumps(
@@ -84,7 +85,7 @@ async def mutate(
     root: RootItem = await loaders.root.load((group_name, root_id))
     if isinstance(root, GitRootItem):
         await batch_dal.put_action(
-            action_name="refresh_toe_lines",
+            action=Action.REFRESH_TOE_LINES,
             entity=group_name,
             subject=user_email,
             additional_info=root.state.nickname,
@@ -92,7 +93,7 @@ async def mutate(
         )
     if isinstance(root, (GitRootItem, URLRootItem)):
         await batch_dal.put_action(
-            action_name="refresh_toe_inputs",
+            action=Action.REFRESH_TOE_INPUTS,
             entity=group_name,
             subject=user_email,
             additional_info=root.state.nickname,

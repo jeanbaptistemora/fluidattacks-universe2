@@ -12,6 +12,7 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from custom_types import (
@@ -131,7 +132,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     if root.state.status != "INACTIVE":
         if isinstance(root, GitRootItem):
             await batch_dal.put_action(
-                action_name="refresh_toe_lines",
+                action=Action.REFRESH_TOE_INPUTS,
                 entity=group_name,
                 subject=user_email,
                 additional_info=root.state.nickname,
@@ -139,7 +140,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
             )
         if isinstance(root, (GitRootItem, URLRootItem)):
             await batch_dal.put_action(
-                action_name="refresh_toe_inputs",
+                action=Action.REFRESH_TOE_INPUTS,
                 entity=group_name,
                 subject=user_email,
                 additional_info=root.state.nickname,

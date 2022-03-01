@@ -10,6 +10,7 @@ from batch import (
     dispatch,
 )
 from batch.enums import (
+    Action,
     Product,
 )
 from dataloaders import (
@@ -29,7 +30,7 @@ async def refresh_toe_inputs(
     monkeypatch: MonkeyPatch,
 ) -> None:
     await batch_dal.put_action(
-        action_name="refresh_toe_inputs",
+        action=Action.REFRESH_TOE_INPUTS,
         entity=group_name,
         subject=user,
         additional_info="*",
