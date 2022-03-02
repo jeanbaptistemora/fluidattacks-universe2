@@ -4,9 +4,12 @@ from db_model.findings.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Dict,
+)
 
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> int:
-    return parent.unreliable_indicators.unreliable_treatment_summary
+) -> Dict[str, int]:
+    return parent.unreliable_indicators.unreliable_treatment_summary._asdict()
