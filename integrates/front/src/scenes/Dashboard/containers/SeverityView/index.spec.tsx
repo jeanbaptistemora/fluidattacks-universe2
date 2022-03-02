@@ -139,9 +139,7 @@ describe("SeverityView", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.text()).toContain(
-      "High: Exploit is not required or it can be automated"
-    );
+    expect(wrapper.text()).toContain("Proof of Concept");
   });
 
   it("should render an error in component", async (): Promise<void> => {

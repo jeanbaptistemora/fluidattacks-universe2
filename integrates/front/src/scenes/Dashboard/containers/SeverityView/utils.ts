@@ -25,6 +25,14 @@ const castPrivileges: (scope: string) => Record<string, string> = (
   return privilegesRequiredNoScope;
 };
 
+const privilegesRequiredBgColor: Record<string, string> = {
+  0.27: "bg-lbl-yellow",
+  0.5: "bg-lbl-yellow",
+  0.62: "bg-orange",
+  0.68: "bg-orange",
+  0.85: "bg-dark-red",
+};
+
 const attackComplexityBgColor: Record<string, string> = {
   0.44: "bg-lbl-yellow",
   0.77: "bg-dark-red",
@@ -353,6 +361,7 @@ export {
   exploitabilityOptions,
   integrityImpactBgColor,
   integrityImpactOptions,
+  privilegesRequiredBgColor,
   remediationLevelBgColor,
   remediationLevelOptions,
   reportConfidenceBgColor,

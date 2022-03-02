@@ -1576,22 +1576,19 @@ export const enTranslations: ResourceKey = {
       discoveryDate: {
         label: "Discovery date",
         tooltip:
-          "<strong>Discovery date:</strong> " +
-          "Is the year, month, and day we first identified and reported that type of vulnerability for the group in question. ",
+          "Is the year, month, and day we first identified and reported that type of vulnerability for the group in question.<br>",
       },
       estRemediationTime: {
         label: "Est. Remediation Time",
         tooltip:
-          "<strong>Est. Remediation Time:</strong> " +
           "Is the MMTR (Mean Time to Repair) this represents the average time needed to fix a vulnerability." +
           "This indicator shows the number of hours that, through our calculations, " +
-          "we estimate it will take you to remediate the selected type of vulnerability.",
+          "we estimate it will take you to remediate the selected type of vulnerability.<br>",
       },
       openVulns: {
         label: "Open vulnerabilities",
         tooltip:
-          "<strong>Open vulnerabilities:</strong> " +
-          "How many locations in your system still have that type of vulnerability. ",
+          "How many locations in your system still have that type of vulnerability.<br>",
       },
       severity: {
         label: "Severity",
@@ -1624,9 +1621,8 @@ export const enTranslations: ResourceKey = {
             "Vulnerabilities that not have impact on an organization's business.",
         },
         tooltip:
-          "<strong>Severity level:</strong> " +
-          "Based on the renowned Common Vulnerability Scoring System (CVSS). " +
-          "An open standard for assessing the severity of security vulnerabilities in IT systems. ",
+          "Score based on the renowned Common Vulnerability Scoring System (CVSS). " +
+          "An open standard for assessing the severity of security vulnerabilities in IT systems.<br>",
       },
       status: {
         label: "Status",
@@ -1642,8 +1638,7 @@ export const enTranslations: ResourceKey = {
             "<strong>Open:</strong> " +
             "At least one of the locations where we reported that type of vulnerability has it without being fixed.",
         },
-        tooltip:
-          "<strong>Status:</strong> Remediation state of your locations. ",
+        tooltip: "Remediation state of your locations.<br>",
       },
     },
     highSeverity: "High",
@@ -2119,22 +2114,22 @@ export const enTranslations: ResourceKey = {
           high: {
             label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H)</strong><br>" +
               "A successful attack cannot be achieved at will. " +
               "Instead, it requires the attacker to spend a measurable amount of effort, " +
               "preparing or executing against the vulnerable component, " +
               "before a successful attack can be expected.",
           },
           low: {
-            label: "Low (L)",
+            label: "Low",
             tooltip:
-              "<strong>Low:</strong> " +
+              "<strong>Low  (L)</strong><br>" +
               "There are no special access conditions or extenuating circumstances. " +
               "An attacker can expect repeatable success by attacking the vulnerable component.",
           },
         },
         tooltip:
-          "<strong>Attack Complexity (AC):</strong> " +
+          "<strong><big>Attack Complexity (AC)</big></strong><br>" +
           "Describes the conditions outside the attacker's control that must exist in order to exploit the vulnerability. " +
           "Such conditions may require the collection of more information about the target or computational exceptions.",
       },
@@ -2144,7 +2139,7 @@ export const enTranslations: ResourceKey = {
           adjacent: {
             label: "Adjacent network",
             tooltip:
-              "<strong>Adjacent (A):</strong> " +
+              "<strong>Adjacent (A)</strong><br>" +
               "The vulnerable component is bound to the network stack, " +
               "but the attack is limited at the protocol level to a logically adjacent topology. " +
               "This may mean that an attack must be launched from the same shared physical or logical network, " +
@@ -2153,7 +2148,7 @@ export const enTranslations: ResourceKey = {
           local: {
             label: "Local",
             tooltip:
-              "<strong>Local (L):</strong> " +
+              "<strong>Local (L)</strong><br>" +
               "The vulnerable component is not bound to the network stack. " +
               "The attacker exploits the vulnerability by accessing it locally (eg, keyboard, console), remotely (eg, SSH), " +
               "or by relying on user interaction with another person to perform the actions necessary to exploit the vulnerability.",
@@ -2161,7 +2156,7 @@ export const enTranslations: ResourceKey = {
           network: {
             label: "Network",
             tooltip:
-              "<strong>Network (N):</strong> " +
+              "<strong>Network (N)</strong><br>" +
               "The vulnerable component is bound to the network stack and includes the entire Internet. " +
               "Such vulnerability is often referred as a remote exploitable and, " +
               "can be thought of as an attack exploitable at the protocol level one or more network hops away.",
@@ -2169,13 +2164,13 @@ export const enTranslations: ResourceKey = {
           physical: {
             label: "Physical",
             tooltip:
-              "<strong>Physical (P):</strong> " +
+              "<strong>Physical (P)</strong><br>" +
               "The attack requires the attacker to physically touch or manipulate the vulnerable component. " +
               "The physical interaction can be brief or persistent.",
           },
         },
         tooltip:
-          "<strong>Attack Vector (AV):</strong> " +
+          "<strong><big>Attack Vector (AV)</big></strong><br>" +
           "It reflects the context in which the exploitation of vulnerabilities is possible. " +
           "This metric value will be higher the more remote (logically and physically) an attacker can be to exploit the vulnerable component.",
       },
@@ -2191,7 +2186,7 @@ export const enTranslations: ResourceKey = {
           high: {
             label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H)</strong><br>" +
               "It is a total loss of availability, " +
               "which makes it possible for the attacker to completely deny access to resources on the impacted component. " +
               "Alternatively, the attacker has the ability to deny some availability, " +
@@ -2200,7 +2195,7 @@ export const enTranslations: ResourceKey = {
           low: {
             label: "Low",
             tooltip:
-              "<strong>Low (L):</strong> " +
+              "<strong>Low (L)</strong><br>" +
               "Performance is reduced or there are interruptions in the availability of resources. " +
               "Even if repeated exploitation of the vulnerability is possible, " +
               "the attacker does not have the ability to completely deny service to legitimate users. " +
@@ -2209,12 +2204,12 @@ export const enTranslations: ResourceKey = {
           none: {
             label: "None",
             tooltip:
-              "<strong>None (N):</strong> " +
+              "<strong>None (N)</strong><br>" +
               "There is no impact to availability within the impacted component.",
           },
         },
         tooltip:
-          "<strong>Availability (A):</strong> " +
+          "<strong><big>Availability (A)</big></strong><br>" +
           "It measures the impact on the availability of the affected component such as a network service " +
           "(eg, web, database, email). It refers to the accessibility of information resources, " +
           "attacks that consume network bandwidth, processor cycles or disk space can affect availability.",
@@ -2239,7 +2234,7 @@ export const enTranslations: ResourceKey = {
           high: {
             label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H)</strong><br>" +
               "There is a complete loss of confidentiality, " +
               "resulting in all resources within the impacted component being disclosed to the attacker. Alternatively, " +
               "only certain restricted information is accessed, but the information disclosed has a direct and serious impact.",
@@ -2247,7 +2242,7 @@ export const enTranslations: ResourceKey = {
           low: {
             label: "Low",
             tooltip:
-              "<strong>Low (L):</strong> " +
+              "<strong>Low (L)</strong><br>" +
               "There is some loss of confidentiality. Some restricted information is accessed, " +
               "but the attacker has no control over what information is obtained, or the amount or type of loss is limited. " +
               "The disclosure of information does not cause a direct and serious loss to the impacted component.",
@@ -2255,12 +2250,12 @@ export const enTranslations: ResourceKey = {
           none: {
             label: "None",
             tooltip:
-              "<strong>None (N):</strong> " +
+              "<strong>None (N)</strong><br>" +
               "There is no loss of confidentiality within the impacted component.",
           },
         },
         tooltip:
-          "<strong>Confidentiality (C):</strong> " +
+          "<strong><big>Confidentiality (C)</big></strong><br>" +
           "Measures the impact on the confidentiality of information resources " +
           "managed by a software component due to a successfully exploited vulnerability. " +
           "Confidentiality refers to limiting access and disclosure of information to authorized users only, " +
@@ -2289,30 +2284,30 @@ export const enTranslations: ResourceKey = {
         label: "Exploitability",
         options: {
           conceptual: {
-            label: "Conceptual: There are laboratory tests",
+            label: "Conceptual",
           },
           functional: {
-            label: "Functional: There is an exploit",
+            label: "Functional",
             tooltip:
-              "<strong>Functional (F):</strong> " +
+              "<strong>Functional (F)</strong><br>" +
               "Functional exploit code is available. The code works in most situations where the vulnerability exists.",
           },
           high: {
-            label: "High: Exploit is not required or it can be automated",
+            label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H)</strong><br>" +
               "Functional autonomous code exists, or no exploit is required (manual trigger). " +
               "Such code works in all situations or is actively delivered through an autonomous agent " +
               "(such as a worm or virus). Exploit development has reached the level of reliable, " +
               "widely available, and easy-to-use automated tools.",
           },
           improbable: {
-            label: "Improbable: There is no exploit",
+            label: "Improbable",
           },
           proofOfConcept: {
             label: "Proof of Concept",
             tooltip:
-              "<strong>Proof-of-Concept (P):</strong> " +
+              "<strong>Proof-of-Concept (P)</strong><br>" +
               "Proof-of-concept exploit code is available, " +
               "or an attack demonstration is not practical for most systems. " +
               "The code or technique is not functional in all situations and " +
@@ -2321,12 +2316,12 @@ export const enTranslations: ResourceKey = {
           unproven: {
             label: "Unproven",
             tooltip:
-              "<strong>Unproven (U):</strong> " +
+              "<strong>Unproven (U)</strong><br>" +
               "No exploit code is available, or an exploit is theoretical.",
           },
         },
         tooltip:
-          "<strong>Exploitability (E):</strong> " +
+          "<strong><big>Exploitability (E)</big></strong><br>" +
           "It measures the likelihood that the vulnerability will be attacked, " +
           "and is typically based on the current state of exploitation techniques, " +
           "the availability of exploit code, or active “in-the-wild” exploitation.",
@@ -2337,7 +2332,7 @@ export const enTranslations: ResourceKey = {
           high: {
             label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H):</strong><br>" +
               "There is a total loss of integrity, or a complete loss of protection. " +
               "The attacker is able to modify some or any/all data protected by the impacted component. " +
               "A malicious modification would present a direct, serious consequence to the impacted component.",
@@ -2345,7 +2340,7 @@ export const enTranslations: ResourceKey = {
           low: {
             label: "Low",
             tooltip:
-              "<strong>Low (L):</strong> " +
+              "<strong>Low (L)</strong><br>" +
               "Modification of data is possible, " +
               "but the attacker does not have control over the consequence of a modification, " +
               "or the amount of modification is limited. " +
@@ -2354,12 +2349,12 @@ export const enTranslations: ResourceKey = {
           none: {
             label: "None",
             tooltip:
-              "<strong>None (N):</strong> " +
+              "<strong>None (N)</strong><br>" +
               "There is no loss of integrity within the impacted component.",
           },
         },
         tooltip:
-          "<strong>Integrity (I):</strong> " +
+          "<strong><big>Integrity (I)</big></strong><br>" +
           "Measures the impact to integrity of a successfully exploited vulnerability. " +
           "Integrity refers to the trustworthiness and veracity of information.",
       },
@@ -2391,14 +2386,14 @@ export const enTranslations: ResourceKey = {
           high: {
             label: "High",
             tooltip:
-              "<strong>High (H):</strong> " +
+              "<strong>High (H)</strong><br>" +
               "The attacker requires privileges that provide significant (eg, administrative) " +
               "control over the vulnerable component allowing access to component-wide settings and files.",
           },
           low: {
             label: "Low",
             tooltip:
-              "<strong>Low (L)</strong> " +
+              "<strong>Low (L)</strong><br>" +
               "The attacker requires privileges that provide basic user capabilities " +
               "that could normally affect only settings and files owned by a user. Alternatively, " +
               "an attacker with Low privileges has the ability to access only non-sensitive resources.",
@@ -2406,13 +2401,13 @@ export const enTranslations: ResourceKey = {
           none: {
             label: "None",
             tooltip:
-              "<strong>None (N):</strong> " +
+              "<strong>None (N)</strong><br>" +
               "The attacker is unauthorized prior to attack, and therefore, " +
               "does not require any access to settings or files of the vulnerable system to carry out an attack.",
           },
         },
         tooltip:
-          "<strong>Privileges Required (PR):</strong> " +
+          "<strong><big>Privileges Required (PR)</big></strong><br>" +
           "This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability. " +
           "The Base Score is greatest if no privileges are required.",
       },
@@ -2422,34 +2417,34 @@ export const enTranslations: ResourceKey = {
           officialFix: {
             label: "Official Fix",
             tooltip:
-              "<strong>Official Fix (O):</strong> " +
+              "<strong>Official Fix (O)</strong><br>" +
               "A complete vendor solution is available. " +
               "Either the vendor has issued an official patch, or an upgrade is available.",
           },
           temporaryFix: {
             label: "Temporary Fix",
             tooltip:
-              "<strong>Temporary Fix (T):</strong> " +
+              "<strong>Temporary Fix (T)</strong><br>" +
               "There is an official but temporary fix available. " +
               "This includes instances where the vendor issues a temporary hotfix, tool, or workaround.",
           },
           unavailable: {
             label: "Unavailable",
             tooltip:
-              "<strong>Unavailable (U):</strong> " +
+              "<strong>Unavailable (U)</strong><br>" +
               "There is either no solution available or it is impossible to apply.",
           },
           workaround: {
             label: "Workaround",
             tooltip:
-              "<strong>Workaround (W):</strong> " +
+              "<strong>Workaround (W)</strong><br>" +
               "There is an unofficial, non-vendor solution available. In some cases, " +
               "users of the affected technology will create a patch of their own " +
               "or provide steps to work around or otherwise mitigate the vulnerability.",
           },
         },
-        tooltips:
-          "<strong>Remediation Level (RL):</strong> " +
+        tooltip:
+          "<strong><big>Remediation Level (RL)</big></strong><br>" +
           "It is an important factor for prioritization. " +
           "The typical vulnerability is unpatched when initially published. " +
           "Workarounds or hotfixes may offer interim remediation until an official patch or upgrade is issued.",
@@ -2460,7 +2455,7 @@ export const enTranslations: ResourceKey = {
           confirmed: {
             label: "Confirmed",
             tooltip:
-              "<strong>Confirmed (C):</strong> " +
+              "<strong>Confirmed (C)</strong><br>" +
               "Detailed reports exist, or functional reproduction is possible. " +
               "Source code is available to independently verify the assertions of the research, " +
               "or the author or vendor of the affected code has confirmed the presence of the vulnerability.",
@@ -2468,7 +2463,7 @@ export const enTranslations: ResourceKey = {
           reasonable: {
             label: "Reasonable",
             tooltip:
-              "<strong>Reasonable (R):</strong> " +
+              "<strong>Reasonable (R)</strong><br>" +
               "Significant details are published, but researchers either do not have full confidence in the root cause, " +
               "or do not have access to source code to confirm the result. Reasonable confidence exists, however, " +
               "that the bug is reproducible and at least one impact is able to be verified.",
@@ -2476,14 +2471,14 @@ export const enTranslations: ResourceKey = {
           unknown: {
             label: "Unknown",
             tooltip:
-              "<strong>Unknown (U):</strong> " +
+              "<strong>Unknown (U)</strong><br>" +
               "There are reports of impacts that indicate a vulnerability is present. " +
               "The reports indicate that the cause of the vulnerability is unknown, " +
               "or reports may differ on the cause or impacts of the vulnerability. ",
           },
         },
-        tooltips:
-          "<strong>Report Confidence (RC):</strong> " +
+        tooltip:
+          "<strong><big>Report Confidence (RC)</big></strong><br>" +
           "Measures the degree of confidence in the existence of the vulnerability " +
           "and the credibility of the known technical details. Sometimes, " +
           "only the existence of vulnerabilities is publicized, but without specific details. ",
@@ -2494,7 +2489,7 @@ export const enTranslations: ResourceKey = {
           changed: {
             label: "Changed",
             tooltip:
-              "<strong>Changed (C):</strong> " +
+              "<strong>Changed (C)</strong><br>" +
               "An exploited vulnerability can affect resources beyond the security scope " +
               "managed by the security authority of the vulnerable component. In this case, " +
               "the vulnerable component and the impacted component are different and managed by different security authorities.",
@@ -2502,14 +2497,14 @@ export const enTranslations: ResourceKey = {
           unchanged: {
             label: "Unchanged",
             tooltip:
-              "<strong>Unchanged (U):</strong> " +
+              "<strong>Unchanged (U)</strong><br>" +
               "An exploited vulnerability can only affect resources managed by the same security authority. In this case, " +
               "the vulnerable component and the impacted component are either the same, " +
               "or both are managed by the same security authority.",
           },
         },
         tooltip:
-          "<strong>Scope (S):</strong> " +
+          "<strong><big>Scope (S)</big></strong><br>" +
           "The Scope metric captures whether a vulnerability in one vulnerable component " +
           "impacts resources in components beyond its security scope. ",
       },
@@ -2523,18 +2518,19 @@ export const enTranslations: ResourceKey = {
           none: {
             label: "None",
             tooltip:
-              "<strong>None (N):</strong> The vulnerable system can be exploited without interaction from any user.",
+              "<strong>None (N)</strong><br>" +
+              "The vulnerable system can be exploited without interaction from any user.",
           },
           required: {
             label: "Required",
             tooltip:
-              "<strong>Required (R):</strong> " +
+              "<strong>Required (R)</strong><br>" +
               "Successful exploitation of this vulnerability requires a user to take some action before the vulnerability can be exploited. " +
               "For example, a successful exploit may only be possible during the installation of an application by a system administrator.",
           },
         },
         tooltip:
-          "<strong>User Interaction (UI):</strong> " +
+          "<strong><big>User Interaction (UI)</big></strong><br>" +
           "This metric determines whether the vulnerability can be exploited solely at the will of the attacker, " +
           "or whether a separate user (or user-initiated process) must participate in some manner.",
       },
