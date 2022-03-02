@@ -1,7 +1,7 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
+from db_model.groups.types import (
     Group,
 )
 from decorators import (
@@ -13,7 +13,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
+    Dict,
     Optional,
+    Union,
 )
 
 
@@ -23,7 +26,11 @@ from typing import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    parent: Group,
-    __: GraphQLResolveInfo,
+    parent: Union[Group, Dict[str, Any]],
+    _info: GraphQLResolveInfo,
+    **_kwargs: Any,
 ) -> Optional[str]:
-    return parent.get("agent_token")
+    if isinstance(parent, dict):
+        return parent.get("agent_token")
+
+    return parent.agent_token

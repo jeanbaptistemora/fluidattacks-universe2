@@ -1,11 +1,11 @@
 from aiodataloader import (
     DataLoader,
 )
-from custom_types import (
-    Group,
-)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     require_asm,
@@ -21,15 +21,20 @@ from typing import (
     Dict,
     Optional,
     Tuple,
+    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **kwargs: Any
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: Any,
 ) -> Tuple[Finding, ...]:
     group_findings_loader: DataLoader = info.context.loaders.group_findings
-    group_name: str = parent["name"]
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     filters: Optional[Dict[str, Any]] = kwargs.get("filters")
     findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
