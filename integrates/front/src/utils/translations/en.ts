@@ -318,6 +318,9 @@ export const enTranslations: ResourceKey = {
         solved: {
           affectation: "Affectation (hours)",
           date: "Resolution date",
+          holds:
+            "{{ length }} reattack(s) put on hold by this Event " +
+            "will be set to Requested",
         },
       },
       evidence: {

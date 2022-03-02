@@ -36,11 +36,18 @@ import {
   validDatetime,
 } from "utils/validations";
 
+interface IAffectedReattacks {
+  findingId: string;
+  where: string;
+  specific: string;
+}
+
 interface IEventDescriptionData {
   event: {
     accessibility: string;
     affectation: string;
     affectedComponents: string;
+    affectedReattacks: IAffectedReattacks[];
     hacker: string;
     client: string;
     detail: string;
@@ -175,6 +182,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </FormGroup>
                   </Col50>
                 </Row>
+                {_.isEmpty(data.event.affectedReattacks) ? undefined : (
+                  <Row>
+                    <Col100>
+                      {translate.t("group.events.description.solved.holds", {
+                        length: data.event.affectedReattacks.length,
+                      })}
+                    </Col100>
+                  </Row>
+                )}
                 <hr />
                 <Row>
                   <Col100>
