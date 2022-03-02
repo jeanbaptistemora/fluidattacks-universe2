@@ -7,8 +7,8 @@
     modules = {
       makesOkta = {
         setup = [
-          outputs."/makes/okta/parse"
           outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/makes/okta/parse"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
@@ -21,8 +21,8 @@
     modules = {
       makesOkta = {
         setup = [
-          outputs."/makes/okta/parse"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/makes/okta/parse"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
@@ -51,8 +51,8 @@
     modules = {
       makesOkta = {
         setup = [
-          outputs."/makes/okta/parse"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/makes/okta/parse"
           outputs."/secretsForEnvFromSops/makesOktaApiToken"
           outputs."/secretsForTerraformFromEnv/makesOkta"
         ];
