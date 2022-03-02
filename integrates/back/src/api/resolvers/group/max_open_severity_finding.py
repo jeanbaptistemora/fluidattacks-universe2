@@ -1,11 +1,12 @@
-from aiodataloader import (
-    DataLoader,
-)
-from custom_types import (
-    Group,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
+    GroupUnreliableIndicators,
 )
 from decorators import (
     require_asm,
@@ -20,19 +21,24 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
+    Dict,
     Optional,
+    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> Optional[Finding]:
     response: Optional[Finding] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="max_open_severity_finding",
-        name=parent["name"],
+        name=parent["name"] if isinstance(parent, dict) else parent.name,
     )
     return response
 
@@ -40,10 +46,14 @@ async def resolve(
 async def resolve_no_cache(
     parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[Finding]:
-    finding_id: str = parent["max_open_severity_finding"]
-    max_open_severity_finding: Optional[Finding] = None
-    if finding_id:
-        finding_loader: DataLoader = info.context.loaders.finding
-        max_open_severity_finding = await finding_loader.load(finding_id)
+    loaders: Dataloaders = info.context.loaders
+    if isinstance(parent, dict):
+        finding_id: str = parent["max_open_severity_finding"]
+    else:
+        group_name: str = parent.name
+        group_indicators: GroupUnreliableIndicators = (
+            await loaders.group_indicators_typed.load(group_name)
+        )
+        finding_id = group_indicators.last_closed_vulnerability_finding
 
-    return max_open_severity_finding
+    return await loaders.finding.load(finding_id) if finding_id else None
