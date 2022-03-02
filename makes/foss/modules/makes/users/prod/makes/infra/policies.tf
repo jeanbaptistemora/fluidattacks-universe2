@@ -20,6 +20,7 @@ locals {
           "cloudwatch:*",
           "compute-optimizer:*",
           "cur:*",
+          "ds:*",
           "dynamodb:*",
           "ec2:*",
           "ecr:*",
