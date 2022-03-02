@@ -44,7 +44,9 @@ async def resolve(
 
 
 async def resolve_no_cache(
-    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Optional[Finding]:
     loaders: Dataloaders = info.context.loaders
     if isinstance(parent, dict):
