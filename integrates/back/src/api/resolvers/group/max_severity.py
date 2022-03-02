@@ -1,11 +1,11 @@
-from aiodataloader import (
-    DataLoader,
-)
-from custom_types import (
-    Group,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decimal import (
     Decimal,
@@ -26,29 +26,38 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
+    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> Decimal:
     response: Decimal = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="max_severity",
-        name=parent["name"],
+        name=parent["name"] if isinstance(parent, dict) else parent.name,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Decimal:
-    group_findings_loader: DataLoader = info.context.loaders.group_findings
-    group_name: str = parent["name"]
-    findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    loaders: Dataloaders = info.context.loaders
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     max_severity: Decimal = max(
