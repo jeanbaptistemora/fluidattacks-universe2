@@ -1,22 +1,24 @@
-import React from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
-import type { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
-
 import {
-  FindingHeaderContainer,
-  FindingHeaderDetail,
-  FindingHeaderIndicator,
-  FindingHeaderLabel,
-} from "./styles";
+  faCalendar,
+  faClock,
+  faSkullCrossbones,
+  faTriangleExclamation,
+  faUnlockKeyhole,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 
+import { Indicators } from "components/Indicators";
+import {
+  Indicator,
+  IndicatorIcon,
+  IndicatorTitle,
+  IndicatorValue,
+} from "components/Indicators/Indicator";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import calendarIcon from "resources/calendar.svg";
-import clockIcon from "resources/clock-light.svg";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
-import vulnerabilitiesIcon from "resources/vulnerabilities.svg";
-import style from "scenes/Dashboard/components/FindingHeader/index.css";
 import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
@@ -99,110 +101,89 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
     return ["NONE", translate.t("searchFindings.header.severity.level.none")];
   }
   const [severityLevel, severityLevelTooltip] = setSeverityLevel();
-  const { color: severityColor, text: severityText } =
-    severityConfigs[severityLevel];
-  const {
-    icon: statusIcon,
-    text: statusText,
-    tooltip: statusTooltip,
-  } = statusConfigs[status];
-  const severityStyles: CircularProgressbarDefaultProps["classes"] = {
-    background: style.severityCircleBg,
-    path: style.severityCirclePath,
-    root: style.severityCircle,
-    text: style.severityCircleText,
-    trail: style.severityCircleTrail,
-  };
-  const CIRCULAR_PROGRESS_BAR_PARAM1: number = 10;
-  const CIRCULAR_PROGRESS_BAR_PARAM2: number = 100;
+  const { text: severityText } = severityConfigs[severityLevel];
+  const { text: statusText, tooltip: statusTooltip } = statusConfigs[status];
 
   return (
-    <FindingHeaderContainer>
-      <TooltipWrapper
-        id={"severityTooltip"}
-        message={
-          translate.t("searchFindings.header.severity.tooltip") +
-          severityLevelTooltip
-        }
-      >
-        <FindingHeaderDetail>
-          <CircularProgressbar
-            classes={severityStyles}
-            styles={{
-              path: { stroke: severityColor },
-              text: { fill: severityColor },
-            }}
-            text={`${severity}`}
-            value={
-              (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
-              CIRCULAR_PROGRESS_BAR_PARAM2
-            }
-          />
-          <FindingHeaderLabel>
+    <Indicators>
+      <Indicator>
+        <TooltipWrapper
+          id={"severityTooltip"}
+          message={
+            translate.t("searchFindings.header.severity.tooltip") +
+            severityLevelTooltip
+          }
+        >
+          <IndicatorIcon>
+            <FontAwesomeIcon icon={faTriangleExclamation} />
+          </IndicatorIcon>
+          <IndicatorTitle>
             {translate.t("searchFindings.header.severity.label")}
-            <FindingHeaderIndicator>
-              <b>{severityText}</b>
-            </FindingHeaderIndicator>
-          </FindingHeaderLabel>
-        </FindingHeaderDetail>
-      </TooltipWrapper>
-      <TooltipWrapper
-        id={"statusTooltip"}
-        message={
-          translate.t("searchFindings.header.status.tooltip") + statusTooltip
-        }
-      >
-        <FindingHeaderDetail>
-          <img alt={""} height={45} src={statusIcon} width={45} />
-          <FindingHeaderLabel>
+          </IndicatorTitle>
+          <IndicatorValue>{`${severity} - ${severityText}`}</IndicatorValue>
+        </TooltipWrapper>
+      </Indicator>
+      <Indicator>
+        <TooltipWrapper
+          id={"statusTooltip"}
+          message={
+            translate.t("searchFindings.header.status.tooltip") + statusTooltip
+          }
+        >
+          <IndicatorIcon>
+            <FontAwesomeIcon icon={faSkullCrossbones} />
+          </IndicatorIcon>
+          <IndicatorTitle>
             {translate.t("searchFindings.header.status.label")}
-            <FindingHeaderIndicator>
-              <b>{statusText}</b>
-            </FindingHeaderIndicator>
-          </FindingHeaderLabel>
-        </FindingHeaderDetail>
-      </TooltipWrapper>
-      <TooltipWrapper
-        id={"openVulnsTooltip"}
-        message={translate.t("searchFindings.header.openVulns.tooltip")}
-      >
-        <FindingHeaderDetail>
-          <img alt={""} height={45} src={vulnerabilitiesIcon} width={45} />
-          <FindingHeaderLabel>
+          </IndicatorTitle>
+          <IndicatorValue>{statusText}</IndicatorValue>
+        </TooltipWrapper>
+      </Indicator>
+      <Indicator>
+        <TooltipWrapper
+          id={"openVulnsTooltip"}
+          message={translate.t("searchFindings.header.openVulns.tooltip")}
+        >
+          <IndicatorIcon>
+            <FontAwesomeIcon icon={faUnlockKeyhole} />
+          </IndicatorIcon>
+          <IndicatorTitle>
             {translate.t("searchFindings.header.openVulns.label")}
-            <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
-          </FindingHeaderLabel>
-        </FindingHeaderDetail>
-      </TooltipWrapper>
-      <TooltipWrapper
-        id={"discoveryDateTooltip"}
-        message={translate.t("searchFindings.header.discoveryDate.tooltip")}
-      >
-        <FindingHeaderDetail>
-          <img alt={""} height={40} src={calendarIcon} width={40} />
-          <FindingHeaderLabel>
+          </IndicatorTitle>
+          <IndicatorValue>{openVulns}</IndicatorValue>
+        </TooltipWrapper>
+      </Indicator>
+      <Indicator>
+        <TooltipWrapper
+          id={"discoveryDateTooltip"}
+          message={translate.t("searchFindings.header.discoveryDate.tooltip")}
+        >
+          <IndicatorIcon>
+            <FontAwesomeIcon icon={faCalendar} />
+          </IndicatorIcon>
+          <IndicatorTitle>
             {translate.t("searchFindings.header.discoveryDate.label")}
-            <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
-          </FindingHeaderLabel>
-        </FindingHeaderDetail>
-      </TooltipWrapper>
-      <TooltipWrapper
-        id={"estRemediationTime"}
-        message={translate.t(
-          "searchFindings.header.estRemediationTime.tooltip"
-        )}
-      >
-        <FindingHeaderDetail>
-          <img alt={""} height={40} src={clockIcon} width={40} />
-          <FindingHeaderLabel>
+          </IndicatorTitle>
+          <IndicatorValue>{discoveryDate}</IndicatorValue>
+        </TooltipWrapper>
+      </Indicator>
+      <Indicator>
+        <TooltipWrapper
+          id={"estRemediationTime"}
+          message={translate.t(
+            "searchFindings.header.estRemediationTime.tooltip"
+          )}
+        >
+          <IndicatorIcon>
+            <FontAwesomeIcon icon={faClock} />
+          </IndicatorIcon>
+          <IndicatorTitle>
             {translate.t("searchFindings.header.estRemediationTime.label")}
-            <FindingHeaderIndicator>
-              {estRemediationTime}
-            </FindingHeaderIndicator>
-          </FindingHeaderLabel>
-        </FindingHeaderDetail>
-      </TooltipWrapper>
-    </FindingHeaderContainer>
+          </IndicatorTitle>
+          <IndicatorValue>{estRemediationTime}</IndicatorValue>
+        </TooltipWrapper>
+      </Indicator>
+    </Indicators>
   );
 };
 

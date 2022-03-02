@@ -6,6 +6,6 @@ const IndicatorIcon = styled.div`
   font-size: 2rem;
 `;
 const IndicatorTitle = styled.div.attrs({ className: "pa3" })``;
-const IndicatorValue = styled.h1``;
+const IndicatorValue = styled.h2``;
 
 export { Indicator, IndicatorIcon, IndicatorTitle, IndicatorValue };
