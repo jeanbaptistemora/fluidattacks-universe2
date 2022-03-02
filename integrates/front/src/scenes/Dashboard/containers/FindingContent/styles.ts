@@ -4,8 +4,10 @@ const ButtonCol = styled.div.attrs({
   className: "flex flex-auto items-center justify-end",
 })``;
 
-const Title = styled.h1.attrs({
-  className: "mv1",
-})``;
+const TitleContainer = styled.div.attrs({ className: "pa3" })`
+  background-color: #f4f4f6;
+`;
 
-export { ButtonCol, Title };
+const Title = styled.h1.attrs({ className: "ma0 pa0" })``;
+
+export { ButtonCol, Title, TitleContainer };

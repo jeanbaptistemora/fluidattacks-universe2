@@ -22,7 +22,7 @@ import {
   handleDraftError,
   handleSuccessfulDraft,
 } from "./helpers";
-import { ButtonCol, Title } from "./styles";
+import { ButtonCol, Title, TitleContainer } from "./styles";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -238,7 +238,7 @@ const findingContent: React.FC = (): JSX.Element => {
         <div>
           <div>
             <div>
-              <Row>
+              <TitleContainer>
                 <Title>{headerData.finding.title}</Title>
                 <ButtonCol>
                   <FindingActions
@@ -252,7 +252,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     onSubmit={submitDraft}
                   />
                 </ButtonCol>
-              </Row>
+              </TitleContainer>
               <div>
                 <FindingHeader
                   discoveryDate={
