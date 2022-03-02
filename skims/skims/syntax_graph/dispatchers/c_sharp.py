@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     parameter_list as c_sharp_parameter_list,
     prefix_expression as c_sharp_prefix_expression,
     return_statement as c_sharp_return_statement,
+    this_expression as c_sharp_this_expression,
     throw_statement as c_sharp_throw_statement,
     type_of_expression as c_sharp_type_of_expression,
     using_directive as c_sharp_using_directive,
@@ -216,6 +217,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "verbatim_string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "this_expression",
+        },
+        syntax_reader=c_sharp_this_expression.reader,
     ),
     Dispatcher(
         applicable_types={
