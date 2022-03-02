@@ -84,11 +84,10 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
     return dict(
         data=dict(
             columns=[
-                ["# Unsolved Eventualities"]
-                + [group.value for group in limited_data],
+                ["Unsolved Events"] + [group.value for group in limited_data],
             ],
             colors={
-                "# Unsolved Eventualities": RISK.neutral,
+                "Unsolved Events": RISK.neutral,
             },
             labels=None,
             type="bar",
