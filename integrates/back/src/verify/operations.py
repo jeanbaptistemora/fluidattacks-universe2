@@ -12,6 +12,7 @@ from context import (
 from custom_exceptions import (
     CouldNotStartUserVerification,
     CouldNotVerifyUser,
+    InvalidMobileNumber,
     InvalidVerificationCode,
 )
 from twilio.base.exceptions import (
@@ -56,3 +57,16 @@ async def check_verification(verification_sid: str, code: str) -> None:
 
     if verification_check.status != "approved":
         raise InvalidVerificationCode
+
+
+async def validate_mobile(phone_number: str) -> None:
+    try:
+        phone_info = await in_thread(
+            client.lookups.v1.phone_numbers(phone_number=phone_number).fetch,
+            type=["carrier"],
+        )
+    except TwilioRestException as exc:
+        raise InvalidMobileNumber from exc
+
+    if phone_info.carrier["type"] != "mobile":
+        raise InvalidMobileNumber

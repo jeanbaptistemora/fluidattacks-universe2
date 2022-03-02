@@ -1294,3 +1294,12 @@ class InvalidVerificationCode(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The verification code is invalid"
         super(InvalidVerificationCode, self).__init__(msg)
+
+
+class InvalidMobileNumber(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - A mobile number is required with the "
+            "international format"
+        )
+        super(InvalidMobileNumber, self).__init__(msg)
