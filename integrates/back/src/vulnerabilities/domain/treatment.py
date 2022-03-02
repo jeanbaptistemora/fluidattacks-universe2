@@ -34,6 +34,9 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.users.get import (
+    User,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
@@ -538,13 +541,16 @@ async def validate_and_send_notification_request(
     where_str = format_vulnerability_locations(
         list(vuln.where for vuln in assigned_vulns)
     )
-    await vulns_mailer.send_mail_assigned_vulnerability(
-        loaders=loaders,
-        email_to=[assigned],
-        is_finding_released=bool(finding.approval),
-        group_name=finding.group_name,
-        finding_id=finding.id,
-        finding_title=finding.title,
-        where=where_str,
-    )
+
+    user: User = await loaders.user.load(assigned)
+    if "VULNERABILITY_ASSIGNED" in user.notifications_preferences.email:
+        await vulns_mailer.send_mail_assigned_vulnerability(
+            loaders=loaders,
+            email_to=[assigned],
+            is_finding_released=bool(finding.approval),
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            finding_title=finding.title,
+            where=where_str,
+        )
     return True
