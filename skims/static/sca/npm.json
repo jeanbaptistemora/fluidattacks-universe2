@@ -2461,6 +2461,9 @@
   "lodash.set": {
     "SNYK-JS-LODASHSET-1320032": "<=4.3.2"
   },
+  "lodash.template": {
+    "SNYK-JS-LODASHTEMPLATE-1088054": "<=4.5.0"
+  },
   "logkitty": {
     "CVE-2020-8149": "<0.7.1"
   },
@@ -3144,6 +3147,9 @@
   "nw-with-arm": {
     "CVE-2016-10629": "<=0.12.2",
     "GMS-2017-70": ">=0.0.0-alpha"
+  },
+  "nwmatcher": {
+    "npm:nwmatcher:20180305": "<1.4.4"
   },
   "oauth2orize-fprm": {
     "CVE-2018-11647": "<0.2.1"
