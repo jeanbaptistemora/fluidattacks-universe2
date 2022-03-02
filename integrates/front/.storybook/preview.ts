@@ -9,6 +9,11 @@ const parameters: Parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    source: {
+      type: "dynamic",
+    },
+  },
 };
 
 export { parameters };
