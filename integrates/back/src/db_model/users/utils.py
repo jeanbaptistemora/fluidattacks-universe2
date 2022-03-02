@@ -1,4 +1,5 @@
 from .types import (
+    NotificationsPreferences,
     User,
 )
 from dynamodb.types import (
@@ -8,4 +9,9 @@ from dynamodb.types import (
 
 def format_user(item: Item) -> User:
 
-    return User(notifications_preferences=item["notifications_preferences"])
+    return User(
+        email=item["pk"].split("#")[1],
+        notifications_preferences=NotificationsPreferences(
+            email=item["notifications_preferences"]["email"]
+        ),
+    )

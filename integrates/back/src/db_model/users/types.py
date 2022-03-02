@@ -1,9 +1,13 @@
 from typing import (
-    Any,
-    Dict,
+    List,
     NamedTuple,
 )
 
 
+class NotificationsPreferences(NamedTuple):
+    email: List[str]
+
+
 class User(NamedTuple):
-    notifications_preferences: Dict[str, Any]
+    email: str
+    notifications_preferences: NotificationsPreferences
