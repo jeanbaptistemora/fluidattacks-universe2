@@ -143,7 +143,7 @@ from vulnerabilities import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
 toe_inputs_add = retry_on_exceptions(
@@ -550,6 +550,13 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     root_nicknames: List[str] = item.additional_info.split(",")
 
+    LOGGER.info(
+        "Cloning roots for %s, %s",
+        group_name,
+        root_nicknames,
+        extra={"extra": None},
+    )
+
     dataloaders: Dataloaders = get_new_context()
     group_root_creds_loader = dataloaders.group_credentials
     group_roots_loader = dataloaders.group_roots
@@ -570,7 +577,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     )
     cloned_roots_nicknames: Tuple[str, ...] = tuple()
 
-    LOGGER.info("%s roots will be cloned", len(roots))
+    LOGGER.info("%s roots will be cloned", len(roots), extra={"extra": None})
     for root in roots:
         root_cred: Optional[CredentialItem] = next(
             (cred for cred in group_creds if root.id in cred.state.roots), None
@@ -587,7 +594,9 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         root_cloned: CloneResult = CloneResult(success=False)
 
         if root_cred.metadata.type.value == "SSH":
-            LOGGER.info("Cloning %s", root.state.nickname)
+            LOGGER.info(
+                "Cloning %s", root.state.nickname, extra={"extra": None}
+            )
             root_cloned = await ssh_clone_root(
                 group_name=root.group_name,
                 root_nickname=root.state.nickname,

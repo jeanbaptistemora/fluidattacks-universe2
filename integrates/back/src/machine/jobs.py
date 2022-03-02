@@ -74,7 +74,7 @@ def _json_load(path: str) -> Any:
 
 
 logging.config.dictConfig(LOGGING)
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]
@@ -299,6 +299,11 @@ async def queue_job_new(
     async with aioboto3.Session().client(**resource_options) as batch:
         for execution in current_executions[:-1]:
             if not execution.running:
+                LOGGER.info(
+                    "There is already a job in queue, %s will be removed",
+                    execution.key,
+                    extra={"extra": None},
+                )
                 await delete_action(dynamodb_pk=execution.key)
                 if job_id := execution.batch_job_id:
                     await batch.terminate_job(
