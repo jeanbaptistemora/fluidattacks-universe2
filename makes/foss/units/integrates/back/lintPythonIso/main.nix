@@ -2,6 +2,7 @@
 , makeScript
 , outputs
 , projectPath
+, __nixpkgs__
 , ...
 }:
 let
@@ -14,12 +15,10 @@ in
 makeScript {
   inherit name;
   searchPaths = {
-    pythonMypy = [
-      (projectPath "/integrates/back/src")
-    ];
     source = [
       pythonRequirements
     ];
+    bin = [ __nixpkgs__.findutils ];
   };
 
   replace = {
