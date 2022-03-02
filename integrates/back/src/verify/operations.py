@@ -11,6 +11,8 @@ from context import (
 )
 from custom_exceptions import (
     CouldNotStartUserVerification,
+    CouldNotVerifyUser,
+    InvalidVerificationCode,
 )
 from twilio.base.exceptions import (
     TwilioRestException,
@@ -38,3 +40,19 @@ async def start_verification(
         raise CouldNotStartUserVerification from exc
 
     return verification.sid
+
+
+async def check_verification(verification_sid: str, code: str) -> None:
+    try:
+        verification_check = await in_thread(
+            client.verify.services(
+                FI_TWILIO_VERIFY_SERVICE_SID
+            ).verification_checks.create,
+            verification_sid=verification_sid,
+            code=code,
+        )
+    except TwilioRestException as exc:
+        raise CouldNotVerifyUser from exc
+
+    if verification_check.status != "approved":
+        raise InvalidVerificationCode
