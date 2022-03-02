@@ -5,6 +5,10 @@ from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
 )
+from typing import (
+    Dict,
+    List,
+)
 from utils.time import (
     format_justification_date,
     get_iso_date,
@@ -16,7 +20,7 @@ def vulns_with_reattack_requested(
 ) -> EphemeralStore:
     vulnerability: core_model.Vulnerability
     reattacked_store: EphemeralStore = get_ephemeral_store()
-
+    reattacked_flag: bool = False
     for vulnerability in store.iterate():
         if vulnerability.integrates_metadata.verification:
             verification = vulnerability.integrates_metadata.verification.state
@@ -24,8 +28,12 @@ def vulns_with_reattack_requested(
                 verification
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
             ):
+                reattacked_flag = True
                 reattacked_store.store(vulnerability)
-    return reattacked_store
+
+    if reattacked_flag:
+        return reattacked_store
+    return None
 
 
 def get_vulnerability_justification(
@@ -34,15 +42,11 @@ def get_vulnerability_justification(
 ) -> str:
 
     today = get_iso_date()
-    commits = []
     commit_hash: str = ""
     line_content: str
     justification: str = ""
-
+    by_commit: Dict[str, List[str]] = {}
     if reattacked_store:
-        justification = f"A reattack request was executed on \
-            {format_justification_date(today).replace(' ', ' at ')}. "
-
         for reattacked_vuln in reattacked_store.iterate():
             commit_hash = reattacked_vuln.integrates_metadata.commit_hash
             line_content = ""
@@ -59,20 +63,35 @@ def get_vulnerability_justification(
                         )
                     )[0]
 
-            if commit_hash and line_content:
-                commits.append(
-                    f"- Non-compliant code, Line {reattacked_vuln.where} \
-                    with content: {line_content}"
-                    if reattacked_vuln.where is not None
-                    else commit_hash
-                )
+            if line_content:
+                if commit_hash in by_commit:
+                    by_commit[commit_hash].append(
+                        f"- Non-compliant code, Line {reattacked_vuln.where} \
+                        with content: {line_content}"
+                        if reattacked_vuln.where is not None
+                        else commit_hash
+                    )
+                else:
+                    by_commit[commit_hash] = []
+                    by_commit[commit_hash].append(
+                        f"- Non-compliant code, Line {reattacked_vuln.where} \
+                        with content: {line_content}"
+                        if reattacked_vuln.where is not None
+                        else commit_hash
+                    )
 
-        str_commits = "\n ".join(commits)
+        report = []
+        for commit, line in by_commit.items():
+            str_commits = "\n ".join(line)
+            report.append(
+                f"Reported vulnerability is still open in commit: {commit}\n \
+                {str_commits}"
+            )
+        report_join = "\n ".join(report)
 
-        justification += (
-            f"Reported vulnerability is still open in commit: \
-            {commit_hash} \n {str_commits}"
-            if commits
-            else ""
-        )
+        if by_commit != {}:
+            justification = f"A reattack request was executed on \
+                {format_justification_date(today).replace(' ', ' at ')}.\n \
+                {report_join}"
+
     return justification
