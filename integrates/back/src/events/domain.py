@@ -38,8 +38,14 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     RootItem,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from events import (
     dal as events_dal,
+)
+from findings import (
+    domain as findings_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -49,6 +55,7 @@ from newutils import (
     datetime as datetime_utils,
     events as events_utils,
     files as files_utils,
+    token as token_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -287,7 +294,11 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
 
 
 async def solve_event(
-    event_id: str, affectation: str, hacker_email: str, date: datetime
+    info: GraphQLResolveInfo,
+    event_id: str,
+    affectation: str,
+    hacker_email: str,
+    date: datetime,
 ) -> bool:
     event = await get_event(event_id)
     success = False
@@ -299,6 +310,29 @@ async def solve_event(
         == "SOLVED"
     ):
         raise EventAlreadyClosed()
+
+    affected_reattacks: Tuple[
+        Vulnerability, ...
+    ] = await info.context.loaders.event_vulnerabilities_loader.load(
+        (event_id)
+    )
+    if len(affected_reattacks) > 0:
+        user_info = await token_utils.get_jwt_content(info.context)
+        reattacks_dict: Dict[str, Set[str]] = {}
+        for vuln in affected_reattacks:
+            reattacks_dict.setdefault(vuln.finding_id, set()).add(vuln.id)
+
+        for finding_id, hold_ids in reattacks_dict.items():
+            await findings_domain.request_vulnerabilities_verification(
+                loaders=info.context.loaders,
+                finding_id=finding_id,
+                user_info=user_info,
+                justification=(
+                    f"Event #{event_id} was solved. The reattacks are back to "
+                    "the Requested stage."
+                ),
+                vulnerability_ids=hold_ids,
+            )
 
     today = datetime_utils.get_now()
     history = cast(List[Dict[str, str]], event.get("historic_state", []))
@@ -397,7 +431,7 @@ async def request_vulnerabilities_hold(
     vulnerability_ids: Set[str],
 ) -> None:
     justification: str = (
-        f"These reattacks were put on hold because of Event #{event_id}"
+        f"These reattacks have been put on hold because of Event #{event_id}"
     )
     finding: Finding = await loaders.finding.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(

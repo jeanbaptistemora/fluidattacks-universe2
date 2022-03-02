@@ -47,7 +47,7 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
     success = await events_domain.solve_event(
-        event_id, affectation, hacker_email, date
+        info, event_id, affectation, hacker_email, date
     )
 
     if success:

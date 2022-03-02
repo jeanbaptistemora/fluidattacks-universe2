@@ -52,6 +52,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -630,7 +631,11 @@ async def request_vulnerabilities_verification(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    root_nicknames = {vuln.repo for vuln in vulnerabilities if vuln.repo}
+    root_nicknames = {
+        vuln.repo
+        for vuln in vulnerabilities
+        if vuln.repo and not check_hold(vuln)
+    }
     if root_nicknames:
         with suppress(ClientError):
             clone_job_id = (
@@ -676,16 +681,17 @@ async def request_vulnerabilities_verification(
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()
 
-    schedule(
-        findings_mail.send_mail_remediate_finding(
-            loaders,
-            user_email,
-            finding.id,
-            finding.title,
-            finding.group_name,
-            justification,
+    if any(not check_hold(vuln) for vuln in vulnerabilities):
+        schedule(
+            findings_mail.send_mail_remediate_finding(
+                loaders,
+                user_email,
+                finding.id,
+                finding.title,
+                finding.group_name,
+                justification,
+            )
         )
-    )
 
 
 async def update_description(
@@ -908,4 +914,11 @@ async def get_vulnerabilities_to_reattack(
     finding_vulns = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     return vulns_utils.filter_open_vulns(
         vulns_utils.filter_remediated(finding_vulns)
+    )
+
+
+def check_hold(vuln: Vulnerability) -> bool:
+    return (
+        vuln.verification is not None
+        and vuln.verification.status == VulnerabilityVerificationStatus.ON_HOLD
     )

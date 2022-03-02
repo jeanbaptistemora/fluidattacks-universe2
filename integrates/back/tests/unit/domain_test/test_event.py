@@ -107,7 +107,10 @@ async def test_add_event_file_image() -> None:
 
 @pytest.mark.changes_db
 async def test_solve_event() -> None:
+    request = await create_dummy_session("unittesting@fluidattacks.com")
+    info = create_dummy_info(request)
     assert await events_domain.solve_event(
+        info=info,
         event_id="538745942",
         affectation=1,
         hacker_email="unittesting@fluidattacks.com",
@@ -117,6 +120,7 @@ async def test_solve_event() -> None:
     assert event["historic_state"][-1]["state"] == "SOLVED"
     with pytest.raises(EventAlreadyClosed):
         assert await events_domain.solve_event(
+            info=info,
             event_id="538745942",
             affectation=1,
             hacker_email="unittesting@fluidattacks.com",
