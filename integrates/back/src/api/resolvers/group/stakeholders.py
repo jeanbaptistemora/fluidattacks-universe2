@@ -1,6 +1,8 @@
 from custom_types import (
-    Group as GroupType,
     Stakeholder as StakeholderType,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     concurrent_decorators,
@@ -20,8 +22,10 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
     Dict,
     List,
+    Union,
 )
 from users import (
     domain as users_domain,
@@ -33,7 +37,9 @@ from users import (
     require_asm,
 )
 async def resolve(
-    parent: GroupType, info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> List[StakeholderType]:
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
@@ -42,7 +48,7 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="stakeholders",
-        name=parent["name"],
+        name=parent["name"] if isinstance(parent, dict) else parent.name,
     )
     if exclude_fluid_staff:
         response = [
@@ -54,8 +60,12 @@ async def resolve(
 
 
 async def resolve_no_cache(
-    parent: GroupType, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> List[StakeholderType]:
-    group_name: str = parent["name"]
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     group_stakeholders_loader = info.context.loaders.group_stakeholders
     return await group_stakeholders_loader.load(group_name)

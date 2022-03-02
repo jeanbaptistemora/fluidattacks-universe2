@@ -1,11 +1,11 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Group,
-)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
@@ -22,20 +22,31 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
+    Union,
 )
 
 
 @convert_kwargs_to_snake_case
-@concurrent_decorators(enforce_group_level_auth_async, validate_connection)
+@concurrent_decorators(
+    enforce_group_level_auth_async,
+    validate_connection,
+)
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> Tuple[ToeInput, ...]:
     loaders: Dataloaders = info.context.loaders
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     if kwargs.get("root_id") is not None:
         response: ToeInputsConnection = await loaders.root_toe_inputs.load(
             RootToeInputsRequest(
-                group_name=parent["name"],
+                group_name=group_name,
                 root_id=kwargs["root_id"],
                 after=kwargs.get("after"),
                 be_present=kwargs.get("be_present"),
@@ -47,7 +58,7 @@ async def resolve(
 
     response = await loaders.group_toe_inputs.load(
         GroupToeInputsRequest(
-            group_name=parent["name"],
+            group_name=group_name,
             after=kwargs.get("after"),
             be_present=kwargs.get("be_present"),
             first=kwargs.get("first"),
