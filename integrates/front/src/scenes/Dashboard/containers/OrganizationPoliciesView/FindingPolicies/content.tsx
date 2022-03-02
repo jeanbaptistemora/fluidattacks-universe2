@@ -39,7 +39,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { formatIsoDate } from "utils/date";
 
 const StyledText = styled.input.attrs({
-  className: "w-100 pa2 lh-copy bg-white bw0",
+  className: "w-100 pa2 lh-copy bw0",
 })``;
 
 interface IOrganizationFindingPolicies extends IFindingPoliciesData {

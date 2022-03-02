@@ -6,7 +6,6 @@
 
 :local .button,
 .button:focus {
-  background-color: #fff;
   border-color: #ff3435;
   color: #ff3435;
   outline: none;

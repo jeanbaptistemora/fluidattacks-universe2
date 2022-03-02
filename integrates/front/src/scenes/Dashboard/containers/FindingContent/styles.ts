@@ -4,7 +4,7 @@ const ButtonCol = styled.div.attrs({
   className: "flex flex-auto items-center justify-end",
 })``;
 
-const TitleContainer = styled.div.attrs({ className: "pa3" })`
+const TitleContainer = styled.div.attrs({ className: "flex flex-wrap pa3" })`
   background-color: #f4f4f6;
 `;
 

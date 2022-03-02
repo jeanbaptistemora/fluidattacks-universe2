@@ -12,7 +12,7 @@ const StyledInput = styled.input.attrs<{ className: string }>({
 `;
 
 const StyledSelect = styled.select.attrs({
-  className: "w-100 pa2 lh-copy gray bg-white bw1 b--light-gray",
+  className: "w-100 pa2 lh-copy gray bw1 b--light-gray",
 })`
   &:focus {
     border-color: #d1d1d1;

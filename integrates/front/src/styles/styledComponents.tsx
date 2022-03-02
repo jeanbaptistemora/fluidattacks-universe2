@@ -50,7 +50,7 @@ const CheckBox: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: `br0 relative checkbox-mh w-100 flex bg-white b--moon-gray`,
+  className: `br0 relative checkbox-mh w-100 flex b--moon-gray`,
 })``;
 
 const CheckBoxOption: StyledComponent<
@@ -335,7 +335,7 @@ const MenuItem: StyledComponent<
   Record<string, unknown>
 > = styled.li.attrs({
   className: `
-  ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 bg-white b--white
+  ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 b--white
   `,
 })``;
 
@@ -369,7 +369,7 @@ const ModalTitle: StyledComponent<
 
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
-    className: "b--mid-light-gray ba bg-white br2 mb4",
+    className: "b--mid-light-gray ba br2 mb4",
   }
 )``;
 
@@ -454,7 +454,7 @@ const RadioLabel: StyledComponent<
     className: string;
   } => ({
     className: `ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 ${
-      props.theme.on ? props.theme.color : "bg-white b--moon-gray"
+      props.theme.on ? props.theme.color : "b--moon-gray"
     }`,
   })
 )``;
@@ -560,7 +560,7 @@ const Switch: StyledComponent<
     className: string;
   } => ({
     className: `ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 ${
-      props.theme.on ? props.theme.color : "bg-white b--moon-gray"
+      props.theme.on ? props.theme.color : "b--moon-gray"
     }`,
   })
 )``;
@@ -569,7 +569,7 @@ const SwitchHandle: StyledComponent<
   "span",
   Record<string, unknown>
 > = styled.span.attrs({
-  className: "bg-white br0 dib h-100 ma0 relative ph1-5",
+  className: "br0 dib h-100 ma0 relative ph1-5",
 })``;
 
 const SwitchGroup: StyledComponent<
@@ -592,7 +592,7 @@ const SwitchOff: StyledComponent<
   Record<string, unknown>
 > = styled.span.attrs({
   className:
-    "absolute bg-white bottom-0 br0 dib l-50 ma0 mid-gray ph3 pv2 right-0 top-0",
+    "absolute bottom-0 br0 dib l-50 ma0 mid-gray ph3 pv2 right-0 top-0",
 })``;
 
 const SwitchOn: StyledComponent<

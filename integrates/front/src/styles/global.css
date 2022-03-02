@@ -82,10 +82,6 @@ label {
   display: block;
 }
 
-:global .a-bg-white a {
-  background-color: #fff;
-}
-
 :global .badge-size {
   font-size: 7px;
 }
@@ -94,7 +90,6 @@ label {
   position: relative;
   display: block;
   padding: 10px 15px;
-  background-color: #fff;
   color: #666;
 }
 
@@ -110,7 +105,6 @@ label {
   line-height: 1.42857143;
   text-decoration: none;
   color: #ff3435;
-  background-color: #fff;
   border: 1px solid #ddd;
   margin-left: -1px;
 }
@@ -188,7 +182,6 @@ label {
 
 :global .g-btn {
   color: #333;
-  background-color: #fff;
   border: 1px solid transparent;
   border-color: #ccc;
 }
@@ -215,10 +208,6 @@ label {
   color: #fff;
 }
 
-.lightBg {
-  background-color: #fff;
-}
-
 .dark-bg {
   background-color: #272727;
 }
@@ -228,7 +217,6 @@ label {
 }
 
 :global .panel-c {
-  background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   box-shadow: 0.1px 6px 24px -16px rgba(0, 0, 0, 0.75);
@@ -261,21 +249,18 @@ label {
 }
 
 :global .g1 {
-  background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   height: 402px;
 }
 
 :global .g2 {
-  background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   height: 242px;
 }
 
 :global .g3 {
-  background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   height: 162px;
@@ -351,7 +336,6 @@ label {
   font-size: 16px;
   line-height: 1.42857143;
   color: #777;
-  background-color: #fff;
   background-image: none;
   border: 1px solid #eaeaea;
   border-radius: 0.1;
