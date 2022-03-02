@@ -1276,3 +1276,21 @@ class InvalidUrl(CustomBaseException):
         """Constructor"""
         msg = "Exception - The URL is not valid"
         super(InvalidUrl, self).__init__(msg)
+
+
+class CouldNotStartUserVerification(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - User verification could not be started"
+        super(CouldNotStartUserVerification, self).__init__(msg)
+
+
+class CouldNotVerifyUser(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - User could not be verified"
+        super(CouldNotVerifyUser, self).__init__(msg)
+
+
+class InvalidVerificationCode(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The verification code is invalid"
+        super(InvalidVerificationCode, self).__init__(msg)
