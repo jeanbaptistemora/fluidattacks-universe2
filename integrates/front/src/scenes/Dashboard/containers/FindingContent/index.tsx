@@ -236,8 +236,8 @@ const findingContent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <div>
         <div>
-          <Col100>
-            <React.Fragment>
+          <div>
+            <div>
               <Row>
                 <Title>{headerData.finding.title}</Title>
                 <ButtonCol>
@@ -385,8 +385,8 @@ const findingContent: React.FC = (): JSX.Element => {
                   <Redirect to={`${path}/locations`} />
                 </Switch>
               </TabContent>
-            </React.Fragment>
-          </Col100>
+            </div>
+          </div>
         </div>
       </div>
       <Modal

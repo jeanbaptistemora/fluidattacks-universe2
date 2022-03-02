@@ -8,6 +8,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
+import type { IBadgeProps } from "components/Badge";
+import { Badge } from "components/Badge";
 import { Indicators } from "components/Indicators";
 import {
   Indicator,
@@ -29,22 +31,25 @@ interface IFindingHeaderProps {
   status: "closed" | "default" | "open";
 }
 
-const severityConfigs: Record<string, { color: string; text: string }> = {
+const severityConfigs: Record<
+  string,
+  { color: IBadgeProps["variant"]; text: string }
+> = {
   CRITICAL: {
-    color: "#96030D",
+    color: "red",
     text: translate.t("searchFindings.criticalSeverity"),
   },
   HIGH: {
-    color: "#FF1122",
+    color: "red",
     text: translate.t("searchFindings.highSeverity"),
   },
-  LOW: { color: "#FFBF00", text: translate.t("searchFindings.lowSeverity") },
+  LOW: { color: "gray", text: translate.t("searchFindings.lowSeverity") },
   MED: {
-    color: "#FF7722",
+    color: "orange",
     text: translate.t("searchFindings.mediumSeverity"),
   },
   NONE: {
-    color: "#FF7722",
+    color: "gray",
     text: translate.t("searchFindings.noneSeverity"),
   },
 };
@@ -101,7 +106,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
     return ["NONE", translate.t("searchFindings.header.severity.level.none")];
   }
   const [severityLevel, severityLevelTooltip] = setSeverityLevel();
-  const { text: severityText } = severityConfigs[severityLevel];
+  const { color, text: severityText } = severityConfigs[severityLevel];
   const { text: statusText, tooltip: statusTooltip } = statusConfigs[status];
 
   return (
@@ -120,7 +125,11 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
           <IndicatorTitle>
             {translate.t("searchFindings.header.severity.label")}
           </IndicatorTitle>
-          <IndicatorValue>{`${severity} - ${severityText}`}</IndicatorValue>
+          <IndicatorValue>
+            <Badge variant={color}>{severity}</Badge>
+            &nbsp;{"-"}&nbsp;
+            {severityText}
+          </IndicatorValue>
         </TooltipWrapper>
       </Indicator>
       <Indicator>
