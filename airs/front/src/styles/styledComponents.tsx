@@ -1182,6 +1182,7 @@ const CardsContainer: StyledComponent<
     justify-around
   `,
 })``;
+
 const CardContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1197,7 +1198,10 @@ const CardContainer: StyledComponent<
     bg-white
     w-clients-card
   `,
-})``;
+})`
+  height: 390px;
+`;
+
 const CardHeader: StyledComponent<
   "button",
   Record<string, unknown>
@@ -1213,6 +1217,7 @@ const CardHeader: StyledComponent<
     t-all-5
   `,
 })``;
+
 const CardReadMore: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1226,6 +1231,7 @@ const CardReadMore: StyledComponent<
     fadein
   `,
 })``;
+
 const CardBody: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1240,6 +1246,7 @@ const CardBody: StyledComponent<
     ph4
   `,
 })``;
+
 const CardFooter: StyledComponent<
   "button",
   Record<string, unknown>
