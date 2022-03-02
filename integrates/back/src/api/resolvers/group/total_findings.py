@@ -1,11 +1,11 @@
-from aiodataloader import (
-    DataLoader,
-)
-from custom_types import (
-    Group,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     require_asm,
@@ -20,29 +20,38 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
+    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Group, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> int:
     response: int = await redis_get_or_set_entity_attr(
-        partial(resolve_no_cache, parent, _info, **_kwargs),
+        partial(resolve_no_cache, parent, info, **_kwargs),
         entity="group",
         attr="total_findings",
-        name=parent["name"],
+        name=parent["name"] if isinstance(parent, dict) else parent.name,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> int:
-    group_name: str = parent["name"]
-    group_findings_loader: DataLoader = info.context.loaders.group_findings
-    findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    loaders: Dataloaders = info.context.loaders
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     return len(findings)
