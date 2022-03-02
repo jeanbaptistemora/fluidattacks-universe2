@@ -2,14 +2,16 @@
   description = "DB migration utils";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-    nix_filter.url = "github:numtide/nix-filter";
+    filter-patch.url = "gitlab:dmurciaatfluid/purity?dir=makes-integration/nix-filter-patch";
     purity.url = "gitlab:dmurciaatfluid/purity";
+    purity.inputs.nix_filter.follows = "filter-patch";
     purity.inputs.nixpkgs.follows = "nixpkgs";
     redshift_client.url = "gitlab:dmurciaatfluid/redshift_client";
+    redshift_client.inputs.nix_filter.follows = "filter-patch";
     redshift_client.inputs.nixpkgs.follows = "nixpkgs";
     redshift_client.inputs.purity.follows = "purity";
   };
-  outputs = { self, nixpkgs, nix_filter, redshift_client, ... }:
+  outputs = { self, nixpkgs, redshift_client, ... }:
     let
       system = "x86_64-linux";
       metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).tool.poetry;
@@ -21,14 +23,7 @@
       pythonPkgs = legacy_pkgs.python39Packages // {
         redshift-client = redshift_client.defaultPackage."${system}";
       };
-      path_filter = nix_filter.outputs.lib;
-      src = path_filter {
-        root = "${self}/observes/services/db_migration";
-        include = [
-          "pyproject.toml"
-          (path_filter.inDirectory metadata.name)
-        ];
-      };
+      src = self;
       self_pkgs = import ./build/pkg {
         inherit src lib metadata pythonPkgs;
       };
