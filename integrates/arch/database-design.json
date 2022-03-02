@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 02, 2022, 07:59 AM",
+    "DateLastModified": "Mar 02, 2022, 01:33 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -630,6 +630,25 @@
               },
               "sk": {
                 "S": "USER#integratesuser@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "sk": {
+                "S": "USER#continuoushacking@gmail.com"
               },
               "notifications_preferences": {
                 "M": {

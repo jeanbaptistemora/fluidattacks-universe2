@@ -26,7 +26,26 @@ async def main() -> None:
     for user in users:
         await users_model.update_user(
             user_email=user["email"],
-            notifications_preferences={"email": ["VULNERABILITY_ASSIGNED"]},
+            notifications_preferences={
+                "email": [
+                    "ACCESS_GRANTED",
+                    "CHARTS_REPORT",
+                    "DAILY_DIGEST",
+                    "DELETE_FINDING",
+                    "FILE_REMOVED",
+                    "FILE_UPLOADED",
+                    "GROUP_REPORT",
+                    "NEW_COMMENT",
+                    "NEW_DRAFT",
+                    "NEW_REMEDIATED",
+                    "REMEDIATE_FINDING",
+                    "ROOT_DEACTIVATED",
+                    "ROOT_MOVED",
+                    "UNSUBMITTED_DRAFT",
+                    "UPDATED_TREATMENT",
+                    "VULNERABILITY_ASSIGNED",
+                ]
+            },
         )
 
 

@@ -417,6 +417,32 @@ enum StakeholderRole {
 
 "notifications name enum definition"
 enum NotificationsName {
+  "charts_report"
+  CHARTS_REPORT
+  "daily_digest"
+  DAILY_DIGEST
+  "delete_finding"
+  DELETE_FINDING
+  "file_removed"
+  FILE_REMOVED
+  "file_uploaded"
+  FILE_UPLOADED
+  "new_comment"
+  NEW_COMMENT
+  "new_draft"
+  NEW_DRAFT
+  "new_remediated"
+  NEW_REMEDIATED
+  "remediate_finding"
+  REMEDIATE_FINDING
+  "root_deactivated"
+  ROOT_DEACTIVATED
+  "root_moved"
+  ROOT_MOVED
+  "unsubmitted_draft"
+  UNSUBMITTED_DRAFT
+  "updated_treatment"
+  UPDATED_TREATMENT
   "vulnerability_assigned"
   VULNERABILITY_ASSIGNED
 }

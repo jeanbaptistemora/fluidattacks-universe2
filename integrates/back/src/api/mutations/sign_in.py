@@ -75,7 +75,26 @@ async def autoenroll_user(email: str) -> None:
 
     await user_model.update_user(
         user_email=email,
-        notifications_preferences={"email": ["VULNERABILITY_ASSIGNED"]},
+        notifications_preferences={
+            "email": [
+                "ACCESS_GRANTED",
+                "CHARTS_REPORT",
+                "DAILY_DIGEST",
+                "DELETE_FINDING",
+                "FILE_REMOVED",
+                "FILE_UPLOADED",
+                "GROUP_REPORT",
+                "NEW_COMMENT",
+                "NEW_DRAFT",
+                "NEW_REMEDIATED",
+                "REMEDIATE_FINDING",
+                "ROOT_DEACTIVATED",
+                "ROOT_MOVED",
+                "UNSUBMITTED_DRAFT",
+                "UPDATED_TREATMENT",
+                "VULNERABILITY_ASSIGNED",
+            ]
+        },
     )
 
     await groups_domain.add_without_group(
