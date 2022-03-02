@@ -1631,7 +1631,7 @@ export const enTranslations: ResourceKey = {
             "The <strong>open</strong> status means that " +
             "you have not remediated this type of vulnerability in at least one of the locations where it has been reported.",
         },
-        tooltip: "The remediation state of your locations. ",
+        tooltip: "",
       },
     },
     highSeverity: "High",
