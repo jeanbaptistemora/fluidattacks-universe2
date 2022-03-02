@@ -26,6 +26,9 @@ from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
     VulnerabilityVerification,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -239,6 +242,11 @@ class ITReport:
         }
         metric_descriptions = metrics.get(metric, {})
         description = metric_descriptions.get(str(metric_value), EMPTY)
+        if description == EMPTY:
+            description = metric_descriptions.get(
+                f"{Decimal(str(metric_value)):.1f}", EMPTY
+            )
+
         return description
 
     @classmethod
