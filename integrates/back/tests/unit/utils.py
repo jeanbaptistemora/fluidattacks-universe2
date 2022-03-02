@@ -14,7 +14,7 @@ from newutils import (
 from redis_cluster.operations import (
     redis_set_entity_attr,
 )
-from requests import (
+from requests import (  # type: ignore
     Request,
 )
 from settings import (
