@@ -11,6 +11,7 @@ from batch.enums import (
     Product,
 )
 from batch.types import (
+    AttributesNoOverridden,
     BatchProcessing,
     Job,
     JobContainer,
@@ -86,7 +87,7 @@ from urllib.parse import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 TABLE_NAME: str = "fi_async_processing"
 
 
@@ -597,6 +598,46 @@ async def put_action_to_dynamodb(
     return None
 
 
+async def update_action_to_dynamodb(*, key: str, **kwargs: Any) -> bool:
+    no_update_attributes = {
+        "action_name",
+        "entity",
+        "subject",
+        "time",
+        "queue",
+    }
+    has_bad = no_update_attributes.intersection(set(kwargs.keys()))
+    if has_bad:
+        raise AttributesNoOverridden(*has_bad)
+
+    success = False
+    set_expression = ""
+    expression_names = {}
+    expression_values = {}
+
+    for attr, value in kwargs.items():
+        set_expression += f"#{attr} = :{attr}, "
+        expression_names.update({f"#{attr}": attr})
+        expression_values.update({f":{attr}": value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    update_attrs = {
+        "Key": {"pk": key},
+        "UpdateExpression": set_expression.strip(),
+    }
+
+    if expression_values:
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
+    if expression_names:
+        update_attrs.update({"ExpressionAttributeNames": expression_names})
+    try:
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+    return success
+
+
 async def put_action_to_batch(
     *,
     action_name: str,
@@ -667,7 +708,7 @@ async def put_action_to_batch(
         return None
 
 
-async def put_action(
+async def put_action(  # pylint: disable=too-many-locals
     *,
     action: Action,
     entity: str,
@@ -689,6 +730,26 @@ async def put_action(
         additional_info=additional_info,
         queue=queue,
     )
+    if (
+        (dynamodb_pk is not None)
+        and (current_action := await get_action(action_dynamo_pk=dynamodb_pk))
+        and (not current_action.running)
+    ):
+        LOGGER.info(
+            "There is a job that is still in queue, it will be updated",
+            extra={"extra": None},
+        )
+        success = await update_action_to_dynamodb(
+            key=dynamodb_pk,
+            additional_info=additional_info,
+            batch_job_id=current_action.batch_job_id,
+        )
+        return PutActionResult(
+            success=success,
+            batch_job_id=current_action.batch_job_id,
+            dynamo_pk=dynamodb_pk,
+        )
+
     possible_key = dynamodb_pk or generate_key_to_dynamod(
         action_name=action.value,
         additional_info=additional_info,

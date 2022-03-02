@@ -1,6 +1,9 @@
 from batch.enums import (
     JobStatus,
 )
+from custom_exceptions import (
+    CustomBaseException,
+)
 from typing import (
     List,
     NamedTuple,
@@ -68,3 +71,15 @@ class PutActionResult(NamedTuple):
     success: bool
     batch_job_id: Optional[str] = None
     dynamo_pk: Optional[str] = None
+
+
+class AttributesNoOverridden(CustomBaseException):
+    """Exception to control attributes that can be overridden."""
+
+    def __init__(self, *attributes: str) -> None:
+        """Constructor"""
+        msg = (
+            "Exception - the following attributes "
+            f"can not be override {','.join(attributes)}"
+        )
+        super().__init__(msg)

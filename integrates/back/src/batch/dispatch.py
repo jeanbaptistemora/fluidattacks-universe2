@@ -4,6 +4,7 @@ from aioextensions import (
 from batch.dal import (
     delete_action,
     get_action,
+    update_action_to_dynamodb,
 )
 from batch.handle_finding_policy import (
     handle_finding_policy,
@@ -33,16 +34,19 @@ from settings import (
     LOGGING,
 )
 import sys
+from typing import (
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
-async def main() -> None:  # noqa: MC0001
+async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
     try:
-        action_dynamo_pk = sys.argv[1]
+        action_dynamo_pk = action_dynamo_pk or sys.argv[1]
 
         item = await get_action(
             action_dynamo_pk=action_dynamo_pk,
@@ -54,6 +58,7 @@ async def main() -> None:  # noqa: MC0001
             )
 
         action = item.action_name
+        await update_action_to_dynamodb(key=item.key, running=True)
 
         if action == "report":
             await generate_report(item=item)
