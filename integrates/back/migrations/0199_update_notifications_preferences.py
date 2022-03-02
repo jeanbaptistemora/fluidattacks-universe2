@@ -4,6 +4,11 @@ Update notifications preferences to users
 
 Execution Time: 2022-03-01 at 14:00:24 UTC
 Finalization Time: 2022-03-01 at 14:01:42 UTC
+
+Update preferences
+
+Execution Time: 2022-03-02 at 20:55:04 UTC
+Finalization Time: 2022-03-02 at 20:56:26 UTC
 """
 
 
