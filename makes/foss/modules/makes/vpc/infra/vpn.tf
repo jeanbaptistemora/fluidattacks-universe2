@@ -111,6 +111,16 @@ resource "aws_ec2_client_vpn_network_association" "main" {
   subnet_id              = aws_subnet.main["batch"].id
 }
 
+resource "aws_ec2_client_vpn_route" "main" {
+  for_each = toset(flatten([
+    for _, client in local.vpnData : client.routes
+  ]))
+
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
+  destination_cidr_block = each.key
+  target_vpc_subnet_id   = aws_ec2_client_vpn_network_association.main.subnet_id
+}
+
 module "vpn" {
   for_each = local.vpnData
 
