@@ -40,8 +40,8 @@ def get_vulnerability_justification(
     justification: str = ""
 
     if reattacked_store:
-        justification = f"Reattack request was executed in \
-            {format_justification_date(today)}. "
+        justification = f"A reattack request was executed on \
+            {format_justification_date(today).replace(' ', ' at ')}. "
 
         for reattacked_vuln in reattacked_store.iterate():
             commit_hash = reattacked_vuln.integrates_metadata.commit_hash
