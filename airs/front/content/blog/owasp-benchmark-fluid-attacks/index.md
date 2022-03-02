@@ -144,10 +144,9 @@ Only by applying the SAST technique (although it can also perform DAST),
 this tool can achieve the best possible outcome against the OWASP
 Benchmark with a TPR of 100% and an FPR of 0%. So, our Benchmark Score
 equals 100, the highest value\! A few years ago, developers in the OWASP
-Benchmark project [published a comparison
-chart](https://rawgit.com/OWASP/Benchmark/master/scorecard/OWASP_Benchmark_Home.html)
-for different open-source and commercial SAST tools. It is now in this
-chart that we include the results obtained by our tool.
+Benchmark project published a comparison chart for different open-source
+and commercial SAST tools.
+It is now in this chart that we include the results obtained by our tool.
 
 <div class="imgblock">
 
