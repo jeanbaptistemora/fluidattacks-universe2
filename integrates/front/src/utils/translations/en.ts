@@ -1576,53 +1576,46 @@ export const enTranslations: ResourceKey = {
       discoveryDate: {
         label: "Discovery date",
         tooltip:
-          "Is the year, month, and day we first identified and reported that type of vulnerability for the group in question.<br>",
+          "The year, month, and day we first identified " +
+          "and reported this type of vulnerability for this group.",
       },
       estRemediationTime: {
         label: "Est. Remediation Time",
         tooltip:
-          "Is the MMTR (Mean Time to Repair) this represents the average time needed to fix a vulnerability." +
-          "This indicator shows the number of hours that, through our calculations, " +
-          "we estimate it will take you to remediate the selected type of vulnerability.<br>",
+          "The number of hours we estimate it will take you to remediate this type of vulnerability.",
       },
       openVulns: {
         label: "Open vulnerabilities",
         tooltip:
-          "How many locations in your system still have that type of vulnerability.<br>",
+          "The number of locations in your system that still have this type of vulnerability open.",
       },
       severity: {
         label: "Severity",
         level: {
           critical:
-            "<strong>Critical:</strong> " +
-            "Vulnerabilities that have most of the following characteristics: : " +
-            "exploitation of the vulnerability likely results in root-level compromise of servers or infrastructure devices, " +
-            "the attacker does not need any special authentication credentials or knowledge about individual victims. " +
-            "Is advised that you patch or upgrade as soon as possible, unless you have other mitigating measures in place. ",
+            "The <strong>critical</strong> rating " +
+            "is for vulnerabilities that can lead to an extreme impact on an organization. " +
+            "Exploitation likely results in root-level compromise of servers or infrastructure. " +
+            "Attackers do not need special authentication credentials or knowledge about individual victims.",
           high:
-            "<strong>High:</strong> " +
-            "Vulnerabilities that have some of the following characteristics: " +
-            "Is difficult to exploit, exploitation could result in elevated privileges, " +
-            "exploitation could result in a significant data loss or downtime. ",
+            "The <strong>high</strong> rating " +
+            "is for vulnerabilities that can lead to an elevated impact on an organization. " +
+            "Exploitation can be difficult and can result in elevated privileges " +
+            "as well as significant data loss or downtime for the victim.",
           low:
-            "<strong>Low:</strong> " +
-            "Vulnerabilities that have very little impact on an organization's business. " +
-            "Exploitation of such vulnerabilities usually requires local or physical system access.",
+            "The <strong>low</strong> rating " +
+            "is for vulnerabilities that can lead to a minimal impact on an organization. " +
+            "Exploitation usually requires local or physical system access.",
           medium:
-            "<strong>Medium:</strong> " +
-            "Vulnerabilities that have some of the following characteristics: " +
-            "Require an attacker to manipulate individual victims, " +
-            "have denial of service vulnerabilities that are difficult to set up, " +
-            "require that attacker reside on the same local network as the victim, " +
-            "an exploitation provides only very limited access, " +
-            "require user privileges for successful exploitation. ",
+            "The <strong>medium</strong> rating " +
+            "is for vulnerabilities that can lead to a moderate impact on an organization. " +
+            "Exploitation requires user privileges, and sometimes " +
+            "that the attackers reside on the same local network as their victim. It only provides minimal access.",
           none:
-            "<strong>None:</strong> " +
-            "Vulnerabilities that not have impact on an organization's business.",
+            "<The <strong>none</strong> rating " +
+            "is for vulnerabilities that cannot lead to an impact on an organization.",
         },
-        tooltip:
-          "Score based on the renowned Common Vulnerability Scoring System (CVSS). " +
-          "An open standard for assessing the severity of security vulnerabilities in IT systems.<br>",
+        tooltip: "The severity level is based on the CVSS. ",
       },
       status: {
         label: "Status",
@@ -1632,13 +1625,13 @@ export const enTranslations: ResourceKey = {
         },
         stateTooltip: {
           closed:
-            "<strong>Closed:</strong> " +
-            "You remediated that security issue in all those locations.",
+            "The <strong>closed</strong> status means that " +
+            "you remediated this type of vulnerability at each location where we reported it.",
           open:
-            "<strong>Open:</strong> " +
-            "At least one of the locations where we reported that type of vulnerability has it without being fixed.",
+            "The <strong>open</strong> status means that " +
+            "you have not remediated this type of vulnerability in at least one of the locations where it has been reported.",
         },
-        tooltip: "Remediation state of your locations.<br>",
+        tooltip: "The remediation state of your locations. ",
       },
     },
     highSeverity: "High",
