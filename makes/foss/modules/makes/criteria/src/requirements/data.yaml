@@ -2022,6 +2022,7 @@
     - "hitrust.13_f"
     - "hitrust.13_s"
     - "iso27002.5_16"
+    - "lgpd.18_II"
   metadata: {}
 "088":
   en:
@@ -2287,6 +2288,8 @@
     - "fedramp.PS-3_3"
     - "fedramp.RA-5_4"
     - "iso27002.8_2"
+    - "lgpd.23_I"
+    - "lgpd.46"
   metadata: {}
 "096":
   en:
@@ -2385,6 +2388,7 @@
     - "iso27002.7_2"
     - "iso27002.8_2"
     - "iso27002.8_3"
+    - "lgpd.46"
   metadata: {}
 "114":
   en:
@@ -2420,6 +2424,7 @@
     - "fedramp.AC-11"
     - "fedramp.PE-3"
     - "iso27002.7_2"
+    - "lgpd.46"
   metadata: {}
 "115":
   en:
@@ -5572,6 +5577,8 @@
     - "hitrust.13_l"
     - "iso27002.7_14"
     - "iso27002.8_10"
+    - "lgpd.16"
+    - "lgpd.60"
   metadata: {}
 "184":
   en:
@@ -5874,6 +5881,7 @@
     - "pdpo.S1_1"
     - "hitrust.13_a"
     - "hitrust.13_d"
+    - "lgpd.26"
   metadata: {}
 "205":
   en:
@@ -6510,6 +6518,7 @@
     - "cmmc.AC_L2-3_1_9"
     - "fedramp.AC-8"
     - "fedramp.SI-5"
+    - "lgpd.19_II-1"
   metadata: {}
 "228":
   en:
@@ -6622,6 +6631,7 @@
     - "hitrust.08_b"
     - "fedramp.MP-2"
     - "iso27002.8_4"
+    - "lgpd.19_II-1"
   metadata: {}
 "231":
   en:
@@ -8271,6 +8281,7 @@
     - "lgpd.9_VII-2"
     - "lgpd.11_I"
     - "lgpd.14-1"
+    - "lgpd.18_VI"
   metadata: {}
 "311":
   en:
@@ -8402,6 +8413,8 @@
     - "hitrust.13_e"
     - "lgpd.8-5"
     - "lgpd.15_III"
+    - "lgpd.18_IX"
+    - "lgpd.60"
   metadata: {}
 "313":
   en:
@@ -8538,6 +8551,8 @@
     - "fedramp.CA-2_3"
     - "lgpd.7_III"
     - "lgpd.14-2"
+    - "lgpd.18_I"
+    - "lgpd.19"
   metadata: {}
 "315":
   en:
@@ -8655,6 +8670,7 @@
     - "lgpd.8-4"
     - "lgpd.9"
     - "lgpd.14-2"
+    - "lgpd.23_I"
   metadata: {}
 "316":
   en:
@@ -8714,6 +8730,8 @@
     - "hitrust.09_g"
     - "hitrust.13_m"
     - "hitrust.13_n"
+    - "lgpd.18_III"
+    - "lgpd.20"
   metadata: {}
 "317":
   en:
@@ -8776,6 +8794,9 @@
     - "pdpo.5_26"
     - "cmmc.MP_L1-3_8_3"
     - "hitrust.09_e"
+    - "lgpd.16"
+    - "lgpd.18_VI"
+    - "lgpd.60"
   metadata: {}
 "318":
   en:
@@ -9131,6 +9152,7 @@
     - "hitrust.09_ab"
     - "fedramp.AU-12_3"
     - "iso27002.8_25"
+    - "lgpd.18_IV"
   metadata: {}
 "323":
   en:
@@ -9683,6 +9705,8 @@
     - "iso27002.5_34"
     - "lgpd.7_II"
     - "lgpd.7_VI"
+    - "lgpd.26"
+    - "lgpd.51"
   metadata: {}
 "332":
   en:
@@ -10367,6 +10391,7 @@
     - "padss.5_2_8"
     - "cmmc.SC_L2-3_13_6"
     - "hitrust.09_c"
+    - "lgpd.46"
   metadata: {}
 "342":
   en:
@@ -11386,6 +11411,9 @@
     - "iso27002.7_14"
     - "iso27002.8_10"
     - "lgpd.15_I"
+    - "lgpd.16"
+    - "lgpd.18_IV"
+    - "lgpd.60"
   metadata: {}
 "361":
   en:
