@@ -672,6 +672,7 @@ async def queue_sync_git_roots(
     group_name: str,
     roots: Optional[Tuple[GitRootItem, ...]] = None,
     check_existing_jobs: bool = True,
+    force: bool = False,
 ) -> bool:
     current_jobs = await get_actions_by_name("clone_roots", group_name)
     roots = roots or await loaders.group_roots.load(group_name)
@@ -681,18 +682,15 @@ async def queue_sync_git_roots(
     if not roots:
         raise InactiveRoot()
 
-    group_creds: Tuple[
-        CredentialItem, ...
-    ] = await loaders.group_credentials.load(group_name)
-    roots_creds: Tuple[CredentialItem, ...] = tuple(
-        cred
-        for cred in group_creds
-        if set(cred.state.roots).intersection(set(roots_dict.keys()))
-    )
-
     roots_with_creds = {
         root_id: tuple(
-            cred for cred in roots_creds if root_id in cred.state.roots
+            cred
+            for cred in tuple(
+                cred
+                for cred in await loaders.group_credentials.load(group_name)
+                if set(cred.state.roots).intersection(set(roots_dict.keys()))
+            )
+            if root_id in cred.state.roots
         )
         for root_id in roots_dict.keys()
     }
@@ -749,7 +747,7 @@ async def queue_sync_git_roots(
             for root_id in (
                 root_id
                 for root_id, commit in last_commits_dict.items()
-                if not commit
+                if not commit  # if the commite exists the credentials work
             )
         ]
     )
@@ -769,8 +767,14 @@ async def queue_sync_git_roots(
         for root_id in (
             root_id
             for root_id, commit in last_commits_dict.items()
-            if (commit and commit != roots_dict[root_id].cloning.commit)
-            or not is_in_s3_dict.get(roots_dict[root_id].state.nickname, False)
+            if commit  # if the commite exists the credentials work
+            and (
+                force
+                or commit != roots_dict[root_id].cloning.commit
+                or not is_in_s3_dict.get(
+                    roots_dict[root_id].state.nickname, False
+                )
+            )
         )
     )
 

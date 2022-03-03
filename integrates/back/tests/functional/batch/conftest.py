@@ -17,6 +17,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootState,
@@ -128,7 +129,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 cloning=GitRootCloning(
                     modified_date="2022-02-10T14:58:10+00:00",
                     reason="Cloned successfully",
-                    status=GitCloningStatus.OK,
+                    status=GitCloningStatus.UNKNOWN,
+                    commit="6d4519f5d5b4223feb65fcbc5af68e8ef9964b62",
                 ),
                 group_name="group1",
                 id="88637616-41d4-4242-854a-db8ff7fe1ab6",
@@ -225,6 +227,34 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason="",
                     status="ACTIVE",
                     url="https://gitlab.com/fluidattacks/nickname2",
+                ),
+                type="Git",
+            ),
+            GitRootItem(
+                cloning=GitRootCloning(
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    reason="root creation",
+                    status=GitCloningStatus("UNKNOWN"),
+                ),
+                group_name="group1",
+                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                organization_name="orgtest",
+                state=GitRootState(
+                    branch="master",
+                    environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
+                    gitignore=["bower_components/*", "node_modules/*"],
+                    includes_health_check=True,
+                    modified_by="admin@gmail.com",
+                    modified_date="2020-11-19T13:37:10+00:00",
+                    nickname="nickname5",
+                    other=None,
+                    reason=None,
+                    status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/product",
                 ),
                 type="Git",
             ),
