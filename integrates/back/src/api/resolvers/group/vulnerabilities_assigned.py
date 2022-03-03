@@ -1,8 +1,11 @@
-from custom_types import (
-    Group,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -20,24 +23,33 @@ from newutils.vulnerabilities import (
     filter_open_vulns,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
+    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Group, Dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Tuple[Vulnerability, ...]:
-    group_name: str = parent["name"]
+    group_name: str = (
+        parent["name"] if isinstance(parent, dict) else parent.name
+    )
     user_data = await get_jwt_content(info.context)
-    findings: Tuple[
-        Finding, ...
-    ] = await info.context.loaders.group_findings.load(group_name)
+    loaders: Dataloaders = info.context.loaders
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
     finding_ids = [finding.id for finding in findings]
-    vulns_nzr_loader = info.context.loaders.finding_vulnerabilities_nzr
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await vulns_nzr_loader.load_many_chained(finding_ids)
+    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        finding_ids
+    )
 
     return tuple(
         vulnerability
