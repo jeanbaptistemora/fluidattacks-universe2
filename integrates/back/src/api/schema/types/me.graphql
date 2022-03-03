@@ -14,6 +14,8 @@ type Me {
   organizations: [Organization!]
   "Gets the  user-level permissions of the current stakeholder/user"
   permissions: [String!]
+  "Phone number with the international format"
+  phoneNumber: String
   "If true, the legal notice modal won't appear after every ASM login"
   remember: Boolean!
   "Gets the user-level role of the current stakeholder/user"

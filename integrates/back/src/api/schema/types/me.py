@@ -8,6 +8,7 @@ from api.resolvers.me import (
     notifications_preferences,
     organizations,
     permissions,
+    phone_number,
     remember,
     role,
     subscriptions_to_entity_report,
@@ -24,6 +25,7 @@ ME.set_field("hasMobileApp", has_mobile_app.resolve)
 ME.set_field("isConcurrentSession", is_concurrent_session.resolve)
 ME.set_field("organizations", organizations.resolve)
 ME.set_field("permissions", permissions.resolve)
+ME.set_field("phoneNumber", phone_number.resolve)
 ME.set_field("remember", remember.resolve)
 ME.set_field("role", role.resolve)
 ME.set_field(
