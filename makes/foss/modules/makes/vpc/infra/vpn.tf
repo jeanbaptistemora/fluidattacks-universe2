@@ -111,6 +111,12 @@ resource "aws_ec2_client_vpn_network_association" "main" {
   subnet_id              = aws_subnet.main["batch"].id
 }
 
+resource "aws_ec2_client_vpn_authorization_rule" "main" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
+  target_network_cidr    = "0.0.0.0/0"
+  authorize_all_groups   = true
+}
+
 resource "aws_ec2_client_vpn_route" "main" {
   for_each = toset(flatten([
     for _, client in local.vpnData : client.routes

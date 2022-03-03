@@ -39,6 +39,8 @@ locals {
           "redshift:*",
           "redshift-serverless:*",
           "route53:*",
+          "route53domains:*",
+          "route53resolver:*",
           "s3:*",
           "sagemaker:*",
           "savingsplans:*",
