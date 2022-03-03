@@ -1171,6 +1171,7 @@
     - "cmmc.AC_L1-3_1_22"
     - "hitrust.09_z"
     - "fedramp.AC-22"
+    - "lgpd.7_X-3"
   metadata: {}
 "046":
   en:
@@ -7448,6 +7449,7 @@
     - "hitrust.09_z"
     - "fedramp.AC-22"
     - "iso27002.8_1"
+    - "lgpd.7_X-3"
   metadata: {}
 "262":
   en:
@@ -7543,6 +7545,7 @@
     - "fedramp.PS-7"
     - "fedramp.SA-9"
     - "iso27002.5_22"
+    - "lgpd.8-6"
   metadata: {}
 "264":
   en:
@@ -8055,6 +8058,7 @@
     - "cmmc.CM_L2-3_4_3"
     - "hitrust.13_n"
     - "fedramp.SI-5"
+    - "lgpd.9_VII-2"
   metadata: {}
 "302":
   en:
@@ -8263,6 +8267,10 @@
     - "pdpo.S1_3"
     - "hitrust.13_d"
     - "hitrust.13_m"
+    - "lgpd.7_I"
+    - "lgpd.9_VII-2"
+    - "lgpd.11_I"
+    - "lgpd.14-1"
   metadata: {}
 "311":
   en:
@@ -8323,6 +8331,7 @@
     - "soc2.P6_2"
     - "ccpa.1798_100"
     - "hitrust.13_a"
+    - "lgpd.8-2"
   metadata: {}
 "312":
   en:
@@ -8391,6 +8400,8 @@
     - "fcra.502_B"
     - "pdpa.4_16"
     - "hitrust.13_e"
+    - "lgpd.8-5"
+    - "lgpd.15_III"
   metadata: {}
 "313":
   en:
@@ -8525,6 +8536,8 @@
     - "hitrust.13_b"
     - "hitrust.13_c"
     - "fedramp.CA-2_3"
+    - "lgpd.7_III"
+    - "lgpd.14-2"
   metadata: {}
 "315":
   en:
@@ -8635,6 +8648,13 @@
     - "hitrust.13_c"
     - "hitrust.13_h"
     - "hitrust.13_m"
+    - "lgpd.7_VI"
+    - "lgpd.7_X-3"
+    - "lgpd.7_X-5"
+    - "lgpd.7_X-7"
+    - "lgpd.8-4"
+    - "lgpd.9"
+    - "lgpd.14-2"
   metadata: {}
 "316":
   en:
@@ -8830,6 +8850,8 @@
     - "hitrust.13_m"
     - "fedramp.PS-7"
     - "fedramp.SI-5"
+    - "lgpd.8-6"
+    - "lgpd.9_VII-2"
   metadata: {}
 "319":
   en:
@@ -9659,6 +9681,8 @@
     - "fedramp.SA-1"
     - "fedramp.SC-1"
     - "iso27002.5_34"
+    - "lgpd.7_II"
+    - "lgpd.7_VI"
   metadata: {}
 "332":
   en:
@@ -11361,6 +11385,7 @@
     - "hitrust.13_m"
     - "iso27002.7_14"
     - "iso27002.8_10"
+    - "lgpd.15_I"
   metadata: {}
 "361":
   en:
