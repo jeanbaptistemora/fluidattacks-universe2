@@ -81,6 +81,30 @@ resource "aws_iam_saml_provider" "main" {
   }
 }
 
+resource "aws_route53_resolver_endpoint" "main" {
+  name      = "vpn"
+  direction = "INBOUND"
+
+  security_group_ids = [
+    aws_vpc.fluid-vpc.default_security_group_id
+  ]
+
+  ip_address {
+    subnet_id = aws_subnet.main["batch"].id
+  }
+
+  ip_address {
+    subnet_id = aws_subnet.main["common"].id
+  }
+
+  tags = {
+    "Name"               = "vpn"
+    "management:area"    = "cost"
+    "management:product" = "makes"
+    "management:type"    = "product"
+  }
+}
+
 resource "aws_ec2_client_vpn_endpoint" "main" {
   vpc_id                 = aws_vpc.fluid-vpc.id
   server_certificate_arn = module.acm.acm_certificate_arn
@@ -92,6 +116,11 @@ resource "aws_ec2_client_vpn_endpoint" "main" {
     type              = "federated-authentication"
     saml_provider_arn = aws_iam_saml_provider.main.arn
   }
+
+  dns_servers = [
+    aws_route53_resolver_endpoint.main.ip_address.*.ip[0],
+    aws_route53_resolver_endpoint.main.ip_address.*.ip[1],
+  ]
 
   connection_log_options {
     enabled              = true
