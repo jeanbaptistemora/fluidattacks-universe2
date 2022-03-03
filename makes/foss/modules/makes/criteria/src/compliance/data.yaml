@@ -3252,7 +3252,7 @@
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
   metadata: {}
 "fcra":
-  title: FCRA/FACTA and GLBA
+  title: FCRA
   en:
     description: >
       Fair Credit Reporting Act (FCRA),
@@ -3261,13 +3261,41 @@
       and share the data they collect in
       consumer reports, referencing personal
       and sensitive information.
-
+      Te version used in this section is
+      FCRA of September 2018.
+  es:
+    description: __empty__
+  definitions:
+    "604-E_5":
+      title: Notification System
+      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
+    "605-H_2":
+      title: Prevent SQL injection
+      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
+  metadata: {}
+"facta":
+  title: FACTA
+  en:
+    description: >
       Fair and Accurate Credit Transactions
       Act (FACTA) of 2003, amending the Fair
       Credit Reporting Act, adds provisions
       designed to improve the accuracy of
       consumer's credit-related records.
-
+  es:
+    description: __empty__
+  definitions:
+    "157-A":
+      title: Study on the Use of Technology to Combat Identity Theft
+      link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
+    "312-B_3":
+      title: Procedures to Enhance Accuracy and Integrity of Information
+      link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
+  metadata: {}
+"glba":
+  title: GLBA
+  en:
+    description: >
       Lastly, Gramm–Leach–Bliley Act (GLBA)
       requires financial institutions – companies
       that offer consumers financial products
@@ -3278,18 +3306,6 @@
   es:
     description: __empty__
   definitions:
-    "604-E_5":
-      title: Notification System
-      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
-    "605-H_2":
-      title: Prevent SQL injection
-      link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
-    "157-A":
-      title: Study on the Use of Technology to Combat Identity Theft
-      link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
-    "312-B_3":
-      title: Procedures to Enhance Accuracy and Integrity of Information
-      link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
     "501_A":
       title: Privacy Obligation Policy
       link: https://www.govinfo.gov/content/pkg/PLAW-106publ102/pdf/PLAW-106publ102.pdf
