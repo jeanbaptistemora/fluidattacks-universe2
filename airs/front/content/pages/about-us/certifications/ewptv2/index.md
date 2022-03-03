@@ -1,10 +1,8 @@
 ---
 slug: about-us/certifications/ewptv2/
 title: eLearnSecurity Web Application Penetration Tester eXtreme
-description: Our team of ethical hackers and pentesters counts
-  with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
-  Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
 certificationlogo: logo-ewptv2
 alt: Logo eWPTXv2
 certification: yes

@@ -1,10 +1,8 @@
 ---
 slug: about-us/certifications/ecre/
 title: eLearnSecurity Certified Reverse Engineer
-description: Our team of ethical hackers and pentesters counts
-  with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
-  Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
 certificationlogo: logo-ecre
 alt: Logo eCRE
 certification: yes

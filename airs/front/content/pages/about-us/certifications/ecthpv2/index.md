@@ -1,10 +1,8 @@
 ---
 slug: about-us/certifications/ecthpv2/
 title: eLearnSecurity Certified Threat Hunting Professional
-description: Our team of ethical hackers and pentesters counts
-  with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications,
-  Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
 certificationlogo: logo-ecthpv2
 alt: Logo eCTHPv2
 certification: yes

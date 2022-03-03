@@ -8,8 +8,7 @@ tags: cybersecurity, risk, mistake, social-engineering, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1635285831/blog/human-security-sensor/cover_haass.webp
 alt: Photo by Andre Mouton on Unsplash
 description: The human-as-a-security-sensor paradigm asserts that catastrophe can be prevented if employees are trained to report threat events promptly. Learn more here.
-keywords: Human, Security, Sensor, Employees, Risk Factors, Weakest Link,
-  Reporting, Ethical Hacking, Pentesting
+keywords: Human, Security, Sensor, Employees, Risk Factors, Weakest Link, Reporting, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría
