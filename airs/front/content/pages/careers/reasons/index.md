@@ -3,8 +3,7 @@ slug: careers/reasons/
 title: Reasons to Work With Us
 category: careers
 description: Here are some reasons why Fluid Attacks is a great place to work.
-keywords: Fluid Attacks, Careers, Reasons, Work, Projects,
-  Clients, Candidates, Jobs, Pentester, Ethical Hacker
+keywords: Fluid Attacks, Careers, Reasons, Work, Projects, Clients, Candidates, Jobs, Pentester, Ethical Hacker
 ---
 
 Here are **8** reasons why `Fluid Attacks` is a great place to work:

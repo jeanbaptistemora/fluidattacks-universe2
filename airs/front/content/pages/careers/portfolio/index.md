@@ -2,10 +2,8 @@
 slug: careers/portfolio/
 title: Portfolio
 category: careers
-description: A portfolio is a document that describes your biggest personal,
-  professional, and academic achievements. Do you want to show us your portfolio?
-keywords: Fluid Attacks, Careers, Process, Selection,
-  Portfolio, Candidate, Pentester, Ethical Hacker
+description: A portfolio is a document that describes your biggest personal, professional, and academic achievements. Do you want to show us your portfolio?
+keywords: Fluid Attacks, Careers, Process, Selection, Portfolio, Candidate, Pentester, Ethical Hacker
 ---
 
 The items we expect to see in your portfolio are described below. These

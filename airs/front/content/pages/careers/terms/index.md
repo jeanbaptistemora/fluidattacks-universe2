@@ -2,10 +2,8 @@
 slug: careers/terms/
 title: Careers Terms & Conditions
 category: careers
-description: Learn here the general terms and processes
-  to join Fluid Attacks' team.
-keywords: Fluid Attacks, Careers, Process, Selection, Terms,
-  Company, Job, Terms and Conditions, Pentesting, Ethical Hacking
+description: Learn here the general terms and processes to join Fluid Attacks' team.
+keywords: Fluid Attacks, Careers, Process, Selection, Terms, Company, Job, Terms and Conditions, Pentesting, Ethical Hacking
 ---
 
 ## Fluid Attacks Overview

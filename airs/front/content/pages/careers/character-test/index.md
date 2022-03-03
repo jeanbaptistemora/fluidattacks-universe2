@@ -2,8 +2,7 @@
 slug: careers/character-test/
 title: Character Evaluation
 category: careers
-description: The following page is to inform potential talents
-  and people interested in working with us about our selection process.
+description: The following page is to inform potential talents and people interested in working with us about our selection process.
 keywords: Fluid Attacks, Careers, Selection, Character, Test, Strengths.
 ---
 

@@ -2,10 +2,8 @@
 slug: careers/knowledge-test/
 title: Knowledge Test
 category: careers
-description: Test your knowledge in different fields before applying
-  to any of our positions.
-keywords: Fluid Attacks, Careers, Knowledge, Test,
-  Selection, Process, Pentesting, Ethical Hacking
+description: Test your knowledge in different fields before applying to any of our positions.
+keywords: Fluid Attacks, Careers, Knowledge, Test, Selection, Process, Pentesting, Ethical Hacking
 ---
 
 To continue in the selection process, please complete the knowledge

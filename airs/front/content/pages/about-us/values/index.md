@@ -2,11 +2,8 @@
 slug: about-us/values/
 title: Values
 category: about-us
-description: Fluid Attacks is committed to always having integral
-  and correct behavior, and expects all members to act
-  in accordance with the law and company's policies.
-keywords: Fluid Attacks, Values, Policies, Ethics, Protection,
-  Information, Company Policies, Pentesting, Ethical Hacking
+description: Fluid Attacks is committed to always having integral and correct behavior, and expects all members to act in accordance with the law and company's policies.
+keywords: Fluid Attacks, Values, Policies, Ethics, Protection, Information, Company Policies, Pentesting, Ethical Hacking
 banner: values-bg
 ---
 

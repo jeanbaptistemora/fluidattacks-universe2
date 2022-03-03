@@ -2,10 +2,8 @@
 slug: about-us/events/securing-device/
 title: Securing Your Mobile Device
 category: events
-description: Let's talk about the risks that smartphone users are constantly
-  exposed to and unaware of, as well as what to do to mitigate them.
-keywords: Fluid Attacks, Talks, Mobile Device, Events, Security,
-  Smartphone, Pentesting, Ethical Hacking
+description: Let's talk about the risks that smartphone users are constantly exposed to and unaware of, as well as what to do to mitigate them.
+keywords: Fluid Attacks, Talks, Mobile Device, Events, Security, Smartphone, Pentesting, Ethical Hacking
 eventspage: yes
 banner: events-bg
 ---

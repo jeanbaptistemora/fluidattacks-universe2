@@ -2,10 +2,8 @@
 slug: careers/openings/
 title: Openings
 category: careers
-description: The following are Fluid Attacks' job openings.
-  Do not hesitate to apply now!
-keywords: Fluid Attacks, Careers, Profile, Selection, Process, Job,
-  Developer, Ethical Hacker, Web Developer, Pentester
+description: The following are Fluid Attacks' job openings. Do not hesitate to apply now!
+keywords: Fluid Attacks, Careers, Profile, Selection, Process, Job, Developer, Ethical Hacker, Web Developer, Pentester
 ---
 
 If you are interested, motivated, and have the required skills, we may
