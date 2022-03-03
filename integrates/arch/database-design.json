@@ -645,12 +645,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "DELETE_FINDING"
-                      },
-                      {
-                        "S": "FILE_REMOVED"
-                      },
-                      {
                         "S": "FILE_UPLOADED"
                       },
                       {
@@ -663,19 +657,10 @@
                         "S": "NEW_DRAFT"
                       },
                       {
-                        "S": "NEW_REMEDIATED"
-                      },
-                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
-                        "S": "ROOT_DEACTIVATED"
-                      },
-                      {
                         "S": "ROOT_MOVED"
-                      },
-                      {
-                        "S": "UNSUBMITTED_DRAFT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -709,12 +694,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "DELETE_FINDING"
-                      },
-                      {
-                        "S": "FILE_REMOVED"
-                      },
-                      {
                         "S": "FILE_UPLOADED"
                       },
                       {
@@ -727,19 +706,10 @@
                         "S": "NEW_DRAFT"
                       },
                       {
-                        "S": "NEW_REMEDIATED"
-                      },
-                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
-                        "S": "ROOT_DEACTIVATED"
-                      },
-                      {
                         "S": "ROOT_MOVED"
-                      },
-                      {
-                        "S": "UNSUBMITTED_DRAFT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -773,12 +743,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "DELETE_FINDING"
-                      },
-                      {
-                        "S": "FILE_REMOVED"
-                      },
-                      {
                         "S": "FILE_UPLOADED"
                       },
                       {
@@ -791,19 +755,10 @@
                         "S": "NEW_DRAFT"
                       },
                       {
-                        "S": "NEW_REMEDIATED"
-                      },
-                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
-                        "S": "ROOT_DEACTIVATED"
-                      },
-                      {
                         "S": "ROOT_MOVED"
-                      },
-                      {
-                        "S": "UNSUBMITTED_DRAFT"
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
@@ -834,12 +789,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "DELETE_FINDING"
-                      },
-                      {
-                        "S": "FILE_REMOVED"
-                      },
-                      {
                         "S": "FILE_UPLOADED"
                       },
                       {
@@ -852,19 +801,10 @@
                         "S": "NEW_DRAFT"
                       },
                       {
-                        "S": "NEW_REMEDIATED"
-                      },
-                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
-                        "S": "ROOT_DEACTIVATED"
-                      },
-                      {
                         "S": "ROOT_MOVED"
-                      },
-                      {
-                        "S": "UNSUBMITTED_DRAFT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
