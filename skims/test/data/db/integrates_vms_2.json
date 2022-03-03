@@ -261,6 +261,60 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "access_token": {
+            "M": {
+              "iat": {
+                "N": "1635527402"
+              },
+              "jti": {
+                "S": "593175b3cfff428ad7c8d6575e606f3e40f0446c7d123a1e2ba08d7a3b9593b2"
+              },
+              "salt": {
+                "S": "9aa1fa75254741959d087650d87bd98992c52da3e876369686d03f7d30e06892"
+              }
+            }
+          },
+          "email": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "name": {
+            "S": "Miguel de Orellana"
+          },
+          "notifications_preferences": {
+            "M": {
+              "email": {
+                "L": []
+              }
+            }
+          },
+          "pk": {
+            "S": "USER#unittest@fluidattacks.com"
+          },
+          "push_tokens": {
+            "L": [
+              {
+                "S": "ExponentPushToken[dummy]"
+              }
+            ]
+          },
+          "registered_date": {
+            "S": "2019-02-28 11:54:12"
+          },
+          "sk": {
+            "S": "USER#unittest@fluidattacks.com"
+          }
+        }
+      }
     }
   ]
 }
