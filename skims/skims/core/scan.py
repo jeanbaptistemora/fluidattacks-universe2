@@ -165,33 +165,33 @@ async def persist_to_integrates(
 
 
 async def notify_end(
+    job_id: str,
     start_date: datetime,
     persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
 ) -> None:
-    if batch_job_id := os.environ.get("AWS_BATCH_JOB_ID"):
-        executed = [
-            {
-                "finding": finding.name,
-                "open": get_ephemeral_store().length(),
-                "modified": (
-                    persisted_results[finding].diff_result.length()
-                    if finding in persisted_results
-                    and persisted_results[finding].diff_result
-                    else 0
-                ),
-            }
-            for finding in core_model.FindingEnum
-            if finding in CTX.config.checks
-        ]
-        await do_add_skims_execution(
-            root=CTX.config.namespace,
-            group_name=CTX.config.group,
-            job_id=batch_job_id,
-            start_date=start_date,
-            end_date=datetime.utcnow(),
-            findings_executed=tuple(executed),
-            commit_hash=get_repo_head_hash(CTX.config.working_dir),
-        )
+    executed = [
+        {
+            "finding": finding.name,
+            "open": get_ephemeral_store().length(),
+            "modified": (
+                persisted_results[finding].diff_result.length()
+                if finding in persisted_results
+                and persisted_results[finding].diff_result
+                else 0
+            ),
+        }
+        for finding in core_model.FindingEnum
+        if finding in CTX.config.checks
+    ]
+    await do_add_skims_execution(
+        root=CTX.config.namespace,
+        group_name=CTX.config.group,
+        job_id=job_id,
+        start_date=start_date,
+        end_date=datetime.utcnow(),
+        findings_executed=tuple(executed),
+        commit_hash=get_repo_head_hash(CTX.config.working_dir),
+    )
 
 
 async def main(
@@ -199,20 +199,21 @@ async def main(
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
-    success = True
     try:
-        CTX.config = load(group, config) if isinstance(config, str) else config
-        configure_logs()
+        persisted_results = {}
+        batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
+        CTX.config = load(group, config) if isinstance(config, str) else config
+
+        configure_logs()
         add_bugsnag_data(namespace=CTX.config.namespace)
+
         reset_ephemeral_state()
-        log_blocking("info", "Namespace: %s", CTX.config.namespace)
-        log_blocking(
-            "info", "Startup working dir is: %s", CTX.config.start_dir
-        )
-        log_blocking(
-            "info", "Moving working dir to: %s", CTX.config.working_dir
-        )
+
+        log_blocking("info", f"Namespace: {CTX.config.namespace}")
+        log_blocking("info", f"Startup work dir is: {CTX.config.start_dir}")
+        log_blocking("info", f"Moving work dir to: {CTX.config.working_dir}")
+
         os.chdir(CTX.config.working_dir)
 
         start_date = datetime.utcnow()
@@ -220,8 +221,6 @@ async def main(
 
         if group and token:
             persisted_results = await persist_to_integrates(token, stores)
-            await notify_end(start_date, persisted_results)
-            success = all(persisted_results.values())
         else:
             log_blocking(
                 "info",
@@ -231,6 +230,11 @@ async def main(
                     "in the CLI"
                 ),
             )
+
+        success = all(persisted_results.values())
+
+        if batch_job_id:
+            await notify_end(batch_job_id, start_date, persisted_results)
 
         return success
     finally:
