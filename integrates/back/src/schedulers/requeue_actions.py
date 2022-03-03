@@ -3,14 +3,12 @@ from aioextensions import (
 )
 from batch import (
     dal as batch_dal,
-    domain as batch_domain,
 )
 from batch.enums import (
     Product,
 )
 from batch.types import (
     BatchProcessing,
-    JobPayload,
 )
 from typing import (
     List,
@@ -57,24 +55,46 @@ def _filter_refresh_toe_lines_actions(
 
 async def requeue_actions() -> None:
     pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
-    action_queues = {
-        pending_action.queue for pending_action in pending_actions
-    }
-    job_payloads = await batch_domain.get_job_payloads(
-        queues=list(action_queues),
-        statuses=[
-            batch_dal.JobStatus.SUBMITTED,
-            batch_dal.JobStatus.PENDING,
-            batch_dal.JobStatus.RUNNABLE,
-            batch_dal.JobStatus.STARTING,
-            batch_dal.JobStatus.RUNNING,
-        ],
-    )
+    removable_actions = {"execute-machine"}
+
     pending_actions = _filter_refresh_toe_inputs_actions(pending_actions)
     pending_actions = _filter_refresh_toe_lines_actions(pending_actions)
     report_additional_info = dict(
         vcpus=4,
         attempt_duration_seconds=7200,
+    )
+    running_actions = [action for action in pending_actions if action.running]
+    # jobs that are running in the db but failed in batch
+    failed_batch_job: List[str] = [
+        job["jobId"]
+        for job in await batch_dal.describe_jobs(
+            *[
+                action.batch_job_id
+                for action in running_actions
+                if action.batch_job_id
+            ]
+        )
+        if job["status"]
+        in [
+            batch_dal.JobStatus.FAILED.value,
+            batch_dal.JobStatus.SUCCEEDED.value,
+        ]
+    ]
+    # remove actions that in their normal process can fail
+    removed_actions_key = [
+        action.key
+        for action in pending_actions
+        if action.action_name in removable_actions
+        and (
+            action.batch_job_id is not None
+            and action.batch_job_id in failed_batch_job
+        )
+    ]
+    await collect(
+        [
+            batch_dal.delete_action(dynamodb_pk=action_key)
+            for action_key in removed_actions_key
+        ]
     )
     await collect(
         [
@@ -95,15 +115,11 @@ async def requeue_actions() -> None:
                 ),
             )
             for action in pending_actions
-            if not action.running
-            and JobPayload(
-                action_name=action.action_name,
-                subject=action.subject,
-                entity=action.entity,
-                time=action.time,
-                additional_info=action.additional_info,
+            if (
+                action.key not in removed_actions_key
+                and action.batch_job_id is not None
+                and action.batch_job_id in failed_batch_job
             )
-            not in job_payloads
         ],
         workers=20,
     )
