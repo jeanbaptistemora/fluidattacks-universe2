@@ -29,6 +29,7 @@ async def get_result(
                     name
                 }}
             }}
+            phoneNumber
             permissions
             remember
             role

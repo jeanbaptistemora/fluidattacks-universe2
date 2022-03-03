@@ -12,18 +12,18 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("me")
 @pytest.mark.parametrize(
-    ("email", "role", "permissions", "groups_length"),
+    ("email", "role", "permissions", "phone_number", "groups_length"),
     (
-        ("admin@gmail.com", "admin", 16, 0),
-        ("user@gmail.com", "user", 3, 1),
-        ("user_manager@gmail.com", "user_manager", 0, 1),
-        ("executive@gmail.com", "executive", 0, 1),
-        ("hacker@gmail.com", "hacker", 3, 2),
-        ("reattacker@gmail.com", "reattacker", 0, 1),
-        ("resourcer@gmail.com", "resourcer", 0, 1),
-        ("reviewer@gmail.com", "reviewer", 0, 2),
-        ("service_forces@gmail.com", "service_forces", 0, 1),
-        ("customer_manager@fluidattacks.com", "customer_manager", 0, 1),
+        ("admin@gmail.com", "admin", 16, None, 0),
+        ("user@gmail.com", "user", 3, "+12029182132", 1),
+        ("user_manager@gmail.com", "user_manager", 0, None, 1),
+        ("executive@gmail.com", "executive", 0, None, 1),
+        ("hacker@gmail.com", "hacker", 3, "+12029182131", 2),
+        ("reattacker@gmail.com", "reattacker", 0, None, 1),
+        ("resourcer@gmail.com", "resourcer", 0, None, 1),
+        ("reviewer@gmail.com", "reviewer", 0, None, 2),
+        ("service_forces@gmail.com", "service_forces", 0, None, 1),
+        ("customer_manager@fluidattacks.com", "customer_manager", 0, None, 1),
     ),
 )
 async def test_get_me(
@@ -31,6 +31,7 @@ async def test_get_me(
     email: str,
     role: str,
     permissions: int,
+    phone_number: int,
     groups_length: int,
 ) -> None:
     assert populate
@@ -51,6 +52,7 @@ async def test_get_me(
         == groups_length
     )
     assert len(result["data"]["me"]["permissions"]) == permissions
+    assert result["data"]["me"]["phoneNumber"] == phone_number
     assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == role
     assert result["data"]["me"]["subscriptionsToEntityReport"] == []

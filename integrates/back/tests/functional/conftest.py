@@ -210,6 +210,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone_number": "+12029182132",
                 },
                 {
                     "email": user_fluid_email,
@@ -270,6 +271,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone_number": "+12029182131",
                 },
                 {
                     "email": hacker_fluid_email,
