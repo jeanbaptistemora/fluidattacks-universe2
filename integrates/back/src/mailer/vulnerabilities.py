@@ -8,6 +8,9 @@ from context import (
 from custom_types import (
     MailContent as MailContentType,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.users.get import (
     User,
 )
@@ -47,7 +50,8 @@ async def send_mail_updated_treatment(  # pylint: disable=too-many-locals
     users_email = [
         user.email
         for user in users
-        if "UPDATED_TREATMENT" in user.notifications_preferences.email
+        if Notification.UPDATED_TREATMENT
+        in user.notifications_preferences.email
     ]
     email_context = {
         "group": group_name,

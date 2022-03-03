@@ -10,6 +10,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -64,7 +67,7 @@ async def mutate(
         )
         finding: Finding = await finding_loader.load(finding_id)
         user: User = await info.context.loaders.user.load(user_email)
-        if "NEW_DRAFT" in user.notifications_preferences.email:
+        if Notification.NEW_DRAFT in user.notifications_preferences.email:
             schedule(
                 findings_mail.send_mail_new_draft(
                     info.context.loaders,

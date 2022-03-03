@@ -27,3 +27,9 @@ class GitCloningStatus(str, Enum):
     FAILED: str = "FAILED"
     OK: str = "OK"
     UNKNOWN: str = "UNKNOWN"
+
+
+class Notification(str, Enum):
+    NEW_DRAFT: str = "NEW_DRAFT"
+    UPDATED_TREATMENT: str = "UPDATED_TREATMENT"
+    VULNERABILITY_ASSIGNED: str = "VULNERABILITY_ASSIGNED"

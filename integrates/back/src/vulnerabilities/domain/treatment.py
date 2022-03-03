@@ -31,6 +31,9 @@ from datetime import (
 from db_model import (
     vulnerabilities as vulns_model,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -543,7 +546,10 @@ async def validate_and_send_notification_request(
     )
 
     user: User = await loaders.user.load(assigned)
-    if "VULNERABILITY_ASSIGNED" in user.notifications_preferences.email:
+    if (
+        Notification.VULNERABILITY_ASSIGNED
+        in user.notifications_preferences.email
+    ):
         await vulns_mailer.send_mail_assigned_vulnerability(
             loaders=loaders,
             email_to=[assigned],
