@@ -3037,22 +3037,18 @@
       link: https://bizec.org
   metadata: {}
 "ccpa":
-  title: CCPA/CPRA
+  title: CCPA
   en:
     description: >
-      California CCPA Compliance, CPRA and
-      Cybersecurity.
       The California Consumer Privacy
       Act of 2018 (CCPA) gives users and
       consumers more control over the
       personal information that businesses
       collect about them.
-      On the other side, the CPRA (California
-      Privacy Rights Act) is a data privacy law
-      that takes effect on January 1, 2023.
-      It enhances existing privacy laws in the
-      State of California – the CCPA (California
-      Consumer Privacy Act).
+      Is the most influential state-level
+      consumer privacy law passed in the US.
+      Te version used in this section
+      is CCPA of 2018.
   es:
     description: __empty__
   definitions:
@@ -3077,6 +3073,22 @@
     "1798_121":
       title: Consumer's Right to Limit Use and Disclosure of Sensitive Personal Information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
+  metadata: {}
+"cpra":
+  title: CPRA
+  en:
+    description: >
+      The California Privacy Rights Act CPRA
+      is a data privacy law
+      that takes effect on January 1, 2023.
+      It makes a variety of amendments to
+      the requirements in the California
+      Consumer Privacy Act (CCPA).
+      Te version used in this section is
+      CPRA of 2018 v2.
+  es:
+    description: __empty__
+  definitions:
     "1798-100":
       title: Right to Know what Personal Information is Being Collected
       link: https://www.itgovernanceusa.com/california-consumer-privacy
