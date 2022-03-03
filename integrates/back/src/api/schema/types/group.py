@@ -22,6 +22,8 @@ from api.resolvers.group import (
     max_severity,
     max_severity_finding,
     mean_remediate,
+    mean_remediate_critical_severity,
+    mean_remediate_high_severity,
     organization,
     permissions,
     roots,
@@ -63,6 +65,12 @@ GROUP.set_field(
 GROUP.set_field("lastClosedVulnerability", last_closed_vulnerability.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
 GROUP.set_field("meanRemediate", mean_remediate.resolve)
+GROUP.set_field(
+    "meanRemediateCriticalSeverity", mean_remediate_critical_severity.resolve
+)
+GROUP.set_field(
+    "meanRemediateHighSeverity", mean_remediate_high_severity.resolve
+)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("permissions", permissions.resolve)
 GROUP.set_field("roots", roots.resolve)
