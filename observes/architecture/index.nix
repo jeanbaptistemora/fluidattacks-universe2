@@ -15,6 +15,11 @@ let
   streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in
 {
+  service = {
+    db_migration = (std_data "/observes/service/db_migration") // {
+      root = "/observes/services/db_migration";
+    };
+  };
   etl = {
     dynamo = (std_data "${etlsPath}/dynamo_etl_conf") // {
       env = {
