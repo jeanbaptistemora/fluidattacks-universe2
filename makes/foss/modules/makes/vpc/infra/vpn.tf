@@ -163,8 +163,10 @@ module "vpn" {
   aws_cidr        = each.value.aws_cidr
   client_endpoint = each.value.client_endpoint
   client_name     = each.key
+  dns             = each.value.dns
   routes          = each.value.routes
   vpn_gateway_id  = aws_vpn_gateway.main.id
+  vpc_id          = aws_vpc.fluid-vpc.id
 
   tags = {
     "Name"               = each.key
