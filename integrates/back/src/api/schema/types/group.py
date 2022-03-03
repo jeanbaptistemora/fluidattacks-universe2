@@ -14,12 +14,14 @@ from api.resolvers.group import (
     has_asm,
     has_forces,
     has_machine,
+    has_squad,
     language,
     last_closed_vulnerability,
     last_closed_vulnerability_finding,
     max_open_severity_finding,
     max_severity,
     max_severity_finding,
+    mean_remediate,
     organization,
     permissions,
     roots,
@@ -52,6 +54,7 @@ GROUP.set_field("groupContext", context.resolve)
 GROUP.set_field("hasAsm", has_asm.resolve)
 GROUP.set_field("hasForces", has_forces.resolve)
 GROUP.set_field("hasMachine", has_machine.resolve)
+GROUP.set_field("hasSquad", has_squad.resolve)
 GROUP.set_field("language", language.resolve)
 GROUP.set_field(
     "lastClosedVulnerabilityFinding",
@@ -59,6 +62,7 @@ GROUP.set_field(
 )
 GROUP.set_field("lastClosedVulnerability", last_closed_vulnerability.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
+GROUP.set_field("meanRemediate", mean_remediate.resolve)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("permissions", permissions.resolve)
 GROUP.set_field("roots", roots.resolve)
