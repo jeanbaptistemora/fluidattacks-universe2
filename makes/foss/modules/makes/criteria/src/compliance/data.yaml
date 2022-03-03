@@ -2271,7 +2271,7 @@
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
   metadata: {}
 "owasp10":
-  title: OWASP TOP TEN
+  title: OWASP TOP 10
   en:
     description: >
       The OWASP Top 10 is a standard
