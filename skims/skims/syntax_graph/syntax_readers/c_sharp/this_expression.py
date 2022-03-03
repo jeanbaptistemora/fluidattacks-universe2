@@ -15,5 +15,5 @@ from utils import (
 def reader(args: SyntaxGraphArgs) -> NId:
     pred = g.pred_ast(args.ast_graph, args.n_id)
     match = g.match_ast(args.ast_graph, pred[0], "identifier")
-    expression = match["identifier"] if "identifier" in match else None
+    expression = match["identifier"]
     return build_this_expression_node(args, expression)
