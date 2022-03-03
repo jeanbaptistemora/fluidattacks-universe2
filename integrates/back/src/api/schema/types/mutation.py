@@ -87,6 +87,7 @@ from api.mutations import (
     update_payment_method,
     update_root_cloning_status,
     update_severity,
+    update_stakeholder_phone_number,
     update_subscription,
     update_toe_input,
     update_toe_lines_attacked_lines,
@@ -243,6 +244,9 @@ MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
 MUTATION.set_field("updateSeverity", update_severity.mutate)
+MUTATION.set_field(
+    "updateStakeholderPhoneNumber", update_stakeholder_phone_number.mutate
+)
 MUTATION.set_field("updateSubscription", update_subscription.mutate)
 MUTATION.set_field("updateToeInput", update_toe_input.mutate)
 MUTATION.set_field(

@@ -67,7 +67,7 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Successfully added toe input in group {group_name}",
+            f"Security: Added toe input in group {group_name} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(

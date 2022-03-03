@@ -583,8 +583,10 @@ type Mutation {
     groupNames: [String!]!
   ): SimplePayload!
 
-  """Request a hold on ongoing vulnerability reattacks. Usually because of an
-  Event blocking access to them"""
+  """
+  Request a hold on ongoing vulnerability reattacks. Usually because of an
+  Event blocking access to them
+  """
   requestVulnerabilitiesHold(
     "Identifier of the blocking Event"
     eventId: String!
@@ -1013,6 +1015,14 @@ type Mutation {
     "User involvement needed for a successful attack"
     userInteraction: String!
   ): SimpleFindingPayload!
+
+  "Update the stakeholder's phone number"
+  updateStakeholderPhoneNumber(
+    "Stakeholder's phone number"
+    phoneNumber: String!
+    "Verification code"
+    verificationCode: String!
+  ): SimplePayload!
 
   "Update a subscription for a group (Free, Machine or Squad)"
   updateSubscription(

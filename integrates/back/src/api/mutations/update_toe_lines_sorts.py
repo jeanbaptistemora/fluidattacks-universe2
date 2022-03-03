@@ -80,8 +80,8 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Successfully updated sorts risk level "
-            f"for group {group_name} in toes with filename {filename}",
+            f"Security: Update sorts risk level for group {group_name} in "
+            f"toes with filename {filename} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(

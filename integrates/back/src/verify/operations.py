@@ -10,8 +10,8 @@ from context import (
     FI_TWILIO_VERIFY_SERVICE_SID,
 )
 from custom_exceptions import (
-    CouldNotStartUserVerification,
-    CouldNotVerifyUser,
+    CouldNotStartStakeholderVerification,
+    CouldNotVerifyStakeholder,
     InvalidMobileNumber,
     InvalidVerificationCode,
 )
@@ -42,14 +42,14 @@ async def start_verification(
             channel=channel.value.lower(),
         )
     except TwilioRestException as exc:
-        raise CouldNotStartUserVerification() from exc
+        raise CouldNotStartStakeholderVerification() from exc
 
 
 async def check_verification(
     *, phone_number: Optional[str], code: str
 ) -> None:
     if not phone_number:
-        raise CouldNotVerifyUser()
+        raise CouldNotVerifyStakeholder()
 
     try:
         verification_check = await in_thread(
@@ -60,7 +60,7 @@ async def check_verification(
             code=code,
         )
     except TwilioRestException as exc:
-        raise CouldNotVerifyUser() from exc
+        raise CouldNotVerifyStakeholder() from exc
 
     if verification_check.status != "approved":
         raise InvalidVerificationCode()

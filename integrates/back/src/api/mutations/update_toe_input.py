@@ -88,7 +88,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Successfully updated toe input in group {group_name}",
+            f"Security: Update toe input in group {group_name} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(

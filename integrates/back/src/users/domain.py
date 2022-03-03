@@ -400,18 +400,20 @@ async def update_multiple_user_attributes(
 
 
 async def update_phone_number(
-    email: str, new_phone_number: str, code: str
+    email: str, new_phone_number: str, verification_code: str
 ) -> None:
     """Update the user's phone number"""
     await verify_operations.validate_mobile(phone_number=new_phone_number)
     await verify_operations.check_verification(
-        phone_number=new_phone_number, code=code
+        phone_number=new_phone_number, code=verification_code
     )
     await users_dal.update(email, {"phone_number": new_phone_number})
 
 
 async def verify(
-    email: str, new_phone_number: Optional[str], code: Optional[str]
+    email: str,
+    new_phone_number: Optional[str],
+    verification_code: Optional[str],
 ) -> None:
     """Start a verification process using OTP"""
     user = await get_by_email(email)
@@ -427,12 +429,12 @@ async def verify(
         phone_number_to_verify == new_phone_number
         and user_phone_number is not None
     ):
-        if code is None:
+        if verification_code is None:
             raise RequiredVerificationCode()
 
         await verify_operations.validate_mobile(phone_number=new_phone_number)
         await verify_operations.check_verification(
-            phone_number=user_phone_number, code=code
+            phone_number=user_phone_number, code=verification_code
         )
 
     await verify_operations.start_verification(
