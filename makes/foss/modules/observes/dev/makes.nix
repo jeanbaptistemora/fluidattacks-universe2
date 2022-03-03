@@ -49,5 +49,10 @@
         outputs."${inputs.observesIndex.common.utils_logger.new_env.dev}"
       ];
     };
+    observesServiceDbMigration = {
+      source = [
+        outputs."${inputs.observesIndex.service.db_migration.env.dev}"
+      ];
+    };
   };
 }

@@ -29,6 +29,6 @@ pythonPkgs // {
   redshift-client = redshift.pkg;
   utils-logger = (import local_lib.utils-logger {
     src = local_lib.utils-logger;
-    inherit system python_version legacy_pkgs;
+    inherit python_version legacy_pkgs;
   }).pkg;
 }
