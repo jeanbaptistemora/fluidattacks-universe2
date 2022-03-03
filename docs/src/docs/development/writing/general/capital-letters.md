@@ -51,5 +51,3 @@ slug: /development/writing/general/capital-letters
   ![GC05a](https://res.cloudinary.com/fluid-attacks/image/upload/v1624293927/docs/development/writing/gca_zep3c2.webp)
 
   ![GC05b](https://res.cloudinary.com/fluid-attacks/image/upload/v1624293927/docs/development/writing/gcb_kreyml.webp)
-
-  > In AsciiDoc, there is no problem.

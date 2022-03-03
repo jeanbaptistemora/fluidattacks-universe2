@@ -5,9 +5,8 @@ sidebar_label: Semantic Line Breaks
 slug: /development/writing/slb
 ---
 
-Our texts in the lightweight markup languages
+Our texts in the lightweight markup language
 [Markdown](https://daringfireball.net/projects/markdown/)
-and [AsciiDoc](https://asciidoc.org/)
 *must* have Semantic Line Breaks (SLBs).
 Acting as semantic delimiters,
 SLBs reflect the logical structure of the writing,
@@ -55,5 +54,4 @@ Example:
 
 For more information regarding SLBs and their use,
 please check out the posts "[Semantic Linefeeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/)"
-and "[Semantic linewrapping](https://scott.mn/2014/02/21/semantic_linewrapping/),"
-or the document "[AsciiDoc Recommended Practices](http://asciidoctor.org/docs/AsciiDoc-recommended-practices/#one-sentence)."
+and "[Semantic linewrapping](https://scott.mn/2014/02/21/semantic_linewrapping/)."

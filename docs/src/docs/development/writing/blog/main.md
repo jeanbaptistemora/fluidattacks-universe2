@@ -15,11 +15,10 @@ slug: /development/writing/blog/main
   see [the latest posts](https://fluidattacks.com/blog/)).
 
 * **BM03:** We *must* generate blog posts
-  in the markup language [AsciiDoc](https://asciidoc.org/).
-  (Please refer to our [format page](https://fluidattacks.com/format/),
-  the [AsciiDoc guide](http://asciidoctor.org/docs/AsciiDoc-writers-guide/)
-  or a [quick reference](http://asciidoctor.org/docs/AsciiDoc-syntax-quick-reference/)
-  for more information.)
+  in the markup language [Markdown](https://daringfireball.net/projects/markdown/).
+  (Please refer to
+  [this document](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)
+  for Markdown rules.)
 
 ## Title and subtitle
 

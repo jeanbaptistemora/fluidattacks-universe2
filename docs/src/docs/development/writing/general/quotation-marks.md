@@ -45,21 +45,9 @@ slug: /development/writing/general/quotation-marks
   (e.g., ["This [was] very controversial](https://fluidattacks.com/blog/apple-data-center-china/)
   given the calls of different organizations and human rights defenders.").
 
-  > **NOTE:**
-  > In AsciiDoc, in cases like the previous example,
-  > we must use the backslash before the first closing square bracket
-  > to get the intended hyperlink:
-
-  ![GQ08a](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050243/docs/development/writing/gqa_di9v2p.webp)
-
-  ![GQ08b](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050244/docs/development/writing/gqb_gjiokh.webp)
-
-  > In Markdown, there is no problem.
-
 * **GQ09:** We *must* separate the quotation
   as an independent paragraph with a different style
-  (using `[quote]` in AsciiDoc
-  and the blockquote symbol (`>`) in Markdown)
+  (using the blockquote symbol (`>`) in Markdown)
   and without quotation marks
   when it is longer than **40 words**.
   However, we *can* do this also with shorter quotations

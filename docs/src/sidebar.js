@@ -400,7 +400,6 @@ const Development = [
           'development/writing/blog/code',
           'development/writing/blog/metadata',
           'development/writing/blog/additional',
-          'development/writing/blog/asciidoc',
         ]
       },
       {
