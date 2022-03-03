@@ -21,14 +21,23 @@ from db_model.roots.types import (
     GitRootItem,
     GitRootState,
 )
+from git import (
+    Repo,
+)
 from newutils.datetime import (
     get_as_epoch,
     get_now,
 )
+import os
 import pytest
+from shutil import (
+    rmtree,
+)
+import tempfile
 from typing import (
     Any,
     Dict,
+    Iterator,
     Tuple,
 )
 
@@ -174,7 +183,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=GitCloningStatus.FAILED,
                 ),
                 group_name="group1",
-                id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                id="9059f0cb-3b55-404b-8fc5-627171f424ad",
                 organization_name="orgtest",
                 state=GitRootState(
                     branch="master",
@@ -185,7 +194,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     includes_health_check=False,
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
-                    nickname="nicknam3",
+                    nickname="nickname3",
                     other="",
                     reason="",
                     status="ACTIVE",
@@ -221,9 +230,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
         ),
     }
-    actions: Tuple[Dict[str, Any]] = (
+    actions: Tuple[Dict[str, Any]] = (  # noqa
         dict(
-            action_name=Action.CLONE_ROOTS,
+            action_name=Action.CLONE_ROOTS.value,
             entity="group1",
             subject=generic_data["global_vars"]["admin_email"],
             time=str(get_as_epoch(get_now())),
@@ -233,7 +242,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             key="1",
         ),
         dict(
-            action_name=Action.CLONE_ROOTS,
+            action_name=Action.CLONE_ROOTS.value,
             entity="group1",
             subject=generic_data["global_vars"]["admin_email"],
             time=str(get_as_epoch(get_now())),
@@ -243,7 +252,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             key="2",
         ),
         dict(
-            action_name=Action.CLONE_ROOTS,
+            action_name=Action.CLONE_ROOTS.value,
             entity="group1",
             subject=generic_data["global_vars"]["admin_email"],
             time=str(get_as_epoch(get_now())),
@@ -253,5 +262,46 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             key="3",
         ),
     )
-    await db.populate_actions(actions)
+    # await db.populate_actions(actions)
     return await db.populate({**generic_data["db_data"], **data})
+
+
+@pytest.fixture(autouse=False, scope="session")
+def mock_tmp_repository() -> Iterator[None]:
+    repo_path = tempfile.mkdtemp()
+    files = {
+        f"{repo_path}/back/test/conftest.py",
+        f"{repo_path}/back/test/test_utils.py",
+        f"{repo_path}/back/test/test_generic.py",
+        f"{repo_path}/back/test/controlles/test_user.py",
+        f"{repo_path}/back/test/controlles/test_client.py",
+        f"{repo_path}/back/test/controlles/test_admin.py",
+        f"{repo_path}/back/test/conftest.py",
+        f"{repo_path}/back/src/controlles/user.py",
+        f"{repo_path}/back/src/controlles/client.py",
+        f"{repo_path}/back/src/controlles/admin.py",
+        f"{repo_path}/back/src/controlles/admin.py",
+        f"{repo_path}/back/src/statics/key.ssh",
+        f"{repo_path}/back/src/statics/log.img",
+        f"{repo_path}/README.md",
+        f"{repo_path}/front/node_modules/colors/index.js",
+        f"{repo_path}/front/node_modules/babel/index.js",
+        f"{repo_path}/front/index.js",
+        f"{repo_path}/front/www.html",
+        f"{repo_path}/front/components/user/index.js",
+        f"{repo_path}/front/components/user/index.spec.js",
+        f"{repo_path}/front/components/admin/index.js",
+        f"{repo_path}/front/components/admin/index.spec.js",
+    }
+    try:
+        os.makedirs(repo_path, exist_ok=True)
+        repo = Repo.init(repo_path)
+        for file in files:
+            os.makedirs(os.path.split(file)[0], exist_ok=True)
+            with open(file, "w", encoding="utf-8") as handler:
+                handler.write(f"# {file.split('/')[-1]}")
+            repo.index.add(file)
+        repo.index.commit("Initial commit")
+        yield repo_path
+    finally:
+        rmtree(repo_path)

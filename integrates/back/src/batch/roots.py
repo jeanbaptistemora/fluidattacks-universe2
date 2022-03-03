@@ -673,27 +673,7 @@ async def queue_sync_git_roots(
     roots: Optional[Tuple[GitRootItem, ...]] = None,
     check_existing_jobs: bool = True,
 ) -> bool:
-    if check_existing_jobs and (
-        len(
-            [
-                action
-                for action in await get_actions_by_name(
-                    "clone_roots", group_name
-                )
-                # Check duplicated job at the group level (all roots)
-                if (roots is None and action.entity == group_name)
-                # Check duplicated job at the root level (selected roots)
-                or (
-                    roots is not None
-                    and sorted(action.additional_info.split(","))
-                    == sorted([root.state.nickname for root in roots])
-                )
-            ]
-        )
-        > 0
-    ):
-        raise RootAlreadyCloning()
-
+    current_jobs = await get_actions_by_name("clone_roots", group_name)
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(root for root in roots if root.state.status == "ACTIVE")
     roots_dict: Dict[str, GitRootItem] = {root.id: root for root in roots}
@@ -724,6 +704,30 @@ async def queue_sync_git_roots(
 
     if not roots_with_creds:
         raise CredentialNotFound()
+
+    if check_existing_jobs and (
+        len(
+            [
+                action
+                for action in current_jobs
+                # Check duplicated job at the root level (selected roots
+                if (
+                    action.entity == group_name
+                    and not action.running
+                    and roots is not None
+                    and sorted(action.additional_info.split(","))
+                    == sorted(
+                        [
+                            roots_dict[root].state.nickname
+                            for root in roots_with_creds
+                        ]
+                    )
+                )
+            ]
+        )
+        > 0
+    ):
+        raise RootAlreadyCloning()
 
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(

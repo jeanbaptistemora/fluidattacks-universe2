@@ -59,7 +59,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="Bad SSH Key",
-                    roots=["888648ed-a71c-42e5-b3e5-c3a370d26c68"],
+                    roots=[
+                        "888648ed-a71c-42e5-b3e5-c3a370d26c68",
+                        "c75f9c2c-1984-49cf-bd3f-c628175a569c",
+                    ],
                 ),
             ),
         ),

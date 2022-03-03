@@ -270,6 +270,7 @@ in
           [ "add_push_token" ]
           [ "add_toe_input" ]
           [ "approve_draft" ]
+          [ "batch" ]
           [ "confirm_vulnerabilities_zero_risk" ]
           [ "deactivate_root" ]
           [ "delete_obsolete_groups" ]
