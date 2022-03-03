@@ -13,6 +13,7 @@ const NavSplitButtonContainer = styled.div.attrs({
 const SplitItems = styled.div.attrs({
   className: "splitItems mr3 flex-wrap fixed",
 })`
+  background-color: #f4f4f6;
   border: solid 1px;
   border-color: #ddd;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);

@@ -30,6 +30,7 @@ const NavbarButton = styled.button.attrs({
 const DropdownMenu = styled.ul.attrs({
   className: "absolute f5 list mt3 ph0 pv2 shadow-1",
 })`
+  background-color: #f4f4f6;
   min-width: 240px;
   right: 0;
   & li {
