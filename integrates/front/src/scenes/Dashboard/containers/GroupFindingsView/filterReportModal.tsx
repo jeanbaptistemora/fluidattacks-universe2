@@ -134,7 +134,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                         variant={"primary"}
                       >
                         <FontAwesomeIcon icon={faFileExcel} />
-                        {translate.t("group.findings.report.generateXls")}
+                        &nbsp;{translate.t("group.findings.report.generateXls")}
                       </Button>
                     </ButtonToolbar>
                   </Row>

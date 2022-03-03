@@ -204,7 +204,7 @@ describe("Data table next", (): void => {
     expect(wrapper.find("BootstrapTable").find("HeaderCell")).toHaveLength(
       testHeaders.length
     );
-    expect(wrapper.find("ExportCSVButton")).toHaveLength(1);
+    expect(wrapper.find("ExportCSVButtonWrapper")).toHaveLength(1);
     expect(wrapper.find("SearchBar")).toHaveLength(1);
     expect(handleChange.mock.calls).toHaveLength(1);
     expect(handleDelete.mock.calls).toHaveLength(1);

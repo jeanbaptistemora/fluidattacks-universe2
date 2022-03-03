@@ -1,19 +1,20 @@
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
-import { CSVExport } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
-import style from "components/DataTableNext/index.css";
+import { Button } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
 
-export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
-  props: ToolkitContextType
-): JSX.Element => {
-  const { csvProps } = props;
-  const { ExportCSVButton } = CSVExport;
+export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = ({
+  csvProps,
+}: ToolkitContextType): JSX.Element => {
   const { t } = useTranslation();
+
+  const handleClick = useCallback((): void => {
+    csvProps.onExport();
+  }, [csvProps]);
 
   return (
     <div>
@@ -21,17 +22,10 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
         id={"exportCsvTooltip"}
         message={t("group.findings.exportCsv.tooltip")}
       >
-        <ExportCSVButton
-          // This technique is used by react-bootstrap-table2 creators
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...csvProps}
-          // We need className to override default styles
-          // eslint-disable-next-line react/forbid-component-props
-          className={`${style.exportCsv} b--orgred ba btn-pa bg-bh bg-transparent fw100 orgred svg-box`}
-        >
+        <Button onClick={handleClick} variant={"secondary"}>
           <FontAwesomeIcon icon={faDownload} />
           &nbsp;{t("group.findings.exportCsv.text")}
-        </ExportCSVButton>
+        </Button>
       </TooltipWrapper>
     </div>
   );
