@@ -5,6 +5,7 @@ const statusGreenColor: string[] = [
   "Confirmed",
   "Enabled",
   "Ok",
+  "Registered",
   "Secure",
   "Solved",
   "Submitted",

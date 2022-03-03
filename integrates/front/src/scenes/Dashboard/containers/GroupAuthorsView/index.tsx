@@ -1,15 +1,23 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
+import { track } from "mixpanel-browser";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { GET_STAKEHOLDERS } from "../GroupStakeholdersView/queries";
-import type { IGetStakeholdersAttrs } from "../GroupStakeholdersView/types";
+import { handleGrantError } from "../GroupStakeholdersView/helpers";
+import {
+  ADD_STAKEHOLDER_MUTATION,
+  GET_STAKEHOLDERS,
+} from "../GroupStakeholdersView/queries";
+import type {
+  IAddStakeholderAttr,
+  IGetStakeholdersAttrs,
+} from "../GroupStakeholdersView/types";
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import type {
@@ -27,7 +35,7 @@ import { Col100, Row } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
@@ -96,7 +104,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: _stackHolderData } = useQuery<IGetStakeholdersAttrs>(
+  const { data: _stackHolderData, refetch } = useQuery<IGetStakeholdersAttrs>(
     GET_STAKEHOLDERS,
     {
       onError: (error: ApolloError): void => {
@@ -149,6 +157,24 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       });
     },
     variables: { date: billingDate, groupName },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
+    onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
+      if (mtResult.grantStakeholderAccess.success) {
+        await refetch();
+        track("AddUserAccess");
+        const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
+        msgSuccess(
+          `${email}${translate.t("searchFindings.tabUsers.success")}`,
+          translate.t("searchFindings.tabUsers.titleSuccess")
+        );
+      }
+    },
+    onError: (grantError: ApolloError): void => {
+      handleGrantError(grantError);
+    },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

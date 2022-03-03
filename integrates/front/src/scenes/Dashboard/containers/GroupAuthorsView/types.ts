@@ -14,4 +14,8 @@ interface IData {
   };
 }
 
-export { IGroupAuthor, IData };
+interface IAuthorInvitation extends IGroupAuthor {
+  invitation: JSX.Element;
+}
+
+export { IAuthorInvitation, IGroupAuthor, IData };
