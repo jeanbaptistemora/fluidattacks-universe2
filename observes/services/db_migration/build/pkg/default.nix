@@ -6,6 +6,7 @@
 let
   runtime_deps = [
     pythonPkgs.redshift-client
+    pythonPkgs.utils-logger
   ];
   dev_deps = [
     pythonPkgs.mypy
