@@ -1615,7 +1615,7 @@ export const enTranslations: ResourceKey = {
             "Exploitation requires user privileges, and sometimes " +
             "that the attackers reside on the same local network as their victim. It only provides minimal access.",
           none:
-            "<The <strong>none</strong> rating " +
+            "The <strong>none</strong> rating " +
             "is for vulnerabilities that cannot lead to an impact on an organization.",
         },
         tooltip: "The severity level is based on the CVSS. ",

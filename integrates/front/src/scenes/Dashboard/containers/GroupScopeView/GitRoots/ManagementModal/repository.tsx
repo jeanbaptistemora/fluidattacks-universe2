@@ -110,6 +110,9 @@ const Repository: React.FC<IRepositoryProps> = ({
   );
 
   const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
+  const [isRootChange, setIsRootChange] = useState(
+    [initialValues.url, initialValues.branch].join("")
+  );
 
   const goToDocumentation = useCallback((): void => {
     openUrl(
@@ -162,6 +165,17 @@ const Repository: React.FC<IRepositoryProps> = ({
   }
 
   const checkedValidation = isCheckedHealthCheck ? undefined : checked;
+  function rootChanged(values: IGitRootAttr): null {
+    setIsRootChange([values.url, values.branch].join(""));
+    if (
+      [values.url, values.branch].join("") !==
+      [initialValues.url, initialValues.branch].join("")
+    ) {
+      setIsCheckedHealthCheck(false);
+    }
+
+    return null;
+  }
 
   return (
     <div>
@@ -354,6 +368,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                         uncheck={setIsCheckedHealthCheck}
                         validate={selected}
                       />
+                      {[values.url, values.branch].join("") === isRootChange
+                        ? undefined
+                        : rootChanged(values)}
                       {confirmHealthCheck ?? false ? (
                         <Alert>
                           <Field
