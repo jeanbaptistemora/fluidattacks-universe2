@@ -8,6 +8,9 @@ from context import (
 from custom_types import (
     MailContent as MailContentType,
 )
+from db_model.users.get import (
+    User,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -17,10 +20,11 @@ from mailer.utils import (
 from typing import (
     Any,
     List,
+    Tuple,
 )
 
 
-async def send_mail_updated_treatment(
+async def send_mail_updated_treatment(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     finding_id: str,
@@ -39,6 +43,12 @@ async def send_mail_updated_treatment(
     org_name = organization["name"]
 
     managers = await group_access_domain.get_managers(group_name)
+    users: Tuple[User, ...] = await loaders.user.load_many(managers)
+    users_email = [
+        user.email
+        for user in users
+        if "UPDATED_TREATMENT" in user.notifications_preferences.email
+    ]
     email_context = {
         "group": group_name,
         "responsible": modified_by,
@@ -51,7 +61,7 @@ async def send_mail_updated_treatment(
         ),
     }
     await send_mails_async(
-        managers,
+        users_email,
         email_context,
         GENERAL_TAG,
         (

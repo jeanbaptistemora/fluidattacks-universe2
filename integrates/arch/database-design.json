@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 02, 2022, 01:33 PM",
+    "DateLastModified": "Mar 03, 2022, 06:41 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -636,6 +636,51 @@
                   "email": {
                     "L": [
                       {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "DELETE_FINDING"
+                      },
+                      {
+                        "S": "FILE_REMOVED"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "NEW_REMEDIATED"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_DEACTIVATED"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
+                      },
+                      {
+                        "S": "UNSUBMITTED_DRAFT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
                         "S": "VULNERABILITY_ASSIGNED"
                       }
                     ]
@@ -654,6 +699,176 @@
                 "M": {
                   "email": {
                     "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "DELETE_FINDING"
+                      },
+                      {
+                        "S": "FILE_REMOVED"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "NEW_REMEDIATED"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_DEACTIVATED"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
+                      },
+                      {
+                        "S": "UNSUBMITTED_DRAFT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
+              "sk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "DELETE_FINDING"
+                      },
+                      {
+                        "S": "FILE_REMOVED"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "NEW_REMEDIATED"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_DEACTIVATED"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
+                      },
+                      {
+                        "S": "UNSUBMITTED_DRAFT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#admin@gmail.com"
+              },
+              "sk": {
+                "S": "USER#admin@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "DELETE_FINDING"
+                      },
+                      {
+                        "S": "FILE_REMOVED"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "NEW_REMEDIATED"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_DEACTIVATED"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
+                      },
+                      {
+                        "S": "UNSUBMITTED_DRAFT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
                       }

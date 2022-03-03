@@ -13,6 +13,9 @@ from custom_types import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.users.get import (
+    User,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -60,15 +63,17 @@ async def mutate(
             finding_id=finding_id,
         )
         finding: Finding = await finding_loader.load(finding_id)
-        schedule(
-            findings_mail.send_mail_new_draft(
-                info.context.loaders,
-                finding.id,
-                finding.title,
-                finding.group_name,
-                user_email,
+        user: User = await info.context.loaders.user.load(user_email)
+        if "NEW_DRAFT" in user.notifications_preferences.email:
+            schedule(
+                findings_mail.send_mail_new_draft(
+                    info.context.loaders,
+                    finding.id,
+                    finding.title,
+                    finding.group_name,
+                    user_email,
+                )
             )
-        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Submitted draft {finding_id} successfully",

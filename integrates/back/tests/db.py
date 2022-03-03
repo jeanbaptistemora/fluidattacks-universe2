@@ -16,6 +16,7 @@ from db_model import (
     roots as roots_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
+    users as users_model,
     vulnerabilities as vulns_model,
 )
 from db_model.credentials.types import (
@@ -87,8 +88,7 @@ from users import (
 
 
 async def populate_users(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.extend(
+    await collect(
         [
             dal_users.create(
                 user["email"],
@@ -97,7 +97,35 @@ async def populate_users(data: List[Any]) -> bool:
             for user in data
         ]
     )
-    return all(await collect(coroutines))
+    await collect(
+        [
+            users_model.update_user(
+                user_email=user["email"],
+                notifications_preferences={
+                    "email": [
+                        "ACCESS_GRANTED",
+                        "CHARTS_REPORT",
+                        "DAILY_DIGEST",
+                        "DELETE_FINDING",
+                        "FILE_REMOVED",
+                        "FILE_UPLOADED",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "NEW_REMEDIATED",
+                        "REMEDIATE_FINDING",
+                        "ROOT_DEACTIVATED",
+                        "ROOT_MOVED",
+                        "UNSUBMITTED_DRAFT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                    ]
+                },
+            )
+            for user in data
+        ]
+    )
+    return True
 
 
 async def populate_names(data: List[Any]) -> bool:
