@@ -353,7 +353,6 @@ async def get_group_roots(
     )
 
     try:
-
         return tuple(
             ResultGetGroupRoots(
                 environment_urls=root["environmentUrls"],
@@ -1003,7 +1002,6 @@ async def do_add_execution(
     group_name: str,
     job_id: str,
     start_date: str,
-    end_date: str,
     findings_executed: Tuple[Dict[str, Union[int, str]], ...],
     commit_hash: str,
     client: Optional[GraphQLClient] = None,
@@ -1015,7 +1013,6 @@ async def do_add_execution(
                 $group_name: String!
                 $job_id: ID!
                 $start_date: DateTime!
-                $end_date: DateTime!
                 $findings_executed: [MachineFindingResultInput]
                 $commit_hash: String!
             ) {
@@ -1024,7 +1021,6 @@ async def do_add_execution(
                     groupName: $group_name,
                     jobId: $job_id,
                     startedAt: $start_date,
-                    stoppedAt: $end_date,
                     findingsExecuted: $findings_executed
                     gitCommit: $commit_hash
                 ) {
@@ -1038,9 +1034,55 @@ async def do_add_execution(
             group_name=group_name,
             job_id=job_id,
             start_date=start_date,
-            end_date=end_date,
             findings_executed=findings_executed,
             commit_hash=commit_hash,
+        ),
+        client=client,
+    )
+
+    with suppress(AttributeError, KeyError, TypeError):
+        return result["data"]["addMachineExecution"]["success"]
+
+    return False
+
+
+@SHIELD
+async def do_finish_execution(
+    *,
+    root: str,
+    group_name: str,
+    job_id: str,
+    end_date: str,
+    findings_executed: Tuple[Dict[str, Union[int, str]], ...],
+    client: Optional[GraphQLClient] = None,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoFinishMachineExecution(
+                $root: String!
+                $group_name: String!
+                $job_id: ID!
+                $end_date: DateTime!
+                $findings_executed: [MachineFindingResultInput]
+            ) {
+                finishMachineExecution(
+                    rootNickname: $root,
+                    groupName: $group_name,
+                    jobId: $job_id,
+                    stoppedAt: $end_date,
+                    findingsExecuted: $findings_executed
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsDoFinishMachineExecution",
+        variables=dict(
+            root=root,
+            group_name=group_name,
+            job_id=job_id,
+            end_date=end_date,
+            findings_executed=findings_executed,
         ),
         client=client,
     )

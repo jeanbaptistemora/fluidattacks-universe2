@@ -12,6 +12,7 @@ from integrates.dal import (
     do_approve_draft,
     do_create_draft,
     do_delete_finding,
+    do_finish_execution,
     do_submit_draft,
     do_update_finding_severity,
     do_upload_vulnerabilities,
@@ -317,12 +318,11 @@ async def do_release_finding(
     return success
 
 
-async def do_add_skims_execution(  # pylint: disable=too-many-arguments
+async def do_add_skims_execution(  # pylint: disable=too-many-arguments`
     root: str,
     group_name: str,
     job_id: str,
     start_date: datetime,
-    end_date: datetime,
     findings_executed: Tuple[Dict[str, Union[int, str]], ...],
     commit_hash: str,
 ) -> bool:
@@ -331,7 +331,22 @@ async def do_add_skims_execution(  # pylint: disable=too-many-arguments
         group_name=group_name,
         job_id=job_id,
         start_date=start_date.isoformat(),
-        end_date=end_date.isoformat(),
         findings_executed=findings_executed,
         commit_hash=commit_hash,
+    )
+
+
+async def do_finish_skims_execution(
+    root: str,
+    group_name: str,
+    job_id: str,
+    end_date: datetime,
+    findings_executed: Tuple[Dict[str, Union[int, str]], ...],
+) -> bool:
+    return await do_finish_execution(
+        root=root,
+        group_name=group_name,
+        job_id=job_id,
+        end_date=end_date.isoformat(),
+        findings_executed=findings_executed,
     )

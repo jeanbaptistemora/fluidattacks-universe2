@@ -257,8 +257,6 @@ type Mutation {
     jobId: ID!
     "Date when the job was started"
     startedAt: DateTime!
-    "when the job was stopped"
-    stoppedAt: DateTime!
     "Findings executed in the job"
     findingsExecuted: [MachineFindingResultInput]
     "Full SHA-1 hash of the tested commit"

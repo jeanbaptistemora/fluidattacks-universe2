@@ -15,6 +15,7 @@ from datetime import (
 )
 from integrates.domain import (
     do_add_skims_execution,
+    do_finish_skims_execution,
 )
 from integrates.graphql import (
     create_session,
@@ -163,33 +164,48 @@ async def persist_to_integrates(
     return await persist(group=CTX.config.group, stores=stores)
 
 
-async def notify_end(
-    job_id: str,
-    start_date: datetime,
-    persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
-) -> None:
-    executed = [
-        {
-            "finding": finding.name,
-            "open": get_ephemeral_store().length(),
-            "modified": (
-                persisted_results[finding].diff_result.length()
-                if finding in persisted_results
-                and persisted_results[finding].diff_result
-                else 0
-            ),
-        }
-        for finding in core_model.FindingEnum
-        if finding in CTX.config.checks
-    ]
+async def notify_start(job_id: str) -> None:
     await do_add_skims_execution(
         root=CTX.config.namespace,
         group_name=CTX.config.group,
         job_id=job_id,
-        start_date=start_date,
-        end_date=datetime.utcnow(),
-        findings_executed=tuple(executed),
+        start_date=datetime.utcnow(),
         commit_hash=get_repo_head_hash(CTX.config.working_dir),
+        findings_executed=tuple(
+            {
+                "finding": finding.name,
+                "open": 0,
+                "modified": 0,
+            }
+            for finding in core_model.FindingEnum
+            if finding in CTX.config.checks
+        ),
+    )
+
+
+async def notify_end(
+    job_id: str,
+    persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
+) -> None:
+    await do_finish_skims_execution(
+        root=CTX.config.namespace,
+        group_name=CTX.config.group,
+        job_id=job_id,
+        end_date=datetime.utcnow(),
+        findings_executed=tuple(
+            {
+                "finding": finding.name,
+                "open": get_ephemeral_store().length(),
+                "modified": (
+                    persisted_results[finding].diff_result.length()
+                    if finding in persisted_results
+                    and persisted_results[finding].diff_result
+                    else 0
+                ),
+            }
+            for finding in core_model.FindingEnum
+            if finding in CTX.config.checks
+        ),
     )
 
 
@@ -220,7 +236,9 @@ async def main(
         persisted_results = {}
         batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
-        start_date = datetime.utcnow()
+        if integrates_access and batch_job_id:
+            await notify_start(batch_job_id)
+
         stores = await execute_skims()
 
         if integrates_access:
@@ -238,7 +256,7 @@ async def main(
         success = all(persisted_results.values())
 
         if integrates_access and batch_job_id:
-            await notify_end(batch_job_id, start_date, persisted_results)
+            await notify_end(batch_job_id, persisted_results)
 
         return success
     finally:

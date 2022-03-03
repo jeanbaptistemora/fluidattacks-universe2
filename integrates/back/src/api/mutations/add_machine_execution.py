@@ -15,8 +15,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from roots import (
-    domain as roots_domain,
+from roots.domain import (
+    add_machine_execution,
 )
 from typing import (
     Any,
@@ -44,6 +44,6 @@ async def mutate(
         if isinstance(root, GitRootItem)
     }
     if root_id := root_nicknames.get(root_nickname):
-        result = roots_domain.add_machine_execution(root_id, job_id, **kwargs)
+        result = await add_machine_execution(root_id, job_id, **kwargs)
 
     return SimplePayload(success=result)

@@ -1038,7 +1038,7 @@ async def add_machine_execution(
     queue_date = datetime.fromtimestamp(
         int(current_job["createdAt"] / 1000)
     ).astimezone(tzn)
-    end_date = kwargs.pop("stopped_at").astimezone(tzn)
+
     execution = RootMachineExecutionItem(
         root_id=root_id,
         job_id=job_id,
@@ -1046,7 +1046,6 @@ async def add_machine_execution(
         queue=current_job["jobQueue"].split("/")[-1],
         created_at=datetime_utils.get_as_str(queue_date),
         started_at=datetime_utils.get_as_str(start_date),
-        stopped_at=datetime_utils.get_as_str(end_date),
         findings_executed=kwargs.pop("findings_executed", []),
         commit=kwargs.pop("git_commit", ""),
     )
