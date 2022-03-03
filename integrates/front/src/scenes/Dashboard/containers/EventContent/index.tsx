@@ -17,12 +17,7 @@ import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
-import {
-  Col100,
-  Tab,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { Tab, TabContent, TabsContainer } from "styles/styledComponents";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -64,7 +59,7 @@ const EventContent: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <div>
         <div>
-          <Col100>
+          <div>
             <EventHeader
               eventDate={eventDate}
               eventStatus={eventStatus}
@@ -72,15 +67,21 @@ const EventContent: React.FC = (): JSX.Element => {
               id={id}
             />
             <TabsContainer>
-              <Tab id={"resourcesTab"} to={`${url}/description`}>
-                {translate.t("searchFindings.tabEvents.description")}
-              </Tab>
-              <Tab id={"evidenceTab"} to={`${url}/evidence`}>
-                {translate.t("searchFindings.tabEvents.evidence")}
-              </Tab>
-              <Tab id={"commentsTab"} to={`${url}/comments`}>
-                {translate.t("searchFindings.tabEvents.comments")}
-              </Tab>
+              <li>
+                <Tab id={"resourcesTab"} to={`${url}/description`}>
+                  {translate.t("searchFindings.tabEvents.description")}
+                </Tab>
+              </li>
+              <li>
+                <Tab id={"evidenceTab"} to={`${url}/evidence`}>
+                  {translate.t("searchFindings.tabEvents.evidence")}
+                </Tab>
+              </li>
+              <li>
+                <Tab id={"commentsTab"} to={`${url}/comments`}>
+                  {translate.t("searchFindings.tabEvents.comments")}
+                </Tab>
+              </li>
             </TabsContainer>
             <TabContent>
               <Switch>
@@ -102,7 +103,7 @@ const EventContent: React.FC = (): JSX.Element => {
                 <Redirect to={`${path}/description`} />
               </Switch>
             </TabContent>
-          </Col100>
+          </div>
         </div>
       </div>
     </React.StrictMode>

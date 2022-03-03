@@ -1,10 +1,12 @@
 import React from "react";
 
+import { HeaderContainer } from "./styles";
+
+import { Badge } from "components/Badge";
 import {
   Col100,
   EventHeaderGrid,
   EventHeaderLabel,
-  Label,
   Row,
 } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
@@ -25,11 +27,10 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = (
   const tEventStatus: string = translate.t(castEventStatus(eventStatus));
 
   return (
-    <div className={"tab-pane cont active"} id={"events"}>
+    <HeaderContainer>
       <Row>
         <Col100>
           <h2>{tEventType}</h2>
-          <hr />
         </Col100>
       </Row>
       <Row>
@@ -37,20 +38,20 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = (
           <EventHeaderGrid>
             <EventHeaderLabel>
               {translate.t("searchFindings.tabEvents.id")}
-              <Label> {id} </Label>
+              &nbsp;<Badge variant={"gray"}>{id}</Badge>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {translate.t("searchFindings.tabEvents.date")}
-              <Label> {eventDate} </Label>
+              &nbsp;<Badge variant={"gray"}>{eventDate}</Badge>
             </EventHeaderLabel>
             <EventHeaderLabel>
               {translate.t("searchFindings.tabEvents.status")}
-              <Label> {tEventStatus} </Label>
+              &nbsp;<Badge variant={"gray"}>{tEventStatus}</Badge>
             </EventHeaderLabel>
           </EventHeaderGrid>
         </Col100>
       </Row>
-    </div>
+    </HeaderContainer>
   );
 };
 
