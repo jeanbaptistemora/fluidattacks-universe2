@@ -51,7 +51,7 @@ describe("ActionButtons", (): void => {
         wrappingComponentProps: { value: new PureAbility([]) },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(0);
@@ -87,7 +87,7 @@ describe("ActionButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(1);
@@ -137,7 +137,7 @@ describe("ActionButtons", (): void => {
       />,
       { wrappingComponent: contextWrapper }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(2);
@@ -171,7 +171,7 @@ describe("ActionButtons", (): void => {
     );
 
     const cancelRequestButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean =>
         button.text().includes(t("searchFindings.tabDescription.cancelVerify"))
       );
@@ -179,7 +179,7 @@ describe("ActionButtons", (): void => {
     expect(cancelRequestButton).toHaveLength(1);
     expect(
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
         )
@@ -193,7 +193,7 @@ describe("ActionButtons", (): void => {
 
     expect(
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           button
             .text()

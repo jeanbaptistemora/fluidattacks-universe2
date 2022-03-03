@@ -55,7 +55,7 @@ describe("FindingActions", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(0);
@@ -84,7 +84,7 @@ describe("FindingActions", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(2);
@@ -116,7 +116,7 @@ describe("FindingActions", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
     const BUTTONS_LENGTH: number = 3;
 
     expect(wrapper).toHaveLength(1);
@@ -148,7 +148,7 @@ describe("FindingActions", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
     const approveButton: ReactWrapper = buttons.at(0);
 
     expect(wrapper).toHaveLength(1);

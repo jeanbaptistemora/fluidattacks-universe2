@@ -357,7 +357,7 @@ describe("Services", (): void => {
     const formik: () => ReactWrapper = (): ReactWrapper =>
       wrapper.find("Formik").first();
     const proceedButton: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("Button").first();
+      wrapper.find("button").first();
 
     machineSwitch().simulate("click");
 

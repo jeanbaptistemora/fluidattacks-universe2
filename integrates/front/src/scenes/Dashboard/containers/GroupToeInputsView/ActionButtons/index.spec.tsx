@@ -30,7 +30,7 @@ describe("ToeInputsActionButtons", (): void => {
         wrappingComponentProps: { value: new PureAbility([]) },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(0);
@@ -56,7 +56,7 @@ describe("ToeInputsActionButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(0);
@@ -83,7 +83,7 @@ describe("ToeInputsActionButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(
@@ -116,7 +116,7 @@ describe("ToeInputsActionButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(wrapper).toHaveLength(1);
     expect(

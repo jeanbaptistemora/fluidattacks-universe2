@@ -760,7 +760,7 @@ describe("GroupScopeView", (): void => {
       const proceedButton = wrapper
         .find("ConfirmDialog")
         .find("Modal")
-        .find("Button")
+        .find("button")
         .at(1);
       proceedButton.simulate("click");
 

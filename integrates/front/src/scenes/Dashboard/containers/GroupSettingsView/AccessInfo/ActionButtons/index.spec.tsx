@@ -45,7 +45,7 @@ describe("ActionButtons", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
 
     expect(buttons).toHaveLength(1);
     expect(

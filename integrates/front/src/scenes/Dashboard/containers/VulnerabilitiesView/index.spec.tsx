@@ -310,7 +310,7 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(wrapper).toHaveLength(1);
 
-        expect(wrapper.find("Button")).toHaveLength(totalButtons);
+        expect(wrapper.find("button")).toHaveLength(totalButtons);
       });
     });
 
@@ -323,7 +323,7 @@ describe("VulnerabilitiesView", (): void => {
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
         wrapper.update();
-        const buttons: ReactWrapper = wrapper.find("Button");
+        const buttons: ReactWrapper = wrapper.find("button");
         const requestButton: ReactWrapper = buttons.filterWhere(
           (button: ReactWrapper): boolean =>
             button
@@ -339,7 +339,7 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(
           wrapper
-            .find("Button")
+            .find("button")
             .filterWhere((button: ReactWrapper): boolean =>
               button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
             )
@@ -386,11 +386,11 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(wrapper).toHaveLength(1);
 
-        expect(wrapper.find("Button")).toHaveLength(2);
+        expect(wrapper.find("button")).toHaveLength(2);
       });
     });
 
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
     const verifyButton: ReactWrapper = buttons.filterWhere(
       (button: ReactWrapper): boolean =>
         button
@@ -412,7 +412,7 @@ describe("VulnerabilitiesView", (): void => {
 
     expect(
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
         )
@@ -431,7 +431,7 @@ describe("VulnerabilitiesView", (): void => {
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
     selectionCell.first().simulate("click");
     wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean =>
         button
           .text()

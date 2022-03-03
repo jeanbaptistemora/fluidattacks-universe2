@@ -41,7 +41,7 @@ describe("HandleAcceptanceButtons", (): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("Button")).toHaveLength(0);
+        expect(wrapper.find("button")).toHaveLength(0);
 
         wrapper.setProps({
           areVulnerabilitiesPendingToAcceptance: false,
@@ -49,11 +49,11 @@ describe("HandleAcceptanceButtons", (): void => {
         });
         wrapper.update();
 
-        expect(wrapper.find("Button")).toHaveLength(0);
+        expect(wrapper.find("button")).toHaveLength(0);
 
         wrapper.setProps({ areVulnerabilitiesPendingToAcceptance: true });
         wrapper.update();
-        const buttons: ReactWrapper = wrapper.find("Button");
+        const buttons: ReactWrapper = wrapper.find("button");
 
         expect(
           buttons.filterWhere((button: ReactWrapper): boolean =>

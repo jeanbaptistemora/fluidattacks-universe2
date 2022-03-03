@@ -38,7 +38,7 @@ describe("AddGroupModal component", (): void => {
     );
 
     const cancelButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Cancel")
       );

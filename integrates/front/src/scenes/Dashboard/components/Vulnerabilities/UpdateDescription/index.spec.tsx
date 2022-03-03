@@ -323,7 +323,7 @@ describe("Update Description component", (): void => {
     });
 
     const proceedButton: ReactWrapper = wrapperRequest
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );
@@ -419,7 +419,7 @@ describe("Update Description component", (): void => {
     });
 
     const proceedButton: ReactWrapper = wrapperRequest
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );
@@ -579,7 +579,7 @@ describe("Update Description component", (): void => {
     });
 
     const proceedButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );
@@ -686,7 +686,7 @@ describe("Update Description component", (): void => {
       wrapper.update();
     });
     const proceedButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );
@@ -699,7 +699,7 @@ describe("Update Description component", (): void => {
 
     const confirmProceedButton: ReactWrapper = wrapper
       .find("ConfirmDialog")
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );

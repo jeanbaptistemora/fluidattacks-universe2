@@ -241,7 +241,7 @@ describe("EventEvidenceView", (): void => {
 
     expect(
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           _.includes(button.text(), "Edit")
         )

@@ -333,8 +333,8 @@ describe("Organization findings policies view", (): void => {
       wrapper.update();
 
       await waitForExpect((): void => {
-        expect(firstRow.find("Button")).toHaveLength(0);
-        expect(lastRow.find("Button")).toHaveLength(0);
+        expect(firstRow.find("button")).toHaveLength(0);
+        expect(lastRow.find("button")).toHaveLength(0);
       });
     });
   });
@@ -445,12 +445,12 @@ describe("Organization findings policies view", (): void => {
       wrapper.update();
 
       await waitForExpect((): void => {
-        expect(firstRow.find("Button")).toHaveLength(2);
-        expect(lastRow.find("Button")).toHaveLength(1);
+        expect(firstRow.find("button")).toHaveLength(2);
+        expect(lastRow.find("button")).toHaveLength(1);
       });
     });
 
-    firstRow.find("Button").first().simulate("click");
+    firstRow.find("button").first().simulate("click");
     await act(async (): Promise<void> => {
       expect.hasAssertions();
 
@@ -466,7 +466,7 @@ describe("Organization findings policies view", (): void => {
       });
     });
 
-    lastRow.find("Button").first().simulate("click");
+    lastRow.find("button").first().simulate("click");
     await act(async (): Promise<void> => {
       expect.hasAssertions();
 
@@ -585,12 +585,12 @@ describe("Organization findings policies view", (): void => {
       wrapper.update();
 
       await waitForExpect((): void => {
-        expect(firstRow.find("Button")).toHaveLength(2);
-        expect(lastRow.find("Button")).toHaveLength(1);
+        expect(firstRow.find("button")).toHaveLength(2);
+        expect(lastRow.find("button")).toHaveLength(1);
       });
     });
 
-    firstRow.find("Button").last().simulate("click");
+    firstRow.find("button").last().simulate("click");
     await act(async (): Promise<void> => {
       expect.hasAssertions();
 
@@ -606,7 +606,7 @@ describe("Organization findings policies view", (): void => {
       });
     });
 
-    lastRow.find("Button").first().simulate("click");
+    lastRow.find("button").first().simulate("click");
     await act(async (): Promise<void> => {
       expect.hasAssertions();
 
@@ -709,7 +709,7 @@ describe("Organization findings policies view", (): void => {
       .find("OrganizationFindingPolicy")
       .first();
 
-    firstRow.find("Button").first().simulate("click");
+    firstRow.find("button").first().simulate("click");
 
     await act(async (): Promise<void> => {
       expect.hasAssertions();

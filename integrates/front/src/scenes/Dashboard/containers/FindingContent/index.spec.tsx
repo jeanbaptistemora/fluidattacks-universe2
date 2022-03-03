@@ -277,7 +277,7 @@ describe("FindingContent", (): void => {
     const submitButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.text().includes("Submit")
       );
@@ -385,7 +385,7 @@ describe("FindingContent", (): void => {
         const submitButton: ReactWrapper = wrapper
           .find("findingContent")
           .at(0)
-          .find("Button")
+          .find("button")
           .filterWhere((element: ReactWrapper): boolean =>
             element.text().includes("Submit")
           );
@@ -398,7 +398,7 @@ describe("FindingContent", (): void => {
     const submitButtonAfterSubmit: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.text().includes("Submit")
       );
@@ -454,7 +454,7 @@ describe("FindingContent", (): void => {
     const submitButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.text().includes("Submit")
       );
@@ -512,7 +512,7 @@ describe("FindingContent", (): void => {
         const approveButton: ReactWrapper = wrapper
           .find("findingContent")
           .at(0)
-          .find("Button")
+          .find("button")
           .filterWhere((element: ReactWrapper): boolean =>
             element.text().includes("Approve")
           );
@@ -530,7 +530,7 @@ describe("FindingContent", (): void => {
 
     expect(confirmDialog).toHaveLength(1);
 
-    const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
+    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
     proceedButton.simulate("click");
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -538,7 +538,7 @@ describe("FindingContent", (): void => {
         const approveButtonAfterProceed: ReactWrapper = wrapper
           .find("findingContent")
           .at(0)
-          .find("Button")
+          .find("button")
           .filterWhere((element: ReactWrapper): boolean =>
             element.text().includes("Approve")
           );
@@ -596,7 +596,7 @@ describe("FindingContent", (): void => {
     const approveButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.text().includes("Approve")
       );
@@ -612,7 +612,7 @@ describe("FindingContent", (): void => {
 
     expect(confirmDialog).toHaveLength(1);
 
-    const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
+    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
     proceedButton.simulate("click");
     await act(async (): Promise<void> => {
       await wait(0);
@@ -667,7 +667,7 @@ describe("FindingContent", (): void => {
         const rejectButton: ReactWrapper = wrapper
           .find("findingContent")
           .at(0)
-          .find("Button")
+          .find("button")
           .filterWhere((element: ReactWrapper): boolean =>
             element.text().includes("Reject")
           );
@@ -685,7 +685,7 @@ describe("FindingContent", (): void => {
 
     expect(confirmDialog).toHaveLength(1);
 
-    const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
+    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
     proceedButton.simulate("click");
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -693,7 +693,7 @@ describe("FindingContent", (): void => {
         const rejectButtonAfterProceed: ReactWrapper = wrapper
           .find("findingContent")
           .at(0)
-          .find("Button")
+          .find("button")
           .filterWhere((element: ReactWrapper): boolean =>
             element.text().includes("Reject")
           );
@@ -752,7 +752,7 @@ describe("FindingContent", (): void => {
           wrapper
             .find("findingContent")
             .at(0)
-            .find("Button")
+            .find("button")
             .filterWhere((element: ReactWrapper): boolean =>
               element.text().includes("Reject")
             )
@@ -762,7 +762,7 @@ describe("FindingContent", (): void => {
     const rejectButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.text().includes("Reject")
       );
@@ -781,7 +781,7 @@ describe("FindingContent", (): void => {
       .find("findingActions")
       .find("Modal")
       .first();
-    const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
+    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
     const numberOfErrors: number = 3;
     proceedButton.simulate("click");
     await act(async (): Promise<void> => {

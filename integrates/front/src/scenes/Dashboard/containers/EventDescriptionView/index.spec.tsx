@@ -107,7 +107,7 @@ describe("EventDescriptionView", (): void => {
       wrapper.update();
     });
     const solveButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean =>
         _.includes(button.text(), "Mark as solved")
       );

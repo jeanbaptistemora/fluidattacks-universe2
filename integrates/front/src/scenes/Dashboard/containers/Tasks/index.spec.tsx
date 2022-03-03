@@ -188,7 +188,7 @@ describe("VulnerabilitiesView", (): void => {
     });
 
     const refreshAssigned = wrapper
-      .find("Button")
+      .find("button")
       .find("#refresh-assigned")
       .first();
 
@@ -227,7 +227,7 @@ describe("VulnerabilitiesView", (): void => {
       });
     });
 
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
     const requestButton: ReactWrapper = buttons.filterWhere(
       (button: ReactWrapper): boolean =>
         button
@@ -328,7 +328,7 @@ describe("VulnerabilitiesView", (): void => {
       });
     });
 
-    const buttons: ReactWrapper = wrapper.find("Button");
+    const buttons: ReactWrapper = wrapper.find("button");
     const editButton: ReactWrapper = buttons.filterWhere(
       (button: ReactWrapper): boolean =>
         button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
@@ -357,7 +357,7 @@ describe("VulnerabilitiesView", (): void => {
       .find("Modal")
       .filterWhere(filterModal)
       .first()
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean => button.contains("Close"));
 
     firstCloseButton.simulate("click");
@@ -384,7 +384,7 @@ describe("VulnerabilitiesView", (): void => {
       .find("Modal")
       .filterWhere(filterModal)
       .last()
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean => button.contains("Close"));
     secondCloseButton.simulate("click");
 

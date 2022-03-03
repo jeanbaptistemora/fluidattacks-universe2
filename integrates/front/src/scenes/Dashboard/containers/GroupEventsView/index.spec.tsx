@@ -166,7 +166,7 @@ describe("EventsView", (): void => {
     });
     const newButton = (): ReactWrapper =>
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           _.includes(button.text(), "New")
         );

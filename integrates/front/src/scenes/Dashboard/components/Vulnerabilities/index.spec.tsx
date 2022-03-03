@@ -231,7 +231,7 @@ describe("VulnComponent", (): void => {
     const selectionCellDraft: ReactWrapper =
       tableVulnsDraft.find("SelectionCell");
     const buttons: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((button: ReactWrapper): boolean =>
         button.text().includes(t("searchFindings.tabDescription.editVuln"))
       );

@@ -263,7 +263,7 @@ describe("Files", (): void => {
 
     const proceedButton: ReactWrapper = wrapper
       .find("ConfirmDialog")
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );

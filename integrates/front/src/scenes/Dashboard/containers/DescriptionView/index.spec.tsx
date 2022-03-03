@@ -177,7 +177,7 @@ describe("Finding Description", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(
       wrapper
-        .find("Button")
+        .find("button")
         .filterWhere((button: ReactWrapper): boolean =>
           button.text().includes("Edit")
         )
@@ -211,7 +211,7 @@ describe("Finding Description", (): void => {
       wrapper.update();
     });
     const editButton: ReactWrapper = wrapper
-      .find("Button")
+      .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Edit")
       );
