@@ -4,34 +4,35 @@ interface IBadgeProps {
   variant: "gray" | "green" | "orange" | "red";
 }
 
-const getBackground = (variant: IBadgeProps["variant"]): string => {
-  if (variant === "green") {
-    return "#c2ffd4";
-  } else if (variant === "orange") {
-    return "#ffebd6";
-  } else if (variant === "red") {
-    return "#ffd6d6";
-  }
+interface IVariant {
+  backgroundColor: string;
+  color: string;
+}
 
-  return "#e9e9ed";
-};
-
-const getColor = (variant: IBadgeProps["variant"]): string => {
-  if (variant === "green") {
-    return "#009245";
-  } else if (variant === "orange") {
-    return "#ff961e";
-  } else if (variant === "red") {
-    return "#ff3435";
-  }
-
-  return "#2e2e38";
+const variants: Record<IBadgeProps["variant"], IVariant> = {
+  gray: {
+    backgroundColor: "#e9e9ed",
+    color: "#2e2e38",
+  },
+  green: {
+    backgroundColor: "#c2ffd4",
+    color: "#009245",
+  },
+  orange: {
+    backgroundColor: "#ffebd6",
+    color: "#ff961e",
+  },
+  red: {
+    backgroundColor: "#ffd6d6",
+    color: "#ff3435",
+  },
 };
 
 const Badge = styled.span<IBadgeProps>`
-  background-color: ${(props): string => getBackground(props.variant)};
+  background-color: ${(props): string =>
+    variants[props.variant].backgroundColor};
   border-radius: 50px;
-  color: ${(props): string => getColor(props.variant)};
+  color: ${(props): string => variants[props.variant].color};
   font-weight: 400;
   padding: 4px 12px;
 `;

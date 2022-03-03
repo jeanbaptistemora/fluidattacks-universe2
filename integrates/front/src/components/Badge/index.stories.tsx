@@ -11,7 +11,7 @@ const config: Meta = {
 };
 
 const Template: Story<React.PropsWithChildren<IBadgeProps>> = (
-  props: React.PropsWithChildren<IBadgeProps>
+  props
 ): JSX.Element => <Badge {...props} />;
 
 const Default = Template.bind({});
