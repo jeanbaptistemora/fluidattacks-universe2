@@ -399,6 +399,17 @@ async def update_multiple_user_attributes(
     return await users_dal.update(email, data_dict)
 
 
+async def update_phone_number(
+    email: str, new_phone_number: str, code: str
+) -> None:
+    """Update the user's phone number"""
+    await verify_operations.validate_mobile(phone_number=new_phone_number)
+    await verify_operations.check_verification(
+        phone_number=new_phone_number, code=code
+    )
+    await users_dal.update(email, {"phone_number": new_phone_number})
+
+
 async def verify(
     email: str, new_phone_number: Optional[str], code: Optional[str]
 ) -> None:
