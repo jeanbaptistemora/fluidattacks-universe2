@@ -95,7 +95,8 @@ async def requeue_actions() -> None:
                 ),
             )
             for action in pending_actions
-            if JobPayload(
+            if not action.running
+            and JobPayload(
                 action_name=action.action_name,
                 subject=action.subject,
                 entity=action.entity,
