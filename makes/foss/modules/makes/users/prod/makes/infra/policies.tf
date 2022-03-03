@@ -39,6 +39,8 @@ locals {
           "redshift:*",
           "redshift-serverless:*",
           "route53:*",
+          "route53-recovery-control-config:*",
+          "route53-recovery-readiness:*",
           "route53domains:*",
           "route53resolver:*",
           "s3:*",
