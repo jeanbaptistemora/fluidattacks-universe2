@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { ReactElement } from "react";
@@ -22,6 +24,7 @@ import type {
   IGroupAuthor,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -35,6 +38,8 @@ interface IFilterSet {
 
 const GroupAuthorsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+
   const now: Date = new Date();
   const thisYear: number = now.getFullYear();
   const thisMonth: number = now.getMonth();
@@ -98,6 +103,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading group stakeholders", error);
       },
+      skip: permissions.cannot(
+        "api_resolvers_query_stakeholder__resolve_for_group"
+      ),
       variables: { groupName },
     }
   );
