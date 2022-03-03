@@ -483,6 +483,8 @@ const Machine = [
     items: [
       'machine/web/asm',
       'machine/web/asm-update',
+      'machine/web/creating-organization',
+      'machine/web/user-information',
       {
         type: 'category',
         label: 'Support',
