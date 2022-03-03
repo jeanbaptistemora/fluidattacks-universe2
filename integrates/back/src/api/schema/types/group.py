@@ -12,6 +12,8 @@ from api.resolvers.group import (
     findings,
     forces_token,
     has_asm,
+    has_forces,
+    has_machine,
     language,
     last_closed_vulnerability,
     last_closed_vulnerability_finding,
@@ -48,6 +50,8 @@ GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("groupContext", context.resolve)
 GROUP.set_field("hasAsm", has_asm.resolve)
+GROUP.set_field("hasForces", has_forces.resolve)
+GROUP.set_field("hasMachine", has_machine.resolve)
 GROUP.set_field("language", language.resolve)
 GROUP.set_field(
     "lastClosedVulnerabilityFinding",
