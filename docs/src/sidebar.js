@@ -482,6 +482,7 @@ const Machine = [
     label: 'Web',
     items: [
       'machine/web/asm',
+      'machine/web/asm-update',
       {
         type: 'category',
         label: 'Support',
