@@ -206,17 +206,17 @@ describe("GroupFindingsView", (): void => {
 
     // Find buttons
     const reportPdf: ReactWrapper = wrapper
-      .find("Button#report-pdf")
+      .find("button#report-pdf")
       .find("svg")
       .prop("data-icon");
 
     const reportXls: ReactWrapper = wrapper
-      .find("Button#report-excel")
+      .find("button#report-excel")
       .find("svg")
       .prop("data-icon");
 
     const reportZip: ReactWrapper = wrapper
-      .find("Button#report-zip")
+      .find("button#report-zip")
       .find("svg")
       .prop("data-icon");
 
@@ -224,7 +224,7 @@ describe("GroupFindingsView", (): void => {
     expect(reportXls).toStrictEqual("file-excel");
     expect(reportZip).toStrictEqual("file-zipper");
 
-    const reporButtontPdf: ReactWrapper = wrapper.find("Button#report-pdf");
+    const reporButtontPdf: ReactWrapper = wrapper.find("button#report-pdf");
 
     reporButtontPdf.simulate("click");
 

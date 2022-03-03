@@ -5,9 +5,9 @@ import React from "react";
 import { Button } from "components/Button";
 
 describe("Button", (): void => {
-  it("should return a fuction", (): void => {
+  it("should return an object", (): void => {
     expect.hasAssertions();
-    expect(typeof Button).toStrictEqual("function");
+    expect(typeof Button).toStrictEqual("object");
   });
 
   it("should render a button", (): void => {

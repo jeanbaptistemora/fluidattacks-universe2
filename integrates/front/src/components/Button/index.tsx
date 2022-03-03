@@ -1,34 +1,58 @@
-/* eslint-disable react/jsx-props-no-spreading
-  --------
-  We need props spreading in order to pass down props to StyledButton.
-*/
-import type { ButtonHTMLAttributes } from "react";
-import React from "react";
-import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary";
 }
 
-const StyledButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className:
-      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-transparent cna-bd " +
-      "color-bd color-bh hover-white fw100 ml2 orgred " +
-      `btn-pa svg-box pointer ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
+interface IVariant {
+  backgroundColor: string;
+  color: string;
+  hoverBackgroundColor: string;
+}
 
-const Button: React.FC<IButtonProps> = (props): JSX.Element => {
-  return <StyledButton {...props} />;
+const variants: Record<IButtonProps["variant"], IVariant> = {
+  primary: {
+    backgroundColor: "#ff3435",
+    color: "#fff",
+    hoverBackgroundColor: "#b80000",
+  },
+  secondary: {
+    backgroundColor: "transparent",
+    color: "#ff3435",
+    hoverBackgroundColor: "#ff3435",
+  },
 };
 
-export { Button };
+const Button = styled.button.attrs<IButtonProps>(
+  (props): Partial<IButtonProps> => ({
+    type: props.type ?? "button",
+  })
+)<IButtonProps>`
+  background-color: ${(props): string =>
+    variants[props.variant].backgroundColor};
+  border-color: #ff3435;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  color: ${(props): string => variants[props.variant].color};
+  font-weight: 400;
+  margin-left: 12px;
+  padding: 10px 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  :hover:not([disabled]) {
+    background-color: ${(props): string =>
+      variants[props.variant].hoverBackgroundColor};
+    border-color: ${(props): string =>
+      variants[props.variant].hoverBackgroundColor};
+    color: white;
+    cursor: pointer;
+  }
+`;
+
+export { Button, IButtonProps };
