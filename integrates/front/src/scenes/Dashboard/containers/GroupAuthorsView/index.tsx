@@ -6,6 +6,8 @@ import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { GET_STAKEHOLDERS } from "../GroupStakeholdersView/queries";
+import type { IGetStakeholdersAttrs } from "../GroupStakeholdersView/types";
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import type {
@@ -32,6 +34,7 @@ interface IFilterSet {
 }
 
 const GroupAuthorsView: React.FC = (): JSX.Element => {
+  const { groupName } = useParams<{ groupName: string }>();
   const now: Date = new Date();
   const thisYear: number = now.getFullYear();
   const thisMonth: number = now.getMonth();
@@ -87,6 +90,18 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     []
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data: _stackHolderData } = useQuery<IGetStakeholdersAttrs>(
+    GET_STAKEHOLDERS,
+    {
+      onError: (error: ApolloError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading group stakeholders", error);
+      },
+      variables: { groupName },
+    }
+  );
+
   const headersAuthorsTable: IHeaderConfig[] = [
     {
       dataField: "actor",
@@ -118,9 +133,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { groupName } = useParams<{ groupName: string }>();
-
-  const { data } = useQuery(GET_BILLING, {
+  const { data } = useQuery<IData>(GET_BILLING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -134,7 +147,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const dataset: IGroupAuthor[] = (data as IData).group.authors.data;
+  const dataset: IGroupAuthor[] = data.group.authors.data;
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
