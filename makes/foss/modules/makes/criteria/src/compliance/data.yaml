@@ -4867,7 +4867,18 @@
   title: LGPD
   en:
     description: >
-      ...
+      The Brazilian General Data Protection
+      Law (LGPD) can be considered as
+      Brazil’s answer to the GDPR – with
+      the Brazilian law aligning with the
+      European Regulation in many ways,
+      while differing in others.
+      The LGPD aims at creating a new legal
+      framework for the use of personal
+      data in Brazil, both online and offline,
+      in the private and public sectors.
+      The version used in this section
+      is LGPD 2019.
   es:
     description: __empty__
   definitions:
