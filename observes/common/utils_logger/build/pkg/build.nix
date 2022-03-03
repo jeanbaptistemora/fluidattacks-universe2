@@ -1,13 +1,15 @@
 { lib
 , src
+, metadata
 , propagatedBuildInputs
 , nativeBuildInputs
 }:
 lib.buildPythonPackage rec {
-  pname = "utils_logger";
-  version = "1.0.0";
+  pname = metadata.name;
+  version = metadata.version;
   format = "pyproject";
-  doCheck = false;
-  pythonImportsCheck = [ "utils_logger" ];
+  installCheckPhase = ./check/types.sh;
+  doCheck = true;
+  pythonImportsCheck = [ pname ];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }

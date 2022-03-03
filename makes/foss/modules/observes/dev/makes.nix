@@ -46,7 +46,7 @@
     };
     observesCommonUtilsLogger = {
       source = [
-        outputs."${inputs.observesIndex.common.utils_logger.flakes_env.dev}"
+        outputs."${inputs.observesIndex.common.utils_logger.new_env.dev}"
       ];
     };
   };
