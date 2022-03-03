@@ -6,10 +6,12 @@ from api.resolvers.group import (
     context,
     deletion_date,
     description,
+    disambiguation,
     drafts,
     events,
     findings,
     forces_token,
+    has_asm,
     language,
     last_closed_vulnerability,
     last_closed_vulnerability_finding,
@@ -39,11 +41,13 @@ GROUP.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("deletionDate", deletion_date.resolve)
 GROUP.set_field("description", description.resolve)
+GROUP.set_field("disambiguation", disambiguation.resolve)
 GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("groupContext", context.resolve)
+GROUP.set_field("hasAsm", has_asm.resolve)
 GROUP.set_field("language", language.resolve)
 GROUP.set_field(
     "lastClosedVulnerabilityFinding",
