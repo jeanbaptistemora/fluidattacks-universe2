@@ -31,8 +31,10 @@ from api.resolvers.group import (
     organization,
     permissions,
     roots,
+    service,
     service_attributes,
     stakeholders,
+    subscription,
     toe_inputs,
     toe_lines,
     total_findings,
@@ -86,7 +88,9 @@ GROUP.set_field("openVulnerabilities", open_vulnerabilities.resolve)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("permissions", permissions.resolve)
 GROUP.set_field("roots", roots.resolve)
+GROUP.set_field("service", service.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
+GROUP.set_field("subscription", subscription.resolve)
 GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("toeLines", toe_lines.resolve)
