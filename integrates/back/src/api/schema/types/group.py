@@ -24,6 +24,8 @@ from api.resolvers.group import (
     mean_remediate,
     mean_remediate_critical_severity,
     mean_remediate_high_severity,
+    mean_remediate_low_severity,
+    mean_remediate_medium_severity,
     organization,
     permissions,
     roots,
@@ -70,6 +72,12 @@ GROUP.set_field(
 )
 GROUP.set_field(
     "meanRemediateHighSeverity", mean_remediate_high_severity.resolve
+)
+GROUP.set_field(
+    "meanRemediateLowSeverity", mean_remediate_low_severity.resolve
+)
+GROUP.set_field(
+    "meanRemediateMediumSeverity", mean_remediate_medium_severity.resolve
 )
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("permissions", permissions.resolve)
