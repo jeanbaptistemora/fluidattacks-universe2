@@ -153,6 +153,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
               <Button
                 disabled={data.event.eventStatus === "SOLVED"}
                 onClick={handleEditClick}
+                variant={"secondary"}
               >
                 <FluidIcon icon={"edit"} />
                 &nbsp;{translate.t("group.events.evidence.edit")}
@@ -187,7 +188,11 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       "searchFindings.tabEvidence.updateTooltip"
                     )}
                   >
-                    <Button disabled={!dirty} type={"submit"}>
+                    <Button
+                      disabled={!dirty}
+                      type={"submit"}
+                      variant={"primary"}
+                    >
                       <FluidIcon icon={"loading"} />
                       &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                     </Button>

@@ -212,13 +212,18 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button id={"config-close"} onClick={onClose}>
+                      <Button
+                        id={"config-close"}
+                        onClick={onClose}
+                        variant={"secondary"}
+                      >
                         {translate.t("configuration.close")}
                       </Button>
                       <Button
                         disabled={!dirty || loading}
                         id={"config-confirm"}
                         type={"submit"}
+                        variant={"primary"}
                       >
                         {translate.t("configuration.confirm")}
                       </Button>

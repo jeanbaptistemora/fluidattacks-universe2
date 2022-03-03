@@ -30,7 +30,12 @@ const AddButton: React.FC<IAddButtonProps> = ({
           id={"group.toe.inputs.actionButtons.addButton.tooltip.id"}
           message={t("group.toe.inputs.actionButtons.addButton.tooltip")}
         >
-          <Button disabled={isDisabled} id={"addToeInput"} onClick={onAdd}>
+          <Button
+            disabled={isDisabled}
+            id={"addToeInput"}
+            onClick={onAdd}
+            variant={"primary"}
+          >
             <FontAwesomeIcon icon={faPlus} />
             &nbsp;
             {t("group.toe.inputs.actionButtons.addButton.text")}

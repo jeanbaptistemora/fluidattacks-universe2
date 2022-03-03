@@ -431,7 +431,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             <Can do={"api_mutations_update_organization_policies_mutate"}>
               {!dirty || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>
-                  <Button disabled={!isValid} onClick={submitForm}>
+                  <Button
+                    disabled={!isValid}
+                    onClick={submitForm}
+                    variant={"primary"}
+                  >
                     {translate.t("organization.tabs.policies.save")}
                   </Button>
                 </ButtonToolbar>

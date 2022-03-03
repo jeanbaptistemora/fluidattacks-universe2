@@ -353,7 +353,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       <OuterRow>
         <Col100>
           <ButtonToolbar>
-            <Button id={"close-vuln-modal"} onClick={onClose}>
+            <Button
+              id={"close-vuln-modal"}
+              onClick={onClose}
+              variant={"secondary"}
+            >
               {t("searchFindings.tabVuln.close")}
             </Button>
           </ButtonToolbar>

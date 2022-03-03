@@ -45,7 +45,7 @@ const FormikArrayField: React.FC<IArrayProps> = ({
                     <div>
                       {index > 0 || allowEmpty ? (
                         <RemoveTag>
-                          <Button onClick={removeItem}>
+                          <Button onClick={removeItem} variant={"secondary"}>
                             <FontAwesomeIcon icon={faTrashAlt} />
                           </Button>
                         </RemoveTag>
@@ -57,7 +57,7 @@ const FormikArrayField: React.FC<IArrayProps> = ({
               );
             })}
             <br />
-            <Button onClick={addItem}>
+            <Button onClick={addItem} variant={"secondary"}>
               <FontAwesomeIcon icon={faPlus} />
             </Button>
           </React.Fragment>

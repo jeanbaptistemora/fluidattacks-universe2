@@ -666,7 +666,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                     id={"group.events.btn.tooltip.id"}
                     message={translate.t("group.events.btn.tooltip")}
                   >
-                    <Button onClick={openNewEventModal}>
+                    <Button onClick={openNewEventModal} variant={"primary"}>
                       <FontAwesomeIcon icon={faPlus} />
                       &nbsp;{translate.t("group.events.btn.text")}
                     </Button>

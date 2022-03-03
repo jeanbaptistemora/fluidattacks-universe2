@@ -86,11 +86,19 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 rows={"7"}
                 type={"text"}
               />
-              {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-              <Button disabled={!currentToken} onClick={handleCopy}>
+              <Button
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                disabled={!currentToken}
+                onClick={handleCopy}
+                variant={"secondary"}
+              >
                 {translate.t("updateForcesToken.copy.copy")}
               </Button>
-              <Button disabled={getTokenCalled} onClick={handleReveal}>
+              <Button
+                disabled={getTokenCalled}
+                onClick={handleReveal}
+                variant={"secondary"}
+              >
                 {translate.t("updateForcesToken.revealToken")}
               </Button>
             </Col100>
@@ -99,12 +107,13 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
           <Row>
             <Col100>
               <ButtonToolbar>
-                <Button onClick={onClose}>
+                <Button onClick={onClose} variant={"secondary"}>
                   {translate.t("updateForcesToken.close")}
                 </Button>
                 <Button
                   disabled={!getTokenCalled || getTokenLoading}
                   type={"submit"}
+                  variant={"primary"}
                 >
                   {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                   {currentToken

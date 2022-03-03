@@ -48,7 +48,11 @@ const findingActions: React.FC<IFindingActionsProps> = (
                 id={"group.drafts.submit.text"}
                 message={translate.t("group.drafts.submit.tooltip")}
               >
-                <Button disabled={loading} onClick={onSubmit}>
+                <Button
+                  disabled={loading}
+                  onClick={onSubmit}
+                  variant={"secondary"}
+                >
                   {translate.t("group.drafts.submit.text")}
                 </Button>
               </TooltipWrapper>
@@ -72,6 +76,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
                     <Button
                       disabled={!canApprove || loading}
                       onClick={handleClick}
+                      variant={"secondary"}
                     >
                       <FontAwesomeIcon icon={faCheck} />
                       &nbsp;{translate.t("group.drafts.approve.text")}
@@ -99,6 +104,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
                     <Button
                       disabled={!hasSubmission || loading}
                       onClick={handleClick}
+                      variant={"secondary"}
                     >
                       {translate.t("group.drafts.reject.text")}
                     </Button>
@@ -113,7 +119,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
               id={"searchFindings.delete.btn.tooltip"}
               message={translate.t("searchFindings.delete.btn.tooltip")}
             >
-              <Button onClick={onDelete}>
+              <Button onClick={onDelete} variant={"secondary"}>
                 <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{translate.t("searchFindings.delete.btn.text")}
               </Button>

@@ -754,7 +754,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 id={"group.findings.report.btn.tooltip.id"}
                 message={translate.t("group.findings.report.btn.tooltip")}
               >
-                <Button id={"reports"} onClick={openReportsModal}>
+                <Button
+                  id={"reports"}
+                  onClick={openReportsModal}
+                  variant={"secondary"}
+                >
                   {translate.t("group.findings.report.btn.text")}
                 </Button>
               </TooltipWrapper>
@@ -768,6 +772,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 <Button
                   disabled={selectedFindings.length === 0 || deleting}
                   onClick={openDeleteModal}
+                  variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
                   &nbsp;{translate.t("searchFindings.delete.btn.text")}
@@ -836,10 +841,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={closeDeleteModal}>
+                  <Button onClick={closeDeleteModal} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
-                  <Button disabled={isRunning} type={"submit"}>
+                  <Button
+                    disabled={isRunning}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
                     {translate.t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>

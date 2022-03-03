@@ -426,10 +426,10 @@ const findingContent: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={closeDeleteModal}>
+                  <Button onClick={closeDeleteModal} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
-                  <Button type={"submit"}>
+                  <Button type={"submit"} variant={"primary"}>
                     {translate.t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>

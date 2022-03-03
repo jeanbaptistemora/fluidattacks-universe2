@@ -128,7 +128,11 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
       <div className={"flex flex-wrap pb1"}>
         <Col100>
           <ButtonToolbar>
-            <Button id={"close-vuln-modal"} onClick={onClose}>
+            <Button
+              id={"close-vuln-modal"}
+              onClick={onClose}
+              variant={"secondary"}
+            >
               {t("searchFindings.tabVuln.close")}
             </Button>
           </ButtonToolbar>

@@ -340,7 +340,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                 extraButtons={
                   <Row>
                     <Can do={"api_mutations_add_payment_method_mutate"}>
-                      <Button id={"addPaymentMethod"} onClick={openAddModal}>
+                      <Button
+                        id={"addPaymentMethod"}
+                        onClick={openAddModal}
+                        variant={"primary"}
+                      >
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;
                         {t(
@@ -358,6 +362,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                         }
                         id={"updatePaymentMethod"}
                         onClick={openUpdateModal}
+                        variant={"secondary"}
                       >
                         <FontAwesomeIcon icon={faUserEdit} />
                         &nbsp;
@@ -376,6 +381,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                         }
                         id={"removePaymentMethod"}
                         onClick={handleRemovePaymentMethod}
+                        variant={"secondary"}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                         &nbsp;
@@ -396,6 +402,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                         }
                         id={"updateDefaultPaymentMethod"}
                         onClick={handleUpdateDefaultPaymentMethod}
+                        variant={"secondary"}
                       >
                         <FontAwesomeIcon icon={faUserEdit} />
                         &nbsp;

@@ -162,7 +162,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                   <Row>
                     <InternalSurfaceButton />
                     <Can do={"api_mutations_add_url_root_mutate"}>
-                      <Button onClick={openAddModal}>
+                      <Button onClick={openAddModal} variant={"secondary"}>
                         <FontAwesomeIcon icon={faPlus} />
                         &nbsp;{t("group.scope.common.add")}
                       </Button>

@@ -44,7 +44,7 @@ describe("Comments section", (): void => {
 
     editorTextArea.simulate("change", { target: { value: "test comment" } });
 
-    const editorButton: ReactWrapper = wrapper.find(CommentEditor).find(Button);
+    const editorButton = wrapper.find(CommentEditor).find(Button);
 
     expect(wrapper).toHaveLength(1);
     expect(editorTextArea).toHaveLength(1);
@@ -73,7 +73,7 @@ describe("Comments section", (): void => {
       .find(TextArea)
       .simulate("change", { target: { value: "test comment" } });
 
-    const editorButton: ReactWrapper = wrapper.find(Button);
+    const editorButton = wrapper.find(Button);
 
     editorButton.simulate("click");
 

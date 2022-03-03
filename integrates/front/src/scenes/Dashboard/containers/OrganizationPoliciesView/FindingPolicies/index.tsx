@@ -17,7 +17,6 @@ import type { ISuggestion } from "../../GroupDraftsView/types";
 import { Button } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { OrganizationFindingPolicy } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/content";
-import style from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index.css";
 import { ADD_ORGANIZATION_FINDING_POLICY } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import type {
   IFindingPolicies,
@@ -191,11 +190,9 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
                     )}
                   >
                     <Button
-                      // Use className to override default styles
-                      // eslint-disable-next-line react/forbid-component-props
-                      className={`${style["button-margin"]} lh-copy`}
                       disabled={submitting}
                       type={"submit"}
+                      variant={"secondary"}
                     >
                       <FontAwesomeIcon icon={faPlus} />
                     </Button>

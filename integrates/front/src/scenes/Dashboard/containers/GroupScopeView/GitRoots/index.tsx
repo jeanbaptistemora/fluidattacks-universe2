@@ -492,7 +492,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         id={t("group.scope.common.addTooltip.id")}
                         message={t("group.scope.common.addTooltip")}
                       >
-                        <Button id={"git-root-add"} onClick={openAddModal}>
+                        <Button
+                          id={"git-root-add"}
+                          onClick={openAddModal}
+                          variant={"secondary"}
+                        >
                           <FontAwesomeIcon icon={faPlus} />
                           &nbsp;{t("group.scope.common.add")}
                         </Button>

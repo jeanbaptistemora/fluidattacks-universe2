@@ -24,7 +24,11 @@ describe("ConfirmDialog", (): void => {
             confirm(confirmCallback, cancelCallback);
           }
 
-          return <Button onClick={handleClick}>{"Test"}</Button>;
+          return (
+            <Button onClick={handleClick} variant={"primary"}>
+              {"Test"}
+            </Button>
+          );
         }}
       </ConfirmDialog>
     );

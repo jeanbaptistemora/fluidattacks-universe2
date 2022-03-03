@@ -233,6 +233,7 @@ const MachineView: React.FC = (): JSX.Element => {
               disabled={isLoading}
               id={"submitJob"}
               onClick={openQueueModal}
+              variant={"primary"}
             >
               <div className={"tc w5"}>
                 <FontAwesomeIcon icon={isLoading ? faClock : faRocket} />
@@ -295,7 +296,10 @@ const MachineView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={closeSeeExecutionDetailsModal}>
+                  <Button
+                    onClick={closeSeeExecutionDetailsModal}
+                    variant={"secondary"}
+                  >
                     {translate.t("group.forces.executionDetailsModal.close")}
                   </Button>
                 </ButtonToolbar>

@@ -276,9 +276,7 @@ describe("GroupFindingsView", (): void => {
       wrapper.update();
     });
 
-    const customToggleListButton: ReactWrapper = wrapper
-      .find(CustomToggleList)
-      .find(Button);
+    const customToggleListButton = wrapper.find(CustomToggleList).find(Button);
 
     customToggleListButton.simulate("click");
 

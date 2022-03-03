@@ -217,6 +217,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   <Button
                     disabled={loading}
                     onClick={handleDownloadVulnerability}
+                    variant={"secondary"}
                   >
                     <FluidIcon icon={"export"} />
                     &nbsp;
@@ -248,7 +249,11 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                     "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
                   )}
                 >
-                  <Button disabled={!dirty || loading} type={"submit"}>
+                  <Button
+                    disabled={!dirty || loading}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
                     <FluidIcon icon={"import"} />
                     &nbsp;
                     {translate.t(

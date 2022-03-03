@@ -29,6 +29,7 @@ export const syncButtonFormatter: (
       disabled={row.state !== "ACTIVE" || row.credentials.name === ""}
       id={"gitRootSync"}
       onClick={handleOnChange}
+      variant={"secondary"}
     >
       <FontAwesomeIcon icon={faSyncAlt} />
     </Button>

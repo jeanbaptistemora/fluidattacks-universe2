@@ -261,7 +261,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                         type={"text"}
                       />
                       {credExists ? (
-                        <Button id={"git-root-add"} onClick={deleteCredential}>
+                        <Button
+                          id={"git-root-add"}
+                          onClick={deleteCredential}
+                          variant={"secondary"}
+                        >
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
                       ) : undefined}
@@ -300,6 +304,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         }
                         id={"checkAccessBtn"}
                         onClick={handleCheckAccessClick}
+                        variant={"secondary"}
                       >
                         {t("group.scope.git.repo.credentials.checkAccess.text")}
                       </Button>
@@ -441,11 +446,14 @@ const Repository: React.FC<IRepositoryProps> = ({
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("confirmmodal.cancel")}
+                  </Button>
                   <Button
                     disabled={!dirty || isSubmitting}
                     id={"git-root-add-proceed"}
                     type={"submit"}
+                    variant={"primary"}
                   >
                     {t("confirmmodal.proceed")}
                   </Button>

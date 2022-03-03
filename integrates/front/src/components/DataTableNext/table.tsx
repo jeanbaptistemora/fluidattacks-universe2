@@ -358,7 +358,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       id={"filterTooltip"}
                       message={t("dataTableNext.tooltip")}
                     >
-                      <Button onClick={handleUpdateEnableFilter}>
+                      <Button
+                        onClick={handleUpdateEnableFilter}
+                        variant={"secondary"}
+                      >
                         {isFilterEnabled ? (
                           <FontAwesomeIcon icon={faSearchMinus} />
                         ) : (
@@ -380,6 +383,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       <Button
                         id={"filter-config"}
                         onClick={handleUpdateEnableCustomFilter}
+                        variant={"secondary"}
                       >
                         {isCustomFilterEnabled ? (
                           <FontAwesomeIcon icon={faSearchMinus} />
@@ -485,6 +489,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 <Button
                   className={"lh-copy fr"}
                   onClick={handleClearFiltersButton}
+                  variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faEraser} />
                   &nbsp;

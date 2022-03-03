@@ -224,10 +224,7 @@ describe("GitRoots", (): void => {
       expect.anything()
     );
 
-    const cancelButton: ReactWrapper = wrapper
-      .find(ButtonToolbar)
-      .find(Button)
-      .at(0);
+    const cancelButton = wrapper.find(ButtonToolbar).find(Button).at(0);
 
     cancelButton.simulate("click");
 

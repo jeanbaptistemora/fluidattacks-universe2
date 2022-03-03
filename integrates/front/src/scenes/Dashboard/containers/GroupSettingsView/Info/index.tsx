@@ -163,6 +163,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                   )}
                   id={"editGroup"}
                   onClick={openEditGroupInformationModal}
+                  variant={"secondary"}
                 >
                   <FluidIcon icon={"edit"} />
                   &nbsp;

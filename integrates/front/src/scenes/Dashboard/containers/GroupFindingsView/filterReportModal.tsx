@@ -128,7 +128,11 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                   <hr />
                   <Row>
                     <ButtonToolbar>
-                      <Button id={"report-excel"} type={"submit"}>
+                      <Button
+                        id={"report-excel"}
+                        type={"submit"}
+                        variant={"primary"}
+                      >
                         <FontAwesomeIcon icon={faFileExcel} />
                         {translate.t("group.findings.report.generateXls")}
                       </Button>
@@ -177,7 +181,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={onClose}>
+              <Button onClick={onClose} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
             </ButtonToolbar>

@@ -145,8 +145,7 @@ const RecordsView: React.FC = (): JSX.Element => {
                     "searchFindings.tabRecords.editableTooltip"
                   )}
                 >
-                  {/* eslint-disable-next-line react/forbid-component-props */}
-                  <Button className={"fr"} onClick={handleEditClick}>
+                  <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
                     &nbsp;{translate.t("searchFindings.tabRecords.editable")}
                   </Button>
@@ -177,10 +176,9 @@ const RecordsView: React.FC = (): JSX.Element => {
                     validate={composeValidators([required, validRecordsFile])}
                   />
                   <Button
-                    // eslint-disable-next-line react/forbid-component-props
-                    className={"h-25"}
                     disabled={!dirty || updateRes.loading}
                     type={"submit"}
+                    variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faCloudUploadAlt} />
                     &nbsp;{translate.t("searchFindings.tabEvidence.update")}
@@ -195,10 +193,9 @@ const RecordsView: React.FC = (): JSX.Element => {
             {/* eslint-disable-next-line react/forbid-component-props */}
             <Col100 className={"pa0"}>
               <Button
-                // eslint-disable-next-line react/forbid-component-props
-                className={"fr"}
                 disabled={removeRes.loading}
                 onClick={handleRemoveClick}
+                variant={"secondary"}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{translate.t("searchFindings.tabEvidence.remove")}

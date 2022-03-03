@@ -2,9 +2,14 @@
   --------
   We need props spreading in order to pass down props to StyledButton.
 */
+import type { ButtonHTMLAttributes } from "react";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: "primary" | "secondary";
+}
 
 const StyledButton: StyledComponent<
   "button",
@@ -22,9 +27,7 @@ const StyledButton: StyledComponent<
   })
 )``;
 
-const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement>
-): JSX.Element => {
+const Button: React.FC<IButtonProps> = (props): JSX.Element => {
   return <StyledButton {...props} />;
 };
 

@@ -23,7 +23,7 @@ export const ConcurrentSessionNotice: React.FC<IConcurrentSessionNoticeProps> =
           <Row>
             <Col100>
               <ButtonToolbar>
-                <Button onClick={onClick}>
+                <Button onClick={onClick} variant={"primary"}>
                   {t("registration.continueBtn")}
                 </Button>
               </ButtonToolbar>

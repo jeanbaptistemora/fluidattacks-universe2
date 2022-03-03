@@ -33,7 +33,12 @@ const EditButton: React.FC<IEditButtonProps> = ({
           id={"group.toe.lines.actionButtons.editButton.tooltip.id"}
           message={t("group.toe.lines.actionButtons.editButton.tooltip")}
         >
-          <Button disabled={isDisabled} id={"editToeLines"} onClick={onEdit}>
+          <Button
+            disabled={isDisabled}
+            id={"editToeLines"}
+            onClick={onEdit}
+            variant={"secondary"}
+          >
             <FontAwesomeIcon icon={faPen} />
             &nbsp;
             {t("group.toe.lines.actionButtons.editButton.text")}

@@ -44,7 +44,11 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
     return (
       <Can do={"api_mutations_verify_vulnerabilities_request_mutate"}>
         {isVerifying ? (
-          <Button disabled={!areVulnsSelected} onClick={openModal}>
+          <Button
+            disabled={!areVulnsSelected}
+            onClick={openModal}
+            variant={"secondary"}
+          >
             <FluidIcon icon={"verified"} />
             &nbsp;{t("searchFindings.tabDescription.markVerified.text")}
           </Button>
@@ -56,7 +60,7 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
             message={tooltipMessage}
             placement={"top"}
           >
-            <Button onClick={onVerify}>
+            <Button onClick={onVerify} variant={"secondary"}>
               {isVerifying ? (
                 <React.Fragment>
                   <FontAwesomeIcon icon={faTimes} />

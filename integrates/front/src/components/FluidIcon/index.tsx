@@ -113,7 +113,7 @@ export const FluidIcon: React.FC<IFluidIconProps> = (
    */
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   function setStyles(svg: SVGElement): void {
-    svg.setAttribute("heigth", height);
+    svg.setAttribute("height", height);
     svg.setAttribute("width", width);
   }
 

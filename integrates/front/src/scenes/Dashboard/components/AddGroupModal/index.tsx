@@ -393,13 +393,18 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button id={"add-group-cancel"} onClick={onClose}>
+                      <Button
+                        id={"add-group-cancel"}
+                        onClick={onClose}
+                        variant={"secondary"}
+                      >
                         {translate.t("confirmmodal.cancel")}
                       </Button>
                       <Button
                         disabled={!dirty || submitting}
                         id={"add-group-proceed"}
                         type={"submit"}
+                        variant={"primary"}
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>

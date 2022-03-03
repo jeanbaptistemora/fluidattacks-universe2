@@ -79,6 +79,7 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
             disabled={!areVulnsSelected}
             id={"confirm-reattack"}
             onClick={openModal}
+            variant={"secondary"}
           >
             <FluidIcon icon={"verified"} />
             &nbsp;
@@ -95,6 +96,7 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
               disabled={areVulnerabilitiesReattacked}
               id={"start-reattack"}
               onClick={onRequestReattack}
+              variant={"secondary"}
             >
               <DisplayIcon />
             </Button>

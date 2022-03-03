@@ -29,7 +29,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
             id={"searchFindings.tabDescription.save.tooltip.btn"}
             message={translate.t("searchFindings.tabDescription.save.tooltip")}
           >
-            <Button disabled={isPristine} onClick={onUpdate}>
+            <Button
+              disabled={isPristine}
+              onClick={onUpdate}
+              variant={"primary"}
+            >
               <FluidIcon icon={"loading"} />
               &nbsp;
               {translate.t("searchFindings.tabDescription.save.text")}
@@ -48,7 +52,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
                 )
           }
         >
-          <Button onClick={onEdit}>
+          <Button onClick={onEdit} variant={"secondary"}>
             {isEditing ? (
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />

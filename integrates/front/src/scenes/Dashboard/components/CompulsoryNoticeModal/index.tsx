@@ -55,6 +55,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
                 <Button
                   title={translate.t("legalNotice.acceptBtn.tooltip")}
                   type={"submit"}
+                  variant={"primary"}
                 >
                   {translate.t("legalNotice.acceptBtn.text")}
                 </Button>

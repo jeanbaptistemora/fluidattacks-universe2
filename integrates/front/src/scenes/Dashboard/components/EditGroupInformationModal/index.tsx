@@ -117,10 +117,18 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button id={"edit-group-inf-cancel"} onClick={onClose}>
+                    <Button
+                      id={"edit-group-inf-cancel"}
+                      onClick={onClose}
+                      variant={"secondary"}
+                    >
                       {translate.t("confirmmodal.cancel")}
                     </Button>
-                    <Button disabled={!dirty} type={"submit"}>
+                    <Button
+                      disabled={!dirty}
+                      type={"submit"}
+                      variant={"primary"}
+                    >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
                   </ButtonToolbar>

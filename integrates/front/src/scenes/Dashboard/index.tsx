@@ -303,7 +303,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 <div>
                   <p>{translate.t("validations.inactiveSession")}</p>
                 </div>
-                <Button id={"inactivity-modal-dismiss"} onClick={handleClick}>
+                <Button
+                  id={"inactivity-modal-dismiss"}
+                  onClick={handleClick}
+                  variant={"secondary"}
+                >
                   {translate.t("validations.inactiveSessionDismiss")}
                 </Button>
               </Modal>

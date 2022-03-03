@@ -80,13 +80,14 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button onClick={onClose}>
+                    <Button onClick={onClose} variant={"secondary"}>
                       {t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!isValid || !dirty}
                       onClick={submitForm}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {t("confirmmodal.proceed")}
                     </Button>

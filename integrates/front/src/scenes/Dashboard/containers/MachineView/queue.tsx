@@ -99,13 +99,18 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button id={"cancel-job"} onClick={handleClose}>
+                    <Button
+                      id={"cancel-job"}
+                      onClick={handleClose}
+                      variant={"secondary"}
+                    >
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={isJobSubmitted}
                       id={"submit-job"}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>

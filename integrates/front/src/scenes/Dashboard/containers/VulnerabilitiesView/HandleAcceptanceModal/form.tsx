@@ -91,7 +91,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={handleCloseModal}>
+              <Button onClick={handleCloseModal} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
               <Button
@@ -102,6 +102,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
                   rejectingZeroRisk
                 }
                 onClick={submitForm}
+                variant={"primary"}
               >
                 {translate.t("confirmmodal.proceed")}
               </Button>

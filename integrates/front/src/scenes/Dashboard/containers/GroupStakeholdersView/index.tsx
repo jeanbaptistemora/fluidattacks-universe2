@@ -300,7 +300,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       return {
         ...stakeholder,
         invitationResend: (
-          <Button disabled={!isPending} onClick={handleResendEmail}>
+          <Button
+            disabled={!isPending}
+            onClick={handleResendEmail}
+            variant={"secondary"}
+          >
             {translate.t("searchFindings.usersTable.resendEmail")}
           </Button>
         ),
@@ -450,7 +454,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                               "searchFindings.tabUsers.addButton.tooltip"
                             )}
                           >
-                            <Button id={"addUser"} onClick={openAddUserModal}>
+                            <Button
+                              id={"addUser"}
+                              onClick={openAddUserModal}
+                              variant={"primary"}
+                            >
                               <FontAwesomeIcon icon={faPlus} />
                               &nbsp;
                               {translate.t(
@@ -477,6 +485,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                               }
                               id={"editUser"}
                               onClick={openEditUserModal}
+                              variant={"secondary"}
                             >
                               <FontAwesomeIcon icon={faUserEdit} />
                               &nbsp;
@@ -506,6 +515,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                               }
                               id={"removeUser"}
                               onClick={handleRemoveUser}
+                              variant={"secondary"}
                             >
                               <FontAwesomeIcon icon={faTrashAlt} />
                               &nbsp;

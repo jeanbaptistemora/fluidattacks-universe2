@@ -71,13 +71,18 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button id={"portfolio-add-cancel"} onClick={onClose}>
+                    <Button
+                      id={"portfolio-add-cancel"}
+                      onClick={onClose}
+                      variant={"secondary"}
+                    >
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!dirty}
                       id={"portfolio-add-proceed"}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>

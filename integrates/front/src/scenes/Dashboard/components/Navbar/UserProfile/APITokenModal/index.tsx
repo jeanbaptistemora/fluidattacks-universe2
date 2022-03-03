@@ -145,7 +145,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                   rows={"7"}
                   type={"text"}
                 />
-                <Button onClick={handleCopy}>
+                <Button onClick={handleCopy} variant={"secondary"}>
                   {translate.t("updateAccessToken.copy.copy")}
                 </Button>
               </Col100>
@@ -166,7 +166,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
             <Col100>
               <ButtonToolbarLeft>
                 {_.isUndefined(mtResponse.data) && hasAPIToken && (
-                  <Button onClick={handleInvalidateAPIToken}>
+                  <Button
+                    onClick={handleInvalidateAPIToken}
+                    variant={"secondary"}
+                  >
                     {translate.t("updateAccessToken.invalidate")}
                   </Button>
                 )}
@@ -177,10 +180,14 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
           <Row>
             <Col100>
               <ButtonToolbar>
-                <Button onClick={onClose}>
+                <Button onClick={onClose} variant={"secondary"}>
                   {translate.t("updateAccessToken.close")}
                 </Button>
-                <Button disabled={hasAPIToken} type={"submit"}>
+                <Button
+                  disabled={hasAPIToken}
+                  type={"submit"}
+                  variant={"primary"}
+                >
                   {translate.t("confirmmodal.proceed")}
                 </Button>
               </ButtonToolbar>

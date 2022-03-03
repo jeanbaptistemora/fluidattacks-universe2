@@ -171,7 +171,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
             id={"searchFindings.tabEvidence.editableTooltip.id"}
             message={translate.t("searchFindings.tabEvidence.editableTooltip")}
           >
-            <Button onClick={handleEditClick}>
+            <Button onClick={handleEditClick} variant={"secondary"}>
               <FluidIcon icon={"edit"} />
               &nbsp;{translate.t("searchFindings.tabEvidence.editable")}
             </Button>
@@ -204,7 +204,11 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         "searchFindings.tabEvidence.updateTooltip"
                       )}
                     >
-                      <Button disabled={!dirty} type={"submit"}>
+                      <Button
+                        disabled={!dirty}
+                        type={"submit"}
+                        variant={"primary"}
+                      >
                         <FluidIcon icon={"loading"} />
                         &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                       </Button>

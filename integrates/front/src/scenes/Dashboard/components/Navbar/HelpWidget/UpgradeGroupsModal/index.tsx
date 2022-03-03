@@ -109,9 +109,13 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
           <Row>
             <Col100>
               <ButtonToolbar>
-                <Button onClick={onClose}>{t("upgrade.close")}</Button>
+                <Button onClick={onClose} variant={"secondary"}>
+                  {t("upgrade.close")}
+                </Button>
                 {canUpgrade ? (
-                  <Button type={"submit"}>{t("upgrade.upgrade")}</Button>
+                  <Button type={"submit"} variant={"primary"}>
+                    {t("upgrade.upgrade")}
+                  </Button>
                 ) : undefined}
               </ButtonToolbar>
             </Col100>

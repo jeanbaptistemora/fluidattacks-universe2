@@ -195,7 +195,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={handleTblButtonClick}>
+              <Button onClick={handleTblButtonClick} variant={"secondary"}>
                 {translate.t("searchFindings.servicesTable.modal.continue")}
               </Button>
             </ButtonToolbar>
@@ -284,10 +284,15 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={handleClose}>
+              <Button onClick={handleClose} variant={"secondary"}>
                 {translate.t("confirmmodal.cancel")}
               </Button>
-              <Button disabled={!isValid} onClick={submitForm} type={"submit"}>
+              <Button
+                disabled={!isValid}
+                onClick={submitForm}
+                type={"submit"}
+                variant={"primary"}
+              >
                 {translate.t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

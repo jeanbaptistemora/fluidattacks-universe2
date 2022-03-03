@@ -53,7 +53,7 @@ describe("Unsubscribe from group", (): void => {
       </MemoryRouter>
     );
 
-    const unsubscribeButton: ReactWrapper = wrapper.find(Button);
+    const unsubscribeButton = wrapper.find(Button);
     unsubscribeButton.simulate("click");
 
     const unsubscribeModal: ReactWrapper<IUnsubscribeModalProps> =
@@ -66,9 +66,9 @@ describe("Unsubscribe from group", (): void => {
       target: { name: "confirmation", value: "test" },
     });
 
-    const proccedButton: ReactWrapper = wrapper
+    const proccedButton = wrapper
       .find(Button)
-      .filterWhere((element: ReactWrapper): boolean =>
+      .filterWhere((element): boolean =>
         element.text().includes("confirmmodal.proceed")
       );
     proccedButton.simulate("click");

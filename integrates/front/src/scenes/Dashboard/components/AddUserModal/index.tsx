@@ -216,10 +216,10 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={onClose}>
+                  <Button onClick={onClose} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
-                  <Button type={"submit"}>
+                  <Button type={"submit"} variant={"primary"}>
                     {translate.t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>

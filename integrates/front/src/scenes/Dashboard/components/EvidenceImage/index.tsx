@@ -90,7 +90,7 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
             id={translate.t("searchFindings.tabEvidence.removeTooltip.id")}
             message={translate.t("searchFindings.tabEvidence.removeTooltip")}
           >
-            <Button onClick={onDelete}>
+            <Button onClick={onDelete} variant={"secondary"}>
               <FontAwesomeIcon icon={faTrashAlt} />
               &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
             </Button>

@@ -616,6 +616,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                   disabled={isEditing || isReattacking}
                   id={"refresh-assigned"}
                   onClick={refreshAssigned}
+                  variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faSyncAlt} />
                 </Button>

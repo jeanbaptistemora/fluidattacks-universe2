@@ -64,7 +64,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                     <br />
                     {canRemove ? (
                       <Col33>
-                        <Button onClick={onConfirmDelete}>
+                        <Button onClick={onConfirmDelete} variant={"secondary"}>
                           <FontAwesomeIcon icon={faMinus} />
                           &nbsp;
                           {translate.t(
@@ -74,7 +74,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                       </Col33>
                     ) : undefined}
                     <Col33>
-                      <Button onClick={onDownload}>
+                      <Button onClick={onDownload} variant={"secondary"}>
                         <FontAwesomeIcon icon={faDownload} />
                         &nbsp;
                         {translate.t("searchFindings.tabResources.download")}
@@ -86,7 +86,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button onClick={onClose}>
+                      <Button onClick={onClose} variant={"secondary"}>
                         {translate.t("confirmmodal.cancel")}
                       </Button>
                     </ButtonToolbar>

@@ -592,10 +592,7 @@ describe("GroupScopeView", (): void => {
 
     getStateSwitch().simulate("click");
 
-    const proceedButton: ReactWrapper = wrapper
-      .find(ConfirmDialog)
-      .find(Button)
-      .at(1);
+    const proceedButton = wrapper.find(ConfirmDialog).find(Button).at(1);
     proceedButton.simulate("click");
 
     await act(async (): Promise<void> => {

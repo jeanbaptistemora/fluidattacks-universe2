@@ -475,7 +475,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
               extraButtons={
                 <Can do={"api_resolvers_organization_billing_portal_resolve"}>
                   <ExternalLink href={billingPortal}>
-                    <Button>
+                    <Button variant={"primary"}>
                       <FontAwesomeIcon icon={faMoneyBill} />
                       &nbsp;
                       {t("organization.tabs.billing.portal.title")}

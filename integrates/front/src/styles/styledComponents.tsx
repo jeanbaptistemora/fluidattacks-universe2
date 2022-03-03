@@ -569,7 +569,7 @@ const SwitchHandle: StyledComponent<
   "span",
   Record<string, unknown>
 > = styled.span.attrs({
-  className: "br0 dib h-100 ma0 relative ph1-5",
+  className: "bg-white br0 dib h-100 ma0 relative ph1-5",
 })``;
 
 const SwitchGroup: StyledComponent<

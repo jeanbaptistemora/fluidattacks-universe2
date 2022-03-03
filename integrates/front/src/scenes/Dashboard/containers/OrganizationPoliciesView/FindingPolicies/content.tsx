@@ -214,7 +214,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
                   <Button
                     disabled={loading}
                     onClick={handleApprovePolicy}
-                    type={"button"}
+                    variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faCheck} />
                   </Button>
@@ -230,7 +230,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
                   <Button
                     disabled={loading}
                     onClick={handleRejectPolicy}
-                    type={"button"}
+                    variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faTimes} />
                   </Button>
@@ -263,7 +263,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
                         <Button
                           disabled={submitting}
                           onClick={handleClick}
-                          type={"button"}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faArrowRight} />
                         </Button>
@@ -299,7 +299,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
                         <Button
                           disabled={loading}
                           onClick={handleClick}
-                          type={"button"}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faMinus} />
                         </Button>

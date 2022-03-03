@@ -174,7 +174,11 @@ const Portfolio: React.FC<IPortfolioProps> = (
                 )}
                 placement={"top"}
               >
-                <Button id={"portfolio-add"} onClick={openAddModal}>
+                <Button
+                  id={"portfolio-add"}
+                  onClick={openAddModal}
+                  variant={"secondary"}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;
                   {translate.t("searchFindings.tabResources.addRepository")}
@@ -194,6 +198,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
                   disabled={_.isEmpty(currentRow) || removing}
                   id={"portfolio-remove"}
                   onClick={handleRemoveTag}
+                  variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faMinus} />
                   &nbsp;

@@ -34,10 +34,10 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
       <Row>
         <Col100>
           <ButtonToolbar>
-            <Button onClick={handleCloseModal}>
+            <Button onClick={handleCloseModal} variant={"secondary"}>
               {t("group.toe.lines.editModal.close")}
             </Button>
-            <Button disabled={false} onClick={submitForm}>
+            <Button onClick={submitForm} variant={"primary"}>
               {t("group.toe.lines.editModal.procced")}
             </Button>
           </ButtonToolbar>

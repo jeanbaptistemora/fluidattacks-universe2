@@ -46,7 +46,11 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
           message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
           placement={"top"}
         >
-          <Button id={"handleAcceptanceButton"} onClick={openHandleAcceptance}>
+          <Button
+            id={"handleAcceptanceButton"}
+            onClick={openHandleAcceptance}
+            variant={"secondary"}
+          >
             <React.Fragment>
               <FluidIcon icon={"verified"} />
               &nbsp;

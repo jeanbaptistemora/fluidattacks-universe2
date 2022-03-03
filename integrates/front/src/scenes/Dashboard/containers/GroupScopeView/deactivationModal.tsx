@@ -352,12 +352,13 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                     <Row>
                       <Col100>
                         <ButtonToolbar>
-                          <Button onClick={onClose}>
+                          <Button onClick={onClose} variant={"secondary"}>
                             {t("confirmmodal.cancel")}
                           </Button>
                           <Button
                             disabled={!dirty || isSubmitting}
                             type={"submit"}
+                            variant={"primary"}
                           >
                             {t("confirmmodal.proceed")}
                           </Button>

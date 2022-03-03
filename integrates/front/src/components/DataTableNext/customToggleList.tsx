@@ -47,7 +47,11 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         id={"toogleToolTip"}
         message={t("group.findings.tableSet.btn.tooltip")}
       >
-        <Button id={"columns-filter"} onClick={handleOpenTableSetClick}>
+        <Button
+          id={"columns-filter"}
+          onClick={handleOpenTableSetClick}
+          variant={"secondary"}
+        >
           <FontAwesomeIcon icon={faCog} />
           &nbsp;
           {t("group.findings.tableSet.btn.text")}
@@ -105,6 +109,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
               <Button
                 id={"close-columns-modal"}
                 onClick={handleCloseTableSetClick}
+                variant={"primary"}
               >
                 {t("group.findings.report.modalClose")}
               </Button>

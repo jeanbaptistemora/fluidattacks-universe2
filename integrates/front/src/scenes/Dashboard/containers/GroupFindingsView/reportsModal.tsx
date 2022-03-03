@@ -125,6 +125,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         <Button
                           id={"report-pdf"}
                           onClick={handleRequestGroupReport}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFilePdf} />
                           {translate.t("group.findings.report.pdf")}
@@ -139,6 +140,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         <Button
                           id={"report-excel"}
                           onClick={handleRequestGroupReport}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileExcel} />
                           {translate.t("group.findings.report.xls")}
@@ -148,6 +150,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           onClick={openFilterReportModal}
                           // eslint-disable-next-line react/forbid-component-props
                           style={{ borderLeft: "0", marginLeft: "0" }}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faSlidersH} />
                         </Button>
@@ -167,6 +170,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         <Button
                           id={"report-zip"}
                           onClick={handleRequestGroupReport}
+                          variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileArchive} />
                           {translate.t("group.findings.report.data")}
@@ -223,7 +227,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={onClose}>
+              <Button onClick={onClose} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
             </ButtonToolbar>

@@ -294,7 +294,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
             return {
               ...stakeholder,
               invitationResend: (
-                <Button disabled={!isPending} onClick={handleResendEmail}>
+                <Button
+                  disabled={!isPending}
+                  onClick={handleResendEmail}
+                  variant={"secondary"}
+                >
                   {translate.t("searchFindings.usersTable.resendEmail")}
                 </Button>
               ),
@@ -337,6 +341,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           <Button
                             id={"addUser"}
                             onClick={openAddStakeholderModal}
+                            variant={"secondary"}
                           >
                             <FontAwesomeIcon icon={faPlus} />
                             &nbsp;
@@ -360,6 +365,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                             }
                             id={"editUser"}
                             onClick={openEditStakeholderModal}
+                            variant={"secondary"}
                           >
                             <FontAwesomeIcon icon={faUserEdit} />
                             &nbsp;
@@ -385,6 +391,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                             }
                             id={"removeUser"}
                             onClick={handleRemoveStakeholder}
+                            variant={"secondary"}
                           >
                             <FontAwesomeIcon icon={faTrashAlt} />
                             &nbsp;

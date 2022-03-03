@@ -347,12 +347,13 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button onClick={closeNewDraftModal}>
+                    <Button onClick={closeNewDraftModal} variant={"secondary"}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!dirty || !isValid || submitting}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
@@ -381,7 +382,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                 id={"group.drafts.btn.tooltip"}
                 message={translate.t("group.drafts.btn.tooltip")}
               >
-                <Button onClick={openNewDraftModal}>
+                <Button onClick={openNewDraftModal} variant={"secondary"}>
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;{translate.t("group.drafts.btn.text")}
                 </Button>

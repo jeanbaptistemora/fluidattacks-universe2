@@ -56,10 +56,18 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button id={"confirmmodal-cancel"} onClick={handleClose}>
+              <Button
+                id={"confirmmodal-cancel"}
+                onClick={handleClose}
+                variant={"secondary"}
+              >
                 {translate.t("confirmmodal.cancel")}
               </Button>
-              <Button id={"confirmmodal-proceed"} onClick={handleProceed}>
+              <Button
+                id={"confirmmodal-proceed"}
+                onClick={handleProceed}
+                variant={"primary"}
+              >
                 {translate.t("confirmmodal.proceed")}
               </Button>
             </ButtonToolbar>

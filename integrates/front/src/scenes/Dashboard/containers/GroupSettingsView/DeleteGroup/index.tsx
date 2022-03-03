@@ -71,7 +71,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
           </GroupScopeText>
           <Col40>
             <ButtonToolbar>
-              <Button onClick={handleChange}>
+              <Button onClick={handleChange} variant={"secondary"}>
                 {t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
               </Button>
             </ButtonToolbar>

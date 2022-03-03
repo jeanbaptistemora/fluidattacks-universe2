@@ -133,13 +133,14 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button onClick={onClose}>
+                    <Button onClick={onClose} variant={"secondary"}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!dirty || !isValid}
                       onClick={submitForm}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>

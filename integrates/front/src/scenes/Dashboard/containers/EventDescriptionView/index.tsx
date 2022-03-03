@@ -195,10 +195,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button onClick={closeSolvingModal}>
+                      <Button onClick={closeSolvingModal} variant={"secondary"}>
                         {translate.t("confirmmodal.cancel")}
                       </Button>
-                      <Button disabled={!dirty || submitting} type={"submit"}>
+                      <Button
+                        disabled={!dirty || submitting}
+                        type={"submit"}
+                        variant={"primary"}
+                      >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
                     </ButtonToolbar>
@@ -222,6 +226,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       <Button
                         disabled={data.event.eventStatus === "SOLVED"}
                         onClick={openSolvingModal}
+                        variant={"primary"}
                       >
                         <FluidIcon icon={"verified"} />
                         &nbsp;

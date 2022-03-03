@@ -79,7 +79,7 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
           <Col100>
             {editorText !== "" && (
               <ButtonToolbar>
-                <Button onClick={clickHandler}>
+                <Button onClick={clickHandler} variant={"primary"}>
                   {translate.t("comments.send")}
                 </Button>
               </ButtonToolbar>

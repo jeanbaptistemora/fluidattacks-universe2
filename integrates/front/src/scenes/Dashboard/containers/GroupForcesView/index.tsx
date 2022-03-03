@@ -481,7 +481,10 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         <Row>
           <Col100>
             <ButtonToolbar>
-              <Button onClick={closeSeeExecutionDetailsModal}>
+              <Button
+                onClick={closeSeeExecutionDetailsModal}
+                variant={"secondary"}
+              >
                 {translate.t("group.forces.executionDetailsModal.close")}
               </Button>
             </ButtonToolbar>

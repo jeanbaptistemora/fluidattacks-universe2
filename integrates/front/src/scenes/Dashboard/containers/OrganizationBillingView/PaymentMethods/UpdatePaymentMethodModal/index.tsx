@@ -82,8 +82,14 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
-                  <Button disabled={!dirty || isSubmitting} type={"submit"}>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("confirmmodal.cancel")}
+                  </Button>
+                  <Button
+                    disabled={!dirty || isSubmitting}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
                     {t("confirmmodal.proceed")}
                   </Button>
                 </ButtonToolbar>

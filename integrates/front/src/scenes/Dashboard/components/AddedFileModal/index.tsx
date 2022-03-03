@@ -24,7 +24,7 @@ const addedFileModal: React.FC<IAddedFileModalProps> = (
             {translate.t("searchFindings.tabResources.files.fileIsPending")}
           </p>
         </div>
-        <Button id={"file-added-close"} onClick={onClose}>
+        <Button id={"file-added-close"} onClick={onClose} variant={"secondary"}>
           {translate.t("configuration.close")}
         </Button>
       </Modal>

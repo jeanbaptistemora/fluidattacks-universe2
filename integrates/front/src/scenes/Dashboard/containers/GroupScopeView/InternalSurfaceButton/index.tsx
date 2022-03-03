@@ -45,7 +45,11 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
                 id={t("group.tabs.toe.tooltip.id")}
                 message={t("group.tabs.toe.tooltip")}
               >
-                <Button id={"git-root-internal-surface"} onClick={handleClick}>
+                <Button
+                  id={"git-root-internal-surface"}
+                  onClick={handleClick}
+                  variant={"secondary"}
+                >
                   {t("group.tabs.toe.text")}
                 </Button>
               </TooltipWrapper>

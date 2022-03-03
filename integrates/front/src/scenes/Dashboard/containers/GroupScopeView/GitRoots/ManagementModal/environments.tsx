@@ -57,11 +57,14 @@ const Environments: React.FC<IEnvironmentsProps> = ({
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("confirmmodal.cancel")}
+                  </Button>
                   <Button
                     disabled={!dirty || isSubmitting}
                     id={"envs-manage-proceed"}
                     type={"submit"}
+                    variant={"primary"}
                   >
                     {t("confirmmodal.proceed")}
                   </Button>

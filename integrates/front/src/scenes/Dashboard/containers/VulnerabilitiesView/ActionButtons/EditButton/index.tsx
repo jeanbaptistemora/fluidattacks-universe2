@@ -59,6 +59,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
             disabled={isRequestingReattack || isVerifying || isDisabled}
             id={"vulnerabilities-edit"}
             onClick={onEdit}
+            variant={"secondary"}
           >
             {isEditing ? (
               <React.Fragment>

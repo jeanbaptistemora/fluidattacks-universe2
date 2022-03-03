@@ -51,6 +51,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
           disabled={!areVulnsSelected}
           id={"confirm-reattack"}
           onClick={openModal}
+          variant={"secondary"}
         >
           <FluidIcon icon={"verified"} />
           &nbsp;
@@ -67,6 +68,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
             disabled={isReattackRequestedInAllVuln}
             id={"start-reattack"}
             onClick={onRequestReattack}
+            variant={"secondary"}
           >
             {isRequestingReattack ? (
               <React.Fragment>

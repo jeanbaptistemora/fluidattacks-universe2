@@ -359,7 +359,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                     )}
                     placement={"top"}
                   >
-                    <Button id={"file-add"} onClick={openAddModal}>
+                    <Button
+                      id={"file-add"}
+                      onClick={openAddModal}
+                      variant={"secondary"}
+                    >
                       <FontAwesomeIcon icon={faPlus} />
                       &nbsp;
                       {translate.t("searchFindings.tabResources.addRepository")}

@@ -174,7 +174,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                     "searchFindings.tabSeverity.editable.tooltip"
                   )}
                 >
-                  <Button onClick={handleEditClick}>
+                  <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
                     &nbsp;
                     {translate.t("searchFindings.tabSeverity.editable.label")}
@@ -205,6 +205,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                           <Button
                             disabled={!dirty || mutationRes.loading}
                             type={"submit"}
+                            variant={"primary"}
                           >
                             <FluidIcon icon={"loading"} />
                             {translate.t("searchFindings.tabSeverity.update")}

@@ -97,13 +97,18 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
                 <Row>
                   <Col100>
                     <ButtonToolbar>
-                      <Button id={"cancel-remediation"} onClick={onClose}>
+                      <Button
+                        id={"cancel-remediation"}
+                        onClick={onClose}
+                        variant={"secondary"}
+                      >
                         {translate.t("confirmmodal.cancel")}
                       </Button>
                       <Button
                         disabled={!dirty || props.isLoading}
                         id={"proceed-remediation"}
                         type={"submit"}
+                        variant={"primary"}
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>

@@ -39,9 +39,11 @@ const AgentToken: React.FC<IServicesProps> = (
             <ExternalLink
               href={"https://docs.fluidattacks.com/machine/agent/installation/"}
             >
-              <Button>{t("searchFindings.agentTokenSection.install")}</Button>
+              <Button variant={"secondary"}>
+                {t("searchFindings.agentTokenSection.install")}
+              </Button>
             </ExternalLink>
-            <Button onClick={handleChange}>
+            <Button onClick={handleChange} variant={"secondary"}>
               {t("searchFindings.agentTokenSection.generate")}
             </Button>
           </ButtonToolbar>

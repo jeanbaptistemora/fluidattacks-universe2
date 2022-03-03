@@ -116,13 +116,18 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button id={"file-add-cancel"} onClick={onClose}>
+                    <Button
+                      id={"file-add-cancel"}
+                      onClick={onClose}
+                      variant={"secondary"}
+                    >
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!dirty || isUploading}
                       id={"file-add-proceed"}
                       type={"submit"}
+                      variant={"primary"}
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
