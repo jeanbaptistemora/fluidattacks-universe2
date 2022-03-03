@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from batch.types import (
+    PutActionResult,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -78,4 +81,9 @@ async def mutate(
             roots=list(roots_to_execute),
         )
 
-    return SimplePayloadMessage(success=success, message=message)
+    return SimplePayloadMessage(
+        success=success.success
+        if isinstance(success, PutActionResult)
+        else success,
+        message=message,
+    )
