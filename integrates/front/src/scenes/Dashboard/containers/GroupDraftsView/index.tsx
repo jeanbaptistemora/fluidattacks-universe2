@@ -363,44 +363,39 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <TooltipWrapper
-        id={"group.drafts.help"}
-        message={translate.t("group.findings.helpLabel")}
-      >
-        <DataTableNext
-          bordered={true}
-          customSearch={{
-            customSearchDefault: searchTextFilter,
-            isCustomSearchEnabled: true,
-            onUpdateCustomSearch: onSearchTextChange,
-            position: "right",
-          }}
-          dataset={filterSearchtextResult}
-          defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
-          exportCsv={true}
-          extraButtons={
-            <Row>
-              <ButtonToolbar>
-                <TooltipWrapper
-                  id={"group.drafts.btn.tooltip"}
-                  message={translate.t("group.drafts.btn.tooltip")}
-                >
-                  <Button onClick={openNewDraftModal}>
-                    <FontAwesomeIcon icon={faPlus} />
-                    &nbsp;{translate.t("group.drafts.btn.text")}
-                  </Button>
-                </TooltipWrapper>
-              </ButtonToolbar>
-            </Row>
-          }
-          headers={tableHeaders}
-          id={"tblDrafts"}
-          pageSize={10}
-          rowEvents={{ onClick: goToFinding }}
-          search={false}
-          striped={true}
-        />
-      </TooltipWrapper>
+      <DataTableNext
+        bordered={true}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
+        }}
+        dataset={filterSearchtextResult}
+        defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
+        exportCsv={true}
+        extraButtons={
+          <Row>
+            <ButtonToolbar>
+              <TooltipWrapper
+                id={"group.drafts.btn.tooltip"}
+                message={translate.t("group.drafts.btn.tooltip")}
+              >
+                <Button onClick={openNewDraftModal}>
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;{translate.t("group.drafts.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </ButtonToolbar>
+          </Row>
+        }
+        headers={tableHeaders}
+        id={"tblDrafts"}
+        pageSize={10}
+        rowEvents={{ onClick: goToFinding }}
+        search={false}
+        striped={true}
+      />
     </React.StrictMode>
   );
 };
