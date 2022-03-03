@@ -1303,3 +1303,15 @@ class InvalidMobileNumber(CustomBaseException):
             "international format"
         )
         super(InvalidMobileNumber, self).__init__(msg)
+
+
+class RequiredVerificationCode(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The verification code is required"
+        super(RequiredVerificationCode, self).__init__(msg)
+
+
+class RequiredNewPhoneNumber(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - A new phone number is required"
+        super(RequiredNewPhoneNumber, self).__init__(msg)
