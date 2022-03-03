@@ -35,6 +35,7 @@ async def start_verification(
                 FI_TWILIO_VERIFY_SERVICE_SID
             ).verifications.create,
             to=phone_number,
+            rate_limits={"end_user_phone_number": phone_number},
             channel=channel.value.lower(),
         )
     except TwilioRestException as exc:
