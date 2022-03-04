@@ -16,6 +16,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    users as users_model,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -49,6 +52,22 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
+    await users_model.update_user(
+        user_email=user,
+        notifications_preferences={
+            "email": [
+                "CHARTS_REPORT",
+                "DAILY_DIGEST",
+                "FILE_UPLOADED",
+                "NEW_COMMENT",
+                "NEW_DRAFT",
+                "REMEDIATE_FINDING",
+                "ROOT_MOVED",
+                "UPDATED_TREATMENT",
+                "VULNERABILITY_ASSIGNED",
+            ]
+        },
+    )
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request, loaders or get_new_context())
     _, result = await graphql(SCHEMA, data, context_value=request)

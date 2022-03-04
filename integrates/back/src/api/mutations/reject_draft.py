@@ -16,6 +16,9 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.users.get import (
+    User,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -63,7 +66,11 @@ async def mutate(
             "reject_draft",
             finding_id=finding_id,
         )
-        if requests_utils.get_source_new(info.context) != Source.MACHINE:
+        user: User = await info.context.loaders.user.load(user_email)
+        if (
+            requests_utils.get_source_new(info.context) != Source.MACHINE
+            and "NEW_DRAFT" in user.notifications_preferences.email
+        ):
             finding: Finding = await finding_loader.load(finding_id)
             schedule(
                 findings_mail.send_mail_reject_draft(
