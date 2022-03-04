@@ -5019,7 +5019,67 @@
   es:
     description: __empty__
   definitions:
-    "5_16":
-      title: Identity management
+    "IAC-1_1":
+      title: Human user identification and authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_2":
+      title: Software process and device identification and authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_3":
+      title: Account Management
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_5":
+      title: Authenticator management
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_6":
+      title: Wireless access management
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_7":
+      title: Strength of password-based authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_8":
+      title: Public key infraestructure (PKI) certificates
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_9":
+      title: Strength of public key authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_11":
+      title: Unsuccessful login attempts
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_12":
+      title: System use notification
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "IAC-1_13":
+      title: Access via untrusted networks
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_1":
+      title: Authorization enforcement
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_2":
+      title: Wireless use control
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_3":
+      title: Use control for portable and mobile devices
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_4":
+      title: Mobile code
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_6":
+      title: Remote session termination
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_7":
+      title: Concurrent session control
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_8":
+      title: Auditable events
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_9":
+      title: Audit storage capacity
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "UC-2_11":
+      title: Timestamps
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_1":
+      title: Communication integrity
       link: https://webstore.iec.ch/publication/7031&preview=1
   metadata: {}
