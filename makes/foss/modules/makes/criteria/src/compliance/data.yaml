@@ -5082,4 +5082,64 @@
     "SI-3_1":
       title: Communication integrity
       link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_2":
+      title: Malicious code protection
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_5":
+      title: Input validation
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_7":
+      title: Error handling
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_8":
+      title: Session integrity
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "SI-3_9":
+      title: Protection of audit information
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "DC-4_1":
+      title: Information confidentiality
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "DC-4_3":
+      title: Use of cryptography
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RDF-5_1":
+      title: Network segmentation
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RDF-5_2":
+      title: Zone boundary protection
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RDF-5_3":
+      title: User content filtering
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "TRE-6_1":
+      title: Audit log accesibility
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RA-7_1":
+      title: Denial of service protection
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RA-7_6":
+      title: Network and security configuration settings
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "RA-7_7":
+      title: Least Functionality
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-1_1-RE_1":
+      title: Unique identification and authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-1_1-RE_2":
+      title: Multifactor authentication for all interfaces
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-1_7":
+      title: Strength of password-based authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-1_7-RE_2":
+      title: Password Lifetime Restrictions for all Users
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-2_1-RE_3":
+      title: Permission mapping to roles
+      link: https://webstore.iec.ch/publication/7031&preview=1
+    "CR-3_1-RE_1":
+      title: Communication authentication
+      link: https://webstore.iec.ch/publication/7031&preview=1
   metadata: {}
