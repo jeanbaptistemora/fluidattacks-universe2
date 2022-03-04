@@ -1414,503 +1414,500 @@
   title: OWASP ASVS
   en:
     description: >
-      The OWASP Application Security
-      Verification Standard project
-      provides a basis for testing
-      web application technical
-      security controls and also provides
-      developers with a list
-      of requirements for secure development.
-      The version used in this section
-      is OWASP-ASVS v4.0.2.
+      The OWASP Application Security Verification Standard project
+      provides a basis for testing web application
+      technical security controls
+      and also provides developers
+      with a list of requirements for secure development.
+      The version used in this section is OWASP-ASVS v4.0.2.
   es:
     description: __empty__
   definitions:
     "C_1":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_2":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_3":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_4":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_5":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_6":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_7":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_8":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_9":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_10":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_11":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_12":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_13":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_14":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_15":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_16":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_17":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_18":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_19":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_20":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_21":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_22":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_23":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_24":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_25":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_26":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_27":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_29":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_30":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_31":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_32":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_33":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "C_34":
-      title: Security Verification Requirements
+      title: Security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_2_1":
-      title: Authentication Architectural Requirements
+      title: Authentication architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_2_2":
-      title: Authentication Architectural Requirements
+      title: Authentication architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_2_3":
-      title: Authentication Architectural Requirements
+      title: Authentication architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_2_4":
-      title: Authentication Architectural Requirements
+      title: Authentication architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_4_1":
-      title: Access Control Architectural Requirements
+      title: Access control architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_4_3":
-      title: Access Control Architectural Requirements
+      title: Access control architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_4_4":
-      title: Access Control Architectural Requirements
+      title: Access control architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_4_5":
-      title: Access Control Architectural Requirements
+      title: Access control architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_5_1":
-      title: Input and Output Architectural Requirements
+      title: Input and output architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_5_2":
-      title: Input and Output Architectural Requirements
+      title: Input and output architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_5_3":
-      title: Input and Output Architectural Requirements
+      title: Input and output architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_5_4":
-      title: Input and Output Architectural Requirements
+      title: Input and output architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_6_1":
-      title: Cryptographic Architectural Requirements
+      title: Cryptographic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_6_2":
-      title: Cryptographic Architectural Requirements
+      title: Cryptographic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_6_3":
-      title: Cryptographic Architectural Requirements
+      title: Cryptographic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_6_4":
-      title: Cryptographic Architectural Requirements
+      title: Cryptographic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_7_1":
-      title: Errors, Logging and Auditing Architectural Requirements
+      title: Errors, logging and auditing architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_7_2":
-      title: Errors, Logging and Auditing Architectural Requirements
+      title: Errors, logging and auditing architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_9_1":
-      title: Client-side Data Protection
+      title: Client-side data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_10_1":
-      title: Malicious Software Architectural Requirements
+      title: Malicious software architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_11_2":
-      title: Business Logic Architectural Requirements
+      title: Business logic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_11_3":
-      title: Business Logic Architectural Requirements
+      title: Business logic architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_12_1":
-      title: Secure File Upload Architectural Requirements
+      title: Secure file upload architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_12_2":
-      title: Secure File Upload Architectural Requirements
+      title: Secure file upload architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_14_1":
-      title: Configuration Architectural Requirements
+      title: Configuration architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_14_2":
-      title: Configuration Architectural Requirements
+      title: Configuration architectural requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_1_1":
-      title: Password Security Requirements
+      title: Password security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_1_2":
-      title: Password Security Requirements
+      title: Password security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_1_5":
-      title: Password Security Requirements
+      title: Password security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_1_6":
-      title: Password Security Requirements
+      title: Password security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_1_7":
-      title: Password Security Requirements
+      title: Password security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_2_1":
-      title: General Authenticator Requirements
+      title: General authenticator requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_2_3":
-      title: General Authenticator Requirements
+      title: General authenticator requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_2_4":
-      title: General Authenticator Requirements
+      title: General authenticator requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_2_5":
-      title: General Authenticator Requirements
+      title: General authenticator requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_2_6":
-      title: General Authenticator Requirements
+      title: General authenticator requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_3_1":
-      title: Authenticator Lifecycle Requirements
+      title: Authenticator lifecycle requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_3_3":
-      title: Authenticator Lifecycle Requirements
+      title: Authenticator lifecycle requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_4_1":
-      title: Credential Storage Requirements
+      title: Credential storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_4_2":
-      title: Credential Storage Requirements
+      title: Credential storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_4_3":
-      title: Credential Storage Requirements
+      title: Credential storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_4_4":
-      title: Credential Storage Requirements
+      title: Credential storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_4_5":
-      title: Credential Storage Requirements
+      title: Credential storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_1":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_2":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_3":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_4":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_6":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_5_7":
-      title: Credential Recovery Requirements
+      title: Credential recovery requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_6_1":
-      title: Look-up Secret Verifier Requirements
+      title: Look-up secret verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_6_2":
-      title: Look-up Secret Verifier Requirements
+      title: Look-up secret verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_6_3":
-      title: Look-up Secret Verifier Requirements
+      title: Look-up secret verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_7_1":
-      title: Out of Band Verifier Requirements
+      title: Out of band verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_7_2":
-      title: Out of Band Verifier Requirements
+      title: Out of band verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_7_3":
-      title: Out of Band Verifier Requirements
+      title: Out of band verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_7_4":
-      title: Out of Band Verifier Requirements
+      title: Out of band verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_7_6":
-      title: Out of Band Verifier Requirements
+      title: Out of band verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_8_1":
-      title: Single or Multi Factor One Time Verifier Requirements
+      title: Single or multi-factor one time verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_8_2":
-      title: Single or Multi Factor One Time Verifier Requirements
+      title: Single or multi-factor one time verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_8_3":
-      title: Single or Multi Factor One Time Verifier Requirements
+      title: Single or multi-factor one time verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_8_4":
-      title: Single or Multi Factor One Time Verifier Requirements
+      title: Single or multi-factor one time verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_8_7":
-      title: Single or Multi Factor One Time Verifier Requirements
+      title: Single or multi-factor one time verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_9_1":
-      title: Cryptographic Software and Devices Verifier Requirements
+      title: Cryptographic software and devices verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_9_2":
-      title: Cryptographic Software and Devices Verifier Requirements
+      title: Cryptographic software and devices verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_9_3":
-      title: Cryptographic Software and Devices Verifier Requirements
+      title: Cryptographic software and devices verifier requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_10_2":
-      title: Service Authentication Requirements
+      title: Service authentication requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_10_3":
-      title: Service Authentication Requirements
+      title: Service authentication requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V2_10_4":
-      title: Service Authentication Requirements
+      title: Service authentication requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_1_1":
-      title: Client-side Data Protection
+      title: Client-side data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_2_1":
-      title: Session Binding Requirements
+      title: Session binding requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_2_2":
-      title: Session Binding Requirements
+      title: Session binding requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_2_3":
-      title: Session Binding Requirements
+      title: Session binding requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_2_4":
-      title: Session Binding Requirements
+      title: Session binding requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_3_1":
-      title: Session Logout and Timeout Requirements
+      title: Session logout and timeout requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_3_2":
-      title: Session Logout and Timeout Requirements
+      title: Session logout and timeout requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_3_3":
-      title: Session Logout and Timeout Requirements
+      title: Session logout and timeout requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_3_4":
-      title: Session Logout and Timeout Requirements
+      title: Session logout and timeout requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_4_1":
-      title: Cookie-based Session Management
+      title: Cookie-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_4_2":
-      title: Cookie-based Session Management
+      title: Cookie-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_4_3":
-      title: Cookie-based Session Management
+      title: Cookie-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_4_4":
-      title: Cookie-based Session Management
+      title: Cookie-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_4_5":
-      title: Cookie-based Session Management
+      title: Cookie-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_5_1":
-      title: Token-based Session Management
+      title: Token-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_5_2":
-      title: Token-based Session Management
+      title: Token-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_5_3":
-      title: Token-based Session Management
+      title: Token-based session management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_6_1":
-      title: Re-authentication from a Federation or Assertion
+      title: Re-authentication from a federation or assertion
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_6_2":
-      title: Re-authentication from a Federation or Assertion
+      title: Re-authentication from a federation or assertion
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V3_7_1":
-      title: Defenses Against Session Management Exploits
+      title: Defenses against session management exploits
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_1_1":
-      title: General Access Control Design
+      title: General access control design
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_1_2":
-      title: General Access Control Design
+      title: General access control design
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_1_3":
-      title: General Access Control Design
+      title: General access control design
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_1_4":
-      title: General Access Control Design
+      title: General access control design
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_1_5":
-      title: General Access Control Design
+      title: General access control design
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_2_1":
-      title: Operation Level Access Control
+      title: Operation level access control
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_2_2":
-      title: Operation Level Access Control
+      title: Operation level access control
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V4_3_2":
-      title: Other Access Control Considerations
+      title: Other access control considerations
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_1_1":
-      title: Input Validation Requirements
+      title: Input validation requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_1_2":
-      title: Input Validation Requirements
+      title: Input validation requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_1_3":
-      title: Input Validation Requirements
+      title: Input validation requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_1_4":
-      title: Input Validation Requirements
+      title: Input validation requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_1_5":
-      title: Input Validation Requirements
+      title: Input validation requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_1":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_2":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_3":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_4":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_5":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_6":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_7":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_2_8":
-      title: Sanitization and Sandboxing Requirements
+      title: Sanitization and sandboxing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_1":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_2":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_3":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_4":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_5":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_6":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_7":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_8":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_9":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_3_10":
-      title: Output encoding and Injection Prevention Requirements
+      title: Output encoding and injection prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_4_1":
-      title: Memory, String, and Unmanaged Code Requirements
+      title: Memory, string, and unmanaged code requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_4_2":
-      title: Memory, String, and Unmanaged Code Requirements
+      title: Memory, string, and unmanaged code requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_4_3":
-      title: Memory, String, and Unmanaged Code Requirements
+      title: Memory, string, and unmanaged code requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_5_1":
-      title: Deserialization Prevention Requirements
+      title: Deserialization prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_5_2":
-      title: Deserialization Prevention Requirements
+      title: Deserialization prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_5_3":
-      title: Deserialization Prevention Requirements
+      title: Deserialization prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V5_5_4":
-      title: Deserialization Prevention Requirements
+      title: Deserialization prevention requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_1_1":
-      title: Data Classification
+      title: Data classification
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_1_2":
-      title: Data Classification
+      title: Data classification
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_1_3":
-      title: Data Classification
+      title: Data classification
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_2_1":
       title: Algorithms
@@ -1931,268 +1928,268 @@
       title: Algorithms
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_3_1":
-      title: Random Values
+      title: Random values
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_3_2":
-      title: Random Values
+      title: Random values
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_3_3":
-      title: Random Values
+      title: Random values
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_4_1":
-      title: Secret Management
+      title: Secret management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V6_4_2":
-      title: Secret Management
+      title: Secret management
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_1_1":
-      title: Log Content Requirements
+      title: Log content requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_1_2":
-      title: Log Content Requirements
+      title: Log content requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_1_3":
-      title: Log Content Requirements
+      title: Log content requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_1_4":
-      title: Log Content Requirements
+      title: Log content requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_2_1":
-      title: Log Processing Requirements
+      title: Log processing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_2_2":
-      title: Log Processing Requirements
+      title: Log processing requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_3_1":
-      title: Log Protection Requirements
+      title: Log protection requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_3_2":
-      title: Log Protection Requirements
+      title: Log protection requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_3_3":
-      title: Log Protection Requirements
+      title: Log protection requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_3_4":
-      title: Log Protection Requirements
+      title: Log protection requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_4_1":
-      title: Error Handling
+      title: Error handling
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_4_2":
-      title: Error Handling
+      title: Error handling
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V7_4_3":
-      title: Error Handling
+      title: Error handling
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_1_1":
-      title: General Data Protection
+      title: General data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_1_2":
-      title: General Data Protection
+      title: General data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_1_3":
-      title: General Data Protection
+      title: General data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_1_4":
-      title: General Data Protection
+      title: General data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_2_1":
-      title: Client-side Data Protection
+      title: Client-side data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_2_2":
-      title: Client-side Data Protection
+      title: Client-side data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_2_3":
-      title: Client-side Data Protection
+      title: Client-side data protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_1":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_2":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_3":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_4":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_5":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_6":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_7":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V8_3_8":
-      title: Sensitive Private Data
+      title: Sensitive private data
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_1_1":
-      title: Communications Security Requirements
+      title: Communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_1_2":
-      title: Communications Security Requirements
+      title: Communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_1_3":
-      title: Communications Security Requirements
+      title: Communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_2_1":
-      title: Server Communications Security Requirements
+      title: Server communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_2_2":
-      title: Server Communications Security Requirements
+      title: Server communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_2_3":
-      title: Server Communications Security Requirements.
+      title: Server communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_2_4":
-      title: Server Communications Security Requirements.
+      title: Server communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V9_2_5":
-      title: Server Communications Security Requirements.
+      title: Server communications security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_1_1":
-      title: Code Integrity Controls
+      title: Code integrity controls
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_1":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_2":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_3":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_4":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_5":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_2_6":
-      title: Malicious Code Search
+      title: Malicious code search
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_3_1":
-      title: Deployed Application Integrity Controls
+      title: Deployed application integrity controls
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_3_2":
-      title: Deployed Application Integrity Controls
+      title: Deployed application integrity controls
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V10_3_3":
-      title: Deployed Application Integrity Controls
+      title: Deployed application integrity controls
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_1":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_2":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_3":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_4":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_5":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_6":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_7":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V11_1_8":
-      title: Business Logic Security Requirements
+      title: Business logic security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_1_1":
-      title: File Upload Requirements
+      title: File upload requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_1_2":
-      title: File Upload Requirements
+      title: File upload requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_1_3":
-      title: File Upload Requirements
+      title: File upload requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_2_1":
-      title: File Integrity Requirements
+      title: File integrity requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_1":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_2":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_3":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_4":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_5":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_3_6":
-      title: File execution Requirements
+      title: File execution requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_4_1":
-      title: File Storage Requirements
+      title: File storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_4_2":
-      title: File Storage Requirements
+      title: File storage requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_5_1":
-      title: File Download Requirements
+      title: File download requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_5_2":
-      title: File Download Requirements
+      title: File download requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V12_6_1":
-      title: SSRF Protection Requirements
+      title: SSRF protection requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_1_1":
-      title: Generic Web Service Security Verification Requirements
+      title: Generic web service security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_1_2":
-      title: Generic Web Service Security Verification Requirements
+      title: Generic web service security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_1_3":
-      title: Generic Web Service Security Verification Requirements
+      title: Generic web service security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_1_4":
-      title: Generic Web Service Security Verification Requirements
+      title: Generic web service security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_1_5":
-      title: Generic Web Service Security Verification Requirements
+      title: Generic web service security verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_2_1":
-      title: RESTful Web Service Verification Requirements
+      title: RESTful web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_2_2":
-      title: RESTful Web Service Verification Requirements
+      title: RESTful web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_2_3":
-      title: RESTful Web Service Verification Requirements
+      title: RESTful web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_2_4":
-      title: RESTful Web Service Verification Requirements
+      title: RESTful web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_2_5":
-      title: RESTful Web Service Verification Requirements
+      title: RESTful web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_3_1":
-      title: SOAP Web Service Verification Requirements
+      title: SOAP web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_3_2":
-      title: SOAP Web Service Verification Requirements
+      title: SOAP web service verification requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_4_1":
-      title: GraphQL and other Web Service Data Layer Security Requirements
+      title: GraphQL and other web service data layer security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V13_4_2":
-      title: GraphQL and other Web Service Data Layer Security Requirements
+      title: GraphQL and other web service data layer security requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_1_1":
       title: Build
@@ -2228,46 +2225,46 @@
       title: Dependency
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_3_1":
-      title: Unintended Security Disclosure Requirements
+      title: Unintended security disclosure requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_3_2":
-      title: Unintended Security Disclosure Requirements
+      title: Unintended security disclosure requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_3_3":
-      title: Unintended Security Disclosure Requirements
+      title: Unintended security disclosure requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_1":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_2":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_3":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_4":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_5":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_6":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_4_7":
-      title: HTTP Security Headers Requirements
+      title: HTTP security headers requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_5_1":
-      title: Validate HTTP Request Header Requirements
+      title: Validate HTTP request header requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_5_2":
-      title: Validate HTTP Request Header Requirements
+      title: Validate HTTP request header requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_5_3":
-      title: Validate HTTP Request Header Requirements
+      title: Validate HTTP request header requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V14_5_4":
-      title: Validate HTTP Request Header Requirements
+      title: Validate HTTP request header requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
   metadata: {}
 "owasp10":
@@ -2979,10 +2976,13 @@
       The Agile Manifesto uncovers better ways of developing software
       by doing it and helping others do it.
       This work values individuals and interactions
-      over processes and tools, working software
-      over comprehensive documentation, customer
-      collaboration over contract negotiation and
-      responding to change over following a plan.
+      over processes and tools,
+      working software
+      over comprehensive documentation,
+      customer collaboration
+      over contract negotiation
+      and responding to change
+      over following a plan.
   es:
     description: __empty__
   definitions:
