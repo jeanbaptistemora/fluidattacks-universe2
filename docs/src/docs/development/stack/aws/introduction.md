@@ -58,6 +58,7 @@ We use the following [AWS][AWS] services:
 - **Application cluster:** [EKS](/development/stack/aws/eks/)
 - **Virtual private cloud:** [VPC](/development/stack/aws/vpc/)
 - **NoSQL database:** [DynamoDB](/development/stack/aws/dynamodb/)
+- **Cloud VPN:** [VPN](/development/stack/aws/vpn/)
 - **In-memory cache:** [Redis](/development/stack/aws/redis/)
 - **Data warehouse:** [Redshift](/development/stack/aws/redshift/)
 - **Batch processing:** [Batch](/development/stack/aws/batch/)

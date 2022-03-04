@@ -440,6 +440,7 @@ const Development = [
           'development/stack/aws/s3',
           'development/stack/aws/sagemaker',
           'development/stack/aws/vpc',
+          'development/stack/aws/vpn',
         ]
       },
       'development/stack/cloudflare',
