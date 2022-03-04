@@ -273,10 +273,19 @@ export const enTranslations: ResourceKey = {
         repository: "Filter by repository",
       },
       groupsContributed: "Groups Contributed",
+      invitationState: {
+        confirmed: "Registered",
+        pending: "Pending",
+        unregistered: "Non-registered",
+      },
       repository: "Repository",
+      sendInvitation: "Send",
       tableAdvice:
         "Below you'll find the authors that have contributed " +
         "to your group in the selected month, and one example commit",
+      tooltip: {
+        text: "Send group invitation to unregistered author",
+      },
     },
     drafts: {
       approve: {
