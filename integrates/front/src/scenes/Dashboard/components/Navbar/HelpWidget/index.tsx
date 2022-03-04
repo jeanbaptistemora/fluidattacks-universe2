@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { clickedPortal } from "../utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddFilesBasicModal } from "scenes/Dashboard/components/AddFilesBasicModal";
 import { SIGN_POST_URL_REQUESTER_MUTATION } from "scenes/Dashboard/containers/GroupSettingsView/queries";
@@ -56,8 +57,11 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
     setDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
   const ref = useDetectClickOutside({
-    onTriggered: (): void => {
-      setDropdownOpen(false);
+    onTriggered: (event): void => {
+      // Exclude clicks in portals to prevent modals from closing the dropdown
+      if (!clickedPortal(event)) {
+        setDropdownOpen(false);
+      }
     },
   });
 

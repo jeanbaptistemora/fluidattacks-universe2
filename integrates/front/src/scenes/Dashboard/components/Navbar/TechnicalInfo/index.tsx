@@ -5,6 +5,7 @@ import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { clickedPortal } from "../utils";
 import { ExternalLink } from "components/ExternalLink";
 import {
   ASM_DEPLOYMENT_DATE,
@@ -20,8 +21,11 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
     setDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
   const ref = useDetectClickOutside({
-    onTriggered: (): void => {
-      setDropdownOpen(false);
+    onTriggered: (event): void => {
+      // Exclude clicks in portals to prevent modals from closing the dropdown
+      if (!clickedPortal(event)) {
+        setDropdownOpen(false);
+      }
     },
   });
 

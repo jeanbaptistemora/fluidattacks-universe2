@@ -29,6 +29,7 @@ import {
   DropdownMenu,
   NavbarButton,
 } from "../styles";
+import { clickedPortal } from "../utils";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
@@ -54,8 +55,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     setDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
   const ref = useDetectClickOutside({
-    onTriggered: (): void => {
-      setDropdownOpen(false);
+    onTriggered: (event): void => {
+      // Exclude clicks in portals to prevent modals from closing the dropdown
+      if (!clickedPortal(event)) {
+        setDropdownOpen(false);
+      }
     },
   });
 
