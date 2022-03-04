@@ -9,7 +9,7 @@ import type { IGitRootAttr } from "../../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { TabsContainer } from "styles/styledComponents";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
 interface IManagementModalProps {
@@ -78,53 +78,55 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
             </Can>
           </TabsContainer>
         ) : undefined}
-        <Switch>
-          <Route path={"/repository"}>
-            <ConfirmDialog
-              message={t("group.scope.git.confirmBranch")}
-              title={t("group.scope.common.confirm")}
-            >
-              {(confirm): React.ReactNode => {
-                async function confirmAndSubmit(
-                  values: IGitRootAttr
-                ): Promise<void> {
-                  if (isEditing && values.branch !== initialValues.branch) {
-                    return new Promise((resolve): void => {
-                      confirm(
-                        (): void => {
-                          resolve(onSubmitRepo(values));
-                        },
-                        (): void => {
-                          resolve();
-                        }
-                      );
-                    });
+        <TabContent>
+          <Switch>
+            <Route path={"/repository"}>
+              <ConfirmDialog
+                message={t("group.scope.git.confirmBranch")}
+                title={t("group.scope.common.confirm")}
+              >
+                {(confirm): React.ReactNode => {
+                  async function confirmAndSubmit(
+                    values: IGitRootAttr
+                  ): Promise<void> {
+                    if (isEditing && values.branch !== initialValues.branch) {
+                      return new Promise((resolve): void => {
+                        confirm(
+                          (): void => {
+                            resolve(onSubmitRepo(values));
+                          },
+                          (): void => {
+                            resolve();
+                          }
+                        );
+                      });
+                    }
+
+                    return onSubmitRepo(values);
                   }
 
-                  return onSubmitRepo(values);
-                }
-
-                return (
-                  <Repository
-                    groupName={groupName}
-                    initialValues={initialValues}
-                    isEditing={isEditing}
-                    nicknames={nicknames}
-                    onClose={onClose}
-                    onSubmit={confirmAndSubmit}
-                  />
-                );
-              }}
-            </ConfirmDialog>
-          </Route>
-          <Route path={"/environments"}>
-            <Environments
-              initialValues={initialValues}
-              onClose={onClose}
-              onSubmit={onSubmitEnvs}
-            />
-          </Route>
-        </Switch>
+                  return (
+                    <Repository
+                      groupName={groupName}
+                      initialValues={initialValues}
+                      isEditing={isEditing}
+                      nicknames={nicknames}
+                      onClose={onClose}
+                      onSubmit={confirmAndSubmit}
+                    />
+                  );
+                }}
+              </ConfirmDialog>
+            </Route>
+            <Route path={"/environments"}>
+              <Environments
+                initialValues={initialValues}
+                onClose={onClose}
+                onSubmit={onSubmitEnvs}
+              />
+            </Route>
+          </Switch>
+        </TabContent>
       </MemoryRouter>
     </Modal>
   );

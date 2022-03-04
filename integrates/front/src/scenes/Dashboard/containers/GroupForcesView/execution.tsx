@@ -3,7 +3,7 @@ import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { MemoryRouter, Route } from "react-router-dom";
+import { MemoryRouter, Route, Switch } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
@@ -21,7 +21,7 @@ import type {
   IGetForcesExecution,
   IVulnerabilities,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
-import { Col33, Row, TabsContainer } from "styles/styledComponents";
+import { Col33, Row, TabContent, TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
@@ -309,7 +309,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       <br />
-      <MemoryRouter initialEntries={["/summary", "/log"]} initialIndex={0}>
+      <MemoryRouter initialEntries={["/summary"]} initialIndex={0}>
         <TabsContainer>
           <ContentTab
             id={"forcesExecutionSummaryTab"}
@@ -324,37 +324,40 @@ const Execution: React.FC<IExecution> = (
             tooltip={translate.t("group.forces.tabs.log.tooltip")}
           />
         </TabsContainer>
-        <br />
-        <Route path={"/summary"}>
-          <DataTableNext
-            bordered={true}
-            columnToggle={true}
-            customSearch={{
-              customSearchDefault: searchTextFilter,
-              isCustomSearchEnabled: true,
-              onUpdateCustomSearch: onSearchTextChange,
-              position: "right",
-            }}
-            dataset={filterSearchtextResult}
-            exportCsv={false}
-            headers={headersCompromisedToeTable}
-            id={"tblCompromisedToe"}
-            isFilterEnabled={isFilterEnabled}
-            onUpdateEnableFilter={handleUpdateFilter}
-            pageSize={100}
-            search={false}
-          />
-        </Route>
-        <Route path={"/log"}>
-          <SyntaxHighlighter
-            language={"text"}
-            // eslint-disable-next-line react/forbid-component-props
-            style={monokaiSublime}
-            wrapLines={true}
-          >
-            {execution.log}
-          </SyntaxHighlighter>
-        </Route>
+        <TabContent>
+          <Switch>
+            <Route path={"/summary"}>
+              <DataTableNext
+                bordered={true}
+                columnToggle={true}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                  position: "right",
+                }}
+                dataset={filterSearchtextResult}
+                exportCsv={false}
+                headers={headersCompromisedToeTable}
+                id={"tblCompromisedToe"}
+                isFilterEnabled={isFilterEnabled}
+                onUpdateEnableFilter={handleUpdateFilter}
+                pageSize={100}
+                search={false}
+              />
+            </Route>
+            <Route path={"/log"}>
+              <SyntaxHighlighter
+                language={"text"}
+                // eslint-disable-next-line react/forbid-component-props
+                style={monokaiSublime}
+                wrapLines={true}
+              >
+                {execution.log}
+              </SyntaxHighlighter>
+            </Route>
+          </Switch>
+        </TabContent>
       </MemoryRouter>
     </div>
   );
