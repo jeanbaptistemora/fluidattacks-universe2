@@ -1,9 +1,7 @@
 ---
 slug: faq/
 title: Frequently Asked Questions (FAQ)
-description: Here we present a Frequently Asked Questions (FAQ)
-  section to give you a guide on our products,
-  services, and selection process.
+description: Here we present a Frequently Asked Questions (FAQ) section to give you a guide on our products, services, and selection process.
 keywords: Fluid Attacks, Careers, Selection, Process, FAQ,
   Questions, Services, Products, Pentesting, Ethical Hacking
 phrase: Find everything you need to know

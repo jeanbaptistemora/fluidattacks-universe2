@@ -1,14 +1,10 @@
 ---
 slug: careers/
 title: Careers
-description: Fluid Attacks is always looking for young talent
-  with a passion for programming and Information Technology.
-  Find out here how to become part of our team.
-keywords: Fluid Attacks, Careers, Job, Selection, Process,
-  Recruitment, Programming, Pentesting, Ethical Hacking
+description: Fluid Attacks is always looking for young talent with a passion for programming and Information Technology. Find out here how to become part of our team.
+keywords: Fluid Attacks, Careers, Job, Selection, Process, Recruitment, Programming, Pentesting, Ethical Hacking
 subtitle: Be part of Fluid Attacks
-subtext: Carefully read each section below and make sure you understand it.
-  Do not skip any sections.
+subtext: Carefully read each section below and make sure you understand it. Do not skip any sections.
 banner: careers-main-bg
 ---
 

@@ -3,11 +3,7 @@ slug: about-us/people/aroldan/
 title: Andres Roldan
 category: about-us
 peoplepage: yes
-description: Fluid Attacks is a company focused on ethical hacking
-  and pentesting in applications with over 18 year of experience
-  providing our services to the Colombian market. The purpose
-  of this page is to present a small overview about the experience,
-  education and achievements of Andres Roldan.
+description: Fluid Attacks is a company focused on ethical hacking and pentesting in applications with over 18 year of experience providing our services to the Colombian market. The purpose of this page is to present a small overview about the experience, education and achievements of Andres Roldan.
 keywords: Fluid Attacks, Team, People, Members, Andres, Roldan.
 ---
 
