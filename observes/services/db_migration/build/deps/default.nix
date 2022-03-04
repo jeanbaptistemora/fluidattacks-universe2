@@ -3,8 +3,7 @@ let
   python_version = "python39";
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "main";
-    rev = "bcabbec2b6728f6d24d965849ef63c01143926c2";
+    ref = "refs/tags/v1.5.1";
   };
   purity = import purity_src {
     inherit system legacy_pkgs python_version;
@@ -13,8 +12,7 @@ let
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "main";
-    rev = "cafb83991ac3f23833f0213fd8be615ac1c114ea";
+    ref = "refs/tags/v0.2.2";
   };
   redshift = import redshift_src {
     inherit system legacy_pkgs python_version;

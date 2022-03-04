@@ -1,6 +1,9 @@
 from dataclasses import (
     dataclass,
 )
+from enum import (
+    Enum,
+)
 from fa_purity.cmd import (
     Cmd,
 )
@@ -15,13 +18,15 @@ from fa_purity.pure_iter.factory import (
 )
 from fa_purity.pure_iter.transform import (
     chain,
+    consume,
 )
 import os
+from redshift_client.id_objs import (
+    SchemaId,
+    TableId,
+)
 from redshift_client.schema.client import (
     SchemaClient,
-)
-from redshift_client.schema.core import (
-    SchemaId,
 )
 from redshift_client.sql_client.connection import (
     connect,
@@ -35,9 +40,6 @@ from redshift_client.sql_client.core import (
 from redshift_client.table.client import (
     ManifestId,
     TableClient,
-)
-from redshift_client.table.core import (
-    TableId,
 )
 from typing import (
     Callable,
@@ -54,19 +56,22 @@ set_bugsnag(BugsnagConf("service", __version__, __file__, True))
 LOG = set_main_log(__name__)
 
 
-def creds_from_env() -> Credentials:
-    return Credentials(
-        os.environ["DB_USER"],
-        os.environ["DB_PASSWORD"],
-    )
+class EnvVarPrefix(Enum):
+    SOURCE = "SOURCE"
+    TARGET = "TARGET"
 
 
-def db_from_env() -> DatabaseId:
-    return DatabaseId(
-        os.environ["DB_NAME"],
-        os.environ["DB_HOST"],
-        int(os.environ["DB_PORT"]),
+def from_env(prefix: EnvVarPrefix) -> Tuple[DatabaseId, Credentials]:
+    creds = Credentials(
+        os.environ[f"{prefix.value}_DB_USER"],
+        os.environ[f"{prefix.value}_DB_PASSWORD"],
     )
+    db = DatabaseId(
+        os.environ[f"{prefix.value}_DB_NAME"],
+        os.environ[f"{prefix.value}_DB_HOST"],
+        int(os.environ[f"{prefix.value}_DB_PORT"]),
+    )
+    return (db, creds)
 
 
 @dataclass(frozen=True)
@@ -84,7 +89,9 @@ class Exporter:
     def target_tables(self) -> Cmd[PureIter[TableId]]:
         filter_fx: Callable[
             [SchemaId], bool
-        ] = lambda s: not s.name.startswith("pg_")
+        ] = lambda s: not s.name.startswith("pg_") and not s.name.endswith(
+            "_backup"
+        )
         return (
             self.schema_client_R.all_schemas()
             .bind(
@@ -122,20 +129,19 @@ class Exporter:
 
 def main(
     old: Tuple[DatabaseId, Credentials], new: Tuple[DatabaseId, Credentials]
-) -> Cmd[None]:
+) -> Cmd[Exporter]:
     connection_R = connect(old[0], old[1], True, IsolationLvl.AUTOCOMMIT)
     connection_W = connect(new[0], new[1], False, IsolationLvl.AUTOCOMMIT)
     client_R = connection_R.bind(lambda c: new_client(c, LOG))
     client_W = connection_W.bind(lambda c: new_client(c, LOG))
-    exporter = client_R.bind(
+    return client_R.bind(
         lambda r: client_W.map(
             lambda w: Exporter(
                 TableClient(r),
                 TableClient(w),
                 SchemaClient(r),
-                "s3://the_bucktet",
-                "arn:aws:iam::<aws-account-id>:role/<role-name>",
+                "s3://observes.migration",
+                "arn:aws:iam::205810638802:role/prod_makes",
             )
         )
     )
-    return exporter.bind(lambda e: e.export_to_s3())

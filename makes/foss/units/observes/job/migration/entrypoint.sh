@@ -1,0 +1,32 @@
+# shellcheck shell=bash
+
+export SOURCE_DB_USER
+export SOURCE_DB_PASSWORD
+export SOURCE_DB_NAME
+export SOURCE_DB_HOST
+export SOURCE_DB_PORT
+
+export TARGET_DB_USER
+export TARGET_DB_PASSWORD
+export TARGET_DB_NAME
+export TARGET_DB_HOST
+export TARGET_DB_PORT
+
+aws_login_prod 'observes' \
+  && sops_export_vars 'observes/secrets-prod.yaml' \
+    REDSHIFT_USER \
+    REDSHIFT_PASSWORD \
+    REDSHIFT_DATABASE \
+    REDSHIFT_HOST \
+    REDSHIFT_PORT \
+  && SOURCE_DB_USER="${REDSHIFT_USER}" \
+  && SOURCE_DB_PASSWORD="${REDSHIFT_PASSWORD}" \
+  && SOURCE_DB_NAME="${REDSHIFT_DATABASE}" \
+  && SOURCE_DB_HOST="${REDSHIFT_HOST}" \
+  && SOURCE_DB_PORT="${REDSHIFT_PORT}" \
+  && TARGET_DB_USER="${REDSHIFT_USER}" \
+  && TARGET_DB_PASSWORD="${REDSHIFT_PASSWORD}" \
+  && TARGET_DB_NAME="${REDSHIFT_DATABASE}" \
+  && TARGET_DB_HOST="${REDSHIFT_HOST}" \
+  && TARGET_DB_PORT="${REDSHIFT_PORT}" \
+  && python -m db_migration
