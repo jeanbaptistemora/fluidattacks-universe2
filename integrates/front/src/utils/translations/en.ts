@@ -284,7 +284,7 @@ export const enTranslations: ResourceKey = {
         "Below you'll find the authors that have contributed " +
         "to your group in the selected month, and one example commit",
       tooltip: {
-        text: "Send group invitation to unregistered author",
+        text: "Send group invitation to non-registered author",
       },
     },
     drafts: {
