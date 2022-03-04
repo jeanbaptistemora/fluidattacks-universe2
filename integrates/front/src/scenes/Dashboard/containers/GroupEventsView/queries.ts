@@ -58,4 +58,22 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { ADD_EVENT_MUTATION, GET_EVENTS };
+const REQUEST_VULNS_HOLD_MUTATION: DocumentNode = gql`
+  mutation RequestVulnerabilitiesHold(
+    $eventId: String!
+    $findingId: String!
+    $groupName: String!
+    $vulnerabilities: [String!]!
+  ) {
+    requestVulnerabilitiesHold(
+      eventId: $eventId
+      findingId: $findingId
+      groupName: $groupName
+      vulnerabilities: $vulnerabilities
+    ) {
+      success
+    }
+  }
+`;
+
+export { ADD_EVENT_MUTATION, GET_EVENTS, REQUEST_VULNS_HOLD_MUTATION };

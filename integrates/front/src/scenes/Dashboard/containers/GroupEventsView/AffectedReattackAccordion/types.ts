@@ -1,5 +1,3 @@
-import type { ExecutionResult } from "graphql";
-
 interface IReattackVuln {
   affected?: boolean;
   findingId: string;
@@ -38,13 +36,11 @@ interface IUpdateEventAffectations {
   };
 }
 
-type UpdateEventAffectationsResult = ExecutionResult<IUpdateEventAffectations>;
-
 export {
   IAffectedAccordionProps,
   IReattackVuln,
-  UpdateEventAffectationsResult,
   IFinding,
   IFindingsQuery,
   IAffectedReattackModal,
+  IUpdateEventAffectations,
 };
