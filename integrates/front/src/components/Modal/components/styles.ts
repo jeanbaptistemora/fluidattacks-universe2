@@ -9,6 +9,8 @@ const ModalContainer = styled.div.attrs({
 const ModalDialog = styled.div`
   background-color: #f4f4f6;
   border: 1px solid #b0b0bf;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
   margin: 10% auto;
   padding: 24px;
   width: 70%;

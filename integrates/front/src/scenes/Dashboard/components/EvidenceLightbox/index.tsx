@@ -50,7 +50,7 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
       onMoveNextRequest={moveNext}
       onMovePrevRequest={movePrevious}
       prevSrc={`${location.href}/${evidenceImages[previousIndex].url}`}
-      reactModalStyle={{ overlay: { zIndex: "1200" } }}
+      reactModalStyle={{ overlay: { fontFamily: "Roboto", zIndex: "1200" } }}
     />
   ) : (
     <React.StrictMode />
