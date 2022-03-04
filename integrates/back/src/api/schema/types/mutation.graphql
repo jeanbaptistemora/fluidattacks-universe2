@@ -1020,7 +1020,7 @@ type Mutation {
   updateStakeholderPhoneNumber(
     "Stakeholder's phone number"
     phoneNumber: String!
-    "Verification code"
+    "OTP code to verify the stakeholder"
     verificationCode: String!
   ): SimplePayload!
 
@@ -1146,6 +1146,14 @@ type Mutation {
     groupName: String!
     "Url of the Git repository to check access"
     url: String!
+  ): SimplePayload!
+
+  "Start a verification process for a stakeholder by using OTP"
+  verifyStakeholder(
+    "Stakeholder's new mobile that needs to be verified"
+    newPhoneNumber: String
+    "OTP code to verify the stakeholder when entering a new mobile"
+    verificationCode: String
   ): SimplePayload!
 
   "To verify if the vulnerabilities still remain open or were closed"

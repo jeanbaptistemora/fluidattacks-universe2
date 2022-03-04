@@ -74,7 +74,7 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Update toe lines attacked lines "
+            f"Security: Updated toe lines attacked lines "
             f"for group {group_name}, and root id {root_id} successfully",
         )
     except APP_EXCEPTIONS:

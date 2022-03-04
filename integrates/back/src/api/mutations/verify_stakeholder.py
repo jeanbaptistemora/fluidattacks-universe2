@@ -35,24 +35,25 @@ from users import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    phone_number: str,
-    verification_code: str,
-    **_kwargs: Any,
+    **kwargs: Any,
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
-        await users_domain.update_phone_number(
-            user_email, phone_number, verification_code
+        await users_domain.verify(
+            user_email,
+            kwargs.get("new_phone_number"),
+            kwargs.get("verification_code"),
         )
+
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Updated phone number for {user_email} successfully",
+            f"Security: Verified {user_email} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update phone number for {user_email}",
+            f"Security: Tried to verify {user_email}",
         )
         raise
 
