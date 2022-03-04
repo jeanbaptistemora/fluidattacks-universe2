@@ -10,6 +10,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     constructor_declaration as c_sharp_constructor_declaration,
     element_access_expression as c_sharp_element_access_expression,
     expression_statement as c_sharp_expression_statement,
+    field_declaration as c_sharp_field_declaration,
     if_statement as c_sharp_if_statement,
     invocation_expression as c_sharp_invocation_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
@@ -125,6 +126,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "expression_statement",
         },
         syntax_reader=c_sharp_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "field_declaration",
+        },
+        syntax_reader=c_sharp_field_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
