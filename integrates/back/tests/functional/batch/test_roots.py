@@ -66,16 +66,13 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
-    try:
+    with pytest.raises(RootAlreadyCloning):
         await batch_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             roots=(root_1,),
             group_name="group1",
         )
-        assert False
-    except RootAlreadyCloning:
-        assert True
 
 
 @pytest.mark.asyncio
@@ -88,16 +85,13 @@ async def test_queue_sync_git_roots_no_creds(
         ("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
 
-    try:
+    with pytest.raises(CredentialNotFound):
         await batch_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             roots=(root_1,),
             group_name="group1",
         )
-        assert False
-    except CredentialNotFound:
-        assert True
 
 
 @pytest.mark.asyncio
@@ -110,16 +104,13 @@ async def test_queue_sync_git_no_valid_root(
         ("group1", "63298a73-9dff-46cf-b42d-9b2f01a56690")
     )
 
-    try:
+    with pytest.raises(InactiveRoot):
         await batch_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             roots=(root_1,),
             group_name="group1",
         )
-        assert False
-    except InactiveRoot:
-        assert True
 
 
 @pytest.mark.asyncio
@@ -177,6 +168,72 @@ async def test_queue_sync_git_roots_cloning(
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_with_same_commit_in_s3(mocker) -> None:
+    mocker.patch.object(
+        batch_roots,
+        "ssh_ls_remote_root",
+        return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
+    )
+    mocker.patch.object(
+        batch_roots,
+        "is_in_s3",
+        return_value=("nickname2", True),
+    )
+
+    loaders: Dataloaders = get_new_context()
+    root_1: GitRootItem = await loaders.root.load(
+        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email="",
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert not result
+    loaders.root.clear_all()
+    root: GitRootItem = await loaders.root.load(
+        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    )
+    assert root.cloning.status == GitCloningStatus.FAILED
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_with_same_commit_not_in_s3(mocker) -> None:
+    mocker.patch.object(
+        batch_roots,
+        "ssh_ls_remote_root",
+        return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
+    )
+    mocker.patch.object(
+        batch_roots,
+        "is_in_s3",
+        return_value=("nickname2", False),
+    )
+
+    loaders: Dataloaders = get_new_context()
+    root_1: GitRootItem = await loaders.root.load(
+        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email="",
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert result
+    loaders.root.clear_all()
+    root: GitRootItem = await loaders.root.load(
+        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    )
+    assert root.cloning.status == GitCloningStatus.CLONING
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_already_in_queue_running(
     generic_data: Dict[str, Any], mocker
 ) -> None:
@@ -211,15 +268,12 @@ async def test_queue_sync_git_roots_already_in_queue_running(
 
     loaders: Dataloaders = get_new_context()
 
-    try:
+    with pytest.raises(RootAlreadyCloning):
         await batch_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
         )
-        assert False
-    except RootAlreadyCloning:
-        assert True
 
 
 @pytest.mark.asyncio

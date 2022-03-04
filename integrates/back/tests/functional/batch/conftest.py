@@ -157,6 +157,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     modified_date="2022-02-10T14:58:10+00:00",
                     reason="Failed to clone",
                     status=GitCloningStatus.FAILED,
+                    commit="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
                 ),
                 group_name="group1",
                 id="2159f8cb-3b55-404b-8fc5-627171f424ax",
