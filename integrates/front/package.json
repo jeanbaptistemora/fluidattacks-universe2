@@ -55,6 +55,7 @@
     "react-i18next": "11.14.0",
     "react-idle-timer": "4.6.4",
     "react-image-lightbox": "5.1.4",
+    "react-intl-tel-input": "8.2.0",
     "react-joyride": "2.3.2",
     "react-linkify": "1.0.0-alpha",
     "react-notification-system": "0.4.0",
