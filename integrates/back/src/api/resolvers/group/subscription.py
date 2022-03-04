@@ -19,4 +19,4 @@ async def resolve(
     if isinstance(parent, dict):
         return parent["subscription"]
 
-    return parent.state.type.value
+    return str(parent.state.type.value).lower()

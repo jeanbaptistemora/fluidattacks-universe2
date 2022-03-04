@@ -66,6 +66,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "has_machine": True,
                         "requester": "unknown",
                         "service": "WHITE",
+                        "tier": "squad",
                         "type": "continuous",
                     }
                 ],

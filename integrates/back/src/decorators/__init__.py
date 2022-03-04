@@ -370,7 +370,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
             )
 
             # Within the context of one request we only need to check this once
-            # Future calls to this decorator will be passed trough
+            # Future calls to this decorator will be passed through
             if not store[context_store_key]:
                 enforcer = await authz.get_group_service_attributes_enforcer(
                     group,

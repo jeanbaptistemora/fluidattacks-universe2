@@ -85,6 +85,7 @@ async def get_result(
                 }}
                 language
                 groupContext
+                service
                 __typename
             }}
         }}
