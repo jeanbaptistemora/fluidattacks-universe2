@@ -20,14 +20,16 @@ which we present in this section of our documentation,
 called **Criteria**.
 
 In the first part,
-we exhibit an ever-evolving list of vulnerabilities,
-grouped according to [CAPEC](https://capec.mitre.org/)
-(Common Attack Pattern Enumeration and Classification),
-which supports our security assessments and analysis as a red team.
-In the second part,
-we present a list of security requirements
-that guide and determine the rigor of our tests.
-And finally, we provide a list
+we provide a list
 in which we reference all the international security standards
 that we have filtered and condensed
 to construct our summary of requirements.
+In the second part,
+we present that list of security requirements
+that guide and determine the rigor of our tests.
+And finally,
+we exhibit an ever-evolving list of vulnerabilities,
+grouped according to [CAPEC](https://capec.mitre.org/)
+(Common Attack Pattern Enumeration and Classification),
+which supports our security assessments
+and analysis as a red team.
