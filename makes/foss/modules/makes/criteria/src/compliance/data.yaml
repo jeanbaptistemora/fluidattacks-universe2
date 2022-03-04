@@ -5011,3 +5011,15 @@
       title: Changes in Marco Civil Internet
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
   metadata: {}
+"iec62443":
+  title: ISA/IEC 62443
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "5_16":
+      title: Identity management
+      link: https://webstore.iec.ch/publication/7031&preview=1
+  metadata: {}
