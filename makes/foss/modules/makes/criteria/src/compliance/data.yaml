@@ -5015,7 +5015,15 @@
   title: ISA/IEC 62443
   en:
     description: >
-      ...
+      ISA/IEC 62443 standard defines the
+      necessary elements to establish a
+      cyber security management system
+      (CSMS) for industrial automation
+      and control systems (IACS) and
+      provides guidance on how to develop
+      those elements.
+      The version used in this section
+      is IEC 62443-3-3 edition 1.0 2013-08.
   es:
     description: __empty__
   definitions:
