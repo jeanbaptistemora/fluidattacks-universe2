@@ -6,9 +6,10 @@ import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 
+import { ModalBody, ModalHeader, ModalTitle } from "./components/styles";
+
 import { Modal } from "components/Modal";
 import { ModalBase } from "components/Modal/components/modalBase";
-import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 
 describe("Generic modal", (): void => {
   it("should return a function", (): void => {
