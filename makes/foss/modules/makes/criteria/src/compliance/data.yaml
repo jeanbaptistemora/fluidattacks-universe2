@@ -3,11 +3,10 @@
   en:
     description: >
       The Building Security In Maturity Model
-      is a data-driven model developed
-      through rigorous analysis of software
+      is a data-driven model
+      developed through rigorous analysis of software
       security initiatives (SSIs),
-      also known as application / product
-      security programs.
+      also known as application/product security programs.
       The version used in this section is BSIMM11.
   es:
     description: __empty__
@@ -30,14 +29,13 @@
   en:
     description: >
       Common Attack Pattern Enumeration and Classification
-      helps by providing
-      a comprehensive dictionary
+      helps by providing a comprehensive dictionary
       of known patterns of attack
       employed by adversaries
       to exploit known weaknesses
       in cyber-enabled capabilities.
-      It can be used by
-      analysts, developers, testers, and educators
+      It can be used by analysts,
+      developers, testers and educators
       to advance community understanding
       and enhance defenses.
       The version used in this section is CAPEC List v3.5.
@@ -45,139 +43,139 @@
     description: __empty__
   definitions:
     "1":
-      title: Accessing Functionality Not Properly Constrained by ACLs
+      title: Accessing functionality not properly constrained by ACLs
       link: https://capec.mitre.org/data/definitions/1.html
     "2":
-      title: Inducing Account Lockout
+      title: Inducing account lockout
       link: https://capec.mitre.org/data/definitions/2.html
     "3":
-      title: Using Leading 'Ghost' Character Sequences to Bypass Input Filters
+      title: Using leading 'ghost' character sequences to bypass input filters
       link: https://capec.mitre.org/data/definitions/3.html
     "4":
-      title: Using Alternative IP Address Encodings
+      title: Using alternative IP address encodings
       link: https://capec.mitre.org/data/definitions/4.html
     "6":
-      title: Argument Injection
+      title: Argument injection
       link: https://capec.mitre.org/data/definitions/6.html
     "7":
-      title: Blind SQL Injection
+      title: Blind SQL injection
       link: https://capec.mitre.org/data/definitions/7.html
     "11":
-      title: Cause Web Server Misclassification
+      title: Cause web server misclassification
       link: https://capec.mitre.org/data/definitions/11.html
     "12":
-      title: Choosing Message Identifier
+      title: Choosing message identifier
       link: https://capec.mitre.org/data/definitions/12.html
     "13":
-      title: Subverting Environment Variable Values
+      title: Subverting environment variable values
       link: https://capec.mitre.org/data/definitions/13.html
     "15":
-      title: Command Delimiters
+      title: Command delimiters
       link: https://capec.mitre.org/data/definitions/15.html
     "16":
-      title: Dictionary-based Password Attack
+      title: Dictionary-based password attack
       link: https://capec.mitre.org/data/definitions/16.html
     "17":
-      title: Using Malicious Files
+      title: Using malicious files
       link: https://capec.mitre.org/data/definitions/17.html
     "18":
-      title: XSS Targeting Non-Script Elements
+      title: XSS targeting non-script elements
       link: https://capec.mitre.org/data/definitions/18.html
     "19":
-      title: Embedding Scripts within Scripts
+      title: Embedding scripts within scripts
       link: https://capec.mitre.org/data/definitions/19.html
     "20":
-      title: Encryption Brute Forcing
+      title: Encryption brute forcing
       link: https://capec.mitre.org/data/definitions/20.html
     "21":
-      title: Exploitation of Trusted Identifiers
+      title: Exploitation of trusted identifiers
       link: https://capec.mitre.org/data/definitions/21.html
     "22":
-      title: Exploiting Trust in Client
+      title: Exploiting trust in client
       link: https://capec.mitre.org/data/definitions/22.html
     "23":
-      title: File Content Injection
+      title: File content injection
       link: https://capec.mitre.org/data/definitions/23.html
     "24":
-      title: Filter Failure through Buffer Overflow
+      title: Filter failure through buffer overflow
       link: https://capec.mitre.org/data/definitions/24.html
     "25":
-      title: Forced Deadlock
+      title: Forced deadlock
       link: https://capec.mitre.org/data/definitions/25.html
     "26":
-      title: Leveraging Race Conditions
+      title: Leveraging race conditions
       link: https://capec.mitre.org/data/definitions/26.html
     "27":
-      title: Leveraging Race Conditions via Symbolic Links
+      title: Leveraging race conditions via symbolic links
       link: https://capec.mitre.org/data/definitions/27.html
     "28":
       title: Fuzzing
       link: https://capec.mitre.org/data/definitions/28.html
     "29":
-      title: Leveraging Time-of-Check and Time-of-Use (TOCTOU) Race Conditions
+      title: Leveraging time-of-check and time-of-use (TOCTOU) race conditions
       link: https://capec.mitre.org/data/definitions/29.html
     "30":
-      title: Hijacking a Privileged Thread of Execution
+      title: Hijacking a privileged thread of execution
       link: https://capec.mitre.org/data/definitions/30.html
     "31":
-      title: Accessing/Intercepting/Modifying HTTP Cookies
+      title: Accessing/Intercepting/Modifying HTTP cookies
       link: https://capec.mitre.org/data/definitions/31.html
     "32":
-      title: XSS Through HTTP Query Strings
+      title: XSS through HTTP query strings
       link: https://capec.mitre.org/data/definitions/32.html
     "33":
-      title: HTTP Request Smuggling
+      title: HTTP request smuggling
       link: https://capec.mitre.org/data/definitions/33.html
     "34":
-      title: HTTP Response Splitting
+      title: HTTP response splitting
       link: https://capec.mitre.org/data/definitions/34.html
     "35":
-      title: Leverage Executable Code in Non-Executable Files
+      title: Leverage executable code in non-executable files
       link: https://capec.mitre.org/data/definitions/35.html
     "36":
-      title: Using Unpublished Interfaces
+      title: Using unpublished interfaces
       link: https://capec.mitre.org/data/definitions/36.html
     "38":
-      title: Leveraging/Manipulating Configuration File Search Paths
+      title: Leveraging/Manipulating configuration file search paths
       link: https://capec.mitre.org/data/definitions/38.html
     "39":
-      title: Manipulating Opaque Client-based Data Tokens
+      title: Manipulating opaque client-based data tokens
       link: https://capec.mitre.org/data/definitions/39.html
     "41":
-      title: Using Meta-characters in E-mail Headers to Inject Malicious Payloads
+      title: Using meta-characters in e-mail headers to inject malicious payloads
       link: https://capec.mitre.org/data/definitions/41.html
     "42":
-      title: MIME Conversion
+      title: MIME conversion
       link: https://capec.mitre.org/data/definitions/42.html
     "43":
-      title: Exploiting Multiple Input Interpretation Layers
+      title: Exploiting multiple input interpretation layers
       link: https://capec.mitre.org/data/definitions/43.html
     "48":
-      title: Passing Local Filenames to Functions That Expect a URL
+      title: Passing local filenames to functions that expect a URL
       link: https://capec.mitre.org/data/definitions/48.html
     "49":
-      title: Password Brute Forcing
+      title: Password brute forcing
       link: https://capec.mitre.org/data/definitions/49.html
     "60":
-      title: Reusing Session IDs (aka Session Replay)
+      title: Reusing session IDs (aka session replay)
       link: https://capec.mitre.org/data/definitions/60.html
     "70":
-      title: Try Common Usernames and Passwords
+      title: Try common usernames and passwords
       link: https://capec.mitre.org/data/definitions/70.html
     "74":
-      title: Manipulating State
+      title: Manipulating state
       link: https://capec.mitre.org/data/definitions/74.html
     "94":
-      title: Adversary in the Middle (AiTM)
+      title: Adversary in the middle (AiTM)
       link: https://capec.mitre.org/data/definitions/94.html
     "113":
-      title: Interface Manipulation
+      title: Interface manipulation
       link: https://capec.mitre.org/data/definitions/113.html
     "114":
-      title: Authentication Abuse
+      title: Authentication abuse
       link: https://capec.mitre.org/data/definitions/114.html
     "115":
-      title: Authentication Bypass
+      title: Authentication bypass
       link: https://capec.mitre.org/data/definitions/115.html
     "116":
       title: Excavation
@@ -186,124 +184,124 @@
       title: Interception
       link: https://capec.mitre.org/data/definitions/117.html
     "122":
-      title: Privilege Abuse
+      title: Privilege abuse
       link: https://capec.mitre.org/data/definitions/122.html
     "123":
-      title: Buffer Manipulation
+      title: Buffer manipulation
       link: https://capec.mitre.org/data/definitions/123.html
     "124":
-      title: Shared Resource Manipulation
+      title: Shared resource manipulation
       link: https://capec.mitre.org/data/definitions/124.html
     "125":
       title: Flooding
       link: https://capec.mitre.org/data/definitions/125.html
     "129":
-      title: Pointer Manipulation
+      title: Pointer manipulation
       link: https://capec.mitre.org/data/definitions/129.html
     "130":
-      title: Excessive Allocation
+      title: Excessive allocation
       link: https://capec.mitre.org/data/definitions/130.html
     "131":
-      title: Resource Leak Exposure
+      title: Resource leak exposure
       link: https://capec.mitre.org/data/definitions/131.html
     "137":
-      title: Parameter Injection
+      title: Parameter injection
       link: https://capec.mitre.org/data/definitions/137.html
     "148":
-      title: Content Spoofing
+      title: Content spoofing
       link: https://capec.mitre.org/data/definitions/148.html
     "151":
-      title: Identity Spoofing
+      title: Identity spoofing
       link: https://capec.mitre.org/data/definitions/151.html
     "153":
-      title: Input Data Manipulation
+      title: Input data manipulation
       link: https://capec.mitre.org/data/definitions/153.html
     "154":
-      title: Resource Location Spoofing
+      title: Resource location spoofing
       link: https://capec.mitre.org/data/definitions/154.html
     "155":
-      title: Screen Temporary Files for Sensitive Information
+      title: Screen temporary files for sensitive information
       link: https://capec.mitre.org/data/definitions/155.html
     "161":
-      title: Infrastructure Manipulation
+      title: Infrastructure manipulation
       link: https://capec.mitre.org/data/definitions/161.html
     "165":
-      title: File Manipulation
+      title: File manipulation
       link: https://capec.mitre.org/data/definitions/165.html
     "169":
       title: Footprinting
       link: https://capec.mitre.org/data/definitions/169.html
     "173":
-      title: Action Spoofing
+      title: Action spoofing
       link: https://capec.mitre.org/data/definitions/173.html
     "175":
-      title: Code Inclusion
+      title: Code inclusion
       link: https://capec.mitre.org/data/definitions/175.html
     "176":
-      title: Configuration/Environment Manipulation
+      title: Configuration/Environment manipulation
       link: https://capec.mitre.org/data/definitions/176.html
     "188":
-      title: Reverse Engineering
+      title: Reverse engineering
       link: https://capec.mitre.org/data/definitions/188.html
     "212":
-      title: Functionality Misuse
+      title: Functionality misuse
       link: https://capec.mitre.org/data/definitions/212.html
     "216":
-      title: Communication Channel Manipulation
+      title: Communication channel manipulation
       link: https://capec.mitre.org/data/definitions/216.html
     "224":
       title: Fingerprinting
       link: https://capec.mitre.org/data/definitions/224.html
     "227":
-      title: Sustained Client Engagement
+      title: Sustained client engagement
       link: https://capec.mitre.org/data/definitions/227.html
     "233":
-      title: Privilege Escalation
+      title: Privilege escalation
       link: https://capec.mitre.org/data/definitions/233.html
     "240":
-      title: Resource Injection
+      title: Resource injection
       link: https://capec.mitre.org/data/definitions/240.html
     "242":
-      title: Code Injection
+      title: Code injection
       link: https://capec.mitre.org/data/definitions/242.html
     "248":
-      title: Command Injection
+      title: Command injection
       link: https://capec.mitre.org/data/definitions/248.html
     "272":
-      title: Protocol Manipulation
+      title: Protocol manipulation
       link: https://capec.mitre.org/data/definitions/272.html
     "438":
-      title: Modification During Manufacture
+      title: Modification during manufacture
       link: https://capec.mitre.org/data/definitions/438.html
     "442":
-      title: Infected Software
+      title: Infected software
       link: https://capec.mitre.org/data/definitions/442.html
     "475":
-      title: Signature Spoofing by Improper Validation
+      title: Signature spoofing by improper validation
       link: https://capec.mitre.org/data/definitions/475.html
     "549":
-      title: Local Execution of Code
+      title: Local execution of code
       link: https://capec.mitre.org/data/definitions/549.html
     "554":
-      title: Functionality Bypass
+      title: Functionality bypass
       link: https://capec.mitre.org/data/definitions/554.html
     "560":
-      title: Use of Known Domain Credentials
+      title: Use of known domain credentials
       link: https://capec.mitre.org/data/definitions/560.html
     "586":
-      title: Object Injection
+      title: Object injection
       link: https://capec.mitre.org/data/definitions/586.html
     "594":
-      title: Traffic Injection
+      title: Traffic injection
       link: https://capec.mitre.org/data/definitions/594.html
     "613":
-      title: WiFi SSID Tracking
+      title: WiFi SSID tracking
       link: https://capec.mitre.org/data/definitions/613.html
     "619":
-      title: Signal Strength Tracking
+      title: Signal strength tracking
       link: https://capec.mitre.org/data/definitions/619.html
     "654":
-      title: Signal Strength Tracking
+      title: Signal strength tracking
       link: https://capec.mitre.org/data/definitions/654.html
   metadata: {}
 "cis":
@@ -3011,28 +3009,28 @@
     description: __empty__
   definitions:
     "APP-01":
-      title: ABAP Command Injection
+      title: ABAP command injection
       link: https://bizec.org
     "APP-02":
-      title: OS Command Injection
+      title: OS command injection
       link: https://bizec.org
     "APP-03":
-      title: Native SQL Injection
+      title: Native SQL injection
       link: https://bizec.org
     "APP-04":
-      title: Improper Authorization (Missing, Broken, Propietary, Generic)
+      title: Improper authorization (missing, broken, propietary, generic)
       link: https://bizec.org
     "APP-05":
-      title: Directory Traversal
+      title: Directory traversal
       link: https://bizec.org
     "APP-06":
-      title: Direct Database Modifications
+      title: Direct database modifications
       link: https://bizec.org
     "APP-07":
-      title: Cross-Client Database Access
+      title: Cross-client database access
       link: https://bizec.org
     "APP-08":
-      title: Open SQL Injection
+      title: Open SQL injection
       link: https://bizec.org
   metadata: {}
 "ccpa":
@@ -3051,25 +3049,25 @@
     description: __empty__
   definitions:
     "1798_100":
-      title: General Duties of Businesses that Collect Personal Information
+      title: General duties of businesses that collect personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_105":
-      title: Consumer's Right to Delete Personal Information
+      title: Consumer's right to delete personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_106":
-      title: Consumer's Right to Correct Inaccurate Personal Information
+      title: Consumer's right to correct inaccurate personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_110":
-      title: Consumer's Right to Know What Personal Information is Being Collected. Right to Access Personal Information
+      title: Consumer's right to know what personal information is being collected. Right to access personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_115":
-      title: Consumer's Right to Know What Personal Information is Sold or Shared and to Whom
+      title: Consumer's right to know what personal information is sold or shared and to whom
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_120":
-      title: Consumer's Right to Opt Out of Sale or Sharing of Personal Information
+      title: Consumer's right to opt out of sale or sharing of personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
     "1798_121":
-      title: Consumer's Right to Limit Use and Disclosure of Sensitive Personal Information
+      title: Consumer's right to limit use and disclosure of sensitive personal information
       link: https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5
   metadata: {}
 "cpra":
