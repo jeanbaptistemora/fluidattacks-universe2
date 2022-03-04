@@ -36,6 +36,7 @@ const addGivenHeaders = (
 
     return {
       align: key.align,
+      csvExport: key.csvExport,
       dataField: key.dataField,
       filter: isFilterEnabled ? key.filter : undefined,
       formatExtraData: key,
