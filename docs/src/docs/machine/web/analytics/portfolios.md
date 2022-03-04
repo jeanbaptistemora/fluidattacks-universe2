@@ -24,7 +24,7 @@ categorized by group.
 
 ## Remediation Rate Benchmarking
 
-![Vulns Remediated And Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
+![Remediated Rate Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1646411325/docs/web/analytics/portfolios/remediation_rate_benchmarking.png)
 
 This section shows the percentages
 of closed, accepted and open
