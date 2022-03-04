@@ -1,11 +1,7 @@
 ---
 slug: privacy/
 title: Privacy Policy
-description: This Privacy Policy describes the manner in which Fluid Attacks
-  collects protects and uses information from users of our websites,
-  event participants, prospective customers or job candidates,
-  situations in which Fluid Attacks is a data controller,
-  and from the use of our products or services.
+description: This Privacy Policy describes the manner in which Fluid Attacks collects protects and uses information from users of our websites, event participants, prospective customers or job candidates, situations in which Fluid Attacks is a data controller, and from the use of our products or services.
 keywords: Fluid Attacks, Privacy, Policy, Information, Website, Right.
 ---
 

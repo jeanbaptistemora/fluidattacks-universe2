@@ -1,11 +1,8 @@
 ---
 slug: topics/
 title: Topics
-description: Fluid Attacks' website is a place where you can share your
-  IT opinions. If you want to contribute to our blog,
-  look at our topics of interest here.
-keywords: Fluid Attacks, Website, Topics, Blog, Opinion,
-  Security, Ethical Hacking, Pentesting
+description: Fluid Attacks' website is a place where you can share your IT opinions. If you want to contribute to our blog, look at our topics of interest here.
+keywords: Fluid Attacks, Website, Topics, Blog, Opinion, Security, Ethical Hacking, Pentesting
 category: blog
 ---
 
