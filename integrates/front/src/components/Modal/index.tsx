@@ -9,7 +9,6 @@ const Modal: React.FC<IModalProps> = ({
   headerTitle,
   onEsc,
   open,
-  size,
 }: IModalProps): JSX.Element | null => {
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
@@ -26,7 +25,7 @@ const Modal: React.FC<IModalProps> = ({
 
   return open
     ? createPortal(
-        <ModalBase headerTitle={headerTitle} open={open} size={size}>
+        <ModalBase headerTitle={headerTitle} open={open}>
           {children}
         </ModalBase>,
         document.body

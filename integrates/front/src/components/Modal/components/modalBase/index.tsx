@@ -14,13 +14,12 @@ interface IModalProps {
   headerTitle: React.ReactNode | string;
   onEsc?: () => void;
   open: boolean;
-  size?: string;
 }
 
 const ModalBase: React.FC<IModalProps> = (
   props: Readonly<IModalProps>
 ): JSX.Element => {
-  const { children, headerTitle, size = "" } = props;
+  const { children, headerTitle } = props;
 
   useEffect((): (() => void) => {
     document.body.style.setProperty("overflow", "hidden");
@@ -32,8 +31,8 @@ const ModalBase: React.FC<IModalProps> = (
 
   return (
     <ModalContainer>
-      <ModalDialog className={size}>
-        <ModalHeader className={`${size}-title`}>
+      <ModalDialog>
+        <ModalHeader>
           <ModalTitle>{headerTitle}</ModalTitle>
         </ModalHeader>
         <ModalBody>{children}</ModalBody>

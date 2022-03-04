@@ -428,7 +428,6 @@ export const Graphic: React.FC<IGraphicProps> = (
         }
         onEsc={frameOnFullScreenExit}
         open={fullScreen}
-        size={"graphicModal"}
       >
         <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
           <iframe

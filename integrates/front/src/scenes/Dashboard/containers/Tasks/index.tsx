@@ -706,7 +706,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
                   key={vulnGroupName}
                   onEsc={onClose}
                   open={iscurrentOpen[index]}
-                  size={"largeModal"}
                 >
                   <UpdateDescription
                     changePermissions={changePermissions}

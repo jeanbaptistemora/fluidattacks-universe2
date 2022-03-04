@@ -246,7 +246,6 @@ const MachineView: React.FC = (): JSX.Element => {
             headerTitle={"Queue Job"}
             onEsc={closeQueueModal}
             open={isQueueModalOpen}
-            size={"mediumModal"}
           >
             <Queue
               onClose={closeQueueModal}
@@ -277,7 +276,6 @@ const MachineView: React.FC = (): JSX.Element => {
             )}
             onEsc={closeSeeExecutionDetailsModal}
             open={isExecutionDetailsModalOpen}
-            size={"largeModal"}
           >
             <Execution
               createdAt={currentRow.createdAt}

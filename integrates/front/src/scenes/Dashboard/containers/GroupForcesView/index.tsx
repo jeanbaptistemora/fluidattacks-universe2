@@ -460,7 +460,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         headerTitle={translate.t("group.forces.executionDetailsModal.title")}
         onEsc={closeSeeExecutionDetailsModal}
         open={isExecutionDetailsModalOpen}
-        size={"largeModal"}
       >
         <Execution
           date={currentRow.date}

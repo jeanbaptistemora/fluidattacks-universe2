@@ -28,7 +28,7 @@ describe("Generic modal", (): void => {
 
     expect(
       wrapper.contains(
-        <ModalHeader className={"-title"}>
+        <ModalHeader>
           <ModalTitle>{"Unit test title"}</ModalTitle>
         </ModalHeader>
       )

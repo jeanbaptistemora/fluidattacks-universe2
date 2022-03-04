@@ -119,11 +119,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
 
   return (
     <React.StrictMode>
-      <Modal
-        headerTitle={t("group.toe.lines.editModal.title")}
-        open={true}
-        size={"largeModal"}
-      >
+      <Modal headerTitle={t("group.toe.lines.editModal.title")} open={true}>
         <Formik
           initialValues={{
             attackedAt: moment(),
