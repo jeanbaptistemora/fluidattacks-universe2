@@ -33,28 +33,23 @@ async def get_job_payloads(
     queues_jobs = await batch_dal.list_queues_jobs(
         queues=queues, statuses=statuses
     )
-    loaded_jobs = await batch_dal.decribe_jobs(
-        set(queues_jobs.id for queues_jobs in queues_jobs)
+    loaded_jobs = await batch_dal.describe_jobs(
+        *[queues_jobs.id for queues_jobs in queues_jobs]
     )
     action_dynamo_pk_position: int = 4
-    filtered_loaded_jobs = [
-        job_description
-        for job_description in loaded_jobs
-        if len(job_description.container.command) > action_dynamo_pk_position
+    loaded_jobs_pk = [
+        job["container"]["command"][action_dynamo_pk_position]
+        for job in loaded_jobs
+        if len(job["container"]["command"]) > action_dynamo_pk_position
     ]
     dynamo_jobs = await collect(
         tuple(
-            batch_dal.get_action(
-                action_dynamo_pk=job_description.container.command[
-                    action_dynamo_pk_position
-                ]
-            )
-            for job_description in filtered_loaded_jobs
+            batch_dal.get_action(action_dynamo_pk=pk) for pk in loaded_jobs_pk
         ),
         workers=32,
     )
     return {
         format_job_payload(dynamo_job)
-        for _, dynamo_job in zip(filtered_loaded_jobs, dynamo_jobs)
+        for _, dynamo_job in zip(loaded_jobs_pk, dynamo_jobs)
         if dynamo_job
     }

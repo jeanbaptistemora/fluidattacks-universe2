@@ -14,8 +14,6 @@ from batch.types import (
     AttributesNoOverridden,
     BatchProcessing,
     Job,
-    JobContainer,
-    JobDescription,
     PutActionResult,
 )
 import boto3
@@ -28,8 +26,6 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
-    FI_AWS_DYNAMODB_ACCESS_KEY,
-    FI_AWS_DYNAMODB_SECRET_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
     PRODUCT_API_TOKEN,
@@ -54,9 +50,6 @@ import logging
 import logging.config
 import math
 import more_itertools
-from more_itertools import (
-    chunked,
-)
 from more_itertools.recipes import (
     flatten,
 )
@@ -76,7 +69,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Set,
     Tuple,
     Union,
 )
@@ -88,6 +80,12 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger("console")
+OPTIONS = dict(
+    service_name="batch",
+    aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+    aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    aws_session_token=FI_AWS_SESSION_TOKEN,
+)
 TABLE_NAME: str = "fi_async_processing"
 
 
@@ -285,13 +283,10 @@ async def list_jobs_by_status(queue: str, status: str) -> List[Dict[str, Any]]:
 async def list_log_streams(
     group: str, *job_ids: str
 ) -> List[Dict[str, Union[str, int]]]:
-    resource_options = dict(
-        service_name="logs",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
+    options = OPTIONS.copy()
+    options.update({"service_name": "logs"})
 
-    async with aioboto3.Session().client(**resource_options) as cloudwatch:
+    async with aioboto3.Session().client(**options) as cloudwatch:
 
         async def _request(
             _job_id: Optional[str] = None, next_token: Optional[str] = None
@@ -319,15 +314,10 @@ async def list_log_streams(
 
 
 async def describe_jobs(*job_ids: str) -> Tuple[Dict[str, Any], ...]:
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
     if not job_ids:
         return ()
 
-    async with aioboto3.Session().client(**resource_options) as batch:
+    async with aioboto3.Session().client(**OPTIONS) as batch:
         return tuple(
             flatten(
                 response["jobs"]
@@ -382,40 +372,6 @@ async def _list_queue_jobs(
         next_token = await _request(next_token)
 
     return results
-
-
-async def decribe_jobs(
-    jobs_ids: Set[str],
-) -> Tuple[JobDescription, ...]:
-    if FI_ENVIRONMENT == "development":
-        return tuple()
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-        aws_session_token=FI_AWS_SESSION_TOKEN,
-    )
-    async with aioboto3.Session().client(**resource_options) as batch:
-        responses = await collect(
-            tuple(
-                batch.describe_jobs(jobs=jobs_ids_chunk)
-                for jobs_ids_chunk in chunked(jobs_ids, 100)
-            ),
-        )
-        response_jobs = chain.from_iterable(
-            tuple(response.get("jobs", []) for response in responses)
-        )
-        job_descriptions = tuple(
-            JobDescription(
-                id=job["jobId"],
-                name=job["jobName"],
-                status=JobStatus[job["status"]],
-                container=JobContainer(command=job["container"]["command"]),
-            )
-            for job in response_jobs
-        )
-
-    return job_descriptions
 
 
 async def delete_action(
@@ -652,13 +608,7 @@ async def put_action_to_batch(
     if FI_ENVIRONMENT == "development":
         return None
     try:
-        resource_options = dict(
-            service_name="batch",
-            aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-            aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-            aws_session_token=FI_AWS_SESSION_TOKEN,
-        )
-        async with aioboto3.Session().client(**resource_options) as batch:
+        async with aioboto3.Session().client(**OPTIONS) as batch:
             return (
                 await batch.submit_job(
                     jobName=f"{product_name}-{action_name}-{entity}",
