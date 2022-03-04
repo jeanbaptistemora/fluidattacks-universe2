@@ -202,9 +202,7 @@ describe("EventsView", (): void => {
     const evidenceFiles = (): ReactWrapper =>
       wrapper.find("span").find(".fa-magnifying-glass");
 
-    expect(wrapper.containsMatchingElement(<h4>{"group.events.new"}</h4>)).toBe(
-      true
-    );
+    expect(wrapper.text()).toContain("group.events.new");
     expect(dateField()).toHaveLength(1);
     expect(typeField()).toHaveLength(1);
     expect(contextField()).toHaveLength(1);

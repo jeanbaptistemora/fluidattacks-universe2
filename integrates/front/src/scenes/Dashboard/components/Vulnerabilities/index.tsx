@@ -299,19 +299,21 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         onRemoveVulnRes={onDeleteVulnResult}
         open={isDeleteVulnOpen}
       />
-      <AdditionalInformation
-        canDisplayHacker={canDisplayHacker}
-        canRemoveVulnsTags={canRemoveVulnsTags}
-        canRequestZeroRiskVuln={canRequestZeroRiskVuln}
-        canUpdateVulnsTreatment={canUpdateVulnsTreatment}
-        clearSelectedVulns={clearSelectedVulns}
-        closeAdditionalInfoModal={closeAdditionalInfoModal}
-        currentRow={currentRow}
-        findingId={findingId}
-        groupName={groupName}
-        isAdditionalInfoOpen={isAdditionalInfoOpen}
-        isFindingReleased={isFindingReleased}
-      />
+      {currentRow ? (
+        <AdditionalInformation
+          canDisplayHacker={canDisplayHacker}
+          canRemoveVulnsTags={canRemoveVulnsTags}
+          canRequestZeroRiskVuln={canRequestZeroRiskVuln}
+          canUpdateVulnsTreatment={canUpdateVulnsTreatment}
+          clearSelectedVulns={clearSelectedVulns}
+          closeAdditionalInfoModal={closeAdditionalInfoModal}
+          currentRow={currentRow}
+          findingId={findingId}
+          groupName={groupName}
+          isAdditionalInfoOpen={isAdditionalInfoOpen}
+          isFindingReleased={isFindingReleased}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };

@@ -15,7 +15,6 @@ import {
   LabelField,
   OuterRow,
   Row,
-  Status,
 } from "./styles";
 
 import { Button } from "components/Button";
@@ -96,13 +95,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   return (
     <React.StrictMode>
       <div className={"pb1 pt2 w-100"}>
-        <Col100>
-          <Status>
-            <b>
-              <PointStatus status={_.capitalize(vulnerability.currentState)} />
-            </b>
-          </Status>
-        </Col100>
         <Col100>
           <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
         </Col100>

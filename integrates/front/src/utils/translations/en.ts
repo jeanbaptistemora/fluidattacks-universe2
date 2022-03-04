@@ -2711,7 +2711,7 @@ export const enTranslations: ResourceKey = {
         },
         where: "Where",
       },
-      vulnerabilityInfo: "Vulnerability",
+      vulnerabilityInfo: "vulnerability",
     },
     usersTable: {
       firstlogin: "First login",

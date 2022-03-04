@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
+import { ModalTitle } from "components/Modal/components/styles";
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
   GET_FORCES_TOKEN,
@@ -254,7 +255,7 @@ describe("Update access token modal", (): void => {
       wrapper.update();
     });
 
-    const componentTitle: ReactWrapper = wrapper.find("h4");
+    const componentTitle: ReactWrapper = wrapper.find(ModalTitle);
 
     const revealButton: ReactWrapper = wrapper
       .find("button")

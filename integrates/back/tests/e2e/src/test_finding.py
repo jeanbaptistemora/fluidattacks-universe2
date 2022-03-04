@@ -374,7 +374,7 @@ def test_finding_vulnerabilities(
     table_row.click()
     assert utils.wait_for_text(
         driver,
-        "Vulnerability",
+        "vulnerability",
         timeout,
     )
     assert utils.wait_for_text(

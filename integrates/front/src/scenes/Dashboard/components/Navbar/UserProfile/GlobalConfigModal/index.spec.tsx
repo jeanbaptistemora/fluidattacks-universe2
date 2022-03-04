@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
+import { ModalTitle } from "components/Modal/components/styles";
 import { GlobalConfigModal } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -101,7 +102,7 @@ describe("Global configuration modal", (): void => {
       wrapper.update();
     });
 
-    const componentTitle: ReactWrapper = wrapper.find("h4");
+    const componentTitle: ReactWrapper = wrapper.find(ModalTitle);
     const confirmButton: ReactWrapper = wrapper.find("#config-confirm").first();
     const closeButton: ReactWrapper = wrapper.find("#config-close").first();
 

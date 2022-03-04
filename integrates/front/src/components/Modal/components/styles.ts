@@ -15,16 +15,14 @@ const ModalDialog = styled.div`
 `;
 
 const ModalHeader = styled.div.attrs<{ className: string }>({
-  className: "pv3 ph2",
+  className: "flex items-center justify-between mb3",
 })``;
 
-const ModalTitle = styled.h4.attrs({
-  className: "color-inherit lh-solid ma0",
+const ModalTitle = styled.p.attrs({
+  className: "ma0 pa0",
 })``;
 
-const ModalBody = styled.div.attrs({
-  className: "relative pa4",
-})``;
+const ModalBody = styled.div``;
 
 const ModalFooter = styled.div.attrs({
   className: "modalf-bt pa1-5 tr",
