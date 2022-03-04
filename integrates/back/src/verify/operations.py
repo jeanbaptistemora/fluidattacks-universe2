@@ -5,6 +5,7 @@ from aioextensions import (
     in_thread,
 )
 from context import (
+    FI_ENVIRONMENT,
     FI_TWILIO_ACCOUNT_SID,
     FI_TWILIO_AUTH_TOKEN,
     FI_TWILIO_VERIFY_SERVICE_SID,
@@ -32,6 +33,8 @@ client = Client(FI_TWILIO_ACCOUNT_SID, FI_TWILIO_AUTH_TOKEN)
 async def start_verification(
     *, phone_number: str, channel: Channel = Channel.SMS
 ) -> None:
+    if FI_ENVIRONMENT == "development":
+        return None
     try:
         await in_thread(
             client.verify.services(
@@ -48,6 +51,8 @@ async def start_verification(
 async def check_verification(
     *, phone_number: Optional[str], code: str
 ) -> None:
+    if FI_ENVIRONMENT == "development":
+        return None
     if not phone_number:
         raise CouldNotVerifyStakeholder()
 
@@ -67,6 +72,8 @@ async def check_verification(
 
 
 async def validate_mobile(phone_number: str) -> None:
+    if FI_ENVIRONMENT == "development":
+        return None
     try:
         phone_info = await in_thread(
             client.lookups.v1.phone_numbers(phone_number=phone_number).fetch,
