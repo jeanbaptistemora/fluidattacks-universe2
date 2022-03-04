@@ -279,8 +279,12 @@ async def queue_job_new(
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
     )
 
-    current_executions = await get_actions_by_name(
-        action_name="execute-machine", entity=group_name
+    current_executions = tuple(
+        execution
+        for execution in await get_actions_by_name(
+            action_name="execute-machine", entity=group_name
+        )
+        if execution.queue == queue.value
     )
     current_executions = tuple(
         sorted(current_executions, key=lambda x: int(x.time))
