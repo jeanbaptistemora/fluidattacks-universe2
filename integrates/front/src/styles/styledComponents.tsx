@@ -339,34 +339,6 @@ const MenuItem: StyledComponent<
   `,
 })``;
 
-const ModalBody: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "relative pa4",
-})``;
-
-const ModalFooter: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "modalf-bt pa1-5 tr",
-})``;
-
-const ModalHeader: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "bg-orgred modalh-bb pv3 ph2 white",
-})``;
-
-const ModalTitle: StyledComponent<
-  "h4",
-  Record<string, unknown>
-> = styled.h4.attrs({
-  className: "color-inherit fw3 f3 lh-solid ma0 tc",
-})``;
-
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
     className: "b--mid-light-gray ba br2 mb4",
@@ -699,10 +671,6 @@ export {
   LastGroupSetting,
   MenuItem,
   Meter,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
   Panel,
   PanelBody,
   PanelCollapse,

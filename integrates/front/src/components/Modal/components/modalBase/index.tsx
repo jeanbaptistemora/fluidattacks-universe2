@@ -31,18 +31,14 @@ const ModalBase: React.FC<IModalProps> = (
   }, []);
 
   return (
-    <div>
-      <ModalContainer>
-        <div>
-          <ModalDialog className={size}>
-            <ModalHeader className={`${size}-title`}>
-              <ModalTitle>{headerTitle}</ModalTitle>
-            </ModalHeader>
-            <ModalBody>{children}</ModalBody>
-          </ModalDialog>
-        </div>
-      </ModalContainer>
-    </div>
+    <ModalContainer>
+      <ModalDialog className={size}>
+        <ModalHeader className={`${size}-title`}>
+          <ModalTitle>{headerTitle}</ModalTitle>
+        </ModalHeader>
+        <ModalBody>{children}</ModalBody>
+      </ModalDialog>
+    </ModalContainer>
   );
 };
 
