@@ -21,6 +21,7 @@ from custom_exceptions import (
 from custom_types import (
     Comment as CommentType,
     Event as EventType,
+    SimpleEventPayload,
 )
 from datetime import (
     datetime,
@@ -135,7 +136,7 @@ async def add_event(  # pylint: disable=too-many-locals
     file: Optional[UploadFile] = None,
     image: Optional[UploadFile] = None,
     **kwargs: Any,
-) -> bool:
+) -> SimpleEventPayload:
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
 
@@ -201,7 +202,7 @@ async def add_event(  # pylint: disable=too-many-locals
             await update_evidence(event_id, "evidence_file", file, event_date)
         if image:
             await update_evidence(event_id, "evidence", image, event_date)
-    return success
+    return SimpleEventPayload(event_id, success)
 
 
 async def get_event(event_id: str) -> EventType:

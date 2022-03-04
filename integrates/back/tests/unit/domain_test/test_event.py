@@ -15,6 +15,9 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
+from custom_types import (
+    SimpleEventPayload,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -60,12 +63,13 @@ async def test_add_event() -> None:
         "event_type": "CLIENT_DETECTS_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
-    assert await events_domain.add_event(
+    event_payload = await events_domain.add_event(
         get_new_context(),
         hacker_email="unittesting@fluidattacks.com",
         group_name="unittesting",
         **attrs,
     )
+    assert event_payload.success
 
 
 @pytest.mark.changes_db
@@ -100,9 +104,8 @@ async def test_add_event_file_image() -> None:
                 image=uploaded_image,
                 **attrs,
             )
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
+    assert isinstance(test_data, SimpleEventPayload)
+    assert test_data.success
 
 
 @pytest.mark.changes_db

@@ -140,6 +140,11 @@ class AddRootPayload(NamedTuple):
     success: bool
 
 
+class SimpleEventPayload(NamedTuple):
+    event_id: str
+    success: bool
+
+
 ApproveDraftPayload = NamedTuple(
     "ApproveDraftPayload",
     [
