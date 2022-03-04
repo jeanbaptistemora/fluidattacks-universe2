@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     prefix_expression as c_sharp_prefix_expression,
+    property_declaration as c_sharp_property_declaration,
     return_statement as c_sharp_return_statement,
     this_expression as c_sharp_this_expression,
     throw_statement as c_sharp_throw_statement,
@@ -210,6 +211,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "prefix_unary_expression",
         },
         syntax_reader=c_sharp_prefix_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "property_declaration",
+        },
+        syntax_reader=c_sharp_property_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
