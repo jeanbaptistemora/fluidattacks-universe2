@@ -32,9 +32,7 @@ from .views import (
     evidence,
 )
 from aioextensions import (
-    in_process,
     in_thread,
-    run,
     schedule,
 )
 from api import (
@@ -321,7 +319,7 @@ async def queue_daemon() -> None:
     while True:
         func = await queue.get_task()
         if asyncio.iscoroutinefunction(func):
-            await run(func)
+            await func()
         else:
             await in_thread(func)
 
