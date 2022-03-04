@@ -5,6 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    EventAlreadyClosed,
     EventNotFound,
 )
 from custom_types import (
@@ -65,6 +66,8 @@ async def mutate(
         event = await event_loader.load(event_id)
         if "group_name" not in event or group_name != event["group_name"]:
             raise EventNotFound()
+        if event["event_status"].upper() == "SOLVED":
+            raise EventAlreadyClosed()
 
         await events_domain.request_vulnerabilities_hold(
             loaders=info.context.loaders,

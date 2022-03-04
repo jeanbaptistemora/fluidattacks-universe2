@@ -140,7 +140,7 @@ class AddRootPayload(NamedTuple):
     success: bool
 
 
-class SimpleEventPayload(NamedTuple):
+class AddEventPayload(NamedTuple):
     event_id: str
     success: bool
 

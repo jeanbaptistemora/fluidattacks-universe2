@@ -16,7 +16,7 @@ from custom_exceptions import (
     InvalidFileType,
 )
 from custom_types import (
-    SimpleEventPayload,
+    AddEventPayload,
 )
 from dataloaders import (
     get_new_context,
@@ -104,7 +104,7 @@ async def test_add_event_file_image() -> None:
                 image=uploaded_image,
                 **attrs,
             )
-    assert isinstance(test_data, SimpleEventPayload)
+    assert isinstance(test_data, AddEventPayload)
     assert test_data.success
 
 

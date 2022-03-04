@@ -2,7 +2,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimpleEventPayload,
+    AddEventPayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -45,7 +45,7 @@ async def mutate(
     image: Optional[UploadFile] = None,
     file: Optional[UploadFile] = None,
     **kwargs: Any,
-) -> SimpleEventPayload:
+) -> AddEventPayload:
     """Resolve add_event mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]

@@ -97,6 +97,14 @@ type AddConsultPayload implements Payload {
   success: Boolean!
 }
 
+"Add Event Payload type definition"
+type AddEventPayload implements Payload {
+  "Identifier of the new Event"
+  eventId: String
+  "Did the query succeed?"
+  success: Boolean!
+}
+
 "Approve draft Payload type definition"
 type ApproveDraftPayload implements Payload {
   "Date of Approval"
