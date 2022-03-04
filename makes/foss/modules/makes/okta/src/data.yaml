@@ -2126,6 +2126,7 @@ OKTA_DATA_RAW:
           rules: []
           users:
             - ENC[AES256_GCM,data:cjdJBDUHpw0=,iv:Dvyx7VOwhC8wSAxq67Ws9XpapGPP/BlF4gcVCMZoUxI=,tag:U+aKKx34RXA3hmmSgp0BcA==,type:str]
+            - ENC[AES256_GCM,data:rpt7Ru+jPA==,iv:j/73JPI6BOIn+ZahvvFfFPsVjosnncn/6qRzNK2h1hY=,tag:DaQfSENdcsUFhn3IwOC2YQ==,type:str]
             - ENC[AES256_GCM,data:NkfphA3iRLA=,iv:jS8pKcqyTsBEv5QyhiF4+9AhRUEJrnM7Yt0/68PDhOE=,tag:c6J0CndNx+CA3nKlxDFdkQ==,type:str]
             - ENC[AES256_GCM,data:4onXLAftVQst,iv:3mJ8UmMIL6zBbAAOflJ/YfejerG0CaBztd3AHGXyNKY=,tag:AVTbblg/xRkZfQeS7Rd+1w==,type:str]
             - ENC[AES256_GCM,data:cgaTg7m3Mb0=,iv:HIt/fE33mI07c/cUGH8zwoFUwfRfukQPk13jLxp8Wq0=,tag:shKV2h6TtOdPH8/crwBO0g==,type:str]
@@ -3386,8 +3387,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-03-03T22:26:47Z"
-    mac: ENC[AES256_GCM,data:foGddsXKT7WGeCZnWgS3tAywHbB0GS+fmLburD3MlZlJXCHDeTzFtGNq073A4t2votzh7aybNQbtr6yjFzFmKLXH34FYX4C+mgJvAF08V1rSCJQU4xlf8R6D792MlIYA0y+sUfjMoyLFjGnHKd+9bhx1Jd0xSxNTXwnymQvq95k=,iv:ECtBcI4QA4WZfUqt7n30THPmIL1jobIRsCBT3xcEUqI=,tag:TbDh2ZC/EtWKQvFkgmj3wA==,type:str]
+    lastmodified: "2022-03-04T16:22:39Z"
+    mac: ENC[AES256_GCM,data:KJD6fXXnwKTaP08qPphSGz+HnBMrDEFD/GhW1mtcEy4onxvw7iC3FElO6qQpdrU8Li9AC1uzjshZmUZm44Uqu2QRsEFcxgFQdrWHFiyKX1W0f8Ui1ikrp4L8SsNjyYFstF0IGJIPZqYft4cdGQ6sYk9Sy7DMAcdpBMk+wL+1/gA=,iv:9heNBsvArBHaaOMpIXxpUtds6o43O7l6gOox1cPQalQ=,tag:0xejiiqyubFX/f/seowf6Q==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
