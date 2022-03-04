@@ -90,11 +90,12 @@ and gain access to our [AWS VPC][VPC]
 and client private networks.
 In order to do so, you need to:
 
-1. Go to the [VPN Self-Service portal](https://self-service.clientvpn.amazonaws.com/endpoints/cvpn-endpoint-05b3ce2112d0a836a)
-    - Log in with your okta Credentials
+1. Go to the [VPN Self-Service portal](https://self-service.clientvpn.amazonaws.com/endpoints/cvpn-endpoint-05b3ce2112d0a836a):
+    - Log in with your [Okta](/development/stack/okta) Credentials.
     - If you do not have enough permissions, please contact help@fluidattacks.com.
-1. Download the [VPN][VPN] client configuration.
-1. Download and install the AWS Client VPN for your Operating System.
+1. From the portal:
+    - Download the [VPN][VPN] client configuration.
+    - Download and install the AWS Client VPN for your Operating System.
 1. Open the AWS Client VPN and import the downloaded configuration.
 1. Connect to the VPN.
 
