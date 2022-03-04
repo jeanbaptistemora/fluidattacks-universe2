@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.c_sharp import (
+    accessor_declaration as c_sharp_accessor_declaration,
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
     assignment_expression as c_sharp_assignment_expression,
@@ -44,6 +45,12 @@ from syntax_graph.types import (
 )
 
 CSHARP_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "accessor_declaration",
+        },
+        syntax_reader=c_sharp_accessor_declaration.reader,
+    ),
     Dispatcher(
         applicable_types={
             "argument",
