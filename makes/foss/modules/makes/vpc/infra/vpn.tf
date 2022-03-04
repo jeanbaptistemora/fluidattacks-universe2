@@ -111,6 +111,7 @@ resource "aws_ec2_client_vpn_endpoint" "main" {
   client_cidr_block      = "10.0.0.0/22"
   session_timeout_hours  = 12
   split_tunnel           = true
+  self_service_portal    = "enabled"
 
   authentication_options {
     type              = "federated-authentication"
