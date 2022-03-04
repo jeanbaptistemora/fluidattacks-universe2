@@ -282,9 +282,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                 )
             else:
                 response = templates.invalid_invitation(
-                    request,
-                    "Invalid or Expired",
-                    organization_access=organization_access,
+                    request, "Invalid or Expired", organization_access
                 )
         else:
             await in_thread(
