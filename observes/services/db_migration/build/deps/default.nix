@@ -14,7 +14,7 @@ let
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
     ref = "main";
-    rev = "fdbf04aa374490f5006fe9365ed3993dee8d468c";
+    rev = "cafb83991ac3f23833f0213fd8be615ac1c114ea";
   };
   redshift = import redshift_src {
     inherit system legacy_pkgs python_version;
