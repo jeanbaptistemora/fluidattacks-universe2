@@ -22,6 +22,18 @@ closed, open, temporarily accepted
 and permanently accepted vulnerabilities
 categorized by group.
 
+## Remediation Rate Benchmarking
+
+![Vulns Remediated And Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
+
+This section shows the percentages
+of closed, accepted and open
+vulnerabilities by their severity
+for your portfolios and how your
+numbers compare to those of the
+best, the average and the worst
+portfolios.
+
 ## Findings by group
 
 ![Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/findings_by_group_f4a10c.png)
