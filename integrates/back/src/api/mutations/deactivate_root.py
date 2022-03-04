@@ -18,10 +18,16 @@ from batch.enums import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
     URLRootItem,
+)
+from db_model.users.get import (
+    User,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -152,8 +158,14 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root_ids=[(root.group_name, root.id)],
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.ROOT_MOVED in user.notifications_preferences.email
+    ]
     await groups_mail.send_mail_deactivated_root(
-        email_to=email_list,
+        email_to=users_email,
         group_name=group_name,
         other=other,
         reason=reason,
