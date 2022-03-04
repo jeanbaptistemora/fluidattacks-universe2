@@ -77,6 +77,20 @@ These graph shows the findings
 that have been open for the
 highest amount of days.
 
+## Unsolved events by group
+
+![Unsolved Events By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
+
+Unsolved [events](/machine/web/groups/events)
+refer to situations that arise
+within a group that prevent our
+experts from pentesting part of
+the scope —or maybe all of it—
+and have not been solved yet.
+The above chart shows you how
+many of these are in each of
+your groups.
+
 ## Treatmentless by group
 
 ![Treatmentless By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)

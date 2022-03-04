@@ -85,3 +85,18 @@ of your portfolio.
 ![Severity By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1645821564/docs/web/analytics/portfolios/open_severity_by_groups.png)
 
 For each of your groups, you can find out the severity (CVSSF) of open vulnerabilities.
+
+## Unsolved events by groups
+
+![Unsolved Events By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
+
+Unsolved [events](/machine/web/groups/events)
+refer to situations that
+arise within a group that
+prevent our experts from
+pentesting part of the scope
+—or maybe all of it— and have
+not been solved yet.
+The above chart shows you how
+many of these are in each of
+your groups.

@@ -215,6 +215,15 @@ you will be able to know which vulnerabilities
 to attack and remediate first to reduce the
 level of exposure of your system.
 
+## Days until zero exposure
+
+![Days Until Zero Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1646407723/docs/web/analytics/common/common_days_until_0exposure.png)
+
+This is an estimate of the total
+number of days it will take you
+to remediate all the vulnerabilities
+reported to this date.
+
 ## Distribution over time
 
 ![Distribution Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
