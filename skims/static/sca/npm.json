@@ -1752,6 +1752,9 @@
   "hellojs": {
     "CVE-2020-7741": "<1.18.6"
   },
+  "helmet-csp": {
+    "SNYK-JS-HELMETCSP-469436": ">=1.2.2 <2.9.2"
+  },
   "herbivore": {
     "CVE-2016-10665": "<=0.0.3",
     "GMS-2017-34": ">=0.0.0-alpha"
@@ -2467,6 +2470,9 @@
   },
   "lodash.template": {
     "SNYK-JS-LODASHTEMPLATE-1088054": "<=4.5.0"
+  },
+  "log4js": {
+    "CVE-2022-21704": "<6.4.0"
   },
   "logkitty": {
     "CVE-2020-8149": "<0.7.1"
