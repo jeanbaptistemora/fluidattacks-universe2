@@ -7,107 +7,182 @@ slug: /machine/web/vulnerabilities/management/treatments
 
 ## Define a treatment for your vulnerabilities
 
-To better manage
-all the vulnerabilities of a group,
-you can assign a treatment
-to each individual one
-as soon as they are reported.
-In order to do this
-click on a vulnerability,
-a window will appear
-where you can see
-detailed information about it
-and also a tab called **Treatments**
+A treatment is a business decision
+that the client makes concerning a
+vulnerability.
+This decision refers to what the
+client wants to do with that vulnerability:
+how to address or remediate it.
 
-![Enabled Reattack Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/vulnerabilities_treatments_oxzujo.webp)
+In order to define a treatment, you
+will need to go to either the **Locations**
+tab or the **To-Do List** section.
+Then, you will need to select the
+vulnerability to which you want to
+assign a treatment by clicking the
+check box to its left and click
+on **Edit**.
 
-In this tab
-you will be able
-to assign a treatment
-for the selected vulnerability.
-The treatments available to you
-for handling vulnerabilities
+![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_vulner_assign_trtmnt.jpg)
+
+The **Edit** button helps you manage
+the vulnerability treatments and
+is available in the two aforementioned
+locations.
+After you click on it, a pop-up
+window will appear, where you can
+assign a **treatment** and provide a
+justification for that treatment.
+You can also assign the person
+responsible for handling this
+vulnerability in the field labeled
+**Assigned**.
+Remember that you can see the
+vulnerabilities that have been
+assigned to you in the
+[To-Do List](/machine/web/vulnerabilities/management/to-do-list)
+section.
+
+![Edit Vulnerability](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_edit_vulnerabilities.png)
+
+The treatments available to
+you for handling vulnerabilities
 are the following:
 
 - **In progress:**
-  With this treatment
-  you acknowledge the existence
-  of the vulnerability
-  and assign an user to it
-  in order to ensure
-  it is solved.
+  With this treatment,
+  you acknowledge the
+  existence of the
+  vulnerability and
+  assign it to a user.
+  This assignment is
+  located in the To-Do
+  List, where the user
+  can be aware of all
+  the vulnerabilities
+  they are responsible
+  for remediating in
+  their daily work.
 - **Temporarily accepted:**
   This treatment is used
-  when you don't intend
-  to give a solution
-  to the vulnerability,
-  but only temporarily,
-  in which case
-  you accept the risks
-  that comes with it
-  until a selected date.
+  when you do not intend
+  to remediate the
+  vulnerability, at least
+  for a certain period.
+  You accept the risks
+  that come with it up to
+  a specific date.
+  When this time is over,
+  you are in charge of
+  defining the treatment
+  once again.
 - **Permanently accepted:**
   As with the previous treatment,
   this is used
   when you don't intend
-  to solve the vulnerability,
-  but this time
-  you accept the risks
-  that come with it
+  to remediate the vulnerability,
+  but this time you accept the
+  risks that come with it
   permanently.
+- **Zero risk:**
+  This is a special treatment
+  that you can define for a
+  vulnerability which,
+  according to your
+  organization’s analysis,
+  poses no threat.
+  We will then analyze whether
+  that is the case.
+  If so, the vulnerability
+  will be removed from the list.
+  Otherwise, it will remain
+  reported.
+  You can get more information
+  about this treatment under
+  [this link](/machine/web/vulnerabilities/management/zero-risk).
 
-You will need to provide
-certain additional information
-about the vulnerability
-and its selected treatment,
-this information will differ slightly
-depending on which treatment is given:
+You will be asked to provide
+additional information about
+the vulnerability and the
+treatment you defined.
+This information will differ
+slightly depending on the
+treatment:
 
 - **Treatment justification:**
-  Here you can state the reasons
-  for giving this treatment
-  to the selected vulnerability.
+  Here you must state the
+  reasons for requesting
+  this treatment for the
+  selected vulnerability.
 - **Tags:**
-  Assign a label or labels
-  to the vulnerability
-  for an easier time
-  managing and finding them.
+  You can assign one or
+  more labels to the
+  vulnerability to make
+  it easier to manage
+  and find them.
+- **External BTS:**
+  The Bug Tracking System
+  (BTS) is a platform for
+  issues management and
+  tasks tracking that is
+  internal for each client.
+  In this field, you can
+  provide the URL of the
+  issue concerning this
+  vulnerability.
 - **Level:**
   You can use this field
-  to assign a level of priority
-  when solving vulnerabilities.
+  to assign a level of
+  priority when remediating
+  vulnerabilities.
   It can be a number between
-  0 and 1,000,000,000 (one billion)
-  that represents the severity
-  of the vulnerability
-  for the business.
-  It can be a quantitative
-  or monetary value.
-- **Assigned:**
-  This will be the user of the group
-  in charge of making sure
-  that the vulnerability
-  receives a solution.
-- **Temporarily accepted until:**
-  This information is for
-  when the treatment given
-  is **Temporarily accepted**
-  in order to know
-  the number of days
-  that you accept the risk
-  of the vulnerability being open,
-  when this time is over
-  you will need to set
-  the treatment once again.
+  0 and 1,000,000,000 that
+  represents the severity
+  of the vulnerability for
+  the business.
+  It can also be a monetary
+  value.
 
-There is also a special treatment
-that you can give
-to your vulnerabilities
-called **Zero Risk**,
-you can get more information
-about this treatment
-by clicking
-[this link](/machine/web/vulnerabilities/management/zero-risk).
+Keep in mind that the **User**
+role can define the
+Temporarily accepted,
+In progress and Zero
+risk treatments.
+They can also suggest treating
+a vulnerability as **Permanently accepted**,
+but the only role that can
+approve it is the **user manager**.
+
+![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_confirmation.png)
+
+The user manager can either approve
+or reject a **Permanently accepted**
+treatment request.
+To do this,
+they need to select a
+vulnerability and click on the
+**Treatment Acceptance** button,
+which is only available to them.
+
+![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_tr_acceptance.jpg)
+
+A pop-up **Observations**
+window will appear,
+where the user manager must
+provide their observation
+concerning the requested
+treatment and decide whether
+they approve or reject it.
+
+![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_pop_up_observations.png)
+
+If the treatment is approved,
+the vulnerability status will
+immediately change to
+**Permanently accepted**.
+Otherwise,
+the status will appear as
+**In progress**.
 
 ## Reattacking a permanently accepted vulnerability
 
