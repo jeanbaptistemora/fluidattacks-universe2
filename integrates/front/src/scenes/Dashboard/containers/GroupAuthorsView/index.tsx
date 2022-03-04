@@ -6,7 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import type { ReactElement } from "react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { handleGrantError } from "../GroupStakeholdersView/helpers";
@@ -18,6 +18,7 @@ import type {
   IAddStakeholderAttr,
   IGetStakeholdersAttrs,
 } from "../GroupStakeholdersView/types";
+import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import type {
@@ -25,13 +26,18 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILLING } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
+  IAuthors,
   IData,
   IGroupAuthor,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -103,10 +109,10 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     []
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: _stackHolderData, refetch } = useQuery<IGetStakeholdersAttrs>(
+  const { data: stackHolderData, refetch } = useQuery<IGetStakeholdersAttrs>(
     GET_STAKEHOLDERS,
     {
+      fetchPolicy: "cache-first",
       onError: (error: ApolloError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading group stakeholders", error);
@@ -147,6 +153,17 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       width: "20%",
       wrapped: true,
     },
+    {
+      csvExport: false,
+      dataField: "invitation",
+      header: translate.t("group.authors.invitationState.confirmed"),
+      visible:
+        stackHolderData !== undefined &&
+        permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
+        permissions.can("api_mutations_grant_stakeholder_access_mutate"),
+      width: "130px",
+      wrapped: true,
+    },
   ];
 
   const { data } = useQuery<IData>(GET_BILLING, {
@@ -159,8 +176,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     variables: { date: billingDate, groupName },
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
+  const [grantAccess, { loading }] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
       if (mtResult.grantStakeholderAccess.success) {
         await refetch();
@@ -177,21 +193,154 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     },
   });
 
+  const formatInviation = useCallback(
+    (actorEmail: string): string => {
+      const invitationState: string =
+        stackHolderData === undefined
+          ? ""
+          : stackHolderData.group.stakeholders.reduce(
+              (previousValue: string, stakeholder: IStakeholderAttr): string =>
+                stakeholder.email.toLocaleLowerCase() ===
+                actorEmail.toLocaleLowerCase()
+                  ? stakeholder.invitationState
+                  : previousValue,
+              ""
+            );
+      if (invitationState === "CONFIRMED") {
+        return translate.t("group.authors.invitationState.confirmed");
+      }
+      if (invitationState === "PENDING") {
+        return translate.t("group.authors.invitationState.pending");
+      }
+
+      return translate.t("group.authors.invitationState.unregistered");
+    },
+    [stackHolderData]
+  );
+
+  const stakeholdersEmail: string[] = useMemo(
+    (): string[] =>
+      stackHolderData === undefined
+        ? []
+        : stackHolderData.group.stakeholders.map(
+            (stakeholder: IStakeholderAttr): string =>
+              stakeholder.email.toLocaleLowerCase()
+          ),
+    [stackHolderData]
+  );
+
+  const dataset: IAuthors[] = useMemo(
+    (): IAuthors[] =>
+      data === undefined
+        ? []
+        : data.group.authors.data.map((value: IGroupAuthor): IAuthors => {
+            const { actor } = value;
+            const place: number = actor.lastIndexOf("<");
+            const actorEmail =
+              place >= 0 ? actor.substring(place + 1, actor.length - 1) : actor;
+
+            if (stackHolderData === undefined) {
+              return {
+                ...value,
+                invitation: <React.StrictMode />,
+              };
+            }
+
+            if (stakeholdersEmail.includes(actorEmail.toLowerCase())) {
+              return {
+                ...value,
+                invitation: (
+                  <React.StrictMode>
+                    {pointStatusFormatter(
+                      formatInviation(actorEmail.toLowerCase())
+                    )}
+                  </React.StrictMode>
+                ),
+              };
+            }
+
+            async function handleSendInvitation(
+              event: React.MouseEvent<HTMLButtonElement>
+            ): Promise<void> {
+              event.stopPropagation();
+
+              const resendStakeholder = {
+                email: actorEmail.toLocaleLowerCase(),
+                groupName,
+                responsibility: "",
+                role: "USER",
+              };
+              await grantAccess({
+                variables: {
+                  ...resendStakeholder,
+                },
+              });
+            }
+
+            return {
+              ...value,
+              invitation: (
+                <React.StrictMode>
+                  <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
+                    <TooltipWrapper
+                      id={"authorsGrantTooltip"}
+                      message={translate.t("group.authors.tooltip.text")}
+                    >
+                      <div className={"nl2"}>
+                        <Button
+                          disabled={loading}
+                          onClick={handleSendInvitation}
+                          variant={"secondary"}
+                        >
+                          {translate.t("group.authors.sendInvitation")}
+                        </Button>
+                      </div>
+                    </TooltipWrapper>
+                  </Can>
+                </React.StrictMode>
+              ),
+            };
+          }),
+    [
+      data,
+      formatInviation,
+      grantAccess,
+      groupName,
+      loading,
+      stackHolderData,
+      stakeholdersEmail,
+    ]
+  );
+
+  const datasetText = useMemo(
+    (): (IAuthors & { invitationState: string })[] =>
+      dataset.map((value: IAuthors): IAuthors & { invitationState: string } => {
+        const { actor } = value;
+        const place: number = actor.lastIndexOf("<");
+        const actorEmail =
+          place >= 0 ? actor.substring(place + 1, actor.length - 1) : actor;
+
+        return {
+          ...value,
+          invitationState: formatInviation(actorEmail.toLowerCase()),
+        };
+      }),
+    [dataset, formatInviation]
+  );
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
-
-  const dataset: IGroupAuthor[] = data.group.authors.data;
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextDataset: IGroupAuthor[] = filterSearchText(
-    dataset,
+  const filterSearchtextDataset: IAuthors[] = filterSearchText(
+    datasetText,
     searchTextFilter
-  );
+  ).map((value: IAuthors): IAuthors => _.omit(value, "invitationState"));
 
   function onAuthorChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.persist();
@@ -202,7 +351,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterAuthorDataset: IGroupAuthor[] = filterText(
+  const filterAuthorDataset: IAuthors[] = filterText(
     dataset,
     filterAuthorsTable.author,
     "actor"
@@ -218,7 +367,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterGroupsContributedDataset: IGroupAuthor[] = filterText(
+  const filterGroupsContributedDataset: IAuthors[] = filterText(
     dataset,
     filterAuthorsTable.groupsContributed,
     "groups"
@@ -234,7 +383,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterRepositoryDataset: IGroupAuthor[] = filterText(
+  const filterRepositoryDataset: IAuthors[] = filterText(
     dataset,
     filterAuthorsTable.repository,
     "repository"
@@ -251,11 +400,12 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     setSearchTextFilter("");
   }
 
-  const resultDataset: IGroupAuthor[] = _.intersection(
+  const resultDataset: IAuthors[] = _.intersectionWith(
     filterSearchtextDataset,
     filterAuthorDataset,
     filterRepositoryDataset,
-    filterGroupsContributedDataset
+    filterGroupsContributedDataset,
+    _.isEqual
   );
 
   const customFiltersProps: IFilterProps[] = [
