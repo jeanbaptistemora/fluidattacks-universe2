@@ -520,6 +520,7 @@ async def complete_register_for_organization_invitation(
             should_add_default_org=(
                 FI_DEFAULT_ORG.lower() == organization_name.lower()
             ),
+            is_register_after_complete=True,
         )
 
     success = user_added and any([user_created, user_exists])
@@ -662,13 +663,14 @@ async def add_without_group(
     email: str,
     role: str,
     should_add_default_org: bool = True,
+    is_register_after_complete: bool = False,
 ) -> bool:
     success = False
     if validate_email_address(email):
         new_user_data: UserType = {}
         new_user_data["email"] = email
-        new_user_data["authorized"] = True
-        new_user_data["registered"] = True
+        if is_register_after_complete:
+            new_user_data["registered"] = True
 
         success = all(
             await collect(

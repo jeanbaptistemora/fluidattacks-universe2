@@ -93,7 +93,9 @@ async def autoenroll_user(email: str) -> None:
     )
 
     await groups_domain.add_without_group(
-        email=email, role=new_user_user_level_role
+        email=email,
+        role=new_user_user_level_role,
+        is_register_after_complete=True,
     )
     for group in FI_COMMUNITY_PROJECTS.split(","):
         await collect(
@@ -240,7 +242,11 @@ async def log_user_in(user: Dict[str, str]) -> None:
         "date_joined": today,
     }
 
-    if await users_domain.get_data(email, "first_name"):
+    db_user = await users_domain.get(email)
+    if db_user and db_user.get("first_name", ""):
+        if not bool(db_user.get("registered", False)):
+            await users_domain.register(email)
+
         await users_domain.update_last_login(email)
     else:
         await analytics.mixpanel_track(email, "Register")
