@@ -1,3 +1,5 @@
+import type { ExecutionResult } from "graphql";
+
 interface IReattackVuln {
   affected?: boolean;
   findingId: string;
@@ -30,11 +32,14 @@ interface IAffectedAccordionProps {
   findings: IFinding[];
 }
 
-interface IUpdateEventAffectations {
-  updateEventAffectations: {
+interface IRequestVulnerabilitiesHold {
+  requestVulnerabilitiesHold: {
     success: boolean;
   };
 }
+
+type RequestVulnerabilitiesHoldResult =
+  ExecutionResult<IRequestVulnerabilitiesHold>;
 
 export {
   IAffectedAccordionProps,
@@ -42,5 +47,5 @@ export {
   IFinding,
   IFindingsQuery,
   IAffectedReattackModal,
-  IUpdateEventAffectations,
+  RequestVulnerabilitiesHoldResult,
 };

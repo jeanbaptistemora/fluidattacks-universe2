@@ -367,7 +367,7 @@ export const enTranslations: ResourceKey = {
         affectedReattacks: {
           checkbox: "Does this event have an impact on any ongoing reattacks?",
           description: "Please select the affected reattacks",
-          noSelectedReattacks: "You must select at least one affected reattack",
+          holdsCreate: "Reattack holds requested successfully",
           title: "Affected Reattacks",
         },
         blockingHours: "Working hours until getting blocked",

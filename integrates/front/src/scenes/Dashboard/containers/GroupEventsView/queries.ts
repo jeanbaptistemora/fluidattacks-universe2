@@ -53,6 +53,7 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
       groupName: $groupName
       rootId: $rootId
     ) {
+      eventId
       success
     }
   }
