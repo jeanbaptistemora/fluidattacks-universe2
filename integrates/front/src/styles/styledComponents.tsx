@@ -335,7 +335,7 @@ const MenuItem: StyledComponent<
   Record<string, unknown>
 > = styled.li.attrs({
   className: `
-  ba br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100 b--white
+  br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100
   `,
 })``;
 
@@ -511,7 +511,7 @@ const RowCenter: StyledComponent<
 })``;
 
 const Select = styled.select.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
+  className: `${style["form-control"]} bg-white black-40 border-box`,
 })``;
 
 const Small: StyledComponent<

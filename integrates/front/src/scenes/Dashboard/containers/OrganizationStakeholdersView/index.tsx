@@ -39,7 +39,7 @@ import type {
   IStakeholderDataSet,
   IUpdateStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -314,10 +314,10 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <Row>
-          <Col100>
-            <Row>
-              <Col100>
+        <div>
+          <div>
+            <div>
+              <div>
                 <DataTableNext
                   bordered={true}
                   customSearch={{
@@ -420,10 +420,10 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                   }}
                   striped={true}
                 />
-              </Col100>
-            </Row>
-          </Col100>
-        </Row>
+              </div>
+            </div>
+          </div>
+        </div>
         <AddUserModal
           action={stakeholderModalAction}
           editTitle={translate.t("organization.tabs.users.modalEditTitle")}

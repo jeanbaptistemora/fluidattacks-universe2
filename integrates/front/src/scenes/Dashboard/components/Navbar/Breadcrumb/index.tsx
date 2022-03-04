@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -196,15 +195,12 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
                       itemContent={t("sidebar.newOrganization.text")}
                       onClick={openOrganizationModal}
                     />
-                    {isOrganizationModalOpen
-                      ? createPortal(
-                          <AddOrganizationModal
-                            onClose={closeOrganizationModal}
-                            open={true}
-                          />,
-                          document.body
-                        )
-                      : undefined}
+                    {isOrganizationModalOpen ? (
+                      <AddOrganizationModal
+                        onClose={closeOrganizationModal}
+                        open={true}
+                      />
+                    ) : undefined}
                   </Can>
                   {organizationList.map(
                     (organization: { name: string }): JSX.Element => (
