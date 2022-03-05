@@ -365,6 +365,10 @@ export const enTranslations: ResourceKey = {
           title: "Action before blocking",
         },
         affectedReattacks: {
+          alreadyClosed:
+            "At least one of the selected reattacks was closed already",
+          alreadyOnHold:
+            "At least one of the selected reattacks was put on hold already",
           checkbox: "Does this event have an impact on any ongoing reattacks?",
           description: "Please select the affected reattacks",
           holdsCreate: "Reattack holds requested successfully",
