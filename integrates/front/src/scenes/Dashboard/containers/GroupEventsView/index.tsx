@@ -11,7 +11,12 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import type { IFormValues } from "./AddModal";
 import { AddModal } from "./AddModal";
-import { handleCreationError, handleFileListUpload } from "./helpers";
+import {
+  handleCreationError,
+  handleFileListUpload,
+  handleRequestHoldError,
+  handleRequestHoldsHelper,
+} from "./helpers";
 import {
   accessibilityOptions,
   afectCompsOptions,
@@ -36,8 +41,12 @@ import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilitie
 import {
   ADD_EVENT_MUTATION,
   GET_EVENTS,
+  REQUEST_VULNS_HOLD_MUTATION,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
-import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
+import {
+  formatEvents,
+  formatReattacks,
+} from "scenes/Dashboard/containers/GroupEventsView/utils";
 import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -280,6 +289,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   };
 
   const [isEventModalOpen, setEventModalOpen] = useState(false);
+  const [selectedReattacks, setSelectedReattacks] = useState({});
 
   const openNewEventModal: () => void = useCallback((): void => {
     setEventModalOpen(true);
@@ -295,15 +305,36 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
-  const handleCreationResult: (result: {
-    addEvent: { success: boolean };
-  }) => void = (result: { addEvent: { success: boolean } }): void => {
+  const [requestHold] = useMutation(REQUEST_VULNS_HOLD_MUTATION, {
+    onError: handleRequestHoldError,
+  });
+
+  const handleCreationResult = async (result: {
+    addEvent: { eventId: string; success: boolean };
+  }): Promise<void> => {
+    closeNewEventModal();
+
     if (result.addEvent.success) {
-      closeNewEventModal();
       msgSuccess(
         translate.t("group.events.successCreate"),
         translate.t("group.events.titleSuccess")
       );
+
+      if (!_.isEmpty(selectedReattacks)) {
+        const allHoldsValid = await handleRequestHoldsHelper(
+          requestHold,
+          selectedReattacks,
+          result.addEvent.eventId,
+          groupName
+        );
+
+        if (allHoldsValid) {
+          msgSuccess(
+            translate.t("group.events.form.affectedReattacks.holdsCreate"),
+            translate.t("group.events.titleSuccess")
+          );
+        }
+      }
       void refetch();
     }
   };
@@ -315,6 +346,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const handleSubmit = useCallback(
     async (values: IFormValues): Promise<void> => {
+      setSelectedReattacks(formatReattacks(values.affectedReattacks));
+
       const selectedAccessibility: string[] = values.accessibility.map(
         (element: string): string => element.toUpperCase()
       );

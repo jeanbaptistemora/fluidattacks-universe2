@@ -9,6 +9,12 @@ import { array, object, string } from "yup";
 
 import { GET_ROOTS } from "../../GroupScopeView/queries";
 import type { Root } from "../../GroupScopeView/types";
+import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
+import { GET_REATTACK_VULNS } from "../AffectedReattackAccordion/queries";
+import type {
+  IFinding,
+  IFindingsQuery,
+} from "../AffectedReattackAccordion/types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import globalStyle from "styles/global.css";
@@ -55,6 +61,7 @@ interface IFormValues {
   context: string;
   accessibility: string[];
   affectedComponents: string[];
+  affectedReattacks: string[];
   eventType: string;
   detail: string;
   actionBeforeBlocking: string;
@@ -77,6 +84,20 @@ const AddModal: React.FC<IAddModalProps> = ({
   onSubmit,
 }: IAddModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const { data: findingsData } = useQuery<IFindingsQuery>(GET_REATTACK_VULNS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load reattack vulns", error);
+      });
+    },
+    variables: { groupName },
+  });
+  const findings =
+    findingsData === undefined ? [] : findingsData.group.findings;
+  const hasReattacks = findings.some(
+    (finding: IFinding): boolean => finding.vulnerabilitiesToReattack.length > 0
+  );
 
   const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -106,6 +127,11 @@ const AddModal: React.FC<IAddModalProps> = ({
       otherwise: array().notRequired(),
       then: array().min(1, t("validations.someRequired")),
     }),
+    affectedReattacks: array().when("affectsReattacks", {
+      is: true,
+      otherwise: array().notRequired(),
+      then: array().min(1, t("validations.someRequired")),
+    }),
     rootNickname: string().required().oneOf(nicknames, t("validations.oneOf")),
   });
 
@@ -117,6 +143,8 @@ const AddModal: React.FC<IAddModalProps> = ({
           actionAfterBlocking: "",
           actionBeforeBlocking: "",
           affectedComponents: [],
+          affectedReattacks: [],
+          affectsReattacks: false,
           blockingHours: 0,
           context: "",
           detail: "",
@@ -509,6 +537,28 @@ const AddModal: React.FC<IAddModalProps> = ({
                 </FormGroup>
               </Col50>
             </Row>
+            {hasReattacks ? (
+              <FormGroup>
+                <ControlLabel>
+                  {t("group.events.form.affectedReattacks.title")}
+                </ControlLabel>
+                <br />
+                <Field
+                  component={FormikCheckbox}
+                  label={t("group.events.form.affectedReattacks.checkbox")}
+                  name={"affectsReattacks"}
+                  type={"checkbox"}
+                />
+                {values.affectsReattacks ? (
+                  <React.Fragment>
+                    <br />
+                    <Row>
+                      <AffectedReattackAccordion findings={findings} />
+                    </Row>
+                  </React.Fragment>
+                ) : undefined}
+              </FormGroup>
+            ) : undefined}
             <hr />
             <Row>
               <Col100>
