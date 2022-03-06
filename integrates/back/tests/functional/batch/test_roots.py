@@ -140,7 +140,7 @@ async def test_queue_sync_git_no_queue(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_cloning(
-    generic_data: Dict[str, Any], mocker
+    generic_data: Dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         batch_roots,
@@ -168,7 +168,9 @@ async def test_queue_sync_git_roots_cloning(
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
-async def test_queue_sync_git_roots_with_same_commit_in_s3(mocker) -> None:
+async def test_queue_sync_git_roots_with_same_commit_in_s3(
+    mocker: MockerFixture,
+) -> None:
     mocker.patch.object(
         batch_roots,
         "ssh_ls_remote_root",
@@ -201,7 +203,9 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(mocker) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
-async def test_queue_sync_git_roots_with_same_commit_not_in_s3(mocker) -> None:
+async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
+    mocker: MockerFixture,
+) -> None:
     mocker.patch.object(
         batch_roots,
         "ssh_ls_remote_root",
@@ -235,7 +239,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(mocker) -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_already_in_queue_running(
-    generic_data: Dict[str, Any], mocker
+    generic_data: Dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         batch_roots,
@@ -376,7 +380,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
 )
 async def test_queue_sync_git_roots(
     generic_data: Dict[str, Any],
-    mocker,
+    mocker: MockerFixture,
     batch_items: Tuple[BatchProcessing, ...],
     must_rise: bool,
 ) -> None:

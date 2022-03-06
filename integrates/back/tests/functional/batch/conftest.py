@@ -261,7 +261,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
         ),
     }
-    actions: Tuple[Dict[str, Any]] = (  # noqa
+    actions: Tuple[Dict[str, Any], ...] = (  # noqa
         dict(
             action_name=Action.CLONE_ROOTS.value,
             entity="group1",
@@ -298,7 +298,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
 
 
 @pytest.fixture(autouse=False, scope="session")
-def mock_tmp_repository() -> Iterator[None]:
+def mock_tmp_repository() -> Iterator[str]:
     repo_path = tempfile.mkdtemp()
     files = {
         f"{repo_path}/back/test/conftest.py",

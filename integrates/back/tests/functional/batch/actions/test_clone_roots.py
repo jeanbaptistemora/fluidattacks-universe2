@@ -30,12 +30,21 @@ from newutils.datetime import (
 )
 import os
 import pytest
+from pytest_mock import (
+    MockerFixture,
+)
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots(
-    generic_data, mock_tmp_repository: str, mocker
+    generic_data: Dict[str, Any],
+    mock_tmp_repository: str,
+    mocker: MockerFixture,
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: GitRootItem = await loaders.root.load(
@@ -66,7 +75,7 @@ async def test_clone_roots(
 
     await roots.clone_roots(item=action)
     loaders.root.clear_all()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.OK
@@ -93,7 +102,9 @@ async def test_clone_roots(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots_failed(
-    generic_data, mock_tmp_repository: str, mocker
+    generic_data: Dict[str, Any],
+    mock_tmp_repository: str,
+    mocker: MockerFixture,
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: GitRootItem = await loaders.root.load(
@@ -120,7 +131,7 @@ async def test_clone_roots_failed(
 
     await roots.clone_roots(item=action)
     loaders.root.clear_all()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
