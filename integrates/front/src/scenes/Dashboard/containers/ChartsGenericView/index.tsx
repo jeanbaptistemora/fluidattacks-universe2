@@ -60,6 +60,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"stackedBarChart"}
+                infoLink={`${graphInfoLink}${entity}#remediation-rate-benchmarking`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
