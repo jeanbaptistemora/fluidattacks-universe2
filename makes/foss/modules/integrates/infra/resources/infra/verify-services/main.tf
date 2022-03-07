@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "twilio_verify_services_v2" "verify" {
-  friendly_name         = "asm verification service"
+  friendly_name         = "ASM"
   code_length           = 6
   lookup_enabled        = true
   skip_sms_to_landlines = true
