@@ -30,6 +30,7 @@ from groups import (
     domain as groups_domain,
 )
 import json
+import math
 from newutils.encodings import (
     safe_encode,
 )
@@ -261,3 +262,13 @@ def format_cvssf(cvssf: Decimal) -> Decimal:
     if cvssf >= MAX_WITH_DECIMALS:
         return cvssf.to_integral_exact(rounding=ROUND_FLOOR)
     return cvssf.quantize(Decimal("0.1"))
+
+
+def format_cvssf_log(cvssf: Decimal) -> Decimal:
+    if cvssf == Decimal("0.0"):
+        return cvssf
+    if cvssf >= MAX_WITH_DECIMALS:
+        return Decimal(
+            math.log2(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
+        )
+    return Decimal(math.log2(cvssf.quantize(Decimal("0.1"))))

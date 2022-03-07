@@ -121,7 +121,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 [
                     "Open Severity",
                     *[
-                        utils.format_cvssf(Decimal(value))
+                        utils.format_cvssf_log(Decimal(value))
                         for _, value in merged_data
                     ],
                 ],
@@ -158,9 +158,19 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ),
             ),
         ),
+        logarithmic=True,
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in merged_data]
         ),
+        maxValueLog=format_max_value(
+            [
+                (key, utils.format_cvssf_log(Decimal(value)))
+                for key, value in merged_data
+            ]
+        ),
+        originalValues=[
+            utils.format_cvssf(Decimal(value)) for _, value in merged_data
+        ],
     )
 
 
