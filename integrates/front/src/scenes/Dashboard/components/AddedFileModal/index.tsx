@@ -13,11 +13,9 @@ const addedFileModal: React.FC<IAddedFileModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t(
-          "searchFindings.tabResources.modalFileIsPending"
-        )}
         onClose={onClose}
         open={isOpen}
+        title={translate.t("searchFindings.tabResources.modalFileIsPending")}
       >
         <div>
           <p>

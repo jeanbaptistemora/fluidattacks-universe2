@@ -58,9 +58,9 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
         </Button>
       </TooltipWrapper>
       <Modal
-        headerTitle={t("group.findings.tableSet.modalTitle")}
         onClose={handleCloseTableSetClick}
         open={hidden}
+        title={t("group.findings.tableSet.modalTitle")}
       >
         <RowCenter>
           <div

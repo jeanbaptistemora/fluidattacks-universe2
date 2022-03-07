@@ -28,7 +28,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
   );
 
   return (
-    <Modal headerTitle={translate.t("legalNotice.title")} open={open}>
+    <Modal open={open} title={translate.t("legalNotice.title")}>
       <Formik
         initialValues={{ remember: false }}
         name={"acceptLegal"}

@@ -32,11 +32,9 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t(
-          "searchFindings.tabResources.modalOptionsTitle"
-        )}
         onClose={onClose}
         open={isOpen}
+        title={translate.t("searchFindings.tabResources.modalOptionsTitle")}
       >
         <ConfirmDialog
           title={translate.t("searchFindings.tabResources.files.confirm.title")}

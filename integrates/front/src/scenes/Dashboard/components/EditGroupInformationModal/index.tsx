@@ -36,11 +36,11 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t(
-          "searchFindings.tabResources.modalEditGroupInformation"
-        )}
         onClose={onClose}
         open={isOpen}
+        title={translate.t(
+          "searchFindings.tabResources.modalEditGroupInformation"
+        )}
       >
         <Formik
           enableReinitialize={true}

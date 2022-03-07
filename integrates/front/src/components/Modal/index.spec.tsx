@@ -14,7 +14,7 @@ describe("Modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} open={true}>
+      <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );
@@ -26,7 +26,7 @@ describe("Modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} open={true}>
+      <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );
@@ -38,7 +38,7 @@ describe("Modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <Modal headerTitle={"Unit test title"} open={true}>
+      <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );

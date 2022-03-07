@@ -55,9 +55,9 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
 
   return (
     <Modal
-      headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
       onClose={onClose}
       open={true}
+      title={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
     >
       <MemoryRouter initialEntries={["/repository"]}>
         {isEditing ? (

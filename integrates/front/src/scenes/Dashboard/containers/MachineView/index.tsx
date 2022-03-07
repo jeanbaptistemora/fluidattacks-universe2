@@ -243,9 +243,9 @@ const MachineView: React.FC = (): JSX.Element => {
             </Button>
           </ButtonToolbarCenter>
           <Modal
-            headerTitle={"Queue Job"}
             onClose={closeQueueModal}
             open={isQueueModalOpen}
+            title={"Queue Job"}
           >
             <Queue
               onClose={closeQueueModal}
@@ -271,11 +271,9 @@ const MachineView: React.FC = (): JSX.Element => {
             search={false}
           />
           <Modal
-            headerTitle={translate.t(
-              "group.machine.executionDetailsModal.title"
-            )}
             onClose={closeSeeExecutionDetailsModal}
             open={isExecutionDetailsModalOpen}
+            title={translate.t("group.machine.executionDetailsModal.title")}
           >
             <Execution
               createdAt={currentRow.createdAt}

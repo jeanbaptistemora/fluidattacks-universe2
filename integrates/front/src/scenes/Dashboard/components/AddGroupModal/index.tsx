@@ -133,9 +133,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t("organization.tabs.groups.newGroup.new.group")}
         onClose={onClose}
         open={true}
+        title={translate.t("organization.tabs.groups.newGroup.new.group")}
       >
         <Formik
           enableReinitialize={true}

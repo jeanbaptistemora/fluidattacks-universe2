@@ -42,7 +42,7 @@ describe("ConfirmDialog", (): void => {
     testButton.simulate("click");
     const confirmDialogModal: ReactWrapper = wrapper
       .find("Modal")
-      .find({ headerTitle: "Title test", open: true });
+      .find({ open: true, title: "Title test" });
     const cancelButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: Readonly<ReactWrapper>): boolean =>
@@ -52,7 +52,7 @@ describe("ConfirmDialog", (): void => {
     cancelButton.simulate("click");
     const confirmDialogModalAfterClickCancel: ReactWrapper = wrapper
       .find("Modal")
-      .find({ headerTitle: "Title test", open: true });
+      .find({ open: true, title: "Title test" });
 
     expect(confirmDialogModal).toHaveLength(1);
     expect(confirmDialogModalAfterClickCancel).toHaveLength(0);

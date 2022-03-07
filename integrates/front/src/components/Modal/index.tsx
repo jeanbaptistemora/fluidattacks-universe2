@@ -6,14 +6,14 @@ import { CloseButton, Container, Dialog, Header, Title } from "./styles";
 
 interface IModalProps {
   children: React.ReactNode;
-  headerTitle: React.ReactNode | string;
+  title: React.ReactNode | string;
   onClose?: () => void;
   open: boolean;
 }
 
 const Modal: React.FC<IModalProps> = ({
   children,
-  headerTitle,
+  title,
   onClose,
   open,
 }: IModalProps): JSX.Element | null => {
@@ -35,7 +35,7 @@ const Modal: React.FC<IModalProps> = ({
         <Container>
           <Dialog>
             <Header>
-              <Title>{headerTitle}</Title>
+              <Title>{title}</Title>
               {onClose === undefined ? undefined : (
                 <CloseButton onClick={onClose}>{"×"}</CloseButton>
               )}

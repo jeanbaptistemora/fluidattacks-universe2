@@ -573,9 +573,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
         ) : undefined}
         {isEditing ? (
           <Modal
-            headerTitle={t("searchFindings.tabDescription.editVuln")}
             onClose={handleCloseUpdateModal}
             open={isEditing}
+            title={t("searchFindings.tabDescription.editVuln")}
           >
             <UpdateDescription
               findingId={findingId}

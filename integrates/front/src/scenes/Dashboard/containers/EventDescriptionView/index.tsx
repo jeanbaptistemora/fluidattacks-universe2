@@ -137,9 +137,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <Modal
-          headerTitle={translate.t("searchFindings.tabSeverity.solve")}
           onClose={closeSolvingModal}
           open={isSolvingModalOpen}
+          title={translate.t("searchFindings.tabSeverity.solve")}
         >
           <Formik
             enableReinitialize={true}

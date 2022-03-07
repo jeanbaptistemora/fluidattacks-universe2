@@ -104,7 +104,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
 
   return (
     <React.StrictMode>
-      <Modal headerTitle={t("group.toe.inputs.editModal.title")} open={true}>
+      <Modal open={true} title={t("group.toe.inputs.editModal.title")}>
         <Formik
           initialValues={{
             attackedAt: moment(),

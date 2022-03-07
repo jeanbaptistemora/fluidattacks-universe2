@@ -136,7 +136,7 @@ const AddModal: React.FC<IAddModalProps> = ({
   });
 
   return (
-    <Modal headerTitle={t("group.events.new")} onClose={onClose} open={true}>
+    <Modal onClose={onClose} open={true} title={t("group.events.new")}>
       <Formik
         initialValues={{
           accessibility: [],

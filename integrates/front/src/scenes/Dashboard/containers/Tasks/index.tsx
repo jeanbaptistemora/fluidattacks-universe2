@@ -702,10 +702,10 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
               return (
                 <Modal
-                  headerTitle={t("searchFindings.tabDescription.editVuln")}
                   key={vulnGroupName}
                   onClose={onClose}
                   open={iscurrentOpen[index]}
+                  title={t("searchFindings.tabDescription.editVuln")}
                 >
                   <UpdateDescription
                     changePermissions={changePermissions}

@@ -363,7 +363,9 @@ export const Graphic: React.FC<IGraphicProps> = (
   return (
     <React.Fragment>
       <Modal
-        headerTitle={
+        onClose={frameOnFullScreenExit}
+        open={fullScreen}
+        title={
           <div className={"w-100"}>
             <div className={styles.titleBar}>
               {currentTitle}
@@ -426,8 +428,6 @@ export const Graphic: React.FC<IGraphicProps> = (
             </div>
           </div>
         }
-        onClose={frameOnFullScreenExit}
-        open={fullScreen}
       >
         <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
           <iframe

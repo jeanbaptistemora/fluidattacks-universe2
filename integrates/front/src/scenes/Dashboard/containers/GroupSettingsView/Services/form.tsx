@@ -203,8 +203,8 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         </Row>
       )}
       <Modal
-        headerTitle={translate.t("searchFindings.servicesTable.modal.title")}
         open={isModalOpen}
+        title={translate.t("searchFindings.servicesTable.modal.title")}
       >
         <ControlLabel>
           {translate.t("searchFindings.servicesTable.modal.changesToApply")}

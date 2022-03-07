@@ -38,11 +38,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Modal
-      headerTitle={t(`group.scope.common.add`)}
-      onClose={onClose}
-      open={true}
-    >
+    <Modal onClose={onClose} open={true} title={t(`group.scope.common.add`)}>
       <Formik
         initialValues={{ address: "", nickname: "", port: 0 }}
         name={"ipRoot"}

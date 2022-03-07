@@ -300,9 +300,9 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t("group.drafts.new")}
         onClose={closeNewDraftModal}
         open={isDraftModalOpen}
+        title={translate.t("group.drafts.new")}
       >
         <Formik
           enableReinitialize={true}

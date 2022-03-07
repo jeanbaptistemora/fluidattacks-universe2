@@ -168,10 +168,10 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     return (
       <React.StrictMode>
         <Modal
-          headerTitle={translate.t(
+          open={true}
+          title={translate.t(
             "searchFindings.tabDescription.handleAcceptanceModal.title"
           )}
-          open={true}
         >
           <Formik
             enableReinitialize={true}

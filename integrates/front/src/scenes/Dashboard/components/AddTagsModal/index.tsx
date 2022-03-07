@@ -45,11 +45,9 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t(
-          "searchFindings.tabIndicators.tags.modalTitle"
-        )}
         onClose={onClose}
         open={isOpen}
+        title={translate.t("searchFindings.tabIndicators.tags.modalTitle")}
       >
         <Formik
           initialValues={{

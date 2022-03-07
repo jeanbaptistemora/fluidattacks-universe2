@@ -457,9 +457,9 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         search={false}
       />
       <Modal
-        headerTitle={translate.t("group.forces.executionDetailsModal.title")}
         onClose={closeSeeExecutionDetailsModal}
         open={isExecutionDetailsModalOpen}
+        title={translate.t("group.forces.executionDetailsModal.title")}
       >
         <Execution
           date={currentRow.date}

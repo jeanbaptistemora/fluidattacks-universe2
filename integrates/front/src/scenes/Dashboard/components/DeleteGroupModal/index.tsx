@@ -45,10 +45,10 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={translate.t(
+        open={isOpen}
+        title={translate.t(
           "searchFindings.servicesTable.deleteGroup.deleteGroup"
         )}
-        open={isOpen}
       >
         <Formik
           initialValues={{

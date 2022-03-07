@@ -37,11 +37,11 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
 
   return (
     <Modal
-      headerTitle={`${t(
-        "organization.tabs.billing.groups.updateSubscription.title"
-      )} ${groupName} subscription`}
       onClose={onClose}
       open={true}
+      title={`${t(
+        "organization.tabs.billing.groups.updateSubscription.title"
+      )} ${groupName} subscription`}
     >
       <Formik
         initialValues={{

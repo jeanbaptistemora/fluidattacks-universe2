@@ -16,7 +16,7 @@ export const ConcurrentSessionNotice: React.FC<IConcurrentSessionNoticeProps> =
     const { t } = useTranslation();
 
     return (
-      <Modal headerTitle={t("registration.concurrentSessionTitle")} open={open}>
+      <Modal open={open} title={t("registration.concurrentSessionTitle")}>
         <React.Fragment>
           <p>{t("registration.concurrentSessionMessage")}</p>
           <hr />

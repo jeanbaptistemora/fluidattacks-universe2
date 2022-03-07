@@ -97,7 +97,7 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = (
   return (
     <React.StrictMode>
       {rootsData === undefined ? undefined : (
-        <Modal headerTitle={t("group.toe.inputs.addModal.title")} open={true}>
+        <Modal open={true} title={t("group.toe.inputs.addModal.title")}>
           <Formik
             initialValues={{
               entryPoint: "",

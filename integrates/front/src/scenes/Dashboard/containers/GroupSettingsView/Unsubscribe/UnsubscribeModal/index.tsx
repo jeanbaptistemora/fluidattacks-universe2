@@ -44,8 +44,8 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={t("searchFindings.servicesTable.unsubscribe.title")}
         open={isOpen}
+        title={t("searchFindings.servicesTable.unsubscribe.title")}
       >
         <Formik
           enableReinitialize={true}

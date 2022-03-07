@@ -805,9 +805,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         onClose={closeReportsModal}
       />
       <Modal
-        headerTitle={translate.t("searchFindings.delete.title")}
         onClose={closeDeleteModal}
         open={isDeleteModalOpen}
+        title={translate.t("searchFindings.delete.title")}
       >
         <Formik
           enableReinitialize={true}

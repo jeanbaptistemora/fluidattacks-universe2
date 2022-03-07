@@ -129,7 +129,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
 
   return (
     <React.StrictMode>
-      <Modal headerTitle={newTitle} onClose={onClose} open={open}>
+      <Modal onClose={onClose} open={open} title={newTitle}>
         <Formik
           context={{ groupName }}
           enableReinitialize={true}

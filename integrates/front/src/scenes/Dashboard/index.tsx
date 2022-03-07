@@ -297,8 +297,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
               </DashboardContent>
               <ScrollUpButton visibleAt={400} />
               <Modal
-                headerTitle={translate.t("validations.inactiveSessionModal")}
                 open={idleWarning}
+                title={translate.t("validations.inactiveSessionModal")}
               >
                 <div>
                   <p>{translate.t("validations.inactiveSession")}</p>

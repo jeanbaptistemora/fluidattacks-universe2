@@ -65,7 +65,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   }
 
   return (
-    <Modal headerTitle={translate.t("updateForcesToken.title")} open={open}>
+    <Modal open={open} title={translate.t("updateForcesToken.title")}>
       <Formik
         enableReinitialize={true}
         initialValues={{ sessionJwt: currentToken }}

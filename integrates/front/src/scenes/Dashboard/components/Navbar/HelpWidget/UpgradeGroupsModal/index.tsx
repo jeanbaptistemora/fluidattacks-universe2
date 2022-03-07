@@ -69,7 +69,7 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
   });
 
   return (
-    <Modal headerTitle={t("upgrade.title")} open={true}>
+    <Modal open={true} title={t("upgrade.title")}>
       <p>
         {t("upgrade.text")}&nbsp;
         <ExternalLink href={"https://fluidattacks.com/plans/"}>

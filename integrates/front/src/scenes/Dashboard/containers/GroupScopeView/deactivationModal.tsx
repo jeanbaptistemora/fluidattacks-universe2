@@ -221,9 +221,9 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   return (
     <React.StrictMode>
       <Modal
-        headerTitle={t("group.scope.common.deactivation.title")}
         onClose={onClose}
         open={true}
+        title={t("group.scope.common.deactivation.title")}
       >
         <ConfirmDialog
           message={t("group.scope.common.deactivation.confirm")}

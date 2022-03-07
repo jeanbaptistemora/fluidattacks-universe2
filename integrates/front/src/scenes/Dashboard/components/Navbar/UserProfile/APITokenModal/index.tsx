@@ -91,9 +91,9 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
 
   return (
     <Modal
-      headerTitle={translate.t("updateAccessToken.title")}
       onClose={onClose}
       open={open}
+      title={translate.t("updateAccessToken.title")}
     >
       <Formik
         enableReinitialize={true}
