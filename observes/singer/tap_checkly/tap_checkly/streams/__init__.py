@@ -7,7 +7,6 @@ from returns.io import (
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
-    CheckId,
 )
 from tap_checkly.streams import (
     emitter,
@@ -56,18 +55,6 @@ def all_chk_reports(api: ApiClient) -> None:
         SupportedStreams.REPORTS,
         iter([api.checks.list_reports()]),
     )
-
-
-def all_chk_results(api: ApiClient) -> None:
-    stream = SupportedStreams.CHECK_RESULTS
-
-    def _emmit(checks: Iterator[CheckId]) -> None:
-        for check in checks:
-            _stream_data(stream, api.checks.list_check_results(check, ALL))
-
-    chks_pages_io = api.checks.list_checks(ALL)
-    for chks_page_io in chks_pages_io:
-        chks_page_io.map(CheckId.new).map(_emmit)
 
 
 def all_chk_status(api: ApiClient) -> None:
