@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
+import { boolean, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -12,19 +12,21 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
 interface IUpdatePaymentModalProps {
   onClose: () => void;
   onSubmit: (values: {
     cardExpirationMonth: string;
     cardExpirationYear: string;
+    makeDefault: boolean;
   }) => Promise<void>;
 }
 
 const validations = object().shape({
   cardExpirationMonth: string().required(),
   cardExpirationYear: string().required(),
+  makeDefault: boolean().required(),
 });
 
 export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
@@ -45,6 +47,7 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
         initialValues={{
           cardExpirationMonth: "",
           cardExpirationYear: "",
+          makeDefault: false,
         }}
         name={"updatePaymentMethod"}
         onSubmit={onSubmit}
@@ -76,6 +79,16 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
                 component={FormikText}
                 name={"cardExpirationYear"}
                 type={"text"}
+              />
+            </div>
+            <div>
+              <Field
+                component={FormikCheckbox}
+                label={t(
+                  "organization.tabs.billing.paymentMethods.update.modal.default"
+                )}
+                name={"makeDefault"}
+                type={"checkbox"}
               />
             </div>
             <hr />

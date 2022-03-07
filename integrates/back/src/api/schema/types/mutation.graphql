@@ -718,14 +718,6 @@ type Mutation {
     expirationTime: Int!
   ): UpdateAccessTokenPayload!
 
-  "Update a default payment method for an organization"
-  updateDefaultPaymentMethod(
-    "Organization id"
-    organizationId: String!
-    "Payment Method id"
-    paymentMethodId: String!
-  ): SimplePayload!
-
   "Updates a Finding's description"
   updateDescription(
     "Malicious actions that can be performed by exploiting the vulnerability"
@@ -930,6 +922,8 @@ type Mutation {
     cardExpirationMonth: String!
     "Card expiration year"
     cardExpirationYear: String!
+    "Select card as default"
+    makeDefault: Boolean!
   ): SimplePayload!
 
   "Updates the Root cloning status"

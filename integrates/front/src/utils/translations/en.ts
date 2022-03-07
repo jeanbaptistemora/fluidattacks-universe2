@@ -1278,22 +1278,13 @@ export const enTranslations: ResourceKey = {
           update: {
             button: "Update",
             modal: {
+              default: "Make card default payment method",
               expirationMonth: "Card expiration month",
               expirationYear: "Card expiration year",
               update: "Update payment method",
             },
             success: {
               body: "Payment method successfuly updated",
-              title: "Success",
-            },
-          },
-          updateDefault: {
-            button: "Set as default",
-            errors: {
-              noPaymentMethod: "The payment method does not exist",
-            },
-            success: {
-              body: "Default payment method updated",
               title: "Success",
             },
           },

@@ -974,7 +974,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             "api_mutations_add_payment_method_mutate",
             "api_mutations_remove_payment_method_mutate",
             "api_mutations_update_payment_method_mutate",
-            "api_mutations_update_default_payment_method_mutate",
             "api_resolvers_billing_prices_resolve",
             "api_resolvers_query_billing_resolve",
             "api_resolvers_organization_payment_methods_resolve",

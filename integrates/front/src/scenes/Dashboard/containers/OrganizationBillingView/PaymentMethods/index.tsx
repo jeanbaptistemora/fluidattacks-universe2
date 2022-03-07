@@ -18,7 +18,6 @@ import { UpdatePaymentModal } from "./UpdatePaymentMethodModal";
 import {
   ADD_PAYMENT_METHOD,
   REMOVE_PAYMENT_METHOD,
-  UPDATE_DEFAULT_PAYMENT_METHOD,
   UPDATE_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
@@ -145,7 +144,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     );
 
     // Remove payment method
-    const canDelete: boolean = permissions.can(
+    const canRemove: boolean = permissions.can(
       "api_mutations_remove_payment_method_mutate"
     );
     const [removePaymentMethod, { loading: removing }] = useMutation(
@@ -201,6 +200,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     }, [organizationId, currentRow.id, removePaymentMethod]);
 
     // Update payment method
+    const canUpdate: boolean = permissions.can(
+      "api_mutations_update_payment_method_mutate"
+    );
     const [isUpdatingPaymentMethod, setUpdatingPaymentMethod] = useState<
       false | { mode: "UPDATE" }
     >(false);
@@ -233,14 +235,17 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       async ({
         cardExpirationMonth,
         cardExpirationYear,
+        makeDefault,
       }: {
         cardExpirationMonth: string;
         cardExpirationYear: string;
+        makeDefault: boolean;
       }): Promise<void> => {
         await updatePaymentMethod({
           variables: {
             cardExpirationMonth,
             cardExpirationYear,
+            makeDefault,
             organizationId,
             paymentMethodId: currentRow.id,
           },
@@ -248,57 +253,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
       [updatePaymentMethod, organizationId, currentRow.id]
     );
-
-    // Update default payment method
-    const canUpdateDefault: boolean = permissions.can(
-      "api_mutations_update_default_payment_method_mutate"
-    );
-    const [updateDefaultPaymentMethod, { loading: updatingDefault }] =
-      useMutation(UPDATE_DEFAULT_PAYMENT_METHOD, {
-        onCompleted: (): void => {
-          onUpdate();
-          msgSuccess(
-            t(
-              "organization.tabs.billing.paymentMethods.updateDefault.success.body"
-            ),
-            t(
-              "organization.tabs.billing.paymentMethods.updateDefault.success.title"
-            )
-          );
-        },
-        onError: ({ graphQLErrors }): void => {
-          graphQLErrors.forEach((error): void => {
-            switch (error.message) {
-              case "Exception - Cannot perform action. Please add a valid payment method first":
-                msgError(
-                  t(
-                    "organization.tabs.billing.paymentMethods.updateDefault.errors.noPaymentMethod"
-                  )
-                );
-                break;
-              case "Exception - Invalid payment method. Provided payment method does not exist for this organization":
-                msgError(
-                  t(
-                    "organization.tabs.billing.paymentMethods.updateDefault.errors.noPaymentMethod"
-                  )
-                );
-                break;
-              default:
-                msgError(t("groupAlerts.errorTextsad"));
-                Logger.error("Couldn't update default payment method", error);
-            }
-          });
-        },
-      });
-    const handleUpdateDefaultPaymentMethod: () => void =
-      useCallback((): void => {
-        void updateDefaultPaymentMethod({
-          variables: {
-            organizationId,
-            paymentMethodId: currentRow.id,
-          },
-        });
-      }, [organizationId, currentRow.id, updateDefaultPaymentMethod]);
 
     const tableHeaders: IHeaderConfig[] = [
       {
@@ -354,12 +308,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     </Can>
                     <Can do={"api_mutations_update_payment_method_mutate"}>
                       <Button
-                        disabled={
-                          _.isEmpty(currentRow) ||
-                          removing ||
-                          updating ||
-                          updatingDefault
-                        }
+                        disabled={_.isEmpty(currentRow) || removing || updating}
                         id={"updatePaymentMethod"}
                         onClick={openUpdateModal}
                         variant={"secondary"}
@@ -373,12 +322,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     </Can>
                     <Can do={"api_mutations_remove_payment_method_mutate"}>
                       <Button
-                        disabled={
-                          _.isEmpty(currentRow) ||
-                          removing ||
-                          updating ||
-                          updatingDefault
-                        }
+                        disabled={_.isEmpty(currentRow) || removing || updating}
                         id={"removePaymentMethod"}
                         onClick={handleRemovePaymentMethod}
                         variant={"secondary"}
@@ -390,27 +334,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                         )}
                       </Button>
                     </Can>
-                    <Can
-                      do={"api_mutations_update_default_payment_method_mutate"}
-                    >
-                      <Button
-                        disabled={
-                          _.isEmpty(currentRow) ||
-                          removing ||
-                          updating ||
-                          updatingDefault
-                        }
-                        id={"updateDefaultPaymentMethod"}
-                        onClick={handleUpdateDefaultPaymentMethod}
-                        variant={"secondary"}
-                      >
-                        <FontAwesomeIcon icon={faUserEdit} />
-                        &nbsp;
-                        {t(
-                          "organization.tabs.billing.paymentMethods.updateDefault.button"
-                        )}
-                      </Button>
-                    </Can>
                   </Row>
                 }
                 headers={tableHeaders}
@@ -418,8 +341,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                 pageSize={10}
                 search={false}
                 selectionMode={{
-                  clickToSelect: canDelete || canUpdateDefault,
-                  hideSelectColumn: !canDelete && !canUpdateDefault,
+                  clickToSelect: canRemove || canUpdate,
+                  hideSelectColumn: !canRemove && !canUpdate,
                   mode: "radio",
                   onSelect: setCurrentRow,
                 }}

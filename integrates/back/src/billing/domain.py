@@ -348,6 +348,7 @@ async def update_payment_method(
     payment_method_id: str,
     card_expiration_month: str,
     card_expiration_year: str,
+    make_default: bool,
 ) -> bool:
     # Raise exception if stripe customer does not exist
     if org_billing_customer is None:
@@ -363,38 +364,18 @@ async def update_payment_method(
     ]:
         raise InvalidBillingPaymentMethod()
 
-    return await dal.update_payment_method(
+    result: bool = await dal.update_payment_method(
         payment_method_id=payment_method_id,
         card_expiration_month=card_expiration_month,
         card_expiration_year=card_expiration_year,
     )
+    if make_default:
+        result = result and await dal.update_default_payment_method(
+            payment_method_id=payment_method_id,
+            org_billing_customer=org_billing_customer,
+        )
 
-
-async def update_default_payment_method(
-    *,
-    org_billing_customer: str,
-    payment_method_id: str,
-) -> bool:
-    """Update a customer's default payment method"""
-    # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    payment_methods: List[PaymentMethod] = await customer_payment_methods(
-        org_billing_customer=org_billing_customer,
-        limit=1000,
-    )
-
-    # Raise exception if payment method does not belong to organization
-    if payment_method_id not in [
-        payment_method.id for payment_method in payment_methods
-    ]:
-        raise InvalidBillingPaymentMethod()
-
-    return await dal.update_default_payment_method(
-        payment_method_id=payment_method_id,
-        org_billing_customer=org_billing_customer,
-    )
+    return result
 
 
 async def remove_payment_method(
@@ -444,7 +425,7 @@ async def remove_payment_method(
             for payment_method in payment_methods
             if not payment_method.default
         ]
-        result = await update_default_payment_method(
+        result = await dal.update_default_payment_method(
             payment_method_id=non_defaults[0].id,
             org_billing_customer=org_billing_customer,
         )
