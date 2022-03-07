@@ -109,20 +109,21 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     []
   );
 
-  const { data: stackHolderData, refetch } = useQuery<IGetStakeholdersAttrs>(
-    GET_STAKEHOLDERS,
-    {
-      fetchPolicy: "cache-first",
-      onError: (error: ApolloError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading group stakeholders", error);
-      },
-      skip: permissions.cannot(
-        "api_resolvers_query_stakeholder__resolve_for_group"
-      ),
-      variables: { groupName },
-    }
-  );
+  const {
+    data: stackHolderData,
+    loading: loadingStakeholders,
+    refetch,
+  } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
+    fetchPolicy: "cache-first",
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred loading group stakeholders", error);
+    },
+    skip: permissions.cannot(
+      "api_resolvers_query_stakeholder__resolve_for_group"
+    ),
+    variables: { groupName },
+  });
 
   const headersAuthorsTable: IHeaderConfig[] = [
     {
@@ -288,7 +289,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                     >
                       <div className={"nl2"}>
                         <Button
-                          disabled={loading}
+                          disabled={loading || loadingStakeholders}
                           onClick={handleSendInvitation}
                           variant={"secondary"}
                         >
@@ -307,6 +308,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       grantAccess,
       groupName,
       loading,
+      loadingStakeholders,
       stackHolderData,
       stakeholdersEmail,
     ]
