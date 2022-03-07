@@ -458,7 +458,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       />
       <Modal
         headerTitle={translate.t("group.forces.executionDetailsModal.title")}
-        onEsc={closeSeeExecutionDetailsModal}
+        onClose={closeSeeExecutionDetailsModal}
         open={isExecutionDetailsModalOpen}
       >
         <Execution

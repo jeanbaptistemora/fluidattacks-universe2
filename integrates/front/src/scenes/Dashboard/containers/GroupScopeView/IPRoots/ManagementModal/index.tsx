@@ -40,7 +40,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   return (
     <Modal
       headerTitle={t(`group.scope.common.add`)}
-      onEsc={onClose}
+      onClose={onClose}
       open={true}
     >
       <Formik

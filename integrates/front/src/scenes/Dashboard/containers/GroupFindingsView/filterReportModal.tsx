@@ -83,7 +83,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("group.findings.report.modalTitle")}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <div className={"flex flex-wrap"}>

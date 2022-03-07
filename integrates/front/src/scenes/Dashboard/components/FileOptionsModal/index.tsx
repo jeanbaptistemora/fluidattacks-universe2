@@ -35,7 +35,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
         headerTitle={translate.t(
           "searchFindings.tabResources.modalOptionsTitle"
         )}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <ConfirmDialog

@@ -704,7 +704,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                 <Modal
                   headerTitle={t("searchFindings.tabDescription.editVuln")}
                   key={vulnGroupName}
-                  onEsc={onClose}
+                  onClose={onClose}
                   open={iscurrentOpen[index]}
                 >
                   <UpdateDescription

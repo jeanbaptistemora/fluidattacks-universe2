@@ -65,7 +65,7 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
 
   return (
     <React.StrictMode>
-      <Modal headerTitle={title} onEsc={onClose} open={isOpen}>
+      <Modal headerTitle={title} onClose={onClose} open={isOpen}>
         <Formik
           initialValues={{
             treatmentJustification: "",

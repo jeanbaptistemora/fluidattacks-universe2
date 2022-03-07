@@ -125,7 +125,7 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("configuration.title")}
-        onEsc={onClose}
+        onClose={onClose}
         open={open}
       >
         <Formik

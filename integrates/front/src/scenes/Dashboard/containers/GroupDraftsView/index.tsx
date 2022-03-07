@@ -301,7 +301,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("group.drafts.new")}
-        onEsc={closeNewDraftModal}
+        onClose={closeNewDraftModal}
         open={isDraftModalOpen}
       >
         <Formik

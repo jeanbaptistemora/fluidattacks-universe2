@@ -92,7 +92,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
   return (
     <Modal
       headerTitle={translate.t("updateAccessToken.title")}
-      onEsc={onClose}
+      onClose={onClose}
       open={open}
     >
       <Formik

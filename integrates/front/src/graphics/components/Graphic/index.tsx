@@ -426,7 +426,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             </div>
           </div>
         }
-        onEsc={frameOnFullScreenExit}
+        onClose={frameOnFullScreenExit}
         open={fullScreen}
       >
         <div ref={modalRef} style={{ height: bigGraphicSize.height }}>

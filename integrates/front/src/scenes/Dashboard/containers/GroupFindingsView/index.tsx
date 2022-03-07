@@ -806,7 +806,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       />
       <Modal
         headerTitle={translate.t("searchFindings.delete.title")}
-        onEsc={closeDeleteModal}
+        onClose={closeDeleteModal}
         open={isDeleteModalOpen}
       >
         <Formik

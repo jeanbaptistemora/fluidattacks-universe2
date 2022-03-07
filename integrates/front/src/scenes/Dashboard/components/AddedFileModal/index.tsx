@@ -16,7 +16,7 @@ const addedFileModal: React.FC<IAddedFileModalProps> = (
         headerTitle={translate.t(
           "searchFindings.tabResources.modalFileIsPending"
         )}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <div>

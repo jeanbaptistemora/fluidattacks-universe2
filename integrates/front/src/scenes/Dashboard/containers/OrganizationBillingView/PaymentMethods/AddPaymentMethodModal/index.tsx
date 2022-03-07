@@ -42,7 +42,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
   return (
     <Modal
       headerTitle={t("organization.tabs.billing.paymentMethods.add.modal.add")}
-      onEsc={onClose}
+      onClose={onClose}
       open={true}
     >
       <Formik

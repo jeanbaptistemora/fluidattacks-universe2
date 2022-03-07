@@ -39,7 +39,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
         headerTitle={translate.t(
           "searchFindings.tabResources.modalEditGroupInformation"
         )}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <Formik

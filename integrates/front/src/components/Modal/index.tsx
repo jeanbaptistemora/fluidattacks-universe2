@@ -12,20 +12,20 @@ import {
 interface IModalProps {
   children: React.ReactNode;
   headerTitle: React.ReactNode | string;
-  onEsc?: () => void;
+  onClose?: () => void;
   open: boolean;
 }
 
 const Modal: React.FC<IModalProps> = ({
   children,
   headerTitle,
-  onEsc,
+  onClose,
   open,
 }: IModalProps): JSX.Element | null => {
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape" && typeof onEsc === "function") {
-        onEsc();
+      if (event.key === "Escape" && onClose !== undefined) {
+        onClose();
       }
     };
     window.addEventListener("keydown", handleKeydown);
@@ -33,7 +33,7 @@ const Modal: React.FC<IModalProps> = ({
     return (): void => {
       window.removeEventListener("keydown", handleKeydown);
     };
-  }, [onEsc]);
+  }, [onClose]);
 
   return open
     ? createPortal(

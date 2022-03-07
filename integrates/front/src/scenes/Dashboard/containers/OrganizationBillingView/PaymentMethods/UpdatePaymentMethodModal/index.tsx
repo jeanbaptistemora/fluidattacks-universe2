@@ -38,7 +38,7 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
       headerTitle={t(
         "organization.tabs.billing.paymentMethods.update.modal.update"
       )}
-      onEsc={onClose}
+      onClose={onClose}
       open={true}
     >
       <Formik

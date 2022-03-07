@@ -48,7 +48,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
         headerTitle={translate.t(
           "searchFindings.tabIndicators.tags.modalTitle"
         )}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <Formik

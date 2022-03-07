@@ -138,7 +138,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <Modal
           headerTitle={translate.t("searchFindings.tabSeverity.solve")}
-          onEsc={closeSolvingModal}
+          onClose={closeSolvingModal}
           open={isSolvingModalOpen}
         >
           <Formik

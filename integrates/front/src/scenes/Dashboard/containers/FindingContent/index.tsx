@@ -391,7 +391,7 @@ const findingContent: React.FC = (): JSX.Element => {
       </div>
       <Modal
         headerTitle={translate.t("searchFindings.delete.title")}
-        onEsc={closeDeleteModal}
+        onClose={closeDeleteModal}
         open={isDeleteModalOpen}
       >
         <Formik

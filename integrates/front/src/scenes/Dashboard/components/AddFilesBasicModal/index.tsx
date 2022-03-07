@@ -52,7 +52,7 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("searchFindings.tabResources.modalFileTitle")}
-        onEsc={onClose}
+        onClose={onClose}
         open={isOpen}
       >
         <Formik
