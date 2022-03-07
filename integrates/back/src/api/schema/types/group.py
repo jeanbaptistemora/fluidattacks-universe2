@@ -18,6 +18,7 @@ from api.resolvers.group import (
     language,
     last_closed_vulnerability,
     last_closed_vulnerability_finding,
+    max_open_severity,
     max_open_severity_finding,
     max_severity,
     max_severity_finding,
@@ -71,6 +72,7 @@ GROUP.set_field(
     last_closed_vulnerability_finding.resolve,
 )
 GROUP.set_field("lastClosedVulnerability", last_closed_vulnerability.resolve)
+GROUP.set_field("maxOpenSeverity", max_open_severity.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
 GROUP.set_field("meanRemediate", mean_remediate.resolve)
 GROUP.set_field(
