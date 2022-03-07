@@ -5153,11 +5153,23 @@
       title: Communication authentication
       link: https://webstore.iec.ch/publication/7031&preview=1
   metadata: {}
-"wasc":
-  title: WASC
+"wassec":
+  title: WASSEC
   en:
     description: >
-      Lorep ipsum.
+      The Web Application Security Scanner
+      Evaluation Criteria (WASSEC) is a set
+      of guidelines to evaluate web application
+      scanners on their ability to effectively
+      test web applications and identify
+      vulnerabilities.
+      It covers areas such as crawling,
+      parsing,
+      session handling,
+      testing,
+      and reporting.
+      The version used in this section is
+      WASSEC version 1.0.
   es:
     description: __empty__
   definitions:
