@@ -63,6 +63,7 @@ TEST_GROUPS: Set[str] = {
     "remove_toe_input",
     "remove_vulnerability",
     "report",
+    "request_vulnerabilities_hold",
     "request_vulnerabilities_verification",
     "request_vulnerabilities_zero_risk",
     "reset_expired_accepted_findings",
