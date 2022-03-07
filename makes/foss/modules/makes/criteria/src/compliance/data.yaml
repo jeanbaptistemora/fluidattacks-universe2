@@ -5163,5 +5163,119 @@
   definitions:
     "1_1":
       title: Transport support
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "2_1":
+      title: Authentication schemes
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "3_1":
+      title: Session management capabilities
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "3_2_1":
+      title: HTTP cookies
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "3_3":
+      title: Session token detection configuration
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "3_4":
+      title: Session token refresh policy
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "4_1":
+      title: Web crawler configuration
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "4_1_5":
+      title: Supporting concurrent sessions
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "5_3":
+      title: Parser tolerance
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "5_5":
+      title: Extraction of dynamic content
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_1_2":
+      title: URL patterns
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_1_6":
+      title: HTTP headers
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_1_1":
+      title: Authentication - Brute force
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_1_2":
+      title: Authentication - Insufficient authentication
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_1_3":
+      title: Authentication - Weak password recovery validation
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_1_4":
+      title: Authentication - Lack of SSL on login pages
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_2_1":
+      title: Authorization - Credential/session prediction
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_2_2":
+      title: Authorization - Insufficient authorization
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_2_3":
+      title: Authorization - Insufficient session expiration
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_2_4":
+      title: Authorization - Session fixation
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_2_5":
+      title: Authorization - Session weaknesses
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_3_1":
+      title: Client-side attacks - Content spoofing
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_3_2":
+      title: Client-side attacks - Cross-site scripting
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_3_4":
+      title: Client-side attacks - HTML injection
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_3_5":
+      title: Client-side attacks - Cross-site request forgery
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_3_6":
+      title: Client-side attacks - Flash-related attack
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_1":
+      title: Command execution - Format string attack
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_2":
+      title: Command execution - LDAP injection
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_3":
+      title: Command execution - OS command injection
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_4":
+      title: Command execution - SQL injection
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_6":
+      title: Command execution - Xpath injection
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_8":
+      title: Command execution - Remote file includes
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_9":
+      title: Command execution - Local file includes
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_4_10":
+      title: Command execution - Potential malicious file uploads
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_5_2":
+      title: Information disclosure - Information leakage
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_5_3":
+      title: Information disclosure - Path traversal
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_5_5":
+      title: Information disclosure - Insecure HTTP methods enabled
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "6_2_5_7":
+      title: Information disclosure - Default web server files
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
+    "8_4_1":
+      title: Compliance Report
+      link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
   metadata: {}
