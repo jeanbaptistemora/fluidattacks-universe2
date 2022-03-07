@@ -3371,21 +3371,6 @@
   title: NYDFS
   en:
     description: >
-      New York SHIELD Act and NYDFS
-      Cybersecurity Regulation.
-
-      Stop Hacks and Improve Electronic
-      Data Security Act (SHIELD ACT) was
-      developed in july of 2019.
-      This Act amends New York’s existing
-      data breach notification law by
-      expanding the definition of “Private
-      Information” and by adding “Data
-      Breach Security Protections”.
-      It has additional cybersecurity
-      safeguards and new reporting
-      requirements in the event of a breach.
-
       The NYDFS Cybersecurity Regulation
       (23 NYCRR 500) is a set of regulations
       from the New York State Department of
@@ -3396,15 +3381,6 @@
   es:
     description: __empty__
   definitions:
-    "5575_B_2":
-      title: Personal and private information
-      link: https://nysenate.gov/legislation/bills/2019/s5575
-    "5575_B_4":
-      title: Personal and private information
-      link: https://nysenate.gov/legislation/bills/2019/s5575
-    "5575_B_6":
-      title: Personal and private information
-      link: https://nysenate.gov/legislation/bills/2019/s5575
     "500_2":
       title: Cybersecurity program
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
@@ -3441,6 +3417,34 @@
     "500_16":
       title: Incident Response Plan
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
+  metadata: {}
+"nyshield":
+  title: NY SHIELD Act
+  en:
+    description: >
+      Stop Hacks and Improve Electronic
+      Data Security Act (SHIELD ACT) was
+      developed in july of 2019.
+      This Act amends New York’s existing
+      data breach notification law by
+      expanding the definition of “Private
+      Information” and by adding “Data
+      Breach Security Protections”.
+      It has additional cybersecurity
+      safeguards and new reporting
+      requirements in the event of a breach.
+  es:
+    description: __empty__
+  definitions:
+    "5575_B_2":
+      title: Personal and private information
+      link: https://nysenate.gov/legislation/bills/2019/s5575
+    "5575_B_4":
+      title: Personal and private information
+      link: https://nysenate.gov/legislation/bills/2019/s5575
+    "5575_B_6":
+      title: Personal and private information
+      link: https://nysenate.gov/legislation/bills/2019/s5575
   metadata: {}
 "mitre":
   title: MITRE ATT&CK®
