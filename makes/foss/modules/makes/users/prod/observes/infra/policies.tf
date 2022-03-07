@@ -95,6 +95,25 @@ locals {
           var.terraform_state_lock_arn,
         ]
       },
+      {
+        Sid    = "manageObservesIAM"
+        Effect = "Allow"
+        Action = [
+          "iam:AttachRolePolicy",
+          "iam:CreatePolicy",
+          "iam:CreateRole",
+          "iam:DeletePolicy",
+          "iam:DeleteRole",
+          "iam:DeleteRolePolicy",
+          "iam:DetachRolePolicy",
+        ]
+        Resource = [
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes*",
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes*",
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/redshift*",
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/redshift*",
+        ]
+      },
     ]
   }
 }
