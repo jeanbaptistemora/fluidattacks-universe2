@@ -31,6 +31,7 @@ const IntlTelInputWrapper: React.FC<IIntlTelInputWrapperProps> = (
   return (
     <IntlTelInput
       {...props}
+      containerClassName={"intl-tel-input w-100"}
       inputClassName={className}
       telInputProps={inputProps}
     />
