@@ -70,6 +70,8 @@ Steps to reproduce
    and copy the generated DLL to the same folder
    and rename it to `rev_shell.dll`.
 
+System Information
+
 * Version: Network Olympus 1.8.0 (Trial Version).
 * Operating System: Windows 10.
 * Database and version: PostgreSQL 10.8,
