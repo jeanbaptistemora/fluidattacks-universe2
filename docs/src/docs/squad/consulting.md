@@ -35,8 +35,8 @@ that you may have about the group in general.
 ## Concerning vulnerabilities
 
 You can find a **Consulting** tab
-inside all of the different vulnerabilities reported in your group.
-When you click on a vulnerability,
+inside all of the different types of vulnerabilities reported in your group.
+When you click on a type of vulnerability,
 you can find the tab
 on the right-hand side of your screen.
 
