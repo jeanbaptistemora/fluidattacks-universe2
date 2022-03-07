@@ -1,5 +1,5 @@
 /computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -17,7 +17,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesSubscriptionsDailyDigest__prod:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   retry: 2
@@ -36,7 +36,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -57,7 +57,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -78,7 +78,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -99,7 +99,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -120,7 +120,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -146,7 +146,7 @@
     paths:
       - integrates/deploy/permissions_matrix
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -171,7 +171,7 @@
   environment:
     name: development/$CI_COMMIT_REF_SLUG
     url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -196,7 +196,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -220,7 +220,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /taintTerraform/makesUsersProdIntegratesKeys1
@@ -242,7 +242,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /taintTerraform/makesUsersProdIntegratesKeys2
@@ -261,7 +261,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/destroy/eph:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -279,7 +279,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/lintPythonIso:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -301,7 +301,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/check-forces-output:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -323,7 +323,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__accept_legal:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -345,7 +345,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__acknowledge_concurrent_session:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -367,7 +367,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__activate_root:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -389,7 +389,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_draft:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -411,7 +411,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -433,7 +433,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event_consult:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -455,7 +455,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_files_to_db:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -477,7 +477,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_finding_consult:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -499,7 +499,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_forces_execution:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -521,7 +521,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_git_root:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -543,7 +543,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -565,7 +565,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_consult:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -587,7 +587,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_tags:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -609,7 +609,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_organization:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -631,7 +631,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_push_token:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -653,7 +653,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_toe_input:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -675,7 +675,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__approve_draft:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -697,7 +697,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__batch:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -719,7 +719,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -741,7 +741,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__deactivate_root:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -763,7 +763,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__delete_obsolete_groups:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -785,7 +785,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_event_file:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -807,7 +807,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_file:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -829,7 +829,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_vulnerability_file:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -851,7 +851,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__event:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -873,7 +873,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__events:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -895,7 +895,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__finding:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -917,7 +917,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__forces_executions:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -939,7 +939,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_access:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -961,7 +961,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_organization_access:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -983,7 +983,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__group:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1005,7 +1005,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__groups_with_forces:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1027,7 +1027,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__handle_vulnerabilities_acceptance:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1049,7 +1049,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__internal_names:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1071,7 +1071,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__invalidate_access_token:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1093,7 +1093,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__me:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1115,7 +1115,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1137,7 +1137,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization_id:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1159,7 +1159,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__refresh_toe_inputs:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1181,7 +1181,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__refresh_toe_lines:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1203,7 +1203,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_draft:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1225,7 +1225,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_vulnerabilities_zero_risk:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1247,7 +1247,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_event_evidence:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1269,7 +1269,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_evidence:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1291,7 +1291,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_files:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1313,7 +1313,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_finding:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1335,7 +1335,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1357,7 +1357,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group_tag:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1379,7 +1379,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1401,7 +1401,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_access:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1423,7 +1423,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_organization_access:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1445,7 +1445,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_tags:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1467,7 +1467,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_vulnerability:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1489,7 +1489,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__report:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1511,7 +1511,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_hold:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1533,7 +1533,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_verification:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1555,7 +1555,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_zero_risk:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1577,7 +1577,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reset_expired_accepted_findings:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1599,7 +1599,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__resources:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1621,7 +1621,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sign_in:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1643,7 +1643,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__solve_event:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1665,7 +1665,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__stakeholder:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1687,7 +1687,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_draft:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1709,7 +1709,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_organization_finding_policy:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1731,7 +1731,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__subscribe_to_entity_report:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1753,7 +1753,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sync_git_root:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1775,7 +1775,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_inputs:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1797,7 +1797,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_lines:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1819,7 +1819,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__unsubscribe_from_group:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1841,7 +1841,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_access_token:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1863,7 +1863,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_event_evidence:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1885,7 +1885,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1907,7 +1907,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence_description:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1929,7 +1929,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_finding_description:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1951,7 +1951,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_forces_access_token:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1973,7 +1973,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_git_root:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -1995,7 +1995,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2017,7 +2017,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_access_info:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2039,7 +2039,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_disambiguation:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2061,7 +2061,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_info:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2083,7 +2083,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_stakeholder:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2105,7 +2105,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_policies:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2127,7 +2127,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_stakeholder:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2149,7 +2149,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_severity:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2171,7 +2171,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_input:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2193,7 +2193,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_lines_attacked_lines:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2215,7 +2215,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_lines_sorts:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2237,7 +2237,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerabilities_treatment:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2259,7 +2259,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_commit:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2281,7 +2281,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_treatment:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2303,7 +2303,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__upload_file:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2325,7 +2325,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__validate_git_access:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2347,7 +2347,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__verify_vulnerabilities_request:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2369,7 +2369,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__vulnerability:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2396,7 +2396,7 @@
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
     paths:
       - integrates/coverage.xml
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2423,7 +2423,7 @@
     paths:
       - integrates/charts
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   parallel: 7
@@ -2451,7 +2451,7 @@
     paths:
       - integrates/charts
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   parallel: 22
@@ -2470,7 +2470,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/charts/snapshots__prod:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs:
     - /integrates/charts/documents__prod
@@ -2489,7 +2489,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/coverage:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/back/test/unit
@@ -2514,7 +2514,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/dev:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2536,7 +2536,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/prod:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -2557,7 +2557,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/lint:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2586,7 +2586,7 @@
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
     paths:
       - integrates/front/coverage.lcov
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2608,7 +2608,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/linters/back/schema:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2630,7 +2630,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/linters/charts:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2657,7 +2657,7 @@
     paths:
       - integrates/mobile/output/
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/mobile/ota__prod
@@ -2680,7 +2680,7 @@
 /integrates/mobile/deploy/playstore:
   dependencies:
     - /integrates/mobile/build/android
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/mobile/build/android
@@ -2701,7 +2701,7 @@
     GIT_DEPTH: 5
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/lint:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2723,7 +2723,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__dev:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2745,7 +2745,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__prod:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2772,7 +2772,7 @@
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
     paths:
       - integrates/mobile/coverage.lcov
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -2794,7 +2794,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.clone_groups_roots.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2812,7 +2812,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_imamura_stakeholders.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2830,7 +2830,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_obsolete_groups.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2848,7 +2848,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.delete_obsolete_orgs.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2866,7 +2866,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.get_remediated_findings.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2884,7 +2884,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.machine_queue_all.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2902,7 +2902,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.machine_queue_re_attacks.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2920,7 +2920,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.report_squad_usage.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2938,7 +2938,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.requeue_actions.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2956,7 +2956,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.reset_expired_accepted_findings.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2974,7 +2974,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.update_group_toe_vulns.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -2992,7 +2992,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.update_portfolios.main:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -3010,7 +3010,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/secrets/lint:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3032,7 +3032,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__daily:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   retry: 2
@@ -3055,7 +3055,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__hourly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   retry: 2
@@ -3078,7 +3078,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__monthly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   retry: 2
@@ -3101,7 +3101,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__weekly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   retry: 2
@@ -3124,7 +3124,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__prod__daily:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -3142,7 +3142,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__prod__hourly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -3160,7 +3160,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__prod__monthly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -3178,7 +3178,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__prod__weekly:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
   rules:
@@ -3196,7 +3196,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/daily-digest__dev:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   retry: 2
@@ -3219,7 +3219,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/web/check-forces-output:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -3242,7 +3242,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/web/check-schema-changes:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -3265,7 +3265,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/web/e2e:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -3291,7 +3291,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3313,7 +3313,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3335,7 +3335,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/integrates:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3357,7 +3357,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackDeployPermissionsMatrix:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3379,7 +3379,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3401,7 +3401,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTestsE2e:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3423,7 +3423,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3445,7 +3445,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3467,7 +3467,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3489,7 +3489,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3511,7 +3511,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3533,7 +3533,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/integrates:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3555,7 +3555,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/integratesBack:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3577,7 +3577,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3599,7 +3599,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3621,7 +3621,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3643,7 +3643,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
@@ -3665,7 +3665,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:22.03
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
