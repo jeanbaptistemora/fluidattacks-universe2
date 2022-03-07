@@ -18,11 +18,14 @@ def vulns_with_reattack_requested(
     reattacked_store: EphemeralStore = get_ephemeral_store()
     reattacked_flag: bool = False
     for vulnerability in store.iterate():
-        if vulnerability.integrates_metadata.verification:
-            verification = vulnerability.integrates_metadata.verification.state
+        integrates_metadata = vulnerability.integrates_metadata
+        if integrates_metadata.verification:
+            verification = integrates_metadata.verification.state
             if (
                 verification
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
+                and integrates_metadata.source
+                == core_model.VulnerabilitySourceEnum.SKIMS
             ):
                 reattacked_flag = True
                 reattacked_store.store(vulnerability)
