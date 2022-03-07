@@ -2,9 +2,6 @@
 type Finding {
   "Age of the Finding in days"
   age: Int!
-  "Hacker responsible for the Finding"
-  analyst: String! @deprecated(reason: """This field will be removed
-  after 2022/03/02. Use `hacker` instead.""")
   "Malicious actions that can be performed by exploiting the vulnerability"
   attackVectorDescription: String!
   "Quantity of closed vulnerabilities within the Finding"

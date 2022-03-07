@@ -78,13 +78,6 @@ type Query {
     organizationName: String!
   ): Organization
 
-  "Project entity"
-  project(
-    "Name of the project to query"
-    projectName: String!
-  ): Group @deprecated(reason: """This query will be removed after 2022/01/22.
-    Use `group` instead.""")
-
   "Report entity"
   report(
     "Name of the group to which the report belongs"

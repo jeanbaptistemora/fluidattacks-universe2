@@ -51,6 +51,5 @@ QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
 # --------------------------Deprecated Queries---------------------------------
-QUERY.set_field("project", group.resolve)
 QUERY.set_field("userListGroups", list_user_groups.resolve)
 # -----------------------------------------------------------------------------

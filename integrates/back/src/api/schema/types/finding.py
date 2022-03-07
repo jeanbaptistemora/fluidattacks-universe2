@@ -77,5 +77,3 @@ FINDING.set_field(
 )
 FINDING.set_field("where", where.resolve)
 FINDING.set_field("zeroRisk", zero_risk.resolve)
-# --------------------------Deprecated fields------------------------------
-FINDING.set_field("analyst", hacker.resolve)

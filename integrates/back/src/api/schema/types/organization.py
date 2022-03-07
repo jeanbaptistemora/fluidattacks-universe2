@@ -31,5 +31,3 @@ ORGANIZATION.set_field(
     "vulnerabilityGracePeriod", vulnerability_grace_period.resolve
 )
 ORGANIZATION.set_alias("maxNumberAcceptances", "max_number_acceptations")
-# -------------------------Deprecated fields-----------------------------------
-ORGANIZATION.set_field("projects", groups.resolve)
