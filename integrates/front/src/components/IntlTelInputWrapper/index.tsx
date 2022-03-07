@@ -11,9 +11,23 @@ interface IIntlTelInputWrapperProps extends IntlTelInputProps {
 const IntlTelInputWrapper: React.FC<IIntlTelInputWrapperProps> = (
   props: Readonly<IIntlTelInputWrapperProps>
 ): JSX.Element => {
-  const { className } = props;
+  const { className, telInputProps } = props;
+  function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
+    if (event.key.length > 1 || /[\d\s()-]/u.test(event.key)) return;
+    event.preventDefault();
+  }
+  const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
+    onKeyDown,
+    ...telInputProps,
+  };
 
-  return <IntlTelInput {...props} inputClassName={className} />;
+  return (
+    <IntlTelInput
+      {...props}
+      inputClassName={className}
+      telInputProps={inputProps}
+    />
+  );
 };
 
 export { IntlTelInputWrapper, IIntlTelInputWrapperProps };
