@@ -15,10 +15,6 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
 
-  if (dataDocument.firstBarLabels) {
-    dataDocument.data.labels = { format: (datum, _id, index) => (index === 0 ? datum : '') };
-  }
-
   if (dataDocument.maxValue) {
     const minValue = 0.15;
     dataDocument.data.labels = {
