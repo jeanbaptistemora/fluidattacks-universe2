@@ -164,46 +164,26 @@ async def test_diff_results() -> None:
 async def test_reattacked_store() -> None:
     namespace = "test"
     integrates_store: EphemeralStore = get_ephemeral_store()
-    integrates_store2: EphemeralStore = get_ephemeral_store()
 
     common_finding = core_model.FindingEnum.F009
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_where = "file"
-    common_reattack_requested = (
-        core_model.VulnerabilityVerificationStateEnum.REQUESTED
+    common_reattack_requested = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
+        date="2020-01-01T00:45:12+00:00",
     )
-    verification_status = (
-        core_model.VulnerabilityVerificationStateEnum.VERIFIED,
+    common_verified_status = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
+        date="2020-01-01T00:45:12+00:00",
     )
-    # Vulnerabilty with a reattack requested but
-    # something that Skims does not manage
-    integrates_store.store(
-        core_model.Vulnerability(
-            finding=common_finding,
-            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
-                source=core_model.VulnerabilitySourceEnum.INTEGRATES,
-                verification=core_model.VulnerabilityVerification(
-                    state=common_reattack_requested,
-                    date="2020-01-01T00:45:12+00:00",
-                ),
-            ),
-            kind=common_kind,
-            namespace=namespace,
-            state=core_model.VulnerabilityStateEnum.OPEN,
-            what="0",
-            where=common_where,
-        )
-    )
+
     # Vulnerabilty with a reattack requested
     integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
                 source=core_model.VulnerabilitySourceEnum.SKIMS,
-                verification=core_model.VulnerabilityVerification(
-                    state=common_reattack_requested,
-                    date="2020-01-01T00:45:12+00:00",
-                ),
+                verification=common_reattack_requested,
             ),
             kind=common_kind,
             namespace=namespace,
@@ -212,16 +192,43 @@ async def test_reattacked_store() -> None:
             where=common_where,
         )
     )
-    # No reattack was requested
-    integrates_store2.store(
+    # Vulnerabilty with a verified status
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="0",
+            where=common_where,
+        )
+    )
+    # Something that Skims does not manage with a reattack requested
+    integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
             integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
                 source=core_model.VulnerabilitySourceEnum.INTEGRATES,
-                verification=core_model.VulnerabilityVerification(
-                    state=verification_status,
-                    date="2020-01-01T00:45:12+00:00",
-                ),
+                verification=common_reattack_requested,
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="0",
+            where=common_where,
+        )
+    )
+    # Something that Skims does not manage with a verified status
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.INTEGRATES,
+                verification=common_verified_status,
             ),
             kind=common_kind,
             namespace=namespace,
@@ -231,6 +238,6 @@ async def test_reattacked_store() -> None:
         )
     )
 
-    reattacked_store = vulns_with_reattack_requested(integrates_store2)
+    reattacked_store = vulns_with_reattack_requested(integrates_store)
 
-    assert reattacked_store is None
+    assert reattacked_store.length() == 1
