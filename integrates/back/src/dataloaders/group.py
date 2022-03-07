@@ -79,9 +79,9 @@ async def _batch_load_fn(
         groups[group_name] = dict(
             closed_vulnerabilities=group.get("closed_vulnerabilities", 0),
             deletion_date=(
-                historic_deletion[-1].get("deletion_date", "")
+                historic_deletion[-1].get("deletion_date")
                 if "historic_deletion" in group
-                else ""
+                else None
             ),
             description=group.get("description", ""),
             disambiguation=group.get("disambiguation", ""),

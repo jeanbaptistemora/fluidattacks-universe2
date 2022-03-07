@@ -33,6 +33,10 @@ async def resolve(
         group_indicators: GroupUnreliableIndicators = (
             await loaders.group_indicators_typed.load(group_name)
         )
-        total_treatment = group_indicators.treatment_summary._asdict()
+        total_treatment = (
+            group_indicators.treatment_summary._asdict()
+            if group_indicators.treatment_summary
+            else {}
+        )
 
     return json.dumps(total_treatment, use_decimal=True)

@@ -122,7 +122,7 @@ type Group {
     2022/08/18. Use `closedVulnerabilities` or `openVulnerabilities`
     instead.""")
   "Total amount of treatments, divided by category"
-  totalTreatment: GenericScalar @deprecated(reason: """This field will be
+  totalTreatment: GenericScalar! @deprecated(reason: """This field will be
     removed after 2022/09/02. Use `treatmentSummary` at finding level
     instead.""")
   "Last removed user from the group"

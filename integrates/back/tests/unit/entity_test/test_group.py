@@ -166,7 +166,7 @@ async def test_group() -> None:
     assert result["data"]["group"]["totalFindings"] == 6
     assert "totalTreatment" in result["data"]["group"]
     assert result["data"]["group"]["subscription"] == "continuous"
-    assert result["data"]["group"]["deletionDate"] == ""
+    assert result["data"]["group"]["deletionDate"] is None
     assert result["data"]["group"]["userDeletion"] is None
     assert result["data"]["group"]["tags"][0] == "test-groups"
     assert (
