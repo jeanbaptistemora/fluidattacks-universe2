@@ -46,8 +46,8 @@ data "aws_iam_policy_document" "cluster-assume-role-document" {
   }
 }
 
-resource "aws_iam_policy" "cluster-policy" {
-  name        = "cluster-policy"
+resource "aws_iam_policy" "redshift-cluster-policy" {
+  name        = "redshift-cluster-policy"
   path        = "/"
   description = "Policy for redshift s3 access"
   policy      = data.aws_iam_policy_document.cluster-policy-data.json
@@ -64,7 +64,7 @@ resource "aws_iam_role" "redshift-role" {
 }
 resource "aws_iam_role_policy_attachment" "redshift-role-cluster-policy" {
   role       = aws_iam_role.redshift-role.name
-  policy_arn = aws_iam_policy.cluster-policy.arn
+  policy_arn = aws_iam_policy.redshift-cluster-policy.arn
 }
 resource "aws_iam_role_policy_attachment" "redshift-role-default-redshift-policy" {
   role       = aws_iam_role.redshift-role.name
