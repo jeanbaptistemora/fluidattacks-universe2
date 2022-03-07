@@ -22,7 +22,8 @@ template: advisory
 | **Code name**               | [Gilmour](https://en.wikipedia.org/wiki/David_Gilmour) |
 | **Product**                 | PHP Server Monitor                                     |
 | **Affected versions**       | v3.5.2                                                 |
-| **State**                   | Unpublished/Contacted Vendor                           |
+| **State**                   | Public                                                 |
+| **Release date**            | 2022-03-07                                             |
 
 ## Vulnerability
 
@@ -38,23 +39,43 @@ template: advisory
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+PHP Server Monitor v3.5.2 allows an authenticated admin user to
+inject Javascript code inside the "ip" parameter while
+adding a new website to monitor.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+Steps to reproduce
+
+1. Go to the 'Servers' tab.
+2. Click on 'Add new'.
+3. Fill the 'Label' field.
+4. Select 'Website' as the type.
+5. Fill the 'Domain/IP' field using one of the following POCs.
+
+    ```javascript
+        https://www.example.com" onmouseover=alert(1)>
+        https://www.example.com" style="display: block; position: fixed; top: 0; left: 0; z-index: 99999; width: 9999px; height: 9999px;" onmouseover=alert('XSS')> (To avoid user interaction)
+    ```
+
+6. The javascript code will be executed when a user
+   visits the 'Servers' tab again.
+
+System Information
+
+* Version: PHP Server Monitor v3.5.2.
+* Operating System: Linux.
+* Web Server: Apache
+* PHP Version: 7.4
+* Database and version: Mysql
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+By 2022-03-07 there is not a patch resolving the issue.
 
 ## Credits
 
@@ -67,11 +88,14 @@ Team of  `Fluid Attacks`.
 |                     |                                                                 |
 |---------------------|-----------------------------------------------------------------|
 | **Vendor page**     | <https://www.phpservermonitor.org/>                             |
+| **Issue**           | <https://github.com/phpservermon/phpservermon/issues/1178>      |
 
 ## Timeline
 
-- 2022-01-11: Vulnerability discovered.
+* 2022-01-11: Vulnerability discovered.
 
-- 2022-01-11: Vendor contacted.
+* 2022-01-11: Vendor contacted.
 
-- 2022-01-17: Vendor replied acknowledging the report.
+* 2022-01-17: Vendor replied acknowledging the report.
+
+* 2022-03-07: Public Disclosure.
