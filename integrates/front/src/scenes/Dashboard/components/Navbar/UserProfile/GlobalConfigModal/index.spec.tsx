@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { ModalTitle } from "components/Modal/components/styles";
+import { ModalTitle } from "components/Modal/styles";
 import { GlobalConfigModal } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,

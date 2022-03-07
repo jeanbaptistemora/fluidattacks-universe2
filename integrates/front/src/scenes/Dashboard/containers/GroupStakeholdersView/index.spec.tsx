@@ -240,7 +240,7 @@ describe("Group stakeholders view", (): void => {
       wrapper.update();
     });
     const addUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal).toHaveLength(0);
@@ -256,7 +256,7 @@ describe("Group stakeholders view", (): void => {
       wrapper.update();
     });
     const addUserModal2: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal2).toHaveLength(1);
@@ -287,7 +287,7 @@ describe("Group stakeholders view", (): void => {
       wrapper.update();
     });
     const editUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Edit stakeholder information", open: true });
 
     expect(editUserModal).toHaveLength(0);
@@ -309,7 +309,7 @@ describe("Group stakeholders view", (): void => {
       wrapper.update();
     });
     const editUserModal2: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Edit stakeholder information", open: true });
 
     expect(editUserModal2).toHaveLength(1);
@@ -369,7 +369,7 @@ describe("Group stakeholders view", (): void => {
       .at(0);
     addButton.simulate("click");
     const addUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal).toHaveLength(1);
@@ -400,7 +400,7 @@ describe("Group stakeholders view", (): void => {
         wrapper.update();
 
         const addUserModal2: ReactWrapper = wrapper
-          .find("ModalBase")
+          .find("Modal")
           .find({ headerTitle: "Add stakeholder to this group", open: true });
 
         expect(addUserModal2).toHaveLength(0);
@@ -599,7 +599,7 @@ describe("Group stakeholders view", (): void => {
       .at(0);
     editButton.simulate("click");
     const editUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Edit stakeholder information", open: true });
 
     expect(editUserModal).toHaveLength(1);
@@ -623,7 +623,7 @@ describe("Group stakeholders view", (): void => {
         wrapper.update();
 
         const editUserModal2: ReactWrapper = wrapper
-          .find("ModalBase")
+          .find("Modal")
           .find({ headerTitle: "Edit stakeholder information", open: true });
 
         expect(editUserModal2).toHaveLength(0);
@@ -693,7 +693,7 @@ describe("Group stakeholders view", (): void => {
       .at(0);
     addButton.simulate("click");
     const addUserModal: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal).toHaveLength(1);
@@ -725,7 +725,7 @@ describe("Group stakeholders view", (): void => {
       wrapper.update();
     });
     const addUserModal2: ReactWrapper = wrapper
-      .find("ModalBase")
+      .find("Modal")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     const TEST_TIMES_CALLED = 7;
@@ -859,7 +859,7 @@ describe("Group stakeholders view", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
       .at(0);
     editButton.simulate("click");
-    const editUserModal: ReactWrapper = wrapper.find("ModalBase").find({
+    const editUserModal: ReactWrapper = wrapper.find("Modal").find({
       headerTitle: "Edit stakeholder information",
       open: true,
     });
@@ -885,7 +885,7 @@ describe("Group stakeholders view", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const editUserModal2: ReactWrapper = wrapper.find("ModalBase").find({
+    const editUserModal2: ReactWrapper = wrapper.find("Modal").find({
       headerTitle: "Edit stakeholder information",
       open: true,
     });

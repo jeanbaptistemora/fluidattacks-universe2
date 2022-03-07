@@ -1,8 +1,20 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import type { IModalProps } from "./components/modalBase";
-import { ModalBase } from "./components/modalBase";
+import {
+  ModalBody,
+  ModalContainer,
+  ModalDialog,
+  ModalHeader,
+  ModalTitle,
+} from "./styles";
+
+interface IModalProps {
+  children: React.ReactNode;
+  headerTitle: React.ReactNode | string;
+  onEsc?: () => void;
+  open: boolean;
+}
 
 const Modal: React.FC<IModalProps> = ({
   children,
@@ -25,9 +37,14 @@ const Modal: React.FC<IModalProps> = ({
 
   return open
     ? createPortal(
-        <ModalBase headerTitle={headerTitle} open={open}>
-          {children}
-        </ModalBase>,
+        <ModalContainer>
+          <ModalDialog>
+            <ModalHeader>
+              <ModalTitle>{headerTitle}</ModalTitle>
+            </ModalHeader>
+            <ModalBody>{children}</ModalBody>
+          </ModalDialog>
+        </ModalContainer>,
         document.body
       )
     : null;

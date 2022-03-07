@@ -6,10 +6,9 @@ import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 
-import { ModalBody, ModalHeader, ModalTitle } from "./components/styles";
+import { ModalBody, ModalHeader, ModalTitle } from "./styles";
 
 import { Modal } from "components/Modal";
-import { ModalBase } from "components/Modal/components/modalBase";
 
 describe("Generic modal", (): void => {
   it("should return a function", (): void => {
@@ -21,9 +20,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <ModalBase headerTitle={"Unit test title"} open={true}>
+      <Modal headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
-      </ModalBase>
+      </Modal>
     );
 
     expect(
@@ -39,9 +38,9 @@ describe("Generic modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <ModalBase headerTitle={"Unit test title"} open={true}>
+      <Modal headerTitle={"Unit test title"} open={true}>
         <p>{"Unit modal content"}</p>
-      </ModalBase>
+      </Modal>
     );
 
     expect(
