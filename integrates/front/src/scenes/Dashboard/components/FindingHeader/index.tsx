@@ -5,18 +5,12 @@ import {
   faTriangleExclamation,
   faUnlockKeyhole,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 import type { IBadgeProps } from "components/Badge";
 import { Badge } from "components/Badge";
 import { Indicators } from "components/Indicators";
-import {
-  Indicator,
-  IndicatorIcon,
-  IndicatorTitle,
-  IndicatorValue,
-} from "components/Indicators/Indicator";
+import { Indicator } from "components/Indicators/Indicator";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
@@ -111,7 +105,10 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
 
   return (
     <Indicators>
-      <Indicator>
+      <Indicator
+        icon={faTriangleExclamation}
+        title={translate.t("searchFindings.header.severity.label")}
+      >
         <TooltipWrapper
           id={"severityTooltip"}
           message={
@@ -119,77 +116,57 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
             severityLevelTooltip
           }
         >
-          <IndicatorIcon>
-            <FontAwesomeIcon icon={faTriangleExclamation} />
-          </IndicatorIcon>
-          <IndicatorTitle>
-            {translate.t("searchFindings.header.severity.label")}
-          </IndicatorTitle>
-          <IndicatorValue>
-            <Badge variant={color}>{severity}</Badge>
-            &nbsp;{"-"}&nbsp;
-            {severityText}
-          </IndicatorValue>
+          <Badge variant={color}>{severity}</Badge>
+          &nbsp;{"-"}&nbsp;
+          {severityText}
         </TooltipWrapper>
       </Indicator>
-      <Indicator>
+      <Indicator
+        icon={faSkullCrossbones}
+        title={translate.t("searchFindings.header.status.label")}
+      >
         <TooltipWrapper
           id={"statusTooltip"}
           message={
             translate.t("searchFindings.header.status.tooltip") + statusTooltip
           }
         >
-          <IndicatorIcon>
-            <FontAwesomeIcon icon={faSkullCrossbones} />
-          </IndicatorIcon>
-          <IndicatorTitle>
-            {translate.t("searchFindings.header.status.label")}
-          </IndicatorTitle>
-          <IndicatorValue>{statusText}</IndicatorValue>
+          {statusText}
         </TooltipWrapper>
       </Indicator>
-      <Indicator>
+      <Indicator
+        icon={faUnlockKeyhole}
+        title={translate.t("searchFindings.header.openVulns.label")}
+      >
         <TooltipWrapper
           id={"openVulnsTooltip"}
           message={translate.t("searchFindings.header.openVulns.tooltip")}
         >
-          <IndicatorIcon>
-            <FontAwesomeIcon icon={faUnlockKeyhole} />
-          </IndicatorIcon>
-          <IndicatorTitle>
-            {translate.t("searchFindings.header.openVulns.label")}
-          </IndicatorTitle>
-          <IndicatorValue>{openVulns}</IndicatorValue>
+          {openVulns}
         </TooltipWrapper>
       </Indicator>
-      <Indicator>
+      <Indicator
+        icon={faCalendar}
+        title={translate.t("searchFindings.header.discoveryDate.label")}
+      >
         <TooltipWrapper
           id={"discoveryDateTooltip"}
           message={translate.t("searchFindings.header.discoveryDate.tooltip")}
         >
-          <IndicatorIcon>
-            <FontAwesomeIcon icon={faCalendar} />
-          </IndicatorIcon>
-          <IndicatorTitle>
-            {translate.t("searchFindings.header.discoveryDate.label")}
-          </IndicatorTitle>
-          <IndicatorValue>{discoveryDate}</IndicatorValue>
+          {discoveryDate}
         </TooltipWrapper>
       </Indicator>
-      <Indicator>
+      <Indicator
+        icon={faClock}
+        title={translate.t("searchFindings.header.estRemediationTime.label")}
+      >
         <TooltipWrapper
           id={"estRemediationTime"}
           message={translate.t(
             "searchFindings.header.estRemediationTime.tooltip"
           )}
         >
-          <IndicatorIcon>
-            <FontAwesomeIcon icon={faClock} />
-          </IndicatorIcon>
-          <IndicatorTitle>
-            {translate.t("searchFindings.header.estRemediationTime.label")}
-          </IndicatorTitle>
-          <IndicatorValue>{estRemediationTime}</IndicatorValue>
+          {estRemediationTime}
         </TooltipWrapper>
       </Indicator>
     </Indicators>

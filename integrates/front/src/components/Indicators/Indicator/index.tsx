@@ -1,9 +1,29 @@
-import styled from "styled-components";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { PropsWithChildren } from "react";
+import React from "react";
 
-import { IndicatorIcon } from "./Icon";
-import { IndicatorTitle } from "./Title";
-import { IndicatorValue } from "./Value";
+import { Container, Icon, Title, Value } from "./styles";
 
-const Indicator = styled.div.attrs({ className: "tc w-20" })``;
+interface IIndicatorProps {
+  title: string;
+  icon: IconProp;
+}
 
-export { Indicator, IndicatorIcon, IndicatorTitle, IndicatorValue };
+const Indicator = ({
+  children,
+  icon,
+  title,
+}: PropsWithChildren<IIndicatorProps>): JSX.Element => {
+  return (
+    <Container>
+      <Icon>
+        <FontAwesomeIcon icon={icon} />
+      </Icon>
+      <Title>{title}</Title>
+      <Value>{children}</Value>
+    </Container>
+  );
+};
+
+export { Indicator };
