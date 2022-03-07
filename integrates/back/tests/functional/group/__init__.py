@@ -86,6 +86,7 @@ async def get_result(
                 language
                 groupContext
                 service
+                tier
                 __typename
             }}
         }}

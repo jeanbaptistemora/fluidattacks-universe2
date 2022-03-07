@@ -35,6 +35,7 @@ from api.resolvers.group import (
     service_attributes,
     stakeholders,
     subscription,
+    tier,
     toe_inputs,
     toe_lines,
     total_findings,
@@ -92,6 +93,7 @@ GROUP.set_field("service", service.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
 GROUP.set_field("subscription", subscription.resolve)
 GROUP.set_field("stakeholders", stakeholders.resolve)
+GROUP.set_field("tier", tier.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("toeLines", toe_lines.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
