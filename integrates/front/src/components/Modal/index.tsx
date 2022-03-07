@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import {
-  ModalBody,
-  ModalContainer,
-  ModalDialog,
-  ModalHeader,
-  ModalTitle,
-} from "./styles";
+import { ModalBody } from "./Body";
+import { ModalFooter } from "./Footer";
+import { ModalHeader } from "./Header";
+import { Container, Dialog } from "./styles";
+import { ModalTitle } from "./Title";
 
 interface IModalProps {
   children: React.ReactNode;
@@ -37,17 +35,17 @@ const Modal: React.FC<IModalProps> = ({
 
   return open
     ? createPortal(
-        <ModalContainer>
-          <ModalDialog>
+        <Container>
+          <Dialog>
             <ModalHeader>
               <ModalTitle>{headerTitle}</ModalTitle>
             </ModalHeader>
             <ModalBody>{children}</ModalBody>
-          </ModalDialog>
-        </ModalContainer>,
+          </Dialog>
+        </Container>,
         document.body
       )
     : null;
 };
 
-export { Modal };
+export { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle };

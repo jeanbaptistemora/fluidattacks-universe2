@@ -1,16 +1,10 @@
-/* eslint-disable react/forbid-component-props
-  --------
-  Disable for testing purposes
-*/
 import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 
-import { ModalBody, ModalHeader, ModalTitle } from "./styles";
+import { Modal, ModalBody, ModalHeader, ModalTitle } from "components/Modal";
 
-import { Modal } from "components/Modal";
-
-describe("Generic modal", (): void => {
+describe("Modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Modal).toStrictEqual("function");

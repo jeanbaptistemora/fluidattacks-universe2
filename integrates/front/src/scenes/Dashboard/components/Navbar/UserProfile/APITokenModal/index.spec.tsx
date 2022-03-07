@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { ModalTitle } from "components/Modal/styles";
+import { ModalTitle } from "components/Modal";
 import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import {
   GET_ACCESS_TOKEN,
