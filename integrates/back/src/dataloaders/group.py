@@ -147,9 +147,9 @@ async def _batch_load_fn(
             tags=group.get("tag", []),
             total_treatment=group.get("total_treatment", {}),
             user_deletion=(
-                historic_deletion[-1].get("user", "")
+                historic_deletion[-1].get("user")
                 if "historic_deletion" in group
-                else ""
+                else None
             ),
             # Compatibility with old API
             has_squad=has_squad,
