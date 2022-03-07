@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
+import { IndicatorIcon } from "./Icon";
+import { IndicatorTitle } from "./Title";
+import { IndicatorValue } from "./Value";
+
 const Indicator = styled.div.attrs({ className: "tc w-20" })``;
-const IndicatorIcon = styled.div`
-  color: #b0b0bf;
-  font-size: 2rem;
-`;
-const IndicatorTitle = styled.div.attrs({ className: "pa3" })``;
-const IndicatorValue = styled.h2``;
 
 export { Indicator, IndicatorIcon, IndicatorTitle, IndicatorValue };
