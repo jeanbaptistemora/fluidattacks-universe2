@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 04, 2022, 07:23 AM",
+    "DateLastModified": "Mar 04, 2022, 01:47 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -970,6 +970,52 @@
               },
               "sk": {
                 "S": "USER#integratesresourcer@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#integratesuser2@gmail.com"
+              },
+              "sk": {
+                "S": "USER#integratesuser2@gmail.com"
               },
               "notifications_preferences": {
                 "M": {
