@@ -13,7 +13,11 @@ from custom_types import (
     MailContent as MailContentType,
 )
 from db_model.enums import (
+    Notification,
     StateRemovalJustification,
+)
+from db_model.users.types import (
+    User,
 )
 from group_access import (
     domain as group_access_domain,
@@ -24,6 +28,7 @@ from mailer.utils import (
 from typing import (
     Any,
     List,
+    Tuple,
 )
 
 
@@ -118,8 +123,14 @@ async def send_mail_new_draft(
         "group": group_name,
         "organization": org_name,
     }
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.NEW_DRAFT in user.notifications_preferences.email
+    ]
     await send_mails_async(
-        recipients,
+        users_email,
         email_context,
         GENERAL_TAG,
         f"Draft submitted [{finding_title}] in [{group_name}]",
@@ -181,6 +192,13 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(group_name)
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.REMEDIATE_FINDING
+        in user.notifications_preferences.email
+    ]
     mail_context = {
         "group": group_name.lower(),
         "organization": org_name,
@@ -194,7 +212,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         "solution_description": justification.splitlines(),
     }
     await send_mails_async(
-        recipients,
+        users_email,
         mail_context,
         VERIFY_TAG,
         f"New remediation for [{finding_name}] in [{group_name}]",

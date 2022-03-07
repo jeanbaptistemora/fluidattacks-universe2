@@ -34,7 +34,6 @@ from db_model import (
     findings as findings_model,
 )
 from db_model.enums import (
-    Notification,
     StateRemovalJustification,
 )
 from db_model.findings.enums import (
@@ -49,9 +48,6 @@ from db_model.findings.types import (
     FindingMetadataToUpdate,
     FindingState,
     FindingVerification,
-)
-from db_model.users.get import (
-    User,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -619,7 +615,6 @@ async def request_vulnerabilities_verification(
     justification: str,
     vulnerability_ids: Set[str],
 ) -> None:
-    # pylint: disable=too-many-locals
     finding: Finding = await loaders.finding.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
@@ -686,12 +681,7 @@ async def request_vulnerabilities_verification(
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()
 
-    user: User = await loaders.user.load(user_email)
-    if (
-        any(not check_hold(vuln) for vuln in vulnerabilities)
-        and Notification.REMEDIATE_FINDING
-        in user.notifications_preferences.email
-    ):
+    if any(not check_hold(vuln) for vuln in vulnerabilities):
         schedule(
             findings_mail.send_mail_remediate_finding(
                 loaders,
