@@ -14639,6 +14639,34 @@
               "modified_date": {
                 "S": "2020-02-19T15:41:04+00:00"
               }
+            },
+            {
+              "pk": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
+              "sk": {
+                "S": "VERIFICATION#2021-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-19T15:41:04+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "sk": {
+                "S": "VERIFICATION#2021-02-19T15:41:04+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-19T15:41:04+00:00"
+              }
             }
           ],
           "NonKeyAttributes": [

@@ -9,9 +9,17 @@ from back.tests.unit.utils import (
 )
 from dataloaders import (
     apply_context_attrs,
+    Dataloaders,
+    get_new_context,
 )
 from db_model import (
     users as users_model,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityVerificationStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -20,6 +28,10 @@ import os
 import pytest
 from starlette.datastructures import (
     UploadFile,
+)
+from typing import (
+    List,
+    Tuple,
 )
 
 pytestmark = pytest.mark.asyncio
@@ -105,6 +117,17 @@ async def test_create_event() -> None:
 @pytest.mark.changes_db
 async def test_solve_event() -> None:
     """Check for solveEvent mutation."""
+    loaders: Dataloaders = get_new_context()
+    # The event with this ID starts with a couple of reattacks on hold
+    reattacks_on_hold: Tuple[
+        Vulnerability, ...
+    ] = await loaders.event_vulnerabilities_loader.load(("418900971"))
+    for reattack in reattacks_on_hold:
+        assert (
+            reattack.verification.status
+            == VulnerabilityVerificationStatus.ON_HOLD
+        )
+
     query = """
         mutation {
             solveEvent(eventId: "418900971",
@@ -136,6 +159,16 @@ async def test_solve_event() -> None:
     if "errors" not in result:
         assert "errors" not in result
         assert "success" in result["data"]["solveEvent"]
+        # Solving an Event puts any reattack on hold back to requested
+        reattacks_requested: List[Vulnerability] = [
+            await loaders.vulnerability.load(reattack.id)
+            for reattack in reattacks_on_hold
+        ]
+        for reattack in reattacks_requested:
+            assert (
+                reattack.verification.status
+                == VulnerabilityVerificationStatus.REQUESTED
+            )
     else:
         assert (
             "The event has already been closed"
