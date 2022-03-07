@@ -5153,3 +5153,15 @@
       title: Communication authentication
       link: https://webstore.iec.ch/publication/7031&preview=1
   metadata: {}
+"wasc":
+  title: WASC
+  en:
+    description: >
+      Lorep ipsum.
+  es:
+    description: __empty__
+  definitions:
+    "1_1":
+      title: Transport support
+      link: https://webstore.iec.ch/publication/7031&preview=1
+  metadata: {}
